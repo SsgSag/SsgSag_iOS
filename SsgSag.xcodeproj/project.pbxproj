@@ -24,6 +24,7 @@
 		845928DA21D09F30001DF6CC /* CalenderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845928D621D09F2F001DF6CC /* CalenderView.swift */; };
 		845928DB21D09F30001DF6CC /* WeekdaysView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845928D721D09F2F001DF6CC /* WeekdaysView.swift */; };
 		845928DC21D09F30001DF6CC /* MonthView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845928D821D09F2F001DF6CC /* MonthView.swift */; };
+		845928E121D20068001DF6CC /* LoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845928E021D20068001DF6CC /* LoginVC.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -67,6 +68,7 @@
 		845928D621D09F2F001DF6CC /* CalenderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalenderView.swift; sourceTree = "<group>"; };
 		845928D721D09F2F001DF6CC /* WeekdaysView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WeekdaysView.swift; sourceTree = "<group>"; };
 		845928D821D09F2F001DF6CC /* MonthView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MonthView.swift; sourceTree = "<group>"; };
+		845928E021D20068001DF6CC /* LoginVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginVC.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -118,6 +120,7 @@
 			isa = PBXGroup;
 			children = (
 				8459289A21D09CDD001DF6CC /* AppDelegate.swift */,
+				845928DE21D20034001DF6CC /* LoginRegister */,
 				845928DD21D09F38001DF6CC /* Calendar */,
 				8459289C21D09CDD001DF6CC /* ViewController.swift */,
 				845928CF21D09D5C001DF6CC /* EmojiRateView.swift */,
@@ -161,6 +164,14 @@
 				845928D721D09F2F001DF6CC /* WeekdaysView.swift */,
 			);
 			path = Calendar;
+			sourceTree = "<group>";
+		};
+		845928DE21D20034001DF6CC /* LoginRegister */ = {
+			isa = PBXGroup;
+			children = (
+				845928E021D20068001DF6CC /* LoginVC.swift */,
+			);
+			path = LoginRegister;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -297,6 +308,7 @@
 			files = (
 				845928DC21D09F30001DF6CC /* MonthView.swift in Sources */,
 				8459289D21D09CDD001DF6CC /* ViewController.swift in Sources */,
+				845928E121D20068001DF6CC /* LoginVC.swift in Sources */,
 				845928A321D09CDD001DF6CC /* SsgSag.xcdatamodeld in Sources */,
 				845928DA21D09F30001DF6CC /* CalenderView.swift in Sources */,
 				845928DB21D09F30001DF6CC /* WeekdaysView.swift in Sources */,

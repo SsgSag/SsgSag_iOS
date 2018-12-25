@@ -9,7 +9,7 @@
 let  MAX_BUFFER_SIZE = 3;
 let  SEPERATOR_DISTANCE = 8;
 let  TOPYAXIS = 75;
-let TOPYAXIS = 53;
+//조민지
 
 import UIKit
 

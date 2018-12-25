@@ -54,8 +54,10 @@ class CalenderView: UIView, UICollectionViewDelegate, UICollectionViewDataSource
     var numOfDaysInMonth = [31,28,31,30,31,30,31,31,30,31,30,31]//12달
     var currentMonthIndex: Int = 0
     var currentYear: Int = 0
+    
     var presentMonthIndex = 0
     var presentYear = 0
+    
     var todaysDate = 0
     var firstWeekDayOfMonth = 0   //(Sunday-Saturday 1-7) 일:1,월:2 ~ 금:6,토:7
     
@@ -78,6 +80,19 @@ class CalenderView: UIView, UICollectionViewDelegate, UICollectionViewDataSource
         }
         
         initializeView()
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(downSwipeAction), name: NSNotification.Name(rawValue: "downSwipe"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(upSwipe), name: NSNotification.Name("upSwipe"), object: nil)
+    }
+    
+    var statusSize = 1
+    
+    @objc func downSwipeAction() {
+        statusSize = -1
+    }
+    
+    @objc func upSwipe() {
+        statusSize = 1
     }
     
     //month 바꿀시 눌린 상태복귀
@@ -97,6 +112,7 @@ class CalenderView: UIView, UICollectionViewDelegate, UICollectionViewDataSource
     
     func initializeView() {
         currentMonthIndex = Calendar.current.component(.month, from: Date())
+        
         print("이번달:\(currentMonthIndex)")
         currentYear = Calendar.current.component(.year, from: Date())
         print("이번년도:\(currentYear)")
@@ -129,6 +145,8 @@ class CalenderView: UIView, UICollectionViewDelegate, UICollectionViewDataSource
         print("section \(section)")
         return numOfDaysInMonth[currentMonthIndex-1] + firstWeekDayOfMonth - 1
     }
+    
+    
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell=collectionView.dequeueReusableCell(withReuseIdentifier: "Cell", for: indexPath) as! dateCVCell
@@ -195,14 +213,25 @@ class CalenderView: UIView, UICollectionViewDelegate, UICollectionViewDataSource
         }
     }
     
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let width = collectionView.frame.width/7 - 8 //원래는 /7
-        let height: CGFloat = 60 //원래는 40
-        return CGSize(width: width, height: height)
-    }
     
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
-        return CGSize(width: collectionView.frame.width, height: 5)
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        var width: CGFloat?
+        var height: CGFloat?
+        
+        width = collectionView.frame.width/7 - 8 //원래는 /7
+        
+        if statusSize == 1 {
+            UIView.transition(with: myCollectionView, duration: 0.5, options: .allowAnimatedContent, animations: {
+                height = 60
+            }, completion: nil)
+            
+        }else {
+            UIView.transition(with: myCollectionView, duration: 0.5, options: .allowAnimatedContent, animations: {
+                height = 100
+            }, completion: nil)
+        }
+        
+        return CGSize(width: width!, height: height!)
     }
     
     //minimumLineSpacing  (세로)
@@ -219,6 +248,7 @@ class CalenderView: UIView, UICollectionViewDelegate, UICollectionViewDataSource
         //return day == 7 ? 1 : day
         return day
     }
+    
     //월이 바뀔때
     func didChangeMonth(monthIndex: Int, year: Int) {
         currentMonthIndex=monthIndex+1 //월+1

@@ -13,7 +13,7 @@
         <!--View Controller-->
         <scene sceneID="nda-XU-S1g">
             <objects>
-                <viewController id="x1e-70-Zh0" customClass="ViewController" customModule="SsgSag" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="Tinder" useStoryboardIdentifierAsRestorationIdentifier="YES" id="x1e-70-Zh0" customClass="ViewController" customModule="SsgSag" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="YSG-iM-g4A" customClass="GradientView" customModule="SsgSag" customModuleProvider="target">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
