@@ -29,15 +29,16 @@ class CalenderVC: UIViewController {
         //왼쪽 오른쪽 스와이프
         let swipeLeft = UISwipeGestureRecognizer(target: self, action: #selector(leftSwipeAction))
         let swipeRight = UISwipeGestureRecognizer(target: self, action: #selector(rightSwipeAction))
-        let swipeDown = UISwipeGestureRecognizer(target: self, action: #selector(downSwipeAction))
-        let swipeUp = UISwipeGestureRecognizer(target: self, action: #selector(upSwipeAction))
+        
+//        let swipeDown = UISwipeGestureRecognizer(target: self, action: #selector(downSwipeAction))
+//        let swipeUp = UISwipeGestureRecognizer(target: self, action: #selector(upSwipeAction))
         
         swipeLeft.direction = .left
         swipeRight.direction = .right
-        swipeDown.direction = .down
-        swipeUp.direction = .up
+//        swipeDown.direction = .down
+//        swipeUp.direction = .up
         
-        calenderView.gestureRecognizers = [swipeLeft, swipeRight, swipeDown, swipeUp]
+        calenderView.gestureRecognizers = [swipeLeft, swipeRight]//, swipeDown, swipeUp]
         
         //전체 테마 색
         Style.themeLight()
@@ -49,10 +50,10 @@ class CalenderVC: UIViewController {
         calenderView.topAnchor.constraint(equalTo: view.topAnchor, constant: 20).isActive=true
         calenderView.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -12).isActive=true
         calenderView.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 12).isActive=true
-        
+
         calendarheightAncor = calenderView.heightAnchor.constraint(equalToConstant: 500)
         calendarheightAncor?.isActive = true
-        calendarBottomAncor = calenderView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+        calendarBottomAncor = calenderView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -20)
         calendarBottomAncor?.isActive = false
         
         view.addSubview(todoListButton)
@@ -64,16 +65,15 @@ class CalenderVC: UIViewController {
 //        let rightBarBtn = UIBarButtonItem(title: "Light", style: .plain, target: self, action: #selector(rightBarBtnAction))
 //        self.navigationItem.rightBarButtonItem = rightBarBtn
     }
-    @objc func upSwipeAction() {
-        NotificationCenter.default.post(name: NSNotification.Name("upSwipe"), object: nil)
-        calendarheightAncor?.isActive = true
-        calendarBottomAncor?.isActive = false
-    }
-    @objc func downSwipeAction() {
-        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "downSwipe"), object: nil)
-        calendarheightAncor?.isActive = false
-        calendarBottomAncor?.isActive = true
-    }
+//    @objc func upSwipeAction() {
+//        NotificationCenter.default.post(name: NSNotification.Name("upSwipe"), object: nil)
+//        calendarheightAncor?.isActive = true
+//
+//    }
+//    @objc func downSwipeAction() {
+//        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "downSwipe"), object: nil)
+//        calendarheightAncor?.isActive = true
+//    }
     
     let todoListButton: UIButton = {
         let button = UIButton(type: .system)
