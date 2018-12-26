@@ -113,7 +113,7 @@ class ViewController: UIViewController {
                     //self.viewTinderBackGround.addSubview(pageVC.view)
                     //pageVC.didMove(toParent: self)
                     
-                }else {
+                } else {
                     viewTinderBackGround.addSubview(currentLoadedCardsArray[i])
                     
                     let storyboard = UIStoryboard(name: "Tinder", bundle: nil)
@@ -122,6 +122,7 @@ class ViewController: UIViewController {
                     pageVC.view.frame = self.currentLoadedCardsArray[i].frame
                     self.addChild(pageVC)
                     self.currentLoadedCardsArray[i].addSubview(pageVC.view)
+                    
                     pageVC.didMove(toParent: self)
                 }
             }

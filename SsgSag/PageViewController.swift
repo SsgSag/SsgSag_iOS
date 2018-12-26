@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import CoreMedia
 
 class PageViewController: UIPageViewController, UIPageViewControllerDelegate, UIPageViewControllerDataSource, SegmentedProgressBarDelegate {
     
@@ -20,6 +19,15 @@ class PageViewController: UIPageViewController, UIPageViewControllerDelegate, UI
         self.dataSource = self
         self.delegate = self
         
+        // This sets up the first view that will show up on our page control
+        if let firstViewController = orderedViewControllers.first {
+            setViewControllers([firstViewController],
+                               direction: .forward,
+                               animated: false,
+                               completion: nil)
+        }
+        
+//        self.view.backgroundColor = #colorLiteral(red: 0.5568627715, green: 0.3529411852, blue: 0.9686274529, alpha: 1)
         SPB = SegmentedProgressBar(numberOfSegments: 2)
         if #available(iOS 11.0, *) {
             SPB.frame = CGRect(x: 18, y: UIApplication.shared.statusBarFrame.height + 5, width: view.frame.width - 35, height: 3)
@@ -35,24 +43,19 @@ class PageViewController: UIPageViewController, UIPageViewControllerDelegate, UI
         SPB.isPaused = true
         SPB.currentAnimationIndex = 0
         //        SPB.duration = getDuration(at: 0)
+        
         view.addSubview(SPB)
         view.bringSubviewToFront(SPB)
         
+        
+    
         let tapGestureImage = UITapGestureRecognizer(target: self, action: #selector(tapOn(_:)))
         tapGestureImage.numberOfTapsRequired = 1
         tapGestureImage.numberOfTouchesRequired = 1
-        
-        view.addGestureRecognizer(tapGestureImage)
+        self.view.addGestureRecognizer(tapGestureImage)
         //imagePreview.addGestureRecognizer(tapGestureImage)
         
-        
-        // This sets up the first view that will show up on our page control
-        if let firstViewController = orderedViewControllers.first {
-            setViewControllers([firstViewController],
-                               direction: .forward,
-                               animated: false,
-                               completion: nil)
-        }
+       
         
         configurePageControl()
         
@@ -100,6 +103,11 @@ class PageViewController: UIPageViewController, UIPageViewControllerDelegate, UI
     }
     
     @objc func tapOn(_ sender: UITapGestureRecognizer) {
+        self.view.layer.backgroundColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
+        print("탭탭탭탭탭")
+        
+        view.backgroundColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
+        
         SPB.skip()
     }
     
