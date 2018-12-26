@@ -13,7 +13,7 @@ let  TOPYAXIS = 75;
 
 import UIKit
 
-class ViewController: UIViewController{
+class ViewController: UIViewController {
     
     //@IBOutlet weak var emojiView: EmojiRateView!
     @IBOutlet weak var viewTinderBackGround: UIView!
