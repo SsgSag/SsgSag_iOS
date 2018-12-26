@@ -13,7 +13,7 @@ let  TOPYAXIS = 75;
 
 import UIKit
 
-class ViewController: UIViewController{
+class ViewController: UIViewController {
     
     //@IBOutlet weak var emojiView: EmojiRateView!
     @IBOutlet weak var viewTinderBackGround: UIView!
@@ -105,8 +105,6 @@ class ViewController: UIViewController{
                     self.currentLoadedCardsArray[i-1].addSubview(pageVC.view)
                     pageVC.didMove(toParent: self)
                     
-                    
-                    
                     //viewTinderBackGround.addSubview(pageVC.view)
                     //pageVC.view.frame = self.viewTinderBackGround.frame
                     //self.addChild(pageVC)
@@ -178,8 +176,6 @@ class ViewController: UIViewController{
     func animateCardAfterSwiping() {
         
         for (i,card) in currentLoadedCardsArray.enumerated() {
-            
-            
             let storyboard = UIStoryboard(name: "Tinder", bundle: nil)
             let pageVC = storyboard.instantiateViewController(withIdentifier: "PageViewController")
             

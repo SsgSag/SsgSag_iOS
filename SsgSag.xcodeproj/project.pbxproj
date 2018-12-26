@@ -26,6 +26,9 @@
 		845928DC21D09F30001DF6CC /* MonthView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845928D821D09F2F001DF6CC /* MonthView.swift */; };
 		845928E121D20068001DF6CC /* LoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845928E021D20068001DF6CC /* LoginVC.swift */; };
 		845928E321D35F09001DF6CC /* PageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845928E221D35F09001DF6CC /* PageViewController.swift */; };
+		845928E521D38771001DF6CC /* infoImageVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845928E421D38771001DF6CC /* infoImageVC.swift */; };
+		845928E721D3877D001DF6CC /* infoTextVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845928E621D3877D001DF6CC /* infoTextVC.swift */; };
+		FA25A58221D36EC500C9FC93 /* SegmentedProgressBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA25A58121D36EC500C9FC93 /* SegmentedProgressBar.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -71,6 +74,9 @@
 		845928D821D09F2F001DF6CC /* MonthView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MonthView.swift; sourceTree = "<group>"; };
 		845928E021D20068001DF6CC /* LoginVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginVC.swift; sourceTree = "<group>"; };
 		845928E221D35F09001DF6CC /* PageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageViewController.swift; sourceTree = "<group>"; };
+		845928E421D38771001DF6CC /* infoImageVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = infoImageVC.swift; sourceTree = "<group>"; };
+		845928E621D3877D001DF6CC /* infoTextVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = infoTextVC.swift; sourceTree = "<group>"; };
+		FA25A58121D36EC500C9FC93 /* SegmentedProgressBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SegmentedProgressBar.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -125,10 +131,13 @@
 				845928DE21D20034001DF6CC /* LoginRegister */,
 				845928DD21D09F38001DF6CC /* Calendar */,
 				8459289C21D09CDD001DF6CC /* ViewController.swift */,
+				FA25A58021D36EB100C9FC93 /* helper */,
 				845928CF21D09D5C001DF6CC /* EmojiRateView.swift */,
 				845928CD21D09D5C001DF6CC /* GradientView.swift */,
 				845928CE21D09D5C001DF6CC /* MovieFullImageVC.swift */,
 				845928D021D09D5D001DF6CC /* TinderCard.swift */,
+				845928E421D38771001DF6CC /* infoImageVC.swift */,
+				845928E621D3877D001DF6CC /* infoTextVC.swift */,
 				845928E221D35F09001DF6CC /* PageViewController.swift */,
 				8459289E21D09CDD001DF6CC /* Main.storyboard */,
 				845928CB21D09D09001DF6CC /* Tinder.storyboard */,
@@ -175,6 +184,14 @@
 				845928E021D20068001DF6CC /* LoginVC.swift */,
 			);
 			path = LoginRegister;
+			sourceTree = "<group>";
+		};
+		FA25A58021D36EB100C9FC93 /* helper */ = {
+			isa = PBXGroup;
+			children = (
+				FA25A58121D36EC500C9FC93 /* SegmentedProgressBar.swift */,
+			);
+			path = helper;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -314,6 +331,7 @@
 				845928E121D20068001DF6CC /* LoginVC.swift in Sources */,
 				845928A321D09CDD001DF6CC /* SsgSag.xcdatamodeld in Sources */,
 				845928DA21D09F30001DF6CC /* CalenderView.swift in Sources */,
+				845928E721D3877D001DF6CC /* infoTextVC.swift in Sources */,
 				845928DB21D09F30001DF6CC /* WeekdaysView.swift in Sources */,
 				845928D421D09D5D001DF6CC /* TinderCard.swift in Sources */,
 				845928D221D09D5D001DF6CC /* MovieFullImageVC.swift in Sources */,
@@ -322,6 +340,8 @@
 				845928E321D35F09001DF6CC /* PageViewController.swift in Sources */,
 				845928D921D09F30001DF6CC /* CalenderVC.swift in Sources */,
 				845928D321D09D5D001DF6CC /* EmojiRateView.swift in Sources */,
+				845928E521D38771001DF6CC /* infoImageVC.swift in Sources */,
+				FA25A58221D36EC500C9FC93 /* SegmentedProgressBar.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

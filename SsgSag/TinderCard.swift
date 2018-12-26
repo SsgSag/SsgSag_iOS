@@ -44,8 +44,6 @@ class TinderCard: UIView {
     
     func setupView(at value:String) {
         
-        
-        
         layer.cornerRadius = 20
         layer.shadowRadius = 3
         layer.shadowOpacity = 0.4
@@ -64,34 +62,28 @@ class TinderCard: UIView {
         backGroundImageView.load(url: imageURL)
         
         //이미지 추가
-//        backGroundImageView.image = UIImage(named:String(Int(1 + arc4random() % (8 - 1))))
-//        backGroundImageView.image = UIImage(data: <#T##Data#>)
+        //        backGroundImageView.image = UIImage(named:String(Int(1 + arc4random() % (8 - 1))))
+        //        backGroundImageView.image = UIImage(data: <#T##Data#>)
         
         backGroundImageView.contentMode = .scaleAspectFill
         backGroundImageView.clipsToBounds = true;
         addSubview(backGroundImageView)
         
-        
-        
-        
-        
-        
-    
         /* 이미지 뷰 안의 텍스트, 사진
-        let profileImageView = UIImageView(frame:CGRect(x: 20, y: frame.size.height - 80, width: 60, height: 60))
-        profileImageView.image = UIImage(named:"profileimage1")
-        profileImageView.contentMode = .scaleAspectFill
-        profileImageView.layer.cornerRadius = 25
-        profileImageView.clipsToBounds = true
-        addSubview(profileImageView)
-        
-        let labelText = UILabel(frame:CGRect(x: 90, y: frame.size.height - 80, width: frame.size.width - 100, height: 60))
-        let attributedText = NSMutableAttributedString(string: NAMES[Int(arc4random_uniform(UInt32(NAMES.count)))], attributes: [.foregroundColor: UIColor.white,.font:UIFont.boldSystemFont(ofSize: 25)])
-        attributedText.append(NSAttributedString(string: "\n\(value) mins", attributes: [.foregroundColor: UIColor.white,.font:UIFont.systemFont(ofSize: 18)]))
-        labelText.attributedText = attributedText
-        labelText.numberOfLines = 2
-        addSubview(labelText)
-        */
+         let profileImageView = UIImageView(frame:CGRect(x: 20, y: frame.size.height - 80, width: 60, height: 60))
+         profileImageView.image = UIImage(named:"profileimage1")
+         profileImageView.contentMode = .scaleAspectFill
+         profileImageView.layer.cornerRadius = 25
+         profileImageView.clipsToBounds = true
+         addSubview(profileImageView)
+         
+         let labelText = UILabel(frame:CGRect(x: 90, y: frame.size.height - 80, width: frame.size.width - 100, height: 60))
+         let attributedText = NSMutableAttributedString(string: NAMES[Int(arc4random_uniform(UInt32(NAMES.count)))], attributes: [.foregroundColor: UIColor.white,.font:UIFont.boldSystemFont(ofSize: 25)])
+         attributedText.append(NSAttributedString(string: "\n\(value) mins", attributes: [.foregroundColor: UIColor.white,.font:UIFont.systemFont(ofSize: 18)]))
+         labelText.attributedText = attributedText
+         labelText.numberOfLines = 2
+         addSubview(labelText)
+         */
         
         imageViewStatus = UIImageView(frame: CGRect(x: (frame.size.width / 2) - 37.5, y: 25, width: 75, height: 75))
         imageViewStatus.alpha = 0

@@ -154,38 +154,54 @@
             </objects>
             <point key="canvasLocation" x="1065" y="108"/>
         </scene>
-        <!--View Controller-->
+        <!--Info ImageVC-->
         <scene sceneID="PbS-h0-ZjR">
             <objects>
-                <viewController storyboardIdentifier="sbRed" useStoryboardIdentifierAsRestorationIdentifier="YES" id="OSy-mA-wsf" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="sbRed" useStoryboardIdentifierAsRestorationIdentifier="YES" id="OSy-mA-wsf" customClass="infoImageVC" customModule="SsgSag" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="QjG-ra-2We">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="1" translatesAutoresizingMaskIntoConstraints="NO" id="B5v-zO-gEj">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
+                        </subviews>
                         <color key="backgroundColor" red="0.99545079469680786" green="0.005064135417342186" blue="0.33909982442855835" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <viewLayoutGuide key="safeArea" id="pGv-bw-OWD"/>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9ah-Vi-Zcy" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1793" y="107"/>
+            <point key="canvasLocation" x="1792.8" y="106.59670164917542"/>
         </scene>
-        <!--View Controller-->
+        <!--Info TextVC-->
         <scene sceneID="Gv6-l5-7Qr">
             <objects>
-                <viewController storyboardIdentifier="sbBlue" useStoryboardIdentifierAsRestorationIdentifier="YES" id="lJ9-e9-vHH" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="sbBlue" useStoryboardIdentifierAsRestorationIdentifier="YES" id="lJ9-e9-vHH" customClass="infoTextVC" customModule="SsgSag" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="kbL-CW-N8R">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" red="0.3703961818" green="0.67420695949999998" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="가나다라마바사아자차카타파하" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="q0t-2F-FXg">
+                                <rect key="frame" x="84" y="323" width="206" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" red="0.82323980331420898" green="0.0057015926577150822" blue="0.99428313970565796" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <viewLayoutGuide key="safeArea" id="xgJ-j4-Ucb"/>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0Au-Nd-7LX" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2504" y="111"/>
+            <point key="canvasLocation" x="1792.8" y="805.54722638680664"/>
         </scene>
     </scenes>
     <resources>
+        <image name="1" width="407" height="546"/>
         <image name="noButton" width="75" height="75"/>
         <image name="noButton_Selected" width="75" height="75"/>
         <image name="undoButton" width="75" height="75"/>
