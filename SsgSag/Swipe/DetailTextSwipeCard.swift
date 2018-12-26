@@ -8,7 +8,7 @@
 
 import UIKit
 
-class infoTextVC: UIViewController {
+class DetailTextSwipeCard: UIViewController {
 
     var pageNumber: Int?
     

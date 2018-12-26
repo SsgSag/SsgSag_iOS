@@ -8,7 +8,7 @@
 
 import UIKit
 
-class infoImageVC: UIViewController {
+class DetailImageSwipeCardVC: UIViewController {
     
     var pageNumber: Int?
 

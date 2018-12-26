@@ -154,10 +154,10 @@
             </objects>
             <point key="canvasLocation" x="1065" y="108"/>
         </scene>
-        <!--Info ImageVC-->
+        <!--Detail Image Swipe CardVC-->
         <scene sceneID="PbS-h0-ZjR">
             <objects>
-                <viewController storyboardIdentifier="sbRed" useStoryboardIdentifierAsRestorationIdentifier="YES" id="OSy-mA-wsf" customClass="infoImageVC" customModule="SsgSag" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="sbRed" useStoryboardIdentifierAsRestorationIdentifier="YES" id="OSy-mA-wsf" customClass="DetailImageSwipeCardVC" customModule="SsgSag" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="QjG-ra-2We">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -175,10 +175,10 @@
             </objects>
             <point key="canvasLocation" x="1792.8" y="106.59670164917542"/>
         </scene>
-        <!--Info TextVC-->
+        <!--Detail Text Swipe Card-->
         <scene sceneID="Gv6-l5-7Qr">
             <objects>
-                <viewController storyboardIdentifier="sbBlue" useStoryboardIdentifierAsRestorationIdentifier="YES" id="lJ9-e9-vHH" customClass="infoTextVC" customModule="SsgSag" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="sbBlue" useStoryboardIdentifierAsRestorationIdentifier="YES" id="lJ9-e9-vHH" customClass="DetailTextSwipeCard" customModule="SsgSag" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="kbL-CW-N8R">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

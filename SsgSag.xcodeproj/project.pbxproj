@@ -21,10 +21,10 @@
 		845928DC21D09F30001DF6CC /* MonthView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845928D821D09F2F001DF6CC /* MonthView.swift */; };
 		845928E121D20068001DF6CC /* LoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845928E021D20068001DF6CC /* LoginVC.swift */; };
 		845928E321D35F09001DF6CC /* PageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845928E221D35F09001DF6CC /* PageViewController.swift */; };
-		845928E521D38771001DF6CC /* InfoImageVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845928E421D38771001DF6CC /* InfoImageVC.swift */; };
-		845928E721D3877D001DF6CC /* InfoTextVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845928E621D3877D001DF6CC /* InfoTextVC.swift */; };
+		845928E521D38771001DF6CC /* DetailImageSwipeCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845928E421D38771001DF6CC /* DetailImageSwipeCard.swift */; };
+		845928E721D3877D001DF6CC /* DetailTextSwipeCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845928E621D3877D001DF6CC /* DetailTextSwipeCard.swift */; };
 		FA25A58221D36EC500C9FC93 /* SegmentedProgressBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA25A58121D36EC500C9FC93 /* SegmentedProgressBar.swift */; };
-		FAAFB58C21D3BECD006BF728 /* SwipingCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAAFB58B21D3BECD006BF728 /* SwipingCard.swift */; };
+		FA851DE921D3DBBC002065D0 /* SwipeCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA851DE821D3DBBC002065D0 /* SwipeCard.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -65,10 +65,10 @@
 		845928D821D09F2F001DF6CC /* MonthView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MonthView.swift; sourceTree = "<group>"; };
 		845928E021D20068001DF6CC /* LoginVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginVC.swift; sourceTree = "<group>"; };
 		845928E221D35F09001DF6CC /* PageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageViewController.swift; sourceTree = "<group>"; };
-		845928E421D38771001DF6CC /* InfoImageVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoImageVC.swift; sourceTree = "<group>"; };
-		845928E621D3877D001DF6CC /* InfoTextVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoTextVC.swift; sourceTree = "<group>"; };
+		845928E421D38771001DF6CC /* DetailImageSwipeCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailImageSwipeCard.swift; sourceTree = "<group>"; };
+		845928E621D3877D001DF6CC /* DetailTextSwipeCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailTextSwipeCard.swift; sourceTree = "<group>"; };
 		FA25A58121D36EC500C9FC93 /* SegmentedProgressBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SegmentedProgressBar.swift; sourceTree = "<group>"; };
-		FAAFB58B21D3BECD006BF728 /* SwipingCard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwipingCard.swift; sourceTree = "<group>"; };
+		FA851DE821D3DBBC002065D0 /* SwipeCard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwipeCard.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -166,14 +166,22 @@
 			path = LoginRegister;
 			sourceTree = "<group>";
 		};
-		FAAFB58721D3B5E5006BF728 /* Swipe */ = {
+		FA851DE321D3D807002065D0 /* VC */ = {
 			isa = PBXGroup;
 			children = (
 				8459289C21D09CDD001DF6CC /* SwipeVC.swift */,
-				845928E421D38771001DF6CC /* InfoImageVC.swift */,
-				FAAFB58B21D3BECD006BF728 /* SwipingCard.swift */,
-				845928E621D3877D001DF6CC /* InfoTextVC.swift */,
 				845928E221D35F09001DF6CC /* PageViewController.swift */,
+			);
+			path = VC;
+			sourceTree = "<group>";
+		};
+		FAAFB58721D3B5E5006BF728 /* Swipe */ = {
+			isa = PBXGroup;
+			children = (
+				FA851DE321D3D807002065D0 /* VC */,
+				FA851DE821D3DBBC002065D0 /* SwipeCard.swift */,
+				845928E421D38771001DF6CC /* DetailImageSwipeCard.swift */,
+				845928E621D3877D001DF6CC /* DetailTextSwipeCard.swift */,
 				845928CB21D09D09001DF6CC /* SwipeStoryBoard.storyboard */,
 				FA25A58121D36EC500C9FC93 /* SegmentedProgressBar.swift */,
 			);
@@ -325,14 +333,14 @@
 				8459289D21D09CDD001DF6CC /* SwipeVC.swift in Sources */,
 				845928E121D20068001DF6CC /* LoginVC.swift in Sources */,
 				845928A321D09CDD001DF6CC /* SsgSag.xcdatamodeld in Sources */,
+				FA851DE921D3DBBC002065D0 /* SwipeCard.swift in Sources */,
 				845928DA21D09F30001DF6CC /* CalenderView.swift in Sources */,
-				845928E721D3877D001DF6CC /* InfoTextVC.swift in Sources */,
+				845928E721D3877D001DF6CC /* DetailTextSwipeCard.swift in Sources */,
 				845928DB21D09F30001DF6CC /* WeekdaysView.swift in Sources */,
-				FAAFB58C21D3BECD006BF728 /* SwipingCard.swift in Sources */,
 				8459289B21D09CDD001DF6CC /* AppDelegate.swift in Sources */,
 				845928E321D35F09001DF6CC /* PageViewController.swift in Sources */,
 				845928D921D09F30001DF6CC /* CalenderVC.swift in Sources */,
-				845928E521D38771001DF6CC /* InfoImageVC.swift in Sources */,
+				845928E521D38771001DF6CC /* DetailImageSwipeCard.swift in Sources */,
 				FA25A58221D36EC500C9FC93 /* SegmentedProgressBar.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

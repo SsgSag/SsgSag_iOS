@@ -15,8 +15,8 @@ class SwipeVC: UIViewController {
 
     var currentIndex = 0
     
-    var currentLoadedCardsArray = [SwipingCard]()
-    var allCardsArray = [SwipingCard]()
+    var currentLoadedCardsArray = [SwipeCard]()
+    var allCardsArray = [SwipeCard]()
     
     var valueArray = ["1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24","25","26","27","28","29","30","31","32","33","34","35","36"]
     
@@ -137,9 +137,9 @@ class SwipeVC: UIViewController {
         //Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: #selector(self.animateEmojiView), userInfo: emojiView, repeats: true)
     }
     
-    func createTinderCard(at index: Int , value :String) -> SwipingCard {
+    func createTinderCard(at index: Int , value :String) -> SwipeCard {
         
-        let card = SwipingCard(frame: CGRect(x: 0, y: 0, width: viewTinderBackGround.frame.size.width , height: viewTinderBackGround.frame.size.height - 50) ,value : value)
+        let card = SwipeCard(frame: CGRect(x: 0, y: 0, width: viewTinderBackGround.frame.size.width , height: viewTinderBackGround.frame.size.height - 50) ,value : value)
         card.delegate = self
         return card
         
@@ -237,16 +237,16 @@ class SwipeVC: UIViewController {
     }
 }
 
-extension SwipeVC : SwipingCardDelegate{
+extension SwipeVC : SwipeCardDelegate{
     // action called when the card goes to the left.
-    func cardGoesLeft(card: SwipingCard) {
+    func cardGoesLeft(card: SwipeCard) {
         removeObjectAndAddNewValues()
     }
     // action called when the card goes to the right.
-    func cardGoesRight(card: SwipingCard) {
+    func cardGoesRight(card: SwipeCard) {
         removeObjectAndAddNewValues()
     }
-    func currentCardStatus(card: SwipingCard, distance: CGFloat) {
+    func currentCardStatus(card: SwipeCard, distance: CGFloat) {
         if distance == 0 {
             // emojiView.rateValue =  2.5
         }else{

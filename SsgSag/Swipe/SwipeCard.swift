@@ -6,13 +6,13 @@ let SCALE_RANGE : CGFloat = 0.90
 
 import UIKit
 
-protocol SwipingCardDelegate: NSObjectProtocol {
-    func cardGoesLeft(card: SwipingCard)
-    func cardGoesRight(card: SwipingCard)
-    func currentCardStatus(card: SwipingCard, distance: CGFloat)
+protocol SwipeCardDelegate: NSObjectProtocol {
+    func cardGoesLeft(card: SwipeCard)
+    func cardGoesRight(card: SwipeCard)
+    func currentCardStatus(card: SwipeCard, distance: CGFloat)
 }
 
-class SwipingCard: UIView {
+class SwipeCard: UIView {
     
     var xCenter: CGFloat = 0.0
     var yCenter: CGFloat = 0.0
@@ -21,7 +21,7 @@ class SwipingCard: UIView {
     var overLayImage = UIImageView()
     var isLiked = false
     
-    weak var delegate: SwipingCardDelegate?
+    weak var delegate: SwipeCardDelegate?
     
     public init(frame: CGRect, value: String) {
         super.init(frame: frame)
