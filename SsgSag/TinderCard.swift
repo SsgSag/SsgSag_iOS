@@ -33,6 +33,8 @@ class TinderCard: UIView {
     public init(frame: CGRect, value: String) {
         super.init(frame: frame)
         setupView(at: value)
+        
+        
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -41,6 +43,8 @@ class TinderCard: UIView {
     
     
     func setupView(at value:String) {
+        
+        
         
         layer.cornerRadius = 20
         layer.shadowRadius = 3
@@ -56,12 +60,23 @@ class TinderCard: UIView {
         addGestureRecognizer(panGestureRecognizer)
         
         let backGroundImageView = UIImageView(frame:bounds)
+        guard let imageURL = URL(string: "https://randomuser.me/api/portraits/men/82.jpg") else {return}
+        backGroundImageView.load(url: imageURL)
+        
         //이미지 추가
-        backGroundImageView.image = UIImage(named:String(Int(1 + arc4random() % (8 - 1))))
+//        backGroundImageView.image = UIImage(named:String(Int(1 + arc4random() % (8 - 1))))
+//        backGroundImageView.image = UIImage(data: <#T##Data#>)
+        
         backGroundImageView.contentMode = .scaleAspectFill
         backGroundImageView.clipsToBounds = true;
         addSubview(backGroundImageView)
         
+        
+        
+        
+        
+        
+    
         /* 이미지 뷰 안의 텍스트, 사진
         let profileImageView = UIImageView(frame:CGRect(x: 20, y: frame.size.height - 80, width: 60, height: 60))
         profileImageView.image = UIImage(named:"profileimage1")
@@ -284,4 +299,16 @@ class TinderCard: UIView {
     }
 }
 
-
+extension UIImageView {
+    func getData(from url: URL, completion: @escaping (Data?, URLResponse?, Error?) -> ()) {
+        URLSession.shared.dataTask(with: url, completionHandler: completion).resume()
+    }
+    func load(url: URL) {
+        getData(from: url) { [weak self] data, response, error in
+            guard let data = data, error == nil else { return }
+            DispatchQueue.main.async() {
+                self?.image = UIImage(data: data)
+            }
+        }
+    }
+}

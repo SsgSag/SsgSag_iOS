@@ -25,6 +25,7 @@
 		845928DB21D09F30001DF6CC /* WeekdaysView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845928D721D09F2F001DF6CC /* WeekdaysView.swift */; };
 		845928DC21D09F30001DF6CC /* MonthView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845928D821D09F2F001DF6CC /* MonthView.swift */; };
 		845928E121D20068001DF6CC /* LoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845928E021D20068001DF6CC /* LoginVC.swift */; };
+		845928E321D35F09001DF6CC /* PageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845928E221D35F09001DF6CC /* PageViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -69,6 +70,7 @@
 		845928D721D09F2F001DF6CC /* WeekdaysView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WeekdaysView.swift; sourceTree = "<group>"; };
 		845928D821D09F2F001DF6CC /* MonthView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MonthView.swift; sourceTree = "<group>"; };
 		845928E021D20068001DF6CC /* LoginVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginVC.swift; sourceTree = "<group>"; };
+		845928E221D35F09001DF6CC /* PageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -127,6 +129,7 @@
 				845928CD21D09D5C001DF6CC /* GradientView.swift */,
 				845928CE21D09D5C001DF6CC /* MovieFullImageVC.swift */,
 				845928D021D09D5D001DF6CC /* TinderCard.swift */,
+				845928E221D35F09001DF6CC /* PageViewController.swift */,
 				8459289E21D09CDD001DF6CC /* Main.storyboard */,
 				845928CB21D09D09001DF6CC /* Tinder.storyboard */,
 				845928A421D09CE0001DF6CC /* Assets.xcassets */,
@@ -316,6 +319,7 @@
 				845928D221D09D5D001DF6CC /* MovieFullImageVC.swift in Sources */,
 				845928D121D09D5D001DF6CC /* GradientView.swift in Sources */,
 				8459289B21D09CDD001DF6CC /* AppDelegate.swift in Sources */,
+				845928E321D35F09001DF6CC /* PageViewController.swift in Sources */,
 				845928D921D09F30001DF6CC /* CalenderVC.swift in Sources */,
 				845928D321D09D5D001DF6CC /* EmojiRateView.swift in Sources */,
 			);

@@ -153,9 +153,15 @@ class CalenderView: UIView, UICollectionViewDelegate, UICollectionViewDataSource
         cell.backgroundColor=UIColor.clear
         
         if indexPath.item <= firstWeekDayOfMonth - 2 { //오늘 날짜가 -1 이하일때 (예외처리)
-            cell.isHidden=true
+            cell.isHidden=false
+            let calcDate = indexPath.row
+            cell.lbl.textColor = .lightGray
+            cell.lbl.text = "수정중"
+            
         } else { //정상 날짜
             let calcDate = indexPath.row-firstWeekDayOfMonth+2 //1~31일까지
+            print("\(calcDate) | \(firstWeekDayOfMonth)")
+            
             cell.isHidden=false
             cell.lbl.text="\(calcDate)"
             
@@ -351,29 +357,29 @@ class dateCVCell: UICollectionViewCell {
         //셀 내부의 라벨이 차지하는 부분, 위로 올려서 밑에 정보를 표시하기 위함
         //lbl.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -20).isActive=true
         
-        addSubview(info)
-        info.topAnchor.constraint(equalTo: lbl.bottomAnchor, constant:3).isActive = true
-        info.leftAnchor.constraint(equalTo: leftAnchor, constant: 5).isActive = true
-        info.widthAnchor.constraint(equalToConstant: 7).isActive = true
-        info.heightAnchor.constraint(equalToConstant: 7).isActive = true
-        
-        addSubview(info2)
-        info2.topAnchor.constraint(equalTo: lbl.bottomAnchor, constant:3).isActive = true
-        info2.leftAnchor.constraint(equalTo: info.rightAnchor , constant: 3).isActive = true
-        info2.widthAnchor.constraint(equalToConstant: 7).isActive = true
-        info2.heightAnchor.constraint(equalToConstant: 7).isActive = true
-        
-        addSubview(info3)
-        info3.topAnchor.constraint(equalTo: lbl.bottomAnchor, constant:3).isActive = true
-        info3.leftAnchor.constraint(equalTo: info2.rightAnchor , constant: 3).isActive = true
-        info3.widthAnchor.constraint(equalToConstant: 7).isActive = true
-        info3.heightAnchor.constraint(equalToConstant: 7).isActive = true
-        
-        addSubview(line)
-        line.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
-        line.leftAnchor.constraint(equalTo: leftAnchor).isActive = true
-        line.rightAnchor.constraint(equalTo: rightAnchor).isActive = true
-        line.heightAnchor.constraint(equalToConstant: 1).isActive = true
+//        addSubview(info)
+//        info.topAnchor.constraint(equalTo: lbl.bottomAnchor, constant:3).isActive = true
+//        info.leftAnchor.constraint(equalTo: leftAnchor, constant: 5).isActive = true
+//        info.widthAnchor.constraint(equalToConstant: 7).isActive = true
+//        info.heightAnchor.constraint(equalToConstant: 7).isActive = true
+//
+//        addSubview(info2)
+//        info2.topAnchor.constraint(equalTo: lbl.bottomAnchor, constant:3).isActive = true
+//        info2.leftAnchor.constraint(equalTo: info.rightAnchor , constant: 3).isActive = true
+//        info2.widthAnchor.constraint(equalToConstant: 7).isActive = true
+//        info2.heightAnchor.constraint(equalToConstant: 7).isActive = true
+//
+//        addSubview(info3)
+//        info3.topAnchor.constraint(equalTo: lbl.bottomAnchor, constant:3).isActive = true
+//        info3.leftAnchor.constraint(equalTo: info2.rightAnchor , constant: 3).isActive = true
+//        info3.widthAnchor.constraint(equalToConstant: 7).isActive = true
+//        info3.heightAnchor.constraint(equalToConstant: 7).isActive = true
+//
+//        addSubview(line)
+//        line.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
+//        line.leftAnchor.constraint(equalTo: leftAnchor).isActive = true
+//        line.rightAnchor.constraint(equalTo: rightAnchor).isActive = true
+//        line.heightAnchor.constraint(equalToConstant: 1).isActive = true
     }
     //일
     let lbl: UILabel = {

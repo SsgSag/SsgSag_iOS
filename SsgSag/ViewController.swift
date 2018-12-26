@@ -13,7 +13,7 @@ let  TOPYAXIS = 75;
 
 import UIKit
 
-class ViewController: UIViewController {
+class ViewController: UIViewController{
     
     //@IBOutlet weak var emojiView: EmojiRateView!
     @IBOutlet weak var viewTinderBackGround: UIView!
@@ -24,7 +24,6 @@ class ViewController: UIViewController {
     
     var currentLoadedCardsArray = [TinderCard]()
     var allCardsArray = [TinderCard]()
-    
     
     var valueArray = ["1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24","25","26","27","28","29","30","31","32","33","34","35","36"]
     
@@ -91,14 +90,44 @@ class ViewController: UIViewController {
             }
             
             for (i,_) in currentLoadedCardsArray.enumerated() {
+                
+                print(i)
+                
                 if i > 0 {
                     viewTinderBackGround.insertSubview(currentLoadedCardsArray[i], belowSubview: currentLoadedCardsArray[i - 1])
+                    
+                    let storyboard = UIStoryboard(name: "Tinder", bundle: nil)
+                    let pageVC = storyboard.instantiateViewController(withIdentifier: "PageViewController")
+
+                    pageVC.view.frame = self.currentLoadedCardsArray[i].frame
+                    self.addChild(pageVC)
+                    self.currentLoadedCardsArray[i].addSubview(pageVC.view)
+                    self.currentLoadedCardsArray[i-1].addSubview(pageVC.view)
+                    pageVC.didMove(toParent: self)
+                    
+                    
+                    
+                    //viewTinderBackGround.addSubview(pageVC.view)
+                    //pageVC.view.frame = self.viewTinderBackGround.frame
+                    //self.addChild(pageVC)
+                    //self.viewTinderBackGround.addSubview(pageVC.view)
+                    //pageVC.didMove(toParent: self)
+                    
                 }else {
                     viewTinderBackGround.addSubview(currentLoadedCardsArray[i])
+                    
+                    let storyboard = UIStoryboard(name: "Tinder", bundle: nil)
+                    let pageVC = storyboard.instantiateViewController(withIdentifier: "PageViewController")
+                    
+                    pageVC.view.frame = self.currentLoadedCardsArray[i].frame
+                    self.addChild(pageVC)
+                    self.currentLoadedCardsArray[i].addSubview(pageVC.view)
+                    pageVC.didMove(toParent: self)
                 }
             }
             
             animateCardAfterSwiping()
+            
             perform(#selector(loadInitialDummyAnimation), with: nil, afterDelay: 1.0)
         }
     }
@@ -149,6 +178,16 @@ class ViewController: UIViewController {
     func animateCardAfterSwiping() {
         
         for (i,card) in currentLoadedCardsArray.enumerated() {
+            
+            
+            let storyboard = UIStoryboard(name: "Tinder", bundle: nil)
+            let pageVC = storyboard.instantiateViewController(withIdentifier: "PageViewController")
+            
+            pageVC.view.frame = self.currentLoadedCardsArray[i].frame
+            self.addChild(pageVC)
+            self.currentLoadedCardsArray[i].addSubview(pageVC.view)
+            pageVC.didMove(toParent: self)
+            
             UIView.animate(withDuration: 0.5, animations: {
                 if i == 0 {
                     card.isUserInteractionEnabled = true
