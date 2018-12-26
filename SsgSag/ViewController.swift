@@ -48,6 +48,7 @@ class ViewController: UIViewController {
     @objc func imageTapped(tapGestureRecognizer: UITapGestureRecognizer){
         
         print("tapped Poster")
+    
         //        let tappedImage = tapGestureRecognizer.view
         //        tappedImage.
         //

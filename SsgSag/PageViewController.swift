@@ -14,6 +14,8 @@ class PageViewController: UIPageViewController, UIPageViewControllerDelegate, UI
     var SPB: SegmentedProgressBar!
     var pageControl = UIPageControl()
     
+    var pageStatus: Int = 1
+    
     // MARK: UIPageViewControllerDataSource
     lazy var orderedViewControllers: [UIViewController] = {
         return [self.newVc(viewController: "sbBlue"),
@@ -35,13 +37,17 @@ class PageViewController: UIPageViewController, UIPageViewControllerDelegate, UI
         }
     }
     
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        print("언제 호출 되냐")
         
         self.dataSource = self
         self.delegate = self
         
-        
+        view.addSubview(orderedViewControllers[0].view)
+        view.addSubview(orderedViewControllers[1].view)
         
         if let firstViewController = orderedViewControllers.first {
             setViewControllers([firstViewController],
@@ -49,6 +55,7 @@ class PageViewController: UIPageViewController, UIPageViewControllerDelegate, UI
                                animated: false,
                                completion: nil)
         }
+        
         SPB = SegmentedProgressBar(numberOfSegments: 2)
         if #available(iOS 11.0, *) {
             SPB.frame = CGRect(x: 18, y: UIApplication.shared.statusBarFrame.height + 5, width: view.frame.width - 35, height: 3)
@@ -82,7 +89,6 @@ class PageViewController: UIPageViewController, UIPageViewControllerDelegate, UI
         // Do any additional setup after loading the view.
     }
     
-    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
@@ -106,22 +112,30 @@ class PageViewController: UIPageViewController, UIPageViewControllerDelegate, UI
     @objc func tapOn(_ sender: UITapGestureRecognizer) {
         SPB.skip()
         
-        print(sender.numberOfTapsRequired)
-        if sender.numberOfTapsRequired == 1 {
-            addChild(orderedViewControllers[1])
-            view.addSubview(orderedViewControllers[1].view)
-            orderedViewControllers[1].didMove(toParent: self)
-            sender.numberOfTapsRequired = -1
+        if pageStatus == 1{
+            orderedViewControllers[0].view.isHidden = false
+            orderedViewControllers[1].view.isHidden = true
+            pageStatus = -1
         }else {
-            
-            dismiss(animated: true, completion: nil)
-            sender.numberOfTapsRequired = 1
+            orderedViewControllers[0].view.isHidden = true
+            orderedViewControllers[1].view.isHidden = false
+            pageStatus = 1
         }
-        //present(orderedViewControllers[1], animated: true, completion: nil)
         
-        //let pageContentViewController = self.viewControllers![0]
-        self.pageControl.currentPage = orderedViewControllers.index(of: self.viewControllers![0])!
+//        if pageStatus == 1 {
+//            view.addSubview(orderedViewControllers[1].view)
+//            print(view.subviews[0])
+//            pageStatus = -1
+//            //self.pageControl.currentPage = orderedViewControllers.index(of: self.viewControllers![0])!
+//
+//        }else if pageStatus == -1{
+//            view.removeFromSuperview()
+//            view.addSubview(orderedViewControllers[0].view)
+//            //self.pageControl.currentPage = orderedViewControllers.index(of: self.viewControllers![1])!
+//            pageStatus = 0
+//        }
     }
+    
     //MARK: - Play or show image
     func playVideoOrLoadImage(index: NSInteger) {
 //        if [index].type == "image" {
@@ -129,6 +143,7 @@ class PageViewController: UIPageViewController, UIPageViewControllerDelegate, UI
 //            self.imagePreview.imageFromServerURL(item[index].url)
 //        }
     }
+    
     func configurePageControl() {
         // The total number of pages that are available is based on how many available colors we have.
         pageControl = UIPageControl(frame: CGRect(x: 0,y: UIScreen.main.bounds.maxY - 50,width: UIScreen.main.bounds.width,height: 50))
@@ -139,15 +154,18 @@ class PageViewController: UIPageViewController, UIPageViewControllerDelegate, UI
         self.pageControl.currentPageIndicatorTintColor = UIColor.black
         self.view.addSubview(pageControl)
     }
+    
     func newVc(viewController: String) -> UIViewController {
         return UIStoryboard(name: "Tinder", bundle: nil).instantiateViewController(withIdentifier: viewController)
     }
+    
     // MARK: Delegate methords
     func pageViewController(_ pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool) {
         
         let pageContentViewController = pageViewController.viewControllers![0]
         self.pageControl.currentPage = orderedViewControllers.index(of: pageContentViewController)!
     }
+    
     // MARK: Data source functions.
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
         return nil
