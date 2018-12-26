@@ -1,10 +1,3 @@
-//
-//  ViewController.swift
-//  testingTinderSwipe
-//
-//  Created by Nicky on 11/16/17.
-//  Copyright © 2017 Nicky. All rights reserved.
-//
 
 let  MAX_BUFFER_SIZE = 3;
 let  SEPERATOR_DISTANCE = 8;
@@ -13,7 +6,7 @@ let  TOPYAXIS = 75;
 
 import UIKit
 
-class ViewController: UIViewController {
+class SwipeVC: UIViewController {
     
     //@IBOutlet weak var emojiView: EmojiRateView!
     @IBOutlet weak var viewTinderBackGround: UIView!
@@ -22,8 +15,8 @@ class ViewController: UIViewController {
 
     var currentIndex = 0
     
-    var currentLoadedCardsArray = [TinderCard]()
-    var allCardsArray = [TinderCard]()
+    var currentLoadedCardsArray = [SwipingCard]()
+    var allCardsArray = [SwipingCard]()
     
     var valueArray = ["1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24","25","26","27","28","29","30","31","32","33","34","35","36"]
     
@@ -48,6 +41,7 @@ class ViewController: UIViewController {
     @objc func imageTapped(tapGestureRecognizer: UITapGestureRecognizer){
         
         print("tapped Poster")
+    
         //        let tappedImage = tapGestureRecognizer.view
         //        tappedImage.
         //
@@ -96,7 +90,7 @@ class ViewController: UIViewController {
                 if i > 0 {
                     viewTinderBackGround.insertSubview(currentLoadedCardsArray[i], belowSubview: currentLoadedCardsArray[i - 1])
                     
-                    let storyboard = UIStoryboard(name: "Tinder", bundle: nil)
+                    let storyboard = UIStoryboard(name: "SwipeStoryBoard", bundle: nil)
                     let pageVC = storyboard.instantiateViewController(withIdentifier: "PageViewController")
 
                     pageVC.view.frame = self.currentLoadedCardsArray[i].frame
@@ -104,8 +98,6 @@ class ViewController: UIViewController {
                     self.currentLoadedCardsArray[i].addSubview(pageVC.view)
                     self.currentLoadedCardsArray[i-1].addSubview(pageVC.view)
                     pageVC.didMove(toParent: self)
-                    
-                    
                     
                     //viewTinderBackGround.addSubview(pageVC.view)
                     //pageVC.view.frame = self.viewTinderBackGround.frame
@@ -116,7 +108,7 @@ class ViewController: UIViewController {
                 } else {
                     viewTinderBackGround.addSubview(currentLoadedCardsArray[i])
                     
-                    let storyboard = UIStoryboard(name: "Tinder", bundle: nil)
+                    let storyboard = UIStoryboard(name: "SwipeStoryBoard", bundle: nil)
                     let pageVC = storyboard.instantiateViewController(withIdentifier: "PageViewController")
                     
                     pageVC.view.frame = self.currentLoadedCardsArray[i].frame
@@ -145,9 +137,9 @@ class ViewController: UIViewController {
         //Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: #selector(self.animateEmojiView), userInfo: emojiView, repeats: true)
     }
     
-    func createTinderCard(at index: Int , value :String) -> TinderCard {
+    func createTinderCard(at index: Int , value :String) -> SwipingCard {
         
-        let card = TinderCard(frame: CGRect(x: 0, y: 0, width: viewTinderBackGround.frame.size.width , height: viewTinderBackGround.frame.size.height - 50) ,value : value)
+        let card = SwipingCard(frame: CGRect(x: 0, y: 0, width: viewTinderBackGround.frame.size.width , height: viewTinderBackGround.frame.size.height - 50) ,value : value)
         card.delegate = self
         return card
         
@@ -179,9 +171,7 @@ class ViewController: UIViewController {
     func animateCardAfterSwiping() {
         
         for (i,card) in currentLoadedCardsArray.enumerated() {
-            
-            
-            let storyboard = UIStoryboard(name: "Tinder", bundle: nil)
+            let storyboard = UIStoryboard(name: "SwipeStoryBoard", bundle: nil)
             let pageVC = storyboard.instantiateViewController(withIdentifier: "PageViewController")
             
             pageVC.view.frame = self.currentLoadedCardsArray[i].frame
@@ -247,16 +237,16 @@ class ViewController: UIViewController {
     }
 }
 
-extension ViewController : TinderCardDelegate{
+extension SwipeVC : SwipingCardDelegate{
     // action called when the card goes to the left.
-    func cardGoesLeft(card: TinderCard) {
+    func cardGoesLeft(card: SwipingCard) {
         removeObjectAndAddNewValues()
     }
     // action called when the card goes to the right.
-    func cardGoesRight(card: TinderCard) {
+    func cardGoesRight(card: SwipingCard) {
         removeObjectAndAddNewValues()
     }
-    func currentCardStatus(card: TinderCard, distance: CGFloat) {
+    func currentCardStatus(card: SwipingCard, distance: CGFloat) {
         if distance == 0 {
             // emojiView.rateValue =  2.5
         }else{

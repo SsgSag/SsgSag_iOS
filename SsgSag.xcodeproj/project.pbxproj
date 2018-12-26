@@ -8,25 +8,23 @@
 
 /* Begin PBXBuildFile section */
 		8459289B21D09CDD001DF6CC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8459289A21D09CDD001DF6CC /* AppDelegate.swift */; };
-		8459289D21D09CDD001DF6CC /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8459289C21D09CDD001DF6CC /* ViewController.swift */; };
-		845928A021D09CDD001DF6CC /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8459289E21D09CDD001DF6CC /* Main.storyboard */; };
+		8459289D21D09CDD001DF6CC /* SwipeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8459289C21D09CDD001DF6CC /* SwipeVC.swift */; };
 		845928A321D09CDD001DF6CC /* SsgSag.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 845928A121D09CDD001DF6CC /* SsgSag.xcdatamodeld */; };
 		845928A521D09CE0001DF6CC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 845928A421D09CE0001DF6CC /* Assets.xcassets */; };
 		845928A821D09CE0001DF6CC /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 845928A621D09CE0001DF6CC /* LaunchScreen.storyboard */; };
 		845928B321D09CE0001DF6CC /* SsgSagTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845928B221D09CE0001DF6CC /* SsgSagTests.swift */; };
 		845928BE21D09CE0001DF6CC /* SsgSagUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845928BD21D09CE0001DF6CC /* SsgSagUITests.swift */; };
-		845928CC21D09D09001DF6CC /* Tinder.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 845928CB21D09D09001DF6CC /* Tinder.storyboard */; };
-		845928D121D09D5D001DF6CC /* GradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845928CD21D09D5C001DF6CC /* GradientView.swift */; };
-		845928D221D09D5D001DF6CC /* MovieFullImageVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845928CE21D09D5C001DF6CC /* MovieFullImageVC.swift */; };
-		845928D321D09D5D001DF6CC /* EmojiRateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845928CF21D09D5C001DF6CC /* EmojiRateView.swift */; };
-		845928D421D09D5D001DF6CC /* TinderCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845928D021D09D5D001DF6CC /* TinderCard.swift */; };
+		845928CC21D09D09001DF6CC /* SwipeStoryBoard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 845928CB21D09D09001DF6CC /* SwipeStoryBoard.storyboard */; };
 		845928D921D09F30001DF6CC /* CalenderVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845928D521D09F2F001DF6CC /* CalenderVC.swift */; };
 		845928DA21D09F30001DF6CC /* CalenderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845928D621D09F2F001DF6CC /* CalenderView.swift */; };
 		845928DB21D09F30001DF6CC /* WeekdaysView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845928D721D09F2F001DF6CC /* WeekdaysView.swift */; };
 		845928DC21D09F30001DF6CC /* MonthView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845928D821D09F2F001DF6CC /* MonthView.swift */; };
 		845928E121D20068001DF6CC /* LoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845928E021D20068001DF6CC /* LoginVC.swift */; };
 		845928E321D35F09001DF6CC /* PageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845928E221D35F09001DF6CC /* PageViewController.swift */; };
+		845928E521D38771001DF6CC /* InfoImageVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845928E421D38771001DF6CC /* InfoImageVC.swift */; };
+		845928E721D3877D001DF6CC /* InfoTextVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845928E621D3877D001DF6CC /* InfoTextVC.swift */; };
 		FA25A58221D36EC500C9FC93 /* SegmentedProgressBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA25A58121D36EC500C9FC93 /* SegmentedProgressBar.swift */; };
+		FAAFB58C21D3BECD006BF728 /* SwipingCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAAFB58B21D3BECD006BF728 /* SwipingCard.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,8 +47,7 @@
 /* Begin PBXFileReference section */
 		8459289721D09CDD001DF6CC /* SsgSag.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SsgSag.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8459289A21D09CDD001DF6CC /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		8459289C21D09CDD001DF6CC /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		8459289F21D09CDD001DF6CC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		8459289C21D09CDD001DF6CC /* SwipeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwipeVC.swift; sourceTree = "<group>"; };
 		845928A221D09CDD001DF6CC /* SsgSag.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = SsgSag.xcdatamodel; sourceTree = "<group>"; };
 		845928A421D09CE0001DF6CC /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		845928A721D09CE0001DF6CC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -61,18 +58,17 @@
 		845928B921D09CE0001DF6CC /* SsgSagUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SsgSagUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		845928BD21D09CE0001DF6CC /* SsgSagUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SsgSagUITests.swift; sourceTree = "<group>"; };
 		845928BF21D09CE0001DF6CC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		845928CB21D09D09001DF6CC /* Tinder.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Tinder.storyboard; sourceTree = "<group>"; };
-		845928CD21D09D5C001DF6CC /* GradientView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GradientView.swift; sourceTree = "<group>"; };
-		845928CE21D09D5C001DF6CC /* MovieFullImageVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MovieFullImageVC.swift; sourceTree = "<group>"; };
-		845928CF21D09D5C001DF6CC /* EmojiRateView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EmojiRateView.swift; sourceTree = "<group>"; };
-		845928D021D09D5D001DF6CC /* TinderCard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TinderCard.swift; sourceTree = "<group>"; };
+		845928CB21D09D09001DF6CC /* SwipeStoryBoard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = SwipeStoryBoard.storyboard; sourceTree = "<group>"; };
 		845928D521D09F2F001DF6CC /* CalenderVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalenderVC.swift; sourceTree = "<group>"; };
 		845928D621D09F2F001DF6CC /* CalenderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalenderView.swift; sourceTree = "<group>"; };
 		845928D721D09F2F001DF6CC /* WeekdaysView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WeekdaysView.swift; sourceTree = "<group>"; };
 		845928D821D09F2F001DF6CC /* MonthView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MonthView.swift; sourceTree = "<group>"; };
 		845928E021D20068001DF6CC /* LoginVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginVC.swift; sourceTree = "<group>"; };
 		845928E221D35F09001DF6CC /* PageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageViewController.swift; sourceTree = "<group>"; };
+		845928E421D38771001DF6CC /* InfoImageVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoImageVC.swift; sourceTree = "<group>"; };
+		845928E621D3877D001DF6CC /* InfoTextVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoTextVC.swift; sourceTree = "<group>"; };
 		FA25A58121D36EC500C9FC93 /* SegmentedProgressBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SegmentedProgressBar.swift; sourceTree = "<group>"; };
+		FAAFB58B21D3BECD006BF728 /* SwipingCard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwipingCard.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -126,19 +122,9 @@
 				8459289A21D09CDD001DF6CC /* AppDelegate.swift */,
 				845928DE21D20034001DF6CC /* LoginRegister */,
 				845928DD21D09F38001DF6CC /* Calendar */,
-				8459289C21D09CDD001DF6CC /* ViewController.swift */,
-				FA25A58021D36EB100C9FC93 /* helper */,
-				845928CF21D09D5C001DF6CC /* EmojiRateView.swift */,
-				845928CD21D09D5C001DF6CC /* GradientView.swift */,
-				845928CE21D09D5C001DF6CC /* MovieFullImageVC.swift */,
-				845928D021D09D5D001DF6CC /* TinderCard.swift */,
-				845928E221D35F09001DF6CC /* PageViewController.swift */,
-				8459289E21D09CDD001DF6CC /* Main.storyboard */,
-				845928CB21D09D09001DF6CC /* Tinder.storyboard */,
-				845928A421D09CE0001DF6CC /* Assets.xcassets */,
-				845928A621D09CE0001DF6CC /* LaunchScreen.storyboard */,
+				FAAFB58721D3B5E5006BF728 /* Swipe */,
+				FAAFB58821D3B6B8006BF728 /* Assets */,
 				845928A921D09CE0001DF6CC /* Info.plist */,
-				845928A121D09CDD001DF6CC /* SsgSag.xcdatamodeld */,
 			);
 			path = SsgSag;
 			sourceTree = "<group>";
@@ -180,12 +166,28 @@
 			path = LoginRegister;
 			sourceTree = "<group>";
 		};
-		FA25A58021D36EB100C9FC93 /* helper */ = {
+		FAAFB58721D3B5E5006BF728 /* Swipe */ = {
 			isa = PBXGroup;
 			children = (
+				8459289C21D09CDD001DF6CC /* SwipeVC.swift */,
+				845928E421D38771001DF6CC /* InfoImageVC.swift */,
+				FAAFB58B21D3BECD006BF728 /* SwipingCard.swift */,
+				845928E621D3877D001DF6CC /* InfoTextVC.swift */,
+				845928E221D35F09001DF6CC /* PageViewController.swift */,
+				845928CB21D09D09001DF6CC /* SwipeStoryBoard.storyboard */,
 				FA25A58121D36EC500C9FC93 /* SegmentedProgressBar.swift */,
 			);
-			path = helper;
+			path = Swipe;
+			sourceTree = "<group>";
+		};
+		FAAFB58821D3B6B8006BF728 /* Assets */ = {
+			isa = PBXGroup;
+			children = (
+				845928A421D09CE0001DF6CC /* Assets.xcassets */,
+				845928A621D09CE0001DF6CC /* LaunchScreen.storyboard */,
+				845928A121D09CDD001DF6CC /* SsgSag.xcdatamodeld */,
+			);
+			path = Assets;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -294,8 +296,7 @@
 			files = (
 				845928A821D09CE0001DF6CC /* LaunchScreen.storyboard in Resources */,
 				845928A521D09CE0001DF6CC /* Assets.xcassets in Resources */,
-				845928CC21D09D09001DF6CC /* Tinder.storyboard in Resources */,
-				845928A021D09CDD001DF6CC /* Main.storyboard in Resources */,
+				845928CC21D09D09001DF6CC /* SwipeStoryBoard.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -321,18 +322,17 @@
 			buildActionMask = 2147483647;
 			files = (
 				845928DC21D09F30001DF6CC /* MonthView.swift in Sources */,
-				8459289D21D09CDD001DF6CC /* ViewController.swift in Sources */,
+				8459289D21D09CDD001DF6CC /* SwipeVC.swift in Sources */,
 				845928E121D20068001DF6CC /* LoginVC.swift in Sources */,
 				845928A321D09CDD001DF6CC /* SsgSag.xcdatamodeld in Sources */,
 				845928DA21D09F30001DF6CC /* CalenderView.swift in Sources */,
+				845928E721D3877D001DF6CC /* InfoTextVC.swift in Sources */,
 				845928DB21D09F30001DF6CC /* WeekdaysView.swift in Sources */,
-				845928D421D09D5D001DF6CC /* TinderCard.swift in Sources */,
-				845928D221D09D5D001DF6CC /* MovieFullImageVC.swift in Sources */,
-				845928D121D09D5D001DF6CC /* GradientView.swift in Sources */,
+				FAAFB58C21D3BECD006BF728 /* SwipingCard.swift in Sources */,
 				8459289B21D09CDD001DF6CC /* AppDelegate.swift in Sources */,
 				845928E321D35F09001DF6CC /* PageViewController.swift in Sources */,
 				845928D921D09F30001DF6CC /* CalenderVC.swift in Sources */,
-				845928D321D09D5D001DF6CC /* EmojiRateView.swift in Sources */,
+				845928E521D38771001DF6CC /* InfoImageVC.swift in Sources */,
 				FA25A58221D36EC500C9FC93 /* SegmentedProgressBar.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -369,14 +369,6 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		8459289E21D09CDD001DF6CC /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				8459289F21D09CDD001DF6CC /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		845928A621D09CE0001DF6CC /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (

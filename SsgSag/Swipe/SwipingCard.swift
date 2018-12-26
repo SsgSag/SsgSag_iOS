@@ -1,10 +1,3 @@
-//
-//  TinderCard.swift
-//  testingTinderSwipe
-//
-//  Created by Nicky on 11/16/17.
-//  Copyright © 2017 Nicky. All rights reserved.
-//
 
 let NAMES = ["Adam Gontier","Matt Walst","Brad Walst","Neil Sanderson","Barry Stock","Nicky Patson"]
 let THERESOLD_MARGIN = (UIScreen.main.bounds.size.width/2) * 0.5
@@ -13,13 +6,13 @@ let SCALE_RANGE : CGFloat = 0.90
 
 import UIKit
 
-protocol TinderCardDelegate: NSObjectProtocol {
-    func cardGoesLeft(card: TinderCard)
-    func cardGoesRight(card: TinderCard)
-    func currentCardStatus(card: TinderCard, distance: CGFloat)
+protocol SwipingCardDelegate: NSObjectProtocol {
+    func cardGoesLeft(card: SwipingCard)
+    func cardGoesRight(card: SwipingCard)
+    func currentCardStatus(card: SwipingCard, distance: CGFloat)
 }
 
-class TinderCard: UIView {
+class SwipingCard: UIView {
     
     var xCenter: CGFloat = 0.0
     var yCenter: CGFloat = 0.0
@@ -28,7 +21,7 @@ class TinderCard: UIView {
     var overLayImage = UIImageView()
     var isLiked = false
     
-    weak var delegate: TinderCardDelegate?
+    weak var delegate: SwipingCardDelegate?
     
     public init(frame: CGRect, value: String) {
         super.init(frame: frame)
@@ -43,8 +36,6 @@ class TinderCard: UIView {
     
     
     func setupView(at value:String) {
-        
-        
         
         layer.cornerRadius = 20
         layer.shadowRadius = 3
@@ -70,12 +61,6 @@ class TinderCard: UIView {
         backGroundImageView.contentMode = .scaleAspectFill
         backGroundImageView.clipsToBounds = true;
         addSubview(backGroundImageView)
-        
-        
-        
-        
-        
-        
         
         /* 이미지 뷰 안의 텍스트, 사진
          let profileImageView = UIImageView(frame:CGRect(x: 20, y: frame.size.height - 80, width: 60, height: 60))

@@ -43,8 +43,8 @@ class LoginVC: UIViewController {
     }
     
     @objc func moveToSwipeVC() {
-        let storyboard = UIStoryboard(name: "Tinder", bundle: nil)
-        let swipeVC = storyboard.instantiateViewController(withIdentifier: "Tinder")
+        let storyboard = UIStoryboard(name: "SwipeStoryBoard", bundle: nil)
+        let swipeVC = storyboard.instantiateViewController(withIdentifier: "Swipe")
         present(swipeVC, animated: true, completion: nil)
     }
     
