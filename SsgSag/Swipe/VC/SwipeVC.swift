@@ -76,7 +76,7 @@ class SwipeVC: UIViewController {
             let capCount = (valueArray.count > MAX_BUFFER_SIZE) ? MAX_BUFFER_SIZE : valueArray.count
             
             for (i,value) in valueArray.enumerated() {
-                let newCard = createTinderCard(at: i,value: value)
+                let newCard = createSwipeCard(at: i,value: value)
                 allCardsArray.append(newCard)
                 if i < capCount {
                     currentLoadedCardsArray.append(newCard)
@@ -137,9 +137,9 @@ class SwipeVC: UIViewController {
         //Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: #selector(self.animateEmojiView), userInfo: emojiView, repeats: true)
     }
     
-    func createTinderCard(at index: Int , value :String) -> SwipeCard {
+    func createSwipeCard(at index: Int , value :String) -> SwipeCard {
         
-        let card = SwipeCard(frame: CGRect(x: 0, y: 0, width: viewTinderBackGround.frame.size.width , height: viewTinderBackGround.frame.size.height - 50) ,value : value)
+        let card = SwipeCard(frame: CGRect(x: 0, y: 0, width: viewTinderBackGround.frame.size.width , height: viewTinderBackGround.frame.size.height - 10) ,value : value)
         card.delegate = self
         return card
         

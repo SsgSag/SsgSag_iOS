@@ -19,6 +19,7 @@ class SegmentedProgressBar: UIView {
     weak var delegate: SegmentedProgressBarDelegate?
     var topColor = UIColor.gray {
         didSet {
+            //topColor 변경된 직후에 호출
             self.updateColors()
         }
     }
@@ -32,9 +33,9 @@ class SegmentedProgressBar: UIView {
         didSet {
             for segment in segments {
                 let layer = segment.topSegmentView.layer
-                let pausedTime = layer.convertTime(CACurrentMediaTime(), from: nil)
+                //                let pausedTime = layer.convertTime(CACurrentMediaTime(), from: nil)
                 layer.speed = 0.0
-                layer.timeOffset = pausedTime
+                //                layer.timeOffset = pausedTime
                 //            if isPaused {
                 //                for segment in segments {
                 //                    let layer = segment.topSegmentView.layer
@@ -60,6 +61,7 @@ class SegmentedProgressBar: UIView {
     private var hasDoneLayout = false // hacky way to prevent layouting again
     var currentAnimationIndex = 0
     
+    
     init(numberOfSegments: Int) {
         //        self.duration = duration
         super.init(frame: CGRect.zero)
@@ -70,6 +72,7 @@ class SegmentedProgressBar: UIView {
             addSubview(segment.topSegmentView)
             segments.append(segment)
         }
+        
         self.updateColors()
     }
     
@@ -92,6 +95,12 @@ class SegmentedProgressBar: UIView {
             let cr = frame.height / 2
             segment.bottomSegmentView.layer.cornerRadius = cr
             segment.topSegmentView.layer.cornerRadius = cr
+            //TODO: 색깔 바꾸기
+            if currentAnimationIndex == 0 {
+                let currentSegment = segments[currentAnimationIndex]
+                currentSegment.bottomSegmentView.backgroundColor = #colorLiteral(red: 0.9386122227, green: 0.9386122227, blue: 0.9386122227, alpha: 1)
+                currentSegment.topSegmentView.backgroundColor = #colorLiteral(red: 0.9386122227, green: 0.9386122227, blue: 0.9386122227, alpha: 1)
+            }
         }
         hasDoneLayout = true
     }
@@ -101,9 +110,14 @@ class SegmentedProgressBar: UIView {
         animate()
     }
     
-    private func animate(animationIndex: Int = 0) {
+    private func animate(animationIndex: Int = 1) {
         let nextSegment = segments[animationIndex]
         currentAnimationIndex = animationIndex
+//        if currentAnimationIndex == 0 {
+//            let currentSegment = segments[currentAnimationIndex]
+//            currentSegment.bottomSegmentView.backgroundColor = #colorLiteral(red: 0.2196078449, green: 0.007843137719, blue: 0.8549019694, alpha: 1)
+//            currentSegment.topSegmentView.backgroundColor = #colorLiteral(red: 0.3411764801, green: 0.6235294342, blue: 0.1686274558, alpha: 1)
+//        }
         self.isPaused = false // no idea why we have to do this here, but it fixes everything :D
         
         UIView.animate(withDuration: 0.0, delay: 0.0, options: .curveLinear, animations: {
@@ -125,6 +139,7 @@ class SegmentedProgressBar: UIView {
     
     private func next() {
         let newIndex = self.currentAnimationIndex + 1
+        print("newIndex: \(newIndex)")
         if newIndex < self.segments.count {
             self.delegate?.segmentedProgressBarChangedIndex(index: newIndex)
             self.animate(animationIndex: newIndex)

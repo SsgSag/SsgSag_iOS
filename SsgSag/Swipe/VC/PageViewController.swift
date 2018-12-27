@@ -36,7 +36,6 @@ class PageViewController: UIPageViewController, UIPageViewControllerDelegate, UI
         }
     }
     
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -49,7 +48,6 @@ class PageViewController: UIPageViewController, UIPageViewControllerDelegate, UI
         view.addSubview(orderedViewControllers[0].view)
         view.addSubview(orderedViewControllers[1].view)
         
-
         if let firstViewController = orderedViewControllers.first {
             setViewControllers([firstViewController],
                                direction: .forward,
@@ -59,8 +57,9 @@ class PageViewController: UIPageViewController, UIPageViewControllerDelegate, UI
         
 
         SPB = SegmentedProgressBar(numberOfSegments: 2)
+        //TODO: else frame 수정
         if #available(iOS 11.0, *) {
-            SPB.frame = CGRect(x: 18, y: UIApplication.shared.statusBarFrame.height + 5, width: view.frame.width - 35, height: 3)
+            SPB.frame = CGRect(x: 10, y: UIApplication.shared.statusBarFrame.height + 5, width: view.frame.width - 50, height: 3)
         } else {
             // Fallback on earlier versions
             SPB.frame = CGRect(x: 18, y: 15, width: view.frame.width - 35, height: 3)
@@ -69,15 +68,13 @@ class PageViewController: UIPageViewController, UIPageViewControllerDelegate, UI
         SPB.topColor = UIColor.white
         SPB.bottomColor = UIColor.white.withAlphaComponent(0.25)
         
-        SPB.padding = 2
-        SPB.isPaused = true
+        SPB.padding = 10
+//        SPB.isPaused = true
         SPB.currentAnimationIndex = 0
 
         view.addSubview(SPB)
         view.bringSubviewToFront(SPB)
         
-        
-    
         let tapGestureImage = UITapGestureRecognizer(target: self, action: #selector(tapOn(_:)))
         tapGestureImage.numberOfTapsRequired = 1
         tapGestureImage.numberOfTouchesRequired = 1
@@ -98,17 +95,20 @@ class PageViewController: UIPageViewController, UIPageViewControllerDelegate, UI
             self.view.transform = .identity
         }
     }
+    
     override var prefersStatusBarHidden: Bool {
         return true
     }
+    
     func segmentedProgressBarChangedIndex(index: Int) {
         playVideoOrLoadImage(index: index)
+        print("changedIndex\(index)")
     }
-    //2
+    
     func segmentedProgressBarFinished() {
-        if pageIndex == (2 - 1) {
-            self.dismiss(animated: true, completion: nil)
-        }
+//            self.dismiss(animated: true, completion: nil)
+        print("끝나벌여~")
+//            SPB.rewind()
     }
     
     @objc func tapOn(_ sender: UITapGestureRecognizer) {
