@@ -12,29 +12,15 @@ class PageViewController: UIPageViewController, UIPageViewControllerDelegate, UI
     var pageIndex : Int = 0
     var SPB: SegmentedProgressBar!
     var pageControl = UIPageControl()
-    
     var pageStatus: Int = 1
     
     // MARK: UIPageViewControllerDataSource
     lazy var orderedViewControllers: [UIViewController] = {
-        return [self.newVc(viewController: "sbBlue"),
-                self.newVc(viewController: "sbRed")]
+        return [self.newVC(viewController: "DetailText"),
+                self.newVC(viewController: "DetailImage")]
     }()
     
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
-            self.SPB.startAnimation()
-        }
-    }
-    
-    override func viewDidDisappear(_ animated: Bool) {
-        DispatchQueue.main.async {
-            self.SPB.currentAnimationIndex = 0
-            self.SPB.cancel()
-            self.SPB.isPaused = true
-        }
-    }
+   
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -44,7 +30,6 @@ class PageViewController: UIPageViewController, UIPageViewControllerDelegate, UI
         self.dataSource = self
         self.delegate = self
         
-
         view.addSubview(orderedViewControllers[0].view)
         view.addSubview(orderedViewControllers[1].view)
         
@@ -54,7 +39,6 @@ class PageViewController: UIPageViewController, UIPageViewControllerDelegate, UI
                                animated: false,
                                completion: nil)
         }
-        
 
         SPB = SegmentedProgressBar(numberOfSegments: 2)
         //TODO: else frame 수정
@@ -80,12 +64,10 @@ class PageViewController: UIPageViewController, UIPageViewControllerDelegate, UI
         tapGestureImage.numberOfTouchesRequired = 1
         self.view.addGestureRecognizer(tapGestureImage)
         //imagePreview.addGestureRecognizer(tapGestureImage)
-
-        
-        
        // configurePageControl()
-        
         // Do any additional setup after loading the view.
+        
+        print("pagestatussssssss:\(pageStatus)")
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -93,6 +75,21 @@ class PageViewController: UIPageViewController, UIPageViewControllerDelegate, UI
         
         UIView.animate(withDuration: 0.8) {
             self.view.transform = .identity
+        }
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+            self.SPB.startAnimation()
+        }
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        DispatchQueue.main.async {
+            self.SPB.currentAnimationIndex = 0
+            self.SPB.cancel()
+            self.SPB.isPaused = true
         }
     }
     
@@ -116,18 +113,27 @@ class PageViewController: UIPageViewController, UIPageViewControllerDelegate, UI
         print("탭탭탭탭탭")
         
         view.backgroundColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
-        
-        SPB.skip()
+        print("pagesIndex:\(pageIndex)")
+        if pageIndex == 0 {
+            SPB.skip()
+            pageIndex = pageIndex + 1
+        } else {
+            pageIndex = 0
+            SPB.rewind()
+        }
         
         if pageStatus == 1{
             orderedViewControllers[0].view.isHidden = false
             orderedViewControllers[1].view.isHidden = true
             pageStatus = -1
-        }else {
+            print("pagestatussssssss2:\(pageStatus)")
+        } else {
             orderedViewControllers[0].view.isHidden = true
             orderedViewControllers[1].view.isHidden = false
             pageStatus = 1
+            print("pagestatussssssss2:\(pageStatus)")
         }
+        
         
 //        if pageStatus == 1 {
 //            view.addSubview(orderedViewControllers[1].view)
@@ -162,7 +168,7 @@ class PageViewController: UIPageViewController, UIPageViewControllerDelegate, UI
         self.view.addSubview(pageControl)
     }
     
-    func newVc(viewController: String) -> UIViewController {
+    func newVC(viewController: String) -> UIViewController {
         return UIStoryboard(name: "SwipeStoryBoard", bundle: nil).instantiateViewController(withIdentifier: viewController)
     }
     

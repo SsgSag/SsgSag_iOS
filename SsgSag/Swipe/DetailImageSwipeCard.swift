@@ -16,18 +16,15 @@ class DetailImageSwipeCardVC: UIViewController {
         super.viewDidLoad()
 
         pageNumber = 1
-        // Do any additional setup after loading the view.
+//                let backGroundImageView = UIImageView(frame:bounds)
+                guard let imageURL = URL(string: "https://randomuser.me/api/portraits/men/82.jpg") else {return}
+        //        backGroundImageView.load(url: imageURL)
+//                backGroundImageView.contentMode = .scaleAspectFill
+//                backGroundImageView.clipsToBounds = true;
+//                addSubview(backGroundImageView)
+        
+        //이미지 추가
+        //        backGroundImageView.image = UIImage(named:String(Int(1 + arc4random() % (8 - 1))))
+        //        backGroundImageView.image = UIImage(data: <#T##Data#>)
     }
-    
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }
