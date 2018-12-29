@@ -33,12 +33,12 @@ class PageViewController: UIPageViewController, UIPageViewControllerDelegate, UI
         view.addSubview(orderedViewControllers[0].view)
         view.addSubview(orderedViewControllers[1].view)
         
-        if let firstViewController = orderedViewControllers.first {
-            setViewControllers([firstViewController],
-                               direction: .forward,
-                               animated: false,
-                               completion: nil)
-        }
+//        if let firstViewController = orderedViewControllers.first {
+//            setViewControllers([firstViewController],
+//                               direction: .forward,
+//                               animated: false,
+//                               completion: nil)
+//        }
 
         SPB = SegmentedProgressBar(numberOfSegments: 2)
         //TODO: else frame 수정
@@ -183,6 +183,7 @@ class PageViewController: UIPageViewController, UIPageViewControllerDelegate, UI
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
         return nil
     }
+    
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerAfter viewController: UIViewController) -> UIViewController? {
         return nil
     }
