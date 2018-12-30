@@ -1,28 +1,3 @@
-//
-//  SwipeModel.swift
-//  SsgSag
-//
-//  Created by CHOMINJI on 2018. 12. 28..
-//  Copyright © 2018년 wndzlf. All rights reserved.
-//
-
-//import Foundation
-//
-//struct SwipeModel: Codable {
-//    let eventName: String
-//    let imageName: String
-//    let textName: String
-//
-//    var imageURL: String {
-//        return self.imageName + ".png"
-//    }
-//
-//    var textContent: String {
-//        return self.textName + ".txt"
-//    }
-//}
-
-
 import Foundation
 
 struct UserDetails {

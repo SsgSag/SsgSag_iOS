@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8415586421D8D96900A0EDB5 /* SwipeCardDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8415586321D8D96900A0EDB5 /* SwipeCardDelegate.swift */; };
 		8459289B21D09CDD001DF6CC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8459289A21D09CDD001DF6CC /* AppDelegate.swift */; };
 		8459289D21D09CDD001DF6CC /* SwipeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8459289C21D09CDD001DF6CC /* SwipeVC.swift */; };
 		845928A321D09CDD001DF6CC /* SsgSag.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 845928A121D09CDD001DF6CC /* SsgSag.xcdatamodeld */; };
@@ -48,6 +49,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		8415586321D8D96900A0EDB5 /* SwipeCardDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwipeCardDelegate.swift; sourceTree = "<group>"; };
 		8459289721D09CDD001DF6CC /* SsgSag.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SsgSag.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8459289A21D09CDD001DF6CC /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8459289C21D09CDD001DF6CC /* SwipeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwipeVC.swift; sourceTree = "<group>"; };
@@ -102,6 +104,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		8415586221D8D93500A0EDB5 /* delegate */ = {
+			isa = PBXGroup;
+			children = (
+				8415586321D8D96900A0EDB5 /* SwipeCardDelegate.swift */,
+			);
+			path = delegate;
+			sourceTree = "<group>";
+		};
 		8459288E21D09CDD001DF6CC = {
 			isa = PBXGroup;
 			children = (
@@ -184,6 +194,7 @@
 		FA851DE321D3D807002065D0 /* VC */ = {
 			isa = PBXGroup;
 			children = (
+				8415586221D8D93500A0EDB5 /* delegate */,
 				8459289C21D09CDD001DF6CC /* SwipeVC.swift */,
 				845928E221D35F09001DF6CC /* PageViewController.swift */,
 			);
@@ -354,6 +365,7 @@
 				845928E121D20068001DF6CC /* LoginVC.swift in Sources */,
 				845928A321D09CDD001DF6CC /* SsgSag.xcdatamodeld in Sources */,
 				FA851DE921D3DBBC002065D0 /* SwipeCard.swift in Sources */,
+				8415586421D8D96900A0EDB5 /* SwipeCardDelegate.swift in Sources */,
 				845928DA21D09F30001DF6CC /* CalenderView.swift in Sources */,
 				845928E721D3877D001DF6CC /* DetailTextSwipeCard.swift in Sources */,
 				845928DB21D09F30001DF6CC /* WeekdaysView.swift in Sources */,
@@ -529,7 +541,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 43FKD7C656;
+				DEVELOPMENT_TEAM = 6958JMS7R4;
 				INFOPLIST_FILE = SsgSag/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -548,7 +560,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 43FKD7C656;
+				DEVELOPMENT_TEAM = 6958JMS7R4;
 				INFOPLIST_FILE = SsgSag/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (

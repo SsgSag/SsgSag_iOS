@@ -6,12 +6,6 @@ let SCALE_RANGE : CGFloat = 0.90
 
 import UIKit
 
-protocol SwipeCardDelegate: NSObjectProtocol {
-    func cardGoesLeft(card: SwipeCard)
-    func cardGoesRight(card: SwipeCard)
-    func currentCardStatus(card: SwipeCard, distance: CGFloat)
-}
-
 class SwipeCard: UIView {
     
     var xCenter: CGFloat = 0.0
@@ -26,18 +20,16 @@ class SwipeCard: UIView {
     public init(frame: CGRect, value: String) {
         super.init(frame: frame)
         setupView(at: value)
-        
-        
     }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    
+    //카드 setup
     func setupView(at value:String) {
+        //layer.cornerRadius = 20
         
-        layer.cornerRadius = 20
         layer.shadowRadius = 3
         layer.shadowOpacity = 0.4
         layer.shadowOffset = CGSize(width: 0.5, height: 3)
@@ -49,35 +41,6 @@ class SwipeCard: UIView {
         
         let panGestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(self.beingDragged))
         addGestureRecognizer(panGestureRecognizer)
-        
-//        let backGroundImageView = UIImageView(frame:bounds)
-//        guard let imageURL = URL(string: "https://randomuser.me/api/portraits/men/82.jpg") else {return}
-//        backGroundImageView.load(url: imageURL)
-//        backGroundImageView.contentMode = .scaleAspectFill
-//        backGroundImageView.clipsToBounds = true;
-//        addSubview(backGroundImageView)
-        
-        //이미지 추가
-        //        backGroundImageView.image = UIImage(named:String(Int(1 + arc4random() % (8 - 1))))
-        //        backGroundImageView.image = UIImage(data: <#T##Data#>)
-        
-     
-        /* 이미지 뷰 안의 텍스트, 사진
-         let profileImageView = UIImageView(frame:CGRect(x: 20, y: frame.size.height - 80, width: 60, height: 60))
-         profileImageView.image = UIImage(named:"profileimage1")
-         profileImageView.contentMode = .scaleAspectFill
-         profileImageView.layer.cornerRadius = 25
-         profileImageView.clipsToBounds = true
-         addSubview(profileImageView)
-         
-         let labelText = UILabel(frame:CGRect(x: 90, y: frame.size.height - 80, width: frame.size.width - 100, height: 60))
-         let attributedText = NSMutableAttributedString(string: NAMES[Int(arc4random_uniform(UInt32(NAMES.count)))], attributes: [.foregroundColor: UIColor.white,.font:UIFont.boldSystemFont(ofSize: 25)])
-         attributedText.append(NSAttributedString(string: "\n\(value) mins", attributes: [.foregroundColor: UIColor.white,.font:UIFont.systemFont(ofSize: 18)]))
-         labelText.attributedText = attributedText
-         labelText.numberOfLines = 2
-         addSubview(labelText)
-         */
-        
         imageViewStatus = UIImageView(frame: CGRect(x: (frame.size.width / 2) - 37.5, y: 25, width: 75, height: 75))
         imageViewStatus.alpha = 0
         addSubview(imageViewStatus)
@@ -88,17 +51,15 @@ class SwipeCard: UIView {
     }
     
     @objc func beingDragged(_ gestureRecognizer: UIPanGestureRecognizer) {
-        
         xCenter = gestureRecognizer.translation(in: self).x
         yCenter = gestureRecognizer.translation(in: self).y
         
+        //gesture에 따라
         switch gestureRecognizer.state {
-        // Keep swiping
-        case .began:
+        case .began: //스와이프 시작
             originalPoint = self.center;
             break;
-        //in the middle of a swipe
-        case .changed:
+        case .changed: //스와이프 하는 중간
             let rotationStrength = min(xCenter / UIScreen.main.bounds.size.width, 1)
             let rotationAngel = .pi/8 * rotationStrength
             let scale = max(1 - abs(rotationStrength) / SCALE_STRENGTH, SCALE_RANGE)
@@ -108,12 +69,9 @@ class SwipeCard: UIView {
             self.transform = scaleTransform
             updateOverlay(xCenter)
             break;
-            
-        // swipe ended
-        case .ended:
+        case .ended: //스와이프 끝
             afterSwipeAction()
             break;
-            
         case .possible:break
         case .cancelled:break
         case .failed:break
@@ -121,7 +79,7 @@ class SwipeCard: UIView {
         
     }
     
-    //좋아요 되는동안 바꿀 수 있음
+    //좋아요 되는동안 바뀌는 부분
     func updateOverlay(_ distance: CGFloat) {
         
         imageViewStatus.image = distance > 0 ? #imageLiteral(resourceName: "btn_like_pressed") : #imageLiteral(resourceName: "btn_skip_pressed")
@@ -129,11 +87,10 @@ class SwipeCard: UIView {
         imageViewStatus.alpha = min(abs(distance) / 100, 0.5)
         overLayImage.alpha = min(abs(distance) / 100, 0.5)
         delegate?.currentCardStatus(card: self, distance: distance)
-        
     }
     
+    //스와이프 끝남
     func afterSwipeAction() {
-        
         if xCenter > THERESOLD_MARGIN {
             rightAction()
         }
@@ -150,8 +107,9 @@ class SwipeCard: UIView {
                 self.delegate?.currentCardStatus(card: self, distance:0)
             })
         }
+        
     }
-    
+    //오른쪽 스와이프
     func rightAction() {
         
         let finishPoint = CGPoint(x: frame.size.width*2, y: 2 * yCenter + originalPoint.y)
@@ -164,7 +122,7 @@ class SwipeCard: UIView {
         delegate?.cardGoesRight(card: self)
         print("WATCHOUT RIGHT")
     }
-    
+    //왼쪽 스와이프
     func leftAction() {
         
         let finishPoint = CGPoint(x: -frame.size.width*2, y: 2 * yCenter + originalPoint.y)
@@ -180,7 +138,6 @@ class SwipeCard: UIView {
     
     // right click action
     func rightClickAction() {
-        
         imageViewStatus.image = #imageLiteral(resourceName: "btn_like_pressed")
         overLayImage.image = #imageLiteral(resourceName: "overlay_like")
         let finishPoint = CGPoint(x: center.x + frame.size.width * 2, y: center.y)
@@ -195,14 +152,13 @@ class SwipeCard: UIView {
         }, completion: {(_ complete: Bool) -> Void in
             self.removeFromSuperview()
         })
-        
         isLiked = true
         delegate?.cardGoesRight(card: self)
         print("WATCHOUT RIGHT ACTION")
     }
+    
     // left click action
     func leftClickAction() {
-        
         imageViewStatus.image = #imageLiteral(resourceName: "btn_skip_pressed")
         overLayImage.image = #imageLiteral(resourceName: "overlay_skip")
         let finishPoint = CGPoint(x: center.x - frame.size.width * 2, y: center.y)
@@ -221,11 +177,11 @@ class SwipeCard: UIView {
         print("WATCHOUT LEFT ACTION")
     }
     
-    // undoing  action
+    //뒤로가기 액션
     func makeUndoAction() {
-        
         imageViewStatus.image = isLiked ? #imageLiteral(resourceName: "btn_like_pressed") : #imageLiteral(resourceName: "btn_skip_pressed")
         overLayImage.image = isLiked ? #imageLiteral(resourceName: "overlay_like") : #imageLiteral(resourceName: "overlay_skip")
+        
         imageViewStatus.alpha = 1.0
         overLayImage.alpha = 1.0
         UIView.animate(withDuration: 0.4, animations: {() -> Void in
@@ -284,16 +240,4 @@ class SwipeCard: UIView {
     }
 }
 
-extension UIImageView {
-    func getData(from url: URL, completion: @escaping (Data?, URLResponse?, Error?) -> ()) {
-        URLSession.shared.dataTask(with: url, completionHandler: completion).resume()
-    }
-    func load(url: URL) {
-        getData(from: url) { [weak self] data, response, error in
-            guard let data = data, error == nil else { return }
-            DispatchQueue.main.async() {
-                self?.image = UIImage(data: data)
-            }
-        }
-    }
-}
+

@@ -17,18 +17,21 @@ protocol SegmentedProgressBarDelegate: class {
 class SegmentedProgressBar: UIView {
     
     weak var delegate: SegmentedProgressBarDelegate?
+    
     var topColor = UIColor.gray {
         didSet {
             //topColor 변경된 직후에 호출
             self.updateColors()
         }
     }
+    
     var bottomColor = UIColor.gray.withAlphaComponent(0.25) {
         didSet {
             self.updateColors()
         }
     }
-    var padding: CGFloat = 2.0
+    
+    var padding: CGFloat = 0.0
     var isPaused: Bool = false {
         didSet {
             for segment in segments {
@@ -98,8 +101,8 @@ class SegmentedProgressBar: UIView {
             //TODO: 색깔 바꾸기
             if currentAnimationIndex == 0 {
                 let currentSegment = segments[currentAnimationIndex]
-                currentSegment.bottomSegmentView.backgroundColor = #colorLiteral(red: 0.9386122227, green: 0.9386122227, blue: 0.9386122227, alpha: 1)
-                currentSegment.topSegmentView.backgroundColor = #colorLiteral(red: 0.9386122227, green: 0.9386122227, blue: 0.9386122227, alpha: 1)
+                currentSegment.bottomSegmentView.backgroundColor = #colorLiteral(red: 0.1764705926, green: 0.4980392158, blue: 0.7568627596, alpha: 1)
+                currentSegment.topSegmentView.backgroundColor = #colorLiteral(red: 0.1411764771, green: 0.3960784376, blue: 0.5647059083, alpha: 1)
             }
         }
         hasDoneLayout = true

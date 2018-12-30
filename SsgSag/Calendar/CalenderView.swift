@@ -142,13 +142,33 @@ class CalenderView: UIView, UICollectionViewDelegate, UICollectionViewDataSource
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
 //        print("numberofItemsInSection \(numOfDaysInMonth[currentMonthIndex-1] + firstWeekDayOfMonth - 1)")
 //        print("section \(section)")
-        return numOfDaysInMonth[currentMonthIndex-1] + firstWeekDayOfMonth - 1
+        
+        var reValue = 0
+        if numOfDaysInMonth[currentMonthIndex-1] + firstWeekDayOfMonth - 1 > 35 {
+            reValue = 42
+        }else {
+            reValue = 35
+        }
+        
+        
+        return reValue
+        //여기에 다음달의 개수도 더해야 한다.
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell=collectionView.dequeueReusableCell(withReuseIdentifier: "Cell", for: indexPath) as! dateCVCell
         
+       // print(numOfDaysInMonth[currentMonthIndex-1] + firstWeekDayOfMonth - 1)
+        
+        let currentMonthDayCount = numOfDaysInMonth[currentMonthIndex-1] + firstWeekDayOfMonth - 1
+        
+        if currentMonthDayCount % 35 > 0 && currentMonthDayCount % 35 < 10 {
+            print("이번달은 줄이 6개")
+        }
+        //print("이번달은 줄이 5개")
         //firswtWeekDayOfMonth 1,2,3,4,5,6,7
+        
+        
         if indexPath.item <= firstWeekDayOfMonth - 2 { //오늘 날짜가 -1 이하일때 (예외처리)
             var beforeMonthIndex = 0
             //이번달의 전 달이 어떤날에 해당하는지 확인!!
@@ -173,10 +193,12 @@ class CalenderView: UIView, UICollectionViewDelegate, UICollectionViewDataSource
                 }
             }
             cell.isHidden=false
-            cell.line.backgroundColor = UIColor.clear
+            //cell.line.backgroundColor = UIColor.clear
             cell.lbl.textColor = .lightGray
+            cell.line.backgroundColor = .brown
             cell.lbl.text = "\(beforeMonthCount-firstWeekDayOfMonth+indexPath.row+2)"
         } else { //정상 날짜
+            print(numOfDaysInMonth[currentMonthIndex-1] + firstWeekDayOfMonth - 1)
             let calcDate = indexPath.row-firstWeekDayOfMonth+2 //1~31일까지
             cell.isHidden=false
             cell.lbl.text="\(calcDate)"
@@ -191,12 +213,12 @@ class CalenderView: UIView, UICollectionViewDelegate, UICollectionViewDataSource
                 cell.lbl.backgroundColor = .clear
             }
             if calcDate == todaysDate && currentYear == presentYear && currentMonthIndex == presentMonthIndex { //오늘 날짜
-                cell.backgroundColor = UIColor.brown
+                //cell.backgroundColor = UIColor.brown
                 let lbl = cell.subviews[1] as! UILabel
                 //label.backgroundColor = UIColor.red
                 lbl.layer.cornerRadius = 10
                 lbl.layer.masksToBounds = true
-               // lbl.backgroundColor = .brown
+               //lbl.backgroundColor = .brown
                 lbl.textColor = UIColor.white
             }
             if indexPath.row % 7 == 0 {
@@ -221,10 +243,8 @@ class CalenderView: UIView, UICollectionViewDelegate, UICollectionViewDataSource
             lbl.backgroundColor = Colors.darkRed
 //            print("선택된 날짜 : \(lbl.text)")
             lbl.textColor=UIColor.white
-            
         }
     }
-    
     //새로운 셀 선택시 이전셀 복구
     func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
         let indexPath2 = IndexPath(row: todaysDate, section: 0)
@@ -383,7 +403,7 @@ class dateCVCell: UICollectionViewCell {
         line.topAnchor.constraint(equalTo: lbl.bottomAnchor).isActive = true
         line.leftAnchor.constraint(equalTo: leftAnchor).isActive = true
         line.rightAnchor.constraint(equalTo: rightAnchor).isActive = true
-         line.heightAnchor.constraint(equalToConstant: 4).isActive = true
+        line.heightAnchor.constraint(equalToConstant: 4).isActive = true
 //        lineheightAncor = line.heightAnchor.constraint(equalToConstant: 4)
 //        lineheightAncor?.isActive = true
         //line.heightAnchor.constraint(equalToConstant: 4).isActive = true
