@@ -27,8 +27,6 @@ class SwipeVC: UIViewController {
         
         let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(imageTapped(tapGestureRecognizer:)))
         viewTinderBackGround.addGestureRecognizer(tapGestureRecognizer)
-        
-        
     }
     
     @IBAction func moveToCalendar(_ sender: Any) {
@@ -83,9 +81,6 @@ class SwipeVC: UIViewController {
             }
             
             for (i,_) in currentLoadedCardsArray.enumerated() {
-                
-                print(i)
-                
                 if i > 0 {
                     viewTinderBackGround.insertSubview(currentLoadedCardsArray[i], belowSubview: currentLoadedCardsArray[i - 1])
                     
@@ -93,6 +88,7 @@ class SwipeVC: UIViewController {
                     let pageVC = storyboard.instantiateViewController(withIdentifier: "PageViewController")
 
                     pageVC.view.frame = self.currentLoadedCardsArray[i].frame
+
 //                    self.addChild(pageVC)
                     self.currentLoadedCardsArray[i].addSubview(pageVC.view)
                     self.currentLoadedCardsArray[i-1].addSubview(pageVC.view)
@@ -111,6 +107,7 @@ class SwipeVC: UIViewController {
                     let pageVC = storyboard.instantiateViewController(withIdentifier: "PageViewController")
                     
                     pageVC.view.frame = self.currentLoadedCardsArray[i].frame
+
 //                    self.addChild(pageVC)
                     self.currentLoadedCardsArray[i].addSubview(pageVC.view)
                     
@@ -162,7 +159,6 @@ class SwipeVC: UIViewController {
             currentLoadedCardsArray.append(card)
             viewTinderBackGround.insertSubview(currentLoadedCardsArray[MAX_BUFFER_SIZE - 1], belowSubview: currentLoadedCardsArray[MAX_BUFFER_SIZE - 2])
         }
-        print(currentIndex)
         animateCardAfterSwiping()
     }
     

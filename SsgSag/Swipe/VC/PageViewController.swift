@@ -25,7 +25,7 @@ class PageViewController: UIPageViewController, UIPageViewControllerDelegate, UI
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        print("언제 호출 되냐")
+        print("PageViewControllerViewDidLoad")
         
         self.dataSource = self
         self.delegate = self

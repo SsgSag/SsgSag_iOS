@@ -197,8 +197,8 @@
 				FA851DE821D3DBBC002065D0 /* SwipeCard.swift */,
 				845928E421D38771001DF6CC /* DetailImageSwipeCard.swift */,
 				845928E621D3877D001DF6CC /* DetailTextSwipeCard.swift */,
-				845928CB21D09D09001DF6CC /* SwipeStoryBoard.storyboard */,
 				FA25A58121D36EC500C9FC93 /* SegmentedProgressBar.swift */,
+				845928CB21D09D09001DF6CC /* SwipeStoryBoard.storyboard */,
 				FA851DEC21D5FDB0002065D0 /* SwipeModel.swift */,
 				FA851DF021D60787002065D0 /* user-details.json */,
 			);
