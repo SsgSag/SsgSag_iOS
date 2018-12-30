@@ -27,27 +27,19 @@
                             <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wBt-rA-k6D" userLabel="BottomNav">
                                 <rect key="frame" x="0.0" y="567" width="375" height="100"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="owb-dH-Fs8">
-                                        <rect key="frame" x="280" y="12.5" width="75" height="75"/>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="owb-dH-Fs8" userLabel="likeButton">
+                                        <rect key="frame" x="230" y="12.5" width="75" height="75"/>
                                         <state key="normal" image="btO"/>
                                         <state key="highlighted" image="yesButtonSelected"/>
                                         <connections>
                                             <action selector="LikeButtonAction:" destination="x1e-70-Zh0" eventType="touchUpInside" id="kWC-MG-Mmg"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="i9P-mo-XAh">
-                                        <rect key="frame" x="150" y="12.5" width="75" height="75"/>
-                                        <state key="normal" image="undoButton"/>
-                                        <state key="highlighted" image="undoSelected"/>
-                                        <connections>
-                                            <action selector="undoButtonAction:" destination="x1e-70-Zh0" eventType="touchUpInside" id="qha-4i-Vvl"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="c7o-gI-BTJ">
-                                        <rect key="frame" x="20" y="12.5" width="75" height="75"/>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="c7o-gI-BTJ" userLabel="disLikeButton">
+                                        <rect key="frame" x="70" y="12.5" width="75" height="75"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" constant="75" id="7cq-QH-CH2"/>
-                                            <constraint firstAttribute="height" constant="75" id="Cnb-Ks-hko"/>
+                                            <constraint firstAttribute="width" constant="75" id="7cq-QH-CH2" userLabel="width = 64"/>
+                                            <constraint firstAttribute="height" constant="75" id="Cnb-Ks-hko" userLabel="height = 64"/>
                                         </constraints>
                                         <state key="normal" image="btX"/>
                                         <state key="selected" image="noButton_Selected"/>
@@ -56,20 +48,24 @@
                                             <action selector="disLikeButtonAction:" destination="x1e-70-Zh0" eventType="touchUpInside" id="vce-sm-d1F"/>
                                         </connections>
                                     </button>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="1" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bGY-hH-jJl">
+                                        <rect key="frame" x="164" y="28" width="50" height="52"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
-                                    <constraint firstItem="i9P-mo-XAh" firstAttribute="top" secondItem="c7o-gI-BTJ" secondAttribute="top" id="2JR-Fd-GfA"/>
-                                    <constraint firstItem="owb-dH-Fs8" firstAttribute="height" secondItem="i9P-mo-XAh" secondAttribute="height" id="4dy-sT-rPR"/>
-                                    <constraint firstItem="owb-dH-Fs8" firstAttribute="width" secondItem="i9P-mo-XAh" secondAttribute="width" id="5Ed-cx-PJi"/>
-                                    <constraint firstItem="c7o-gI-BTJ" firstAttribute="leading" secondItem="wBt-rA-k6D" secondAttribute="leading" constant="20" id="IiI-uE-Tj9"/>
-                                    <constraint firstItem="i9P-mo-XAh" firstAttribute="height" secondItem="c7o-gI-BTJ" secondAttribute="height" id="LHe-fo-gWM"/>
+                                    <constraint firstItem="owb-dH-Fs8" firstAttribute="centerY" secondItem="wBt-rA-k6D" secondAttribute="centerY" id="Dsx-Zd-xL3"/>
                                     <constraint firstAttribute="height" constant="100" id="LSm-bv-qqS"/>
+                                    <constraint firstItem="owb-dH-Fs8" firstAttribute="width" secondItem="c7o-gI-BTJ" secondAttribute="width" id="OLw-CR-VMB"/>
                                     <constraint firstItem="c7o-gI-BTJ" firstAttribute="centerY" secondItem="wBt-rA-k6D" secondAttribute="centerY" id="UU6-KI-6Fs"/>
-                                    <constraint firstItem="owb-dH-Fs8" firstAttribute="top" secondItem="i9P-mo-XAh" secondAttribute="top" id="Vye-TO-q2o"/>
-                                    <constraint firstItem="i9P-mo-XAh" firstAttribute="width" secondItem="c7o-gI-BTJ" secondAttribute="width" id="d9w-sb-kSL"/>
-                                    <constraint firstItem="i9P-mo-XAh" firstAttribute="centerX" secondItem="wBt-rA-k6D" secondAttribute="centerX" id="nWG-SI-a21"/>
-                                    <constraint firstAttribute="trailing" secondItem="owb-dH-Fs8" secondAttribute="trailing" constant="20" id="s5j-2j-Py3"/>
+                                    <constraint firstItem="owb-dH-Fs8" firstAttribute="height" secondItem="c7o-gI-BTJ" secondAttribute="height" id="WOa-Nc-ziA"/>
+                                    <constraint firstItem="c7o-gI-BTJ" firstAttribute="centerX" secondItem="wBt-rA-k6D" secondAttribute="centerX" constant="-80" id="kTm-aE-JeK"/>
+                                    <constraint firstItem="owb-dH-Fs8" firstAttribute="centerX" secondItem="wBt-rA-k6D" secondAttribute="centerX" constant="80" id="nqA-QC-PFp"/>
                                 </constraints>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GdD-Xl-O89">
@@ -124,14 +120,14 @@
                         </userDefinedRuntimeAttributes>
                     </view>
                     <connections>
-                        <outlet property="buttonUndo" destination="i9P-mo-XAh" id="QZK-EO-Wzc"/>
+                        <outlet property="countLabel" destination="bGY-hH-jJl" id="wOn-Hg-tqY"/>
                         <outlet property="viewActions" destination="wBt-rA-k6D" id="Gu7-ac-xew"/>
                         <outlet property="viewTinderBackGround" destination="Qa3-PX-6kd" id="M8S-Hz-54v"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="JOe-gp-Owl" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="346" y="108"/>
+            <point key="canvasLocation" x="344.80000000000001" y="107.49625187406298"/>
         </scene>
         <!--Page View Controller-->
         <scene sceneID="9ih-8V-PWC">
@@ -207,8 +203,6 @@
         <image name="btX" width="66" height="66"/>
         <image name="noButton_Selected" width="75" height="75"/>
         <image name="textEx" width="312" height="388"/>
-        <image name="undoButton" width="75" height="75"/>
-        <image name="undoSelected" width="75" height="75"/>
         <image name="yesButtonSelected" width="75" height="75"/>
     </resources>
 </document>

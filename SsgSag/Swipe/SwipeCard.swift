@@ -86,11 +86,11 @@ class SwipeCard: UIView {
         overLayImage.image = distance > 0 ? #imageLiteral(resourceName: "overlay_like") : #imageLiteral(resourceName: "overlay_skip")
         imageViewStatus.alpha = min(abs(distance) / 100, 0.5)
         overLayImage.alpha = min(abs(distance) / 100, 0.5)
-        delegate?.currentCardStatus(card: self, distance: distance)
     }
     
     //스와이프 끝남
     func afterSwipeAction() {
+        //일정 부분 이상 지나면 rightAction
         if xCenter > THERESOLD_MARGIN {
             rightAction()
         }
@@ -104,14 +104,12 @@ class SwipeCard: UIView {
                 self.transform = CGAffineTransform(rotationAngle: 0)
                 self.imageViewStatus.alpha = 0
                 self.overLayImage.alpha = 0
-                self.delegate?.currentCardStatus(card: self, distance:0)
             })
         }
         
     }
     //오른쪽 스와이프
     func rightAction() {
-        
         let finishPoint = CGPoint(x: frame.size.width*2, y: 2 * yCenter + originalPoint.y)
         UIView.animate(withDuration: 0.5, animations: {
             self.center = finishPoint
@@ -124,7 +122,6 @@ class SwipeCard: UIView {
     }
     //왼쪽 스와이프
     func leftAction() {
-        
         let finishPoint = CGPoint(x: -frame.size.width*2, y: 2 * yCenter + originalPoint.y)
         UIView.animate(withDuration: 0.5, animations: {
             self.center = finishPoint
@@ -164,6 +161,7 @@ class SwipeCard: UIView {
         let finishPoint = CGPoint(x: center.x - frame.size.width * 2, y: center.y)
         imageViewStatus.alpha = 0.5
         overLayImage.alpha = 0.5
+        
         UIView.animate(withDuration: 0.3, animations: {() -> Void in
             self.center = finishPoint
             self.transform = CGAffineTransform(rotationAngle: -1)
@@ -172,6 +170,7 @@ class SwipeCard: UIView {
         }, completion: {(_ complete: Bool) -> Void in
             self.removeFromSuperview()
         })
+        
         isLiked = false
         delegate?.cardGoesLeft(card: self)
         print("WATCHOUT LEFT ACTION")
@@ -194,15 +193,7 @@ class SwipeCard: UIView {
         print("WATCHOUT UNDO ACTION")
     }
     
-    func rollBackCard(){
-        
-        UIView.animate(withDuration: 0.5) {
-            self.removeFromSuperview()
-        }
-    }
-    
     func shakeAnimationCard(){
-        
         imageViewStatus.image = #imageLiteral(resourceName: "btn_skip_pressed")
         overLayImage.image = #imageLiteral(resourceName: "overlay_skip")
         

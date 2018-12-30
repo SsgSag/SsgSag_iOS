@@ -194,7 +194,6 @@
 		FA851DE321D3D807002065D0 /* VC */ = {
 			isa = PBXGroup;
 			children = (
-				8415586221D8D93500A0EDB5 /* delegate */,
 				8459289C21D09CDD001DF6CC /* SwipeVC.swift */,
 				845928E221D35F09001DF6CC /* PageViewController.swift */,
 			);
@@ -204,6 +203,7 @@
 		FAAFB58721D3B5E5006BF728 /* Swipe */ = {
 			isa = PBXGroup;
 			children = (
+				8415586221D8D93500A0EDB5 /* delegate */,
 				FA851DE321D3D807002065D0 /* VC */,
 				FA851DE821D3DBBC002065D0 /* SwipeCard.swift */,
 				845928E421D38771001DF6CC /* DetailImageSwipeCard.swift */,

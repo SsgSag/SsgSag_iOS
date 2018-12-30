@@ -45,11 +45,6 @@ struct Style {
 }
 
 class CalenderView: UIView, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, MonthViewDelegate {
-    
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        let offsetY = scrollView.contentOffset.y
-//        print(offsetY)
-    }
 
     var numOfDaysInMonth = [31,28,31,30,31,30,31,31,30,31,30,31]//12달
     var currentMonthIndex: Int = 0
