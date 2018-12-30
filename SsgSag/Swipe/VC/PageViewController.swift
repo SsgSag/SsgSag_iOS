@@ -12,14 +12,71 @@ class PageViewController: UIPageViewController, UIPageViewControllerDelegate, UI
     var pageIndex : Int = 0
     var SPB: SegmentedProgressBar!
     var pageControl = UIPageControl()
-    
     var pageStatus: Int = 1
     
     // MARK: UIPageViewControllerDataSource
     lazy var orderedViewControllers: [UIViewController] = {
-        return [self.newVc(viewController: "sbBlue"),
-                self.newVc(viewController: "sbRed")]
+        return [self.newVC(viewController: "DetailText"),
+                self.newVC(viewController: "DetailImage")]
     }()
+    
+   
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        print("PageViewControllerViewDidLoad")
+        
+        self.dataSource = self
+        self.delegate = self
+        
+        view.addSubview(orderedViewControllers[0].view)
+        view.addSubview(orderedViewControllers[1].view)
+        
+//        if let firstViewController = orderedViewControllers.first {
+//            setViewControllers([firstViewController],
+//                               direction: .forward,
+//                               animated: false,
+//                               completion: nil)
+//        }
+
+        SPB = SegmentedProgressBar(numberOfSegments: 2)
+        //TODO: else frame 수정
+        if #available(iOS 11.0, *) {
+            SPB.frame = CGRect(x: 10, y: UIApplication.shared.statusBarFrame.height + 5, width: view.frame.width - 50, height: 3)
+        } else {
+            // Fallback on earlier versions
+            SPB.frame = CGRect(x: 18, y: 15, width: view.frame.width - 35, height: 3)
+        }
+        SPB.delegate = self
+        SPB.topColor = UIColor.white
+        SPB.bottomColor = UIColor.white.withAlphaComponent(0.25)
+        
+        SPB.padding = 10
+//        SPB.isPaused = true
+        SPB.currentAnimationIndex = 0
+
+        view.addSubview(SPB)
+        view.bringSubviewToFront(SPB)
+        
+        let tapGestureImage = UITapGestureRecognizer(target: self, action: #selector(tapOn(_:)))
+        tapGestureImage.numberOfTapsRequired = 1
+        tapGestureImage.numberOfTouchesRequired = 1
+        self.view.addGestureRecognizer(tapGestureImage)
+        //imagePreview.addGestureRecognizer(tapGestureImage)
+       // configurePageControl()
+        // Do any additional setup after loading the view.
+        
+        print("pagestatussssssss:\(pageStatus)")
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        UIView.animate(withDuration: 0.8) {
+            self.view.transform = .identity
+        }
+    }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
@@ -36,79 +93,19 @@ class PageViewController: UIPageViewController, UIPageViewControllerDelegate, UI
         }
     }
     
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        print("PageViewControllerViewDidLoad")
-        
-        self.dataSource = self
-        self.delegate = self
-        
-
-        view.addSubview(orderedViewControllers[0].view)
-        view.addSubview(orderedViewControllers[1].view)
-        
-
-        if let firstViewController = orderedViewControllers.first {
-            setViewControllers([firstViewController],
-                               direction: .forward,
-                               animated: false,
-                               completion: nil)
-        }
-        
-
-        SPB = SegmentedProgressBar(numberOfSegments: 2)
-        if #available(iOS 11.0, *) {
-            SPB.frame = CGRect(x: 18, y: UIApplication.shared.statusBarFrame.height + 5, width: view.frame.width - 35, height: 3)
-        } else {
-            // Fallback on earlier versions
-            SPB.frame = CGRect(x: 18, y: 15, width: view.frame.width - 35, height: 3)
-        }
-        SPB.delegate = self
-        SPB.topColor = UIColor.white
-        SPB.bottomColor = UIColor.white.withAlphaComponent(0.25)
-        
-        SPB.padding = 2
-        SPB.isPaused = true
-        SPB.currentAnimationIndex = 0
-
-        view.addSubview(SPB)
-        view.bringSubviewToFront(SPB)
-        
-        
-    
-        let tapGestureImage = UITapGestureRecognizer(target: self, action: #selector(tapOn(_:)))
-        tapGestureImage.numberOfTapsRequired = 1
-        tapGestureImage.numberOfTouchesRequired = 1
-        self.view.addGestureRecognizer(tapGestureImage)
-        //imagePreview.addGestureRecognizer(tapGestureImage)
-
-        
-        
-       // configurePageControl()
-        
-        // Do any additional setup after loading the view.
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        
-        UIView.animate(withDuration: 0.8) {
-            self.view.transform = .identity
-        }
-    }
     override var prefersStatusBarHidden: Bool {
         return true
     }
+    
     func segmentedProgressBarChangedIndex(index: Int) {
         playVideoOrLoadImage(index: index)
+        print("changedIndex\(index)")
     }
-    //2
+    
     func segmentedProgressBarFinished() {
-        if pageIndex == (2 - 1) {
-            self.dismiss(animated: true, completion: nil)
-        }
+//            self.dismiss(animated: true, completion: nil)
+        print("끝나벌여~")
+//            SPB.rewind()
     }
     
     @objc func tapOn(_ sender: UITapGestureRecognizer) {
@@ -116,18 +113,27 @@ class PageViewController: UIPageViewController, UIPageViewControllerDelegate, UI
         print("탭탭탭탭탭")
         
         view.backgroundColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
-        
-        SPB.skip()
+        print("pagesIndex:\(pageIndex)")
+        if pageIndex == 0 {
+            SPB.skip()
+            pageIndex = pageIndex + 1
+        } else {
+            pageIndex = 0
+            SPB.rewind()
+        }
         
         if pageStatus == 1{
             orderedViewControllers[0].view.isHidden = false
             orderedViewControllers[1].view.isHidden = true
             pageStatus = -1
-        }else {
+            print("pagestatussssssss2:\(pageStatus)")
+        } else {
             orderedViewControllers[0].view.isHidden = true
             orderedViewControllers[1].view.isHidden = false
             pageStatus = 1
+            print("pagestatussssssss2:\(pageStatus)")
         }
+        
         
 //        if pageStatus == 1 {
 //            view.addSubview(orderedViewControllers[1].view)
@@ -162,7 +168,7 @@ class PageViewController: UIPageViewController, UIPageViewControllerDelegate, UI
         self.view.addSubview(pageControl)
     }
     
-    func newVc(viewController: String) -> UIViewController {
+    func newVC(viewController: String) -> UIViewController {
         return UIStoryboard(name: "SwipeStoryBoard", bundle: nil).instantiateViewController(withIdentifier: viewController)
     }
     
@@ -177,6 +183,7 @@ class PageViewController: UIPageViewController, UIPageViewControllerDelegate, UI
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
         return nil
     }
+    
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerAfter viewController: UIViewController) -> UIViewController? {
         return nil
     }

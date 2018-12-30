@@ -2,7 +2,6 @@
 let  MAX_BUFFER_SIZE = 3;
 let  SEPERATOR_DISTANCE = 8;
 let  TOPYAXIS = 75;
-//조민지
 
 import UIKit
 
@@ -74,7 +73,7 @@ class SwipeVC: UIViewController {
             let capCount = (valueArray.count > MAX_BUFFER_SIZE) ? MAX_BUFFER_SIZE : valueArray.count
             
             for (i,value) in valueArray.enumerated() {
-                let newCard = createTinderCard(at: i,value: value)
+                let newCard = createSwipeCard(at: i,value: value)
                 allCardsArray.append(newCard)
                 if i < capCount {
                     currentLoadedCardsArray.append(newCard)
@@ -89,7 +88,8 @@ class SwipeVC: UIViewController {
                     let pageVC = storyboard.instantiateViewController(withIdentifier: "PageViewController")
 
                     pageVC.view.frame = self.currentLoadedCardsArray[i].frame
-                    //self.addChild(pageVC)
+
+//                    self.addChild(pageVC)
                     self.currentLoadedCardsArray[i].addSubview(pageVC.view)
                     self.currentLoadedCardsArray[i-1].addSubview(pageVC.view)
                     pageVC.didMove(toParent: self)
@@ -107,7 +107,8 @@ class SwipeVC: UIViewController {
                     let pageVC = storyboard.instantiateViewController(withIdentifier: "PageViewController")
                     
                     pageVC.view.frame = self.currentLoadedCardsArray[i].frame
-                    //self.addChild(pageVC)
+
+//                    self.addChild(pageVC)
                     self.currentLoadedCardsArray[i].addSubview(pageVC.view)
                     
                     pageVC.didMove(toParent: self)
@@ -132,9 +133,9 @@ class SwipeVC: UIViewController {
         //Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: #selector(self.animateEmojiView), userInfo: emojiView, repeats: true)
     }
     
-    func createTinderCard(at index: Int , value :String) -> SwipeCard {
+    func createSwipeCard(at index: Int , value :String) -> SwipeCard {
         
-        let card = SwipeCard(frame: CGRect(x: 0, y: 0, width: viewTinderBackGround.frame.size.width , height: viewTinderBackGround.frame.size.height - 50) ,value : value)
+        let card = SwipeCard(frame: CGRect(x: 0, y: 0, width: viewTinderBackGround.frame.size.width , height: viewTinderBackGround.frame.size.height - 10) ,value : value)
         card.delegate = self
         return card
         
@@ -157,7 +158,6 @@ class SwipeVC: UIViewController {
             card.frame = frame
             currentLoadedCardsArray.append(card)
             viewTinderBackGround.insertSubview(currentLoadedCardsArray[MAX_BUFFER_SIZE - 1], belowSubview: currentLoadedCardsArray[MAX_BUFFER_SIZE - 2])
-            
         }
         animateCardAfterSwiping()
     }
@@ -231,7 +231,7 @@ class SwipeVC: UIViewController {
     }
 }
 
-extension SwipeVC : SwipeCardDelegate{
+extension SwipeVC : SwipeCardDelegate {
     // action called when the card goes to the left.
     func cardGoesLeft(card: SwipeCard) {
         removeObjectAndAddNewValues()
@@ -240,10 +240,11 @@ extension SwipeVC : SwipeCardDelegate{
     func cardGoesRight(card: SwipeCard) {
         removeObjectAndAddNewValues()
     }
+    
     func currentCardStatus(card: SwipeCard, distance: CGFloat) {
         if distance == 0 {
             // emojiView.rateValue =  2.5
-        }else{
+        } else {
             let value = Float(min(abs(distance/100), 1.0) * 5)
             let sorted = distance > 0  ? 2.5 + (value * 5) / 10  : 2.5 - (value * 5) / 10
             //emojiView.rateValue =  sorted
