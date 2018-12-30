@@ -179,10 +179,14 @@
         <scene sceneID="Gv6-l5-7Qr">
             <objects>
                 <viewController storyboardIdentifier="sbBlue" useStoryboardIdentifierAsRestorationIdentifier="YES" id="lJ9-e9-vHH" customClass="DetailTextSwipeCard" customModule="SsgSag" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="kbL-CW-N8R">
+                    <view key="view" userInteractionEnabled="NO" contentMode="scaleToFill" id="kbL-CW-N8R">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vhT-I1-yN2">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="가나다라마바사아자차카타파하" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="q0t-2F-FXg">
                                 <rect key="frame" x="84" y="323" width="206" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -192,6 +196,12 @@
                             </label>
                         </subviews>
                         <color key="backgroundColor" red="0.82323980331420898" green="0.0057015926577150822" blue="0.99428313970565796" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="vhT-I1-yN2" firstAttribute="leading" secondItem="xgJ-j4-Ucb" secondAttribute="leading" id="84I-W9-MEM"/>
+                            <constraint firstItem="vhT-I1-yN2" firstAttribute="trailing" secondItem="xgJ-j4-Ucb" secondAttribute="trailing" id="iTZ-cq-SAz"/>
+                            <constraint firstItem="vhT-I1-yN2" firstAttribute="bottom" secondItem="xgJ-j4-Ucb" secondAttribute="bottom" id="vf5-QI-fFi"/>
+                            <constraint firstItem="vhT-I1-yN2" firstAttribute="top" secondItem="kbL-CW-N8R" secondAttribute="top" id="zhG-Te-0aM"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="xgJ-j4-Ucb"/>
                     </view>
                 </viewController>
@@ -201,12 +211,12 @@
         </scene>
     </scenes>
     <resources>
-        <image name="1" width="814" height="1092"/>
-        <image name="noButton" width="100" height="100"/>
-        <image name="noButton_Selected" width="100" height="100"/>
-        <image name="undoButton" width="50" height="50"/>
-        <image name="undoSelected" width="50" height="50"/>
-        <image name="yesButton" width="100" height="100"/>
-        <image name="yesButtonSelected" width="100" height="100"/>
+        <image name="1" width="407" height="546"/>
+        <image name="noButton" width="75" height="75"/>
+        <image name="noButton_Selected" width="75" height="75"/>
+        <image name="undoButton" width="75" height="75"/>
+        <image name="undoSelected" width="75" height="75"/>
+        <image name="yesButton" width="75" height="75"/>
+        <image name="yesButtonSelected" width="75" height="75"/>
     </resources>
 </document>

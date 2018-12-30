@@ -15,10 +15,17 @@ class DetailTextSwipeCard: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        pageNumber = -1
+        //pageNumber = -1
         // Do any additional setup after loading the view.
+        
+        let panGesture = UIPanGestureRecognizer(target: self, action: #selector(actionPan))
+        self.view.addGestureRecognizer(panGesture)
+        
     }
     
+    @objc func actionPan() {
+        print("actionPan")
+    }
 
     /*
     // MARK: - Navigation
