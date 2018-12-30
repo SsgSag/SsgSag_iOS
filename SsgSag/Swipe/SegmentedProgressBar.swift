@@ -164,6 +164,7 @@ class SegmentedProgressBar: UIView {
         prevSegment.topSegmentView.frame.size.width = 0
         self.delegate?.segmentedProgressBarChangedIndex(index: newIndex)
         self.animate(animationIndex: newIndex)
+        startAnimation()
     }
     
     func cancel() {
