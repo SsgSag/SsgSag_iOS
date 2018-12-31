@@ -28,7 +28,7 @@ class CalenderVC: UIViewController{
     
     let calenderView: CalenderView = {
         let v = CalenderView(theme: MyTheme.light)
-        v.translatesAutoresizingMaskIntoConstraints=false
+        v.translatesAutoresizingMaskIntoConstraints = false
         return v
     }()
     
@@ -68,13 +68,13 @@ class CalenderVC: UIViewController{
         
         //전체 테마 색
         Style.themeLight()
-        self.view.backgroundColor=Style.bgColor
+        self.view.backgroundColor = Style.bgColor
         calenderView.changeTheme()
         calenderView.backgroundColor = .clear
         
         view.addSubview(calenderView)
-        calenderView.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -12).isActive=true
-        calenderView.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 12).isActive=true
+        calenderView.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -12).isActive = true
+        calenderView.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 12).isActive = true
         //calenderView.systemLayoutSizeFitting(<#T##targetSize: CGSize##CGSize#>)
         
         calendarTopAncor = calenderView.topAnchor.constraint(equalTo: view.topAnchor, constant: 20)
@@ -92,7 +92,7 @@ class CalenderVC: UIViewController{
         todoUpDownView.heightAnchor.constraint(equalToConstant: 35).isActive = true
         
         view.addSubview(todoTableView)
-        todoTableView.topAnchor.constraint(equalTo: todoUpDownView.bottomAnchor).isActive=true
+        todoTableView.topAnchor.constraint(equalTo: todoUpDownView.bottomAnchor).isActive = true
         todoTableView.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
         todoTableView.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
         todoTableView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
@@ -157,7 +157,7 @@ class CalenderVC: UIViewController{
             theme = .dark
             Style.themeDark()
         }
-        self.view.backgroundColor=Style.bgColor
+        self.view.backgroundColor = Style.bgColor
         calenderView.changeTheme()
     }
     

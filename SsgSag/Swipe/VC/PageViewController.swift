@@ -42,6 +42,7 @@ class PageViewController: UIPageViewController, UIPageViewControllerDelegate, UI
         
         SPB.delegate = self
         SPB.topColor = #colorLiteral(red: 0.1764705926, green: 0.4980392158, blue: 0.7568627596, alpha: 1)
+        
         SPB.bottomColor = UIColor.white.withAlphaComponent(0.25)
         
         //SPB.padding = 10
