@@ -15,7 +15,6 @@ protocol SegmentedProgressBarDelegate: class {
 }
 
 class SegmentedProgressBar: UIView {
-    
     weak var delegate: SegmentedProgressBarDelegate?
     
     var topColor = UIColor.gray {
@@ -36,37 +35,16 @@ class SegmentedProgressBar: UIView {
         didSet {
             for segment in segments {
                 let layer = segment.topSegmentView.layer
-                //                let pausedTime = layer.convertTime(CACurrentMediaTime(), from: nil)
                 layer.speed = 0.0
-                //                layer.timeOffset = pausedTime
-                //            if isPaused {
-                //                for segment in segments {
-                //                    let layer = segment.topSegmentView.layer
-                //                    let pausedTime = layer.convertTime(CACurrentMediaTime(), from: nil)
-                //                    layer.speed = 0.0
-                //                    layer.timeOffset = pausedTime
-                //                }
-                //            } else {
-                //                let segment = segments[currentAnimationIndex]
-                //                let layer = segment.topSegmentView.layer
-                //                let pausedTime = layer.timeOffset
-                //                layer.speed = 1.0
-                //                layer.timeOffset = 0.0
-                //                layer.beginTime = 0.0
-                ////                let timeSincePause = layer.convertTime(CACurrentMediaTime(), from: nil) - pausedTime
-                //                layer.beginTime = timeSincePause
             }
         }
     }
     
     private var segments = [Segment]()
-    //    var duration: TimeInterval
     private var hasDoneLayout = false // hacky way to prevent layouting again
     var currentAnimationIndex = 0
     
-    
     init(numberOfSegments: Int) {
-        //        self.duration = duration
         super.init(frame: CGRect.zero)
         
         for _ in 0..<numberOfSegments {

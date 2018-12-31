@@ -145,7 +145,6 @@ class CalenderView: UIView, UICollectionViewDelegate, UICollectionViewDataSource
             reValue = 35
         }
         
-        
         return reValue
         //여기에 다음달의 개수도 더해야 한다.
     }
@@ -153,73 +152,101 @@ class CalenderView: UIView, UICollectionViewDelegate, UICollectionViewDataSource
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell=collectionView.dequeueReusableCell(withReuseIdentifier: "Cell", for: indexPath) as! dateCVCell
         
-       // print(numOfDaysInMonth[currentMonthIndex-1] + firstWeekDayOfMonth - 1)
         
-        let currentMonthDayCount = numOfDaysInMonth[currentMonthIndex-1] + firstWeekDayOfMonth - 1
+        cell.line.backgroundColor = .clear
         
-        if currentMonthDayCount % 35 > 0 && currentMonthDayCount % 35 < 10 {
-            print("이번달은 줄이 6개")
+        //todaysDate && currentYear == presentYear && currentMonthIndex == presentMonthInde
+//        print("todaysDate \(todaysDate)")
+//        print("currentYear \(currentYear)")
+//        print("presentYear \(presentYear)")
+//        print("currentMonthIndex \(currentMonthIndex)")
+//        print("presentMonthIndex \(presentMonthIndex)")
+        
+        var beforeMonthIndex = 0
+        var beforeYear = 0 //이번달의 전 달이 어떤날에 해당하는지 확인!!
+        
+        //이번달이 1월이면 이전달은 12월
+        if currentMonthIndex == 1 {
+            beforeMonthIndex = 12
+            beforeYear = currentYear - 1
+        }else {
+            beforeMonthIndex = currentMonthIndex - 1
+            beforeYear = currentYear
         }
-        //print("이번달은 줄이 5개")
-        //firswtWeekDayOfMonth 1,2,3,4,5,6,7
-        
-        
-        if indexPath.item <= firstWeekDayOfMonth - 2 { //오늘 날짜가 -1 이하일때 (예외처리)
-            var beforeMonthIndex = 0
-            //이번달의 전 달이 어떤날에 해당하는지 확인!!
-            var beforeYear = 0
-            //var beforeFirstWeekDayOfMonth = 0 전 주의 첫번째 주
-            if currentMonthIndex == 1 {
-                beforeMonthIndex = 12
-                beforeYear = currentYear - 1
-                //beforeFirstWeekDayOfMonth = ("\(beforeYear)-\(beforeMonthIndex)-01".date?.firstDayOfTheMonth.weekday)!
+        var beforeMonthCount = numOfDaysInMonth[beforeMonthIndex-1]
+        if beforeMonthIndex == 2{
+            if currentYear % 4 == 0 {
+                beforeMonthCount = numOfDaysInMonth[beforeMonthIndex-1] + 1
             }else {
-                beforeMonthIndex = currentMonthIndex - 1
-                beforeYear = currentYear
-                //beforeFirstWeekDayOfMonth = ("\(beforeYear)-\(beforeMonthIndex)-01".date?.firstDayOfTheMonth.weekday)!
+                beforeMonthCount = numOfDaysInMonth[beforeMonthIndex-1]
             }
+        }
+        
+        if indexPath.item <= firstWeekDayOfMonth - 2 { //이전달의 표현해야 하는 날짜들
             //달력 실제 달력이랑 같은지 확인 해야함
-            var beforeMonthCount = numOfDaysInMonth[beforeMonthIndex-1]
-            if beforeMonthIndex == 2{
-                if currentYear % 4 == 0 {
-                    beforeMonthCount = numOfDaysInMonth[beforeMonthIndex-1] + 1
-                }else {
-                    beforeMonthCount = numOfDaysInMonth[beforeMonthIndex-1]
-                }
-            }
             cell.isHidden=false
             //cell.line.backgroundColor = UIColor.clear
             cell.lbl.textColor = .lightGray
-            cell.line.backgroundColor = .brown
             cell.lbl.text = "\(beforeMonthCount-firstWeekDayOfMonth+indexPath.row+2)"
-        } else { //정상 날짜
-            print(numOfDaysInMonth[currentMonthIndex-1] + firstWeekDayOfMonth - 1)
+            
+            cell.line.backgroundColor = .brown
+            print("난 이날만 브라운으로 바꿀래 \(cell.lbl.text)")
+            //이전달의 날짜를 표시할때 오늘 날짜가 포함 되어 있다면
+            
+            if todaysDate == beforeMonthCount-firstWeekDayOfMonth+indexPath.row+2 {
+                //cell.lbl.backgroundColor = .red
+                print("todaysDate : \(todaysDate)")
+            }
+            cell.isUserInteractionEnabled=false
+            
+        } else { //오늘 이후 날짜
+            //print(numOfDaysInMonth[currentMonthIndex-1] + firstWeekDayOfMonth - 1)
             let calcDate = indexPath.row-firstWeekDayOfMonth+2 //1~31일까지
             cell.isHidden=false
             cell.lbl.text="\(calcDate)"
-        
-            if calcDate < todaysDate && currentYear == presentYear && currentMonthIndex == presentMonthIndex { //오늘 이전 날짜
-                cell.isUserInteractionEnabled=true
-                cell.lbl.textColor = Style.activeCellLblColor
-                cell.lbl.backgroundColor = .clear
-            } else { //오늘 이후 날짜
-                cell.isUserInteractionEnabled=true
-                cell.lbl.textColor = Style.activeCellLblColor
-                cell.lbl.backgroundColor = .clear
-            }
+            cell.isUserInteractionEnabled=true
+            cell.lbl.textColor = Style.activeCellLblColor
+            cell.line.backgroundColor = .green
+            cell.lbl.backgroundColor = .clear
+            
+//            if calcDate < todaysDate && currentYear == presentYear && currentMonthIndex == presentMonthIndex { //오늘 이전
+//                cell.isUserInteractionEnabled=true
+//                cell.lbl.textColor = Style.activeCellLblColor
+//                cell.lbl.backgroundColor = .clear
+//            } else { //오늘 이후 날짜
+//                cell.isUserInteractionEnabled=true
+//                cell.lbl.textColor = Style.activeCellLblColor
+//                cell.lbl.backgroundColor = .clear
+//            }
+            
             if calcDate == todaysDate && currentYear == presentYear && currentMonthIndex == presentMonthIndex { //오늘 날짜
-                //cell.backgroundColor = UIColor.brown
+                
                 let lbl = cell.subviews[1] as! UILabel
-                //label.backgroundColor = UIColor.red
                 lbl.layer.cornerRadius = 10
                 lbl.layer.masksToBounds = true
-               //lbl.backgroundColor = .brown
-                lbl.textColor = UIColor.white
+                cell.line.backgroundColor = .black
+                    
+                print("블루로 할때 날짜 \(calcDate)")
+                //lbl.backgroundColor = .blue
+                //lbl.textColor = UIColor.white
             }
+            
             if indexPath.row % 7 == 0 {
                 cell.lbl.textColor = .red
             }
-            cell.line.backgroundColor = .black
+        
+            let countOfNextMonthday = (calcDate + firstWeekDayOfMonth - 1) - (numOfDaysInMonth[currentMonthIndex-1] + firstWeekDayOfMonth - 1)
+            //다음달 일수 출력
+            if countOfNextMonthday >= 1 {
+                let calcDate = countOfNextMonthday
+                cell.isHidden=false
+                cell.lbl.text="\(calcDate)"
+                cell.isUserInteractionEnabled=false
+                cell.lbl.textColor = .lightGray
+                cell.line.backgroundColor = .blue
+            }
+        
+            //cell.line.backgroundColor = .black
         }
         cell.layer.cornerRadius = 0
         return cell
@@ -246,7 +273,7 @@ class CalenderView: UIView, UICollectionViewDelegate, UICollectionViewDataSource
         if indexPath.row - 5 == indexPath2.row && currentYear == presentYear && currentMonthIndex == presentMonthIndex { //오늘 날짜 선택시 색깔 그대로
         }else {
             let cell=collectionView.cellForItem(at: indexPath)
-            print("사라질때 indexPath \(indexPath.row)")
+            //print("사라질때 indexPath \(indexPath.row)")
             //cell?.backgroundColor=UIColor.clear
             let lbl = cell?.subviews[1] as! UILabel
             lbl.backgroundColor = UIColor.clear
@@ -280,9 +307,9 @@ class CalenderView: UIView, UICollectionViewDelegate, UICollectionViewDataSource
     
     //월이 바뀔때
     func didChangeMonth(monthIndex: Int, year: Int) {
+        
         currentMonthIndex=monthIndex+1 //월+1
         currentYear = year
-        
         //for leap year, make february month of 29 days
         if monthIndex == 1 { //4년에 한번 29일까지
             if currentYear % 4 == 0 {
@@ -295,19 +322,7 @@ class CalenderView: UIView, UICollectionViewDelegate, UICollectionViewDataSource
         firstWeekDayOfMonth=getFirstWeekDay()
         //애니메이션
         self.myCollectionView.reloadData()
-//        UIView.animate(withDuration: 0.5) {
-//            
-//            self.layoutIfNeeded()
-//        }
-        //이동시 애니메이션
-//        UIView.transition(with: myCollectionView, duration: 0.5, options: .transitionCrossDissolve, animations: {
-//            //Do the data reload here
-//            self.myCollectionView.reloadData()
-//            //self.myCollectionView.isHidden = false
-//        }, completion: nil)
-        
         monthView.btnLeft.isEnabled = true
-        //!(currentMonthIndex == presentMonthIndex && currentYear == presentYear)
     }
     
     func setupViews() {
@@ -506,7 +521,7 @@ class dateCVCell: UICollectionViewCell {
     //구분선
     let line: UIView = {
         let line = UIView()
-        line.backgroundColor = .blue
+        //line.backgroundColor = .blue
         line.layer.cornerRadius = 0
         line.layer.masksToBounds = true
         line.translatesAutoresizingMaskIntoConstraints = false

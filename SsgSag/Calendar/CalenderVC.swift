@@ -136,35 +136,10 @@ class CalenderVC: UIViewController{
     //왼쪽 오른쪽 스와이프 할시
     @objc func rightSwipeAction() {
         calenderView.monthView.rightPanGestureAction()
-        
-        UIView.animate(withDuration: 0.5) {
-            //self.calenderView.center.x = self.view.center.x / 2
-            
-            //let translate = CGAffineTransform(translationX: self.calenderView.center.x, y: self.calenderView.center.y)
-            let rotate = CGAffineTransform(rotationAngle: 360)
-            
-            self.calenderView.transform.concatenating(rotate)
-            
-           // self.calenderView.transform = translate.concatenating(rotate)
-            
-            self.calenderView.layoutIfNeeded()
-        }
     }
     
     @objc func leftSwipeAction() {
         calenderView.monthView.leftPanGestureAction()
-        
-        UIView.animate(withDuration: 0.5) {
-            //self.calenderView.center.x = self.view.center.x * 2
-            
-            let rotate = CGAffineTransform(rotationAngle: 360)
-            
-            self.calenderView.transform.concatenating(rotate)
-           // self.calenderView.transform.rotated(by: 360)
-            
-            self.calenderView.layoutIfNeeded()
-        }
-        
     }
     
     override func viewWillLayoutSubviews() {

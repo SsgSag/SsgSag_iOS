@@ -183,6 +183,7 @@ class SwipeCard: UIView {
         
         imageViewStatus.alpha = 1.0
         overLayImage.alpha = 1.0
+        
         UIView.animate(withDuration: 0.4, animations: {() -> Void in
             self.center = self.originalPoint
             self.transform = CGAffineTransform(rotationAngle: 0)
