@@ -21,7 +21,7 @@
                                 <rect key="frame" x="0.0" y="20" width="375" height="647"/>
                             </imageView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Qa3-PX-6kd" userLabel="SwipeView">
-                                <rect key="frame" x="15" y="60" width="345" height="487"/>
+                                <rect key="frame" x="15" y="80" width="345" height="467"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
                             <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wBt-rA-k6D" userLabel="BottomNav">
@@ -68,17 +68,6 @@
                                     <constraint firstItem="owb-dH-Fs8" firstAttribute="centerX" secondItem="wBt-rA-k6D" secondAttribute="centerX" constant="80" id="nqA-QC-PFp"/>
                                 </constraints>
                             </view>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GdD-Xl-O89">
-                                <rect key="frame" x="313" y="22" width="46" height="30"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="46" id="Ltz-ao-KFv"/>
-                                    <constraint firstAttribute="height" constant="30" id="gxv-IN-4Uf"/>
-                                </constraints>
-                                <state key="normal" title="Button"/>
-                                <connections>
-                                    <action selector="moveToCalendar:" destination="x1e-70-Zh0" eventType="touchUpInside" id="IGj-Ds-dmo"/>
-                                </connections>
-                            </button>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
@@ -86,13 +75,10 @@
                             <constraint firstItem="Dc2-OV-lNp" firstAttribute="trailing" secondItem="Qa3-PX-6kd" secondAttribute="trailing" constant="15" id="Qpe-Ul-J2P"/>
                             <constraint firstAttribute="trailing" secondItem="wfg-lw-wbd" secondAttribute="trailing" id="USM-JN-PRV"/>
                             <constraint firstItem="Dc2-OV-lNp" firstAttribute="bottom" secondItem="wfg-lw-wbd" secondAttribute="bottom" id="UfK-h7-hGZ"/>
-                            <constraint firstItem="Qa3-PX-6kd" firstAttribute="top" secondItem="GdD-Xl-O89" secondAttribute="bottom" constant="8" id="VTm-uU-3x5"/>
-                            <constraint firstItem="Qa3-PX-6kd" firstAttribute="top" secondItem="Dc2-OV-lNp" secondAttribute="top" constant="40" id="XHr-gg-sBj"/>
+                            <constraint firstItem="Qa3-PX-6kd" firstAttribute="top" secondItem="Dc2-OV-lNp" secondAttribute="top" constant="60" id="XHr-gg-sBj"/>
                             <constraint firstItem="wfg-lw-wbd" firstAttribute="top" secondItem="Dc2-OV-lNp" secondAttribute="top" id="iqf-Go-Ubb"/>
                             <constraint firstItem="wfg-lw-wbd" firstAttribute="leading" secondItem="Dc2-OV-lNp" secondAttribute="leading" id="kLA-5E-Jcv"/>
-                            <constraint firstItem="Dc2-OV-lNp" firstAttribute="trailing" secondItem="GdD-Xl-O89" secondAttribute="trailing" constant="16" id="nDD-YD-ZDC"/>
                             <constraint firstItem="Dc2-OV-lNp" firstAttribute="bottom" secondItem="wBt-rA-k6D" secondAttribute="bottom" id="oVC-gX-OuJ"/>
-                            <constraint firstItem="GdD-Xl-O89" firstAttribute="top" secondItem="Dc2-OV-lNp" secondAttribute="top" constant="2" id="qnV-IK-q1y"/>
                             <constraint firstItem="Qa3-PX-6kd" firstAttribute="leading" secondItem="Dc2-OV-lNp" secondAttribute="leading" constant="15" id="rnx-Lb-3Uc"/>
                             <constraint firstItem="wBt-rA-k6D" firstAttribute="trailing" secondItem="Dc2-OV-lNp" secondAttribute="trailing" id="sJN-yQ-rod"/>
                             <constraint firstItem="wBt-rA-k6D" firstAttribute="top" secondItem="Qa3-PX-6kd" secondAttribute="bottom" constant="20" id="vgw-iW-MwE"/>
@@ -161,7 +147,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9ah-Vi-Zcy" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1792.8" y="106.59670164917542"/>
+            <point key="canvasLocation" x="1793" y="-110"/>
         </scene>
         <!--Detail Text Swipe Card-->
         <scene sceneID="Gv6-l5-7Qr">
@@ -194,7 +180,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0Au-Nd-7LX" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1792.8" y="805.54722638680664"/>
+            <point key="canvasLocation" x="1793" y="563"/>
         </scene>
     </scenes>
     <resources>

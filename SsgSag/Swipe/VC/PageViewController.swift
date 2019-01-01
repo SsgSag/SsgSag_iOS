@@ -28,6 +28,8 @@ class PageViewController: UIPageViewController, UIPageViewControllerDelegate, UI
         
         view.addSubview(orderedViewControllers[0].view)
         view.addSubview(orderedViewControllers[1].view)
+        orderedViewControllers[0].view.isUserInteractionEnabled = true
+        orderedViewControllers[1].view.isUserInteractionEnabled = true
     
         SPB = SegmentedProgressBar(numberOfSegments: 2)
         
@@ -50,6 +52,7 @@ class PageViewController: UIPageViewController, UIPageViewControllerDelegate, UI
     
         view.addSubview(SPB)
         view.bringSubviewToFront(SPB)
+        
         //SPB 오토 레이
         SPB.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
         SPB.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true

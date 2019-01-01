@@ -9,7 +9,6 @@ class SwipeVC: UIViewController {
     @IBOutlet weak var viewActions: UIView!
     @IBOutlet var countLabel: UILabel!
     
-    
     var currentLoadedCardsArray = [SwipeCard]()
     var allCardsArray = [SwipeCard]()
     
@@ -17,14 +16,22 @@ class SwipeVC: UIViewController {
     
     var valueArray = ["1","2","3","4","5","6"]
     
+    var abcde = "abcde"
+    
     var currentIndex = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        viewActions.isUserInteractionEnabled = true
+        
         countLabel.layer.cornerRadius = 10
         countLabel.layer.masksToBounds = true
         
+        abcde = "12341234"
+        
+        
+        print("SwipeVC의 서브뷰 \(self.view.subviews.count)")
         
         countLabel.text = "\(valueArray.count)"
     }
@@ -38,12 +45,16 @@ class SwipeVC: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         view.layoutIfNeeded()
+        
+        viewActions.isUserInteractionEnabled = true
+        
         loadCardValues()
     }
     
     //
     func loadCardValues() {
         if valueArray.count > 0 {
+            print("이게 출력되나???")
             //currentLoadedCardsArray 에 스와이프 카드 추가.
             let capCount = (valueArray.count > MAX_BUFFER_SIZE) ? MAX_BUFFER_SIZE : valueArray.count
             

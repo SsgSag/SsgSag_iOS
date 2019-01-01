@@ -35,12 +35,14 @@ class SwipeCard: UIView {
         layer.shadowOffset = CGSize(width: 0.5, height: 3)
         layer.shadowColor = UIColor.darkGray.cgColor
         clipsToBounds = true
-        isUserInteractionEnabled = false
+        //이거 false로 하면 첫번째 카드만 반응함
+        isUserInteractionEnabled = true
         
         originalPoint = center
         
         let panGestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(self.beingDragged))
         addGestureRecognizer(panGestureRecognizer)
+        
         imageViewStatus = UIImageView(frame: CGRect(x: (frame.size.width / 2) - 37.5, y: 25, width: 75, height: 75))
         imageViewStatus.alpha = 0
         addSubview(imageViewStatus)
@@ -57,9 +59,11 @@ class SwipeCard: UIView {
         //gesture에 따라
         switch gestureRecognizer.state {
         case .began: //스와이프 시작
+            print("스와이프 시작")
             originalPoint = self.center;
             break;
         case .changed: //스와이프 하는 중간
+            print("스와이프 하는 중간")
             let rotationStrength = min(xCenter / UIScreen.main.bounds.size.width, 1)
             let rotationAngel = .pi/8 * rotationStrength
             let scale = max(1 - abs(rotationStrength) / SCALE_STRENGTH, SCALE_RANGE)
@@ -70,6 +74,7 @@ class SwipeCard: UIView {
             updateOverlay(xCenter)
             break;
         case .ended: //스와이프 끝
+            print("스와이프 끝")
             afterSwipeAction()
             break;
         case .possible:break
