@@ -9,6 +9,13 @@ class SwipeVC: UIViewController {
     @IBOutlet weak var viewActions: UIView!
     @IBOutlet var countLabel: UILabel!
     
+
+    @IBAction func moveToMyPage(_ sender: Any) {
+        
+    }
+    
+    
+    
     var currentLoadedCardsArray = [SwipeCard]()
     var allCardsArray = [SwipeCard]()
     
@@ -27,7 +34,9 @@ class SwipeVC: UIViewController {
         
         countLabel.layer.cornerRadius = 10
         countLabel.layer.masksToBounds = true
+    
         
+        self.view.backgroundColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
         abcde = "12341234"
         
         
@@ -35,6 +44,13 @@ class SwipeVC: UIViewController {
         
         countLabel.text = "\(valueArray.count)"
     }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewWillLayoutSubviews()
+//        self.tabBarController?.tabBar.frame = CGRect(x: 0, y: 0, width: (tabBarController?.tabBar.frame.width)!, height: (tabBarController?.tabBar.frame.height)!)
+    }
+    
+    
 
     //캘린더 이동
     @IBAction func moveToCalendar(_ sender: Any) {

@@ -13,12 +13,6 @@ import CoreData
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-    var nav: UINavigationController?
-    
-    let swipeStoryBoard2 = UIStoryboard(name: "SwipeStoryBoard", bundle: nil)
-    
-    
-    var controller: SLPagingViewSwift!
     
         // Override point for customization after application launch.
 //        let loginVC = LoginVC()
@@ -28,69 +22,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
+        window = UIWindow(frame: UIScreen.main.bounds)
         
+        window?.rootViewController = TapbarVC()
         
-        self.window = UIWindow(frame: UIScreen.main.bounds)
-        let orange = UIColor(red: 255/255, green: 69.0/255, blue: 0.0/255, alpha: 1.0)
-        let gray = UIColor(red: 0.84, green: 0.84, blue: 0.84, alpha: 1.0)
-        
-        let myPageStoryBoard = UIStoryboard(name: "myPageStoryBoard", bundle: nil)
-        let ctr1 = myPageStoryBoard.instantiateViewController(withIdentifier: "myPage")
-        
-        let swipeStoryBoard = UIStoryboard(name: "SwipeStoryBoard", bundle: nil)
-        let ctr2 = swipeStoryBoard.instantiateViewController(withIdentifier: "Swipe") as! SwipeVC
-        print(ctr2.valueArray.count)
-        
-        let ctr3 = CalenderVC()
-        
-        var img1 = #imageLiteral(resourceName: "btSignupPlus")
-        img1 = img1.withRenderingMode(.alwaysTemplate)
-        var img2 = #imageLiteral(resourceName: "btSignupPlus")
-        img2 = img2.withRenderingMode(.alwaysTemplate)
-        var img3 = #imageLiteral(resourceName: "btSignupPlus")
-        img3 = img3.withRenderingMode(.alwaysTemplate)
-        
-        
-        let items = [UIImageView(image: img1), UIImageView(image: img2), UIImageView(image: img3)]
-        
-        
-        
-        print("ctr2.allCardsArray.count \(ctr2.valueArray.count)")
-        print("가나다라마바사 \(ctr2.abcde)")
-        print(ctr2.view)
-        print(ctr2.viewWillAppear(true))
-        print("아자차카타파하 \(ctr2.abcde)")
-        
-        let controllers = [ctr1, ctr2, ctr3]
-        
-        controller = SLPagingViewSwift(items: items, controllers: controllers, showPageControl: false)
-        
-        controller.pagingViewMoving = ({ subviews in
-            if let imageViews = subviews as? [UIImageView] {
-                for imgView in imageViews {
-//                    var c = gray
-//                    let originX = Double(imgView.frame.origin.x)
-//
-//                    if (originX > 45 && originX < 145) {
-//                        //c = self.gradient(originX, topX: 46, bottomX: 144, initC: orange, goal: gray)
-//                    }
-//                    else if (originX > 145 && originX < 245) {
-//                        //c = self.gradient(originX, topX: 146, bottomX: 244, initC: gray, goal: orange)
-//                    }
-//                    else if(originX == 145){
-//                        c = orange
-//                    }
-//                    imgView.tintColor = c
-                }
-            }
-        })
-        
-        
-        self.nav = UINavigationController(rootViewController: self.controller)
-        self.window?.rootViewController = self.nav
-        self.window?.backgroundColor = UIColor.white
-        self.window?.makeKeyAndVisible()
-        
+        window?.makeKeyAndVisible()
         
         return true
     }

@@ -47,7 +47,7 @@ class CalenderVC: UIViewController{
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.title = "슥삭"
+//        self.title = "슥삭"
         self.navigationController?.navigationBar.isTranslucent=false
         
         //Calendar Swipe
