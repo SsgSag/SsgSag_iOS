@@ -9,7 +9,13 @@
 import UIKit
 
 class DetailImageSwipeCardVC: UIViewController {
+    
+    @IBOutlet var detailImageVIew: UIImageView!
+    
     override func viewDidLoad() {
+        
+        
         super.viewDidLoad()
     }
+    
 }

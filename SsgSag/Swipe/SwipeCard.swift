@@ -19,6 +19,7 @@ class SwipeCard: UIView {
     
     public init(frame: CGRect, value: String) {
         super.init(frame: frame)
+        print("1")
         setupView(at: value)
     }
     
@@ -29,7 +30,7 @@ class SwipeCard: UIView {
     //카드 setup
     func setupView(at value:String) {
         //layer.cornerRadius = 20
-        
+        print("setup")
         layer.shadowRadius = 3
         layer.shadowOpacity = 0.4
         layer.shadowOffset = CGSize(width: 0.5, height: 3)
@@ -44,6 +45,10 @@ class SwipeCard: UIView {
         addGestureRecognizer(panGestureRecognizer)
         
         imageViewStatus = UIImageView(frame: CGRect(x: (frame.size.width / 2) - 37.5, y: 25, width: 75, height: 75))
+        let imageURL = URL(string: value)
+        print("왜 실행 안돼지 \(imageURL)")
+        imageViewStatus.load(url: imageURL!)
+        //imageViewStatus = UIImageView.load(url:value)
         imageViewStatus.alpha = 0
         addSubview(imageViewStatus)
         

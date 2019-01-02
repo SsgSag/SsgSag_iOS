@@ -21,7 +21,9 @@ class SwipeVC: UIViewController {
     
     //var valueArray = ["1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24","25","26","27","28","29","30","31","32","33","34","35","36"]
     
-    var valueArray = ["1","2","3","4","5","6"]
+    //var valueArray = ["1","2","3","4","5","6"]
+    
+    lazy var valueArray:[String] = []
     
     var abcde = "abcde"
     
@@ -29,6 +31,10 @@ class SwipeVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        getPosterData()
+        print(valueArray.count)
+        print("이건 밸류 어레이으 개수")
         
         viewActions.isUserInteractionEnabled = true
         
@@ -38,8 +44,6 @@ class SwipeVC: UIViewController {
         
         self.view.backgroundColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
         abcde = "12341234"
-        
-        getPosterData()
         
         print("SwipeVC의 서브뷰 \(self.view.subviews.count)")
         countLabel.text = "\(valueArray.count)"
@@ -67,7 +71,13 @@ class SwipeVC: UIViewController {
                 let order = try JSONDecoder().decode(Json4Swift_Base.self, from: data)
                 if let posters = order.data?.posters {
                     for i in posters {
-                        print(i.posterName)
+                        self.valueArray.append(i.photoUrl!)
+                        DispatchQueue.main.async {
+                            self.view.reloadInputViews()
+                            self.viewWillAppear(true)
+                        }
+                        
+                        print(i.photoUrl)
                     }
                 }
             }catch{
@@ -95,7 +105,6 @@ class SwipeVC: UIViewController {
         view.layoutIfNeeded()
         
         viewActions.isUserInteractionEnabled = true
-        
         loadCardValues()
     }
     
@@ -103,10 +112,11 @@ class SwipeVC: UIViewController {
     func loadCardValues() {
         if valueArray.count > 0 {
             print("이게 출력되나???")
-            //currentLoadedCardsArray 에 스와이프 카드 추가.
-            let capCount = (valueArray.count > MAX_BUFFER_SIZE) ? MAX_BUFFER_SIZE : valueArray.count
             
+            let capCount = (valueArray.count > MAX_BUFFER_SIZE) ? MAX_BUFFER_SIZE : valueArray.count
+            print("이건?")
             for (i,value) in valueArray.enumerated() {
+                print("enumerated")
                 let newCard = createSwipeCard(at: i,value: value)
                 allCardsArray.append(newCard)
                 if i < capCount {
@@ -122,12 +132,15 @@ class SwipeVC: UIViewController {
                     viewTinderBackGround.addSubview(currentLoadedCardsArray[i])
                 }
             }
+            
             animateCardAfterSwiping() //카드 처음로드 혹은 제거 추가 할시
         }
     }
     //SwipeCard 생성
     func createSwipeCard(at index: Int , value :String) -> SwipeCard {
+        print("create")
         let card = SwipeCard(frame: CGRect(x: 0, y: 0, width: viewTinderBackGround.frame.size.width , height: viewTinderBackGround.frame.size.height - 10) ,value : value)
+        print("create")
         card.delegate = self
         return card
     }
@@ -152,21 +165,31 @@ class SwipeVC: UIViewController {
     
     func animateCardAfterSwiping() {
         //모든 스와이프 카드에서
+        
         for (i,card) in currentLoadedCardsArray.enumerated() {
             //각 카드에 스와이프 카드를 등록
             let storyboard = UIStoryboard(name: "SwipeStoryBoard", bundle: nil)
-            let pageVC = storyboard.instantiateViewController(withIdentifier: "PageViewController")
-            
-            pageVC.view.frame = self.currentLoadedCardsArray[i].frame
-            self.addChild(pageVC)
-            self.currentLoadedCardsArray[i].insertSubview(pageVC.view, at: 0)
-            pageVC.didMove(toParent: self)
-            
-            //최상단의 카드만 InteractionEnabled 하게 함
-            if i == 0 {
+            let pageVC = storyboard.instantiateViewController(withIdentifier: "PageViewController") as! PageViewController
+
+            if i < 2 {
+                print("i를 프린트 해봅시다 \(i)")
+                pageVC.view.frame = self.currentLoadedCardsArray[i].frame
+                var page = pageVC.orderedViewControllers[1] as! DetailImageSwipeCardVC
+                guard let pageURL = URL(string: valueArray[i]) else {return}
+                page.detailImageVIew.load(url: pageURL)
+                
+                self.addChild(pageVC)
+                self.currentLoadedCardsArray[i].insertSubview(pageVC.view, at: 0)
+                pageVC.didMove(toParent: self)
+                
+                //최상단의 카드만 InteractionEnabled 하게 함
+                if i == 0 {
                     card.isUserInteractionEnabled = true
+                }
             }
+            
         }
+        
     }
     
     //싫어요
@@ -190,6 +213,22 @@ extension SwipeVC : SwipeCardDelegate {
     //카드 오른쪽으로 갔을때
     func cardGoesRight(card: SwipeCard) {
         removeObjectAndAddNewValues()
+    }
+}
+
+extension UIImageView {
+    func getData(from url: URL, completion: @escaping (Data?, URLResponse?, Error?) -> ()) {
+        URLSession.shared.dataTask(with: url, completionHandler: completion).resume()
+        //URLSession.shared.data
+    }
+    
+    func load(url: URL) {
+        getData(from: url) { [weak self] data, response, error in
+            guard let data = data, error == nil else { return }
+            DispatchQueue.main.async() {
+                self?.image = UIImage(data: data)
+            }
+        }
     }
 }
 

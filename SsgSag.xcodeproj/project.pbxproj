@@ -11,7 +11,7 @@
 		2452C131601AAC033C5B69D6 /* Pods_SsgSagTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 476B5599333568A94C71406C /* Pods_SsgSagTests.framework */; };
 		8415586421D8D96900A0EDB5 /* SwipeCardDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8415586321D8D96900A0EDB5 /* SwipeCardDelegate.swift */; };
 		842C618521DCDC92001BA6D8 /* sendDataViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842C618421DCDC92001BA6D8 /* sendDataViewController.swift */; };
-		842C619D21DD1807001BA6D8 /* Data.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842C619A21DD1807001BA6D8 /* Data.swift */; };
+		842C619D21DD1807001BA6D8 /* posterData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842C619A21DD1807001BA6D8 /* posterData.swift */; };
 		842C619E21DD1807001BA6D8 /* Json4Swift_Base.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842C619B21DD1807001BA6D8 /* Json4Swift_Base.swift */; };
 		842C619F21DD1807001BA6D8 /* Posters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842C619C21DD1807001BA6D8 /* Posters.swift */; };
 		8459289B21D09CDD001DF6CC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8459289A21D09CDD001DF6CC /* AppDelegate.swift */; };
@@ -78,7 +78,7 @@
 		8134CA727EE6CCE0A7714139 /* Pods-SsgSagTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SsgSagTests.debug.xcconfig"; path = "Target Support Files/Pods-SsgSagTests/Pods-SsgSagTests.debug.xcconfig"; sourceTree = "<group>"; };
 		8415586321D8D96900A0EDB5 /* SwipeCardDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwipeCardDelegate.swift; sourceTree = "<group>"; };
 		842C618421DCDC92001BA6D8 /* sendDataViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = sendDataViewController.swift; sourceTree = "<group>"; };
-		842C619A21DD1807001BA6D8 /* Data.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Data.swift; sourceTree = "<group>"; };
+		842C619A21DD1807001BA6D8 /* posterData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = posterData.swift; sourceTree = "<group>"; };
 		842C619B21DD1807001BA6D8 /* Json4Swift_Base.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Json4Swift_Base.swift; sourceTree = "<group>"; };
 		842C619C21DD1807001BA6D8 /* Posters.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Posters.swift; sourceTree = "<group>"; };
 		8459289721D09CDD001DF6CC /* SsgSag.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SsgSag.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -191,7 +191,7 @@
 		842C618621DCEB8B001BA6D8 /* Swipe */ = {
 			isa = PBXGroup;
 			children = (
-				842C619A21DD1807001BA6D8 /* Data.swift */,
+				842C619A21DD1807001BA6D8 /* posterData.swift */,
 				842C619B21DD1807001BA6D8 /* Json4Swift_Base.swift */,
 				842C619C21DD1807001BA6D8 /* Posters.swift */,
 			);
@@ -592,7 +592,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				84E19CE021DCC977006F72EC /* User.swift in Sources */,
-				842C619D21DD1807001BA6D8 /* Data.swift in Sources */,
+				842C619D21DD1807001BA6D8 /* posterData.swift in Sources */,
 				FA851DED21D5FDB0002065D0 /* SwipeModel.swift in Sources */,
 				845928DC21D09F30001DF6CC /* MonthView.swift in Sources */,
 				8459289D21D09CDD001DF6CC /* SwipeVC.swift in Sources */,

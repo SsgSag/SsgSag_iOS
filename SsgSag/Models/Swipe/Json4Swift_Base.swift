@@ -15,7 +15,7 @@ import Foundation
 struct Json4Swift_Base : Codable {
 	let status : Int?
 	let message : String?
-	let data : Data?
+	let data : posterData?
 
 	enum CodingKeys: String, CodingKey {
 
@@ -28,7 +28,7 @@ struct Json4Swift_Base : Codable {
 		let values = try decoder.container(keyedBy: CodingKeys.self)
 		status = try values.decodeIfPresent(Int.self, forKey: .status)
 		message = try values.decodeIfPresent(String.self, forKey: .message)
-		data = try values.decodeIfPresent(Data.self, forKey: .data)
+		data = try values.decodeIfPresent(posterData.self, forKey: .data)
 	}
 
 }
