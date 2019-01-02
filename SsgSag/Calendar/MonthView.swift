@@ -62,8 +62,6 @@ class MonthView: UIView {
         
         monthName.text="\(currentYear) \(monthsArr[currentMonthIndex])"
         delegate?.didChangeMonth(monthIndex: currentMonthIndex, year: currentYear)
-        
-        
     }
     
     @objc func btnLeftRightAction(sender: UIButton) {
