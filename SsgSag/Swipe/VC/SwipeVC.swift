@@ -14,8 +14,6 @@ class SwipeVC: UIViewController {
         
     }
     
-    
-    
     var currentLoadedCardsArray = [SwipeCard]()
     var allCardsArray = [SwipeCard]()
     
