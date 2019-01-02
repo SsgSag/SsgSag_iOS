@@ -47,7 +47,7 @@ class CalenderVC: UIViewController{
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.title = "슥삭"
+//        self.title = "슥삭"
         self.navigationController?.navigationBar.isTranslucent=false
         
         //Calendar Swipe
@@ -135,10 +135,12 @@ class CalenderVC: UIViewController{
     
     //왼쪽 오른쪽 스와이프 할시
     @objc func rightSwipeAction() {
+        NotificationCenter.default.post(name: NSNotification.Name("calendarSwipe"), object: nil)
         calenderView.monthView.rightPanGestureAction()
     }
     
     @objc func leftSwipeAction() {
+        NotificationCenter.default.post(name: NSNotification.Name("calendarSwipe"), object: nil)
         calenderView.monthView.leftPanGestureAction()
     }
     

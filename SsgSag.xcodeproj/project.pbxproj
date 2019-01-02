@@ -27,6 +27,9 @@
 		845928E321D35F09001DF6CC /* PageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845928E221D35F09001DF6CC /* PageViewController.swift */; };
 		845928E521D38771001DF6CC /* DetailImageSwipeCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845928E421D38771001DF6CC /* DetailImageSwipeCard.swift */; };
 		845928E721D3877D001DF6CC /* DetailTextSwipeCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845928E621D3877D001DF6CC /* DetailTextSwipeCard.swift */; };
+		84BA694921DB394800BA8CB8 /* myPageVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84BA694821DB394800BA8CB8 /* myPageVC.swift */; };
+		84BA694B21DB395400BA8CB8 /* myPageStoryBoard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 84BA694A21DB395400BA8CB8 /* myPageStoryBoard.storyboard */; };
+		84BA694D21DB74BD00BA8CB8 /* TapbarVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84BA694C21DB74BD00BA8CB8 /* TapbarVC.swift */; };
 		FA25A58221D36EC500C9FC93 /* SegmentedProgressBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA25A58121D36EC500C9FC93 /* SegmentedProgressBar.swift */; };
 		FA329B6E21DA333C00C6C485 /* NetworkResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA329B6D21DA333C00C6C485 /* NetworkResult.swift */; };
 		FA329B7021DA337A00C6C485 /* APIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA329B6F21DA337A00C6C485 /* APIManager.swift */; };
@@ -91,11 +94,15 @@
 		845928E221D35F09001DF6CC /* PageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageViewController.swift; sourceTree = "<group>"; };
 		845928E421D38771001DF6CC /* DetailImageSwipeCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailImageSwipeCard.swift; sourceTree = "<group>"; };
 		845928E621D3877D001DF6CC /* DetailTextSwipeCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailTextSwipeCard.swift; sourceTree = "<group>"; };
+
 		B03118458FBEB604E3E40A46 /* Pods-SsgSag.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SsgSag.release.xcconfig"; path = "Pods/Target Support Files/Pods-SsgSag/Pods-SsgSag.release.xcconfig"; sourceTree = "<group>"; };
 		BAC2CB832DDBD74D030D5AB0 /* Pods-SsgSagTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SsgSagTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SsgSagTests/Pods-SsgSagTests.debug.xcconfig"; sourceTree = "<group>"; };
 		D4F31C3B9FD375FBF20E2BBA /* Pods-SsgSagUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SsgSagUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-SsgSagUITests/Pods-SsgSagUITests.release.xcconfig"; sourceTree = "<group>"; };
 		EC4FF93D9C5B8421E08A97AB /* Pods_SsgSagTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SsgSagTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F7981BCC325EB285E3B5AEDB /* Pods-SsgSagUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SsgSagUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SsgSagUITests/Pods-SsgSagUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		84BA694821DB394800BA8CB8 /* myPageVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = myPageVC.swift; sourceTree = "<group>"; };
+		84BA694A21DB395400BA8CB8 /* myPageStoryBoard.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = myPageStoryBoard.storyboard; sourceTree = "<group>"; };
+		84BA694C21DB74BD00BA8CB8 /* TapbarVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TapbarVC.swift; sourceTree = "<group>"; };
 		FA25A58121D36EC500C9FC93 /* SegmentedProgressBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SegmentedProgressBar.swift; sourceTree = "<group>"; };
 		FA329B6D21DA333C00C6C485 /* NetworkResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkResult.swift; sourceTree = "<group>"; };
 		FA329B6F21DA337A00C6C485 /* APIManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIManager.swift; sourceTree = "<group>"; };
@@ -186,6 +193,7 @@
 		8459289921D09CDD001DF6CC /* SsgSag */ = {
 			isa = PBXGroup;
 			children = (
+				84BA694721DB391D00BA8CB8 /* MyPage */,
 				8459289A21D09CDD001DF6CC /* AppDelegate.swift */,
 				FA329B6C21DA32F700C6C485 /* APIServices */,
 				FA329B7A21DA34D100C6C485 /* Models */,
@@ -195,6 +203,7 @@
 				FAAFB58721D3B5E5006BF728 /* Swipe */,
 				FAAFB58821D3B6B8006BF728 /* Assets */,
 				845928A921D09CE0001DF6CC /* Info.plist */,
+				84BA694C21DB74BD00BA8CB8 /* TapbarVC.swift */,
 			);
 			path = SsgSag;
 			sourceTree = "<group>";
@@ -237,6 +246,7 @@
 			path = LoginRegister;
 			sourceTree = "<group>";
 		};
+    
 		9B2BBB07367FB0478FAE2A2B /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -273,6 +283,13 @@
 				FA329B8321DA353200C6C485 /* User.swift */,
 			);
 			path = Models;
+		84BA694721DB391D00BA8CB8 /* MyPage */ = {
+			isa = PBXGroup;
+			children = (
+				84BA694821DB394800BA8CB8 /* myPageVC.swift */,
+				84BA694A21DB395400BA8CB8 /* myPageStoryBoard.storyboard */,
+			);
+			path = MyPage;
 			sourceTree = "<group>";
 		};
 		FA524BEF21D64DFD00675289 /* Signup */ = {
@@ -426,6 +443,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				84BA694B21DB395400BA8CB8 /* myPageStoryBoard.storyboard in Resources */,
 				845928A821D09CE0001DF6CC /* LaunchScreen.storyboard in Resources */,
 				845928A521D09CE0001DF6CC /* Assets.xcassets in Resources */,
 				845928CC21D09D09001DF6CC /* SwipeStoryBoard.storyboard in Resources */,
@@ -573,10 +591,12 @@
 				8459289B21D09CDD001DF6CC /* AppDelegate.swift in Sources */,
 				FA329B8221DA351C00C6C485 /* Board.swift in Sources */,
 				FA329B7021DA337A00C6C485 /* APIManager.swift in Sources */,
+				84BA694921DB394800BA8CB8 /* myPageVC.swift in Sources */,
 				845928E321D35F09001DF6CC /* PageViewController.swift in Sources */,
 				FA329B7621DA349100C6C485 /* UserService.swift in Sources */,
 				845928D921D09F30001DF6CC /* CalenderVC.swift in Sources */,
 				845928E521D38771001DF6CC /* DetailImageSwipeCard.swift in Sources */,
+				84BA694D21DB74BD00BA8CB8 /* TapbarVC.swift in Sources */,
 				FA25A58221D36EC500C9FC93 /* SegmentedProgressBar.swift in Sources */,
 				FA329B7821DA34A900C6C485 /* BoardService.swift in Sources */,
 			);

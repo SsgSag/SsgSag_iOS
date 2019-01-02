@@ -9,6 +9,12 @@ class SwipeVC: UIViewController {
     @IBOutlet weak var viewActions: UIView!
     @IBOutlet var countLabel: UILabel!
     
+
+    @IBAction func moveToMyPage(_ sender: Any) {
+        
+    }
+    
+    
     
     var currentLoadedCardsArray = [SwipeCard]()
     var allCardsArray = [SwipeCard]()
@@ -17,17 +23,34 @@ class SwipeVC: UIViewController {
     
     var valueArray = ["1","2","3","4","5","6"]
     
+    var abcde = "abcde"
+    
     var currentIndex = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        viewActions.isUserInteractionEnabled = true
+        
         countLabel.layer.cornerRadius = 10
         countLabel.layer.masksToBounds = true
+    
         
+        self.view.backgroundColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
+        abcde = "12341234"
+        
+        
+        print("SwipeVC의 서브뷰 \(self.view.subviews.count)")
         
         countLabel.text = "\(valueArray.count)"
     }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewWillLayoutSubviews()
+//        self.tabBarController?.tabBar.frame = CGRect(x: 0, y: 0, width: (tabBarController?.tabBar.frame.width)!, height: (tabBarController?.tabBar.frame.height)!)
+    }
+    
+    
 
     //캘린더 이동
     @IBAction func moveToCalendar(_ sender: Any) {
@@ -38,12 +61,16 @@ class SwipeVC: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         view.layoutIfNeeded()
+        
+        viewActions.isUserInteractionEnabled = true
+        
         loadCardValues()
     }
     
     //
     func loadCardValues() {
         if valueArray.count > 0 {
+            print("이게 출력되나???")
             //currentLoadedCardsArray 에 스와이프 카드 추가.
             let capCount = (valueArray.count > MAX_BUFFER_SIZE) ? MAX_BUFFER_SIZE : valueArray.count
             
