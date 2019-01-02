@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Alamofire
 
 class PageViewController: UIPageViewController, UIPageViewControllerDelegate, UIPageViewControllerDataSource, SegmentedProgressBarDelegate {
     var pageIndex : Int = 0
@@ -32,6 +33,12 @@ class PageViewController: UIPageViewController, UIPageViewControllerDelegate, UI
         orderedViewControllers[1].view.isUserInteractionEnabled = true
     
         SPB = SegmentedProgressBar(numberOfSegments: 2)
+        
+        
+        
+    
+        
+        
         
 //        view.addSubview(SPB)
        // TODO: else frame 수정
@@ -68,6 +75,8 @@ class PageViewController: UIPageViewController, UIPageViewControllerDelegate, UI
         
        // print("pagestatussssssss:\(pageStatus)")
     }
+    
+    
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)

@@ -3,6 +3,8 @@ let  SEPERATOR_DISTANCE = 8;
 let  TOPYAXIS = 75;
 
 import UIKit
+import Alamofire
+import ObjectMapper
 
 class SwipeVC: UIViewController {
     @IBOutlet weak var viewTinderBackGround: UIView!
@@ -37,10 +39,42 @@ class SwipeVC: UIViewController {
         self.view.backgroundColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
         abcde = "12341234"
         
+        getPosterData()
         
         print("SwipeVC의 서브뷰 \(self.view.subviews.count)")
-        
         countLabel.text = "\(valueArray.count)"
+    }
+    
+    func getPosterData() {
+        let posterURL = URL(string: "http://54.180.79.158:8080/posters/show")
+        var request = URLRequest(url: posterURL!)
+        //request.addValue("application/json", forHTTPHeaderField: "Accept")
+        request.httpMethod = "POST"
+        let key2 = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJEb0lUU09QVCIsInVzZXJfaWR4IjoxfQ.5lCvAqnzYP4-2pFx1KTgLVOxYzBQ6ygZvkx5jKCFM08"
+        request.addValue("\(key2)", forHTTPHeaderField: "Authorization")
+        
+        let task = URLSession.shared.dataTask(with: request) { data, response, error in
+            guard error == nil else {
+                print(error!)
+                return
+            }
+            guard let data = data else {
+                print("Data is empty")
+                //print(data)
+                return
+            }
+            do {
+                let order = try JSONDecoder().decode(Json4Swift_Base.self, from: data)
+                if let posters = order.data?.posters {
+                    for i in posters {
+                        print(i.posterName)
+                    }
+                }
+            }catch{
+                print("JSON Parising Error")
+            }
+        }
+        task.resume()
     }
     
     override func viewDidLayoutSubviews() {

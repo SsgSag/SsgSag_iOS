@@ -34,6 +34,7 @@ class LoginVC: UIViewController {
         guard let email = emailTextField.text else {return}
         guard let password = passwordTextField.text else {return}
         print("5")
+        
         LoginService.shared.login(email: email, password: password) { (data,status) in
             //            print("this is data token \(data?.token) \(status)")
             if data?.token == nil {
@@ -53,7 +54,9 @@ class LoginVC: UIViewController {
                     self.present(alterController, animated: true, completion: nil)
                 }
             }
+            
             guard let token = data?.token else {return}
+            //토큰 저장
             UserDefaults.standard.set(token, forKey: "token")
             
             let storyboard = UIStoryboard(name: "SwipeStoryBoard", bundle: nil)
