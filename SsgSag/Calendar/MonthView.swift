@@ -45,9 +45,12 @@ class MonthView: UIView {
             currentMonthIndex = 0
             currentYear += 1
         }
+        
         monthName.text="\(currentYear) \(monthsArr[currentMonthIndex])"
         
         delegate?.didChangeMonth(monthIndex: currentMonthIndex, year: currentYear)
+        
+        
     }
     
     func rightPanGestureAction() {
