@@ -106,8 +106,7 @@ class SwipeCard: UIView {
         }
         else if xCenter < -THERESOLD_MARGIN {
             leftAction()
-        }
-        else {
+        }else {
             //reseting image
             UIView.animate(withDuration: 0.3, delay: 0.0, usingSpringWithDamping: 0.5, initialSpringVelocity: 1.0, options: [], animations: {
                 self.center = self.originalPoint
@@ -116,7 +115,7 @@ class SwipeCard: UIView {
                 self.overLayImage.alpha = 0
             })
         }
-        
+        print("카드 스와이핑 액션이 왼족 오른쪽에 따라 완전히 끝났다")
     }
     //오른쪽 스와이프
     func rightAction() {
@@ -128,7 +127,7 @@ class SwipeCard: UIView {
         })
         isLiked = true
         delegate?.cardGoesRight(card: self)
-        print("WATCHOUT RIGHT")
+        print("RIGHT 액션")
     }
     //왼쪽 스와이프
     func leftAction() {

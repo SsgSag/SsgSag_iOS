@@ -27,9 +27,9 @@ class MonthView: UIView {
         currentYear = Calendar.current.component(.year, from: Date())
         
         setupViews()
-        
-        //이전달로 이동 가능
+    
         btnLeft.isEnabled=true
+        btnRight.isEnabled=true
     }
     
     
@@ -120,6 +120,7 @@ class MonthView: UIView {
         let btn=UIButton()
         btn.setTitle(">", for: .normal)
         btn.setTitleColor(Style.monthViewBtnRightColor, for: .normal)
+        btn.imageView?.image = UIImage(named: "<#T##String#>")
         btn.translatesAutoresizingMaskIntoConstraints=false
         btn.addTarget(self, action: #selector(btnLeftRightAction(sender:)), for: .touchUpInside)
         return btn

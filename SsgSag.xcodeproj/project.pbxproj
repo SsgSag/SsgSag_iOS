@@ -224,6 +224,7 @@
 			isa = PBXGroup;
 			children = (
 				8459289A21D09CDD001DF6CC /* AppDelegate.swift */,
+				84BA694C21DB74BD00BA8CB8 /* TapbarVC.swift */,
 				84E19CD821DCC977006F72EC /* Models */,
 				84BA694721DB391D00BA8CB8 /* MyPage */,
 				84E19CCB21DCC922006F72EC /* APIServices */,
@@ -233,7 +234,6 @@
 				FAAFB58721D3B5E5006BF728 /* Swipe */,
 				FAAFB58821D3B6B8006BF728 /* Assets */,
 				845928A921D09CE0001DF6CC /* Info.plist */,
-				84BA694C21DB74BD00BA8CB8 /* TapbarVC.swift */,
 			);
 			path = SsgSag;
 			sourceTree = "<group>";
