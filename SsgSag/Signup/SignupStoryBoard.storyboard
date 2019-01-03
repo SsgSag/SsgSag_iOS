@@ -62,7 +62,7 @@
                                         </subviews>
                                     </stackView>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="Foy-Wg-RCD">
-                                        <rect key="frame" x="0.0" y="50.666666666666686" width="335" height="20.333333333333329"/>
+                                        <rect key="frame" x="0.0" y="49.666666666666686" width="335" height="20.333333333333329"/>
                                         <subviews>
                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="이메일" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Ght-fL-2Pg">
                                                 <rect key="frame" x="0.0" y="0.0" width="335" height="11.333333333333334"/>
@@ -212,7 +212,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mGk-6P-Bry" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="976.79999999999995" y="179.55665024630542"/>
+            <point key="canvasLocation" x="1210" y="180"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="Ju5-wv-H7z">
@@ -331,7 +331,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Yak-7V-jyU" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1863" y="180"/>
+            <point key="canvasLocation" x="1964" y="180"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="1eS-Xz-7af">
@@ -524,10 +524,10 @@
             </objects>
             <point key="canvasLocation" x="152.80000000000001" y="180.35982008995504"/>
         </scene>
-        <!--View Controller-->
+        <!--Send Data View Controller-->
         <scene sceneID="B4s-dS-Osl">
             <objects>
-                <viewController id="wF1-Rw-ucn" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="sendDataViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="wF1-Rw-ucn" customClass="sendDataViewController" customModule="SsgSag" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="WDn-Ic-Lnr">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="1000"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -777,6 +777,9 @@
                                     <constraint firstAttribute="height" constant="80" id="XMt-mk-cAR"/>
                                 </constraints>
                                 <state key="normal" backgroundImage="btStart"/>
+                                <connections>
+                                    <action selector="sendData:" destination="wF1-Rw-ucn" eventType="touchUpInside" id="Cdt-vu-7y1"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

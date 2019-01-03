@@ -10,6 +10,10 @@
 		1C3CD9527488A3036C7D035F /* Pods_SsgSag.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1E73B2D58130421AD8914636 /* Pods_SsgSag.framework */; };
 		2452C131601AAC033C5B69D6 /* Pods_SsgSagTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 476B5599333568A94C71406C /* Pods_SsgSagTests.framework */; };
 		8415586421D8D96900A0EDB5 /* SwipeCardDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8415586321D8D96900A0EDB5 /* SwipeCardDelegate.swift */; };
+		842C618521DCDC92001BA6D8 /* sendDataViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842C618421DCDC92001BA6D8 /* sendDataViewController.swift */; };
+		842C619D21DD1807001BA6D8 /* posterData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842C619A21DD1807001BA6D8 /* posterData.swift */; };
+		842C619E21DD1807001BA6D8 /* Json4Swift_Base.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842C619B21DD1807001BA6D8 /* Json4Swift_Base.swift */; };
+		842C619F21DD1807001BA6D8 /* Posters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842C619C21DD1807001BA6D8 /* Posters.swift */; };
 		8459289B21D09CDD001DF6CC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8459289A21D09CDD001DF6CC /* AppDelegate.swift */; };
 		8459289D21D09CDD001DF6CC /* SwipeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8459289C21D09CDD001DF6CC /* SwipeVC.swift */; };
 		845928A321D09CDD001DF6CC /* SsgSag.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 845928A121D09CDD001DF6CC /* SsgSag.xcdatamodeld */; };
@@ -73,6 +77,10 @@
 		73A19F3163047709495EC6A0 /* Pods-SsgSag.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SsgSag.debug.xcconfig"; path = "Target Support Files/Pods-SsgSag/Pods-SsgSag.debug.xcconfig"; sourceTree = "<group>"; };
 		8134CA727EE6CCE0A7714139 /* Pods-SsgSagTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SsgSagTests.debug.xcconfig"; path = "Target Support Files/Pods-SsgSagTests/Pods-SsgSagTests.debug.xcconfig"; sourceTree = "<group>"; };
 		8415586321D8D96900A0EDB5 /* SwipeCardDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwipeCardDelegate.swift; sourceTree = "<group>"; };
+		842C618421DCDC92001BA6D8 /* sendDataViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = sendDataViewController.swift; sourceTree = "<group>"; };
+		842C619A21DD1807001BA6D8 /* posterData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = posterData.swift; sourceTree = "<group>"; };
+		842C619B21DD1807001BA6D8 /* Json4Swift_Base.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Json4Swift_Base.swift; sourceTree = "<group>"; };
+		842C619C21DD1807001BA6D8 /* Posters.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Posters.swift; sourceTree = "<group>"; };
 		8459289721D09CDD001DF6CC /* SsgSag.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SsgSag.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8459289A21D09CDD001DF6CC /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8459289C21D09CDD001DF6CC /* SwipeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwipeVC.swift; sourceTree = "<group>"; };
@@ -180,6 +188,16 @@
 			path = delegate;
 			sourceTree = "<group>";
 		};
+		842C618621DCEB8B001BA6D8 /* Swipe */ = {
+			isa = PBXGroup;
+			children = (
+				842C619A21DD1807001BA6D8 /* posterData.swift */,
+				842C619B21DD1807001BA6D8 /* Json4Swift_Base.swift */,
+				842C619C21DD1807001BA6D8 /* Posters.swift */,
+			);
+			path = Swipe;
+			sourceTree = "<group>";
+		};
 		8459288E21D09CDD001DF6CC = {
 			isa = PBXGroup;
 			children = (
@@ -205,11 +223,11 @@
 		8459289921D09CDD001DF6CC /* SsgSag */ = {
 			isa = PBXGroup;
 			children = (
+				8459289A21D09CDD001DF6CC /* AppDelegate.swift */,
 				84E19CD821DCC977006F72EC /* Models */,
 				84BA694721DB391D00BA8CB8 /* MyPage */,
 				84E19CCB21DCC922006F72EC /* APIServices */,
 				FA524BEF21D64DFD00675289 /* Signup */,
-				8459289A21D09CDD001DF6CC /* AppDelegate.swift */,
 				845928DE21D20034001DF6CC /* LoginRegister */,
 				845928DD21D09F38001DF6CC /* Calendar */,
 				FAAFB58721D3B5E5006BF728 /* Swipe */,
@@ -283,6 +301,7 @@
 		84E19CD821DCC977006F72EC /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				842C618621DCEB8B001BA6D8 /* Swipe */,
 				84E19CD921DCC977006F72EC /* ResponseArray.swift */,
 				84E19CDA21DCC977006F72EC /* Board.swift */,
 				84E19CDB21DCC977006F72EC /* User.swift */,
@@ -296,6 +315,7 @@
 			isa = PBXGroup;
 			children = (
 				FA524BF021D64E2400675289 /* SignupStoryBoard.storyboard */,
+				842C618421DCDC92001BA6D8 /* sendDataViewController.swift */,
 			);
 			path = Signup;
 			sourceTree = "<group>";
@@ -572,6 +592,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				84E19CE021DCC977006F72EC /* User.swift in Sources */,
+				842C619D21DD1807001BA6D8 /* posterData.swift in Sources */,
 				FA851DED21D5FDB0002065D0 /* SwipeModel.swift in Sources */,
 				845928DC21D09F30001DF6CC /* MonthView.swift in Sources */,
 				8459289D21D09CDD001DF6CC /* SwipeVC.swift in Sources */,
@@ -593,7 +614,10 @@
 				84BA694921DB394800BA8CB8 /* myPageVC.swift in Sources */,
 				84E19CDF21DCC977006F72EC /* Board.swift in Sources */,
 				84E19CD321DCC922006F72EC /* UserService.swift in Sources */,
+				842C619E21DD1807001BA6D8 /* Json4Swift_Base.swift in Sources */,
+				842C619F21DD1807001BA6D8 /* Posters.swift in Sources */,
 				845928E321D35F09001DF6CC /* PageViewController.swift in Sources */,
+				842C618521DCDC92001BA6D8 /* sendDataViewController.swift in Sources */,
 				845928D921D09F30001DF6CC /* CalenderVC.swift in Sources */,
 				845928E521D38771001DF6CC /* DetailImageSwipeCard.swift in Sources */,
 				84BA694D21DB74BD00BA8CB8 /* TapbarVC.swift in Sources */,

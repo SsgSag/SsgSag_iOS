@@ -29,10 +29,12 @@ class TapbarVC: UITabBarController {
         
         self.view.superview?.addSubview(self.tabBar)
         
+        
         self.tabBar.barTintColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
         self.tabBar.layer.borderColor = UIColor.clear.cgColor
         self.tabBar.barStyle = .black
     }
+    
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
     
