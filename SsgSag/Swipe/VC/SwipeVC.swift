@@ -48,6 +48,9 @@ class SwipeVC: UIViewController {
         print("SwipeVC의 서브뷰 \(self.view.subviews.count)")
         
         
+       // loadCardValues()
+        
+        
     }
     
     func getPosterData() {
@@ -72,15 +75,14 @@ class SwipeVC: UIViewController {
                 let order = try JSONDecoder().decode(Json4Swift_Base.self, from: data)
                 if let posters = order.data?.posters {
                     for i in posters {
+                        //photoUrl을 valueArray에 저장
                         self.valueArray.append(i.photoUrl!)
-                        
-                        
-                        print(i.photoUrl)
                     }
-                    
+                    //main queue에서 리로드하고 카드들을 표현
+                    //현재 다른탭을 눌렀다가 되돌아 왔을시 문제가 있음.
                     DispatchQueue.main.async {
                         self.view.reloadInputViews()
-                        self.viewWillAppear(true)
+                        self.loadCardValues()
                     }
                 }
             }catch{
@@ -108,7 +110,7 @@ class SwipeVC: UIViewController {
         view.layoutIfNeeded()
         
         viewActions.isUserInteractionEnabled = true
-        loadCardValues()
+        //loadCardValues()
     }
     
     //
