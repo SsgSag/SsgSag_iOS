@@ -80,6 +80,7 @@ class CalenderView: UIView, UICollectionViewDelegate, UICollectionViewDataSource
         NotificationCenter.default.addObserver(self, selector: #selector(downSwipeAction), name: NSNotification.Name(rawValue: "downSwipe"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(upSwipe), name: NSNotification.Name("upSwipe"), object: nil)
     }
+    
     @objc func downSwipeAction() {
         
     }
@@ -99,13 +100,10 @@ class CalenderView: UIView, UICollectionViewDelegate, UICollectionViewDataSource
         }
     }
     func initializeView() {
+        //오늘
         currentMonthIndex = Calendar.current.component(.month, from: Date())
-        
-        print("이번달:\(currentMonthIndex)")
         currentYear = Calendar.current.component(.year, from: Date())
-        print("이번년도:\(currentYear)")
         todaysDate = Calendar.current.component(.day, from: Date())
-        print("오늘:\(todaysDate)")
         
         firstWeekDayOfMonth=getFirstWeekDay()
         
@@ -120,11 +118,43 @@ class CalenderView: UIView, UICollectionViewDelegate, UICollectionViewDataSource
         
         setupViews()
         
+        
+        setupCalendarDate()
+        
         //collectionview의 delegate를 현재 CalendarView로 지정
         myCollectionView.delegate=self
         myCollectionView.dataSource=self
         
         myCollectionView.register(dateCVCell.self, forCellWithReuseIdentifier: "Cell")
+    }
+    
+    
+    func setupCalendarDate() {
+        
+        let startString = "2019-01-03 00:00:00"
+        let lastString = "2018-01-07 00:00:00"
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+        
+        guard let startdate = dateFormatter.date(from: startString) else {
+            fatalError("ERROR: Date conversion failed due to mismatched format.")
+        }
+        guard let enddate = dateFormatter.date(from: lastString) else {
+            fatalError("ERROR: Date conversion failed due to mismatched format.")
+        }
+        
+        print("가나다라마바사 \(startdate) \(enddate)")
+        
+        let startYear = startString.components(separatedBy: "-")
+        
+        
+        let fullName    = "First Last"
+        let fullNameArr = fullName.components(separatedBy: " ")
+        
+        let name    = fullNameArr[0]
+        let surname = fullNameArr[1]
+        
     }
     
     //해당 월에 존재하는 cell의 개수 (12월에 31개의 셀)
@@ -146,6 +176,10 @@ class CalenderView: UIView, UICollectionViewDelegate, UICollectionViewDataSource
         let cell=collectionView.dequeueReusableCell(withReuseIdentifier: "Cell", for: indexPath) as! dateCVCell
         
         cell.line.backgroundColor = .clear
+        
+     
+        
+
         
         var beforeMonthIndex = 0
         var beforeYear = 0 //이번달의 전 달이 어떤날에 해당하는지 확인!!
@@ -176,7 +210,7 @@ class CalenderView: UIView, UICollectionViewDelegate, UICollectionViewDataSource
             cell.lbl.textColor = .lightGray
             cell.lbl.text = "\(beforeMonthCount-firstWeekDayOfMonth+indexPath.row+2)"
             
-            cell.line.backgroundColor = .brown
+            //cell.line.backgroundColor = .brown
             
             //이전달의 날짜를 표시할때 오늘 날짜가 포함 되어 있다면
             if todaysDate == beforeMonthCount-firstWeekDayOfMonth+indexPath.row+2 {
@@ -192,14 +226,14 @@ class CalenderView: UIView, UICollectionViewDelegate, UICollectionViewDataSource
             cell.lbl.text="\(calcDate)"
             cell.isUserInteractionEnabled=true
             cell.lbl.textColor = Style.activeCellLblColor
-            cell.line.backgroundColor = .green
+            //cell.line.backgroundColor = .green
             cell.lbl.backgroundColor = .clear
             
             if calcDate == todaysDate && currentYear == presentYear && currentMonthIndex == presentMonthIndex { //오늘 날짜
                 let lbl = cell.subviews[1] as! UILabel
                 lbl.layer.cornerRadius = 10
                 lbl.layer.masksToBounds = true
-                cell.line.backgroundColor = .black
+                //cell.line.backgroundColor = .black
                     
                 print("블루로 할때 날짜 \(calcDate)")
             }
@@ -216,14 +250,104 @@ class CalenderView: UIView, UICollectionViewDelegate, UICollectionViewDataSource
                 cell.lbl.text="\(calcDate)"
                 cell.isUserInteractionEnabled=false
                 cell.lbl.textColor = .lightGray
-                cell.line.backgroundColor = .blue
+                //cell.line.backgroundColor = .blue
             }
         }
-        
-        
         cell.layer.cornerRadius = 0
+        
+        
+        /*   임의의 데이터     */
+        var startYear = 2019
+        var startMonth = 1
+        var startDay = 15
+        
+        var endYear = 2019
+        var endMonth = 2
+        var endDay = 1
+        /*        */
+        /*   임의의 데이터     */
+        var startYear2 = 2019
+        var startMonth2 = 1
+        var startDay2 = 10
+        
+        var endYear2 = 2019
+        var endMonth2 = 1
+        var endDay2 = 18
+        /*        */
+        /*   임의의 데이터     */
+        var startYear3 = 2019
+        var startMonth3 = 1
+        var startDay3 = 1
+        
+        var endYear3 = 2019
+        var endMonth3 = 1
+        var endDay3 = 14
+        /*        */
+        
+        
+        var cellYear = currentYear
+        var cellMonth = currentMonthIndex
+        print("_________________\(cellMonth)")
+        var cellDay = indexPath.row-firstWeekDayOfMonth+2
+        
+//        expressCellView(startYear:Int, startMonth:Int, startDay:Int, endYear:Int, endMonth:Int, endDay: Int, )
+        //이달만 표현함에 주의하자
+        /*                      */
+        cell.line.backgroundColor = .clear
+        if startYear == cellYear && startMonth == cellMonth && startDay <= cellDay {
+            if startMonth != endMonth { //시작월과 끝월이 다를때
+                //이번달에 표현되는 다음달의 날짜보다 작을때만 표현한다. , 다음달이면
+                let calcDate = indexPath.row-firstWeekDayOfMonth+2 //1~31일까지
+                let countOfNextMonthday = (calcDate + firstWeekDayOfMonth - 1) - (numOfDaysInMonth[currentMonthIndex-1] + firstWeekDayOfMonth - 1)
+                if countOfNextMonthday <= endDay {
+                    cell.line.backgroundColor = .red
+                }
+            }else { //시작 월과 끝 월이 같다면
+                if endDay >= cellDay {
+                    cell.line.backgroundColor = .blue
+                }
+            }
+        }
+        /*                    */
+        cell.line2.backgroundColor = .clear
+        if startYear2 == cellYear && startMonth2 == cellMonth && startDay2 <= cellDay {
+            
+            if startMonth2 != endMonth2 { //시작월과 끝월이 다를때
+                //이번달에 표현되는 다음달의 날짜보다 작을때만 표현한다. , 다음달이면
+                let calcDate = indexPath.row-firstWeekDayOfMonth+2 //1~31일까지
+                let countOfNextMonthday = (calcDate + firstWeekDayOfMonth - 1) - (numOfDaysInMonth[currentMonthIndex-1] + firstWeekDayOfMonth - 1)
+                if countOfNextMonthday <= endDay2 {
+                    cell.line2.backgroundColor = .green
+                }
+            }else { //시작 월과 끝 월이 같다면
+                if endDay2 >= cellDay {
+                    cell.line2.backgroundColor = .green
+                }
+            }
+        }
+        /*                    */
+        cell.line3.backgroundColor = .clear
+        if startYear3 == cellYear && startMonth3 == cellMonth && startDay3 <= cellDay {
+            if startMonth3 != endMonth3 { //시작월과 끝월이 다를때
+                //이번달에 표현되는 다음달의 날짜보다 작을때만 표현한다. , 다음달이면
+                let calcDate = indexPath.row-firstWeekDayOfMonth+2 //1~31일까지
+                let countOfNextMonthday = (calcDate + firstWeekDayOfMonth - 1) - (numOfDaysInMonth[currentMonthIndex-1] + firstWeekDayOfMonth - 1)
+                if countOfNextMonthday <= endDay3 {
+                    cell.line3.backgroundColor = .blue
+                }
+            }else { //시작 월과 끝 월이 같다면
+                if endDay3 >= cellDay {
+                    cell.line3.backgroundColor = .blue
+                }
+            }
+        }
+        /*                    */
         return cell
     }
+    
+//    func expressCellView(){
+//
+//    }
     
     //셀 선택
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
@@ -403,11 +527,26 @@ class dateCVCell: UICollectionViewCell {
         //lbl.backgroundColor = .brown
         
         addSubview(line)
-        line.bottomAnchor.constraint(equalTo: self.bottomAnchor).isActive = true
-        //line.topAnchor.constraint(equalTo: lbl.bottomAnchor , constant: 6).isActive = true
+        //line.bottomAnchor.constraint(equalTo: self.bottomAnchor).isActive = true
+        line.topAnchor.constraint(equalTo: lbl.bottomAnchor , constant: 10).isActive = true
         line.leftAnchor.constraint(equalTo: leftAnchor).isActive = true
         line.rightAnchor.constraint(equalTo: rightAnchor).isActive = true
         line.heightAnchor.constraint(equalToConstant: 4).isActive = true
+        
+        addSubview(line2)
+        //line.bottomAnchor.constraint(equalTo: self.bottomAnchor).isActive = true
+        line2.topAnchor.constraint(equalTo: line.bottomAnchor , constant: 2).isActive = true
+        line2.leftAnchor.constraint(equalTo: leftAnchor).isActive = true
+        line2.rightAnchor.constraint(equalTo: rightAnchor).isActive = true
+        line2.heightAnchor.constraint(equalToConstant: 4).isActive = true
+        
+        addSubview(line3)
+        //line.bottomAnchor.constraint(equalTo: self.bottomAnchor).isActive = true
+        line3.topAnchor.constraint(equalTo: line2.bottomAnchor , constant: 2).isActive = true
+        line3.leftAnchor.constraint(equalTo: leftAnchor).isActive = true
+        line3.rightAnchor.constraint(equalTo: rightAnchor).isActive = true
+        line3.heightAnchor.constraint(equalToConstant: 4).isActive = true
+        
     }
     //일
     let lbl: UILabel = {
@@ -426,7 +565,6 @@ class dateCVCell: UICollectionViewCell {
     //구분선
     let line: UIView = {
         let line = UIView()
-        //line.backgroundColor = .blue
         line.layer.cornerRadius = 0
         line.layer.masksToBounds = true
         line.translatesAutoresizingMaskIntoConstraints = false
@@ -436,7 +574,8 @@ class dateCVCell: UICollectionViewCell {
     //구분선
     let line2: UIView = {
         let line = UIView()
-        line.backgroundColor = .red
+        line.layer.cornerRadius = 0
+        line.layer.masksToBounds = true
         line.translatesAutoresizingMaskIntoConstraints = false
         return line
     }()

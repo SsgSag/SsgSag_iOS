@@ -44,8 +44,6 @@ class CalenderVC: UIViewController{
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        //Calendar Swipe
         let todoSwipeUp = UISwipeGestureRecognizer(target: self, action: #selector(todoUp))
         let todoSwipeDown = UITapGestureRecognizer(target: self, action: #selector(todoDown))
         let swipeLeft = UISwipeGestureRecognizer(target: self, action: #selector(leftSwipeAction))
@@ -79,30 +77,14 @@ class CalenderVC: UIViewController{
         calenderView.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
         calenderView.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
         calenderView.bottomAnchor.constraint(equalTo: todoUpDownView.topAnchor).isActive = true
-        
-//        calenderView.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -12).isActive=true
-//        calenderView.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 12).isActive=true
-//
-//        calendarTopAncor = calenderView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 50)
-//        calendarTopAncor?.isActive = true
-//
-//        calendarheightAncor = calenderView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.6)
-//        calendarheightAncor?.isActive = true
-//
-//        calendarBottomAncor = calenderView.myCollectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
-//        calendarBottomAncor?.isActive = false
-        
-        
-        
     }
     
     @objc func todoUp(){
         print("TODO UP")
-        calendarTopAncor?.isActive = true
         calendarheightAncor?.isActive = true
-        todoUpDownViewTopAncor?.isActive = true
+        
         NotificationCenter.default.post(name: NSNotification.Name("changeToUp"), object: nil)
-        UIView.animate(withDuration: 0.5) {
+        UIView.animate(withDuration: 0.1) {
             self.view.layoutIfNeeded()
         }
         todoStatus = -1
@@ -111,13 +93,14 @@ class CalenderVC: UIViewController{
     @objc func todoDown(){
         print("TODO DOWN")
         NotificationCenter.default.post(name: NSNotification.Name("changeToDown"), object: nil)
-        todoUpDownViewTopAncor?.isActive = true
-        calendarTopAncor?.isActive = true
+        
         calendarheightAncor?.isActive = false
+        
         calendarheightAncor = calenderView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 1.0)
         calendarheightAncor?.isActive = true
         calendarheightAncor = calenderView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.6)
-        UIView.animate(withDuration: 0.5) {
+        
+        UIView.animate(withDuration: 0.1) {
             self.view.layoutIfNeeded()
         }
         todoStatus = 1
