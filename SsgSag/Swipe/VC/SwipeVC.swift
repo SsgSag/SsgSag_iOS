@@ -31,26 +31,15 @@ class SwipeVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         getPosterData()
         print(valueArray.count)
-        print("이건 밸류 어레이으 개수")
         
         viewActions.isUserInteractionEnabled = true
         
         countLabel.layer.cornerRadius = 10
         countLabel.layer.masksToBounds = true
     
-        
         self.view.backgroundColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
-        abcde = "12341234"
-        
-        print("SwipeVC의 서브뷰 \(self.view.subviews.count)")
-        
-        
-       // loadCardValues()
-        
-        
     }
     
     func getPosterData() {
@@ -66,20 +55,42 @@ class SwipeVC: UIViewController {
                 print(error!)
                 return
             }
+            
             guard let data = data else {
-                print("Data is empty")
-                //print(data)
                 return
             }
+            
             do {
                 let order = try JSONDecoder().decode(Json4Swift_Base.self, from: data)
                 if let posters = order.data?.posters {
                     for i in posters {
                         //photoUrl을 valueArray에 저장
                         self.valueArray.append(i.photoUrl!)
+//                        print(i.posterRegDate)
+//                        print(i.posterStartDate)
+//                        print(i.posterEndDate)
+                        
+                        //date parsing
+                        let dateFormatter = DateFormatter()
+                        dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+                        guard let startdate = dateFormatter.date(from: i.posterStartDate!) else {
+                            fatalError("ERROR: Date conversion failed due to mismatched format.")
+                        }
+                        guard let regdate = dateFormatter.date(from: i.posterRegDate!) else {
+                            fatalError("ERROR: Date conversion failed due to mismatched format.")
+                        }
+                        guard let endtdate = dateFormatter.date(from: i.posterEndDate!) else {
+                            fatalError("ERROR: Date conversion failed due to mismatched format.")
+                        }
+                        
+                        //
+                        print("\(i.posterRegDate!) \(startdate)")
+                        print("\(i.posterStartDate!) \(regdate.description)")
+                        print("\(i.posterEndDate!) \(endtdate)")
+            
+                        
                     }
                     //main queue에서 리로드하고 카드들을 표현
-                    //현재 다른탭을 눌렀다가 되돌아 왔을시 문제가 있음.
                     DispatchQueue.main.async {
                         self.view.reloadInputViews()
                         self.loadCardValues()
@@ -91,14 +102,9 @@ class SwipeVC: UIViewController {
         }
         task.resume()
     }
-    
     override func viewDidLayoutSubviews() {
         super.viewWillLayoutSubviews()
-//        self.tabBarController?.tabBar.frame = CGRect(x: 0, y: 0, width: (tabBarController?.tabBar.frame.width)!, height: (tabBarController?.tabBar.frame.height)!)
     }
-    
-    
-
     //캘린더 이동
     @IBAction func moveToCalendar(_ sender: Any) {
         let calendarVC = CalenderVC()
@@ -113,24 +119,17 @@ class SwipeVC: UIViewController {
         //loadCardValues()
     }
     
-    //
+    //카드를 로드한다.
     func loadCardValues() {
         if valueArray.count > 0 {
-            print("이게 출력되나???")
-            
             let capCount = (valueArray.count > MAX_BUFFER_SIZE) ? MAX_BUFFER_SIZE : valueArray.count
-            print("이건?")
             for (i,value) in valueArray.enumerated() {
-                print("enumerated")
                 let newCard = createSwipeCard(at: i,value: value)
                 allCardsArray.append(newCard)
-                print("이건 몇번 실행되는가?")
-                
                 if i < capCount {
                     currentLoadedCardsArray.append(newCard)
                 }
             }
-            
             //viewTinderBackGround의 서브뷰로 currentLoadedCardsArray를 추가 (각 스와이프 카드를 서브뷰로 추가)
             for (i,_) in currentLoadedCardsArray.enumerated() {
                 if i > 0 {
@@ -139,7 +138,6 @@ class SwipeVC: UIViewController {
                     viewTinderBackGround.addSubview(currentLoadedCardsArray[i])
                 }
             }
-            
             animateCardAfterSwiping() //카드 처음로드 혹은 제거 추가 할시
         }
     }
@@ -168,16 +166,17 @@ class SwipeVC: UIViewController {
             }
     
             animateCardAfterSwiping()
+        
     }
     
     func animateCardAfterSwiping() {
-        //모든 스와이프 카드에서
+        
+        print("카드가 스와이핑 되고나서")
         
         for (i,card) in currentLoadedCardsArray.enumerated() {
             //각 카드에 스와이프 카드를 등록
             let storyboard = UIStoryboard(name: "SwipeStoryBoard", bundle: nil)
             let pageVC = storyboard.instantiateViewController(withIdentifier: "PageViewController") as! PageViewController
-
             
             //오류 있음. 2개 잇으면 2 아래로? 
             if i < 2 {
@@ -200,6 +199,7 @@ class SwipeVC: UIViewController {
                     card.isUserInteractionEnabled = true
                 }
             }
+            
             
         }
         
