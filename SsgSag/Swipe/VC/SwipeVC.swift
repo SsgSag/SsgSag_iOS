@@ -46,7 +46,8 @@ class SwipeVC: UIViewController {
         abcde = "12341234"
         
         print("SwipeVC의 서브뷰 \(self.view.subviews.count)")
-        countLabel.text = "\(valueArray.count)"
+        
+        
     }
     
     func getPosterData() {
@@ -72,12 +73,14 @@ class SwipeVC: UIViewController {
                 if let posters = order.data?.posters {
                     for i in posters {
                         self.valueArray.append(i.photoUrl!)
-                        DispatchQueue.main.async {
-                            self.view.reloadInputViews()
-                            self.viewWillAppear(true)
-                        }
+                        
                         
                         print(i.photoUrl)
+                    }
+                    
+                    DispatchQueue.main.async {
+                        self.view.reloadInputViews()
+                        self.viewWillAppear(true)
                     }
                 }
             }catch{
@@ -119,6 +122,8 @@ class SwipeVC: UIViewController {
                 print("enumerated")
                 let newCard = createSwipeCard(at: i,value: value)
                 allCardsArray.append(newCard)
+                print("이건 몇번 실행되는가?")
+                
                 if i < capCount {
                     currentLoadedCardsArray.append(newCard)
                 }
@@ -171,12 +176,18 @@ class SwipeVC: UIViewController {
             let storyboard = UIStoryboard(name: "SwipeStoryBoard", bundle: nil)
             let pageVC = storyboard.instantiateViewController(withIdentifier: "PageViewController") as! PageViewController
 
+            
+            //오류 있음. 2개 잇으면 2 아래로? 
             if i < 2 {
                 print("i를 프린트 해봅시다 \(i)")
                 pageVC.view.frame = self.currentLoadedCardsArray[i].frame
                 var page = pageVC.orderedViewControllers[1] as! DetailImageSwipeCardVC
                 guard let pageURL = URL(string: valueArray[i]) else {return}
                 page.detailImageVIew.load(url: pageURL)
+                countLabel.text = "\(i+1)"
+                
+                print("currentLoadedCardsArray.count \(currentLoadedCardsArray.count)")
+                print("allcardsArray.count \(allCardsArray.count)")
                 
                 self.addChild(pageVC)
                 self.currentLoadedCardsArray[i].insertSubview(pageVC.view, at: 0)
