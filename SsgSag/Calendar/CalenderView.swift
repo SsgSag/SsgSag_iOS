@@ -60,6 +60,8 @@ class CalenderView: UIView, UICollectionViewDelegate, UICollectionViewDataSource
     var currentBeforeYear: Int = 0
     var currentBeforefirstWeekDayOfMeonth = 0
     
+    var reValue = 0
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         initializeView()
@@ -73,13 +75,11 @@ class CalenderView: UIView, UICollectionViewDelegate, UICollectionViewDataSource
         } else {
             Style.themeLight()
         }
-        
         initializeView()
         
         NotificationCenter.default.addObserver(self, selector: #selector(downSwipeAction), name: NSNotification.Name(rawValue: "downSwipe"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(upSwipe), name: NSNotification.Name("upSwipe"), object: nil)
     }
-    
     
     @objc func downSwipeAction() {
         
@@ -91,27 +91,19 @@ class CalenderView: UIView, UICollectionViewDelegate, UICollectionViewDataSource
     
     //month 바꿀시 눌린 상태복귀
     func changeTheme() {
-        
         myCollectionView.reloadData()
-        
         monthView.monthName.textColor = Style.monthViewLblColor
         monthView.btnRight.setTitleColor(Style.monthViewBtnRightColor, for: .normal)
         monthView.btnLeft.setTitleColor(Style.monthViewBtnLeftColor, for: .normal)
-        
         for i in 0..<7 {
             (weekdaysView.myStackView.subviews[i] as! UILabel).textColor = Style.weekdaysLblColor
         }
-        
     }
-    
     func initializeView() {
+        //오늘
         currentMonthIndex = Calendar.current.component(.month, from: Date())
-        
-        print("이번달:\(currentMonthIndex)")
         currentYear = Calendar.current.component(.year, from: Date())
-        print("이번년도:\(currentYear)")
         todaysDate = Calendar.current.component(.day, from: Date())
-        print("오늘:\(todaysDate)")
         
         firstWeekDayOfMonth=getFirstWeekDay()
         
@@ -126,6 +118,9 @@ class CalenderView: UIView, UICollectionViewDelegate, UICollectionViewDataSource
         
         setupViews()
         
+        
+        setupCalendarDate()
+        
         //collectionview의 delegate를 현재 CalendarView로 지정
         myCollectionView.delegate=self
         myCollectionView.dataSource=self
@@ -133,18 +128,46 @@ class CalenderView: UIView, UICollectionViewDelegate, UICollectionViewDataSource
         myCollectionView.register(dateCVCell.self, forCellWithReuseIdentifier: "Cell")
     }
     
+    
+    func setupCalendarDate() {
+        
+        let startString = "2019-01-03 00:00:00"
+        let lastString = "2018-01-07 00:00:00"
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+        
+        guard let startdate = dateFormatter.date(from: startString) else {
+            fatalError("ERROR: Date conversion failed due to mismatched format.")
+        }
+        guard let enddate = dateFormatter.date(from: lastString) else {
+            fatalError("ERROR: Date conversion failed due to mismatched format.")
+        }
+        
+        print("가나다라마바사 \(startdate) \(enddate)")
+        
+        let startYear = startString.components(separatedBy: "-")
+        
+        
+        let fullName    = "First Last"
+        let fullNameArr = fullName.components(separatedBy: " ")
+        
+        let name    = fullNameArr[0]
+        let surname = fullNameArr[1]
+        
+    }
+    
     //해당 월에 존재하는 cell의 개수 (12월에 31개의 셀)
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
 //        print("numberofItemsInSection \(numOfDaysInMonth[currentMonthIndex-1] + firstWeekDayOfMonth - 1)")
 //        print("section \(section)")
         
-        var reValue = 0
+        reValue = 0
         if numOfDaysInMonth[currentMonthIndex-1] + firstWeekDayOfMonth - 1 > 35 {
             reValue = 42
         }else {
             reValue = 35
         }
-        
         return reValue
         //여기에 다음달의 개수도 더해야 한다.
     }
@@ -152,19 +175,16 @@ class CalenderView: UIView, UICollectionViewDelegate, UICollectionViewDataSource
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell=collectionView.dequeueReusableCell(withReuseIdentifier: "Cell", for: indexPath) as! dateCVCell
         
-        
         cell.line.backgroundColor = .clear
         
-        //todaysDate && currentYear == presentYear && currentMonthIndex == presentMonthInde
-//        print("todaysDate \(todaysDate)")
-//        print("currentYear \(currentYear)")
-//        print("presentYear \(presentYear)")
-//        print("currentMonthIndex \(currentMonthIndex)")
-//        print("presentMonthIndex \(presentMonthIndex)")
+     
+        
+
         
         var beforeMonthIndex = 0
         var beforeYear = 0 //이번달의 전 달이 어떤날에 해당하는지 확인!!
         
+        //cell.backgroundColor = .blue
         //이번달이 1월이면 이전달은 12월
         if currentMonthIndex == 1 {
             beforeMonthIndex = 12
@@ -173,6 +193,7 @@ class CalenderView: UIView, UICollectionViewDelegate, UICollectionViewDataSource
             beforeMonthIndex = currentMonthIndex - 1
             beforeYear = currentYear
         }
+        
         var beforeMonthCount = numOfDaysInMonth[beforeMonthIndex-1]
         if beforeMonthIndex == 2{
             if currentYear % 4 == 0 {
@@ -189,10 +210,9 @@ class CalenderView: UIView, UICollectionViewDelegate, UICollectionViewDataSource
             cell.lbl.textColor = .lightGray
             cell.lbl.text = "\(beforeMonthCount-firstWeekDayOfMonth+indexPath.row+2)"
             
-            cell.line.backgroundColor = .brown
-            print("난 이날만 브라운으로 바꿀래 \(cell.lbl.text)")
-            //이전달의 날짜를 표시할때 오늘 날짜가 포함 되어 있다면
+            //cell.line.backgroundColor = .brown
             
+            //이전달의 날짜를 표시할때 오늘 날짜가 포함 되어 있다면
             if todaysDate == beforeMonthCount-firstWeekDayOfMonth+indexPath.row+2 {
                 //cell.lbl.backgroundColor = .red
                 print("todaysDate : \(todaysDate)")
@@ -206,29 +226,16 @@ class CalenderView: UIView, UICollectionViewDelegate, UICollectionViewDataSource
             cell.lbl.text="\(calcDate)"
             cell.isUserInteractionEnabled=true
             cell.lbl.textColor = Style.activeCellLblColor
-            cell.line.backgroundColor = .green
+            //cell.line.backgroundColor = .green
             cell.lbl.backgroundColor = .clear
             
-//            if calcDate < todaysDate && currentYear == presentYear && currentMonthIndex == presentMonthIndex { //오늘 이전
-//                cell.isUserInteractionEnabled=true
-//                cell.lbl.textColor = Style.activeCellLblColor
-//                cell.lbl.backgroundColor = .clear
-//            } else { //오늘 이후 날짜
-//                cell.isUserInteractionEnabled=true
-//                cell.lbl.textColor = Style.activeCellLblColor
-//                cell.lbl.backgroundColor = .clear
-//            }
-            
             if calcDate == todaysDate && currentYear == presentYear && currentMonthIndex == presentMonthIndex { //오늘 날짜
-                
                 let lbl = cell.subviews[1] as! UILabel
                 lbl.layer.cornerRadius = 10
                 lbl.layer.masksToBounds = true
-                cell.line.backgroundColor = .black
+                //cell.line.backgroundColor = .black
                     
                 print("블루로 할때 날짜 \(calcDate)")
-                //lbl.backgroundColor = .blue
-                //lbl.textColor = UIColor.white
             }
             
             if indexPath.row % 7 == 0 {
@@ -243,14 +250,104 @@ class CalenderView: UIView, UICollectionViewDelegate, UICollectionViewDataSource
                 cell.lbl.text="\(calcDate)"
                 cell.isUserInteractionEnabled=false
                 cell.lbl.textColor = .lightGray
-                cell.line.backgroundColor = .blue
+                //cell.line.backgroundColor = .blue
             }
-        
-            //cell.line.backgroundColor = .black
         }
         cell.layer.cornerRadius = 0
+        
+        
+        /*   임의의 데이터     */
+        var startYear = 2019
+        var startMonth = 1
+        var startDay = 15
+        
+        var endYear = 2019
+        var endMonth = 2
+        var endDay = 1
+        /*        */
+        /*   임의의 데이터     */
+        var startYear2 = 2019
+        var startMonth2 = 1
+        var startDay2 = 10
+        
+        var endYear2 = 2019
+        var endMonth2 = 1
+        var endDay2 = 18
+        /*        */
+        /*   임의의 데이터     */
+        var startYear3 = 2019
+        var startMonth3 = 1
+        var startDay3 = 1
+        
+        var endYear3 = 2019
+        var endMonth3 = 1
+        var endDay3 = 14
+        /*        */
+        
+        
+        var cellYear = currentYear
+        var cellMonth = currentMonthIndex
+        print("_________________\(cellMonth)")
+        var cellDay = indexPath.row-firstWeekDayOfMonth+2
+        
+//        expressCellView(startYear:Int, startMonth:Int, startDay:Int, endYear:Int, endMonth:Int, endDay: Int, )
+        //이달만 표현함에 주의하자
+        /*                      */
+        cell.line.backgroundColor = .clear
+        if startYear == cellYear && startMonth == cellMonth && startDay <= cellDay {
+            if startMonth != endMonth { //시작월과 끝월이 다를때
+                //이번달에 표현되는 다음달의 날짜보다 작을때만 표현한다. , 다음달이면
+                let calcDate = indexPath.row-firstWeekDayOfMonth+2 //1~31일까지
+                let countOfNextMonthday = (calcDate + firstWeekDayOfMonth - 1) - (numOfDaysInMonth[currentMonthIndex-1] + firstWeekDayOfMonth - 1)
+                if countOfNextMonthday <= endDay {
+                    cell.line.backgroundColor = .red
+                }
+            }else { //시작 월과 끝 월이 같다면
+                if endDay >= cellDay {
+                    cell.line.backgroundColor = .blue
+                }
+            }
+        }
+        /*                    */
+        cell.line2.backgroundColor = .clear
+        if startYear2 == cellYear && startMonth2 == cellMonth && startDay2 <= cellDay {
+            
+            if startMonth2 != endMonth2 { //시작월과 끝월이 다를때
+                //이번달에 표현되는 다음달의 날짜보다 작을때만 표현한다. , 다음달이면
+                let calcDate = indexPath.row-firstWeekDayOfMonth+2 //1~31일까지
+                let countOfNextMonthday = (calcDate + firstWeekDayOfMonth - 1) - (numOfDaysInMonth[currentMonthIndex-1] + firstWeekDayOfMonth - 1)
+                if countOfNextMonthday <= endDay2 {
+                    cell.line2.backgroundColor = .green
+                }
+            }else { //시작 월과 끝 월이 같다면
+                if endDay2 >= cellDay {
+                    cell.line2.backgroundColor = .green
+                }
+            }
+        }
+        /*                    */
+        cell.line3.backgroundColor = .clear
+        if startYear3 == cellYear && startMonth3 == cellMonth && startDay3 <= cellDay {
+            if startMonth3 != endMonth3 { //시작월과 끝월이 다를때
+                //이번달에 표현되는 다음달의 날짜보다 작을때만 표현한다. , 다음달이면
+                let calcDate = indexPath.row-firstWeekDayOfMonth+2 //1~31일까지
+                let countOfNextMonthday = (calcDate + firstWeekDayOfMonth - 1) - (numOfDaysInMonth[currentMonthIndex-1] + firstWeekDayOfMonth - 1)
+                if countOfNextMonthday <= endDay3 {
+                    cell.line3.backgroundColor = .blue
+                }
+            }else { //시작 월과 끝 월이 같다면
+                if endDay3 >= cellDay {
+                    cell.line3.backgroundColor = .blue
+                }
+            }
+        }
+        /*                    */
         return cell
     }
+    
+//    func expressCellView(){
+//
+//    }
     
     //셀 선택
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
@@ -263,7 +360,6 @@ class CalenderView: UIView, UICollectionViewDelegate, UICollectionViewDataSource
             //cell?.backgroundColor=Colors.darkRed
             let lbl = cell?.subviews[1] as! UILabel
             lbl.backgroundColor = Colors.darkRed
-//            print("선택된 날짜 : \(lbl.text)")
             lbl.textColor=UIColor.white
         }
     }
@@ -284,16 +380,23 @@ class CalenderView: UIView, UICollectionViewDelegate, UICollectionViewDataSource
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         
-        let width = collectionView.frame.width / 7 //원래는 /7
-        let height = collectionView.frame.height / 7
+        var width = collectionView.frame.width / 7 //원래는 /7
+        var height = collectionView.frame.height / 7
+        
+        if reValue == 35 {
+            height = collectionView.frame.height / 5
+        }else {
+            height = collectionView.frame.height / 6
+        }
         
         return CGSize(width: width, height: height)
     }
     
     //minimumLineSpacing  (세로)
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-        return 8.0
+        return 0.0
     }
+    
     //minimumInteritemSpacing  (가로)
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
         return 0.0
@@ -342,7 +445,8 @@ class CalenderView: UIView, UICollectionViewDelegate, UICollectionViewDataSource
         weekdaysView.heightAnchor.constraint(equalToConstant: 30).isActive=true
         
         addSubview(myCollectionView)
-        myCollectionView.topAnchor.constraint(equalTo: weekdaysView.bottomAnchor, constant: 10).isActive=true
+        //myCollectionView.backgroundColor = .red
+        myCollectionView.topAnchor.constraint(equalTo: weekdaysView.bottomAnchor, constant: 15).isActive=true
         myCollectionView.leftAnchor.constraint(equalTo: leftAnchor, constant: 0).isActive=true
         myCollectionView.rightAnchor.constraint(equalTo: rightAnchor, constant: 0).isActive=true
         myCollectionView.bottomAnchor.constraint(equalTo: bottomAnchor).isActive=true
@@ -371,10 +475,8 @@ class CalenderView: UIView, UICollectionViewDelegate, UICollectionViewDataSource
         myCollectionView.translatesAutoresizingMaskIntoConstraints=false
         myCollectionView.backgroundColor=UIColor.clear
         myCollectionView.allowsMultipleSelection=false
-        
         return myCollectionView
     }()
-    
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -384,27 +486,13 @@ class CalenderView: UIView, UICollectionViewDelegate, UICollectionViewDataSource
 class dateCVCell: UICollectionViewCell {
     override init(frame: CGRect) {
         super.init(frame: frame)
-
         layer.cornerRadius=5
         layer.masksToBounds=true
-        
         setupViews()
-        
-        //NotificationCenter.default.addObserver(self, selector: #selector(changeToUp), name: NSNotification.Name(rawValue: "changeToUp"), object: nil)
-        //NotificationCenter.default.addObserver(self, selector: #selector(changeToDown), name: NSNotification.Name(rawValue: "changeToDown"), object: nil)
     }
-    
-    var lineheightAncor : NSLayoutConstraint?
-    var lineheightAncorSub : NSLayoutConstraint?
-    
-    var lineheightAncor2 : NSLayoutConstraint?
-    var lineheightAncor2Sub : NSLayoutConstraint?
-    
-    var lineheightAncor3 : NSLayoutConstraint?
-    var lineheightAncor3Sub : NSLayoutConstraint?
+
     
     @objc func changeToUp() {
-        
         lbl.topAnchor.constraint(equalTo: topAnchor).isActive=true
         lbl.leftAnchor.constraint(equalTo: leftAnchor).isActive=true
         lbl.rightAnchor.constraint(equalTo: rightAnchor).isActive=true
@@ -414,26 +502,6 @@ class dateCVCell: UICollectionViewCell {
         line.leftAnchor.constraint(equalTo: leftAnchor).isActive = true
         line.rightAnchor.constraint(equalTo: rightAnchor).isActive = true
         line.heightAnchor.constraint(equalToConstant: 4).isActive = true
-//        lineheightAncor = line.heightAnchor.constraint(equalToConstant: 4)
-//        lineheightAncor?.isActive = true
-        //line.heightAnchor.constraint(equalToConstant: 4).isActive = true
-        
-        line2.topAnchor.constraint(equalTo: line.bottomAnchor).isActive = true
-        line2.leftAnchor.constraint(equalTo: leftAnchor).isActive = true
-        line2.rightAnchor.constraint(equalTo: rightAnchor).isActive = true
-         line2.heightAnchor.constraint(equalToConstant: 4).isActive = true
-//        lineheightAncor2 = line2.heightAnchor.constraint(equalToConstant: 4)
-//        lineheightAncor2?.isActive = true
-        //line2.heightAnchor.constraint(equalToConstant: 4).isActive = true
-        
-        line3.topAnchor.constraint(equalTo: line2.bottomAnchor).isActive = true
-        line3.leftAnchor.constraint(equalTo: leftAnchor).isActive = true
-        line3.rightAnchor.constraint(equalTo: rightAnchor).isActive = true
-         line3.heightAnchor.constraint(equalToConstant: 4).isActive = true
-//        lineheightAncor3 = line3.heightAnchor.constraint(equalToConstant: 4)
-//        lineheightAncor3?.isActive = true
-        
-        
     }
     @objc func changeToDown() {
         lbl.topAnchor.constraint(equalTo: topAnchor).isActive=false
@@ -445,48 +513,8 @@ class dateCVCell: UICollectionViewCell {
         line.leftAnchor.constraint(equalTo: leftAnchor).isActive = false
         line.rightAnchor.constraint(equalTo: rightAnchor).isActive = false
         line.heightAnchor.constraint(equalToConstant: 4).isActive = false
-        
-        line2.topAnchor.constraint(equalTo: line.bottomAnchor).isActive = false
-        line2.leftAnchor.constraint(equalTo: leftAnchor).isActive = false
-        line2.rightAnchor.constraint(equalTo: rightAnchor).isActive = false
-        line2.heightAnchor.constraint(equalToConstant: 4).isActive = false
-        
-        line3.topAnchor.constraint(equalTo: line2.bottomAnchor).isActive = false
-        line3.leftAnchor.constraint(equalTo: leftAnchor).isActive = false
-        line3.rightAnchor.constraint(equalTo: rightAnchor).isActive = false
-        line3.heightAnchor.constraint(equalToConstant: 4).isActive = false
 
-        lbl.topAnchor.constraint(equalTo: topAnchor).isActive=true
-        lbl.leftAnchor.constraint(equalTo: leftAnchor).isActive=true
-        lbl.rightAnchor.constraint(equalTo: rightAnchor).isActive=true
-        lbl.heightAnchor.constraint(equalToConstant: 15).isActive = true
-        
-        line.topAnchor.constraint(equalTo: lbl.bottomAnchor).isActive = true
-        line.leftAnchor.constraint(equalTo: leftAnchor).isActive = true
-        line.rightAnchor.constraint(equalTo: rightAnchor).isActive = true
-        line.heightAnchor.constraint(equalToConstant: 20).isActive = true
-//        lineheightAncor = line.heightAnchor.constraint(equalToConstant: 15)
-//        lineheightAncor?.isActive = true
-        //line.heightAnchor.constraint(equalToConstant: 4).isActive = true
-//
-//
-//        line2.topAnchor.constraint(equalTo: line.bottomAnchor).isActive = true
-//        line2.leftAnchor.constraint(equalTo: leftAnchor).isActive = true
-//        line2.rightAnchor.constraint(equalTo: rightAnchor).isActive = true
-//        line2.heightAnchor.constraint(equalToConstant: 10).isActive = true
-////        lineheightAncor2 = line2.heightAnchor.constraint(equalToConstant: 15)
-////        lineheightAncor2?.isActive = true
-//        //line2.heightAnchor.constraint(equalToConstant: 4).isActive = true
-//
-//
-//        line3.topAnchor.constraint(equalTo: line2.bottomAnchor).isActive = true
-//        line3.leftAnchor.constraint(equalTo: leftAnchor).isActive = true
-//        line3.rightAnchor.constraint(equalTo: rightAnchor).isActive = true
-//        line3.heightAnchor.constraint(equalToConstant: 10).isActive = true
-//        lineheightAncor3 = line3.heightAnchor.constraint(equalToConstant: 15)
-//        lineheightAncor3?.isActive = true
         self.layoutIfNeeded()
-        
     }
 
     //날짜 텍스트
@@ -499,10 +527,26 @@ class dateCVCell: UICollectionViewCell {
         //lbl.backgroundColor = .brown
         
         addSubview(line)
-        line.topAnchor.constraint(equalTo: lbl.bottomAnchor).isActive = true
+        //line.bottomAnchor.constraint(equalTo: self.bottomAnchor).isActive = true
+        line.topAnchor.constraint(equalTo: lbl.bottomAnchor , constant: 10).isActive = true
         line.leftAnchor.constraint(equalTo: leftAnchor).isActive = true
         line.rightAnchor.constraint(equalTo: rightAnchor).isActive = true
         line.heightAnchor.constraint(equalToConstant: 4).isActive = true
+        
+        addSubview(line2)
+        //line.bottomAnchor.constraint(equalTo: self.bottomAnchor).isActive = true
+        line2.topAnchor.constraint(equalTo: line.bottomAnchor , constant: 2).isActive = true
+        line2.leftAnchor.constraint(equalTo: leftAnchor).isActive = true
+        line2.rightAnchor.constraint(equalTo: rightAnchor).isActive = true
+        line2.heightAnchor.constraint(equalToConstant: 4).isActive = true
+        
+        addSubview(line3)
+        //line.bottomAnchor.constraint(equalTo: self.bottomAnchor).isActive = true
+        line3.topAnchor.constraint(equalTo: line2.bottomAnchor , constant: 2).isActive = true
+        line3.leftAnchor.constraint(equalTo: leftAnchor).isActive = true
+        line3.rightAnchor.constraint(equalTo: rightAnchor).isActive = true
+        line3.heightAnchor.constraint(equalToConstant: 4).isActive = true
+        
     }
     //일
     let lbl: UILabel = {
@@ -521,7 +565,6 @@ class dateCVCell: UICollectionViewCell {
     //구분선
     let line: UIView = {
         let line = UIView()
-        //line.backgroundColor = .blue
         line.layer.cornerRadius = 0
         line.layer.masksToBounds = true
         line.translatesAutoresizingMaskIntoConstraints = false
@@ -531,7 +574,8 @@ class dateCVCell: UICollectionViewCell {
     //구분선
     let line2: UIView = {
         let line = UIView()
-        line.backgroundColor = .red
+        line.layer.cornerRadius = 0
+        line.layer.masksToBounds = true
         line.translatesAutoresizingMaskIntoConstraints = false
         return line
     }()

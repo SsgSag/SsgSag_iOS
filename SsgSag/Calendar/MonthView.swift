@@ -25,7 +25,6 @@ class MonthView: UIView {
         
         currentMonthIndex = Calendar.current.component(.month, from: Date()) - 1
         currentYear = Calendar.current.component(.year, from: Date())
-        
         setupViews()
     
         btnLeft.isEnabled=true

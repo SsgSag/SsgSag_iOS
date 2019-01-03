@@ -259,9 +259,9 @@
 		845928DD21D09F38001DF6CC /* Calendar */ = {
 			isa = PBXGroup;
 			children = (
+				845928D521D09F2F001DF6CC /* CalenderVC.swift */,
 				845928D621D09F2F001DF6CC /* CalenderView.swift */,
 				845928D821D09F2F001DF6CC /* MonthView.swift */,
-				845928D521D09F2F001DF6CC /* CalenderVC.swift */,
 				845928D721D09F2F001DF6CC /* WeekdaysView.swift */,
 			);
 			path = Calendar;
