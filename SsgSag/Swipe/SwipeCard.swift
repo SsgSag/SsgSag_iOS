@@ -20,6 +20,7 @@ class SwipeCard: UIView {
     public init(frame: CGRect, value: String) {
         super.init(frame: frame)
         print("1")
+    
         setupView(at: value)
     }
     
@@ -68,7 +69,7 @@ class SwipeCard: UIView {
             originalPoint = self.center;
             break;
         case .changed: //스와이프 하는 중간
-            print("스와이프 하는 중간")
+//            print("스와이프 하는 중간")
             let rotationStrength = min(xCenter / UIScreen.main.bounds.size.width, 1)
             let rotationAngel = .pi/8 * rotationStrength
             let scale = max(1 - abs(rotationStrength) / SCALE_STRENGTH, SCALE_RANGE)
@@ -128,6 +129,7 @@ class SwipeCard: UIView {
         isLiked = true
         delegate?.cardGoesRight(card: self)
         print("RIGHT 액션")
+       
     }
     //왼쪽 스와이프
     func leftAction() {
