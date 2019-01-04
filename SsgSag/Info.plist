@@ -21,9 +21,9 @@
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>UILaunchStoryboardName</key>
-	<string>LaunchScreen</string>
+	<string>Splash</string>
 	<key>UIMainStoryboardFile</key>
-	<string>SwipeStoryBoard</string>
+	<string>LoginStoryBoard</string>
 	<key>UIRequiredDeviceCapabilities</key>
 	<array>
 		<string>armv7</string>

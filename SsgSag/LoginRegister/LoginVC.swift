@@ -9,80 +9,128 @@
 import UIKit
 
 class LoginVC: UIViewController {
-
+    
+    @IBOutlet weak var emailTextField: UITextField!
+    @IBOutlet weak var passwordTextField: UITextField!
+    @IBOutlet weak var stackViewConstraint: NSLayoutConstraint!
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        view.backgroundColor = .white
-        
-        loginButton.addTarget(self, action: #selector(moveToSwipeVC), for: UIControl.Event.touchUpInside)
-        
-        view.addSubview(passwordTextField)
-        passwordTextField.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        passwordTextField.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
-        passwordTextField.heightAnchor.constraint(equalToConstant: 30).isActive = true
-        passwordTextField.widthAnchor.constraint(equalToConstant: 150).isActive = true
-
-        view.addSubview(loginTextField)
-        loginTextField.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        loginTextField.bottomAnchor.constraint(equalTo: passwordTextField.topAnchor, constant: -15).isActive = true
-        loginTextField.heightAnchor.constraint(equalToConstant: 30).isActive = true
-        loginTextField.widthAnchor.constraint(equalToConstant: 150).isActive = true
-
-        view.addSubview(loginButton)
-        loginButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        loginButton.topAnchor.constraint(equalTo: passwordTextField.bottomAnchor, constant:15).isActive = true
-        loginButton.widthAnchor.constraint(equalToConstant: 150).isActive = true
-        loginButton.heightAnchor.constraint(equalToConstant: 30).isActive = true
-        
-        view.addSubview(ssgSagImage)
-        ssgSagImage.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        ssgSagImage.bottomAnchor.constraint(equalTo: loginTextField.topAnchor, constant: -50).isActive = true
-        ssgSagImage.widthAnchor.constraint(equalToConstant: 70).isActive = true
-        ssgSagImage.heightAnchor.constraint(equalToConstant: 70).isActive = true
+        iniGestureRecognizer()
     }
     
-    @objc func moveToSwipeVC() {
-        let storyboard = UIStoryboard(name: "SwipeStoryBoard", bundle: nil)
-        let swipeVC = storyboard.instantiateViewController(withIdentifier: "Swipe")
-        present(swipeVC, animated: true, completion: nil)
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        registerForKeyboardNotifications()
     }
     
-    let loginTextField: UITextField = {
-        let text = UITextField()
-        text.placeholder = "아이디"
-        text.layer.borderColor = UIColor.blue.cgColor
-        text.layer.borderWidth = 1
-        text.layer.cornerRadius = 5
-        text.layer.masksToBounds = true
-        text.translatesAutoresizingMaskIntoConstraints = false
-        return text
-    }()
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        unregisterForKeyboardNotifications()
+    }
     
-    let passwordTextField: UITextField = {
-        let text = UITextField()
-        text.placeholder = "비밀번호"
-        text.layer.borderColor = UIColor.blue.cgColor
-        text.layer.borderWidth = 1
-        text.layer.cornerRadius = 5
-        text.layer.masksToBounds = true
-        text.translatesAutoresizingMaskIntoConstraints = false
-        return text
-    }()
+    @IBAction func touchUpLoginButton(_ sender: Any) {
+        guard let email = emailTextField.text else {return}
+        guard let password = passwordTextField.text else {return}
+        print("5")
+        
+        LoginService.shared.login(email: email, password: password) { (data,status) in
+            //            print("this is data token \(data?.token) \(status)")
+            if data?.token == nil {
+                self.emailTextField.text = ""
+                self.passwordTextField.text = ""
+                print("500")
+                if status == 400 {
+                    print("400")
+                    let alertController = UIAlertController(title: "로그인 실패", message: "정확한 ID와 Password를 입력해주세요", preferredStyle: UIAlertController.Style.alert)
+                    let action = UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil)
+                    alertController.addAction(action)
+                    self.present(alertController, animated: true, completion: nil)
+                } else if status == 500 {
+                    let alterController = UIAlertController(title: "로그인 실패", message: "서버 내부 에러", preferredStyle: UIAlertController.Style.alert)
+                    let action = UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil)
+                    alterController.addAction(action)
+                    self.present(alterController, animated: true, completion: nil)
+                }
+            }
+            
+            guard let token = data?.token else {return}
+            //토큰 저장
+            UserDefaults.standard.set(token, forKey: "token")
+            
+            let storyboard = UIStoryboard(name: "SwipeStoryBoard", bundle: nil)
+            //let swipeVC = storyboard.instantiateViewController(withIdentifier: "Swipe")
+            let tabbarVC = TapbarVC()
+            self.present(tabbarVC, animated: true, completion: nil)
+        }
+        
+    }
     
-    let loginButton: UIButton = {
-        let button = UIButton(type: UIButton.ButtonType.system)
-        button.setTitle("로그인", for: UIControl.State.normal)
-        button.backgroundColor = .lightGray
-        button.translatesAutoresizingMaskIntoConstraints = false
-        return button
-    }()
+    @IBAction func touchUpSignupButton(_ sender: Any) {
+        
+    }
     
-    let ssgSagImage: UIView = {
-        let imageView = UIView()
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.backgroundColor = .yellow
-        return imageView
-    }()
+}
+
+extension LoginVC : UIGestureRecognizerDelegate {
     
+    func iniGestureRecognizer() {
+        let tap = UITapGestureRecognizer(target: self, action: #selector(handleTabMainView(_:)))
+        tap.delegate = self
+        view.addGestureRecognizer(tap)
+    }
+    
+    @objc func handleTabMainView(_ sender: UITapGestureRecognizer){
+        self.emailTextField.resignFirstResponder()
+        self.passwordTextField.resignFirstResponder()
+    }
+    
+    //터치가 먹히는 상황과 안먹히는 상황
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
+        if (touch.view?.isDescendant(of: emailTextField))! || (touch.view?.isDescendant(of: passwordTextField))! {
+            return false
+        }
+        return true
+    }
+    
+    @objc func keyboardWillShow(_ notification: NSNotification) {
+        guard let duration = notification.userInfo?[UIResponder.keyboardAnimationDurationUserInfoKey] as? Double else {return}
+        guard let curve = notification.userInfo?[UIResponder.keyboardAnimationCurveUserInfoKey] as? UInt else {return}
+        //IOS자체에 애니메이션을 담당해주는 역할. animation을 이용하면 이쁘게 뷰를 꾸밀 수 있다.
+        //되게 간단하다.
+        //애니메이션 실행 시간 duration , delay는 몇초뒤에 실행할 건지, springwithDamping: 움직일때 떠린다거 나 그런 옵션, initiaon springvelocity -> 가속도 , options ---> curveEaseInOut등등, 을 많이 씀. 이동하거나 크기가 변화 시키는 값을 줄때 curveLinear , completion은 애니매이션이 끝났을때 해주는 것
+        UIView.animate(withDuration: duration, delay: 0.0, options: .init(rawValue: curve), animations: { [unowned self] in
+            print("현재 constraint: \(self.stackViewConstraint.constant)")
+            self.stackViewConstraint.constant = 30
+            print("애니메이션")
+        })
+        //                stackViewConstraint.constant = -120
+        
+        
+        self.view.layoutIfNeeded()
+        
+    }
+    
+    @objc func keyboardWillHide(_ notification: NSNotification) {
+        guard let duration = notification.userInfo?[UIResponder.keyboardAnimationDurationUserInfoKey] as? Double else {return}
+        guard let curve = notification.userInfo?[UIResponder.keyboardAnimationCurveUserInfoKey] as? UInt else {return}
+        //여기서는 weak self를 안쓰는 이유?는?
+        UIView.animate(withDuration: duration, delay: 0.0, options: .init(rawValue: curve), animations: {
+            self.stackViewConstraint.constant = 223
+        })
+        //stackViewConstraint.constant = 0
+        
+        self.view.layoutIfNeeded()
+    }
+    
+    func registerForKeyboardNotifications() {
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(_:)), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(_:)), name: UIResponder.keyboardWillHideNotification, object: nil)
+    }
+    
+    func unregisterForKeyboardNotifications() {
+        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
+    }
 }
