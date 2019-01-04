@@ -60,8 +60,9 @@ class LoginVC: UIViewController {
             UserDefaults.standard.set(token, forKey: "token")
             
             let storyboard = UIStoryboard(name: "SwipeStoryBoard", bundle: nil)
-            let swipeVC = storyboard.instantiateViewController(withIdentifier: "Swipe")
-            self.present(swipeVC, animated: true, completion: nil)
+            //let swipeVC = storyboard.instantiateViewController(withIdentifier: "Swipe")
+            let tabbarVC = TapbarVC()
+            self.present(tabbarVC, animated: true, completion: nil)
         }
         
     }

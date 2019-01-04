@@ -1,19 +1,19 @@
 {
   "images" : [
     {
+      "idiom" : "universal",
       "scale" : "1x",
-      "idiom" : "universal",
-      "filename" : "imgSplash.png"
+      "filename" : "btJobTechUnactive.png"
     },
     {
+      "idiom" : "universal",
       "scale" : "2x",
-      "idiom" : "universal",
-      "filename" : "imgSplash@2x.png"
+      "filename" : "btJobTechUnactive@2x.png"
     },
     {
-      "scale" : "3x",
       "idiom" : "universal",
-      "filename" : "imgSplash@3x.png"
+      "scale" : "3x",
+      "filename" : "btJobTechUnactive@3x.png"
     }
   ],
   "info" : {
