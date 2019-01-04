@@ -10,6 +10,9 @@
 		1C3CD9527488A3036C7D035F /* Pods_SsgSag.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1E73B2D58130421AD8914636 /* Pods_SsgSag.framework */; };
 		2452C131601AAC033C5B69D6 /* Pods_SsgSagTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 476B5599333568A94C71406C /* Pods_SsgSagTests.framework */; };
 		8415586421D8D96900A0EDB5 /* SwipeCardDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8415586321D8D96900A0EDB5 /* SwipeCardDelegate.swift */; };
+		84264BA621DF0FF300849E6B /* Calendar.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 84264BA521DF0FF300849E6B /* Calendar.storyboard */; };
+		84264BA821DF106C00849E6B /* CalendarDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84264BA721DF106C00849E6B /* CalendarDetailVC.swift */; };
+		84264BAA21DF109200849E6B /* AddPassiveDateVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84264BA921DF109200849E6B /* AddPassiveDateVC.swift */; };
 		842C618521DCDC92001BA6D8 /* sendDataViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842C618421DCDC92001BA6D8 /* sendDataViewController.swift */; };
 		842C619D21DD1807001BA6D8 /* posterData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842C619A21DD1807001BA6D8 /* posterData.swift */; };
 		842C619E21DD1807001BA6D8 /* Json4Swift_Base.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842C619B21DD1807001BA6D8 /* Json4Swift_Base.swift */; };
@@ -77,6 +80,9 @@
 		73A19F3163047709495EC6A0 /* Pods-SsgSag.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SsgSag.debug.xcconfig"; path = "Target Support Files/Pods-SsgSag/Pods-SsgSag.debug.xcconfig"; sourceTree = "<group>"; };
 		8134CA727EE6CCE0A7714139 /* Pods-SsgSagTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SsgSagTests.debug.xcconfig"; path = "Target Support Files/Pods-SsgSagTests/Pods-SsgSagTests.debug.xcconfig"; sourceTree = "<group>"; };
 		8415586321D8D96900A0EDB5 /* SwipeCardDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwipeCardDelegate.swift; sourceTree = "<group>"; };
+		84264BA521DF0FF300849E6B /* Calendar.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Calendar.storyboard; sourceTree = "<group>"; };
+		84264BA721DF106C00849E6B /* CalendarDetailVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarDetailVC.swift; sourceTree = "<group>"; };
+		84264BA921DF109200849E6B /* AddPassiveDateVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPassiveDateVC.swift; sourceTree = "<group>"; };
 		842C618421DCDC92001BA6D8 /* sendDataViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = sendDataViewController.swift; sourceTree = "<group>"; };
 		842C619A21DD1807001BA6D8 /* posterData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = posterData.swift; sourceTree = "<group>"; };
 		842C619B21DD1807001BA6D8 /* Json4Swift_Base.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Json4Swift_Base.swift; sourceTree = "<group>"; };
@@ -263,6 +269,9 @@
 				845928D621D09F2F001DF6CC /* CalenderView.swift */,
 				845928D821D09F2F001DF6CC /* MonthView.swift */,
 				845928D721D09F2F001DF6CC /* WeekdaysView.swift */,
+				84264BA521DF0FF300849E6B /* Calendar.storyboard */,
+				84264BA721DF106C00849E6B /* CalendarDetailVC.swift */,
+				84264BA921DF109200849E6B /* AddPassiveDateVC.swift */,
 			);
 			path = Calendar;
 			sourceTree = "<group>";
@@ -467,6 +476,7 @@
 				84E19CE421DCC9F4006F72EC /* LoginStoryBoard.storyboard in Resources */,
 				845928A821D09CE0001DF6CC /* LaunchScreen.storyboard in Resources */,
 				845928A521D09CE0001DF6CC /* Assets.xcassets in Resources */,
+				84264BA621DF0FF300849E6B /* Calendar.storyboard in Resources */,
 				845928CC21D09D09001DF6CC /* SwipeStoryBoard.storyboard in Resources */,
 				FA524BF121D64E2400675289 /* SignupStoryBoard.storyboard in Resources */,
 				FA851DF121D60787002065D0 /* user-details.json in Resources */,
@@ -594,6 +604,7 @@
 				84E19CE021DCC977006F72EC /* User.swift in Sources */,
 				842C619D21DD1807001BA6D8 /* posterData.swift in Sources */,
 				FA851DED21D5FDB0002065D0 /* SwipeModel.swift in Sources */,
+				84264BA821DF106C00849E6B /* CalendarDetailVC.swift in Sources */,
 				845928DC21D09F30001DF6CC /* MonthView.swift in Sources */,
 				8459289D21D09CDD001DF6CC /* SwipeVC.swift in Sources */,
 				84E19CD221DCC922006F72EC /* Requestable.swift in Sources */,
@@ -612,6 +623,7 @@
 				84E19CD621DCC922006F72EC /* NetworkResult.swift in Sources */,
 				84E19CD521DCC922006F72EC /* LoginService.swift in Sources */,
 				84BA694921DB394800BA8CB8 /* myPageVC.swift in Sources */,
+				84264BAA21DF109200849E6B /* AddPassiveDateVC.swift in Sources */,
 				84E19CDF21DCC977006F72EC /* Board.swift in Sources */,
 				84E19CD321DCC922006F72EC /* UserService.swift in Sources */,
 				842C619E21DD1807001BA6D8 /* Json4Swift_Base.swift in Sources */,

@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--일정 추가-->
+        <scene sceneID="oxn-eE-vF4">
+            <objects>
+                <viewController storyboardIdentifier="AddPassiveDateVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="FW0-XW-5wo" customClass="AddPassiveDateVC" customModule="SsgSag" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="zAH-yV-tlu">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="C0J-HU-wDP"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="일정 추가" id="RQ7-lB-ptw">
+                        <barButtonItem key="leftBarButtonItem" title="X" id="NoZ-ir-4mP">
+                            <connections>
+                                <action selector="backButton:" destination="FW0-XW-5wo" id="gae-iq-VdT"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="hs5-jU-oli" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1296.8" y="91.304347826086968"/>
+        </scene>
+        <!--활동 정보-->
+        <scene sceneID="u3j-gm-hlK">
+            <objects>
+                <viewController storyboardIdentifier="CalendarDetailVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="rfW-Jr-9M4" customClass="CalendarDetailVC" customModule="SsgSag" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="owv-vb-w44">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="twe-1T-PVf"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="활동 정보" id="LeA-VA-Fao">
+                        <barButtonItem key="leftBarButtonItem" title="&lt;" id="6y3-Mf-Gb5">
+                            <connections>
+                                <action selector="backButton:" destination="rfW-Jr-9M4" id="W4l-fk-8TM"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="a2C-nA-58p" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1297" y="826"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="iIa-mM-Skb">
+            <objects>
+                <navigationController storyboardIdentifier="AddPassiveDateNV" automaticallyAdjustsScrollViewInsets="NO" useStoryboardIdentifierAsRestorationIdentifier="YES" id="ZWd-e9-Hr5" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="D5H-NN-gsG">
+                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="FW0-XW-5wo" kind="relationship" relationship="rootViewController" id="e1K-sF-zy2"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="sAB-KG-ziG" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="357.60000000000002" y="91.304347826086968"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="tF4-1O-td8">
+            <objects>
+                <navigationController storyboardIdentifier="CalendarDetailNV" automaticallyAdjustsScrollViewInsets="NO" useStoryboardIdentifierAsRestorationIdentifier="YES" id="adW-YB-ve7" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="eV1-8l-Wvs">
+                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="rfW-Jr-9M4" kind="relationship" relationship="rootViewController" id="u3I-DW-cvN"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="1Vo-8r-3Tb" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="478" y="814"/>
+        </scene>
+    </scenes>
+</document>

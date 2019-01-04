@@ -42,10 +42,22 @@ class CalenderVC: UIViewController{
         return todo
     }()
     
+    let addButton : UIButton = {
+        let bt = UIButton()
+        bt.translatesAutoresizingMaskIntoConstraints = false
+        bt.backgroundColor = UIColor(displayP3Red: 7 / 255, green: 166 / 255, blue: 255 / 255, alpha: 1.0)
+        return bt
+    }()
+    
     let todoExampleDate = ["1","2","3","4","5","6"]
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        Style.themeLight()
+        self.view.backgroundColor=Style.bgColor
+        calenderView.changeTheme()
+        calenderView.backgroundColor = .clear
     
         let todoSwipeUp = UISwipeGestureRecognizer(target: self, action: #selector(todoUp))
         let todoSwipeDown = UITapGestureRecognizer(target: self, action: #selector(todoDown))
@@ -56,12 +68,6 @@ class CalenderVC: UIViewController{
         calenderView.gestureRecognizers = [swipeLeft, swipeRight,todoSwipeUp]
         todoSwipeUp.direction = .up
         todoUpDownView.gestureRecognizers = [todoSwipeDown]
-        
-        //전체 테마 색
-        Style.themeLight()
-        self.view.backgroundColor=Style.bgColor
-        calenderView.changeTheme()
-        calenderView.backgroundColor = .clear
         
         view.addSubview(todoTableView)
         todoTableView.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
@@ -85,10 +91,29 @@ class CalenderVC: UIViewController{
         calenderView.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
         calenderView.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
         calenderView.bottomAnchor.constraint(equalTo: todoUpDownView.topAnchor).isActive = true
+        
+        view.addSubview(addButton)
+        addButton.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -15).isActive = true
+        addButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -15).isActive = true
+        addButton.widthAnchor.constraint(equalToConstant: 54).isActive = true
+        addButton.heightAnchor.constraint(equalToConstant: 54).isActive = true
+        addButton.layer.cornerRadius = 54 / 2
+        addButton.layer.masksToBounds = true
+        
+        addButton.addTarget(self, action: #selector(addPassiveDate), for: .touchUpInside)
+
+    }
+    
+    @objc func addPassiveDate() {
+        print("1.출력안되나")
+        
+        let storyboard = UIStoryboard(name: "Calendar", bundle: nil)
+        let nav = storyboard.instantiateViewController(withIdentifier: "AddPassiveDateNV")
+        present(nav, animated: true, completion: nil)
     }
     
     @objc func todoUp(){
-        print("TODO UP")
+        print("투두 리스트 위로 올라간드아~")
         calendarheightAncor?.isActive = true
         
         NotificationCenter.default.post(name: NSNotification.Name("changeToUp"), object: nil)
@@ -100,7 +125,7 @@ class CalenderVC: UIViewController{
     }
     
     @objc func todoDown(){
-        print("TODO DOWN")
+        print("투두 리스트 밑으로 내려간드아~")
         NotificationCenter.default.post(name: NSNotification.Name("changeToDown"), object: nil)
         
         calendarheightAncor?.isActive = false
@@ -146,7 +171,12 @@ class CalenderVC: UIViewController{
 
 
 extension CalenderVC: UITableViewDelegate {
-    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let storyBoard = UIStoryboard(name: "Calendar", bundle: nil)
+        
+        let nav = storyBoard.instantiateViewController(withIdentifier: "CalendarDetailNV")
+        present(nav, animated: true, completion: nil)
+    }
 }
 
 extension CalenderVC: UITableViewDataSource {
@@ -196,7 +226,35 @@ class todoCell: UITableViewCell {
         return leftView
     }()
     
+    let categoryLabel:UILabel = { //공모전
+        let lb = UILabel()
+        lb.translatesAutoresizingMaskIntoConstraints = false
+        
+        return lb
+    }()
+    
+    let contentLabel:UILabel = { //전국 창업연합 동아리
+        let lb = UILabel()
+        lb.translatesAutoresizingMaskIntoConstraints = false
+        return lb
+    }()
+    
+    let dateLabel: UILabel = { //날짜
+        let lb = UILabel()
+        lb.translatesAutoresizingMaskIntoConstraints = false
+        return lb
+    }()
+    
+    let separatorView: UIView = {//세로선
+        let sv = UIView()
+        sv.translatesAutoresizingMaskIntoConstraints = false
+        sv.backgroundColor = .red
+        return sv
+    }()
+    
     func setupCell(){
+        self.selectionStyle = .none
+        
         addSubview(borderView)
         borderView.topAnchor.constraint(equalTo: self.topAnchor, constant: 10).isActive = true
         borderView.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 10).isActive = true
@@ -208,6 +266,22 @@ class todoCell: UITableViewCell {
         leftLineView.topAnchor.constraint(equalTo: borderView.topAnchor).isActive = true
         leftLineView.bottomAnchor.constraint(equalTo: borderView.bottomAnchor).isActive = true
         leftLineView.widthAnchor.constraint(equalToConstant: 7).isActive = true
+        
+        addSubview(categoryLabel)
+        categoryLabel.text = "Label"
+        categoryLabel.topAnchor.constraint(equalTo: borderView.topAnchor).isActive = true
+        categoryLabel.leftAnchor.constraint(equalTo: leftLineView.rightAnchor, constant: 5).isActive = true
+        categoryLabel.heightAnchor.constraint(equalToConstant: 15).isActive = true
+        categoryLabel.widthAnchor.constraint(equalToConstant: 80).isActive = true
+        
+        
+        addSubview(separatorView)
+        separatorView.rightAnchor.constraint(equalTo: borderView.rightAnchor, constant: -70).isActive = true
+        separatorView.topAnchor.constraint(equalTo: borderView.topAnchor, constant: 5).isActive = true
+        separatorView.bottomAnchor.constraint(equalTo: borderView.bottomAnchor, constant: -5).isActive = true
+        separatorView.widthAnchor.constraint(equalToConstant: 3).isActive = true
+        
+        
     }
 }
 
