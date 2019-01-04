@@ -12,8 +12,9 @@ class myPageVC: UIViewController {
     
 //    @IBOutlet weak var divisionLineView: UIView!
     
+ 
     override func viewDidLoad() {
-        super.viewDidLoad()
+       super.viewDidLoad()
 
         // Do any additional setup after loading the view.
         
@@ -30,14 +31,13 @@ class myPageVC: UIViewController {
     }
     
 
-    /*
-    // MARK: - Navigation
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    func myButtonTapped(myButton: UIButton){
+        if myButton.isSelected == true {
+            myButton.isSelected = false
+        }else {
+            myButton.isSelected = true
+        }
     }
-    */
-
+    
 }

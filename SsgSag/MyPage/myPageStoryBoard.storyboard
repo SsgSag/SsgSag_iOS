@@ -25,6 +25,20 @@
                                         <rect key="frame" x="8" y="55" width="135" height="132"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     </imageView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="조민지" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ojx-1I-pPr" userLabel="이름">
+                                        <rect key="frame" x="30" y="200" width="63" height="29"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="24"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="(dkelel)" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cON-Tp-SAp" userLabel="아이디">
+                                        <rect key="frame" x="101" y="208" width="52" height="18"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
                                     <stackView opaque="NO" contentMode="scaleToFill" misplaced="YES" distribution="fillProportionally" spacingType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="u4M-Qk-hne" userLabel="버튼">
                                         <rect key="frame" x="0.0" y="288" width="375" height="30"/>
                                         <subviews>
@@ -34,7 +48,7 @@
                                                     <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 </state>
                                                 <connections>
-                                                    <segue destination="TGQ-cD-gAo" kind="show" id="H8f-AB-UsO"/>
+                                                    <segue destination="17w-h8-msn" kind="show" id="IiE-54-3Xw"/>
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8p2-mv-U3Y">
@@ -51,6 +65,9 @@
                                                 <state key="normal" title="나의이력">
                                                     <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 </state>
+                                                <connections>
+                                                    <segue destination="irf-eB-z6L" kind="show" id="lC7-vr-Ep2"/>
+                                                </connections>
                                             </button>
                                         </subviews>
                                     </stackView>
@@ -66,20 +83,6 @@
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <state key="normal" image="btCamera"/>
                                     </button>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="조민지" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ojx-1I-pPr" userLabel="이름">
-                                        <rect key="frame" x="30" y="200" width="63" height="29"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="24"/>
-                                        <nil key="textColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="(dkelel)" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cON-Tp-SAp" userLabel="아이디">
-                                        <rect key="frame" x="101" y="208" width="52" height="18"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                        <nil key="textColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
@@ -113,207 +116,39 @@
             <point key="canvasLocation" x="2888.8000000000002" y="-304.4977511244378"/>
         </scene>
         <!--View Controller-->
-        <scene sceneID="Lov-KA-4hi">
-            <objects>
-                <viewController id="TGQ-cD-gAo" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="86R-Vw-Xga">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="1350"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="XI1-PT-dnW">
-                                <rect key="frame" x="0.0" y="88" width="375" height="1200"/>
-                                <subviews>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9gN-yi-UnP" userLabel="Content View">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="1200"/>
-                                        <subviews>
-                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" alignment="top" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="tlu-mz-fUt" userLabel="타이틀">
-                                                <rect key="frame" x="20" y="39" width="176" height="61"/>
-                                                <subviews>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="관심분야를 기반해" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZGi-i1-p8a">
-                                                        <rect key="frame" x="0.0" y="0.0" width="157" height="26.5"/>
-                                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="22"/>
-                                                        <nil key="textColor"/>
-                                                        <nil key="highlightedColor"/>
-                                                    </label>
-                                                    <stackView opaque="NO" contentMode="scaleToFill" alignment="top" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="0rG-L6-1k5">
-                                                        <rect key="frame" x="0.0" y="34.5" width="176" height="26.5"/>
-                                                        <subviews>
-                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="활동을 추천해드려요" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6Ni-35-jvc">
-                                                                <rect key="frame" x="0.0" y="0.0" width="176" height="26.5"/>
-                                                                <fontDescription key="fontDescription" type="boldSystem" pointSize="22"/>
-                                                                <nil key="textColor"/>
-                                                                <nil key="highlightedColor"/>
-                                                            </label>
-                                                        </subviews>
-                                                    </stackView>
-                                                </subviews>
-                                            </stackView>
-                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="3Ke-gT-GY9" userLabel="관심분야">
-                                                <rect key="frame" x="20" y="144" width="336" height="1032"/>
-                                                <subviews>
-                                                    <stackView opaque="NO" contentMode="scaleToFill" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="WCM-3d-OPo">
-                                                        <rect key="frame" x="0.0" y="0.0" width="336" height="162"/>
-                                                        <subviews>
-                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hHs-JX-NSU">
-                                                                <rect key="frame" x="0.0" y="0.0" width="162" height="162"/>
-                                                                <state key="normal" backgroundImage="btPreferenceIdeaUnactive"/>
-                                                            </button>
-                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iwp-en-Aqy">
-                                                                <rect key="frame" x="174" y="0.0" width="162" height="162"/>
-                                                                <state key="normal" backgroundImage="btPreferenceCameraUnactive"/>
-                                                            </button>
-                                                        </subviews>
-                                                    </stackView>
-                                                    <stackView opaque="NO" contentMode="scaleToFill" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="Oa4-qd-S5p">
-                                                        <rect key="frame" x="0.0" y="174" width="336" height="162"/>
-                                                        <subviews>
-                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aIL-1B-K2J">
-                                                                <rect key="frame" x="0.0" y="0.0" width="162" height="162"/>
-                                                                <state key="normal" backgroundImage="btPreferenceDesignUnactive"/>
-                                                            </button>
-                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dwt-x2-Z4y">
-                                                                <rect key="frame" x="174" y="0.0" width="162" height="162"/>
-                                                                <state key="normal" backgroundImage="btPreferenceMarketingUnactive"/>
-                                                            </button>
-                                                        </subviews>
-                                                    </stackView>
-                                                    <stackView opaque="NO" contentMode="scaleToFill" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="MRu-cF-0Ow">
-                                                        <rect key="frame" x="0.0" y="348" width="336" height="162"/>
-                                                        <subviews>
-                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5Cd-5F-I89">
-                                                                <rect key="frame" x="0.0" y="0.0" width="162" height="162"/>
-                                                                <state key="normal" backgroundImage="btPreferenceTechUnactive"/>
-                                                            </button>
-                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ztw-1A-XzO">
-                                                                <rect key="frame" x="174" y="0.0" width="162" height="162"/>
-                                                                <state key="normal" backgroundImage="btPreferenceLiteratureUnactive"/>
-                                                            </button>
-                                                        </subviews>
-                                                    </stackView>
-                                                    <stackView opaque="NO" contentMode="scaleToFill" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="WXQ-IP-XUc">
-                                                        <rect key="frame" x="0.0" y="522" width="336" height="162"/>
-                                                        <subviews>
-                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="p70-kM-W1j">
-                                                                <rect key="frame" x="0.0" y="0.0" width="162" height="162"/>
-                                                                <state key="normal" backgroundImage="btPreferenceSholarshipUnactive"/>
-                                                            </button>
-                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oAM-aw-dEX">
-                                                                <rect key="frame" x="174" y="0.0" width="162" height="162"/>
-                                                                <state key="normal" backgroundImage="btPreferenceHealthUnactive"/>
-                                                            </button>
-                                                        </subviews>
-                                                    </stackView>
-                                                    <stackView opaque="NO" contentMode="scaleToFill" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="xLr-8L-pMs">
-                                                        <rect key="frame" x="0.0" y="696" width="336" height="162"/>
-                                                        <subviews>
-                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vtm-pq-V0I">
-                                                                <rect key="frame" x="0.0" y="0.0" width="162" height="162"/>
-                                                                <state key="normal" backgroundImage="btPreferenceStartupUnactive"/>
-                                                            </button>
-                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4Ak-Tf-4dW">
-                                                                <rect key="frame" x="174" y="0.0" width="162" height="162"/>
-                                                                <state key="normal" backgroundImage="btPreferenceArtUnactive"/>
-                                                            </button>
-                                                        </subviews>
-                                                    </stackView>
-                                                    <stackView opaque="NO" contentMode="scaleToFill" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="PBr-M7-D7W">
-                                                        <rect key="frame" x="0.0" y="870" width="336" height="162"/>
-                                                        <subviews>
-                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AlD-IO-zJO">
-                                                                <rect key="frame" x="0.0" y="0.0" width="162" height="162"/>
-                                                                <state key="normal" backgroundImage="btPreferenceEconomyUnactive"/>
-                                                            </button>
-                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="alH-tf-eoe">
-                                                                <rect key="frame" x="174" y="0.0" width="162" height="162"/>
-                                                                <state key="normal" backgroundImage="btPreferenceSocietyUnactive"/>
-                                                            </button>
-                                                        </subviews>
-                                                    </stackView>
-                                                </subviews>
-                                            </stackView>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="(복수 선택)" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Svy-dk-Nzx">
-                                                <rect key="frame" x="204" y="77" width="72.5" height="19.5"/>
-                                                <fontDescription key="fontDescription" type="boldSystem" pointSize="16"/>
-                                                <nil key="textColor"/>
-                                                <nil key="highlightedColor"/>
-                                            </label>
-                                        </subviews>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <constraints>
-                                            <constraint firstItem="3Ke-gT-GY9" firstAttribute="top" secondItem="tlu-mz-fUt" secondAttribute="bottom" constant="44" id="7Lj-AU-VmD"/>
-                                            <constraint firstAttribute="trailing" secondItem="3Ke-gT-GY9" secondAttribute="trailing" constant="19" id="8Fu-y2-4CR"/>
-                                            <constraint firstAttribute="height" constant="1200" id="MkW-ne-EEL"/>
-                                            <constraint firstItem="Svy-dk-Nzx" firstAttribute="leading" secondItem="6Ni-35-jvc" secondAttribute="trailing" constant="8" id="e0d-0F-L0V"/>
-                                            <constraint firstItem="Svy-dk-Nzx" firstAttribute="top" secondItem="9gN-yi-UnP" secondAttribute="top" constant="77" id="gdA-D4-G3g"/>
-                                            <constraint firstItem="3Ke-gT-GY9" firstAttribute="leading" secondItem="9gN-yi-UnP" secondAttribute="leading" constant="20" id="okt-Jf-B4H"/>
-                                            <constraint firstItem="Svy-dk-Nzx" firstAttribute="centerY" secondItem="6Ni-35-jvc" secondAttribute="centerY" id="vWO-js-WPi"/>
-                                        </constraints>
-                                    </view>
-                                </subviews>
-                                <constraints>
-                                    <constraint firstAttribute="bottom" secondItem="9gN-yi-UnP" secondAttribute="bottom" id="EN9-RQ-Aex"/>
-                                    <constraint firstItem="9gN-yi-UnP" firstAttribute="top" secondItem="XI1-PT-dnW" secondAttribute="top" id="ICL-mT-aut"/>
-                                    <constraint firstAttribute="trailing" secondItem="9gN-yi-UnP" secondAttribute="trailing" id="PFP-wp-XSv"/>
-                                    <constraint firstItem="tlu-mz-fUt" firstAttribute="leading" secondItem="XI1-PT-dnW" secondAttribute="leading" constant="20" id="Q1l-wA-AaA"/>
-                                    <constraint firstItem="9gN-yi-UnP" firstAttribute="leading" secondItem="XI1-PT-dnW" secondAttribute="leading" id="QMm-7i-sFv"/>
-                                </constraints>
-                            </scrollView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ila-O5-u3h" userLabel="저장">
-                                <rect key="frame" x="0.0" y="1270" width="375" height="80"/>
-                                <color key="backgroundColor" red="0.78823529410000004" green="0.78823529410000004" blue="0.78823529410000004" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="80" id="IGh-tO-W79"/>
-                                </constraints>
-                                <state key="normal" image="btSaveMypageUnactive"/>
-                            </button>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <constraints>
-                            <constraint firstItem="XI1-PT-dnW" firstAttribute="top" secondItem="5PA-4S-1Lc" secondAttribute="top" id="AH9-pO-tqx"/>
-                            <constraint firstItem="9gN-yi-UnP" firstAttribute="width" secondItem="86R-Vw-Xga" secondAttribute="width" id="GVO-Oe-F8S"/>
-                            <constraint firstItem="ila-O5-u3h" firstAttribute="centerX" secondItem="9gN-yi-UnP" secondAttribute="centerX" id="KEN-vt-uCT"/>
-                            <constraint firstItem="ila-O5-u3h" firstAttribute="width" secondItem="9gN-yi-UnP" secondAttribute="width" id="LM3-YV-DgW"/>
-                            <constraint firstAttribute="bottom" secondItem="XI1-PT-dnW" secondAttribute="bottom" constant="80" id="Xfo-91-7Tc"/>
-                            <constraint firstItem="5PA-4S-1Lc" firstAttribute="trailing" secondItem="XI1-PT-dnW" secondAttribute="trailing" id="eN1-Uf-drY"/>
-                            <constraint firstItem="XI1-PT-dnW" firstAttribute="leading" secondItem="5PA-4S-1Lc" secondAttribute="leading" id="k4Y-LA-gCQ"/>
-                            <constraint firstItem="ila-O5-u3h" firstAttribute="bottom" secondItem="86R-Vw-Xga" secondAttribute="bottom" id="vkW-am-JcV"/>
-                        </constraints>
-                        <viewLayoutGuide key="safeArea" id="5PA-4S-1Lc"/>
-                    </view>
-                    <size key="freeformSize" width="375" height="1350"/>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="kH6-wd-thM" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1834" y="987"/>
-        </scene>
-        <!--View Controller-->
         <scene sceneID="RtO-2j-Vli">
             <objects>
                 <viewController id="cnl-e1-rb8" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="l5A-Az-eQy">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="1350"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="1550"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="GWF-5V-hYb">
-                                <rect key="frame" x="0.0" y="88" width="375" height="1200"/>
+                                <rect key="frame" x="0.0" y="88" width="375" height="1450"/>
                                 <subviews>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bw2-gW-i9p" userLabel="Content View">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="1200"/>
+                                    <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bw2-gW-i9p" userLabel="Content View">
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="1450"/>
                                         <subviews>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" alignment="top" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="jPb-rC-LWw" userLabel="타이틀">
-                                                <rect key="frame" x="20" y="39" width="176" height="61"/>
+                                                <rect key="frame" x="20" y="4.5" width="214.5" height="95.5"/>
                                                 <subviews>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="관심분야를 기반해" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Es8-3V-rhc">
-                                                        <rect key="frame" x="0.0" y="0.0" width="157" height="26.5"/>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="구직여부를 활성화하면" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="j18-YZ-1Db">
+                                                        <rect key="frame" x="0.0" y="0.0" width="169.5" height="26.5"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="19"/>
+                                                        <nil key="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="관심직무를 기반으로" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Es8-3V-rhc">
+                                                        <rect key="frame" x="0.0" y="34.5" width="176" height="26.5"/>
                                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="22"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <stackView opaque="NO" contentMode="scaleToFill" alignment="top" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="t95-nr-D1f">
-                                                        <rect key="frame" x="0.0" y="34.5" width="176" height="26.5"/>
+                                                        <rect key="frame" x="0.0" y="69" width="214.5" height="26.5"/>
                                                         <subviews>
-                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="활동을 추천해드려요" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="W1g-vZ-zxh">
-                                                                <rect key="frame" x="0.0" y="0.0" width="176" height="26.5"/>
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="채용정보를 제공해드려요" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="W1g-vZ-zxh">
+                                                                <rect key="frame" x="0.0" y="0.0" width="214.5" height="26.5"/>
                                                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="22"/>
                                                                 <nil key="textColor"/>
                                                                 <nil key="highlightedColor"/>
@@ -323,103 +158,121 @@
                                                 </subviews>
                                             </stackView>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="MHv-iL-RUh" userLabel="관심분야">
-                                                <rect key="frame" x="20" y="144" width="336" height="1032"/>
+                                                <rect key="frame" x="20" y="191" width="336" height="1206"/>
                                                 <subviews>
                                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="EsG-H6-IbI">
                                                         <rect key="frame" x="0.0" y="0.0" width="336" height="162"/>
                                                         <subviews>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Okf-EN-yhD">
                                                                 <rect key="frame" x="0.0" y="0.0" width="162" height="162"/>
-                                                                <state key="normal" backgroundImage="btPreferenceIdeaUnactive"/>
+                                                                <state key="normal" backgroundImage="btJobManagementUnactive"/>
                                                             </button>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ugJ-ob-EyW">
                                                                 <rect key="frame" x="174" y="0.0" width="162" height="162"/>
-                                                                <state key="normal" backgroundImage="btPreferenceCameraUnactive"/>
+                                                                <state key="normal" backgroundImage="btJobMarketingUnactive"/>
                                                             </button>
                                                         </subviews>
                                                     </stackView>
                                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="xBE-Cf-elk">
                                                         <rect key="frame" x="0.0" y="174" width="336" height="162"/>
                                                         <subviews>
-                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cNK-Zt-Afe">
+                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cNK-Zt-Afe">
                                                                 <rect key="frame" x="0.0" y="0.0" width="162" height="162"/>
-                                                                <state key="normal" backgroundImage="btPreferenceDesignUnactive"/>
+                                                                <state key="normal" image="btJobTechUnactive"/>
                                                             </button>
-                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iYk-vq-O7R">
+                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iYk-vq-O7R">
                                                                 <rect key="frame" x="174" y="0.0" width="162" height="162"/>
-                                                                <state key="normal" backgroundImage="btPreferenceMarketingUnactive"/>
+                                                                <state key="normal" image="btJobDesignUnactive"/>
                                                             </button>
                                                         </subviews>
                                                     </stackView>
                                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="jw6-vG-NgO">
                                                         <rect key="frame" x="0.0" y="348" width="336" height="162"/>
                                                         <subviews>
-                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BBz-5u-Ruo">
+                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BBz-5u-Ruo">
                                                                 <rect key="frame" x="0.0" y="0.0" width="162" height="162"/>
-                                                                <state key="normal" backgroundImage="btPreferenceTechUnactive"/>
+                                                                <state key="normal" image="btJobTradeUnactive"/>
                                                             </button>
-                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="o3d-LC-8z6">
+                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="o3d-LC-8z6">
                                                                 <rect key="frame" x="174" y="0.0" width="162" height="162"/>
-                                                                <state key="normal" backgroundImage="btPreferenceLiteratureUnactive"/>
+                                                                <state key="normal" image="btJobSalesUnactive"/>
                                                             </button>
                                                         </subviews>
                                                     </stackView>
                                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="1Id-gu-9KX">
                                                         <rect key="frame" x="0.0" y="522" width="336" height="162"/>
                                                         <subviews>
-                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="S9x-mz-XFQ">
+                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="S9x-mz-XFQ">
                                                                 <rect key="frame" x="0.0" y="0.0" width="162" height="162"/>
-                                                                <state key="normal" backgroundImage="btPreferenceSholarshipUnactive"/>
+                                                                <state key="normal" image="btJobServiceUnactive"/>
                                                             </button>
-                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7Oy-9f-tfb">
+                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7Oy-9f-tfb">
                                                                 <rect key="frame" x="174" y="0.0" width="162" height="162"/>
-                                                                <state key="normal" backgroundImage="btPreferenceHealthUnactive"/>
+                                                                <state key="normal" image="btJobStudyUnactive"/>
                                                             </button>
                                                         </subviews>
                                                     </stackView>
                                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="TdB-eh-PWH">
                                                         <rect key="frame" x="0.0" y="696" width="336" height="162"/>
                                                         <subviews>
-                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="V8E-En-riE">
+                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="V8E-En-riE">
                                                                 <rect key="frame" x="0.0" y="0.0" width="162" height="162"/>
-                                                                <state key="normal" backgroundImage="btPreferenceStartupUnactive"/>
+                                                                <state key="normal" image="btJobIndustryUnactive"/>
                                                             </button>
-                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Hqw-eK-n57">
+                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Hqw-eK-n57">
                                                                 <rect key="frame" x="174" y="0.0" width="162" height="162"/>
-                                                                <state key="normal" backgroundImage="btPreferenceArtUnactive"/>
+                                                                <state key="normal" image="btJobLiteratureUnactive"/>
                                                             </button>
                                                         </subviews>
                                                     </stackView>
                                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="RcI-Dg-Ez0">
                                                         <rect key="frame" x="0.0" y="870" width="336" height="162"/>
                                                         <subviews>
-                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EVH-gu-kfm">
+                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EVH-gu-kfm">
                                                                 <rect key="frame" x="0.0" y="0.0" width="162" height="162"/>
-                                                                <state key="normal" backgroundImage="btPreferenceEconomyUnactive"/>
+                                                                <state key="normal" image="btJobConstructUnactive"/>
                                                             </button>
-                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="G7a-e2-Mc2">
+                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="G7a-e2-Mc2">
                                                                 <rect key="frame" x="174" y="0.0" width="162" height="162"/>
-                                                                <state key="normal" backgroundImage="btPreferenceSocietyUnactive"/>
+                                                                <state key="normal" image="btJobMedicalUnactive"/>
+                                                            </button>
+                                                        </subviews>
+                                                    </stackView>
+                                                    <stackView opaque="NO" contentMode="scaleToFill" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="Cjk-hI-IiJ">
+                                                        <rect key="frame" x="0.0" y="1044" width="336" height="162"/>
+                                                        <subviews>
+                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="H6r-Ix-ZCO">
+                                                                <rect key="frame" x="0.0" y="0.0" width="162" height="162"/>
+                                                                <state key="normal" image="btJobArtUnactive"/>
+                                                            </button>
+                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WHk-2T-dNJ">
+                                                                <rect key="frame" x="174" y="0.0" width="162" height="162"/>
+                                                                <state key="normal" image="btJobSpecialityUnactive"/>
                                                             </button>
                                                         </subviews>
                                                     </stackView>
                                                 </subviews>
                                             </stackView>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="(복수 선택)" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sjP-de-m77">
-                                                <rect key="frame" x="204" y="77" width="72.5" height="19.5"/>
+                                                <rect key="frame" x="242.5" y="77" width="72.5" height="19.5"/>
                                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="16"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
+                                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Iin-Cb-kgU">
+                                                <rect key="frame" x="20" y="120" width="51" height="31"/>
+                                            </switch>
                                         </subviews>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstAttribute="trailing" secondItem="MHv-iL-RUh" secondAttribute="trailing" constant="19" id="7Wf-iv-R7A"/>
+                                            <constraint firstItem="Iin-Cb-kgU" firstAttribute="leading" secondItem="bw2-gW-i9p" secondAttribute="leading" constant="20" id="7cl-Ie-5h3"/>
                                             <constraint firstItem="sjP-de-m77" firstAttribute="top" secondItem="bw2-gW-i9p" secondAttribute="top" constant="77" id="A72-R2-uyC"/>
-                                            <constraint firstItem="MHv-iL-RUh" firstAttribute="top" secondItem="jPb-rC-LWw" secondAttribute="bottom" constant="44" id="P47-UI-OAb"/>
+                                            <constraint firstItem="MHv-iL-RUh" firstAttribute="top" secondItem="jPb-rC-LWw" secondAttribute="bottom" constant="91" id="P47-UI-OAb"/>
                                             <constraint firstItem="MHv-iL-RUh" firstAttribute="leading" secondItem="bw2-gW-i9p" secondAttribute="leading" constant="20" id="dcG-W4-zjs"/>
+                                            <constraint firstItem="Iin-Cb-kgU" firstAttribute="top" secondItem="jPb-rC-LWw" secondAttribute="bottom" constant="20" id="dkA-95-g0P"/>
                                             <constraint firstItem="sjP-de-m77" firstAttribute="centerY" secondItem="W1g-vZ-zxh" secondAttribute="centerY" id="iiK-iO-wDo"/>
-                                            <constraint firstAttribute="height" constant="1200" id="kPC-q6-2GY"/>
+                                            <constraint firstAttribute="height" constant="1400" id="kPC-q6-2GY"/>
                                             <constraint firstItem="sjP-de-m77" firstAttribute="leading" secondItem="W1g-vZ-zxh" secondAttribute="trailing" constant="8" id="soG-UT-Omm"/>
                                         </constraints>
                                     </view>
@@ -433,7 +286,7 @@
                                 </constraints>
                             </scrollView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ihg-r8-Lx0" userLabel="저장">
-                                <rect key="frame" x="0.0" y="1270" width="375" height="80"/>
+                                <rect key="frame" x="0.0" y="1470" width="375" height="80"/>
                                 <color key="backgroundColor" red="0.78823529410000004" green="0.78823529410000004" blue="0.78823529410000004" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="80" id="dWj-9h-xdS"/>
@@ -454,15 +307,299 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="aTU-8k-4LF"/>
                     </view>
-                    <size key="freeformSize" width="375" height="1350"/>
+                    <size key="freeformSize" width="375" height="1550"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="W1S-eq-fDV" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2889" y="987"/>
+            <point key="canvasLocation" x="2888.8000000000002" y="986.80659670164926"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="1uQ-gR-vGC">
+            <objects>
+                <viewController id="17w-h8-msn" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="wnZ-KW-xtJ">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="1350"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="QyU-wV-MYI">
+                                <rect key="frame" x="0.0" y="88" width="375" height="1200"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BLh-5V-MeR" userLabel="Content View">
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="1200"/>
+                                        <subviews>
+                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" alignment="top" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="hdh-Ft-3xS" userLabel="타이틀">
+                                                <rect key="frame" x="20" y="39" width="176" height="61"/>
+                                                <subviews>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="관심분야를 기반해" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mVc-qZ-Ndc">
+                                                        <rect key="frame" x="0.0" y="0.0" width="157" height="26.5"/>
+                                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="22"/>
+                                                        <nil key="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <stackView opaque="NO" contentMode="scaleToFill" alignment="top" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="8IJ-jj-F8m">
+                                                        <rect key="frame" x="0.0" y="34.5" width="176" height="26.5"/>
+                                                        <subviews>
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="활동을 추천해드려요" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="S0X-C1-ccU">
+                                                                <rect key="frame" x="0.0" y="0.0" width="176" height="26.5"/>
+                                                                <fontDescription key="fontDescription" type="boldSystem" pointSize="22"/>
+                                                                <nil key="textColor"/>
+                                                                <nil key="highlightedColor"/>
+                                                            </label>
+                                                        </subviews>
+                                                    </stackView>
+                                                </subviews>
+                                            </stackView>
+                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="1Hl-JO-fSj" userLabel="관심분야">
+                                                <rect key="frame" x="20" y="144" width="336" height="1032"/>
+                                                <subviews>
+                                                    <stackView opaque="NO" contentMode="scaleToFill" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="6y7-zh-eZn">
+                                                        <rect key="frame" x="0.0" y="0.0" width="336" height="162"/>
+                                                        <subviews>
+                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="G4t-3o-BBI">
+                                                                <rect key="frame" x="0.0" y="0.0" width="162" height="162"/>
+                                                                <state key="normal" image="btPreferenceIdeaUnactive"/>
+                                                            </button>
+                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Hc7-6L-6mn">
+                                                                <rect key="frame" x="174" y="0.0" width="162" height="162"/>
+                                                                <state key="normal" image="btPreferenceCameraUnactive"/>
+                                                            </button>
+                                                        </subviews>
+                                                    </stackView>
+                                                    <stackView opaque="NO" contentMode="scaleToFill" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="4pH-IN-0cd">
+                                                        <rect key="frame" x="0.0" y="174" width="336" height="162"/>
+                                                        <subviews>
+                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oFz-fY-vKV">
+                                                                <rect key="frame" x="0.0" y="0.0" width="162" height="162"/>
+                                                                <state key="normal" backgroundImage="btPreferenceDesignUnactive"/>
+                                                            </button>
+                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mKv-E4-KkS">
+                                                                <rect key="frame" x="174" y="0.0" width="162" height="162"/>
+                                                                <state key="normal" backgroundImage="btPreferenceMarketingUnactive"/>
+                                                            </button>
+                                                        </subviews>
+                                                    </stackView>
+                                                    <stackView opaque="NO" contentMode="scaleToFill" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="J0I-Wi-45f">
+                                                        <rect key="frame" x="0.0" y="348" width="336" height="162"/>
+                                                        <subviews>
+                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xE5-bf-gNo">
+                                                                <rect key="frame" x="0.0" y="0.0" width="162" height="162"/>
+                                                                <state key="normal" image="btPreferenceTechUnactive"/>
+                                                            </button>
+                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0ui-WG-Q9q">
+                                                                <rect key="frame" x="174" y="0.0" width="162" height="162"/>
+                                                                <state key="normal" image="btPreferenceLiteratureUnactive"/>
+                                                            </button>
+                                                        </subviews>
+                                                    </stackView>
+                                                    <stackView opaque="NO" contentMode="scaleToFill" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="a6E-Rd-G6q">
+                                                        <rect key="frame" x="0.0" y="522" width="336" height="162"/>
+                                                        <subviews>
+                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rAz-04-Vs4">
+                                                                <rect key="frame" x="0.0" y="0.0" width="162" height="162"/>
+                                                                <state key="normal" image="btPreferenceSholarshipUnactive"/>
+                                                            </button>
+                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iq7-72-o5E">
+                                                                <rect key="frame" x="174" y="0.0" width="162" height="162"/>
+                                                                <state key="normal" image="btPreferenceHealthUnactive"/>
+                                                            </button>
+                                                        </subviews>
+                                                    </stackView>
+                                                    <stackView opaque="NO" contentMode="scaleToFill" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="PGR-i0-b23">
+                                                        <rect key="frame" x="0.0" y="696" width="336" height="162"/>
+                                                        <subviews>
+                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="awm-rm-XyJ">
+                                                                <rect key="frame" x="0.0" y="0.0" width="162" height="162"/>
+                                                                <state key="normal" image="btPreferenceStartupUnactive"/>
+                                                            </button>
+                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AR9-D1-SaG">
+                                                                <rect key="frame" x="174" y="0.0" width="162" height="162"/>
+                                                                <state key="normal" image="btPreferenceArtUnactive"/>
+                                                            </button>
+                                                        </subviews>
+                                                    </stackView>
+                                                    <stackView opaque="NO" contentMode="scaleToFill" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="Eme-F0-byx">
+                                                        <rect key="frame" x="0.0" y="870" width="336" height="162"/>
+                                                        <subviews>
+                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="d5m-fx-C4X">
+                                                                <rect key="frame" x="0.0" y="0.0" width="162" height="162"/>
+                                                                <state key="normal" image="btPreferenceEconomyUnactive"/>
+                                                            </button>
+                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gwi-7B-LeV">
+                                                                <rect key="frame" x="174" y="0.0" width="162" height="162"/>
+                                                                <state key="normal" image="btPreferenceSocietyUnactive"/>
+                                                            </button>
+                                                        </subviews>
+                                                    </stackView>
+                                                </subviews>
+                                            </stackView>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="(복수 선택)" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Jbd-uC-c7Y">
+                                                <rect key="frame" x="204" y="77" width="72.5" height="19.5"/>
+                                                <fontDescription key="fontDescription" type="boldSystem" pointSize="16"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstAttribute="trailing" secondItem="1Hl-JO-fSj" secondAttribute="trailing" constant="19" id="13x-o3-Ugq"/>
+                                            <constraint firstItem="1Hl-JO-fSj" firstAttribute="leading" secondItem="BLh-5V-MeR" secondAttribute="leading" constant="20" id="IX2-xG-KgY"/>
+                                            <constraint firstAttribute="height" constant="1200" id="R77-bl-uYo"/>
+                                            <constraint firstItem="Jbd-uC-c7Y" firstAttribute="top" secondItem="BLh-5V-MeR" secondAttribute="top" constant="77" id="eZp-dd-efT"/>
+                                            <constraint firstItem="1Hl-JO-fSj" firstAttribute="top" secondItem="hdh-Ft-3xS" secondAttribute="bottom" constant="44" id="mV8-4t-pLo"/>
+                                            <constraint firstItem="Jbd-uC-c7Y" firstAttribute="centerY" secondItem="S0X-C1-ccU" secondAttribute="centerY" id="un0-sF-ZOD"/>
+                                            <constraint firstItem="Jbd-uC-c7Y" firstAttribute="leading" secondItem="S0X-C1-ccU" secondAttribute="trailing" constant="8" id="ygW-Bg-YvI"/>
+                                        </constraints>
+                                    </view>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="BLh-5V-MeR" firstAttribute="leading" secondItem="QyU-wV-MYI" secondAttribute="leading" id="6JY-sl-chW"/>
+                                    <constraint firstAttribute="trailing" secondItem="BLh-5V-MeR" secondAttribute="trailing" id="CfJ-Qu-g80"/>
+                                    <constraint firstItem="hdh-Ft-3xS" firstAttribute="leading" secondItem="QyU-wV-MYI" secondAttribute="leading" constant="20" id="MT4-wI-YyB"/>
+                                    <constraint firstItem="BLh-5V-MeR" firstAttribute="top" secondItem="QyU-wV-MYI" secondAttribute="top" id="PJR-lK-lWt"/>
+                                    <constraint firstAttribute="bottom" secondItem="BLh-5V-MeR" secondAttribute="bottom" id="xBz-G1-qW5"/>
+                                </constraints>
+                            </scrollView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vfg-mP-sok" userLabel="저장">
+                                <rect key="frame" x="0.0" y="1270" width="375" height="80"/>
+                                <color key="backgroundColor" red="0.78823529410000004" green="0.78823529410000004" blue="0.78823529410000004" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="80" id="9rB-dk-9iy"/>
+                                </constraints>
+                                <state key="normal" image="btNextActive"/>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="vfg-mP-sok" firstAttribute="bottom" secondItem="wnZ-KW-xtJ" secondAttribute="bottom" id="016-df-nis"/>
+                            <constraint firstItem="QyU-wV-MYI" firstAttribute="leading" secondItem="Aau-bB-Gl2" secondAttribute="leading" id="4dF-ZM-k10"/>
+                            <constraint firstItem="BLh-5V-MeR" firstAttribute="width" secondItem="wnZ-KW-xtJ" secondAttribute="width" id="Cd4-jC-tU8"/>
+                            <constraint firstItem="vfg-mP-sok" firstAttribute="width" secondItem="BLh-5V-MeR" secondAttribute="width" id="TRT-ql-owU"/>
+                            <constraint firstAttribute="bottom" secondItem="QyU-wV-MYI" secondAttribute="bottom" constant="80" id="jKi-K4-gwt"/>
+                            <constraint firstItem="QyU-wV-MYI" firstAttribute="top" secondItem="Aau-bB-Gl2" secondAttribute="top" id="kM7-qI-rYq"/>
+                            <constraint firstItem="vfg-mP-sok" firstAttribute="centerX" secondItem="BLh-5V-MeR" secondAttribute="centerX" id="myh-sF-PRl"/>
+                            <constraint firstItem="Aau-bB-Gl2" firstAttribute="trailing" secondItem="QyU-wV-MYI" secondAttribute="trailing" id="tKh-kB-b9w"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="Aau-bB-Gl2"/>
+                    </view>
+                    <size key="freeformSize" width="375" height="1350"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Bxi-Jf-5Yj" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2062" y="897"/>
+        </scene>
+        <!--Classification View Controller-->
+        <scene sceneID="H19-Ba-ugb">
+            <objects>
+                <viewController id="irf-eB-z6L" customClass="ClassificationViewController" customModule="CustomTabBar" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="b5g-IK-pcL">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="g2e-Fl-0rG">
+                                <rect key="frame" x="0.0" y="40" width="375" height="100"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5hm-M3-neG">
+                                        <rect key="frame" x="292.5" y="59" width="60" height="25"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="25" id="Gff-Wo-ebQ"/>
+                                            <constraint firstAttribute="width" constant="60" id="LcH-dG-Yih"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                        <state key="normal" title="자격증">
+                                            <color key="titleColor" red="0.4941176471" green="0.4941176471" blue="0.4941176471" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        </state>
+                                    </button>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5Zc-hv-8mC">
+                                        <rect key="frame" x="0.0" y="94" width="375" height="1"/>
+                                        <color key="backgroundColor" red="0.76120230359999996" green="0.75752499780000004" blue="0.76487960939999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="1" id="GfZ-Dl-zEg"/>
+                                        </constraints>
+                                    </view>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oBq-n3-wYg">
+                                        <rect key="frame" x="42.5" y="59" width="40" height="25"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="40" id="0go-Sr-6gp"/>
+                                            <constraint firstAttribute="height" constant="25" id="IK1-6W-EBQ"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                        <state key="normal" title="대외활동">
+                                            <color key="titleColor" red="0.47450980390000003" green="0.21960784310000001" blue="0.1960784314" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        </state>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5B9-Im-nGq">
+                                        <rect key="frame" x="162.5" y="59" width="50" height="25"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="25" id="cnG-qf-OQN"/>
+                                            <constraint firstAttribute="width" constant="50" id="g9L-qS-sSh"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                        <state key="normal" title="수상내역">
+                                            <color key="titleColor" red="0.47450980390000003" green="0.21960784310000001" blue="0.1960784314" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        </state>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstItem="5hm-M3-neG" firstAttribute="centerY" secondItem="5B9-Im-nGq" secondAttribute="centerY" id="7dS-Oj-Ke4"/>
+                                    <constraint firstItem="5hm-M3-neG" firstAttribute="leading" secondItem="5B9-Im-nGq" secondAttribute="trailing" constant="80" id="GC8-n3-6JX"/>
+                                    <constraint firstItem="5B9-Im-nGq" firstAttribute="centerX" secondItem="g2e-Fl-0rG" secondAttribute="centerX" id="HM8-cC-4fY"/>
+                                    <constraint firstItem="oBq-n3-wYg" firstAttribute="centerY" secondItem="5B9-Im-nGq" secondAttribute="centerY" id="HSl-Cq-Tmv"/>
+                                    <constraint firstAttribute="bottom" secondItem="5Zc-hv-8mC" secondAttribute="bottom" constant="5" id="Isp-FU-lAf"/>
+                                    <constraint firstItem="5B9-Im-nGq" firstAttribute="leading" secondItem="oBq-n3-wYg" secondAttribute="trailing" constant="80" id="R7D-Fi-npY"/>
+                                    <constraint firstAttribute="trailing" secondItem="5Zc-hv-8mC" secondAttribute="trailing" id="gsa-ak-XWi"/>
+                                    <constraint firstItem="5Zc-hv-8mC" firstAttribute="leading" secondItem="g2e-Fl-0rG" secondAttribute="leading" id="pJd-Uu-w6a"/>
+                                    <constraint firstItem="5Zc-hv-8mC" firstAttribute="top" secondItem="5B9-Im-nGq" secondAttribute="bottom" constant="10" id="vaw-Ez-9w5"/>
+                                    <constraint firstAttribute="height" constant="100" id="xkn-YJ-4Bw"/>
+                                </constraints>
+                            </view>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2pe-j3-fD2">
+                                <rect key="frame" x="0.0" y="140" width="375" height="527"/>
+                            </scrollView>
+                        </subviews>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="g2e-Fl-0rG" firstAttribute="width" secondItem="b5g-IK-pcL" secondAttribute="width" id="D56-bO-x2x"/>
+                            <constraint firstItem="2pe-j3-fD2" firstAttribute="trailing" secondItem="Z3a-zz-H9x" secondAttribute="trailing" id="KIu-BP-e3w"/>
+                            <constraint firstItem="g2e-Fl-0rG" firstAttribute="top" secondItem="b5g-IK-pcL" secondAttribute="topMargin" constant="20" id="LVi-Ga-Uxw"/>
+                            <constraint firstItem="2pe-j3-fD2" firstAttribute="top" secondItem="g2e-Fl-0rG" secondAttribute="bottom" id="LZf-X0-81c"/>
+                            <constraint firstItem="2pe-j3-fD2" firstAttribute="leading" secondItem="Z3a-zz-H9x" secondAttribute="leading" id="M3j-s4-N8T"/>
+                            <constraint firstItem="2pe-j3-fD2" firstAttribute="bottom" secondItem="Z3a-zz-H9x" secondAttribute="bottom" id="Uc8-t6-l0K"/>
+                            <constraint firstItem="g2e-Fl-0rG" firstAttribute="leading" secondItem="Z3a-zz-H9x" secondAttribute="leading" id="sTa-np-n5R"/>
+                            <constraint firstItem="g2e-Fl-0rG" firstAttribute="trailing" secondItem="Z3a-zz-H9x" secondAttribute="trailing" id="u0T-dM-eOi"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="Z3a-zz-H9x"/>
+                    </view>
+                    <connections>
+                        <outlet property="filterButton" destination="oBq-n3-wYg" id="eDe-s3-oeR"/>
+                        <outlet property="mainScrollView" destination="2pe-j3-fD2" id="RVa-1l-qUp"/>
+                        <outlet property="mapButton" destination="5hm-M3-neG" id="oBn-Io-XIb"/>
+                        <outlet property="recommendButton" destination="5B9-Im-nGq" id="IQx-5C-hc5"/>
+                        <outlet property="searchViewTopConst" destination="LVi-Ga-Uxw" id="ipz-DZ-sUF"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="sPZ-ON-3S6" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3686" y="590"/>
         </scene>
     </scenes>
     <resources>
         <image name="btCamera" width="40" height="40"/>
+        <image name="btJobArtUnactive" width="162" height="162"/>
+        <image name="btJobConstructUnactive" width="162" height="162"/>
+        <image name="btJobDesignUnactive" width="162" height="162"/>
+        <image name="btJobIndustryUnactive" width="162" height="162"/>
+        <image name="btJobLiteratureUnactive" width="162" height="162"/>
+        <image name="btJobManagementUnactive" width="162" height="162"/>
+        <image name="btJobMarketingUnactive" width="162" height="162"/>
+        <image name="btJobMedicalUnactive" width="162" height="162"/>
+        <image name="btJobSalesUnactive" width="162" height="162"/>
+        <image name="btJobServiceUnactive" width="162" height="162"/>
+        <image name="btJobSpecialityUnactive" width="162" height="162"/>
+        <image name="btJobStudyUnactive" width="162" height="162"/>
+        <image name="btJobTechUnactive" width="162" height="162"/>
+        <image name="btJobTradeUnactive" width="162" height="162"/>
+        <image name="btNextActive" width="375" height="80"/>
         <image name="btPreferenceArtUnactive" width="162" height="162"/>
         <image name="btPreferenceCameraUnactive" width="162" height="162"/>
         <image name="btPreferenceDesignUnactive" width="162" height="162"/>
