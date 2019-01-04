@@ -62,8 +62,26 @@ class CalenderView: UIView, UICollectionViewDelegate, UICollectionViewDataSource
     
     var reValue = 0
     
+    var allPoster:[Posters] = []
+    
+    
+    
+    
+    //각 셀의 라인 4개를 표현하기 위함
+    var lineOfCell1 = 0
+    var lineOfCell2 = 0
+    var lineOfCell3 = 0
+    var lineOfCell4 = 0
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
+        
+        let defaults = UserDefaults.standard
+        guard let posterData = defaults.object(forKey: "poster") as? Data else { return }
+        guard let posterInfo2 = try? PropertyListDecoder().decode([Posters].self, from: posterData) else { return }
+        
+        allPoster = posterInfo2
+        
         initializeView()
     }
     
@@ -126,6 +144,9 @@ class CalenderView: UIView, UICollectionViewDelegate, UICollectionViewDataSource
         myCollectionView.dataSource=self
         
         myCollectionView.register(dateCVCell.self, forCellWithReuseIdentifier: "Cell")
+        
+        
+        
     }
     
     
@@ -177,16 +198,10 @@ class CalenderView: UIView, UICollectionViewDelegate, UICollectionViewDataSource
         
         cell.line.backgroundColor = .clear
         
-     
-        
-
-        
         var beforeMonthIndex = 0
         var beforeYear = 0 //이번달의 전 달이 어떤날에 해당하는지 확인!!
         
-        //cell.backgroundColor = .blue
-        //이번달이 1월이면 이전달은 12월
-        if currentMonthIndex == 1 {
+        if currentMonthIndex == 1 { //이번달이 1월이면 이전달은 12월
             beforeMonthIndex = 12
             beforeYear = currentYear - 1
         }else {
@@ -202,6 +217,18 @@ class CalenderView: UIView, UICollectionViewDelegate, UICollectionViewDataSource
                 beforeMonthCount = numOfDaysInMonth[beforeMonthIndex-1]
             }
         }
+        
+        var nextYear = 0
+        var nextMonth = 0
+        
+        if currentMonthIndex == 12 {
+            nextYear = currentYear + 1
+            nextMonth = 1
+        }else {
+            nextYear = currentYear
+            nextMonth = currentMonthIndex + 1
+        }
+        var nextDay = 0
         
         if indexPath.item <= firstWeekDayOfMonth - 2 { //이전달의 표현해야 하는 날짜들
             //달력 실제 달력이랑 같은지 확인 해야함
@@ -242,10 +269,10 @@ class CalenderView: UIView, UICollectionViewDelegate, UICollectionViewDataSource
                 cell.lbl.textColor = .red
             }
         
-            let countOfNextMonthday = (calcDate + firstWeekDayOfMonth - 1) - (numOfDaysInMonth[currentMonthIndex-1] + firstWeekDayOfMonth - 1)
+            nextDay = (calcDate + firstWeekDayOfMonth - 1) - (numOfDaysInMonth[currentMonthIndex-1] + firstWeekDayOfMonth - 1)
             //다음달 일수 출력
-            if countOfNextMonthday >= 1 {
-                let calcDate = countOfNextMonthday
+            if nextDay >= 1 {
+                let calcDate = nextDay
                 cell.isHidden=false
                 cell.lbl.text="\(calcDate)"
                 cell.isUserInteractionEnabled=false
@@ -255,92 +282,104 @@ class CalenderView: UIView, UICollectionViewDelegate, UICollectionViewDataSource
         }
         cell.layer.cornerRadius = 0
         
-        
         /*   임의의 데이터     */
-        var startYear = 2019
-        var startMonth = 1
-        var startDay = 15
+        let startYear = 2018
+        let startMonth = 12
+        let startDay = 26
         
-        var endYear = 2019
-        var endMonth = 2
-        var endDay = 1
+        let endYear = 2019
+        let endMonth = 2
+        let endDay = 3
         /*        */
         /*   임의의 데이터     */
-        var startYear2 = 2019
-        var startMonth2 = 1
-        var startDay2 = 10
+        let startYear2 = 2019
+        let startMonth2 = 1
+        let startDay2 = 10
         
-        var endYear2 = 2019
-        var endMonth2 = 1
-        var endDay2 = 18
+        let endYear2 = 2019
+        let endMonth2 = 1
+        let endDay2 = 18
         /*        */
         /*   임의의 데이터     */
-        var startYear3 = 2019
-        var startMonth3 = 1
-        var startDay3 = 1
+        let startYear3 = 2019
+        let startMonth3 = 1
+        let startDay3 = 1
         
-        var endYear3 = 2019
-        var endMonth3 = 1
-        var endDay3 = 14
+        let endYear3 = 2019
+        let endMonth3 = 1
+        let endDay3 = 14
         /*        */
+        
         
         
         var cellYear = currentYear
         var cellMonth = currentMonthIndex
-        print("_________________\(cellMonth)")
         var cellDay = indexPath.row-firstWeekDayOfMonth+2
         
-//        expressCellView(startYear:Int, startMonth:Int, startDay:Int, endYear:Int, endMonth:Int, endDay: Int, )
-        //이달만 표현함에 주의하자
-        /*                      */
+        var cellDateString = "\(cellYear)-\(cellMonth)-\(cellDay) 22:31:11"
+        //let startDateString = "\(startYear)/\(startMonth)/\(startDay) 22:31"
+        //let endDateString = "\(endYear)/\(endMonth)/\(endDay) 22:31"
+        
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+        
+        var currentCellDateTime = formatter.date(from: cellDateString)
+//        let startDateTime = formatter.date(from: startDateString)
+//        let endDateTime = formatter.date(from: endDateString)
+        
+        
+        var posterStartDateTime:Date?
+        var posterEndDateTime:Date?
+        
         cell.line.backgroundColor = .clear
-        if startYear == cellYear && startMonth == cellMonth && startDay <= cellDay {
-            if startMonth != endMonth { //시작월과 끝월이 다를때
-                //이번달에 표현되는 다음달의 날짜보다 작을때만 표현한다. , 다음달이면
-                let calcDate = indexPath.row-firstWeekDayOfMonth+2 //1~31일까지
-                let countOfNextMonthday = (calcDate + firstWeekDayOfMonth - 1) - (numOfDaysInMonth[currentMonthIndex-1] + firstWeekDayOfMonth - 1)
-                if countOfNextMonthday <= endDay {
+        cell.line2.backgroundColor = .clear
+        cell.line3.backgroundColor = .clear
+        
+        if currentCellDateTime == nil {
+            //전달이면
+            if indexPath.row < 15 {
+                cellYear = beforeYear
+                cellMonth = beforeMonthIndex
+                cellDay = beforeMonthCount-firstWeekDayOfMonth+indexPath.row+2
+                
+                cellDateString = "\(cellYear)-\(cellMonth)-\(cellDay) 22:31:11"
+                currentCellDateTime = formatter.date(from: cellDateString)
+            }else {
+                cellYear = nextYear
+                cellMonth = nextMonth
+                cellDay = nextDay
+                
+                cellDateString = "\(cellYear)-\(cellMonth)-\(cellDay) 22:31:11"
+                currentCellDateTime = formatter.date(from: cellDateString)
+            }
+        }
+        
+        print("포스터의 총 개수 \(allPoster.count)")
+        for poster in allPoster {
+            let posterStartDateString = poster.posterStartDate
+            let posterEndDateString = poster.posterEndDate
+            
+            posterStartDateTime = formatter.date(from: poster.posterStartDate!)
+            posterEndDateTime = formatter.date(from: poster.posterEndDate!)
+            
+//            print("가나다라마마사아자차카타타파하 세종대왕만세")
+//            print(posterStartDateString)
+//            print(posterStartDateTime)
+//            print(posterEndDateString)
+//            print(posterEndDateTime)
+//            print(currentCellDateTime)
+            
+            if currentCellDateTime != nil {
+                if posterStartDateTime! <= currentCellDateTime! && currentCellDateTime! <= posterEndDateTime! {
                     cell.line.backgroundColor = .red
                 }
-            }else { //시작 월과 끝 월이 같다면
-                if endDay >= cellDay {
-                    cell.line.backgroundColor = .blue
-                }
+                
             }
         }
-        /*                    */
-        cell.line2.backgroundColor = .clear
-        if startYear2 == cellYear && startMonth2 == cellMonth && startDay2 <= cellDay {
-            
-            if startMonth2 != endMonth2 { //시작월과 끝월이 다를때
-                //이번달에 표현되는 다음달의 날짜보다 작을때만 표현한다. , 다음달이면
-                let calcDate = indexPath.row-firstWeekDayOfMonth+2 //1~31일까지
-                let countOfNextMonthday = (calcDate + firstWeekDayOfMonth - 1) - (numOfDaysInMonth[currentMonthIndex-1] + firstWeekDayOfMonth - 1)
-                if countOfNextMonthday <= endDay2 {
-                    cell.line2.backgroundColor = .green
-                }
-            }else { //시작 월과 끝 월이 같다면
-                if endDay2 >= cellDay {
-                    cell.line2.backgroundColor = .green
-                }
-            }
-        }
-        /*                    */
-        cell.line3.backgroundColor = .clear
-        if startYear3 == cellYear && startMonth3 == cellMonth && startDay3 <= cellDay {
-            if startMonth3 != endMonth3 { //시작월과 끝월이 다를때
-                //이번달에 표현되는 다음달의 날짜보다 작을때만 표현한다. , 다음달이면
-                let calcDate = indexPath.row-firstWeekDayOfMonth+2 //1~31일까지
-                let countOfNextMonthday = (calcDate + firstWeekDayOfMonth - 1) - (numOfDaysInMonth[currentMonthIndex-1] + firstWeekDayOfMonth - 1)
-                if countOfNextMonthday <= endDay3 {
-                    cell.line3.backgroundColor = .blue
-                }
-            }else { //시작 월과 끝 월이 같다면
-                if endDay3 >= cellDay {
-                    cell.line3.backgroundColor = .blue
-                }
-            }
-        }
+    
+        //let calcDate = indexPath.row-firstWeekDayOfMonth+2 //1~31일까지
+        //let countOfNextMonthday = (calcDate + firstWeekDayOfMonth - 1) - (numOfDaysInMonth[currentMonthIndex-1] + firstWeekDayOfMonth - 1)
+
         /*                    */
         return cell
     }

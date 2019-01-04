@@ -95,6 +95,7 @@ class CalenderVC: UIViewController{
         UIView.animate(withDuration: 0.1) {
             self.view.layoutIfNeeded()
         }
+        
         todoStatus = -1
     }
     
@@ -189,7 +190,7 @@ class todoCell: UITableViewCell {
     
     let leftLineView: UIView = {
         let leftView = UIView()
-        leftView.roundCorners(corners: [.topLeft, .bottomLeft], radius: 15)
+        //leftView.roundCorners(corners: [.topLeft, .bottomLeft], radius: 15)
         leftView.translatesAutoresizingMaskIntoConstraints = false
         leftView.backgroundColor = UIColor(displayP3Red: 97/255, green: 118/255, blue: 221/255, alpha: 1.0)
         return leftView
