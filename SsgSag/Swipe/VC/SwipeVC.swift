@@ -247,7 +247,7 @@ extension SwipeVC : SwipeCardDelegate {
         
         guard let posterInfo = try? PropertyListDecoder().decode(Posters.self, from: posterData) else { return }
         
-        print("posterrrrrr: \(posterInfo.posterName)")
+//        print("posterrrrrr: \(posterInfo.posterName)")
         
         
         //        }

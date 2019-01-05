@@ -66,6 +66,8 @@ class CareerViewController: UIViewController {
     }()
 
 
+    @IBOutlet weak var plusButton: UIButton!
+    
     @IBOutlet weak var mainScrollView: UIScrollView!
     
     override func viewDidLoad() {
@@ -85,9 +87,23 @@ class CareerViewController: UIViewController {
         certificationTableView.register(certificationNib, forCellReuseIdentifier: "CertificationCell")
         
         cellOfEatery()
+        
+        plusButton.addTarget(self, action: #selector(addActivityPresentAction), for: .touchUpInside)
 
     }
     
+    @objc func addActivityPresentAction() {
+        if let activityVC = storyboard?.instantiateViewController(withIdentifier: "AddActivityVC")
+        {
+            present(activityVC, animated: true)
+        }
+    }
+    
+    @objc func addPresentAction() {
+        if let addVC = storyboard?.instantiateViewController(withIdentifier: "AddVC") {
+            present(addVC, animated: true)
+        }
+    }
     
     func cellOfEatery() {
         let path = Bundle.main.path(forResource: "data", ofType: "json")
@@ -117,6 +133,7 @@ class CareerViewController: UIViewController {
                     certificationOV.title = row.title
                     certificationOV.date = row.date
                     certificationOV.content = row.content
+                    self.certificationList.append(certificationOV)
                 }
                 self.certificationTableView.reloadData()
             }
@@ -260,6 +277,7 @@ class CareerViewController: UIViewController {
         certificationTableView.separatorColor = UIColor.rgb(red: 242, green: 243, blue: 245)
     }
     
+   
 }
 
 extension CareerViewController: UITableViewDelegate, UITableViewDataSource {
@@ -309,7 +327,9 @@ extension CareerViewController : UICollectionViewDelegate, UICollectionViewDataS
         }
         switch indexPath.row {
         case 0 : cell.label.text = "대외활동"
+
         case 1 : cell.label.text = "수상내역"
+            
         case 2 : cell.label.text = "자격증"
         default: break
         }
@@ -339,6 +359,24 @@ extension CareerViewController : UICollectionViewDelegate, UICollectionViewDataS
         UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.9, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
             self.customTabBar.layoutIfNeeded()
         }, completion: nil)
+        
+        if indexPath.row == 0 {
+            if plusButton.target(forAction: #selector(addPresentAction), withSender: nil) != nil{
+                plusButton.removeTarget(self, action: #selector(addPresentAction), for: .touchUpInside)
+            }
+            plusButton.addTarget(self, action: #selector(addActivityPresentAction), for: .touchUpInside)
+        }else if indexPath.row == 1{
+            if plusButton.target(forAction: #selector(addActivityPresentAction), withSender: nil) != nil{
+                plusButton.removeTarget(self, action: #selector(addActivityPresentAction), for: .touchUpInside)
+            }
+            plusButton.addTarget(self, action: #selector(addPresentAction), for: .touchUpInside)
+        }else {
+            if plusButton.target(forAction: #selector(addActivityPresentAction), withSender: nil) != nil{
+                plusButton.removeTarget(self, action: #selector(addActivityPresentAction), for: .touchUpInside)
+            }
+            plusButton.addTarget(self, action: #selector(addPresentAction), for: .touchUpInside)
+        }
+        
         
         DispatchQueue.main.async {
             UIView.animate(withDuration: 0.2, delay: 0, options: .curveLinear, animations: {
