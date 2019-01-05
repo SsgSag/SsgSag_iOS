@@ -3,17 +3,17 @@
     {
       "idiom" : "universal",
       "scale" : "1x",
-      "filename" : "imgLogoSplash.png"
+      "filename" : "icArrowNextMypage.png"
     },
     {
       "idiom" : "universal",
       "scale" : "2x",
-      "filename" : "imgLogoSplash@2x.png"
+      "filename" : "icArrowNextMypage@2x.png"
     },
     {
       "idiom" : "universal",
       "scale" : "3x",
-      "filename" : "imgLogoSplash@3x.png"
+      "filename" : "icArrowNextMypage@3x.png"
     }
   ],
   "info" : {

@@ -21,10 +21,11 @@ extension UIColor {
 extension UIView {
     func setGradient(from color1: UIColor, to color2: UIColor) {
         let gradient: CAGradientLayer = CAGradientLayer()
+        gradient.frame = bounds
         gradient.colors = [color1.cgColor, color2.cgColor]
         gradient.startPoint = CGPoint(x: 0.0, y: 0.0)
         gradient.endPoint = CGPoint(x: 1, y: 1)
-        gradient.frame = self.layer.frame
-        self.layer.insertSublayer(gradient, at: 0)
+//        self.layer.addSublayer(gradient)
+        layer.insertSublayer(gradient, at: 0)
     }
 }

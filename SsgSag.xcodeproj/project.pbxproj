@@ -51,6 +51,16 @@
 		FA3A8FD921DF3D5F0075A510 /* GradientColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA3A8FD821DF3D5F0075A510 /* GradientColor.swift */; };
 		FA3A8FDB21DF3F410075A510 /* SplashVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA3A8FDA21DF3F410075A510 /* SplashVC.swift */; };
 		FA524BF121D64E2400675289 /* SignupStoryBoard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FA524BF021D64E2400675289 /* SignupStoryBoard.storyboard */; };
+		FA7F4CB821DFB0C100D8643A /* CareerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA7F4CB721DFB0C100D8643A /* CareerViewController.swift */; };
+		FA7F4CBB21DFC7E700D8643A /* CustomCareerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA7F4CB921DFC7E700D8643A /* CustomCareerCell.swift */; };
+		FA7F4CBC21DFC7E700D8643A /* CustomCareerCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = FA7F4CBA21DFC7E700D8643A /* CustomCareerCell.xib */; };
+		FA7F4CC021DFCAF200D8643A /* ActivityCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = FA7F4CBE21DFCAF200D8643A /* ActivityCell.xib */; };
+		FA7F4CC421DFCB1300D8643A /* PrizeCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = FA7F4CC221DFCB1300D8643A /* PrizeCell.xib */; };
+		FA7F4CC821DFCC7E00D8643A /* CertificationCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = FA7F4CC621DFCC7E00D8643A /* CertificationCell.xib */; };
+		FA7F4CCA21DFD61300D8643A /* ActivityCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA7F4CC921DFD61300D8643A /* ActivityCell.swift */; };
+		FA7F4CCC21DFF3B100D8643A /* sampleData.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA7F4CCB21DFF3B100D8643A /* sampleData.swift */; };
+		FA7F4CCE21E049F200D8643A /* data.json in Resources */ = {isa = PBXBuildFile; fileRef = FA7F4CCD21E049F200D8643A /* data.json */; };
+		FA7F4CD021E04A0600D8643A /* sampleDataVO.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA7F4CCF21E04A0600D8643A /* sampleDataVO.swift */; };
 		FA851DE921D3DBBC002065D0 /* SwipeCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA851DE821D3DBBC002065D0 /* SwipeCard.swift */; };
 		FA851DED21D5FDB0002065D0 /* SwipeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA851DEC21D5FDB0002065D0 /* SwipeModel.swift */; };
 		FA851DF121D60787002065D0 /* user-details.json in Resources */ = {isa = PBXBuildFile; fileRef = FA851DF021D60787002065D0 /* user-details.json */; };
@@ -137,6 +147,16 @@
 		FA3A8FD821DF3D5F0075A510 /* GradientColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientColor.swift; sourceTree = "<group>"; };
 		FA3A8FDA21DF3F410075A510 /* SplashVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashVC.swift; sourceTree = "<group>"; };
 		FA524BF021D64E2400675289 /* SignupStoryBoard.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = SignupStoryBoard.storyboard; sourceTree = "<group>"; };
+		FA7F4CB721DFB0C100D8643A /* CareerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CareerViewController.swift; sourceTree = "<group>"; };
+		FA7F4CB921DFC7E700D8643A /* CustomCareerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCareerCell.swift; sourceTree = "<group>"; };
+		FA7F4CBA21DFC7E700D8643A /* CustomCareerCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CustomCareerCell.xib; sourceTree = "<group>"; };
+		FA7F4CBE21DFCAF200D8643A /* ActivityCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ActivityCell.xib; sourceTree = "<group>"; };
+		FA7F4CC221DFCB1300D8643A /* PrizeCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PrizeCell.xib; sourceTree = "<group>"; };
+		FA7F4CC621DFCC7E00D8643A /* CertificationCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CertificationCell.xib; sourceTree = "<group>"; };
+		FA7F4CC921DFD61300D8643A /* ActivityCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityCell.swift; sourceTree = "<group>"; };
+		FA7F4CCB21DFF3B100D8643A /* sampleData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = sampleData.swift; sourceTree = "<group>"; };
+		FA7F4CCD21E049F200D8643A /* data.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = data.json; sourceTree = "<group>"; };
+		FA7F4CCF21E04A0600D8643A /* sampleDataVO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = sampleDataVO.swift; sourceTree = "<group>"; };
 		FA851DE821D3DBBC002065D0 /* SwipeCard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwipeCard.swift; sourceTree = "<group>"; };
 		FA851DEC21D5FDB0002065D0 /* SwipeModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwipeModel.swift; sourceTree = "<group>"; };
 		FA851DF021D60787002065D0 /* user-details.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "user-details.json"; sourceTree = "<group>"; };
@@ -301,9 +321,19 @@
 		84BA694721DB391D00BA8CB8 /* MyPage */ = {
 			isa = PBXGroup;
 			children = (
-				84BA694821DB394800BA8CB8 /* myPageVC.swift */,
+				FA7F4CCD21E049F200D8643A /* data.json */,
 				84BA694A21DB395400BA8CB8 /* myPageStoryBoard.storyboard */,
+				84BA694821DB394800BA8CB8 /* myPageVC.swift */,
+				FA7F4CB721DFB0C100D8643A /* CareerViewController.swift */,
+				FA7F4CCB21DFF3B100D8643A /* sampleData.swift */,
+				FA7F4CCF21E04A0600D8643A /* sampleDataVO.swift */,
+				FA7F4CB921DFC7E700D8643A /* CustomCareerCell.swift */,
+				FA7F4CC921DFD61300D8643A /* ActivityCell.swift */,
 				FA23A93D21DF6FCF003DB5F9 /* myPageTableViewCell.swift */,
+				FA7F4CBE21DFCAF200D8643A /* ActivityCell.xib */,
+				FA7F4CC221DFCB1300D8643A /* PrizeCell.xib */,
+				FA7F4CC621DFCC7E00D8643A /* CertificationCell.xib */,
+				FA7F4CBA21DFC7E700D8643A /* CustomCareerCell.xib */,
 				FA23A93E21DF6FCF003DB5F9 /* myPageTableViewCell.xib */,
 			);
 			path = MyPage;
@@ -488,10 +518,15 @@
 			files = (
 				84BA694B21DB395400BA8CB8 /* myPageStoryBoard.storyboard in Resources */,
 				84E19CE421DCC9F4006F72EC /* LoginStoryBoard.storyboard in Resources */,
+				FA7F4CBC21DFC7E700D8643A /* CustomCareerCell.xib in Resources */,
 				FA3A8FD721DF3C3B0075A510 /* Splash.storyboard in Resources */,
+				FA7F4CC821DFCC7E00D8643A /* CertificationCell.xib in Resources */,
+				FA7F4CC421DFCB1300D8643A /* PrizeCell.xib in Resources */,
 				845928A521D09CE0001DF6CC /* Assets.xcassets in Resources */,
+				FA7F4CCE21E049F200D8643A /* data.json in Resources */,
 				845928CC21D09D09001DF6CC /* SwipeStoryBoard.storyboard in Resources */,
 				FA524BF121D64E2400675289 /* SignupStoryBoard.storyboard in Resources */,
+				FA7F4CC021DFCAF200D8643A /* ActivityCell.xib in Resources */,
 				FA851DF121D60787002065D0 /* user-details.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -623,7 +658,10 @@
 				84E19CDE21DCC977006F72EC /* ResponseArray.swift in Sources */,
 				FA23A93F21DF6FCF003DB5F9 /* myPageTableViewCell.swift in Sources */,
 				845928E121D20068001DF6CC /* LoginVC.swift in Sources */,
+				FA7F4CCC21DFF3B100D8643A /* sampleData.swift in Sources */,
 				84E19CE121DCC977006F72EC /* ResponseObject.swift in Sources */,
+				FA7F4CCA21DFD61300D8643A /* ActivityCell.swift in Sources */,
+				FA7F4CB821DFB0C100D8643A /* CareerViewController.swift in Sources */,
 				845928A321D09CDD001DF6CC /* SsgSag.xcdatamodeld in Sources */,
 				FA851DE921D3DBBC002065D0 /* SwipeCard.swift in Sources */,
 				8415586421D8D96900A0EDB5 /* SwipeCardDelegate.swift in Sources */,
@@ -641,8 +679,10 @@
 				84E19CD321DCC922006F72EC /* UserService.swift in Sources */,
 				842C619E21DD1807001BA6D8 /* Json4Swift_Base.swift in Sources */,
 				842C619F21DD1807001BA6D8 /* Posters.swift in Sources */,
+				FA7F4CD021E04A0600D8643A /* sampleDataVO.swift in Sources */,
 				845928E321D35F09001DF6CC /* PageViewController.swift in Sources */,
 				842C618521DCDC92001BA6D8 /* sendDataViewController.swift in Sources */,
+				FA7F4CBB21DFC7E700D8643A /* CustomCareerCell.swift in Sources */,
 				845928D921D09F30001DF6CC /* CalenderVC.swift in Sources */,
 				FA3A8FDB21DF3F410075A510 /* SplashVC.swift in Sources */,
 				845928E521D38771001DF6CC /* DetailImageSwipeCard.swift in Sources */,
