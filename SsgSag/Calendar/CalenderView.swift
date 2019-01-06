@@ -62,9 +62,328 @@ class CalenderView: UIView, UICollectionViewDelegate, UICollectionViewDataSource
     
     var reValue = 0
     
+    var allPoster:[Posters] = []
+    
+    var lineTuple = (100,100,100,100)
+    var lineArray: [(Int,Int,Int,Int)] = []
+    
+    var posterTuple:[(Date, Date, Int, Int, String, Int)] = []
+    
+    
+    //각 셀의 라인 4개를 표현하기 위함
+    var lineOfCell1 = 0
+    var lineOfCell2 = 0
+    var lineOfCell3 = 0
+    var lineOfCell4 = 0
+    
+    var lineArray1:[(Date,Date,Int,Int,String,Int)] = []
+    var lineArray2:[(Date,Date,Int,Int,String,Int)] = []
+    var lineArray3:[(Date,Date,Int,Int,String,Int)] = []
+    var lineArray4:[(Date,Date,Int,Int,String,Int)] = []
+    
+    var currentPosterTuple:[(Date, Date, Int, Int, String, Int)] = []
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
+        
+        let defaults = UserDefaults.standard
+        guard let posterData = defaults.object(forKey: "poster") as? Data else { return }
+        guard let posterInfo2 = try? PropertyListDecoder().decode([Posters].self, from: posterData) else { return }
+        //defaults.removeObject(forKey: "poster")
+        
+        allPoster = posterInfo2
+        
+        
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+        
+        for poster in posterInfo2 {
+
+            let posterStartDateTime = formatter.date(from: poster.posterStartDate!)
+            let posterEndDateTime = formatter.date(from: poster.posterEndDate!)
+            
+            let components = Calendar.current.dateComponents([.day], from: posterStartDateTime!, to: posterEndDateTime!)
+            let dayInterval = components.day! + 1
+            posterTuple.append((posterStartDateTime!, posterEndDateTime!, dayInterval, poster.categoryIdx!, poster.posterName!, 0))
+        }
+        
+        
+        
+        let s1 = formatter.date(from: "2019-01-16 15:00:00")
+        let e1 = formatter.date(from: "2019-01-17 14:59:00")
+        
+        let s2 = formatter.date(from: "2019-01-01 08:00:00")
+        let e2 = formatter.date(from: "2019-01-12 08:00:00")
+        
+        let s3 = formatter.date(from: "2019-01-05 08:00:00")
+        let e3 = formatter.date(from: "2019-01-18 08:00:00")
+        
+        let s4 = formatter.date(from: "2019-01-19 15:00:00")
+        let e4 = formatter.date(from: "2019-01-31 14:59:59")
+        
+        let s5 = formatter.date(from: "2019-01-08 15:00:00")
+        let e5 = formatter.date(from: "2019-01-09 14:59:59")
+        
+        let s6 = formatter.date(from: "2019-01-10 15:00:00")
+        let e6 = formatter.date(from: "2019-01-11 14:59:59")
+        
+        let s7 = formatter.date(from: "2019-01-14 15:00:00")
+        let e7 = formatter.date(from: "2019-01-17 14:59:59")
+        
+        let s8 = formatter.date(from: "2019-01-01 15:00:00")
+        let e8 = formatter.date(from: "2019-01-07 14:59:59")
+        
+        let s9 = formatter.date(from: "2019-01-14 15:00:00")
+        let e9 = formatter.date(from: "2019-01-18 14:59:59")
+        
+        posterTuple = [(s1!, e1!, 395, 1, "스마트청춘MD", 0),
+            (s2!, e2!, 12, 0, "비즈니스 아이디어 공모전", 0),
+            (s3!, e3!, 12, 0, "레진코믹스 세계만화공모전", 0),
+            (s4!, e4!, 4, 5, "아주 캐피탈 대학생 봉사단", 0),
+            (s5!, e5!, 3, 0, "에스윈아이디어공모전", 0),
+            (s6!, e6!, 3, 2, "솝트 동아리", 0),
+            (s7!, e7!, 3, 2, "새로운 일정", 0),
+            (s8!, e8!, 3, 2, "새로운 일정", 0),
+            (s9!, e9!, 3, 2, "새로운 일정2", 0),
+        ]
+        
+        posterTuple.sort{$0.2 > $1.2}
+        
+        var countLine = 0
+        
+        for i in posterTuple {
+            print(i)
+        }
+        print()
+        print()
+        
+        lineArray1.append(posterTuple[countLine])
+        countLine = -1
+        for k in 1...posterTuple.count-1 {
+            if isGoodTopPut(lineArray: lineArray1, putDate: posterTuple[k]) == true {
+                lineArray1.append(posterTuple[k])
+            }
+        }
+        /* 라인 2 */
+        var posterTuple2:[(Date,Date,Int,Int,String,Int)] = []
+        //라인 2에 들어가는 가장긴 포스터를 찾자.
+        for k in 1...posterTuple.count - 1{
+            var count1 = 0
+            for l in lineArray1 {
+                if l == posterTuple[k] {
+                    count1 += 1
+                }
+            }
+            if count1 == 0 {//겹치는게 없을때만 posterTUple2에 저장
+                posterTuple2.append(posterTuple[k])
+            }
+            //안포함 했을때만 posterTuple2에 추가
+        }
+        
+        print("이게바로 posterTuple2 \(posterTuple2)")//posterTule3에 라인 1에 들어가지 않는 포스터만 넣는다.
+        
+        if posterTuple2.count >= 1 {
+            lineArray2.append(posterTuple2[0])//posterTuple3에서 가장긴것은 무조건 넣는다.
+            
+            countLine = -1
+            
+            for k in 1...posterTuple2.count-1 {
+                if isGoodTopPut(lineArray: lineArray2, putDate: posterTuple2[k]) == true { //posterTuple2에서 lineArray2에 중복되지 않는 값들을 넣는다.
+                    lineArray2.append(posterTuple2[k])
+                }
+            }
+        }
+        
+        
+        
+        /* 라인 3 */
+        var posterTuple3:[(Date,Date,Int,Int,String,Int)] = []
+        
+        //라인 3에 들어가는 가장긴 포스터를 찾자.
+        for k in 0...posterTuple.count-1{
+            //lineArray1과 lineArray2에 안들어가는 posterTuple의 값들만 posterTuple3에 넣는다.
+            var count1 = 0
+            for l in lineArray1 {
+                if l == posterTuple[k] {
+                    count1 += 1
+                }
+            }
+            
+            for l in lineArray2 {
+                if l == posterTuple[k] {
+                    count1 += 1
+                }
+            }
+            
+            if count1 == 0 {//겹치는게 없을때만 posterTUple2에 저장
+                posterTuple3.append(posterTuple[k])
+            }
+            //안포함 했을때만 posterTuple2에 추가
+        }
+        if posterTuple3.count >= 1 {
+            lineArray3.append(posterTuple3[0])//posterTuple3에서 가장긴것은 무조건 넣는다.
+            
+            countLine = -1
+            
+            for k in 1...posterTuple3.count-1 {
+                if isGoodTopPut(lineArray: lineArray3, putDate: posterTuple3[k]) == true { //posterTuple2에서 lineArray2에 중복되지 않는 값들을 넣는다.
+                    lineArray3.append(posterTuple3[k])
+                }
+            }
+        }
+        
+        
+        
+        
+        /* 라인 4 */
+        var posterTuple4:[(Date,Date,Int,Int,String,Int)] = []
+        
+        //라인 3에 들어가는 가장긴 포스터를 찾자.
+        for k in 0...posterTuple.count-1{
+            //lineArray1과 lineArray2에 안들어가는 posterTuple의 값들만 posterTuple3에 넣는다.
+            var count1 = 0
+            for l in lineArray1 {
+                if l == posterTuple[k] {
+                    count1 += 1
+                }
+            }
+            
+            for l in lineArray2 {
+                if l == posterTuple[k] {
+                    count1 += 1
+                }
+            }
+            
+            for l in lineArray3 {
+                if l == posterTuple[k] {
+                    count1 += 1
+                }
+            }
+            
+            if count1 == 0 {//겹치는게 없을때만 posterTUple2에 저장
+                posterTuple4.append(posterTuple[k])
+            }
+            //안포함 했을때만 posterTuple2에 추가
+        }
+        print("여긴 지나가나")
+        
+        if posterTuple4.count >= 1 {
+            lineArray4.append(posterTuple4[0])//posterTuple3에서 가장긴것은 무조건 넣는다.
+            
+            countLine = -1
+            for k in 0...posterTuple4.count-1 {
+                if isGoodTopPut(lineArray: lineArray4, putDate: posterTuple4[k]) == true { //posterTuple2에서 lineArray2에 중복되지 않는 값들을 넣는다.
+                    lineArray4.append(posterTuple4[k])
+                }
+            }
+        }
+        
+        print()
+        print()
+        print()
+        print()
+        
+        print(lineArray1)
+        print("lieArray1")
+        
+        print(lineArray2)
+        print("lieArray2")
+        
+        print(lineArray3)
+        print("lieArray3")
+        
+        print(lineArray4)
+        print("lieArray4")
+        
+        
+//        for k in 0...posterTuple.count-1 {
+//            if countLine == 0 {//첫번째 포스터는 라인 1에 들어간다.
+//                lineArray1.append(posterTuple[0])
+//            }
+//
+//            if k < posterTuple.count - 1 {//k가 posterTuple.count-1이면 k+1계산이 안됨
+//            for l in (k+1)...posterTuple.count-1 {
+//                if isDuplicate(startDate: posterTuple[k].0, endDate: posterTuple[k].1, startSecondDate: posterTuple[l].0, endSecondDate: posterTuple[l].1) == false{//안겹치면
+//                    if isGoodTopPut(lineArray: lineArray1, putDate: posterTuple[l]) == true { //lineArray1에 들어가야 하는 posterTuple[l]
+//                        lineArray1.append(posterTuple[l])
+//                    }
+//                }
+//            }
+//            }
+//            //첫번째 라인에 들어가야 하는 모든 포스터를 찾았다.
+//            //전체 에서 첫번째 라인에 들어가지 않지만 가장긴 포스터를 찾자
+//            for l in lineArray1 {
+//                if posterTuple[k] == l {
+//                    countLine = k //두번째 라인중 기간이 가장긴 포스터 튜플의 인덱스 = countLine
+//                }
+//            }
+//        }
+        
+//        for k in 0...posterTuple.count-1 {
+//            if k == countLine && k != 0 { //k가 두번째 라인에 들어가야 하는 가장긴 포스터이고 k가 첫번째 포스터가 아니라면
+//                lineArray2.append(posterTuple[k])
+//            }
+//
+//            //두번째 라인에 들어가야 하고 가장긴 포스터는 무엇인가?
+//
+//            if k < posterTuple.count - 1 {//k가 posterTuple.count-1이면 k+1계산이 안됨
+//                for l in (k+1)...posterTuple.count-1 {
+//                    if isDuplicate(startDate: posterTuple[k].0, endDate: posterTuple[k].1, startSecondDate: posterTuple[l].0, endSecondDate: posterTuple[l].1) == false{//안겹치면
+//                        if isGoodTopPut(lineArray: lineArray2, putDate: posterTuple[k]) == true {
+//                            lineArray1.append(posterTuple[k])
+//                        }
+//                    }
+//                }
+//            }
+//            //첫번째 라인에 들어가야 하는 모든 포스터를 찾았다.
+//            //전체 에서 첫번째 라인에 들어가지 않지만 가장긴 포스터를 찾자
+//            for l in lineArray1 {
+//                if posterTuple[k] == l {
+//                    countLine = k //두번째 라인중 기간이 가장긴 포스터 튜플의 인덱스 = countLine
+//                }
+//            }
+//        }
+        
+        
+        
+        
+        
+        //최종적으로 posterTuple[0].5 의 값이 1, 2, 3, 4, 5, 6 ,7 ,8에서 정해 지면 된다.
+        
         initializeView()
+    }
+    
+    func isGoodTopPut(lineArray:[(Date,Date,Int,Int,String,Int)] , putDate:(Date, Date,Int,Int,String,Int)) -> Bool {
+        
+        var count = 0
+        
+        for i in lineArray {
+            //어레이에 들어있는 모든 원소들이 이제 넣어야할 원소와 하나도 겹치지 않는다면
+            if i == putDate {
+                return false
+            }
+            if isDuplicate(startDate: i.0, endDate: i.1, startSecondDate: putDate.0, endSecondDate: putDate.1) == false {
+                count += 1
+            }else {
+                return false
+            }
+        }
+        if count == lineArray.count {
+            return true
+        }else {
+            return false
+        }
+    }
+    
+    //안겹치면 false를 리턴
+    func isDuplicate(startDate: Date, endDate: Date, startSecondDate: Date, endSecondDate: Date) -> Bool {
+        if startDate > endSecondDate {
+            return false
+        }
+        if endDate < startSecondDate {
+            return false
+        }
+        return true
     }
     
     convenience init(theme: MyTheme) {
@@ -119,57 +438,30 @@ class CalenderView: UIView, UICollectionViewDelegate, UICollectionViewDataSource
         setupViews()
         
         
-        setupCalendarDate()
-        
         //collectionview의 delegate를 현재 CalendarView로 지정
         myCollectionView.delegate=self
         myCollectionView.dataSource=self
         
         myCollectionView.register(dateCVCell.self, forCellWithReuseIdentifier: "Cell")
-    }
-    
-    
-    func setupCalendarDate() {
-        
-        let startString = "2019-01-03 00:00:00"
-        let lastString = "2018-01-07 00:00:00"
-        
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
-        
-        guard let startdate = dateFormatter.date(from: startString) else {
-            fatalError("ERROR: Date conversion failed due to mismatched format.")
-        }
-        guard let enddate = dateFormatter.date(from: lastString) else {
-            fatalError("ERROR: Date conversion failed due to mismatched format.")
-        }
-        
-        print("가나다라마바사 \(startdate) \(enddate)")
-        
-        let startYear = startString.components(separatedBy: "-")
-        
-        
-        let fullName    = "First Last"
-        let fullNameArr = fullName.components(separatedBy: " ")
-        
-        let name    = fullNameArr[0]
-        let surname = fullNameArr[1]
+
+        var lineOfThisMonth = 0
+
         
     }
     
-    //해당 월에 존재하는 cell의 개수 (12월에 31개의 셀)
+    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-//        print("numberofItemsInSection \(numOfDaysInMonth[currentMonthIndex-1] + firstWeekDayOfMonth - 1)")
-//        print("section \(section)")
-        
         reValue = 0
         if numOfDaysInMonth[currentMonthIndex-1] + firstWeekDayOfMonth - 1 > 35 {
             reValue = 42
         }else {
             reValue = 35
         }
+        lineArray = []
+        for _ in 0..<reValue {
+            lineArray.append(lineTuple)
+        }
         return reValue
-        //여기에 다음달의 개수도 더해야 한다.
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -177,16 +469,10 @@ class CalenderView: UIView, UICollectionViewDelegate, UICollectionViewDataSource
         
         cell.line.backgroundColor = .clear
         
-     
-        
-
-        
         var beforeMonthIndex = 0
         var beforeYear = 0 //이번달의 전 달이 어떤날에 해당하는지 확인!!
         
-        //cell.backgroundColor = .blue
-        //이번달이 1월이면 이전달은 12월
-        if currentMonthIndex == 1 {
+        if currentMonthIndex == 1 { //이번달이 1월이면 이전달은 12월
             beforeMonthIndex = 12
             beforeYear = currentYear - 1
         }else {
@@ -203,24 +489,30 @@ class CalenderView: UIView, UICollectionViewDelegate, UICollectionViewDataSource
             }
         }
         
+        var nextYear = 0
+        var nextMonth = 0
+        
+        if currentMonthIndex == 12 {
+            nextYear = currentYear + 1
+            nextMonth = 1
+        }else {
+            nextYear = currentYear
+            nextMonth = currentMonthIndex + 1
+        }
+        var nextDay = 0
+        
         if indexPath.item <= firstWeekDayOfMonth - 2 { //이전달의 표현해야 하는 날짜들
             //달력 실제 달력이랑 같은지 확인 해야함
             cell.isHidden=false
-            //cell.line.backgroundColor = UIColor.clear
             cell.lbl.textColor = .lightGray
             cell.lbl.text = "\(beforeMonthCount-firstWeekDayOfMonth+indexPath.row+2)"
-            
-            //cell.line.backgroundColor = .brown
-            
             //이전달의 날짜를 표시할때 오늘 날짜가 포함 되어 있다면
             if todaysDate == beforeMonthCount-firstWeekDayOfMonth+indexPath.row+2 {
-                //cell.lbl.backgroundColor = .red
-                print("todaysDate : \(todaysDate)")
+                
             }
             cell.isUserInteractionEnabled=false
             
         } else { //오늘 이후 날짜
-            //print(numOfDaysInMonth[currentMonthIndex-1] + firstWeekDayOfMonth - 1)
             let calcDate = indexPath.row-firstWeekDayOfMonth+2 //1~31일까지
             cell.isHidden=false
             cell.lbl.text="\(calcDate)"
@@ -233,19 +525,16 @@ class CalenderView: UIView, UICollectionViewDelegate, UICollectionViewDataSource
                 let lbl = cell.subviews[1] as! UILabel
                 lbl.layer.cornerRadius = 10
                 lbl.layer.masksToBounds = true
-                //cell.line.backgroundColor = .black
-                    
-                print("블루로 할때 날짜 \(calcDate)")
             }
             
             if indexPath.row % 7 == 0 {
                 cell.lbl.textColor = .red
             }
         
-            let countOfNextMonthday = (calcDate + firstWeekDayOfMonth - 1) - (numOfDaysInMonth[currentMonthIndex-1] + firstWeekDayOfMonth - 1)
+            nextDay = (calcDate + firstWeekDayOfMonth - 1) - (numOfDaysInMonth[currentMonthIndex-1] + firstWeekDayOfMonth - 1)
             //다음달 일수 출력
-            if countOfNextMonthday >= 1 {
-                let calcDate = countOfNextMonthday
+            if nextDay >= 1 {
+                let calcDate = nextDay
                 cell.isHidden=false
                 cell.lbl.text="\(calcDate)"
                 cell.isUserInteractionEnabled=false
@@ -255,99 +544,123 @@ class CalenderView: UIView, UICollectionViewDelegate, UICollectionViewDataSource
         }
         cell.layer.cornerRadius = 0
         
-        
         /*   임의의 데이터     */
-        var startYear = 2019
-        var startMonth = 1
-        var startDay = 15
+        let startYear = 2018
+        let startMonth = 12
+        let startDay = 26
         
-        var endYear = 2019
-        var endMonth = 2
-        var endDay = 1
+        let endYear = 2019
+        let endMonth = 2
+        let endDay = 3
         /*        */
         /*   임의의 데이터     */
-        var startYear2 = 2019
-        var startMonth2 = 1
-        var startDay2 = 10
+        let startYear2 = 2019
+        let startMonth2 = 1
+        let startDay2 = 10
         
-        var endYear2 = 2019
-        var endMonth2 = 1
-        var endDay2 = 18
+        let endYear2 = 2019
+        let endMonth2 = 1
+        let endDay2 = 18
         /*        */
         /*   임의의 데이터     */
-        var startYear3 = 2019
-        var startMonth3 = 1
-        var startDay3 = 1
+        let startYear3 = 2019
+        let startMonth3 = 1
+        let startDay3 = 1
         
-        var endYear3 = 2019
-        var endMonth3 = 1
-        var endDay3 = 14
+        let endYear3 = 2019
+        let endMonth3 = 1
+        let endDay3 = 14
         /*        */
-        
         
         var cellYear = currentYear
         var cellMonth = currentMonthIndex
-        print("_________________\(cellMonth)")
         var cellDay = indexPath.row-firstWeekDayOfMonth+2
         
-//        expressCellView(startYear:Int, startMonth:Int, startDay:Int, endYear:Int, endMonth:Int, endDay: Int, )
-        //이달만 표현함에 주의하자
-        /*                      */
+        var cellDateString = "\(cellYear)-\(cellMonth)-\(cellDay) 22:31:11"
+        //let startDateString = "\(startYear)/\(startMonth)/\(startDay) 22:31"
+        //let endDateString = "\(endYear)/\(endMonth)/\(endDay) 22:31"
+        
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+        
+        var currentCellDateTime = formatter.date(from: cellDateString)
+//        let startDateTime = formatter.date(from: startDateString)
+//        let endDateTime = formatter.date(from: endDateString)
+        
+        
+        var posterStartDateTime:Date?
+        var posterEndDateTime:Date?
+        
+        if currentCellDateTime == nil {
+            //전달이면
+            if indexPath.row < 15 {
+                cellYear = beforeYear
+                cellMonth = beforeMonthIndex
+                cellDay = beforeMonthCount-firstWeekDayOfMonth+indexPath.row+2
+                
+                cellDateString = "\(cellYear)-\(cellMonth)-\(cellDay) 22:31:11"
+                currentCellDateTime = formatter.date(from: cellDateString)
+            }else {
+                cellYear = nextYear
+                cellMonth = nextMonth
+                cellDay = nextDay
+                
+                cellDateString = "\(cellYear)-\(cellMonth)-\(cellDay) 22:31:11"
+                currentCellDateTime = formatter.date(from: cellDateString)
+            }
+        }
+        
+        formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+        let currentMonthStartDay = "\(currentYear)-\(currentMonthIndex)-01 00:00:00"
+        let currentMonthEndDay = "\(currentYear)-\(currentMonthIndex)-\(numOfDaysInMonth[currentMonthIndex-1]) 00:00:00"
+        
+        let currentMonthStart = formatter.date(from: currentMonthStartDay)
+        let currentMonthLast = formatter.date(from: currentMonthEndDay)
+        
+        
         cell.line.backgroundColor = .clear
-        if startYear == cellYear && startMonth == cellMonth && startDay <= cellDay {
-            if startMonth != endMonth { //시작월과 끝월이 다를때
-                //이번달에 표현되는 다음달의 날짜보다 작을때만 표현한다. , 다음달이면
-                let calcDate = indexPath.row-firstWeekDayOfMonth+2 //1~31일까지
-                let countOfNextMonthday = (calcDate + firstWeekDayOfMonth - 1) - (numOfDaysInMonth[currentMonthIndex-1] + firstWeekDayOfMonth - 1)
-                if countOfNextMonthday <= endDay {
-                    cell.line.backgroundColor = .red
-                }
-            }else { //시작 월과 끝 월이 같다면
-                if endDay >= cellDay {
-                    cell.line.backgroundColor = .blue
-                }
-            }
-        }
-        /*                    */
         cell.line2.backgroundColor = .clear
-        if startYear2 == cellYear && startMonth2 == cellMonth && startDay2 <= cellDay {
-            
-            if startMonth2 != endMonth2 { //시작월과 끝월이 다를때
-                //이번달에 표현되는 다음달의 날짜보다 작을때만 표현한다. , 다음달이면
-                let calcDate = indexPath.row-firstWeekDayOfMonth+2 //1~31일까지
-                let countOfNextMonthday = (calcDate + firstWeekDayOfMonth - 1) - (numOfDaysInMonth[currentMonthIndex-1] + firstWeekDayOfMonth - 1)
-                if countOfNextMonthday <= endDay2 {
-                    cell.line2.backgroundColor = .green
-                }
-            }else { //시작 월과 끝 월이 같다면
-                if endDay2 >= cellDay {
-                    cell.line2.backgroundColor = .green
-                }
+        
+        for line1 in lineArray1 {
+            if line1.0 <= currentCellDateTime! && currentCellDateTime! <= line1.1 {
+                cell.line.backgroundColor = .red
             }
         }
-        /*                    */
-        cell.line3.backgroundColor = .clear
-        if startYear3 == cellYear && startMonth3 == cellMonth && startDay3 <= cellDay {
-            if startMonth3 != endMonth3 { //시작월과 끝월이 다를때
-                //이번달에 표현되는 다음달의 날짜보다 작을때만 표현한다. , 다음달이면
-                let calcDate = indexPath.row-firstWeekDayOfMonth+2 //1~31일까지
-                let countOfNextMonthday = (calcDate + firstWeekDayOfMonth - 1) - (numOfDaysInMonth[currentMonthIndex-1] + firstWeekDayOfMonth - 1)
-                if countOfNextMonthday <= endDay3 {
-                    cell.line3.backgroundColor = .blue
-                }
-            }else { //시작 월과 끝 월이 같다면
-                if endDay3 >= cellDay {
-                    cell.line3.backgroundColor = .blue
-                }
+        
+        for line2 in lineArray2 {
+            if line2.0 <= currentCellDateTime! && currentCellDateTime! <= line2.1 {
+                cell.line2.backgroundColor = .blue
             }
         }
-        /*                    */
+        
+        for line3 in lineArray3 {
+            if line3.0 <= currentCellDateTime! && currentCellDateTime! <= line3.1 {
+                cell.line3.backgroundColor = .green
+            }
+        }
+        
+        for line4 in lineArray4 {
+            if line4.0 <= currentCellDateTime! && currentCellDateTime! <= line4.1 {
+                cell.line4.   .backgroundColor = .black
+            }
+        }
+        
+        
+        
+//        if indexPath.row == 0 {
+//            for i in posterTuple {
+//                if i.0 >= currentMonthStart! && i.1 <= currentMonthLast! { //오늘을 포함하는
+//                    currentPosterTuple.append(i)
+//                }
+//            }
+//        }
+
+        //이번달에 포함된 포스터만 가지고 있음 날짜 달력 꿀때 currentPosterTuple업데이트 하자
+        currentPosterTuple = []
+        
         return cell
     }
     
-//    func expressCellView(){
-//
-//    }
     
     //셀 선택
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
@@ -369,8 +682,6 @@ class CalenderView: UIView, UICollectionViewDelegate, UICollectionViewDataSource
         if indexPath.row - 5 == indexPath2.row && currentYear == presentYear && currentMonthIndex == presentMonthIndex { //오늘 날짜 선택시 색깔 그대로
         }else {
             let cell=collectionView.cellForItem(at: indexPath)
-            //print("사라질때 indexPath \(indexPath.row)")
-            //cell?.backgroundColor=UIColor.clear
             let lbl = cell?.subviews[1] as! UILabel
             lbl.backgroundColor = UIColor.clear
             lbl.textColor = Style.activeCellLblColor
@@ -547,6 +858,13 @@ class dateCVCell: UICollectionViewCell {
         line3.rightAnchor.constraint(equalTo: rightAnchor).isActive = true
         line3.heightAnchor.constraint(equalToConstant: 4).isActive = true
         
+        addSubview(line4)
+        //line.bottomAnchor.constraint(equalTo: self.bottomAnchor).isActive = true
+        line4.topAnchor.constraint(equalTo: line3.bottomAnchor , constant: 2).isActive = true
+        line4.leftAnchor.constraint(equalTo: leftAnchor).isActive = true
+        line4.rightAnchor.constraint(equalTo: rightAnchor).isActive = true
+        line4.heightAnchor.constraint(equalToConstant: 4).isActive = true
+        
     }
     //일
     let lbl: UILabel = {
@@ -590,6 +908,15 @@ class dateCVCell: UICollectionViewCell {
         return line
     }()
     
+    let line4: UIView = {
+        let line = UIView()
+        //line.backgroundColor = .brown
+        line.layer.cornerRadius = 0
+        line.layer.masksToBounds = true
+        line.translatesAutoresizingMaskIntoConstraints = false
+        return line
+    }()
+    
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -615,8 +942,29 @@ extension String {
     var date: Date? {
         return String.dateFormatter.date(from: self)
     }
+    
+
 }
 
+
+extension Date {
+    
+    /// Create a date from specified parameters
+    ///
+    /// - Parameters:
+    ///   - year: The desired year
+    ///   - month: The desired month
+    ///   - day: The desired day
+    /// - Returns: A `Date` object
+    static func from(year: Int, month: Int, day: Int) -> Date? {
+        let calendar = Calendar(identifier: .gregorian)
+        var dateComponents = DateComponents()
+        dateComponents.year = year
+        dateComponents.month = month
+        dateComponents.day = day
+        return calendar.date(from: dateComponents) ?? nil
+    }
+}
 
 
 

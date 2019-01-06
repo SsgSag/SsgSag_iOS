@@ -88,9 +88,9 @@ class SwipeVC: UIViewController {
                         }
                         
                         //
-                        print("\(i.posterRegDate!) \(startdate)")
-                        print("\(i.posterStartDate!) \(regdate.description)")
-                        print("\(i.posterEndDate!) \(endtdate)")
+                        //print("\(i.posterRegDate!) \(startdate)")
+                        //print("\(i.posterStartDate!) \(regdate.description)")
+                        //print("\(i.posterEndDate!) \(endtdate)")
                     }
                     //main queue에서 리로드하고 카드들을 표현
                     DispatchQueue.main.async {
@@ -147,11 +147,11 @@ class SwipeVC: UIViewController {
     }
     //SwipeCard 생성
     func createSwipeCard(at index: Int , value :String) -> SwipeCard {
-        print("create")
+       // print("create")
         let card = SwipeCard(frame: CGRect(x: 0, y: 0, width: viewTinderBackGround.frame.size.width , height: viewTinderBackGround.frame.size.height - 10) ,value : value)
         countTotalCardIndex += 1
-        print("countTotalCardIndex: \(countTotalCardIndex)")
-        print("create")
+        //print("countTotalCardIndex: \(countTotalCardIndex)")
+        //print("create")
         card.delegate = self
         return card
     }
@@ -159,11 +159,11 @@ class SwipeVC: UIViewController {
     //카드 객체 제거, 새로운 value추가
     func removeObjectAndAddNewValues() {
         currentLoadedCardsArray.remove(at: 0)
-        print("valueArray.count: \(valueArray.count)")
-        print("currentIndex: \(currentIndex)")
+//print("valueArray.count: \(valueArray.count)")
+  //      print("currentIndex: \(currentIndex)")
         currentIndex = currentIndex + 1
         countLabel.text = "\(valueArray.count-currentIndex)"
-        print("카드 개수 \(currentIndex)")
+    //    print("카드 개수 \(currentIndex)")
         
         //마지막 카드를 사용하고나서도 앱이 꺼지지 않게 개수 조절!
         if (currentIndex + currentLoadedCardsArray.count) < allCardsArray.count {
@@ -179,7 +179,7 @@ class SwipeVC: UIViewController {
     
     func animateCardAfterSwiping() {
         
-        print("카드가 스와이핑 되고나서")
+        //print("카드가 스와이핑 되고나서")
         
         for (i,card) in currentLoadedCardsArray.enumerated() {
             //각 카드에 스와이프 카드를 등록
@@ -188,15 +188,15 @@ class SwipeVC: UIViewController {
             
             //오류 있음. 2개 잇으면 2 아래로? 
             //            if i < 2 {
-            print("i를 프린트 해봅시다 \(i)")
+           // print("i를 프린트 해봅시다 \(i)")
             pageVC.view.frame = self.currentLoadedCardsArray[i].frame
             var page = pageVC.orderedViewControllers[1] as! DetailImageSwipeCardVC
             guard let pageURL = URL(string: valueArray[i]) else {return}
             page.detailImageVIew.load(url: pageURL)
 //            countLabel.text = "\(i+1)"
             
-            print("currentLoadedCardsArray.count \(currentLoadedCardsArray.count)")
-            print("allcardsArray.count \(allCardsArray.count)")
+//            print("currentLoadedCardsArray.count \(currentLoadedCardsArray.count)")
+//            print("allcardsArray.count \(allCardsArray.count)")
             
             self.addChild(pageVC)
             self.currentLoadedCardsArray[i].insertSubview(pageVC.view, at: 0)
@@ -235,19 +235,39 @@ extension SwipeVC : SwipeCardDelegate {
     //카드 오른쪽으로 갔을때
     func cardGoesRight(card: SwipeCard) {
         removeObjectAndAddNewValues()
-        print("daskdkasjdlasj")
+       // print("daskdkasjdlasj")
         
 //        print(likedArray[currentIndex-1])
-        let likedPoster: Posters = likedArray[currentIndex-1]
+        //let likedPoster: Posters = likedArray[currentIndex-1]
         
         let defaults = UserDefaults.standard
-        defaults.setValue(try? PropertyListEncoder().encode(likedPoster), forKey: "poster")
-        
         guard let posterData = defaults.object(forKey: "poster") as? Data else { return }
         
-        guard let posterInfo = try? PropertyListDecoder().decode(Posters.self, from: posterData) else { return }
+        guard let posterInfo2 = try? PropertyListDecoder().decode([Posters].self, from: posterData) else { return }
         
-//        print("posterrrrrr: \(posterInfo.posterName)")
+        var likedPoster: [Posters] = []
+        
+        for i in posterInfo2 {
+            likedPoster.append(i)
+        }
+        
+        likedPoster.append(likedArray[currentIndex-1])
+        
+        //let defaults = UserDefaults.standard
+        defaults.setValue(try? PropertyListEncoder().encode(likedPoster), forKey: "poster")
+        
+        //guard let posterData = defaults.object(forKey: "poster") as? Data else { return }
+        
+        guard let posterInfo = try? PropertyListDecoder().decode([Posters].self, from: posterData) else { return }
+        
+        
+
+        for k in posterInfo {
+            print(k)
+        }
+        
+        //print("posterrrrrr: \(posterInfo)")
+
         
         
         //        }
@@ -269,6 +289,7 @@ extension UIImageView {
             }
         }
     }
+    
 }
 
 
