@@ -40,6 +40,13 @@ class PreferenceVC: UIViewController {
     
     @IBAction func touchUpSaveButton(_ sender: Any) {
         //TODO: - 네트워크 연결
+        let myPageStoryBoard = UIStoryboard(name: "MyPageStoryBoard", bundle: nil)
+        let popVC = myPageStoryBoard.instantiateViewController(withIdentifier: "PopUp")
+        self.addChild(popVC)
+        popVC.view.frame = self.view.frame
+        self.view.addSubview(popVC.view)
+        
+        popVC.didMove(toParent: self)
     }
     
     func setUpPreferenceButtons() {

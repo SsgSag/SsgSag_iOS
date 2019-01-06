@@ -30,7 +30,7 @@
 		845928E521D38771001DF6CC /* DetailImageSwipeCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845928E421D38771001DF6CC /* DetailImageSwipeCard.swift */; };
 		845928E721D3877D001DF6CC /* DetailTextSwipeCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845928E621D3877D001DF6CC /* DetailTextSwipeCard.swift */; };
 		84BA694921DB394800BA8CB8 /* myPageVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84BA694821DB394800BA8CB8 /* myPageVC.swift */; };
-		84BA694B21DB395400BA8CB8 /* myPageStoryBoard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 84BA694A21DB395400BA8CB8 /* myPageStoryBoard.storyboard */; };
+		84BA694B21DB395400BA8CB8 /* MyPageStoryBoard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 84BA694A21DB395400BA8CB8 /* MyPageStoryBoard.storyboard */; };
 		84BA694D21DB74BD00BA8CB8 /* TapbarVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84BA694C21DB74BD00BA8CB8 /* TapbarVC.swift */; };
 		84E19CD221DCC922006F72EC /* Requestable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84E19CCC21DCC922006F72EC /* Requestable.swift */; };
 		84E19CD321DCC922006F72EC /* UserService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84E19CCD21DCC922006F72EC /* UserService.swift */; };
@@ -54,6 +54,8 @@
 		FA61FE0F21E0E3D300A28947 /* JobVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA61FE0E21E0E3D300A28947 /* JobVC.swift */; };
 		FA61FE1121E0E4A200A28947 /* PreferenceVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA61FE1021E0E4A200A28947 /* PreferenceVC.swift */; };
 		FA61FE1321E1D48D00A28947 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = FA61FE1221E1D48D00A28947 /* .gitignore */; };
+		FA61FE1521E1FD7600A28947 /* PopUpVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA61FE1421E1FD7600A28947 /* PopUpVC.swift */; };
+		FA61FE1921E204F300A28947 /* DatePickerPopUpVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA61FE1821E204F300A28947 /* DatePickerPopUpVC.swift */; };
 		FA7F4CB821DFB0C100D8643A /* CareerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA7F4CB721DFB0C100D8643A /* CareerViewController.swift */; };
 		FA7F4CBB21DFC7E700D8643A /* CustomCareerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA7F4CB921DFC7E700D8643A /* CustomCareerCell.swift */; };
 		FA7F4CBC21DFC7E700D8643A /* CustomCareerCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = FA7F4CBA21DFC7E700D8643A /* CustomCareerCell.xib */; };
@@ -122,7 +124,7 @@
 		845928E421D38771001DF6CC /* DetailImageSwipeCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailImageSwipeCard.swift; sourceTree = "<group>"; };
 		845928E621D3877D001DF6CC /* DetailTextSwipeCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailTextSwipeCard.swift; sourceTree = "<group>"; };
 		84BA694821DB394800BA8CB8 /* myPageVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = myPageVC.swift; sourceTree = "<group>"; };
-		84BA694A21DB395400BA8CB8 /* myPageStoryBoard.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = myPageStoryBoard.storyboard; sourceTree = "<group>"; };
+		84BA694A21DB395400BA8CB8 /* MyPageStoryBoard.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = MyPageStoryBoard.storyboard; sourceTree = "<group>"; };
 		84BA694C21DB74BD00BA8CB8 /* TapbarVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TapbarVC.swift; sourceTree = "<group>"; };
 		84E19CCC21DCC922006F72EC /* Requestable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Requestable.swift; sourceTree = "<group>"; };
 		84E19CCD21DCC922006F72EC /* UserService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserService.swift; sourceTree = "<group>"; };
@@ -155,6 +157,8 @@
 		FA61FE0E21E0E3D300A28947 /* JobVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JobVC.swift; sourceTree = "<group>"; };
 		FA61FE1021E0E4A200A28947 /* PreferenceVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferenceVC.swift; sourceTree = "<group>"; };
 		FA61FE1221E1D48D00A28947 /* .gitignore */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
+		FA61FE1421E1FD7600A28947 /* PopUpVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopUpVC.swift; sourceTree = "<group>"; };
+		FA61FE1821E204F300A28947 /* DatePickerPopUpVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePickerPopUpVC.swift; sourceTree = "<group>"; };
 		FA7F4CB721DFB0C100D8643A /* CareerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CareerViewController.swift; sourceTree = "<group>"; };
 		FA7F4CB921DFC7E700D8643A /* CustomCareerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCareerCell.swift; sourceTree = "<group>"; };
 		FA7F4CBA21DFC7E700D8643A /* CustomCareerCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CustomCareerCell.xib; sourceTree = "<group>"; };
@@ -333,7 +337,8 @@
 			isa = PBXGroup;
 			children = (
 				FA7F4CCD21E049F200D8643A /* data.json */,
-				84BA694A21DB395400BA8CB8 /* myPageStoryBoard.storyboard */,
+				84BA694A21DB395400BA8CB8 /* MyPageStoryBoard.storyboard */,
+				FA61FE1421E1FD7600A28947 /* PopUpVC.swift */,
 				FA61FE1021E0E4A200A28947 /* PreferenceVC.swift */,
 				FA61FE0E21E0E3D300A28947 /* JobVC.swift */,
 				FA7F4CB721DFB0C100D8643A /* CareerViewController.swift */,
@@ -345,6 +350,7 @@
 				FA7F4CB921DFC7E700D8643A /* CustomCareerCell.swift */,
 				FA7F4CC921DFD61300D8643A /* ActivityCell.swift */,
 				FA23A93D21DF6FCF003DB5F9 /* myPageTableViewCell.swift */,
+				FA61FE1821E204F300A28947 /* DatePickerPopUpVC.swift */,
 				FA7F4CBE21DFCAF200D8643A /* ActivityCell.xib */,
 				FA7F4CC221DFCB1300D8643A /* PrizeCell.xib */,
 				FA7F4CC621DFCC7E00D8643A /* CertificationCell.xib */,
@@ -531,7 +537,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				84BA694B21DB395400BA8CB8 /* myPageStoryBoard.storyboard in Resources */,
+				84BA694B21DB395400BA8CB8 /* MyPageStoryBoard.storyboard in Resources */,
 				84E19CE421DCC9F4006F72EC /* LoginStoryBoard.storyboard in Resources */,
 				FA7F4CBC21DFC7E700D8643A /* CustomCareerCell.xib in Resources */,
 				FA3A8FD721DF3C3B0075A510 /* Splash.storyboard in Resources */,
@@ -684,6 +690,7 @@
 				FA851DE921D3DBBC002065D0 /* SwipeCard.swift in Sources */,
 				8415586421D8D96900A0EDB5 /* SwipeCardDelegate.swift in Sources */,
 				845928DA21D09F30001DF6CC /* CalenderView.swift in Sources */,
+				FA61FE1921E204F300A28947 /* DatePickerPopUpVC.swift in Sources */,
 				845928E721D3877D001DF6CC /* DetailTextSwipeCard.swift in Sources */,
 				845928DB21D09F30001DF6CC /* WeekdaysView.swift in Sources */,
 				8459289B21D09CDD001DF6CC /* AppDelegate.swift in Sources */,
@@ -692,6 +699,7 @@
 				84E19CD621DCC922006F72EC /* NetworkResult.swift in Sources */,
 				FA3A8FD921DF3D5F0075A510 /* GradientColor.swift in Sources */,
 				FA7F4CD221E0A0A000D8643A /* AddActivityVC.swift in Sources */,
+				FA61FE1521E1FD7600A28947 /* PopUpVC.swift in Sources */,
 				84E19CD521DCC922006F72EC /* LoginService.swift in Sources */,
 				84BA694921DB394800BA8CB8 /* myPageVC.swift in Sources */,
 				84E19CDF21DCC977006F72EC /* Board.swift in Sources */,
