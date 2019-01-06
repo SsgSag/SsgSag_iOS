@@ -3,17 +3,17 @@
     {
       "idiom" : "universal",
       "scale" : "1x",
-      "filename" : "btPreferenceSholarshipActive.png"
+      "filename" : "btSaveMypageActive.png"
     },
     {
       "idiom" : "universal",
       "scale" : "2x",
-      "filename" : "btPreferenceSholarshipActive@2x.png"
+      "filename" : "btSaveMypageActive@2x.png"
     },
     {
       "idiom" : "universal",
       "scale" : "3x",
-      "filename" : "btPreferenceSholarshipActive@3x.png"
+      "filename" : "btSaveMypageActive@3x.png"
     }
   ],
   "info" : {

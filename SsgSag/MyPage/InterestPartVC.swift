@@ -8,7 +8,7 @@
 
 import UIKit
 
-class InterestPartVC: UIViewController {
+class PreferenceVC: UIViewController {
 
     @IBOutlet var intersetButtons: [UIButton]!
     

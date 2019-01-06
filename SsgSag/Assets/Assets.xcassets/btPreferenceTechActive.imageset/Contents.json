@@ -2,18 +2,18 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "btPreferenceTechActive.png",
-      "scale" : "1x"
+      "scale" : "1x",
+      "filename" : "btPreferenceTechActive.png"
     },
     {
       "idiom" : "universal",
-      "filename" : "btPreferenceTechActive@2x.png",
-      "scale" : "2x"
+      "scale" : "2x",
+      "filename" : "btPreferenceTechActive@2x.png"
     },
     {
       "idiom" : "universal",
-      "filename" : "btPreferenceTechActive@3x.png",
-      "scale" : "3x"
+      "scale" : "3x",
+      "filename" : "btPreferenceTechActive@3x.png"
     }
   ],
   "info" : {

@@ -2,18 +2,18 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "btPreferenceHealthActive.png",
-      "scale" : "1x"
+      "scale" : "1x",
+      "filename" : "btPreferenceHealthActive.png"
     },
     {
       "idiom" : "universal",
-      "filename" : "btPreferenceHealthActive@2x.png",
-      "scale" : "2x"
+      "scale" : "2x",
+      "filename" : "btPreferenceHealthActive@2x.png"
     },
     {
       "idiom" : "universal",
-      "filename" : "btPreferenceHealthActive@3x.png",
-      "scale" : "3x"
+      "scale" : "3x",
+      "filename" : "btPreferenceHealthActive@3x.png"
     }
   ],
   "info" : {

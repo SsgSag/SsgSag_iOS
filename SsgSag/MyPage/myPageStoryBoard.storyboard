@@ -118,11 +118,31 @@
         <!--구직여부-->
         <scene sceneID="RtO-2j-Vli">
             <objects>
-                <viewController id="cnl-e1-rb8" sceneMemberID="viewController">
+                <viewController id="cnl-e1-rb8" customClass="JobVC" customModule="SsgSag" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="l5A-Az-eQy">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="1600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cn7-Do-zMW">
+                                <rect key="frame" x="0.0" y="44" width="375" height="44"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="44" id="f1V-dd-YWq"/>
+                                </constraints>
+                                <color key="barTintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <textAttributes key="titleTextAttributes">
+                                    <fontDescription key="fontDescription" type="system" weight="medium" pointSize="18"/>
+                                </textAttributes>
+                                <items>
+                                    <navigationItem title="구직여부" id="5ie-Ve-oLR">
+                                        <barButtonItem key="leftBarButtonItem" title="Item" image="icArrowBack" id="ece-9z-dAm">
+                                            <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <connections>
+                                                <action selector="touchUpBackButton:" destination="cnl-e1-rb8" id="Wfq-tq-FLO"/>
+                                            </connections>
+                                        </barButtonItem>
+                                    </navigationItem>
+                                </items>
+                            </navigationBar>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="GWF-5V-hYb">
                                 <rect key="frame" x="0.0" y="88" width="375" height="1470"/>
                                 <subviews>
@@ -139,7 +159,7 @@
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="관심직무를 기반으로" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Es8-3V-rhc">
-                                                        <rect key="frame" x="0.0" y="34.333333333333329" width="176" height="26.333333333333329"/>
+                                                        <rect key="frame" x="0.0" y="34.333333333333343" width="176" height="26.333333333333329"/>
                                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="22"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
@@ -163,91 +183,133 @@
                                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="EsG-H6-IbI">
                                                         <rect key="frame" x="0.0" y="0.0" width="336" height="162"/>
                                                         <subviews>
-                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Okf-EN-yhD">
+                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Okf-EN-yhD" userLabel="ManagementButton">
                                                                 <rect key="frame" x="0.0" y="0.0" width="162" height="162"/>
-                                                                <state key="normal" backgroundImage="btJobManagementUnactive"/>
+                                                                <state key="normal" image="btJobManagementUnactive"/>
+                                                                <connections>
+                                                                    <action selector="touchUpJobButtons:" destination="cnl-e1-rb8" eventType="touchUpInside" id="gli-il-XoJ"/>
+                                                                </connections>
                                                             </button>
-                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ugJ-ob-EyW">
+                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ugJ-ob-EyW" userLabel="MarketingButton">
                                                                 <rect key="frame" x="174" y="0.0" width="162" height="162"/>
-                                                                <state key="normal" backgroundImage="btJobMarketingUnactive"/>
+                                                                <state key="normal" image="btJobMarketingUnactive"/>
+                                                                <connections>
+                                                                    <action selector="touchUpJobButtons:" destination="cnl-e1-rb8" eventType="touchUpInside" id="ADa-my-5ET"/>
+                                                                </connections>
                                                             </button>
                                                         </subviews>
                                                     </stackView>
                                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="xBE-Cf-elk">
                                                         <rect key="frame" x="0.0" y="174" width="336" height="162"/>
                                                         <subviews>
-                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cNK-Zt-Afe">
+                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cNK-Zt-Afe" userLabel="TechButton">
                                                                 <rect key="frame" x="0.0" y="0.0" width="162" height="162"/>
                                                                 <state key="normal" image="btJobTechUnactive"/>
+                                                                <connections>
+                                                                    <action selector="touchUpJobButtons:" destination="cnl-e1-rb8" eventType="touchUpInside" id="1mu-T2-BBg"/>
+                                                                </connections>
                                                             </button>
-                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iYk-vq-O7R">
+                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iYk-vq-O7R" userLabel="DesignButton">
                                                                 <rect key="frame" x="174" y="0.0" width="162" height="162"/>
                                                                 <state key="normal" image="btJobDesignUnactive"/>
+                                                                <connections>
+                                                                    <action selector="touchUpJobButtons:" destination="cnl-e1-rb8" eventType="touchUpInside" id="1G5-C5-zqG"/>
+                                                                </connections>
                                                             </button>
                                                         </subviews>
                                                     </stackView>
                                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="jw6-vG-NgO">
                                                         <rect key="frame" x="0.0" y="348" width="336" height="162"/>
                                                         <subviews>
-                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BBz-5u-Ruo">
+                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BBz-5u-Ruo" userLabel="TradeButton">
                                                                 <rect key="frame" x="0.0" y="0.0" width="162" height="162"/>
                                                                 <state key="normal" image="btJobTradeUnactive"/>
+                                                                <connections>
+                                                                    <action selector="touchUpJobButtons:" destination="cnl-e1-rb8" eventType="touchUpInside" id="Onv-xU-v8e"/>
+                                                                </connections>
                                                             </button>
-                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="o3d-LC-8z6">
+                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="o3d-LC-8z6" userLabel="SalesButton">
                                                                 <rect key="frame" x="174" y="0.0" width="162" height="162"/>
                                                                 <state key="normal" image="btJobSalesUnactive"/>
+                                                                <connections>
+                                                                    <action selector="touchUpJobButtons:" destination="cnl-e1-rb8" eventType="touchUpInside" id="JSH-fc-oHl"/>
+                                                                </connections>
                                                             </button>
                                                         </subviews>
                                                     </stackView>
                                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="1Id-gu-9KX">
                                                         <rect key="frame" x="0.0" y="522" width="336" height="162"/>
                                                         <subviews>
-                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="S9x-mz-XFQ">
+                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="S9x-mz-XFQ" userLabel="ServiceButton">
                                                                 <rect key="frame" x="0.0" y="0.0" width="162" height="162"/>
                                                                 <state key="normal" image="btJobServiceUnactive"/>
+                                                                <connections>
+                                                                    <action selector="touchUpJobButtons:" destination="cnl-e1-rb8" eventType="touchUpInside" id="Qwg-JG-kWN"/>
+                                                                </connections>
                                                             </button>
-                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7Oy-9f-tfb">
+                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7Oy-9f-tfb" userLabel="StudyButton">
                                                                 <rect key="frame" x="174" y="0.0" width="162" height="162"/>
                                                                 <state key="normal" image="btJobStudyUnactive"/>
+                                                                <connections>
+                                                                    <action selector="touchUpJobButtons:" destination="cnl-e1-rb8" eventType="touchUpInside" id="y8f-5T-LT1"/>
+                                                                </connections>
                                                             </button>
                                                         </subviews>
                                                     </stackView>
                                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="TdB-eh-PWH">
                                                         <rect key="frame" x="0.0" y="696" width="336" height="162"/>
                                                         <subviews>
-                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="V8E-En-riE">
+                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="V8E-En-riE" userLabel="IndustryButton">
                                                                 <rect key="frame" x="0.0" y="0.0" width="162" height="162"/>
                                                                 <state key="normal" image="btJobIndustryUnactive"/>
+                                                                <connections>
+                                                                    <action selector="touchUpJobButtons:" destination="cnl-e1-rb8" eventType="touchUpInside" id="FsQ-k9-gVP"/>
+                                                                </connections>
                                                             </button>
-                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Hqw-eK-n57">
+                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Hqw-eK-n57" userLabel="LiteratureButton">
                                                                 <rect key="frame" x="174" y="0.0" width="162" height="162"/>
                                                                 <state key="normal" image="btJobLiteratureUnactive"/>
+                                                                <connections>
+                                                                    <action selector="touchUpJobButtons:" destination="cnl-e1-rb8" eventType="touchUpInside" id="6Bi-xc-WRa"/>
+                                                                </connections>
                                                             </button>
                                                         </subviews>
                                                     </stackView>
                                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="RcI-Dg-Ez0">
                                                         <rect key="frame" x="0.0" y="870" width="336" height="162"/>
                                                         <subviews>
-                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EVH-gu-kfm">
+                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EVH-gu-kfm" userLabel="ConstructButton">
                                                                 <rect key="frame" x="0.0" y="0.0" width="162" height="162"/>
                                                                 <state key="normal" image="btJobConstructUnactive"/>
+                                                                <connections>
+                                                                    <action selector="touchUpJobButtons:" destination="cnl-e1-rb8" eventType="touchUpInside" id="H8N-Qp-SEr"/>
+                                                                </connections>
                                                             </button>
-                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="G7a-e2-Mc2">
+                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="G7a-e2-Mc2" userLabel="MedicalButton">
                                                                 <rect key="frame" x="174" y="0.0" width="162" height="162"/>
                                                                 <state key="normal" image="btJobMedicalUnactive"/>
+                                                                <connections>
+                                                                    <action selector="touchUpJobButtons:" destination="cnl-e1-rb8" eventType="touchUpInside" id="Exc-U5-OeP"/>
+                                                                </connections>
                                                             </button>
                                                         </subviews>
                                                     </stackView>
                                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="Cjk-hI-IiJ">
                                                         <rect key="frame" x="0.0" y="1044" width="336" height="162"/>
                                                         <subviews>
-                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="H6r-Ix-ZCO">
+                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="H6r-Ix-ZCO" userLabel="ArtButton">
                                                                 <rect key="frame" x="0.0" y="0.0" width="162" height="162"/>
                                                                 <state key="normal" image="btJobArtUnactive"/>
+                                                                <connections>
+                                                                    <action selector="touchUpJobButtons:" destination="cnl-e1-rb8" eventType="touchUpInside" id="4RJ-Wj-wLF"/>
+                                                                </connections>
                                                             </button>
-                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WHk-2T-dNJ">
+                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WHk-2T-dNJ" userLabel="SpecialityButton">
                                                                 <rect key="frame" x="174" y="0.0" width="162" height="162"/>
                                                                 <state key="normal" image="btJobSpecialityUnactive"/>
+                                                                <connections>
+                                                                    <action selector="touchUpJobButtons:" destination="cnl-e1-rb8" eventType="touchUpInside" id="y8B-k4-11O"/>
+                                                                </connections>
                                                             </button>
                                                         </subviews>
                                                     </stackView>
@@ -259,8 +321,9 @@
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Iin-Cb-kgU">
+                                            <switch opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Iin-Cb-kgU">
                                                 <rect key="frame" x="20" y="149" width="51" height="31"/>
+                                                <color key="onTintColor" red="0.3529411764705882" green="0.47058823529411764" blue="0.98039215686274506" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             </switch>
                                         </subviews>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -293,18 +356,24 @@
                                     <constraint firstAttribute="height" constant="80" id="dWj-9h-xdS"/>
                                 </constraints>
                                 <state key="normal" image="btSaveMypageUnactive"/>
+                                <connections>
+                                    <action selector="touchUpSaveButton:" destination="cnl-e1-rb8" eventType="touchUpInside" id="gMU-tz-p8b"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
+                            <constraint firstItem="cn7-Do-zMW" firstAttribute="leading" secondItem="aTU-8k-4LF" secondAttribute="leading" id="1rl-KG-1wP"/>
                             <constraint firstItem="ihg-r8-Lx0" firstAttribute="width" secondItem="bw2-gW-i9p" secondAttribute="width" id="3Up-Ca-Lkg"/>
                             <constraint firstItem="ihg-r8-Lx0" firstAttribute="bottom" secondItem="l5A-Az-eQy" secondAttribute="bottom" id="3rj-uu-0ZG"/>
-                            <constraint firstItem="GWF-5V-hYb" firstAttribute="top" secondItem="aTU-8k-4LF" secondAttribute="top" id="B0h-fR-s4X"/>
+                            <constraint firstItem="GWF-5V-hYb" firstAttribute="top" secondItem="cn7-Do-zMW" secondAttribute="top" constant="44" id="B0h-fR-s4X"/>
                             <constraint firstItem="bw2-gW-i9p" firstAttribute="width" secondItem="l5A-Az-eQy" secondAttribute="width" id="FgC-0o-IIe"/>
                             <constraint firstItem="aTU-8k-4LF" firstAttribute="trailing" secondItem="GWF-5V-hYb" secondAttribute="trailing" id="VyZ-aF-Btj"/>
                             <constraint firstItem="GWF-5V-hYb" firstAttribute="leading" secondItem="aTU-8k-4LF" secondAttribute="leading" id="b1b-Cn-UlD"/>
                             <constraint firstItem="ihg-r8-Lx0" firstAttribute="centerX" secondItem="bw2-gW-i9p" secondAttribute="centerX" id="cIx-PN-Tbu"/>
+                            <constraint firstItem="cn7-Do-zMW" firstAttribute="top" secondItem="l5A-Az-eQy" secondAttribute="topMargin" id="j8g-Ly-iMy"/>
                             <constraint firstAttribute="bottom" secondItem="GWF-5V-hYb" secondAttribute="bottom" constant="80" id="tvG-SA-peZ"/>
+                            <constraint firstItem="cn7-Do-zMW" firstAttribute="trailing" secondItem="aTU-8k-4LF" secondAttribute="trailing" id="xtp-7N-yd0"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="aTU-8k-4LF"/>
                     </view>
@@ -314,21 +383,59 @@
                         </barButtonItem>
                     </navigationItem>
                     <size key="freeformSize" width="375" height="1600"/>
+                    <connections>
+                        <outlet property="isJobOn" destination="Iin-Cb-kgU" id="xy9-W1-Zif"/>
+                        <outlet property="saveButton" destination="ihg-r8-Lx0" id="2hy-Rd-n7f"/>
+                        <outletCollection property="jobButtons" destination="Okf-EN-yhD" collectionClass="NSMutableArray" id="1QB-FY-uq3"/>
+                        <outletCollection property="jobButtons" destination="ugJ-ob-EyW" collectionClass="NSMutableArray" id="d6w-qo-Hd1"/>
+                        <outletCollection property="jobButtons" destination="cNK-Zt-Afe" collectionClass="NSMutableArray" id="n8L-EM-N26"/>
+                        <outletCollection property="jobButtons" destination="iYk-vq-O7R" collectionClass="NSMutableArray" id="CSZ-j7-YVu"/>
+                        <outletCollection property="jobButtons" destination="BBz-5u-Ruo" collectionClass="NSMutableArray" id="xgy-kr-5d5"/>
+                        <outletCollection property="jobButtons" destination="o3d-LC-8z6" collectionClass="NSMutableArray" id="Zyh-wO-ahx"/>
+                        <outletCollection property="jobButtons" destination="S9x-mz-XFQ" collectionClass="NSMutableArray" id="HQF-kR-TF1"/>
+                        <outletCollection property="jobButtons" destination="7Oy-9f-tfb" collectionClass="NSMutableArray" id="Ye2-tH-KgN"/>
+                        <outletCollection property="jobButtons" destination="V8E-En-riE" collectionClass="NSMutableArray" id="ybl-P7-45Q"/>
+                        <outletCollection property="jobButtons" destination="Hqw-eK-n57" collectionClass="NSMutableArray" id="FVH-pU-Wf6"/>
+                        <outletCollection property="jobButtons" destination="EVH-gu-kfm" collectionClass="NSMutableArray" id="7Fc-vc-d5E"/>
+                        <outletCollection property="jobButtons" destination="G7a-e2-Mc2" collectionClass="NSMutableArray" id="qxm-hj-Ko7"/>
+                        <outletCollection property="jobButtons" destination="H6r-Ix-ZCO" collectionClass="NSMutableArray" id="596-1Z-ltu"/>
+                        <outletCollection property="jobButtons" destination="WHk-2T-dNJ" collectionClass="NSMutableArray" id="oe4-xB-Mhr"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="W1S-eq-fDV" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2889" y="2181"/>
+            <point key="canvasLocation" x="3830" y="2087"/>
         </scene>
-        <!--InterestPart-->
+        <!--Preference-->
         <scene sceneID="1uQ-gR-vGC">
             <objects>
-                <viewController storyboardIdentifier="InterestPart" title="InterestPart" id="17w-h8-msn" customClass="InterestPartVC" customModule="SsgSag" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="PreferenceVC" title="Preference" id="17w-h8-msn" customClass="PreferenceVC" customModule="SsgSag" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="wnZ-KW-xtJ">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="1350"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="QyU-wV-MYI">
-                                <rect key="frame" x="0.0" y="88" width="375" height="1200"/>
+                            <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zTd-0f-XkB">
+                                <rect key="frame" x="0.0" y="44" width="375" height="44"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="44" id="oVX-kh-dkz"/>
+                                </constraints>
+                                <color key="barTintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <textAttributes key="titleTextAttributes">
+                                    <fontDescription key="fontDescription" type="system" weight="medium" pointSize="18"/>
+                                </textAttributes>
+                                <items>
+                                    <navigationItem title="관심분야" id="w5Q-eV-wsQ">
+                                        <barButtonItem key="leftBarButtonItem" title="Item" image="icArrowBack" id="ibW-Oe-tlw">
+                                            <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <connections>
+                                                <action selector="touchUpBackButton:" destination="17w-h8-msn" id="KwV-jx-mDc"/>
+                                            </connections>
+                                        </barButtonItem>
+                                    </navigationItem>
+                                </items>
+                            </navigationBar>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QyU-wV-MYI">
+                                <rect key="frame" x="0.0" y="88" width="375" height="1182"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BLh-5V-MeR" userLabel="Content View">
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="1200"/>
@@ -343,7 +450,7 @@
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <stackView opaque="NO" contentMode="scaleToFill" alignment="top" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="8IJ-jj-F8m">
-                                                        <rect key="frame" x="0.0" y="34.333333333333343" width="176" height="26.333333333333329"/>
+                                                        <rect key="frame" x="0.0" y="34.333333333333329" width="176" height="26.333333333333329"/>
                                                         <subviews>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="활동을 추천해드려요" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="S0X-C1-ccU">
                                                                 <rect key="frame" x="0.0" y="0.0" width="176" height="26.333333333333332"/>
@@ -364,10 +471,16 @@
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="G4t-3o-BBI" userLabel="IdeaButton">
                                                                 <rect key="frame" x="0.0" y="0.0" width="162" height="162"/>
                                                                 <state key="normal" image="btPreferenceIdeaUnactive"/>
+                                                                <connections>
+                                                                    <action selector="touchUpPreferenceButtons:" destination="17w-h8-msn" eventType="touchUpInside" id="Gd9-Ir-ubx"/>
+                                                                </connections>
                                                             </button>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Hc7-6L-6mn" userLabel="CameraButton">
                                                                 <rect key="frame" x="174" y="0.0" width="162" height="162"/>
                                                                 <state key="normal" image="btPreferenceCameraUnactive"/>
+                                                                <connections>
+                                                                    <action selector="touchUpPreferenceButtons:" destination="17w-h8-msn" eventType="touchUpInside" id="ge0-Eu-h21"/>
+                                                                </connections>
                                                             </button>
                                                         </subviews>
                                                     </stackView>
@@ -377,10 +490,16 @@
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oFz-fY-vKV" userLabel="DesignButton">
                                                                 <rect key="frame" x="0.0" y="0.0" width="162" height="162"/>
                                                                 <state key="normal" image="btPreferenceDesignUnactive"/>
+                                                                <connections>
+                                                                    <action selector="touchUpPreferenceButtons:" destination="17w-h8-msn" eventType="touchUpInside" id="aoU-mO-x7V"/>
+                                                                </connections>
                                                             </button>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mKv-E4-KkS" userLabel="MarketingButton">
                                                                 <rect key="frame" x="174" y="0.0" width="162" height="162"/>
                                                                 <state key="normal" image="btPreferenceMarketingUnactive"/>
+                                                                <connections>
+                                                                    <action selector="touchUpPreferenceButtons:" destination="17w-h8-msn" eventType="touchUpInside" id="yar-82-dXY"/>
+                                                                </connections>
                                                             </button>
                                                         </subviews>
                                                     </stackView>
@@ -390,10 +509,16 @@
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xE5-bf-gNo" userLabel="TechButton">
                                                                 <rect key="frame" x="0.0" y="0.0" width="162" height="162"/>
                                                                 <state key="normal" image="btPreferenceTechUnactive"/>
+                                                                <connections>
+                                                                    <action selector="touchUpPreferenceButtons:" destination="17w-h8-msn" eventType="touchUpInside" id="KpK-SE-nfR"/>
+                                                                </connections>
                                                             </button>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0ui-WG-Q9q" userLabel="LiteratureButton">
                                                                 <rect key="frame" x="174" y="0.0" width="162" height="162"/>
                                                                 <state key="normal" image="btPreferenceLiteratureUnactive"/>
+                                                                <connections>
+                                                                    <action selector="touchUpPreferenceButtons:" destination="17w-h8-msn" eventType="touchUpInside" id="eSw-K7-NK4"/>
+                                                                </connections>
                                                             </button>
                                                         </subviews>
                                                     </stackView>
@@ -403,10 +528,16 @@
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rAz-04-Vs4" userLabel="ScholarshipButton">
                                                                 <rect key="frame" x="0.0" y="0.0" width="162" height="162"/>
                                                                 <state key="normal" image="btPreferenceSholarshipUnactive"/>
+                                                                <connections>
+                                                                    <action selector="touchUpPreferenceButtons:" destination="17w-h8-msn" eventType="touchDragInside" id="ZRJ-Wd-wEG"/>
+                                                                </connections>
                                                             </button>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iq7-72-o5E" userLabel="HealthButton">
                                                                 <rect key="frame" x="174" y="0.0" width="162" height="162"/>
                                                                 <state key="normal" image="btPreferenceHealthUnactive"/>
+                                                                <connections>
+                                                                    <action selector="touchUpPreferenceButtons:" destination="17w-h8-msn" eventType="touchUpInside" id="cm5-s6-3wm"/>
+                                                                </connections>
                                                             </button>
                                                         </subviews>
                                                     </stackView>
@@ -416,10 +547,16 @@
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="awm-rm-XyJ" userLabel="StartupButton">
                                                                 <rect key="frame" x="0.0" y="0.0" width="162" height="162"/>
                                                                 <state key="normal" image="btPreferenceStartupUnactive"/>
+                                                                <connections>
+                                                                    <action selector="touchUpPreferenceButtons:" destination="17w-h8-msn" eventType="touchUpInside" id="0Gn-kF-VVi"/>
+                                                                </connections>
                                                             </button>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AR9-D1-SaG" userLabel="Art">
                                                                 <rect key="frame" x="174" y="0.0" width="162" height="162"/>
                                                                 <state key="normal" image="btPreferenceArtUnactive"/>
+                                                                <connections>
+                                                                    <action selector="touchUpPreferenceButtons:" destination="17w-h8-msn" eventType="touchUpInside" id="K83-bj-dad"/>
+                                                                </connections>
                                                             </button>
                                                         </subviews>
                                                     </stackView>
@@ -429,10 +566,16 @@
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="d5m-fx-C4X" userLabel="EconomyButton">
                                                                 <rect key="frame" x="0.0" y="0.0" width="162" height="162"/>
                                                                 <state key="normal" image="btPreferenceEconomyUnactive"/>
+                                                                <connections>
+                                                                    <action selector="touchUpPreferenceButtons:" destination="17w-h8-msn" eventType="touchUpInside" id="9KF-lS-hFQ"/>
+                                                                </connections>
                                                             </button>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gwi-7B-LeV" userLabel="SocietyButton">
                                                                 <rect key="frame" x="174" y="0.0" width="162" height="162"/>
                                                                 <state key="normal" image="btPreferenceSocietyUnactive"/>
+                                                                <connections>
+                                                                    <action selector="touchUpPreferenceButtons:" destination="17w-h8-msn" eventType="touchUpInside" id="SXY-Iw-mce"/>
+                                                                </connections>
                                                             </button>
                                                         </subviews>
                                                     </stackView>
@@ -472,27 +615,10 @@
                                     <constraint firstAttribute="height" constant="80" id="9rB-dk-9iy"/>
                                 </constraints>
                                 <state key="normal" image="btSaveMypageUnactive"/>
+                                <connections>
+                                    <action selector="touchUpSaveButton:" destination="17w-h8-msn" eventType="touchUpInside" id="R2v-Ql-6Zc"/>
+                                </connections>
                             </button>
-                            <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zTd-0f-XkB">
-                                <rect key="frame" x="0.0" y="44" width="375" height="44"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="44" id="oVX-kh-dkz"/>
-                                </constraints>
-                                <color key="barTintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <textAttributes key="titleTextAttributes">
-                                    <fontDescription key="fontDescription" type="system" weight="medium" pointSize="18"/>
-                                </textAttributes>
-                                <items>
-                                    <navigationItem title="관심분야" id="w5Q-eV-wsQ">
-                                        <barButtonItem key="leftBarButtonItem" title="Item" image="icArrowBack" id="ibW-Oe-tlw">
-                                            <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                            <connections>
-                                                <action selector="touchUpBackButton:" destination="17w-h8-msn" id="KwV-jx-mDc"/>
-                                            </connections>
-                                        </barButtonItem>
-                                    </navigationItem>
-                                </items>
-                            </navigationBar>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
@@ -504,9 +630,10 @@
                             <constraint firstItem="vfg-mP-sok" firstAttribute="width" secondItem="BLh-5V-MeR" secondAttribute="width" id="TRT-ql-owU"/>
                             <constraint firstItem="zTd-0f-XkB" firstAttribute="leading" secondItem="Aau-bB-Gl2" secondAttribute="leading" id="WLg-VN-TLZ"/>
                             <constraint firstAttribute="bottom" secondItem="QyU-wV-MYI" secondAttribute="bottom" constant="80" id="jKi-K4-gwt"/>
-                            <constraint firstItem="QyU-wV-MYI" firstAttribute="top" secondItem="Aau-bB-Gl2" secondAttribute="top" id="kM7-qI-rYq"/>
+                            <constraint firstItem="zTd-0f-XkB" firstAttribute="top" secondItem="Aau-bB-Gl2" secondAttribute="top" id="kM7-qI-rYq"/>
                             <constraint firstItem="vfg-mP-sok" firstAttribute="centerX" secondItem="BLh-5V-MeR" secondAttribute="centerX" id="myh-sF-PRl"/>
                             <constraint firstItem="Aau-bB-Gl2" firstAttribute="trailing" secondItem="QyU-wV-MYI" secondAttribute="trailing" id="tKh-kB-b9w"/>
+                            <constraint firstItem="QyU-wV-MYI" firstAttribute="top" secondItem="zTd-0f-XkB" secondAttribute="bottom" id="y8B-gS-rty"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="Aau-bB-Gl2"/>
                     </view>
@@ -517,23 +644,24 @@
                     </navigationItem>
                     <size key="freeformSize" width="375" height="1350"/>
                     <connections>
-                        <outletCollection property="intersetButtons" destination="G4t-3o-BBI" collectionClass="NSMutableArray" id="FSb-pg-Dtg"/>
-                        <outletCollection property="intersetButtons" destination="Hc7-6L-6mn" collectionClass="NSMutableArray" id="yIj-mW-VeA"/>
-                        <outletCollection property="intersetButtons" destination="oFz-fY-vKV" collectionClass="NSMutableArray" id="YMB-2v-MfV"/>
-                        <outletCollection property="intersetButtons" destination="mKv-E4-KkS" collectionClass="NSMutableArray" id="XOd-Xa-GjS"/>
-                        <outletCollection property="intersetButtons" destination="xE5-bf-gNo" collectionClass="NSMutableArray" id="7Dn-t0-4l9"/>
-                        <outletCollection property="intersetButtons" destination="0ui-WG-Q9q" collectionClass="NSMutableArray" id="Ipz-Ps-Pwh"/>
-                        <outletCollection property="intersetButtons" destination="rAz-04-Vs4" collectionClass="NSMutableArray" id="SFo-h6-7hY"/>
-                        <outletCollection property="intersetButtons" destination="iq7-72-o5E" collectionClass="NSMutableArray" id="Gsg-49-i7N"/>
-                        <outletCollection property="intersetButtons" destination="awm-rm-XyJ" collectionClass="NSMutableArray" id="eyK-P9-k3J"/>
-                        <outletCollection property="intersetButtons" destination="AR9-D1-SaG" collectionClass="NSMutableArray" id="qeF-p3-DFC"/>
-                        <outletCollection property="intersetButtons" destination="d5m-fx-C4X" collectionClass="NSMutableArray" id="5Nt-yR-sO9"/>
-                        <outletCollection property="intersetButtons" destination="gwi-7B-LeV" collectionClass="NSMutableArray" id="d6L-nN-jv2"/>
+                        <outlet property="saveButton" destination="vfg-mP-sok" id="avq-yi-JKn"/>
+                        <outletCollection property="preferenceButtons" destination="G4t-3o-BBI" collectionClass="NSMutableArray" id="CO3-kW-ufS"/>
+                        <outletCollection property="preferenceButtons" destination="Hc7-6L-6mn" collectionClass="NSMutableArray" id="us7-RI-RAD"/>
+                        <outletCollection property="preferenceButtons" destination="oFz-fY-vKV" collectionClass="NSMutableArray" id="XKp-JV-6j9"/>
+                        <outletCollection property="preferenceButtons" destination="mKv-E4-KkS" collectionClass="NSMutableArray" id="LZe-Nt-vGb"/>
+                        <outletCollection property="preferenceButtons" destination="xE5-bf-gNo" collectionClass="NSMutableArray" id="nr3-wM-6a2"/>
+                        <outletCollection property="preferenceButtons" destination="0ui-WG-Q9q" collectionClass="NSMutableArray" id="bkn-9a-iPy"/>
+                        <outletCollection property="preferenceButtons" destination="rAz-04-Vs4" collectionClass="NSMutableArray" id="f4F-qw-ne5"/>
+                        <outletCollection property="preferenceButtons" destination="iq7-72-o5E" collectionClass="NSMutableArray" id="OR1-5s-UXX"/>
+                        <outletCollection property="preferenceButtons" destination="awm-rm-XyJ" collectionClass="NSMutableArray" id="CDD-7o-hqi"/>
+                        <outletCollection property="preferenceButtons" destination="AR9-D1-SaG" collectionClass="NSMutableArray" id="1aj-A5-fAo"/>
+                        <outletCollection property="preferenceButtons" destination="d5m-fx-C4X" collectionClass="NSMutableArray" id="tK6-Pu-p82"/>
+                        <outletCollection property="preferenceButtons" destination="gwi-7B-LeV" collectionClass="NSMutableArray" id="au6-en-0f1"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Bxi-Jf-5Yj" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1145" y="2092"/>
+            <point key="canvasLocation" x="3130" y="1994"/>
         </scene>
         <!--이력-->
         <scene sceneID="H19-Ba-ugb">
@@ -577,7 +705,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="sPZ-ON-3S6" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4528.8000000000002" y="1783.0049261083745"/>
+            <point key="canvasLocation" x="4522" y="1796"/>
         </scene>
         <!--Add ActivityVC-->
         <scene sceneID="AOx-f6-E6w">
@@ -721,7 +849,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="s4U-Fz-pr1" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5468" y="1783.7438423645322"/>
+            <point key="canvasLocation" x="5218" y="1796"/>
         </scene>
         <!--AddVC-->
         <scene sceneID="P0I-AS-jHU">
@@ -835,7 +963,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bmK-ww-rvv" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="6282" y="1784"/>
+            <point key="canvasLocation" x="5908" y="1796"/>
         </scene>
     </scenes>
     <resources>
