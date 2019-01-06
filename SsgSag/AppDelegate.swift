@@ -24,10 +24,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         window = UIWindow(frame: UIScreen.main.bounds)
         
-        window?.rootViewController = CalenderVC()
+        window?.rootViewController = TapbarVC()
         
         window?.makeKeyAndVisible()
-//
+        
         return true
     }
 

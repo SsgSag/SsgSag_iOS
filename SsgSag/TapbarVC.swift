@@ -18,7 +18,7 @@ class TapbarVC: UITabBarController {
         firstViewController.tabBarItem = UITabBarItem(title: "", image: UIImage(named: "icMain"), selectedImage: UIImage(named: "icMainActive"))
         
         let mypageStoryBoard = UIStoryboard(name: "myPageStoryBoard", bundle: nil)
-        let secondViewController = mypageStoryBoard.instantiateViewController(withIdentifier: "myPage")
+        let secondViewController = mypageStoryBoard.instantiateViewController(withIdentifier: "MyPageVC")
         secondViewController.tabBarItem = UITabBarItem(title: "", image: UIImage(named: "icUser"), selectedImage: UIImage(named: "icUserActive"))
         
         let thirdViewController = CalenderVC()

@@ -35,7 +35,7 @@ class myPageVC: UIViewController {
     func myButtonTapped(myButton: UIButton){
         if myButton.isSelected == true {
             myButton.isSelected = false
-        }else {
+        } else {
             myButton.isSelected = true
         }
     }
