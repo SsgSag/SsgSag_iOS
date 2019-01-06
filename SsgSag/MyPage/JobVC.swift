@@ -32,6 +32,7 @@ class JobVC: UIViewController {
         super.viewDidLoad()
         setUpJobButtons()
         changeStateJobButtons()
+        saveButton.isUserInteractionEnabled = false
     }
     
     @IBAction func touchUpBackButton(_ sender: Any) {
@@ -76,12 +77,15 @@ class JobVC: UIViewController {
             jobButtons.forEach { (button) in
                 button.isSelected = false
                  button.setImage(UIImage(named: unActiveButtonImages[button.tag]), for: .normal)
-                button.isEnabled = false
+                button.isUserInteractionEnabled = false
             }
+            saveButton.isSelected = false
+            saveButton.isUserInteractionEnabled = false
         } else {
             jobButtons.forEach { (button) in
-                button.isEnabled = true
+                button.isUserInteractionEnabled = true
         }
+            saveButton.isUserInteractionEnabled = true
         }
     }
     

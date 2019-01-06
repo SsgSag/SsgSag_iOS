@@ -821,7 +821,6 @@
                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JAp-yC-VD4" userLabel="StartDateButton">
                                         <rect key="frame" x="20" y="167" width="137" height="74"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <state key="normal" title="Button"/>
                                         <connections>
                                             <action selector="touchUpStartDateButton:" destination="F2a-8a-TlB" eventType="touchUpInside" id="iTf-tB-3vu"/>
                                         </connections>
@@ -829,7 +828,6 @@
                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Meg-Vg-bfs" userLabel="EndDateButton">
                                         <rect key="frame" x="204" y="167" width="145" height="78"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <state key="normal" title="Button"/>
                                         <connections>
                                             <action selector="touchUpEndDateButton:" destination="F2a-8a-TlB" eventType="touchUpInside" id="36E-Qt-0Jf"/>
                                         </connections>
@@ -1082,7 +1080,7 @@
         <!--DatePickerPopUp-->
         <scene sceneID="kN9-gy-Lxn">
             <objects>
-                <viewController storyboardIdentifier="DatePickerPoPUp" title="DatePickerPopUp" id="9Bf-yL-rXw" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="DatePickerPoPUp" title="DatePickerPopUp" id="9Bf-yL-rXw" customClass="DatePickerPopUpVC" customModule="SsgSag" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="oPy-N5-Hte">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1092,56 +1090,68 @@
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </imageView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oBU-bu-Gh9" userLabel="BackView">
-                                <rect key="frame" x="62.666666666666657" y="306" width="249.99999999999997" height="200"/>
+                                <rect key="frame" x="22.666666666666657" y="257.66666666666669" width="330" height="297.00000000000006"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="plA-JU-jv8">
-                                        <rect key="frame" x="100" y="160" width="50" height="30"/>
-                                        <color key="backgroundColor" red="0.870967567" green="0.43741291760000001" blue="0.3215245605" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                        <state key="normal" title="확인">
-                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="touchUpOkButton:" destination="9Bf-yL-rXw" eventType="touchUpInside" id="EeY-wS-eCX"/>
-                                        </connections>
-                                    </button>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="등록되었습니다!" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ml2-Sm-fhd">
-                                        <rect key="frame" x="71" y="89.666666666666686" width="108" height="21"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <nil key="textColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
+                                    <stackView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" spacing="35" translatesAutoresizingMaskIntoConstraints="NO" id="tnx-aH-zmQ">
+                                        <rect key="frame" x="203" y="246" width="95" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <subviews>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vcc-n3-UY0">
+                                                <rect key="frame" x="0.0" y="0.0" width="30" height="30"/>
+                                                <state key="normal" title="취소"/>
+                                                <connections>
+                                                    <action selector="touchUpCancelButton:" destination="9Bf-yL-rXw" eventType="touchUpInside" id="hgk-hI-jdt"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wP9-Jl-4n1">
+                                                <rect key="frame" x="65" y="0.0" width="30" height="30"/>
+                                                <state key="normal" title="확인"/>
+                                                <connections>
+                                                    <action selector="touchUpOkButton:" destination="9Bf-yL-rXw" eventType="touchUpInside" id="aRu-kR-tgD"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                    </stackView>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
-                                    <constraint firstItem="plA-JU-jv8" firstAttribute="width" secondItem="oBU-bu-Gh9" secondAttribute="width" multiplier="50:250" id="FrC-Gv-gTV"/>
-                                    <constraint firstAttribute="bottom" secondItem="plA-JU-jv8" secondAttribute="bottom" constant="10" id="HsV-qa-8LZ"/>
-                                    <constraint firstItem="plA-JU-jv8" firstAttribute="centerX" secondItem="oBU-bu-Gh9" secondAttribute="centerX" id="ogf-l4-9s2"/>
-                                    <constraint firstItem="ml2-Sm-fhd" firstAttribute="centerX" secondItem="oBU-bu-Gh9" secondAttribute="centerX" id="pYV-A0-64M"/>
-                                    <constraint firstItem="ml2-Sm-fhd" firstAttribute="centerY" secondItem="oBU-bu-Gh9" secondAttribute="centerY" id="sx9-7E-aeW"/>
-                                    <constraint firstAttribute="width" secondItem="oBU-bu-Gh9" secondAttribute="height" multiplier="5:4" id="xRb-R0-TiF"/>
+                                    <constraint firstAttribute="width" secondItem="oBU-bu-Gh9" secondAttribute="height" multiplier="5:4.5" id="xRb-R0-TiF"/>
                                 </constraints>
                             </view>
+                            <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="date" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="dBA-nm-SEK">
+                                <rect key="frame" x="22.666666666666657" y="283.33333333333331" width="330" height="216"/>
+                                <date key="date" timeIntervalSinceReferenceDate="568470826.46485996">
+                                    <!--2019-01-06 12:33:46 +0000-->
+                                </date>
+                                <locale key="locale" localeIdentifier="ko_KR"/>
+                                <connections>
+                                    <action selector="didDatePickerValueChanged:" destination="9Bf-yL-rXw" eventType="valueChanged" id="6b3-Q3-u1Z"/>
+                                </connections>
+                            </datePicker>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="UPC-4F-Nqe" firstAttribute="top" secondItem="oPy-N5-Hte" secondAttribute="top" id="0PA-1m-0J9"/>
                             <constraint firstItem="oBU-bu-Gh9" firstAttribute="centerY" secondItem="UPC-4F-Nqe" secondAttribute="centerY" id="LRo-nX-52q"/>
-                            <constraint firstItem="oBU-bu-Gh9" firstAttribute="width" secondItem="UPC-4F-Nqe" secondAttribute="width" multiplier="250:375" id="U2k-Rh-2Hq"/>
+                            <constraint firstItem="dBA-nm-SEK" firstAttribute="top" secondItem="oBU-bu-Gh9" secondAttribute="top" multiplier="1.1" id="ReM-NR-1Eb"/>
+                            <constraint firstItem="oBU-bu-Gh9" firstAttribute="width" secondItem="UPC-4F-Nqe" secondAttribute="width" multiplier="330:375" id="U2k-Rh-2Hq"/>
                             <constraint firstAttribute="bottom" secondItem="UPC-4F-Nqe" secondAttribute="bottom" id="bgJ-ch-Hse"/>
                             <constraint firstItem="oBU-bu-Gh9" firstAttribute="centerX" secondItem="UPC-4F-Nqe" secondAttribute="centerX" id="fOC-G0-An9"/>
                             <constraint firstItem="UPC-4F-Nqe" firstAttribute="leading" secondItem="hDH-7x-5KX" secondAttribute="leading" id="gpo-LL-mUj"/>
+                            <constraint firstItem="dBA-nm-SEK" firstAttribute="centerX" secondItem="oBU-bu-Gh9" secondAttribute="centerX" id="mNT-SH-Ael"/>
+                            <constraint firstItem="dBA-nm-SEK" firstAttribute="width" secondItem="oBU-bu-Gh9" secondAttribute="width" id="nF8-j1-ax3"/>
                             <constraint firstItem="hDH-7x-5KX" firstAttribute="trailing" secondItem="UPC-4F-Nqe" secondAttribute="trailing" id="qb2-Bb-Zey"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="hDH-7x-5KX"/>
                     </view>
                     <connections>
-                        <outlet property="backView" destination="oBU-bu-Gh9" id="dJs-lU-jKL"/>
-                        <outlet property="okButton" destination="plA-JU-jv8" id="zre-Lg-MU4"/>
+                        <outlet property="backView" destination="oBU-bu-Gh9" id="rTX-Mc-gXu"/>
+                        <outlet property="datePicker" destination="dBA-nm-SEK" id="FeB-sh-fiT"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5M9-Sj-rM6" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5460" y="2520"/>
+            <point key="canvasLocation" x="5460" y="2519.7044334975371"/>
         </scene>
     </scenes>
     <resources>

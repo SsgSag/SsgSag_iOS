@@ -20,27 +20,39 @@ class AddActivityVC: UIViewController {
         super.viewDidLoad()
         
         activityNavigationBar.barStyle = .black
-        
-
-        
+        startDateLabel.text = ""
+        endDateLabel.text = ""
     }
 
-    @IBAction func touchUpStartDateButton(_ sender: Any) {
-        let myPageStoryBoard = UIStoryboard(name: "MyPageStoryBoard", bundle: nil)
-        let popVC = myPageStoryBoard.instantiateViewController(withIdentifier: "PopUp")
-        self.addChild(popVC)
-        popVC.view.frame = self.view.frame
-        self.view.addSubview(popVC.view)
-        
-        popVC.didMove(toParent: self)
+    @IBAction func touchUpStartDateButton(_ sender: UIButton) {
+        sender.tag = 0
+        popUpDatePicker(button: sender)
     }
     
-    @IBAction func touchUpEndDateButton(_ sender: Any) {
+    @IBAction func touchUpEndDateButton(_ sender: UIButton) {
+        sender.tag = 1
+        popUpDatePicker(button: sender)
     }
     
     
     @IBAction func dismissModalAction(_ sender: Any) {
         dismiss(animated: true, completion: nil)
+    }
+    
+    func popUpDatePicker(button: UIButton) {
+        let myPageStoryBoard = UIStoryboard(name: "MyPageStoryBoard", bundle: nil)
+        let popVC = myPageStoryBoard.instantiateViewController(withIdentifier: "DatePickerPoPUp")
+        self.addChild(popVC)
+        popVC.view.frame = self.view.frame
+        self.view.addSubview(popVC.view)
+    
+        popVC.didMove(toParent: self)
+        let sendData = popVC as! DatePickerPopUpVC
+        sendData.buttonTag = button.tag
+        if startDateLabel != nil && endDateLabel != nil{
+            sendData.startDateString = startDateLabel.text!
+            sendData.endDateString = endDateLabel.text!
+        }
         
     }
 }

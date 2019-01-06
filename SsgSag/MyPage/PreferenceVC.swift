@@ -26,6 +26,7 @@ class PreferenceVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setUpPreferenceButtons()
+        saveButton.isUserInteractionEnabled = false
     }
     
     @IBAction func touchUpBackButton(_ sender: Any) {
@@ -33,7 +34,6 @@ class PreferenceVC: UIViewController {
     }
     
     @IBAction func touchUpPreferenceButtons(_ sender: UIButton) {
-        //        sender.imageView?.image = UIImage(named: <#T##String#>)
         print(sender.tag)
         myButtonTapped(myButton: sender, tag: sender.tag)
     }
@@ -68,10 +68,12 @@ class PreferenceVC: UIViewController {
             myButton.isSelected = false;
             selectedValue[myButton.tag] = false
             myButton.setImage(UIImage(named: unActiveButtonImages[tag]), for: .normal)
+            saveButton.isUserInteractionEnabled = false
         } else {
             myButton.isSelected = true;
             selectedValue[myButton.tag] = true
             myButton.setImage(UIImage(named: activeButtonImages[tag]), for: .normal)
+            saveButton.isUserInteractionEnabled = true
         }
         
         if selectedValue.contains(true) {

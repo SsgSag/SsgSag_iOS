@@ -641,7 +641,7 @@ class CalenderView: UIView, UICollectionViewDelegate, UICollectionViewDataSource
         
         for line4 in lineArray4 {
             if line4.0 <= currentCellDateTime! && currentCellDateTime! <= line4.1 {
-                cell.line4.   .backgroundColor = .black
+                cell.line4.backgroundColor = .black
             }
         }
         
