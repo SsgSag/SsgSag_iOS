@@ -10,9 +10,14 @@ import UIKit
 
 class AddActivityVC: UIViewController {
 
+    @IBOutlet weak var activityNavigationBar: UINavigationBar!
+    @IBOutlet weak var titleTextField: UITextField!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        activityNavigationBar.barStyle = .black
+        
 
         
     }

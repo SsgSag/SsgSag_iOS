@@ -11,34 +11,27 @@ import UIKit
 class JobVC: UIViewController {
     
     let unActiveButtonImages: [String] = [
-        "btJobManagementUnactive", "btJobMarketingUnactive", "btJobTechUnactive", "btJobDesignUnactive", "btJobTradeUnactive", "btJobSalesUnactive", "btJobServiceUnactive",
-        "btJobStudyUnactive",
-        "btJobIndustryUnactive",
-        "btJobLiteratureUnactive", "btJobConstructUnactive", "btJobMedicalUnactive",
-        "btJobArtUnactive",
-        "btJobSpecialityUnactive"
+        "btJobManagementUnactive", "btJobMarketingUnactive", "btJobTechUnactive", "btJobDesignUnactive", "btJobTradeUnactive", "btJobSalesUnactive", "btJobServiceUnactive", "btJobStudyUnactive",
+        "btJobIndustryUnactive", "btJobLiteratureUnactive", "btJobConstructUnactive", "btJobMedicalUnactive",
+        "btJobArtUnactive", "btJobSpecialityUnactive"
         
     ]
     
     let activeButtonImages: [String] = [
         "btJobManagementActive", "btJobMarketingActive", "btJobTechActive", "btJobDesignActive", "btJobTradeActive", "btJobSalesActive", "btJobServiceActive",
-        "btJobStudyActive",
-        "btJobIndustryActive",
-         "btJobLiteratureActive", "btJobConstructActive", "btJobMedicalActive",
-        "btJobArtActive",
-        "btJobSpecialityActive"
-        
+        "btJobStudyActive", "btJobIndustryActive", "btJobLiteratureActive", "btJobConstructActive", "btJobMedicalActive", "btJobArtActive", "btJobSpecialityActive"
     ]
     
     var selectedValue: [Bool] = []
     
     @IBOutlet var jobButtons: [UIButton]!
     @IBOutlet weak var saveButton: UIButton!
-    @IBOutlet weak var isJobOn: UISwitch!
+    @IBOutlet weak var jobSwitch: UISwitch!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setUpJobButtons()
+        changeStateJobButtons()
     }
     
     @IBAction func touchUpBackButton(_ sender: Any) {
@@ -46,13 +39,15 @@ class JobVC: UIViewController {
     }
     
     @IBAction func touchUpJobButtons(_ sender: UIButton) {
-        //        sender.imageView?.image = UIImage(named: <#T##String#>)
         print(sender.tag)
         myButtonTapped(myButton: sender, tag: sender.tag)
     }
     
     @IBAction func touchUpSaveButton(_ sender: Any) {
         //TODO: - 네트워크 연결
+    }
+    @IBAction func valueChangeJobSwitch(_ sender: Any) {
+        changeStateJobButtons()
     }
     
     func setUpJobButtons() {
@@ -69,23 +64,38 @@ class JobVC: UIViewController {
         }
     }
     
-    func myButtonTapped(myButton: UIButton, tag: Int) {
-        if myButton.isSelected {
-            myButton.isSelected = false;
-            selectedValue[myButton.tag] = false
-            myButton.setImage(UIImage(named: unActiveButtonImages[tag]), for: .normal)
+    func changeStateJobButtons() {
+        if jobSwitch.isOn == false {
+            jobButtons.forEach { (button) in
+                button.isSelected = false
+                 button.setImage(UIImage(named: unActiveButtonImages[button.tag]), for: .normal)
+                button.isEnabled = false
+            }
         } else {
-            myButton.isSelected = true;
-            selectedValue[myButton.tag] = true
-            myButton.setImage(UIImage(named: activeButtonImages[tag]), for: .normal)
+            jobButtons.forEach { (button) in
+                button.isEnabled = true
         }
-        
-        if selectedValue.contains(true) {
-            saveButton.setImage(UIImage(named: "btSaveMypageActive"), for: .normal)
-        } else {
-            saveButton.setImage(UIImage(named: "btSaveMypageUnactive"), for: .normal)
         }
     }
+    
+    func myButtonTapped(myButton: UIButton, tag: Int) {
+            if myButton.isSelected {
+                myButton.isSelected = false;
+                selectedValue[myButton.tag] = false
+                myButton.setImage(UIImage(named: unActiveButtonImages[tag]), for: .normal)
+            } else {
+                myButton.isSelected = true;
+                selectedValue[myButton.tag] = true
+                myButton.setImage(UIImage(named: activeButtonImages[tag]), for: .normal)
+            }
+            
+            if selectedValue.contains(true) {
+                saveButton.setImage(UIImage(named: "btSaveMypageActive"), for: .normal)
+            } else {
+                saveButton.setImage(UIImage(named: "btSaveMypageUnactive"), for: .normal)
+            }
+        }
+    
     
 
 }

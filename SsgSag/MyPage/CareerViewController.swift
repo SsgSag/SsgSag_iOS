@@ -44,6 +44,7 @@ class CareerViewController: UIViewController {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
         view.backgroundColor = UIColor.rgb(red: 155, green: 65, blue: 250)
+        
 //        view.setGradient(from: UIColor.rgb(red: 65, green: 163, blue: 255), to: UIColor.rgb(red: 155, green: 65, blue: 250))
 //        var gradient = CAGradientLayer()
 //        gradient.frame = view.bounds
@@ -151,12 +152,42 @@ class CareerViewController: UIViewController {
         customTabBarCollectionView.isScrollEnabled = false
     }
     
+    @objc func dismissModal(){
+        //        self.navigationController?.popViewController(animated: true)
+        self.dismiss(animated: true, completion: nil)
+    }
+    
     func setupCustomTabBar(){
         setupCollectioView()
+        
+        let navigationBar = UINavigationBar()
+        navigationBar.translatesAutoresizingMaskIntoConstraints = false
+        self.view.addSubview(navigationBar)
+        navigationBar.leadingAnchor.constraint(equalTo: self.view.leadingAnchor).isActive = true
+        navigationBar.trailingAnchor.constraint(equalTo: self.view.trailingAnchor).isActive = true
+        navigationBar.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor).isActive = true
+        let backBTN = UIBarButtonItem(image: UIImage(named: "icArrowBack"),
+                                      style: .plain,
+                                      target: self,
+                                      action: #selector(self.dismissModal))
+        
+        var items = UINavigationItem()
+        items.leftBarButtonItem = backBTN
+        items.title = "이력"
+        backBTN.tintColor = .black
+        navigationBar.items?.append(items)
+        navigationBar.barTintColor = .white
+        
+        self.navigationItem.leftBarButtonItem?.tintColor = .black
+        self.navigationItem.title = "이력"
+        
+   
         self.view.addSubview(customTabBar)
         customTabBar.leadingAnchor.constraint(equalTo: self.view.leadingAnchor).isActive = true
         customTabBar.trailingAnchor.constraint(equalTo: self.view.trailingAnchor).isActive = true
-        customTabBar.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor).isActive = true
+//        customTabBar.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: 44).isActive = true
+        customTabBar.topAnchor.constraint(equalTo: navigationBar.bottomAnchor).isActive = true
+        
         customTabBar.heightAnchor.constraint(equalToConstant: 50).isActive = true
         
         customTabBar.addSubview(customTabBarCollectionView)
@@ -172,6 +203,7 @@ class CareerViewController: UIViewController {
         indicatorViewLeadingConstraint.isActive = true
         //        indicatorView.bottomAnchor.constraint(equalTo: customTabBar.bottomAnchor).isActive = true
         indicatorView.bottomAnchor.constraint(equalToSystemSpacingBelow: customTabBar.bottomAnchor, multiplier: -0.5).isActive = true
+        indicatorView.isHidden = false
         indicatorView.setGradient(from: .red, to: .blue)
         
         let bottomLine = UIView()
