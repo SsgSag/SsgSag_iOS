@@ -136,6 +136,9 @@ class CalenderView: UIView, UICollectionViewDelegate, UICollectionViewDataSource
         let s9 = formatter.date(from: "2019-01-14 15:00:00")
         let e9 = formatter.date(from: "2019-01-18 14:59:59")
         
+        let s10 = formatter.date(from: "2019-12-17 15:00:00")
+        let e10 = formatter.date(from: "2019-12-31 14:59:59")
+        
         posterTuple = [(s1!, e1!, 395, 1, "스마트청춘MD", 0),
             (s2!, e2!, 12, 0, "비즈니스 아이디어 공모전", 0),
             (s3!, e3!, 12, 0, "레진코믹스 세계만화공모전", 0),
@@ -145,6 +148,7 @@ class CalenderView: UIView, UICollectionViewDelegate, UICollectionViewDataSource
             (s7!, e7!, 3, 2, "새로운 일정", 0),
             (s8!, e8!, 3, 2, "새로운 일정", 0),
             (s9!, e9!, 3, 2, "새로운 일정2", 0),
+            (s10!, e10!, 3, 2, "새로운 일정3", 0),
         ]
         
         posterTuple.sort{$0.2 > $1.2}
@@ -549,29 +553,6 @@ class CalenderView: UIView, UICollectionViewDelegate, UICollectionViewDataSource
         let startMonth = 12
         let startDay = 26
         
-        let endYear = 2019
-        let endMonth = 2
-        let endDay = 3
-        /*        */
-        /*   임의의 데이터     */
-        let startYear2 = 2019
-        let startMonth2 = 1
-        let startDay2 = 10
-        
-        let endYear2 = 2019
-        let endMonth2 = 1
-        let endDay2 = 18
-        /*        */
-        /*   임의의 데이터     */
-        let startYear3 = 2019
-        let startMonth3 = 1
-        let startDay3 = 1
-        
-        let endYear3 = 2019
-        let endMonth3 = 1
-        let endDay3 = 14
-        /*        */
-        
         var cellYear = currentYear
         var cellMonth = currentMonthIndex
         var cellDay = indexPath.row-firstWeekDayOfMonth+2
@@ -620,6 +601,8 @@ class CalenderView: UIView, UICollectionViewDelegate, UICollectionViewDataSource
         
         cell.line.backgroundColor = .clear
         cell.line2.backgroundColor = .clear
+        cell.line3.backgroundColor = .clear
+        cell.line4.backgroundColor = .clear
         
         for line1 in lineArray1 {
             if line1.0 <= currentCellDateTime! && currentCellDateTime! <= line1.1 {
@@ -641,12 +624,9 @@ class CalenderView: UIView, UICollectionViewDelegate, UICollectionViewDataSource
         
         for line4 in lineArray4 {
             if line4.0 <= currentCellDateTime! && currentCellDateTime! <= line4.1 {
-                cell.line4.   .backgroundColor = .black
+                cell.line4.backgroundColor = .black
             }
         }
-        
-        
-        
 //        if indexPath.row == 0 {
 //            for i in posterTuple {
 //                if i.0 >= currentMonthStart! && i.1 <= currentMonthLast! { //오늘을 포함하는
