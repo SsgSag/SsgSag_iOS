@@ -13,6 +13,7 @@
 		84264BA621DF0FF300849E6B /* Calendar.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 84264BA521DF0FF300849E6B /* Calendar.storyboard */; };
 		84264BA821DF106C00849E6B /* CalendarDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84264BA721DF106C00849E6B /* CalendarDetailVC.swift */; };
 		84264BAA21DF109200849E6B /* AddPassiveDateVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84264BA921DF109200849E6B /* AddPassiveDateVC.swift */; };
+		8427099A21DFD42600869633 /* PopupVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8427099921DFD42600869633 /* PopupVC.swift */; };
 		842C618521DCDC92001BA6D8 /* sendDataViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842C618421DCDC92001BA6D8 /* sendDataViewController.swift */; };
 		842C619D21DD1807001BA6D8 /* posterData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842C619A21DD1807001BA6D8 /* posterData.swift */; };
 		842C619E21DD1807001BA6D8 /* Json4Swift_Base.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842C619B21DD1807001BA6D8 /* Json4Swift_Base.swift */; };
@@ -87,6 +88,7 @@
 		84264BA521DF0FF300849E6B /* Calendar.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Calendar.storyboard; sourceTree = "<group>"; };
 		84264BA721DF106C00849E6B /* CalendarDetailVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarDetailVC.swift; sourceTree = "<group>"; };
 		84264BA921DF109200849E6B /* AddPassiveDateVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPassiveDateVC.swift; sourceTree = "<group>"; };
+		8427099921DFD42600869633 /* PopupVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupVC.swift; sourceTree = "<group>"; };
 		842C618421DCDC92001BA6D8 /* sendDataViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = sendDataViewController.swift; sourceTree = "<group>"; };
 		842C619A21DD1807001BA6D8 /* posterData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = posterData.swift; sourceTree = "<group>"; };
 		842C619B21DD1807001BA6D8 /* Json4Swift_Base.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Json4Swift_Base.swift; sourceTree = "<group>"; };
@@ -292,6 +294,7 @@
 				845928D821D09F2F001DF6CC /* MonthView.swift */,
 				845928D721D09F2F001DF6CC /* WeekdaysView.swift */,
 				84264BA521DF0FF300849E6B /* Calendar.storyboard */,
+				8427099921DFD42600869633 /* PopupVC.swift */,
 				84264BA721DF106C00849E6B /* CalendarDetailVC.swift */,
 				84264BA921DF109200849E6B /* AddPassiveDateVC.swift */,
 			);
@@ -651,6 +654,7 @@
 				84264BAA21DF109200849E6B /* AddPassiveDateVC.swift in Sources */,
 				84E19CDF21DCC977006F72EC /* Board.swift in Sources */,
 				84E19CD321DCC922006F72EC /* UserService.swift in Sources */,
+				8427099A21DFD42600869633 /* PopupVC.swift in Sources */,
 				842C619E21DD1807001BA6D8 /* Json4Swift_Base.swift in Sources */,
 				842C619F21DD1807001BA6D8 /* Posters.swift in Sources */,
 				845928E321D35F09001DF6CC /* PageViewController.swift in Sources */,
