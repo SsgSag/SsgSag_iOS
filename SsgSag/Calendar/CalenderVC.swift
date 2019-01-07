@@ -65,7 +65,7 @@ class CalenderVC: UIViewController{
         return label
     }()
     
-    let todoExampleDate = ["1","2","3","4","5","6"]
+    var todoExampleDate:[(Date, Date, Int, Int, String, Int)] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -131,6 +131,94 @@ class CalenderVC: UIViewController{
         addButton.layer.masksToBounds = true
         addButton.addTarget(self, action: #selector(addPassiveDate), for: .touchUpInside)
 
+        
+        
+        
+        
+        
+        
+        var posterTuple:[(Date, Date, Int, Int, String, Int)] = []
+        
+        let defaults = UserDefaults.standard
+        guard let posterData = defaults.object(forKey: "poster") as? Data else { return }
+        guard let posterInfo = try? PropertyListDecoder().decode([Posters].self, from: posterData) else { return }
+        
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+        
+        for poster in posterInfo {
+            let posterStartDateTime = formatter.date(from: poster.posterStartDate!)
+            let posterEndDateTime = formatter.date(from: poster.posterEndDate!)
+            
+            let components = Calendar.current.dateComponents([.day], from: posterStartDateTime!, to: posterEndDateTime!)
+            let dayInterval = components.day! + 1
+            posterTuple.append((posterStartDateTime!, posterEndDateTime!, dayInterval, poster.categoryIdx!, poster.posterName!, 0))
+        }
+        
+        let s1 = formatter.date(from: "2019-01-16 15:00:00")
+        let e1 = formatter.date(from: "2019-01-17 14:59:00")
+        
+        let s2 = formatter.date(from: "2019-01-01 08:00:00")
+        let e2 = formatter.date(from: "2019-01-12 08:00:00")
+        
+        let s3 = formatter.date(from: "2019-01-05 08:00:00")
+        let e3 = formatter.date(from: "2019-01-18 08:00:00")
+        
+        let s4 = formatter.date(from: "2019-01-19 15:00:00")
+        let e4 = formatter.date(from: "2019-01-31 14:59:59")
+        
+        let s5 = formatter.date(from: "2019-01-08 15:00:00")
+        let e5 = formatter.date(from: "2019-01-09 14:59:59")
+        
+        let s6 = formatter.date(from: "2019-01-10 15:00:00")
+        let e6 = formatter.date(from: "2019-01-11 14:59:59")
+        
+        let s7 = formatter.date(from: "2019-01-14 15:00:00")
+        let e7 = formatter.date(from: "2019-01-17 14:59:59")
+        
+        let s8 = formatter.date(from: "2019-01-01 15:00:00")
+        let e8 = formatter.date(from: "2019-01-07 14:59:59")
+        
+        let s9 = formatter.date(from: "2019-01-14 15:00:00")
+        let e9 = formatter.date(from: "2019-01-18 14:59:59")
+        
+        let s10 = formatter.date(from: "2019-12-17 15:00:00")
+        let e10 = formatter.date(from: "2019-12-31 14:59:59")
+        
+        let s11 = formatter.date(from: "2018-12-19 15:00:00")
+        let e11 = formatter.date(from: "2019-01-03 14:59:59")
+        
+        posterTuple = [(s1!, e1!, 395, 1, "스마트청춘MD", 0),
+                       (s2!, e2!, 12, 0, "비즈니스 아이디어 공모전", 0),
+                       (s3!, e3!, 12, 0, "레진코믹스 세계만화공모전", 0),
+                       (s4!, e4!, 4, 5, "아주 캐피탈 대학생 봉사단", 0),
+                       (s5!, e5!, 3, 0, "에스윈아이디어공모전", 0),
+                       (s6!, e6!, 3, 2, "솝트 동아리", 0),
+                       (s7!, e7!, 3, 2, "새로운 일정", 0),
+                       (s8!, e8!, 3, 2, "새로운 일정", 0),
+                       (s9!, e9!, 3, 2, "새로운 일정2", 0),
+                       (s10!, e10!, 3, 2, "새로운 일정3", 0),
+                       (s11!, e11!, 3, 2, "민지 일정", 0),
+        ]
+        
+        posterTuple.sort{$0.1 < $1.1}
+    
+        
+        todoExampleDate = posterTuple
+//        let currentDate = Date()
+//        let calendar = Calendar.current
+//        let components = calendar.dateComponents([.year, .month, .day], from: currentDate)
+//        let year = components.year!
+//        let month = components.month!
+//        let day = components.day!
+//        let currentDateString: String = "\(year)-\(month)-\(day) 22:31:11"
+//        let todayDate = formatter.date(from: currentDateString)
+//
+//        todoExampleDate
+//
+//        for i in posterTuple {
+//
+//        }
     }
     
     @objc func addPassiveDate() {
@@ -179,6 +267,7 @@ class CalenderVC: UIViewController{
         view.bringSubviewToFront(addButton)
         
         NotificationCenter.default.post(name: NSNotification.Name("changeToUp"), object: nil)
+
         
         UIView.animate(withDuration: 0.1) {
             self.view.layoutIfNeeded()
@@ -274,7 +363,7 @@ extension CalenderVC: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "todoCell") as! todoCell
-        
+        cell.categoryLabel.text = todoExampleDate[indexPath.row].4
         return cell
     }
     

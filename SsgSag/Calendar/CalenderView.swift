@@ -99,6 +99,7 @@ class CalenderView: UIView, UICollectionViewDelegate, UICollectionViewDataSource
         ]
         
         posterTuple.sort{$0.2 > $1.2}
+        
         var countLine = 0
         
         lineArray1.append(posterTuple[countLine])
@@ -447,12 +448,36 @@ class CalenderView: UIView, UICollectionViewDelegate, UICollectionViewDataSource
         let currentDateString: String = "\(year)-\(month)-\(day) 22:31:11"
         let todayDate = formatter.date(from: currentDateString)
         
-        
+        //라인 내부에 글자 표현
         for line1 in lineArray1 {
             if line1.0 <= currentCellDateTime! && currentCellDateTime! <= line1.1{ //
                 cell.line.backgroundColor = #colorLiteral(red: 0.3803921569, green: 0.462745098, blue: 0.8666666667, alpha: 1)
                 if currentCellDateTime! < todayDate! {
                     cell.line.backgroundColor = #colorLiteral(red: 0.7882352941, green: 0.7882352941, blue: 0.7882352941, alpha: 1)
+                }
+                
+                if cell.line.subviews.count > 0 {
+                    let label = cell.line.subviews[0] as! UILabel
+                    label.text = ""
+                }
+                
+                let line1Componets = calendar.dateComponents([.year, .month, .day], from: line1.0)
+                let currentComponets = calendar.dateComponents([.year, .month, .day], from: currentCellDateTime!)
+                
+                let yearline1Componets = line1Componets.year!
+                let monthline1Componets = line1Componets.month!
+                let dayline1Componets = line1Componets.day!
+
+                let yearcurrentComponets = currentComponets.year!
+                let monthcurrentComponets = currentComponets.month!
+                let daycurrentComponets = currentComponets.day!
+
+                if yearline1Componets == yearcurrentComponets && monthline1Componets == monthcurrentComponets && dayline1Componets == daycurrentComponets {
+                    let label = UILabel(frame: CGRect(x: 0, y: 0, width: cell.line.frame.width, height: cell.line.frame.height))
+                    label.textAlignment = .left
+                    label.font = UIFont.systemFont(ofSize: 6.0)
+                    label.text = line1.4
+                    cell.line.addSubview(label)
                 }
             }
         }
