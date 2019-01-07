@@ -8,14 +8,23 @@
 
 import UIKit
 
-class myPageVC: UIViewController {
+class myPageVC: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
-//    @IBOutlet weak var divisionLineView: UIView!
+    lazy var imagePicker: UIImagePickerController = {
+        let picker: UIImagePickerController = UIImagePickerController()
+        picker.sourceType = .photoLibrary
+        picker.delegate = self
+        picker.allowsEditing = true
+        return picker
+    }()
+    
+    @IBOutlet weak var profileImageView: UIImageView!
     
  
     override func viewDidLoad() {
        super.viewDidLoad()
-
+        profileImageView.applyRadius(radius: profileImageView.frame.height/2)
+        
         // Do any additional setup after loading the view.
         
 //        var gradient = CAGradientLayer()
@@ -31,13 +40,24 @@ class myPageVC: UIViewController {
     }
     
 
-
-    func myButtonTapped(myButton: UIButton){
-        if myButton.isSelected == true {
-            myButton.isSelected = false
-        } else {
-            myButton.isSelected = true
-        }
+    @IBAction func touchUpCameraButton(_ sender: UIButton) {
+        self.present(self.imagePicker, animated: true, completion: nil)
     }
     
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        self.dismiss(animated: true, completion: nil)
+    }
+    
+//    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+//        if let editedImage: UIImage = info[UIImagePickerControllerEditedImage] as? UIImage {
+//            self.profileImageView.image = editedImage //받아온 이미지로 이미지 뷰에 세팅
+//        } else if let originalImage: UIImage = info[UIImagePickerControllerOriginalImage] as? UIImage {
+//            self.profileImageView.image = originalImage
+//        }
+//        self.dismiss(animated: true, completion: nil)
+//    }
+    
 }
+
+
+
