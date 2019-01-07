@@ -36,21 +36,23 @@ class CalenderView: UIView, UICollectionViewDelegate, UICollectionViewDataSource
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        let defaults = UserDefaults.standard
-        guard let posterData = defaults.object(forKey: "poster") as? Data else { return }
-        guard let posterInfo = try? PropertyListDecoder().decode([Posters].self, from: posterData) else { return }
+        
+        
+//        let defaults = UserDefaults.standard
+//        guard let posterData = defaults.object(forKey: "poster") as? Data else { return }
+//        guard let posterInfo = try? PropertyListDecoder().decode([Posters].self, from: posterData) else { return }
         
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
         
-        for poster in posterInfo {
-            let posterStartDateTime = formatter.date(from: poster.posterStartDate!)
-            let posterEndDateTime = formatter.date(from: poster.posterEndDate!)
-            
-            let components = Calendar.current.dateComponents([.day], from: posterStartDateTime!, to: posterEndDateTime!)
-            let dayInterval = components.day! + 1
-            posterTuple.append((posterStartDateTime!, posterEndDateTime!, dayInterval, poster.categoryIdx!, poster.posterName!, 0))
-        }
+//        for poster in posterInfo {
+//            let posterStartDateTime = formatter.date(from: poster.posterStartDate!)
+//            let posterEndDateTime = formatter.date(from: poster.posterEndDate!)
+//
+//            let components = Calendar.current.dateComponents([.day], from: posterStartDateTime!, to: posterEndDateTime!)
+//            let dayInterval = components.day! + 1
+//            posterTuple.append((posterStartDateTime!, posterEndDateTime!, dayInterval, poster.categoryIdx!, poster.posterName!, 0))
+//        }
         
         let s1 = formatter.date(from: "2019-01-16 15:00:00")
         let e1 = formatter.date(from: "2019-01-17 14:59:00")
@@ -99,7 +101,11 @@ class CalenderView: UIView, UICollectionViewDelegate, UICollectionViewDataSource
         ]
         
         posterTuple.sort{$0.2 > $1.2}
+        print("123123123123123123123123123123123123")
+        print(posterTuple)
         var countLine = 0
+        
+        print("123123123123123123123123123123123123")
         
         lineArray1.append(posterTuple[countLine])
         countLine = -1
@@ -204,6 +210,7 @@ class CalenderView: UIView, UICollectionViewDelegate, UICollectionViewDataSource
                 }
             }
         }
+        
         print(lineArray1)
         print("lieArray1")
         
@@ -434,8 +441,7 @@ class CalenderView: UIView, UICollectionViewDelegate, UICollectionViewDataSource
         cell.line3.backgroundColor = .clear
         cell.line4.backgroundColor = .clear
 
-        print(currentYear)
-        print(currentMonthIndex)
+
         //print(currentday)
         
         let currentDate = Date()
@@ -644,13 +650,13 @@ class dateCVCell: UICollectionViewCell {
     }
     
     @objc func changeToDown() {
-        print("아래로 내려갈때 셀크기를 크게 바꿉시다")
+        
         self.layoutIfNeeded()
     }
 
     //날짜 텍스트
     func setupViews() {
-        print("너 계속 출력 되냐")
+        
         addSubview(lbl)
         lbl.topAnchor.constraint(equalTo: topAnchor).isActive=true
         lbl.centerXAnchor.constraint(equalTo: self.centerXAnchor).isActive = true
@@ -661,25 +667,25 @@ class dateCVCell: UICollectionViewCell {
         line.topAnchor.constraint(equalTo: lbl.bottomAnchor , constant: 3).isActive = true
         line.leftAnchor.constraint(equalTo: leftAnchor).isActive = true
         line.rightAnchor.constraint(equalTo: rightAnchor).isActive = true
-        line.heightAnchor.constraint(equalTo: self.heightAnchor, multiplier: 0.12).isActive = true
+        line.heightAnchor.constraint(equalTo: self.heightAnchor, multiplier: 0.07).isActive = true
         
         addSubview(line2)
         line2.topAnchor.constraint(equalTo: line.bottomAnchor , constant: 2).isActive = true
         line2.leftAnchor.constraint(equalTo: leftAnchor).isActive = true
         line2.rightAnchor.constraint(equalTo: rightAnchor).isActive = true
-        line2.heightAnchor.constraint(equalTo: self.heightAnchor, multiplier: 0.12).isActive = true
+        line2.heightAnchor.constraint(equalTo: self.heightAnchor, multiplier: 0.07).isActive = true
         
         addSubview(line3)
         line3.topAnchor.constraint(equalTo: line2.bottomAnchor , constant: 2).isActive = true
         line3.leftAnchor.constraint(equalTo: leftAnchor).isActive = true
         line3.rightAnchor.constraint(equalTo: rightAnchor).isActive = true
-        line3.heightAnchor.constraint(equalTo: self.heightAnchor, multiplier: 0.12).isActive = true
+        line3.heightAnchor.constraint(equalTo: self.heightAnchor, multiplier: 0.07).isActive = true
         
         addSubview(line4)
         line4.topAnchor.constraint(equalTo: line3.bottomAnchor , constant: 2).isActive = true
         line4.leftAnchor.constraint(equalTo: leftAnchor).isActive = true
         line4.rightAnchor.constraint(equalTo: rightAnchor).isActive = true
-        line4.heightAnchor.constraint(equalTo: self.heightAnchor, multiplier: 0.12).isActive = true
+        line4.heightAnchor.constraint(equalTo: self.heightAnchor, multiplier: 0.07).isActive = true
     }
     //일
     let lbl: UILabel = {

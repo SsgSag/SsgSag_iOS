@@ -134,7 +134,7 @@ class CalenderVC: UIViewController{
     }
     
     @objc func addPassiveDate() {
-        print("1.출력안되나")
+        
         
         let storyboard = UIStoryboard(name: "Calendar", bundle: nil)
         let nav = storyboard.instantiateViewController(withIdentifier: "AddPassiveDateNV")
@@ -142,7 +142,7 @@ class CalenderVC: UIViewController{
     }
     
     @objc func todoUp(){
-        print("투두 리스트 위로 올라간드아~")
+        
         calendarheightAncor?.isActive = false
         
         for subview in view.subviews {
@@ -188,7 +188,7 @@ class CalenderVC: UIViewController{
     }
     
     @objc func todoDown(){
-        print("투두 리스트 밑으로 내려간드아~")
+        
         
         NotificationCenter.default.post(name: NSNotification.Name("changeToDown"), object: nil)
         
