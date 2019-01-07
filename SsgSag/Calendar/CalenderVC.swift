@@ -18,6 +18,7 @@ class CalenderVC: UIViewController{
     var theme = MyTheme.dark
     
     var calendarheightAncor : NSLayoutConstraint?
+    var calendarBottomAnchor : NSLayoutConstraint?
     var calendarTopAncor: NSLayoutConstraint?
     var todoUpDownViewTopAncor: NSLayoutConstraint?
     
@@ -49,6 +50,21 @@ class CalenderVC: UIViewController{
         return bt
     }()
     
+    let donwTodoView: UIImageView = {
+        let downView = UIImageView()
+        downView.translatesAutoresizingMaskIntoConstraints = false
+        downView.image = UIImage(named: "icTodoDown")
+        return downView
+    }()
+    
+    let todoList: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints  = false
+        label.text = "투두리스트"
+        
+        return label
+    }()
+    
     let todoExampleDate = ["1","2","3","4","5","6"]
     
     override func viewDidLoad() {
@@ -67,6 +83,7 @@ class CalenderVC: UIViewController{
         swipeRight.direction = .right
         calenderView.gestureRecognizers = [swipeLeft, swipeRight,todoSwipeUp]
         todoSwipeUp.direction = .up
+        
         todoUpDownView.gestureRecognizers = [todoSwipeDown]
         
         view.addSubview(todoTableView)
@@ -74,7 +91,7 @@ class CalenderVC: UIViewController{
         todoTableView.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
         todoTableView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
         todoTableView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.25).isActive = true
-        //todoTableView.separatorStyle = .none
+        
         todoTableView.rowHeight = view.frame.height / 13
         todoTableView.dataSource = self
         todoTableView.delegate = self
@@ -84,7 +101,18 @@ class CalenderVC: UIViewController{
         todoUpDownView.bottomAnchor.constraint(equalTo: todoTableView.topAnchor).isActive = true
         todoUpDownView.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
         todoUpDownView.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
-        todoUpDownView.heightAnchor.constraint(equalToConstant: 35).isActive = true
+        todoUpDownView.heightAnchor.constraint(equalToConstant: 54).isActive = true
+        
+//        view.addSubview(todoList)
+//        todoList.centerXAnchor.constraint(equalTo: todoUpDownView.centerXAnchor).isActive = true
+//        todoList.bottomAnchor.constraint(equalTo: todoUpDownView.bottomAnchor).isActive = true
+//        todoList.heightAnchor.constraint(equalToConstant: 21).isActive = true
+//
+//        view.addSubview(donwTodoView)
+//        donwTodoView.bottomAnchor.constraint(equalTo: todoList.topAnchor).isActive = true
+//        donwTodoView.centerXAnchor.constraint(equalTo: todoUpDownView.centerXAnchor).isActive = true
+//        donwTodoView.heightAnchor.constraint(equalToConstant: 9).isActive = true
+//        donwTodoView.widthAnchor.constraint(equalToConstant: 44).isActive = true
         
         view.addSubview(calenderView)
         calenderView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 50).isActive = true
@@ -92,14 +120,15 @@ class CalenderVC: UIViewController{
         calenderView.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
         calenderView.bottomAnchor.constraint(equalTo: todoUpDownView.topAnchor).isActive = true
         
+        
         view.addSubview(addButton)
+        view.bringSubviewToFront(addButton)
         addButton.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -15).isActive = true
         addButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -15).isActive = true
         addButton.widthAnchor.constraint(equalToConstant: 54).isActive = true
         addButton.heightAnchor.constraint(equalToConstant: 54).isActive = true
         addButton.layer.cornerRadius = 54 / 2
         addButton.layer.masksToBounds = true
-        
         addButton.addTarget(self, action: #selector(addPassiveDate), for: .touchUpInside)
 
     }
@@ -114,9 +143,43 @@ class CalenderVC: UIViewController{
     
     @objc func todoUp(){
         print("투두 리스트 위로 올라간드아~")
-        calendarheightAncor?.isActive = true
+        calendarheightAncor?.isActive = false
+        
+        for subview in view.subviews {
+            if subview == calenderView{
+                subview.removeFromSuperview()
+            }
+        }
+        
+        view.addSubview(todoTableView)
+        todoTableView.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
+        todoTableView.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
+        todoTableView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
+        todoTableView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.25).isActive = true
+        
+        todoTableView.rowHeight = view.frame.height / 13
+        todoTableView.dataSource = self
+        todoTableView.delegate = self
+        todoTableView.register(todoCell.self, forCellReuseIdentifier: "todoCell")
+        
+        view.addSubview(todoUpDownView)
+        todoUpDownView.bottomAnchor.constraint(equalTo: todoTableView.topAnchor).isActive = true
+        todoUpDownView.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
+        todoUpDownView.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
+        todoUpDownView.heightAnchor.constraint(equalToConstant: 54).isActive = true
+        
+        view.addSubview(calenderView)
+        //calenderView.bottomAnchor.constraint(equalTo: todoUpDownView.topAnchor).isActive = true
+        calenderView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 50).isActive = true
+        calenderView.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
+        calenderView.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
+        calenderView.bottomAnchor.constraint(equalTo: todoUpDownView.topAnchor).isActive = true
+//        calendarBottomAnchor = calenderView.bottomAnchor.constraint(equalTo: todoUpDownView.topAnchor)
+//        calendarBottomAncor?.isActive = true
+        view.bringSubviewToFront(addButton)
         
         NotificationCenter.default.post(name: NSNotification.Name("changeToUp"), object: nil)
+        
         UIView.animate(withDuration: 0.1) {
             self.view.layoutIfNeeded()
         }
@@ -126,17 +189,42 @@ class CalenderVC: UIViewController{
     
     @objc func todoDown(){
         print("투두 리스트 밑으로 내려간드아~")
+        
         NotificationCenter.default.post(name: NSNotification.Name("changeToDown"), object: nil)
         
         calendarheightAncor?.isActive = false
-        
         calendarheightAncor = calenderView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 1.0)
-        calendarheightAncor?.isActive = true
+        calendarheightAncor?.isActive = false
         calendarheightAncor = calenderView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.6)
+        
+        for subview in view.subviews {
+            if subview == todoTableView || subview == todoUpDownView{
+                subview.removeFromSuperview()
+            }
+        }
+        
+//        todoTableView.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
+//        todoTableView.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
+//        todoTableView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
+//        todoTableView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.25).isActive = true
+//
+//        todoUpDownView.bottomAnchor.constraint(equalTo: todoTableView.topAnchor).isActive = true
+//        todoUpDownView.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
+//        todoUpDownView.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
+//        todoUpDownView.heightAnchor.constraint(equalToConstant: 54).isActive = true
+        
+        calenderView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 50).isActive = true
+        calenderView.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
+        calenderView.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
+        calenderView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor).isActive = true
+        //calenderView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor).isActive = true
+        
+        view.bringSubviewToFront(addButton)
         
         UIView.animate(withDuration: 0.1) {
             self.view.layoutIfNeeded()
         }
+        
         todoStatus = 1
     }
     @objc func rightSwipeAction() {

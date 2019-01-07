@@ -34,12 +34,6 @@ class PageViewController: UIPageViewController, UIPageViewControllerDelegate, UI
     
         SPB = SegmentedProgressBar(numberOfSegments: 2)
         
-        
-        
-    
-        
-        
-        
 //        view.addSubview(SPB)
        // TODO: else frame 수정
 //        if #available(iOS 11.0, *) {

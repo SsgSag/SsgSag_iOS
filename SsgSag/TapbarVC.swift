@@ -27,7 +27,9 @@ class TapbarVC: UITabBarController {
         let tabBarList = [secondViewController, firstViewController, thirdViewController]
         self.viewControllers = tabBarList
         
-        self.view.superview?.addSubview(self.tabBar)
+        //self.view.superview?.addSubview(self.tabBar)
+        self.view.addSubview(self.tabBar)
+        self.view.bringSubviewToFront(self.tabBar)
         
         
         self.tabBar.barTintColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
