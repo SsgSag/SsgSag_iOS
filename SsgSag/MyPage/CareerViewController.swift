@@ -93,18 +93,7 @@ class CareerViewController: UIViewController {
 
     }
     
-    @objc func addActivityPresentAction() {
-        if let activityVC = storyboard?.instantiateViewController(withIdentifier: "AddActivityVC")
-        {
-            present(activityVC, animated: true)
-        }
-    }
     
-    @objc func addPresentAction() {
-        if let addVC = storyboard?.instantiateViewController(withIdentifier: "AddVC") {
-            present(addVC, animated: true)
-        }
-    }
     
     func cellOfEatery() {
         let path = Bundle.main.path(forResource: "data", ofType: "json")
@@ -185,7 +174,6 @@ class CareerViewController: UIViewController {
         self.view.addSubview(customTabBar)
         customTabBar.leadingAnchor.constraint(equalTo: self.view.leadingAnchor).isActive = true
         customTabBar.trailingAnchor.constraint(equalTo: self.view.trailingAnchor).isActive = true
-//        customTabBar.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: 44).isActive = true
         customTabBar.topAnchor.constraint(equalTo: navigationBar.bottomAnchor).isActive = true
         
         customTabBar.heightAnchor.constraint(equalToConstant: 50).isActive = true
@@ -357,16 +345,16 @@ extension CareerViewController : UICollectionViewDelegate, UICollectionViewDataS
             cell.label.textColor = .black
             collectionView.selectItem(at: indexPath, animated: false, scrollPosition: [])
         }
+    
         switch indexPath.row {
         case 0 : cell.label.text = "대외활동"
-
         case 1 : cell.label.text = "수상내역"
-            
         case 2 : cell.label.text = "자격증"
         default: break
         }
         return cell
     }
+    
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return 3
@@ -392,6 +380,9 @@ extension CareerViewController : UICollectionViewDelegate, UICollectionViewDataS
             self.customTabBar.layoutIfNeeded()
         }, completion: nil)
         
+        let myPageStoryBoard = UIStoryboard(name: "MyPageStoryBoard", bundle: nil)
+        let addVC = myPageStoryBoard.instantiateViewController(withIdentifier: "AddVC") as! AddVC
+        
         if indexPath.row == 0 {
             if plusButton.target(forAction: #selector(addPresentAction), withSender: nil) != nil{
                 plusButton.removeTarget(self, action: #selector(addPresentAction), for: .touchUpInside)
@@ -402,6 +393,7 @@ extension CareerViewController : UICollectionViewDelegate, UICollectionViewDataS
                 plusButton.removeTarget(self, action: #selector(addActivityPresentAction), for: .touchUpInside)
             }
             plusButton.addTarget(self, action: #selector(addPresentAction), for: .touchUpInside)
+            
         }else {
             if plusButton.target(forAction: #selector(addActivityPresentAction), withSender: nil) != nil{
                 plusButton.removeTarget(self, action: #selector(addActivityPresentAction), for: .touchUpInside)
@@ -417,6 +409,18 @@ extension CareerViewController : UICollectionViewDelegate, UICollectionViewDataS
         }
     }
     
+    @objc func addActivityPresentAction() {
+        if let activityVC = storyboard?.instantiateViewController(withIdentifier: "AddActivityVC")
+        {
+            present(activityVC, animated: true)
+        }
+    }
+    
+    @objc func addPresentAction() {
+        if let addVC = storyboard?.instantiateViewController(withIdentifier: "AddVC") {
+            present(addVC, animated: true)
+        }
+    }
     func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
         guard let cell = collectionView.cellForItem(at: indexPath) as? CustomCareerCell else {return}
         cell.label.textColor = .lightGray

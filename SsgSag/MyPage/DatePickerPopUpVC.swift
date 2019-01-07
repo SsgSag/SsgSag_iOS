@@ -24,10 +24,21 @@ class DatePickerPopUpVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        print("한번호출")
         backView.makeRounded(cornerRadius: 5)
+        
         if let startDate: Date = self.dateFormatter.date(from: startDateString) {
             datePicker.minimumDate = startDate
         }
+        
+        //FIXME: - endDate보다 시작날짜가 나중임....고쳐라...밍쟈
+        print(endDateString)
+        if let endDate: Date = self.dateFormatter.date(from: endDateString) {
+            print("왜 호출안됨?")
+            datePicker.maximumDate = endDate
+            print("endDate: \(endDate)")
+        }
+        
         
     }
     @IBAction func didDatePickerValueChanged(_ sender: UIDatePicker) {
@@ -35,9 +46,11 @@ class DatePickerPopUpVC: UIViewController {
         dateString = self.dateFormatter.string(from: date)
         if let startDate: Date = self.dateFormatter.date(from: startDateString) {
             isStartDateBeforeEndDate(startDate: startDate, endDate: date)
+            isEndDateAfterStartDate(startDate: startDate, endDate: date)
         }
         if let endDate: Date = self.dateFormatter.date(from: endDateString) {
             isStartDateBeforeEndDate(startDate: date, endDate: endDate)
+            isEndDateAfterStartDate(startDate: date, endDate: endDate)
         }
         
     }
@@ -54,15 +67,26 @@ class DatePickerPopUpVC: UIViewController {
             previousVC.startDateLabel.text = dateString
         } else {
             previousVC.endDateLabel.text = dateString
+            print("끝날짜 \(dateString)")
         }
+        print("끝날짜 선택")
         self.view.removeFromSuperview()
     }
     
     func isStartDateBeforeEndDate(startDate: Date, endDate: Date) {
-        print(startDate)
-        print(endDate)
+//        print(startDate)
+//        print(endDate)
         if startDate > endDate {
+            print("dkdk")
             datePicker.minimumDate = startDate
         }
+    }
+    
+    func isEndDateAfterStartDate(startDate: Date, endDate: Date) {
+        if endDate < startDate {
+            datePicker.maximumDate = endDate
+        }
+        print(startDate)
+        print(endDate)
     }
 }

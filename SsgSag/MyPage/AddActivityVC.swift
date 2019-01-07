@@ -7,7 +7,7 @@
 //
 
 import UIKit
-
+//TODO: 저장하기, 텍스트뷰
 class AddActivityVC: UIViewController {
 
     @IBOutlet weak var activityNavigationBar: UINavigationBar!
@@ -22,6 +22,7 @@ class AddActivityVC: UIViewController {
         activityNavigationBar.barStyle = .black
         startDateLabel.text = ""
         endDateLabel.text = ""
+        
     }
 
     @IBAction func touchUpStartDateButton(_ sender: UIButton) {
@@ -38,6 +39,7 @@ class AddActivityVC: UIViewController {
     @IBAction func dismissModalAction(_ sender: Any) {
         dismiss(animated: true, completion: nil)
     }
+
     
     func popUpDatePicker(button: UIButton) {
         let myPageStoryBoard = UIStoryboard(name: "MyPageStoryBoard", bundle: nil)
@@ -49,9 +51,12 @@ class AddActivityVC: UIViewController {
         popVC.didMove(toParent: self)
         let sendData = popVC as! DatePickerPopUpVC
         sendData.buttonTag = button.tag
-        if startDateLabel != nil && endDateLabel != nil{
+        if startDateLabel != nil {
             sendData.startDateString = startDateLabel.text!
+        }
+        if endDateLabel != nil {
             sendData.endDateString = endDateLabel.text!
+            print("endDateLabel전송: \(sendData.endDateString)")
         }
         
     }
