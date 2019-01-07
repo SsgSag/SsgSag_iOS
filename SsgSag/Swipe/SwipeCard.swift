@@ -92,11 +92,10 @@ class SwipeCard: UIView {
     
     //좋아요 되는동안 바뀌는 부분
     func updateOverlay(_ distance: CGFloat) {
-        
-        imageViewStatus.image = distance > 0 ? #imageLiteral(resourceName: "btn_like_pressed") : #imageLiteral(resourceName: "btn_skip_pressed")
-        overLayImage.image = distance > 0 ? #imageLiteral(resourceName: "overlay_like") : #imageLiteral(resourceName: "overlay_skip")
-        imageViewStatus.alpha = min(abs(distance) / 100, 0.5)
-        overLayImage.alpha = min(abs(distance) / 100, 0.5)
+        //imageViewStatus.image = distance > 0 ? #imageLiteral(resourceName: "btn_like_pressed") : #imageLiteral(resourceName: "btn_skip_pressed")
+        overLayImage.image = distance > 0 ? #imageLiteral(resourceName: "imgMainSwipeO") : #imageLiteral(resourceName: "imgMainSwipeX")
+        imageViewStatus.alpha = min(abs(distance) / 100, 1)
+        overLayImage.alpha = min(abs(distance) / 100, 1)
     }
     
     //스와이프 끝남
@@ -188,22 +187,6 @@ class SwipeCard: UIView {
     }
     
     //뒤로가기 액션
-    func makeUndoAction() {
-        imageViewStatus.image = isLiked ? #imageLiteral(resourceName: "btn_like_pressed") : #imageLiteral(resourceName: "btn_skip_pressed")
-        overLayImage.image = isLiked ? #imageLiteral(resourceName: "overlay_like") : #imageLiteral(resourceName: "overlay_skip")
-        
-        imageViewStatus.alpha = 1.0
-        overLayImage.alpha = 1.0
-        
-        UIView.animate(withDuration: 0.4, animations: {() -> Void in
-            self.center = self.originalPoint
-            self.transform = CGAffineTransform(rotationAngle: 0)
-            self.imageViewStatus.alpha = 0
-            self.overLayImage.alpha = 0
-        })
-        
-        print("WATCHOUT UNDO ACTION")
-    }
     
     func shakeAnimationCard(){
         imageViewStatus.image = #imageLiteral(resourceName: "btn_skip_pressed")
