@@ -8,8 +8,9 @@ import ObjectMapper
 
 class SwipeVC: UIViewController {
     @IBOutlet weak var viewTinderBackGround: UIView!
-    @IBOutlet weak var viewActions: UIView!
     @IBOutlet var countLabel: UILabel!
+    
+    @IBOutlet var overLapView: UIView!
     
     @IBAction func moveToMyPage(_ sender: Any) {
         
@@ -34,13 +35,21 @@ class SwipeVC: UIViewController {
         super.viewDidLoad()
         getPosterData()
         
-        viewActions.isUserInteractionEnabled = true
+       // viewActions.isUserInteractionEnabled = true
         
         countLabel.layer.cornerRadius = 10
         countLabel.layer.masksToBounds = true
         
-        self.view.backgroundColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
+        
+        self.view.backgroundColor = UIColor(displayP3Red: 242/255, green: 243/255, blue: 245/255, alpha: 1.0)
         self.view.bringSubviewToFront(viewTinderBackGround)
+        
+        for i in view.subviews {
+            print(i.description)
+        }
+        print("\(view.subviews.count) 개수")
+        
+        self.view.bringSubviewToFront(overLapView)
     }
 
     func getPosterData() {
@@ -109,7 +118,7 @@ class SwipeVC: UIViewController {
         super.viewWillAppear(true)
         view.layoutIfNeeded()
         
-        viewActions.isUserInteractionEnabled = true
+        //viewActions.isUserInteractionEnabled = true
         //loadCardValues()
     }
     

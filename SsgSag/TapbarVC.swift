@@ -28,13 +28,21 @@ class TapbarVC: UITabBarController {
         self.viewControllers = tabBarList
         
         //self.view.superview?.addSubview(self.tabBar)
-        self.view.addSubview(self.tabBar)
-        self.view.bringSubviewToFront(self.tabBar)
-        
+        //self.view.addSubview(self.tabBar)
+        //self.view.bringSubviewToFront(self.tabBar)
+        //self.view.sendSubviewToBack(self.tabBar)
         
         self.tabBar.barTintColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
         self.tabBar.layer.borderColor = UIColor.clear.cgColor
         self.tabBar.barStyle = .black
+        
+        
+        for i in self.view.subviews {
+            print("\(i.description) 탭바 컨트롤러")
+        }
+        
+        print("\(self.view.subviews.count) 탭바 컨트롤러 개수")
+        
         
         //self.tabBarController.selectedIndex = 2
         self.selectedIndex = 1
@@ -44,9 +52,10 @@ class TapbarVC: UITabBarController {
         super.viewWillLayoutSubviews()
     
         var tabFrame:CGRect = self.tabBar.frame
-        tabFrame.origin.y = self.view.safeAreaInsets.top + 10
+        tabFrame.origin.y = self.view.safeAreaInsets.top - 10
         let barHeight: CGFloat = 44
         tabFrame.size.height = barHeight
         self.tabBar.frame = tabFrame
+        
     }
 }

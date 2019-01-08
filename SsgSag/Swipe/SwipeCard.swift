@@ -56,6 +56,7 @@ class SwipeCard: UIView {
         overLayImage = UIImageView(frame:bounds)
         overLayImage.alpha = 0
         addSubview(overLayImage)
+        //bringSubviewToFront(<#T##view: UIView##UIView#>)
     }
     
     @objc func beingDragged(_ gestureRecognizer: UIPanGestureRecognizer) {
