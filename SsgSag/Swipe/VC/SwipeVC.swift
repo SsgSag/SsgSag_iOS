@@ -44,6 +44,7 @@ class SwipeVC: UIViewController {
         self.view.backgroundColor = UIColor(displayP3Red: 242/255, green: 243/255, blue: 245/255, alpha: 1.0)
         self.view.bringSubviewToFront(viewTinderBackGround)
         
+        
         for i in view.subviews {
             print(i.description)
         }
@@ -148,6 +149,7 @@ class SwipeVC: UIViewController {
     func createSwipeCard(at index: Int , value :String) -> SwipeCard {
        // print("create")
         let card = SwipeCard(frame: CGRect(x: 0, y: 0, width: viewTinderBackGround.frame.size.width , height: viewTinderBackGround.frame.size.height - 10) ,value : value)
+        print("높이: \(viewTinderBackGround.frame.size.height)")
         countTotalCardIndex += 1
         //print("countTotalCardIndex: \(countTotalCardIndex)")
         //print("create")
