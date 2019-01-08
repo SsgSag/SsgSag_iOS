@@ -108,9 +108,10 @@ class CalenderView: UIView, UICollectionViewDelegate, UICollectionViewDataSource
         
         if posterTuple.count > 0 {
                 posterTuple.sort{$0.2 > $1.2}
-        
-        
+       
         var countLine = 0
+        
+        print("123123123123123123123123123123123123")
         
         lineArray1.append(posterTuple[countLine])
         countLine = -1
@@ -227,6 +228,7 @@ class CalenderView: UIView, UICollectionViewDelegate, UICollectionViewDataSource
             print(lineArray4)
             
         }//posterTuple.count 처리
+
         
         initializeView()
     }
@@ -743,25 +745,25 @@ class dateCVCell: UICollectionViewCell {
         line.topAnchor.constraint(equalTo: lbl.bottomAnchor , constant: 0.6).isActive = true
         line.leftAnchor.constraint(equalTo: leftAnchor).isActive = true
         line.rightAnchor.constraint(equalTo: rightAnchor).isActive = true
-        line.heightAnchor.constraint(equalTo: self.heightAnchor, multiplier: 0.12).isActive = true
+        line.heightAnchor.constraint(equalTo: self.heightAnchor, multiplier: 0.07).isActive = true
         
         addSubview(line2)
         line2.topAnchor.constraint(equalTo: line.bottomAnchor , constant: 0.6).isActive = true
         line2.leftAnchor.constraint(equalTo: leftAnchor).isActive = true
         line2.rightAnchor.constraint(equalTo: rightAnchor).isActive = true
-        line2.heightAnchor.constraint(equalTo: self.heightAnchor, multiplier: 0.12).isActive = true
+        line2.heightAnchor.constraint(equalTo: self.heightAnchor, multiplier: 0.07).isActive = true
         
         addSubview(line3)
         line3.topAnchor.constraint(equalTo: line2.bottomAnchor , constant: 0.6).isActive = true
         line3.leftAnchor.constraint(equalTo: leftAnchor).isActive = true
         line3.rightAnchor.constraint(equalTo: rightAnchor).isActive = true
-        line3.heightAnchor.constraint(equalTo: self.heightAnchor, multiplier: 0.12).isActive = true
+        line3.heightAnchor.constraint(equalTo: self.heightAnchor, multiplier: 0.07).isActive = true
         
         addSubview(line4)
         line4.topAnchor.constraint(equalTo: line3.bottomAnchor , constant: 0.6).isActive = true
         line4.leftAnchor.constraint(equalTo: leftAnchor).isActive = true
         line4.rightAnchor.constraint(equalTo: rightAnchor).isActive = true
-        line4.heightAnchor.constraint(equalTo: self.heightAnchor, multiplier: 0.12).isActive = true
+        line4.heightAnchor.constraint(equalTo: self.heightAnchor, multiplier: 0.07).isActive = true
     }
     //일
     let lbl: UILabel = {

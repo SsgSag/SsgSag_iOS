@@ -288,6 +288,7 @@ class CalenderVC: UIViewController{
     }
     
     @objc func todoDown(){
+
         NotificationCenter.default.post(name: NSNotification.Name("changeToDown"), object: nil)
         for subview in view.subviews {
             if subview == todoTableView || subview == todoUpDownView{

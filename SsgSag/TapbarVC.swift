@@ -17,7 +17,7 @@ class TapbarVC: UITabBarController {
         let firstViewController = swipeStoryBoard.instantiateViewController(withIdentifier: "Swipe")
         firstViewController.tabBarItem = UITabBarItem(title: "", image: UIImage(named: "icMain"), selectedImage: UIImage(named: "icMainActive"))
         
-        let mypageStoryBoard = UIStoryboard(name: "myPageStoryBoard", bundle: nil)
+        let mypageStoryBoard = UIStoryboard(name: "MyPageStoryBoard", bundle: nil)
         let secondViewController = mypageStoryBoard.instantiateViewController(withIdentifier: "MyPageVC")
         secondViewController.tabBarItem = UITabBarItem(title: "", image: UIImage(named: "icUser"), selectedImage: UIImage(named: "icUserActive"))
         

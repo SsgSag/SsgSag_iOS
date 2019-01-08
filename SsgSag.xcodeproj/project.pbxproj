@@ -34,7 +34,7 @@
 		845928E521D38771001DF6CC /* DetailImageSwipeCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845928E421D38771001DF6CC /* DetailImageSwipeCard.swift */; };
 		845928E721D3877D001DF6CC /* DetailTextSwipeCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845928E621D3877D001DF6CC /* DetailTextSwipeCard.swift */; };
 		84BA694921DB394800BA8CB8 /* myPageVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84BA694821DB394800BA8CB8 /* myPageVC.swift */; };
-		84BA694B21DB395400BA8CB8 /* myPageStoryBoard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 84BA694A21DB395400BA8CB8 /* myPageStoryBoard.storyboard */; };
+		84BA694B21DB395400BA8CB8 /* MyPageStoryBoard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 84BA694A21DB395400BA8CB8 /* MyPageStoryBoard.storyboard */; };
 		84BA694D21DB74BD00BA8CB8 /* TapbarVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84BA694C21DB74BD00BA8CB8 /* TapbarVC.swift */; };
 		84E19CD221DCC922006F72EC /* Requestable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84E19CCC21DCC922006F72EC /* Requestable.swift */; };
 		84E19CD321DCC922006F72EC /* UserService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84E19CCD21DCC922006F72EC /* UserService.swift */; };
@@ -58,6 +58,8 @@
 		FA61FE0F21E0E3D300A28947 /* JobVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA61FE0E21E0E3D300A28947 /* JobVC.swift */; };
 		FA61FE1121E0E4A200A28947 /* PreferenceVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA61FE1021E0E4A200A28947 /* PreferenceVC.swift */; };
 		FA61FE1321E1D48D00A28947 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = FA61FE1221E1D48D00A28947 /* .gitignore */; };
+		FA61FE1521E1FD7600A28947 /* PopUpVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA61FE1421E1FD7600A28947 /* PopUpVC.swift */; };
+		FA61FE1921E204F300A28947 /* DatePickerPopUpVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA61FE1821E204F300A28947 /* DatePickerPopUpVC.swift */; };
 		FA7F4CB821DFB0C100D8643A /* CareerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA7F4CB721DFB0C100D8643A /* CareerViewController.swift */; };
 		FA7F4CBB21DFC7E700D8643A /* CustomCareerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA7F4CB921DFC7E700D8643A /* CustomCareerCell.swift */; };
 		FA7F4CBC21DFC7E700D8643A /* CustomCareerCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = FA7F4CBA21DFC7E700D8643A /* CustomCareerCell.xib */; };
@@ -73,6 +75,7 @@
 		FA851DE921D3DBBC002065D0 /* SwipeCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA851DE821D3DBBC002065D0 /* SwipeCard.swift */; };
 		FA851DED21D5FDB0002065D0 /* SwipeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA851DEC21D5FDB0002065D0 /* SwipeModel.swift */; };
 		FA851DF121D60787002065D0 /* user-details.json in Resources */ = {isa = PBXBuildFile; fileRef = FA851DF021D60787002065D0 /* user-details.json */; };
+		FAD323DB21E36FA6000C4FBA /* AddCertificationVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAD323DA21E36FA6000C4FBA /* AddCertificationVC.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -130,7 +133,7 @@
 		845928E421D38771001DF6CC /* DetailImageSwipeCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailImageSwipeCard.swift; sourceTree = "<group>"; };
 		845928E621D3877D001DF6CC /* DetailTextSwipeCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailTextSwipeCard.swift; sourceTree = "<group>"; };
 		84BA694821DB394800BA8CB8 /* myPageVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = myPageVC.swift; sourceTree = "<group>"; };
-		84BA694A21DB395400BA8CB8 /* myPageStoryBoard.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = myPageStoryBoard.storyboard; sourceTree = "<group>"; };
+		84BA694A21DB395400BA8CB8 /* MyPageStoryBoard.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = MyPageStoryBoard.storyboard; sourceTree = "<group>"; };
 		84BA694C21DB74BD00BA8CB8 /* TapbarVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TapbarVC.swift; sourceTree = "<group>"; };
 		84E19CCC21DCC922006F72EC /* Requestable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Requestable.swift; sourceTree = "<group>"; };
 		84E19CCD21DCC922006F72EC /* UserService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserService.swift; sourceTree = "<group>"; };
@@ -163,6 +166,8 @@
 		FA61FE0E21E0E3D300A28947 /* JobVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JobVC.swift; sourceTree = "<group>"; };
 		FA61FE1021E0E4A200A28947 /* PreferenceVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferenceVC.swift; sourceTree = "<group>"; };
 		FA61FE1221E1D48D00A28947 /* .gitignore */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
+		FA61FE1421E1FD7600A28947 /* PopUpVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopUpVC.swift; sourceTree = "<group>"; };
+		FA61FE1821E204F300A28947 /* DatePickerPopUpVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePickerPopUpVC.swift; sourceTree = "<group>"; };
 		FA7F4CB721DFB0C100D8643A /* CareerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CareerViewController.swift; sourceTree = "<group>"; };
 		FA7F4CB921DFC7E700D8643A /* CustomCareerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCareerCell.swift; sourceTree = "<group>"; };
 		FA7F4CBA21DFC7E700D8643A /* CustomCareerCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CustomCareerCell.xib; sourceTree = "<group>"; };
@@ -178,6 +183,7 @@
 		FA851DE821D3DBBC002065D0 /* SwipeCard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwipeCard.swift; sourceTree = "<group>"; };
 		FA851DEC21D5FDB0002065D0 /* SwipeModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwipeModel.swift; sourceTree = "<group>"; };
 		FA851DF021D60787002065D0 /* user-details.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = "user-details.json"; sourceTree = "<group>"; };
+		FAD323DA21E36FA6000C4FBA /* AddCertificationVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddCertificationVC.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -345,12 +351,15 @@
 			isa = PBXGroup;
 			children = (
 				FA7F4CCD21E049F200D8643A /* data.json */,
-				84BA694A21DB395400BA8CB8 /* myPageStoryBoard.storyboard */,
+				84BA694A21DB395400BA8CB8 /* MyPageStoryBoard.storyboard */,
+				FA61FE1421E1FD7600A28947 /* PopUpVC.swift */,
+				FA61FE1821E204F300A28947 /* DatePickerPopUpVC.swift */,
 				FA61FE1021E0E4A200A28947 /* PreferenceVC.swift */,
 				FA61FE0E21E0E3D300A28947 /* JobVC.swift */,
 				FA7F4CB721DFB0C100D8643A /* CareerViewController.swift */,
 				FA7F4CD121E0A0A000D8643A /* AddActivityVC.swift */,
 				FA7F4CD321E0A0BB00D8643A /* AddVC.swift */,
+				FAD323DA21E36FA6000C4FBA /* AddCertificationVC.swift */,
 				84BA694821DB394800BA8CB8 /* myPageVC.swift */,
 				FA7F4CCB21DFF3B100D8643A /* sampleData.swift */,
 				FA7F4CCF21E04A0600D8643A /* sampleDataVO.swift */,
@@ -543,7 +552,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				84BA694B21DB395400BA8CB8 /* myPageStoryBoard.storyboard in Resources */,
+				84BA694B21DB395400BA8CB8 /* MyPageStoryBoard.storyboard in Resources */,
 				84E19CE421DCC9F4006F72EC /* LoginStoryBoard.storyboard in Resources */,
 				FA7F4CBC21DFC7E700D8643A /* CustomCareerCell.xib in Resources */,
 				FA3A8FD721DF3C3B0075A510 /* Splash.storyboard in Resources */,
@@ -651,7 +660,7 @@
 			inputFileListPaths = (
 			);
 			inputPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-SsgSag/Pods-SsgSag-frameworks.sh",
+				"${SRCROOT}/Pods/Target Support Files/Pods-SsgSag/Pods-SsgSag-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
 				"${BUILT_PRODUCTS_DIR}/AlamofireObjectMapper/AlamofireObjectMapper.framework",
 				"${BUILT_PRODUCTS_DIR}/Kingfisher/Kingfisher.framework",
@@ -668,7 +677,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-SsgSag/Pods-SsgSag-frameworks.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-SsgSag/Pods-SsgSag-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -698,14 +707,17 @@
 				FA851DE921D3DBBC002065D0 /* SwipeCard.swift in Sources */,
 				8415586421D8D96900A0EDB5 /* SwipeCardDelegate.swift in Sources */,
 				845928DA21D09F30001DF6CC /* CalenderView.swift in Sources */,
+				FA61FE1921E204F300A28947 /* DatePickerPopUpVC.swift in Sources */,
 				845928E721D3877D001DF6CC /* DetailTextSwipeCard.swift in Sources */,
 				845928DB21D09F30001DF6CC /* WeekdaysView.swift in Sources */,
 				8459289B21D09CDD001DF6CC /* AppDelegate.swift in Sources */,
 				84E19CE221DCC977006F72EC /* Token.swift in Sources */,
 				84E19CD421DCC922006F72EC /* APIManager.swift in Sources */,
 				84E19CD621DCC922006F72EC /* NetworkResult.swift in Sources */,
+				FAD323DB21E36FA6000C4FBA /* AddCertificationVC.swift in Sources */,
 				FA3A8FD921DF3D5F0075A510 /* GradientColor.swift in Sources */,
 				FA7F4CD221E0A0A000D8643A /* AddActivityVC.swift in Sources */,
+				FA61FE1521E1FD7600A28947 /* PopUpVC.swift in Sources */,
 				84E19CD521DCC922006F72EC /* LoginService.swift in Sources */,
 				84BA694921DB394800BA8CB8 /* myPageVC.swift in Sources */,
 				84264BAA21DF109200849E6B /* AddPassiveDateVC.swift in Sources */,
@@ -882,14 +894,14 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 6958JMS7R4;
+				DEVELOPMENT_TEAM = 43FKD7C656;
 				INFOPLIST_FILE = SsgSag/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.4.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.wndzlf.SsgSag;
+				PRODUCT_BUNDLE_IDENTIFIER = com.wndzlf2.SsgSag;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -898,18 +910,18 @@
 		};
 		845928C421D09CE0001DF6CC /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = EFE805AFFC7CBE0D5709EB25 /* Pods-SsgSag.release.xcconfig */;
+			baseConfigurationReference = DF7046823FFA5A856B0B0FC2 /* Pods-SsgSag.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 6958JMS7R4;
+				DEVELOPMENT_TEAM = 43FKD7C656;
 				INFOPLIST_FILE = SsgSag/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.4.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.wndzlf.SsgSag;
+				PRODUCT_BUNDLE_IDENTIFIER = com.wndzlf2.SsgSag;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -939,7 +951,7 @@
 		};
 		845928C721D09CE0001DF6CC /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = E3FA6FB5C50BC45E91E8FCDB /* Pods-SsgSagTests.release.xcconfig */;
+			baseConfigurationReference = F3FC811A4088102AA1765221 /* Pods-SsgSagTests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -980,7 +992,7 @@
 		};
 		845928CA21D09CE0001DF6CC /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 0E614E8987BBA6DBFDC0E038 /* Pods-SsgSagUITests.release.xcconfig */;
+			baseConfigurationReference = D411F23C60FD5C5C850C5253 /* Pods-SsgSagUITests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
