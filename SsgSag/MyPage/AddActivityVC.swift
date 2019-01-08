@@ -18,10 +18,17 @@ class AddActivityVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        let currentDate = Date()
+        let calendar = Calendar.current
+        let components = calendar.dateComponents([.year, .month, .day], from: currentDate)
+        let year = components.year!
+        let month = components.month!
+        let day = components.day!
+        let currentDateString: String = "\(year)년 \(month)월 \(day)일"
         
         activityNavigationBar.barStyle = .black
-        startDateLabel.text = ""
-        endDateLabel.text = ""
+        startDateLabel.text = currentDateString
+        endDateLabel.text = currentDateString
         
     }
 
