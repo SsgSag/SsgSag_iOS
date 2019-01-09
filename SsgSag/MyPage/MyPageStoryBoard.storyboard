@@ -4,6 +4,7 @@
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
+        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="Stack View standard spacing" minToolsVersion="9.0"/>
@@ -552,7 +553,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="W1S-eq-fDV" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3830" y="2087"/>
+            <point key="canvasLocation" x="3833" y="2741"/>
         </scene>
         <!--Preference-->
         <scene sceneID="1uQ-gR-vGC">
@@ -764,7 +765,7 @@
                                 </constraints>
                                 <state key="normal" image="btSaveMypageUnactive"/>
                                 <connections>
-                                    <action selector="touchUpSaveButton:" destination="17w-h8-msn" eventType="touchUpInside" id="R2v-Ql-6Zc"/>
+                                    <action selector="touchUpSaveButton:" destination="17w-h8-msn" eventType="touchUpInside" id="0zz-q3-KiR"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -809,7 +810,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Bxi-Jf-5Yj" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3130" y="1994"/>
+            <point key="canvasLocation" x="2726" y="1925"/>
         </scene>
         <!--이력-->
         <scene sceneID="H19-Ba-ugb">
@@ -853,7 +854,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="sPZ-ON-3S6" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4522" y="1796"/>
+            <point key="canvasLocation" x="4562" y="1671"/>
         </scene>
         <!--Add ActivityVC-->
         <scene sceneID="AOx-f6-E6w">
@@ -1450,20 +1451,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="D3V-fL-nuc" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="6626" y="1784"/>
-        </scene>
-        <!--View Controller-->
-        <scene sceneID="p2x-I8-RkK">
-            <objects>
-                <viewController id="YWa-Kf-7pO" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="YPC-01-hut">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <viewLayoutGuide key="safeArea" id="IL3-bj-aFK"/>
-                    </view>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="bkm-0g-onn" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
         </scene>
     </scenes>
     <resources>

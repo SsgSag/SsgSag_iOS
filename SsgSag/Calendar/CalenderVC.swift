@@ -77,8 +77,10 @@ class CalenderVC: UIViewController{
     
         let todoSwipeUp = UISwipeGestureRecognizer(target: self, action: #selector(todoUp))
         let todoSwipeDown = UITapGestureRecognizer(target: self, action: #selector(todoDown))
+        
         let swipeLeft = UISwipeGestureRecognizer(target: self, action: #selector(leftSwipeAction))
         let swipeRight = UISwipeGestureRecognizer(target: self, action: #selector(rightSwipeAction))
+        
         swipeLeft.direction = .left
         swipeRight.direction = .right
         calenderView.gestureRecognizers = [swipeLeft, swipeRight,todoSwipeUp]
@@ -233,6 +235,11 @@ class CalenderVC: UIViewController{
 //
 //        }
         
+        //NotificationCenter.default.post(name: NSNotification.Name(rawValue: "todoUp"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(dayDidSelected), name: NSNotification.Name(rawValue: "todoUp"), object: nil)
+    }
+    @objc func dayDidSelected() {
+        todoUp()
     }
     
     @objc func addPassiveDate() {
@@ -288,8 +295,8 @@ class CalenderVC: UIViewController{
     }
     
     @objc func todoDown(){
-
         NotificationCenter.default.post(name: NSNotification.Name("changeToDown"), object: nil)
+        
         for subview in view.subviews {
             if subview == todoTableView || subview == todoUpDownView{
                 subview.removeFromSuperview()
@@ -312,11 +319,13 @@ class CalenderVC: UIViewController{
     @objc func rightSwipeAction() {
         print("왼쪽으로")
         NotificationCenter.default.post(name: NSNotification.Name("calendarSwipe"), object: nil)
+        todoDown()
         calenderView.monthView.rightPanGestureAction()
     }
     
     @objc func leftSwipeAction() {
         print("오른쪽으로")
+        todoDown()
         NotificationCenter.default.post(name: NSNotification.Name("calendarSwipe"), object: nil)
         calenderView.monthView.leftPanGestureAction()
     }
