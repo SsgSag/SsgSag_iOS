@@ -181,7 +181,7 @@ class SwipeCard: UIView {
         }, completion: {(_ complete: Bool) -> Void in
             self.removeFromSuperview()
         })
-        
+    
         isLiked = false
         delegate?.cardGoesLeft(card: self)
         print("WATCHOUT LEFT ACTION")

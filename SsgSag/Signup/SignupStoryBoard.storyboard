@@ -4,6 +4,7 @@
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
+        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -62,7 +63,7 @@
                                         </subviews>
                                     </stackView>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="ZOY-pb-cfr">
-                                        <rect key="frame" x="0.0" y="50.666666666666686" width="335" height="20.333333333333329"/>
+                                        <rect key="frame" x="0.0" y="49.666666666666686" width="335" height="20.333333333333329"/>
                                         <subviews>
                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="생년월일" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="q14-uV-z4K">
                                                 <rect key="frame" x="0.0" y="0.0" width="335" height="11.333333333333334"/>
@@ -336,7 +337,6 @@
         <!--Navigation Controller-->
         <scene sceneID="SWa-zV-IjO">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="59Z-ms-SWV" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="n3P-dh-BQ1" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="OZu-yM-Hgj">
@@ -348,6 +348,7 @@
                         <segue destination="GGt-42-CPf" kind="relationship" relationship="rootViewController" id="F43-3W-WI3"/>
                     </connections>
                 </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="59Z-ms-SWV" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-538" y="153"/>
         </scene>
@@ -612,6 +613,10 @@
                                     <constraint firstAttribute="height" constant="80" id="XMt-mk-cAR"/>
                                 </constraints>
                                 <state key="normal" image="btStart"/>
+                                <connections>
+                                    <action selector="sendDataToServer:" destination="wF1-Rw-ucn" eventType="touchUpInside" id="lLa-bJ-x6y"/>
+                                    <action selector="touchUpStartButton:" destination="eiE-vd-Brb" eventType="touchUpInside" id="c3w-HY-ZzK"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -631,13 +636,14 @@
                     <size key="freeformSize" width="375" height="1000"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="aRd-Dq-t4x" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="eiE-vd-Brb" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="3649" y="181"/>
         </scene>
-        <!--View Controller-->
+        <!--Send Data View Controller-->
         <scene sceneID="DBu-AB-l0U">
             <objects>
-                <viewController id="V0j-KU-b25" sceneMemberID="viewController">
+                <viewController id="V0j-KU-b25" customClass="sendDataViewController" customModule="SsgSag" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="21C-TB-Rv6">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="1350"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -793,6 +799,10 @@
                                     <constraint firstAttribute="height" constant="80" id="Phn-5X-cAc"/>
                                 </constraints>
                                 <state key="normal" image="btNextActive"/>
+                                <connections>
+                                    <action selector="sendData:" destination="3zm-eR-MH1" eventType="touchUpInside" id="AiY-PU-d0C"/>
+                                    <action selector="sendData:" destination="V0j-KU-b25" eventType="touchUpInside" id="odZ-e4-1Hu"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -814,8 +824,9 @@
                     <size key="freeformSize" width="375" height="1350"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="uuq-rE-kDR" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="3zm-eR-MH1" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="2772" y="233"/>
+            <point key="canvasLocation" x="2892" y="248"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="Mxc-4g-kB8">
@@ -865,7 +876,7 @@
                                         </subviews>
                                     </stackView>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="qy0-ob-Cvw">
-                                        <rect key="frame" x="0.0" y="56.999999999999993" width="335" height="22.666666666666664"/>
+                                        <rect key="frame" x="0.0" y="54.999999999999993" width="335" height="22.666666666666664"/>
                                         <subviews>
                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="비밀번호" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="KSi-uq-uCH" userLabel="비밀번호">
                                                 <rect key="frame" x="0.0" y="0.0" width="335" height="13.666666666666666"/>

@@ -12,92 +12,124 @@ import Alamofire
 
 class sendDataViewController: UIViewController {
 
+
     @IBAction func sendData(_ sender: Any) {
-        
-        let headers = [
-            "Content-Type": "application/x-www-form-urlencoded"
-        ]
-        
-        let parameters = [
-            "userEmail" : "gumgim95@naver.com",
-            "userPw" : "784512",
-            "userName" : "김현수",
-            "userUniv" : "00대학교",
-            "userMajor" :"00전공",
-            "userStudentNum" :"201732038",
-            "userGender" :"male",
-            "userBirth" :"980807",
-            "userPushAllow" : "1",
-            "userInfoAllow" : "1",
-            "userInterest[0]" : 1, // 관심분야 인덱스
-            //"userInterest[1]" : 2,
-            //"userInterest[2]" : 4,
-            //"profile" : 파일선택 (@RequestPart(value = "profile", required = false) final MultipartFile profile)
-            ] as [String : Any]
-        
-        let url = URL(string: "http://13.209.212.209:8080/users")!
-        
-        Alamofire.request(url, method: .post, parameters: parameters, encoding: URLEncoding()).response { response in
-            print(response.request)
-            print()
-            print(response.response)
-            print()
-            print(response.data)
-            
-            print()
-            print(response.error)
-        }
-        
-//        Alamofire.request(.POST, url, parameters: parameters, headers: headers, encoding: .URLEncodedInURL).response { request, response, data, error in
-//            print(request)
-//            print(response)
-//            print(data)
-//            print(error)
-//        }
+        getData()
     }
-        
-//        LoginService.shared.login(email: email, password: password) { (data,status) in
-//            //            print("this is data token \(data?.token) \(status)")
-//            if data?.token == nil {
-//                self.emailTextField.text = ""
-//                self.passwordTextField.text = ""
-//                print("500")
-//                if status == 400 {
-//                    print("400")
-//                    let alertController = UIAlertController(title: "로그인 실패", message: "정확한 ID와 Password를 입력해주세요", preferredStyle: UIAlertController.Style.alert)
-//                    let action = UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil)
-//                    alertController.addAction(action)
-//                    self.present(alertController, animated: true, completion: nil)
-//                } else if status == 500 {
-//                    let alterController = UIAlertController(title: "로그인 실패", message: "서버 내부 에러", preferredStyle: UIAlertController.Style.alert)
-//                    let action = UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil)
-//                    alterController.addAction(action)
-//                    self.present(alterController, animated: true, completion: nil)
-//                }
-//            }
-//
-//            guard let token = data?.token else {return}
-//            //토큰 저장
-//            UserDefaults.standard.set(token, forKey: "token")
-//
-//            let storyboard = UIStoryboard(name: "SwipeStoryBoard", bundle: nil)
-//            let swipeVC = storyboard.instantiateViewController(withIdentifier: "Swipe")
-//            self.present(swipeVC, animated: true, completion: nil)
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
     }
+    func getDataFuck() {
+        let posterURL = URL(string: "http://54.180.79.158:8080/users")
+        var request = URLRequest(url: posterURL!)
+        request.httpMethod = "POST"
+        
+       // let json: [String: Any] = ["title": "ABC",
+         //                          "dict": ["1":"First", "2":"Second"]]
+        
+        let json: [String: Any] = ["userEmail" : "wndzlf@naver.com",
+                                   "userPw" : "784512",
+                                   "userId" : "heo0807",
+                                   "userName" : "김현수",
+                                   "userUniv" : "인하대학교",
+                                   "userMajor" :"컴퓨터공학과",
+                                   "userStudentNum" :"201732038",
+                                   "userGender" :"male",
+                                   "userBirth" :"980807",
+                                   "userPushAllow" : 1,
+                                   "userInfoAllow" : 1,
+                                   "userInterest[0]" : 1,
+                                   "userInterest[2]" : 4,
+                                   "userGrade" : 3
+                                  ]
+        //let jsonData = try? JSONSerialization.data(withJSONObject: json, options: JSONSerialization.ReadingOptions)
+        let jsonData = try? JSONSerialization.data(withJSONObject: json)
+        request.httpBody = jsonData
+        
+        request.setValue("application/json;charset=UTF-8", forHTTPHeaderField: "Content-Type")
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
+            let task = URLSession.shared.dataTask(with: request) { data, response, error in
+                print(response?.description)
+                guard error == nil else {
+                    print(error!)
+                    return
+                }
+                guard let data = data else {
+                    return
+                }
+                print("data \(data.description)")
+            }
+            task.resume()
+    
+        }
 }
+func getData() {
+    var json: [String: Any] = ["userEmail" : "gogos32sing@naver.com",
+                               "userPw" : "12341235",
+                               "userId" : "heo0807",
+                               "userName" : "김현수",
+                               "userUniv" : "인하대학교",
+                               "userMajor" :"컴퓨터공학과",
+                               "userStudentNum" :"201732038",
+                               "userGender" :"male",
+                               "userBirth" :"980807",
+                               "userPushAllow" : 1,
+                               "userInfoAllow" : 1,
+                               "userInterest" : [1,
+                                                 2,
+                                                 3]
+                                ]
+    
+    let jsonData = try? JSONSerialization.data(withJSONObject: json)
+    
+    // create post request
+    let url = URL(string: "http://54.180.79.158:8080/users")!
+    var request = URLRequest(url: url)
+    request.httpMethod = "POST"
+    request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+    
+    // insert json data to the request
+    request.httpBody = jsonData
+    
+    let task = URLSession.shared.dataTask(with: request) { data, response, error in
+        print(data)
+        print(response)
+        
+        guard let data = data, error == nil else {
+            print(error?.localizedDescription ?? "No data")
+            return
+        }
+        
+        let responseJSON = try? JSONSerialization.jsonObject(with: data, options: [])
+        if let responseJSON = responseJSON as? [String: Any] {
+            print("responseJSON \(responseJSON)")
+        }
+    }
+    
+    task.resume()
+}
+/*
+ {
+ 
+ "userEmail" : "gumgim95@naver.com",
+ "userPw" : "784512",
+ "userId" : "heo0807",
+ "userName" : "김현수",
+ "userUniv" : "인하대학교",
+ "userMajor" :"컴퓨터공학과",
+ "userStudentNum" :"201732038",
+ "userGender" :"male",
+ "userBirth" :"980807",
+ "userPushAllow" : 1,
+ "userInfoAllow" : 1,
+ "userInterest[0]" : 1, // 관심분야 인덱스
+ "userInterest[1]" : 2,
+ "userInterest[2]" : 4,
+ "profile" : 파일선택 (@RequestPart(value = "profile", required = false) final MultipartFile profile),
+ "userGrade" : 3 //학년
+ 
+ }
+*/
