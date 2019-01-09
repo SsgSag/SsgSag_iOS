@@ -91,6 +91,7 @@ class CareerViewController: UIViewController {
         
         plusButton.addTarget(self, action: #selector(addActivityPresentAction), for: .touchUpInside)
 
+        getData()
     }
     
     
@@ -429,6 +430,39 @@ extension CareerViewController : UICollectionViewDelegate, UICollectionViewDataS
     func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
         guard let cell = collectionView.cellForItem(at: indexPath) as? CustomCareerCell else {return}
         cell.label.textColor = .lightGray
+    }
+    
+    //
+    func getData() {
+        let json: [String: Any] = ["careerType" :"0"]
+        
+        let jsonData = try? JSONSerialization.data(withJSONObject: json)
+        // create post request
+        let url = URL(string: "http://54.180.79.158:8080/career/info")!
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        let key2 = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJEb0lUU09QVCIsInVzZXJfaWR4IjoxfQ.5lCvAqnzYP4-2pFx1KTgLVOxYzBQ6ygZvkx5jKCFM08"
+        request.addValue("\(key2)", forHTTPHeaderField: "Athorization")
+        // insert json data to the request
+        request.httpBody = jsonData
+        
+        let task = URLSession.shared.dataTask(with: request) { data, response, error in
+            print(data)
+            print(response)
+            
+            guard let data = data, error == nil else {
+                print(error?.localizedDescription ?? "No data")
+                return
+            }
+            
+            let responseJSON = try? JSONSerialization.jsonObject(with: data, options: [])
+            if let responseJSON = responseJSON as? [String: Any] {
+                print("responseJSON \(responseJSON)")
+            }
+        }
+        
+        task.resume()
     }
 }
 

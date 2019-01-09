@@ -66,12 +66,15 @@ class SwipeVC: UIViewController {
                 print(error!)
                 return
             }
-            
             guard let data = data else {
                 return
             }
+            print("data \(data)")
+            print("reponse \(response)")
             do {
+                
                 let order = try JSONDecoder().decode(Json4Swift_Base.self, from: data)
+                print("order \(order)")
                 if let posters = order.data?.posters {
                     for i in posters {
                         self.valueArray.append(i)
@@ -89,9 +92,6 @@ class SwipeVC: UIViewController {
                         guard let endtdate = dateFormatter.date(from: i.posterEndDate!) else {
                             fatalError("ERROR: Date conversion failed due to mismatched format.")
                         }
-                        print(i)
-                        print()
-                        
                     }
                     
                     //main queue에서 리로드하고 카드들을 표현
@@ -217,12 +217,10 @@ class SwipeVC: UIViewController {
     
     //좋아요
     @IBAction func LikeButtonAction(_ sender: Any) {
-        
-        //        UserDefaults.setValue(<#T##value: Any?##Any?#>, forKey: <#T##String#>)
         let card = currentLoadedCardsArray.first
         card?.rightClickAction()
-        
     }
+    
 }
 
 extension SwipeVC : SwipeCardDelegate {

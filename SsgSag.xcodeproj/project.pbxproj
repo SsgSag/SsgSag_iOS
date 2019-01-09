@@ -48,6 +48,7 @@
 		84E19CE121DCC977006F72EC /* ResponseObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84E19CDC21DCC977006F72EC /* ResponseObject.swift */; };
 		84E19CE221DCC977006F72EC /* Token.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84E19CDD21DCC977006F72EC /* Token.swift */; };
 		84E19CE421DCC9F4006F72EC /* LoginStoryBoard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 84E19CE321DCC9F4006F72EC /* LoginStoryBoard.storyboard */; };
+		84E4EFCB21E516970051F6E6 /* Welcome.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84E4EFCA21E516970051F6E6 /* Welcome.swift */; };
 		EA8CE4F2272B4D18160BB1AF /* Pods_SsgSagUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D4105A14D5565112ED500215 /* Pods_SsgSagUITests.framework */; };
 		FA23A93F21DF6FCF003DB5F9 /* myPageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA23A93D21DF6FCF003DB5F9 /* myPageTableViewCell.swift */; };
 		FA25A58221D36EC500C9FC93 /* SegmentedProgressBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA25A58121D36EC500C9FC93 /* SegmentedProgressBar.swift */; };
@@ -149,6 +150,7 @@
 		84E19CDC21DCC977006F72EC /* ResponseObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResponseObject.swift; sourceTree = "<group>"; };
 		84E19CDD21DCC977006F72EC /* Token.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Token.swift; sourceTree = "<group>"; };
 		84E19CE321DCC9F4006F72EC /* LoginStoryBoard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LoginStoryBoard.storyboard; sourceTree = "<group>"; };
+		84E4EFCA21E516970051F6E6 /* Welcome.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Welcome.swift; sourceTree = "<group>"; };
 		C5B6055F3FD0B21078B0C86D /* Pods-SsgSagUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SsgSagUITests.debug.xcconfig"; path = "Target Support Files/Pods-SsgSagUITests/Pods-SsgSagUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		CB215FEBC2E4F3C5DD83D73E /* Pods-SsgSag.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SsgSag.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SsgSag/Pods-SsgSag.debug.xcconfig"; sourceTree = "<group>"; };
 		D4105A14D5565112ED500215 /* Pods_SsgSagUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SsgSagUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -361,6 +363,7 @@
 				FA61FE1021E0E4A200A28947 /* PreferenceVC.swift */,
 				FA61FE0E21E0E3D300A28947 /* JobVC.swift */,
 				FA7F4CB721DFB0C100D8643A /* CareerViewController.swift */,
+				84E4EFCA21E516970051F6E6 /* Welcome.swift */,
 				FA7F4CD121E0A0A000D8643A /* AddActivityVC.swift */,
 				FA7F4CD321E0A0BB00D8643A /* AddVC.swift */,
 				FAD323DA21E36FA6000C4FBA /* AddCertificationVC.swift */,
@@ -370,8 +373,8 @@
 				FA7F4CB921DFC7E700D8643A /* CustomCareerCell.swift */,
 				FA7F4CC921DFD61300D8643A /* ActivityCell.swift */,
 				FA23A93D21DF6FCF003DB5F9 /* myPageTableViewCell.swift */,
-				FA7F4CBE21DFCAF200D8643A /* ActivityCell.xib */,
 				FA7F4CC221DFCB1300D8643A /* PrizeCell.xib */,
+				FA7F4CBE21DFCAF200D8643A /* ActivityCell.xib */,
 				FA7F4CC621DFCC7E00D8643A /* CertificationCell.xib */,
 				FA7F4CBA21DFC7E700D8643A /* CustomCareerCell.xib */,
 				FA23A93E21DF6FCF003DB5F9 /* myPageTableViewCell.xib */,
@@ -735,6 +738,7 @@
 				FA3A342021E5127700668908 /* UserAPI.swift in Sources */,
 				842C619F21DD1807001BA6D8 /* Posters.swift in Sources */,
 				FA61FE1121E0E4A200A28947 /* PreferenceVC.swift in Sources */,
+				84E4EFCB21E516970051F6E6 /* Welcome.swift in Sources */,
 				FA7F4CD021E04A0600D8643A /* sampleDataVO.swift in Sources */,
 				845928E321D35F09001DF6CC /* PageViewController.swift in Sources */,
 				842C618521DCDC92001BA6D8 /* sendDataViewController.swift in Sources */,

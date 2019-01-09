@@ -17,10 +17,8 @@ class DetailImageSwipeCardVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
     }
-    
-    
-    
 }
+
 //extension UIImage {
 //    // Crops an input image (self) to a specified rect
 //    func cropToRect(rect: CGRect!) -> UIImage? {

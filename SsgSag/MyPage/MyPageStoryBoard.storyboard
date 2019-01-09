@@ -554,7 +554,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="W1S-eq-fDV" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3830" y="2087"/>
+            <point key="canvasLocation" x="3833" y="2741"/>
         </scene>
         <!--Preference-->
         <scene sceneID="1uQ-gR-vGC">
@@ -766,7 +766,7 @@
                                 </constraints>
                                 <state key="normal" image="btSaveMypageUnactive"/>
                                 <connections>
-                                    <action selector="touchUpSaveButton:" destination="17w-h8-msn" eventType="touchUpInside" id="R2v-Ql-6Zc"/>
+                                    <action selector="touchUpSaveButton:" destination="17w-h8-msn" eventType="touchUpInside" id="0zz-q3-KiR"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -811,7 +811,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Bxi-Jf-5Yj" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3130" y="1994"/>
+            <point key="canvasLocation" x="2726" y="1925"/>
         </scene>
         <!--이력-->
         <scene sceneID="H19-Ba-ugb">
@@ -855,7 +855,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="sPZ-ON-3S6" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4522" y="1796"/>
+            <point key="canvasLocation" x="4562" y="1671"/>
         </scene>
         <!--Add ActivityVC-->
         <scene sceneID="AOx-f6-E6w">

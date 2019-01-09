@@ -578,6 +578,8 @@ class CalenderView: UIView, UICollectionViewDelegate, UICollectionViewDataSource
         didDeselctCount += 1
         
         lastSelectedDate = currentSelectedDate//현재 선택된 셀의 date객체
+        
+        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "todoUp"), object: nil)
     }
     
     var didDeselctCount = 0
@@ -650,6 +652,7 @@ class CalenderView: UIView, UICollectionViewDelegate, UICollectionViewDataSource
         self.myCollectionView.reloadData()
         monthView.btnLeft.isEnabled = true
         
+        //여기서 확대 해야지!!!!!!!!!!!!!!!
         
     }
     
