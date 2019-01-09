@@ -4,6 +4,7 @@
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
+        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="Stack View standard spacing" minToolsVersion="9.0"/>
@@ -32,13 +33,13 @@
                                             <action selector="touchUpCameraButton:" destination="xxg-7e-42k" eventType="touchUpInside" id="aZj-4r-hwi"/>
                                         </connections>
                                     </button>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="(dkelel)" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cON-Tp-SAp" userLabel="아이디">
-                                        <rect key="frame" x="101.33333333333333" y="208" width="51.333333333333329" height="18"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="(hero)" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cON-Tp-SAp" userLabel="아이디">
+                                        <rect key="frame" x="101.33333333333333" y="208" width="41.999999999999986" height="18"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="조민지" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ojx-1I-pPr" userLabel="이름">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="허수진" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ojx-1I-pPr" userLabel="이름">
                                         <rect key="frame" x="30.000000000000004" y="200" width="62.333333333333343" height="28.666666666666657"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="24"/>
                                         <nil key="textColor"/>
@@ -130,6 +131,7 @@
                                     <constraint firstAttribute="trailing" secondItem="Rlt-AG-Owc" secondAttribute="trailing" id="jQM-r5-bDS"/>
                                     <constraint firstAttribute="trailing" secondItem="u4M-Qk-hne" secondAttribute="trailing" id="jqn-fZ-CeS"/>
                                     <constraint firstItem="u4M-Qk-hne" firstAttribute="top" secondItem="LgH-1O-3Y3" secondAttribute="bottom" constant="38" id="n8D-nZ-6Gf"/>
+                                    <constraint firstItem="cON-Tp-SAp" firstAttribute="top" secondItem="qyX-SC-PiP" secondAttribute="top" constant="208" id="r18-Y7-sbR"/>
                                     <constraint firstItem="ojx-1I-pPr" firstAttribute="leading" secondItem="qyX-SC-PiP" secondAttribute="leading" constant="30" id="shv-cq-qbH"/>
                                 </constraints>
                             </view>
@@ -677,7 +679,7 @@
                                                                 <rect key="frame" x="0.0" y="0.0" width="162" height="162"/>
                                                                 <state key="normal" image="btPreferenceSholarshipUnactive"/>
                                                                 <connections>
-                                                                    <action selector="touchUpPreferenceButtons:" destination="17w-h8-msn" eventType="touchDragInside" id="ZRJ-Wd-wEG"/>
+                                                                    <action selector="touchUpPreferenceButtons:" destination="17w-h8-msn" eventType="touchUpInside" id="EZP-N5-l7u"/>
                                                                 </connections>
                                                             </button>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iq7-72-o5E" userLabel="HealthButton">
@@ -1450,20 +1452,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="D3V-fL-nuc" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="6626" y="1784"/>
-        </scene>
-        <!--View Controller-->
-        <scene sceneID="p2x-I8-RkK">
-            <objects>
-                <viewController id="YWa-Kf-7pO" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="YPC-01-hut">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <viewLayoutGuide key="safeArea" id="IL3-bj-aFK"/>
-                    </view>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="bkm-0g-onn" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
         </scene>
     </scenes>
     <resources>

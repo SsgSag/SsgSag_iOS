@@ -289,6 +289,10 @@ class CareerViewController: UIViewController {
         prizeTableView.allowsSelection = false
         certificationTableView.allowsSelection = false
         
+        activityTableView.tableFooterView = UIView()
+        prizeTableView.tableFooterView = UIView()
+        certificationTableView.tableFooterView = UIView()
+        
         activityTableView.backgroundColor = UIColor.rgb(red: 242, green: 243, blue: 245)
         prizeTableView.backgroundColor = UIColor.rgb(red: 242, green: 243, blue: 245)
         certificationTableView.backgroundColor = UIColor.rgb(red: 242, green: 243, blue: 245)
@@ -303,6 +307,7 @@ class CareerViewController: UIViewController {
 extension CareerViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        
         switch tableView {
         case activityTableView: return activityList.count
         case prizeTableView: return prizeList.count

@@ -53,6 +53,8 @@ class JobVC: UIViewController {
 //        self.view.addSubview(popVC.view)
 //
 //        popVC.didMove(toParent: self)
+        
+        
         simpleAlert(title: "저장", message: "저장되었습니다")
     }
     @IBAction func valueChangeJobSwitch(_ sender: Any) {

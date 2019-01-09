@@ -57,6 +57,7 @@ class LoginVC: UIViewController {
             
             guard let token = data?.token else {return}
             //토큰 저장
+            print("토큰코늨놐넠너우머ㅏㄴ워ㅏㅁㄴ어ㅏㄴ모어ㅏㅁ놔ㅓㅇㄴㅁ: \(token)")
             UserDefaults.standard.set(token, forKey: "token")
             
             let storyboard = UIStoryboard(name: "SwipeStoryBoard", bundle: nil)
@@ -64,7 +65,6 @@ class LoginVC: UIViewController {
             let tabbarVC = TapbarVC()
             self.present(tabbarVC, animated: true, completion: nil)
         }
-        
     }
     
     @IBAction func touchUpSignupButton(_ sender: Any) {
@@ -103,11 +103,8 @@ extension LoginVC : UIGestureRecognizerDelegate {
         UIView.animate(withDuration: duration, delay: 0.0, options: .init(rawValue: curve), animations: { [unowned self] in
             print("현재 constraint: \(self.stackViewConstraint.constant)")
             self.stackViewConstraint.constant = 30
-            print("애니메이션")
         })
         //                stackViewConstraint.constant = -120
-        
-        
         self.view.layoutIfNeeded()
         
     }
@@ -120,7 +117,6 @@ extension LoginVC : UIGestureRecognizerDelegate {
             self.stackViewConstraint.constant = 223
         })
         //stackViewConstraint.constant = 0
-        
         self.view.layoutIfNeeded()
     }
     

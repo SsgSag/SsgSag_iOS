@@ -51,6 +51,8 @@
 		EA8CE4F2272B4D18160BB1AF /* Pods_SsgSagUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D4105A14D5565112ED500215 /* Pods_SsgSagUITests.framework */; };
 		FA23A93F21DF6FCF003DB5F9 /* myPageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA23A93D21DF6FCF003DB5F9 /* myPageTableViewCell.swift */; };
 		FA25A58221D36EC500C9FC93 /* SegmentedProgressBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA25A58121D36EC500C9FC93 /* SegmentedProgressBar.swift */; };
+		FA3A342021E5127700668908 /* UserAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA3A341F21E5127700668908 /* UserAPI.swift */; };
+		FA3A342221E5D64300668908 /* UserInfoVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA3A342121E5D64300668908 /* UserInfoVC.swift */; };
 		FA3A8FD721DF3C3B0075A510 /* Splash.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FA3A8FD621DF3C3B0075A510 /* Splash.storyboard */; };
 		FA3A8FD921DF3D5F0075A510 /* GradientColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA3A8FD821DF3D5F0075A510 /* GradientColor.swift */; };
 		FA3A8FDB21DF3F410075A510 /* SplashVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA3A8FDA21DF3F410075A510 /* SplashVC.swift */; };
@@ -159,6 +161,8 @@
 		FA23A93D21DF6FCF003DB5F9 /* myPageTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = myPageTableViewCell.swift; sourceTree = "<group>"; };
 		FA23A93E21DF6FCF003DB5F9 /* myPageTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = myPageTableViewCell.xib; sourceTree = "<group>"; };
 		FA25A58121D36EC500C9FC93 /* SegmentedProgressBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SegmentedProgressBar.swift; sourceTree = "<group>"; };
+		FA3A341F21E5127700668908 /* UserAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserAPI.swift; sourceTree = "<group>"; };
+		FA3A342121E5D64300668908 /* UserInfoVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfoVC.swift; sourceTree = "<group>"; };
 		FA3A8FD621DF3C3B0075A510 /* Splash.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Splash.storyboard; sourceTree = "<group>"; };
 		FA3A8FD821DF3D5F0075A510 /* GradientColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientColor.swift; sourceTree = "<group>"; };
 		FA3A8FDA21DF3F410075A510 /* SplashVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashVC.swift; sourceTree = "<group>"; };
@@ -290,12 +294,12 @@
 				8459289A21D09CDD001DF6CC /* AppDelegate.swift */,
 				84BA694C21DB74BD00BA8CB8 /* TapbarVC.swift */,
 				84E19CD821DCC977006F72EC /* Models */,
-				84BA694721DB391D00BA8CB8 /* MyPage */,
 				84E19CCB21DCC922006F72EC /* APIServices */,
-				FA524BEF21D64DFD00675289 /* Signup */,
 				845928DE21D20034001DF6CC /* LoginRegister */,
-				845928DD21D09F38001DF6CC /* Calendar */,
+				FA524BEF21D64DFD00675289 /* Signup */,
+				84BA694721DB391D00BA8CB8 /* MyPage */,
 				FAAFB58721D3B5E5006BF728 /* Swipe */,
+				845928DD21D09F38001DF6CC /* Calendar */,
 				FAAFB58821D3B6B8006BF728 /* Assets */,
 				845928A921D09CE0001DF6CC /* Info.plist */,
 				FA3A8FD621DF3C3B0075A510 /* Splash.storyboard */,
@@ -384,6 +388,7 @@
 				84E19CCF21DCC922006F72EC /* LoginService.swift */,
 				84E19CD021DCC922006F72EC /* NetworkResult.swift */,
 				84E19CD121DCC922006F72EC /* BoardService.swift */,
+				FA3A341F21E5127700668908 /* UserAPI.swift */,
 			);
 			path = APIServices;
 			sourceTree = "<group>";
@@ -406,6 +411,7 @@
 			children = (
 				842C618421DCDC92001BA6D8 /* sendDataViewController.swift */,
 				FA524BF021D64E2400675289 /* SignupStoryBoard.storyboard */,
+				FA3A342121E5D64300668908 /* UserInfoVC.swift */,
 			);
 			path = Signup;
 			sourceTree = "<group>";
@@ -714,6 +720,7 @@
 				84E19CE221DCC977006F72EC /* Token.swift in Sources */,
 				84E19CD421DCC922006F72EC /* APIManager.swift in Sources */,
 				84E19CD621DCC922006F72EC /* NetworkResult.swift in Sources */,
+				FA3A342221E5D64300668908 /* UserInfoVC.swift in Sources */,
 				FAD323DB21E36FA6000C4FBA /* AddCertificationVC.swift in Sources */,
 				FA3A8FD921DF3D5F0075A510 /* GradientColor.swift in Sources */,
 				FA7F4CD221E0A0A000D8643A /* AddActivityVC.swift in Sources */,
@@ -725,6 +732,7 @@
 				84E19CD321DCC922006F72EC /* UserService.swift in Sources */,
 				8427099A21DFD42600869633 /* PopupVC.swift in Sources */,
 				842C619E21DD1807001BA6D8 /* Json4Swift_Base.swift in Sources */,
+				FA3A342021E5127700668908 /* UserAPI.swift in Sources */,
 				842C619F21DD1807001BA6D8 /* Posters.swift in Sources */,
 				FA61FE1121E0E4A200A28947 /* PreferenceVC.swift in Sources */,
 				FA7F4CD021E04A0600D8643A /* sampleDataVO.swift in Sources */,
@@ -901,7 +909,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.wndzlf2.SsgSag;
+				PRODUCT_BUNDLE_IDENTIFIER = com.wndzlf.SsgSag;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -910,7 +918,7 @@
 		};
 		845928C421D09CE0001DF6CC /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = DF7046823FFA5A856B0B0FC2 /* Pods-SsgSag.release.xcconfig */;
+			baseConfigurationReference = EFE805AFFC7CBE0D5709EB25 /* Pods-SsgSag.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -921,7 +929,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.wndzlf2.SsgSag;
+				PRODUCT_BUNDLE_IDENTIFIER = com.wndzlf.SsgSag;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -951,7 +959,7 @@
 		};
 		845928C721D09CE0001DF6CC /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = F3FC811A4088102AA1765221 /* Pods-SsgSagTests.release.xcconfig */;
+			baseConfigurationReference = E3FA6FB5C50BC45E91E8FCDB /* Pods-SsgSagTests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -992,7 +1000,7 @@
 		};
 		845928CA21D09CE0001DF6CC /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = D411F23C60FD5C5C850C5253 /* Pods-SsgSagUITests.release.xcconfig */;
+			baseConfigurationReference = 0E614E8987BBA6DBFDC0E038 /* Pods-SsgSagUITests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;

@@ -46,6 +46,8 @@ class PreferenceVC: UIViewController {
         popVC.view.frame = self.view.frame
         self.view.addSubview(popVC.view)
         
+        
+        
         popVC.didMove(toParent: self)
     }
     
@@ -82,6 +84,8 @@ class PreferenceVC: UIViewController {
             saveButton.setImage(UIImage(named: "btSaveMypageUnactive"), for: .normal)
         }
     }
+    
+    
     
     
 }

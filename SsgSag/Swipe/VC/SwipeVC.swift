@@ -21,7 +21,7 @@ class SwipeVC: UIViewController {
     
     //var valueArray = ["1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24","25","26","27","28","29","30","31","32","33","34","35","36"]
     
-    //var valueArray = ["1","2","3","4","5","6"]
+//    var valueArray = ["1","2","3","4","5","6"]
     
     lazy var valueArray:[Posters] = []
     lazy var likedArray:[Posters] = []
@@ -58,7 +58,7 @@ class SwipeVC: UIViewController {
         var request = URLRequest(url: posterURL!)
         //request.addValue("application/json", forHTTPHeaderField: "Accept")
         request.httpMethod = "POST"
-        let key2 = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJEb0lUU09QVCIsInVzZXJfaWR4IjoxfQ.5lCvAqnzYP4-2pFx1KTgLVOxYzBQ6ygZvkx5jKCFM08"
+        let key2 = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJEb0lUU09QVCIsInVzZXJfaWR4IjoyfQ.kl46Nyv3eGs6kW7DkgiJgmf_1u1-bce1kLXkO7mcQvw"
         request.addValue("\(key2)", forHTTPHeaderField: "Authorization")
         
         let task = URLSession.shared.dataTask(with: request) { data, response, error in

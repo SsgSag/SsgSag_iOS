@@ -24,6 +24,7 @@ class TapbarVC: UITabBarController {
         let thirdViewController = CalenderVC()
         thirdViewController.tabBarItem = UITabBarItem(title: "", image: UIImage(named: "icCal"), selectedImage: UIImage(named: "icCalActive"))
         
+        
         let tabBarList = [secondViewController, firstViewController, thirdViewController]
         self.viewControllers = tabBarList
         
@@ -52,8 +53,8 @@ class TapbarVC: UITabBarController {
         super.viewWillLayoutSubviews()
     
         var tabFrame:CGRect = self.tabBar.frame
-        tabFrame.origin.y = self.view.safeAreaInsets.top - 10
-        let barHeight: CGFloat = 44
+        tabFrame.origin.y = self.view.safeAreaInsets.top - 8
+        let barHeight: CGFloat = 56
         tabFrame.size.height = barHeight
         self.tabBar.frame = tabFrame
         

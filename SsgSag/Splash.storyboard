@@ -4,6 +4,7 @@
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
+        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -16,7 +17,26 @@
                     <view key="view" userInteractionEnabled="NO" contentMode="scaleToFill" id="BV5-mg-gX1">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="background" translatesAutoresizingMaskIntoConstraints="NO" id="bYT-rz-j8J">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                            </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="imgLogoSplash" translatesAutoresizingMaskIntoConstraints="NO" id="vaC-qx-Edc">
+                                <rect key="frame" x="130.5" y="300" width="114" height="67"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="vaC-qx-Edc" secondAttribute="height" multiplier="114:67" id="IP7-dV-Ma4"/>
+                                </constraints>
+                            </imageView>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="bYT-rz-j8J" firstAttribute="leading" secondItem="BV5-mg-gX1" secondAttribute="leading" id="Cbw-dz-9aj"/>
+                            <constraint firstItem="roY-N2-Q5t" firstAttribute="trailing" secondItem="bYT-rz-j8J" secondAttribute="trailing" id="HLJ-Mi-xgH"/>
+                            <constraint firstItem="vaC-qx-Edc" firstAttribute="centerY" secondItem="bYT-rz-j8J" secondAttribute="centerY" id="HO5-fk-idH"/>
+                            <constraint firstAttribute="bottom" secondItem="bYT-rz-j8J" secondAttribute="bottom" id="Vqr-FE-kKY"/>
+                            <constraint firstItem="bYT-rz-j8J" firstAttribute="top" secondItem="BV5-mg-gX1" secondAttribute="top" id="nav-d3-Mr3"/>
+                            <constraint firstItem="vaC-qx-Edc" firstAttribute="centerX" secondItem="bYT-rz-j8J" secondAttribute="centerX" id="vn1-Pd-Hmj"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="roY-N2-Q5t"/>
                     </view>
                 </viewController>
@@ -25,4 +45,8 @@
             <point key="canvasLocation" x="84" y="125"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="background" width="375" height="812"/>
+        <image name="imgLogoSplash" width="114" height="67"/>
+    </resources>
 </document>
