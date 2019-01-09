@@ -88,8 +88,8 @@ class PreferenceVC: UIViewController {
         self.addChild(popVC)
         popVC.view.frame = self.view.frame
         self.view.addSubview(popVC.view)
-        
-        //getPosterData()
+
+
         popVC.didMove(toParent: self)
         
     }
@@ -128,6 +128,7 @@ class PreferenceVC: UIViewController {
         }
     }
     
+
     func getPosterData() {
         let posterURL = URL(string: "http://54.180.79.158:8080/interests")
         var request = URLRequest(url: posterURL!)
@@ -184,5 +185,6 @@ class PreferenceVC: UIViewController {
         }
         task.resume()
     }
+
 }
 

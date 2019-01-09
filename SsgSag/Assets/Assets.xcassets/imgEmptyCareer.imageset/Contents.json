@@ -2,17 +2,17 @@
   "images" : [
     {
       "scale" : "1x",
-      "filename" : "imgLogoSplash.png",
+      "filename" : "imgEmptyCareer.png",
       "idiom" : "universal"
     },
     {
       "scale" : "2x",
-      "filename" : "imgLogoSplash@2x.png",
+      "filename" : "imgEmptyCareer@2x.png",
       "idiom" : "universal"
     },
     {
       "scale" : "3x",
-      "filename" : "imgLogoSplash@3x.png",
+      "filename" : "imgEmptyCareer@3x.png",
       "idiom" : "universal"
     }
   ],

@@ -60,6 +60,13 @@ extension UIViewController {
         present(alert, animated: true)
     }
     
+    func simplerAlert(title: String) {
+        let alert = UIAlertController(title: "모든 항목을 입력해주세요", message: nil, preferredStyle: .alert)
+        let action = UIAlertAction(title: "확인", style: .default, handler: nil)
+        alert.addAction(action)
+        present(alert, animated: true, completion: nil)
+    }
+    
     //확인, 취소 팝업
     func simpleAlertwithHandler(title: String, message: String, okHandler : ((UIAlertAction) -> Void)?){
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)

@@ -17,6 +17,7 @@ struct LoginService: APIManager, Requestable {
         "Content-Type" : "application/json"
     ]
     
+    
     //로그인 api
     func login(email: String, password: String, completion: @escaping (Token?,Int?) -> Void) {
         let body = [

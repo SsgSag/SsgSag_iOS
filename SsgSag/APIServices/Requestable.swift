@@ -14,7 +14,6 @@ import ObjectMapper
 protocol Requestable {
     associatedtype NetworkData: Mappable
 }
-
 //Request 함수를 재사용하기 위한 프로토콜입니다.
 
 extension Requestable {
