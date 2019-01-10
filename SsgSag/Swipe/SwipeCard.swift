@@ -39,7 +39,6 @@ class SwipeCard: UIView {
         clipsToBounds = true
         //이거 false로 하면 첫번째 카드만 반응함
         isUserInteractionEnabled = true
-        
         originalPoint = center
         
         let panGestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(self.beingDragged))
@@ -47,7 +46,6 @@ class SwipeCard: UIView {
         
         imageViewStatus = UIImageView(frame: CGRect(x: (frame.size.width / 2) - 37.5, y: 25, width: 75, height: 75))
         let imageURL = URL(string: value)
-        print("왜 실행 안돼지 \(imageURL)")
         imageViewStatus.load(url: imageURL!)
         //imageViewStatus = UIImageView.load(url:value)
         imageViewStatus.alpha = 0
