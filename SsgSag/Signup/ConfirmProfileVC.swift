@@ -1,69 +1,122 @@
 //
-//  UserInfoVC.swift
+//  ConfirmProfileVC.swift
 //  SsgSag
 //
-//  Created by CHOMINJI on 2019. 1. 9..
+//  Created by CHOMINJI on 2019. 1. 10..
 //  Copyright © 2019년 wndzlf. All rights reserved.
 //
 
 import UIKit
 
-class UserInfoVC: UIViewController, UITextFieldDelegate {
+class ConfirmProfileVC: UIViewController {
     
-    @IBOutlet weak var emailTextField: UITextField!
-    @IBOutlet weak var passwordTextField: UITextField!
-    @IBOutlet weak var passwordCheckTextField: UITextField!
-    @IBOutlet weak var nextButton: UIButton!
-    @IBOutlet weak var stackViewConstraint: NSLayoutConstraint!
-    @IBOutlet weak var constraint2: NSLayoutConstraint!
-    
-    @IBOutlet weak var constraint3: NSLayoutConstraint!
+    var id: String = ""
+    var password: String = ""
+    var gender: String = ""
     
     @IBOutlet weak var titleLabel: UILabel!
-    @IBOutlet weak var titleImgae: UIImageView!
-    
+    @IBOutlet weak var titleImage: UIImageView!
+    @IBOutlet weak var nameField: UITextField!
+    @IBOutlet weak var birthField: UITextField!
+    @IBOutlet weak var nickNameField: UITextField!
+    @IBOutlet weak var maleButton: UIButton!
+    @IBOutlet weak var femaleButton: UIButton!
+    @IBOutlet weak var checkBoxButton: UIButton!
+    @IBOutlet weak var nextButton: UIButton!
+    @IBOutlet weak var stackViewConstraint:  NSLayoutConstraint! //289
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         nextButton.isUserInteractionEnabled = false
+//        navigationItem.leftBarButtonItem?.image = UIImage(named: "icHeaderArrowBack")
+//        navigationController?.navigationItem.backBarButtonItem?.image = UIImage(named: "icHeaderArrowBack")
+        setBackBtn(color: .black)
+        let imgBackArrow = UIImage(named: "icArrowBack")
+        navigationController?.navigationBar.backIndicatorImage = imgBackArrow
+        navigationController?.navigationBar.backIndicatorTransitionMaskImage = imgBackArrow
         
-        //        emailTextField.delegate = self
-        //        passwordTextField.delegate = self
-        //        passwordCheckTextField.delegate = self
-        passwordCheckTextField.returnKeyType = .done
+        navigationItem.leftItemsSupplementBackButton = true
+        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: self, action: nil)
         
+        print(self.navigationController?.navigationBar.items?.first)
+//        let backButton
+//        self.navigationController?.navigationItem.setLeftBarButton(<#T##item: UIBarButtonItem?##UIBarButtonItem?#>, animated: <#T##Bool#>)
+//            = UIBarButtonItem(image: UIImage(named: "icHeaderArrowBack"), style: .plain, target: self, action: nil)
+        print(self.navigationController?.navigationItem.backBarButtonItem)
+        print(self.navigationItem.backBarButtonItem)
+            print(self.navigationController?.navigationItem.backBarButtonItem)
         
-        //        let tapGesture: UITapGestureRecognizer = UITapGestureRecognizer()
-        //        tapGesture.delegate = self//tapGesturedelgate는 viewcontroller
-        //        self.view.addGestureRecognizer(tapGesture)
+        self.navigationItem.backBarButtonItem?.image = UIImage(named: "icHeaderArrowBack")
         iniGestureRecognizer()
         self.titleLabel.isHidden = false
-        self.titleImgae.isHidden = false
+        self.titleImage.isHidden = false
+        
+    }
+    
+    @IBAction func touchUpNextButton(_ sender: Any) {
         
         
+    }
+    
+    @IBAction func touchUpMaleButton(_ sender: UIButton) {
+        femaleButton.isSelected = false
+        femaleButton.setImage(UIImage(named: "btFemaleUnactive"), for: .normal)
+        if maleButton.isSelected {
+            self.gender = "male"
+            maleButton.isUserInteractionEnabled = false
+            maleButton.setImage(UIImage(named: "btMaleUnactive"), for: .normal)
+        } else {
+            self.gender = "female"
+            maleButton.isSelected = true
+            maleButton.setImage(UIImage(named: "btMaleActive"), for: .normal)
+        }
+    }
+    
+    @IBAction func touchUpFemalButton(_ sender: UIButton) {
+        maleButton.isSelected = false
+        maleButton.setImage(UIImage(named: "btMaleUnactive"), for: .normal)
+        
+        if femaleButton.isSelected {
+            self.gender = "female"
+            femaleButton.isSelected = false
+            femaleButton.setImage(UIImage(named: "btFemaleUnactive"), for: .normal)
+        } else {
+            self.gender = "male"
+            femaleButton.isSelected = true
+            femaleButton.setImage(UIImage(named: "btFemaleActive"), for: .normal)
+        }
+    }
+    
+    @IBAction func touchUpCheckBoxButton(_ sender: UIButton) {
+        if sender.isSelected {
+            sender.isSelected = false
+            sender.setImage(UIImage(named: "btCheckUnactive"), for: .normal)
+        } else {
+            sender.isSelected = true
+            sender.setImage(UIImage(named: "btCheckActive"), for: .normal)
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         registerForKeyboardNotifications()
     }
+    
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         unregisterForKeyboardNotifications()
     }
     
-    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        let profileVC = segue.destination as! ConfirmProfileVC
-        profileVC.id = emailTextField.text ?? ""
-        profileVC.password = passwordTextField.text ?? ""
-        //        if let destination = segue.destination as? ConfirmProfileVC {
-        //            if let id = sender as? String {
-        //                destination.ihihih = id(emailTextField.text)
-        //
-        //            }
-        //        }
+        let navVC = segue.destination as! SchoolInfoVC
+        navVC.id = id
+        navVC.password = password
+        navVC.name = nameField.text ?? ""
+        navVC.birth = birthField.text ?? ""
+        navVC.nickName = nickNameField.text ?? ""
+        navVC.gender = gender
         
     }
     
@@ -82,12 +135,9 @@ class UserInfoVC: UIViewController, UITextFieldDelegate {
         return true
     }
     
-    @objc func checkInformation(_ sender: Any) {
-        print("checkinformation start")
-        if (emailTextField.hasText && passwordTextField.hasText && passwordCheckTextField.hasText) {
-            print("idfield check / password, confirmpassword, inform check")
-            if (passwordTextField.text == passwordCheckTextField.text) {
-                print("password correct check")
+     @objc func checkInformation(_ sender: Any) {
+        if (nameField.hasText && birthField.hasText && nickNameField.hasText && checkBoxButton.isSelected) {
+            if (maleButton.isSelected || femaleButton.isSelected) {
                 nextButton.isUserInteractionEnabled = true
                 nextButton.setImage(UIImage(named: "btNextActive"), for: .normal)
             } else {
@@ -106,15 +156,14 @@ class UserInfoVC: UIViewController, UITextFieldDelegate {
         return true
     }
     
+    
     func textViewDidEndEditing(_ textView: UITextView) {
         print("textViewEndEditing")
         checkInformation(self)
     }
-    
-    /////////////////////////////////////////////////////
 }
 
-extension UserInfoVC : UIGestureRecognizerDelegate {
+extension ConfirmProfileVC : UIGestureRecognizerDelegate {
     
     func iniGestureRecognizer() {
         let tap = UITapGestureRecognizer(target: self, action: #selector(handleTabMainView(_:)))
@@ -123,14 +172,14 @@ extension UserInfoVC : UIGestureRecognizerDelegate {
     }
     
     @objc func handleTabMainView(_ sender: UITapGestureRecognizer){
-        self.emailTextField.resignFirstResponder()
-        self.passwordTextField.resignFirstResponder()
-        self.passwordCheckTextField.resignFirstResponder()
+        self.nameField.resignFirstResponder()
+        self.birthField.resignFirstResponder()
+        self.nickNameField.resignFirstResponder()
     }
     
     //터치가 먹히는 상황과 안먹히는 상황
     private func gestureRecog(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
-        if (touch.view?.isDescendant(of: emailTextField))! || (touch.view?.isDescendant(of: passwordTextField))! || (touch.view?.isDescendant(of: passwordCheckTextField))! {
+        if (touch.view?.isDescendant(of: nameField))! || (touch.view?.isDescendant(of: birthField))! || (touch.view?.isDescendant(of: nickNameField))! {
             return false
         }
         return true
@@ -145,8 +194,11 @@ extension UserInfoVC : UIGestureRecognizerDelegate {
         UIView.animate(withDuration: duration, delay: 0.0, options: .init(rawValue: curve), animations: { [unowned self] in
             print("현재 constraint: \(self.stackViewConstraint.constant)")
             self.stackViewConstraint.constant = 10
-            self.titleImgae.isHidden = true
+            self.titleImage.isHidden = true
             self.titleLabel.isHidden = true
+//            let alpha: CGFloat = 0.5
+//            self.titleImage.alpha(alpha)
+//            self.titleImage.opa
             
         })
         stackViewConstraint.constant = 120
@@ -159,13 +211,13 @@ extension UserInfoVC : UIGestureRecognizerDelegate {
         guard let curve = notification.userInfo?[UIResponder.keyboardAnimationCurveUserInfoKey] as? UInt else {return}
         //여기서는 weak self를 안쓰는 이유?는?
         UIView.animate(withDuration: duration, delay: 0.0, options: .init(rawValue: curve), animations: {
-            self.stackViewConstraint.constant = 299
+            self.stackViewConstraint.constant = 289
             print(" constraint: \(self.stackViewConstraint.constant)")
             self.titleLabel.isHidden = false
-            self.titleImgae.isHidden = false
+            self.titleImage.isHidden = false
             
         })
-        stackViewConstraint.constant = 299
+        stackViewConstraint.constant = 289
         self.view.layoutIfNeeded()
     }
     
@@ -177,5 +229,16 @@ extension UserInfoVC : UIGestureRecognizerDelegate {
     func unregisterForKeyboardNotifications() {
         NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
+    }
+}
+
+extension UIImage {
+    
+    func alpha(_ value:CGFloat) -> UIImage {
+        UIGraphicsBeginImageContextWithOptions(size, false, scale)
+        draw(at: CGPoint.zero, blendMode: .normal, alpha: value)
+        let newImage = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        return newImage!
     }
 }
