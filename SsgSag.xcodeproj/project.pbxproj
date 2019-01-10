@@ -669,7 +669,7 @@
 			inputFileListPaths = (
 			);
 			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-SsgSag/Pods-SsgSag-frameworks.sh",
+				"${PODS_ROOT}/Target Support Files/Pods-SsgSag/Pods-SsgSag-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
 				"${BUILT_PRODUCTS_DIR}/AlamofireObjectMapper/AlamofireObjectMapper.framework",
 				"${BUILT_PRODUCTS_DIR}/Kingfisher/Kingfisher.framework",
@@ -686,7 +686,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-SsgSag/Pods-SsgSag-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-SsgSag/Pods-SsgSag-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -906,7 +906,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 43FKD7C656;
+				DEVELOPMENT_TEAM = 6958JMS7R4;
 				INFOPLIST_FILE = SsgSag/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.4.1;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -926,7 +926,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 43FKD7C656;
+				DEVELOPMENT_TEAM = 6958JMS7R4;
 				INFOPLIST_FILE = SsgSag/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.4.1;
 				LD_RUNPATH_SEARCH_PATHS = (

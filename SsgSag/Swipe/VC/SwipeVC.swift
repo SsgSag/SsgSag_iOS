@@ -70,7 +70,7 @@ class SwipeVC: UIViewController {
                 return
             }
             print("data \(data)")
-            print("reponse \(response)")
+            //print("reponse \(response)")
             do {
                 
                 let order = try JSONDecoder().decode(Json4Swift_Base.self, from: data)
@@ -83,6 +83,8 @@ class SwipeVC: UIViewController {
                         //date parsing
                         let dateFormatter = DateFormatter()
                         dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+                        
+                        /*
                         guard let startdate = dateFormatter.date(from: i.posterStartDate!) else {
                             fatalError("ERROR: Date conversion failed due to mismatched format.")
                         }
@@ -92,6 +94,8 @@ class SwipeVC: UIViewController {
                         guard let endtdate = dateFormatter.date(from: i.posterEndDate!) else {
                             fatalError("ERROR: Date conversion failed due to mismatched format.")
                         }
+                        */
+                        
                     }
                     
                     //main queue에서 리로드하고 카드들을 표현
@@ -169,17 +173,38 @@ class SwipeVC: UIViewController {
         }
         animateCardAfterSwiping()
     }
+    
     func animateCardAfterSwiping() {
         for (i,card) in currentLoadedCardsArray.enumerated() {
             let storyboard = UIStoryboard(name: "SwipeStoryBoard", bundle: nil)
             let pageVC = storyboard.instantiateViewController(withIdentifier: "PageViewController") as! PageViewController
             
             pageVC.view.frame = self.currentLoadedCardsArray[i].frame
-            var page = pageVC.orderedViewControllers[1] as! DetailImageSwipeCardVC
+            let page = pageVC.orderedViewControllers[1] as! DetailImageSwipeCardVC
             guard let pageURL = URL(string: valueArray[i].photoUrl!) else {return}
             page.detailImageVIew.load(url: pageURL)
             page.name.text = valueArray[i].posterName!
-            page.category.text = "\(valueArray[i].categoryIdx)"
+            //page.category.text = "\(valueArray[i].categoryIdx)"
+            
+            let detailTextSwipe = pageVC.orderedViewControllers[0] as! DetailTextSwipeCard
+            
+            if let posterName = valueArray[i].posterName , let outline = valueArray[i].outline ,let target = valueArray[i].target ,let benefit = valueArray[i].benefit,let period = valueArray[i].period {
+                
+                detailTextSwipe.posterName.text = posterName
+                detailTextSwipe.hashTag.text = "\(valueArray[i].categoryIdx)"
+                
+                detailTextSwipe.outline.text = outline
+                detailTextSwipe.target.text = target
+                detailTextSwipe.benefit.text = benefit
+                detailTextSwipe.period.text = period
+            }
+//            detailTextSwipe.posterName.text = valueArray[i].posterName!
+//            detailTextSwipe.hashTag.text = "\(valueArray[i].categoryIdx)"
+//
+//            detailTextSwipe.outline.text = valueArray[i].outline!
+//            detailTextSwipe.target.text = valueArray[i].target!
+//            detailTextSwipe.benefit.text = valueArray[i].benefit!
+//            detailTextSwipe.period.text = valueArray[i].period!
             
             self.addChild(pageVC)
             self.currentLoadedCardsArray[i].insertSubview(pageVC.view, at: 0)
@@ -194,10 +219,10 @@ class SwipeVC: UIViewController {
         let contextImage: UIImage = UIImage(cgImage: image.cgImage!)
         
         let contextSize: CGSize = contextImage.size
-        var posX: CGFloat = contextSize.width
-        var posY: CGFloat = contextSize.width
-        var cgwidth: CGFloat = CGFloat(width)
-        var cgheight: CGFloat = CGFloat(height)
+        let posX: CGFloat = contextSize.width
+        let posY: CGFloat = contextSize.width
+        let cgwidth: CGFloat = CGFloat(width)
+        let cgheight: CGFloat = CGFloat(height)
         // See what size is longer and create the center off of that
         
         let rect: CGRect = CGRect(x: posX-cgwidth/2, y: posY-cgheight/2, width: cgwidth, height: cgheight)
