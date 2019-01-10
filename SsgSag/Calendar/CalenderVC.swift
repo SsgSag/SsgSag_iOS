@@ -61,11 +61,18 @@ class CalenderVC: UIViewController{
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints  = false
         label.text = "투두리스트"
-        
         return label
     }()
     
+    let separatorView: UIView = {
+        let separ = UIView()
+        separ.translatesAutoresizingMaskIntoConstraints = false
+        return separ
+    }()
+    
     var todoExampleDate:[(Date, Date, Int, Int, String, Int)] = []
+    var todoSelectedDate:[(Date, Date, Int, Int, String, Int)] = []
+    var posterTuple:[(Date, Date, Int, Int, String, Int)] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -91,8 +98,9 @@ class CalenderVC: UIViewController{
         view.addSubview(todoTableView)
         todoTableView.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
         todoTableView.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
-        todoTableView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
+        todoTableView.bottomAnchor.constraint(equalTo: view.bottomAnchor , constant: -25).isActive = true
         todoTableView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.25).isActive = true
+        todoTableView.backgroundColor = UIColor(displayP3Red: 228 / 255, green: 228 / 255, blue: 228 / 255, alpha: 1.0)
         
         todoTableView.rowHeight = view.frame.height / 13
         todoTableView.dataSource = self
@@ -105,16 +113,26 @@ class CalenderVC: UIViewController{
         todoUpDownView.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
         todoUpDownView.heightAnchor.constraint(equalToConstant: 54).isActive = true
         
-//        view.addSubview(todoList)
-//        todoList.centerXAnchor.constraint(equalTo: todoUpDownView.centerXAnchor).isActive = true
-//        todoList.bottomAnchor.constraint(equalTo: todoUpDownView.bottomAnchor).isActive = true
-//        todoList.heightAnchor.constraint(equalToConstant: 21).isActive = true
-//
-//        view.addSubview(donwTodoView)
-//        donwTodoView.bottomAnchor.constraint(equalTo: todoList.topAnchor).isActive = true
-//        donwTodoView.centerXAnchor.constraint(equalTo: todoUpDownView.centerXAnchor).isActive = true
-//        donwTodoView.heightAnchor.constraint(equalToConstant: 9).isActive = true
-//        donwTodoView.widthAnchor.constraint(equalToConstant: 44).isActive = true
+        /* todoUpDownView에 포함되는 뷰 */
+        todoUpDownView.addSubview(donwTodoView)
+        donwTodoView.topAnchor.constraint(equalTo: todoUpDownView.topAnchor, constant: 10).isActive = true
+        donwTodoView.centerXAnchor.constraint(equalTo: todoUpDownView.centerXAnchor).isActive = true
+        donwTodoView.heightAnchor.constraint(equalToConstant: 9).isActive = true
+        donwTodoView.widthAnchor.constraint(equalToConstant: 44).isActive = true
+        
+        todoUpDownView.addSubview(todoList)
+        todoList.centerXAnchor.constraint(equalTo: todoUpDownView.centerXAnchor).isActive = true
+        todoList.bottomAnchor.constraint(equalTo: todoUpDownView.bottomAnchor).isActive = true
+        todoList.topAnchor.constraint(equalTo: donwTodoView.bottomAnchor, constant: 10).isActive = true
+        todoList.heightAnchor.constraint(equalToConstant: 21).isActive = true
+        
+        todoUpDownView.addSubview(separatorView)
+        separatorView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
+        separatorView.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
+        separatorView.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
+        separatorView.heightAnchor.constraint(equalToConstant: 0.5).isActive = true
+        separatorView.backgroundColor = UIColor(displayP3Red: 0, green: 0, blue: 0, alpha: 0.25)
+        /* */
         
         view.addSubview(calenderView)
         calenderView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 50).isActive = true
@@ -134,10 +152,9 @@ class CalenderVC: UIViewController{
         addButton.addTarget(self, action: #selector(addPassiveDate), for: .touchUpInside)
 
         
-        var posterTuple:[(Date, Date, Int, Int, String, Int)] = []
+        //var posterTuple:[(Date, Date, Int, Int, String, Int)] = []
         
         let defaults = UserDefaults.standard
-        
         
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
@@ -206,12 +223,18 @@ class CalenderVC: UIViewController{
     
         let today = Date()
         for i in posterTuple {
-            if today <= i.1 {
+            let posteurTupleMonth = Calendar.current.component(.month, from: i.1)
+            let posterTupleDay = Calendar.current.component(.day, from: i.1)
+            
+            let todayMonth = Calendar.current.component(.month, from: today)
+            let todayDay = Calendar.current.component(.day, from: today)
+            
+            if posteurTupleMonth == todayMonth && (posterTupleDay - todayDay) > 0{
                 todoExampleDate.append(i)
             }
         }
         
-        print("\(todoExampleDate): todoExampleDate")
+        //print("\(todoExampleDate): todoExampleDate")
             
         //todoExampleDate = posterTuple
         
@@ -236,10 +259,10 @@ class CalenderVC: UIViewController{
 //        }
         
         //NotificationCenter.default.post(name: NSNotification.Name(rawValue: "todoUp"), object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(dayDidSelected), name: NSNotification.Name(rawValue: "todoUp"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(dayDidSelected(_:)), name: NSNotification.Name(rawValue: "todoUp"), object: nil)
     }
-    @objc func dayDidSelected() {
-        todoUp()
+    @objc func dayDidSelected(_ notification: Notification) {
+        todoUp(notification)
     }
     
     @objc func addPassiveDate() {
@@ -248,7 +271,7 @@ class CalenderVC: UIViewController{
         present(nav, animated: true, completion: nil)
     }
     
-    @objc func todoUp(){
+    @objc func todoUp(_ notification: Notification){
         calendarheightAncor?.isActive = false
         
         for subview in view.subviews {
@@ -260,7 +283,7 @@ class CalenderVC: UIViewController{
         view.addSubview(todoTableView)
         todoTableView.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
         todoTableView.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
-        todoTableView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
+        todoTableView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant:-25).isActive = true
         todoTableView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.25).isActive = true
         
         todoTableView.rowHeight = view.frame.height / 13
@@ -280,17 +303,25 @@ class CalenderVC: UIViewController{
         calenderView.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
         calenderView.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
         calenderView.bottomAnchor.constraint(equalTo: todoUpDownView.topAnchor).isActive = true
-//        calendarBottomAnchor = calenderView.bottomAnchor.constraint(equalTo: todoUpDownView.topAnchor)
-//        calendarBottomAncor?.isActive = true
+        
         view.bringSubviewToFront(addButton)
         
         NotificationCenter.default.post(name: NSNotification.Name("changeToUp"), object: nil)
-
         
         UIView.animate(withDuration: 0.1) {
             self.view.layoutIfNeeded()
         }
-        
+        guard let currentCellDateTime = notification.userInfo?["currentCellDateTime"] as? Date else { return }
+        print ("currentCellDateTime: \(currentCellDateTime)")
+        let todaysDate = Date()
+        todoExampleDate = []
+        for i in posterTuple {
+            if i.0 <= currentCellDateTime && i.1 >= currentCellDateTime {
+                todoExampleDate.append(i)
+            }
+        }
+        self.todoTableView.reloadData()
+        //올라갈때 (선택 되었을때) todotableview의 값을 바꾼다.
         todoStatus = -1
     }
     
@@ -357,6 +388,9 @@ extension CalenderVC: UITableViewDelegate {
         let nav = storyBoard.instantiateViewController(withIdentifier: "CalendarDetailNV")
         present(nav, animated: true, completion: nil)
     }
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 90
+    }
 }
 
 extension CalenderVC: UITableViewDataSource {
@@ -367,25 +401,47 @@ extension CalenderVC: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "todoCell") as! todoCell
         
-        let currentMonth = Calendar.current.component(.month, from: Date())
-        let currentYear = Calendar.current.component(.year, from: Date())
+        let todayMonth = Calendar.current.component(.month, from: Date())
+        let todayYear = Calendar.current.component(.year, from: Date())
         let todayDay = Calendar.current.component(.day, from: Date())
         
         let todoListMonth = Calendar.current.component(.month, from: todoExampleDate[indexPath.row].1)
         let todoListYear = Calendar.current.component(.year, from: todoExampleDate[indexPath.row].1)
+        
+        
+        
+        //
         let todoListDay = Calendar.current.component(.day, from: todoExampleDate[indexPath.row].1)
         
+        /*
+        let currentCellMonth = Calendar.current.component(.month, from: <#T##Date#>)
+        
+        
+        var cellYear = currentYear
+        var cellMonth = currentMonth
+        var cellDay = indexPath.row-firstWeekDayOfMonth+2
+        */
+        
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+        
+        //var cellDateString = "\(cellYear)-\(cellMonth)-\(cellDay) 00:00:00"
+        //var currentCellDateTime = formatter.date(from: cellDateString)
+        
         cell.categoryLabel.text = "\(todoExampleDate[indexPath.row].4) \(todoListDay-todayDay)일 남음"
+        
+        cell.leftedDay.text = "\(todoListDay-todayDay)"
         return cell
     }
     
 }
 
+//todo tableview의 셀
 class todoCell: UITableViewCell {
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        self.backgroundColor = UIColor(displayP3Red: 251/255, green: 251/255, blue: 251/255, alpha: 1.0)
+        self.backgroundColor = UIColor(displayP3Red: 228/255, green: 228/255, blue: 228/255, alpha: 1.0)
         setupCell()
     }
     
@@ -400,9 +456,8 @@ class todoCell: UITableViewCell {
     
     let borderView: UIView = {
         let bV = UIView()
-        bV.layer.cornerRadius = 15
+        bV.layer.cornerRadius = 5
         bV.layer.masksToBounds = true
-        bV.backgroundColor = .lightGray
         bV.translatesAutoresizingMaskIntoConstraints = false
         return bV
     }()
@@ -418,7 +473,6 @@ class todoCell: UITableViewCell {
     let categoryLabel:UILabel = { //공모전
         let lb = UILabel()
         lb.translatesAutoresizingMaskIntoConstraints = false
-        
         return lb
     }()
     
@@ -437,8 +491,22 @@ class todoCell: UITableViewCell {
     let separatorView: UIView = {//세로선
         let sv = UIView()
         sv.translatesAutoresizingMaskIntoConstraints = false
-        sv.backgroundColor = .red
+        sv.backgroundColor = UIColor(displayP3Red: 224/255, green: 224/255, blue: 224/255, alpha: 1.0)
         return sv
+    }()
+    
+    let leftedDay: UILabel = { //남은 날짜
+        let lb = UILabel()
+        lb.translatesAutoresizingMaskIntoConstraints = false
+        lb.text = "3"
+        return lb
+    }()
+    
+    let leftedDayBottom: UILabel = {//남은 날짜 밑에 (일 남음 텍스트)
+        let lb = UILabel()
+        lb.translatesAutoresizingMaskIntoConstraints = false
+        lb.text = "일 남음"
+        return lb
     }()
     
     func setupCell(){
@@ -449,14 +517,15 @@ class todoCell: UITableViewCell {
         borderView.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 10).isActive = true
         borderView.rightAnchor.constraint(equalTo: self.rightAnchor, constant: -10 ).isActive = true
         borderView.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -10).isActive = true
+        borderView.backgroundColor = UIColor(displayP3Red: 243/255, green: 244/255, blue: 245/255, alpha: 1.0)
         
-        addSubview(leftLineView)
+        borderView.addSubview(leftLineView)
         leftLineView.leftAnchor.constraint(equalTo: borderView.leftAnchor).isActive = true
         leftLineView.topAnchor.constraint(equalTo: borderView.topAnchor).isActive = true
         leftLineView.bottomAnchor.constraint(equalTo: borderView.bottomAnchor).isActive = true
         leftLineView.widthAnchor.constraint(equalToConstant: 7).isActive = true
         
-        addSubview(categoryLabel)
+        borderView.addSubview(categoryLabel)
         categoryLabel.text = "Label"
         categoryLabel.topAnchor.constraint(equalTo: borderView.topAnchor).isActive = true
         categoryLabel.leftAnchor.constraint(equalTo: leftLineView.rightAnchor, constant: 5).isActive = true
@@ -464,13 +533,23 @@ class todoCell: UITableViewCell {
         categoryLabel.widthAnchor.constraint(equalToConstant: 300).isActive = true
         
         
-        addSubview(separatorView)
+        borderView.addSubview(separatorView)
         separatorView.rightAnchor.constraint(equalTo: borderView.rightAnchor, constant: -70).isActive = true
         separatorView.topAnchor.constraint(equalTo: borderView.topAnchor, constant: 5).isActive = true
         separatorView.bottomAnchor.constraint(equalTo: borderView.bottomAnchor, constant: -5).isActive = true
         separatorView.widthAnchor.constraint(equalToConstant: 3).isActive = true
         
+        borderView.addSubview(leftedDay)
+        leftedDay.rightAnchor.constraint(equalTo: borderView.rightAnchor, constant: -28).isActive = true
+        leftedDay.topAnchor.constraint(equalTo: borderView.topAnchor, constant: 15).isActive = true
+        //leftedDay.widthAnchor.constraint(equalToConstant: 38).isActive = true
+        //leftedDay.heightAnchor.constraint(equalToConstant: 41).isActive = true
+        leftedDay.font = UIFont(name: leftedDay.font.fontName, size: 23)
         
+        borderView.addSubview(leftedDayBottom)
+        leftedDayBottom.bottomAnchor.constraint(equalTo: borderView.bottomAnchor, constant: -8).isActive = true
+        leftedDayBottom.rightAnchor.constraint(equalTo: borderView.rightAnchor, constant: -21).isActive = true
+        leftedDayBottom.font = UIFont(name: leftedDay.font.fontName, size: 10)
     }
 }
 
