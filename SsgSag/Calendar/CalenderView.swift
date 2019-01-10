@@ -34,6 +34,9 @@ class CalenderView: UIView, UICollectionViewDelegate, UICollectionViewDataSource
     var currentPosterTuple:[(Date, Date, Int, Int, String, Int)] = []
     
     var lastSelectedDate:Date?
+    var lastSelectedIndexPath: IndexPath?
+    
+    
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -57,6 +60,9 @@ class CalenderView: UIView, UICollectionViewDelegate, UICollectionViewDataSource
                 }
             }
         }
+        
+       // NotificationCenter.default.post(name: NSNotification.Name("changeBackgroundColor"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(changeBackgroundColor), name: NSNotification.Name("changeBackgroundColor"), object: nil)
         
         
         let s1 = formatter.date(from: "2019-01-16 15:00:00")
@@ -230,6 +236,19 @@ class CalenderView: UIView, UICollectionViewDelegate, UICollectionViewDataSource
 
         
         initializeView()
+    }
+    
+    //마지막 선택된 날짜의 셀의 백그라운드 색깔을 지우자
+    //투두리스트를 표현하자
+    @objc func changeBackgroundColor() {
+        if let index = lastSelectedIndexPath {
+                let cell = collectionView(myCollectionView, cellForItemAt: index) as! dateCVCell
+                cell.lbl.backgroundColor = .clear
+                cell.lbl.textColor = .black
+                print("123123")
+                print(cell.lbl.text)
+        }
+        myCollectionView.reloadData()
     }
     
     //putDate를 lineArray에 날짜 중복되지 않고 넣을 수 있는가?
@@ -556,13 +575,12 @@ class CalenderView: UIView, UICollectionViewDelegate, UICollectionViewDataSource
         let currentCellDateTime = formatter.date(from: cellDateString)
         
         lastSelectedDate = currentCellDateTime//현재 선택된 셀의 date객체
+        lastSelectedIndexPath = indexPath
         
-        //CalendarVC에 보낸다. CalendarVC에 지금 선택된 날짜를 전송하자.
-        
+        //CalendarVC에 지금 선택된 날짜를 전송하자.
         let userInfo = [ "currentCellDateTime" : currentCellDateTime ]
-        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "todoUp"), object: nil, userInfo: userInfo)
+        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "todoUp"), object: nil, userInfo: userInfo as [AnyHashable : Any])
         
-//        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "todoUp"), object: currentCellDateTime)
     }
     
     var didDeselctCount = 0
@@ -573,7 +591,7 @@ class CalenderView: UIView, UICollectionViewDelegate, UICollectionViewDataSource
         let lbl = cell.subviews[1] as! UILabel
         lbl.backgroundColor = UIColor.clear
         lbl.textColor = Style.activeCellLblColor
-
+        
         if indexPath.row % 7 == 0 { //일요일
             lbl.textColor = UIColor.red
             lbl.backgroundColor = UIColor.clear
@@ -596,27 +614,6 @@ class CalenderView: UIView, UICollectionViewDelegate, UICollectionViewDataSource
             lbl.backgroundColor = #colorLiteral(red: 0.1176470588, green: 0.7921568627, blue: 0.2862745098, alpha: 1)
             lbl.textColor = UIColor.white
         }
-        
-        
-        
-//        if lastSelectedDate == currentCellDateTime {
-//            lbl.backgroundColor = UIColor.lightGray
-//            lbl.textColor = .clear
-//        }
-        
-        
-        
-        //만약 indexpath.row가 오늘 날짜에 해당하는
-        
-        //오늘 날짜를 선택하고 다른 날짜를 선택할때 오늘 날짜의 색깔을 회색으로 한다.
-        //현재 이셀렉트된 셀의 날짜와 오늘 날짜가 같으면ㅇ
-        
-        //let calcDate = indexPath.row-firstWeekDayOfMonth+2 //indexpath.row의 day
-//        if
-//        if todaysIndexPath == indexPath && {
-//            lbl.backgroundColor = #colorLiteral(red: 0.501960814, green: 0.501960814, blue: 0.501960814, alpha: 1)
-//            lbl.textColor = UIColor.white
-//        }
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
@@ -761,25 +758,25 @@ class dateCVCell: UICollectionViewCell {
         line.topAnchor.constraint(equalTo: lbl.bottomAnchor , constant: 0.6).isActive = true
         line.leftAnchor.constraint(equalTo: leftAnchor).isActive = true
         line.rightAnchor.constraint(equalTo: rightAnchor).isActive = true
-        line.heightAnchor.constraint(equalTo: self.heightAnchor, multiplier: 0.07).isActive = true
+        line.heightAnchor.constraint(equalTo: self.heightAnchor, multiplier: 0.12).isActive = true
         
         addSubview(line2)
         line2.topAnchor.constraint(equalTo: line.bottomAnchor , constant: 0.6).isActive = true
         line2.leftAnchor.constraint(equalTo: leftAnchor).isActive = true
         line2.rightAnchor.constraint(equalTo: rightAnchor).isActive = true
-        line2.heightAnchor.constraint(equalTo: self.heightAnchor, multiplier: 0.07).isActive = true
+        line2.heightAnchor.constraint(equalTo: self.heightAnchor, multiplier: 0.12).isActive = true
         
         addSubview(line3)
         line3.topAnchor.constraint(equalTo: line2.bottomAnchor , constant: 0.6).isActive = true
         line3.leftAnchor.constraint(equalTo: leftAnchor).isActive = true
         line3.rightAnchor.constraint(equalTo: rightAnchor).isActive = true
-        line3.heightAnchor.constraint(equalTo: self.heightAnchor, multiplier: 0.07).isActive = true
+        line3.heightAnchor.constraint(equalTo: self.heightAnchor, multiplier: 0.12).isActive = true
         
         addSubview(line4)
         line4.topAnchor.constraint(equalTo: line3.bottomAnchor , constant: 0.6).isActive = true
         line4.leftAnchor.constraint(equalTo: leftAnchor).isActive = true
         line4.rightAnchor.constraint(equalTo: rightAnchor).isActive = true
-        line4.heightAnchor.constraint(equalTo: self.heightAnchor, multiplier: 0.07).isActive = true
+        line4.heightAnchor.constraint(equalTo: self.heightAnchor, multiplier: 0.12).isActive = true
     }
     //일
     let lbl: UILabel = {

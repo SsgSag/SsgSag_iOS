@@ -24,6 +24,8 @@ class CalenderVC: UIViewController{
     
     var calendarBottomAncor : NSLayoutConstraint?
     
+    var selectedStatus = 0
+    
     let calenderView: CalenderView = {
         let v = CalenderView(theme: MyTheme.light)
         v.translatesAutoresizingMaskIntoConstraints=false
@@ -70,6 +72,16 @@ class CalenderVC: UIViewController{
         return separ
     }()
     
+    let todoListButton: UIButton = {
+        let tb = UIButton()
+        tb.setTitle("투두리스트", for: .normal)
+        tb.setTitleColor(UIColor.black, for: .normal)
+        tb.layer.cornerRadius = 12
+        tb.backgroundColor = UIColor.white
+        tb.translatesAutoresizingMaskIntoConstraints = false
+        return tb
+    }()
+    
     var todoExampleDate:[(Date, Date, Int, Int, String, Int)] = []
     var todoSelectedDate:[(Date, Date, Int, Int, String, Int)] = []
     var posterTuple:[(Date, Date, Int, Int, String, Int)] = []
@@ -82,7 +94,7 @@ class CalenderVC: UIViewController{
         calenderView.changeTheme()
         calenderView.backgroundColor = .clear
     
-        let todoSwipeUp = UISwipeGestureRecognizer(target: self, action: #selector(todoUp))
+        let todoSwipeUp = UISwipeGestureRecognizer(target: self, action: #selector(todoUpBySwipe))
         let todoSwipeDown = UITapGestureRecognizer(target: self, action: #selector(todoDown))
         
         let swipeLeft = UISwipeGestureRecognizer(target: self, action: #selector(leftSwipeAction))
@@ -98,7 +110,7 @@ class CalenderVC: UIViewController{
         view.addSubview(todoTableView)
         todoTableView.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
         todoTableView.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
-        todoTableView.bottomAnchor.constraint(equalTo: view.bottomAnchor , constant: -25).isActive = true
+        todoTableView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
         todoTableView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.25).isActive = true
         todoTableView.backgroundColor = UIColor(displayP3Red: 228 / 255, green: 228 / 255, blue: 228 / 255, alpha: 1.0)
         
@@ -140,7 +152,6 @@ class CalenderVC: UIViewController{
         calenderView.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
         calenderView.bottomAnchor.constraint(equalTo: todoUpDownView.topAnchor).isActive = true
         
-        
         view.addSubview(addButton)
         view.bringSubviewToFront(addButton)
         addButton.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -15).isActive = true
@@ -150,7 +161,17 @@ class CalenderVC: UIViewController{
         addButton.layer.cornerRadius = 54 / 2
         addButton.layer.masksToBounds = true
         addButton.addTarget(self, action: #selector(addPassiveDate), for: .touchUpInside)
-
+        
+        view.addSubview(todoListButton)
+        todoListButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant:-34).isActive = true
+        todoListButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        todoListButton.widthAnchor.constraint(equalToConstant: 125).isActive = true
+        todoListButton.heightAnchor.constraint(equalToConstant: 35).isActive = true
+        
+        
+        todoListButton.isHidden = true
+        todoListButton.addTarget(self, action: #selector(gotoTodoList), for: .touchUpInside)
+        
         
         //var posterTuple:[(Date, Date, Int, Int, String, Int)] = []
         
@@ -238,9 +259,11 @@ class CalenderVC: UIViewController{
             
         //todoExampleDate = posterTuple
         
+        /*
         let currentMonth = Calendar.current.component(.month, from: Date())
         let currentYear = Calendar.current.component(.year, from: Date())
         let todayDay = Calendar.current.component(.day, from: Date())
+        */
         
         
 //        let currentDate = Date()
@@ -260,8 +283,42 @@ class CalenderVC: UIViewController{
         
         //NotificationCenter.default.post(name: NSNotification.Name(rawValue: "todoUp"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(dayDidSelected(_:)), name: NSNotification.Name(rawValue: "todoUp"), object: nil)
+        
     }
+    
+    //투두 리스트 테이블 표현
+    //현재 선택된 cell의 색깔을 없애고
+    @objc func gotoTodoList() {
+        selectedStatus = 0
+        todoListButton.isHidden = true
+        
+        todoExampleDate = []
+        
+        //테이블뷰의 데이터를 투두리스트로 바꾼다.
+        let today = Date()
+        for i in posterTuple {
+            let posteurTupleMonth = Calendar.current.component(.month, from: i.1)
+            let posterTupleDay = Calendar.current.component(.day, from: i.1)
+            
+            let todayMonth = Calendar.current.component(.month, from: today)
+            let todayDay = Calendar.current.component(.day, from: today)
+            
+            if posteurTupleMonth == todayMonth && (posterTupleDay - todayDay) > 0{
+                todoExampleDate.append(i)
+            }
+        }
+        
+        //현재 선택된 셀의 색깔을 바꾼다. //오늘일때는 제외
+        NotificationCenter.default.post(name: NSNotification.Name("changeBackgroundColor"), object: nil)
+        todoList.text = "투두리스트"
+        todoTableView.reloadData()
+        
+        print("투두 리스트로 갑시다")
+    }
+    
+    //셀에서 가장 오른쪽에 있는 값들을 지우자.
     @objc func dayDidSelected(_ notification: Notification) {
+        selectedStatus += 1
         todoUp(notification)
     }
     
@@ -271,7 +328,8 @@ class CalenderVC: UIViewController{
         present(nav, animated: true, completion: nil)
     }
     
-    @objc func todoUp(_ notification: Notification){
+    //스와이프를 통해 올라간 뷰 이거는 선택된게 없으니깐
+    @objc func todoUpBySwipe(){
         calendarheightAncor?.isActive = false
         
         for subview in view.subviews {
@@ -283,7 +341,7 @@ class CalenderVC: UIViewController{
         view.addSubview(todoTableView)
         todoTableView.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
         todoTableView.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
-        todoTableView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant:-25).isActive = true
+        todoTableView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
         todoTableView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.25).isActive = true
         
         todoTableView.rowHeight = view.frame.height / 13
@@ -304,6 +362,80 @@ class CalenderVC: UIViewController{
         calenderView.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
         calenderView.bottomAnchor.constraint(equalTo: todoUpDownView.topAnchor).isActive = true
         
+        //todoListBUtton
+        view.bringSubviewToFront(todoListButton)
+        todoListButton.isHidden = false
+        
+        view.bringSubviewToFront(addButton)
+        
+        NotificationCenter.default.post(name: NSNotification.Name("changeToUp"), object: nil)
+        
+        //todoList
+        if selectedStatus == 0 {
+            todoExampleDate = []
+            let today = Date()
+            for i in posterTuple {
+                let posteurTupleMonth = Calendar.current.component(.month, from: i.1)
+                let posterTupleDay = Calendar.current.component(.day, from: i.1)
+                
+                let todayMonth = Calendar.current.component(.month, from: today)
+                let todayDay = Calendar.current.component(.day, from: today)
+                
+                if posteurTupleMonth == todayMonth && (posterTupleDay - todayDay) > 0{
+                    todoExampleDate.append(i)
+                }
+            }
+            self.todoTableView.reloadData()
+        }
+        
+        
+        self.view.layoutIfNeeded()
+//        UIView.animate(withDuration: 0.1) {
+//            self.view.layoutIfNeeded()
+//        }
+    }
+    
+    //선택해서 올라간 뷰 ---> 투두리스트 버튼 을 띄우자 , 내려갈땐 지우자
+    @objc func todoUp(_ notification: Notification){
+        calendarheightAncor?.isActive = false
+        
+        for subview in view.subviews {
+            if subview == calenderView{
+                subview.removeFromSuperview()
+            }
+        }
+        
+        view.addSubview(todoTableView)
+        todoTableView.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
+        todoTableView.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
+        todoTableView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
+        todoTableView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.25).isActive = true
+    
+        todoTableView.rowHeight = view.frame.height / 13
+        todoTableView.dataSource = self
+        todoTableView.delegate = self
+        todoTableView.register(todoCell.self, forCellReuseIdentifier: "todoCell")
+        
+        view.addSubview(todoUpDownView)
+        todoUpDownView.bottomAnchor.constraint(equalTo: todoTableView.topAnchor).isActive = true
+        todoUpDownView.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
+        todoUpDownView.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
+        todoUpDownView.heightAnchor.constraint(equalToConstant: 54).isActive = true
+        
+        view.addSubview(calenderView)
+        //calenderView.bottomAnchor.constraint(equalTo: todoUpDownView.topAnchor).isActive = true
+        calenderView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 50).isActive = true
+        calenderView.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
+        calenderView.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
+        calenderView.bottomAnchor.constraint(equalTo: todoUpDownView.topAnchor).isActive = true
+        
+        
+        view.bringSubviewToFront(todoListButton)
+        todoListButton.isHidden = false
+        //todoListButton
+        
+        //todoListButton.backgroundColor = .black
+        
         view.bringSubviewToFront(addButton)
         
         NotificationCenter.default.post(name: NSNotification.Name("changeToUp"), object: nil)
@@ -311,16 +443,28 @@ class CalenderVC: UIViewController{
         UIView.animate(withDuration: 0.1) {
             self.view.layoutIfNeeded()
         }
-        guard let currentCellDateTime = notification.userInfo?["currentCellDateTime"] as? Date else { return }
-        print ("currentCellDateTime: \(currentCellDateTime)")
-        let todaysDate = Date()
-        todoExampleDate = []
-        for i in posterTuple {
-            if i.0 <= currentCellDateTime && i.1 >= currentCellDateTime {
-                todoExampleDate.append(i)
+        //guard let currentCellDateTime = notification.userInfo?["currentCellDateTime"] as? Date else { return }
+        
+        //마지막으로 선택된 날짜에 따라 투두 테이블 표현
+        if let currentCellDateTime = notification.userInfo?["currentCellDateTime"] as? Date {
+            print ("currentCellDateTime: \(currentCellDateTime)")
+            todoExampleDate = []
+            for i in posterTuple {
+                if i.0 <= currentCellDateTime && i.1 >= currentCellDateTime {
+                    todoExampleDate.append(i)
+                }
             }
+            let currentCellMonth = Calendar.current.component(.month, from: currentCellDateTime)
+            let currentCellYear = Calendar.current.component(.year, from: currentCellDateTime)
+            let currentCellDay = Calendar.current.component(.day, from: currentCellDateTime)
+            
+            todoList.text = "\(currentCellMonth)월 \(currentCellDay)일"
+            
+            //날짜를 누르면 todotableview의 셀의 값을 바꾸는 과정
+            self.todoTableView.reloadData()
         }
-        self.todoTableView.reloadData()
+        
+        
         //올라갈때 (선택 되었을때) todotableview의 값을 바꾼다.
         todoStatus = -1
     }
@@ -340,10 +484,12 @@ class CalenderVC: UIViewController{
         calenderView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor).isActive = true
         
         view.bringSubviewToFront(addButton)
+        todoListButton.isHidden = true
         
         UIView.animate(withDuration: 0.1) {
             self.view.layoutIfNeeded()
         }
+        
         
         todoStatus = 1
     }
@@ -401,15 +547,17 @@ extension CalenderVC: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "todoCell") as! todoCell
         
+        /*
         let todayMonth = Calendar.current.component(.month, from: Date())
         let todayYear = Calendar.current.component(.year, from: Date())
+        */
         let todayDay = Calendar.current.component(.day, from: Date())
         
+        /*
         let todoListMonth = Calendar.current.component(.month, from: todoExampleDate[indexPath.row].1)
         let todoListYear = Calendar.current.component(.year, from: todoExampleDate[indexPath.row].1)
-        
-        
-        
+        */
+
         //
         let todoListDay = Calendar.current.component(.day, from: todoExampleDate[indexPath.row].1)
         
@@ -428,12 +576,20 @@ extension CalenderVC: UITableViewDataSource {
         //var cellDateString = "\(cellYear)-\(cellMonth)-\(cellDay) 00:00:00"
         //var currentCellDateTime = formatter.date(from: cellDateString)
         
+        if indexPath.row % 3 == 0 {
+            cell.leftLineView.backgroundColor = UIColor(displayP3Red: 97/255, green: 118/255, blue: 221/255, alpha: 1.0)
+        }else if indexPath.row % 3 == 1{
+            cell.leftLineView.backgroundColor = UIColor(displayP3Red: 7/255, green: 166/255, blue: 255/255, alpha: 1.0)
+        }else if indexPath.row % 3 == 2 {
+            cell.leftLineView.backgroundColor = UIColor(displayP3Red: 254/255, green: 109/255, blue: 109/255, alpha: 1.0)
+        }
+        
+        
         cell.categoryLabel.text = "\(todoExampleDate[indexPath.row].4) \(todoListDay-todayDay)일 남음"
         
         cell.leftedDay.text = "\(todoListDay-todayDay)"
         return cell
     }
-    
 }
 
 //todo tableview의 셀
@@ -466,7 +622,7 @@ class todoCell: UITableViewCell {
         let leftView = UIView()
         //leftView.roundCorners(corners: [.topLeft, .bottomLeft], radius: 15)
         leftView.translatesAutoresizingMaskIntoConstraints = false
-        leftView.backgroundColor = UIColor(displayP3Red: 97/255, green: 118/255, blue: 221/255, alpha: 1.0)
+        //leftView.backgroundColor = UIColor(displayP3Red: 97/255, green: 118/255, blue: 221/255, alpha: 1.0)
         return leftView
     }()
     
@@ -509,6 +665,8 @@ class todoCell: UITableViewCell {
         return lb
     }()
     
+    
+    
     func setupCell(){
         self.selectionStyle = .none
         
@@ -531,7 +689,6 @@ class todoCell: UITableViewCell {
         categoryLabel.leftAnchor.constraint(equalTo: leftLineView.rightAnchor, constant: 5).isActive = true
         categoryLabel.heightAnchor.constraint(equalToConstant: 15).isActive = true
         categoryLabel.widthAnchor.constraint(equalToConstant: 300).isActive = true
-        
         
         borderView.addSubview(separatorView)
         separatorView.rightAnchor.constraint(equalTo: borderView.rightAnchor, constant: -70).isActive = true
