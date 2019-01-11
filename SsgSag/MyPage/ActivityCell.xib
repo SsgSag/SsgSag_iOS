@@ -21,18 +21,31 @@
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9Qv-EL-7SN">
                         <rect key="frame" x="12" y="6" width="341" height="171"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="6Dr-83-Gxc">
+                                <rect key="frame" x="18" y="44" width="126" height="19.5"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2018.01" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="h8F-cf-uvI" userLabel="dateLabel1">
+                                        <rect key="frame" x="0.0" y="0.0" width="55.5" height="19.5"/>
+                                        <fontDescription key="fontDescription" type="system" weight="light" pointSize="16"/>
+                                        <color key="textColor" red="0.63921568630000003" green="0.63921568630000003" blue="0.63921568630000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="~2018.01" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tSd-Zz-4Dv" userLabel="dateLabel2">
+                                        <rect key="frame" x="60.5" y="0.0" width="65.5" height="19.5"/>
+                                        <fontDescription key="fontDescription" type="system" weight="light" pointSize="16"/>
+                                        <color key="textColor" red="0.63921568630000003" green="0.63921568630000003" blue="0.63921568630000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                            </stackView>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </view>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="IT 동아리 SOPT 23기" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pm1-1f-1yX" userLabel="activityName">
-                        <rect key="frame" x="30" y="22" width="170.5" height="23"/>
+                        <rect key="frame" x="30" y="22" width="323" height="23"/>
                         <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="19"/>
                         <color key="textColor" red="0.2274509804" green="0.3411764706" blue="0.8980392157" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        <nil key="highlightedColor"/>
-                    </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2018.01 ~ 2018.08" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="h8F-cf-uvI">
-                        <rect key="frame" x="30" y="49" width="132" height="20"/>
-                        <fontDescription key="fontDescription" type="system" weight="light" pointSize="16"/>
-                        <color key="textColor" red="0.63921568630000003" green="0.63921568630000003" blue="0.63921568630000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2pX-17-pTJ">
@@ -48,14 +61,15 @@
                 <color key="backgroundColor" red="0.94901960780000005" green="0.95294117649999999" blue="0.96078431369999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                 <constraints>
                     <constraint firstAttribute="bottom" secondItem="2pX-17-pTJ" secondAttribute="bottom" constant="20" id="1bk-3W-FQl"/>
+                    <constraint firstItem="pm1-1f-1yX" firstAttribute="trailing" secondItem="9Qv-EL-7SN" secondAttribute="trailing" id="4Tz-EE-SMa"/>
                     <constraint firstItem="2pX-17-pTJ" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="30" id="8t9-Ej-pLD"/>
                     <constraint firstItem="2pX-17-pTJ" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="82" id="CHp-dv-RSt"/>
                     <constraint firstAttribute="trailing" secondItem="2pX-17-pTJ" secondAttribute="trailing" constant="30" id="Cxa-UC-ZvI"/>
                     <constraint firstItem="2pX-17-pTJ" firstAttribute="centerX" secondItem="9Qv-EL-7SN" secondAttribute="centerX" id="G1e-27-z67"/>
                     <constraint firstItem="pm1-1f-1yX" firstAttribute="leading" secondItem="9Qv-EL-7SN" secondAttribute="leading" constant="18" id="HCb-Zo-fpQ"/>
-                    <constraint firstItem="h8F-cf-uvI" firstAttribute="leading" secondItem="pm1-1f-1yX" secondAttribute="leading" id="WCb-Ec-UB2"/>
+                    <constraint firstItem="6Dr-83-Gxc" firstAttribute="leading" secondItem="pm1-1f-1yX" secondAttribute="leading" id="NN1-9V-jCv"/>
                     <constraint firstItem="2pX-17-pTJ" firstAttribute="leading" secondItem="pm1-1f-1yX" secondAttribute="leading" id="WZf-hP-R9j"/>
-                    <constraint firstItem="h8F-cf-uvI" firstAttribute="top" secondItem="pm1-1f-1yX" secondAttribute="bottom" constant="4" id="b6d-73-dBs"/>
+                    <constraint firstItem="6Dr-83-Gxc" firstAttribute="top" secondItem="pm1-1f-1yX" secondAttribute="bottom" constant="5" id="Zan-SH-VRe"/>
                     <constraint firstItem="pm1-1f-1yX" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="22" id="stW-AI-k1J"/>
                 </constraints>
             </tableViewCellContentView>
@@ -67,8 +81,9 @@
             </constraints>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
+                <outlet property="dateLabel1" destination="h8F-cf-uvI" id="Jtf-Q5-pzR"/>
+                <outlet property="dateLabel2" destination="tSd-Zz-4Dv" id="2og-B8-jbf"/>
                 <outlet property="detailLabel" destination="2pX-17-pTJ" id="fmq-Gl-QXO"/>
-                <outlet property="periodLabel" destination="h8F-cf-uvI" id="k8p-PM-hoq"/>
                 <outlet property="titleLabel" destination="pm1-1f-1yX" id="h1c-t6-ugL"/>
             </connections>
             <point key="canvasLocation" x="138.40000000000001" y="112.89355322338831"/>

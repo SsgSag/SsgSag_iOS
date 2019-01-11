@@ -18,6 +18,7 @@ class LoginVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         iniGestureRecognizer()
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -30,6 +31,17 @@ class LoginVC: UIViewController {
         unregisterForKeyboardNotifications()
     }
     
+    @IBAction func touchUpAutoLoginButton(_ sender: UIButton) {
+        if sender.isSelected {
+           sender.isSelected = false
+            sender.setImage(UIImage(named:"checkboxRound"), for: .normal)
+            
+        } else {
+            sender.isSelected = true
+            sender.setImage(UIImage(named: "checkboxRoundActive"), for: .normal)
+            sender.isSelected = true
+        }
+    }
     @IBAction func touchUpLoginButton(_ sender: Any) {
         guard let email = emailTextField.text else {return}
         guard let password = passwordTextField.text else {return}

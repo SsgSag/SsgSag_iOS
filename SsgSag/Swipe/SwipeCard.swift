@@ -190,11 +190,11 @@ class SwipeCard: UIView {
     
     // right click action
     func rightClickAction() {
-        imageViewStatus.image = #imageLiteral(resourceName: "btn_like_pressed")
-        overLayImage.image = #imageLiteral(resourceName: "overlay_like")
+        overLayImage.image = UIImage(named: "imgMainSwipeO")
+//        overLayImage.image = #imageLiteral(resourceName: "overlay_like")
         let finishPoint = CGPoint(x: center.x + frame.size.width * 2, y: center.y)
         imageViewStatus.alpha = 0.5
-        overLayImage.alpha = 0.5
+        overLayImage.alpha = 1.0
         
         UIView.animate(withDuration: 0.5, animations: {() -> Void in
             self.center = finishPoint
@@ -211,11 +211,11 @@ class SwipeCard: UIView {
     
     // left click action
     func leftClickAction() {
-        imageViewStatus.image = #imageLiteral(resourceName: "btn_skip_pressed")
-        overLayImage.image = #imageLiteral(resourceName: "overlay_skip")
+        overLayImage.image = UIImage(named: "imgMainSwipeX")
+//        overLayImage.image = #imageLiteral(resourceName: "overlay_skip")
         let finishPoint = CGPoint(x: center.x - frame.size.width * 2, y: center.y)
         imageViewStatus.alpha = 0.5
-        overLayImage.alpha = 0.5
+        overLayImage.alpha = 1.0
         
         UIView.animate(withDuration: 0.3, animations: {() -> Void in
             self.center = finishPoint

@@ -32,7 +32,11 @@ class ConfirmProfileVC: UIViewController {
         nextButton.isUserInteractionEnabled = false
 //        navigationItem.leftBarButtonItem?.image = UIImage(named: "icHeaderArrowBack")
 //        navigationController?.navigationItem.backBarButtonItem?.image = UIImage(named: "icHeaderArrowBack")
+        self.navigationController?.navigationBar.backIndicatorImage = UIImage(named: "icArrowBack")
+    self.navigationController?.navigationBar.backIndicatorTransitionMaskImage = UIImage(named: "icArrowBack")
         setBackBtn(color: .black)
+        self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
+        
         let imgBackArrow = UIImage(named: "icArrowBack")
         navigationController?.navigationBar.backIndicatorImage = imgBackArrow
         navigationController?.navigationBar.backIndicatorTransitionMaskImage = imgBackArrow

@@ -24,8 +24,9 @@ class AddCertificationVC: UIViewController {
         let day = components.day!
         let currentDateString: String = "\(year)년 \(month)월 \(day)일"
         yearTextField.placeholder = currentDateString
-        
+        contentTextView.applyBorderTextView()
     }
+    
     @IBAction func touchUpSaveButton(_ sender: UIButton) {
         //TODO: - 네트워크 연결?
     }

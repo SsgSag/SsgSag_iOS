@@ -11,6 +11,8 @@ class SwipeVC: UIViewController {
     @IBOutlet var countLabel: UILabel!
     
     @IBOutlet var overLapView: UIView!
+    @IBOutlet weak var dislikedButton: UIButton!
+    @IBOutlet weak var likedButton: UIButton!
     
     @IBAction func moveToMyPage(_ sender: Any) {
         
@@ -44,6 +46,11 @@ class SwipeVC: UIViewController {
         self.view.backgroundColor = UIColor(displayP3Red: 242/255, green: 243/255, blue: 245/255, alpha: 1.0)
         self.view.bringSubviewToFront(viewTinderBackGround)
         
+        likedButton.addTarget(self, action: #selector(touchDownLiked(_:)), for: .touchDown)
+        likedButton.addTarget(self, action: #selector(touchUpLiked(_:)), for: .touchUpInside)
+
+        dislikedButton.addTarget(self, action: #selector(touchDownDisLiked(_:)), for: .touchDown)
+        dislikedButton.addTarget(self, action: #selector(touchUpDisLiked(_:)), for: .touchUpInside)
         
 //        for i in view.subviews {
 //            print(i.description)
@@ -51,6 +58,31 @@ class SwipeVC: UIViewController {
 //        print("\(view.subviews.count) 개수")
         
         self.view.bringSubviewToFront(overLapView)
+    }
+    @objc func touchDownLiked(_ sender: UIButton) {
+        UIView.animate(withDuration: 0.1, delay: 0, usingSpringWithDamping: 0.5, initialSpringVelocity: 0.5, options: .curveEaseInOut, animations: {
+            self.likedButton.transform = CGAffineTransform(scaleX: 1.3, y: 1.3)
+            self.view.layoutIfNeeded()
+        })
+    }
+    
+    @objc func touchUpLiked(_ sender: UIButton) {
+        UIView.animate(withDuration: 0.2, delay: 0, options: .curveEaseInOut, animations: {
+            self.likedButton.transform = .identity
+        })
+    }
+    
+    @objc func touchDownDisLiked(_ sender: UIButton) {
+        UIView.animate(withDuration: 0.1, delay: 0, usingSpringWithDamping: 0.5, initialSpringVelocity: 0.5, options: .curveEaseInOut, animations: {
+            self.dislikedButton.transform = CGAffineTransform(scaleX: 1.3, y: 1.3)
+            self.view.layoutIfNeeded()
+        })
+    }
+    
+    @objc func touchUpDisLiked(_ sender: UIButton) {
+        UIView.animate(withDuration: 0.2, delay: 0, options: .curveEaseInOut, animations: {
+            self.dislikedButton.transform = .identity
+        })
     }
 
     func getPosterData() {
