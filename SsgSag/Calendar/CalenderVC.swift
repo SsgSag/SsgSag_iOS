@@ -562,8 +562,9 @@ extension CalenderVC: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         let storyBoard = UIStoryboard(name: "Calendar", bundle: nil)
-        let prevVC = storyBoard.instantiateViewController(withIdentifier: "DetailPoster")
-        present(prevVC, animated: true, completion: nil)
+        let nav = storyBoard.instantiateViewController(withIdentifier: "DetailPoster")
+        present(nav, animated: true, completion: nil)
+
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {

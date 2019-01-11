@@ -475,22 +475,24 @@
             </objects>
             <point key="canvasLocation" x="2425" y="777"/>
         </scene>
-        <!--Detail PosterVC-->
+
+        <!--Calendar DetailVC-->
         <scene sceneID="69l-A6-o4J">
             <objects>
-                <viewController storyboardIdentifier="DetailPoster" useStoryboardIdentifierAsRestorationIdentifier="YES" id="EcQ-cM-pTz" customClass="detailPosterVC" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="DetailPoster" id="EcQ-cM-pTz" customClass="CalendarDetailVC" customModule="SsgSag" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="0yu-Wx-eEL">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="1000"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="b3w-Ik-wo1">
+
+                            <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="R8x-Us-hgs">
                                 <rect key="frame" x="0.0" y="44" width="375" height="44"/>
                                 <items>
-                                    <navigationItem title="활동정보" id="Ddy-08-4Hn">
-                                        <barButtonItem key="leftBarButtonItem" title="Item" image="icArrowBack" id="xHG-Pp-akB">
+                                    <navigationItem title="활동정보" id="YaG-Ej-K6c">
+                                        <barButtonItem key="leftBarButtonItem" title="Item" image="icArrowBack" id="tPz-YY-YxK">
                                             <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <connections>
-                                                <action selector="touchUpBackButton:" destination="EcQ-cM-pTz" id="8Aa-mJ-ahc"/>
+                                                <action selector="backButton:" destination="EcQ-cM-pTz" id="t2O-Ft-XwT"/>
                                             </connections>
                                         </barButtonItem>
                                     </navigationItem>
@@ -684,12 +686,13 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
+                            <constraint firstItem="R8x-Us-hgs" firstAttribute="top" secondItem="RlF-I7-ocu" secondAttribute="top" id="2iq-IV-4Xq"/>
+                            <constraint firstItem="R8x-Us-hgs" firstAttribute="trailing" secondItem="RlF-I7-ocu" secondAttribute="trailing" id="9FD-q1-ohO"/>
                             <constraint firstItem="xVD-2F-jgE" firstAttribute="leading" secondItem="RlF-I7-ocu" secondAttribute="leading" id="F3n-az-Kuj"/>
-                            <constraint firstItem="b3w-Ik-wo1" firstAttribute="leading" secondItem="RlF-I7-ocu" secondAttribute="leading" id="O5S-3B-73a"/>
-                            <constraint firstItem="b3w-Ik-wo1" firstAttribute="top" secondItem="RlF-I7-ocu" secondAttribute="top" id="bRg-EJ-9iU"/>
+                            <constraint firstItem="R8x-Us-hgs" firstAttribute="leading" secondItem="RlF-I7-ocu" secondAttribute="leading" id="WIL-oA-FVk"/>
+                            <constraint firstItem="xVD-2F-jgE" firstAttribute="top" secondItem="R8x-Us-hgs" secondAttribute="bottom" id="gIw-BT-fke"/>
                             <constraint firstItem="RlF-I7-ocu" firstAttribute="bottom" secondItem="xVD-2F-jgE" secondAttribute="bottom" id="hr5-6g-ZqF"/>
                             <constraint firstItem="RlF-I7-ocu" firstAttribute="trailing" secondItem="xVD-2F-jgE" secondAttribute="trailing" id="tNt-W3-thA"/>
-                            <constraint firstItem="b3w-Ik-wo1" firstAttribute="trailing" secondItem="RlF-I7-ocu" secondAttribute="trailing" id="vhn-2K-6FB"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="RlF-I7-ocu"/>
                     </view>

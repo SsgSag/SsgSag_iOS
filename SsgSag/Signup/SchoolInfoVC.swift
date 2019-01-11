@@ -35,6 +35,10 @@ class SchoolInfoVC: UIViewController {
         iniGestureRecognizer()
         self.titleLabel.isHidden = false
         self.titleImage.isHidden = false
+        
+        self.navigationItem.setHidesBackButton(true, animated: true)
+        setBackBtn( color: .black)
+        setNavigationBar(color: .white)
     }
     
     @IBAction func touchUpNextButton(_ sender: Any) {
