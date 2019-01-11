@@ -24,6 +24,7 @@ class AddVC: UIViewController {
         let day = components.day!
         let currentDateString: String = "\(year)년 \(month)월 \(day)일"
         yearTextField.placeholder = currentDateString
+        contentTextView.applyBorderTextView()
       
     }
     @IBAction func touchUpSaveButton(_ sender: UIButton) {
@@ -33,5 +34,14 @@ class AddVC: UIViewController {
     @IBAction func dismissModalAction(_ sender: Any) {
          dismiss(animated: true, completion: nil)
     }
+    
+   
 
+}
+
+extension UITextView {
+    func applyBorderTextView() {
+        self.layer.borderColor = UIColor.rgb(red: 235, green: 237, blue: 239).cgColor
+        self.layer.borderWidth = 1.0
+    }
 }

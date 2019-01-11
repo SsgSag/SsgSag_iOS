@@ -2,17 +2,17 @@
   "images" : [
     {
       "scale" : "1x",
-      "filename" : "line.png",
+      "filename" : "icCardProcessBell.png",
       "idiom" : "universal"
     },
     {
       "scale" : "2x",
-      "filename" : "line@2x.png",
+      "filename" : "icCardProcessBell@2x.png",
       "idiom" : "universal"
     },
     {
       "scale" : "3x",
-      "filename" : "line@3x.png",
+      "filename" : "icCardProcessBell@3x.png",
       "idiom" : "universal"
     }
   ],
