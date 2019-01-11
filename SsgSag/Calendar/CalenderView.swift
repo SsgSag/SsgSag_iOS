@@ -56,9 +56,9 @@ class CalenderView: UIView, UICollectionViewDelegate, UICollectionViewDataSource
                     let dayInterval = components.day! + 1
                     
                     posterTuple.append((posterStartDateTime!, posterEndDateTime!, dayInterval, poster.categoryIdx!, poster.posterName!, 0))
-                    print("추가된 posterTuple \(poster.posterName)" )
+                   // print("추가된 posterTuple \(poster.posterName)" )
                     
-                    print(posterTuple.count)
+                    //print(posterTuple.count)
                 }
             }
         }
@@ -182,6 +182,7 @@ class CalenderView: UIView, UICollectionViewDelegate, UICollectionViewDataSource
                     }
                 }
             }
+            
             //print(lineArray1)
             
             
@@ -195,6 +196,7 @@ class CalenderView: UIView, UICollectionViewDelegate, UICollectionViewDataSource
             
         }//posterTuple.count 처리
         self.myCollectionView.reloadData()
+        print("콜렉션뷰 리로드")
     }
 
     override init(frame: CGRect) {
@@ -217,8 +219,8 @@ class CalenderView: UIView, UICollectionViewDelegate, UICollectionViewDataSource
                     let dayInterval = components.day! + 1
                     
                     posterTuple.append((posterStartDateTime!, posterEndDateTime!, dayInterval, poster.categoryIdx!, poster.posterName!, 0))
-                    print("추가된 posterTuple \(poster)" )
-                    print(posterTuple.count)
+                    //print("추가된 posterTuple \(poster)" )
+                    //print(posterTuple.count)
                 }
             }
         }
@@ -340,14 +342,12 @@ class CalenderView: UIView, UICollectionViewDelegate, UICollectionViewDataSource
             }
             //안포함 했을때만 posterTuple2에 추가
         }
-        print("여긴 못나오고")
         if posterTuple3.count >= 1 {
             lineArray3.append(posterTuple3[0])//posterTuple3에서 가장긴것은 무조건 넣는다.
             countLine = -1
             
             for k in 0...posterTuple3.count-1 {
                 if isGoodTopPut(lineArray: lineArray3, putDate: posterTuple3[k]) == true { //posterTuple2에서 lineArray2에 중복되지 않는 값들을 넣는다.
-                    print("미쳤네 이거 \(posterTuple3[k])")
                     lineArray3.append(posterTuple3[k])
                 }
             }
@@ -392,18 +392,20 @@ class CalenderView: UIView, UICollectionViewDelegate, UICollectionViewDataSource
                 }
             }
         }
+        /* 라인 4이외는 모두 땡땡땡으로 처리한다. */
             
             
-            print(lineArray1)
             
-            
-            print(lineArray2)
-            
-            
-            print(lineArray3)
-            
-            
-            print(lineArray4)
+//            print(lineArray1)
+//
+//
+//            print(lineArray2)
+//
+//
+//            print(lineArray3)
+//
+//
+//            print(lineArray4)
             
         }//posterTuple.count 처리
 
@@ -661,6 +663,20 @@ class CalenderView: UIView, UICollectionViewDelegate, UICollectionViewDataSource
         for line1 in lineArray1 {
             if line1.0 <= currentCellDateTime! && currentCellDateTime! <= line1.1{ //
                 cell.line.backgroundColor = #colorLiteral(red: 0.3803921569, green: 0.462745098, blue: 0.8666666667, alpha: 1)
+                
+                //라인1의 끝날짜 처리
+                let currentCellDateTimeYear = Calendar.current.component(.year, from: currentCellDateTime!)
+                let currentCellDateTimeMonth = Calendar.current.component(.month, from: currentCellDateTime!)
+                let currentCellDateTimeDay = Calendar.current.component(.day, from: currentCellDateTime!)
+                
+                let lineYear = Calendar.current.component(.year, from: line1.1)
+                let lineMonth = Calendar.current.component(.month, from: line1.1)
+                let lineDay = Calendar.current.component(.day, from: line1.1)
+                
+                if currentCellDateTimeYear == lineYear && currentCellDateTimeMonth == lineMonth && currentCellDateTimeDay == lineDay {
+                    cell.line.frame.origin.x = cell.frame.origin.x - 5
+                }
+                
                 if currentCellDateTime! < todayDate! {
                     cell.line.backgroundColor = #colorLiteral(red: 0.7882352941, green: 0.7882352941, blue: 0.7882352941, alpha: 1)
                 }
@@ -690,20 +706,50 @@ class CalenderView: UIView, UICollectionViewDelegate, UICollectionViewDataSource
                 }
             }
         }
+        //
+        
+        
         
         for line2 in lineArray2 {
             if line2.0 <= currentCellDateTime! && currentCellDateTime! <= line2.1 {
                 cell.line2.backgroundColor = #colorLiteral(red: 0.02745098039, green: 0.6509803922, blue: 1, alpha: 1)
+                
+                //line2의 끝날짜 처리
+                let currentCellDateTimeYear = Calendar.current.component(.year, from: currentCellDateTime!)
+                let currentCellDateTimeMonth = Calendar.current.component(.month, from: currentCellDateTime!)
+                let currentCellDateTimeDay = Calendar.current.component(.day, from: currentCellDateTime!)
+                
+                let line2Year = Calendar.current.component(.year, from: line2.1)
+                let line2Month = Calendar.current.component(.month, from: line2.1)
+                let line2Day = Calendar.current.component(.day, from: line2.1)
+                
+                if currentCellDateTimeYear == line2Year && currentCellDateTimeMonth == line2Month && currentCellDateTimeDay == line2Day {
+                    cell.line2.frame.origin.x = cell.frame.origin.x - 5
+                }
+                
                 if currentCellDateTime! < todayDate! {
                     cell.line2.backgroundColor = #colorLiteral(red: 0.7882352941, green: 0.7882352941, blue: 0.7882352941, alpha: 1)
                 }
             }
-            
         }
         
         for line3 in lineArray3 {
             if line3.0 <= currentCellDateTime! && currentCellDateTime! <= line3.1 {
                 cell.line3.backgroundColor = #colorLiteral(red: 0.9960784314, green: 0.4274509804, blue: 0.4274509804, alpha: 1)
+                
+                //line3의 끝날짜 처리
+                let currentCellDateTimeYear = Calendar.current.component(.year, from: currentCellDateTime!)
+                let currentCellDateTimeMonth = Calendar.current.component(.month, from: currentCellDateTime!)
+                let currentCellDateTimeDay = Calendar.current.component(.day, from: currentCellDateTime!)
+                
+                let line3Year = Calendar.current.component(.year, from: line3.1)
+                let line3Month = Calendar.current.component(.month, from: line3.1)
+                let line3Day = Calendar.current.component(.day, from: line3.1)
+                
+                if currentCellDateTimeYear == line3Year && currentCellDateTimeMonth == line3Month && currentCellDateTimeDay == line3Day {
+                    cell.line3.frame.origin.x = cell.frame.origin.x - 5
+                }
+                
                 if currentCellDateTime! < todayDate! {
                     cell.line3.backgroundColor = #colorLiteral(red: 0.7882352941, green: 0.7882352941, blue: 0.7882352941, alpha: 1)
                 }
@@ -713,7 +759,20 @@ class CalenderView: UIView, UICollectionViewDelegate, UICollectionViewDataSource
         
         for line4 in lineArray4 {
             if line4.0 <= currentCellDateTime! && currentCellDateTime! <= line4.1 {
+                
                 cell.line4.backgroundColor = #colorLiteral(red: 1, green: 0.6274509804, blue: 0.6274509804, alpha: 1)
+                //line4의 끝날짜 처리
+                let currentCellDateTimeYear = Calendar.current.component(.year, from: currentCellDateTime!)
+                let currentCellDateTimeMonth = Calendar.current.component(.month, from: currentCellDateTime!)
+                let currentCellDateTimeDay = Calendar.current.component(.day, from: currentCellDateTime!)
+                
+                let line4Year = Calendar.current.component(.year, from: line4.1)
+                let line4Month = Calendar.current.component(.month, from: line4.1)
+                let line4Day = Calendar.current.component(.day, from: line4.1)
+                
+                if currentCellDateTimeYear == line4Year && currentCellDateTimeMonth == line4Month && currentCellDateTimeDay == line4Day {
+                        cell.line4.frame.origin.x = cell.frame.origin.x - 5
+                }
                 if currentCellDateTime! < todayDate! {
                     cell.line4.backgroundColor = #colorLiteral(red: 0.7882352941, green: 0.7882352941, blue: 0.7882352941, alpha: 1)
                 }

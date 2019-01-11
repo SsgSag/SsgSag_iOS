@@ -120,8 +120,8 @@ class CalenderVC: UIViewController{
                     
                     if isDuplicatePosterTuple(posterTuple, input: inputData) == false {
                         posterTuple.append(inputData)
-                        print("추가된 posterTuple \(poster)" )
-                        print(posterTuple.count)
+                        //print("추가된 posterTuple \(poster)" )
+                        //print(posterTuple.count)
                     }
                 }
             }
@@ -138,12 +138,9 @@ class CalenderVC: UIViewController{
             
             if posteurTupleMonth == todayMonth && (posterTupleDay - todayDay) > 0{
                 if isDuplicatePosterTuple(todoExampleDate, input: i) == false {
-                    
                         todoExampleDate.append(i)
                 }
-                
             }
-            
             print("posterTuple \(i)")
         }
         
