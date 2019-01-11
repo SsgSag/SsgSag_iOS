@@ -75,7 +75,7 @@ class LoginVC: UIViewController {
             print("저장된 토큰 값 \(savedToken)")
             
             let storyboard = UIStoryboard(name: "SwipeStoryBoard", bundle: nil)
-            //let swipeVC = storyboard.instantiateViewController(withIdentifier: "Swipe")
+            let swipeVC = storyboard.instantiateViewController(withIdentifier: "Swipe")
             let tabbarVC = TapbarVC()
             self.present(tabbarVC, animated: true, completion: nil)
         }

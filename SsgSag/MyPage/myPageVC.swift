@@ -18,7 +18,12 @@ class myPageVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
         return picker
     }()
     
+    @IBOutlet weak var nameLabel: UILabel!
+    @IBOutlet weak var idLabel: UILabel!
+    
     @IBOutlet weak var profileImageView: UIImageView!
+    @IBOutlet weak var schoolLabel: UILabel!
+    @IBOutlet weak var majorLabel: UILabel!
     
     override func viewDidLoad() {
        super.viewDidLoad()
@@ -33,25 +38,23 @@ class myPageVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
         self.present(self.imagePicker, animated: true, completion: nil)
     }
     
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
-//        if let pickedImage = info[UIImagePickerControllerOriginalImage] as? UIImage {
-//            // imageViewPic.contentMode = .scaleToFill
-//        }
-        picker.dismiss(animated: true, completion: nil)
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        var selectedImage: UIImage?
+        if let editedImage: UIImage = info[.editedImage] as? UIImage {
+            selectedImage = editedImage
+            self.profileImageView.image = selectedImage!
+            picker.dismiss(animated: true, completion: nil)
+        } else if let originalImage: UIImage = info[.originalImage] as? UIImage {
+            selectedImage = originalImage
+            self.profileImageView.image = selectedImage!
+            picker.dismiss(animated: true, completion: nil)
+        }
+//        self.dismiss(animated: true, completion: nil)
     }
     
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         self.dismiss(animated: true, completion: nil)
     }
-    
-//    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
-//        if let editedImage: UIImage = info[UIImagePickerControllerEditedImage] as? UIImage {
-//            self.profileImageView.image = editedImage //받아온 이미지로 이미지 뷰에 세팅
-//        } else if let originalImage: UIImage = info[UIImagePickerControllerOriginalImage] as? UIImage {
-//            self.profileImageView.image = originalImage
-//        }
-//        self.dismiss(animated: true, completion: nil)
-//    }
     
 }
 

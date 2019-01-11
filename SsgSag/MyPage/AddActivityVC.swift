@@ -56,6 +56,7 @@ class AddActivityVC: UIViewController, UITextViewDelegate {
     
     @IBAction func touchUpSaveButton(_ sender: Any) {
         getData(careerType: "0")
+
         simplerAlert(title: "저장되었습니다")
     }
     
@@ -136,14 +137,14 @@ class AddActivityVC: UIViewController, UITextViewDelegate {
     
     func textViewDidEndEditing(_ textView: UITextView) {
         if(textView.text == "") {
-            textView.text = "동아리, 서포터즈, 봉사활동 등 본인이 했던 대외활동에 내한 구체적인 내용을 작성해보세요!"
+            textView.text = "동아리, 서포터즈, 봉사활동 등 본인이 했던 대외활동에 대한 구체적인 내용을 작성해보세요!"
             textView.textColor = UIColor.rgb(red: 189, green: 189, blue: 189)
         }
         textView.resignFirstResponder()
     }
     
     func textViewDidBeginEditing(_ textView: UITextView) {
-        if(textView.text == "동아리, 서포터즈, 봉사활동 등 본인이 했던 대외활동에 내한 구체적인 내용을 작성해보세요!") {
+        if(textView.text == "동아리, 서포터즈, 봉사활동 등 본인이 했던 대외활동에 대한 구체적인 내용을 작성해보세요!") {
             textView.text = ""
             textView.textColor = .black
         }

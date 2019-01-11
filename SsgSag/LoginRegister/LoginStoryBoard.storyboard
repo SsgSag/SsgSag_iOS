@@ -188,7 +188,7 @@
                     <connections>
                         <outlet property="emailTextField" destination="skH-Zq-gzg" id="MKa-wu-bOq"/>
                         <outlet property="passwordTextField" destination="CnZ-bq-AA3" id="YAb-1h-AUN"/>
-                        <outlet property="stackViewConstraint" destination="Kel-Vx-g9U" id="HFR-ts-wVB"/>
+                        <outlet property="stackViewConstraint" destination="8K5-2T-iOQ" id="Ca5-zY-XCF"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Z76-gD-Mja" userLabel="First Responder" sceneMemberID="firstResponder"/>
