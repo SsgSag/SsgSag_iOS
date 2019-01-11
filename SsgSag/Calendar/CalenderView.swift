@@ -36,11 +36,172 @@ class CalenderView: UIView, UICollectionViewDelegate, UICollectionViewDataSource
     var lastSelectedDate:Date?
     var lastSelectedIndexPath: IndexPath?
     
-    
-    
+    @objc func addUserDefaults() {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+        
+        print("넣는 순간 이게 실행 되어야만해")
+        
+        let defaults = UserDefaults.standard
+        //guard let posterData = defaults.object(forKey: "poster") as? Data else { return }
+        //guard let posterInfo = try? PropertyListDecoder().decode([Posters].self, from: posterData) else { return }
+        
+        if let posterData = defaults.object(forKey: "poster") as? Data {
+            if let posterInfo = try? PropertyListDecoder().decode([Posters].self, from: posterData){
+                for poster in posterInfo { //userDefaults에 있는 모든 poster 정보를 불러온다.
+                    
+                    let posterStartDateTime = formatter.date(from: poster.posterStartDate!)
+                    let posterEndDateTime = formatter.date(from: poster.posterEndDate!)
+                    let components = Calendar.current.dateComponents([.day], from: posterStartDateTime!, to: posterEndDateTime!)
+                    let dayInterval = components.day! + 1
+                    
+                    posterTuple.append((posterStartDateTime!, posterEndDateTime!, dayInterval, poster.categoryIdx!, poster.posterName!, 0))
+                   // print("추가된 posterTuple \(poster.posterName)" )
+                    
+                    //print(posterTuple.count)
+                }
+            }
+        }
+        
+        if posterTuple.count == 1 {
+            lineArray1.append(posterTuple[0])
+        }
+        
+        if posterTuple.count > 1 {
+            posterTuple.sort{$0.2 > $1.2}
+            
+            var countLine = 0
+            
+            lineArray1.append(posterTuple[countLine])
+            countLine = -1
+            /* 라인 1 */
+            for k in 0...posterTuple.count-1 {
+                if isGoodTopPut(lineArray: lineArray1, putDate: posterTuple[k]) == true {
+                    lineArray1.append(posterTuple[k])
+                }
+            }
+            print("라인 1 통과")
+            /* 라인 2 */
+            var posterTuple2:[(Date,Date,Int,Int,String,Int)] = []
+            //라인 2에 들어가는 가장긴 포스터를 찾자.
+            for k in 0...posterTuple.count - 1{
+                var count1 = 0
+                for l in lineArray1 {
+                    if l == posterTuple[k] {
+                        count1 += 1
+                    }
+                }
+                if count1 == 0 {//겹치는게 없을때만 posterTUple2에 저장
+                    posterTuple2.append(posterTuple[k])
+                }
+                //안포함 했을때만 posterTuple2에 추가
+            }
+            if posterTuple2.count >= 1 {
+                lineArray2.append(posterTuple2[0])//posterTuple3에서 가장긴것은 무조건 넣는다.
+                
+                countLine = -1
+                
+                for k in 0...posterTuple2.count-1 {
+                    if isGoodTopPut(lineArray: lineArray2, putDate: posterTuple2[k]) == true { //posterTuple2에서 lineArray2에 중복되지 않는 값들을 넣는다.
+                        lineArray2.append(posterTuple2[k])
+                    }
+                }
+            }
+            print("라인 2 통과")
+            /* 라인 3 */
+            var posterTuple3:[(Date,Date,Int,Int,String,Int)] = []
+            
+            //라인 3에 들어가는 가장긴 포스터를 찾자.
+            for k in 0...posterTuple.count-1{
+                //lineArray1과 lineArray2에 안들어가는 posterTuple의 값들만 posterTuple3에 넣는다.
+                var count1 = 0
+                for l in lineArray1 {
+                    if l == posterTuple[k] {
+                        count1 += 1
+                    }
+                }
+                for l in lineArray2 {
+                    if l == posterTuple[k] {
+                        count1 += 1
+                    }
+                }
+                if count1 == 0 {//겹치는게 없을때만 posterTUple2에 저장
+                    posterTuple3.append(posterTuple[k])
+                }
+                //안포함 했을때만 posterTuple2에 추가
+            }
+            print("여긴 못나오고")
+            if posterTuple3.count >= 1 {
+                lineArray3.append(posterTuple3[0])//posterTuple3에서 가장긴것은 무조건 넣는다.
+                countLine = -1
+                
+                for k in 0...posterTuple3.count-1 {
+                    if isGoodTopPut(lineArray: lineArray3, putDate: posterTuple3[k]) == true { //posterTuple2에서 lineArray2에 중복되지 않는 값들을 넣는다.
+                        print("미쳤네 이거 \(posterTuple3[k])")
+                        lineArray3.append(posterTuple3[k])
+                    }
+                }
+            }
+            print("라인 3 통과")
+            /* 라인 4 */
+            
+            var posterTuple4:[(Date,Date,Int,Int,String,Int)] = []
+            //라인 3에 들어가는 가장긴 포스터를 찾자.
+            for k in 0...posterTuple.count-1{
+                var count1 = 0
+                
+                for l in lineArray1 {
+                    if l == posterTuple[k] {
+                        count1 += 1
+                    }
+                }
+                for l in lineArray2 {
+                    if l == posterTuple[k] {
+                        count1 += 1
+                    }
+                }
+                for l in lineArray3 {
+                    if l == posterTuple[k] {
+                        count1 += 1
+                    }
+                }
+                
+                if count1 == 0 {//겹치는게 없을때만 posterTUple2에 저장
+                    posterTuple4.append(posterTuple[k])
+                }
+            }
+            print("라인 4 통과")
+            
+            if posterTuple4.count >= 1 {
+                lineArray4.append(posterTuple4[0])//posterTuple3에서 가장긴것은 무조건 넣는다.
+                
+                countLine = -1
+                for k in 0...posterTuple4.count-1 {
+                    if isGoodTopPut(lineArray: lineArray4, putDate: posterTuple4[k]) == true { //posterTuple2에서 lineArray2에 중복되지 않는 값들을 넣는다.
+                        lineArray4.append(posterTuple4[k])
+                    }
+                }
+            }
+            
+            //print(lineArray1)
+            
+            
+            //print(lineArray2)
+            
+            
+            //print(lineArray3)
+            
+            
+            //print(lineArray4)
+            
+        }//posterTuple.count 처리
+        self.myCollectionView.reloadData()
+        print("콜렉션뷰 리로드")
+    }
+
     override init(frame: CGRect) {
         super.init(frame: frame)
-        
+        //print("시작할때 실행 되는가?") --> 시작할때 실행 된다.
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
         
@@ -50,20 +211,26 @@ class CalenderView: UIView, UICollectionViewDelegate, UICollectionViewDataSource
         
         if let posterData = defaults.object(forKey: "poster") as? Data {
             if let posterInfo = try? PropertyListDecoder().decode([Posters].self, from: posterData){
-                for poster in posterInfo {
+                for poster in posterInfo { //userDefaults에 있는 모든 poster 정보를 불러온다.
+                    
                     let posterStartDateTime = formatter.date(from: poster.posterStartDate!)
                     let posterEndDateTime = formatter.date(from: poster.posterEndDate!)
-                    
                     let components = Calendar.current.dateComponents([.day], from: posterStartDateTime!, to: posterEndDateTime!)
                     let dayInterval = components.day! + 1
+                    
                     posterTuple.append((posterStartDateTime!, posterEndDateTime!, dayInterval, poster.categoryIdx!, poster.posterName!, 0))
+                    //print("추가된 posterTuple \(poster)" )
+                    //print(posterTuple.count)
                 }
             }
         }
         
+        
        // NotificationCenter.default.post(name: NSNotification.Name("changeBackgroundColor"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(changeBackgroundColor), name: NSNotification.Name("changeBackgroundColor"), object: nil)
         
+        //좋아요 선택시 유저티폴츠에 넣고 그것의 반응을 받는다.
+        NotificationCenter.default.addObserver(self, selector: #selector(addUserDefaults), name: NSNotification.Name("addUserDefaults"), object: nil)
         
         let s1 = formatter.date(from: "2019-01-16 15:00:00")
         let e1 = formatter.date(from: "2019-01-17 14:59:00")
@@ -98,21 +265,21 @@ class CalenderView: UIView, UICollectionViewDelegate, UICollectionViewDataSource
         let s11 = formatter.date(from: "2018-12-19 15:00:00")
         let e11 = formatter.date(from: "2019-01-03 14:59:59")
         
-        posterTuple = [(s1!, e1!, 395, 1, "스마트청춘MD", 0),
-            (s2!, e2!, 12, 0, "비즈니스 아이디어 공모전", 0),
-            (s3!, e3!, 12, 0, "레진코믹스 세계만화공모전", 0),
-            (s4!, e4!, 4, 5, "아주 캐피탈 대학생 봉사단", 0),
-            (s5!, e5!, 3, 0, "에스윈아이디어공모전", 0),
-            (s6!, e6!, 3, 2, "솝트 동아리", 0),
-            (s7!, e7!, 3, 2, "새로운 일정", 0),
-            (s8!, e8!, 3, 2, "새로운 일정", 0),
-            (s9!, e9!, 3, 2, "새로운 일정2", 0),
-            (s10!, e10!, 3, 2, "새로운 일정3", 0),
-            (s11!, e11!, 3, 2, "민지 일정", 0),
-        ]
-         
+//        posterTuple = [(s1!, e1!, 395, 1, "스마트청춘MD", 0),
+//            (s2!, e2!, 12, 0, "비즈니스 아이디어 공모전", 0),
+//            (s3!, e3!, 12, 0, "레진코믹스 세계만화공모전", 0),
+//            (s4!, e4!, 4, 5, "아주 캐피탈 대학생 봉사단", 0),
+//            (s5!, e5!, 3, 0, "에스윈아이디어공모전", 0),
+//            (s6!, e6!, 3, 2, "솝트 동아리", 0),
+//            (s7!, e7!, 3, 2, "새로운 일정", 0),
+//            (s8!, e8!, 3, 2, "새로운 일정", 0),
+//            (s9!, e9!, 3, 2, "새로운 일정2", 0),
+//            (s10!, e10!, 3, 2, "새로운 일정3", 0),
+//            (s11!, e11!, 3, 2, "민지 일정", 0),
+//        ]
         
-        if posterTuple.count > 0 {
+        
+        if posterTuple.count > 1 {
            posterTuple.sort{$0.2 > $1.2}
        
         var countLine = 0
@@ -120,15 +287,16 @@ class CalenderView: UIView, UICollectionViewDelegate, UICollectionViewDataSource
         lineArray1.append(posterTuple[countLine])
         countLine = -1
         /* 라인 1 */
-        for k in 1...posterTuple.count-1 {
+        for k in 0...posterTuple.count-1 {
             if isGoodTopPut(lineArray: lineArray1, putDate: posterTuple[k]) == true {
                 lineArray1.append(posterTuple[k])
             }
         }
+        print("라인 1 통과")
         /* 라인 2 */
         var posterTuple2:[(Date,Date,Int,Int,String,Int)] = []
         //라인 2에 들어가는 가장긴 포스터를 찾자.
-        for k in 1...posterTuple.count - 1{
+        for k in 0...posterTuple.count - 1{
             var count1 = 0
             for l in lineArray1 {
                 if l == posterTuple[k] {
@@ -145,12 +313,13 @@ class CalenderView: UIView, UICollectionViewDelegate, UICollectionViewDataSource
             
             countLine = -1
             
-            for k in 1...posterTuple2.count-1 {
+            for k in 0...posterTuple2.count-1 {
                 if isGoodTopPut(lineArray: lineArray2, putDate: posterTuple2[k]) == true { //posterTuple2에서 lineArray2에 중복되지 않는 값들을 넣는다.
                     lineArray2.append(posterTuple2[k])
                 }
             }
         }
+        print("라인 2 통과")
         /* 라인 3 */
         var posterTuple3:[(Date,Date,Int,Int,String,Int)] = []
         
@@ -163,13 +332,11 @@ class CalenderView: UIView, UICollectionViewDelegate, UICollectionViewDataSource
                     count1 += 1
                 }
             }
-            
             for l in lineArray2 {
                 if l == posterTuple[k] {
                     count1 += 1
                 }
             }
-            
             if count1 == 0 {//겹치는게 없을때만 posterTUple2에 저장
                 posterTuple3.append(posterTuple[k])
             }
@@ -177,20 +344,22 @@ class CalenderView: UIView, UICollectionViewDelegate, UICollectionViewDataSource
         }
         if posterTuple3.count >= 1 {
             lineArray3.append(posterTuple3[0])//posterTuple3에서 가장긴것은 무조건 넣는다.
-            
             countLine = -1
             
-            for k in 1...posterTuple3.count-1 {
+            for k in 0...posterTuple3.count-1 {
                 if isGoodTopPut(lineArray: lineArray3, putDate: posterTuple3[k]) == true { //posterTuple2에서 lineArray2에 중복되지 않는 값들을 넣는다.
                     lineArray3.append(posterTuple3[k])
                 }
             }
         }
+        print("라인 3 통과")
         /* 라인 4 */
+
         var posterTuple4:[(Date,Date,Int,Int,String,Int)] = []
         //라인 3에 들어가는 가장긴 포스터를 찾자.
         for k in 0...posterTuple.count-1{
             var count1 = 0
+            
             for l in lineArray1 {
                 if l == posterTuple[k] {
                     count1 += 1
@@ -206,10 +375,12 @@ class CalenderView: UIView, UICollectionViewDelegate, UICollectionViewDataSource
                     count1 += 1
                 }
             }
+            
             if count1 == 0 {//겹치는게 없을때만 posterTUple2에 저장
                 posterTuple4.append(posterTuple[k])
             }
         }
+        print("라인 4 통과")
         
         if posterTuple4.count >= 1 {
             lineArray4.append(posterTuple4[0])//posterTuple3에서 가장긴것은 무조건 넣는다.
@@ -221,16 +392,20 @@ class CalenderView: UIView, UICollectionViewDelegate, UICollectionViewDataSource
                 }
             }
         }
-            //print(lineArray1)
+        /* 라인 4이외는 모두 땡땡땡으로 처리한다. */
             
             
-            //print(lineArray2)
             
-            
-            //print(lineArray3)
-            
-            
-            //print(lineArray4)
+//            print(lineArray1)
+//
+//
+//            print(lineArray2)
+//
+//
+//            print(lineArray3)
+//
+//
+//            print(lineArray4)
             
         }//posterTuple.count 처리
 
@@ -488,6 +663,20 @@ class CalenderView: UIView, UICollectionViewDelegate, UICollectionViewDataSource
         for line1 in lineArray1 {
             if line1.0 <= currentCellDateTime! && currentCellDateTime! <= line1.1{ //
                 cell.line.backgroundColor = #colorLiteral(red: 0.3803921569, green: 0.462745098, blue: 0.8666666667, alpha: 1)
+                
+                //라인1의 끝날짜 처리
+                let currentCellDateTimeYear = Calendar.current.component(.year, from: currentCellDateTime!)
+                let currentCellDateTimeMonth = Calendar.current.component(.month, from: currentCellDateTime!)
+                let currentCellDateTimeDay = Calendar.current.component(.day, from: currentCellDateTime!)
+                
+                let lineYear = Calendar.current.component(.year, from: line1.1)
+                let lineMonth = Calendar.current.component(.month, from: line1.1)
+                let lineDay = Calendar.current.component(.day, from: line1.1)
+                
+                if currentCellDateTimeYear == lineYear && currentCellDateTimeMonth == lineMonth && currentCellDateTimeDay == lineDay {
+                    cell.line.frame.origin.x = cell.frame.origin.x - 5
+                }
+                
                 if currentCellDateTime! < todayDate! {
                     cell.line.backgroundColor = #colorLiteral(red: 0.7882352941, green: 0.7882352941, blue: 0.7882352941, alpha: 1)
                 }
@@ -517,20 +706,50 @@ class CalenderView: UIView, UICollectionViewDelegate, UICollectionViewDataSource
                 }
             }
         }
+        //
+        
+        
         
         for line2 in lineArray2 {
             if line2.0 <= currentCellDateTime! && currentCellDateTime! <= line2.1 {
                 cell.line2.backgroundColor = #colorLiteral(red: 0.02745098039, green: 0.6509803922, blue: 1, alpha: 1)
+                
+                //line2의 끝날짜 처리
+                let currentCellDateTimeYear = Calendar.current.component(.year, from: currentCellDateTime!)
+                let currentCellDateTimeMonth = Calendar.current.component(.month, from: currentCellDateTime!)
+                let currentCellDateTimeDay = Calendar.current.component(.day, from: currentCellDateTime!)
+                
+                let line2Year = Calendar.current.component(.year, from: line2.1)
+                let line2Month = Calendar.current.component(.month, from: line2.1)
+                let line2Day = Calendar.current.component(.day, from: line2.1)
+                
+                if currentCellDateTimeYear == line2Year && currentCellDateTimeMonth == line2Month && currentCellDateTimeDay == line2Day {
+                    cell.line2.frame.origin.x = cell.frame.origin.x - 5
+                }
+                
                 if currentCellDateTime! < todayDate! {
                     cell.line2.backgroundColor = #colorLiteral(red: 0.7882352941, green: 0.7882352941, blue: 0.7882352941, alpha: 1)
                 }
             }
-            
         }
         
         for line3 in lineArray3 {
             if line3.0 <= currentCellDateTime! && currentCellDateTime! <= line3.1 {
                 cell.line3.backgroundColor = #colorLiteral(red: 0.9960784314, green: 0.4274509804, blue: 0.4274509804, alpha: 1)
+                
+                //line3의 끝날짜 처리
+                let currentCellDateTimeYear = Calendar.current.component(.year, from: currentCellDateTime!)
+                let currentCellDateTimeMonth = Calendar.current.component(.month, from: currentCellDateTime!)
+                let currentCellDateTimeDay = Calendar.current.component(.day, from: currentCellDateTime!)
+                
+                let line3Year = Calendar.current.component(.year, from: line3.1)
+                let line3Month = Calendar.current.component(.month, from: line3.1)
+                let line3Day = Calendar.current.component(.day, from: line3.1)
+                
+                if currentCellDateTimeYear == line3Year && currentCellDateTimeMonth == line3Month && currentCellDateTimeDay == line3Day {
+                    cell.line3.frame.origin.x = cell.frame.origin.x - 5
+                }
+                
                 if currentCellDateTime! < todayDate! {
                     cell.line3.backgroundColor = #colorLiteral(red: 0.7882352941, green: 0.7882352941, blue: 0.7882352941, alpha: 1)
                 }
@@ -540,7 +759,20 @@ class CalenderView: UIView, UICollectionViewDelegate, UICollectionViewDataSource
         
         for line4 in lineArray4 {
             if line4.0 <= currentCellDateTime! && currentCellDateTime! <= line4.1 {
+                
                 cell.line4.backgroundColor = #colorLiteral(red: 1, green: 0.6274509804, blue: 0.6274509804, alpha: 1)
+                //line4의 끝날짜 처리
+                let currentCellDateTimeYear = Calendar.current.component(.year, from: currentCellDateTime!)
+                let currentCellDateTimeMonth = Calendar.current.component(.month, from: currentCellDateTime!)
+                let currentCellDateTimeDay = Calendar.current.component(.day, from: currentCellDateTime!)
+                
+                let line4Year = Calendar.current.component(.year, from: line4.1)
+                let line4Month = Calendar.current.component(.month, from: line4.1)
+                let line4Day = Calendar.current.component(.day, from: line4.1)
+                
+                if currentCellDateTimeYear == line4Year && currentCellDateTimeMonth == line4Month && currentCellDateTimeDay == line4Day {
+                        cell.line4.frame.origin.x = cell.frame.origin.x - 5
+                }
                 if currentCellDateTime! < todayDate! {
                     cell.line4.backgroundColor = #colorLiteral(red: 0.7882352941, green: 0.7882352941, blue: 0.7882352941, alpha: 1)
                 }

@@ -114,9 +114,10 @@ class SwipeCard: UIView {
                 self.overLayImage.alpha = 0
             })
         }
+        
         print("카드 스와이핑 액션이 왼족 오른쪽에 따라 완전히 끝났다")
     }
-    //오른쪽 스와이프
+    //오른쪽 스와이프 , 좋아요
     func rightAction() {
         let finishPoint = CGPoint(x: frame.size.width*2, y: 2 * yCenter + originalPoint.y)
         UIView.animate(withDuration: 0.5, animations: {
@@ -126,9 +127,54 @@ class SwipeCard: UIView {
         })
         isLiked = true
         delegate?.cardGoesRight(card: self)
+        
+        getPosterData()
+        //나의 userdefaults에 저장하기
+        
         print("RIGHT 액션")
-       
     }
+    
+    //수동입력 추가 완료
+    func getPosterData() {
+        let posterURL = URL(string: "http://54.180.79.158:8080/posters/manualAdd")
+        var request = URLRequest(url: posterURL!)
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.httpMethod = "POST"
+        let key2 = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJEb0lUU09QVCIsInVzZXJfaWR4IjoyfQ.kl46Nyv3eGs6kW7DkgiJgmf_1u1-bce1kLXkO7mcQvw"
+        request.addValue("\(key2)", forHTTPHeaderField: "Authorization")
+        
+        let json: [String: Any] =  [
+            "categoryIdx" : 2,
+            "manualName" : "민지쓰",
+            "manualDetail" : "허수진 API짜주세요",
+            "manualStartDate" : "2019-01-07 05:10",
+            "manualEndDate" : "2019-01-09 05:10",
+            "isAlarm" : 1
+            ]
+        let jsonData = try? JSONSerialization.data(withJSONObject: json)
+        
+        request.httpBody = jsonData
+        
+        let task = URLSession.shared.dataTask(with: request) { data, response, error in
+            guard error == nil else {
+                print(error!)
+                return
+            }
+            guard let data = data else {
+                return
+            }
+            print("좋아요 \(data)")
+            //print("reponse \(response)")
+            do {
+                let order = try JSONDecoder().decode(Json4Swift_Base.self, from: data)
+                print("좋아요 \(order)")
+            }catch{
+                print("JSON Parising Error")
+            }
+        }
+        task.resume()
+    }
+
     //왼쪽 스와이프
     func leftAction() {
         let finishPoint = CGPoint(x: -frame.size.width*2, y: 2 * yCenter + originalPoint.y)

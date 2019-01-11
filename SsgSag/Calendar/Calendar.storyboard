@@ -305,6 +305,7 @@
                                 <rect key="frame" x="95" y="724" width="184" height="44"/>
                                 <state key="normal" image="btSaveRound"/>
                             </button>
+
                         </subviews>
                         <color key="backgroundColor" red="0.94901960784313721" green="0.95294117647058818" blue="0.96078431372549022" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
@@ -718,6 +719,7 @@
         </scene>
     </scenes>
     <resources>
+
         <image name="btSaveRound" width="130" height="44"/>
         <image name="icArrowBack" width="24" height="24"/>
         <image name="icArrowGradation" width="44" height="50"/>
