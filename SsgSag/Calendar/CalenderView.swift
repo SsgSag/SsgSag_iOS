@@ -611,8 +611,6 @@ class CalenderView: UIView, UICollectionViewDelegate, UICollectionViewDataSource
         var cellMonth = currentMonth
         var cellDay = indexPath.row-firstWeekDayOfMonth+2
         
-        
-        
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
         
@@ -676,13 +674,25 @@ class CalenderView: UIView, UICollectionViewDelegate, UICollectionViewDataSource
                 let currentCellDateTimeMonth = Calendar.current.component(.month, from: currentCellDateTime!)
                 let currentCellDateTimeDay = Calendar.current.component(.day, from: currentCellDateTime!)
                 
+                //마지막 날짜 체크
                 let lineYear = Calendar.current.component(.year, from: line1.1)
                 let lineMonth = Calendar.current.component(.month, from: line1.1)
                 let lineDay = Calendar.current.component(.day, from: line1.1)
                 
+                //현재 검사하는 셀이
                 if currentCellDateTimeYear == lineYear && currentCellDateTimeMonth == lineMonth && currentCellDateTimeDay == lineDay {
-                    cell.line.frame.origin.x = cell.frame.origin.x - 5
+                    let label = UILabel(frame: CGRect(x: 0, y: 0, width: cell.line.frame.width, height: cell.line.frame.height))
+                    cell.line.addSubview(label)
+                    print("들어왔다")
+                    label.textAlignment = .left
+                    //label.font = UIFont.systemFont(ofSize: 1.0)
+                    label.text = line1.4
+                    print(line1.4)
+                    print("\(lineYear) \(lineMonth) \(lineDay)")
+                    
                 }
+                
+                cell.lineLabel.text = line1.4
                 
                 if currentCellDateTime! < todayDate! {
                     cell.line.backgroundColor = #colorLiteral(red: 0.7882352941, green: 0.7882352941, blue: 0.7882352941, alpha: 1)
@@ -699,15 +709,16 @@ class CalenderView: UIView, UICollectionViewDelegate, UICollectionViewDataSource
                 let yearline1Componets = line1Componets.year!
                 let monthline1Componets = line1Componets.month!
                 let dayline1Componets = line1Componets.day!
+//
+//                let yearcurrentComponets = currentComponets.year!
+//                let monthcurrentComponets = currentComponets.month!
+//                let daycurrentComponets = currentComponets.day!
 
-                let yearcurrentComponets = currentComponets.year!
-                let monthcurrentComponets = currentComponets.month!
-                let daycurrentComponets = currentComponets.day!
-
-                if yearline1Componets == yearcurrentComponets && monthline1Componets == monthcurrentComponets && dayline1Componets == daycurrentComponets {
+                if yearline1Componets == currentCellDateTimeYear && monthline1Componets == currentCellDateTimeMonth && dayline1Componets == currentCellDateTimeDay {
                     let label = UILabel(frame: CGRect(x: 0, y: 0, width: cell.line.frame.width, height: cell.line.frame.height))
+                    print("들어왔다")
                     label.textAlignment = .left
-                    label.font = UIFont.systemFont(ofSize: 6.0)
+                    label.font = UIFont.systemFont(ofSize: 3.0)
                     label.text = line1.4
                     cell.line.addSubview(label)
                 }
@@ -716,7 +727,7 @@ class CalenderView: UIView, UICollectionViewDelegate, UICollectionViewDataSource
         //
         
         
-        
+        //라인 2
         for line2 in lineArray2 {
             if line2.0 <= currentCellDateTime! && currentCellDateTime! <= line2.1 {
                 cell.line2.backgroundColor = #colorLiteral(red: 0.02745098039, green: 0.6509803922, blue: 1, alpha: 1)
@@ -730,10 +741,26 @@ class CalenderView: UIView, UICollectionViewDelegate, UICollectionViewDataSource
                 let line2Month = Calendar.current.component(.month, from: line2.1)
                 let line2Day = Calendar.current.component(.day, from: line2.1)
                 
-                if currentCellDateTimeYear == line2Year && currentCellDateTimeMonth == line2Month && currentCellDateTimeDay == line2Day {
-                    cell.line2.frame.origin.x = cell.frame.origin.x - 5
+                let line2YearStart = Calendar.current.component(.year, from: line2.0)
+                let line2MonthStart = Calendar.current.component(.month, from: line2.0)
+                let line2DayStart = Calendar.current.component(.day, from: line2.0)
+                
+                if currentCellDateTimeYear == line2YearStart && currentCellDateTimeMonth == line2MonthStart && currentCellDateTimeDay == line2DayStart {
+                    cell.lbl.text = line2.4
+                    print("건졌어?")
+                    print(line2.4)
                 }
                 
+                //마지막 날짜
+                if currentCellDateTimeYear == line2Year && currentCellDateTimeMonth == line2Month && currentCellDateTimeDay == line2Day {
+                    //cell.line2.frame.origin.x = cell.frame.origin.x - 5
+                    cell.line2.backgroundColor = .black
+                    //cell.line2.widthAnchor.constraint(equalToConstant: 13).isActive = true
+                }
+                
+                //if current
+                
+                //오늘 이전이면 라인2의 백그라운드 컬러도 회색으로 바꾼다.
                 if currentCellDateTime! < todayDate! {
                     cell.line2.backgroundColor = #colorLiteral(red: 0.7882352941, green: 0.7882352941, blue: 0.7882352941, alpha: 1)
                 }
@@ -780,6 +807,7 @@ class CalenderView: UIView, UICollectionViewDelegate, UICollectionViewDataSource
                 if currentCellDateTimeYear == line4Year && currentCellDateTimeMonth == line4Month && currentCellDateTimeDay == line4Day {
                         cell.line4.frame.origin.x = cell.frame.origin.x - 5
                 }
+                
                 if currentCellDateTime! < todayDate! {
                     cell.line4.backgroundColor = #colorLiteral(red: 0.7882352941, green: 0.7882352941, blue: 0.7882352941, alpha: 1)
                 }
@@ -998,11 +1026,23 @@ class dateCVCell: UICollectionViewCell {
         line.rightAnchor.constraint(equalTo: rightAnchor).isActive = true
         line.heightAnchor.constraint(equalTo: self.heightAnchor, multiplier: 0.12).isActive = true
         
+        line.addSubview(lineLabel)
+        lineLabel.leftAnchor.constraint(equalTo: line.leftAnchor).isActive = true
+        lineLabel.rightAnchor.constraint(equalTo: line.rightAnchor).isActive = true
+        lineLabel.topAnchor.constraint(equalTo: line.topAnchor).isActive = true
+        lineLabel.bottomAnchor.constraint(equalTo: line.bottomAnchor).isActive = true
+        
         addSubview(line2)
         line2.topAnchor.constraint(equalTo: line.bottomAnchor , constant: 0.6).isActive = true
         line2.leftAnchor.constraint(equalTo: leftAnchor).isActive = true
         line2.rightAnchor.constraint(equalTo: rightAnchor).isActive = true
         line2.heightAnchor.constraint(equalTo: self.heightAnchor, multiplier: 0.12).isActive = true
+        
+        line2.addSubview(lineLabel2)
+        lineLabel2.leftAnchor.constraint(equalTo: line2.leftAnchor).isActive = true
+        lineLabel2.rightAnchor.constraint(equalTo: line2.rightAnchor).isActive = true
+        lineLabel2.topAnchor.constraint(equalTo: line2.topAnchor).isActive = true
+        lineLabel2.bottomAnchor.constraint(equalTo: line2.bottomAnchor).isActive = true
         
         addSubview(line3)
         line3.topAnchor.constraint(equalTo: line2.bottomAnchor , constant: 0.6).isActive = true
@@ -1010,11 +1050,23 @@ class dateCVCell: UICollectionViewCell {
         line3.rightAnchor.constraint(equalTo: rightAnchor).isActive = true
         line3.heightAnchor.constraint(equalTo: self.heightAnchor, multiplier: 0.12).isActive = true
         
+        line3.addSubview(lineLabel3)
+        lineLabel3.leftAnchor.constraint(equalTo: line3.leftAnchor).isActive = true
+        lineLabel3.rightAnchor.constraint(equalTo: line3.rightAnchor).isActive = true
+        lineLabel3.topAnchor.constraint(equalTo: line3.topAnchor).isActive = true
+        lineLabel3.bottomAnchor.constraint(equalTo: line3.bottomAnchor).isActive = true
+        
         addSubview(line4)
         line4.topAnchor.constraint(equalTo: line3.bottomAnchor , constant: 0.6).isActive = true
         line4.leftAnchor.constraint(equalTo: leftAnchor).isActive = true
         line4.rightAnchor.constraint(equalTo: rightAnchor).isActive = true
         line4.heightAnchor.constraint(equalTo: self.heightAnchor, multiplier: 0.12).isActive = true
+        
+        line4.addSubview(lineLabel4)
+        lineLabel4.leftAnchor.constraint(equalTo: line4.leftAnchor).isActive = true
+        lineLabel4.rightAnchor.constraint(equalTo: line4.rightAnchor).isActive = true
+        lineLabel4.topAnchor.constraint(equalTo: line4.topAnchor).isActive = true
+        lineLabel4.bottomAnchor.constraint(equalTo: line4.bottomAnchor).isActive = true
     }
     //일
     let lbl: UILabel = {
@@ -1037,6 +1089,12 @@ class dateCVCell: UICollectionViewCell {
         return line
     }()
     
+    let lineLabel: UILabel = {
+        let lb = UILabel()
+        lb.translatesAutoresizingMaskIntoConstraints = false
+        return lb
+    }()
+    
     //구분선
     let line2: UIView = {
         let line = UIView()
@@ -1044,6 +1102,12 @@ class dateCVCell: UICollectionViewCell {
         line.layer.masksToBounds = true
         line.translatesAutoresizingMaskIntoConstraints = false
         return line
+    }()
+    
+    let lineLabel2: UILabel = {
+        let lb = UILabel()
+        lb.translatesAutoresizingMaskIntoConstraints = false
+        return lb
     }()
     
     //구분선
@@ -1056,6 +1120,12 @@ class dateCVCell: UICollectionViewCell {
         return line
     }()
     
+    let lineLabel3: UILabel = {
+        let lb = UILabel()
+        lb.translatesAutoresizingMaskIntoConstraints = false
+        return lb
+    }()
+    
     //구분선
     let line4: UIView = {
         let line = UIView()
@@ -1064,6 +1134,12 @@ class dateCVCell: UICollectionViewCell {
         line.layer.masksToBounds = true
         line.translatesAutoresizingMaskIntoConstraints = false
         return line
+    }()
+    
+    let lineLabel4: UILabel = {
+        let lb = UILabel()
+        lb.translatesAutoresizingMaskIntoConstraints = false
+        return lb
     }()
     
     required init?(coder aDecoder: NSCoder) {

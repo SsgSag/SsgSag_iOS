@@ -180,7 +180,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icArrowNextMypage" translatesAutoresizingMaskIntoConstraints="NO" id="ZqY-EB-LcC">
-                                                    <rect key="frame" x="556" y="16" width="24" height="23.666666666666671"/>
+                                                    <rect key="frame" x="331" y="16" width="24" height="23.666666666666671"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" secondItem="ZqY-EB-LcC" secondAttribute="height" multiplier="24:24" id="8xJ-IQ-Vwp"/>
                                                     </constraints>
@@ -208,7 +208,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icArrowNextMypage" translatesAutoresizingMaskIntoConstraints="NO" id="vqg-fx-2BB">
-                                                    <rect key="frame" x="556" y="16" width="24" height="23.666666666666671"/>
+                                                    <rect key="frame" x="331" y="16" width="24" height="23.666666666666671"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" secondItem="vqg-fx-2BB" secondAttribute="height" multiplier="24:24" id="WWV-3Q-nf8"/>
                                                     </constraints>
@@ -236,7 +236,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icArrowNextMypage" translatesAutoresizingMaskIntoConstraints="NO" id="BSC-fw-4DZ">
-                                                    <rect key="frame" x="556" y="16" width="24" height="23.666666666666671"/>
+                                                    <rect key="frame" x="331" y="16" width="24" height="23.666666666666671"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" secondItem="BSC-fw-4DZ" secondAttribute="height" multiplier="24:24" id="YAU-z4-R7e"/>
                                                     </constraints>

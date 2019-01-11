@@ -637,6 +637,7 @@ extension CalenderVC: UITableViewDataSource {
         
         
         cell.contentLabel.text = "\(todoExampleDate[indexPath.row].4)"
+        cell.contentLabel.numberOfLines = 2
         
         let startMonth = Calendar.current.component(.month, from: todoExampleDate[indexPath.row].0)
         let startDay = Calendar.current.component(.day, from: todoExampleDate[indexPath.row].0)
