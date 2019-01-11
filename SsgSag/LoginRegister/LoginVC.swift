@@ -42,6 +42,7 @@ class LoginVC: UIViewController {
             sender.isSelected = true
         }
     }
+    
     @IBAction func touchUpLoginButton(_ sender: Any) {
         guard let email = emailTextField.text else {return}
         guard let password = passwordTextField.text else {return}
@@ -73,7 +74,7 @@ class LoginVC: UIViewController {
             UserDefaults.standard.set(token, forKey: "token")
             
             let storyboard = UIStoryboard(name: "SwipeStoryBoard", bundle: nil)
-            //let swipeVC = storyboard.instantiateViewController(withIdentifier: "Swipe")
+            let swipeVC = storyboard.instantiateViewController(withIdentifier: "Swipe")
             let tabbarVC = TapbarVC()
             self.present(tabbarVC, animated: true, completion: nil)
         }
