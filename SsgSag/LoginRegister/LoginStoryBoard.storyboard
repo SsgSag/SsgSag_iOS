@@ -13,7 +13,7 @@
         <!--LoginVC-->
         <scene sceneID="FVm-Ac-nOB">
             <objects>
-                <viewController id="tMf-Vk-5XN" customClass="LoginVC" customModule="SsgSag" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="Login" id="tMf-Vk-5XN" customClass="LoginVC" customModule="SsgSag" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="To5-i1-NtQ">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -118,6 +118,9 @@
                                                         <state key="normal" title="  자동로그인" image="checkboxRound">
                                                             <color key="titleColor" white="1" alpha="0.80000000000000004" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         </state>
+                                                        <connections>
+                                                            <action selector="touchUpAutoLoginButton:" destination="tMf-Vk-5XN" eventType="touchUpInside" id="pZd-XR-y70"/>
+                                                        </connections>
                                                     </button>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Db5-Cn-zfJ">
                                                         <rect key="frame" x="165.66666666666666" y="0.0" width="141.99999999999997" height="30"/>
@@ -185,7 +188,7 @@
                     <connections>
                         <outlet property="emailTextField" destination="skH-Zq-gzg" id="MKa-wu-bOq"/>
                         <outlet property="passwordTextField" destination="CnZ-bq-AA3" id="YAb-1h-AUN"/>
-                        <outlet property="stackViewConstraint" destination="8K5-2T-iOQ" id="Qve-B9-Umn"/>
+                        <outlet property="stackViewConstraint" destination="Kel-Vx-g9U" id="HFR-ts-wVB"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Z76-gD-Mja" userLabel="First Responder" sceneMemberID="firstResponder"/>

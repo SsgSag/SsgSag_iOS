@@ -54,6 +54,10 @@ class AddActivityVC: UIViewController, UITextViewDelegate {
         dismiss(animated: true, completion: nil)
     }
     
+    @IBAction func touchUpSaveButton(_ sender: Any) {
+        simplerAlert(title: "저장되었습니다")
+    }
+    
     func dismissKeyboard() {
         contentTextView.resignFirstResponder()
     }

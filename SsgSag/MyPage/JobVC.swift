@@ -54,8 +54,7 @@ class JobVC: UIViewController {
 //
 //        popVC.didMove(toParent: self)
         
-        
-        simpleAlert(title: "저장", message: "저장되었습니다")
+        simplerAlert(title: "저장되었습니다")
     }
     @IBAction func valueChangeJobSwitch(_ sender: Any) {
         changeStateJobButtons()

@@ -55,15 +55,20 @@ class UserInfoVC: UIViewController, UITextFieldDelegate {
     
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        let profileVC = segue.destination as! ConfirmProfileVC
-        profileVC.id = emailTextField.text ?? ""
-        profileVC.password = passwordTextField.text ?? ""
+        if let profileVC = segue.destination as? ConfirmProfileVC {
+            profileVC.id = emailTextField.text ?? ""
+            profileVC.password = passwordTextField.text ?? ""
+        }
+        
         //        if let destination = segue.destination as? ConfirmProfileVC {
         //            if let id = sender as? String {
         //                destination.ihihih = id(emailTextField.text)
         //
         //            }
         //        }
+        
+    }
+    @IBAction func touchUpBackButton(_ sender: UIBarButtonItem) {
         
     }
     

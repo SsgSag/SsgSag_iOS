@@ -28,7 +28,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window?.rootViewController = TapbarVC()
 
         window?.makeKeyAndVisible()
-        
+//        
         return true
     }
 

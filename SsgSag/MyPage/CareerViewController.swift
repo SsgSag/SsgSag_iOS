@@ -15,25 +15,9 @@ class CareerViewController: UIViewController {
     let certificationTableView: UITableView = UITableView()
     var indicatorViewLeadingConstraint: NSLayoutConstraint!
     
-//    lazy var activityList: [Career] = {
-//        var list = [Career]()
-//        return list
-//    }()
-//
-//    lazy var prizeList: [Career] = {
-//        var list = [Career]()
-//        return list
-//    }()
-//
-//    lazy var certificationList: [Career] = {
-//        var list = [Career]()
-//        return list
-//    }()
-    
-    lazy var activityList: [Career] = []
-    lazy var prizeList: [Career] = []
-    lazy var certificationList: [Career] = []
-
+    lazy var activityList: [Datum] = []
+    lazy var prizeList: [Datum] = []
+    lazy var certificationList: [Datum] = []
     
     
     var customTabBarCollectionView: UICollectionView = {
@@ -49,17 +33,17 @@ class CareerViewController: UIViewController {
         view.translatesAutoresizingMaskIntoConstraints = false
         view.backgroundColor = UIColor.rgb(red: 155, green: 65, blue: 250)
         
-//        view.setGradient(from: UIColor.rgb(red: 65, green: 163, blue: 255), to: UIColor.rgb(red: 155, green: 65, blue: 250))
-//        var gradient = CAGradientLayer()
-//        gradient.frame = view.bounds
-//
-//        gradient.colors = [
-//            UIColor.rgb(red: 65, green: 163, blue: 255).cgColor, // Top
-//            UIColor.rgb(red: 155, green: 65, blue: 250).cgColor
-//        ]
-//        gradient.startPoint = CGPoint(x: 0, y: 0.5)
-//        gradient.endPoint = CGPoint(x: 1, y: 0.5)
-//        view.layer.addSublayer(gradient)
+        //        view.setGradient(from: UIColor.rgb(red: 65, green: 163, blue: 255), to: UIColor.rgb(red: 155, green: 65, blue: 250))
+        //        var gradient = CAGradientLayer()
+        //        gradient.frame = view.bounds
+        //
+        //        gradient.colors = [
+        //            UIColor.rgb(red: 65, green: 163, blue: 255).cgColor, // Top
+        //            UIColor.rgb(red: 155, green: 65, blue: 250).cgColor
+        //        ]
+        //        gradient.startPoint = CGPoint(x: 0, y: 0.5)
+        //        gradient.endPoint = CGPoint(x: 1, y: 0.5)
+        //        view.layer.addSublayer(gradient)
         return view
     }()
     
@@ -69,20 +53,20 @@ class CareerViewController: UIViewController {
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
-
-
+    
+    
     @IBOutlet weak var plusButton: UIButton!
     
-    @IBOutlet weak var mainScrollView: UIScrollView!
+    @IBOutlet weak var scrollView: UIScrollView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        mainScrollView.delegate = self
-        mainScrollView.backgroundColor = UIColor.rgb(red: 242, green: 243, blue: 245)
+        scrollView.delegate = self
+        scrollView.backgroundColor = UIColor.rgb(red: 242, green: 243, blue: 245)
         
         setUpTableView()
-        fitTableViewPosition()
-        setupCustomTabBar()
+        setTableViewPosition()
+        setUpCustomTabBar()
         
         let resNib = UINib(nibName: "ActivityCell", bundle: nil)
         activityTableView.register(resNib, forCellReuseIdentifier: "ActivityCell")
@@ -91,63 +75,19 @@ class CareerViewController: UIViewController {
         let certificationNib = UINib(nibName: "CertificationCell", bundle: nil)
         certificationTableView.register(certificationNib, forCellReuseIdentifier: "CertificationCell")
         
-        cellOfEatery()
-        
         plusButton.addTarget(self, action: #selector(addActivityPresentAction), for: .touchUpInside)
-
+        
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
         getData(careerType: "0")
-        //        getData(careerType: "1")
-        //        getData(careerType: "2")
-//        getCareer()
-
+        getData(careerType: "1")
+        getData(careerType: "2")
     }
     
-    func tableViewCells() {
-//        let
-    }
-    
-    func cellOfEatery() {
-        let path = Bundle.main.path(forResource: "data", ofType: "json")
-        if let contents = try? String(contentsOfFile: path!) {
-            if let data = contents.data(using: .utf8) {
-                let result = try? JSONDecoder().decode(eateryVO.self, from: data)
-                for row in result!.data.activity {
-                    let activityOV = eatery()
-                    activityOV.title = row.title
-                    activityOV.date = row.date
-                    activityOV.content = row.content
-//                    self.activityList.append(activityOV)
-                }
-                self.activityTableView.reloadData()
-                
-                for row in result!.data.prize {
-                    let prizeOV = eatery()
-                    prizeOV.title = row.title
-                    prizeOV.date = row.date
-                    prizeOV.content = row.content
-//                    self.prizeList.append(prizeOV)
-                }
-                self.prizeTableView.reloadData()
-                
-                for row in result!.data.certification {
-                    let certificationOV = eatery()
-                    certificationOV.title = row.title
-                    certificationOV.date = row.date
-                    certificationOV.content = row.content
-//                    self.certificationList.append(certificationOV)
-                }
-                self.certificationTableView.reloadData()
-            }
-        }
-    }
-    
-    
-    func setupCollectioView(){
+    func setUpCollectionView(){
         customTabBarCollectionView.delegate = self
         customTabBarCollectionView.dataSource = self
         customTabBarCollectionView.backgroundColor = .white
@@ -158,12 +98,11 @@ class CareerViewController: UIViewController {
     }
     
     @objc func dismissModal(){
-        //        self.navigationController?.popViewController(animated: true)
         self.dismiss(animated: true, completion: nil)
     }
     
-    func setupCustomTabBar(){
-        setupCollectioView()
+    func setUpCustomTabBar(){
+        setUpCollectionView()
         
         let navigationBar = UINavigationBar()
         navigationBar.translatesAutoresizingMaskIntoConstraints = false
@@ -171,22 +110,22 @@ class CareerViewController: UIViewController {
         navigationBar.leadingAnchor.constraint(equalTo: self.view.leadingAnchor).isActive = true
         navigationBar.trailingAnchor.constraint(equalTo: self.view.trailingAnchor).isActive = true
         navigationBar.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor).isActive = true
-        let backBTN = UIBarButtonItem(image: UIImage(named: "icArrowBack"),
-                                      style: .plain,
-                                      target: self,
-                                      action: #selector(self.dismissModal))
+        let backButton = UIBarButtonItem(image: UIImage(named: "icArrowBack"),
+                                         style: .plain,
+                                         target: self,
+                                         action: #selector(self.dismissModal))
         
         var items = UINavigationItem()
-        items.leftBarButtonItem = backBTN
+        items.leftBarButtonItem = backButton
         items.title = "이력"
-        backBTN.tintColor = .black
+        backButton.tintColor = .black
         navigationBar.items?.append(items)
         navigationBar.barTintColor = .white
         
         self.navigationItem.leftBarButtonItem?.tintColor = .black
         self.navigationItem.title = "이력"
         
-   
+        
         self.view.addSubview(customTabBar)
         customTabBar.leadingAnchor.constraint(equalTo: self.view.leadingAnchor).isActive = true
         customTabBar.trailingAnchor.constraint(equalTo: self.view.trailingAnchor).isActive = true
@@ -221,8 +160,8 @@ class CareerViewController: UIViewController {
     }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        if scrollView == mainScrollView {
-            if  mainScrollView.isDragging  {
+        if scrollView == scrollView {
+            if  scrollView.isDragging  {
                 indicatorViewLeadingConstraint.constant = scrollView.contentOffset.x / 3
             } else {
                 indicatorViewLeadingConstraint.constant = scrollView.contentOffset.x / 3
@@ -231,7 +170,7 @@ class CareerViewController: UIViewController {
     }
     
     func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
-        if scrollView == mainScrollView {
+        if scrollView == scrollView {
             let itemAt = Int(targetContentOffset.pointee.x / self.view.frame.width)
             let index = IndexPath(item: itemAt, section: 0)
             switch itemAt {
@@ -261,35 +200,35 @@ class CareerViewController: UIViewController {
         }
     }
     
-    func fitTableViewPosition() {
-        mainScrollView.contentSize.width = self.view.frame.width * CGFloat(3)
+    func setTableViewPosition() {
+        scrollView.contentSize.width = self.view.frame.width * CGFloat(3)
         
-        mainScrollView.addSubview(activityTableView)
-        mainScrollView.addSubview(prizeTableView)
-        mainScrollView.addSubview(certificationTableView)
+        scrollView.addSubview(activityTableView)
+        scrollView.addSubview(prizeTableView)
+        scrollView.addSubview(certificationTableView)
         
-        mainScrollView.translatesAutoresizingMaskIntoConstraints = false
+        scrollView.translatesAutoresizingMaskIntoConstraints = false
         activityTableView.translatesAutoresizingMaskIntoConstraints = false
         prizeTableView.translatesAutoresizingMaskIntoConstraints = false
         certificationTableView.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
-            activityTableView.centerYAnchor.constraint(equalTo: mainScrollView.centerYAnchor),
-            prizeTableView.centerYAnchor.constraint(equalTo: mainScrollView.centerYAnchor),
-            certificationTableView.centerYAnchor.constraint(equalTo: mainScrollView.centerYAnchor),
+            activityTableView.centerYAnchor.constraint(equalTo: scrollView.centerYAnchor),
+            prizeTableView.centerYAnchor.constraint(equalTo: scrollView.centerYAnchor),
+            certificationTableView.centerYAnchor.constraint(equalTo: scrollView.centerYAnchor),
             activityTableView.widthAnchor.constraint(equalToConstant: self.view.frame.width),
-            activityTableView.leadingAnchor.constraint(equalTo: mainScrollView.leadingAnchor),
-            activityTableView.topAnchor.constraint(equalTo: mainScrollView.topAnchor),
-            activityTableView.bottomAnchor.constraint(equalTo: mainScrollView.bottomAnchor),
+            activityTableView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor),
+            activityTableView.topAnchor.constraint(equalTo: scrollView.topAnchor),
+            activityTableView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),
             activityTableView.trailingAnchor.constraint(equalTo: prizeTableView.leadingAnchor),
             prizeTableView.widthAnchor.constraint(equalToConstant: self.view.frame.width),
-            prizeTableView.topAnchor.constraint(equalTo: mainScrollView.topAnchor),
-            prizeTableView.bottomAnchor.constraint(equalTo: mainScrollView.bottomAnchor),
+            prizeTableView.topAnchor.constraint(equalTo: scrollView.topAnchor),
+            prizeTableView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),
             prizeTableView.trailingAnchor.constraint(equalTo: certificationTableView.leadingAnchor),
             certificationTableView.widthAnchor.constraint(equalToConstant: self.view.frame.width),
-            certificationTableView.topAnchor.constraint(equalTo: mainScrollView.topAnchor),
-            certificationTableView.bottomAnchor.constraint(equalTo: mainScrollView.bottomAnchor),
-            certificationTableView.trailingAnchor.constraint(equalTo: mainScrollView.trailingAnchor)
+            certificationTableView.topAnchor.constraint(equalTo: scrollView.topAnchor),
+            certificationTableView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),
+            certificationTableView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor)
             ])
     }
     
@@ -317,34 +256,42 @@ class CareerViewController: UIViewController {
         certificationTableView.separatorColor = UIColor.rgb(red: 242, green: 243, blue: 245)
     }
     
-    func setUpEmptyTableView(tableView: UITableView) {
+    func setUpEmptyTableView(tableView: UITableView, isEmptyTable: Bool) {
+        print("몇번")
         let emptyImageView = UIImageView()
-        tableView.addSubview(emptyImageView)
+        view.addSubview(emptyImageView)
         emptyImageView.translatesAutoresizingMaskIntoConstraints = false
-        emptyImageView.topAnchor.constraint(equalTo: tableView.topAnchor, constant: 122).isActive = true
-        emptyImageView.leadingAnchor.constraint(equalTo: tableView.leadingAnchor, constant: 50).isActive = true
-        emptyImageView.trailingAnchor.constraint(equalTo: tableView.trailingAnchor, constant: 50).isActive = true
+        //emptyImageView.topAnchor.constraint(equalTo: tableView.topAnchor, constant: 122).isActive = true
+        //emptyImageView.leadingAnchor.constraint(equalTo: tableView.leadingAnchor, constant: 50).isActive = true
+        //emptyImageView.trailingAnchor.constraint(equalTo: tableView.trailingAnchor, constant: 50).isActive = true
+        emptyImageView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        emptyImageView.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
         emptyImageView.heightAnchor.constraint(equalToConstant: 276).isActive = true
         emptyImageView.image = UIImage(named: "imgEmptyCareer")
         
-        let emptyLabel = UILabel()
-        emptyLabel.translatesAutoresizingMaskIntoConstraints = false
-        emptyLabel.text = "어떤 활동을 했는지"
-        emptyLabel.numberOfLines = 2
-        emptyLabel.textColor = UIColor.rgb(red: 155, green: 155, blue: 155)
-        emptyLabel.font = UIFont.systemFont(ofSize: 19)
-        tableView.addSubview(emptyLabel)
-        emptyLabel.topAnchor.constraint(equalTo: emptyImageView.bottomAnchor, constant: 43).isActive = true
-        emptyLabel.centerXAnchor.constraint(equalTo: emptyImageView.centerXAnchor).isActive = true
+        //            let emptyLabel = UILabel()
+        //            emptyLabel.translatesAutoresizingMaskIntoConstraints = false
+        //            emptyLabel.text = "어떤 활동을 했는지\n기록해보세요!"
+        //            emptyLabel.numberOfLines = 2
+        //            emptyLabel.textColor = UIColor.rgb(red: 155, green: 155, blue: 155)
+        //            emptyLabel.font = UIFont.systemFont(ofSize: 19)
+        //            emptyLabel.textAlignment = .center
+        //            tableView.addSubview(emptyLabel)
+        //            emptyLabel.topAnchor.constraint(equalTo: emptyImageView.bottomAnchor, constant: 43).isActive = true
+        //            emptyLabel.centerXAnchor.constraint(equalTo: emptyImageView.centerXAnchor).isActive = true
+        //
         
-        let emptyLabel2 = UILabel()
-        emptyLabel2.translatesAutoresizingMaskIntoConstraints = false
-        emptyLabel2.text = "기록해보세요!"
-        emptyLabel2.textColor = UIColor.rgb(red: 155, green: 155, blue: 155)
-        emptyLabel2.font = UIFont.systemFont(ofSize: 19)
-        tableView.addSubview(emptyLabel2)
-        emptyLabel2.topAnchor.constraint(equalTo: emptyLabel.bottomAnchor, constant: 5).isActive = true
-        emptyLabel2.centerXAnchor.constraint(equalTo: emptyImageView.centerXAnchor).isActive = true
+        if isEmptyTable {
+            emptyImageView.isHidden = false
+            //emptyLabel.isHidden = false
+        } else {
+            print("숨겨")
+            emptyImageView.isHidden = false
+            //emptyLabel.isHidden = true
+            //tableView.sendSubviewToBack(emptyLabel)
+            view.sendSubviewToBack(emptyImageView)
+        }
+        
     }
     
 }
@@ -360,25 +307,30 @@ extension CareerViewController: UITableViewDelegate, UITableViewDataSource {
         bottomLine.leadingAnchor.constraint(equalTo: customTabBar.leadingAnchor).isActive = true
         bottomLine.trailingAnchor.constraint(equalTo: customTabBar.trailingAnchor).isActive = true
         bottomLine.bottomAnchor.constraint(equalToSystemSpacingBelow: customTabBar.bottomAnchor, multiplier: 0).isActive = true
+        
         switch tableView {
         case activityTableView:
-            if activityList.count == 0 {
-                setUpEmptyTableView(tableView: activityTableView)
+            if activityList.count > 0 {
                 return activityList.count
-            } else { return activityList.count }
+            } else {
+                print("asldjlasjdlajsldkjalsjdklajslkdjasl: \(activityList.count)")
+                //                setUpEmptyTableView(tableView: activityTableView, isEmptyTable: true)
+                return activityList.count
+            }
         case prizeTableView:
             if prizeList.count == 0 {
-                setUpEmptyTableView(tableView: prizeTableView)
+                print("2번째 비어있음: \(prizeList.count)")
+                //                setUpEmptyTableView(tableView: prizeTableView, isEmptyTable: true)
                 return prizeList.count
             } else { return prizeList.count }
         case certificationTableView:
             if certificationList.count == 0 {
-                setUpEmptyTableView(tableView: certificationTableView)
+                //                setUpEmptyTableView(tableView: certificationTableView)
                 return certificationList.count
             } else { return certificationList.count }
         default : return 0
         }
-    
+        
     }
     
     
@@ -386,25 +338,28 @@ extension CareerViewController: UITableViewDelegate, UITableViewDataSource {
         if tableView == activityTableView {
             
             let cell = tableView.dequeueReusableCell(withIdentifier: "ActivityCell", for: indexPath) as! ActivityCell
-            let activity: Career = self.activityList[indexPath.row]
-//            print("타이틀입니당~~~~!~!~!!~!밍지화이팅~~~!~!\(activity.data.)")
-//            cell.titleLabel.text = activity.data.careerName
-//            cell.periodLabel.text = activity.careerDate1
-//            cell.detailLabel.text = activityList[indexPath.row].content
+            let activity: Datum = self.activityList[indexPath.row]
+            cell.titleLabel.text = activity.careerName
+            cell.dateLabel1.text = activity.careerDate1
+            if activity.careerDate2 != "" {
+                cell.dateLabel2.text = "~ " + activity.careerDate2
+            }
+            cell.detailLabel.text = activity.careerContent
             cell.selectionStyle = .none
             return cell
         } else if tableView == prizeTableView {
             let cell = tableView.dequeueReusableCell(withIdentifier: "PrizeCell", for: indexPath) as! ActivityCell
-//            cell.titleLabel.text = prizeList[indexPath.row].title
-//            cell.periodLabel.text = prizeList[indexPath.row].date
-//            cell.detailLabel.text = prizeList[indexPath.row].content
+            let prize: Datum = self.prizeList[indexPath.row]
+            cell.titleLabel.text = prize.careerName
+            cell.dateLabel1.text = prize.careerDate1
+            cell.detailLabel.text = prize.careerContent
             cell.selectionStyle = .none
             return cell
         } else {
             let cell = tableView.dequeueReusableCell(withIdentifier: "CertificationCell", for: indexPath) as! ActivityCell
-//            cell.titleLabel.text = certificationList[indexPath.row].title
-//            cell.periodLabel.text = certificationList[indexPath.row].date
-//            cell.detailLabel.text = certificationList[indexPath.row].content
+            //            cell.titleLabel.text = certificationList[indexPath.row].title
+            //            cell.periodLabel.text = certificationList[indexPath.row].date
+            //            cell.detailLabel.text = certificationList[indexPath.row].content
             cell.selectionStyle = .none
             return cell
         }
@@ -419,7 +374,7 @@ extension CareerViewController : UICollectionViewDelegate, UICollectionViewDataS
             cell.label.textColor = .black
             collectionView.selectItem(at: indexPath, animated: false, scrollPosition: [])
         }
-    
+        
         switch indexPath.row {
         case 0 : cell.label.text = "대외활동"
         case 1 : cell.label.text = "수상내역"
@@ -478,9 +433,14 @@ extension CareerViewController : UICollectionViewDelegate, UICollectionViewDataS
         
         DispatchQueue.main.async {
             UIView.animate(withDuration: 0.2, delay: 0, options: .curveLinear, animations: {
-                self.mainScrollView.contentOffset.x = self.view.frame.width * CGFloat(indexPath.row)
+                self.scrollView.contentOffset.x = self.view.frame.width * CGFloat(indexPath.row)
             }, completion: nil)
         }
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
+        guard let cell = collectionView.cellForItem(at: indexPath) as? CustomCareerCell else {return}
+        cell.label.textColor = .lightGray
     }
     
     @objc func addActivityPresentAction() {
@@ -495,10 +455,6 @@ extension CareerViewController : UICollectionViewDelegate, UICollectionViewDataS
             present(addVC, animated: true)
         }
     }
-    func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
-        guard let cell = collectionView.cellForItem(at: indexPath) as? CustomCareerCell else {return}
-        cell.label.textColor = .lightGray
-    }
     
     //
     func getData(careerType: String) {
@@ -510,7 +466,7 @@ extension CareerViewController : UICollectionViewDelegate, UICollectionViewDataS
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         let key2 = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJEb0lUU09QVCIsInVzZXJfaWR4IjoxfQ.5lCvAqnzYP4-2pFx1KTgLVOxYzBQ6ygZvkx5jKCFM08"
         request.addValue(key2, forHTTPHeaderField: "Authorization")
-
+        
         request.httpBody = jsonData
         
         let task = URLSession.shared.dataTask(with: request) { data, response, error in
@@ -519,35 +475,50 @@ extension CareerViewController : UICollectionViewDelegate, UICollectionViewDataS
                 print(error?.localizedDescription ?? "No data")
                 return
             }
-
+            
             guard let data = data else { return }
+            
             print(data)
             print("gggg")
             print(response)
+            
             do {
                 let apiResponse = try JSONDecoder().decode(Career.self, from: data)
                 print("orders: \(apiResponse)")
-                self.activityTableView.reloadData()
+                if careerType == "0" {
+                    print("00000000")
+                    self.activityList = apiResponse.data
+                    DispatchQueue.main.async {
+                        self.activityTableView.reloadData()
+                    }
+                } else if careerType == "1" {
+                    print("111111111")
+                    self.prizeList = apiResponse.data
+                    DispatchQueue.main.async {
+                        self.prizeTableView.reloadData()
+                    }
+                } else if careerType == "2" {
+                    self.certificationList = apiResponse.data
+                    DispatchQueue.main.async {
+                        self.certificationTableView.reloadData()
+                    }
+                }
+                
             } catch (let err) {
                 print(err.localizedDescription)
                 print("sladjalsdjlasjdlasjdlajsldjas")
             }
             
-            let responseJSON = try? JSONSerialization.jsonObject(with: data, options: [])
-            if let responseJSON = responseJSON as? [String: Any] {
-                //print("responseJSON \(responseJSON)")
-                //print(responseJSON["data"])
-                var a = responseJSON["data"]
-    
-                print(a)
-                print("1")
-            }
+            //            let responseJSON = try? JSONSerialization.jsonObject(with: data, options: [])
+            //            if let responseJSON = responseJSON as? [String: Any] {
+            //                //print("responseJSON \(responseJSON)")
+            //                //print(responseJSON["data"])
+            //                var a = responseJSON["data"]
+            //                print(a)
+            //                print("1")
+            //            }
         }
-        
         task.resume()
     }
-    
-//    var careers: [Career] = []
-   
 }
 

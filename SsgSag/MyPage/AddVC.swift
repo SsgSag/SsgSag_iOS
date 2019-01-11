@@ -29,6 +29,7 @@ class AddVC: UIViewController {
     }
     @IBAction func touchUpSaveButton(_ sender: UIButton) {
         //TODO: - 네트워크 연결?
+        simplerAlert(title: "저장되었습니다")
     }
     
     @IBAction func dismissModalAction(_ sender: Any) {

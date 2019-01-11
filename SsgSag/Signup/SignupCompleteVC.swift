@@ -74,6 +74,8 @@ class SignUpCompleteVC: UIViewController {
         checkInterest()
         postData()
         
+        let tabbarVC = TapbarVC()
+        self.present(tabbarVC, animated: false, completion: nil)
     }
     
     func setUpPreferenceButtons() {
@@ -123,22 +125,7 @@ class SignUpCompleteVC: UIViewController {
     
     
     func postData() {
-        //    var json: [String: Any] = ["userEmail" : "gogos32sing@naver.com",
-        //                               "userPw" : "12341235",
-        //                               "userId" : "heo0807",
-        //                               "userName" : "김현수",
-        //                               "userUniv" : "인하대학교",
-        //                               "userMajor" :"컴퓨터공학과",
-        //                               "userStudentNum" :"201732038",
-        //                               "userGender" :"male",
-        //                               "userBirth" :"980807",
-        //                               "userPushAllow" : 1,
-        //                               "userInfoAllow" : 1,
-        //                               "userInterest" : [1,
-        //                                                 2,
-        //                                                 3]
-        //    ]
-        
+       
         var json: [String: Any] = ["userEmail" : id,
                                    "userPw" : password,
                                    "userId" : nickName,
