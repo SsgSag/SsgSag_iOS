@@ -30,6 +30,7 @@ class CalenderView: UIView, UICollectionViewDelegate, UICollectionViewDataSource
     var lineArray2:[(Date,Date,Int,Int,String,Int)] = []
     var lineArray3:[(Date,Date,Int,Int,String,Int)] = []
     var lineArray4:[(Date,Date,Int,Int,String,Int)] = []
+    var lineArray5:[(Date,Date,Int,Int,String,Int)] = []
     
     var currentPosterTuple:[(Date, Date, Int, Int, String, Int)] = []
     
@@ -37,6 +38,7 @@ class CalenderView: UIView, UICollectionViewDelegate, UICollectionViewDataSource
     var lastSelectedIndexPath: IndexPath?
     
     @objc func addUserDefaults() {
+        
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
         
@@ -55,13 +57,13 @@ class CalenderView: UIView, UICollectionViewDelegate, UICollectionViewDataSource
                     let components = Calendar.current.dateComponents([.day], from: posterStartDateTime!, to: posterEndDateTime!)
                     let dayInterval = components.day! + 1
                     
-                    posterTuple.append((posterStartDateTime!, posterEndDateTime!, dayInterval, poster.categoryIdx!, poster.posterName!, 0))
-                   // print("추가된 posterTuple \(poster.posterName)" )
-                    
-                    //print(posterTuple.count)
+                    posterTuple.append((posterStartDateTime!, posterEndDateTime!, dayInterval, poster.categoryIdx!, poster.posterName!, poster.categoryIdx!))
                 }
             }
         }
+        
+        print("포스터튜플")
+        print(posterTuple)
         
         if posterTuple.count == 1 {
             lineArray1.append(posterTuple[0])
@@ -80,6 +82,7 @@ class CalenderView: UIView, UICollectionViewDelegate, UICollectionViewDataSource
                     lineArray1.append(posterTuple[k])
                 }
             }
+            
             print("라인 1 통과")
             /* 라인 2 */
             var posterTuple2:[(Date,Date,Int,Int,String,Int)] = []
@@ -107,6 +110,7 @@ class CalenderView: UIView, UICollectionViewDelegate, UICollectionViewDataSource
                     }
                 }
             }
+            
             print("라인 2 통과")
             /* 라인 3 */
             var posterTuple3:[(Date,Date,Int,Int,String,Int)] = []
@@ -130,18 +134,17 @@ class CalenderView: UIView, UICollectionViewDelegate, UICollectionViewDataSource
                 }
                 //안포함 했을때만 posterTuple2에 추가
             }
-            print("여긴 못나오고")
             if posterTuple3.count >= 1 {
                 lineArray3.append(posterTuple3[0])//posterTuple3에서 가장긴것은 무조건 넣는다.
                 countLine = -1
                 
                 for k in 0...posterTuple3.count-1 {
                     if isGoodTopPut(lineArray: lineArray3, putDate: posterTuple3[k]) == true { //posterTuple2에서 lineArray2에 중복되지 않는 값들을 넣는다.
-                        print("미쳤네 이거 \(posterTuple3[k])")
                         lineArray3.append(posterTuple3[k])
                     }
                 }
             }
+            
             print("라인 3 통과")
             /* 라인 4 */
             
@@ -232,6 +235,7 @@ class CalenderView: UIView, UICollectionViewDelegate, UICollectionViewDataSource
         //좋아요 선택시 유저티폴츠에 넣고 그것의 반응을 받는다.
         NotificationCenter.default.addObserver(self, selector: #selector(addUserDefaults), name: NSNotification.Name("addUserDefaults"), object: nil)
         
+        /*
         let s1 = formatter.date(from: "2019-01-16 15:00:00")
         let e1 = formatter.date(from: "2019-01-17 14:59:00")
         
@@ -264,6 +268,7 @@ class CalenderView: UIView, UICollectionViewDelegate, UICollectionViewDataSource
         
         let s11 = formatter.date(from: "2018-12-19 15:00:00")
         let e11 = formatter.date(from: "2019-01-03 14:59:59")
+        */
         
 //        posterTuple = [(s1!, e1!, 395, 1, "스마트청춘MD", 0),
 //            (s2!, e2!, 12, 0, "비즈니스 아이디어 공모전", 0),
@@ -392,6 +397,7 @@ class CalenderView: UIView, UICollectionViewDelegate, UICollectionViewDataSource
                 }
             }
         }
+            
         /* 라인 4이외는 모두 땡땡땡으로 처리한다. */
             
             
@@ -421,7 +427,7 @@ class CalenderView: UIView, UICollectionViewDelegate, UICollectionViewDataSource
                 cell.lbl.backgroundColor = .clear
                 cell.lbl.textColor = .black
                 print("123123")
-                print(cell.lbl.text)
+                //print(cell.lbl.text)
         }
         myCollectionView.reloadData()
     }
@@ -641,6 +647,7 @@ class CalenderView: UIView, UICollectionViewDelegate, UICollectionViewDataSource
                 currentCellDateTime = formatter.date(from: cellDateString)
             }
         }
+        
         formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
 
         cell.line.backgroundColor = .clear
@@ -789,7 +796,6 @@ class CalenderView: UIView, UICollectionViewDelegate, UICollectionViewDataSource
     var todaysIndexPath: IndexPath?
     //셀 선택
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        
         let cell=collectionView.cellForItem(at: indexPath)
         let lbl = cell?.subviews[1] as! UILabel
         lbl.layer.cornerRadius = lbl.frame.height / 2
@@ -846,6 +852,7 @@ class CalenderView: UIView, UICollectionViewDelegate, UICollectionViewDataSource
             lbl.backgroundColor = #colorLiteral(red: 0.1176470588, green: 0.7921568627, blue: 0.2862745098, alpha: 1)
             lbl.textColor = UIColor.white
         }
+        
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
@@ -858,8 +865,8 @@ class CalenderView: UIView, UICollectionViewDelegate, UICollectionViewDataSource
             height = collectionView.frame.height / 6
         }
         return CGSize(width: width, height: height)
-        
     }
+    
     //minimumLineSpacing  (세로)
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         return 0.0
@@ -949,7 +956,6 @@ class CalenderView: UIView, UICollectionViewDelegate, UICollectionViewDataSource
         fatalError("init(coder:) has not been implemented")
     }
 }
-
 //날짜 하나에 해당하는 셀
 class dateCVCell: UICollectionViewCell {
     override init(frame: CGRect) {

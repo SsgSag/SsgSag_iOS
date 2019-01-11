@@ -305,7 +305,6 @@
                                 <rect key="frame" x="95" y="724" width="184" height="44"/>
                                 <state key="normal" image="btSaveRound"/>
                             </button>
-
                         </subviews>
                         <color key="backgroundColor" red="0.94901960784313721" green="0.95294117647058818" blue="0.96078431372549022" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
@@ -375,6 +374,7 @@
         <!--활동 정보-->
         <scene sceneID="u3j-gm-hlK">
             <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="a2C-nA-58p" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <viewController storyboardIdentifier="CalendarDetailVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="rfW-Jr-9M4" customClass="CalendarDetailVC" customModule="SsgSag" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="owv-vb-w44">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
@@ -390,9 +390,8 @@
                         </barButtonItem>
                     </navigationItem>
                 </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="a2C-nA-58p" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1297" y="826"/>
+            <point key="canvasLocation" x="1650" y="814"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="iIa-mM-Skb">
@@ -411,24 +410,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="sAB-KG-ziG" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="357.60000000000002" y="91.304347826086968"/>
-        </scene>
-        <!--Navigation Controller-->
-        <scene sceneID="tF4-1O-td8">
-            <objects>
-                <navigationController storyboardIdentifier="CalendarDetailNV" automaticallyAdjustsScrollViewInsets="NO" useStoryboardIdentifierAsRestorationIdentifier="YES" id="adW-YB-ve7" sceneMemberID="viewController">
-                    <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="eV1-8l-Wvs">
-                        <rect key="frame" x="0.0" y="44" width="375" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <nil name="viewControllers"/>
-                    <connections>
-                        <segue destination="rfW-Jr-9M4" kind="relationship" relationship="rootViewController" id="u3I-DW-cvN"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="1Vo-8r-3Tb" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="478" y="814"/>
         </scene>
         <!--Pop Up View Controller-->
         <scene sceneID="Tm0-XM-0n2">
@@ -494,26 +475,29 @@
             </objects>
             <point key="canvasLocation" x="2425" y="777"/>
         </scene>
-        <!--View Controller-->
+        <!--Detail PosterVC-->
         <scene sceneID="69l-A6-o4J">
             <objects>
-                <viewController id="EcQ-cM-pTz" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="detailPosterVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="EcQ-cM-pTz" customClass="detailPosterVC" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="0yu-Wx-eEL">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="1000"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4TU-RT-m97">
-                                <rect key="frame" x="0.0" y="44" width="375" height="44"/>
+                                <rect key="frame" x="0.0" y="88" width="375" height="44"/>
                                 <items>
                                     <navigationItem title="활동정보" id="1tY-yU-yuM">
                                         <barButtonItem key="leftBarButtonItem" image="icArrowBack" id="h1c-lu-z8O">
                                             <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <connections>
+                                                <action selector="backButton:" destination="EcQ-cM-pTz" id="tvz-Ye-NJv"/>
+                                            </connections>
                                         </barButtonItem>
                                     </navigationItem>
                                 </items>
                             </navigationBar>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xVD-2F-jgE" userLabel="scrollView">
-                                <rect key="frame" x="0.0" y="88" width="375" height="878"/>
+                                <rect key="frame" x="0.0" y="132" width="375" height="834"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QDh-9E-Heu" userLabel="contentView">
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="900"/>
@@ -710,16 +694,34 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="RlF-I7-ocu"/>
                     </view>
+                    <navigationItem key="navigationItem" id="WyN-0n-zK1"/>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <size key="freeformSize" width="375" height="1000"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6dL-Ke-MYf" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3164" y="160"/>
+            <point key="canvasLocation" x="788" y="876"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="boZ-JD-hSD">
+            <objects>
+                <navigationController storyboardIdentifier="detailPosterVCNV" automaticallyAdjustsScrollViewInsets="NO" useStoryboardIdentifierAsRestorationIdentifier="YES" id="4Eb-mk-XOF" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="Cll-Gg-evu">
+                        <rect key="frame" x="0.0" y="44" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="EcQ-cM-pTz" kind="relationship" relationship="rootViewController" id="Pf5-2g-VzW"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="qWe-MC-3kw" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-202" y="877"/>
         </scene>
     </scenes>
     <resources>
-
         <image name="btSaveRound" width="130" height="44"/>
         <image name="icArrowBack" width="24" height="24"/>
         <image name="icArrowGradation" width="44" height="50"/>

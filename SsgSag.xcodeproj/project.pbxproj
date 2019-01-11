@@ -10,6 +10,7 @@
 		1C3CD9527488A3036C7D035F /* Pods_SsgSag.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1E73B2D58130421AD8914636 /* Pods_SsgSag.framework */; };
 		2452C131601AAC033C5B69D6 /* Pods_SsgSagTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 476B5599333568A94C71406C /* Pods_SsgSagTests.framework */; };
 		8415586421D8D96900A0EDB5 /* SwipeCardDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8415586321D8D96900A0EDB5 /* SwipeCardDelegate.swift */; };
+		8421850421E88C65008E4FC4 /* detailPosterVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8421850321E88C65008E4FC4 /* detailPosterVC.swift */; };
 		84264BA621DF0FF300849E6B /* Calendar.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 84264BA521DF0FF300849E6B /* Calendar.storyboard */; };
 		84264BA821DF106C00849E6B /* CalendarDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84264BA721DF106C00849E6B /* CalendarDetailVC.swift */; };
 		84264BAA21DF109200849E6B /* AddPassiveDateVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84264BA921DF109200849E6B /* AddPassiveDateVC.swift */; };
@@ -111,6 +112,7 @@
 		73A19F3163047709495EC6A0 /* Pods-SsgSag.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SsgSag.debug.xcconfig"; path = "Target Support Files/Pods-SsgSag/Pods-SsgSag.debug.xcconfig"; sourceTree = "<group>"; };
 		8134CA727EE6CCE0A7714139 /* Pods-SsgSagTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SsgSagTests.debug.xcconfig"; path = "Target Support Files/Pods-SsgSagTests/Pods-SsgSagTests.debug.xcconfig"; sourceTree = "<group>"; };
 		8415586321D8D96900A0EDB5 /* SwipeCardDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwipeCardDelegate.swift; sourceTree = "<group>"; };
+		8421850321E88C65008E4FC4 /* detailPosterVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = detailPosterVC.swift; sourceTree = "<group>"; };
 		84264BA521DF0FF300849E6B /* Calendar.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Calendar.storyboard; sourceTree = "<group>"; };
 		84264BA721DF106C00849E6B /* CalendarDetailVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarDetailVC.swift; sourceTree = "<group>"; };
 		84264BA921DF109200849E6B /* AddPassiveDateVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPassiveDateVC.swift; sourceTree = "<group>"; };
@@ -343,6 +345,7 @@
 			isa = PBXGroup;
 			children = (
 				845928D521D09F2F001DF6CC /* CalenderVC.swift */,
+				8421850321E88C65008E4FC4 /* detailPosterVC.swift */,
 				845928D621D09F2F001DF6CC /* CalenderView.swift */,
 				845928D821D09F2F001DF6CC /* MonthView.swift */,
 				845928D721D09F2F001DF6CC /* WeekdaysView.swift */,
@@ -684,7 +687,7 @@
 			inputFileListPaths = (
 			);
 			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-SsgSag/Pods-SsgSag-frameworks.sh",
+				"${PODS_ROOT}/Target Support Files/Pods-SsgSag/Pods-SsgSag-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
 				"${BUILT_PRODUCTS_DIR}/AlamofireObjectMapper/AlamofireObjectMapper.framework",
 				"${BUILT_PRODUCTS_DIR}/Kingfisher/Kingfisher.framework",
@@ -701,7 +704,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-SsgSag/Pods-SsgSag-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-SsgSag/Pods-SsgSag-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -728,6 +731,7 @@
 				FA7F4CCA21DFD61300D8643A /* ActivityCell.swift in Sources */,
 				FA7F4CD421E0A0BB00D8643A /* AddVC.swift in Sources */,
 				FA7F4CB821DFB0C100D8643A /* CareerViewController.swift in Sources */,
+				8421850421E88C65008E4FC4 /* detailPosterVC.swift in Sources */,
 				845928A321D09CDD001DF6CC /* SsgSag.xcdatamodeld in Sources */,
 				FA851DE921D3DBBC002065D0 /* SwipeCard.swift in Sources */,
 				8415586421D8D96900A0EDB5 /* SwipeCardDelegate.swift in Sources */,
@@ -942,7 +946,7 @@
 		};
 		845928C421D09CE0001DF6CC /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = DF7046823FFA5A856B0B0FC2 /* Pods-SsgSag.release.xcconfig */;
+			baseConfigurationReference = EFE805AFFC7CBE0D5709EB25 /* Pods-SsgSag.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -983,7 +987,7 @@
 		};
 		845928C721D09CE0001DF6CC /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = F3FC811A4088102AA1765221 /* Pods-SsgSagTests.release.xcconfig */;
+			baseConfigurationReference = E3FA6FB5C50BC45E91E8FCDB /* Pods-SsgSagTests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -1024,7 +1028,7 @@
 		};
 		845928CA21D09CE0001DF6CC /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = D411F23C60FD5C5C850C5253 /* Pods-SsgSagUITests.release.xcconfig */;
+			baseConfigurationReference = 0E614E8987BBA6DBFDC0E038 /* Pods-SsgSagUITests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
