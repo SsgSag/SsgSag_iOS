@@ -108,7 +108,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wJj-H0-MJJ">
-                                        <rect key="frame" x="8" y="128" width="142" height="72"/>
+                                        <rect key="frame" x="120" y="128" width="30" height="72"/>
                                         <connections>
                                             <action selector="startDateButton:" destination="FW0-XW-5wo" eventType="touchUpInside" id="qlZ-ik-9VJ"/>
                                         </connections>
@@ -228,6 +228,14 @@
                                             </label>
                                         </subviews>
                                     </stackView>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mAz-c1-WGc">
+                                        <rect key="frame" x="120" y="387" width="130" height="44"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <state key="normal" title="Button"/>
+                                        <connections>
+                                            <action selector="storeButton:" destination="FW0-XW-5wo" eventType="touchUpInside" id="9tZ-QA-l6x"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
@@ -264,19 +272,10 @@
                                     <constraint firstItem="4kr-Mx-6cq" firstAttribute="leading" secondItem="YQE-eN-8hd" secondAttribute="leading" constant="20" id="wbW-H6-hqY"/>
                                 </constraints>
                             </view>
-                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mAz-c1-WGc">
-                                <rect key="frame" x="122.66666666666669" y="691" width="130" height="44"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="44" id="X1V-VB-mis"/>
-                                    <constraint firstAttribute="width" constant="130" id="oWl-Fr-qsC"/>
-                                </constraints>
-                                <state key="normal" title="Button"/>
-                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="29o-2q-QFd" firstAttribute="leading" secondItem="C0J-HU-wDP" secondAttribute="leading" constant="30" id="C0H-zt-6AL"/>
-                            <constraint firstItem="wJj-H0-MJJ" firstAttribute="leading" secondItem="C0J-HU-wDP" secondAttribute="leading" constant="18" id="DMm-KU-LEq"/>
                             <constraint firstItem="YQE-eN-8hd" firstAttribute="top" secondItem="C0J-HU-wDP" secondAttribute="top" constant="16" id="Ngr-l3-hoa"/>
                             <constraint firstItem="C0J-HU-wDP" firstAttribute="bottom" secondItem="YQE-eN-8hd" secondAttribute="bottom" constant="108" id="Tg2-oh-Lnn"/>
                             <constraint firstItem="C0J-HU-wDP" firstAttribute="trailing" secondItem="YQE-eN-8hd" secondAttribute="trailing" constant="10" id="ZXS-HV-dwX"/>
@@ -481,7 +480,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="1" width="814" height="1092"/>
+        <image name="1" width="407" height="546"/>
         <image name="icArrowGradation" width="44" height="50"/>
     </resources>
 </document>
