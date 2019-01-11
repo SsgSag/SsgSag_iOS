@@ -15,18 +15,16 @@ class AddPassiveDateVC: UIViewController {
     @IBOutlet var endYearMonthDay: UILabel!
     @IBOutlet var endTime: UILabel!
     
+    
+    
     @IBAction func startDateButton(_ sender: Any) {
-        let storyBoard = UIStoryboard(name: "Calendar", bundle: nil)
-        let pickerVC = storyBoard.instantiateViewController(withIdentifier: "PopupVC")
         
-        self.addChild(pickerVC)
-        pickerVC.view.frame = self.view.frame
-        self.view.addSubview(pickerVC.view)
-        
-        pickerVC.didMove(toParent: self)
     }
     
     @IBAction func endDateButton(_ sender: Any) {
+        
+    }
+    @IBAction func storeButton(_ sender: Any) {
         
     }
     

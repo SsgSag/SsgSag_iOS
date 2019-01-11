@@ -44,7 +44,7 @@ class PreferenceVC: UIViewController {
         request.httpMethod = "PUT"
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         let key2 = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJEb0lUU09QVCIsInVzZXJfaWR4IjoxfQ.5lCvAqnzYP4-2pFx1KTgLVOxYzBQ6ygZvkx5jKCFM08"
-        request.addValue("token", forHTTPHeaderField: "Application")
+        request.addValue(key2, forHTTPHeaderField: "Authorization")
         //request.addValue("token", forHTTPHeaderField: "Application")
         
         // insert json data to the request
@@ -61,7 +61,7 @@ class PreferenceVC: UIViewController {
             
             let responseJSON = try? JSONSerialization.jsonObject(with: data, options: [])
             if let responseJSON = responseJSON as? [String: Any] {
-                print("responseJSON \(responseJSON)")
+                print("관심분야 responseJSON \(responseJSON)")
             }
         }
         

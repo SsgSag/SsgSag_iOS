@@ -443,7 +443,7 @@ extension CareerViewController : UICollectionViewDelegate, UICollectionViewDataS
         request.httpMethod = "POST"
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         let key2 = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJEb0lUU09QVCIsInVzZXJfaWR4IjoxfQ.5lCvAqnzYP4-2pFx1KTgLVOxYzBQ6ygZvkx5jKCFM08"
-        request.addValue("\(key2)", forHTTPHeaderField: "Athorization")
+        request.addValue("\(key2)", forHTTPHeaderField: "Authorization")
         // insert json data to the request
         request.httpBody = jsonData
         

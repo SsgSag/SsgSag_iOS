@@ -45,10 +45,10 @@ class SwipeVC: UIViewController {
         self.view.bringSubviewToFront(viewTinderBackGround)
         
         
-        for i in view.subviews {
-            print(i.description)
-        }
-        print("\(view.subviews.count) 개수")
+//        for i in view.subviews {
+//            print(i.description)
+//        }
+//        print("\(view.subviews.count) 개수")
         
         self.view.bringSubviewToFront(overLapView)
     }
@@ -69,12 +69,12 @@ class SwipeVC: UIViewController {
             guard let data = data else {
                 return
             }
-            print("data \(data)")
+            //print("data \(data)")
             //print("reponse \(response)")
             do {
                 
                 let order = try JSONDecoder().decode(Json4Swift_Base.self, from: data)
-                print("order \(order)")
+                //print("order \(order)")
                 if let posters = order.data?.posters {
                     for i in posters {
                         self.valueArray.append(i)
@@ -104,6 +104,7 @@ class SwipeVC: UIViewController {
                         self.loadCardValues()
                     }
                 }
+                
             }catch{
                 print("JSON Parising Error")
             }
@@ -153,7 +154,7 @@ class SwipeVC: UIViewController {
     func createSwipeCard(at index: Int , value :String) -> SwipeCard {
        // print("create")
         let card = SwipeCard(frame: CGRect(x: 0, y: 0, width: viewTinderBackGround.frame.size.width , height: viewTinderBackGround.frame.size.height - 10) ,value : value)
-        print("높이: \(viewTinderBackGround.frame.size.height)")
+        //print("높이: \(viewTinderBackGround.frame.size.height)")
         countTotalCardIndex += 1
         //print("countTotalCardIndex: \(countTotalCardIndex)")
         //print("create")
@@ -246,6 +247,16 @@ class SwipeVC: UIViewController {
         card?.rightClickAction()
     }
     
+    func isDuplicateInLikedPoster(_ likedPoster:[Posters], input: Posters) -> Bool {
+        for i in likedPoster {
+            //겹칠때 true 리턴
+            if i.posterName! == input.posterName! {
+                return true
+            }
+        }
+        //안겹치면 false
+        return false
+    }
 }
 
 extension SwipeVC : SwipeCardDelegate {
@@ -255,40 +266,34 @@ extension SwipeVC : SwipeCardDelegate {
     }
     //카드 오른쪽으로 갔을때
     func cardGoesRight(card: SwipeCard) {
+        //print("카드가 오른쪽으로 갔을때")
         removeObjectAndAddNewValues()
-        
-        let defaults = UserDefaults.standard
-        guard let posterData = defaults.object(forKey: "poster") as? Data else { return }
-        
-        guard let posterInfo2 = try? PropertyListDecoder().decode([Posters].self, from: posterData) else { return }
         
         var likedPoster: [Posters] = []
         
-        for i in posterInfo2 {
-            likedPoster.append(i)
+        //add userDefaults
+        let defaults = UserDefaults.standard
+        if let posterData = defaults.object(forKey: "poster") as? Data {
+            if let posterInfo = try? PropertyListDecoder().decode([Posters].self, from: posterData) {
+                for i in posterInfo {
+                    //유저 디폴츠에 있는 포스터중 likedPoster에 있는
+                    if isDuplicateInLikedPoster(likedPoster, input: i) == false {//중복 되지 않을때만 넣는다.
+                        print("중복 되지 않을때 포스터의 이름\(i.posterName!)")
+                        likedPoster.append(i)
+                    }
+                }
+            }
         }
         
         likedPoster.append(likedArray[currentIndex-1])
         
-        //let defaults = UserDefaults.standard
         defaults.setValue(try? PropertyListEncoder().encode(likedPoster), forKey: "poster")
         
-        //guard let posterData = defaults.object(forKey: "poster") as? Data else { return }
+        print("유저 디폴츠에 poster가 추가 되었습니다 \(likedPoster)")
+        print("최종적으로 보내는 userdefaults의 내용을 보자")
         
-        guard let posterInfo = try? PropertyListDecoder().decode([Posters].self, from: posterData) else { return }
-        
-        
-
-        for k in posterInfo {
-            print(k)
-        }
-        
-        //print("posterrrrrr: \(posterInfo)")
-
-        
-        
-        //        }
-//        print(valueArray)
+        //CalendarVC, CalnedarView에 알려야 한다. (달력에 표시 , todotableview에 표시)
+        NotificationCenter.default.post(name: NSNotification.Name("addUserDefaults"), object: nil)
     }
 }
 
