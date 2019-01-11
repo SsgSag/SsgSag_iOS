@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Lottie
 //TODO: 저장하기, 텍스트뷰
 class AddActivityVC: UIViewController, UITextViewDelegate {
 
@@ -15,6 +16,7 @@ class AddActivityVC: UIViewController, UITextViewDelegate {
     @IBOutlet weak var startDateLabel: UILabel!
     @IBOutlet weak var endDateLabel: UILabel!
     @IBOutlet weak var contentTextView: UITextView!
+    @IBOutlet weak var saveButton: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -55,9 +57,14 @@ class AddActivityVC: UIViewController, UITextViewDelegate {
     }
     
     @IBAction func touchUpSaveButton(_ sender: Any) {
+        let animation = LOTAnimationView(name: "bt_save_round")
+        saveButton.addSubview(animation)
+        animation.play()
+        
         getData(careerType: "0")
 
         simplerAlert(title: "저장되었습니다")
+    
     }
     
     func getData(careerType: String) {

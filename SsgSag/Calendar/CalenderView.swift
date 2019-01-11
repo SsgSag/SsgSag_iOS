@@ -679,25 +679,18 @@ class CalenderView: UIView, UICollectionViewDelegate, UICollectionViewDataSource
                 let lineMonth = Calendar.current.component(.month, from: line1.1)
                 let lineDay = Calendar.current.component(.day, from: line1.1)
                 
-                //현재 검사하는 셀이
-                if currentCellDateTimeYear == lineYear && currentCellDateTimeMonth == lineMonth && currentCellDateTimeDay == lineDay {
-                    let label = UILabel(frame: CGRect(x: 0, y: 0, width: cell.line.frame.width, height: cell.line.frame.height))
-                    cell.line.addSubview(label)
-                    print("들어왔다")
-                    label.textAlignment = .left
-                    //label.font = UIFont.systemFont(ofSize: 1.0)
-                    label.text = line1.4
-                    print(line1.4)
-                    print("\(lineYear) \(lineMonth) \(lineDay)")
-                    
-                }
+                let lineYearStart = Calendar.current.component(.year, from: line1.0)
+                let lineMonthStart = Calendar.current.component(.month, from: line1.0)
+                let lineDayStart = Calendar.current.component(.day, from: line1.0)
                 
-                cell.lineLabel.text = line1.4
+                print("마지막 날짜 체크 \(lineYear) \(lineMonth) \(lineDay)")
+                print("처음 날짜 체크 \(lineYearStart) \(lineMonthStart) \(lineDayStart)")
+                
+                //현재 검사하는 셀이
                 
                 if currentCellDateTime! < todayDate! {
                     cell.line.backgroundColor = #colorLiteral(red: 0.7882352941, green: 0.7882352941, blue: 0.7882352941, alpha: 1)
                 }
-                
                 if cell.line.subviews.count > 0 {
                     let label = cell.line.subviews[0] as! UILabel
                     label.text = ""
@@ -713,15 +706,24 @@ class CalenderView: UIView, UICollectionViewDelegate, UICollectionViewDataSource
 //                let yearcurrentComponets = currentComponets.year!
 //                let monthcurrentComponets = currentComponets.month!
 //                let daycurrentComponets = currentComponets.day!
-
-                if yearline1Componets == currentCellDateTimeYear && monthline1Componets == currentCellDateTimeMonth && dayline1Componets == currentCellDateTimeDay {
-                    let label = UILabel(frame: CGRect(x: 0, y: 0, width: cell.line.frame.width, height: cell.line.frame.height))
-                    print("들어왔다")
-                    label.textAlignment = .left
-                    label.font = UIFont.systemFont(ofSize: 3.0)
-                    label.text = line1.4
-                    cell.line.addSubview(label)
+                
+        
+                //마지막 날짜
+                if lineYear == currentCellDateTimeYear && lineMonth == currentCellDateTimeMonth && lineDay == currentCellDateTimeDay {
+                    cell.line.clipsToBounds = true
+                    cell.line.layer.cornerRadius = 4
+                    cell.line.layer.maskedCorners = [.layerMaxXMaxYCorner, .layerMaxXMinYCorner]
                 }
+                
+                //시작 날짜
+                if lineYearStart == currentCellDateTimeYear && lineMonthStart == currentCellDateTimeMonth && (lineDayStart+1) == currentCellDateTimeDay {
+                    print("시작날짜")
+                    print(lineDayStart)
+                    cell.line.clipsToBounds = true
+                    cell.line.layer.cornerRadius = 4
+                    cell.line.layer.maskedCorners = [.layerMinXMaxYCorner, .layerMinXMinYCorner]
+                }
+                
             }
         }
         //
@@ -746,16 +748,30 @@ class CalenderView: UIView, UICollectionViewDelegate, UICollectionViewDataSource
                 let line2DayStart = Calendar.current.component(.day, from: line2.0)
                 
                 if currentCellDateTimeYear == line2YearStart && currentCellDateTimeMonth == line2MonthStart && currentCellDateTimeDay == line2DayStart {
-                    cell.lbl.text = line2.4
-                    print("건졌어?")
-                    print(line2.4)
+//                    cell.lbl.text = line2.4
+//                    print("건졌어?")
+//                    print(line2.4)
                 }
                 
                 //마지막 날짜
                 if currentCellDateTimeYear == line2Year && currentCellDateTimeMonth == line2Month && currentCellDateTimeDay == line2Day {
                     //cell.line2.frame.origin.x = cell.frame.origin.x - 5
-                    cell.line2.backgroundColor = .black
+                    cell.line2.clipsToBounds = true
+                    cell.line2.layer.cornerRadius = 4
+                    cell.line2.layer.maskedCorners = [.layerMaxXMaxYCorner, .layerMaxXMinYCorner]
+                    
                     //cell.line2.widthAnchor.constraint(equalToConstant: 13).isActive = true
+                }
+                
+                //처음 날짜
+                let lineYearStart = Calendar.current.component(.year, from: line2.0)
+                let lineMonthStart = Calendar.current.component(.month, from: line2.0)
+                let lineDayStart = Calendar.current.component(.day, from: line2.0)
+                //시작 날짜
+                if lineYearStart == currentCellDateTimeYear && lineMonthStart == currentCellDateTimeMonth && (lineDayStart+1) == currentCellDateTimeDay {
+                    cell.line2.clipsToBounds = true
+                    cell.line2.layer.cornerRadius = 4
+                    cell.line2.layer.maskedCorners = [.layerMinXMaxYCorner, .layerMinXMinYCorner]
                 }
                 
                 //if current
@@ -780,8 +796,22 @@ class CalenderView: UIView, UICollectionViewDelegate, UICollectionViewDataSource
                 let line3Month = Calendar.current.component(.month, from: line3.1)
                 let line3Day = Calendar.current.component(.day, from: line3.1)
                 
+                let lineYearStart = Calendar.current.component(.year, from: line3.0)
+                let lineMonthStart = Calendar.current.component(.month, from: line3.0)
+                let lineDayStart = Calendar.current.component(.day, from: line3.0)
+                
+                //끝 날짜
                 if currentCellDateTimeYear == line3Year && currentCellDateTimeMonth == line3Month && currentCellDateTimeDay == line3Day {
-                    cell.line3.frame.origin.x = cell.frame.origin.x - 5
+                    cell.line3.clipsToBounds = true
+                    cell.line3.layer.cornerRadius = 4
+                    cell.line3.layer.maskedCorners = [.layerMaxXMaxYCorner, .layerMaxXMinYCorner]
+                }
+                
+                //시작 날짜
+                if lineYearStart == currentCellDateTimeYear && lineMonthStart == currentCellDateTimeMonth && (lineDayStart+1) == currentCellDateTimeDay {
+                    cell.line3.clipsToBounds = true
+                    cell.line3.layer.cornerRadius = 4
+                    cell.line3.layer.maskedCorners = [.layerMinXMaxYCorner, .layerMinXMinYCorner]
                 }
                 
                 if currentCellDateTime! < todayDate! {
@@ -793,7 +823,6 @@ class CalenderView: UIView, UICollectionViewDelegate, UICollectionViewDataSource
         
         for line4 in lineArray4 {
             if line4.0 <= currentCellDateTime! && currentCellDateTime! <= line4.1 {
-                
                 cell.line4.backgroundColor = #colorLiteral(red: 1, green: 0.6274509804, blue: 0.6274509804, alpha: 1)
                 //line4의 끝날짜 처리
                 let currentCellDateTimeYear = Calendar.current.component(.year, from: currentCellDateTime!)
@@ -804,10 +833,20 @@ class CalenderView: UIView, UICollectionViewDelegate, UICollectionViewDataSource
                 let line4Month = Calendar.current.component(.month, from: line4.1)
                 let line4Day = Calendar.current.component(.day, from: line4.1)
                 
-                if currentCellDateTimeYear == line4Year && currentCellDateTimeMonth == line4Month && currentCellDateTimeDay == line4Day {
-                        cell.line4.frame.origin.x = cell.frame.origin.x - 5
-                }
+                let lineYearStart = Calendar.current.component(.year, from: line4.0)
+                let lineMonthStart = Calendar.current.component(.month, from: line4.0)
+                let lineDayStart = Calendar.current.component(.day, from: line4.0)
                 
+                if currentCellDateTimeYear == line4Year && currentCellDateTimeMonth == line4Month && currentCellDateTimeDay == line4Day {
+                    cell.line4.clipsToBounds = true
+                    cell.line4.layer.cornerRadius = 4
+                    cell.line4.layer.maskedCorners = [.layerMaxXMaxYCorner, .layerMaxXMinYCorner]
+                }
+                if lineYearStart == currentCellDateTimeYear && lineMonthStart == currentCellDateTimeMonth && (lineDayStart+1) == currentCellDateTimeDay {
+                    cell.line4.clipsToBounds = true
+                    cell.line4.layer.cornerRadius = 4
+                    cell.line4.layer.maskedCorners = [.layerMinXMaxYCorner, .layerMinXMinYCorner]
+                }
                 if currentCellDateTime! < todayDate! {
                     cell.line4.backgroundColor = #colorLiteral(red: 0.7882352941, green: 0.7882352941, blue: 0.7882352941, alpha: 1)
                 }
@@ -954,6 +993,7 @@ class CalenderView: UIView, UICollectionViewDelegate, UICollectionViewDataSource
         myCollectionView.leftAnchor.constraint(equalTo: leftAnchor, constant: 0).isActive=true
         myCollectionView.rightAnchor.constraint(equalTo: rightAnchor, constant: 0).isActive=true
         myCollectionView.bottomAnchor.constraint(equalTo: bottomAnchor).isActive=true
+        
     }
     let monthView: MonthView = {
         let v=MonthView()

@@ -1,10 +1,11 @@
-let  MAX_BUFFER_SIZE = 10;
+let  MAX_BUFFER_SIZE = 20;
 let  SEPERATOR_DISTANCE = 8;
 let  TOPYAXIS = 75;
 
 import UIKit
 import Alamofire
 import ObjectMapper
+import Lottie
 
 class SwipeVC: UIViewController {
     @IBOutlet weak var viewTinderBackGround: UIView!
@@ -52,6 +53,22 @@ class SwipeVC: UIViewController {
         dislikedButton.addTarget(self, action: #selector(touchDownDisLiked(_:)), for: .touchDown)
         dislikedButton.addTarget(self, action: #selector(touchUpDisLiked(_:)), for: .touchUpInside)
         
+            
+        let animation = LOTAnimationView(name: "main_empty_hifive")
+        view.addSubview(animation)
+        view.sendSubviewToBack(animation)
+        animation.translatesAutoresizingMaskIntoConstraints = false
+        animation.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        animation.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
+        animation.widthAnchor.constraint(equalToConstant: 350).isActive = true
+        animation.heightAnchor.constraint(equalToConstant: 350).isActive = true
+        animation.loopAnimation = true
+        animation.play()
+        
+        
+        simplerAlert(title: "저장되었습니다")
+            
+        
 //        for i in view.subviews {
 //            print(i.description)
 //        }
@@ -90,8 +107,11 @@ class SwipeVC: UIViewController {
         var request = URLRequest(url: posterURL!)
         //request.addValue("application/json", forHTTPHeaderField: "Accept")
         request.httpMethod = "POST"
+        if let savedToken = UserDefaults.standard.object(forKey: "token") as? String {
+                request.addValue(savedToken, forHTTPHeaderField: "Authorization")
+        }
+        
         let key2 = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJEb0lUU09QVCIsInVzZXJfaWR4IjoyfQ.kl46Nyv3eGs6kW7DkgiJgmf_1u1-bce1kLXkO7mcQvw"
-        request.addValue("\(key2)", forHTTPHeaderField: "Authorization")
         
         let task = URLSession.shared.dataTask(with: request) { data, response, error in
             guard error == nil else {

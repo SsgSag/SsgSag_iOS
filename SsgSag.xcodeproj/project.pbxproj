@@ -34,6 +34,8 @@
 		845928E321D35F09001DF6CC /* PageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845928E221D35F09001DF6CC /* PageViewController.swift */; };
 		845928E521D38771001DF6CC /* DetailImageSwipeCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845928E421D38771001DF6CC /* DetailImageSwipeCard.swift */; };
 		845928E721D3877D001DF6CC /* DetailTextSwipeCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845928E621D3877D001DF6CC /* DetailTextSwipeCard.swift */; };
+		84B4268A21E9063600B44F71 /* bt_save_round.json in Resources */ = {isa = PBXBuildFile; fileRef = 84B4268921E9063600B44F71 /* bt_save_round.json */; };
+		84B4268C21E9091D00B44F71 /* main_empty_hifive.json in Resources */ = {isa = PBXBuildFile; fileRef = 84B4268B21E9091C00B44F71 /* main_empty_hifive.json */; };
 		84BA694921DB394800BA8CB8 /* myPageVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84BA694821DB394800BA8CB8 /* myPageVC.swift */; };
 		84BA694B21DB395400BA8CB8 /* MyPageStoryBoard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 84BA694A21DB395400BA8CB8 /* MyPageStoryBoard.storyboard */; };
 		84BA694D21DB74BD00BA8CB8 /* TapbarVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84BA694C21DB74BD00BA8CB8 /* TapbarVC.swift */; };
@@ -137,6 +139,8 @@
 		845928E221D35F09001DF6CC /* PageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageViewController.swift; sourceTree = "<group>"; };
 		845928E421D38771001DF6CC /* DetailImageSwipeCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailImageSwipeCard.swift; sourceTree = "<group>"; };
 		845928E621D3877D001DF6CC /* DetailTextSwipeCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailTextSwipeCard.swift; sourceTree = "<group>"; };
+		84B4268921E9063600B44F71 /* bt_save_round.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = bt_save_round.json; sourceTree = "<group>"; };
+		84B4268B21E9091C00B44F71 /* main_empty_hifive.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = main_empty_hifive.json; sourceTree = "<group>"; };
 		84BA694821DB394800BA8CB8 /* myPageVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = myPageVC.swift; sourceTree = "<group>"; };
 		84BA694A21DB395400BA8CB8 /* MyPageStoryBoard.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = MyPageStoryBoard.storyboard; sourceTree = "<group>"; };
 		84BA694C21DB74BD00BA8CB8 /* TapbarVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TapbarVC.swift; sourceTree = "<group>"; };
@@ -367,6 +371,7 @@
 				FA61FE1021E0E4A200A28947 /* PreferenceVC.swift */,
 				FA61FE0E21E0E3D300A28947 /* JobVC.swift */,
 				84E4EFCA21E516970051F6E6 /* Welcome.swift */,
+				84B4268921E9063600B44F71 /* bt_save_round.json */,
 				FA7F4CD121E0A0A000D8643A /* AddActivityVC.swift */,
 				FA7F4CD321E0A0BB00D8643A /* AddVC.swift */,
 				FAD323DA21E36FA6000C4FBA /* AddCertificationVC.swift */,
@@ -442,6 +447,7 @@
 				FA25A58121D36EC500C9FC93 /* SegmentedProgressBar.swift */,
 				845928CB21D09D09001DF6CC /* SwipeStoryBoard.storyboard */,
 				FA851DEC21D5FDB0002065D0 /* SwipeModel.swift */,
+				84B4268B21E9091C00B44F71 /* main_empty_hifive.json */,
 				FA851DF021D60787002065D0 /* user-details.json */,
 			);
 			path = Swipe;
@@ -570,11 +576,13 @@
 				FA3A8FD721DF3C3B0075A510 /* Splash.storyboard in Resources */,
 				FA7F4CC821DFCC7E00D8643A /* CertificationCell.xib in Resources */,
 				FA7F4CC421DFCB1300D8643A /* PrizeCell.xib in Resources */,
+				84B4268C21E9091D00B44F71 /* main_empty_hifive.json in Resources */,
 				845928A521D09CE0001DF6CC /* Assets.xcassets in Resources */,
 				84264BA621DF0FF300849E6B /* Calendar.storyboard in Resources */,
 				845928CC21D09D09001DF6CC /* SwipeStoryBoard.storyboard in Resources */,
 				FA524BF121D64E2400675289 /* SignupStoryBoard.storyboard in Resources */,
 				FA7F4CC021DFCAF200D8643A /* ActivityCell.xib in Resources */,
+				84B4268A21E9063600B44F71 /* bt_save_round.json in Resources */,
 				FA61FE1321E1D48D00A28947 /* .gitignore in Resources */,
 				FA851DF121D60787002065D0 /* user-details.json in Resources */,
 			);
@@ -676,6 +684,7 @@
 				"${BUILT_PRODUCTS_DIR}/AlamofireObjectMapper/AlamofireObjectMapper.framework",
 				"${BUILT_PRODUCTS_DIR}/Kingfisher/Kingfisher.framework",
 				"${BUILT_PRODUCTS_DIR}/ObjectMapper/ObjectMapper.framework",
+				"${BUILT_PRODUCTS_DIR}/lottie-ios/Lottie.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
@@ -685,6 +694,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AlamofireObjectMapper.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Kingfisher.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ObjectMapper.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Lottie.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
