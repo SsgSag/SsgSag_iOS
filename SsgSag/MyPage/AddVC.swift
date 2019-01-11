@@ -13,6 +13,7 @@ class AddVC: UIViewController {
     @IBOutlet weak var titleTextField: UITextField!
     @IBOutlet weak var yearTextField: UITextField!
     @IBOutlet weak var contentTextView: UITextView!
+    @IBOutlet weak var saveButton: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()

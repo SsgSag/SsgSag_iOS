@@ -70,8 +70,9 @@ class LoginVC: UIViewController {
             
             guard let token = data?.token else {return}
             //토큰 저장
-            print("토큰코늨놐넠너우머ㅏㄴ워ㅏㅁㄴ어ㅏㄴ모어ㅏㅁ놔ㅓㅇㄴㅁ: \(token)")
             UserDefaults.standard.set(token, forKey: "token")
+            let savedToken = UserDefaults.standard.object(forKey: "token")
+            print("저장된 토큰 값 \(savedToken!)")
             
             let storyboard = UIStoryboard(name: "SwipeStoryBoard", bundle: nil)
             let swipeVC = storyboard.instantiateViewController(withIdentifier: "Swipe")
@@ -142,4 +143,5 @@ extension LoginVC : UIGestureRecognizerDelegate {
         NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
     }
+    
 }
