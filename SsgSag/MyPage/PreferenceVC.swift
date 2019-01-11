@@ -11,11 +11,33 @@ import UIKit
 class PreferenceVC: UIViewController {
     
     let unActiveButtonImages: [String] = [
-        "btPreferenceIdeaUnactive", "btPreferenceCameraUnactive", "btPreferenceDesignUnactive", "btPreferenceMarketingUnactive", "btPreferenceTechUnactive", "btPreferenceLiteratureUnactive", "btPreferenceSholarshipUnactive", "btPreferenceHealthUnactive", "btPreferenceStartupUnactive", "btPreferenceArtUnactive", "btPreferenceEconomyUnactive", "btPreferenceSocietyUnactive"
+        "btPreferenceIdeaUnactive",
+        "btPreferenceEconomyUnactive",
+        "btPreferenceDesignUnactive",
+        "btPreferenceLiteratureUnactive",
+        "btPreferenceArtUnactive",
+        "btPreferenceMarketingUnactive",
+        "btPreferenceSocietyUnactive",
+        "btPreferenceCameraUnactive",
+        "btPreferenceStartupUnactive",
+        "btPreferenceHealthUnactive",
+        "btPreferenceSholarshipUnactive",
+        "btPreferenceTechUnactive"
     ]
     
     let activeButtonImages: [String] = [
-        "btPreferenceIdeaActive", "btPreferenceCameraActive", "btPreferenceDesignActive", "btPreferenceMarketingActive", "btPreferenceTechActive", "btPreferenceLiteratureActive", "btPreferenceSholarshipActive", "btPreferenceHealthActive", "btPreferenceStartupActive", "btPreferenceArtActive", "btPreferenceEconomyActive", "btPreferenceSocietyActive"
+        "btPreferenceIdeaActive",
+        "btPreferenceEconomyActive",
+        "btPreferenceDesignActive",
+        "btPreferenceLiteratureActive",
+        "btPreferenceArtActive",
+        "btPreferenceMarketingActive",
+        "btPreferenceSocietyActive",
+        "btPreferenceCameraActive",
+        "btPreferenceStartupActive",
+        "btPreferenceHealthActive",
+        "btPreferenceSholarshipActive",
+        "btPreferenceTechActive"
     ]
     
     var selectedValue: [Bool] = []

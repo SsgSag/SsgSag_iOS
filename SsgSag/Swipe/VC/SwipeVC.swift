@@ -135,6 +135,8 @@ class SwipeVC: UIViewController {
                     DispatchQueue.main.async {
                         self.view.reloadInputViews()
                         self.loadCardValues()
+                        self.countLabel.text = "\(self.valueArray.count)"
+//                        countLabel.text = "\(valueArray.count-currentIndex)"
                     }
                 }
                 
