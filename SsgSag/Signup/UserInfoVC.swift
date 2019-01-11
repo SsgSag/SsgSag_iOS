@@ -40,7 +40,7 @@ class UserInfoVC: UIViewController, UITextFieldDelegate {
         iniGestureRecognizer()
         self.titleLabel.isHidden = false
         self.titleImgae.isHidden = false
-        
+        setNavigationBar(color: .white)
         
     }
     

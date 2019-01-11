@@ -15,7 +15,7 @@ class CalendarDetailVC: UIViewController {
 
     }
     
-    @IBAction func backButton(_ sender: Any) {
+    @IBAction func backButton(_ sender: UIBarButtonItem) {
         dismiss(animated: true, completion: nil)
     }
     

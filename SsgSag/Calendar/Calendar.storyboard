@@ -305,7 +305,6 @@
                                 <rect key="frame" x="95" y="724" width="184" height="44"/>
                                 <state key="normal" image="btSaveRound"/>
                             </button>
-
                         </subviews>
                         <color key="backgroundColor" red="0.94901960784313721" green="0.95294117647058818" blue="0.96078431372549022" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
@@ -494,20 +493,23 @@
             </objects>
             <point key="canvasLocation" x="2425" y="777"/>
         </scene>
-        <!--View Controller-->
+        <!--Calendar DetailVC-->
         <scene sceneID="69l-A6-o4J">
             <objects>
-                <viewController id="EcQ-cM-pTz" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="DetailPoster" id="EcQ-cM-pTz" customClass="CalendarDetailVC" customModule="SsgSag" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="0yu-Wx-eEL">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="1000"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4TU-RT-m97">
+                            <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="R8x-Us-hgs">
                                 <rect key="frame" x="0.0" y="44" width="375" height="44"/>
                                 <items>
-                                    <navigationItem title="활동정보" id="1tY-yU-yuM">
-                                        <barButtonItem key="leftBarButtonItem" image="icArrowBack" id="h1c-lu-z8O">
+                                    <navigationItem title="활동정보" id="YaG-Ej-K6c">
+                                        <barButtonItem key="leftBarButtonItem" title="Item" image="icArrowBack" id="tPz-YY-YxK">
                                             <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <connections>
+                                                <action selector="backButton:" destination="EcQ-cM-pTz" id="t2O-Ft-XwT"/>
+                                            </connections>
                                         </barButtonItem>
                                     </navigationItem>
                                 </items>
@@ -700,13 +702,13 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="xVD-2F-jgE" firstAttribute="top" secondItem="4TU-RT-m97" secondAttribute="bottom" id="0fi-Ur-9yI"/>
-                            <constraint firstItem="4TU-RT-m97" firstAttribute="top" secondItem="RlF-I7-ocu" secondAttribute="top" id="5lf-UI-hXD"/>
+                            <constraint firstItem="R8x-Us-hgs" firstAttribute="top" secondItem="RlF-I7-ocu" secondAttribute="top" id="2iq-IV-4Xq"/>
+                            <constraint firstItem="R8x-Us-hgs" firstAttribute="trailing" secondItem="RlF-I7-ocu" secondAttribute="trailing" id="9FD-q1-ohO"/>
                             <constraint firstItem="xVD-2F-jgE" firstAttribute="leading" secondItem="RlF-I7-ocu" secondAttribute="leading" id="F3n-az-Kuj"/>
-                            <constraint firstItem="4TU-RT-m97" firstAttribute="trailing" secondItem="RlF-I7-ocu" secondAttribute="trailing" id="egb-jr-zZ2"/>
+                            <constraint firstItem="R8x-Us-hgs" firstAttribute="leading" secondItem="RlF-I7-ocu" secondAttribute="leading" id="WIL-oA-FVk"/>
+                            <constraint firstItem="xVD-2F-jgE" firstAttribute="top" secondItem="R8x-Us-hgs" secondAttribute="bottom" id="gIw-BT-fke"/>
                             <constraint firstItem="RlF-I7-ocu" firstAttribute="bottom" secondItem="xVD-2F-jgE" secondAttribute="bottom" id="hr5-6g-ZqF"/>
                             <constraint firstItem="RlF-I7-ocu" firstAttribute="trailing" secondItem="xVD-2F-jgE" secondAttribute="trailing" id="tNt-W3-thA"/>
-                            <constraint firstItem="4TU-RT-m97" firstAttribute="leading" secondItem="RlF-I7-ocu" secondAttribute="leading" id="y7j-G7-uKA"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="RlF-I7-ocu"/>
                     </view>
@@ -719,7 +721,6 @@
         </scene>
     </scenes>
     <resources>
-
         <image name="btSaveRound" width="130" height="44"/>
         <image name="icArrowBack" width="24" height="24"/>
         <image name="icArrowGradation" width="44" height="50"/>

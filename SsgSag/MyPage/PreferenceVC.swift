@@ -105,14 +105,15 @@ class PreferenceVC: UIViewController {
         print("asdgasdgasdg")
         getData()
         
-        let myPageStoryBoard = UIStoryboard(name: "MyPageStoryBoard", bundle: nil)
-        let popVC = myPageStoryBoard.instantiateViewController(withIdentifier: "PopUp")
-        self.addChild(popVC)
-        popVC.view.frame = self.view.frame
-        self.view.addSubview(popVC.view)
+        simplerAlert(title: "저장되었습니다")
+//        let myPageStoryBoard = UIStoryboard(name: "MyPageStoryBoard", bundle: nil)
+//        let popVC = myPageStoryBoard.instantiateViewController(withIdentifier: "PopUp")
+//        self.addChild(popVC)
+//        popVC.view.frame = self.view.frame
+//        self.view.addSubview(popVC.view)
 
 
-        popVC.didMove(toParent: self)
+//        popVC.didMove(toParent: self)
         
     }
     

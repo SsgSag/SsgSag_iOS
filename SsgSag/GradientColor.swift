@@ -78,13 +78,25 @@ extension UIViewController {
     }
     
     //네비게이션 바 투명하게 하는 함수
-    func setNavigationBar() {
+    func setNavigationBar(color: UIColor) {
         let bar: UINavigationBar! = self.navigationController?.navigationBar
         
         bar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
         bar.shadowImage = UIImage()
-        bar.backgroundColor = UIColor.clear
+        bar.backgroundColor = color
     }
+    
+    func setLeftBtn(title: String, color : UIColor){
+        
+        let leftBTN = UIBarButtonItem(title: title, //백버튼 이미지 파일 이름에 맞게 변경해주세요.
+            style: .plain,
+            target: self,
+            action: #selector(self.pop))
+        navigationItem.leftBarButtonItem = leftBTN
+        navigationItem.leftBarButtonItem?.tintColor = color
+        navigationController?.interactivePopGestureRecognizer?.delegate = self as? UIGestureRecognizerDelegate
+    }
+    
     
     //커스텀 백버튼 설정
     func setBackBtn(color : UIColor){
