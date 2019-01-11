@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Lottie
 //TODO: 저장하기, 텍스트뷰
 class AddActivityVC: UIViewController, UITextViewDelegate {
 
@@ -15,6 +16,7 @@ class AddActivityVC: UIViewController, UITextViewDelegate {
     @IBOutlet weak var startDateLabel: UILabel!
     @IBOutlet weak var endDateLabel: UILabel!
     @IBOutlet weak var contentTextView: UITextView!
+    @IBOutlet weak var saveButton: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -55,11 +57,87 @@ class AddActivityVC: UIViewController, UITextViewDelegate {
     }
     
     @IBAction func touchUpSaveButton(_ sender: Any) {
+        let animation = LOTAnimationView(name: "bt_save_round")
+        saveButton.addSubview(animation)
+        animation.play()
         
-        
+        getData(careerType: "0")
+
         simplerAlert(title: "저장되었습니다")
+    
     }
     
+    func getData(careerType: String) {
+        
+        let json: [String:Any] = [
+            "careerType" : 2,
+            "careerName" : "자격증",
+            "careerContent" : "자격증 내용",
+            "careerDate1" : "2019-01"
+        ]
+        
+        //let json: [String: Any] = ["careerType" : careerType]
+        let jsonData = try? JSONSerialization.data(withJSONObject: json)
+        let url = URL(string: "http://54.180.79.158:8080/career")!
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        let key2 = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJEb0lUU09QVCIsInVzZXJfaWR4IjoxfQ.5lCvAqnzYP4-2pFx1KTgLVOxYzBQ6ygZvkx5jKCFM08"
+        request.addValue(key2, forHTTPHeaderField: "Authorization")
+        request.httpBody = jsonData
+        
+        let task = URLSession.shared.dataTask(with: request) { data, response, error in
+            
+            guard error == nil else {
+                print(error?.localizedDescription ?? "No data")
+                return
+            }
+            
+            guard let data = data else { return }
+            
+            print(data)
+            print("gggg")
+            print(response)
+            
+//            do {
+//                let apiResponse = try JSONDecoder().decode(Career.self, from: data)
+//                print("orders: \(apiResponse)")
+//                if careerType == "0" {
+//                    print("00000000")
+//                    self.activityList = apiResponse.data
+//                    DispatchQueue.main.async {
+//                        self.activityTableView.reloadData()
+//                    }
+//                } else if careerType == "1" {
+//                    print("111111111")
+//                    self.prizeList = apiResponse.data
+//                    DispatchQueue.main.async {
+//                        self.prizeTableView.reloadData()
+//                    }
+//                } else if careerType == "2" {
+//                    self.certificationList = apiResponse.data
+//                    DispatchQueue.main.async {
+//                        self.certificationTableView.reloadData()
+//                    }
+//                }
+//
+//            } catch (let err) {
+//                print(err.localizedDescription)
+//                print("sladjalsdjlasjdlasjdlajsldjas")
+//            }
+            
+            //            let responseJSON = try? JSONSerialization.jsonObject(with: data, options: [])
+            //            if let responseJSON = responseJSON as? [String: Any] {
+            //                //print("responseJSON \(responseJSON)")
+            //                //print(responseJSON["data"])
+            //                var a = responseJSON["data"]
+            //                print(a)
+            //                print("1")
+            //            }
+        }
+        task.resume()
+    }
+
     func dismissKeyboard() {
         contentTextView.resignFirstResponder()
     }
@@ -100,4 +178,5 @@ class AddActivityVC: UIViewController, UITextViewDelegate {
         }
         
     }
+    
 }

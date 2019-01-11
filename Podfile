@@ -11,6 +11,7 @@ target 'SsgSag' do
   pod 'AlamofireObjectMapper'
   pod 'ObjectMapper'
   pod 'Kingfisher'
+  pod 'lottie-ios'
 
   target 'SsgSagTests' do
     inherit! :search_paths

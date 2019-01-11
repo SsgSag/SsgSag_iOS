@@ -1,10 +1,11 @@
-let  MAX_BUFFER_SIZE = 3;
+let  MAX_BUFFER_SIZE = 20;
 let  SEPERATOR_DISTANCE = 8;
 let  TOPYAXIS = 75;
 
 import UIKit
 import Alamofire
 import ObjectMapper
+import Lottie
 
 class SwipeVC: UIViewController {
     @IBOutlet weak var viewTinderBackGround: UIView!
@@ -52,6 +53,22 @@ class SwipeVC: UIViewController {
         dislikedButton.addTarget(self, action: #selector(touchDownDisLiked(_:)), for: .touchDown)
         dislikedButton.addTarget(self, action: #selector(touchUpDisLiked(_:)), for: .touchUpInside)
         
+            
+        let animation = LOTAnimationView(name: "main_empty_hifive")
+        view.addSubview(animation)
+        view.sendSubviewToBack(animation)
+        animation.translatesAutoresizingMaskIntoConstraints = false
+        animation.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        animation.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
+        animation.widthAnchor.constraint(equalToConstant: 350).isActive = true
+        animation.heightAnchor.constraint(equalToConstant: 350).isActive = true
+        animation.loopAnimation = true
+        animation.play()
+        
+        
+        simplerAlert(title: "저장되었습니다")
+            
+        
 //        for i in view.subviews {
 //            print(i.description)
 //        }
@@ -90,8 +107,11 @@ class SwipeVC: UIViewController {
         var request = URLRequest(url: posterURL!)
         //request.addValue("application/json", forHTTPHeaderField: "Accept")
         request.httpMethod = "POST"
+        if let savedToken = UserDefaults.standard.object(forKey: "token") as? String {
+                request.addValue(savedToken, forHTTPHeaderField: "Authorization")
+        }
+        
         let key2 = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJEb0lUU09QVCIsInVzZXJfaWR4IjoyfQ.kl46Nyv3eGs6kW7DkgiJgmf_1u1-bce1kLXkO7mcQvw"
-        request.addValue("\(key2)", forHTTPHeaderField: "Authorization")
         
         let task = URLSession.shared.dataTask(with: request) { data, response, error in
             guard error == nil else {
@@ -104,12 +124,13 @@ class SwipeVC: UIViewController {
             //print("data \(data)")
             //print("reponse \(response)")
             do {
-                
                 let order = try JSONDecoder().decode(Json4Swift_Base.self, from: data)
                 //print("order \(order)")
                 if let posters = order.data?.posters {
                     for i in posters {
+                        //print(i.posterName)
                         self.valueArray.append(i)
+                        
                         self.likedArray.append(i)
                         
                         //date parsing
@@ -145,6 +166,7 @@ class SwipeVC: UIViewController {
         }
         task.resume()
     }
+    
     override func viewDidLayoutSubviews() {
         super.viewWillLayoutSubviews()
     }
@@ -168,6 +190,7 @@ class SwipeVC: UIViewController {
             let capCount = (valueArray.count > MAX_BUFFER_SIZE) ? MAX_BUFFER_SIZE : valueArray.count
             for (i,value) in valueArray.enumerated() {
                 let newCard = createSwipeCard(at: i,value: value.photoUrl!)
+                
                 allCardsArray.append(newCard)
                 if i < capCount {
                     currentLoadedCardsArray.append(newCard)
@@ -204,6 +227,7 @@ class SwipeVC: UIViewController {
         if (currentIndex + currentLoadedCardsArray.count) < allCardsArray.count {
             let card = allCardsArray[currentIndex + currentLoadedCardsArray.count]
             currentLoadedCardsArray.append(card)
+            
             viewTinderBackGround.insertSubview(currentLoadedCardsArray[MAX_BUFFER_SIZE - 1], belowSubview: currentLoadedCardsArray[MAX_BUFFER_SIZE - 2])
         }
         animateCardAfterSwiping()
@@ -226,6 +250,14 @@ class SwipeVC: UIViewController {
             if let posterName = valueArray[i].posterName , let outline = valueArray[i].outline ,let target = valueArray[i].target ,let benefit = valueArray[i].benefit,let period = valueArray[i].period {
                 
                 detailTextSwipe.posterName.text = posterName
+                
+                print("카테고리 인덱스 \(valueArray[i].categoryIdx)")
+                if valueArray[i].categoryIdx! == 0 {
+                    detailTextSwipe.hashTag.text = "기획/아이디어"
+                }else if valueArray[i].categoryIdx! == 3 {
+                    detailTextSwipe.hashTag.text = "문학/글쓰기"
+                }
+                
                 detailTextSwipe.hashTag.text = "\(valueArray[i].categoryIdx)"
                 
                 detailTextSwipe.outline.text = outline
