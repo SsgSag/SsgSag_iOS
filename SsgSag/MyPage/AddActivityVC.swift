@@ -8,7 +8,7 @@
 
 import UIKit
 //TODO: 저장하기, 텍스트뷰
-class AddActivityVC: UIViewController {
+class AddActivityVC: UIViewController, UITextViewDelegate {
 
     @IBOutlet weak var activityNavigationBar: UINavigationBar!
     @IBOutlet weak var titleTextField: UITextField!
@@ -30,6 +30,13 @@ class AddActivityVC: UIViewController {
         startDateLabel.text = currentDateString
         endDateLabel.text = currentDateString
         
+        contentTextView.applyBorderTextView()
+        contentTextView.delegate = self
+        if(contentTextView.text == "") {
+            textViewDidEndEditing(contentTextView)
+        }
+//        var tapDismiss = UITapGestureRecognizer(target: self, action: "dismissKeyboard")
+//        self.view.addGestureRecognizer(tapDismiss)
     }
 
     @IBAction func touchUpStartDateButton(_ sender: UIButton) {
@@ -45,6 +52,26 @@ class AddActivityVC: UIViewController {
     
     @IBAction func dismissModalAction(_ sender: Any) {
         dismiss(animated: true, completion: nil)
+    }
+    
+    func dismissKeyboard() {
+        contentTextView.resignFirstResponder()
+    }
+    
+    func textViewDidEndEditing(_ textView: UITextView) {
+        if(textView.text == "") {
+            textView.text = "동아리, 서포터즈, 봉사활동 등 본인이 했던 대외활동에 내한 구체적인 내용을 작성해보세요!"
+            textView.textColor = UIColor.rgb(red: 189, green: 189, blue: 189)
+        }
+        textView.resignFirstResponder()
+    }
+    
+    func textViewDidBeginEditing(_ textView: UITextView) {
+        if(textView.text == "동아리, 서포터즈, 봉사활동 등 본인이 했던 대외활동에 내한 구체적인 내용을 작성해보세요!") {
+            textView.text = ""
+            textView.textColor = .black
+        }
+        textView.becomeFirstResponder()
     }
 
     

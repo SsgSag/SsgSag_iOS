@@ -15,21 +15,25 @@ class CareerViewController: UIViewController {
     let certificationTableView: UITableView = UITableView()
     var indicatorViewLeadingConstraint: NSLayoutConstraint!
     
-    lazy var activityList: [eatery] = {
-        var list = [eatery]()
-        return list
-    }()
+//    lazy var activityList: [Career] = {
+//        var list = [Career]()
+//        return list
+//    }()
+//
+//    lazy var prizeList: [Career] = {
+//        var list = [Career]()
+//        return list
+//    }()
+//
+//    lazy var certificationList: [Career] = {
+//        var list = [Career]()
+//        return list
+//    }()
     
-    lazy var prizeList: [eatery] = {
-        var list = [eatery]()
-        return list
-    }()
-    
-    lazy var certificationList: [eatery] = {
-        var list = [eatery]()
-        return list
-    }()
-    
+    lazy var activityList: [Career] = []
+    lazy var prizeList: [Career] = []
+    lazy var certificationList: [Career] = []
+
     
     
     var customTabBarCollectionView: UICollectionView = {
@@ -91,10 +95,21 @@ class CareerViewController: UIViewController {
         
         plusButton.addTarget(self, action: #selector(addActivityPresentAction), for: .touchUpInside)
 
-        getData()
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        getData(careerType: "0")
+        //        getData(careerType: "1")
+        //        getData(careerType: "2")
+//        getCareer()
+
+    }
     
+    func tableViewCells() {
+//        let
+    }
     
     func cellOfEatery() {
         let path = Bundle.main.path(forResource: "data", ofType: "json")
@@ -106,7 +121,7 @@ class CareerViewController: UIViewController {
                     activityOV.title = row.title
                     activityOV.date = row.date
                     activityOV.content = row.content
-                    self.activityList.append(activityOV)
+//                    self.activityList.append(activityOV)
                 }
                 self.activityTableView.reloadData()
                 
@@ -115,7 +130,7 @@ class CareerViewController: UIViewController {
                     prizeOV.title = row.title
                     prizeOV.date = row.date
                     prizeOV.content = row.content
-                    self.prizeList.append(prizeOV)
+//                    self.prizeList.append(prizeOV)
                 }
                 self.prizeTableView.reloadData()
                 
@@ -124,7 +139,7 @@ class CareerViewController: UIViewController {
                     certificationOV.title = row.title
                     certificationOV.date = row.date
                     certificationOV.content = row.content
-                    self.certificationList.append(certificationOV)
+//                    self.certificationList.append(certificationOV)
                 }
                 self.certificationTableView.reloadData()
             }
@@ -302,41 +317,94 @@ class CareerViewController: UIViewController {
         certificationTableView.separatorColor = UIColor.rgb(red: 242, green: 243, blue: 245)
     }
     
-   
+    func setUpEmptyTableView(tableView: UITableView) {
+        let emptyImageView = UIImageView()
+        tableView.addSubview(emptyImageView)
+        emptyImageView.translatesAutoresizingMaskIntoConstraints = false
+        emptyImageView.topAnchor.constraint(equalTo: tableView.topAnchor, constant: 122).isActive = true
+        emptyImageView.leadingAnchor.constraint(equalTo: tableView.leadingAnchor, constant: 50).isActive = true
+        emptyImageView.trailingAnchor.constraint(equalTo: tableView.trailingAnchor, constant: 50).isActive = true
+        emptyImageView.heightAnchor.constraint(equalToConstant: 276).isActive = true
+        emptyImageView.image = UIImage(named: "imgEmptyCareer")
+        
+        let emptyLabel = UILabel()
+        emptyLabel.translatesAutoresizingMaskIntoConstraints = false
+        emptyLabel.text = "어떤 활동을 했는지"
+        emptyLabel.numberOfLines = 2
+        emptyLabel.textColor = UIColor.rgb(red: 155, green: 155, blue: 155)
+        emptyLabel.font = UIFont.systemFont(ofSize: 19)
+        tableView.addSubview(emptyLabel)
+        emptyLabel.topAnchor.constraint(equalTo: emptyImageView.bottomAnchor, constant: 43).isActive = true
+        emptyLabel.centerXAnchor.constraint(equalTo: emptyImageView.centerXAnchor).isActive = true
+        
+        let emptyLabel2 = UILabel()
+        emptyLabel2.translatesAutoresizingMaskIntoConstraints = false
+        emptyLabel2.text = "기록해보세요!"
+        emptyLabel2.textColor = UIColor.rgb(red: 155, green: 155, blue: 155)
+        emptyLabel2.font = UIFont.systemFont(ofSize: 19)
+        tableView.addSubview(emptyLabel2)
+        emptyLabel2.topAnchor.constraint(equalTo: emptyLabel.bottomAnchor, constant: 5).isActive = true
+        emptyLabel2.centerXAnchor.constraint(equalTo: emptyImageView.centerXAnchor).isActive = true
+    }
+    
 }
 
 extension CareerViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        
+        let bottomLine = UIView()
+        customTabBar.addSubview(bottomLine)
+        bottomLine.translatesAutoresizingMaskIntoConstraints = false
+        bottomLine.heightAnchor.constraint(equalToConstant: 0.5).isActive = true
+        bottomLine.backgroundColor = UIColor.white
+        bottomLine.leadingAnchor.constraint(equalTo: customTabBar.leadingAnchor).isActive = true
+        bottomLine.trailingAnchor.constraint(equalTo: customTabBar.trailingAnchor).isActive = true
+        bottomLine.bottomAnchor.constraint(equalToSystemSpacingBelow: customTabBar.bottomAnchor, multiplier: 0).isActive = true
         switch tableView {
-        case activityTableView: return activityList.count
-        case prizeTableView: return prizeList.count
-        case certificationTableView: return certificationList.count
+        case activityTableView:
+            if activityList.count == 0 {
+                setUpEmptyTableView(tableView: activityTableView)
+                return activityList.count
+            } else { return activityList.count }
+        case prizeTableView:
+            if prizeList.count == 0 {
+                setUpEmptyTableView(tableView: prizeTableView)
+                return prizeList.count
+            } else { return prizeList.count }
+        case certificationTableView:
+            if certificationList.count == 0 {
+                setUpEmptyTableView(tableView: certificationTableView)
+                return certificationList.count
+            } else { return certificationList.count }
         default : return 0
         }
+    
     }
+    
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if tableView == activityTableView {
+            
             let cell = tableView.dequeueReusableCell(withIdentifier: "ActivityCell", for: indexPath) as! ActivityCell
-            cell.titleLabel.text = activityList[indexPath.row].title
-            cell.periodLabel.text = activityList[indexPath.row].date
-            cell.detailLabel.text = activityList[indexPath.row].content
+            let activity: Career = self.activityList[indexPath.row]
+//            print("타이틀입니당~~~~!~!~!!~!밍지화이팅~~~!~!\(activity.data.)")
+//            cell.titleLabel.text = activity.data.careerName
+//            cell.periodLabel.text = activity.careerDate1
+//            cell.detailLabel.text = activityList[indexPath.row].content
             cell.selectionStyle = .none
             return cell
         } else if tableView == prizeTableView {
             let cell = tableView.dequeueReusableCell(withIdentifier: "PrizeCell", for: indexPath) as! ActivityCell
-            cell.titleLabel.text = prizeList[indexPath.row].title
-            cell.periodLabel.text = prizeList[indexPath.row].date
-            cell.detailLabel.text = prizeList[indexPath.row].content
+//            cell.titleLabel.text = prizeList[indexPath.row].title
+//            cell.periodLabel.text = prizeList[indexPath.row].date
+//            cell.detailLabel.text = prizeList[indexPath.row].content
             cell.selectionStyle = .none
             return cell
         } else {
             let cell = tableView.dequeueReusableCell(withIdentifier: "CertificationCell", for: indexPath) as! ActivityCell
-            cell.titleLabel.text = certificationList[indexPath.row].title
-            cell.periodLabel.text = certificationList[indexPath.row].date
-            cell.detailLabel.text = certificationList[indexPath.row].content
+//            cell.titleLabel.text = certificationList[indexPath.row].title
+//            cell.periodLabel.text = certificationList[indexPath.row].date
+//            cell.detailLabel.text = certificationList[indexPath.row].content
             cell.selectionStyle = .none
             return cell
         }
@@ -433,36 +501,52 @@ extension CareerViewController : UICollectionViewDelegate, UICollectionViewDataS
     }
     
     //
-    func getData() {
-        let json: [String: Any] = ["careerType" :"0"]
-        
+    func getData(careerType: String) {
+        let json: [String: Any] = ["careerType" : careerType]
         let jsonData = try? JSONSerialization.data(withJSONObject: json)
-        // create post request
         let url = URL(string: "http://54.180.79.158:8080/career/info")!
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         let key2 = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJEb0lUU09QVCIsInVzZXJfaWR4IjoxfQ.5lCvAqnzYP4-2pFx1KTgLVOxYzBQ6ygZvkx5jKCFM08"
-        request.addValue("\(key2)", forHTTPHeaderField: "Athorization")
-        // insert json data to the request
+        request.addValue(key2, forHTTPHeaderField: "Authorization")
         request.httpBody = jsonData
         
         let task = URLSession.shared.dataTask(with: request) { data, response, error in
-            print(data)
-            print(response)
             
-            guard let data = data, error == nil else {
+            guard error == nil else {
                 print(error?.localizedDescription ?? "No data")
                 return
+            }
+
+            guard let data = data else { return }
+            print(data)
+            print("gggg")
+            print(response)
+            do {
+                let apiResponse = try JSONDecoder().decode(Career.self, from: data)
+                print("orders: \(apiResponse)")
+                self.activityTableView.reloadData()
+            } catch (let err) {
+                print(err.localizedDescription)
+                print("sladjalsdjlasjdlasjdlajsldjas")
             }
             
             let responseJSON = try? JSONSerialization.jsonObject(with: data, options: [])
             if let responseJSON = responseJSON as? [String: Any] {
-                print("responseJSON \(responseJSON)")
+                //print("responseJSON \(responseJSON)")
+                //print(responseJSON["data"])
+                var a = responseJSON["data"]
+    
+                print(a)
+                print("1")
             }
         }
         
         task.resume()
     }
+    
+//    var careers: [Career] = []
+   
 }
 

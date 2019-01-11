@@ -69,8 +69,8 @@ class SwipeVC: UIViewController {
             guard let data = data else {
                 return
             }
-            print("data \(data)")
-            //print("reponse \(response)")
+            //print("data \(data)")
+            print("reponse \(response)")
             do {
                 
                 let order = try JSONDecoder().decode(Json4Swift_Base.self, from: data)

@@ -60,6 +60,9 @@
 		FA3A8FD921DF3D5F0075A510 /* GradientColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA3A8FD821DF3D5F0075A510 /* GradientColor.swift */; };
 		FA3A8FDB21DF3F410075A510 /* SplashVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA3A8FDA21DF3F410075A510 /* SplashVC.swift */; };
 		FA524BF121D64E2400675289 /* SignupStoryBoard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FA524BF021D64E2400675289 /* SignupStoryBoard.storyboard */; };
+		FA5A87F421E7D51D008C2C41 /* Career.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA5A87F321E7D51D008C2C41 /* Career.swift */; };
+		FA5A87F621E7D860008C2C41 /* CareerVO.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA5A87F521E7D860008C2C41 /* CareerVO.swift */; };
+		FA5A87F821E84095008C2C41 /* CareerBaseVO.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA5A87F721E84095008C2C41 /* CareerBaseVO.swift */; };
 		FA61FE0F21E0E3D300A28947 /* JobVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA61FE0E21E0E3D300A28947 /* JobVC.swift */; };
 		FA61FE1121E0E4A200A28947 /* PreferenceVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA61FE1021E0E4A200A28947 /* PreferenceVC.swift */; };
 		FA61FE1321E1D48D00A28947 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = FA61FE1221E1D48D00A28947 /* .gitignore */; };
@@ -173,6 +176,9 @@
 		FA3A8FD821DF3D5F0075A510 /* GradientColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientColor.swift; sourceTree = "<group>"; };
 		FA3A8FDA21DF3F410075A510 /* SplashVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashVC.swift; sourceTree = "<group>"; };
 		FA524BF021D64E2400675289 /* SignupStoryBoard.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = SignupStoryBoard.storyboard; sourceTree = "<group>"; };
+		FA5A87F321E7D51D008C2C41 /* Career.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Career.swift; sourceTree = "<group>"; };
+		FA5A87F521E7D860008C2C41 /* CareerVO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CareerVO.swift; sourceTree = "<group>"; };
+		FA5A87F721E84095008C2C41 /* CareerBaseVO.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CareerBaseVO.swift; sourceTree = "<group>"; };
 		FA61FE0E21E0E3D300A28947 /* JobVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JobVC.swift; sourceTree = "<group>"; };
 		FA61FE1021E0E4A200A28947 /* PreferenceVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferenceVC.swift; sourceTree = "<group>"; };
 		FA61FE1221E1D48D00A28947 /* .gitignore */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
@@ -362,18 +368,21 @@
 			children = (
 				FA7F4CCD21E049F200D8643A /* data.json */,
 				84BA694A21DB395400BA8CB8 /* MyPageStoryBoard.storyboard */,
+				FA5A87F321E7D51D008C2C41 /* Career.swift */,
+				FA5A87F521E7D860008C2C41 /* CareerVO.swift */,
+				FA5A87F721E84095008C2C41 /* CareerBaseVO.swift */,
+				FA7F4CCB21DFF3B100D8643A /* sampleData.swift */,
+				FA7F4CCF21E04A0600D8643A /* sampleDataVO.swift */,
+				FA7F4CB721DFB0C100D8643A /* CareerViewController.swift */,
 				FA61FE1421E1FD7600A28947 /* PopUpVC.swift */,
 				FA61FE1821E204F300A28947 /* DatePickerPopUpVC.swift */,
 				FA61FE1021E0E4A200A28947 /* PreferenceVC.swift */,
 				FA61FE0E21E0E3D300A28947 /* JobVC.swift */,
-				FA7F4CB721DFB0C100D8643A /* CareerViewController.swift */,
 				84E4EFCA21E516970051F6E6 /* Welcome.swift */,
 				FA7F4CD121E0A0A000D8643A /* AddActivityVC.swift */,
 				FA7F4CD321E0A0BB00D8643A /* AddVC.swift */,
 				FAD323DA21E36FA6000C4FBA /* AddCertificationVC.swift */,
 				84BA694821DB394800BA8CB8 /* myPageVC.swift */,
-				FA7F4CCB21DFF3B100D8643A /* sampleData.swift */,
-				FA7F4CCF21E04A0600D8643A /* sampleDataVO.swift */,
 				FA7F4CB921DFC7E700D8643A /* CustomCareerCell.swift */,
 				FA7F4CC921DFD61300D8643A /* ActivityCell.swift */,
 				FA23A93D21DF6FCF003DB5F9 /* myPageTableViewCell.swift */,
@@ -675,7 +684,7 @@
 			inputFileListPaths = (
 			);
 			inputPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-SsgSag/Pods-SsgSag-frameworks.sh",
+				"${SRCROOT}/Pods/Target Support Files/Pods-SsgSag/Pods-SsgSag-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
 				"${BUILT_PRODUCTS_DIR}/AlamofireObjectMapper/AlamofireObjectMapper.framework",
 				"${BUILT_PRODUCTS_DIR}/Kingfisher/Kingfisher.framework",
@@ -692,7 +701,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-SsgSag/Pods-SsgSag-frameworks.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-SsgSag/Pods-SsgSag-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -709,6 +718,7 @@
 				845928DC21D09F30001DF6CC /* MonthView.swift in Sources */,
 				8459289D21D09CDD001DF6CC /* SwipeVC.swift in Sources */,
 				84E19CD221DCC922006F72EC /* Requestable.swift in Sources */,
+				FA5A87F421E7D51D008C2C41 /* Career.swift in Sources */,
 				84E19CDE21DCC977006F72EC /* ResponseArray.swift in Sources */,
 				FA23A93F21DF6FCF003DB5F9 /* myPageTableViewCell.swift in Sources */,
 				845928E121D20068001DF6CC /* LoginVC.swift in Sources */,
@@ -724,6 +734,7 @@
 				845928DA21D09F30001DF6CC /* CalenderView.swift in Sources */,
 				FA61FE1921E204F300A28947 /* DatePickerPopUpVC.swift in Sources */,
 				845928E721D3877D001DF6CC /* DetailTextSwipeCard.swift in Sources */,
+				FA5A87F621E7D860008C2C41 /* CareerVO.swift in Sources */,
 				845928DB21D09F30001DF6CC /* WeekdaysView.swift in Sources */,
 				8459289B21D09CDD001DF6CC /* AppDelegate.swift in Sources */,
 				84E19CE221DCC977006F72EC /* Token.swift in Sources */,
@@ -751,6 +762,7 @@
 				845928E321D35F09001DF6CC /* PageViewController.swift in Sources */,
 				842C618521DCDC92001BA6D8 /* SignupCompleteVC.swift in Sources */,
 				FA7F4CBB21DFC7E700D8643A /* CustomCareerCell.swift in Sources */,
+				FA5A87F821E84095008C2C41 /* CareerBaseVO.swift in Sources */,
 				845928D921D09F30001DF6CC /* CalenderVC.swift in Sources */,
 				FA3A8FDB21DF3F410075A510 /* SplashVC.swift in Sources */,
 				845928E521D38771001DF6CC /* DetailImageSwipeCard.swift in Sources */,
