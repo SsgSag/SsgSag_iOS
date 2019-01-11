@@ -4,12 +4,14 @@ PODS:
     - Alamofire (~> 4.7)
     - ObjectMapper (~> 3.4)
   - Kingfisher (5.0.1)
+  - lottie-ios (2.5.2)
   - ObjectMapper (3.4.2)
 
 DEPENDENCIES:
   - Alamofire
   - AlamofireObjectMapper
   - Kingfisher
+  - lottie-ios
   - ObjectMapper
 
 SPEC REPOS:
@@ -17,14 +19,16 @@ SPEC REPOS:
     - Alamofire
     - AlamofireObjectMapper
     - Kingfisher
+    - lottie-ios
     - ObjectMapper
 
 SPEC CHECKSUMS:
   Alamofire: 3ec537f71edc9804815215393ae2b1a8ea33a844
   AlamofireObjectMapper: 92b6ce2423a9d159e686f6a1d514a009bf903ddc
   Kingfisher: 4f771421b9208185217550528a06fd48756cb7c2
+  lottie-ios: 3fef45d3fabe63e3c7c2eb603dd64ddfffc73062
   ObjectMapper: 0d4402610f4e468903ae64629eec4784531e5c51
 
-PODFILE CHECKSUM: 1f271d0b8bddaf0a0a7db48d6b85133f3b2f1cfa
+PODFILE CHECKSUM: 5390859cb9022fc3ca5a63dbeb84d161379d8fab
 
 COCOAPODS: 1.6.0.beta.2

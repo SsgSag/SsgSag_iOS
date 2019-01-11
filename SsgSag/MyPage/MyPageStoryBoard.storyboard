@@ -1059,6 +1059,7 @@
                         <outlet property="activityNavigationBar" destination="C14-If-ceI" id="inr-1z-gA3"/>
                         <outlet property="contentTextView" destination="VML-nC-r8E" id="Ijg-1z-9Jv"/>
                         <outlet property="endDateLabel" destination="Ahn-MW-4wF" id="k7b-c2-fms"/>
+                        <outlet property="saveButton" destination="use-wv-0gS" id="i4W-DH-9ZQ"/>
                         <outlet property="startDateLabel" destination="7k5-No-eRQ" id="cYU-Bs-5XR"/>
                         <outlet property="titleTextField" destination="biw-Ru-TPw" id="tlx-4I-N1d"/>
                     </connections>
@@ -1256,6 +1257,7 @@
                     </view>
                     <connections>
                         <outlet property="contentTextView" destination="4ey-hm-Jfs" id="eWa-Ue-Svs"/>
+                        <outlet property="saveButton" destination="7QG-Cw-qpq" id="ahS-pN-ZwP"/>
                         <outlet property="titleTextField" destination="XKN-GJ-sIe" id="GSZ-QM-e4j"/>
                         <outlet property="yearTextField" destination="w5C-gp-3gB" id="gKH-0L-RYs"/>
                     </connections>
@@ -1465,6 +1467,7 @@
                     </view>
                     <connections>
                         <outlet property="contentTextView" destination="Rb9-qL-jY2" id="kxc-nr-X8a"/>
+                        <outlet property="saveButton" destination="Qka-x6-8LD" id="oln-2p-3tb"/>
                         <outlet property="titleTextField" destination="2lk-fv-83I" id="uSE-ro-xXx"/>
                         <outlet property="yearTextField" destination="lHR-KN-pTw" id="jka-se-io1"/>
                     </connections>

@@ -12,11 +12,17 @@ class CalendarDetailVC: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        
 
     }
     
     @IBAction func backButton(_ sender: Any) {
         dismiss(animated: true, completion: nil)
+        let storyBoard = UIStoryboard(name: "Calendar", bundle: nil)
+        let prevVC = storyBoard.instantiateViewController(withIdentifier: "DetailPoster")
+        
+        
     }
     
 }

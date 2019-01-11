@@ -195,6 +195,10 @@ class CalenderVC: UIViewController{
         todoTableView.delegate = self
         todoTableView.register(todoCell.self, forCellReuseIdentifier: "todoCell")
         
+        todoTableView.separatorStyle = .none
+        todoTableView.backgroundColor = UIColor.rgb(red: 251, green: 251, blue: 251)
+        
+        
         view.addSubview(todoUpDownView)
         todoUpDownView.bottomAnchor.constraint(equalTo: todoTableView.topAnchor).isActive = true
         todoUpDownView.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
@@ -558,8 +562,8 @@ extension CalenderVC: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         let storyBoard = UIStoryboard(name: "Calendar", bundle: nil)
-        let nav = storyBoard.instantiateViewController(withIdentifier: "detailPosterVCNV")
-        present(nav, animated: true, completion: nil)
+        let prevVC = storyBoard.instantiateViewController(withIdentifier: "DetailPoster")
+        present(prevVC, animated: true, completion: nil)
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -634,10 +638,13 @@ extension CalenderVC: UITableViewDataSource {
         }else {
             cell.categoryLabel.text = "기타"
         }
-        
+
+        cell.categoryLabel.textColor = UIColor.rgb(red: 97, green: 118, blue: 221)
+        cell.categoryLabel.font = UIFont.systemFont(ofSize: 12.0, weight: .bold)
         
         cell.contentLabel.text = "\(todoExampleDate[indexPath.row].4)"
         cell.contentLabel.numberOfLines = 2
+        cell.contentLabel.font = UIFont.systemFont(ofSize: 17.0, weight: .light)
         
         let startMonth = Calendar.current.component(.month, from: todoExampleDate[indexPath.row].0)
         let startDay = Calendar.current.component(.day, from: todoExampleDate[indexPath.row].0)
@@ -647,6 +654,9 @@ extension CalenderVC: UITableViewDataSource {
         
         cell.dateLabel.text = "\(startMonth).\(startDay) ~ \(endMonth).\(endDay)"
         cell.leftedDay.text = "\(todoListDay-todayDay)"
+    
+        cell.dateLabel.font = UIFont.systemFont(ofSize: 13.0, weight: .light)
+        cell.leftedDay.font = UIFont.systemFont(ofSize: 34.0, weight: .medium)
         
         return cell
     }

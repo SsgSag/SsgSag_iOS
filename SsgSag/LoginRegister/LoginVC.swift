@@ -72,7 +72,7 @@ class LoginVC: UIViewController {
             //토큰 저장
             UserDefaults.standard.set(token, forKey: "token")
             let savedToken = UserDefaults.standard.object(forKey: "token")
-            print("저장된 토큰 값 \(savedToken)")
+            print("저장된 토큰 값 \(savedToken!)")
             
             let storyboard = UIStoryboard(name: "SwipeStoryBoard", bundle: nil)
             let swipeVC = storyboard.instantiateViewController(withIdentifier: "Swipe")
