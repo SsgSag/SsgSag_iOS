@@ -1,4 +1,4 @@
-let  MAX_BUFFER_SIZE = 3;
+let  MAX_BUFFER_SIZE = 10;
 let  SEPERATOR_DISTANCE = 8;
 let  TOPYAXIS = 75;
 
@@ -72,12 +72,13 @@ class SwipeVC: UIViewController {
             //print("data \(data)")
             //print("reponse \(response)")
             do {
-                
                 let order = try JSONDecoder().decode(Json4Swift_Base.self, from: data)
                 //print("order \(order)")
                 if let posters = order.data?.posters {
                     for i in posters {
+                        //print(i.posterName)
                         self.valueArray.append(i)
+                        
                         self.likedArray.append(i)
                         
                         //date parsing
@@ -111,6 +112,7 @@ class SwipeVC: UIViewController {
         }
         task.resume()
     }
+    
     override func viewDidLayoutSubviews() {
         super.viewWillLayoutSubviews()
     }
@@ -134,6 +136,7 @@ class SwipeVC: UIViewController {
             let capCount = (valueArray.count > MAX_BUFFER_SIZE) ? MAX_BUFFER_SIZE : valueArray.count
             for (i,value) in valueArray.enumerated() {
                 let newCard = createSwipeCard(at: i,value: value.photoUrl!)
+                
                 allCardsArray.append(newCard)
                 if i < capCount {
                     currentLoadedCardsArray.append(newCard)
@@ -170,6 +173,7 @@ class SwipeVC: UIViewController {
         if (currentIndex + currentLoadedCardsArray.count) < allCardsArray.count {
             let card = allCardsArray[currentIndex + currentLoadedCardsArray.count]
             currentLoadedCardsArray.append(card)
+            
             viewTinderBackGround.insertSubview(currentLoadedCardsArray[MAX_BUFFER_SIZE - 1], belowSubview: currentLoadedCardsArray[MAX_BUFFER_SIZE - 2])
         }
         animateCardAfterSwiping()
@@ -192,6 +196,14 @@ class SwipeVC: UIViewController {
             if let posterName = valueArray[i].posterName , let outline = valueArray[i].outline ,let target = valueArray[i].target ,let benefit = valueArray[i].benefit,let period = valueArray[i].period {
                 
                 detailTextSwipe.posterName.text = posterName
+                
+                print("카테고리 인덱스 \(valueArray[i].categoryIdx)")
+                if valueArray[i].categoryIdx! == 0 {
+                    detailTextSwipe.hashTag.text = "기획/아이디어"
+                }else if valueArray[i].categoryIdx! == 3 {
+                    detailTextSwipe.hashTag.text = "문학/글쓰기"
+                }
+                
                 detailTextSwipe.hashTag.text = "\(valueArray[i].categoryIdx)"
                 
                 detailTextSwipe.outline.text = outline
