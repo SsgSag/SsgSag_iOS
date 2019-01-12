@@ -619,7 +619,7 @@
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="99y-hr-Rk8">
-                                                        <rect key="frame" x="0.0" y="19.333333333333258" width="331" height="19.333333333333329"/>
+                                                        <rect key="frame" x="0.0" y="19.333333333333371" width="331" height="19.333333333333329"/>
                                                         <fontDescription key="fontDescription" type="system" weight="light" pointSize="16"/>
                                                         <color key="textColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="calibratedRGB"/>
                                                         <nil key="highlightedColor"/>
@@ -735,6 +735,13 @@
                     <navigationItem key="navigationItem" id="WyN-0n-zK1"/>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <size key="freeformSize" width="375" height="1000"/>
+                    <connections>
+                        <outlet property="PosterImage" destination="xLg-Ii-zXt" id="Ur0-pb-hhb"/>
+                        <outlet property="apply" destination="wVi-cm-Gt3" id="mrf-ez-Qzw"/>
+                        <outlet property="benefit" destination="fLe-P7-bWg" id="QoQ-Yy-uCx"/>
+                        <outlet property="outLine" destination="FnA-yf-ShC" id="Y4i-3q-gyY"/>
+                        <outlet property="target" destination="99y-hr-Rk8" id="RgQ-d8-GNG"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6dL-Ke-MYf" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

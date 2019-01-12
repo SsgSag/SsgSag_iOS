@@ -94,7 +94,7 @@ class MonthView: UIView {
         btnRight.rightAnchor.constraint(equalTo: rightAnchor).isActive=true
         btnRight.widthAnchor.constraint(equalToConstant: 50).isActive=true
         btnRight.heightAnchor.constraint(equalTo: heightAnchor).isActive=true
-        
+
         self.addSubview(btnLeft)
         btnLeft.topAnchor.constraint(equalTo: topAnchor).isActive=true
         btnLeft.leftAnchor.constraint(equalTo: leftAnchor).isActive=true
@@ -108,15 +108,16 @@ class MonthView: UIView {
         lbl.text="Default Month Year text"
         lbl.textColor = Style.monthViewLblColor
         lbl.textAlignment = .center
-        lbl.font=UIFont.boldSystemFont(ofSize: 16)
+        lbl.font=UIFont.boldSystemFont(ofSize: 25)
         lbl.translatesAutoresizingMaskIntoConstraints=false
         return lbl
     }()
     
     let btnRight: UIButton = {
         let btn=UIButton()
-        btn.setTitle(">", for: .normal)
-        btn.setTitleColor(Style.monthViewBtnRightColor, for: .normal)
+        //btn.setTitle(">", for: .normal)
+        btn.setImage(UIImage(named: "icCalArrowRight"), for: .normal)
+        //btn.setTitleColor(Style.monthViewBtnRightColor, for: .normal)
         btn.imageView?.image = UIImage(named: "<#T##String#>")
         btn.translatesAutoresizingMaskIntoConstraints=false
         btn.addTarget(self, action: #selector(btnLeftRightAction(sender:)), for: .touchUpInside)
@@ -125,8 +126,9 @@ class MonthView: UIView {
     
     let btnLeft: UIButton = {
         let btn=UIButton()
-        btn.setTitle("<", for: .normal)
-        btn.setTitleColor(Style.monthViewBtnLeftColor, for: .normal)
+        //btn.setTitle("<", for: .normal)
+        btn.setImage(UIImage(named: "icCalArrowLeft"), for: .normal)
+        //btn.setTitleColor(Style.monthViewBtnLeftColor, for: .normal)
         btn.translatesAutoresizingMaskIntoConstraints=false
         btn.addTarget(self, action: #selector(btnLeftRightAction(sender:)), for: .touchUpInside)
         btn.setTitleColor(UIColor.lightGray, for: .disabled)

@@ -64,6 +64,7 @@ class CalenderVC: UIViewController{
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints  = false
         label.text = "투두리스트"
+        label.font = UIFont.systemFont(ofSize: 18.0, weight: .medium)
         return label
     }()
     
@@ -75,10 +76,11 @@ class CalenderVC: UIViewController{
     
     let todoListButton: UIButton = {
         let tb = UIButton()
-        tb.setTitle("투두리스트", for: .normal)
-        tb.setTitleColor(UIColor.black, for: .normal)
-        tb.layer.cornerRadius = 12
-        tb.backgroundColor = UIColor.white
+//        tb.setTitle("투두리스트", for: .normal)
+//        tb.setTitleColor(UIColor.black, for: .normal)
+//        tb.layer.cornerRadius = 12
+//        tb.backgroundColor = UIColor.white
+        tb.setImage(UIImage(named: "icTodolistBtn"), for: .normal)
         tb.translatesAutoresizingMaskIntoConstraints = false
         return tb
     }()
@@ -146,7 +148,6 @@ class CalenderVC: UIViewController{
         }
         
         todoTableView.reloadData()
-        
     }
     
     //유저 디폴츠의 모든 내용 제거
@@ -187,8 +188,8 @@ class CalenderVC: UIViewController{
         todoTableView.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
         todoTableView.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
         todoTableView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
-        todoTableView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.25).isActive = true
-        todoTableView.backgroundColor = UIColor(displayP3Red: 228 / 255, green: 228 / 255, blue: 228 / 255, alpha: 1.0)
+        todoTableView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.4).isActive = true
+        todoTableView.backgroundColor = UIColor(displayP3Red: 251 / 255, green: 251 / 255, blue: 251 / 255, alpha: 1.0)
         
         todoTableView.rowHeight = view.frame.height / 13
         todoTableView.dataSource = self
@@ -217,6 +218,7 @@ class CalenderVC: UIViewController{
         todoList.bottomAnchor.constraint(equalTo: todoUpDownView.bottomAnchor).isActive = true
         todoList.topAnchor.constraint(equalTo: donwTodoView.bottomAnchor, constant: 10).isActive = true
         todoList.heightAnchor.constraint(equalToConstant: 21).isActive = true
+        todoList.backgroundColor = UIColor.rgb(red: 251, green: 251, blue: 251)
         
         todoUpDownView.addSubview(separatorView)
         separatorView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
@@ -245,8 +247,8 @@ class CalenderVC: UIViewController{
         view.addSubview(todoListButton)
         todoListButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant:-34).isActive = true
         todoListButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        todoListButton.widthAnchor.constraint(equalToConstant: 125).isActive = true
-        todoListButton.heightAnchor.constraint(equalToConstant: 35).isActive = true
+        todoListButton.widthAnchor.constraint(equalToConstant: 135).isActive = true
+        todoListButton.heightAnchor.constraint(equalToConstant: 44).isActive = true
         
         
         todoListButton.isHidden = true
@@ -301,6 +303,7 @@ class CalenderVC: UIViewController{
             //print("posterTuple \(i)")
         }
         
+        
         //캘린더 view에서 날짜가 선택 되었다. todoView가 올라간다.
         NotificationCenter.default.addObserver(self, selector: #selector(dayDidSelected(_:)), name: NSNotification.Name(rawValue: "todoUp"), object: nil)
         
@@ -335,7 +338,11 @@ class CalenderVC: UIViewController{
         NotificationCenter.default.post(name: NSNotification.Name("changeBackgroundColor"), object: nil)
         todoList.text = "투두리스트"
         
+        //NotificationCenter.default.post(name: NSNotification.Name("rightItemHidden"), object: nil)
+        
         todoTableView.reloadData()
+        
+        
         
        // print("투두 리스트로 갑시다")
     }
@@ -343,6 +350,12 @@ class CalenderVC: UIViewController{
     //셀에서 가장 오른쪽에 있는 값들을 지우자.
     @objc func dayDidSelected(_ notification: Notification) {
         selectedStatus += 1
+        //이때 todotableview의 모든 셀의 오른쪽 leftedDay와 leftedBottom을 지우자
+        
+//        NotificationCenter.default.addObserver(self, selector: #selector(rightItemHidden), name: NSNotification.Name("rightItemHidden"), object: nil)
+        
+        NotificationCenter.default.post(name: NSNotification.Name("rightItemHidden"), object: nil)
+        
         todoUp(notification)
     }
     
@@ -366,7 +379,7 @@ class CalenderVC: UIViewController{
         todoTableView.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
         todoTableView.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
         todoTableView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
-        todoTableView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.25).isActive = true
+        todoTableView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.4).isActive = true
         
         todoTableView.rowHeight = view.frame.height / 13
         todoTableView.dataSource = self
@@ -436,7 +449,7 @@ class CalenderVC: UIViewController{
         todoTableView.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
         todoTableView.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
         todoTableView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
-        todoTableView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.25).isActive = true
+        todoTableView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.4).isActive = true
         
         todoTableView.rowHeight = view.frame.height / 13
         todoTableView.dataSource = self
@@ -562,9 +575,25 @@ extension CalenderVC: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         let storyBoard = UIStoryboard(name: "Calendar", bundle: nil)
-        let nav = storyBoard.instantiateViewController(withIdentifier: "DetailPoster")
-        present(nav, animated: true, completion: nil)
+        let nav = storyBoard.instantiateViewController(withIdentifier: "DetailPoster") as! CalendarDetailVC
+        //print(todoExampleDate[indexPath.row].4)
+        //nav.PosterImage.load(url: " ")
+        
+        let defaults = UserDefaults.standard
+        //guard let posterData = defaults.object(forKey: "poster") as? Data else { return }
+        //guard let posterInfo = try? PropertyListDecoder().decode([Posters].self, from: posterData) else { return }
+        var retValue: Posters?
+        if let posterData = defaults.object(forKey: "poster") as? Data {
+            if let posterInfo = try? PropertyListDecoder().decode([Posters].self, from: posterData){
+                for poster in posterInfo {
+                    if todoExampleDate[indexPath.row].4 == poster.posterName! {
+                        nav.Poster = poster
+                    }
+                }
+            }
+        }
 
+        present(nav, animated: true, completion: nil)
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -576,18 +605,43 @@ extension CalenderVC: UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
-        
-        let editAction = UITableViewRowAction(style: .default, title: "Edit", handler: { (action, indexPath) in
+        let editAction = UITableViewRowAction(style: .default, title: "완료", handler: { (action, indexPath) in
+            
+            
             //print("Edit tapped")
         })
-        
-        editAction.backgroundColor = UIColor.blue
         // action two
-        let deleteAction = UITableViewRowAction(style: .default, title: "Delete", handler: { (action, indexPath) in
-            //rint("Delete tapped")
+        let deleteAction = UITableViewRowAction(style: .default, title: "삭제", handler: { (action, indexPath) in
+            //print("Delete tapped")
+            //self.todoExampleDate.remove(at: indexPath.row)
+            
+            
+            let defaults = UserDefaults.standard
+            //guard let posterData = defaults.object(forKey: "poster") as? Data else { return }
+            //guard let posterInfo = try? PropertyListDecoder().decode([Posters].self, from: posterData) else { return }
+            var retValue: Posters?
+            let b: Posters
+            if let posterData = defaults.object(forKey: "poster") as? Data {
+                if let posterInfo = try? PropertyListDecoder().decode([Posters].self, from: posterData){
+                    for i in 0...posterInfo.count-1 {
+                        //현재 지우는게 포스터에 있는 것과 같다면
+                        if posterInfo[i].posterName! == self.todoExampleDate[indexPath.row].4 {
+                                self.todoExampleDate.remove(at: i)
+                            
+                        }
+                    }
+                }
+            }
+            
+//            defaults.setValue(try? PropertyListEncoder().encode(todoExampleDate), forKey: "poster")
+//            defaults.set(self.todoExampleDate, forKey: "poster")
+            tableView.reloadData()
         })
         
+        
         deleteAction.backgroundColor = UIColor.red
+        editAction.backgroundColor = UIColor.blue
+        
         return [editAction, deleteAction]
     }
 }
@@ -665,10 +719,10 @@ extension CalenderVC: UITableViewDataSource {
 
 //todo tableview의 셀
 class todoCell: UITableViewCell {
-    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        self.backgroundColor = UIColor(displayP3Red: 228/255, green: 228/255, blue: 228/255, alpha: 1.0)
+//        self.backgroundColor = UIColor(displayP3Red: 228/255, green: 228/255, blue: 228/255, alpha: 1.0)
+        self.backgroundColor = UIColor.rgb(red: 251, green: 251, blue: 251)
         setupCell()
     }
     
@@ -718,6 +772,7 @@ class todoCell: UITableViewCell {
     let separatorView: UIView = {//세로선
         let sv = UIView()
         sv.translatesAutoresizingMaskIntoConstraints = false
+        sv.widthAnchor.constraint(equalToConstant: 1).isActive = true
         sv.backgroundColor = UIColor(displayP3Red: 224/255, green: 224/255, blue: 224/255, alpha: 1.0)
         return sv
     }()
@@ -736,6 +791,12 @@ class todoCell: UITableViewCell {
         return lb
     }()
     
+    let newImage: UIImageView = {//남은 날짜 밑에 (일 남음 텍스트)
+        let lb = UIImageView()
+        lb.translatesAutoresizingMaskIntoConstraints = false
+        return lb
+    }()
+    
     func setupCell(){
         self.selectionStyle = .none
         
@@ -744,32 +805,33 @@ class todoCell: UITableViewCell {
         borderView.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 10).isActive = true
         borderView.rightAnchor.constraint(equalTo: self.rightAnchor, constant: -10 ).isActive = true
         borderView.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -10).isActive = true
-        borderView.backgroundColor = UIColor(displayP3Red: 243/255, green: 244/255, blue: 245/255, alpha: 1.0)
-        
+//        borderView.backgroundColor = UIColor(displayP3Red: 243/255, green: 244/255, blue: 245/255, alpha: 1.0)
+            borderView.backgroundColor = .white
         borderView.addSubview(leftLineView)
         leftLineView.leftAnchor.constraint(equalTo: borderView.leftAnchor).isActive = true
         leftLineView.topAnchor.constraint(equalTo: borderView.topAnchor).isActive = true
         leftLineView.bottomAnchor.constraint(equalTo: borderView.bottomAnchor).isActive = true
-        leftLineView.widthAnchor.constraint(equalToConstant: 7).isActive = true
+        leftLineView.widthAnchor.constraint(equalToConstant: 8.5).isActive = true
         
         borderView.addSubview(categoryLabel)
         categoryLabel.text = "Label"
-        categoryLabel.topAnchor.constraint(equalTo: borderView.topAnchor).isActive = true
+        categoryLabel.topAnchor.constraint(equalTo: borderView.topAnchor, constant: 10).isActive = true
         categoryLabel.leftAnchor.constraint(equalTo: borderView.leftAnchor, constant: 20).isActive = true
 //        categoryLabel.heightAnchor.constraint(equalToConstant: 15).isActive = true
 //        categoryLabel.widthAnchor.constraint(equalToConstant: 300).isActive = true
-        categoryLabel.font = UIFont(name: "system", size: 12)
+        categoryLabel.font = UIFont.systemFont(ofSize: 12.0, weight: .bold)
         
         borderView.addSubview(contentLabel)
-        contentLabel.topAnchor.constraint(equalTo: categoryLabel.bottomAnchor ,constant: 5).isActive
+        contentLabel.topAnchor.constraint(equalTo: categoryLabel.bottomAnchor ,constant: 2).isActive
             = true
         contentLabel.leftAnchor.constraint(equalTo: borderView.leftAnchor, constant: 20).isActive = true
-        contentLabel.font = UIFont(name: "system", size: 17)
+        contentLabel.font = UIFont.systemFont(ofSize: 17, weight: .light)
         
         borderView.addSubview(dateLabel)
-        dateLabel.topAnchor.constraint(equalTo: contentLabel.bottomAnchor, constant: 5).isActive = true
+        dateLabel.topAnchor.constraint(equalTo: contentLabel.bottomAnchor, constant: 3).isActive = true
         dateLabel.leftAnchor.constraint(equalTo: borderView.leftAnchor, constant: 20).isActive = true
-        contentLabel.font = UIFont(name: "system", size: 13)
+        dateLabel.font = UIFont.systemFont(ofSize: 13, weight: .light)
+        dateLabel.textColor = UIColor.rgb(red: 139, green: 139, blue: 139)
         
         borderView.addSubview(separatorView)
         separatorView.rightAnchor.constraint(equalTo: borderView.rightAnchor, constant: -70).isActive = true
@@ -779,16 +841,42 @@ class todoCell: UITableViewCell {
         
         borderView.addSubview(leftedDay)
         leftedDay.rightAnchor.constraint(equalTo: borderView.rightAnchor, constant: -28).isActive = true
-        leftedDay.topAnchor.constraint(equalTo: borderView.topAnchor, constant: 15).isActive = true
+        leftedDay.topAnchor.constraint(equalTo: borderView.topAnchor, constant: 10).isActive = true
         //leftedDay.widthAnchor.constraint(equalToConstant: 38).isActive = true
         //leftedDay.heightAnchor.constraint(equalToConstant: 41).isActive = true
-        leftedDay.font = UIFont(name: leftedDay.font.fontName, size: 23)
+        leftedDay.font = UIFont.systemFont(ofSize: 23, weight: .medium)
         
         borderView.addSubview(leftedDayBottom)
         leftedDayBottom.bottomAnchor.constraint(equalTo: borderView.bottomAnchor, constant: -8).isActive = true
         leftedDayBottom.rightAnchor.constraint(equalTo: borderView.rightAnchor, constant: -21).isActive = true
-        leftedDayBottom.font = UIFont(name: leftedDay.font.fontName, size: 10)
+        leftedDayBottom.font = UIFont.systemFont(ofSize: 10, weight: .bold)
+        leftedDayBottom.textColor = UIColor.rgb(red: 134, green: 134, blue: 134)
         
+        borderView.addSubview(newImage)
+        newImage.rightAnchor.constraint(equalTo: borderView.rightAnchor, constant: -20).isActive = true
+        newImage.topAnchor.constraint(equalTo: borderView.topAnchor, constant: 17).isActive = true
+        newImage.bottomAnchor.constraint(equalTo: borderView.bottomAnchor, constant:-17).isActive = true
+        newImage.widthAnchor.constraint(equalToConstant: 32).isActive = true
+        newImage.image = UIImage(named: "icTimePassed")
+        newImage.isHidden = true
+        
+        //leftedDay.widthAnchor.constraint(equalToConstant: 38).isActive = true
+        //leftedDay.heightAnchor.constraint(equalToConstant: 41).isActive = true
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(rightItemHidden), name: NSNotification.Name("rightItemHidden"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(changeBackgroundColor), name: NSNotification.Name("changeBackgroundColor"), object: nil)
+    }
+    
+    @objc func rightItemHidden() {
+        leftedDay.isHidden = true
+        leftedDayBottom.isHidden = true
+        newImage.isHidden = false
+        
+    }
+    @objc func changeBackgroundColor() {
+        leftedDay.isHidden = false
+        leftedDayBottom.isHidden = false
+        newImage.isHidden = true
     }
 }
 

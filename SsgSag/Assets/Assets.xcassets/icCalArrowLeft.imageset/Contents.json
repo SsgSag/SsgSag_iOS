@@ -3,17 +3,17 @@
     {
       "scale" : "1x",
       "idiom" : "universal",
-      "filename" : "icTodolistBtn.png"
+      "filename" : "icCalArrowLeft.png"
     },
     {
       "scale" : "2x",
       "idiom" : "universal",
-      "filename" : "icTodolistBtn@2x.png"
+      "filename" : "icCalArrowLeft@2x.png"
     },
     {
       "scale" : "3x",
       "idiom" : "universal",
-      "filename" : "icTodolistBtn@3x.png"
+      "filename" : "icCalArrowLeft@3x.png"
     }
   ],
   "info" : {
