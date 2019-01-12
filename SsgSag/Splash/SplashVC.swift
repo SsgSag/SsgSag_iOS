@@ -19,8 +19,15 @@ class SplashVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         let animationView = LOTAnimationView(name: "splash")
-        view.addSubview(animationView)
+        splashView.addSubview(animationView)
+        animationView.translatesAutoresizingMaskIntoConstraints = false
+        animationView.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
+        animationView.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
+        animationView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
+        animationView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
+        
         animationView.play()
+//        animationView.loopAnimation = true
         
 //        setupGif()
 //        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + delayInSeconds){

@@ -33,7 +33,14 @@ class myPageVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
         // Do any additional setup after loading the view.
     }
     
-
+    @IBAction func removeDefaults(_ sender: Any) {
+        let dictionary = UserDefaults.standard.dictionaryRepresentation()
+        dictionary.keys.forEach { (key) in
+            UserDefaults.standard.removeObject(forKey: "poster")
+        }
+        print("12341234")
+    }
+    
     @IBAction func touchUpCameraButton(_ sender: UIButton) {
         self.present(self.imagePicker, animated: true, completion: nil)
     }

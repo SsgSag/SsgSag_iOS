@@ -62,7 +62,7 @@ class DatePickerPopUpVC: UIViewController {
     
     @IBAction func touchUpOkButton(_ sender: UIButton) {
         print(buttonTag)
-        let previousVC = self.parent as! AddActivityVC
+        let previousVC = self.parent as! AddPassiveDateVC
         if buttonTag == 0 {
             previousVC.startDateLabel.text = dateString
         } else {

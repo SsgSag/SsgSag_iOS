@@ -83,8 +83,10 @@ class CareerViewController: UIViewController {
         super.viewDidAppear(animated)
         
         getData(careerType: "0")
-        getData(careerType: "1")
-        getData(careerType: "2")
+        //getData(careerType: "1")
+        //getData(careerType: "2")
+        
+        
     }
     
     
@@ -350,7 +352,7 @@ extension CareerViewController: UITableViewDelegate, UITableViewDataSource {
             return cell
         } else if tableView == prizeTableView {
             let cell = tableView.dequeueReusableCell(withIdentifier: "PrizeCell", for: indexPath) as! ActivityCell
-            let prize: Datum = self.prizeList[indexPath.row]
+            let prize: Datum = self.activityList[indexPath.row]
             cell.titleLabel.text = prize.careerName
             cell.dateLabel1.text = prize.careerDate1
             cell.detailLabel.text = prize.careerContent
@@ -358,7 +360,7 @@ extension CareerViewController: UITableViewDelegate, UITableViewDataSource {
             return cell
         } else {
             let cell = tableView.dequeueReusableCell(withIdentifier: "CertificationCell", for: indexPath) as! ActivityCell
-            let certification: Datum = self.certificationList[indexPath.row]
+            let certification: Datum = self.activityList[indexPath.row]
             cell.titleLabel.text = certification.careerName
             cell.dateLabel1.text = certification.careerDate1
             cell.detailLabel.text = certification.careerContent
@@ -492,15 +494,18 @@ extension CareerViewController : UICollectionViewDelegate, UICollectionViewDataS
                     self.activityList = apiResponse.data
                     DispatchQueue.main.async {
                         self.activityTableView.reloadData()
+                        
                     }
                 } else if careerType == "1" {
                     print("111111111")
-                    self.prizeList = apiResponse.data
+                    self.prizeList = self.activityList
+                    //self.prizeList = apiResponse.data
                     DispatchQueue.main.async {
                         self.prizeTableView.reloadData()
                     }
                 } else if careerType == "2" {
-                    self.certificationList = apiResponse.data
+                    //self.certificationList = apiResponse.data
+                    self.prizeList = self.activityList
                     DispatchQueue.main.async {
                         self.certificationTableView.reloadData()
                     }

@@ -282,6 +282,9 @@ class CalenderView: UIView, UICollectionViewDelegate, UICollectionViewDataSource
 //            (s11!, e11!, 3, 2, "민지 일정", 0),
 //        ]
         
+        if posterTuple.count == 1 {
+            lineArray1.append(posterTuple[0])
+        }
         
         if posterTuple.count > 1 {
            posterTuple.sort{$0.2 > $1.2}

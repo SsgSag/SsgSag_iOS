@@ -115,6 +115,16 @@
                                             </label>
                                         </subviews>
                                     </stackView>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BYc-YH-yFq">
+                                        <rect key="frame" x="295" y="30" width="50" height="50"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="50" id="7bM-sU-XbP"/>
+                                            <constraint firstAttribute="width" constant="50" id="eZh-bb-aVr"/>
+                                        </constraints>
+                                        <connections>
+                                            <action selector="removeDefaults:" destination="xxg-7e-42k" eventType="touchUpInside" id="ZP8-Sf-Whh"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
@@ -130,6 +140,8 @@
                                     <constraint firstAttribute="trailing" secondItem="RQy-mT-qfP" secondAttribute="trailing" id="VLo-Au-cKw"/>
                                     <constraint firstItem="ojx-1I-pPr" firstAttribute="leading" secondItem="LgH-1O-3Y3" secondAttribute="leading" id="aJs-bu-GiV"/>
                                     <constraint firstItem="ojx-1I-pPr" firstAttribute="top" secondItem="OAG-nj-2fG" secondAttribute="bottom" constant="13" id="aUx-uM-Y0B"/>
+                                    <constraint firstItem="BYc-YH-yFq" firstAttribute="top" secondItem="qyX-SC-PiP" secondAttribute="top" constant="30" id="cMJ-3g-BFd"/>
+                                    <constraint firstAttribute="trailing" secondItem="BYc-YH-yFq" secondAttribute="trailing" constant="30" id="gMN-hW-1hf"/>
                                     <constraint firstItem="u4M-Qk-hne" firstAttribute="leading" secondItem="qyX-SC-PiP" secondAttribute="leading" id="gSi-6J-69k"/>
                                     <constraint firstItem="Rlt-AG-Owc" firstAttribute="top" secondItem="RQy-mT-qfP" secondAttribute="bottom" id="gcn-RA-kPf"/>
                                     <constraint firstAttribute="trailing" secondItem="Rlt-AG-Owc" secondAttribute="trailing" id="jQM-r5-bDS"/>

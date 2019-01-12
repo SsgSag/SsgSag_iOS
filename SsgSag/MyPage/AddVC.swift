@@ -142,5 +142,6 @@ extension UITextView {
     func applyBorderTextView() {
         self.layer.borderColor = UIColor.rgb(red: 235, green: 237, blue: 239).cgColor
         self.layer.borderWidth = 1.0
+        self.layer.cornerRadius = 3.0
     }
 }
