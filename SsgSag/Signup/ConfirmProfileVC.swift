@@ -33,7 +33,6 @@ class ConfirmProfileVC: UIViewController {
         iniGestureRecognizer()
         self.titleLabel.isHidden = false
         self.titleImage.isHidden = false
-//        setLeftBtn(title: "", color: .black)
         self.navigationItem.setHidesBackButton(true, animated: true)
         setBackBtn( color: .black)
         setNavigationBar(color: .white)
@@ -57,6 +56,7 @@ class ConfirmProfileVC: UIViewController {
             maleButton.isSelected = true
             maleButton.setImage(UIImage(named: "btMaleActive"), for: .normal)
         }
+        checkInformation(self)
     }
     
     @IBAction func touchUpFemalButton(_ sender: UIButton) {
@@ -72,6 +72,7 @@ class ConfirmProfileVC: UIViewController {
             femaleButton.isSelected = true
             femaleButton.setImage(UIImage(named: "btFemaleActive"), for: .normal)
         }
+        checkInformation(self)
     }
     
     @IBAction func touchUpCheckBoxButton(_ sender: UIButton) {
@@ -82,6 +83,7 @@ class ConfirmProfileVC: UIViewController {
             sender.isSelected = true
             sender.setImage(UIImage(named: "btCheckActive"), for: .normal)
         }
+        checkInformation(self)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -116,9 +118,11 @@ class ConfirmProfileVC: UIViewController {
     
     func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
         print("textfieldshouldBeginEditing")
-        
+        checkInformation(self)
         return true
     }
+    
+//    func textField
     
      @objc func checkInformation(_ sender: Any) {
         if (nameField.hasText && birthField.hasText && nickNameField.hasText && checkBoxButton.isSelected) {
@@ -133,18 +137,6 @@ class ConfirmProfileVC: UIViewController {
             nextButton.isUserInteractionEnabled = false
             nextButton.setImage(UIImage(named: "btNextUnactive"), for: .normal)
         }
-    }
-    
-    func textViewShouldBeginEditing(_ textView: UITextView) -> Bool {
-        print("textviewshouldbeginediting")
-        
-        return true
-    }
-    
-    
-    func textViewDidEndEditing(_ textView: UITextView) {
-        print("textViewEndEditing")
-        checkInformation(self)
     }
 }
 
