@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Lottie
 
 class AddCertificationVC: UIViewController {
 
@@ -30,6 +31,13 @@ class AddCertificationVC: UIViewController {
     
     @IBAction func touchUpSaveButton(_ sender: UIButton) {
         //TODO: - 네트워크 연결?
+        let animation = LOTAnimationView(name: "bt_save_round")
+        saveButton.addSubview(animation)
+        animation.play()
+        
+//        getData(careerType: "2")
+        
+        simplerAlert(title: "저장되었습니다")
     }
     
     @IBAction func dismissModalAction(_ sender: Any) {

@@ -6,17 +6,22 @@
 //  Copyright © 2019년 wndzlf. All rights reserved.
 //
 import UIKit
+import Lottie
 
 class SplashVC: UIViewController {
     
 //    @IBOutlet var splashGifImg: UIImageView!
+    @IBOutlet weak var splashView: UIView!
     
 //    let ud = UserDefaults.standard
 //    let delayInSeconds = 3.0
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.setGradient(from: .red, to: .blue)
+        let animationView = LOTAnimationView(name: "splash")
+        view.addSubview(animationView)
+        animationView.play()
+        
 //        setupGif()
 //        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + delayInSeconds){
 //            if let _ = self.ud.string(forKey: "tutorial") {

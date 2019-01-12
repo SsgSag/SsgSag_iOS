@@ -9,7 +9,7 @@
 import UIKit
 import Lottie
 //TODO: 저장하기, 텍스트뷰
-class AddActivityVC: UIViewController, UITextViewDelegate {
+class AddActivityVC: UIViewController, UITextViewDelegate, UITextFieldDelegate {
 
     @IBOutlet weak var activityNavigationBar: UINavigationBar!
     @IBOutlet weak var titleTextField: UITextField!
@@ -32,8 +32,9 @@ class AddActivityVC: UIViewController, UITextViewDelegate {
         startDateLabel.text = currentDateString
         endDateLabel.text = currentDateString
         
-        contentTextView.applyBorderTextView()
+        titleTextField.delegate = self
         contentTextView.delegate = self
+        contentTextView.applyBorderTextView()
         if(contentTextView.text == "") {
             textViewDidEndEditing(contentTextView)
         }
@@ -61,10 +62,19 @@ class AddActivityVC: UIViewController, UITextViewDelegate {
         saveButton.addSubview(animation)
         animation.play()
         
-        getData(careerType: "0")
-
+//        getData(careerType: "0")
+        postData()
         simplerAlert(title: "저장되었습니다")
     
+    }
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        view.endEditing(true)
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
     }
     
     func getData(careerType: String) {
@@ -177,6 +187,47 @@ class AddActivityVC: UIViewController, UITextViewDelegate {
             print("endDateLabel전송: \(sendData.endDateString)")
         }
         
+    }
+    
+    func postData() {
+        
+        var json: [String: Any] = [
+            "careerType" : 0,
+            "careerName" : titleTextField.text,
+            "careerContent" : contentTextView.text,
+            "careerDate1" : startDateLabel.text, //일까지 줘도 상관없음 ex)"2019-01-12"
+            "careerDate2" : endDateLabel.text
+        ]
+        
+        let jsonData = try? JSONSerialization.data(withJSONObject: json)
+        
+        // create post request
+        let url = URL(string: "http://54.180.79.158:8080/career")!
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        let key2 = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJEb0lUU09QVCIsInVzZXJfaWR4IjoxfQ.5lCvAqnzYP4-2pFx1KTgLVOxYzBQ6ygZvkx5jKCFM08"
+        request.addValue(key2, forHTTPHeaderField: "Authorization")
+        
+        // insert json data to the request
+        request.httpBody = jsonData
+        
+        let task = URLSession.shared.dataTask(with: request) { data, response, error in
+            print(data)
+            print(response)
+            
+            guard let data = data, error == nil else {
+                print(error?.localizedDescription ?? "No data")
+                return
+            }
+            
+            let responseJSON = try? JSONSerialization.jsonObject(with: data, options: [])
+            if let responseJSON = responseJSON as? [String: Any] {
+                print("responseJSON \(responseJSON)")
+            }
+        }
+        
+        task.resume()
     }
     
 }

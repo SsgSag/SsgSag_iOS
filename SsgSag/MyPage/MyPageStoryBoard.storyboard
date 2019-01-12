@@ -180,7 +180,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="55.666666666666664"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="공지사항" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XDi-Sn-q1m">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="공지사항" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XDi-Sn-q1m">
                                                     <rect key="frame" x="15" y="12" width="56" height="20"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                     <color key="textColor" red="0.45490196078431372" green="0.45490196078431372" blue="0.45490196078431372" alpha="1" colorSpace="calibratedRGB"/>
@@ -194,6 +194,7 @@
                                                 </imageView>
                                             </subviews>
                                             <constraints>
+                                                <constraint firstItem="XDi-Sn-q1m" firstAttribute="leading" secondItem="Iaf-u4-JKU" secondAttribute="leading" constant="24" id="73W-zk-za6"/>
                                                 <constraint firstItem="ZqY-EB-LcC" firstAttribute="centerY" secondItem="Iaf-u4-JKU" secondAttribute="centerY" id="HXZ-hE-pdP"/>
                                                 <constraint firstAttribute="trailing" secondItem="ZqY-EB-LcC" secondAttribute="trailing" constant="20" id="P6I-rI-qtQ"/>
                                                 <constraint firstItem="XDi-Sn-q1m" firstAttribute="centerY" secondItem="Iaf-u4-JKU" secondAttribute="centerY" id="gts-vi-w0s"/>
@@ -208,7 +209,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="55.666666666666664"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="푸시 알림 설정" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MMo-sU-3db">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="푸시 알림 설정" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MMo-sU-3db">
                                                     <rect key="frame" x="15" y="11" width="92" height="20"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                     <color key="textColor" red="0.45490196078431372" green="0.45490196078431372" blue="0.45490196078431372" alpha="1" colorSpace="calibratedRGB"/>
@@ -225,6 +226,7 @@
                                                 <constraint firstItem="vqg-fx-2BB" firstAttribute="centerY" secondItem="pXK-Ri-Y0g" secondAttribute="centerY" id="1e4-Ct-on1"/>
                                                 <constraint firstItem="MMo-sU-3db" firstAttribute="centerY" secondItem="pXK-Ri-Y0g" secondAttribute="centerY" id="4v3-iF-DpW"/>
                                                 <constraint firstItem="vqg-fx-2BB" firstAttribute="height" secondItem="pXK-Ri-Y0g" secondAttribute="height" multiplier="24:56" id="pGN-dz-Eoq"/>
+                                                <constraint firstItem="MMo-sU-3db" firstAttribute="leading" secondItem="pXK-Ri-Y0g" secondAttribute="leading" constant="24" id="ur0-nQ-BZk"/>
                                                 <constraint firstAttribute="trailing" secondItem="vqg-fx-2BB" secondAttribute="trailing" constant="20" id="yqo-PJ-ljR"/>
                                             </constraints>
                                         </tableViewCellContentView>
@@ -236,7 +238,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="55.666666666666664"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="계정관리" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WBV-tg-QdP">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="계정관리" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WBV-tg-QdP">
                                                     <rect key="frame" x="15" y="12" width="56" height="20"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                     <color key="textColor" red="0.45490196078431372" green="0.45490196078431372" blue="0.45490196078431372" alpha="1" colorSpace="calibratedRGB"/>
@@ -251,6 +253,7 @@
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="BSC-fw-4DZ" firstAttribute="height" secondItem="9k0-gw-jr3" secondAttribute="height" multiplier="24:56" id="54P-4s-apN"/>
+                                                <constraint firstItem="WBV-tg-QdP" firstAttribute="leading" secondItem="9k0-gw-jr3" secondAttribute="leading" constant="24" id="KBm-Mh-0ek"/>
                                                 <constraint firstAttribute="trailing" secondItem="BSC-fw-4DZ" secondAttribute="trailing" constant="20" id="Tog-1x-AWZ"/>
                                                 <constraint firstItem="WBV-tg-QdP" firstAttribute="centerY" secondItem="9k0-gw-jr3" secondAttribute="centerY" id="ixO-xz-kAt"/>
                                                 <constraint firstItem="BSC-fw-4DZ" firstAttribute="centerY" secondItem="9k0-gw-jr3" secondAttribute="centerY" id="rkc-Bt-TXu"/>
@@ -1264,7 +1267,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bmK-ww-rvv" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5908" y="1796"/>
+            <point key="canvasLocation" x="5871" y="1726"/>
         </scene>
         <!--DatePickerPopUp-->
         <scene sceneID="kN9-gy-Lxn">
@@ -1474,7 +1477,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="D3V-fL-nuc" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="6626" y="1784"/>
+            <point key="canvasLocation" x="6527" y="1727"/>
         </scene>
     </scenes>
     <resources>

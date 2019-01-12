@@ -101,43 +101,31 @@
                                     <constraint firstItem="Foy-Wg-RCD" firstAttribute="height" secondItem="tD0-Bf-Ut5" secondAttribute="height" multiplier="1:6" id="ouR-fS-hFw"/>
                                 </constraints>
                             </stackView>
-                            <stackView opaque="NO" contentMode="scaleToFill" misplaced="YES" spacing="3" translatesAutoresizingMaskIntoConstraints="NO" id="kAV-ok-pxn" userLabel="서비스이용약관">
-                                <rect key="frame" x="26" y="681" width="315" height="20"/>
+                            <stackView opaque="NO" contentMode="scaleToFill" spacing="3" translatesAutoresizingMaskIntoConstraints="NO" id="kAV-ok-pxn" userLabel="서비스이용약관">
+                                <rect key="frame" x="41.666666666666657" y="672" width="292" height="29"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GHl-td-mNV">
-                                        <rect key="frame" x="0.0" y="0.0" width="20" height="20"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="20" id="HSa-yX-D7Q"/>
-                                            <constraint firstAttribute="width" secondItem="GHl-td-mNV" secondAttribute="height" multiplier="20:20" id="Rhh-Q7-VDL"/>
-                                            <constraint firstAttribute="height" constant="20" id="aeZ-8R-NDm"/>
-                                        </constraints>
-                                        <state key="normal" backgroundImage="btCheckUnactive"/>
-                                        <connections>
-                                            <action selector="touchUpCheckBoxButton:" destination="9Eg-LF-Rpx" eventType="touchUpInside" id="uYD-L3-Jv6"/>
-                                        </connections>
-                                    </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8fZ-U1-Out">
-                                        <rect key="frame" x="23" y="0.0" width="89" height="20"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="89" height="29"/>
                                         <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="14"/>
                                         <state key="normal" title="서비스 이용약관">
                                             <color key="titleColor" red="0.61960784310000006" green="0.61960784310000006" blue="0.61960784310000006" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                         </state>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="및" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xIs-10-Tq9">
-                                        <rect key="frame" x="115" y="0.0" width="12.333333333333329" height="20"/>
+                                        <rect key="frame" x="92" y="0.0" width="12.333333333333329" height="29"/>
                                         <fontDescription key="fontDescription" type="system" weight="medium" pointSize="14"/>
                                         <color key="textColor" red="0.61960784310000006" green="0.61960784310000006" blue="0.61960784310000006" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fAX-ZW-bIT">
-                                        <rect key="frame" x="130.33333333333334" y="0.0" width="101" height="20"/>
+                                        <rect key="frame" x="107.33333333333334" y="0.0" width="101" height="29"/>
                                         <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="14"/>
                                         <state key="normal" title="개인정보 취급방침">
                                             <color key="titleColor" red="0.61960784310000006" green="0.61960784310000006" blue="0.61960784310000006" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                         </state>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="에 동의합니다." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kqE-At-0zf">
-                                        <rect key="frame" x="234.33333333333329" y="0.0" width="80.666666666666657" height="20"/>
+                                        <rect key="frame" x="211.33333333333334" y="0.0" width="80.666666666666657" height="29"/>
                                         <fontDescription key="fontDescription" type="system" weight="medium" pointSize="14"/>
                                         <color key="textColor" red="0.61960784310000006" green="0.61960784310000006" blue="0.61960784310000006" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                         <nil key="highlightedColor"/>
@@ -178,6 +166,18 @@
                                     <segue destination="xEW-PO-qx4" kind="show" id="EXA-Wj-ARi"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GHl-td-mNV">
+                                <rect key="frame" x="13.666666666666664" y="676.66666666666663" width="20" height="20"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="20" id="HSa-yX-D7Q"/>
+                                    <constraint firstAttribute="width" secondItem="GHl-td-mNV" secondAttribute="height" multiplier="20:20" id="Rhh-Q7-VDL"/>
+                                    <constraint firstAttribute="height" constant="20" id="aeZ-8R-NDm"/>
+                                </constraints>
+                                <state key="normal" backgroundImage="btCheckUnactive"/>
+                                <connections>
+                                    <action selector="touchUpCheckBoxButton:" destination="9Eg-LF-Rpx" eventType="touchUpInside" id="uYD-L3-Jv6"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
@@ -187,6 +187,8 @@
                             <constraint firstAttribute="bottom" secondItem="XVj-W4-E6d" secondAttribute="bottom" id="Dee-ZL-wZx"/>
                             <constraint firstItem="tD0-Bf-Ut5" firstAttribute="top" secondItem="PtI-Gz-Ygn" secondAttribute="top" constant="289" id="F0a-h4-pJR"/>
                             <constraint firstItem="tD0-Bf-Ut5" firstAttribute="leading" secondItem="PtI-Gz-Ygn" secondAttribute="leading" constant="20" id="HFL-Xp-4Yu"/>
+                            <constraint firstItem="GHl-td-mNV" firstAttribute="centerY" secondItem="kAV-ok-pxn" secondAttribute="centerY" id="ILr-oo-0do"/>
+                            <constraint firstItem="8fZ-U1-Out" firstAttribute="leading" secondItem="GHl-td-mNV" secondAttribute="trailing" constant="8" id="IyW-mN-eyG"/>
                             <constraint firstItem="dxD-R5-UxM" firstAttribute="leading" secondItem="PtI-Gz-Ygn" secondAttribute="leading" constant="70" id="J2O-xl-mJU"/>
                             <constraint firstItem="XVj-W4-E6d" firstAttribute="width" secondItem="02G-GO-XOn" secondAttribute="width" id="KYJ-ha-nqP"/>
                             <constraint firstItem="yBw-vu-4Lb" firstAttribute="centerX" secondItem="PtI-Gz-Ygn" secondAttribute="centerX" id="NvB-Dw-7Ee"/>
@@ -336,8 +338,8 @@
                                     <segue destination="V0j-KU-b25" kind="show" id="KRU-KL-uMw"/>
                                 </connections>
                             </button>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="imgSignupSchool" translatesAutoresizingMaskIntoConstraints="NO" id="kab-Wi-4Jz">
-                                <rect key="frame" x="67" y="183" width="240" height="128"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="imgSignupSchool" translatesAutoresizingMaskIntoConstraints="NO" id="kab-Wi-4Jz">
+                                <rect key="frame" x="66" y="198.33333333333337" width="243" height="136"/>
                             </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -345,7 +347,7 @@
                             <constraint firstItem="KIh-pl-kUk" firstAttribute="top" secondItem="wHb-AN-zLn" secondAttribute="bottom" constant="40" id="45s-Je-si6"/>
                             <constraint firstItem="hay-RC-Z1l" firstAttribute="leading" secondItem="r1C-NK-h1t" secondAttribute="leading" constant="20" id="80F-VQ-GCN"/>
                             <constraint firstItem="r1C-NK-h1t" firstAttribute="trailing" secondItem="hay-RC-Z1l" secondAttribute="trailing" constant="20" id="9bN-8X-XZS"/>
-                            <constraint firstItem="kab-Wi-4Jz" firstAttribute="top" secondItem="KIh-pl-kUk" secondAttribute="bottom" constant="49" id="BSu-A1-5l1"/>
+                            <constraint firstItem="kab-Wi-4Jz" firstAttribute="top" secondItem="KIh-pl-kUk" secondAttribute="bottom" constant="40" id="BSu-A1-5l1"/>
                             <constraint firstItem="KIh-pl-kUk" firstAttribute="leading" secondItem="r1C-NK-h1t" secondAttribute="leading" constant="20" id="EH3-Hy-bcK"/>
                             <constraint firstItem="cO1-KY-RkO" firstAttribute="bottom" secondItem="ik2-Fr-Cx4" secondAttribute="bottom" id="GIj-4B-Mz9"/>
                             <constraint firstItem="wHb-AN-zLn" firstAttribute="top" secondItem="r1C-NK-h1t" secondAttribute="top" id="HLx-EG-uP4"/>
@@ -954,7 +956,7 @@
                                                 <rect key="frame" x="0.0" y="0.0" width="335" height="20.333333333333332"/>
                                                 <nil key="textColor"/>
                                                 <fontDescription key="fontDescription" type="system" weight="medium" pointSize="18"/>
-                                                <textInputTraits key="textInputTraits"/>
+                                                <textInputTraits key="textInputTraits" returnKeyType="next" textContentType="email"/>
                                             </textField>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NLi-tj-032">
                                                 <rect key="frame" x="0.0" y="28.333333333333314" width="335" height="1"/>
@@ -966,13 +968,13 @@
                                         </subviews>
                                     </stackView>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="qy0-ob-Cvw">
-                                        <rect key="frame" x="0.0" y="74" width="335" height="29.666666666666671"/>
+                                        <rect key="frame" x="0.0" y="73" width="335" height="29.666666666666671"/>
                                         <subviews>
                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="비밀번호" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="KSi-uq-uCH" userLabel="비밀번호">
                                                 <rect key="frame" x="0.0" y="0.0" width="335" height="20.666666666666668"/>
                                                 <nil key="textColor"/>
                                                 <fontDescription key="fontDescription" type="system" weight="medium" pointSize="18"/>
-                                                <textInputTraits key="textInputTraits"/>
+                                                <textInputTraits key="textInputTraits" returnKeyType="next" secureTextEntry="YES"/>
                                             </textField>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="q0W-45-t96">
                                                 <rect key="frame" x="0.0" y="28.666666666666629" width="335" height="1"/>
@@ -990,7 +992,7 @@
                                                 <rect key="frame" x="0.0" y="0.0" width="335" height="20.333333333333332"/>
                                                 <nil key="textColor"/>
                                                 <fontDescription key="fontDescription" type="system" weight="medium" pointSize="18"/>
-                                                <textInputTraits key="textInputTraits"/>
+                                                <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
                                             </textField>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BeT-H6-1Ef">
                                                 <rect key="frame" x="0.0" y="28.333333333333371" width="335" height="1"/>

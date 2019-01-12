@@ -358,9 +358,10 @@ extension CareerViewController: UITableViewDelegate, UITableViewDataSource {
             return cell
         } else {
             let cell = tableView.dequeueReusableCell(withIdentifier: "CertificationCell", for: indexPath) as! ActivityCell
-            //            cell.titleLabel.text = certificationList[indexPath.row].title
-            //            cell.periodLabel.text = certificationList[indexPath.row].date
-            //            cell.detailLabel.text = certificationList[indexPath.row].content
+            let certification: Datum = self.certificationList[indexPath.row]
+            cell.titleLabel.text = certification.careerName
+            cell.dateLabel1.text = certification.careerDate1
+            cell.detailLabel.text = certification.careerContent
             cell.selectionStyle = .none
             return cell
         }
@@ -521,5 +522,6 @@ extension CareerViewController : UICollectionViewDelegate, UICollectionViewDataS
         }
         task.resume()
     }
+    
 }
 
