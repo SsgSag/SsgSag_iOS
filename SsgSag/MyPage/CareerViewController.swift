@@ -87,6 +87,7 @@ class CareerViewController: UIViewController {
         getData(careerType: "2")
     }
     
+    
     func setUpCollectionView(){
         customTabBarCollectionView.delegate = self
         customTabBarCollectionView.dataSource = self

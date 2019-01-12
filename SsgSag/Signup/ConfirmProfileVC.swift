@@ -30,35 +30,16 @@ class ConfirmProfileVC: UIViewController {
         super.viewDidLoad()
         
         nextButton.isUserInteractionEnabled = false
-//        navigationItem.leftBarButtonItem?.image = UIImage(named: "icHeaderArrowBack")
-//        navigationController?.navigationItem.backBarButtonItem?.image = UIImage(named: "icHeaderArrowBack")
-        self.navigationController?.navigationBar.backIndicatorImage = UIImage(named: "icArrowBack")
-    self.navigationController?.navigationBar.backIndicatorTransitionMaskImage = UIImage(named: "icArrowBack")
-        setBackBtn(color: .black)
-        self.navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
-        
-        let imgBackArrow = UIImage(named: "icArrowBack")
-        navigationController?.navigationBar.backIndicatorImage = imgBackArrow
-        navigationController?.navigationBar.backIndicatorTransitionMaskImage = imgBackArrow
-        
-        navigationItem.leftItemsSupplementBackButton = true
-        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: self, action: nil)
-        
-        print(self.navigationController?.navigationBar.items?.first)
-//        let backButton
-//        self.navigationController?.navigationItem.setLeftBarButton(<#T##item: UIBarButtonItem?##UIBarButtonItem?#>, animated: <#T##Bool#>)
-//            = UIBarButtonItem(image: UIImage(named: "icHeaderArrowBack"), style: .plain, target: self, action: nil)
-        print(self.navigationController?.navigationItem.backBarButtonItem)
-        print(self.navigationItem.backBarButtonItem)
-            print(self.navigationController?.navigationItem.backBarButtonItem)
-        
-        self.navigationItem.backBarButtonItem?.image = UIImage(named: "icHeaderArrowBack")
         iniGestureRecognizer()
         self.titleLabel.isHidden = false
         self.titleImage.isHidden = false
-        
+//        setLeftBtn(title: "", color: .black)
+        self.navigationItem.setHidesBackButton(true, animated: true)
+        setBackBtn( color: .black)
+        setNavigationBar(color: .white)
     }
     
+
     @IBAction func touchUpNextButton(_ sender: Any) {
         
         

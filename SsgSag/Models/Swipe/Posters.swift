@@ -31,6 +31,7 @@ struct Posters : Codable {
 	let finalAnnounceDate : String?
 	let interviewDate : String?
 	let documentDate : String?
+    let posterInterest: [Int]?
 
 	enum CodingKeys: String, CodingKey {
 
@@ -52,6 +53,7 @@ struct Posters : Codable {
 		case finalAnnounceDate = "finalAnnounceDate"
 		case interviewDate = "interviewDate"
 		case documentDate = "documentDate"
+        case posterInterest = "posterInterest"
 	}
 
 	init(from decoder: Decoder) throws {
@@ -74,6 +76,7 @@ struct Posters : Codable {
 		finalAnnounceDate = try values.decodeIfPresent(String.self, forKey: .finalAnnounceDate)
 		interviewDate = try values.decodeIfPresent(String.self, forKey: .interviewDate)
 		documentDate = try values.decodeIfPresent(String.self, forKey: .documentDate)
+        posterInterest = try values.decodeIfPresent([Int].self, forKey: .posterInterest)
 	}
 
 }

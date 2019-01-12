@@ -62,7 +62,10 @@ class SignUpCompleteVC: UIViewController {
         super.viewDidLoad()
         setUpPreferenceButtons()
         startButton.isUserInteractionEnabled = false
-        navigationController?.navigationItem.leftBarButtonItem?.image = UIImage(named: "icHeaderArrowBack")
+        
+        self.navigationItem.setHidesBackButton(true, animated: true)
+        setBackBtn( color: .black)
+        setNavigationBar(color: .white)
     }
     
     @IBAction func touchUpPreferenceButtons(_ sender: UIButton) {

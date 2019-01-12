@@ -64,6 +64,7 @@
 		FA3A8FDB21DF3F410075A510 /* SplashVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA3A8FDA21DF3F410075A510 /* SplashVC.swift */; };
 		FA524BF121D64E2400675289 /* SignupStoryBoard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FA524BF021D64E2400675289 /* SignupStoryBoard.storyboard */; };
 		FA5A87F421E7D51D008C2C41 /* Career.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA5A87F321E7D51D008C2C41 /* Career.swift */; };
+		FA5A882321E908DF008C2C41 /* Intro.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FA5A882221E908DE008C2C41 /* Intro.storyboard */; };
 		FA61FE0F21E0E3D300A28947 /* JobVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA61FE0E21E0E3D300A28947 /* JobVC.swift */; };
 		FA61FE1121E0E4A200A28947 /* PreferenceVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA61FE1021E0E4A200A28947 /* PreferenceVC.swift */; };
 		FA61FE1321E1D48D00A28947 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = FA61FE1221E1D48D00A28947 /* .gitignore */; };
@@ -178,6 +179,7 @@
 		FA3A8FDA21DF3F410075A510 /* SplashVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashVC.swift; sourceTree = "<group>"; };
 		FA524BF021D64E2400675289 /* SignupStoryBoard.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = SignupStoryBoard.storyboard; sourceTree = "<group>"; };
 		FA5A87F321E7D51D008C2C41 /* Career.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Career.swift; sourceTree = "<group>"; };
+		FA5A882221E908DE008C2C41 /* Intro.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Intro.storyboard; sourceTree = "<group>"; };
 		FA61FE0E21E0E3D300A28947 /* JobVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JobVC.swift; sourceTree = "<group>"; };
 		FA61FE1021E0E4A200A28947 /* PreferenceVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferenceVC.swift; sourceTree = "<group>"; };
 		FA61FE1221E1D48D00A28947 /* .gitignore */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
@@ -303,6 +305,7 @@
 				84BA694C21DB74BD00BA8CB8 /* TapbarVC.swift */,
 				84E19CD821DCC977006F72EC /* Models */,
 				84E19CCB21DCC922006F72EC /* APIServices */,
+				FA5A882121E9084F008C2C41 /* Intro */,
 				845928DE21D20034001DF6CC /* LoginRegister */,
 				FA524BEF21D64DFD00675289 /* Signup */,
 				84BA694721DB391D00BA8CB8 /* MyPage */,
@@ -425,6 +428,14 @@
 				842C618421DCDC92001BA6D8 /* SignupCompleteVC.swift */,
 			);
 			path = Signup;
+			sourceTree = "<group>";
+		};
+		FA5A882121E9084F008C2C41 /* Intro */ = {
+			isa = PBXGroup;
+			children = (
+				FA5A882221E908DE008C2C41 /* Intro.storyboard */,
+			);
+			path = Intro;
 			sourceTree = "<group>";
 		};
 		FA851DE321D3D807002065D0 /* VC */ = {
@@ -575,6 +586,7 @@
 				FA7F4CBC21DFC7E700D8643A /* CustomCareerCell.xib in Resources */,
 				FA3A8FD721DF3C3B0075A510 /* Splash.storyboard in Resources */,
 				FA7F4CC821DFCC7E00D8643A /* CertificationCell.xib in Resources */,
+				FA5A882321E908DF008C2C41 /* Intro.storyboard in Resources */,
 				FA7F4CC421DFCB1300D8643A /* PrizeCell.xib in Resources */,
 				84B4268C21E9091D00B44F71 /* main_empty_hifive.json in Resources */,
 				845928A521D09CE0001DF6CC /* Assets.xcassets in Resources */,

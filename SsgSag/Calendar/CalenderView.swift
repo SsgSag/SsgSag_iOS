@@ -42,7 +42,7 @@ class CalenderView: UIView, UICollectionViewDelegate, UICollectionViewDataSource
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
         
-        print("넣는 순간 이게 실행 되어야만해")
+       // print("넣는 순간 이게 실행 되어야만해")
         
         let defaults = UserDefaults.standard
         //guard let posterData = defaults.object(forKey: "poster") as? Data else { return }
@@ -62,8 +62,8 @@ class CalenderView: UIView, UICollectionViewDelegate, UICollectionViewDataSource
             }
         }
         
-        print("포스터튜플")
-        print(posterTuple)
+        //print("포스터튜플")
+        //print(posterTuple)
         
         if posterTuple.count == 1 {
             lineArray1.append(posterTuple[0])
@@ -185,7 +185,6 @@ class CalenderView: UIView, UICollectionViewDelegate, UICollectionViewDataSource
                     }
                 }
             }
-            
             //print(lineArray1)
             
             
@@ -199,7 +198,7 @@ class CalenderView: UIView, UICollectionViewDelegate, UICollectionViewDataSource
             
         }//posterTuple.count 처리
         self.myCollectionView.reloadData()
-        print("콜렉션뷰 리로드")
+        //print("콜렉션뷰 리로드")
     }
 
     override init(frame: CGRect) {
@@ -683,8 +682,8 @@ class CalenderView: UIView, UICollectionViewDelegate, UICollectionViewDataSource
                 let lineMonthStart = Calendar.current.component(.month, from: line1.0)
                 let lineDayStart = Calendar.current.component(.day, from: line1.0)
                 
-                print("마지막 날짜 체크 \(lineYear) \(lineMonth) \(lineDay)")
-                print("처음 날짜 체크 \(lineYearStart) \(lineMonthStart) \(lineDayStart)")
+                //print("마지막 날짜 체크 \(lineYear) \(lineMonth) \(lineDay)")
+                //print("처음 날짜 체크 \(lineYearStart) \(lineMonthStart) \(lineDayStart)")
                 
                 //현재 검사하는 셀이
                 
@@ -717,7 +716,7 @@ class CalenderView: UIView, UICollectionViewDelegate, UICollectionViewDataSource
                 
                 //시작 날짜
                 if lineYearStart == currentCellDateTimeYear && lineMonthStart == currentCellDateTimeMonth && (lineDayStart+1) == currentCellDateTimeDay {
-                    print("시작날짜")
+                    //print("시작날짜")
                     print(lineDayStart)
                     cell.line.clipsToBounds = true
                     cell.line.layer.cornerRadius = 4
@@ -748,9 +747,7 @@ class CalenderView: UIView, UICollectionViewDelegate, UICollectionViewDataSource
                 let line2DayStart = Calendar.current.component(.day, from: line2.0)
                 
                 if currentCellDateTimeYear == line2YearStart && currentCellDateTimeMonth == line2MonthStart && currentCellDateTimeDay == line2DayStart {
-//                    cell.lbl.text = line2.4
-//                    print("건졌어?")
-//                    print(line2.4)
+
                 }
                 
                 //마지막 날짜
@@ -976,22 +973,22 @@ class CalenderView: UIView, UICollectionViewDelegate, UICollectionViewDataSource
         //월
         addSubview(monthView)
         monthView.topAnchor.constraint(equalTo: topAnchor).isActive=true
-        monthView.leftAnchor.constraint(equalTo: leftAnchor).isActive=true
-        monthView.rightAnchor.constraint(equalTo: rightAnchor).isActive=true
+        monthView.leftAnchor.constraint(equalTo: leftAnchor, constant: 16).isActive=true
+        monthView.rightAnchor.constraint(equalTo: rightAnchor, constant: -16).isActive=true
         monthView.heightAnchor.constraint(equalToConstant: 35).isActive=true
         monthView.delegate=self
         
         //월화수목금토
         addSubview(weekdaysView)
         weekdaysView.topAnchor.constraint(equalTo: monthView.bottomAnchor).isActive=true
-        weekdaysView.leftAnchor.constraint(equalTo: leftAnchor).isActive=true
-        weekdaysView.rightAnchor.constraint(equalTo: rightAnchor).isActive=true
+        weekdaysView.leftAnchor.constraint(equalTo: leftAnchor, constant: 16).isActive=true
+        weekdaysView.rightAnchor.constraint(equalTo: rightAnchor, constant: -16).isActive=true
         weekdaysView.heightAnchor.constraint(equalToConstant: 30).isActive=true
         
         addSubview(myCollectionView)
         myCollectionView.topAnchor.constraint(equalTo: weekdaysView.bottomAnchor, constant: 15).isActive=true
-        myCollectionView.leftAnchor.constraint(equalTo: leftAnchor, constant: 0).isActive=true
-        myCollectionView.rightAnchor.constraint(equalTo: rightAnchor, constant: 0).isActive=true
+        myCollectionView.leftAnchor.constraint(equalTo: leftAnchor, constant: 16).isActive=true
+        myCollectionView.rightAnchor.constraint(equalTo: rightAnchor, constant: -16).isActive=true
         myCollectionView.bottomAnchor.constraint(equalTo: bottomAnchor).isActive=true
         
     }
