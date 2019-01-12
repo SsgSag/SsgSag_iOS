@@ -243,23 +243,113 @@ class SwipeVC: UIViewController {
             guard let pageURL = URL(string: valueArray[i].photoUrl!) else {return}
             page.detailImageVIew.load(url: pageURL)
             page.name.text = valueArray[i].posterName!
+            //page.category.text = valueArray[i].posterInterest
+            
+            var text = ""
+            if let num = valueArray[i].posterInterest {
+            for i in num{
+                print("해쉬태그 추가하자")
+                switch i {
+                case 0:
+                    text = text + "#기획/아이디어"
+                    break
+                case 1:
+                    text = text + "#금융/경제"
+                    break
+                case 2:
+                    text = text + "#디자인"
+                    break
+                case 3:
+                    text = text + "#문학/글쓰기"
+                    break
+                case 4:
+                    text = text + "#문화/예술"
+                    break
+                case 5:
+                    text = text + "#브랜딩/마케팅"
+                    break
+                case 6:
+                    text = text + "#봉사/사회활동"
+                    break
+                case 7:
+                    text = text + "#사진/영상"
+                    break
+                case 8:
+                    text = text + "#창업/스타트업"
+                    break
+                case 9:
+                    text = text + "#체육/건강"
+                    break
+                case 10:
+                    text = text + "#학술/교양"
+                    break
+                case 11:
+                    text = text + "#IT/기술"
+                    break
+                default: break
+                    
+                }
+            }
+            }
+            page.category.text = text
+
+            
+            
             //page.category.text = "\(valueArray[i].categoryIdx)"
             
             let detailTextSwipe = pageVC.orderedViewControllers[0] as! DetailTextSwipeCard
             
-            if let posterName = valueArray[i].posterName , let outline = valueArray[i].outline ,let target = valueArray[i].target ,let benefit = valueArray[i].benefit,let period = valueArray[i].period {
+            if let posterName = valueArray[i].posterName , let outline = valueArray[i].outline ,let target = valueArray[i].target ,let benefit = valueArray[i].benefit, let period = valueArray[i].period {
                 
                 detailTextSwipe.posterName.text = posterName
-                
-                print("카테고리 인덱스 \(valueArray[i].categoryIdx)")
-                if valueArray[i].categoryIdx! == 0 {
-                    detailTextSwipe.hashTag.text = "기획/아이디어"
-                }else if valueArray[i].categoryIdx! == 3 {
-                    detailTextSwipe.hashTag.text = "문학/글쓰기"
+            
+                if let hashTagArr = valueArray[i].posterInterest {
+                    var text = ""
+                    for i in hashTagArr{
+                        print("해쉬태그 추가하자")
+                        switch i {
+                        case 0:
+                            text = text + "#기획/아이디어"
+                            break
+                        case 1:
+                            text = text + "#금융/경제"
+                            break
+                        case 2:
+                            text = text + "#디자인"
+                            break
+                        case 3:
+                            text = text + "#문학/글쓰기"
+                            break
+                        case 4:
+                            text = text + "#문화/예술"
+                            break
+                        case 5:
+                            text = text + "#브랜딩/마케팅"
+                            break
+                        case 6:
+                            text = text + "#봉사/사회활동"
+                            break
+                        case 7:
+                            text = text + "#사진/영상"
+                            break
+                        case 8:
+                            text = text + "#창업/스타트업"
+                            break
+                        case 9:
+                            text = text + "#체육/건강"
+                            break
+                        case 10:
+                            text = text + "#학술/교양"
+                            break
+                        case 11:
+                            text = text + "#IT/기술"
+                            break
+                        default: break
+                        }
+                    }
                 }
                 
-                detailTextSwipe.hashTag.text = "\(valueArray[i].categoryIdx)"
-                
+                detailTextSwipe.hashTag.text = text
                 detailTextSwipe.outline.text = outline
                 detailTextSwipe.target.text = target
                 detailTextSwipe.benefit.text = benefit
