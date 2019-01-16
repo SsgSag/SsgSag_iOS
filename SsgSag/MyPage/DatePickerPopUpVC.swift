@@ -31,12 +31,10 @@ class DatePickerPopUpVC: UIViewController {
             datePicker.minimumDate = startDate
         }
         
-        //FIXME: - endDate보다 시작날짜가 나중임....고쳐라...밍쟈
+        //FIXME: - endDate보다 시작날짜
         print(endDateString)
         if let endDate: Date = self.dateFormatter.date(from: endDateString) {
-            print("왜 호출안됨?")
             datePicker.maximumDate = endDate
-            print("endDate: \(endDate)")
         }
         
         
@@ -74,8 +72,6 @@ class DatePickerPopUpVC: UIViewController {
     }
     
     func isStartDateBeforeEndDate(startDate: Date, endDate: Date) {
-//        print(startDate)
-//        print(endDate)
         if startDate > endDate {
             print("dkdk")
             datePicker.minimumDate = startDate

@@ -26,11 +26,8 @@ class myPageVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
     @IBOutlet weak var majorLabel: UILabel!
     
     override func viewDidLoad() {
-       super.viewDidLoad()
-        
+        super.viewDidLoad()
         profileImageView.applyRadius(radius: profileImageView.frame.height / 2)
-        
-        // Do any additional setup after loading the view.
     }
     
     @IBAction func removeDefaults(_ sender: Any) {
@@ -38,7 +35,6 @@ class myPageVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
         dictionary.keys.forEach { (key) in
             UserDefaults.standard.removeObject(forKey: "poster")
         }
-        print("12341234")
     }
     
     @IBAction func touchUpCameraButton(_ sender: UIButton) {
@@ -56,7 +52,6 @@ class myPageVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
             self.profileImageView.image = selectedImage!
             picker.dismiss(animated: true, completion: nil)
         }
-//        self.dismiss(animated: true, completion: nil)
     }
     
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
@@ -64,32 +59,6 @@ class myPageVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
     }
     
     func getData(careerType: String) {
-        
-//        let json: [String:Any] = [
-//            "status": 200,
-//            "message": "회원 정보 조회 성공",
-//            "data": {
-//                "userIdx": 1,
-//                "userEmail": "gumgim95@naver.com",
-//                "userPw": "784512",
-//                "userId" : "heo0807",
-//                "userName": "김현수",
-//                "userUniv": "인하대학교",
-//                "userMajor": "컴퓨터공학과",
-//                "userStudentNum": "14",
-//                "userGender": "male",
-//                "userBirth": "951107",
-//                "userSignOutDate": "2019-01-05 07:38:00",
-//                "userSignInDate": "2019-01-05 07:38:00",
-//                "userPushAllow": 1,
-//                "userIsSeeker": 0,
-//                "userCnt": 15,
-//                "userInfoAllow": 1,
-//                "userProfileUrl": "https://s3.ap-northeast-2.amazonaws.com/project-hs/857bcdee4d3149e19230a08d7a99ee94.jpg",
-//                "userAlreadyOut": 0,
-//                "userGrade": 0
-//            }
-//        ]
         
         let json: [String: Any] = ["careerType" : careerType]
         let jsonData = try? JSONSerialization.data(withJSONObject: json)
@@ -110,33 +79,19 @@ class myPageVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
             
             guard let data = data else { return }
             
-            print(data)
-            print("gggg")
-            print(response)
-            
             do {
                 let apiResponse = try JSONDecoder().decode(Career.self, from: data)
                 print("orders: \(apiResponse)")
                 if careerType == "0" {
-                    print("00000000")
-//                    self.activityList = apiResponse.data
+                    //                    self.activityList = apiResponse.data
                     DispatchQueue.main.async {
-//                        self.activityTableView.reloadData()
+                        //                        self.activityTableView.reloadData()
                     }
                 }
             } catch (let err) {
                 print(err.localizedDescription)
                 print("sladjalsdjlasjdlasjdlajsldjas")
             }
-            
-            //            let responseJSON = try? JSONSerialization.jsonObject(with: data, options: [])
-            //            if let responseJSON = responseJSON as? [String: Any] {
-            //                //print("responseJSON \(responseJSON)")
-            //                //print(responseJSON["data"])
-            //                var a = responseJSON["data"]
-            //                print(a)
-            //                print("1")
-            //            }
         }
         task.resume()
     }

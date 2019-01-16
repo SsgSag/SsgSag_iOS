@@ -85,8 +85,6 @@ class CareerViewController: UIViewController {
         getData(careerType: "0")
         //getData(careerType: "1")
         //getData(careerType: "2")
-        
-        
     }
     
     
@@ -118,7 +116,7 @@ class CareerViewController: UIViewController {
                                          target: self,
                                          action: #selector(self.dismissModal))
         
-        var items = UINavigationItem()
+        let items = UINavigationItem()
         items.leftBarButtonItem = backButton
         items.title = "이력"
         backButton.tintColor = .black
@@ -147,7 +145,6 @@ class CareerViewController: UIViewController {
         indicatorView.heightAnchor.constraint(equalToConstant: 2).isActive = true
         indicatorViewLeadingConstraint = indicatorView.leadingAnchor.constraint(equalTo: customTabBar.leadingAnchor)
         indicatorViewLeadingConstraint.isActive = true
-        //        indicatorView.bottomAnchor.constraint(equalTo: customTabBar.bottomAnchor).isActive = true
         indicatorView.bottomAnchor.constraint(equalToSystemSpacingBelow: customTabBar.bottomAnchor, multiplier: -0.5).isActive = true
         indicatorView.isHidden = false
         indicatorView.setGradient(from: .red, to: .blue)
@@ -260,7 +257,6 @@ class CareerViewController: UIViewController {
     }
     
     func setUpEmptyTableView(tableView: UITableView, isEmptyTable: Bool) {
-        print("몇번")
         let emptyImageView = UIImageView()
         view.addSubview(emptyImageView)
         emptyImageView.translatesAutoresizingMaskIntoConstraints = false
@@ -414,7 +410,6 @@ extension CareerViewController : UICollectionViewDelegate, UICollectionViewDataS
         }, completion: nil)
         
         let myPageStoryBoard = UIStoryboard(name: "MyPageStoryBoard", bundle: nil)
-        let addVC = myPageStoryBoard.instantiateViewController(withIdentifier: "AddVC") as! AddVC
         
         if indexPath.row == 0 {
             if plusButton.target(forAction: #selector(addPresentAction), withSender: nil) != nil{
@@ -460,7 +455,6 @@ extension CareerViewController : UICollectionViewDelegate, UICollectionViewDataS
         }
     }
     
-    //
     func getData(careerType: String) {
         let json: [String: Any] = ["careerType" : careerType]
         let jsonData = try? JSONSerialization.data(withJSONObject: json)
@@ -515,15 +509,6 @@ extension CareerViewController : UICollectionViewDelegate, UICollectionViewDataS
                 print(err.localizedDescription)
                 print("sladjalsdjlasjdlasjdlajsldjas")
             }
-            
-            //            let responseJSON = try? JSONSerialization.jsonObject(with: data, options: [])
-            //            if let responseJSON = responseJSON as? [String: Any] {
-            //                //print("responseJSON \(responseJSON)")
-            //                //print(responseJSON["data"])
-            //                var a = responseJSON["data"]
-            //                print(a)
-            //                print("1")
-            //            }
         }
         task.resume()
     }
