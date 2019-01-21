@@ -18,6 +18,17 @@ class LoginVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         iniGestureRecognizer()
+        let color1 = UIColor.rgb(red: 155, green: 65, blue: 250)
+        let color2 = UIColor.rgb(red: 35, green: 191, blue: 251)
+        let color3 = UIColor.rgb(red: 60, green: 234, blue: 252)
+        view.setGradientBackGround(colorOne: color1, colorTwo: color2, colorThree: color3)
+//        let backgroundView = UIView()
+//
+//        view.addSubview(backgroundView)
+//        backgroundView.setGradient(from: .blue, to: .red)
+//        backgroundView.translatesAutoresizingMaskIntoConstraints = false
+//        backgroundView.bounds = view.bounds
+        
         
     }
     
@@ -110,7 +121,7 @@ extension LoginVC : UIGestureRecognizerDelegate {
         guard let curve = notification.userInfo?[UIResponder.keyboardAnimationCurveUserInfoKey] as? UInt else {return}
         UIView.animate(withDuration: duration, delay: 0.0, options: .init(rawValue: curve), animations: { [unowned self] in
             print("현재 constraint: \(self.stackViewConstraint.constant)")
-            self.stackViewConstraint.constant = 30
+//            self.stackViewConstraint.constant = 30
         })
         
         self.view.layoutIfNeeded()
@@ -122,7 +133,7 @@ extension LoginVC : UIGestureRecognizerDelegate {
         guard let curve = notification.userInfo?[UIResponder.keyboardAnimationCurveUserInfoKey] as? UInt else {return}
         
         UIView.animate(withDuration: duration, delay: 0.0, options: .init(rawValue: curve), animations: {
-            self.stackViewConstraint.constant = 223
+//            self.stackViewConstraint.constant = 223
         })
         
         self.view.layoutIfNeeded()

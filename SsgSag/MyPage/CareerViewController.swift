@@ -147,7 +147,7 @@ class CareerViewController: UIViewController {
         indicatorViewLeadingConstraint.isActive = true
         indicatorView.bottomAnchor.constraint(equalToSystemSpacingBelow: customTabBar.bottomAnchor, multiplier: -0.5).isActive = true
         indicatorView.isHidden = false
-        indicatorView.setGradient(from: .red, to: .blue)
+//        indicatorView.setGradient(from: .red, to: .blue)
         
         let bottomLine = UIView()
         customTabBar.addSubview(bottomLine)

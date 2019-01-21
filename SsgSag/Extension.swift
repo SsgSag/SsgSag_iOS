@@ -17,18 +17,21 @@ extension UIColor {
         return UIColor(red: red/255, green: green/255, blue: blue/255, alpha: alpha)
     }
 }
-//TODO: 그라데이션 구현
+
 extension UIView {
-    func setGradient(from color1: UIColor, to color2: UIColor) {
-        let gradient: CAGradientLayer = CAGradientLayer()
-        gradient.frame = bounds
-        gradient.colors = [color1.cgColor, color2.cgColor]
-        gradient.startPoint = CGPoint(x: 0.0, y: 0.0)
-        gradient.endPoint = CGPoint(x: 1, y: 1)
-//        self.layer.addSublayer(gradient)
-        layer.insertSublayer(gradient, at: 0)
+    func setGradientBackGround(colorOne: UIColor, colorTwo: UIColor, colorThree: UIColor) {
+        
+        let gradientLayer = CAGradientLayer()
+        gradientLayer.frame = bounds
+        gradientLayer.colors = [colorOne.cgColor, colorTwo.cgColor, colorThree.cgColor]
+        gradientLayer.locations = [0.0, 0.8, 1.0]
+        gradientLayer.startPoint = CGPoint(x: 0.0, y: 0.0)
+        gradientLayer.endPoint = CGPoint(x: 0.0, y: 1.0)
+        
+        layer.insertSublayer(gradientLayer, at: 0)
     }
 }
+
 
 extension UIButton {
     func myButtonTapped(myButton: UIButton){

@@ -34,6 +34,20 @@ class SwipeVC: UIViewController {
     var currentIndex = 0
     var countTotalCardIndex = 0
     
+    fileprivate func setEmptyPosterAnimation() {
+        let animation = LOTAnimationView(name: "main_empty_hifive")
+        view.addSubview(animation)
+        view.sendSubviewToBack(animation)
+        animation.translatesAutoresizingMaskIntoConstraints = false
+        animation.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        animation.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
+        animation.widthAnchor.constraint(equalToConstant: 350).isActive = true
+        animation.heightAnchor.constraint(equalToConstant: 350).isActive = true
+        animation.loopAnimation = true
+        animation.play()
+        simplerAlert(title: "저장되었습니다")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         getPosterData()
@@ -42,7 +56,6 @@ class SwipeVC: UIViewController {
         
         countLabel.layer.cornerRadius = 10
         countLabel.layer.masksToBounds = true
-        
         
         self.view.backgroundColor = UIColor(displayP3Red: 242/255, green: 243/255, blue: 245/255, alpha: 1.0)
         self.view.bringSubviewToFront(viewTinderBackGround)
@@ -54,28 +67,11 @@ class SwipeVC: UIViewController {
         dislikedButton.addTarget(self, action: #selector(touchUpDisLiked(_:)), for: .touchUpInside)
         
             
-        let animation = LOTAnimationView(name: "main_empty_hifive")
-        view.addSubview(animation)
-        view.sendSubviewToBack(animation)
-        animation.translatesAutoresizingMaskIntoConstraints = false
-        animation.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        animation.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
-        animation.widthAnchor.constraint(equalToConstant: 350).isActive = true
-        animation.heightAnchor.constraint(equalToConstant: 350).isActive = true
-        animation.loopAnimation = true
-        animation.play()
-        
-        
-        simplerAlert(title: "저장되었습니다")
-            
-        
-//        for i in view.subviews {
-//            print(i.description)
-//        }
-//        print("\(view.subviews.count) 개수")
+        setEmptyPosterAnimation()
         
         self.view.bringSubviewToFront(overLapView)
     }
+    
     @objc func touchDownLiked(_ sender: UIButton) {
         UIView.animate(withDuration: 0.1, delay: 0, usingSpringWithDamping: 0.5, initialSpringVelocity: 0.5, options: .curveEaseInOut, animations: {
             self.likedButton.transform = CGAffineTransform(scaleX: 1.3, y: 1.3)
@@ -189,8 +185,7 @@ class SwipeVC: UIViewController {
         if valueArray.count > 0 {
             let capCount = (valueArray.count > MAX_BUFFER_SIZE) ? MAX_BUFFER_SIZE : valueArray.count
             for (i,value) in valueArray.enumerated() {
-                let newCard = createSwipeCard(at: i,value: value.photoUrl!)
-                
+                let newCard = createSwipeCard(at: i, value: value.photoUrl!)
                 allCardsArray.append(newCard)
                 if i < capCount {
                     currentLoadedCardsArray.append(newCard)
@@ -210,7 +205,7 @@ class SwipeVC: UIViewController {
     //SwipeCard 생성
     func createSwipeCard(at index: Int , value :String) -> SwipeCard {
        // print("create")
-        let card = SwipeCard(frame: CGRect(x: 0, y: 0, width: viewTinderBackGround.frame.size.width , height: viewTinderBackGround.frame.size.height - 10) ,value : value)
+        let card = SwipeCard(frame: CGRect(x: 0, y: 0, width: viewTinderBackGround.frame.size.width, height: viewTinderBackGround.frame.size.height) ,value : value)
         //print("높이: \(viewTinderBackGround.frame.size.height)")
         countTotalCardIndex += 1
         //print("countTotalCardIndex: \(countTotalCardIndex)")

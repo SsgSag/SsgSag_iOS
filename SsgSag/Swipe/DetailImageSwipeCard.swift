@@ -13,8 +13,10 @@ class DetailImageSwipeCardVC: UIViewController {
     @IBOutlet var detailImageVIew: UIImageView!
     @IBOutlet var name: UILabel!
     @IBOutlet var category: UILabel!
+    @IBOutlet weak var stackViewConstraint: NSLayoutConstraint!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
     }
 }
