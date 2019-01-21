@@ -10,11 +10,9 @@
 		1C3CD9527488A3036C7D035F /* Pods_SsgSag.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1E73B2D58130421AD8914636 /* Pods_SsgSag.framework */; };
 		2452C131601AAC033C5B69D6 /* Pods_SsgSagTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 476B5599333568A94C71406C /* Pods_SsgSagTests.framework */; };
 		8415586421D8D96900A0EDB5 /* SwipeCardDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8415586321D8D96900A0EDB5 /* SwipeCardDelegate.swift */; };
-		8421850421E88C65008E4FC4 /* detailPosterVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8421850321E88C65008E4FC4 /* detailPosterVC.swift */; };
 		84264BA621DF0FF300849E6B /* Calendar.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 84264BA521DF0FF300849E6B /* Calendar.storyboard */; };
 		84264BA821DF106C00849E6B /* CalendarDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84264BA721DF106C00849E6B /* CalendarDetailVC.swift */; };
 		84264BAA21DF109200849E6B /* AddPassiveDateVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84264BA921DF109200849E6B /* AddPassiveDateVC.swift */; };
-		8427099A21DFD42600869633 /* PopupVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8427099921DFD42600869633 /* PopupVC.swift */; };
 		842C618521DCDC92001BA6D8 /* SignupCompleteVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842C618421DCDC92001BA6D8 /* SignupCompleteVC.swift */; };
 		842C619D21DD1807001BA6D8 /* posterData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842C619A21DD1807001BA6D8 /* posterData.swift */; };
 		842C619E21DD1807001BA6D8 /* Json4Swift_Base.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842C619B21DD1807001BA6D8 /* Json4Swift_Base.swift */; };
@@ -44,9 +42,7 @@
 		84E19CD421DCC922006F72EC /* APIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84E19CCE21DCC922006F72EC /* APIManager.swift */; };
 		84E19CD521DCC922006F72EC /* LoginService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84E19CCF21DCC922006F72EC /* LoginService.swift */; };
 		84E19CD621DCC922006F72EC /* NetworkResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84E19CD021DCC922006F72EC /* NetworkResult.swift */; };
-		84E19CD721DCC922006F72EC /* BoardService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84E19CD121DCC922006F72EC /* BoardService.swift */; };
 		84E19CDE21DCC977006F72EC /* ResponseArray.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84E19CD921DCC977006F72EC /* ResponseArray.swift */; };
-		84E19CDF21DCC977006F72EC /* Board.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84E19CDA21DCC977006F72EC /* Board.swift */; };
 		84E19CE021DCC977006F72EC /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84E19CDB21DCC977006F72EC /* User.swift */; };
 		84E19CE121DCC977006F72EC /* ResponseObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84E19CDC21DCC977006F72EC /* ResponseObject.swift */; };
 		84E19CE221DCC977006F72EC /* Token.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84E19CDD21DCC977006F72EC /* Token.swift */; };
@@ -60,7 +56,7 @@
 		FA3A344221E7285C00668908 /* ConfirmProfileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA3A344121E7285C00668908 /* ConfirmProfileVC.swift */; };
 		FA3A344421E72F5200668908 /* SchoolInfoVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA3A344321E72F5200668908 /* SchoolInfoVC.swift */; };
 		FA3A8FD721DF3C3B0075A510 /* Splash.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FA3A8FD621DF3C3B0075A510 /* Splash.storyboard */; };
-		FA3A8FD921DF3D5F0075A510 /* GradientColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA3A8FD821DF3D5F0075A510 /* GradientColor.swift */; };
+		FA3A8FD921DF3D5F0075A510 /* Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA3A8FD821DF3D5F0075A510 /* Extension.swift */; };
 		FA3A8FDB21DF3F410075A510 /* SplashVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA3A8FDA21DF3F410075A510 /* SplashVC.swift */; };
 		FA524BF121D64E2400675289 /* SignupStoryBoard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FA524BF021D64E2400675289 /* SignupStoryBoard.storyboard */; };
 		FA5A87F421E7D51D008C2C41 /* Career.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA5A87F321E7D51D008C2C41 /* Career.swift */; };
@@ -68,7 +64,6 @@
 		FA61FE0F21E0E3D300A28947 /* JobVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA61FE0E21E0E3D300A28947 /* JobVC.swift */; };
 		FA61FE1121E0E4A200A28947 /* PreferenceVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA61FE1021E0E4A200A28947 /* PreferenceVC.swift */; };
 		FA61FE1321E1D48D00A28947 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = FA61FE1221E1D48D00A28947 /* .gitignore */; };
-		FA61FE1521E1FD7600A28947 /* PopUpVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA61FE1421E1FD7600A28947 /* PopUpVC.swift */; };
 		FA61FE1921E204F300A28947 /* DatePickerPopUpVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA61FE1821E204F300A28947 /* DatePickerPopUpVC.swift */; };
 		FA7F4CB821DFB0C100D8643A /* CareerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA7F4CB721DFB0C100D8643A /* CareerViewController.swift */; };
 		FA7F4CBB21DFC7E700D8643A /* CustomCareerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA7F4CB921DFC7E700D8643A /* CustomCareerCell.swift */; };
@@ -111,11 +106,9 @@
 		73A19F3163047709495EC6A0 /* Pods-SsgSag.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SsgSag.debug.xcconfig"; path = "Target Support Files/Pods-SsgSag/Pods-SsgSag.debug.xcconfig"; sourceTree = "<group>"; };
 		8134CA727EE6CCE0A7714139 /* Pods-SsgSagTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SsgSagTests.debug.xcconfig"; path = "Target Support Files/Pods-SsgSagTests/Pods-SsgSagTests.debug.xcconfig"; sourceTree = "<group>"; };
 		8415586321D8D96900A0EDB5 /* SwipeCardDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwipeCardDelegate.swift; sourceTree = "<group>"; };
-		8421850321E88C65008E4FC4 /* detailPosterVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = detailPosterVC.swift; sourceTree = "<group>"; };
 		84264BA521DF0FF300849E6B /* Calendar.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Calendar.storyboard; sourceTree = "<group>"; };
 		84264BA721DF106C00849E6B /* CalendarDetailVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarDetailVC.swift; sourceTree = "<group>"; };
 		84264BA921DF109200849E6B /* AddPassiveDateVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPassiveDateVC.swift; sourceTree = "<group>"; };
-		8427099921DFD42600869633 /* PopupVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupVC.swift; sourceTree = "<group>"; };
 		842C618421DCDC92001BA6D8 /* SignupCompleteVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupCompleteVC.swift; sourceTree = "<group>"; };
 		842C619A21DD1807001BA6D8 /* posterData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = posterData.swift; sourceTree = "<group>"; };
 		842C619B21DD1807001BA6D8 /* Json4Swift_Base.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Json4Swift_Base.swift; sourceTree = "<group>"; };
@@ -151,9 +144,7 @@
 		84E19CCE21DCC922006F72EC /* APIManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIManager.swift; sourceTree = "<group>"; };
 		84E19CCF21DCC922006F72EC /* LoginService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginService.swift; sourceTree = "<group>"; };
 		84E19CD021DCC922006F72EC /* NetworkResult.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkResult.swift; sourceTree = "<group>"; };
-		84E19CD121DCC922006F72EC /* BoardService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BoardService.swift; sourceTree = "<group>"; };
 		84E19CD921DCC977006F72EC /* ResponseArray.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResponseArray.swift; sourceTree = "<group>"; };
-		84E19CDA21DCC977006F72EC /* Board.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Board.swift; sourceTree = "<group>"; };
 		84E19CDB21DCC977006F72EC /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		84E19CDC21DCC977006F72EC /* ResponseObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ResponseObject.swift; sourceTree = "<group>"; };
 		84E19CDD21DCC977006F72EC /* Token.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Token.swift; sourceTree = "<group>"; };
@@ -176,7 +167,7 @@
 		FA3A344121E7285C00668908 /* ConfirmProfileVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmProfileVC.swift; sourceTree = "<group>"; };
 		FA3A344321E72F5200668908 /* SchoolInfoVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchoolInfoVC.swift; sourceTree = "<group>"; };
 		FA3A8FD621DF3C3B0075A510 /* Splash.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Splash.storyboard; sourceTree = "<group>"; };
-		FA3A8FD821DF3D5F0075A510 /* GradientColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientColor.swift; sourceTree = "<group>"; };
+		FA3A8FD821DF3D5F0075A510 /* Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extension.swift; sourceTree = "<group>"; };
 		FA3A8FDA21DF3F410075A510 /* SplashVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashVC.swift; sourceTree = "<group>"; };
 		FA524BF021D64E2400675289 /* SignupStoryBoard.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = SignupStoryBoard.storyboard; sourceTree = "<group>"; };
 		FA5A87F321E7D51D008C2C41 /* Career.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Career.swift; sourceTree = "<group>"; };
@@ -184,7 +175,6 @@
 		FA61FE0E21E0E3D300A28947 /* JobVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JobVC.swift; sourceTree = "<group>"; };
 		FA61FE1021E0E4A200A28947 /* PreferenceVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferenceVC.swift; sourceTree = "<group>"; };
 		FA61FE1221E1D48D00A28947 /* .gitignore */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
-		FA61FE1421E1FD7600A28947 /* PopUpVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopUpVC.swift; sourceTree = "<group>"; };
 		FA61FE1821E204F300A28947 /* DatePickerPopUpVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePickerPopUpVC.swift; sourceTree = "<group>"; };
 		FA7F4CB721DFB0C100D8643A /* CareerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CareerViewController.swift; sourceTree = "<group>"; };
 		FA7F4CB921DFC7E700D8643A /* CustomCareerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCareerCell.swift; sourceTree = "<group>"; };
@@ -316,7 +306,7 @@
 				845928DD21D09F38001DF6CC /* Calendar */,
 				FAAFB58821D3B6B8006BF728 /* Assets */,
 				845928A921D09CE0001DF6CC /* Info.plist */,
-				FA3A8FD821DF3D5F0075A510 /* GradientColor.swift */,
+				FA3A8FD821DF3D5F0075A510 /* Extension.swift */,
 			);
 			path = SsgSag;
 			sourceTree = "<group>";
@@ -344,11 +334,9 @@
 			children = (
 				84264BA521DF0FF300849E6B /* Calendar.storyboard */,
 				845928D521D09F2F001DF6CC /* CalenderVC.swift */,
-				8421850321E88C65008E4FC4 /* detailPosterVC.swift */,
 				845928D621D09F2F001DF6CC /* CalenderView.swift */,
 				845928D821D09F2F001DF6CC /* MonthView.swift */,
 				845928D721D09F2F001DF6CC /* WeekdaysView.swift */,
-				8427099921DFD42600869633 /* PopupVC.swift */,
 				84264BA721DF106C00849E6B /* CalendarDetailVC.swift */,
 				84264BA921DF109200849E6B /* AddPassiveDateVC.swift */,
 			);
@@ -371,7 +359,6 @@
 				FAF0DEFF21E948AB003F341F /* UserModel.swift */,
 				FA5A87F321E7D51D008C2C41 /* Career.swift */,
 				FA7F4CB721DFB0C100D8643A /* CareerViewController.swift */,
-				FA61FE1421E1FD7600A28947 /* PopUpVC.swift */,
 				FA61FE1821E204F300A28947 /* DatePickerPopUpVC.swift */,
 				FA61FE1021E0E4A200A28947 /* PreferenceVC.swift */,
 				FA61FE0E21E0E3D300A28947 /* JobVC.swift */,
@@ -401,7 +388,6 @@
 				84E19CCE21DCC922006F72EC /* APIManager.swift */,
 				84E19CCF21DCC922006F72EC /* LoginService.swift */,
 				84E19CD021DCC922006F72EC /* NetworkResult.swift */,
-				84E19CD121DCC922006F72EC /* BoardService.swift */,
 				FA3A341F21E5127700668908 /* UserAPI.swift */,
 			);
 			path = APIServices;
@@ -412,7 +398,6 @@
 			children = (
 				842C618621DCEB8B001BA6D8 /* Swipe */,
 				84E19CD921DCC977006F72EC /* ResponseArray.swift */,
-				84E19CDA21DCC977006F72EC /* Board.swift */,
 				84E19CDB21DCC977006F72EC /* User.swift */,
 				84E19CDC21DCC977006F72EC /* ResponseObject.swift */,
 				84E19CDD21DCC977006F72EC /* Token.swift */,
@@ -454,11 +439,11 @@
 			children = (
 				8415586221D8D93500A0EDB5 /* delegate */,
 				FA851DE321D3D807002065D0 /* VC */,
+				845928CB21D09D09001DF6CC /* SwipeStoryBoard.storyboard */,
 				FA851DE821D3DBBC002065D0 /* SwipeCard.swift */,
 				845928E421D38771001DF6CC /* DetailImageSwipeCard.swift */,
 				845928E621D3877D001DF6CC /* DetailTextSwipeCard.swift */,
 				FA25A58121D36EC500C9FC93 /* SegmentedProgressBar.swift */,
-				845928CB21D09D09001DF6CC /* SwipeStoryBoard.storyboard */,
 				FA851DEC21D5FDB0002065D0 /* SwipeModel.swift */,
 				84B4268B21E9091C00B44F71 /* main_empty_hifive.json */,
 			);
@@ -747,7 +732,6 @@
 				FA7F4CCA21DFD61300D8643A /* ActivityCell.swift in Sources */,
 				FA7F4CD421E0A0BB00D8643A /* AddVC.swift in Sources */,
 				FA7F4CB821DFB0C100D8643A /* CareerViewController.swift in Sources */,
-				8421850421E88C65008E4FC4 /* detailPosterVC.swift in Sources */,
 				845928A321D09CDD001DF6CC /* SsgSag.xcdatamodeld in Sources */,
 				FA851DE921D3DBBC002065D0 /* SwipeCard.swift in Sources */,
 				8415586421D8D96900A0EDB5 /* SwipeCardDelegate.swift in Sources */,
@@ -764,15 +748,12 @@
 				FA3A342221E5D64300668908 /* UserInfoVC.swift in Sources */,
 				FAD323DB21E36FA6000C4FBA /* AddCertificationVC.swift in Sources */,
 				FA3A344221E7285C00668908 /* ConfirmProfileVC.swift in Sources */,
-				FA3A8FD921DF3D5F0075A510 /* GradientColor.swift in Sources */,
+				FA3A8FD921DF3D5F0075A510 /* Extension.swift in Sources */,
 				FA7F4CD221E0A0A000D8643A /* AddActivityVC.swift in Sources */,
-				FA61FE1521E1FD7600A28947 /* PopUpVC.swift in Sources */,
 				84E19CD521DCC922006F72EC /* LoginService.swift in Sources */,
 				84BA694921DB394800BA8CB8 /* myPageVC.swift in Sources */,
 				84264BAA21DF109200849E6B /* AddPassiveDateVC.swift in Sources */,
-				84E19CDF21DCC977006F72EC /* Board.swift in Sources */,
 				84E19CD321DCC922006F72EC /* UserService.swift in Sources */,
-				8427099A21DFD42600869633 /* PopupVC.swift in Sources */,
 				842C619E21DD1807001BA6D8 /* Json4Swift_Base.swift in Sources */,
 				FA3A342021E5127700668908 /* UserAPI.swift in Sources */,
 				842C619F21DD1807001BA6D8 /* Posters.swift in Sources */,
@@ -785,7 +766,6 @@
 				FA3A8FDB21DF3F410075A510 /* SplashVC.swift in Sources */,
 				845928E521D38771001DF6CC /* DetailImageSwipeCard.swift in Sources */,
 				84BA694D21DB74BD00BA8CB8 /* TapbarVC.swift in Sources */,
-				84E19CD721DCC922006F72EC /* BoardService.swift in Sources */,
 				FA25A58221D36EC500C9FC93 /* SegmentedProgressBar.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

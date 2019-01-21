@@ -10,7 +10,7 @@ import UIKit
 import Lottie
 
 class AddVC: UIViewController, UITextFieldDelegate, UITextViewDelegate {
-
+    
     @IBOutlet weak var titleTextField: UITextField!
     @IBOutlet weak var yearTextField: UITextField!
     @IBOutlet weak var contentTextView: UITextView!
@@ -31,10 +31,9 @@ class AddVC: UIViewController, UITextFieldDelegate, UITextViewDelegate {
         contentTextView.delegate = self
         titleTextField.delegate = self
         yearTextField.delegate = self
-      
+        
     }
     @IBAction func touchUpSaveButton(_ sender: UIButton) {
-        //TODO: - 네트워크 연결?
         let animation = LOTAnimationView(name: "bt_save_round")
         saveButton.addSubview(animation)
         animation.play()
@@ -45,7 +44,7 @@ class AddVC: UIViewController, UITextFieldDelegate, UITextViewDelegate {
     }
     
     @IBAction func dismissModalAction(_ sender: Any) {
-         dismiss(animated: true, completion: nil)
+        dismiss(animated: true, completion: nil)
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -67,7 +66,6 @@ class AddVC: UIViewController, UITextFieldDelegate, UITextViewDelegate {
             "careerDate2" : ""
         ]
         
-        //let json: [String: Any] = ["careerType" : careerType]
         let jsonData = try? JSONSerialization.data(withJSONObject: json)
         let url = URL(string: "http://54.180.79.158:8080/career")!
         var request = URLRequest(url: url)
@@ -83,12 +81,7 @@ class AddVC: UIViewController, UITextFieldDelegate, UITextViewDelegate {
                 print(error?.localizedDescription ?? "No data")
                 return
             }
-            
             guard let data = data else { return }
-            
-            print(data)
-            print("gggg")
-            print(response)
         }
         task.resume()
     }
@@ -96,11 +89,11 @@ class AddVC: UIViewController, UITextFieldDelegate, UITextViewDelegate {
     
     func postData() {
         
-        var json: [String: Any] = [
+        let json: [String: Any] = [
             "careerType" : 1,
-            "careerName" : titleTextField.text,
-            "careerContent" : contentTextView.text,
-            "careerDate1" : yearTextField.text //일까지 줘도 상관없음 ex)"2019-01-12"
+            "careerName" : titleTextField.text ?? "",
+            "careerContent" : contentTextView.text ?? "",
+            "careerDate1" : yearTextField.text ?? "" //일까지 줘도 상관없음 ex)"2019-01-12"
         ]
         
         let jsonData = try? JSONSerialization.data(withJSONObject: json)
@@ -117,30 +110,23 @@ class AddVC: UIViewController, UITextFieldDelegate, UITextViewDelegate {
         request.httpBody = jsonData
         
         let task = URLSession.shared.dataTask(with: request) { data, response, error in
-            print(data)
-            print(response)
-            
             guard let data = data, error == nil else {
                 print(error?.localizedDescription ?? "No data")
                 return
             }
-            
             let responseJSON = try? JSONSerialization.jsonObject(with: data, options: [])
             if let responseJSON = responseJSON as? [String: Any] {
                 print("responseJSON \(responseJSON)")
             }
         }
-        
         task.resume()
     }
-    
-   
-
 }
 
 extension UITextView {
     func applyBorderTextView() {
         self.layer.borderColor = UIColor.rgb(red: 235, green: 237, blue: 239).cgColor
         self.layer.borderWidth = 1.0
+        self.layer.cornerRadius = 3.0
     }
 }

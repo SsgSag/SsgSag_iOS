@@ -1,10 +1,3 @@
-//
-//  CalenderView.swift
-//  myCalender2
-//
-//  Created by Muskan on 10/22/17.
-//  Copyright © 2017 akhil. All rights reserved.
-//
 
 import UIKit
 
@@ -12,10 +5,8 @@ class CalenderView: UIView, UICollectionViewDelegate, UICollectionViewDataSource
     var numOfDaysInMonth = [31,28,31,30,31,30,31,31,30,31,30,31]//12달
     var currentMonth: Int = 0
     var currentYear: Int = 0
-    
     var presentMonthIndex = 0
     var presentYear = 0
-    
     var currentDay = 0
     var firstWeekDayOfMonth = 0   //(Sunday-Saturday 1-7) 일:1,월:2 ~ 금:6,토:7
     
@@ -24,78 +15,67 @@ class CalenderView: UIView, UICollectionViewDelegate, UICollectionViewDataSource
     var lineTuple = (100,100,100,100)
     var lineArray: [(Int,Int,Int,Int)] = []
     
-    var posterTuple:[(Date, Date, Int, Int, String, Int)] = []
+    var posterTuples: [(Date, Date, Int, Int, String, Int)] = []
     
-    var lineArray1:[(Date,Date,Int,Int,String,Int)] = []
-    var lineArray2:[(Date,Date,Int,Int,String,Int)] = []
-    var lineArray3:[(Date,Date,Int,Int,String,Int)] = []
-    var lineArray4:[(Date,Date,Int,Int,String,Int)] = []
-    var lineArray5:[(Date,Date,Int,Int,String,Int)] = []
+    var lineArray1: [(Date,Date,Int,Int,String,Int)] = []
+    var lineArray2: [(Date,Date,Int,Int,String,Int)] = []
+    var lineArray3: [(Date,Date,Int,Int,String,Int)] = []
+    var lineArray4: [(Date,Date,Int,Int,String,Int)] = []
+    var lineArray5: [(Date,Date,Int,Int,String,Int)] = []
     
     var currentPosterTuple:[(Date, Date, Int, Int, String, Int)] = []
     
-    var lastSelectedDate:Date?
+    var lastSelectedDate: Date?
     var lastSelectedIndexPath: IndexPath?
     
     @objc func addUserDefaults() {
         
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
-        
-       // print("넣는 순간 이게 실행 되어야만해")
-        
         let defaults = UserDefaults.standard
-        //guard let posterData = defaults.object(forKey: "poster") as? Data else { return }
-        //guard let posterInfo = try? PropertyListDecoder().decode([Posters].self, from: posterData) else { return }
         
         if let posterData = defaults.object(forKey: "poster") as? Data {
             if let posterInfo = try? PropertyListDecoder().decode([Posters].self, from: posterData){
                 for poster in posterInfo { //userDefaults에 있는 모든 poster 정보를 불러온다.
-                    
                     let posterStartDateTime = formatter.date(from: poster.posterStartDate!)
                     let posterEndDateTime = formatter.date(from: poster.posterEndDate!)
                     let components = Calendar.current.dateComponents([.day], from: posterStartDateTime!, to: posterEndDateTime!)
                     let dayInterval = components.day! + 1
-                    
-                    posterTuple.append((posterStartDateTime!, posterEndDateTime!, dayInterval, poster.categoryIdx!, poster.posterName!, poster.categoryIdx!))
+                    posterTuples.append((posterStartDateTime!, posterEndDateTime!, dayInterval, poster.categoryIdx!, poster.posterName!, poster.categoryIdx!))
                 }
             }
         }
         
-        //print("포스터튜플")
-        //print(posterTuple)
-        
-        if posterTuple.count == 1 {
-            lineArray1.append(posterTuple[0])
+        if posterTuples.count == 1 {
+            lineArray1.append(posterTuples[0])
         }
         
-        if posterTuple.count > 1 {
-            posterTuple.sort{$0.2 > $1.2}
+        if posterTuples.count > 1 {
+            posterTuples.sort{$0.2 > $1.2}
             
             var countLine = 0
-            
-            lineArray1.append(posterTuple[countLine])
+            lineArray1.append(posterTuples[countLine])
             countLine = -1
             /* 라인 1 */
-            for k in 0...posterTuple.count-1 {
-                if isGoodTopPut(lineArray: lineArray1, putDate: posterTuple[k]) == true {
-                    lineArray1.append(posterTuple[k])
+            for k in 0...posterTuples.count-1 {
+                if isGoodTopPut(lineArray: lineArray1, putDate: posterTuples[k]) == true {
+                    lineArray1.append(posterTuples[k])
                 }
             }
             
             print("라인 1 통과")
             /* 라인 2 */
-            var posterTuple2:[(Date,Date,Int,Int,String,Int)] = []
+            var posterTuple2: [(Date,Date,Int,Int,String,Int)] = []
             //라인 2에 들어가는 가장긴 포스터를 찾자.
-            for k in 0...posterTuple.count - 1{
+            for k in 0...posterTuples.count - 1{
                 var count1 = 0
                 for l in lineArray1 {
-                    if l == posterTuple[k] {
+                    if l == posterTuples[k] {
                         count1 += 1
                     }
                 }
                 if count1 == 0 {//겹치는게 없을때만 posterTUple2에 저장
-                    posterTuple2.append(posterTuple[k])
+                    posterTuple2.append(posterTuples[k])
                 }
                 //안포함 했을때만 posterTuple2에 추가
             }
@@ -116,21 +96,21 @@ class CalenderView: UIView, UICollectionViewDelegate, UICollectionViewDataSource
             var posterTuple3:[(Date,Date,Int,Int,String,Int)] = []
             
             //라인 3에 들어가는 가장긴 포스터를 찾자.
-            for k in 0...posterTuple.count-1{
+            for k in 0...posterTuples.count-1{
                 //lineArray1과 lineArray2에 안들어가는 posterTuple의 값들만 posterTuple3에 넣는다.
                 var count1 = 0
                 for l in lineArray1 {
-                    if l == posterTuple[k] {
+                    if l == posterTuples[k] {
                         count1 += 1
                     }
                 }
                 for l in lineArray2 {
-                    if l == posterTuple[k] {
+                    if l == posterTuples[k] {
                         count1 += 1
                     }
                 }
                 if count1 == 0 {//겹치는게 없을때만 posterTUple2에 저장
-                    posterTuple3.append(posterTuple[k])
+                    posterTuple3.append(posterTuples[k])
                 }
                 //안포함 했을때만 posterTuple2에 추가
             }
@@ -150,27 +130,27 @@ class CalenderView: UIView, UICollectionViewDelegate, UICollectionViewDataSource
             
             var posterTuple4:[(Date,Date,Int,Int,String,Int)] = []
             //라인 3에 들어가는 가장긴 포스터를 찾자.
-            for k in 0...posterTuple.count-1{
+            for k in 0...posterTuples.count-1{
                 var count1 = 0
                 
                 for l in lineArray1 {
-                    if l == posterTuple[k] {
+                    if l == posterTuples[k] {
                         count1 += 1
                     }
                 }
                 for l in lineArray2 {
-                    if l == posterTuple[k] {
+                    if l == posterTuples[k] {
                         count1 += 1
                     }
                 }
                 for l in lineArray3 {
-                    if l == posterTuple[k] {
+                    if l == posterTuples[k] {
                         count1 += 1
                     }
                 }
                 
                 if count1 == 0 {//겹치는게 없을때만 posterTUple2에 저장
-                    posterTuple4.append(posterTuple[k])
+                    posterTuple4.append(posterTuples[k])
                 }
             }
             print("라인 4 통과")
@@ -185,31 +165,16 @@ class CalenderView: UIView, UICollectionViewDelegate, UICollectionViewDataSource
                     }
                 }
             }
-            //print(lineArray1)
-            
-            
-            //print(lineArray2)
-            
-            
-            //print(lineArray3)
-            
-            
-            //print(lineArray4)
-            
         }//posterTuple.count 처리
         self.myCollectionView.reloadData()
-        //print("콜렉션뷰 리로드")
     }
-
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
-        //print("시작할때 실행 되는가?") --> 시작할때 실행 된다.
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
         
         let defaults = UserDefaults.standard
-        //guard let posterData = defaults.object(forKey: "poster") as? Data else { return }
-        //guard let posterInfo = try? PropertyListDecoder().decode([Posters].self, from: posterData) else { return }
         
         if let posterData = defaults.object(forKey: "poster") as? Data {
             if let posterInfo = try? PropertyListDecoder().decode([Posters].self, from: posterData){
@@ -220,201 +185,133 @@ class CalenderView: UIView, UICollectionViewDelegate, UICollectionViewDataSource
                     let components = Calendar.current.dateComponents([.day], from: posterStartDateTime!, to: posterEndDateTime!)
                     let dayInterval = components.day! + 1
                     
-                    posterTuple.append((posterStartDateTime!, posterEndDateTime!, dayInterval, poster.categoryIdx!, poster.posterName!, 0))
-                    //print("추가된 posterTuple \(poster)" )
-                    //print(posterTuple.count)
+                    posterTuples.append((posterStartDateTime!, posterEndDateTime!, dayInterval, poster.categoryIdx!, poster.posterName!, 0))
                 }
             }
         }
-        
-        
-       // NotificationCenter.default.post(name: NSNotification.Name("changeBackgroundColor"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(changeBackgroundColor), name: NSNotification.Name("changeBackgroundColor"), object: nil)
         
         //좋아요 선택시 유저티폴츠에 넣고 그것의 반응을 받는다.
         NotificationCenter.default.addObserver(self, selector: #selector(addUserDefaults), name: NSNotification.Name("addUserDefaults"), object: nil)
         
-        /*
-        let s1 = formatter.date(from: "2019-01-16 15:00:00")
-        let e1 = formatter.date(from: "2019-01-17 14:59:00")
-        
-        let s2 = formatter.date(from: "2019-01-01 08:00:00")
-        let e2 = formatter.date(from: "2019-01-12 08:00:00")
-        
-        let s3 = formatter.date(from: "2019-01-05 08:00:00")
-        let e3 = formatter.date(from: "2019-01-18 08:00:00")
-        
-        let s4 = formatter.date(from: "2019-01-19 15:00:00")
-        let e4 = formatter.date(from: "2019-01-31 14:59:59")
-        
-        let s5 = formatter.date(from: "2019-01-08 15:00:00")
-        let e5 = formatter.date(from: "2019-01-09 14:59:59")
-        
-        let s6 = formatter.date(from: "2019-01-10 15:00:00")
-        let e6 = formatter.date(from: "2019-01-11 14:59:59")
-        
-        let s7 = formatter.date(from: "2019-01-14 15:00:00")
-        let e7 = formatter.date(from: "2019-01-17 14:59:59")
-        
-        let s8 = formatter.date(from: "2019-01-01 15:00:00")
-        let e8 = formatter.date(from: "2019-01-07 14:59:59")
-        
-        let s9 = formatter.date(from: "2019-01-14 15:00:00")
-        let e9 = formatter.date(from: "2019-01-18 14:59:59")
-        
-        let s10 = formatter.date(from: "2019-12-17 15:00:00")
-        let e10 = formatter.date(from: "2019-12-31 14:59:59")
-        
-        let s11 = formatter.date(from: "2018-12-19 15:00:00")
-        let e11 = formatter.date(from: "2019-01-03 14:59:59")
-        */
-        
-//        posterTuple = [(s1!, e1!, 395, 1, "스마트청춘MD", 0),
-//            (s2!, e2!, 12, 0, "비즈니스 아이디어 공모전", 0),
-//            (s3!, e3!, 12, 0, "레진코믹스 세계만화공모전", 0),
-//            (s4!, e4!, 4, 5, "아주 캐피탈 대학생 봉사단", 0),
-//            (s5!, e5!, 3, 0, "에스윈아이디어공모전", 0),
-//            (s6!, e6!, 3, 2, "솝트 동아리", 0),
-//            (s7!, e7!, 3, 2, "새로운 일정", 0),
-//            (s8!, e8!, 3, 2, "새로운 일정", 0),
-//            (s9!, e9!, 3, 2, "새로운 일정2", 0),
-//            (s10!, e10!, 3, 2, "새로운 일정3", 0),
-//            (s11!, e11!, 3, 2, "민지 일정", 0),
-//        ]
-        
-        
-        if posterTuple.count > 1 {
-           posterTuple.sort{$0.2 > $1.2}
-       
-        var countLine = 0
-        
-        lineArray1.append(posterTuple[countLine])
-        countLine = -1
-        /* 라인 1 */
-        for k in 0...posterTuple.count-1 {
-            if isGoodTopPut(lineArray: lineArray1, putDate: posterTuple[k]) == true {
-                lineArray1.append(posterTuple[k])
-            }
+        if posterTuples.count == 1 {
+            lineArray1.append(posterTuples[0])
         }
-        print("라인 1 통과")
-        /* 라인 2 */
-        var posterTuple2:[(Date,Date,Int,Int,String,Int)] = []
-        //라인 2에 들어가는 가장긴 포스터를 찾자.
-        for k in 0...posterTuple.count - 1{
-            var count1 = 0
-            for l in lineArray1 {
-                if l == posterTuple[k] {
-                    count1 += 1
-                }
-            }
-            if count1 == 0 {//겹치는게 없을때만 posterTUple2에 저장
-                posterTuple2.append(posterTuple[k])
-            }
-            //안포함 했을때만 posterTuple2에 추가
-        }
-        if posterTuple2.count >= 1 {
-            lineArray2.append(posterTuple2[0])//posterTuple3에서 가장긴것은 무조건 넣는다.
+        
+        if posterTuples.count > 1 {
+            posterTuples.sort{$0.2 > $1.2}
             
+            var countLine = 0
+            
+            lineArray1.append(posterTuples[countLine])
             countLine = -1
+            /* 라인 1 */
+            for k in 0...posterTuples.count-1 {
+                if isGoodTopPut(lineArray: lineArray1, putDate: posterTuples[k]) == true {
+                    lineArray1.append(posterTuples[k])
+                }
+            }
+            print("라인 1 통과")
+            /* 라인 2 */
+            var posterTuple2:[(Date,Date,Int,Int,String,Int)] = []
+            //라인 2에 들어가는 가장긴 포스터를 찾자.
+            for k in 0...posterTuples.count - 1{
+                var count1 = 0
+                for l in lineArray1 {
+                    if l == posterTuples[k] {
+                        count1 += 1
+                    }
+                }
+                if count1 == 0 {//겹치는게 없을때만 posterTUple2에 저장
+                    posterTuple2.append(posterTuples[k])
+                }
+                //안포함 했을때만 posterTuple2에 추가
+            }
+            if posterTuple2.count >= 1 {
+                lineArray2.append(posterTuple2[0])//posterTuple3에서 가장긴것은 무조건 넣는다.
+                
+                countLine = -1
+                
+                for k in 0...posterTuple2.count-1 {
+                    if isGoodTopPut(lineArray: lineArray2, putDate: posterTuple2[k]) == true { //posterTuple2에서 lineArray2에 중복되지 않는 값들을 넣는다.
+                        lineArray2.append(posterTuple2[k])
+                    }
+                }
+            }
+            print("라인 2 통과")
+            /* 라인 3 */
+            var posterTuple3:[(Date,Date,Int,Int,String,Int)] = []
             
-            for k in 0...posterTuple2.count-1 {
-                if isGoodTopPut(lineArray: lineArray2, putDate: posterTuple2[k]) == true { //posterTuple2에서 lineArray2에 중복되지 않는 값들을 넣는다.
-                    lineArray2.append(posterTuple2[k])
+            //라인 3에 들어가는 가장긴 포스터를 찾자.
+            for k in 0...posterTuples.count-1{
+                //lineArray1과 lineArray2에 안들어가는 posterTuple의 값들만 posterTuple3에 넣는다.
+                var count1 = 0
+                for l in lineArray1 {
+                    if l == posterTuples[k] {
+                        count1 += 1
+                    }
+                }
+                for l in lineArray2 {
+                    if l == posterTuples[k] {
+                        count1 += 1
+                    }
+                }
+                if count1 == 0 {//겹치는게 없을때만 posterTUple2에 저장
+                    posterTuple3.append(posterTuples[k])
+                }
+                //안포함 했을때만 posterTuple2에 추가
+            }
+            if posterTuple3.count >= 1 {
+                lineArray3.append(posterTuple3[0])//posterTuple3에서 가장긴것은 무조건 넣는다.
+                countLine = -1
+                
+                for k in 0...posterTuple3.count-1 {
+                    if isGoodTopPut(lineArray: lineArray3, putDate: posterTuple3[k]) == true { //posterTuple2에서 lineArray2에 중복되지 않는 값들을 넣는다.
+                        lineArray3.append(posterTuple3[k])
+                    }
+                }
+            }
+            print("라인 3 통과")
+            /* 라인 4 */
+            
+            var posterTuple4:[(Date,Date,Int,Int,String,Int)] = []
+            //라인 3에 들어가는 가장긴 포스터를 찾자.
+            for k in 0...posterTuples.count-1{
+                var count1 = 0
+                
+                for l in lineArray1 {
+                    if l == posterTuples[k] {
+                        count1 += 1
+                    }
+                }
+                for l in lineArray2 {
+                    if l == posterTuples[k] {
+                        count1 += 1
+                    }
+                }
+                for l in lineArray3 {
+                    if l == posterTuples[k] {
+                        count1 += 1
+                    }
+                }
+                
+                if count1 == 0 {//겹치는게 없을때만 posterTUple2에 저장
+                    posterTuple4.append(posterTuples[k])
+                }
+            }
+            print("라인 4 통과")
+            
+            if posterTuple4.count >= 1 {
+                lineArray4.append(posterTuple4[0])//posterTuple3에서 가장긴것은 무조건 넣는다.
+                
+                countLine = -1
+                for k in 0...posterTuple4.count-1 {
+                    if isGoodTopPut(lineArray: lineArray4, putDate: posterTuple4[k]) == true { //posterTuple2에서 lineArray2에 중복되지 않는 값들을 넣는다.
+                        lineArray4.append(posterTuple4[k])
+                    }
                 }
             }
         }
-        print("라인 2 통과")
-        /* 라인 3 */
-        var posterTuple3:[(Date,Date,Int,Int,String,Int)] = []
-        
-        //라인 3에 들어가는 가장긴 포스터를 찾자.
-        for k in 0...posterTuple.count-1{
-            //lineArray1과 lineArray2에 안들어가는 posterTuple의 값들만 posterTuple3에 넣는다.
-            var count1 = 0
-            for l in lineArray1 {
-                if l == posterTuple[k] {
-                    count1 += 1
-                }
-            }
-            for l in lineArray2 {
-                if l == posterTuple[k] {
-                    count1 += 1
-                }
-            }
-            if count1 == 0 {//겹치는게 없을때만 posterTUple2에 저장
-                posterTuple3.append(posterTuple[k])
-            }
-            //안포함 했을때만 posterTuple2에 추가
-        }
-        if posterTuple3.count >= 1 {
-            lineArray3.append(posterTuple3[0])//posterTuple3에서 가장긴것은 무조건 넣는다.
-            countLine = -1
-            
-            for k in 0...posterTuple3.count-1 {
-                if isGoodTopPut(lineArray: lineArray3, putDate: posterTuple3[k]) == true { //posterTuple2에서 lineArray2에 중복되지 않는 값들을 넣는다.
-                    lineArray3.append(posterTuple3[k])
-                }
-            }
-        }
-        print("라인 3 통과")
-        /* 라인 4 */
-
-        var posterTuple4:[(Date,Date,Int,Int,String,Int)] = []
-        //라인 3에 들어가는 가장긴 포스터를 찾자.
-        for k in 0...posterTuple.count-1{
-            var count1 = 0
-            
-            for l in lineArray1 {
-                if l == posterTuple[k] {
-                    count1 += 1
-                }
-            }
-            for l in lineArray2 {
-                if l == posterTuple[k] {
-                    count1 += 1
-                }
-            }
-            for l in lineArray3 {
-                if l == posterTuple[k] {
-                    count1 += 1
-                }
-            }
-            
-            if count1 == 0 {//겹치는게 없을때만 posterTUple2에 저장
-                posterTuple4.append(posterTuple[k])
-            }
-        }
-        print("라인 4 통과")
-        
-        if posterTuple4.count >= 1 {
-            lineArray4.append(posterTuple4[0])//posterTuple3에서 가장긴것은 무조건 넣는다.
-            
-            countLine = -1
-            for k in 0...posterTuple4.count-1 {
-                if isGoodTopPut(lineArray: lineArray4, putDate: posterTuple4[k]) == true { //posterTuple2에서 lineArray2에 중복되지 않는 값들을 넣는다.
-                    lineArray4.append(posterTuple4[k])
-                }
-            }
-        }
-            
-        /* 라인 4이외는 모두 땡땡땡으로 처리한다. */
-            
-            
-            
-//            print(lineArray1)
-//
-//
-//            print(lineArray2)
-//
-//
-//            print(lineArray3)
-//
-//
-//            print(lineArray4)
-            
-        }//posterTuple.count 처리
-
-        
         initializeView()
     }
     
@@ -422,11 +319,9 @@ class CalenderView: UIView, UICollectionViewDelegate, UICollectionViewDataSource
     //투두리스트를 표현하자
     @objc func changeBackgroundColor() {
         if let index = lastSelectedIndexPath {
-                let cell = collectionView(myCollectionView, cellForItemAt: index) as! dateCVCell
-                cell.lbl.backgroundColor = .clear
-                cell.lbl.textColor = .black
-                print("123123")
-                //print(cell.lbl.text)
+            let cell = collectionView(myCollectionView, cellForItemAt: index) as! dateCVCell
+            cell.lbl.backgroundColor = .clear
+            cell.lbl.textColor = .black
         }
         myCollectionView.reloadData()
     }
@@ -473,7 +368,7 @@ class CalenderView: UIView, UICollectionViewDelegate, UICollectionViewDataSource
         }
         initializeView()
     }
-
+    
     
     func changeTheme() {
         myCollectionView.reloadData()
@@ -502,7 +397,7 @@ class CalenderView: UIView, UICollectionViewDelegate, UICollectionViewDataSource
         presentYear=currentYear
         
         setupViews()
-    
+        
         myCollectionView.delegate=self
         myCollectionView.dataSource=self
         
@@ -646,7 +541,7 @@ class CalenderView: UIView, UICollectionViewDelegate, UICollectionViewDataSource
         }
         
         formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
-
+        
         cell.line.backgroundColor = .clear
         cell.line2.backgroundColor = .clear
         cell.line3.backgroundColor = .clear
@@ -701,12 +596,12 @@ class CalenderView: UIView, UICollectionViewDelegate, UICollectionViewDataSource
                 let yearline1Componets = line1Componets.year!
                 let monthline1Componets = line1Componets.month!
                 let dayline1Componets = line1Componets.day!
-//
-//                let yearcurrentComponets = currentComponets.year!
-//                let monthcurrentComponets = currentComponets.month!
-//                let daycurrentComponets = currentComponets.day!
+                //
+                //                let yearcurrentComponets = currentComponets.year!
+                //                let monthcurrentComponets = currentComponets.month!
+                //                let daycurrentComponets = currentComponets.day!
                 
-        
+                
                 //마지막 날짜
                 if lineYear == currentCellDateTimeYear && lineMonth == currentCellDateTimeMonth && lineDay == currentCellDateTimeDay {
                     cell.line.clipsToBounds = true
@@ -747,7 +642,7 @@ class CalenderView: UIView, UICollectionViewDelegate, UICollectionViewDataSource
                 let line2DayStart = Calendar.current.component(.day, from: line2.0)
                 
                 if currentCellDateTimeYear == line2YearStart && currentCellDateTimeMonth == line2MonthStart && currentCellDateTimeDay == line2DayStart {
-
+                    
                 }
                 
                 //마지막 날짜
@@ -849,29 +744,25 @@ class CalenderView: UIView, UICollectionViewDelegate, UICollectionViewDataSource
                 }
             }
         }
-        
-        //cell.lbl.layer.cornerRadius = cell.lbl.frame.height / 2
-        //cell.lbl.backgroundColor = .yellow
         currentPosterTuple = []
         
         return cell
     }
-    //오늘 날짜 선택하고 다른날짜 선택할때 오늘 날짜의 색깔이 clear된다.
     var todaysIndexPath: IndexPath?
-    //셀 선택
+    
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let cell=collectionView.cellForItem(at: indexPath)
+        let cell = collectionView.cellForItem(at: indexPath)
         let lbl = cell?.subviews[1] as! UILabel
         lbl.layer.cornerRadius = lbl.frame.height / 2
         lbl.backgroundColor = UIColor.lightGray
-        lbl.textColor=UIColor.white
-    
-        let formatter = DateFormatter()
-        formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+        lbl.textColor = UIColor.white
         
         let cellYear = currentYear
         let cellMonth = currentMonth
         let cellDay = indexPath.row-firstWeekDayOfMonth+2
+        
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
         
         let cellDateString = "\(cellYear)-\(cellMonth)-\(cellDay) 00:00:00"
         let currentCellDateTime = formatter.date(from: cellDateString)
@@ -948,7 +839,7 @@ class CalenderView: UIView, UICollectionViewDelegate, UICollectionViewDataSource
     
     //월이 바뀔때
     func didChangeMonth(monthIndex: Int, year: Int) {
-        currentMonth=monthIndex+1 //월+1
+        currentMonth = monthIndex+1 //월+1
         currentYear = year
         //for leap year, make february month of 29 days
         if monthIndex == 1 { //4년에 한번 29일까지
@@ -958,15 +849,11 @@ class CalenderView: UIView, UICollectionViewDelegate, UICollectionViewDataSource
                 numOfDaysInMonth[monthIndex] = 28
             }
         }
-        //end
-        firstWeekDayOfMonth=getFirstWeekDay()
-        //애니메이션
+        
+        firstWeekDayOfMonth = getFirstWeekDay()
         
         self.myCollectionView.reloadData()
         monthView.btnLeft.isEnabled = true
-        
-        //여기서 확대 해야지!!!!!!!!!!!!!!!
-        
     }
     
     func setupViews() {
@@ -990,7 +877,6 @@ class CalenderView: UIView, UICollectionViewDelegate, UICollectionViewDataSource
         myCollectionView.leftAnchor.constraint(equalTo: leftAnchor, constant: 16).isActive=true
         myCollectionView.rightAnchor.constraint(equalTo: rightAnchor, constant: -16).isActive=true
         myCollectionView.bottomAnchor.constraint(equalTo: bottomAnchor).isActive=true
-        
     }
     let monthView: MonthView = {
         let v=MonthView()
@@ -1021,6 +907,7 @@ class CalenderView: UIView, UICollectionViewDelegate, UICollectionViewDataSource
         fatalError("init(coder:) has not been implemented")
     }
 }
+
 //날짜 하나에 해당하는 셀
 class dateCVCell: UICollectionViewCell {
     override init(frame: CGRect) {
@@ -1034,21 +921,15 @@ class dateCVCell: UICollectionViewCell {
         setupViews()
     }
     
-    var heightlabelAnchor: NSLayoutConstraint?
-    var heightlineAnchor: NSLayoutConstraint?
-    var heightline2Anchor: NSLayoutConstraint?
-    var heightline3Anchor: NSLayoutConstraint?
-    var heightline4Anchor: NSLayoutConstraint?
-    
     @objc func changeToUp() {
-
+        
         self.layoutIfNeeded()
     }
     
     @objc func changeToDown() {
         self.layoutIfNeeded()
     }
-
+    
     //날짜 텍스트
     func setupViews() {
         addSubview(lbl)

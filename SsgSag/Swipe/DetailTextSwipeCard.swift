@@ -12,7 +12,6 @@ class DetailTextSwipeCard: UIViewController {
     
     @IBOutlet var posterName: UILabel!
     @IBOutlet var hashTag: UILabel!
-    
     @IBOutlet var outline: UILabel!
     @IBOutlet var target: UILabel!
     @IBOutlet var period: UILabel!
