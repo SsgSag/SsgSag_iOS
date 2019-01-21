@@ -237,8 +237,23 @@ class SwipeVC: UIViewController {
             let page = pageVC.orderedViewControllers[1] as! DetailImageSwipeCardVC
             guard let pageURL = URL(string: valueArray[i].photoUrl!) else {return}
             page.detailImageVIew.load(url: pageURL)
+
+//            page.detailImageVIew.frame = viewTinderBackGround.frame
+            let cardWidth = viewTinderBackGround.frame.width
+            let cardHeight = viewTinderBackGround.frame.height
+            page.imageWidth = cardWidth
+            page.imageHeight = cardHeight
+            
+//            page.detailImageVIew.frame.size.width = cardWidth - 20
+//            page.detailImageVIew.frame.size.height = cardHeight - 80
+////            page.detailImageVIew.frame.offsetBy(dx: 0, dy: 30)
+//            page.detailImageVIew.frame.origin.x = 10
+//            page.detailImageVIew.frame.origin.y = 80
+
+            print("image\(page.imageWidth)")
+
             page.name.text = valueArray[i].posterName!
-            //page.category.text = valueArray[i].posterInterest
+//            page.category.text = valueArray[i].posterInterest
             
             var text = ""
             if let num = valueArray[i].posterInterest {
@@ -446,6 +461,16 @@ extension SwipeVC : SwipeCardDelegate {
         //CalendarVC, CalnedarView에 알려야 한다. (달력에 표시 , todotableview에 표시)
         NotificationCenter.default.post(name: NSNotification.Name("addUserDefaults"), object: nil)
     }
+    
+    func resizeImage(image: UIImage, newWidth: CGFloat) -> UIImage {
+        let scale = newWidth / image.size.width
+        let newHeight = image.size.height * scale
+        UIGraphicsBeginImageContext(CGSize(width: newWidth, height: newHeight))
+        image.draw(in: CGRect(x: 0, y: 0, width: newWidth, height: newHeight))
+        let newImage = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        return newImage!
+    }
 }
 
 extension UIImageView {
@@ -459,6 +484,9 @@ extension UIImageView {
             guard let data = data, error == nil else { return }
             DispatchQueue.main.async() {
                 self?.image = UIImage(data: data)
+//                self?.image?.withRenderingMode(.alwaysOriginal)
+//                self?.image = self?.image?.resize(withWidth: 100)
+                print("selfasldjasldjaslkjdlkasdj\(self?.image?.size)")
             }
         }
     }
@@ -466,4 +494,14 @@ extension UIImageView {
 }
 
 
+//
+//extension UIImage {
+//    func resized(toWidth width: CGFloat) -> UIImage? {
+//        let canvasSize = CGSize(width: width, height: CGFloat(ceil(width/size.width * size.height)))
+//        UIGraphicsBeginImageContextWithOptions(canvasSize, false, scale)
+//        defer { UIGraphicsEndImageContext() }
+//        draw(in: CGRect(origin: .zero, size: canvasSize))
+//        return UIGraphicsGetImageFromCurrentImageContext()
+//    }
+//}
 
