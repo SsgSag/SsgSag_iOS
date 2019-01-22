@@ -41,10 +41,12 @@ class SwipeCard: UIView {
         let panGestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(self.beingDragged))
         addGestureRecognizer(panGestureRecognizer)
         
+        
         imageViewStatus = UIImageView(frame: CGRect(x: (frame.size.width / 2) - 37.5, y: 75, width: 75, height: 75))
         let imageURL = URL(string: value)
         imageViewStatus.load(url: imageURL!)
         imageViewStatus.alpha = 0
+        
         addSubview(imageViewStatus)
         
         overLayImage = UIImageView(frame:bounds)
