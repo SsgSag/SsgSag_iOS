@@ -10,7 +10,6 @@ import Lottie
 class SwipeVC: UIViewController {
     @IBOutlet weak var viewTinderBackGround: UIView!
     @IBOutlet var countLabel: UILabel!
-    
     @IBOutlet var overLapView: UIView!
     @IBOutlet weak var dislikedButton: UIButton!
     @IBOutlet weak var likedButton: UIButton!
@@ -228,18 +227,28 @@ class SwipeVC: UIViewController {
         animateCardAfterSwiping()
     }
     
-    func animateCardAfterSwiping() {
-        for (i,card) in currentLoadedCardsArray.enumerated() {
-            let storyboard = UIStoryboard(name: "SwipeStoryBoard", bundle: nil)
-            let pageVC = storyboard.instantiateViewController(withIdentifier: "PageViewController") as! PageViewController
-            
-            pageVC.view.frame = self.currentLoadedCardsArray[i].frame
-            let page = pageVC.orderedViewControllers[1] as! DetailImageSwipeCardVC
-            guard let pageURL = URL(string: valueArray[i].photoUrl!) else {return}
-            page.detailImageVIew.load(url: pageURL)
-            page.name.text = valueArray[i].posterName!
-            //page.category.text = valueArray[i].posterInterest
-            
+    
+            func animateCardAfterSwiping() {
+                for (i,card) in currentLoadedCardsArray.enumerated() {
+                    let storyboard = UIStoryboard(name: "SwipeStoryBoard", bundle: nil)
+                    let pageVC = storyboard.instantiateViewController(withIdentifier: "PageViewController") as! PageViewController
+                    
+                    pageVC.view.frame = self.currentLoadedCardsArray[i].frame
+                    let page = pageVC.orderedViewControllers[1] as! DetailImageSwipeCardVC
+                    guard let pageURL = URL(string: valueArray[i].photoUrl!) else {return}
+                    page.detailImageVIew.load(url: pageURL)
+                    //            page.detailImageVIew.frame = viewTinderBackGround.frame
+                    let cardWidth = viewTinderBackGround.frame.width
+                    let cardHeight = viewTinderBackGround.frame.height
+                    page.detailImageVIew.frame.size.height = cardHeight - 80
+                    //            page.detailImageVIew.frame.offsetBy(dx: 0, dy: 30)
+                    page.detailImageVIew.frame.origin.y = 80
+                    page.detailImageVIew.contentMode = .scaleAspectFit
+                    //            page.detailImageVIew.clipsToBounds = true
+                    print("lkdsajldjklasjdlkasjldjals\(page.detailImageVIew.frame.origin.y)")
+                    page.name.text = valueArray[i].posterName!
+                    //            page.category.text = valueArray[i].posterInterest
+                    
             var text = ""
             if let num = valueArray[i].posterInterest {
             for i in num{
@@ -284,10 +293,11 @@ class SwipeVC: UIViewController {
                 default: break
                     
                 }
-            }
+                }
             }
             page.category.text = text
-
+            
+            //page.category.text = "#민지키치#만주키치#모드리치"
             
             
             //page.category.text = "\(valueArray[i].categoryIdx)"
