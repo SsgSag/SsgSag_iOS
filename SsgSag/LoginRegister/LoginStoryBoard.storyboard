@@ -18,9 +18,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <stackView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" axis="vertical" alignment="top" spacing="72" translatesAutoresizingMaskIntoConstraints="NO" id="jfp-A5-BQl" userLabel="전체">
-                                <rect key="frame" x="15" y="68" width="343.5" height="295.5"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="72" translatesAutoresizingMaskIntoConstraints="NO" id="jfp-A5-BQl" userLabel="전체">
+                                <rect key="frame" x="16" y="68" width="343.5" height="297.5"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="3St-fQ-JSA" userLabel="로고타이틀">
                                         <rect key="frame" x="0.0" y="0.0" width="203" height="89.5"/>
@@ -57,7 +56,7 @@
                                         </subviews>
                                     </stackView>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="22" translatesAutoresizingMaskIntoConstraints="NO" id="6ci-qf-zzU" userLabel="텍스트필드">
-                                        <rect key="frame" x="0.0" y="161.5" width="343.5" height="134"/>
+                                        <rect key="frame" x="0.0" y="161.5" width="343.5" height="136"/>
                                         <subviews>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="Ahf-Zv-xgN">
                                                 <rect key="frame" x="0.0" y="0.0" width="343.5" height="31"/>
@@ -112,10 +111,10 @@
                                                 </constraints>
                                             </stackView>
                                             <stackView opaque="NO" contentMode="scaleToFill" spacing="63" translatesAutoresizingMaskIntoConstraints="NO" id="QSl-tE-sau">
-                                                <rect key="frame" x="0.0" y="106" width="343.5" height="28"/>
+                                                <rect key="frame" x="0.0" y="106" width="343" height="30"/>
                                                 <subviews>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Kel-Vx-g9U">
-                                                        <rect key="frame" x="0.0" y="0.0" width="108.5" height="28"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="108.5" height="30"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" constant="108.66666666666667" id="La9-O6-r0Q"/>
                                                         </constraints>
@@ -124,20 +123,20 @@
                                                             <color key="titleColor" white="1" alpha="0.80000000000000004" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         </state>
                                                         <variation key="widthClass=compact">
-                                                            <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                         </variation>
                                                         <connections>
                                                             <action selector="touchUpAutoLoginButton:" destination="tMf-Vk-5XN" eventType="touchUpInside" id="pZd-XR-y70"/>
                                                         </connections>
                                                     </button>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="trailing" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Db5-Cn-zfJ">
-                                                        <rect key="frame" x="171.5" y="0.0" width="172" height="28"/>
+                                                        <rect key="frame" x="171.5" y="0.0" width="171.5" height="30"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                         <state key="normal" title="비밀번호를 잊으셨나요?">
                                                             <color key="titleColor" white="1" alpha="0.80000000000000004" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         </state>
                                                         <variation key="widthClass=compact">
-                                                            <fontDescription key="fontDescription" name=".AppleSystemUIFont" family=".AppleSystemUIFont" pointSize="13"/>
+                                                            <fontDescription key="fontDescription" name=".AppleSystemUIFont" family=".AppleSystemUIFont" pointSize="15"/>
                                                         </variation>
                                                     </button>
                                                 </subviews>
@@ -146,14 +145,21 @@
                                                 </constraints>
                                             </stackView>
                                         </subviews>
+                                        <constraints>
+                                            <constraint firstItem="jbv-Xe-g3q" firstAttribute="width" secondItem="6ci-qf-zzU" secondAttribute="width" id="3Hl-g5-GEV"/>
+                                            <constraint firstItem="Ahf-Zv-xgN" firstAttribute="width" secondItem="6ci-qf-zzU" secondAttribute="width" id="SvR-3B-SAk"/>
+                                        </constraints>
                                     </stackView>
                                 </subviews>
+                                <constraints>
+                                    <constraint firstItem="6ci-qf-zzU" firstAttribute="width" secondItem="jfp-A5-BQl" secondAttribute="width" id="N6f-Uc-v7u"/>
+                                </constraints>
                             </stackView>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="Omb-sL-x3A" userLabel="로그인버튼">
-                                <rect key="frame" x="159.5" y="587" width="56" height="64"/>
+                                <rect key="frame" x="16" y="562" width="343.5" height="89"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UbD-Ve-I6l">
-                                        <rect key="frame" x="0.0" y="0.0" width="56" height="32"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="343.5" height="44.5"/>
                                         <color key="backgroundColor" red="0.96862745100000003" green="0.97254901959999995" blue="0.97647058819999999" alpha="1" colorSpace="calibratedRGB"/>
                                         <fontDescription key="fontDescription" type="system" weight="medium" pointSize="16"/>
                                         <state key="normal" title="로그인">
@@ -164,7 +170,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cif-aA-bfD">
-                                        <rect key="frame" x="0.0" y="32" width="56" height="32"/>
+                                        <rect key="frame" x="0.0" y="44.5" width="343.5" height="44.5"/>
                                         <fontDescription key="fontDescription" type="system" weight="medium" pointSize="16"/>
                                         <state key="normal" title="회원가입">
                                             <color key="titleColor" white="1" alpha="0.80000000000000004" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -176,14 +182,20 @@
                                     </button>
                                 </subviews>
                                 <constraints>
-                                    <constraint firstItem="UbD-Ve-I6l" firstAttribute="width" secondItem="Omb-sL-x3A" secondAttribute="width" id="F8F-9a-KdP"/>
                                     <constraint firstItem="cif-aA-bfD" firstAttribute="width" secondItem="Omb-sL-x3A" secondAttribute="width" id="Ttw-oz-TeB"/>
+                                    <constraint firstItem="UbD-Ve-I6l" firstAttribute="height" secondItem="Omb-sL-x3A" secondAttribute="height" multiplier="1:2" id="UUd-7k-hIT"/>
+                                    <constraint firstItem="UbD-Ve-I6l" firstAttribute="width" secondItem="Omb-sL-x3A" secondAttribute="width" id="Wtb-2S-aB2"/>
                                 </constraints>
                             </stackView>
                         </subviews>
                         <color key="backgroundColor" red="0.25882352939999997" green="0.36862745099999999" blue="0.8980392157" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
+                            <constraint firstItem="Omb-sL-x3A" firstAttribute="leading" secondItem="jfp-A5-BQl" secondAttribute="leading" id="Ovz-W0-Cpr"/>
+                            <constraint firstItem="jfp-A5-BQl" firstAttribute="top" secondItem="Dqe-u2-s2t" secondAttribute="top" constant="48" id="S1R-Xl-IPN"/>
+                            <constraint firstItem="jfp-A5-BQl" firstAttribute="centerX" secondItem="To5-i1-NtQ" secondAttribute="centerX" id="aUO-e5-Y9Q"/>
                             <constraint firstItem="Omb-sL-x3A" firstAttribute="centerX" secondItem="Dqe-u2-s2t" secondAttribute="centerX" id="dqA-Hg-7gD"/>
+                            <constraint firstItem="Omb-sL-x3A" firstAttribute="height" secondItem="To5-i1-NtQ" secondAttribute="height" multiplier="1:7.5" id="jWQ-Nb-Rga"/>
+                            <constraint firstItem="Omb-sL-x3A" firstAttribute="trailing" secondItem="jfp-A5-BQl" secondAttribute="trailing" id="leI-eQ-SEG"/>
                             <constraint firstItem="Dqe-u2-s2t" firstAttribute="bottom" secondItem="Omb-sL-x3A" secondAttribute="bottom" constant="16" id="mBO-Og-h1p"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="Dqe-u2-s2t"/>
@@ -195,7 +207,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Z76-gD-Mja" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-13.043478260869566" y="-14.0625"/>
+            <point key="canvasLocation" x="-119" y="8"/>
         </scene>
         <!--SignupStoryBoard-->
         <scene sceneID="HGq-az-cSE">
