@@ -100,6 +100,14 @@ extension UIViewController {
         bar.backgroundColor = color
     }
     
+    func setNavigationBar() {
+        let bar: UINavigationBar! = self.navigationController?.navigationBar
+        
+        bar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
+        bar.shadowImage = UIImage()
+        bar.backgroundColor = UIColor.clear
+    }
+    
     func setLeftBtn(title: String, color : UIColor){
         
         let leftBTN = UIBarButtonItem(title: title, //백버튼 이미지 파일 이름에 맞게 변경해주세요.
