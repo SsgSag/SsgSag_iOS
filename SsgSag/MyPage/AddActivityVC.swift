@@ -28,7 +28,7 @@ class AddActivityVC: UIViewController, UITextViewDelegate, UITextFieldDelegate {
         let day = components.day!
         let currentDateString: String = "\(year)년 \(month)월 \(day)일"
         
-        activityNavigationBar.barStyle = .black
+//        activityNavigationBar.barStyle = .black
         startDateLabel.text = currentDateString
         endDateLabel.text = currentDateString
         
@@ -61,9 +61,11 @@ class AddActivityVC: UIViewController, UITextViewDelegate, UITextFieldDelegate {
         animation.play()
         //        getData(careerType: "0")
         postData()
-        simplerAlert(title: "저장되었습니다")
-        
+//        simplerAlert(title: "저장되었습니다")
+        simplerAlertwhenSave(title: "저장되었습니다")
     }
+    
+    
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         view.endEditing(true)

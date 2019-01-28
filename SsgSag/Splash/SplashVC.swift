@@ -20,6 +20,7 @@ class SplashVC: UIViewController {
         super.viewDidLoad()
         let animationView = LOTAnimationView(name: "splash")
         splashView.addSubview(animationView)
+        
         animationView.translatesAutoresizingMaskIntoConstraints = false
         animationView.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
         animationView.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
@@ -45,6 +46,8 @@ class SplashVC: UIViewController {
 //            }
 //        }
 //        // Do any additional setup after loading the view.
+        
+        
     }
 
     override func didReceiveMemoryWarning() {

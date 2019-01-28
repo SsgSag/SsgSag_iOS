@@ -48,11 +48,12 @@ class SwipeVC: UIViewController {
         simplerAlert(title: "저장되었습니다")
     }
     
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         getPosterData()
-        
        // viewActions.isUserInteractionEnabled = true
+
         
         countLabel.layer.cornerRadius = 10
         countLabel.layer.masksToBounds = true
@@ -99,6 +100,7 @@ class SwipeVC: UIViewController {
     }
 
     func getPosterData() {
+        
         let posterURL = URL(string: "http://54.180.79.158:8080/posters/show")
         var request = URLRequest(url: posterURL!)
         //request.addValue("application/json", forHTTPHeaderField: "Accept")
@@ -482,6 +484,7 @@ extension UIImageView {
     func load(url: URL) {
         getData(from: url) { [weak self] data, response, error in
             guard let data = data, error == nil else { return }
+            
             DispatchQueue.main.async() {
                 self?.image = UIImage(data: data)
 //                self?.image?.withRenderingMode(.alwaysOriginal)

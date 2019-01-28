@@ -364,6 +364,16 @@ extension CareerViewController: UITableViewDelegate, UITableViewDataSource {
             return cell
         }
     }
+    
+//    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+//        print("눌러눌러")
+//        if indexPath.row == 0 {
+//            if let activityVC = storyboard?.instantiateViewController(withIdentifier: "AddActivityVC")
+//            {
+//                present(activityVC, animated: true)
+//            }
+//        }
+//    }
 }
 
 extension CareerViewController : UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {

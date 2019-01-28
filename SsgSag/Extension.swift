@@ -80,6 +80,17 @@ extension UIViewController {
         present(alert, animated: true, completion: nil)
     }
     
+    func simplerAlertwhenSave(title: String) {
+        let alert = UIAlertController(title: title, message: nil, preferredStyle: .alert)
+        let action = UIAlertAction(title: "확인", style: .default, handler: dismissView)
+        alert.addAction(action)
+        present(alert, animated: true, completion: nil)
+    }
+    
+    func dismissView(action: UIAlertAction) {
+        dismiss(animated: true, completion: nil)
+    }
+    
     //네비게이션 바 투명하게 하는 함수
     func setNavigationBar(color: UIColor) {
         let bar: UINavigationBar! = self.navigationController?.navigationBar
@@ -241,3 +252,25 @@ extension CALayer {
 }
 
 
+extension UIViewController {
+    class func displaySpinner(onView : UIView) -> UIView {
+        let spinnerView = UIView.init(frame: onView.bounds)
+        spinnerView.backgroundColor = UIColor.init(red: 0.5, green: 0.5, blue: 0.5, alpha: 0.5)
+        let ai = UIActivityIndicatorView.init(style: .whiteLarge)
+        ai.startAnimating()
+        ai.center = spinnerView.center
+        
+        DispatchQueue.main.async {
+            spinnerView.addSubview(ai)
+            onView.addSubview(spinnerView)
+        }
+        
+        return spinnerView
+    }
+    
+    class func removeSpinner(spinner :UIView) {
+        DispatchQueue.main.async {
+            spinner.removeFromSuperview()
+        }
+    }
+}
