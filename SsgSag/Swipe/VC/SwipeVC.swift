@@ -10,7 +10,6 @@ import Lottie
 class SwipeVC: UIViewController {
     @IBOutlet weak var viewTinderBackGround: UIView!
     @IBOutlet var countLabel: UILabel!
-    
     @IBOutlet var overLapView: UIView!
     @IBOutlet weak var dislikedButton: UIButton!
     @IBOutlet weak var likedButton: UIButton!
@@ -301,10 +300,11 @@ class SwipeVC: UIViewController {
                 default: break
                     
                 }
-            }
+                }
             }
             page.category.text = text
-
+            
+            //page.category.text = "#민지키치#만주키치#모드리치"
             
             
             //page.category.text = "\(valueArray[i].categoryIdx)"

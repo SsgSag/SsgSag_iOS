@@ -46,6 +46,7 @@ class SwipeCard: UIView {
         let imageURL = URL(string: value)
         imageViewStatus.load(url: imageURL!)
         imageViewStatus.alpha = 0
+        
         addSubview(imageViewStatus)
         
         overLayImage = UIImageView(frame:bounds)
