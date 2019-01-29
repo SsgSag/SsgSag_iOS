@@ -8,6 +8,7 @@
 
 import UIKit
 import CoreData
+import NaverThirdPartyLogin
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -27,6 +28,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 //        window?.rootViewController = TapbarVC()
 //
 //        window?.makeKeyAndVisible()
+        
+        let instance = NaverThirdPartyLoginConnection.getSharedInstance()
+        instance?.isInAppOauthEnable = true // --- 1
+        instance?.isNaverAppOauthEnable = true // --- 2
+        instance?.isOnlyPortraitSupportedInIphone() // --- 3
+        // --- 4
+        instance?.serviceUrlScheme = kServiceAppUrlScheme
+        instance?.consumerKey = kConsumerKey
+        instance?.consumerSecret = kConsumerSecret
+        instance?.appName = kServiceAppName
+        
         return true
     }
 
@@ -46,12 +58,27 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func applicationDidBecomeActive(_ application: UIApplication) {
         // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
+        KOSession.handleDidBecomeActive()
     }
 
     func applicationWillTerminate(_ application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
         // Saves changes in the application's managed object context before the application terminates.
         self.saveContext()
+    }
+    
+    func application(_ application: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey: Any]) -> Bool {
+        if KOSession.isKakaoAccountLoginCallback(url) {
+            return KOSession.handleOpen(url)
+        }
+        return true
+    }
+    
+    func application(_ application: UIApplication, open url: URL, sourceApplication: String?, annotation: Any) -> Bool {
+        if KOSession.isKakaoAccountLoginCallback(url) {
+            return KOSession.handleOpen(url)
+        }
+        return true
     }
 
     // MARK: - Core Data stack

@@ -12,6 +12,7 @@ target 'SsgSag' do
   pod 'ObjectMapper'
   pod 'Kingfisher'
   pod 'lottie-ios'
+  pod 'naveridlogin-sdk-ios'
 
   target 'SsgSagTests' do
     inherit! :search_paths
