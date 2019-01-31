@@ -8,9 +8,9 @@
 
 import UIKit
 
-class CareerViewController: UIViewController {
+class CareerVC: UIViewController {
     
-    let activityTableView: UITableView = UITableView()
+    let activityTableView: UITableView = UITableView(frame: CGRect.zero, style: .grouped)
     let prizeTableView: UITableView = UITableView()
     let certificationTableView: UITableView = UITableView()
     var indicatorViewLeadingConstraint: NSLayoutConstraint!
@@ -59,6 +59,8 @@ class CareerViewController: UIViewController {
     
     @IBOutlet weak var scrollView: UIScrollView!
     
+    
+    //MARK: ViewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
         scrollView.delegate = self
@@ -68,8 +70,8 @@ class CareerViewController: UIViewController {
         setTableViewPosition()
         setUpCustomTabBar()
         
-        let resNib = UINib(nibName: "ActivityCell", bundle: nil)
-        activityTableView.register(resNib, forCellReuseIdentifier: "ActivityCell")
+        let activityNib = UINib(nibName: "ActivityCell", bundle: nil)
+        activityTableView.register(activityNib, forCellReuseIdentifier: "ActivityCell")
         let prizeNib = UINib(nibName: "PrizeCell", bundle: nil)
         prizeTableView.register(prizeNib, forCellReuseIdentifier: "PrizeCell")
         let certificationNib = UINib(nibName: "CertificationCell", bundle: nil)
@@ -81,12 +83,7 @@ class CareerViewController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        
-        getData(careerType: "0")
-        //getData(careerType: "1")
-        //getData(careerType: "2")
     }
-    
     
     func setUpCollectionView(){
         customTabBarCollectionView.delegate = self
@@ -212,6 +209,7 @@ class CareerViewController: UIViewController {
         prizeTableView.translatesAutoresizingMaskIntoConstraints = false
         certificationTableView.translatesAutoresizingMaskIntoConstraints = false
         
+        
         NSLayoutConstraint.activate([
             activityTableView.centerYAnchor.constraint(equalTo: scrollView.centerYAnchor),
             prizeTableView.centerYAnchor.constraint(equalTo: scrollView.centerYAnchor),
@@ -293,179 +291,7 @@ class CareerViewController: UIViewController {
         
     }
     
-}
-
-extension CareerViewController: UITableViewDelegate, UITableViewDataSource {
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        let bottomLine = UIView()
-        customTabBar.addSubview(bottomLine)
-        bottomLine.translatesAutoresizingMaskIntoConstraints = false
-        bottomLine.heightAnchor.constraint(equalToConstant: 0.5).isActive = true
-        bottomLine.backgroundColor = UIColor.white
-        bottomLine.leadingAnchor.constraint(equalTo: customTabBar.leadingAnchor).isActive = true
-        bottomLine.trailingAnchor.constraint(equalTo: customTabBar.trailingAnchor).isActive = true
-        bottomLine.bottomAnchor.constraint(equalToSystemSpacingBelow: customTabBar.bottomAnchor, multiplier: 0).isActive = true
-        
-        switch tableView {
-        case activityTableView:
-            if activityList.count > 0 {
-                return activityList.count
-            } else {
-                print("asldjlasjdlajsldkjalsjdklajslkdjasl: \(activityList.count)")
-                //                setUpEmptyTableView(tableView: activityTableView, isEmptyTable: true)
-                return activityList.count
-            }
-        case prizeTableView:
-            if prizeList.count == 0 {
-                print("2번째 비어있음: \(prizeList.count)")
-                //                setUpEmptyTableView(tableView: prizeTableView, isEmptyTable: true)
-                return prizeList.count
-            } else { return prizeList.count }
-        case certificationTableView:
-            if certificationList.count == 0 {
-                //                setUpEmptyTableView(tableView: certificationTableView)
-                return certificationList.count
-            } else { return certificationList.count }
-        default : return 0
-        }
-        
-    }
-    
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if tableView == activityTableView {
-            
-            let cell = tableView.dequeueReusableCell(withIdentifier: "ActivityCell", for: indexPath) as! ActivityCell
-            let activity: Datum = self.activityList[indexPath.row]
-            cell.titleLabel.text = activity.careerName
-            cell.dateLabel1.text = activity.careerDate1
-            if activity.careerDate2 != "" {
-                cell.dateLabel2.text = "~ " + activity.careerDate2
-            }
-            cell.detailLabel.text = activity.careerContent
-            cell.selectionStyle = .none
-            return cell
-        } else if tableView == prizeTableView {
-            let cell = tableView.dequeueReusableCell(withIdentifier: "PrizeCell", for: indexPath) as! ActivityCell
-            let prize: Datum = self.activityList[indexPath.row]
-            cell.titleLabel.text = prize.careerName
-            cell.dateLabel1.text = prize.careerDate1
-            cell.detailLabel.text = prize.careerContent
-            cell.selectionStyle = .none
-            return cell
-        } else {
-            let cell = tableView.dequeueReusableCell(withIdentifier: "CertificationCell", for: indexPath) as! ActivityCell
-            let certification: Datum = self.activityList[indexPath.row]
-            cell.titleLabel.text = certification.careerName
-            cell.dateLabel1.text = certification.careerDate1
-            cell.detailLabel.text = certification.careerContent
-            cell.selectionStyle = .none
-            return cell
-        }
-    }
-    
-//    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-//        print("눌러눌러")
-//        if indexPath.row == 0 {
-//            if let activityVC = storyboard?.instantiateViewController(withIdentifier: "AddActivityVC")
-//            {
-//                present(activityVC, animated: true)
-//            }
-//        }
-//    }
-}
-
-extension CareerViewController : UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
-    
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CustomCareerCell", for: indexPath) as! CustomCareerCell
-        if indexPath.row == 0 {
-            cell.label.textColor = .black
-            collectionView.selectItem(at: indexPath, animated: false, scrollPosition: [])
-        }
-        
-        switch indexPath.row {
-        case 0 : cell.label.text = "대외활동"
-        case 1 : cell.label.text = "수상내역"
-        case 2 : cell.label.text = "자격증"
-        default: break
-        }
-        return cell
-    }
-    
-    
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 3
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: self.view.frame.width / 3 , height: 55)
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-        return UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-        return 0
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        guard let cell = collectionView.cellForItem(at: indexPath) as? CustomCareerCell else {return}
-        cell.label.textColor = .black
-        indicatorViewLeadingConstraint.constant = (self.view.frame.width / 3) * CGFloat((indexPath.row))
-        UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.9, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
-            self.customTabBar.layoutIfNeeded()
-        }, completion: nil)
-        
-        let myPageStoryBoard = UIStoryboard(name: "MyPageStoryBoard", bundle: nil)
-        
-        if indexPath.row == 0 {
-            if plusButton.target(forAction: #selector(addPresentAction), withSender: nil) != nil{
-                plusButton.removeTarget(self, action: #selector(addPresentAction), for: .touchUpInside)
-            }
-            plusButton.addTarget(self, action: #selector(addActivityPresentAction), for: .touchUpInside)
-        }else if indexPath.row == 1{
-            if plusButton.target(forAction: #selector(addActivityPresentAction), withSender: nil) != nil{
-                plusButton.removeTarget(self, action: #selector(addActivityPresentAction), for: .touchUpInside)
-            }
-            plusButton.addTarget(self, action: #selector(addPresentAction), for: .touchUpInside)
-            
-        }else {
-            if plusButton.target(forAction: #selector(addActivityPresentAction), withSender: nil) != nil{
-                plusButton.removeTarget(self, action: #selector(addActivityPresentAction), for: .touchUpInside)
-            }
-            plusButton.addTarget(self, action: #selector(addPresentAction), for: .touchUpInside)
-        }
-        
-        
-        DispatchQueue.main.async {
-            UIView.animate(withDuration: 0.2, delay: 0, options: .curveLinear, animations: {
-                self.scrollView.contentOffset.x = self.view.frame.width * CGFloat(indexPath.row)
-            }, completion: nil)
-        }
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
-        guard let cell = collectionView.cellForItem(at: indexPath) as? CustomCareerCell else {return}
-        cell.label.textColor = .lightGray
-    }
-    
-    @objc func addActivityPresentAction() {
-        if let activityVC = storyboard?.instantiateViewController(withIdentifier: "AddActivityVC")
-        {
-            present(activityVC, animated: true)
-        }
-    }
-    
-    @objc func addPresentAction() {
-        if let addVC = storyboard?.instantiateViewController(withIdentifier: "AddVC") {
-            present(addVC, animated: true)
-        }
-    }
-    
-    func getData(careerType: String) {
+    func getData(careerType: Int) {
         let json: [String: Any] = ["careerType" : careerType]
         let jsonData = try? JSONSerialization.data(withJSONObject: json)
         let url = URL(string: "http://54.180.79.158:8080/career/info")!
@@ -479,6 +305,8 @@ extension CareerViewController : UICollectionViewDelegate, UICollectionViewDataS
         
         let task = URLSession.shared.dataTask(with: request) { data, response, error in
             
+            
+            
             guard error == nil else {
                 print(error?.localizedDescription ?? "No data")
                 return
@@ -490,26 +318,28 @@ extension CareerViewController : UICollectionViewDelegate, UICollectionViewDataS
             print("gggg")
             print(response)
             
+            
             do {
                 let apiResponse = try JSONDecoder().decode(Career.self, from: data)
+                print("커리어타이뿌: \(careerType)")
                 print("orders: \(apiResponse)")
-                if careerType == "0" {
+                
+                if careerType == 0 {
                     print("00000000")
                     self.activityList = apiResponse.data
                     DispatchQueue.main.async {
                         self.activityTableView.reloadData()
                         
                     }
-                } else if careerType == "1" {
+                } else if careerType == 1 {
                     print("111111111")
-                    self.prizeList = self.activityList
-                    //self.prizeList = apiResponse.data
+                    self.prizeList = apiResponse.data
                     DispatchQueue.main.async {
                         self.prizeTableView.reloadData()
                     }
-                } else if careerType == "2" {
-                    //self.certificationList = apiResponse.data
-                    self.prizeList = self.activityList
+                    
+                } else if careerType == 2 {
+                    self.certificationList = apiResponse.data
                     DispatchQueue.main.async {
                         self.certificationTableView.reloadData()
                     }
@@ -524,4 +354,3 @@ extension CareerViewController : UICollectionViewDelegate, UICollectionViewDataS
     }
     
 }
-

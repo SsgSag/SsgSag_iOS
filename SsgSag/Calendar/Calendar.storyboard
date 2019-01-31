@@ -385,28 +385,6 @@
             </objects>
             <point key="canvasLocation" x="2425" y="91"/>
         </scene>
-        <!--활동 정보-->
-        <scene sceneID="u3j-gm-hlK">
-            <objects>
-                <viewController storyboardIdentifier="CalendarDetailVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="rfW-Jr-9M4" customClass="CalendarDetailVC" customModule="SsgSag" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="owv-vb-w44">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <viewLayoutGuide key="safeArea" id="twe-1T-PVf"/>
-                    </view>
-                    <navigationItem key="navigationItem" title="활동 정보" id="LeA-VA-Fao">
-                        <barButtonItem key="leftBarButtonItem" title="&lt;" id="6y3-Mf-Gb5">
-                            <connections>
-                                <action selector="backButton:" destination="rfW-Jr-9M4" id="W4l-fk-8TM"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="a2C-nA-58p" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="2425" y="810"/>
-        </scene>
         <!--Navigation Controller-->
         <scene sceneID="iIa-mM-Skb">
             <objects>
@@ -830,7 +808,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0mh-ra-6Vi" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1224.8" y="776.76161919040487"/>
+            <point key="canvasLocation" x="1295" y="850"/>
         </scene>
         <!--DatePickerPopUp-->
         <scene sceneID="GMx-w9-27H">

@@ -4,6 +4,7 @@
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
+        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -11,7 +12,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <tableViewCell contentMode="scaleToFill" restorationIdentifier="CertificateCell" selectionStyle="default" indentationWidth="10" reuseIdentifier="CertificationCell" id="POk-mw-mHS" customClass="ActivityCell" customModule="SsgSag" customModuleProvider="target">
+        <tableViewCell contentMode="scaleToFill" restorationIdentifier="CertificateCell" selectionStyle="default" indentationWidth="10" reuseIdentifier="CertificationCell" id="POk-mw-mHS" customClass="NonActivityCell" customModule="SsgSag" customModuleProvider="target">
             <rect key="frame" x="0.0" y="0.0" width="365" height="138"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="POk-mw-mHS" id="KBd-0g-YgS">
@@ -19,7 +20,7 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WZR-Af-YTJ">
-                        <rect key="frame" x="12" y="6" width="341" height="125.5"/>
+                        <rect key="frame" x="0.0" y="6" width="353" height="125.5"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </view>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="토익" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gvl-nV-01e" userLabel="activityName">
@@ -50,18 +51,17 @@
                     <constraint firstItem="GU9-jM-DgM" firstAttribute="centerX" secondItem="KBd-0g-YgS" secondAttribute="centerX" id="IPi-Qp-VCr"/>
                     <constraint firstAttribute="bottom" secondItem="WZR-Af-YTJ" secondAttribute="bottom" constant="6" id="N5p-jl-WAL"/>
                     <constraint firstItem="GU9-jM-DgM" firstAttribute="leading" secondItem="vwx-T4-EEY" secondAttribute="leading" id="Xg4-ic-LQC"/>
-                    <constraint firstItem="WZR-Af-YTJ" firstAttribute="leading" secondItem="KBd-0g-YgS" secondAttribute="leading" constant="12" id="Xmq-5U-LAI"/>
                     <constraint firstItem="vwx-T4-EEY" firstAttribute="leading" secondItem="gvl-nV-01e" secondAttribute="leading" id="YpI-ep-Snz"/>
                     <constraint firstItem="vwx-T4-EEY" firstAttribute="top" secondItem="gvl-nV-01e" secondAttribute="bottom" constant="4" id="ay7-UO-ejG"/>
                     <constraint firstAttribute="trailing" secondItem="WZR-Af-YTJ" secondAttribute="trailing" constant="12" id="bIR-im-zBv"/>
-                    <constraint firstItem="gvl-nV-01e" firstAttribute="leading" secondItem="KBd-0g-YgS" secondAttribute="leading" constant="18" id="goA-9i-fDL"/>
+                    <constraint firstItem="gvl-nV-01e" firstAttribute="leading" secondItem="WZR-Af-YTJ" secondAttribute="leading" constant="18" id="sOQ-Fn-2bI"/>
                     <constraint firstAttribute="bottom" secondItem="GU9-jM-DgM" secondAttribute="bottom" constant="20" id="t3A-mo-3pg"/>
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="MGl-AE-IaG"/>
             <connections>
+                <outlet property="dateLabel1" destination="vwx-T4-EEY" id="SWE-NM-xOv"/>
                 <outlet property="detailLabel" destination="GU9-jM-DgM" id="71d-pI-o9b"/>
-                <outlet property="periodLabel" destination="vwx-T4-EEY" id="4L6-KO-t4j"/>
                 <outlet property="titleLabel" destination="gvl-nV-01e" id="Hp5-Vp-xUs"/>
             </connections>
             <point key="canvasLocation" x="106" y="207"/>

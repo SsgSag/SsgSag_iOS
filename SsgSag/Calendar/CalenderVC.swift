@@ -30,6 +30,7 @@ class CalenderVC: UIViewController{
         return todo
     }()
     
+    /* 일정 수동 추가 버튼
     let passiveScheduleAddButton : UIButton = {
         let bt = UIButton()
         bt.setImage(#imageLiteral(resourceName: "btnFloatingPlus"), for: .normal)
@@ -37,6 +38,7 @@ class CalenderVC: UIViewController{
         //bt.backgroundColor = UIColor(displayP3Red: 7 / 255, green: 166 / 255, blue: 255 / 255, alpha: 1.0)
         return bt
     }()
+ */
     
     let donwTodoView: UIImageView = {
         let downView = UIImageView()
@@ -199,6 +201,7 @@ class CalenderVC: UIViewController{
         calenderView.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
         calenderView.bottomAnchor.constraint(equalTo: todoSeparatorBar.topAnchor).isActive = true
         
+        /*
         view.addSubview(passiveScheduleAddButton)
         view.bringSubviewToFront(passiveScheduleAddButton)
         passiveScheduleAddButton.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -15).isActive = true
@@ -208,7 +211,7 @@ class CalenderVC: UIViewController{
         passiveScheduleAddButton.layer.cornerRadius = 54 / 2
         passiveScheduleAddButton.layer.masksToBounds = true
         passiveScheduleAddButton.addTarget(self, action: #selector(addPassiveDate), for: .touchUpInside)
-        
+        */
         view.addSubview(todoListButton)
         todoListButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant:-34).isActive = true
         todoListButton.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
@@ -339,7 +342,7 @@ class CalenderVC: UIViewController{
         view.bringSubviewToFront(todoListButton)
         todoListButton.isHidden = false
         
-        view.bringSubviewToFront(passiveScheduleAddButton)
+//        view.bringSubviewToFront(passiveScheduleAddButton)
         
         NotificationCenter.default.post(name: NSNotification.Name("changeToUp"), object: nil)
         
@@ -395,7 +398,7 @@ class CalenderVC: UIViewController{
         
         view.bringSubviewToFront(todoListButton)
         todoListButton.isHidden = false
-        view.bringSubviewToFront(passiveScheduleAddButton)
+//        view.bringSubviewToFront(passiveScheduleAddButton)
         
         NotificationCenter.default.post(name: NSNotification.Name("changeToUp"), object: nil)
         
@@ -433,7 +436,7 @@ class CalenderVC: UIViewController{
         calenderView.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
         calenderView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor).isActive = true
         
-        view.bringSubviewToFront(passiveScheduleAddButton)
+//        view.bringSubviewToFront(passiveScheduleAddButton)
         todoListButton.isHidden = true
         
         UIView.animate(withDuration: 0.1) {

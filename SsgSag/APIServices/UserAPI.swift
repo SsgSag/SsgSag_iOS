@@ -17,64 +17,66 @@ struct UserAPI {
 //        formatter.timeStyle = .medium
 //        return formatter
 //    }()
-
-    static func signUpURL() -> URL? {
-        return URL(string: baseURLString + "/users")
-    }
+//
+//    static func signUpURL() -> URL? {
+//        return URL(string: baseURLString + "/users")
+//    }
+//
+//    static func loginURL() -> URL? {
+//        return URL(string: baseURLString + "/login")
+//    }
+//
+//    static func autoLoginURL() -> URL? {
+//        return URL(string: baseURLString + "/autoLogin")
+//    }
+//
+//    static func reInterestPreferenceURL() -> URL? {
+//        return URL(string: baseURLString + "/users/reInterestReq1")
+//    }
+//
+//    static func reInterestJobURL() -> URL? {
+//        return URL(string: baseURLString + "/users/reInterestReq2")
+//    }
+//
+//    static func isEmailRegisterURL() -> URL? {
+//        return URL(string: baseURLString + "/users/alreadyUserEmailReg")
+//    }
+//
+//    static func userInterestURL() -> URL? {
+//        return URL(string: baseURLString + "/users/info/interest")
+//    }
+//
+//    static func checkUserInfoURL() -> URL? {
+//        return URL(string: baseURLString + "/users/info")
+//    }
+//
+//    static func deleteUserURL() -> URL? {
+//        return URL(string: baseURLString + "/delete")
+//    }
+//
+//    static func userInfoURL() -> URL? {
+//        return URL(string: baseURLString + "/interests")
+//    }
+//
+//
+//
+//    static func fetchArticleURL() -> URL? {
+//        return URL(string: baseURLString + "/")
+//    }
+//
+//    static func resourceURL(for stringURL : String) -> URL? {
+//        return URL(string: baseURLString + stringURL)
+//    }
+//
+//    static func postArticleURL() -> URL? {
+//        return URL(string: baseURLString + "/image")
+//    }
+//
+//    static func deleteArticleURL(id : String) -> URL? {
+//        return URL(string: baseURLString + "/image/" + id)
+//    }
+//
     
-    static func loginURL() -> URL? {
-        return URL(string: baseURLString + "/login")
-    }
-    
-    static func autoLoginURL() -> URL? {
-        return URL(string: baseURLString + "/autoLogin")
-    }
-    
-    static func reInterestPreferenceURL() -> URL? {
-        return URL(string: baseURLString + "/users/reInterestReq1")
-    }
-    
-    static func reInterestJobURL() -> URL? {
-        return URL(string: baseURLString + "/users/reInterestReq2")
-    }
-    
-    static func isEmailRegisterURL() -> URL? {
-        return URL(string: baseURLString + "/users/alreadyUserEmailReg")
-    }
-    
-    static func userInterestURL() -> URL? {
-        return URL(string: baseURLString + "/users/info/interest")
-    }
-    
-    static func checkUserInfoURL() -> URL? {
-        return URL(string: baseURLString + "/users/info")
-    }
-    
-    static func deleteUserURL() -> URL? {
-        return URL(string: baseURLString + "/delete")
-    }
-    
-    static func userInfoURL() -> URL? {
-        return URL(string: baseURLString + "/interests")
-    }
-    
-    
-    
-    static func fetchArticleURL() -> URL? {
-        return URL(string: baseURLString + "/")
-    }
-    
-    static func resourceURL(for stringURL : String) -> URL? {
-        return URL(string: baseURLString + stringURL)
-    }
-    
-    static func postArticleURL() -> URL? {
-        return URL(string: baseURLString + "/image")
-    }
-    
-    static func deleteArticleURL(id : String) -> URL? {
-        return URL(string: baseURLString + "/image/" + id)
-    }
 //
 //    static func user(from data : Data) -> User? {
 //        let jsonObject = try? JSONSerialization.jsonObject(with: data, options: [])
