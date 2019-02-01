@@ -10,7 +10,7 @@ import Foundation
 
 
 struct UserAPI {
-    private static let baseURLString = "http://54.180.79.158:8080"
+    private static let baseURLString = "http://54.180.32.22:8080"
 //    private static let dateFormatter : DateFormatter = {
 //        let formatter = DateFormatter()
 //        formatter.dateStyle = .medium

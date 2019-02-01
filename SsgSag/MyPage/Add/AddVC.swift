@@ -67,7 +67,7 @@ class AddVC: UIViewController, UITextFieldDelegate, UITextViewDelegate {
         ]
         
         let jsonData = try? JSONSerialization.data(withJSONObject: json)
-        let url = URL(string: "http://54.180.79.158:8080/career")!
+        let url = URL(string: "http://54.180.32.22:8080/career")!
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
@@ -99,7 +99,7 @@ class AddVC: UIViewController, UITextFieldDelegate, UITextViewDelegate {
         let jsonData = try? JSONSerialization.data(withJSONObject: json)
         
         // create post request
-        let url = URL(string: "http://54.180.79.158:8080/career")!
+        let url = URL(string: "http://54.180.32.22:8080/career")!
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")

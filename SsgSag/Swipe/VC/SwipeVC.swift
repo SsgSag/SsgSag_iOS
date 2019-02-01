@@ -100,8 +100,8 @@ class SwipeVC: UIViewController {
     }
 
     func getPosterData() {
-        
-        let posterURL = URL(string: "http://54.180.79.158:8080/posters/show")
+
+        let posterURL = URL(string: "http://54.180.32.22:8080/posters/show")
         var request = URLRequest(url: posterURL!)
         //request.addValue("application/json", forHTTPHeaderField: "Accept")
         request.httpMethod = "POST"

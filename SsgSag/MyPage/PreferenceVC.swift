@@ -59,7 +59,7 @@ class PreferenceVC: UIViewController {
                                     "1","3","5"]
         ]
         let jsonData = try? JSONSerialization.data(withJSONObject: json)
-        let url = URL(string: "http://54.180.79.158:8080/interests")!
+        let url = URL(string: "http://54.180.32.22:8080/interests")!
         var request = URLRequest(url: url)
         request.httpMethod = "PUT"
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
@@ -145,7 +145,7 @@ class PreferenceVC: UIViewController {
     
     
     func getPosterData() {
-        let posterURL = URL(string: "http://54.180.79.158:8080/interests")
+        let posterURL = URL(string: "http://54.180.32.22:8080/interests")
         var request = URLRequest(url: posterURL!)
         request.httpMethod = "PUT"
         let key2 = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJEb0lUU09QVCIsInVzZXJfaWR4IjoxfQ.5lCvAqnzYP4-2pFx1KTgLVOxYzBQ6ygZvkx5jKCFM08"
