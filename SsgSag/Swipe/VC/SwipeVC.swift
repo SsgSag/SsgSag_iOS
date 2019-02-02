@@ -10,6 +10,7 @@ import Lottie
 class SwipeVC: UIViewController {
     @IBOutlet weak var viewTinderBackGround: UIView!
     @IBOutlet var countLabel: UILabel!
+    
     @IBOutlet var overLapView: UIView!
     @IBOutlet weak var dislikedButton: UIButton!
     @IBOutlet weak var likedButton: UIButton!
@@ -47,11 +48,12 @@ class SwipeVC: UIViewController {
         simplerAlert(title: "저장되었습니다")
     }
     
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         getPosterData()
-        
        // viewActions.isUserInteractionEnabled = true
+
         
         countLabel.layer.cornerRadius = 10
         countLabel.layer.masksToBounds = true
@@ -98,7 +100,8 @@ class SwipeVC: UIViewController {
     }
 
     func getPosterData() {
-        let posterURL = URL(string: "http://54.180.79.158:8080/posters/show")
+
+        let posterURL = URL(string: "http://54.180.32.22:8080/posters/show")
         var request = URLRequest(url: posterURL!)
         //request.addValue("application/json", forHTTPHeaderField: "Accept")
         request.httpMethod = "POST"
@@ -257,7 +260,6 @@ class SwipeVC: UIViewController {
             var text = ""
             if let num = valueArray[i].posterInterest {
             for i in num{
-                print("해쉬태그 추가하자")
                 switch i {
                 case 0:
                     text = text + "#기획/아이디어"
@@ -298,11 +300,10 @@ class SwipeVC: UIViewController {
                 default: break
                     
                 }
-                }
+            }
             }
             page.category.text = text
-            
-            //page.category.text = "#민지키치#만주키치#모드리치"
+
             
             
             //page.category.text = "\(valueArray[i].categoryIdx)"
@@ -316,7 +317,7 @@ class SwipeVC: UIViewController {
                 if let hashTagArr = valueArray[i].posterInterest {
                     var text = ""
                     for i in hashTagArr{
-                        print("해쉬태그 추가하자")
+
                         switch i {
                         case 0:
                             text = text + "#기획/아이디어"
@@ -482,6 +483,7 @@ extension UIImageView {
     func load(url: URL) {
         getData(from: url) { [weak self] data, response, error in
             guard let data = data, error == nil else { return }
+            
             DispatchQueue.main.async() {
                 self?.image = UIImage(data: data)
 //                self?.image?.withRenderingMode(.alwaysOriginal)

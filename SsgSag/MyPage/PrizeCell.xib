@@ -4,6 +4,7 @@
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
+        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -11,7 +12,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="PrizeCell" id="CpL-5s-pRg" customClass="ActivityCell" customModule="SsgSag" customModuleProvider="target">
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="PrizeCell" id="CpL-5s-pRg" customClass="NonActivityCell" customModule="SsgSag" customModuleProvider="target">
             <rect key="frame" x="0.0" y="0.0" width="365" height="138"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="CpL-5s-pRg" id="2lv-Pe-Wsk">
@@ -19,7 +20,7 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="O3c-1H-NNS">
-                        <rect key="frame" x="12" y="6" width="341" height="125.5"/>
+                        <rect key="frame" x="0.0" y="6" width="353" height="125.5"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </view>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="솝트 앱잼" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2T6-u9-0em" userLabel="activityName">
@@ -45,26 +46,25 @@
                 <constraints>
                     <constraint firstItem="APe-X1-b1V" firstAttribute="leading" secondItem="CsI-DB-xp6" secondAttribute="leading" id="3Nb-Tv-xbj"/>
                     <constraint firstItem="APe-X1-b1V" firstAttribute="centerX" secondItem="2lv-Pe-Wsk" secondAttribute="centerX" id="9m7-je-wmX"/>
-                    <constraint firstItem="CsI-DB-xp6" firstAttribute="leading" secondItem="2T6-u9-0em" secondAttribute="leading" id="CXh-6K-aWk"/>
                     <constraint firstItem="2T6-u9-0em" firstAttribute="top" secondItem="2lv-Pe-Wsk" secondAttribute="top" constant="22" id="FFQ-KH-Duf"/>
                     <constraint firstAttribute="bottom" secondItem="O3c-1H-NNS" secondAttribute="bottom" constant="6" id="Mjc-9m-63o"/>
                     <constraint firstItem="O3c-1H-NNS" firstAttribute="top" secondItem="2lv-Pe-Wsk" secondAttribute="top" constant="6" id="P2o-bT-PtX"/>
                     <constraint firstItem="CsI-DB-xp6" firstAttribute="top" secondItem="2T6-u9-0em" secondAttribute="bottom" constant="4" id="QAI-JP-3dA"/>
-                    <constraint firstItem="O3c-1H-NNS" firstAttribute="leading" secondItem="2lv-Pe-Wsk" secondAttribute="leading" constant="12" id="Skb-dq-Tfy"/>
                     <constraint firstItem="APe-X1-b1V" firstAttribute="top" secondItem="2lv-Pe-Wsk" secondAttribute="top" constant="82" id="Twn-pH-TXv"/>
+                    <constraint firstItem="CsI-DB-xp6" firstAttribute="leading" secondItem="2T6-u9-0em" secondAttribute="leading" id="WS6-gJ-Oih"/>
                     <constraint firstAttribute="bottom" secondItem="APe-X1-b1V" secondAttribute="bottom" constant="20" id="YqN-4D-32R"/>
                     <constraint firstAttribute="trailing" secondItem="APe-X1-b1V" secondAttribute="trailing" constant="18" id="fb4-4b-LxQ"/>
-                    <constraint firstItem="2T6-u9-0em" firstAttribute="leading" secondItem="2lv-Pe-Wsk" secondAttribute="leading" constant="18" id="nur-hX-Z0W"/>
+                    <constraint firstItem="2T6-u9-0em" firstAttribute="leading" secondItem="O3c-1H-NNS" secondAttribute="leading" constant="18" id="myn-Gs-Lxc"/>
                     <constraint firstAttribute="trailing" secondItem="O3c-1H-NNS" secondAttribute="trailing" constant="12" id="phO-b2-9cG"/>
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="Wos-uX-G4d"/>
             <connections>
-                <outlet property="detailLabel" destination="APe-X1-b1V" id="ALU-KK-Wfu"/>
-                <outlet property="periodLabel" destination="CsI-DB-xp6" id="4lh-QC-ISV"/>
-                <outlet property="titleLabel" destination="2T6-u9-0em" id="bfO-ua-8Uk"/>
+                <outlet property="dateLabel1" destination="CsI-DB-xp6" id="l5k-9i-J2m"/>
+                <outlet property="detailLabel" destination="APe-X1-b1V" id="rXO-7g-031"/>
+                <outlet property="titleLabel" destination="2T6-u9-0em" id="JMC-jI-nvU"/>
             </connections>
-            <point key="canvasLocation" x="116" y="69.265367316341838"/>
+            <point key="canvasLocation" x="-68" y="69"/>
         </tableViewCell>
     </objects>
 </document>

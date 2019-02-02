@@ -23,7 +23,8 @@ struct Career: Codable {
 
 struct Datum: Codable {
     let careerIdx, userIdx, careerType: Int
-    let careerName, careerContent, careerDate1, careerDate2: String
+    let careerName, careerContent, careerDate1: String
     let careerRegDate: String
+    let careerDate2: String?
 }
 

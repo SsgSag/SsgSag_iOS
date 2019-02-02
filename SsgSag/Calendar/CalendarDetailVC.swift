@@ -40,4 +40,9 @@ class CalendarDetailVC: UIViewController {
         dismiss(animated: true, completion: nil)
     }
     
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        guard let nextVC: ZoomPosterImageVC = segue.destination as? ZoomPosterImageVC else {return}
+        nextVC.poster = PosterImage.image ?? #imageLiteral(resourceName: "1")
+    }
+    
 }

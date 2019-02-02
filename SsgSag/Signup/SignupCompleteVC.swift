@@ -145,7 +145,7 @@ class SignUpCompleteVC: UIViewController {
         
         let jsonData = try? JSONSerialization.data(withJSONObject: json)
         
-        let url = URL(string: "http://54.180.79.158:8080/users")!
+        let url = URL(string: "http://54.180.32.22:8080/users")!
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
