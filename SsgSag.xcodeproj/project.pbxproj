@@ -62,6 +62,7 @@
 		FA524BF121D64E2400675289 /* SignupStoryBoard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FA524BF021D64E2400675289 /* SignupStoryBoard.storyboard */; };
 		FA5A87F421E7D51D008C2C41 /* Career.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA5A87F321E7D51D008C2C41 /* Career.swift */; };
 		FA5A882321E908DF008C2C41 /* Intro.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FA5A882221E908DE008C2C41 /* Intro.storyboard */; };
+		FA5FC0B72205964C00CB83C8 /* CalenderView + CollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA5FC0B62205964C00CB83C8 /* CalenderView + CollectionView.swift */; };
 		FA61FE0F21E0E3D300A28947 /* JobVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA61FE0E21E0E3D300A28947 /* JobVC.swift */; };
 		FA61FE1121E0E4A200A28947 /* PreferenceVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA61FE1021E0E4A200A28947 /* PreferenceVC.swift */; };
 		FA61FE1321E1D48D00A28947 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = FA61FE1221E1D48D00A28947 /* .gitignore */; };
@@ -181,6 +182,7 @@
 		FA524BF021D64E2400675289 /* SignupStoryBoard.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = SignupStoryBoard.storyboard; sourceTree = "<group>"; };
 		FA5A87F321E7D51D008C2C41 /* Career.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Career.swift; sourceTree = "<group>"; };
 		FA5A882221E908DE008C2C41 /* Intro.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Intro.storyboard; sourceTree = "<group>"; };
+		FA5FC0B62205964C00CB83C8 /* CalenderView + CollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CalenderView + CollectionView.swift"; sourceTree = "<group>"; };
 		FA61FE0E21E0E3D300A28947 /* JobVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JobVC.swift; sourceTree = "<group>"; };
 		FA61FE1021E0E4A200A28947 /* PreferenceVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferenceVC.swift; sourceTree = "<group>"; };
 		FA61FE1221E1D48D00A28947 /* .gitignore */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
@@ -353,6 +355,7 @@
 				84264BA521DF0FF300849E6B /* Calendar.storyboard */,
 				845928D521D09F2F001DF6CC /* CalenderVC.swift */,
 				845928D621D09F2F001DF6CC /* CalenderView.swift */,
+				FA5FC0B62205964C00CB83C8 /* CalenderView + CollectionView.swift */,
 				845928D821D09F2F001DF6CC /* MonthView.swift */,
 				845928D721D09F2F001DF6CC /* WeekdaysView.swift */,
 				84264BA721DF106C00849E6B /* CalendarDetailVC.swift */,
@@ -781,6 +784,7 @@
 				FAA238732203154400C6DB13 /* ViewCareerService.swift in Sources */,
 				84E19CD421DCC922006F72EC /* APIManager.swift in Sources */,
 				84E19CD621DCC922006F72EC /* NetworkResult.swift in Sources */,
+				FA5FC0B72205964C00CB83C8 /* CalenderView + CollectionView.swift in Sources */,
 				FA3A342221E5D64300668908 /* UserInfoVC.swift in Sources */,
 				FAA238792203296500C6DB13 /* NonActivityCell.swift in Sources */,
 				FAD323DB21E36FA6000C4FBA /* AddCertificationVC.swift in Sources */,

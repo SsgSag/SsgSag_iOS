@@ -29,12 +29,13 @@ class myPageVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
         super.viewDidLoad()
         profileImageView.applyRadius(radius: profileImageView.frame.height / 2)
     }
-    
+  
     @IBAction func removeDefaults(_ sender: Any) {
         let dictionary = UserDefaults.standard.dictionaryRepresentation()
         dictionary.keys.forEach { (key) in
             UserDefaults.standard.removeObject(forKey: "poster")
         }
+        print("지웠음")
     }
     
     @IBAction func touchUpCameraButton(_ sender: UIButton) {
