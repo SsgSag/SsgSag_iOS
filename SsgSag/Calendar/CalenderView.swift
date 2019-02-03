@@ -72,14 +72,17 @@ class CalenderView: UIView, MonthViewDelegate {
                     let components = Calendar.current.dateComponents([.day], from: posterStartDateTime!, to: posterEndDateTime!)
                     let dayInterval = components.day! + 1
                     
-                    if isDuplicatePosterTuple(posterTuples, input: (posterStartDateTime!.addingTimeInterval(60.0 * 60.0 * 9.0), posterEndDateTime!.addingTimeInterval(60.0 * 60.0 * 9.0), dayInterval, poster.categoryIdx!, poster.posterName!, poster.categoryIdx!)) == false {
-                        posterTuples.append((posterStartDateTime!.addingTimeInterval(60.0 * 60.0 * 9.0), posterEndDateTime!.addingTimeInterval(60.0 * 60.0 * 9.0), dayInterval, poster.categoryIdx!, poster.posterName!, poster.categoryIdx!))
+                    if isDuplicatePosterTuple(posterTuples,
+                                              input: (posterStartDateTime!.addingTimeInterval(60.0 * 60.0 * 9.0), posterEndDateTime!.addingTimeInterval(60.0 * 60.0 * 9.0),
+                                                      dayInterval, poster.categoryIdx!,
+                                                      poster.posterName!,
+                                                      poster.categoryIdx!)) == false {
+                        posterTuples.append((posterStartDateTime!, posterEndDateTime!, dayInterval, poster.categoryIdx!, poster.posterName!, poster.categoryIdx!))
                     }
                 }
             }
         }
     }
-    
     
     //마지막 선택된 날짜의 셀의 백그라운드 색깔을 지우자
     //투두리스트를 표현하자

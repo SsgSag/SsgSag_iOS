@@ -135,22 +135,20 @@ extension CalenderView: UICollectionViewDelegate, UICollectionViewDataSource, UI
                     
                     //Dictionary에 이벤트 추가
                     eventDictionary[indexPath.row]?.append(event.init(eventDate: tuple.endDate, title: tuple.title, categoryIdx: tuple.categoryIdx))
-                    print("\(indexPath.row) \(currentCellDay)에 currentEvent잇음요")
-                    print("currentEventttttttt: \(eventDictionary[indexPath.row])")
                 }
             }
             
         }
         
-        let date1 = "2019-02-11 14:59:59"
-        let date2 = "2019-02-11 14:59:59"
-        let date3 = "2019-02-11 14:59:59"
+//        let date1 = "2019-02-11 14:59:59"
+//        let date2 = "2019-02-11 14:59:59"
+//        let date3 = "2019-02-11 14:59:59"
         
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
-        let endDate1 = dateFormatter.date(from: date1)!
-        let endDate2 = dateFormatter.date(from: date2)!
-        let endDate3 = dateFormatter.date(from: date3)!
+//        let endDate1 = dateFormatter.date(from: date1)!
+//        let endDate2 = dateFormatter.date(from: date2)!
+//        let endDate3 = dateFormatter.date(from: date3)!
         
         if indexPath.row == 15 {
 //            eventDictionary[indexPath.row]?.append(event.init(eventDate: endDate1, title: "가가", categoryIdx: 1))
@@ -160,7 +158,7 @@ extension CalenderView: UICollectionViewDelegate, UICollectionViewDataSource, UI
         
         
         
-        //event가 있으면 추가
+                //event가 있으면 추가
         let eventNum = eventDictionary[indexPath.row]!.count
         if (eventNum > 0) {
             let event = eventDictionary[indexPath.row]!
@@ -220,7 +218,7 @@ extension CalenderView: UICollectionViewDelegate, UICollectionViewDataSource, UI
         let day = components.day!
         
         let currentDateString: String = "\(year)-\(month)-\(day) 00:00:00"
-        let todayDate = formatter.date(from: currentDateString)
+//        let todayDate = formatter.date(from: currentDateString)
         
         currentPosterTuple = []
         return cell
@@ -236,7 +234,7 @@ extension CalenderView: UICollectionViewDelegate, UICollectionViewDataSource, UI
 
         let cellYear = currentYear
         let cellMonth = currentMonth
-        let cellDay = indexPath.row-firstWeekDayOfMonth+2
+        let cellDay = indexPath.row - firstWeekDayOfMonth+2
         
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"

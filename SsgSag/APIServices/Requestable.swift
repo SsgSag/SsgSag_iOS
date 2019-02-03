@@ -20,7 +20,6 @@ extension Requestable {
     
     func gettable(_ url: String, body: [String:Any]?, header: HTTPHeaders?, completion: @escaping (NetworkResult<NetworkData>) -> Void) {
         Alamofire.request(url, method: .get, parameters: nil, encoding: JSONEncoding.default, headers: header).responseObject { (res: DataResponse<NetworkData>) in
-            res.result
             switch res.result {
             case .success:
                 guard let value = res.result.value else {return}

@@ -6,7 +6,7 @@ class CalenderVC: UIViewController{
     
     var daySelectedStatus = 0
     
-    var todoData:[(Date, Date, Int, Int, String, Int)] = []
+    var todoTableData:[(Date, Date, Int, Int, String, Int)] = []
     
     var posterTuples:[(Date, Date, Int, Int, String, Int)] = []
     
@@ -112,8 +112,8 @@ class CalenderVC: UIViewController{
             let todayDay = Calendar.current.component(.day, from: today)
             
             if posterTupleMonth == todayMonth && (posterTupleDay - todayDay) > 0{
-                if isDuplicatePosterTuple(todoData, input: posterTuple) == false {
-                        todoData.append(posterTuple)
+                if isDuplicatePosterTuple(todoTableData, input: posterTuple) == false {
+                        todoTableData.append(posterTuple)
                 }
             }
         }
@@ -214,7 +214,6 @@ class CalenderVC: UIViewController{
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
         
-        let defaults = UserDefaults.standard
         let today = Date()
         for i in posterTuples {
             let posterTupleMonth = Calendar.current.component(.month, from: i.1)
@@ -224,8 +223,8 @@ class CalenderVC: UIViewController{
             let todayDay = Calendar.current.component(.day, from: today)
             
             if posterTupleMonth == todayMonth && (posterTupleDay - todayDay) > 0 {
-                if isDuplicatePosterTuple(todoData, input: i) == false {
-                    todoData.append(i)
+                if isDuplicatePosterTuple(todoTableData, input: i) == false {
+                    todoTableData.append(i)
                 }
             }
         }
@@ -263,8 +262,8 @@ class CalenderVC: UIViewController{
             let todayDay = Calendar.current.component(.day, from: today)
             
             if posteurTupleMonth == todayMonth && (posterTupleDay - todayDay) > 0{
-                if isDuplicatePosterTuple(todoData, input: i) == false {
-                    todoData.append(i)
+                if isDuplicatePosterTuple(todoTableData, input: i) == false {
+                    todoTableData.append(i)
                 }
             }
         }
@@ -273,7 +272,7 @@ class CalenderVC: UIViewController{
     @objc func changeTodoTable() {
         daySelectedStatus = 0
         todoListButton.isHidden = true
-        todoData = []
+        todoTableData = []
         let today = Date()
         getDateAfterToday(today)
         
@@ -303,7 +302,7 @@ class CalenderVC: UIViewController{
         NotificationCenter.default.post(name: NSNotification.Name("changeToUp"), object: nil)
         
         if daySelectedStatus == 0 {
-            todoData = []
+            todoTableData = []
             let today = Date()
             for i in posterTuples {
                 let posteurTupleMonth = Calendar.current.component(.month, from: i.1)
@@ -313,7 +312,7 @@ class CalenderVC: UIViewController{
                 let todayDay = Calendar.current.component(.day, from: today)
                 
                 if posteurTupleMonth == todayMonth && (posterTupleDay - todayDay) > 0{
-                    todoData.append(i)
+                    todoTableData.append(i)
                 }
             }
             
@@ -362,16 +361,33 @@ class CalenderVC: UIViewController{
         }
     }
     
+    //
     @objc func todoUpByDaySelected(_ notification: Notification){
         setCalendarVCWhenTODOShow()
         NotificationCenter.default.post(name: NSNotification.Name("changeToUp"), object: nil)
         //마지막 선택된 날짜로 투두 테이블 표현
         if let currentSelectedDateTime = notification.userInfo?["currentCellDateTime"] as? Date {
-            todoData = []
-            for i in posterTuples {
-                if i.0 <= currentSelectedDateTime && i.1 >= currentSelectedDateTime {
-                    todoData.append(i)
+            
+            todoTableData = []
+            
+            for posterTuple in posterTuples {
+                //posterTuple의 연,월,일이 모두 같을때만 todoTableData에 값을 넣는다.
+                
+                let posterTupleEndDateYear = Calendar.current.component(.year, from: posterTuple.1)
+                let posterTupleEndDateMonth = Calendar.current.component(.month, from: posterTuple.1)
+                let posterTupleEndDateDay = Calendar.current.component(.day, from: posterTuple.1)
+                
+                let currentSelectedDateYear = Calendar.current.component(.year, from: currentSelectedDateTime)
+                let currentSelectedDateMonth = Calendar.current.component(.month, from: currentSelectedDateTime)
+                let currentSelectedDateDay = Calendar.current.component(.day, from: currentSelectedDateTime)
+
+                if posterTupleEndDateYear == currentSelectedDateYear && posterTupleEndDateMonth == currentSelectedDateMonth && posterTupleEndDateDay == currentSelectedDateDay {
+                    todoTableData.append(posterTuple)
                 }
+                
+//                if posterTuple.0 <= currentSelectedDateTime && posterTuple.1 >= currentSelectedDateTime {
+//                    todoTableData.append(posterTuple)
+//                }
             }
             
             let currentCellMonth = Calendar.current.component(.month, from: currentSelectedDateTime)
@@ -381,6 +397,7 @@ class CalenderVC: UIViewController{
             
             self.todoTableView.reloadData()
         }
+        
         todoStatus = -1
     }
     

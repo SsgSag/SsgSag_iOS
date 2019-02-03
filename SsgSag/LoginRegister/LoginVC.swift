@@ -153,10 +153,13 @@ extension LoginVC : UIGestureRecognizerDelegate {
     @objc func keyboardWillShow(_ notification: NSNotification) {
         guard let duration = notification.userInfo?[UIResponder.keyboardAnimationDurationUserInfoKey] as? Double else {return}
         guard let curve = notification.userInfo?[UIResponder.keyboardAnimationCurveUserInfoKey] as? UInt else {return}
+        
+        /*
         UIView.animate(withDuration: duration, delay: 0.0, options: .init(rawValue: curve), animations: { [unowned self] in
 //            print("현재 constraint: \(self.stackViewConstraint.constant)")
 //            self.stackViewConstraint.constant = 30
         })
+         */
         
         self.view.layoutIfNeeded()
         
@@ -230,6 +233,7 @@ extension LoginVC: NaverThirdPartyLoginConnectionDelegate{
 //            self.birthLabel.text = birthday
 //            self.emailLabel.text = email
 //            self.nameLabel.text = name
+            
             print(result)
         }
     }

@@ -1,7 +1,7 @@
 extension CalenderVC: UITableViewDelegate,UITableViewDataSource {
     //MARK: UITableViewDataSource
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.todoData.count
+        return self.todoTableData.count
     }
     
     func tableView(_ tableView: UITableView, titleForDeleteConfirmationButtonForRowAt indexPath: IndexPath) -> String? {
@@ -20,7 +20,7 @@ extension CalenderVC: UITableViewDelegate,UITableViewDataSource {
         }
         
         let todayDay = Calendar.current.component(.day, from: Date())
-        let todoListDay = Calendar.current.component(.day, from: todoData[indexPath.row].1)
+        let todoListDay = Calendar.current.component(.day, from: todoTableData[indexPath.row].1)
         
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
@@ -35,7 +35,7 @@ extension CalenderVC: UITableViewDelegate,UITableViewDataSource {
         }
         
         var categoryLabel = ""
-        switch todoData[indexPath.row].5 {
+        switch todoTableData[indexPath.row].5 {
         case 0:
             categoryLabel = "공모전"
         case 1:
@@ -51,13 +51,13 @@ extension CalenderVC: UITableViewDelegate,UITableViewDataSource {
         }
         
         cell.categoryLabel.text = categoryLabel
-        cell.contentLabel.text = "\(todoData[indexPath.row].4)"
+        cell.contentLabel.text = "\(todoTableData[indexPath.row].4)"
         
-        let todoDataStartMonth = Calendar.current.component(.month, from: todoData[indexPath.row].0)
-        let todoDataStartDay = Calendar.current.component(.day, from: todoData[indexPath.row].0)
+        let todoDataStartMonth = Calendar.current.component(.month, from: todoTableData[indexPath.row].0)
+        let todoDataStartDay = Calendar.current.component(.day, from: todoTableData[indexPath.row].0)
         
-        let todoDataEndMonth = Calendar.current.component(.month, from: todoData[indexPath.row].1)
-        let todoDataEndDay = Calendar.current.component(.day, from: todoData[indexPath.row].1)
+        let todoDataEndMonth = Calendar.current.component(.month, from: todoTableData[indexPath.row].1)
+        let todoDataEndDay = Calendar.current.component(.day, from: todoTableData[indexPath.row].1)
         
         cell.dateLabel.text = "\(todoDataStartMonth).\(todoDataStartDay) ~ \(todoDataEndMonth).\(todoDataEndDay)"
         cell.leftedDay.text = "\(todoListDay-todayDay)"
@@ -78,7 +78,7 @@ extension CalenderVC: UITableViewDelegate,UITableViewDataSource {
         if let posterData = defaults.object(forKey: "poster") as? Data {
             if let posterInfo = try? PropertyListDecoder().decode([Posters].self, from: posterData){
                 for poster in posterInfo {
-                    if todoData[indexPath.row].4 == poster.posterName! {
+                    if todoTableData[indexPath.row].4 == poster.posterName! {
                         nav.Poster = poster
                     }
                 }
@@ -106,8 +106,8 @@ extension CalenderVC: UITableViewDelegate,UITableViewDataSource {
             if let posterData = defaults.object(forKey: "poster") as? Data {
                 if let posterInfo = try? PropertyListDecoder().decode([Posters].self, from: posterData){
                     for i in 0...posterInfo.count-1 {
-                        if posterInfo[i].posterName! == self.todoData[indexPath.row].4 {
-                            self.todoData.remove(at: i)
+                        if posterInfo[i].posterName! == self.todoTableData[indexPath.row].4 {
+                            self.todoTableData.remove(at: i)
                         }
                     }
                 }
