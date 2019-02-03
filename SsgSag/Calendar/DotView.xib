@@ -27,35 +27,35 @@
             <subviews>
                 <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="pXH-S3-KtX">
                     <rect key="frame" x="87" y="310" width="37.5" height="47"/>
-                    <color key="backgroundColor" red="0.2784313725" green="0.2784313725" blue="0.2784313725" alpha="1" colorSpace="calibratedRGB"/>
+                    <color key="backgroundColor" red="1" green="0.57810515169999999" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <constraints>
                         <constraint firstAttribute="width" secondItem="pXH-S3-KtX" secondAttribute="height" multiplier="1:1" id="MwD-z2-kkH"/>
                     </constraints>
                 </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kTm-II-ijX">
                     <rect key="frame" x="164" y="310" width="47" height="47"/>
-                    <color key="backgroundColor" red="0.35294117650000001" green="0.47058823529999999" blue="0.98039215690000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <color key="backgroundColor" red="0.84465640779999995" green="0.51457053419999998" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <constraints>
                         <constraint firstAttribute="width" secondItem="kTm-II-ijX" secondAttribute="height" multiplier="1:1" id="nr2-BX-J2g"/>
                     </constraints>
                 </view>
                 <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ery-qT-Suz">
                     <rect key="frame" x="256" y="310" width="37.5" height="47"/>
-                    <color key="backgroundColor" red="0.36078431370000003" green="0.74901960779999999" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                    <color key="backgroundColor" red="0.0" green="0.56284224989999998" blue="0.31881666180000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <constraints>
                         <constraint firstAttribute="width" secondItem="ery-qT-Suz" secondAttribute="height" multiplier="1:1" id="dqG-eh-HMj"/>
                     </constraints>
                 </view>
                 <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="16q-TF-wRg">
-                    <rect key="frame" x="320" y="309.5" width="38.5" height="48"/>
-                    <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <rect key="frame" x="320" y="310" width="38.5" height="47"/>
+                    <color key="backgroundColor" red="0.016804177310000001" green="0.19835099580000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <constraints>
                         <constraint firstAttribute="width" secondItem="16q-TF-wRg" secondAttribute="height" multiplier="1:1" id="nQK-0o-x4I"/>
                     </constraints>
                 </view>
                 <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Dkw-Tb-rif">
                     <rect key="frame" x="0.0" y="310" width="37.5" height="47"/>
-                    <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <color key="backgroundColor" red="1" green="0.14913141730000001" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <constraints>
                         <constraint firstAttribute="width" secondItem="Dkw-Tb-rif" secondAttribute="height" multiplier="1:1" id="1tP-YH-0Bz"/>
                     </constraints>
@@ -69,7 +69,7 @@
                 <constraint firstItem="kTm-II-ijX" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="G9e-Xl-qX3"/>
                 <constraint firstItem="kTm-II-ijX" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="IXc-cf-67i"/>
                 <constraint firstItem="pXH-S3-KtX" firstAttribute="width" secondItem="iN0-l3-epB" secondAttribute="width" multiplier="0.125" id="aeF-yX-h54"/>
-                <constraint firstItem="16q-TF-wRg" firstAttribute="width" secondItem="iN0-l3-epB" secondAttribute="width" multiplier="0.125" constant="1" id="gOU-So-rGr"/>
+                <constraint firstItem="16q-TF-wRg" firstAttribute="width" secondItem="iN0-l3-epB" secondAttribute="width" multiplier="0.125" id="gOU-So-rGr"/>
                 <constraint firstItem="ery-qT-Suz" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="ge1-Yc-lbs"/>
                 <constraint firstItem="16q-TF-wRg" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="h8N-Je-X6Y"/>
                 <constraint firstItem="Dkw-Tb-rif" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="waH-pV-hba"/>

@@ -15,8 +15,11 @@ class CalenderView: UIView, MonthViewDelegate {
     var lineTuple = (100,100,100,100)
     
     var posterTuples: [(startDate: Date, endDate: Date, dayInterval: Int, categoryIdx: Int, title: String, Int)] = []
+    
     var currentPosterTuple:[(Date, Date, Int, Int, String, Int)] = []
     var eventDictionary: [Int:[event]] = [:]
+    
+
     
     struct event {
         let eventDate: Date
@@ -161,7 +164,7 @@ class CalenderView: UIView, MonthViewDelegate {
     
     private func setCalenderViewColor() {
         myCollectionView.reloadData()
-        monthView.monthName.textColor = Style.monthViewLblColor
+        monthView.monthName.textColor = .black
         monthView.btnRight.setTitleColor(Style.monthViewBtnRightColor, for: .normal)
         monthView.btnLeft.setTitleColor(Style.monthViewBtnLeftColor, for: .normal)
         for i in 0..<7 {
@@ -330,13 +333,51 @@ class dateCVCell: UICollectionViewCell {
             
         case 2:
             dotContentsView.dotView2.isHidden = false
-             NSLayoutConstraint(item: dotContentsView.dotView1, attribute: .centerX, relatedBy: .equal, toItem: dotContentsView, attribute: .centerX, multiplier: 0.8, constant: 0).isActive = true
+             NSLayoutConstraint(item: dotContentsView.dotView1, attribute: .centerX, relatedBy: .equal, toItem: dotContentsView, attribute: .centerX, multiplier: 0.85, constant: 0).isActive = true
             
-            NSLayoutConstraint(item: dotContentsView.dotView2, attribute: .centerX, relatedBy: .equal, toItem: dotContentsView, attribute: .centerX, multiplier: 1.2, constant: 0).isActive = true
+            NSLayoutConstraint(item: dotContentsView.dotView2, attribute: .centerX, relatedBy: .equal, toItem: dotContentsView, attribute: .centerX, multiplier: 1.15, constant: 0).isActive = true
+            
+        case 3:
+            dotContentsView.dotView2.isHidden = false
+            dotContentsView.dotView3.isHidden = false
+            NSLayoutConstraint(item: dotContentsView.dotView1, attribute: .centerX, relatedBy: .equal, toItem: dotContentsView, attribute: .centerX, multiplier: 0.7, constant: 0).isActive = true
+            
+            NSLayoutConstraint(item: dotContentsView.dotView2, attribute: .centerX, relatedBy: .equal, toItem: dotContentsView, attribute: .centerX, multiplier: 1, constant: 0).isActive = true
+            
+             NSLayoutConstraint(item: dotContentsView.dotView3, attribute: .centerX, relatedBy: .equal, toItem: dotContentsView, attribute: .centerX, multiplier: 1.3, constant: 0).isActive = true
+            
+        case 4:
+            dotContentsView.dotView2.isHidden = false
+            dotContentsView.dotView3.isHidden = false
+            dotContentsView.dotView4.isHidden = false
+            NSLayoutConstraint(item: dotContentsView.dotView1, attribute: .centerX, relatedBy: .equal, toItem: dotContentsView, attribute: .centerX, multiplier: 0.55, constant: 0).isActive = true
+            
+            NSLayoutConstraint(item: dotContentsView.dotView2, attribute: .centerX, relatedBy: .equal, toItem: dotContentsView, attribute: .centerX, multiplier: 0.85, constant: 0).isActive = true
+            
+            NSLayoutConstraint(item: dotContentsView.dotView3, attribute: .centerX, relatedBy: .equal, toItem: dotContentsView, attribute: .centerX, multiplier: 1.15, constant: 0).isActive = true
+           
+            NSLayoutConstraint(item: dotContentsView.dotView4, attribute: .centerX, relatedBy: .equal, toItem: dotContentsView, attribute: .centerX, multiplier: 1.45, constant: 0).isActive = true
+        
+        case 5:
+            dotContentsView.dotView2.isHidden = false
+            dotContentsView.dotView3.isHidden = false
+            dotContentsView.dotView4.isHidden = false
+            dotContentsView.dotView5.isHidden = false
+            NSLayoutConstraint(item: dotContentsView.dotView1, attribute: .centerX, relatedBy: .equal, toItem: dotContentsView, attribute: .centerX, multiplier: 0.4, constant: 0).isActive = true
+            
+            NSLayoutConstraint(item: dotContentsView.dotView2, attribute: .centerX, relatedBy: .equal, toItem: dotContentsView, attribute: .centerX, multiplier: 0.7, constant: 0).isActive = true
+            
+            NSLayoutConstraint(item: dotContentsView.dotView3, attribute: .centerX, relatedBy: .equal, toItem: dotContentsView, attribute: .centerX, multiplier: 1, constant: 0).isActive = true
+            
+            NSLayoutConstraint(item: dotContentsView.dotView4, attribute: .centerX, relatedBy: .equal, toItem: dotContentsView, attribute: .centerX, multiplier: 1.3, constant: 0).isActive = true
+
+            NSLayoutConstraint(item: dotContentsView.dotView5, attribute: .centerX, relatedBy: .equal, toItem: dotContentsView, attribute: .centerX, multiplier: 1.6, constant: 0).isActive = true
+            
         default:
             break
         }
-        NSLayoutConstraint(item: dotContentsView.dotView5, attribute: .centerX, relatedBy: .equal, toItem: dotContentsView, attribute: .centerX, multiplier: 0.12, constant: 0).isActive = true
+        
+        //NSLayoutConstraint(item: dotContentsView.dotView5, attribute: .centerX, relatedBy: .equal, toItem: dotContentsView, attribute: .centerX, multiplier: 0.12, constant: 0).isActive = true
         
 
         print("dotView Width: \(dotContentsView.dotView1.frame.width)")

@@ -112,7 +112,7 @@ extension CalenderView: UICollectionViewDelegate, UICollectionViewDataSource, UI
         
         var cellDateString = "\(cellYear)-\(cellMonth)-\(cellDay) 00:00:00"
         
-        var currentCellDateTime = formatter.date(from: cellDateString).add
+        var currentCellDateTime = formatter.date(from: cellDateString)
         
         // TODO: 여기 수정해야함
         print("currentCellDateTime \(currentCellDateTime)")
@@ -139,19 +139,25 @@ extension CalenderView: UICollectionViewDelegate, UICollectionViewDataSource, UI
                     print("\(indexPath.row) \(currentCellDay)에 currentEvent잇음요")
                     print("currentEventttttttt: \(eventDictionary[indexPath.row])")
 //                    cell.dot.backgroundColor = .green
-
-                    if tuple.categoryIdx == 0 {
-//                        cell.dot.backgroundColor = .black
-//                        cell.setupDotViews()
-                        
-                        
-                        
-                    }
-//                    cell.dotDot.setNeedsLayout()
-//                    cell.dotDot.layoutIfNeeded()
-                    
                 }
             }
+            
+        }
+        
+        let date1 = "2019-02-11 14:59:59"
+        let date2 = "2019-02-11 14:59:59"
+        let date3 = "2019-02-11 14:59:59"
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+        let endDate1 = dateFormatter.date(from: date1)!
+        let endDate2 = dateFormatter.date(from: date2)!
+        let endDate3 = dateFormatter.date(from: date3)!
+        
+        if indexPath.row == 15 {
+//            eventDictionary[indexPath.row]?.append(event.init(eventDate: endDate1, title: "가가", categoryIdx: 1))
+//            eventDictionary[indexPath.row]?.append(event.init(eventDate: endDate2, title: "니나", categoryIdx: 2))
+//            eventDictionary[indexPath.row]?.append(event.init(eventDate: endDate3, title: "다다", categoryIdx: 3))
         }
         
 
@@ -169,13 +175,6 @@ extension CalenderView: UICollectionViewDelegate, UICollectionViewDataSource, UI
             cell.setupDotContentsView(eventNum: eventNum, categories: eventCategoryList)
         }
         
-        
-        //        print("eventList: \(eventList)")
-        //        for event in eventList {
-        //            if currentCellDateTime == event.eventDate {
-        //                print("event: \(event.eventDate)  currentCellDateTime: \(currentCellDateTime)")
-        //            }
-        //        }
         
         let calcDate = indexPath.row-firstWeekDayOfMonth+2 //1~31일까지
         //다른달에 갔다 올때 오늘 날짜의 색
@@ -219,7 +218,7 @@ extension CalenderView: UICollectionViewDelegate, UICollectionViewDataSource, UI
         let currentDateString: String = "\(year)-\(month)-\(day) 00:00:00"
         let todayDate = formatter.date(from: currentDateString)
         
-        currentPosterTuple = []x3swxs3www3sxwx3s
+        currentPosterTuple = []
         
         return cell
     }
