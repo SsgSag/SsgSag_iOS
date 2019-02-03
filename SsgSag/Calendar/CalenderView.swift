@@ -315,7 +315,6 @@ class dateCVCell: UICollectionViewCell {
         
         
         todoStatus = -1
-        
         self.layoutIfNeeded()
         
         
@@ -331,7 +330,9 @@ class dateCVCell: UICollectionViewCell {
         
         addSubview(dotContentsView)
         dotContentsView.isHidden = false
-        dotContentsView.topAnchor.constraint(equalTo: lbl.bottomAnchor , constant: 0.6).isActive = true
+        
+        
+        dotContentsView.topAnchor.constraint(equalTo: lbl.bottomAnchor , constant: 2).isActive = true
         dotContentsView.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
         dotContentsView.heightAnchor.constraint(equalTo: self.heightAnchor, multiplier: 0.12).isActive = true
         dotContentsView.widthAnchor.constraint(equalTo: self.widthAnchor).isActive = true
@@ -393,16 +394,14 @@ class dateCVCell: UICollectionViewCell {
         
         dotContentsView.layoutSubviews()
         dotContentsView.layoutIfNeeded()
-        
+        bringSubviewToFront(lbl)
     }
 
     func setupLineContentsView(eventNum: Int, categories: [Int]) {
-        
-        let lineXIB = UINib(nibName: "LineView", bundle: nil)
-
-        
+       
         addSubview(lineContentsView)
         lineContentsView.isHidden = false
+        
         lineContentsView.topAnchor.constraint(equalTo: lbl.bottomAnchor , constant: 2).isActive = true
         lineContentsView.leadingAnchor.constraint(equalTo: self.leadingAnchor).isActive = true
         lineContentsView.trailingAnchor.constraint(equalTo: self.trailingAnchor).isActive = true
@@ -419,26 +418,18 @@ class dateCVCell: UICollectionViewCell {
         default: break
             
         }
+        bringSubviewToFront(lbl)
     }
     
     //날짜 텍스트
     func setupViews() {
         addSubview(lbl)
-        lbl.topAnchor.constraint(equalTo: topAnchor).isActive=true
+        lbl.topAnchor.constraint(equalTo: self.topAnchor).isActive = true
         lbl.centerXAnchor.constraint(equalTo: self.centerXAnchor).isActive = true
         lbl.widthAnchor.constraint(equalTo: self.widthAnchor, multiplier: 0.47).isActive = true
         lbl.heightAnchor.constraint(equalTo: lbl.widthAnchor).isActive = true
         
-        addSubview(dot)
-        dot.topAnchor.constraint(equalTo: lbl.bottomAnchor , constant: 0.6).isActive = true
-        dot.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
-        dot.heightAnchor.constraint(equalTo: self.heightAnchor, multiplier: 0.12).isActive = true
-        dot.widthAnchor.constraint(equalTo: self.heightAnchor, multiplier: 0.12).isActive = true
-        dot.layer.cornerRadius = dot.frame.width / 2
-        
-   
-        dot2.layer.cornerRadius = dot2.frame.width / 2
-        
+        bringSubviewToFront(lbl)
 //        dot.addSubview(lineLabel)
 //        lineLabel.leftAnchor.constraint(equalTo: line.leftAnchor).isActive = true
 //        lineLabel.rightAnchor.constraint(equalTo: line.rightAnchor).isActive = true
@@ -455,7 +446,7 @@ class dateCVCell: UICollectionViewCell {
         label.textColor=Colors.darkGray
         label.layer.cornerRadius = label.frame.height / 2
         label.layer.masksToBounds = true
-        label.translatesAutoresizingMaskIntoConstraints=false
+        label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     

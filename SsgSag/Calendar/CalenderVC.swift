@@ -417,7 +417,7 @@ class CalenderVC: UIViewController{
         }
         
         todoStatus = -1
-        calenderView.myCollectionView.reloadData()
+//        calenderView.myCollectionView.reloadData()
     }
     
     @objc func todoTableTapped(){
@@ -441,7 +441,7 @@ class CalenderVC: UIViewController{
         }
         
         todoStatus = 1
-        calenderView.myCollectionView.reloadData()
+//        calenderView.myCollectionView.reloadData()
     }
     @objc func moveNextMonthBySwipe() {
         NotificationCenter.default.post(name: NSNotification.Name("calendarSwipe"), object: nil)

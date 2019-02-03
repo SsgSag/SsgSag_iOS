@@ -27,31 +27,9 @@ extension CalenderView: UICollectionViewDelegate, UICollectionViewDataSource, UI
         
         cell.lbl.backgroundColor = .clear
         cell.backgroundColor = .clear
-        cell.lbl.backgroundColor = .clear
-        cell.dot.backgroundColor = .clear
-        cell.dot2.backgroundColor = .clear
         
         cell.dotContentsView.isHidden = true
         cell.lineContentsView.isHidden = true
-        
-        
-//        cell.dotContentsView.backgroundColor = .clear
-//        cell.dotContentsView.dotView1.backgroundColor = .clear
-//        cell.dotContentsView.dotView2.backgroundColor = .clear
-//        cell.dotContentsView.dotView3.backgroundColor = .clear
-//        cell.dotContentsView.dotView4.backgroundColor = .clear
-//        cell.dotContentsView.dotView5.backgroundColor = .clear
-//
-//        cell.lineContentsView.backgroundColor = .clear
-//        cell.lineContentsView.lineView1.backgroundColor = .clear
-//        cell.lineContentsView.lineView2.backgroundColor = .clear
-//        cell.lineContentsView.lineView3.backgroundColor = .clear
-//        cell.lineContentsView.lineView4.backgroundColor = .clear
-//        cell.lineContentsView.lineView5.backgroundColor = .clear
-        
-        
-        
-        
         
         var beforeMonthIndex = 0
         var beforeYear = 0 //이번달의 전 달이 어떤날에 해당하는지 확인!!
@@ -103,7 +81,7 @@ extension CalenderView: UICollectionViewDelegate, UICollectionViewDataSource, UI
             
             if calcDate == currentDay && currentYear == presentYear && currentMonth == presentMonthIndex { //오늘날짜
                 todaysIndexPath = indexPath
-                let lbl = cell.subviews[1] as! UILabel
+                let lbl = cell.subviews.last as! UILabel
                 lbl.layer.cornerRadius = (cell.frame.width * 0.47) / 2
                 lbl.backgroundColor = #colorLiteral(red: 0.1176470588, green: 0.7921568627, blue: 0.2862745098, alpha: 1)
                 lbl.textColor=UIColor.white
@@ -121,7 +99,6 @@ extension CalenderView: UICollectionViewDelegate, UICollectionViewDataSource, UI
                 cell.lbl.text="\(calcDate)"
                 cell.isUserInteractionEnabled=false
                 cell.lbl.textColor = .lightGray
-                //cell.line.backgroundColor = .blue
             }
         }
         
@@ -137,7 +114,7 @@ extension CalenderView: UICollectionViewDelegate, UICollectionViewDataSource, UI
         var currentCellDateTime = formatter.date(from: cellDateString)
         
         // TODO: 여기 수정해야함
-        print("currentCellDateTime \(currentCellDateTime)")
+//        print("currentCellDateTime \(currentCellDateTime)")
         eventDictionary[indexPath.row] = []
         
         for tuple in posterTuples {
@@ -199,15 +176,8 @@ extension CalenderView: UICollectionViewDelegate, UICollectionViewDataSource, UI
             if cell.todoStatus == -1 {
                 cell.setupDotContentsView(eventNum: eventNum, categories: eventCategoryList)
             } else {
-                
                 cell.setupLineContentsView(eventNum: eventNum, categories: eventCategoryList)
                 
-            }
-        }
-        
-        for subview in cell.contentView.subviews {
-            if subview is DotView {
-                subview.removeFromSuperview()
             }
         }
         
@@ -215,10 +185,10 @@ extension CalenderView: UICollectionViewDelegate, UICollectionViewDataSource, UI
         //다른달에 갔다 올때 오늘 날짜의 색
         if lastSelectedDate != nil && calcDate == currentDay && currentYear == presentYear && currentMonth == presentMonthIndex{
             todaysIndexPath = indexPath
-            let lbl = cell.subviews[1] as! UILabel
+            let lbl = cell.subviews.last as! UILabel
             lbl.layer.cornerRadius = (cell.frame.width * 0.47) / 2
             lbl.backgroundColor = #colorLiteral(red: 0.1176470588, green: 0.7921568627, blue: 0.2862745098, alpha: 1)
-            lbl.textColor=UIColor.white
+            lbl.textColor = UIColor.white
         }
         
         if currentCellDateTime == nil {
@@ -254,17 +224,26 @@ extension CalenderView: UICollectionViewDelegate, UICollectionViewDataSource, UI
         let todayDate = formatter.date(from: currentDateString)
         
         currentPosterTuple = []
-        
         return cell
     }
     
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let cell = collectionView.cellForItem(at: indexPath) as! dateCVCell
-            cell.lbl.layer.cornerRadius = cell.lbl.frame.height / 2
-            cell.lbl.backgroundColor = UIColor.lightGray
-            cell.lbl.textColor = UIColor.white
+        let cell = collectionView.cellForItem(at: indexPath)
+//        print("cell: \(cell.lbl)")
         
+//         cell.lbl.layer.cornerRadius = (cell.frame.width * 0.47) / 2
+//        cell.lbl.backgroundColor = UIColor.gray
+//        cell.lbl.textColor = UIColor.white
+//        print("cell: \(cell.lbl.backgroundColor)")
+
+        
+        let lbl = cell?.subviews.last as! UILabel
+            lbl.layer.cornerRadius = lbl.frame.height / 2
+            lbl.backgroundColor = UIColor.lightGray
+            lbl.textColor = UIColor.white
+        print(" last: \(cell?.subviews.last)")
+
         let cellYear = currentYear
         let cellMonth = currentMonth
         let cellDay = indexPath.row-firstWeekDayOfMonth+2
@@ -285,12 +264,22 @@ extension CalenderView: UICollectionViewDelegate, UICollectionViewDataSource, UI
         for (key, value) in eventDictionary {
             print("eventDictionary 결과 \(key):    \(value)")
         }
+//        cell.lbl.layoutIfNeeded()
     }
     
     
     //새로운 셀 선택시 이전셀 복구
     func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
         
+        let cell=collectionView.cellForItem(at: indexPath) as! dateCVCell
+        let lbl = cell.subviews.last as! UILabel
+        lbl.backgroundColor = UIColor.clear
+        lbl.textColor = Style.activeCellLblColor
+        
+        if indexPath.row % 7 == 0 { //일요일
+            lbl.textColor = UIColor.red
+            lbl.backgroundColor = UIColor.clear
+        }
         let currentDate = Date()
         let calendar = Calendar.current
         let components = calendar.dateComponents([.year, .month, .day], from: currentDate)
@@ -305,30 +294,12 @@ extension CalenderView: UICollectionViewDelegate, UICollectionViewDataSource, UI
         let currentDateString: String = "\(year)-\(month)-\(day) 00:00:00"
         let todayDate = formatter.date(from: currentDateString)
         
-        let cell=collectionView.cellForItem(at: indexPath) as! dateCVCell
+        if lastSelectedDate == todayDate{ //마지막 선택된 날짜가 오늘이라면
+            lbl.backgroundColor = #colorLiteral(red: 0.1176470588, green: 0.7921568627, blue: 0.2862745098, alpha: 1)
+            lbl.textColor = UIColor.white
+        }
         
-        
-            cell.lbl.backgroundColor = UIColor.clear
-            cell.lbl.textColor = Style.activeCellLblColor
-            if indexPath.row % 7 == 0 { //일요일
-                cell.lbl.textColor = UIColor.red
-                cell.lbl.backgroundColor = UIColor.clear
-            }
-            if lastSelectedDate == todayDate{ //마지막 선택된 날짜가 오늘이라면
-                cell.lbl.backgroundColor = #colorLiteral(red: 0.1176470588, green: 0.7921568627, blue: 0.2862745098, alpha: 1)
-                cell.lbl.textColor = UIColor.white
-            }
-        
-            cell.lbl.backgroundColor = UIColor.clear
-            cell.lbl.textColor = Style.activeCellLblColor
-            if indexPath.row % 7 == 0 { //일요일
-                cell.lbl.textColor = UIColor.red
-                cell.lbl.backgroundColor = UIColor.clear
-            }
-            if lastSelectedDate == todayDate{ //마지막 선택된 날짜가 오늘이라면
-                cell.lbl.backgroundColor = #colorLiteral(red: 0.1176470588, green: 0.7921568627, blue: 0.2862745098, alpha: 1)
-                cell.lbl.textColor = UIColor.white
-            }
+//        lbl.layoutIfNeeded()
     }
 }
 //MARK:- CollectionView Layout
