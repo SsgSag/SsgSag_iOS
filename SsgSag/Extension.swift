@@ -184,6 +184,11 @@ extension UIView {
 
 extension UIView {
     
+    func circleView() {
+        self.layer.masksToBounds = true
+        self.layer.cornerRadius = self.layer.frame.width / 2
+    }
+    
     //뷰 라운드 처리 설정
     func makeRounded(cornerRadius : CGFloat?){
         if let cornerRadius_ = cornerRadius {

@@ -115,12 +115,10 @@ extension CalenderView: UICollectionViewDelegate, UICollectionViewDataSource, UI
         
         for tuple in posterTuples {
             //현재 셀의 연, 월 , 일 == tuple의 연 월 일이 모두 같아야만 그려준다.
-            
             if let currentCellDate = currentCellDateTime {
                 let currentCellYear = Calendar.current.component(.year, from: currentCellDate)
                 let currentCellMonth = Calendar.current.component(.month, from: currentCellDate)
                 let currentCellDay = Calendar.current.component(.day, from: currentCellDate)
-                
                 let currentPosterYear = Calendar.current.component(.year, from: tuple.endDate)
                 let currentPosterMonth = Calendar.current.component(.month, from: tuple.endDate)
                 let currentPosterDay = Calendar.current.component(.day, from: tuple.endDate)
@@ -132,13 +130,34 @@ extension CalenderView: UICollectionViewDelegate, UICollectionViewDataSource, UI
                     eventDictionary[indexPath.row]?.append(event.init(eventDate: tuple.endDate, title: tuple.title, categoryIdx: tuple.categoryIdx))
                     print("\(indexPath.row) \(currentCellDay)에 currentEvent잇음요")
                     print("currentEventttttttt: \(eventDictionary[indexPath.row])")
-                    cell.dot.backgroundColor = .green
+//                    cell.dot.backgroundColor = .green
+                    
                     if tuple.categoryIdx == 0 {
-                        cell.dot.backgroundColor = .black
+//                        cell.dot.backgroundColor = .black
+//                        cell.setupDotViews()
+                        
+                        
+                        
                     }
+//                    cell.dotDot.setNeedsLayout()
+//                    cell.dotDot.layoutIfNeeded()
+                    
                 }
-                
             }
+        }
+        
+        //event가 있으면 추가
+        let eventNum = eventDictionary[indexPath.row]!.count
+        if (eventNum > 0) {
+            let event = eventDictionary[indexPath.row]!
+            var eventCategoryList: [Int] = []
+            for i in event {
+                eventCategoryList.append(i.categoryIdx)
+            }
+            print("\(indexPath.row)  event개수: \(eventNum) category: \(eventCategoryList)")
+            //dot 그리기
+//            cell.setupDotViews(eventNum: eventNum, categories: eventCategoryList)
+            cell.setupDotContentsView(eventNum: eventNum, categories: eventCategoryList)
         }
         
         
@@ -198,11 +217,10 @@ extension CalenderView: UICollectionViewDelegate, UICollectionViewDataSource, UI
     
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let cell = collectionView.cellForItem(at: indexPath)
-        let lbl = cell?.subviews[1] as! UILabel
-        lbl.layer.cornerRadius = lbl.frame.height / 2
-        lbl.backgroundColor = UIColor.lightGray
-        lbl.textColor = UIColor.white
+        let cell = collectionView.cellForItem(at: indexPath) as! dateCVCell
+            cell.lbl.layer.cornerRadius = cell.lbl.frame.height / 2
+            cell.lbl.backgroundColor = UIColor.lightGray
+            cell.lbl.textColor = UIColor.white
         
         let cellYear = currentYear
         let cellMonth = currentMonth
@@ -230,15 +248,6 @@ extension CalenderView: UICollectionViewDelegate, UICollectionViewDataSource, UI
     //새로운 셀 선택시 이전셀 복구
     func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
         
-        let cell=collectionView.cellForItem(at: indexPath) as! dateCVCell
-        let lbl = cell.subviews[1] as! UILabel
-        lbl.backgroundColor = UIColor.clear
-        lbl.textColor = Style.activeCellLblColor
-        
-        if indexPath.row % 7 == 0 { //일요일
-            lbl.textColor = UIColor.red
-            lbl.backgroundColor = UIColor.clear
-        }
         let currentDate = Date()
         let calendar = Calendar.current
         let components = calendar.dateComponents([.year, .month, .day], from: currentDate)
@@ -253,13 +262,31 @@ extension CalenderView: UICollectionViewDelegate, UICollectionViewDataSource, UI
         let currentDateString: String = "\(year)-\(month)-\(day) 00:00:00"
         let todayDate = formatter.date(from: currentDateString)
         
-        if lastSelectedDate == todayDate{ //마지막 선택된 날짜가 오늘이라면
-            lbl.backgroundColor = #colorLiteral(red: 0.1176470588, green: 0.7921568627, blue: 0.2862745098, alpha: 1)
-            lbl.textColor = UIColor.white
-        }
+        let cell=collectionView.cellForItem(at: indexPath) as! dateCVCell
         
+        
+            cell.lbl.backgroundColor = UIColor.clear
+            cell.lbl.textColor = Style.activeCellLblColor
+            if indexPath.row % 7 == 0 { //일요일
+                cell.lbl.textColor = UIColor.red
+                cell.lbl.backgroundColor = UIColor.clear
+            }
+            if lastSelectedDate == todayDate{ //마지막 선택된 날짜가 오늘이라면
+                cell.lbl.backgroundColor = #colorLiteral(red: 0.1176470588, green: 0.7921568627, blue: 0.2862745098, alpha: 1)
+                cell.lbl.textColor = UIColor.white
+            }
+        
+            cell.lbl.backgroundColor = UIColor.clear
+            cell.lbl.textColor = Style.activeCellLblColor
+            if indexPath.row % 7 == 0 { //일요일
+                cell.lbl.textColor = UIColor.red
+                cell.lbl.backgroundColor = UIColor.clear
+            }
+            if lastSelectedDate == todayDate{ //마지막 선택된 날짜가 오늘이라면
+                cell.lbl.backgroundColor = #colorLiteral(red: 0.1176470588, green: 0.7921568627, blue: 0.2862745098, alpha: 1)
+                cell.lbl.textColor = UIColor.white
+            }
     }
-    
 }
 
 
@@ -272,7 +299,7 @@ extension CalenderView {
         
         if reValue == 35 {
             height = collectionView.frame.height / 5
-        }else {
+        } else {
             height = collectionView.frame.height / 6
         }
         return CGSize(width: width, height: height)
