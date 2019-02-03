@@ -21,7 +21,7 @@ extension CalenderView: UICollectionViewDelegate, UICollectionViewDataSource, UI
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell=collectionView.dequeueReusableCell(withReuseIdentifier: "Cell", for: indexPath) as! dateCVCell
+        let cell=collectionView.dequeueReusableCell(withReuseIdentifier: "Cell", for: indexPath) as! DayCollectionViewCell
         
         cell.lbl.layer.cornerRadius = cell.lbl.frame.height / 2
         
@@ -137,7 +137,6 @@ extension CalenderView: UICollectionViewDelegate, UICollectionViewDataSource, UI
                     eventDictionary[indexPath.row]?.append(event.init(eventDate: tuple.endDate, title: tuple.title, categoryIdx: tuple.categoryIdx))
                     print("\(indexPath.row) \(currentCellDay)에 currentEvent잇음요")
                     print("currentEventttttttt: \(eventDictionary[indexPath.row])")
-//                    cell.dot.backgroundColor = .green
                 }
             }
             
@@ -230,19 +229,10 @@ extension CalenderView: UICollectionViewDelegate, UICollectionViewDataSource, UI
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let cell = collectionView.cellForItem(at: indexPath)
-//        print("cell: \(cell.lbl)")
-        
-//         cell.lbl.layer.cornerRadius = (cell.frame.width * 0.47) / 2
-//        cell.lbl.backgroundColor = UIColor.gray
-//        cell.lbl.textColor = UIColor.white
-//        print("cell: \(cell.lbl.backgroundColor)")
-
-        
         let lbl = cell?.subviews.last as! UILabel
-            lbl.layer.cornerRadius = lbl.frame.height / 2
-            lbl.backgroundColor = UIColor.lightGray
-            lbl.textColor = UIColor.white
-        print(" last: \(cell?.subviews.last)")
+        lbl.layer.cornerRadius = lbl.frame.height / 2
+        lbl.backgroundColor = UIColor.lightGray
+        lbl.textColor = UIColor.white
 
         let cellYear = currentYear
         let cellMonth = currentMonth
@@ -259,19 +249,14 @@ extension CalenderView: UICollectionViewDelegate, UICollectionViewDataSource, UI
         
         //CalendarVC에 지금 선택된 날짜를 전송하자.
         let userInfo = [ "currentCellDateTime" : currentCellDateTime ]
-        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "todoUp"), object: nil, userInfo: userInfo as [AnyHashable : Any])
-        
-        for (key, value) in eventDictionary {
-            print("eventDictionary 결과 \(key):    \(value)")
-        }
-//        cell.lbl.layoutIfNeeded()
+        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "todoUpByDaySelected"), object: nil, userInfo: userInfo as [AnyHashable : Any])
     }
     
     
     //새로운 셀 선택시 이전셀 복구
     func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
         
-        let cell=collectionView.cellForItem(at: indexPath) as! dateCVCell
+        let cell = collectionView.cellForItem(at: indexPath) as! DayCollectionViewCell
         let lbl = cell.subviews.last as! UILabel
         lbl.backgroundColor = UIColor.clear
         lbl.textColor = Style.activeCellLblColor
@@ -280,6 +265,7 @@ extension CalenderView: UICollectionViewDelegate, UICollectionViewDataSource, UI
             lbl.textColor = UIColor.red
             lbl.backgroundColor = UIColor.clear
         }
+        
         let currentDate = Date()
         let calendar = Calendar.current
         let components = calendar.dateComponents([.year, .month, .day], from: currentDate)
@@ -298,10 +284,10 @@ extension CalenderView: UICollectionViewDelegate, UICollectionViewDataSource, UI
             lbl.backgroundColor = #colorLiteral(red: 0.1176470588, green: 0.7921568627, blue: 0.2862745098, alpha: 1)
             lbl.textColor = UIColor.white
         }
-        
-//        lbl.layoutIfNeeded()
     }
+    
 }
+
 //MARK:- CollectionView Layout
 extension CalenderView {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {

@@ -3,74 +3,64 @@ import UIKit
 
 class CalenderView: UIView, MonthViewDelegate {
     var numOfDaysInMonth = [31,28,31,30,31,30,31,31,30,31,30,31]//12달
+    
     var currentMonth: Int = 0
+    
     var currentYear: Int = 0
+    
     var presentMonthIndex = 0
+    
     var presentYear = 0
+    
     var currentDay = 0
+    
     var firstWeekDayOfMonth = 0   //(Sunday-Saturday 1-7) 일:1,월:2 ~ 금:6,토:7
     
     var reValue = 0
     
-    var lineTuple = (100,100,100,100)
-    
     var posterTuples: [(startDate: Date, endDate: Date, dayInterval: Int, categoryIdx: Int, title: String, Int)] = []
     
     var currentPosterTuple:[(Date, Date, Int, Int, String, Int)] = []
+    
     var eventDictionary: [Int:[event]] = [:]
+    
+    var lastSelectedDate: Date?
+    
+    var lastSelectedIndexPath: IndexPath?
+    
+    var didDeselctCount = 0
+    
+    var todaysIndexPath: IndexPath?
     
     struct event {
         let eventDate: Date
         let title: String
         let categoryIdx: Int
     }
-
-
-    var lastSelectedDate: Date?
-    var lastSelectedIndexPath: IndexPath?
-    
-    var didDeselctCount = 0
-    
-    @objc func addUserDefaults() {
-        
-        let formatter = DateFormatter()
-        formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
-        let defaults = UserDefaults.standard
-        
-        if let posterData = defaults.object(forKey: "poster") as? Data {
-            if let posterInfo = try? PropertyListDecoder().decode([Posters].self, from: posterData){
-                for poster in posterInfo { //userDefaults에 있는 모든 poster 정보를 불러온다.
-                    
-                    let posterStartDateTime = formatter.date(from: poster.posterStartDate!)
-                    
-                    let posterEndDateTime = formatter.date(from: poster.posterEndDate!)
-                    
-                    let components = Calendar.current.dateComponents([.day], from: posterStartDateTime!, to: posterEndDateTime!)
-                    
-                    let dayInterval = components.day! + 1
-            
-                    if isDuplicatePosterTuple(posterTuples, input: (posterStartDateTime!.addingTimeInterval(60.0 * 60.0 * 9.0), posterEndDateTime!.addingTimeInterval(60.0 * 60.0 * 9.0), dayInterval, poster.categoryIdx!, poster.posterName!, poster.categoryIdx!)) == false {
-                        posterTuples.append((posterStartDateTime!.addingTimeInterval(60.0 * 60.0 * 9.0), posterEndDateTime!.addingTimeInterval(60.0 * 60.0 * 9.0), dayInterval, poster.categoryIdx!, poster.posterName!, poster.categoryIdx!))
-                        
-                        print("qqqq \(poster.posterName) \(posterEndDateTime!.addingTimeInterval(60.0 * 60.0 * 9.0))")
-                    }
-                }
-                
-                print()
-            }
-        }
-        
-        self.myCollectionView.reloadData()
-    }
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        
         setCalenderViewColor()
+        setupPosterTuple()
+        initMonthAndCalendarCollectionView()
         
+        NotificationCenter.default.addObserver(self, selector: #selector(changeTodoTableStatusByButton), name: NSNotification.Name("changeTodoTableStatusByButton"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(addUserDefaults), name: NSNotification.Name("addUserDefaults"), object: nil)
+    }
+    convenience init(theme: MyTheme) {
+        self.init()
+        Style.themeLight()
+        initMonthAndCalendarCollectionView()
+    }
+    
+    @objc func addUserDefaults() {
+        setupPosterTuple()
+        self.calendarCollectionView.reloadData()
+    }
+    
+    func setupPosterTuple() {
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
-        
         let defaults = UserDefaults.standard
         
         if let posterData = defaults.object(forKey: "poster") as? Data {
@@ -81,31 +71,25 @@ class CalenderView: UIView, MonthViewDelegate {
                     let posterEndDateTime = formatter.date(from: poster.posterEndDate!)
                     let components = Calendar.current.dateComponents([.day], from: posterStartDateTime!, to: posterEndDateTime!)
                     let dayInterval = components.day! + 1
-                
-                    if isDuplicatePosterTuple(posterTuples, input: (posterStartDateTime!, posterEndDateTime!, dayInterval, poster.categoryIdx!, poster.posterName!, 0)) == false {
-                        posterTuples.append((posterStartDateTime!, posterEndDateTime!, dayInterval, poster.categoryIdx!, poster.posterName!, 0))
+                    
+                    if isDuplicatePosterTuple(posterTuples, input: (posterStartDateTime!.addingTimeInterval(60.0 * 60.0 * 9.0), posterEndDateTime!.addingTimeInterval(60.0 * 60.0 * 9.0), dayInterval, poster.categoryIdx!, poster.posterName!, poster.categoryIdx!)) == false {
+                        posterTuples.append((posterStartDateTime!.addingTimeInterval(60.0 * 60.0 * 9.0), posterEndDateTime!.addingTimeInterval(60.0 * 60.0 * 9.0), dayInterval, poster.categoryIdx!, poster.posterName!, poster.categoryIdx!))
                     }
                 }
             }
         }
-        
-        
-        NotificationCenter.default.addObserver(self, selector: #selector(changeBackgroundColor), name: NSNotification.Name("changeBackgroundColor"), object: nil)
-        //좋아요 선택시 유저티폴츠에 넣고 그것의 반응을 받는다.
-        NotificationCenter.default.addObserver(self, selector: #selector(addUserDefaults), name: NSNotification.Name("addUserDefaults"), object: nil)
-        
-        initializeView()
     }
+    
     
     //마지막 선택된 날짜의 셀의 백그라운드 색깔을 지우자
     //투두리스트를 표현하자
-    @objc func changeBackgroundColor() {
+    @objc func changeTodoTableStatusByButton() {
         if let index = lastSelectedIndexPath {
-            let cell = collectionView(myCollectionView, cellForItemAt: index) as! dateCVCell
+            let cell = collectionView(calendarCollectionView, cellForItemAt: index) as! DayCollectionViewCell
             cell.lbl.backgroundColor = .clear
             cell.lbl.textColor = .black
         }
-        myCollectionView.reloadData()
+        calendarCollectionView.reloadData()
     }
     
     //putDate를 lineArray에 날짜 중복되지 않고 넣을 수 있는가?
@@ -149,20 +133,7 @@ class CalenderView: UIView, MonthViewDelegate {
         return false
     }
     
-    convenience init(theme: MyTheme) {
-        self.init()
-        
-        if theme == .dark {
-            Style.themeDark()
-        } else {
-            Style.themeLight()
-        }
-        initializeView()
-    }
-    
-    
     private func setCalenderViewColor() {
-        myCollectionView.reloadData()
         monthView.monthName.textColor = .black
         monthView.btnRight.setTitleColor(Style.monthViewBtnRightColor, for: .normal)
         monthView.btnLeft.setTitleColor(Style.monthViewBtnLeftColor, for: .normal)
@@ -171,36 +142,28 @@ class CalenderView: UIView, MonthViewDelegate {
         }
     }
     
-    func initializeView() {
+    func initMonthAndCalendarCollectionView() {
         currentMonth = Calendar.current.component(.month, from: Date())
         currentYear = Calendar.current.component(.year, from: Date())
         currentDay = Calendar.current.component(.day, from: Date())
         
-        firstWeekDayOfMonth=getFirstWeekDay()
+        firstWeekDayOfMonth = getFirstWeekDay()
         
-        //for leap years, make february month of 29 days 4년에 한번씩 2월은 29일
+        //윤년 계산 4년에 한번씩 2월은 29일
         if currentMonth == 2 && currentYear % 4 == 0 {
             numOfDaysInMonth[currentMonth-1] = 29
         }
-        //end
         
-        presentMonthIndex=currentMonth
-        presentYear=currentYear
+        presentMonthIndex = currentMonth
+        presentYear = currentYear
         
         setupViews()
         
-        myCollectionView.delegate = self
-        myCollectionView.dataSource = self
+        calendarCollectionView.delegate = self
+        calendarCollectionView.dataSource = self
         
-        myCollectionView.register(dateCVCell.self, forCellWithReuseIdentifier: "Cell")
+        calendarCollectionView.register(DayCollectionViewCell.self, forCellWithReuseIdentifier: "Cell")
     }
-    
-    
-  
-
-    var todaysIndexPath: IndexPath?
-    
-
     
     func getFirstWeekDay() -> Int {
         let day = ("\(currentYear)-\(currentMonth)-01".date?.firstDayOfTheMonth.weekday)!
@@ -208,9 +171,8 @@ class CalenderView: UIView, MonthViewDelegate {
         return day
     }
     
-    //월이 바뀔때
     func didChangeMonth(monthIndex: Int, year: Int) {
-        currentMonth = monthIndex+1 //월+1
+        currentMonth = monthIndex + 1 //월+1
         currentYear = year
         //for leap year, make february month of 29 days
         if monthIndex == 1 { //4년에 한번 29일까지
@@ -223,7 +185,7 @@ class CalenderView: UIView, MonthViewDelegate {
         
         firstWeekDayOfMonth = getFirstWeekDay()
         
-        self.myCollectionView.reloadData()
+        self.calendarCollectionView.reloadData()
         monthView.btnLeft.isEnabled = true
     }
     
@@ -234,7 +196,8 @@ class CalenderView: UIView, MonthViewDelegate {
         monthView.leftAnchor.constraint(equalTo: leftAnchor, constant: 16).isActive=true
         monthView.rightAnchor.constraint(equalTo: rightAnchor, constant: -16).isActive=true
         monthView.heightAnchor.constraint(equalToConstant: 35).isActive=true
-        monthView.delegate=self
+        
+        monthView.delegate = self
         
         //월화수목금토
         addSubview(weekdaysView)
@@ -243,28 +206,28 @@ class CalenderView: UIView, MonthViewDelegate {
         weekdaysView.rightAnchor.constraint(equalTo: rightAnchor, constant: -16).isActive=true
         weekdaysView.heightAnchor.constraint(equalToConstant: 30).isActive=true
         
-        addSubview(myCollectionView)
-        myCollectionView.topAnchor.constraint(equalTo: weekdaysView.bottomAnchor, constant: 15).isActive=true
-        myCollectionView.leftAnchor.constraint(equalTo: leftAnchor, constant: 16).isActive=true
-        myCollectionView.rightAnchor.constraint(equalTo: rightAnchor, constant: -16).isActive=true
-        myCollectionView.bottomAnchor.constraint(equalTo: bottomAnchor).isActive=true
+        addSubview(calendarCollectionView)
+        calendarCollectionView.topAnchor.constraint(equalTo: weekdaysView.bottomAnchor, constant: 15).isActive = true
+        calendarCollectionView.leftAnchor.constraint(equalTo: leftAnchor, constant: 16).isActive = true
+        calendarCollectionView.rightAnchor.constraint(equalTo: rightAnchor, constant: -16).isActive = true
+        calendarCollectionView.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
     }
+    
     let monthView: MonthView = {
-        let v=MonthView()
+        let v = MonthView()
         v.translatesAutoresizingMaskIntoConstraints=false
         return v
     }()
     
     let weekdaysView: WeekdaysView = {
-        let v=WeekdaysView()
+        let v = WeekdaysView()
         v.translatesAutoresizingMaskIntoConstraints=false
         return v
     }()
     
-    let myCollectionView: UICollectionView = {
+    let calendarCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
-        layout.sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0) //sectionInset 섹션 내부 여백
-        //layout.scrollDirection = .horizontal //이거 이용하면 month 이동시 이전 month 보여지면서 다음 month도 보여지게 할 수 있을듯
+        layout.sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
         
         let myCollectionView = UICollectionView(frame: CGRect.zero, collectionViewLayout: layout)
         myCollectionView.showsHorizontalScrollIndicator = true
@@ -274,271 +237,14 @@ class CalenderView: UIView, MonthViewDelegate {
         myCollectionView.allowsMultipleSelection=false
         return myCollectionView
     }()
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-}
-
-//날짜 하나에 해당하는 셀
-class dateCVCell: UICollectionViewCell {
-    
-    var todoStatus = -1
-    
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        layer.cornerRadius=5
-        layer.masksToBounds=true
-        
-        
-        
-        NotificationCenter.default.addObserver(self, selector: #selector(changeToUp), name: NSNotification.Name("changeToUp"), object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(changeToDown), name: NSNotification.Name("changeToDown"), object: nil)
-        
-        
-        layoutSubviews()
-    }
-    
-    
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        
-        setupViews()
-        
-        
-    }
-    override func layoutIfNeeded() {
-        super.layoutIfNeeded()
-        
-    }
-    
-    @objc func changeToUp() {
-        
-        
-        todoStatus = -1
-        self.layoutIfNeeded()
-        
-        
-    }
-    
-    @objc func changeToDown() {
-        print("내려와")
-        todoStatus = 1
-        self.layoutIfNeeded()
-    }
-    
-    func setupDotContentsView(eventNum: Int, categories: [Int]) {
-        
-        addSubview(dotContentsView)
-        dotContentsView.isHidden = false
-        
-        
-        dotContentsView.topAnchor.constraint(equalTo: lbl.bottomAnchor , constant: 2).isActive = true
-        dotContentsView.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
-        dotContentsView.heightAnchor.constraint(equalTo: self.heightAnchor, multiplier: 0.12).isActive = true
-        dotContentsView.widthAnchor.constraint(equalTo: self.widthAnchor).isActive = true
-
-
-        switch eventNum {
-        case 1:
-            NSLayoutConstraint(item: dotContentsView.dotView1, attribute: .centerX, relatedBy: .equal, toItem: dotContentsView, attribute: .centerX, multiplier: 1, constant: 0).isActive = true
-            
-        case 2:
-            dotContentsView.dotView2.isHidden = false
-             NSLayoutConstraint(item: dotContentsView.dotView1, attribute: .centerX, relatedBy: .equal, toItem: dotContentsView, attribute: .centerX, multiplier: 0.85, constant: 0).isActive = true
-            
-            NSLayoutConstraint(item: dotContentsView.dotView2, attribute: .centerX, relatedBy: .equal, toItem: dotContentsView, attribute: .centerX, multiplier: 1.15, constant: 0).isActive = true
-            
-        case 3:
-            dotContentsView.dotView2.isHidden = false
-            dotContentsView.dotView3.isHidden = false
-            NSLayoutConstraint(item: dotContentsView.dotView1, attribute: .centerX, relatedBy: .equal, toItem: dotContentsView, attribute: .centerX, multiplier: 0.7, constant: 0).isActive = true
-            
-            NSLayoutConstraint(item: dotContentsView.dotView2, attribute: .centerX, relatedBy: .equal, toItem: dotContentsView, attribute: .centerX, multiplier: 1, constant: 0).isActive = true
-            
-             NSLayoutConstraint(item: dotContentsView.dotView3, attribute: .centerX, relatedBy: .equal, toItem: dotContentsView, attribute: .centerX, multiplier: 1.3, constant: 0).isActive = true
-            
-        case 4:
-            dotContentsView.dotView2.isHidden = false
-            dotContentsView.dotView3.isHidden = false
-            dotContentsView.dotView4.isHidden = false
-            NSLayoutConstraint(item: dotContentsView.dotView1, attribute: .centerX, relatedBy: .equal, toItem: dotContentsView, attribute: .centerX, multiplier: 0.55, constant: 0).isActive = true
-            
-            NSLayoutConstraint(item: dotContentsView.dotView2, attribute: .centerX, relatedBy: .equal, toItem: dotContentsView, attribute: .centerX, multiplier: 0.85, constant: 0).isActive = true
-            
-            NSLayoutConstraint(item: dotContentsView.dotView3, attribute: .centerX, relatedBy: .equal, toItem: dotContentsView, attribute: .centerX, multiplier: 1.15, constant: 0).isActive = true
-           
-            NSLayoutConstraint(item: dotContentsView.dotView4, attribute: .centerX, relatedBy: .equal, toItem: dotContentsView, attribute: .centerX, multiplier: 1.45, constant: 0).isActive = true
-        
-        case 5:
-            dotContentsView.dotView2.isHidden = false
-            dotContentsView.dotView3.isHidden = false
-            dotContentsView.dotView4.isHidden = false
-            dotContentsView.dotView5.isHidden = false
-            NSLayoutConstraint(item: dotContentsView.dotView1, attribute: .centerX, relatedBy: .equal, toItem: dotContentsView, attribute: .centerX, multiplier: 0.4, constant: 0).isActive = true
-            
-            NSLayoutConstraint(item: dotContentsView.dotView2, attribute: .centerX, relatedBy: .equal, toItem: dotContentsView, attribute: .centerX, multiplier: 0.7, constant: 0).isActive = true
-            
-            NSLayoutConstraint(item: dotContentsView.dotView3, attribute: .centerX, relatedBy: .equal, toItem: dotContentsView, attribute: .centerX, multiplier: 1, constant: 0).isActive = true
-            
-            NSLayoutConstraint(item: dotContentsView.dotView4, attribute: .centerX, relatedBy: .equal, toItem: dotContentsView, attribute: .centerX, multiplier: 1.3, constant: 0).isActive = true
-
-            NSLayoutConstraint(item: dotContentsView.dotView5, attribute: .centerX, relatedBy: .equal, toItem: dotContentsView, attribute: .centerX, multiplier: 1.6, constant: 0).isActive = true
-            
-        default:
-            break
-        }
-        
-        
-        print("dotView Width: \(dotContentsView.dotView1.frame.width)")
-//        dotContentsView.dotView1.circleView()
-        
-        dotContentsView.layoutSubviews()
-        dotContentsView.layoutIfNeeded()
-        bringSubviewToFront(lbl)
-    }
-
-    func setupLineContentsView(eventNum: Int, categories: [Int]) {
-       
-        addSubview(lineContentsView)
-        lineContentsView.isHidden = false
-        
-        lineContentsView.topAnchor.constraint(equalTo: lbl.bottomAnchor , constant: 2).isActive = true
-        lineContentsView.leadingAnchor.constraint(equalTo: self.leadingAnchor).isActive = true
-        lineContentsView.trailingAnchor.constraint(equalTo: self.trailingAnchor).isActive = true
-        lineContentsView.bottomAnchor.constraint(equalTo: self.bottomAnchor).isActive = true
-        
-        switch eventNum {
-        case 1:
-            lineContentsView.lineTitle1.text = "테스트1"
-            
-        case 2:
-            lineContentsView.lineView2.isHidden = false
-            lineContentsView.lineTitle2.text = "테스트2222"
-            
-        default: break
-            
-        }
-        bringSubviewToFront(lbl)
-    }
-    
-    //날짜 텍스트
-    func setupViews() {
-        addSubview(lbl)
-        lbl.topAnchor.constraint(equalTo: self.topAnchor).isActive = true
-        lbl.centerXAnchor.constraint(equalTo: self.centerXAnchor).isActive = true
-        lbl.widthAnchor.constraint(equalTo: self.widthAnchor, multiplier: 0.47).isActive = true
-        lbl.heightAnchor.constraint(equalTo: lbl.widthAnchor).isActive = true
-        
-        bringSubviewToFront(lbl)
-//        dot.addSubview(lineLabel)
-//        lineLabel.leftAnchor.constraint(equalTo: line.leftAnchor).isActive = true
-//        lineLabel.rightAnchor.constraint(equalTo: line.rightAnchor).isActive = true
-//        lineLabel.topAnchor.constraint(equalTo: line.topAnchor).isActive = true
-//        lineLabel.bottomAnchor.constraint(equalTo: line.bottomAnchor).isActive = true
-    }
-    
-    //일
-    let lbl: UILabel = {
-        let label = UILabel()
-        label.text = "00"
-        label.textAlignment = .center
-        label.font = UIFont.systemFont(ofSize: 16)
-        label.textColor=Colors.darkGray
-        label.layer.cornerRadius = label.frame.height / 2
-        label.layer.masksToBounds = true
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
-    }()
-    
-    //구분선
-    let dot: UIView = {
-        let dot = UIView()
-        dot.layer.cornerRadius = dot.frame.height / 2
-        dot.layer.masksToBounds = true
-        dot.translatesAutoresizingMaskIntoConstraints = false
-        return dot
-    }()
-    
-    let dot2: UIView = {
-        let dot2 = UIView()
-        dot2.layer.cornerRadius = dot2.frame.height / 2
-        dot2.layer.masksToBounds = true
-        dot2.translatesAutoresizingMaskIntoConstraints = false
-        return dot2
-    }()
-    
-    let dotContentsView: DotView = {
-        let dt = DotView()
-        dt.translatesAutoresizingMaskIntoConstraints = false
-        return dt
-    }()
-    
-    let lineContentsView: LineView = {
-        let line = LineView()
-        line.translatesAutoresizingMaskIntoConstraints = false
-        return line
-    }()
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
 }
 
-extension Date {
-    var weekday: Int {
-        return Calendar.current.component(.weekday, from: self)
-    }
-    var firstDayOfTheMonth: Date {
-        return Calendar.current.date(from: Calendar.current.dateComponents([.year,.month], from: self))!
-    }
-}
 
-extension String {
-    static var dateFormatter: DateFormatter = {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "yyyy-MM-dd"
-        return formatter
-    }()
-    var date: Date? {
-        return String.dateFormatter.date(from: self)
-    }
-}
 
-struct Colors {
-    static var darkGray = #colorLiteral(red: 0.3764705882, green: 0.3647058824, blue: 0.3647058824, alpha: 1)
-    static var darkRed = #colorLiteral(red: 0.5019607843, green: 0.1529411765, blue: 0.1764705882, alpha: 1)
-}
-
-//테마 색설정
-struct Style {
-    static var bgColor = UIColor.white
-    static var monthViewLblColor = UIColor.white
-    static var monthViewBtnRightColor = UIColor.white
-    static var monthViewBtnLeftColor = UIColor.white
-    static var activeCellLblColor = UIColor.white
-    static var activeCellLblColorHighlighted = UIColor.black
-    static var weekdaysLblColor = UIColor.white
-    
-    static func themeDark(){
-        bgColor = Colors.darkGray
-        monthViewLblColor = UIColor.white
-        monthViewBtnRightColor = UIColor.white
-        monthViewBtnLeftColor = UIColor.white
-        activeCellLblColor = UIColor.white
-        activeCellLblColorHighlighted = UIColor.black
-        weekdaysLblColor = UIColor.white
-    }
-    
-    static func themeLight(){
-        bgColor = UIColor.white
-        monthViewLblColor = UIColor.black
-        monthViewBtnRightColor = UIColor.black
-        monthViewBtnLeftColor = UIColor.black
-        activeCellLblColor = UIColor.black
-        activeCellLblColorHighlighted = UIColor.white
-        weekdaysLblColor = UIColor.black
-    }
-}
 
 
 
