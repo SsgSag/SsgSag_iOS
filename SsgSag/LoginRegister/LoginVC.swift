@@ -20,7 +20,6 @@ class LoginVC: UIViewController {
     
     let loginInstance = NaverThirdPartyLoginConnection.getSharedInstance()
     
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         iniGestureRecognizer()

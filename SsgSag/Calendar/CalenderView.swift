@@ -46,14 +46,16 @@ class CalenderView: UIView, MonthViewDelegate {
                     let components = Calendar.current.dateComponents([.day], from: posterStartDateTime!, to: posterEndDateTime!)
                     
                     let dayInterval = components.day! + 1
-                    
-                    posterTuples.append((posterStartDateTime!.addingTimeInterval(60.0 * 60.0 * 9.0), posterEndDateTime!.addingTimeInterval(60.0 * 60.0 * 9.0), dayInterval, poster.categoryIdx!, poster.posterName!, poster.categoryIdx!))
+            
+                    if isDuplicatePosterTuple(posterTuples, input: (posterStartDateTime!.addingTimeInterval(60.0 * 60.0 * 9.0), posterEndDateTime!.addingTimeInterval(60.0 * 60.0 * 9.0), dayInterval, poster.categoryIdx!, poster.posterName!, poster.categoryIdx!)) == false {
+                        posterTuples.append((posterStartDateTime!.addingTimeInterval(60.0 * 60.0 * 9.0), posterEndDateTime!.addingTimeInterval(60.0 * 60.0 * 9.0), dayInterval, poster.categoryIdx!, poster.posterName!, poster.categoryIdx!))
+                        
+                        print("qqqq \(poster.posterName) \(posterEndDateTime!.addingTimeInterval(60.0 * 60.0 * 9.0))")
+                    }
                 }
+                
+                print()
             }
-        }
-        
-        for tuple in posterTuples {
-            print("tuple is \(tuple)")
         }
         
         self.myCollectionView.reloadData()
@@ -61,6 +63,9 @@ class CalenderView: UIView, MonthViewDelegate {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
+        
+        setCalenderViewColor()
+        
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
         
@@ -74,15 +79,16 @@ class CalenderView: UIView, MonthViewDelegate {
                     let posterEndDateTime = formatter.date(from: poster.posterEndDate!)
                     let components = Calendar.current.dateComponents([.day], from: posterStartDateTime!, to: posterEndDateTime!)
                     let dayInterval = components.day! + 1
-                    
-                    posterTuples.append((posterStartDateTime!, posterEndDateTime!, dayInterval, poster.categoryIdx!, poster.posterName!, 0))
+                
+                    if isDuplicatePosterTuple(posterTuples, input: (posterStartDateTime!, posterEndDateTime!, dayInterval, poster.categoryIdx!, poster.posterName!, 0)) == false {
+                        posterTuples.append((posterStartDateTime!, posterEndDateTime!, dayInterval, poster.categoryIdx!, poster.posterName!, 0))
+                    }
                 }
             }
         }
         
         
         NotificationCenter.default.addObserver(self, selector: #selector(changeBackgroundColor), name: NSNotification.Name("changeBackgroundColor"), object: nil)
-        
         //좋아요 선택시 유저티폴츠에 넣고 그것의 반응을 받는다.
         NotificationCenter.default.addObserver(self, selector: #selector(addUserDefaults), name: NSNotification.Name("addUserDefaults"), object: nil)
         
@@ -132,6 +138,15 @@ class CalenderView: UIView, MonthViewDelegate {
         return true
     }
     
+    func isDuplicatePosterTuple(_ posterTuples:[(Date, Date, Int, Int, String, Int)], input: (Date, Date, Int, Int, String, Int)) -> Bool {
+        for i in posterTuples {
+            if i.4 == input.4 {
+                return true
+            }
+        }
+        return false
+    }
+    
     convenience init(theme: MyTheme) {
         self.init()
         
@@ -144,7 +159,7 @@ class CalenderView: UIView, MonthViewDelegate {
     }
     
     
-    func changeTheme() {
+    private func setCalenderViewColor() {
         myCollectionView.reloadData()
         monthView.monthName.textColor = Style.monthViewLblColor
         monthView.btnRight.setTitleColor(Style.monthViewBtnRightColor, for: .normal)
@@ -231,9 +246,6 @@ class CalenderView: UIView, MonthViewDelegate {
         myCollectionView.leftAnchor.constraint(equalTo: leftAnchor, constant: 16).isActive=true
         myCollectionView.rightAnchor.constraint(equalTo: rightAnchor, constant: -16).isActive=true
         myCollectionView.bottomAnchor.constraint(equalTo: bottomAnchor).isActive=true
-        
-        
-       
     }
     let monthView: MonthView = {
         let v=MonthView()
@@ -271,6 +283,7 @@ class dateCVCell: UICollectionViewCell {
         super.init(frame: frame)
         layer.cornerRadius=5
         layer.masksToBounds=true
+        
         
         NotificationCenter.default.addObserver(self, selector: #selector(changeToUp), name: NSNotification.Name("changeToUp"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(changeToDown), name: NSNotification.Name("changeToDown"), object: nil)
