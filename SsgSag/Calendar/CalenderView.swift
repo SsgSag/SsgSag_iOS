@@ -292,10 +292,17 @@ class dateCVCell: UICollectionViewCell {
         layoutSubviews()
     }
     
+    
     override func layoutSubviews() {
         super.layoutSubviews()
         
         setupViews()
+        
+        
+    }
+    override func layoutIfNeeded() {
+        super.layoutIfNeeded()
+        
     }
     
     @objc func changeToUp() {
@@ -305,6 +312,85 @@ class dateCVCell: UICollectionViewCell {
     
     @objc func changeToDown() {
         self.layoutIfNeeded()
+    }
+    
+    func setupDotContentsView(eventNum: Int, categories: [Int]) {
+        
+        addSubview(dotContentsView)
+        
+        dotContentsView.topAnchor.constraint(equalTo: lbl.bottomAnchor , constant: 0.6).isActive = true
+        dotContentsView.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
+        dotContentsView.heightAnchor.constraint(equalTo: self.heightAnchor, multiplier: 0.12).isActive = true
+        dotContentsView.widthAnchor.constraint(equalTo: self.widthAnchor).isActive = true
+
+
+        switch eventNum {
+        case 1:
+            NSLayoutConstraint(item: dotContentsView.dotView1, attribute: .centerX, relatedBy: .equal, toItem: dotContentsView, attribute: .centerX, multiplier: 1, constant: 0).isActive = true
+            
+        case 2:
+            dotContentsView.dotView2.isHidden = false
+             NSLayoutConstraint(item: dotContentsView.dotView1, attribute: .centerX, relatedBy: .equal, toItem: dotContentsView, attribute: .centerX, multiplier: 0.8, constant: 0).isActive = true
+            
+            NSLayoutConstraint(item: dotContentsView.dotView2, attribute: .centerX, relatedBy: .equal, toItem: dotContentsView, attribute: .centerX, multiplier: 1.2, constant: 0).isActive = true
+        default:
+            break
+        }
+        NSLayoutConstraint(item: dotContentsView.dotView5, attribute: .centerX, relatedBy: .equal, toItem: dotContentsView, attribute: .centerX, multiplier: 0.12, constant: 0).isActive = true
+        
+
+        print("dotView Width: \(dotContentsView.dotView1.frame.width)")
+//        dotContentsView.dotView1.circleView()
+        
+        dotContentsView.layoutSubviews()
+        dotContentsView.layoutIfNeeded()
+        
+    }
+
+    
+    func setupDotViews(eventNum: Int, categories: [Int]) {
+        addSubview(dotDot)
+        
+        dotDot.topAnchor.constraint(equalTo: lbl.bottomAnchor , constant: 0.6).isActive = true
+        dotDot.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
+        dotDot.heightAnchor.constraint(equalTo: self.heightAnchor, multiplier: 0.12).isActive = true
+        dotDot.widthAnchor.constraint(equalTo: self.widthAnchor).isActive = true
+        
+        switch eventNum {
+        case 1:
+            
+            dotDot.addSubview(dot)
+            dot.backgroundColor = .black
+            dot.center = dotDot.center
+//            dot.topAnchor.constraint(equalTo: dotDot.topAnchor).isActive = true
+//            dot.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
+            dot.heightAnchor.constraint(equalTo: self.heightAnchor).isActive = true
+            dot.widthAnchor.constraint(equalTo: self.heightAnchor, multiplier: 0.12).isActive = true
+            dot.layer.cornerRadius = dot.frame.width / 2
+
+        case 2:
+            dotDot.addSubview(dot)
+            dot.backgroundColor = .red
+            
+            dot.trailingAnchor.constraint(equalTo: centerXAnchor, constant: -3).isActive = true
+            dot.heightAnchor.constraint(equalTo: self.heightAnchor).isActive = true
+            dot.widthAnchor.constraint(equalTo: self.widthAnchor, multiplier: 0.12).isActive = true
+            dot.layer.cornerRadius = dot.frame.width / 2
+            
+            dotDot.addSubview(dot2)
+            dot2.backgroundColor = .green
+            
+            dot2.leadingAnchor.constraint(equalTo: centerXAnchor, constant: 3).isActive = true
+            dot2.heightAnchor.constraint(equalTo: self.heightAnchor).isActive = true
+            dot2.widthAnchor.constraint(equalTo: self.widthAnchor, multiplier: 0.12).isActive = true
+            dot2.layer.cornerRadius = dot2.frame.width / 2
+            
+            
+        default: break
+            
+        }
+        dotDot.layoutSubviews()
+        dotDot.layoutIfNeeded()
     }
     
     //날짜 텍스트
@@ -324,14 +410,16 @@ class dateCVCell: UICollectionViewCell {
         dot.widthAnchor.constraint(equalTo: self.heightAnchor, multiplier: 0.12).isActive = true
         dot.layer.cornerRadius = dot.frame.width / 2
         
+   
+        dot2.layer.cornerRadius = dot2.frame.width / 2
+        
 //        dot.addSubview(lineLabel)
 //        lineLabel.leftAnchor.constraint(equalTo: line.leftAnchor).isActive = true
 //        lineLabel.rightAnchor.constraint(equalTo: line.rightAnchor).isActive = true
 //        lineLabel.topAnchor.constraint(equalTo: line.topAnchor).isActive = true
 //        lineLabel.bottomAnchor.constraint(equalTo: line.bottomAnchor).isActive = true
-        
-        
     }
+    
     //일
     let lbl: UILabel = {
         let label = UILabel()
@@ -344,6 +432,7 @@ class dateCVCell: UICollectionViewCell {
         label.translatesAutoresizingMaskIntoConstraints=false
         return label
     }()
+    
     //구분선
     let dot: UIView = {
         let dot = UIView()
@@ -361,6 +450,17 @@ class dateCVCell: UICollectionViewCell {
         return dot2
     }()
     
+    let dotDot: DotView = {
+        let dt = DotView()
+        dt.translatesAutoresizingMaskIntoConstraints = false
+        return dt
+    }()
+    
+    let dotContentsView: DotView = {
+        let dt = DotView()
+        dt.translatesAutoresizingMaskIntoConstraints = false
+        return dt
+    }()
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -422,10 +522,6 @@ struct Style {
         weekdaysLblColor = UIColor.black
     }
 }
-
-
-
-
 
 
 
