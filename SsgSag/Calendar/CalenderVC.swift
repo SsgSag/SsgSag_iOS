@@ -15,7 +15,7 @@ class CalenderVC: UIViewController{
         v.translatesAutoresizingMaskIntoConstraints=false
         return v
     }()
-    
+
     let todoSeparatorBar: UIView = {
         let todoView = UIView()
         todoView.backgroundColor = UIColor(displayP3Red: 251/255, green: 251/255, blue: 251/255, alpha: 1.0)
@@ -245,6 +245,8 @@ class CalenderVC: UIViewController{
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = Style.bgColor
+        
+       // NotificationCenter.default.post(name: NSNotification.Name(rawValue: "todoStatus"), object: nil)
     
         setupContentView()
         setupGesture()
@@ -398,6 +400,7 @@ class CalenderVC: UIViewController{
         UIView.animate(withDuration: 0.1) {
             self.view.layoutIfNeeded()
         }
+        
         //마지막 선택된 날짜로 투두 테이블 표현
         if let currentSelectedDateTime = notification.userInfo?["currentCellDateTime"] as? Date {
             todoData = []
@@ -412,10 +415,13 @@ class CalenderVC: UIViewController{
             todoList.text = "\(currentCellMonth)월 \(currentCellDay)일"
             self.todoTableView.reloadData()
         }
+        
         todoStatus = -1
+        calenderView.myCollectionView.reloadData()
     }
     
     @objc func todoTableTapped(){
+        
         NotificationCenter.default.post(name: NSNotification.Name("changeToDown"), object: nil)
         
         for subview in view.subviews {
@@ -435,6 +441,7 @@ class CalenderVC: UIViewController{
         }
         
         todoStatus = 1
+        calenderView.myCollectionView.reloadData()
     }
     @objc func moveNextMonthBySwipe() {
         NotificationCenter.default.post(name: NSNotification.Name("calendarSwipe"), object: nil)
@@ -474,6 +481,7 @@ extension CalenderVC: UITableViewDelegate,UITableViewDataSource {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "todoCell") as? todoCell else {
             return .init()
         }
+        
         let todayDay = Calendar.current.component(.day, from: Date())
         let todoListDay = Calendar.current.component(.day, from: todoData[indexPath.row].1)
         
@@ -510,7 +518,7 @@ extension CalenderVC: UITableViewDelegate,UITableViewDataSource {
         
         let todoDataStartMonth = Calendar.current.component(.month, from: todoData[indexPath.row].0)
         let todoDataStartDay = Calendar.current.component(.day, from: todoData[indexPath.row].0)
-        
+
         let todoDataEndMonth = Calendar.current.component(.month, from: todoData[indexPath.row].1)
         let todoDataEndDay = Calendar.current.component(.day, from: todoData[indexPath.row].1)
         

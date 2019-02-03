@@ -80,6 +80,8 @@
 		FA7F4CD221E0A0A000D8643A /* AddActivityVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA7F4CD121E0A0A000D8643A /* AddActivityVC.swift */; };
 		FA7F4CD421E0A0BB00D8643A /* AddVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA7F4CD321E0A0BB00D8643A /* AddVC.swift */; };
 		FA806B9A22060A8F00EB38D6 /* categoryColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA806B9922060A8F00EB38D6 /* categoryColor.swift */; };
+		FA806B9C2206F3E100EB38D6 /* LineView.xib in Resources */ = {isa = PBXBuildFile; fileRef = FA806B9B2206F3E100EB38D6 /* LineView.xib */; };
+		FA806B9E2206F70900EB38D6 /* LineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA806B9D2206F70900EB38D6 /* LineView.swift */; };
 		FA851DE921D3DBBC002065D0 /* SwipeCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA851DE821D3DBBC002065D0 /* SwipeCard.swift */; };
 		FA851DED21D5FDB0002065D0 /* SwipeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA851DEC21D5FDB0002065D0 /* SwipeModel.swift */; };
 		FAA2386721FF32B400C6DB13 /* ZoomPosterImageVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAA2386621FF32B400C6DB13 /* ZoomPosterImageVC.swift */; };
@@ -204,6 +206,8 @@
 		FA7F4CD121E0A0A000D8643A /* AddActivityVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddActivityVC.swift; sourceTree = "<group>"; };
 		FA7F4CD321E0A0BB00D8643A /* AddVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddVC.swift; sourceTree = "<group>"; };
 		FA806B9922060A8F00EB38D6 /* categoryColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = categoryColor.swift; sourceTree = "<group>"; };
+		FA806B9B2206F3E100EB38D6 /* LineView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LineView.xib; sourceTree = "<group>"; };
+		FA806B9D2206F70900EB38D6 /* LineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LineView.swift; sourceTree = "<group>"; };
 		FA851DE821D3DBBC002065D0 /* SwipeCard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwipeCard.swift; sourceTree = "<group>"; };
 		FA851DEC21D5FDB0002065D0 /* SwipeModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwipeModel.swift; sourceTree = "<group>"; };
 		FAA2386621FF32B400C6DB13 /* ZoomPosterImageVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZoomPosterImageVC.swift; sourceTree = "<group>"; };
@@ -371,6 +375,8 @@
 				FAA2386621FF32B400C6DB13 /* ZoomPosterImageVC.swift */,
 				FA5FC0B82205A3F800CB83C8 /* DotView.xib */,
 				FA5FC0BA2205A48500CB83C8 /* DotView.swift */,
+				FA806B9B2206F3E100EB38D6 /* LineView.xib */,
+				FA806B9D2206F70900EB38D6 /* LineView.swift */,
 				FA806B9922060A8F00EB38D6 /* categoryColor.swift */,
 				84604F222205A0ED00212A00 /* todoCell.swift */,
 			);
@@ -640,6 +646,7 @@
 				FA7F4CC021DFCAF200D8643A /* ActivityCell.xib in Resources */,
 				84B4268A21E9063600B44F71 /* bt_save_round.json in Resources */,
 				FAF0DF0321E95B5A003F341F /* splash.json in Resources */,
+				FA806B9C2206F3E100EB38D6 /* LineView.xib in Resources */,
 				FA61FE1321E1D48D00A28947 /* .gitignore in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -810,6 +817,7 @@
 				84264BAA21DF109200849E6B /* AddPassiveDateVC.swift in Sources */,
 				84E19CD321DCC922006F72EC /* UserService.swift in Sources */,
 				FA806B9A22060A8F00EB38D6 /* categoryColor.swift in Sources */,
+				FA806B9E2206F70900EB38D6 /* LineView.swift in Sources */,
 				842C619E21DD1807001BA6D8 /* Json4Swift_Base.swift in Sources */,
 				FA3A342021E5127700668908 /* UserAPI.swift in Sources */,
 				FAA2386721FF32B400C6DB13 /* ZoomPosterImageVC.swift in Sources */,

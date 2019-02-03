@@ -19,14 +19,13 @@ class CalenderView: UIView, MonthViewDelegate {
     var currentPosterTuple:[(Date, Date, Int, Int, String, Int)] = []
     var eventDictionary: [Int:[event]] = [:]
     
-
-    
     struct event {
         let eventDate: Date
         let title: String
         let categoryIdx: Int
     }
-    
+
+
     var lastSelectedDate: Date?
     var lastSelectedIndexPath: IndexPath?
     
@@ -282,10 +281,14 @@ class CalenderView: UIView, MonthViewDelegate {
 
 //날짜 하나에 해당하는 셀
 class dateCVCell: UICollectionViewCell {
+    
+    var todoStatus = -1
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         layer.cornerRadius=5
         layer.masksToBounds=true
+        
         
         
         NotificationCenter.default.addObserver(self, selector: #selector(changeToUp), name: NSNotification.Name("changeToUp"), object: nil)
@@ -310,17 +313,24 @@ class dateCVCell: UICollectionViewCell {
     
     @objc func changeToUp() {
         
+        
+        todoStatus = -1
+        
         self.layoutIfNeeded()
+        
+        
     }
     
     @objc func changeToDown() {
+        print("내려와")
+        todoStatus = 1
         self.layoutIfNeeded()
     }
     
     func setupDotContentsView(eventNum: Int, categories: [Int]) {
         
         addSubview(dotContentsView)
-        
+        dotContentsView.isHidden = false
         dotContentsView.topAnchor.constraint(equalTo: lbl.bottomAnchor , constant: 0.6).isActive = true
         dotContentsView.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
         dotContentsView.heightAnchor.constraint(equalTo: self.heightAnchor, multiplier: 0.12).isActive = true
@@ -377,9 +387,7 @@ class dateCVCell: UICollectionViewCell {
             break
         }
         
-        //NSLayoutConstraint(item: dotContentsView.dotView5, attribute: .centerX, relatedBy: .equal, toItem: dotContentsView, attribute: .centerX, multiplier: 0.12, constant: 0).isActive = true
         
-
         print("dotView Width: \(dotContentsView.dotView1.frame.width)")
 //        dotContentsView.dotView1.circleView()
         
@@ -388,50 +396,29 @@ class dateCVCell: UICollectionViewCell {
         
     }
 
-    
-    func setupDotViews(eventNum: Int, categories: [Int]) {
-        addSubview(dotDot)
+    func setupLineContentsView(eventNum: Int, categories: [Int]) {
         
-        dotDot.topAnchor.constraint(equalTo: lbl.bottomAnchor , constant: 0.6).isActive = true
-        dotDot.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
-        dotDot.heightAnchor.constraint(equalTo: self.heightAnchor, multiplier: 0.12).isActive = true
-        dotDot.widthAnchor.constraint(equalTo: self.widthAnchor).isActive = true
+        let lineXIB = UINib(nibName: "LineView", bundle: nil)
+
+        
+        addSubview(lineContentsView)
+        lineContentsView.isHidden = false
+        lineContentsView.topAnchor.constraint(equalTo: lbl.bottomAnchor , constant: 2).isActive = true
+        lineContentsView.leadingAnchor.constraint(equalTo: self.leadingAnchor).isActive = true
+        lineContentsView.trailingAnchor.constraint(equalTo: self.trailingAnchor).isActive = true
+        lineContentsView.bottomAnchor.constraint(equalTo: self.bottomAnchor).isActive = true
         
         switch eventNum {
         case 1:
+            lineContentsView.lineTitle1.text = "테스트1"
             
-            dotDot.addSubview(dot)
-            dot.backgroundColor = .black
-            dot.center = dotDot.center
-//            dot.topAnchor.constraint(equalTo: dotDot.topAnchor).isActive = true
-//            dot.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
-            dot.heightAnchor.constraint(equalTo: self.heightAnchor).isActive = true
-            dot.widthAnchor.constraint(equalTo: self.heightAnchor, multiplier: 0.12).isActive = true
-            dot.layer.cornerRadius = dot.frame.width / 2
-
         case 2:
-            dotDot.addSubview(dot)
-            dot.backgroundColor = .red
-            
-            dot.trailingAnchor.constraint(equalTo: centerXAnchor, constant: -3).isActive = true
-            dot.heightAnchor.constraint(equalTo: self.heightAnchor).isActive = true
-            dot.widthAnchor.constraint(equalTo: self.widthAnchor, multiplier: 0.12).isActive = true
-            dot.layer.cornerRadius = dot.frame.width / 2
-            
-            dotDot.addSubview(dot2)
-            dot2.backgroundColor = .green
-            
-            dot2.leadingAnchor.constraint(equalTo: centerXAnchor, constant: 3).isActive = true
-            dot2.heightAnchor.constraint(equalTo: self.heightAnchor).isActive = true
-            dot2.widthAnchor.constraint(equalTo: self.widthAnchor, multiplier: 0.12).isActive = true
-            dot2.layer.cornerRadius = dot2.frame.width / 2
-            
+            lineContentsView.lineView2.isHidden = false
+            lineContentsView.lineTitle2.text = "테스트2222"
             
         default: break
             
         }
-        dotDot.layoutSubviews()
-        dotDot.layoutIfNeeded()
     }
     
     //날짜 텍스트
@@ -444,8 +431,6 @@ class dateCVCell: UICollectionViewCell {
         
         addSubview(dot)
         dot.topAnchor.constraint(equalTo: lbl.bottomAnchor , constant: 0.6).isActive = true
-        //dot.leftAnchor.constraint(equalTo: leftAnchor).isActive = true
-        //dot.rightAnchor.constraint(equalTo: rightAnchor).isActive = true
         dot.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
         dot.heightAnchor.constraint(equalTo: self.heightAnchor, multiplier: 0.12).isActive = true
         dot.widthAnchor.constraint(equalTo: self.heightAnchor, multiplier: 0.12).isActive = true
@@ -491,16 +476,16 @@ class dateCVCell: UICollectionViewCell {
         return dot2
     }()
     
-    let dotDot: DotView = {
+    let dotContentsView: DotView = {
         let dt = DotView()
         dt.translatesAutoresizingMaskIntoConstraints = false
         return dt
     }()
     
-    let dotContentsView: DotView = {
-        let dt = DotView()
-        dt.translatesAutoresizingMaskIntoConstraints = false
-        return dt
+    let lineContentsView: LineView = {
+        let line = LineView()
+        line.translatesAutoresizingMaskIntoConstraints = false
+        return line
     }()
     
     required init?(coder aDecoder: NSCoder) {

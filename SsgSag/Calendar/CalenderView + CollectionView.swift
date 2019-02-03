@@ -23,13 +23,35 @@ extension CalenderView: UICollectionViewDelegate, UICollectionViewDataSource, UI
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell=collectionView.dequeueReusableCell(withReuseIdentifier: "Cell", for: indexPath) as! dateCVCell
         
-        cell.lbl.backgroundColor = .clear
         cell.lbl.layer.cornerRadius = cell.lbl.frame.height / 2
         
+        cell.lbl.backgroundColor = .clear
         cell.backgroundColor = .clear
         cell.lbl.backgroundColor = .clear
         cell.dot.backgroundColor = .clear
         cell.dot2.backgroundColor = .clear
+        
+        cell.dotContentsView.isHidden = true
+        cell.lineContentsView.isHidden = true
+        
+        
+//        cell.dotContentsView.backgroundColor = .clear
+//        cell.dotContentsView.dotView1.backgroundColor = .clear
+//        cell.dotContentsView.dotView2.backgroundColor = .clear
+//        cell.dotContentsView.dotView3.backgroundColor = .clear
+//        cell.dotContentsView.dotView4.backgroundColor = .clear
+//        cell.dotContentsView.dotView5.backgroundColor = .clear
+//
+//        cell.lineContentsView.backgroundColor = .clear
+//        cell.lineContentsView.lineView1.backgroundColor = .clear
+//        cell.lineContentsView.lineView2.backgroundColor = .clear
+//        cell.lineContentsView.lineView3.backgroundColor = .clear
+//        cell.lineContentsView.lineView4.backgroundColor = .clear
+//        cell.lineContentsView.lineView5.backgroundColor = .clear
+        
+        
+        
+        
         
         var beforeMonthIndex = 0
         var beforeYear = 0 //이번달의 전 달이 어떤날에 해당하는지 확인!!
@@ -160,7 +182,8 @@ extension CalenderView: UICollectionViewDelegate, UICollectionViewDataSource, UI
 //            eventDictionary[indexPath.row]?.append(event.init(eventDate: endDate3, title: "다다", categoryIdx: 3))
         }
         
-
+        
+        
         //event가 있으면 추가
         let eventNum = eventDictionary[indexPath.row]!.count
         if (eventNum > 0) {
@@ -172,9 +195,21 @@ extension CalenderView: UICollectionViewDelegate, UICollectionViewDataSource, UI
             print("\(indexPath.row)  event개수: \(eventNum) category: \(eventCategoryList)")
             //dot 그리기
 //            cell.setupDotViews(eventNum: eventNum, categories: eventCategoryList)
-            cell.setupDotContentsView(eventNum: eventNum, categories: eventCategoryList)
+           
+            if cell.todoStatus == -1 {
+                cell.setupDotContentsView(eventNum: eventNum, categories: eventCategoryList)
+            } else {
+                
+                cell.setupLineContentsView(eventNum: eventNum, categories: eventCategoryList)
+                
+            }
         }
         
+        for subview in cell.contentView.subviews {
+            if subview is DotView {
+                subview.removeFromSuperview()
+            }
+        }
         
         let calcDate = indexPath.row-firstWeekDayOfMonth+2 //1~31일까지
         //다른달에 갔다 올때 오늘 날짜의 색
