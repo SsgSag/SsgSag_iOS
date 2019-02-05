@@ -54,12 +54,10 @@ class DayCollectionViewCell: UICollectionViewCell {
         addSubview(dotContentsView)
         dotContentsView.isHidden = false
         
-        
         dotContentsView.topAnchor.constraint(equalTo: lbl.bottomAnchor , constant: 2).isActive = true
         dotContentsView.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
         dotContentsView.heightAnchor.constraint(equalTo: self.heightAnchor, multiplier: 0.12).isActive = true
         dotContentsView.widthAnchor.constraint(equalTo: self.widthAnchor).isActive = true
-        
         
         switch eventNum {
         case 1:
