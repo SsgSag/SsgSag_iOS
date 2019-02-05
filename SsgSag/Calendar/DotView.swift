@@ -52,11 +52,11 @@ class DotView: UIView {
         self.addSubview(view)
         
         view.backgroundColor = .clear
-        dotView1.backgroundColor = .clear
-        dotView2.backgroundColor = .clear
-        dotView3.backgroundColor = .clear
-        dotView4.backgroundColor = .clear
-        dotView5.backgroundColor = .clear
+//        dotView1.backgroundColor = .clear
+//        dotView2.backgroundColor = .clear
+//        dotView3.backgroundColor = .clear
+//        dotView4.backgroundColor = .clear
+//        dotView5.backgroundColor = .clear
         
         dotView2.isHidden = true
         dotView3.isHidden = true
@@ -64,11 +64,11 @@ class DotView: UIView {
         dotView5.isHidden = true
         
         view.backgroundColor = .clear
-        dotView1.backgroundColor = .orange
-        dotView2.backgroundColor = .blue
-        dotView3.backgroundColor = .green
-        dotView4.backgroundColor = .black
-        dotView5.backgroundColor = .purple
+//        dotView1.backgroundColor = .orange
+//        dotView2.backgroundColor = .blue
+//        dotView3.backgroundColor = .green
+//        dotView4.backgroundColor = .black
+//        dotView5.backgroundColor = .purple
         
     }
     

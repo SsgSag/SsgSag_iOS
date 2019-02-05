@@ -280,7 +280,7 @@ class CalenderVC: UIViewController{
         NotificationCenter.default.post(name: NSNotification.Name("changeTodoTableStatusByButton"), object: nil)
         
         todoList.text = "투두리스트"
-        todoTableView.reloadData()
+//        todoTableView.reloadData()
     }
     
     //날짜 선택시 실행
@@ -399,6 +399,8 @@ class CalenderVC: UIViewController{
         }
         
         todoStatus = -1
+        //calenderView.calendarCollectionView.reloadData()
+        
     }
     
     func setCalendarVCWhenTODOHide() {
@@ -424,6 +426,7 @@ class CalenderVC: UIViewController{
     @objc func hideTodoTable(){
         setCalendarVCWhenTODOHide()
         todoStatus = 1
+        calenderView.calendarCollectionView.reloadData()
     }
     
     @objc func moveNextMonthBySwipe() {

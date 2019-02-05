@@ -87,12 +87,15 @@ class CalenderView: UIView, MonthViewDelegate {
     //마지막 선택된 날짜의 셀의 백그라운드 색깔을 지우자
     //투두리스트를 표현하자
     @objc func changeTodoTableStatusByButton() {
-        if let index = lastSelectedIndexPath {
-            let cell = collectionView(calendarCollectionView, cellForItemAt: index) as! DayCollectionViewCell
-            cell.lbl.backgroundColor = .clear
-            cell.lbl.textColor = .black
-        }
+//        if let index = lastSelectedIndexPath {
+//            let cell = collectionView(calendarCollectionView, cellForItemAt: index) as! DayCollectionViewCell
+//            cell.lbl.backgroundColor = .red
+//            cell.lbl.textColor = .black
+//            cell.layoutIfNeeded()
+//        }
+        
         calendarCollectionView.reloadData()
+//        calendarCollectionView.reloadInputViews()
     }
     
     //putDate를 lineArray에 날짜 중복되지 않고 넣을 수 있는가?

@@ -45,6 +45,12 @@ class DayCollectionViewCell: UICollectionViewCell {
     
     func setupDotContentsView(eventNum: Int, categories: [Int]) {
         
+        dotContentsView.dotView1.isHidden = true
+        dotContentsView.dotView2.isHidden = true
+        dotContentsView.dotView3.isHidden = true
+        dotContentsView.dotView4.isHidden = true
+        dotContentsView.dotView5.isHidden = true
+        
         addSubview(dotContentsView)
         dotContentsView.isHidden = false
         
@@ -57,15 +63,19 @@ class DayCollectionViewCell: UICollectionViewCell {
         
         switch eventNum {
         case 1:
+            dotContentsView.dotView1.isHidden = false
+            
             NSLayoutConstraint(item: dotContentsView.dotView1, attribute: .centerX, relatedBy: .equal, toItem: dotContentsView, attribute: .centerX, multiplier: 1, constant: 0).isActive = true
             
         case 2:
+            dotContentsView.dotView1.isHidden = false
             dotContentsView.dotView2.isHidden = false
             NSLayoutConstraint(item: dotContentsView.dotView1, attribute: .centerX, relatedBy: .equal, toItem: dotContentsView, attribute: .centerX, multiplier: 0.85, constant: 0).isActive = true
             
             NSLayoutConstraint(item: dotContentsView.dotView2, attribute: .centerX, relatedBy: .equal, toItem: dotContentsView, attribute: .centerX, multiplier: 1.15, constant: 0).isActive = true
             
         case 3:
+            dotContentsView.dotView1.isHidden = false
             dotContentsView.dotView2.isHidden = false
             dotContentsView.dotView3.isHidden = false
             NSLayoutConstraint(item: dotContentsView.dotView1, attribute: .centerX, relatedBy: .equal, toItem: dotContentsView, attribute: .centerX, multiplier: 0.7, constant: 0).isActive = true
@@ -75,6 +85,7 @@ class DayCollectionViewCell: UICollectionViewCell {
             NSLayoutConstraint(item: dotContentsView.dotView3, attribute: .centerX, relatedBy: .equal, toItem: dotContentsView, attribute: .centerX, multiplier: 1.3, constant: 0).isActive = true
             
         case 4:
+            dotContentsView.dotView1.isHidden = false
             dotContentsView.dotView2.isHidden = false
             dotContentsView.dotView3.isHidden = false
             dotContentsView.dotView4.isHidden = false
@@ -87,6 +98,7 @@ class DayCollectionViewCell: UICollectionViewCell {
             NSLayoutConstraint(item: dotContentsView.dotView4, attribute: .centerX, relatedBy: .equal, toItem: dotContentsView, attribute: .centerX, multiplier: 1.45, constant: 0).isActive = true
             
         case 5:
+            dotContentsView.dotView1.isHidden = false
             dotContentsView.dotView2.isHidden = false
             dotContentsView.dotView3.isHidden = false
             dotContentsView.dotView4.isHidden = false
@@ -119,16 +131,25 @@ class DayCollectionViewCell: UICollectionViewCell {
         addSubview(lineContentsView)
         lineContentsView.isHidden = false
         
+        lineContentsView.lineView1.isHidden = true
+        lineContentsView.lineView2.isHidden = true
+        lineContentsView.lineView3.isHidden = true
+        lineContentsView.lineView4.isHidden = true
+        lineContentsView.lineView5.isHidden = true
+        
         lineContentsView.topAnchor.constraint(equalTo: lbl.bottomAnchor , constant: 2).isActive = true
         lineContentsView.leadingAnchor.constraint(equalTo: self.leadingAnchor).isActive = true
         lineContentsView.trailingAnchor.constraint(equalTo: self.trailingAnchor).isActive = true
         lineContentsView.bottomAnchor.constraint(equalTo: self.bottomAnchor).isActive = true
         
         switch eventNum {
+            
         case 1:
+            lineContentsView.lineView1.isHidden = false
             lineContentsView.lineTitle1.text = "테스트1"
             
         case 2:
+            lineContentsView.lineView1.isHidden = false
             lineContentsView.lineView2.isHidden = false
             lineContentsView.lineTitle2.text = "테스트2222"
             
@@ -167,23 +188,7 @@ class DayCollectionViewCell: UICollectionViewCell {
         return label
     }()
     
-    //구분선
-    let dot: UIView = {
-        let dot = UIView()
-        dot.layer.cornerRadius = dot.frame.height / 2
-        dot.layer.masksToBounds = true
-        dot.translatesAutoresizingMaskIntoConstraints = false
-        return dot
-    }()
-    
-    let dot2: UIView = {
-        let dot2 = UIView()
-        dot2.layer.cornerRadius = dot2.frame.height / 2
-        dot2.layer.masksToBounds = true
-        dot2.translatesAutoresizingMaskIntoConstraints = false
-        return dot2
-    }()
-    
+    //구분선    
     let dotContentsView: DotView = {
         let dt = DotView()
         dt.translatesAutoresizingMaskIntoConstraints = false

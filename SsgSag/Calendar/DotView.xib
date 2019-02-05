@@ -32,7 +32,7 @@
                         <constraint firstAttribute="width" secondItem="pXH-S3-KtX" secondAttribute="height" multiplier="1:1" id="MwD-z2-kkH"/>
                     </constraints>
                 </view>
-                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kTm-II-ijX">
+                <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="kTm-II-ijX">
                     <rect key="frame" x="164" y="310" width="47" height="47"/>
                     <color key="backgroundColor" red="0.84465640779999995" green="0.51457053419999998" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <constraints>
@@ -66,7 +66,6 @@
                 <constraint firstItem="pXH-S3-KtX" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="0NH-6P-Thz"/>
                 <constraint firstItem="ery-qT-Suz" firstAttribute="width" secondItem="iN0-l3-epB" secondAttribute="width" multiplier="0.125" id="5nn-f7-nBU"/>
                 <constraint firstItem="Dkw-Tb-rif" firstAttribute="width" secondItem="iN0-l3-epB" secondAttribute="width" multiplier="0.125" id="F8x-m4-BNB"/>
-                <constraint firstItem="kTm-II-ijX" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="G9e-Xl-qX3"/>
                 <constraint firstItem="kTm-II-ijX" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="IXc-cf-67i"/>
                 <constraint firstItem="pXH-S3-KtX" firstAttribute="width" secondItem="iN0-l3-epB" secondAttribute="width" multiplier="0.125" id="aeF-yX-h54"/>
                 <constraint firstItem="16q-TF-wRg" firstAttribute="width" secondItem="iN0-l3-epB" secondAttribute="width" multiplier="0.125" id="gOU-So-rGr"/>

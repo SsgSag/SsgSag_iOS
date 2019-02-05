@@ -113,8 +113,6 @@ extension CalenderView: UICollectionViewDelegate, UICollectionViewDataSource, UI
         
         var currentCellDateTime = formatter.date(from: cellDateString)
         
-        // TODO: 여기 수정해야함
-//        print("currentCellDateTime \(currentCellDateTime)")
         eventDictionary[indexPath.row] = []
         
         for tuple in posterTuples {
@@ -168,16 +166,14 @@ extension CalenderView: UICollectionViewDelegate, UICollectionViewDataSource, UI
             }
             print("\(indexPath.row)  event개수: \(eventNum) category: \(eventCategoryList)")
             //dot 그리기
-//            cell.setupDotViews(eventNum: eventNum, categories: eventCategoryList)
-           
             if cell.todoStatus == -1 {
                 cell.setupDotContentsView(eventNum: eventNum, categories: eventCategoryList)
             } else {
                 cell.setupLineContentsView(eventNum: eventNum, categories: eventCategoryList)
-                
             }
         }
-        
+        print("indexPath: \(indexPath.item)")
+        print(" eventDictionary : \(eventDictionary[indexPath.item])")
         let calcDate = indexPath.row-firstWeekDayOfMonth+2 //1~31일까지
         //다른달에 갔다 올때 오늘 날짜의 색
         if lastSelectedDate != nil && calcDate == currentDay && currentYear == presentYear && currentMonth == presentMonthIndex{
@@ -226,6 +222,9 @@ extension CalenderView: UICollectionViewDelegate, UICollectionViewDataSource, UI
     
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+    
+//        self.calendarCollectionView.reloadData()
+        
         let cell = collectionView.cellForItem(at: indexPath)
         let lbl = cell?.subviews.last as! UILabel
         lbl.layer.cornerRadius = lbl.frame.height / 2
@@ -248,6 +247,8 @@ extension CalenderView: UICollectionViewDelegate, UICollectionViewDataSource, UI
         //CalendarVC에 지금 선택된 날짜를 전송하자.
         let userInfo = [ "currentCellDateTime" : currentCellDateTime ]
         NotificationCenter.default.post(name: NSNotification.Name(rawValue: "todoUpByDaySelected"), object: nil, userInfo: userInfo as [AnyHashable : Any])
+        
+        
     }
     
     
