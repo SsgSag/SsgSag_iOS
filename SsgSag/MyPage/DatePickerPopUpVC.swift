@@ -17,6 +17,7 @@ class DatePickerPopUpVC: UIViewController {
         formatter.dateFormat = "yyyy년 MM월 dd일"
         return formatter
     }()
+    
     var dateString: String = ""
     var buttonTag: Int = 0
     var startDateString: String = ""

@@ -1,4 +1,4 @@
-class todoCell: UITableViewCell {
+class TodoTableViewCell: UITableViewCell {
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         self.backgroundColor = UIColor.rgb(red: 251, green: 251, blue: 251)
@@ -136,16 +136,16 @@ class todoCell: UITableViewCell {
         newImage.isHidden = true
         
         NotificationCenter.default.addObserver(self, selector: #selector(rightItemHidden), name: NSNotification.Name("rightItemHidden"), object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(changeBackgroundColor), name: NSNotification.Name("changeBackgroundColor"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(changeTodoTableStatusByButton), name: NSNotification.Name("changeTodoTableStatusByButton"), object: nil)
     }
     
     @objc func rightItemHidden() {
         leftedDay.isHidden = true
         leftedDayBottom.isHidden = true
         newImage.isHidden = false
-        
     }
-    @objc func changeBackgroundColor() {
+    
+    @objc func changeTodoTableStatusByButton() {
         leftedDay.isHidden = false
         leftedDayBottom.isHidden = false
         newImage.isHidden = true
