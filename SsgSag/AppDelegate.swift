@@ -16,12 +16,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
     
         // Override point for customization after application launch.
-//        let loginVC = LoginVC()
-//        self.window = UIWindow(frame: UIScreen.main.bounds)
-//        self.window?.rootViewController = loginVC
-//        self.window?.makeKeyAndVisible()
+
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+        
+//                let loginVC = LoginVC()
+//                self.window = UIWindow(frame: UIScreen.main.bounds)
+//                self.window?.rootViewController = loginVC
+//                self.window?.makeKeyAndVisible()
         
         window = UIWindow(frame: UIScreen.main.bounds)
 

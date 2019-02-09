@@ -52,8 +52,7 @@ class SwipeVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         getPosterData()
-       // viewActions.isUserInteractionEnabled = true
-
+        //viewActions.isUserInteractionEnabled = true
         
         countLabel.layer.cornerRadius = 10
         countLabel.layer.masksToBounds = true
@@ -100,33 +99,33 @@ class SwipeVC: UIViewController {
     }
 
     func getPosterData() {
-
-        let posterURL = URL(string: "http://54.180.32.22:8080/posters/show")
+        let posterURL = URL(string: "http://52.78.86.179:8080/poster/show")
         var request = URLRequest(url: posterURL!)
         //request.addValue("application/json", forHTTPHeaderField: "Accept")
-        request.httpMethod = "POST"
-        if let savedToken = UserDefaults.standard.object(forKey: "token") as? String {
-                request.addValue(savedToken, forHTTPHeaderField: "Authorization")
-        }
+//        if let savedToken = UserDefaults.standard.object(forKey: "token") as? String {
+//                request.addValue(savedToken, forHTTPHeaderField: "Authorization")
+//        }
         
-        let key2 = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJEb0lUU09QVCIsInVzZXJfaWR4IjoyfQ.kl46Nyv3eGs6kW7DkgiJgmf_1u1-bce1kLXkO7mcQvw"
+        let key2 = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJEb0lUU09QVCIsInVzZXJfaWR4IjoxfQ.5lCvAqnzYP4-2pFx1KTgLVOxYzBQ6ygZvkx5jKCFM08"
+        request.addValue(key2, forHTTPHeaderField: "Authorization")
+        //request.allHTTPHeaderFields = ["Authorization": "9_JkQE5SPfD0k1SbplKR2cU39g-l2MfOofz2lgoqAuYAAAFosk3w-w"]
         
         let task = URLSession.shared.dataTask(with: request) { data, response, error in
             guard error == nil else {
                 print(error!)
                 return
             }
+            
             guard let data = data else {
                 return
             }
-            //print("data \(data)")
-            //print("reponse \(response)")
+            
             do {
                 let order = try JSONDecoder().decode(Json4Swift_Base.self, from: data)
-                //print("order \(order)")
                 if let posters = order.data?.posters {
                     for i in posters {
                         //print(i.posterName)
+                        print(self.valueArray)
                         self.valueArray.append(i)
                         
                         self.likedArray.append(i)
@@ -157,7 +156,7 @@ class SwipeVC: UIViewController {
 //                        countLabel.text = "\(valueArray.count-currentIndex)"
                     }
                 }
-                
+    
             }catch{
                 print("JSON Parising Error")
             }

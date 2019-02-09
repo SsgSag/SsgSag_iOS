@@ -86,21 +86,21 @@ class MonthView: UIView {
         self.addSubview(monthName)
         monthName.topAnchor.constraint(equalTo: topAnchor).isActive=true
         monthName.centerXAnchor.constraint(equalTo: centerXAnchor).isActive=true
-        monthName.widthAnchor.constraint(equalToConstant: 150).isActive=true
-        monthName.heightAnchor.constraint(equalTo: heightAnchor).isActive=true
+//        monthName.widthAnchor.constraint(equalToConstant: 150).isActive=true
+//        monthName.heightAnchor.constraint(equalTo: heightAnchor).isActive=true
         monthName.text="\(currentYear) \(monthsArr[currentMonthIndex])"
         
         self.addSubview(btnRight)
         btnRight.topAnchor.constraint(equalTo: topAnchor).isActive=true
         btnRight.rightAnchor.constraint(equalTo: rightAnchor).isActive=true
-        btnRight.widthAnchor.constraint(equalToConstant: 50).isActive=true
-        btnRight.heightAnchor.constraint(equalTo: heightAnchor).isActive=true
+//        btnRight.widthAnchor.constraint(equalToConstant: 50).isActive=true
+//        btnRight.heightAnchor.constraint(equalTo: heightAnchor).isActive=true
 
         self.addSubview(btnLeft)
         btnLeft.topAnchor.constraint(equalTo: topAnchor).isActive=true
         btnLeft.leftAnchor.constraint(equalTo: leftAnchor).isActive=true
-        btnLeft.widthAnchor.constraint(equalToConstant: 50).isActive=true
-        btnLeft.heightAnchor.constraint(equalTo: heightAnchor).isActive=true
+//        btnLeft.widthAnchor.constraint(equalToConstant: 50).isActive=true
+//        btnLeft.heightAnchor.constraint(equalTo: heightAnchor).isActive=true
     }
     
     //월

@@ -66,13 +66,17 @@ class CalenderVC: UIViewController{
         tb.translatesAutoresizingMaskIntoConstraints = false
         return tb
     }()
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        //calenderView.calendarCollectionView.collectionViewLayout.invalidateLayout()
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = Style.bgColor
         
-        // NotificationCenter.default.post(name: NSNotification.Name(rawValue: "todoStatus"), object: nil)
-        
+        //NotificationCenter.default.post(name: NSNotification.Name(rawValue: "todoStatus"), object: nil)
         setupContentView()
         setupGesture()
         
@@ -84,6 +88,7 @@ class CalenderVC: UIViewController{
         bringUserDefaultsAndSetPosetTupels()
         posterTuples.sort{$0.1 < $1.1}
         addtoTODOTable()
+        
     }
     
     func isDuplicatePosterTuple(_ posterTuples:[(Date, Date, Int, Int, String, Int)], input: (Date, Date, Int, Int, String, Int)) -> Bool {
@@ -123,6 +128,7 @@ class CalenderVC: UIViewController{
     func setupContentView() {
         view.addSubview(todoTableView)
         view.addSubview(todoSeparatorBar)
+        
         todoSeparatorBar.addSubview(donwTodoView)
         todoSeparatorBar.addSubview(todoList)
         todoSeparatorBar.addSubview(separatorLine)
@@ -150,12 +156,13 @@ class CalenderVC: UIViewController{
             todoList.topAnchor.constraint(equalTo: donwTodoView.bottomAnchor, constant: 10),
             todoList.heightAnchor.constraint(equalToConstant: 21),
             
-            separatorLine.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-            separatorLine.leftAnchor.constraint(equalTo: view.leftAnchor),
-            separatorLine.rightAnchor.constraint(equalTo: view.rightAnchor),
+            separatorLine.bottomAnchor.constraint(equalTo: todoSeparatorBar.bottomAnchor),
+            separatorLine.leftAnchor.constraint(equalTo: todoSeparatorBar.leftAnchor),
+            separatorLine.rightAnchor.constraint(equalTo: todoSeparatorBar.rightAnchor),
             separatorLine.heightAnchor.constraint(equalToConstant: 0.5),
         
             calenderView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 50),
+            calenderView.heightAnchor.constraint(equalToConstant: view.frame.height * 0.41),
             calenderView.leftAnchor.constraint(equalTo: view.leftAnchor),
             calenderView.rightAnchor.constraint(equalTo: view.rightAnchor),
             calenderView.bottomAnchor.constraint(equalTo: todoSeparatorBar.topAnchor),
@@ -165,6 +172,8 @@ class CalenderVC: UIViewController{
             todoListButton.widthAnchor.constraint(equalToConstant: 135),
             todoListButton.heightAnchor.constraint(equalToConstant: 44)
         ])
+        
+//        calenderView.backgroundColor = .red
         
         todoTableView.backgroundColor = UIColor(displayP3Red: 251 / 255, green: 251 / 255, blue: 251 / 255, alpha: 1.0)
         
@@ -276,6 +285,7 @@ class CalenderVC: UIViewController{
         let today = Date()
         getDateAfterToday(today)
         
+        
         //
         NotificationCenter.default.post(name: NSNotification.Name("changeTodoTableStatusByButton"), object: nil)
         
@@ -315,12 +325,12 @@ class CalenderVC: UIViewController{
                     todoTableData.append(i)
                 }
             }
-            
             self.todoListButton.isHidden = true
             self.todoTableView.reloadData()
         }
         
         self.view.layoutIfNeeded()
+        
     }
     
     func setCalendarVCWhenTODOShow() {
@@ -329,6 +339,8 @@ class CalenderVC: UIViewController{
                 subview.removeFromSuperview()
             }
         }
+        
+        print("contentOffset \(calenderView.calendarCollectionView.contentOffset.y)")
         
         view.addSubview(todoTableView)
         todoTableView.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
@@ -359,6 +371,8 @@ class CalenderVC: UIViewController{
         UIView.animate(withDuration: 0.1) {
             self.view.layoutIfNeeded()
         }
+        
+        self.calenderView.calendarCollectionView.reloadData()
     }
     
     //
@@ -400,7 +414,7 @@ class CalenderVC: UIViewController{
         
         todoStatus = -1
         //calenderView.calendarCollectionView.reloadData()
-        
+        print("contentOffset \(calenderView.calendarCollectionView.contentOffset.y)")
     }
     
     func setCalendarVCWhenTODOHide() {
@@ -411,6 +425,7 @@ class CalenderVC: UIViewController{
                 subview.removeFromSuperview()
             }
         }
+    
         
         calenderView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 50).isActive = true
         calenderView.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
@@ -418,8 +433,10 @@ class CalenderVC: UIViewController{
         calenderView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor).isActive = true
         todoListButton.isHidden = true
         
+        
         UIView.animate(withDuration: 0.1) {
             self.view.layoutIfNeeded()
+            //self.calenderView.calendarCollectionView.reloadData()
         }
     }
     
