@@ -32,12 +32,6 @@ class CalenderView: UIView, MonthViewDelegate {
     
     var todaysIndexPath: IndexPath?
     
-    struct event {
-        let eventDate: Date
-        let title: String
-        let categoryIdx: Int
-    }
-    
     override init(frame: CGRect) {
         super.init(frame: frame)
         setCalenderViewColor()
@@ -144,7 +138,7 @@ class CalenderView: UIView, MonthViewDelegate {
         monthView.btnRight.setTitleColor(Style.monthViewBtnRightColor, for: .normal)
         monthView.btnLeft.setTitleColor(Style.monthViewBtnLeftColor, for: .normal)
         for i in 0..<7 {
-            (weekdaysView.myStackView.subviews[i] as! UILabel).textColor = Style.weekdaysLblColor
+            (weekdaysView.myStackView.subviews[i] as! UILabel).textColor = .black
         }
     }
     
@@ -210,10 +204,10 @@ class CalenderView: UIView, MonthViewDelegate {
         weekdaysView.topAnchor.constraint(equalTo: monthView.bottomAnchor).isActive=true
         weekdaysView.leftAnchor.constraint(equalTo: leftAnchor, constant: 16).isActive=true
         weekdaysView.rightAnchor.constraint(equalTo: rightAnchor, constant: -16).isActive=true
-        weekdaysView.heightAnchor.constraint(equalToConstant: 30).isActive=true
+        weekdaysView.heightAnchor.constraint(equalToConstant: 30).isActive = true
         
         addSubview(calendarCollectionView)
-        calendarCollectionView.topAnchor.constraint(equalTo: weekdaysView.bottomAnchor, constant: 15).isActive = true
+        calendarCollectionView.topAnchor.constraint(equalTo: weekdaysView.bottomAnchor, constant: 13).isActive = true
         calendarCollectionView.leftAnchor.constraint(equalTo: leftAnchor, constant: 16).isActive = true
         calendarCollectionView.rightAnchor.constraint(equalTo: rightAnchor, constant: -16).isActive = true
         calendarCollectionView.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true

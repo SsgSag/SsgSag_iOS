@@ -78,7 +78,6 @@ class SwipeCard: UIView {
         case .cancelled:break
         case .failed:break
         }
-        
     }
     
     //좋아요 되는동안 바뀌는 부분
