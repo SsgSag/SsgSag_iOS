@@ -37,10 +37,12 @@ class LoginPopUpVC: UIViewController {
             if s.isOpen() {//세션이 열려있는지 확인
                 s.close()
             }
+            
             s.open { (error) in
                 if error == nil {
                     if s.isOpen() {
                         print("success")
+                        print("kakao_token: \(s.token)")
                     } else {
                         print("fail")
                     }

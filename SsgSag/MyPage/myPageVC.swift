@@ -42,6 +42,12 @@ class myPageVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
         self.present(self.imagePicker, animated: true, completion: nil)
     }
     
+    @IBAction func logoutClicked(_ sender: AnyObject) {
+        KOSession.shared().logoutAndClose { [weak self] (success, error) -> Void in
+            _ = self?.navigationController?.popViewController(animated: true)
+        }
+    }
+    
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         var selectedImage: UIImage?
         if let editedImage: UIImage = info[.editedImage] as? UIImage {

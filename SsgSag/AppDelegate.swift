@@ -15,8 +15,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
     
-        // Override point for customization after application launch.
-
+    var loginViewController: UIViewController?
+    var mainViewController: UIViewController?
+    
+    var deviceToken: Data? = nil
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
@@ -41,8 +43,56 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         instance?.consumerSecret = kConsumerSecret
         instance?.appName = kServiceAppName
         
+        
+        //MARK: kakao
+        
+        setupEntryController()
+
+        
+        // 로그인,로그아웃 상태 변경 받기
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(AppDelegate.kakaoSessionDidChangeWithNotification),
+                                               name: NSNotification.Name.KOSessionDidChange,
+                                               object: nil)
+        // 클라이언트 시크릿 설정
+//        KOSession.shared().clientSecret = SessionConstants.clientSecret;
+        
+        reloadRootViewController()
+        
         return true
     }
+    
+    fileprivate func setupEntryController() {
+        let storyboard = UIStoryboard(name: "LoginStoryBoard", bundle: nil)
+        let navigationController = storyboard.instantiateViewController(withIdentifier: "LoginNavigator") as! UINavigationController
+        let navigationController2 = storyboard.instantiateViewController(withIdentifier: "LoginNavigator") as! UINavigationController
+        
+        let viewController = storyboard.instantiateViewController(withIdentifier: "Login") as UIViewController
+        navigationController.pushViewController(viewController, animated: true)
+        self.loginViewController = navigationController
+        
+        let viewController2 = TapbarVC()
+        navigationController2.pushViewController(viewController2, animated: true)
+        self.mainViewController = navigationController2
+    }
+    
+    
+    fileprivate func reloadRootViewController() {
+        let isOpened = KOSession.shared().isOpen()
+        if !isOpened {
+            let mainViewController = self.mainViewController as! UINavigationController
+            mainViewController.popToRootViewController(animated: true)
+        }
+        
+        self.window?.rootViewController = isOpened ? self.mainViewController : self.loginViewController
+        self.window?.makeKeyAndVisible()
+    }
+    
+    @objc func kakaoSessionDidChangeWithNotification() {
+        reloadRootViewController()
+    }
+    
+    
 
     func applicationWillResignActive(_ application: UIApplication) {
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
