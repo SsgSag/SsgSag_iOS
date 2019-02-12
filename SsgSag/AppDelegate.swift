@@ -24,12 +24,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 //                self.window = UIWindow(frame: UIScreen.main.bounds)
 //                self.window?.rootViewController = loginVC
 //                self.window?.makeKeyAndVisible()
-        
-        window = UIWindow(frame: UIScreen.main.bounds)
-
-        window?.rootViewController = TapbarVC()
-
-        window?.makeKeyAndVisible()
+//        
+//        window = UIWindow(frame: UIScreen.main.bounds)
+//
+//        window?.rootViewController = TapbarVC()
+//
+//        window?.makeKeyAndVisible()
         
         let instance = NaverThirdPartyLoginConnection.getSharedInstance()
         instance?.isInAppOauthEnable = true // --- 1
