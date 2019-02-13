@@ -126,6 +126,14 @@
                                             <action selector="removeDefaults:" destination="xxg-7e-42k" eventType="touchUpInside" id="ZP8-Sf-Whh"/>
                                         </connections>
                                     </button>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jEt-PS-b9w">
+                                        <rect key="frame" x="246" y="147" width="99" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <state key="normal" title="로그아웃"/>
+                                        <connections>
+                                            <action selector="logoutClicked:" destination="xxg-7e-42k" eventType="touchUpInside" id="gtV-gg-GGM"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
@@ -1304,7 +1312,7 @@
         <scene sceneID="knA-AM-VsL">
             <objects>
                 <viewController storyboardIdentifier="AddCertificationVC" title="AddCertificationVC" id="xub-dS-Caz" customClass="AddCertificationVC" customModule="SsgSag" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="8rU-NO-dQA">
+                    <view key="view" contentMode="scaleToFill" ambiguous="YES" id="8rU-NO-dQA">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
@@ -1325,11 +1333,11 @@
                                     </navigationItem>
                                 </items>
                             </navigationBar>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VUt-a4-Cj9" userLabel="GrayBackGroundView">
+                            <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="VUt-a4-Cj9" userLabel="GrayBackGroundView">
                                 <rect key="frame" x="0.0" y="64" width="375" height="603"/>
                                 <color key="backgroundColor" red="0.94901960780000005" green="0.95294117649999999" blue="0.96078431369999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vYd-um-IA6" userLabel="ContentsView">
+                            <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="vYd-um-IA6" userLabel="ContentsView">
                                 <rect key="frame" x="10" y="74" width="355" height="487"/>
                                 <subviews>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="자격증명 입력" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="2lk-fv-83I">
@@ -1397,7 +1405,7 @@
                                     <constraint firstAttribute="trailing" secondItem="PQl-oG-FhP" secondAttribute="trailing" constant="20" id="ufI-UN-eVn"/>
                                 </constraints>
                             </view>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Qka-x6-8LD">
+                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Qka-x6-8LD">
                                 <rect key="frame" x="122.5" y="586" width="130" height="44"/>
                                 <state key="normal" image="btFormSave"/>
                                 <connections>

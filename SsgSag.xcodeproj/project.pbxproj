@@ -95,6 +95,7 @@
 		FAA238732203154400C6DB13 /* ViewCareerService.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAA238722203154400C6DB13 /* ViewCareerService.swift */; };
 		FAA238752203179F00C6DB13 /* Careers.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAA238742203179F00C6DB13 /* Careers.swift */; };
 		FAA238792203296500C6DB13 /* NonActivityCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAA238782203296500C6DB13 /* NonActivityCell.swift */; };
+		FAD25C132212CD78004B45E2 /* LoginPopUpVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAD25C122212CD78004B45E2 /* LoginPopUpVC.swift */; };
 		FAD323DB21E36FA6000C4FBA /* AddCertificationVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAD323DA21E36FA6000C4FBA /* AddCertificationVC.swift */; };
 		FAF0DF0021E948AB003F341F /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAF0DEFF21E948AB003F341F /* UserModel.swift */; };
 		FAF0DF0321E95B5A003F341F /* splash.json in Resources */ = {isa = PBXBuildFile; fileRef = FAF0DF0221E95B5A003F341F /* splash.json */; };
@@ -226,6 +227,7 @@
 		FAA238722203154400C6DB13 /* ViewCareerService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewCareerService.swift; sourceTree = "<group>"; };
 		FAA238742203179F00C6DB13 /* Careers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Careers.swift; sourceTree = "<group>"; };
 		FAA238782203296500C6DB13 /* NonActivityCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NonActivityCell.swift; sourceTree = "<group>"; };
+		FAD25C122212CD78004B45E2 /* LoginPopUpVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginPopUpVC.swift; sourceTree = "<group>"; };
 		FAD323DA21E36FA6000C4FBA /* AddCertificationVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddCertificationVC.swift; sourceTree = "<group>"; };
 		FAF0DEFF21E948AB003F341F /* UserModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserModel.swift; sourceTree = "<group>"; };
 		FAF0DF0221E95B5A003F341F /* splash.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = splash.json; sourceTree = "<group>"; };
@@ -403,6 +405,7 @@
 			children = (
 				84E19CE321DCC9F4006F72EC /* LoginStoryBoard.storyboard */,
 				845928E021D20068001DF6CC /* LoginVC.swift */,
+				FAD25C122212CD78004B45E2 /* LoginPopUpVC.swift */,
 			);
 			path = LoginRegister;
 			sourceTree = "<group>";
@@ -819,6 +822,7 @@
 				845928DB21D09F30001DF6CC /* WeekdaysView.swift in Sources */,
 				8459289B21D09CDD001DF6CC /* AppDelegate.swift in Sources */,
 				84E19CE221DCC977006F72EC /* Token.swift in Sources */,
+				FAD25C132212CD78004B45E2 /* LoginPopUpVC.swift in Sources */,
 				FA3A344421E72F5200668908 /* SchoolInfoVC.swift in Sources */,
 				FAA238732203154400C6DB13 /* ViewCareerService.swift in Sources */,
 				84E19CD421DCC922006F72EC /* APIManager.swift in Sources */,
