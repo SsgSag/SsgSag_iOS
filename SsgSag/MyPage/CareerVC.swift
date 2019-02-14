@@ -300,24 +300,13 @@ class CareerVC: UIViewController {
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         let key2 = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJEb0lUU09QVCIsInVzZXJfaWR4IjoxfQ.5lCvAqnzYP4-2pFx1KTgLVOxYzBQ6ygZvkx5jKCFM08"
         request.addValue(key2, forHTTPHeaderField: "Authorization")
-        
         request.httpBody = jsonData
         
-        let task = URLSession.shared.dataTask(with: request) { data, response, error in
-            
-            
-            
-            guard error == nil else {
-                print(error?.localizedDescription ?? "No data")
+        
+        NetworkManager.shared.getData(with: request) { (data, error, res) in
+            guard let data = data else {
                 return
             }
-            
-            guard let data = data else { return }
-            
-            print(data)
-            print("gggg")
-            print(response)
-            
             
             do {
                 let apiResponse = try JSONDecoder().decode(Career.self, from: data)
@@ -350,7 +339,6 @@ class CareerVC: UIViewController {
                 print("sladjalsdjlasjdlasjdlajsldjas")
             }
         }
-        task.resume()
     }
     
 }

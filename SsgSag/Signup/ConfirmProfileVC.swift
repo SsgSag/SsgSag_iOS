@@ -32,7 +32,7 @@ class ConfirmProfileVC: UIViewController {
         nextButton.isUserInteractionEnabled = false
         iniGestureRecognizer()
         self.titleLabel.isHidden = false
-        self.titleImage.isHidden = false
+//        self.titleImage.isHidden = false
         self.navigationItem.setHidesBackButton(true, animated: true)
         setBackBtn( color: .black)
         setNavigationBar(color: .white)
@@ -163,15 +163,15 @@ extension ConfirmProfileVC : UIGestureRecognizerDelegate {
         guard let duration = notification.userInfo?[UIResponder.keyboardAnimationDurationUserInfoKey] as? Double else {return}
         guard let curve = notification.userInfo?[UIResponder.keyboardAnimationCurveUserInfoKey] as? UInt else {return}
         UIView.animate(withDuration: duration, delay: 0.0, options: .init(rawValue: curve), animations: { [unowned self] in
-            print("현재 constraint: \(self.stackViewConstraint.constant)")
-            self.stackViewConstraint.constant = 10
-            self.titleImage.isHidden = true
+//            print("현재 constraint: \(self.stackViewConstraint.constant)")
+//            self.stackViewConstraint.constant = 10
+//            self.titleImage.isHidden = true
             self.titleLabel.isHidden = true
 //            let alpha: CGFloat = 0.5
 //            self.titleImage.alpha(alpha)
             
         })
-        stackViewConstraint.constant = 120
+//        stackViewConstraint.constant = 120
         self.view.layoutIfNeeded()
         
     }
@@ -180,13 +180,13 @@ extension ConfirmProfileVC : UIGestureRecognizerDelegate {
         guard let duration = notification.userInfo?[UIResponder.keyboardAnimationDurationUserInfoKey] as? Double else {return}
         guard let curve = notification.userInfo?[UIResponder.keyboardAnimationCurveUserInfoKey] as? UInt else {return}
         UIView.animate(withDuration: duration, delay: 0.0, options: .init(rawValue: curve), animations: {
-            self.stackViewConstraint.constant = 289
-            print(" constraint: \(self.stackViewConstraint.constant)")
+//            self.stackViewConstraint.constant = 289
+//            print(" constraint: \(self.stackViewConstraint.constant)")
             self.titleLabel.isHidden = false
-            self.titleImage.isHidden = false
+//            self.titleImage.isHidden = false
             
         })
-        stackViewConstraint.constant = 289
+//        stackViewConstraint.constant = 289
         self.view.layoutIfNeeded()
     }
     

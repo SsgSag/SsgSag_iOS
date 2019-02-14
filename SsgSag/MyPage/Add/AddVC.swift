@@ -75,15 +75,10 @@ class AddVC: UIViewController, UITextFieldDelegate, UITextViewDelegate {
         request.addValue(key2, forHTTPHeaderField: "Authorization")
         request.httpBody = jsonData
         
-        let task = URLSession.shared.dataTask(with: request) { data, response, error in
-            
-            guard error == nil else {
-                print(error?.localizedDescription ?? "No data")
-                return
-            }
+        
+        NetworkManager.shared.getData(with: request) { (data, err, res) in
             guard let data = data else { return }
         }
-        task.resume()
     }
     
     
@@ -109,7 +104,7 @@ class AddVC: UIViewController, UITextFieldDelegate, UITextViewDelegate {
         // insert json data to the request
         request.httpBody = jsonData
         
-        let task = URLSession.shared.dataTask(with: request) { data, response, error in
+        NetworkManager.shared.getData(with: request) { (data, error, res) in
             guard let data = data, error == nil else {
                 print(error?.localizedDescription ?? "No data")
                 return
@@ -119,7 +114,6 @@ class AddVC: UIViewController, UITextFieldDelegate, UITextViewDelegate {
                 print("responseJSON \(responseJSON)")
             }
         }
-        task.resume()
     }
 }
 

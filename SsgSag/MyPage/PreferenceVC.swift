@@ -67,19 +67,17 @@ class PreferenceVC: UIViewController {
         request.addValue(key2, forHTTPHeaderField: "Authorization")
         request.httpBody = jsonData
         
-        let task = URLSession.shared.dataTask(with: request) { data, response, error in
-            guard let data = data, error == nil else {
-                print(error?.localizedDescription ?? "No data")
+        NetworkManager.shared.getData(with: request) { (data, error, res) in
+            guard let data = data else {
                 return
             }
             
             let responseJSON = try? JSONSerialization.jsonObject(with: data, options: [])
+            
             if let responseJSON = responseJSON as? [String: Any] {
                 print("관심분야 responseJSON \(responseJSON)")
             }
         }
-        
-        task.resume()
     }
     
     
@@ -151,17 +149,11 @@ class PreferenceVC: UIViewController {
         let key2 = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJEb0lUU09QVCIsInVzZXJfaWR4IjoxfQ.5lCvAqnzYP4-2pFx1KTgLVOxYzBQ6ygZvkx5jKCFM08"
         request.addValue("\(key2)", forHTTPHeaderField: "Application")
         
-        let task = URLSession.shared.dataTask(with: request) { data, response, error in
-            guard error == nil else {
-                print(error!)
-                return
-            }
-            
+        NetworkManager.shared.getData(with: request) { (data, error, res) in
             guard let data = data else {
                 return
             }
         }
-        task.resume()
     }
     
 }

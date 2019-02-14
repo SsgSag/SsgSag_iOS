@@ -110,12 +110,7 @@ class SwipeVC: UIViewController {
         request.addValue(key2, forHTTPHeaderField: "Authorization")
         //request.allHTTPHeaderFields = ["Authorization": "9_JkQE5SPfD0k1SbplKR2cU39g-l2MfOofz2lgoqAuYAAAFosk3w-w"]
         
-        let task = URLSession.shared.dataTask(with: request) { data, response, error in
-            guard error == nil else {
-                print(error!)
-                return
-            }
-            
+        NetworkManager.shared.getData(with: request) { (data, err, res) in
             guard let data = data else {
                 return
             }
@@ -135,16 +130,16 @@ class SwipeVC: UIViewController {
                         dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
                         
                         /*
-                        guard let startdate = dateFormatter.date(from: i.posterStartDate!) else {
-                            fatalError("ERROR: Date conversion failed due to mismatched format.")
-                        }
-                        guard let regdate = dateFormatter.date(from: i.posterRegDate!) else {
-                            fatalError("ERROR: Date conversion failed due to mismatched format.")
-                        }
-                        guard let endtdate = dateFormatter.date(from: i.posterEndDate!) else {
-                            fatalError("ERROR: Date conversion failed due to mismatched format.")
-                        }
-                        */
+                         guard let startdate = dateFormatter.date(from: i.posterStartDate!) else {
+                         fatalError("ERROR: Date conversion failed due to mismatched format.")
+                         }
+                         guard let regdate = dateFormatter.date(from: i.posterRegDate!) else {
+                         fatalError("ERROR: Date conversion failed due to mismatched format.")
+                         }
+                         guard let endtdate = dateFormatter.date(from: i.posterEndDate!) else {
+                         fatalError("ERROR: Date conversion failed due to mismatched format.")
+                         }
+                         */
                         
                     }
                     
@@ -153,15 +148,14 @@ class SwipeVC: UIViewController {
                         self.view.reloadInputViews()
                         self.loadCardValues()
                         self.countLabel.text = "\(self.valueArray.count)"
-//                        countLabel.text = "\(valueArray.count-currentIndex)"
+                        //                        countLabel.text = "\(valueArray.count-currentIndex)"
                     }
                 }
-    
+                
             }catch{
                 print("JSON Parising Error")
             }
         }
-        task.resume()
     }
     
     override func viewDidLayoutSubviews() {

@@ -41,8 +41,11 @@ class LoginPopUpVC: UIViewController {
             s.open { (error) in
                 if error == nil {
                     if s.isOpen() {
+                        
                         print("success")
-                        print("kakao_token: \(s.token)")
+                        print("kakao_token: \(s.token.accessToken)")
+                        self.postData(accessToken: s.token.accessToken, loginType: 0)
+                        
                     } else {
                         print("fail")
                     }
@@ -59,7 +62,122 @@ class LoginPopUpVC: UIViewController {
         self.view.removeFromSuperview()
     }
     
+    func postData(accessToken: String, loginType: Int) {
+        let loginStoryBoard = UIStoryboard(name: "LoginStoryBoard", bundle: nil)
+        let storyboard = UIStoryboard(name: "SignupStoryBoard", bundle: nil)
+        let mainVC = TapbarVC()
+//        let loginNavigator = loginStoryBoard.instantiateViewController(withIdentifier: "LoginNavigator") as! UINavigationController
+        
+         let signupVC = storyboard.instantiateViewController(withIdentifier: "SignupFirst") as! UIViewController
+        let signupNavigator = UINavigationController(rootViewController: signupVC)
+        
+       
+        
+        let json: [String: Any] = [ "accessToken": accessToken,
+                                    "loginType" : loginType //0 카톡 로그인, 1은 네이버 로그인(업데이트 예정)
+        ]
+        
+        let jsonData = try? JSONSerialization.data(withJSONObject: json)
+        let url = URL(string: "http://52.78.86.179:8080/login")!
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.httpBody = jsonData
+        
+        NetworkManager.shared.getData(with: request) { (data, error, res) in
+            guard let data = data else {
+                return
+            }
+            let responseJSON = try? JSONSerialization.jsonObject(with: data, options: [])
+            
+            if let responseJSON = responseJSON as? [String: Any] {
+                print("responseJSON \(responseJSON)")
+                if let statusCode = responseJSON["status"] {
+                    let status = statusCode as! Int
+                    print("statusCode: \(statusCode)")
+                    if status == 200 {
+                        print("로그인성공")
+                        self.present(mainVC, animated: true, completion: nil)
+                    } else if status == 404 {
+                        print("회원가입필요")
+                        self.present(signupNavigator, animated: true, completion: nil)
+                        
+                        
+                    }
+                }
+            }
+            
+//            if let response = res as? HTTPURLResponse {
+//                if response.statusCode == 200 {
+//                    print("로그인성공")
+//                    self.present(mainVC, animated: true, completion: nil)
+//
+//
+//                } else if response.statusCode == 404 {
+//                    print("회원가입필요")
+//                    self.present(signupVC, animated: true, completion: nil)
+//                }
+//            }
+            
+            do {
+                let tokenResponse = try? JSONDecoder().decode(TokenResponse.self, from: data)
+                print("/////////토큰////////")
+               
+                if let token = tokenResponse?.data {
+                     print(token.token)
+                    UserDefaults.standard.set(token.token, forKey: "SsgSagToken")
+                    print("유저디폴트")
+                    print("\(UserDefaults.standard.object(forKey: "SsgSagToken"))")
+                }
+            } catch {
+                print(error)
+            }
+        }
+    }
 }
+
+
+    
+    func touchUpLoginButton() {
+//        guard let email = emailTextField.text else {
+//            return ""
+//        }
+//        guard let password = passwordTextField.text else {
+//            return ""
+//        }
+//        print("5")
+//
+//        LoginService.shared.login(email: email, password: password) { (data,status) in
+//            //            print("this is data token \(data?.token) \(status)")
+//            if data?.token == nil {
+//                self.emailTextField.text = ""
+//                self.passwordTextField.text = ""
+//                print("500")
+//                if status == 400 {
+//                    print("400")
+//                    let alertController = UIAlertController(title: "로그인 실패", message: "정확한 ID와 Password를 입력해주세요", preferredStyle: UIAlertController.Style.alert)
+//                    let action = UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil)
+//                    alertController.addAction(action)
+//                    self.present(alertController, animated: true, completion: nil)
+//                } else if status == 500 {
+//                    let alterController = UIAlertController(title: "로그인 실패", message: "서버 내부 에러", preferredStyle: UIAlertController.Style.alert)
+//                    let action = UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil)
+//                    alterController.addAction(action)
+//                    self.present(alterController, animated: true, completion: nil)
+//                }
+//            }
+//
+//            guard let token = data?.token else {return}
+//            //토큰 저장
+//            UserDefaults.standard.set(token, forKey: "token")
+//            let savedToken = UserDefaults.standard.object(forKey: "token")
+//            print("저장된 토큰 값 \(savedToken!)")
+//
+//            let tabbarVC = TapbarVC()
+//            self.present(tabbarVC, animated: true, completion: nil)
+//        }
+    }
+
 
 extension LoginPopUpVC: NaverThirdPartyLoginConnectionDelegate {
     // ---- 3
@@ -111,5 +229,15 @@ extension LoginPopUpVC: NaverThirdPartyLoginConnectionDelegate {
             print(result)
         }
     }
+}
+
+struct TokenResponse: Codable {
+    let status: Int
+    let message: String
+    let data: SsgSagToken?
+}
+
+struct SsgSagToken: Codable {
+    let token: String?
 }
 

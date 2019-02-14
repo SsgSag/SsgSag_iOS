@@ -95,15 +95,11 @@ class AddActivityVC: UIViewController, UITextViewDelegate, UITextFieldDelegate {
         request.addValue(key2, forHTTPHeaderField: "Authorization")
         request.httpBody = jsonData
         
-        let task = URLSession.shared.dataTask(with: request) { data, response, error in
-            
-            guard error == nil else {
-                print(error?.localizedDescription ?? "No data")
+        NetworkManager.shared.getData(with: request) { (data, error, res) in
+            guard let data = data else {
                 return
             }
-            guard let data = data else { return }
         }
-        task.resume()
     }
     
     func dismissKeyboard() {
@@ -167,7 +163,7 @@ class AddActivityVC: UIViewController, UITextViewDelegate, UITextFieldDelegate {
         request.addValue(key2, forHTTPHeaderField: "Authorization")
         request.httpBody = jsonData
         
-        let task = URLSession.shared.dataTask(with: request) { data, response, error in
+        NetworkManager.shared.getData(with: request) { (data, error, res) in
             guard let data = data, error == nil else {
                 print(error?.localizedDescription ?? "No data")
                 return
@@ -178,8 +174,6 @@ class AddActivityVC: UIViewController, UITextViewDelegate, UITextFieldDelegate {
                 print("responseJSON \(responseJSON)")
             }
         }
-        
-        task.resume()
     }
     
 }

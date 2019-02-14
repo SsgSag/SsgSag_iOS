@@ -116,15 +116,10 @@ class myPageVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
         request.addValue(key2, forHTTPHeaderField: "Authorization")
         request.httpBody = jsonData
         
-        let task = URLSession.shared.dataTask(with: request) { data, response, error in
-            
-            guard error == nil else {
-                print(error?.localizedDescription ?? "No data")
+        NetworkManager.shared.getData(with: request) { (data, error, res) in
+            guard let data = data else {
                 return
             }
-            
-            guard let data = data else { return }
-            
             do {
                 let apiResponse = try JSONDecoder().decode(Career.self, from: data)
                 print("orders: \(apiResponse)")
@@ -139,7 +134,6 @@ class myPageVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
                 print("sladjalsdjlasjdlasjdlajsldjas")
             }
         }
-        task.resume()
     }
 
 }

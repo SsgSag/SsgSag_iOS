@@ -128,41 +128,57 @@ class SignUpCompleteVC: UIViewController {
     
     
     func postData() {
-        
-        let json: [String: Any] = ["userEmail" : id,
-                                   "userPw" : password,
-                                   "userId" : nickName,
-                                   "userName" : name,
-                                   "userUniv" : school,
-                                   "userMajor" : major,
-                                   "userStudentNum" :number,
-                                   "userGender" : gender,
-                                   "userBirth" : birth,
-                                   "userPushAllow" : 1,
-                                   "userInfoAllow" : 1,
-                                   "userInterest" : sendPreferenceValues
+        let json: [String: Any] = [ "userName" : name,
+                                    "userNickname" : nickName,
+                                    "signupType" : 0, //0은 카카오톡, 1은 네이버
+            "accessToken" : KOSession.shared()?.token.accessToken as Any,
+            "userUniv" : school,
+            "userMajor" : major,
+            "userStudentNum" : number,
+            "userGender" : gender,
+            "userBirth" : birth,
+            "userPushAllow" : 1,
+            "userInfoAllow" : 1,
+            "userInterest" : sendPreferenceValues,
+            "userGrade" : grade
         ]
+
         
         let jsonData = try? JSONSerialization.data(withJSONObject: json)
         
-        let url = URL(string: "http://54.180.32.22:8080/users")!
+        let url = URL(string: "http://52.78.86.179:8080/user")!
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         request.httpBody = jsonData
         
-        let task = URLSession.shared.dataTask(with: request) { data, response, error in
-            
-            guard let data = data, error == nil else {
-                print(error?.localizedDescription ?? "No data")
+        NetworkManager.shared.getData(with: request) { (data, error, res) in
+            guard let data = data else {
                 return
             }
-            
             let responseJSON = try? JSONSerialization.jsonObject(with: data, options: [])
             if let responseJSON = responseJSON as? [String: Any] {
                 print("responseJSON \(responseJSON)")
             }
         }
-        task.resume()
     }
 }
+
+
+/*
+ {
+ "userName" : "김현수",
+ "userNickname" : "김현슨",
+ "signupType" : 0, //0은 카카오톡, 1은 네이버
+ "accessToken" : "9_JkQE5SPfD0k1SbplKR2cU39g-l2MfOofz2lgoqAuYAAAFosk3w-w",
+ "userUniv" : "인하대학교",
+ "userMajor" :"컴퓨터공학과",
+ "userStudentNum" :"12141523",
+ "userGender" :"male",
+ "userBirth" :"951107",
+ "userPushAllow" : 1,
+ "userInfoAllow" : 1,
+ "userInterest" : [0, 1, 2, 3, 4, 5,  6, 7, 8, 9, 10, 11],
+ "userGrade" : 4
+ }
+ */
