@@ -8,9 +8,10 @@
 
 import UIKit
 
-class ConfirmProfileVC: UIViewController {
+class ConfirmProfileVC: UIViewController, UITextFieldDelegate {
     
-    var id: String = ""
+    var name: String = ""
+    var nickName: String = ""
     var password: String = ""
     var gender: String = ""
     
@@ -30,13 +31,41 @@ class ConfirmProfileVC: UIViewController {
         super.viewDidLoad()
         
         nextButton.isUserInteractionEnabled = false
-        iniGestureRecognizer()
-        self.titleLabel.isHidden = false
-//        self.titleImage.isHidden = false
-        self.navigationItem.setHidesBackButton(true, animated: true)
+
+//        self.navigationItem.setHidesBackButton(true, animated: true)
         setBackBtn( color: .black)
         setNavigationBar(color: .white)
+        
+        nameField.delegate = self
+        birthField.delegate = self
+        nickNameField.delegate = self
+        nickNameField.returnKeyType = .done
+        
+        nameField.tag = 1
+        birthField.tag = 2
+        nickNameField.tag = 3
     }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+//        self.nameField.becomeFirstResponder()
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+
+        let nextTag = textField.tag + 1
+        
+        if let nextResponder =  self.view.viewWithTag(nextTag){
+            
+            nextResponder.becomeFirstResponder()
+        } else {
+            textField.resignFirstResponder()
+        }
+
+        return true
+    }
+    
+    
     
 
     @IBAction func touchUpNextButton(_ sender: Any) {
@@ -86,19 +115,9 @@ class ConfirmProfileVC: UIViewController {
         checkInformation(self)
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        registerForKeyboardNotifications()
-    }
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        unregisterForKeyboardNotifications()
-    }
-    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         let navVC = segue.destination as! SchoolInfoVC
-        navVC.id = id
+        navVC.id = name
         navVC.password = password
         navVC.name = nameField.text ?? ""
         navVC.birth = birthField.text ?? ""
@@ -138,76 +157,3 @@ class ConfirmProfileVC: UIViewController {
     }
 }
 
-extension ConfirmProfileVC : UIGestureRecognizerDelegate {
-    
-    func iniGestureRecognizer() {
-        let tap = UITapGestureRecognizer(target: self, action: #selector(handleTabMainView(_:)))
-        tap.delegate = self
-        view.addGestureRecognizer(tap)
-    }
-    
-    @objc func handleTabMainView(_ sender: UITapGestureRecognizer){
-        self.nameField.resignFirstResponder()
-        self.birthField.resignFirstResponder()
-        self.nickNameField.resignFirstResponder()
-    }
-    
-    private func gestureRecog(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
-        if (touch.view?.isDescendant(of: nameField))! || (touch.view?.isDescendant(of: birthField))! || (touch.view?.isDescendant(of: nickNameField))! {
-            return false
-        }
-        return true
-    }
-    
-    @objc func keyboardWillShow(_ notification: NSNotification) {
-        guard let duration = notification.userInfo?[UIResponder.keyboardAnimationDurationUserInfoKey] as? Double else {return}
-        guard let curve = notification.userInfo?[UIResponder.keyboardAnimationCurveUserInfoKey] as? UInt else {return}
-        UIView.animate(withDuration: duration, delay: 0.0, options: .init(rawValue: curve), animations: { [unowned self] in
-//            print("현재 constraint: \(self.stackViewConstraint.constant)")
-//            self.stackViewConstraint.constant = 10
-//            self.titleImage.isHidden = true
-            self.titleLabel.isHidden = true
-//            let alpha: CGFloat = 0.5
-//            self.titleImage.alpha(alpha)
-            
-        })
-//        stackViewConstraint.constant = 120
-        self.view.layoutIfNeeded()
-        
-    }
-    
-    @objc func keyboardWillHide(_ notification: NSNotification) {
-        guard let duration = notification.userInfo?[UIResponder.keyboardAnimationDurationUserInfoKey] as? Double else {return}
-        guard let curve = notification.userInfo?[UIResponder.keyboardAnimationCurveUserInfoKey] as? UInt else {return}
-        UIView.animate(withDuration: duration, delay: 0.0, options: .init(rawValue: curve), animations: {
-//            self.stackViewConstraint.constant = 289
-//            print(" constraint: \(self.stackViewConstraint.constant)")
-            self.titleLabel.isHidden = false
-//            self.titleImage.isHidden = false
-            
-        })
-//        stackViewConstraint.constant = 289
-        self.view.layoutIfNeeded()
-    }
-    
-    func registerForKeyboardNotifications() {
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(_:)), name: UIResponder.keyboardWillShowNotification, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(_:)), name: UIResponder.keyboardWillHideNotification, object: nil)
-    }
-    
-    func unregisterForKeyboardNotifications() {
-        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
-        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
-    }
-}
-
-extension UIImage {
-    
-    func alpha(_ value:CGFloat) -> UIImage {
-        UIGraphicsBeginImageContextWithOptions(size, false, scale)
-        draw(at: CGPoint.zero, blendMode: .normal, alpha: value)
-        let newImage = UIGraphicsGetImageFromCurrentImageContext()
-        UIGraphicsEndImageContext()
-        return newImage!
-    }
-}

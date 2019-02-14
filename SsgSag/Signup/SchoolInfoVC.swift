@@ -32,7 +32,6 @@ class SchoolInfoVC: UIViewController {
 
         nextButton.isUserInteractionEnabled = false
         
-        iniGestureRecognizer()
         self.titleLabel.isHidden = false
 //        self.titleImage.isHidden = false
         
