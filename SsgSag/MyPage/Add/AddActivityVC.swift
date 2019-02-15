@@ -59,10 +59,9 @@ class AddActivityVC: UIViewController, UITextViewDelegate, UITextFieldDelegate {
         let animation = LOTAnimationView(name: "bt_save_round")
         saveButton.addSubview(animation)
         animation.play()
-        //        getData(careerType: "0")
+        getData(careerType: "0")
         postData()
-//        simplerAlert(title: "저장되었습니다")
-        simplerAlertwhenSave(title: "저장되었습니다")
+        
     }
     
     
@@ -148,31 +147,57 @@ class AddActivityVC: UIViewController, UITextViewDelegate, UITextFieldDelegate {
             "careerType" : 0,
             "careerName" : titleTextField.text ?? "",
             "careerContent" : contentTextView.text ?? "",
-            "careerDate1" : startDateLabel.text ?? "", //일까지 줘도 상관없음 ex)"2019-01-12"
-            "careerDate2" : endDateLabel.text ?? ""
+            "careerDate1" : "2019-01-12",
+                //startDateLabel.text ?? "", //일까지 줘도 상관없음 ex)"2019-01-12"
+            "careerDate2" : "2019-01-14"
+                //endDateLabel.text ?? ""
         ]
         
-        let jsonData = try? JSONSerialization.data(withJSONObject: json)
+        print("jsonmmladlksaldk: \(json)")
         
+        let jsonData = try? JSONSerialization.data(withJSONObject: json)
         // create post request
-        let url = URL(string: "http://54.180.32.22:8080/career")!
-        var request = URLRequest(url: url)
+        let url = URL(string: "http://52.78.86.179:8080/career")
+        var request = URLRequest(url: url!)
+    
+        let key2 = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJEb0lUU09QVCIsInVzZXJfaWR4IjozfQ.OlwGDbYqzUOntlDt3hxzck_VpIbB2o6Uk0hDOOkQw0E"
+        print(" key2: \(key2)") //
         request.httpMethod = "POST"
-        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-        let key2 = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJEb0lUU09QVCIsInVzZXJfaWR4IjoxfQ.5lCvAqnzYP4-2pFx1KTgLVOxYzBQ6ygZvkx5jKCFM08"
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
         request.addValue(key2, forHTTPHeaderField: "Authorization")
         request.httpBody = jsonData
         
-        NetworkManager.shared.getData(with: request) { (data, error, res) in
-            guard let data = data, error == nil else {
+        NetworkManager.shared.getData(with: request) { (datas, error, res) in
+            
+            guard let data = datas else {
+                print("로컬어쩌구에러")
                 print(error?.localizedDescription ?? "No data")
                 return
             }
             
+            print("responseJSON \(res?.description)")
+            print("responseJSON \(data.description)")
             let responseJSON = try? JSONSerialization.jsonObject(with: data, options: [])
+            print("responseJSON \(responseJSON)")
+            
             if let responseJSON = responseJSON as? [String: Any] {
-                print("responseJSON \(responseJSON)")
+                if let statusCode = responseJSON["status"] {
+                    let status = statusCode as! Int
+                    if status == 201 {
+                        print("이력추가 성공")
+                        self.simplerAlertwhenSave(title: "저장되었습니다")
+                    } else  {
+                        print("이력추가 실패")
+                        self.simplerAlert(title: "저장에 실패했습니다")
+                    }
+                }
+                
             }
+            
+            
+            
+            //저장된 후에 추가하자.
+            
         }
     }
     

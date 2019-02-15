@@ -33,7 +33,14 @@ class ConfirmProfileVC: UIViewController, UITextFieldDelegate {
         nextButton.isUserInteractionEnabled = false
 
 //        self.navigationItem.setHidesBackButton(true, animated: true)
-        setBackBtn( color: .black)
+//        setBackBtn( color: .black)
+        let backButton = UIBarButtonItem(image: UIImage(named: "icArrowBack"),
+            style: .plain,
+            target: self,
+            action: #selector(self.back))
+        navigationItem.leftBarButtonItem = backButton
+        navigationItem.leftBarButtonItem?.tintColor = .black
+        navigationController?.interactivePopGestureRecognizer?.delegate = self as? UIGestureRecognizerDelegate
         setNavigationBar(color: .white)
         
         nameField.delegate = self
@@ -44,6 +51,12 @@ class ConfirmProfileVC: UIViewController, UITextFieldDelegate {
         nameField.tag = 1
         birthField.tag = 2
         nickNameField.tag = 3
+    }
+    //FIXME: - present..하지 마시오,,,,,
+    @objc func back(){
+        let storyboard = UIStoryboard(name: "LoginStoryBoard", bundle: nil)
+        let loginVC = storyboard.instantiateViewController(withIdentifier: "Login")
+        present(loginVC, animated: false, completion: nil)
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -86,11 +99,12 @@ class ConfirmProfileVC: UIViewController, UITextFieldDelegate {
         femaleButton.isSelected = false
         femaleButton.setImage(UIImage(named: "btFemaleUnactive"), for: .normal)
         if maleButton.isSelected {
-            self.gender = "male"
+            self.gender = ""
             maleButton.isUserInteractionEnabled = false
             maleButton.setImage(UIImage(named: "btMaleUnactive"), for: .normal)
         } else {
 //            self.gender = "female"
+            self.gender = "male"
             maleButton.isSelected = true
             maleButton.setImage(UIImage(named: "btMaleActive"), for: .normal)
         }
@@ -102,11 +116,12 @@ class ConfirmProfileVC: UIViewController, UITextFieldDelegate {
         maleButton.setImage(UIImage(named: "btMaleUnactive"), for: .normal)
         
         if femaleButton.isSelected {
-            self.gender = "female"
+            self.gender = ""
             femaleButton.isSelected = false
             femaleButton.setImage(UIImage(named: "btFemaleUnactive"), for: .normal)
         } else {
 //            self.gender = "male"
+            self.gender = "female"
             femaleButton.isSelected = true
             femaleButton.setImage(UIImage(named: "btFemaleActive"), for: .normal)
         }
