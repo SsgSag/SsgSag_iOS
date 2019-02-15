@@ -27,7 +27,7 @@ class AddActivityVC: UIViewController, UITextViewDelegate, UITextFieldDelegate {
         let month = components.month!
         let day = components.day!
         let currentDateString: String = "\(year)년 \(month)월 \(day)일"
-        
+        print("유저토큰: \(UserDefaults.standard.object(forKey: "SsgSagToken"))")
 //        activityNavigationBar.barStyle = .black
         startDateLabel.text = currentDateString
         endDateLabel.text = currentDateString

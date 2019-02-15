@@ -51,7 +51,7 @@
                                                 <rect key="frame" x="0.0" y="0.0" width="337" height="17.5"/>
                                                 <nil key="textColor"/>
                                                 <fontDescription key="fontDescription" type="system" weight="medium" pointSize="18"/>
-                                                <textInputTraits key="textInputTraits"/>
+                                                <textInputTraits key="textInputTraits" autocorrectionType="no" returnKeyType="next"/>
                                             </textField>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rv9-xn-4ee">
                                                 <rect key="frame" x="0.0" y="25.5" width="337" height="1"/>
@@ -69,7 +69,7 @@
                                                 <rect key="frame" x="0.0" y="0.0" width="337" height="17"/>
                                                 <nil key="textColor"/>
                                                 <fontDescription key="fontDescription" type="system" weight="medium" pointSize="18"/>
-                                                <textInputTraits key="textInputTraits"/>
+                                                <textInputTraits key="textInputTraits" autocorrectionType="no" keyboardType="numbersAndPunctuation" returnKeyType="next"/>
                                             </textField>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OhO-Ak-EJB">
                                                 <rect key="frame" x="0.0" y="25" width="337" height="1"/>
@@ -87,7 +87,7 @@
                                                 <rect key="frame" x="0.0" y="0.0" width="337" height="17.5"/>
                                                 <nil key="textColor"/>
                                                 <fontDescription key="fontDescription" type="system" weight="medium" pointSize="18"/>
-                                                <textInputTraits key="textInputTraits"/>
+                                                <textInputTraits key="textInputTraits" autocorrectionType="no"/>
                                             </textField>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cIS-ln-Gwv">
                                                 <rect key="frame" x="0.0" y="25.5" width="337" height="1"/>
@@ -146,7 +146,6 @@
                                 </state>
                                 <connections>
                                     <action selector="touchUpNextButton:" destination="9Eg-LF-Rpx" eventType="touchUpInside" id="iwd-za-WxV"/>
-                                    <segue destination="xEW-PO-qx4" kind="show" id="EXA-Wj-ARi"/>
                                 </connections>
                             </button>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pVv-Uz-3v6">
@@ -249,34 +248,34 @@
         <!--School InfoVC-->
         <scene sceneID="Ju5-wv-H7z">
             <objects>
-                <viewController id="xEW-PO-qx4" customClass="SchoolInfoVC" customModule="SsgSag" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="SchoolInfoVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="xEW-PO-qx4" customClass="SchoolInfoVC" customModule="SsgSag" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="ik2-Fr-Cx4">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="progressbar2" translatesAutoresizingMaskIntoConstraints="NO" id="wHb-AN-zLn">
-                                <rect key="frame" x="0.0" y="64" width="375" height="4"/>
+                                <rect key="frame" x="0.0" y="20" width="375" height="4"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="4" id="jfl-te-eio"/>
                                 </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="학교 정보를 입력해주세요" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KIh-pl-kUk">
-                                <rect key="frame" x="20" y="108" width="219" height="26.5"/>
+                                <rect key="frame" x="20" y="64" width="219" height="26.5"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="22"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="40" translatesAutoresizingMaskIntoConstraints="NO" id="hay-RC-Z1l" userLabel="학교정보">
-                                <rect key="frame" x="20" y="274.5" width="335" height="255.5"/>
+                                <rect key="frame" x="20" y="181.5" width="335" height="255.5"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="NzX-SK-z9D">
                                         <rect key="frame" x="0.0" y="0.0" width="335" height="42.5"/>
                                         <subviews>
-                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="학교선택" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="nD2-oj-mhp">
+                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="학교선택" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="nD2-oj-mhp" customClass="SearchTextField" customModule="SearchTextField">
                                                 <rect key="frame" x="0.0" y="0.0" width="335" height="33.5"/>
                                                 <nil key="textColor"/>
                                                 <fontDescription key="fontDescription" type="system" weight="medium" pointSize="19"/>
-                                                <textInputTraits key="textInputTraits"/>
+                                                <textInputTraits key="textInputTraits" returnKeyType="next"/>
                                             </textField>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TDr-ON-YS0">
                                                 <rect key="frame" x="0.0" y="41.5" width="335" height="1"/>
@@ -293,11 +292,11 @@
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="FsK-6y-ZbA">
                                         <rect key="frame" x="0.0" y="82.5" width="335" height="31"/>
                                         <subviews>
-                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="학과선택" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="cBY-ZG-hiL">
+                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="학과선택" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="cBY-ZG-hiL" customClass="SearchTextField" customModule="SearchTextField">
                                                 <rect key="frame" x="0.0" y="0.0" width="335" height="22"/>
                                                 <nil key="textColor"/>
                                                 <fontDescription key="fontDescription" type="system" weight="medium" pointSize="18"/>
-                                                <textInputTraits key="textInputTraits"/>
+                                                <textInputTraits key="textInputTraits" returnKeyType="next"/>
                                             </textField>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TQw-6R-p0C">
                                                 <rect key="frame" x="0.0" y="30" width="335" height="1"/>
@@ -315,7 +314,7 @@
                                                 <rect key="frame" x="0.0" y="0.0" width="335" height="22"/>
                                                 <nil key="textColor"/>
                                                 <fontDescription key="fontDescription" type="system" weight="medium" pointSize="18"/>
-                                                <textInputTraits key="textInputTraits"/>
+                                                <textInputTraits key="textInputTraits" autocorrectionType="no" keyboardType="numbersAndPunctuation"/>
                                             </textField>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="u2k-qc-qKZ">
                                                 <rect key="frame" x="0.0" y="30" width="335" height="1"/>
@@ -333,7 +332,7 @@
                                                 <rect key="frame" x="0.0" y="0.0" width="335" height="22"/>
                                                 <nil key="textColor"/>
                                                 <fontDescription key="fontDescription" type="system" weight="medium" pointSize="18"/>
-                                                <textInputTraits key="textInputTraits"/>
+                                                <textInputTraits key="textInputTraits" autocorrectionType="no" keyboardType="numbersAndPunctuation"/>
                                             </textField>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Pcx-pv-Rah">
                                                 <rect key="frame" x="0.0" y="30" width="335" height="1"/>
@@ -357,13 +356,12 @@
                                 </state>
                                 <connections>
                                     <action selector="touchUpNextButton:" destination="xEW-PO-qx4" eventType="touchUpInside" id="eyr-WI-Sfb"/>
-                                    <segue destination="V0j-KU-b25" kind="show" id="KRU-KL-uMw"/>
                                 </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="hay-RC-Z1l" firstAttribute="centerY" secondItem="r1C-NK-h1t" secondAttribute="centerY" multiplier="1.1" id="04N-vb-H7K"/>
+                            <constraint firstItem="hay-RC-Z1l" firstAttribute="centerY" secondItem="r1C-NK-h1t" secondAttribute="centerY" multiplier="0.9" id="04N-vb-H7K"/>
                             <constraint firstItem="KIh-pl-kUk" firstAttribute="top" secondItem="wHb-AN-zLn" secondAttribute="bottom" constant="40" id="45s-Je-si6"/>
                             <constraint firstItem="hay-RC-Z1l" firstAttribute="leading" secondItem="r1C-NK-h1t" secondAttribute="leading" constant="20" id="80F-VQ-GCN"/>
                             <constraint firstItem="r1C-NK-h1t" firstAttribute="trailing" secondItem="hay-RC-Z1l" secondAttribute="trailing" constant="20" id="9bN-8X-XZS"/>
@@ -390,7 +388,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Yak-7V-jyU" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2888.8000000000002" y="152.47376311844079"/>
+            <point key="canvasLocation" x="2455" y="199"/>
         </scene>
         <!--LoginStoryBoard-->
         <scene sceneID="E0G-4V-JoE">
@@ -683,7 +681,7 @@
         <!--Sign Up CompleteVC-->
         <scene sceneID="DBu-AB-l0U">
             <objects>
-                <viewController id="V0j-KU-b25" customClass="SignUpCompleteVC" customModule="SsgSag" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="SignUpCompleteVC" id="V0j-KU-b25" customClass="SignUpCompleteVC" customModule="SsgSag" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="21C-TB-Rv6">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="1350"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -873,6 +871,7 @@
                                 <color key="backgroundColor" red="0.78823529410000004" green="0.78823529410000004" blue="0.78823529410000004" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <state key="normal" image="btStartUnactiveIphone8"/>
                                 <connections>
+                                    <action selector="sendUserData:" destination="jUn-fX-9PF" eventType="touchUpInside" id="cWZ-nC-7bw"/>
                                     <action selector="touchUpStartButton:" destination="V0j-KU-b25" eventType="touchUpInside" id="hXM-Pz-fSK"/>
                                 </connections>
                             </button>
@@ -911,6 +910,7 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="uuq-rE-kDR" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="jUn-fX-9PF" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="3831.1999999999998" y="247.37631184407797"/>
         </scene>

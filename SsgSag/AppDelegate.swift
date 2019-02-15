@@ -28,9 +28,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 //                        window?.makeKeyAndVisible()
 //
 //        window = UIWindow(frame: UIScreen.main.bounds)
-//        
+//
 //        window?.rootViewController = TapbarVC()
-//        
+//
 //        window?.makeKeyAndVisible()
         
         setupEntryController()
@@ -87,19 +87,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     fileprivate func reloadRootViewController() {
         let isOpened = KOSession.shared().isOpen()
         let hasToken = self.hasToken()
-        
+
         if !isOpened || !hasToken {
             let mainViewController = self.mainViewController as! UINavigationController
             mainViewController.popToRootViewController(animated: true)
         }
         self.window?.rootViewController = isOpened ? self.mainViewController : self.loginViewController
         self.window?.rootViewController = hasToken ? self.mainViewController : self.loginViewController
-        
+
         self.window?.makeKeyAndVisible()
     }
     
     @objc func kakaoSessionDidChangeWithNotification() {
-        reloadRootViewController()
+        //reloadRootViewController()
     }
     
     func applicationWillResignActive(_ application: UIApplication) {

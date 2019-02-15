@@ -65,12 +65,21 @@ class ConfirmProfileVC: UIViewController, UITextFieldDelegate {
         return true
     }
     
-    
-    
-
     @IBAction func touchUpNextButton(_ sender: Any) {
-        
-        
+        if birthField.text?.count == 6 {
+            let storyboard = UIStoryboard(name: "SignupStoryBoard", bundle: nil)
+            let SchoolInfoVC = storyboard.instantiateViewController(withIdentifier: "SchoolInfoVC") as! SchoolInfoVC
+            
+            SchoolInfoVC.name = nameField.text ?? ""
+            SchoolInfoVC.birth = birthField.text ?? ""
+            SchoolInfoVC.nickName = nickNameField.text ?? ""
+            SchoolInfoVC.gender = gender
+            
+            self.navigationController?.pushViewController(SchoolInfoVC, animated: true)
+        } else {
+            simpleAlert(title: "잘못된 형식입니다", message: "생년월일은 970219, \n닉네임은 영한혼용하지 말아주십시요ㅗ....")
+            birthField.text = ""
+        }
     }
     
     @IBAction func touchUpMaleButton(_ sender: UIButton) {
@@ -81,7 +90,7 @@ class ConfirmProfileVC: UIViewController, UITextFieldDelegate {
             maleButton.isUserInteractionEnabled = false
             maleButton.setImage(UIImage(named: "btMaleUnactive"), for: .normal)
         } else {
-            self.gender = "female"
+//            self.gender = "female"
             maleButton.isSelected = true
             maleButton.setImage(UIImage(named: "btMaleActive"), for: .normal)
         }
@@ -97,7 +106,7 @@ class ConfirmProfileVC: UIViewController, UITextFieldDelegate {
             femaleButton.isSelected = false
             femaleButton.setImage(UIImage(named: "btFemaleUnactive"), for: .normal)
         } else {
-            self.gender = "male"
+//            self.gender = "male"
             femaleButton.isSelected = true
             femaleButton.setImage(UIImage(named: "btFemaleActive"), for: .normal)
         }
@@ -115,16 +124,7 @@ class ConfirmProfileVC: UIViewController, UITextFieldDelegate {
         checkInformation(self)
     }
     
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        let navVC = segue.destination as! SchoolInfoVC
-        navVC.id = name
-        navVC.password = password
-        navVC.name = nameField.text ?? ""
-        navVC.birth = birthField.text ?? ""
-        navVC.nickName = nickNameField.text ?? ""
-        navVC.gender = gender
-        
-    }
+    
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         checkInformation(self)

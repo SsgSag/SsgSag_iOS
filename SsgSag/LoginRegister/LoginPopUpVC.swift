@@ -101,8 +101,6 @@ class LoginPopUpVC: UIViewController {
                     } else if status == 404 {
                         print("회원가입필요")
                         self.present(signupNavigator, animated: true, completion: nil)
-                        
-                        
                     }
                 }
             }

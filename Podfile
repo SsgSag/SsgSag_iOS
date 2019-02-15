@@ -13,6 +13,7 @@ target 'SsgSag' do
   pod 'Kingfisher'
   pod 'lottie-ios'
   pod 'naveridlogin-sdk-ios'
+  pod 'SearchTextField'
 
   target 'SsgSagTests' do
     inherit! :search_paths

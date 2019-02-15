@@ -1,11 +1,3 @@
-//
-//  NetworkManager.swift
-//  SsgSag
-//
-//  Created by CHOMINJI on 13/02/2019.
-//  Copyright © 2019 wndzlf. All rights reserved.
-//
-
 import UIKit
 
 class NetworkManager {
@@ -24,17 +16,19 @@ class NetworkManager {
     
     func getData(with: URLRequest, completion: @escaping (Data?, Error?, URLResponse?) -> Void) {
         let task = URLSession.shared.dataTask(with: with) { (data, res, error) in
+            
             if error != nil {
+                
+                print(LocalizedError.self)
                 print("network error")
             }
-            
             guard let data = data else {
                 return
             }
+            
             completion(data, nil, res)
         }
         task.resume()
     }
-    
 }
 
