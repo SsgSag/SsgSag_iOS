@@ -48,6 +48,7 @@ class UserInfoVC: UIViewController, UITextFieldDelegate {
     
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
         if let profileVC = segue.destination as? ConfirmProfileVC {
 //            profileVC.id = emailTextField.text ?? ""
 //            profileVC.password = passwordTextField.text ?? ""

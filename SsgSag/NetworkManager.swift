@@ -18,10 +18,10 @@ class NetworkManager {
         let task = URLSession.shared.dataTask(with: with) { (data, res, error) in
             
             if error != nil {
-                
-                print(LocalizedError.self)
+                print(error?.localizedDescription)
                 print("network error")
             }
+            
             guard let data = data else {
                 return
             }

@@ -100,6 +100,11 @@ class LoginPopUpVC: UIViewController {
                         self.present(mainVC, animated: true, completion: nil)
                     } else if status == 404 {
                         print("회원가입필요")
+//                        self.view.removeFromSuperview()
+//                        self.parent?.navigationController?.pushViewController(signupVC, animated: true)
+//
+                        
+//                        self.navigationController?.pushViewController(signupVC, animated: true)
                         self.present(signupNavigator, animated: true, completion: nil)
                     }
                 }

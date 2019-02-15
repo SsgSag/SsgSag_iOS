@@ -34,7 +34,6 @@ class LoginVC: UIViewController {
         }
     }
     
-
     func popUpSocialLogin(button: UIButton) {
         let myPageStoryBoard = UIStoryboard(name: "LoginStoryBoard", bundle: nil)
         let popVC = myPageStoryBoard.instantiateViewController(withIdentifier: "LoginPopUp")

@@ -21,26 +21,30 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
   
-//        let loginStoryBoard = UIStoryboard(name: "LoginStoryBoard", bundle: nil)
-//        let loginVC = loginStoryBoard.instantiateViewController(withIdentifier: "Login")
-//                        window = UIWindow(frame: UIScreen.main.bounds)
-//                        window?.rootViewController = loginVC
-//                        window?.makeKeyAndVisible()
+
 //
-//        window = UIWindow(frame: UIScreen.main.bounds)
-//
-//        window?.rootViewController = TapbarVC()
-//
-//        window?.makeKeyAndVisible()
+        if let ssgToken = UserDefaults.standard.object(forKey: "SsgSagToken") {
+            window = UIWindow(frame: UIScreen.main.bounds)
+
+            window?.rootViewController = TapbarVC()
+
+            window?.makeKeyAndVisible()
+        } else {
+            let loginStoryBoard = UIStoryboard(name: "LoginStoryBoard", bundle: nil)
+            let loginVC = loginStoryBoard.instantiateViewController(withIdentifier: "Login")
+            window = UIWindow(frame: UIScreen.main.bounds)
+            window?.rootViewController = loginVC
+            window?.makeKeyAndVisible()
+        }
         
-        setupEntryController()
+       // setupEntryController()
         // 로그인,로그아웃 상태 변경 받기
-        NotificationCenter.default.addObserver(self,
-                                               selector: #selector(AppDelegate.kakaoSessionDidChangeWithNotification),
-                                               name: NSNotification.Name.KOSessionDidChange,
-                                               object: nil)
-        reloadRootViewController()
-        
+//        NotificationCenter.default.addObserver(self,
+//                                               selector: #selector(AppDelegate.kakaoSessionDidChangeWithNotification),
+//                                               name: NSNotification.Name.KOSessionDidChange,
+//                                               object: nil)
+//        reloadRootViewController()
+//
         let instance = NaverThirdPartyLoginConnection.getSharedInstance()
         instance?.isInAppOauthEnable = true // --- 1
         instance?.isNaverAppOauthEnable = true // --- 2
@@ -64,14 +68,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     fileprivate func setupEntryController() {
          let loginStoryBoard = UIStoryboard(name: "LoginStoryBoard", bundle: nil)
+        
         let navigationController = loginStoryBoard.instantiateViewController(withIdentifier: "LoginNavigator") as! UINavigationController
         let navigationController2 = loginStoryBoard.instantiateViewController(withIdentifier: "LoginNavigator") as! UINavigationController
         let mainVC = TapbarVC() as UIViewController
         let loginVC = loginStoryBoard.instantiateViewController(withIdentifier: "Login") as UIViewController
         
 //        if hasToken() {
-            //토큰 값 있음
-            
+//            let
+        
             navigationController2.pushViewController(mainVC, animated: true)
             self.mainViewController = navigationController2
 //        } else {
