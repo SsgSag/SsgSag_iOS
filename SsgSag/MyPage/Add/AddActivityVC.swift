@@ -59,7 +59,7 @@ class AddActivityVC: UIViewController, UITextViewDelegate, UITextFieldDelegate {
         let animation = LOTAnimationView(name: "bt_save_round")
         saveButton.addSubview(animation)
         animation.play()
-        getData(careerType: "0")
+//        getData(careerType: 0)
         postData()
         
     }
@@ -75,10 +75,10 @@ class AddActivityVC: UIViewController, UITextViewDelegate, UITextFieldDelegate {
         return true
     }
     
-    func getData(careerType: String) {
+    func getData(careerType: Int) {
         
         let json: [String:Any] = [
-            "careerType" : 2,
+            "careerType" : careerType,
             "careerName" : "자격증",
             "careerContent" : "자격증 내용",
             "careerDate1" : "2019-01"
@@ -86,12 +86,12 @@ class AddActivityVC: UIViewController, UITextViewDelegate, UITextFieldDelegate {
         
         //let json: [String: Any] = ["careerType" : careerType]
         let jsonData = try? JSONSerialization.data(withJSONObject: json)
-        let url = URL(string: "http://54.180.32.22:8080/career")!
+        let url = URL(string: "http://52.78.86.179:8080/career/\(careerType)")!
         var request = URLRequest(url: url)
-        request.httpMethod = "POST"
+        request.httpMethod = "GET"
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-        let key2 = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJEb0lUU09QVCIsInVzZXJfaWR4IjoxfQ.5lCvAqnzYP4-2pFx1KTgLVOxYzBQ6ygZvkx5jKCFM08"
-        request.addValue(key2, forHTTPHeaderField: "Authorization")
+        let token = UserDefaults.standard.object(forKey: "SsgSagToken") as! String
+        request.addValue(token, forHTTPHeaderField: "Authorization")
         request.httpBody = jsonData
         
         NetworkManager.shared.getData(with: request) { (data, error, res) in
@@ -142,7 +142,6 @@ class AddActivityVC: UIViewController, UITextViewDelegate, UITextFieldDelegate {
     }
     
     func postData() {
-        
         let json: [String: Any] = [
             "careerType" : 0,
             "careerName" : titleTextField.text ?? "",
@@ -152,7 +151,6 @@ class AddActivityVC: UIViewController, UITextViewDelegate, UITextFieldDelegate {
             "careerDate2" : "2019-01-14"
                 //endDateLabel.text ?? ""
         ]
-        
         print("jsonmmladlksaldk: \(json)")
         
         let jsonData = try? JSONSerialization.data(withJSONObject: json)
@@ -160,11 +158,11 @@ class AddActivityVC: UIViewController, UITextViewDelegate, UITextFieldDelegate {
         let url = URL(string: "http://52.78.86.179:8080/career")
         var request = URLRequest(url: url!)
     
-        let key2 = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJEb0lUU09QVCIsInVzZXJfaWR4IjozfQ.OlwGDbYqzUOntlDt3hxzck_VpIbB2o6Uk0hDOOkQw0E"
-        print(" key2: \(key2)") //
+        let token = UserDefaults.standard.object(forKey: "SsgSagToken") as! String
+        print(" key2: \(token)") //
         request.httpMethod = "POST"
-        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.addValue(key2, forHTTPHeaderField: "Authorization")
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.addValue(token, forHTTPHeaderField: "Authorization")
         request.httpBody = jsonData
         
         NetworkManager.shared.getData(with: request) { (datas, error, res) in
@@ -174,30 +172,31 @@ class AddActivityVC: UIViewController, UITextViewDelegate, UITextFieldDelegate {
                 print(error?.localizedDescription ?? "No data")
                 return
             }
-            
-            print("responseJSON \(res?.description)")
-            print("responseJSON \(data.description)")
             let responseJSON = try? JSONSerialization.jsonObject(with: data, options: [])
-            print("responseJSON \(responseJSON)")
             
             if let responseJSON = responseJSON as? [String: Any] {
                 if let statusCode = responseJSON["status"] {
                     let status = statusCode as! Int
                     if status == 201 {
                         print("이력추가 성공")
-                        self.simplerAlertwhenSave(title: "저장되었습니다")
+                        DispatchQueue.main.async {
+                            self.simplerAlertwhenSave(title: "저장되었습니다")
+                            let parentVC = self.presentingViewController as! CareerVC
+                            parentVC.getData(careerType: 0)
+                            parentVC.activityTableView.reloadData()
+                        }
                     } else  {
                         print("이력추가 실패")
+                        DispatchQueue.main.async {
+                            self.simplerAlert(title: "저장에 실패했습니다")
+                        }
+                    }
+                } else {
+                    DispatchQueue.main.async {
                         self.simplerAlert(title: "저장에 실패했습니다")
                     }
                 }
-                
             }
-            
-            
-            
-            //저장된 후에 추가하자.
-            
         }
     }
     

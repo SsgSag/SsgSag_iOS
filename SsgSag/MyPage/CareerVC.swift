@@ -299,7 +299,7 @@ class CareerVC: UIViewController {
         
         let jsonData = try? JSONSerialization.data(withJSONObject: json)
         
-        let url = URL(string: "http://52.78.86.179:8080/career/" + "\(careerType)")!
+        let url = URL(string: "http://52.78.86.179:8080/career/\(careerType)")!
         
         var request = URLRequest(url: url)
         
@@ -307,9 +307,9 @@ class CareerVC: UIViewController {
         
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         
-        let key2 = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJEb0lUU09QVCIsInVzZXJfaWR4IjoxfQ.5lCvAqnzYP4-2pFx1KTgLVOxYzBQ6ygZvkx5jKCFM08"
+        let token = UserDefaults.standard.object(forKey: "SsgSagToken") as! String
         
-        request.addValue(key2, forHTTPHeaderField: "Authorization")
+        request.addValue(token, forHTTPHeaderField: "Authorization")
         request.httpBody = jsonData
         
         NetworkManager.shared.getData(with: request) { (data, error, res) in

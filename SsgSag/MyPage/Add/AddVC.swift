@@ -38,9 +38,9 @@ class AddVC: UIViewController, UITextFieldDelegate, UITextViewDelegate {
         saveButton.addSubview(animation)
         animation.play()
         
-        getData(careerType: "1")
+        getData(careerType: 1)
         postData()
-        simplerAlert(title: "저장되었습니다")
+//        simplerAlert(title: "저장되었습니다")
     }
     
     @IBAction func dismissModalAction(_ sender: Any) {
@@ -56,10 +56,10 @@ class AddVC: UIViewController, UITextFieldDelegate, UITextViewDelegate {
         return true
     }
     
-    func getData(careerType: String) {
+    func getData(careerType: Int) {
         
         let json: [String:Any] = [
-            "careerType" : 2,
+            "careerType" : careerType,
             "careerName" : "자격증",
             "careerContent" : "자격증 내용",
             "careerDate1" : "2019-01",
@@ -67,12 +67,12 @@ class AddVC: UIViewController, UITextFieldDelegate, UITextViewDelegate {
         ]
         
         let jsonData = try? JSONSerialization.data(withJSONObject: json)
-        let url = URL(string: "http://54.180.32.22:8080/career")!
+        let url = URL(string: "http://52.")!
         var request = URLRequest(url: url)
-        request.httpMethod = "POST"
+        request.httpMethod = "GET"
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-        let key2 = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJEb0lUU09QVCIsInVzZXJfaWR4IjoxfQ.5lCvAqnzYP4-2pFx1KTgLVOxYzBQ6ygZvkx5jKCFM08"
-        request.addValue(key2, forHTTPHeaderField: "Authorization")
+        let token = UserDefaults.standard.object(forKey: "SsgSagToken") as! String
+        request.addValue(token, forHTTPHeaderField: "Authorization")
         request.httpBody = jsonData
         
         
@@ -94,24 +94,45 @@ class AddVC: UIViewController, UITextFieldDelegate, UITextViewDelegate {
         let jsonData = try? JSONSerialization.data(withJSONObject: json)
         
         // create post request
-        let url = URL(string: "http://54.180.32.22:8080/career")!
+        let url = URL(string: "http://52.78.86.179:8080/career")!
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-        let key2 = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJEb0lUU09QVCIsInVzZXJfaWR4IjoxfQ.5lCvAqnzYP4-2pFx1KTgLVOxYzBQ6ygZvkx5jKCFM08"
-        request.addValue(key2, forHTTPHeaderField: "Authorization")
+        let token = UserDefaults.standard.object(forKey: "SsgSagToken") as! String
+        request.addValue(token, forHTTPHeaderField: "Authorization")
         
         // insert json data to the request
         request.httpBody = jsonData
         
         NetworkManager.shared.getData(with: request) { (data, error, res) in
-            guard let data = data, error == nil else {
+            guard let data = data else {
                 print(error?.localizedDescription ?? "No data")
                 return
             }
             let responseJSON = try? JSONSerialization.jsonObject(with: data, options: [])
+            
             if let responseJSON = responseJSON as? [String: Any] {
-                print("responseJSON \(responseJSON)")
+                if let statusCode = responseJSON["status"] {
+                    let status = statusCode as! Int
+                    if status == 201 {
+                        print("이력추가 성공")
+                        DispatchQueue.main.async {
+                            self.simplerAlertwhenSave(title: "저장되었습니다")
+                            let parentVC = self.presentingViewController as! CareerVC
+                            parentVC.getData(careerType: 1)
+                            parentVC.prizeTableView.reloadData()
+                        }
+                    } else  {
+                        print("이력추가 실패")
+                        DispatchQueue.main.async {
+                            self.simplerAlert(title: "저장에 실패했습니다")
+                        }
+                    }
+                } else {
+                    DispatchQueue.main.async {
+                        self.simplerAlert(title: "저장에 실패했습니다")
+                    }
+                }
             }
         }
     }
