@@ -20,11 +20,21 @@ class CustomCareerCell: UICollectionViewCell {
         return label
     }()
     
+    
+    
     override func awakeFromNib() {
         super.awakeFromNib()
-        self.addSubview(label)
-        label.centerXAnchor.constraint(equalTo: self.centerXAnchor).isActive = true
-        label.centerYAnchor.constraint(equalTo: self.centerYAnchor).isActive = true
+        
+        addSubview(label)
+        
+        
+        label.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
+        label.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
+        
+        
+        //        indicatorView.setGradient(from: .red, to: .blue)
+
+        
     }
 
 }

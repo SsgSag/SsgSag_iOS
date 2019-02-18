@@ -59,24 +59,24 @@ extension CareerVC : UICollectionViewDelegate, UICollectionViewDataSource, UICol
         
         let myPageStoryBoard = UIStoryboard(name: "MyPageStoryBoard", bundle: nil)
         
-        if indexPath.row == 0 {
-            if plusButton.target(forAction: #selector(addPresentAction), withSender: nil) != nil{
-                plusButton.removeTarget(self, action: #selector(addPresentAction), for: .touchUpInside)
-            }
-            
-            plusButton.addTarget(self, action: #selector(addActivityPresentAction), for: .touchUpInside)
-        }else if indexPath.row == 1{
-            if plusButton.target(forAction: #selector(addActivityPresentAction), withSender: nil) != nil{
-                plusButton.removeTarget(self, action: #selector(addActivityPresentAction), for: .touchUpInside)
-            }
-            plusButton.addTarget(self, action: #selector(addPresentAction), for: .touchUpInside)
-            
-        }else {
-            if plusButton.target(forAction: #selector(addActivityPresentAction), withSender: nil) != nil{
-                plusButton.removeTarget(self, action: #selector(addActivityPresentAction), for: .touchUpInside)
-            }
-            plusButton.addTarget(self, action: #selector(certifiPresenAction), for: .touchUpInside)
-        }
+//        if indexPath.row == 0 {
+//            if plusButton.target(forAction: #selector(addPresentAction), withSender: nil) != nil{
+//                plusButton.removeTarget(self, action: #selector(addPresentAction), for: .touchUpInside)
+//            }
+//            
+//            plusButton.addTarget(self, action: #selector(addActivityPresentAction), for: .touchUpInside)
+//        }else if indexPath.row == 1{
+//            if plusButton.target(forAction: #selector(addActivityPresentAction), withSender: nil) != nil{
+//                plusButton.removeTarget(self, action: #selector(addActivityPresentAction), for: .touchUpInside)
+//            }
+//            plusButton.addTarget(self, action: #selector(addPresentAction), for: .touchUpInside)
+//            
+//        }else {
+//            if plusButton.target(forAction: #selector(addActivityPresentAction), withSender: nil) != nil{
+//                plusButton.removeTarget(self, action: #selector(addActivityPresentAction), for: .touchUpInside)
+//            }
+//            plusButton.addTarget(self, action: #selector(certifiPresenAction), for: .touchUpInside)
+//        }
         
         
         DispatchQueue.main.async {
@@ -105,7 +105,7 @@ extension CareerVC : UICollectionViewDelegate, UICollectionViewDataSource, UICol
         }
     }
     
-    @objc func certifiPresenAction() {
+    @objc func addCertificationPresentAction() {
         if let certifiVC = storyboard?.instantiateViewController(withIdentifier: "AddCertificationVC") {
             present(certifiVC, animated: true, completion: nil)
         }

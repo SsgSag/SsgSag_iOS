@@ -20,23 +20,23 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="O3c-1H-NNS">
-                        <rect key="frame" x="0.0" y="6" width="353" height="125.5"/>
+                        <rect key="frame" x="12" y="6" width="341" height="125.5"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </view>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="솝트 앱잼" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2T6-u9-0em" userLabel="activityName">
-                        <rect key="frame" x="18" y="22" width="71" height="23"/>
+                        <rect key="frame" x="30" y="22" width="71" height="23"/>
                         <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="19"/>
                         <color key="textColor" red="0.2274509804" green="0.3411764706" blue="0.8980392157" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2018.01.01" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CsI-DB-xp6">
-                        <rect key="frame" x="18" y="49" width="75" height="20"/>
+                        <rect key="frame" x="30" y="49" width="75" height="20"/>
                         <fontDescription key="fontDescription" type="system" weight="light" pointSize="16"/>
                         <color key="textColor" red="0.63921568630000003" green="0.63921568630000003" blue="0.63921568630000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="대상" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="APe-X1-b1V">
-                        <rect key="frame" x="18" y="82" width="329" height="35.5"/>
+                        <rect key="frame" x="30" y="82" width="317" height="35.5"/>
                         <fontDescription key="fontDescription" type="system" pointSize="16"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
@@ -45,11 +45,11 @@
                 <color key="backgroundColor" red="0.94901960784313721" green="0.95294117647058818" blue="0.96078431372549022" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                 <constraints>
                     <constraint firstItem="APe-X1-b1V" firstAttribute="leading" secondItem="CsI-DB-xp6" secondAttribute="leading" id="3Nb-Tv-xbj"/>
-                    <constraint firstItem="APe-X1-b1V" firstAttribute="centerX" secondItem="2lv-Pe-Wsk" secondAttribute="centerX" id="9m7-je-wmX"/>
                     <constraint firstItem="2T6-u9-0em" firstAttribute="top" secondItem="2lv-Pe-Wsk" secondAttribute="top" constant="22" id="FFQ-KH-Duf"/>
                     <constraint firstAttribute="bottom" secondItem="O3c-1H-NNS" secondAttribute="bottom" constant="6" id="Mjc-9m-63o"/>
                     <constraint firstItem="O3c-1H-NNS" firstAttribute="top" secondItem="2lv-Pe-Wsk" secondAttribute="top" constant="6" id="P2o-bT-PtX"/>
                     <constraint firstItem="CsI-DB-xp6" firstAttribute="top" secondItem="2T6-u9-0em" secondAttribute="bottom" constant="4" id="QAI-JP-3dA"/>
+                    <constraint firstItem="O3c-1H-NNS" firstAttribute="leading" secondItem="2lv-Pe-Wsk" secondAttribute="leading" constant="12" id="TJA-E5-ZoQ"/>
                     <constraint firstItem="APe-X1-b1V" firstAttribute="top" secondItem="2lv-Pe-Wsk" secondAttribute="top" constant="82" id="Twn-pH-TXv"/>
                     <constraint firstItem="CsI-DB-xp6" firstAttribute="leading" secondItem="2T6-u9-0em" secondAttribute="leading" id="WS6-gJ-Oih"/>
                     <constraint firstAttribute="bottom" secondItem="APe-X1-b1V" secondAttribute="bottom" constant="20" id="YqN-4D-32R"/>

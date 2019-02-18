@@ -16,6 +16,10 @@ class AddCertificationVC: UIViewController, UITextFieldDelegate, UITextViewDeleg
     @IBOutlet weak var contentTextView: UITextView!
     @IBOutlet weak var saveButton: UIButton!
     
+    var titleString: String?
+    var yearString: String?
+    var contentString: String?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         let currentDate = Date()
@@ -31,6 +35,18 @@ class AddCertificationVC: UIViewController, UITextFieldDelegate, UITextViewDeleg
         titleTextField.delegate = self
         yearTextField.delegate = self
         contentTextView.delegate = self
+        
+        if let title = titleString {
+            titleTextField.text = title
+        }
+        
+        if let year = yearString {
+            yearTextField.text = year
+        }
+        
+        if let content = contentString {
+            contentTextView.text = content
+        }
     }
     
     @IBAction func touchUpSaveButton(_ sender: UIButton) {
@@ -41,6 +57,10 @@ class AddCertificationVC: UIViewController, UITextFieldDelegate, UITextViewDeleg
         getData(careerType: 2)
         postData()
         //simplerAlert(title: "저장되었습니다")
+    }
+    
+    @IBAction func dismissModalAction(_ sender: Any) {
+        dismiss(animated: true, completion: nil)
     }
     
     func getData(careerType: Int) {
@@ -123,9 +143,6 @@ class AddCertificationVC: UIViewController, UITextFieldDelegate, UITextViewDeleg
         }
     }
     
-    @IBAction func dismissModalAction(_ sender: Any) {
-        dismiss(animated: true, completion: nil)
-    }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         view.endEditing(true)

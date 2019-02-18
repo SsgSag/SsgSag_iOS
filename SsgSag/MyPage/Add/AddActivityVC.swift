@@ -18,6 +18,11 @@ class AddActivityVC: UIViewController, UITextViewDelegate, UITextFieldDelegate {
     @IBOutlet weak var contentTextView: UITextView!
     @IBOutlet weak var saveButton: UIButton!
     
+    var titleString : String?
+    var startDateString = ""
+    var endDateString = ""
+    var contentTextString: String?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         let currentDate = Date()
@@ -37,6 +42,12 @@ class AddActivityVC: UIViewController, UITextViewDelegate, UITextFieldDelegate {
         contentTextView.applyBorderTextView()
         if(contentTextView.text == "") {
             textViewDidEndEditing(contentTextView)
+        }
+        if let title = titleString {
+            titleTextField.text = title
+        }
+        if let content = contentTextString {
+            contentTextView.text = content
         }
     }
     
@@ -60,11 +71,10 @@ class AddActivityVC: UIViewController, UITextViewDelegate, UITextFieldDelegate {
         saveButton.addSubview(animation)
         animation.play()
 //        getData(careerType: 0)
+
         postData()
         
     }
-    
-    
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         view.endEditing(true)
@@ -152,12 +162,12 @@ class AddActivityVC: UIViewController, UITextViewDelegate, UITextFieldDelegate {
                 //endDateLabel.text ?? ""
         ]
         print("jsonmmladlksaldk: \(json)")
-        
         let jsonData = try? JSONSerialization.data(withJSONObject: json)
         // create post request
         let url = URL(string: "http://52.78.86.179:8080/career")
         var request = URLRequest(url: url!)
     
+
         let token = UserDefaults.standard.object(forKey: "SsgSagToken") as! String
         print(" key2: \(token)") //
         request.httpMethod = "POST"
@@ -197,6 +207,11 @@ class AddActivityVC: UIViewController, UITextViewDelegate, UITextFieldDelegate {
                     }
                 }
             }
+            
+            
+            
+            //저장된 후에 추가하자.
+            
         }
     }
     

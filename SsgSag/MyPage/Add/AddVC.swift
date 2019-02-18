@@ -16,6 +16,10 @@ class AddVC: UIViewController, UITextFieldDelegate, UITextViewDelegate {
     @IBOutlet weak var contentTextView: UITextView!
     @IBOutlet weak var saveButton: UIButton!
     
+    var titleString: String?
+    var yearString: String?
+    var contentString: String?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         let currentDate = Date()
@@ -31,6 +35,18 @@ class AddVC: UIViewController, UITextFieldDelegate, UITextViewDelegate {
         contentTextView.delegate = self
         titleTextField.delegate = self
         yearTextField.delegate = self
+        
+        if let title = titleString {
+            titleTextField.text = title
+        }
+        
+        if let year = yearString {
+            yearTextField.text = year
+        }
+        
+        if let content = contentString {
+            contentTextView.text = content
+        }
         
     }
     @IBAction func touchUpSaveButton(_ sender: UIButton) {

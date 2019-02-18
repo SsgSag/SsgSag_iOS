@@ -20,23 +20,23 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WZR-Af-YTJ">
-                        <rect key="frame" x="0.0" y="6" width="353" height="125.5"/>
+                        <rect key="frame" x="12" y="6" width="341" height="125.5"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </view>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="토익" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gvl-nV-01e" userLabel="activityName">
-                        <rect key="frame" x="18" y="22" width="33" height="23"/>
+                        <rect key="frame" x="30" y="22" width="33" height="23"/>
                         <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="19"/>
                         <color key="textColor" red="0.2274509804" green="0.3411764706" blue="0.8980392157" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2018.01.01" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vwx-T4-EEY">
-                        <rect key="frame" x="18" y="49" width="75" height="20"/>
+                        <rect key="frame" x="30" y="49" width="75" height="20"/>
                         <fontDescription key="fontDescription" type="system" weight="light" pointSize="16"/>
                         <color key="textColor" red="0.63921568630000003" green="0.63921568630000003" blue="0.63921568630000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="980점" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GU9-jM-DgM">
-                        <rect key="frame" x="18" y="82" width="329" height="35.5"/>
+                        <rect key="frame" x="30" y="82" width="317" height="35.5"/>
                         <fontDescription key="fontDescription" type="system" pointSize="16"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
@@ -48,8 +48,8 @@
                     <constraint firstItem="WZR-Af-YTJ" firstAttribute="top" secondItem="KBd-0g-YgS" secondAttribute="top" constant="6" id="A8D-H7-32c"/>
                     <constraint firstAttribute="trailing" secondItem="GU9-jM-DgM" secondAttribute="trailing" constant="18" id="C0R-a3-oGE"/>
                     <constraint firstItem="gvl-nV-01e" firstAttribute="top" secondItem="KBd-0g-YgS" secondAttribute="top" constant="22" id="Guc-FS-5zh"/>
-                    <constraint firstItem="GU9-jM-DgM" firstAttribute="centerX" secondItem="KBd-0g-YgS" secondAttribute="centerX" id="IPi-Qp-VCr"/>
                     <constraint firstAttribute="bottom" secondItem="WZR-Af-YTJ" secondAttribute="bottom" constant="6" id="N5p-jl-WAL"/>
+                    <constraint firstItem="WZR-Af-YTJ" firstAttribute="leading" secondItem="KBd-0g-YgS" secondAttribute="leading" constant="12" id="QQy-NX-uRe"/>
                     <constraint firstItem="GU9-jM-DgM" firstAttribute="leading" secondItem="vwx-T4-EEY" secondAttribute="leading" id="Xg4-ic-LQC"/>
                     <constraint firstItem="vwx-T4-EEY" firstAttribute="leading" secondItem="gvl-nV-01e" secondAttribute="leading" id="YpI-ep-Snz"/>
                     <constraint firstItem="vwx-T4-EEY" firstAttribute="top" secondItem="gvl-nV-01e" secondAttribute="bottom" constant="4" id="ay7-UO-ejG"/>

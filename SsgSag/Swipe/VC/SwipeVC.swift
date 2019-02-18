@@ -180,10 +180,12 @@ class SwipeVC: UIViewController {
         if valueArray.count > 0 {
             let capCount = (valueArray.count > MAX_BUFFER_SIZE) ? MAX_BUFFER_SIZE : valueArray.count
             for (i,value) in valueArray.enumerated() {
-                let newCard = createSwipeCard(at: i, value: value.photoUrl!)
-                allCardsArray.append(newCard)
-                if i < capCount {
-                    currentLoadedCardsArray.append(newCard)
+                if let photoURL = value.photoUrl {
+                    let newCard = createSwipeCard(at: i, value: photoURL)
+                    allCardsArray.append(newCard)
+                    if i < capCount {
+                        currentLoadedCardsArray.append(newCard)
+                    }
                 }
             }
             //viewTinderBackGround의 서브뷰로 currentLoadedCardsArray를 추가 (각 스와이프 카드를 서브뷰로 추가)
