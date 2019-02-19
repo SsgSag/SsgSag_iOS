@@ -11,8 +11,8 @@ import UIKit
 class CareerVC: UIViewController {
     
     let activityTableView: UITableView = UITableView(frame: CGRect.zero, style: .grouped)
-    let prizeTableView: UITableView = UITableView()
-    let certificationTableView: UITableView = UITableView()
+    let prizeTableView: UITableView = UITableView(frame: CGRect.zero, style: .grouped)
+    let certificationTableView: UITableView = UITableView(frame: CGRect.zero, style: .grouped)
     var indicatorViewLeadingConstraint: NSLayoutConstraint!
     
     lazy var activityList: [Datum] = []
@@ -31,7 +31,7 @@ class CareerVC: UIViewController {
     var indicatorView: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.backgroundColor = UIColor.rgb(red: 155, green: 65, blue: 250)
+//        view.backgroundColor = UIColor.rgb(red: 155, green: 65, blue: 250)
         
         //        view.setGradient(from: UIColor.rgb(red: 65, green: 163, blue: 255), to: UIColor.rgb(red: 155, green: 65, blue: 250))
         //        var gradient = CAGradientLayer()
@@ -55,7 +55,7 @@ class CareerVC: UIViewController {
     }()
     
     
-    @IBOutlet weak var plusButton: UIButton!
+    
     
     @IBOutlet weak var scrollView: UIScrollView!
     
@@ -65,6 +65,10 @@ class CareerVC: UIViewController {
         super.viewDidLoad()
         scrollView.delegate = self
         scrollView.backgroundColor = UIColor.rgb(red: 242, green: 243, blue: 245)
+        scrollView.isPagingEnabled = true
+        scrollView.showsHorizontalScrollIndicator = false
+        scrollView.showsVerticalScrollIndicator = false
+        
         
         setUpTableView()
         setTableViewPosition()
@@ -76,8 +80,6 @@ class CareerVC: UIViewController {
         prizeTableView.register(prizeNib, forCellReuseIdentifier: "PrizeCell")
         let certificationNib = UINib(nibName: "CertificationCell", bundle: nil)
         certificationTableView.register(certificationNib, forCellReuseIdentifier: "CertificationCell")
-        
-        plusButton.addTarget(self, action: #selector(addActivityPresentAction), for: .touchUpInside)
         
     }
     
@@ -96,7 +98,9 @@ class CareerVC: UIViewController {
     }
     
     @objc func dismissModal(){
+        
         self.dismiss(animated: true, completion: nil)
+//        navigationController?.popViewController(animated: true)
     }
     
     func setUpCustomTabBar(){
@@ -123,6 +127,8 @@ class CareerVC: UIViewController {
         self.navigationItem.leftBarButtonItem?.tintColor = .black
         self.navigationItem.title = "이력"
         
+        scrollView.translatesAutoresizingMaskIntoConstraints = false
+        scrollView.topAnchor.constraint(equalTo: navigationBar.bottomAnchor, constant: 60).isActive = true
         
         self.view.addSubview(customTabBar)
         customTabBar.leadingAnchor.constraint(equalTo: self.view.leadingAnchor).isActive = true
@@ -139,60 +145,70 @@ class CareerVC: UIViewController {
         
         customTabBar.addSubview(indicatorView)
         indicatorView.widthAnchor.constraint(equalToConstant: self.view.frame.width/3).isActive = true
-        indicatorView.heightAnchor.constraint(equalToConstant: 2).isActive = true
+        indicatorView.heightAnchor.constraint(equalToConstant: 3).isActive = true
         indicatorViewLeadingConstraint = indicatorView.leadingAnchor.constraint(equalTo: customTabBar.leadingAnchor)
         indicatorViewLeadingConstraint.isActive = true
         indicatorView.bottomAnchor.constraint(equalToSystemSpacingBelow: customTabBar.bottomAnchor, multiplier: -0.5).isActive = true
         indicatorView.isHidden = false
-//        indicatorView.setGradient(from: .red, to: .blue)
         
-        let bottomLine = UIView()
-        customTabBar.addSubview(bottomLine)
-        bottomLine.translatesAutoresizingMaskIntoConstraints = false
-        bottomLine.heightAnchor.constraint(equalToConstant: 0.5).isActive = true
-        bottomLine.backgroundColor = UIColor.white
-        bottomLine.leadingAnchor.constraint(equalTo: customTabBar.leadingAnchor).isActive = true
-        bottomLine.trailingAnchor.constraint(equalTo: customTabBar.trailingAnchor).isActive = true
-        bottomLine.bottomAnchor.constraint(equalToSystemSpacingBelow: customTabBar.bottomAnchor, multiplier: 0).isActive = true
+        let color1 = UIColor.rgb(red: 155, green: 65, blue: 250)
+        let color2 = UIColor.rgb(red: 65, green: 163, blue: 255)
+       
+        let gradientLayer = CAGradientLayer()
+        gradientLayer.frame = CGRect(x: 0, y: 0, width: view.frame.width/3, height: 3)
+        gradientLayer.colors = [color1.cgColor, color2.cgColor]
+//        gradientLayer.locations = [0.3, 0.7]
+        gradientLayer.startPoint = CGPoint(x: 0.0, y: 0.0)
+        gradientLayer.endPoint = CGPoint(x: 1.0, y: 0.0)
+        indicatorView.layer.insertSublayer(gradientLayer, at: 0)
+        
     }
     
+    private var latestContentOffsetX: CGFloat = 0
+    
+    
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        if scrollView == scrollView {
-            if  scrollView.isDragging  {
-                indicatorViewLeadingConstraint.constant = scrollView.contentOffset.x / 3
-            } else {
-                indicatorViewLeadingConstraint.constant = scrollView.contentOffset.x / 3
+        if scrollView.contentOffset.x != latestContentOffsetX {
+            if scrollView == scrollView {
+                if  scrollView.isDragging  {
+                    indicatorViewLeadingConstraint.constant = scrollView.contentOffset.x / 3
+                } else {
+                    indicatorViewLeadingConstraint.constant = scrollView.contentOffset.x / 3
+                }
             }
         }
     }
+
     
     func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
-        if scrollView == scrollView {
-            let itemAt = Int(targetContentOffset.pointee.x / self.view.frame.width)
-            let index = IndexPath(item: itemAt, section: 0)
-            switch itemAt {
-            case 0:
-                let cell = customTabBarCollectionView.cellForItem(at: index) as? CustomCareerCell
-                cell?.label.textColor = .black
-                let cell1 = customTabBarCollectionView.cellForItem(at: IndexPath(item: 1, section: 0)) as? CustomCareerCell
-                cell1?.label.textColor = .lightGray
-                let cell2 = customTabBarCollectionView.cellForItem(at: IndexPath(item: 2, section: 0)) as? CustomCareerCell
-                cell2?.label.textColor = .lightGray
-            case 1:
-                let cell = customTabBarCollectionView.cellForItem(at: index) as? CustomCareerCell
-                cell?.label.textColor = .black
-                let cell1 = customTabBarCollectionView.cellForItem(at: IndexPath(item: 0, section: 0)) as? CustomCareerCell
-                cell1?.label.textColor = .lightGray
-                let cell2 = customTabBarCollectionView.cellForItem(at: IndexPath(item: 2, section: 0)) as? CustomCareerCell
-                cell2?.label.textColor = .lightGray
-            case 2:
-                let cell = customTabBarCollectionView.cellForItem(at: index) as? CustomCareerCell
-                cell?.label.textColor = .black
-                let cell1 = customTabBarCollectionView.cellForItem(at: IndexPath(item: 0, section: 0)) as? CustomCareerCell
-                cell1?.label.textColor = .lightGray
-                let cell2 = customTabBarCollectionView.cellForItem(at: IndexPath(item: 1, section: 0)) as? CustomCareerCell
-                cell2?.label.textColor = .lightGray
-            default: break
+        if scrollView.contentOffset.x != latestContentOffsetX {
+            if scrollView == scrollView {
+                let itemAt = Int(targetContentOffset.pointee.x / self.view.frame.width)
+                let index = IndexPath(item: itemAt, section: 0)
+                switch itemAt {
+                case 0:
+                    let cell = customTabBarCollectionView.cellForItem(at: index) as? CustomCareerCell
+                    cell?.label.textColor = .black
+                    let cell1 = customTabBarCollectionView.cellForItem(at: IndexPath(item: 1, section: 0)) as? CustomCareerCell
+                    cell1?.label.textColor = .lightGray
+                    let cell2 = customTabBarCollectionView.cellForItem(at: IndexPath(item: 2, section: 0)) as? CustomCareerCell
+                    cell2?.label.textColor = .lightGray
+                case 1:
+                    let cell = customTabBarCollectionView.cellForItem(at: index) as? CustomCareerCell
+                    cell?.label.textColor = .black
+                    let cell1 = customTabBarCollectionView.cellForItem(at: IndexPath(item: 0, section: 0)) as? CustomCareerCell
+                    cell1?.label.textColor = .lightGray
+                    let cell2 = customTabBarCollectionView.cellForItem(at: IndexPath(item: 2, section: 0)) as? CustomCareerCell
+                    cell2?.label.textColor = .lightGray
+                case 2:
+                    let cell = customTabBarCollectionView.cellForItem(at: index) as? CustomCareerCell
+                    cell?.label.textColor = .black
+                    let cell1 = customTabBarCollectionView.cellForItem(at: IndexPath(item: 0, section: 0)) as? CustomCareerCell
+                    cell1?.label.textColor = .lightGray
+                    let cell2 = customTabBarCollectionView.cellForItem(at: IndexPath(item: 1, section: 0)) as? CustomCareerCell
+                    cell2?.label.textColor = .lightGray
+                default: break
+                }
             }
         }
     }
@@ -214,15 +230,21 @@ class CareerVC: UIViewController {
             activityTableView.centerYAnchor.constraint(equalTo: scrollView.centerYAnchor),
             prizeTableView.centerYAnchor.constraint(equalTo: scrollView.centerYAnchor),
             certificationTableView.centerYAnchor.constraint(equalTo: scrollView.centerYAnchor),
+            
             activityTableView.widthAnchor.constraint(equalToConstant: self.view.frame.width),
+            prizeTableView.widthAnchor.constraint(equalToConstant: self.view.frame.width),
+            certificationTableView.widthAnchor.constraint(equalToConstant: self.view.frame.width),
+            
             activityTableView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor),
             activityTableView.topAnchor.constraint(equalTo: scrollView.topAnchor),
             activityTableView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),
             activityTableView.trailingAnchor.constraint(equalTo: prizeTableView.leadingAnchor),
+            
             prizeTableView.widthAnchor.constraint(equalToConstant: self.view.frame.width),
             prizeTableView.topAnchor.constraint(equalTo: scrollView.topAnchor),
             prizeTableView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),
             prizeTableView.trailingAnchor.constraint(equalTo: certificationTableView.leadingAnchor),
+            
             certificationTableView.widthAnchor.constraint(equalToConstant: self.view.frame.width),
             certificationTableView.topAnchor.constraint(equalTo: scrollView.topAnchor),
             certificationTableView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),
@@ -238,13 +260,13 @@ class CareerVC: UIViewController {
         certificationTableView.delegate = self
         certificationTableView.dataSource = self
         
-        activityTableView.allowsSelection = false
-        prizeTableView.allowsSelection = false
-        certificationTableView.allowsSelection = false
+        activityTableView.showsVerticalScrollIndicator = false
+        prizeTableView.showsVerticalScrollIndicator = false
+        certificationTableView.showsVerticalScrollIndicator = false
         
-        activityTableView.tableFooterView = UIView()
-        prizeTableView.tableFooterView = UIView()
-        certificationTableView.tableFooterView = UIView()
+//        activityTableView.tableFooterView = UIView()
+//        prizeTableView.tableFooterView = UIView()
+//        certificationTableView.tableFooterView = UIView()
         
         activityTableView.backgroundColor = UIColor.rgb(red: 242, green: 243, blue: 245)
         prizeTableView.backgroundColor = UIColor.rgb(red: 242, green: 243, blue: 245)
@@ -252,6 +274,7 @@ class CareerVC: UIViewController {
         activityTableView.separatorColor = UIColor.rgb(red: 242, green: 243, blue: 245)
         prizeTableView.separatorColor = UIColor.rgb(red: 242, green: 243, blue: 245)
         certificationTableView.separatorColor = UIColor.rgb(red: 242, green: 243, blue: 245)
+        
     }
     
     func setUpEmptyTableView(tableView: UITableView, isEmptyTable: Bool) {
@@ -293,34 +316,30 @@ class CareerVC: UIViewController {
     
     func getData(careerType: Int) {
         let json: [String: Any] = ["careerType" : careerType]
+        
         let jsonData = try? JSONSerialization.data(withJSONObject: json)
-        let url = URL(string: "http://54.180.32.22:8080/career/info")!
+        
+        let url = URL(string: "http://52.78.86.179:8080/career/\(careerType)")!
+        
         var request = URLRequest(url: url)
-        request.httpMethod = "POST"
+        
+        request.httpMethod = "GET"
+        
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-        let key2 = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJEb0lUU09QVCIsInVzZXJfaWR4IjoxfQ.5lCvAqnzYP4-2pFx1KTgLVOxYzBQ6ygZvkx5jKCFM08"
-        request.addValue(key2, forHTTPHeaderField: "Authorization")
         
+        let token = UserDefaults.standard.object(forKey: "SsgSagToken") as! String
+        
+        request.addValue(token, forHTTPHeaderField: "Authorization")
         request.httpBody = jsonData
-        
-        let task = URLSession.shared.dataTask(with: request) { data, response, error in
-            
-            
-            
-            guard error == nil else {
-                print(error?.localizedDescription ?? "No data")
+
+        NetworkManager.shared.getData(with: request) { (data, error, res) in
+            guard let data = data else {
                 return
             }
             
-            guard let data = data else { return }
-            
-            print(data)
-            print("gggg")
-            print(response)
-            
-            
             do {
                 let apiResponse = try JSONDecoder().decode(Career.self, from: data)
+                
                 print("커리어타이뿌: \(careerType)")
                 print("orders: \(apiResponse)")
                 
@@ -329,7 +348,6 @@ class CareerVC: UIViewController {
                     self.activityList = apiResponse.data
                     DispatchQueue.main.async {
                         self.activityTableView.reloadData()
-                        
                     }
                 } else if careerType == 1 {
                     print("111111111")
@@ -350,7 +368,6 @@ class CareerVC: UIViewController {
                 print("sladjalsdjlasjdlasjdlajsldjas")
             }
         }
-        task.resume()
     }
     
 }

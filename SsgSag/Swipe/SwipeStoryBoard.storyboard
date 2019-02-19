@@ -155,8 +155,8 @@
                                     </label>
                                 </subviews>
                             </stackView>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="OUh-Zq-U6j" userLabel="Detail ImageView">
-                                <rect key="frame" x="0.0" y="105" width="345" height="395"/>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="OUh-Zq-U6j" userLabel="Detail ImageView">
+                                <rect key="frame" x="0.0" y="94" width="345" height="405.5"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="OUh-Zq-U6j" secondAttribute="height" multiplier="565:800" id="qHd-bP-lTM"/>
                                 </constraints>
@@ -170,6 +170,7 @@
                             <constraint firstItem="84O-sg-Qzd" firstAttribute="leading" secondItem="pGv-bw-OWD" secondAttribute="leading" constant="20" id="SKg-Nx-v4D"/>
                             <constraint firstItem="pGv-bw-OWD" firstAttribute="bottom" secondItem="OUh-Zq-U6j" secondAttribute="bottom" id="SzV-hV-8Dk"/>
                             <constraint firstItem="OUh-Zq-U6j" firstAttribute="leading" secondItem="pGv-bw-OWD" secondAttribute="leading" id="TOr-Pz-7Yu"/>
+                            <constraint firstAttribute="bottom" secondItem="OUh-Zq-U6j" secondAttribute="bottom" id="aJ6-VJ-USd"/>
                             <constraint firstItem="pGv-bw-OWD" firstAttribute="trailing" secondItem="84O-sg-Qzd" secondAttribute="trailing" constant="20" id="byd-Gh-ZZZ"/>
                             <constraint firstItem="84O-sg-Qzd" firstAttribute="top" secondItem="pGv-bw-OWD" secondAttribute="top" multiplier="1.2:1" constant="15" id="tXo-gr-QD1"/>
                         </constraints>
@@ -479,6 +480,6 @@
         <image name="icCardProcessInterview" width="42" height="42"/>
         <image name="icCardProcessPaper" width="42" height="42"/>
         <image name="line" width="228" height="3"/>
-        <image name="noButton_Selected" width="100" height="100"/>
+        <image name="noButton_Selected" width="75" height="75"/>
     </resources>
 </document>

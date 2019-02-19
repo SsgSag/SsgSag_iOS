@@ -10,53 +10,53 @@ import Foundation
 
 extension CareerVC: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        
-        return tableView.sectionHeaderHeight + 20
+        if section == 0 {
+            return tableView.sectionHeaderHeight + 50
+        }
+        return 0
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let headerView = UIView(frame: CGRect.init(x: 0, y: 0, width: tableView.frame.size.width, height: tableView.sectionHeaderHeight + 20))
-        headerView.backgroundColor = UIColor.cyan
-        headerView.layer.borderColor = UIColor.white.cgColor
-        headerView.layer.borderWidth = 1.0;
+        let headerView = UIView(frame: CGRect.init(x: 0, y: 0, width: tableView.frame.size.width, height: tableView.sectionHeaderHeight))
         
-         let headerButton = UIButton(frame: CGRect.init(x: 0, y: 0, width: tableView.frame.size.width - 5, height: tableView.sectionHeaderHeight + 20))
-        headerButton.setTitle("추가예용", for: .normal)
+         let headerButton = UIButton(frame: CGRect.init(x: 0, y: 0, width: tableView.frame.size.width - 5, height: tableView.sectionHeaderHeight))
+        
+        let myNormalAttributedTitle = NSAttributedString(string: " 추가하기",
+                                                         attributes: [NSAttributedString.Key.foregroundColor : UIColor.rgb(red: 66, green: 94, blue: 229), NSAttributedString.Key.font : UIFont.systemFont(ofSize: 16)])
+        let mySelectedAttributedTitle = NSAttributedString(string: " 추가하기",
+                                                           attributes: [NSAttributedString.Key.foregroundColor : UIColor.lightGray, NSAttributedString.Key.font : UIFont.systemFont(ofSize: 16)])
+        
+        headerButton.setAttributedTitle(myNormalAttributedTitle, for: .normal)
+        headerButton.setAttributedTitle(mySelectedAttributedTitle, for: .highlighted)
+        headerButton.setImage(UIImage(named: "icPlus"), for: .normal)
+        
+        
+        headerButton.translatesAutoresizingMaskIntoConstraints = false
         headerView.addSubview(headerButton)
+        headerButton.centerXAnchor.constraint(equalTo: headerView.centerXAnchor).isActive = true
+        headerButton.centerYAnchor.constraint(equalTo: headerView.centerYAnchor).isActive = true
 
         switch tableView {
         case activityTableView:
-            headerButton.target(forAction: #selector(addPresentAction), withSender: nil)
-            if headerButton.isSelected == true {
-                print("눌럿습니댜")
-            }
+            headerButton.addTarget(self, action: #selector(addActivityPresentAction), for: .touchUpInside)
         case prizeTableView:
-            headerButton.target(forAction: #selector(addActivityPresentAction), withSender: nil)
+            headerButton.addTarget(self, action: #selector(addPresentAction), for: .touchUpInside)
+        case certificationTableView:
+              headerButton.addTarget(self, action: #selector(addCertificationPresentAction), for: .touchUpInside)
         default:
-            print("dasdasd")
+            print("추가하기 버튼 안 눌림")
         }
-        
         return headerView
     }
 
    
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        let bottomLine = UIView()
-        customTabBar.addSubview(bottomLine)
-        bottomLine.translatesAutoresizingMaskIntoConstraints = false
-        bottomLine.heightAnchor.constraint(equalToConstant: 0.5).isActive = true
-        bottomLine.backgroundColor = UIColor.white
-        bottomLine.leadingAnchor.constraint(equalTo: customTabBar.leadingAnchor).isActive = true
-        bottomLine.trailingAnchor.constraint(equalTo: customTabBar.trailingAnchor).isActive = true
-        bottomLine.bottomAnchor.constraint(equalToSystemSpacingBelow: customTabBar.bottomAnchor, multiplier: 0).isActive = true
-        
         switch tableView {
         case activityTableView:
             if activityList.count > 0 {
                 return activityList.count
             } else {
-                print("asldjlasjdlajsldkjalsjdklajslkdjasl: \(activityList.count)")
                 //                setUpEmptyTableView(tableView: activityTableView, isEmptyTable: true)
                 return activityList.count
             }
@@ -94,6 +94,7 @@ extension CareerVC: UITableViewDelegate, UITableViewDataSource {
             cell.detailLabel.text = activity.careerContent
             cell.selectionStyle = .none
             return cell
+            
         } else if tableView == prizeTableView {
             let cell = tableView.dequeueReusableCell(withIdentifier: "PrizeCell", for: indexPath) as! NonActivityCell
             let prize: Datum = self.prizeList[indexPath.row]
@@ -101,6 +102,7 @@ extension CareerVC: UITableViewDelegate, UITableViewDataSource {
             cell.dateLabel1.text = prize.careerDate1
             cell.detailLabel.text = prize.careerContent
             cell.selectionStyle = .none
+            
             return cell
         } else {
             let cell = tableView.dequeueReusableCell(withIdentifier: "CertificationCell", for: indexPath) as! NonActivityCell
@@ -109,17 +111,50 @@ extension CareerVC: UITableViewDelegate, UITableViewDataSource {
             cell.dateLabel1.text = certification.careerDate1
             cell.detailLabel.text = certification.careerContent
             cell.selectionStyle = .none
+            
             return cell
         }
     }
     
-    //    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-    //        print("눌러눌러")
-    //        if indexPath.row == 0 {
-    //            if let activityVC = storyboard?.instantiateViewController(withIdentifier: "AddActivityVC")
-    //            {
-    //                present(activityVC, animated: true)
-    //            }
-    //        }
-    //    }
+        func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+            print("눌러눌러")
+            
+            switch tableView {
+                
+            case activityTableView:
+                let activityVC = storyboard?.instantiateViewController(withIdentifier: "AddActivityVC") as! AddActivityVC
+                let activity: Datum = self.activityList[indexPath.row]
+                //TODO: - 날짜 수정
+                activityVC.titleString = activity.careerName
+//                activityVC.startDateLabel.text = cell.dateLabel1.text
+//                activityVC.endDateLabel.text = cell.dateLabel2.text
+                activityVC.contentTextString = activity.careerContent
+                present(activityVC, animated: true)
+                
+                
+                
+            case prizeTableView:
+                let prizeVC = storyboard?.instantiateViewController(withIdentifier: "AddVC") as! AddVC
+                let prize: Datum = self.prizeList[indexPath.row]
+               
+                prizeVC.titleString = prize.careerName
+                prizeVC.yearString = prize.careerDate1
+                prizeVC.contentString = prize.careerContent
+                
+                present(prizeVC, animated: true)
+                
+            case certificationTableView:
+                let certiVC = storyboard?.instantiateViewController(withIdentifier: "AddCertificationVC") as! AddCertificationVC
+                 let certification: Datum = certificationList[indexPath.row]
+                 
+                 certiVC.titleString = certification.careerName
+                 certiVC.yearString = certification.careerDate1
+                 certiVC.contentString = certification.careerContent
+                 
+                present(certiVC, animated: true)
+                
+            default:
+                print("tableview가 없습니다.")
+            }
+        }
 }

@@ -5,34 +5,46 @@
 //  Created by admin on 24/12/2018.
 //  Copyright © 2018 wndzlf. All rights reserved.
 //
-
 import UIKit
 import CoreData
 import NaverThirdPartyLogin
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
-
-    var window: UIWindow?
     
+    var window: UIWindow?
     var loginViewController: UIViewController?
     var mainViewController: UIViewController?
     
-    var deviceToken: Data? = nil
+    
+    // Override point for customization after application launch.
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        
-//                let loginVC = LoginVC()
-//                self.window = UIWindow(frame: UIScreen.main.bounds)
-//                self.window?.rootViewController = loginVC
-//                self.window?.makeKeyAndVisible()
-//        
-//        window = UIWindow(frame: UIScreen.main.bounds)
+  
+
 //
-//        window?.rootViewController = TapbarVC()
-//
-//        window?.makeKeyAndVisible()
+        if let ssgToken = UserDefaults.standard.object(forKey: "SsgSagToken") {
+            window = UIWindow(frame: UIScreen.main.bounds)
+
+            window?.rootViewController = TapbarVC()
+
+            window?.makeKeyAndVisible()
+        } else {
+            let loginStoryBoard = UIStoryboard(name: "LoginStoryBoard", bundle: nil)
+            let loginVC = loginStoryBoard.instantiateViewController(withIdentifier: "Login")
+            window = UIWindow(frame: UIScreen.main.bounds)
+            window?.rootViewController = loginVC
+            window?.makeKeyAndVisible()
+        }
         
+       // setupEntryController()
+        // 로그인,로그아웃 상태 변경 받기
+//        NotificationCenter.default.addObserver(self,
+//                                               selector: #selector(AppDelegate.kakaoSessionDidChangeWithNotification),
+//                                               name: NSNotification.Name.KOSessionDidChange,
+//                                               object: nil)
+//        reloadRootViewController()
+//
         let instance = NaverThirdPartyLoginConnection.getSharedInstance()
         instance?.isInAppOauthEnable = true // --- 1
         instance?.isNaverAppOauthEnable = true // --- 2
@@ -43,76 +55,77 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         instance?.consumerSecret = kConsumerSecret
         instance?.appName = kServiceAppName
         
-        
-        //MARK: kakao
-        
-        setupEntryController()
-
-        
-        // 로그인,로그아웃 상태 변경 받기
-        NotificationCenter.default.addObserver(self,
-                                               selector: #selector(AppDelegate.kakaoSessionDidChangeWithNotification),
-                                               name: NSNotification.Name.KOSessionDidChange,
-                                               object: nil)
-        // 클라이언트 시크릿 설정
-//        KOSession.shared().clientSecret = SessionConstants.clientSecret;
-        
-        reloadRootViewController()
-        
         return true
     }
     
-    fileprivate func setupEntryController() {
-        let storyboard = UIStoryboard(name: "LoginStoryBoard", bundle: nil)
-        let navigationController = storyboard.instantiateViewController(withIdentifier: "LoginNavigator") as! UINavigationController
-        let navigationController2 = storyboard.instantiateViewController(withIdentifier: "LoginNavigator") as! UINavigationController
-        
-        let viewController = storyboard.instantiateViewController(withIdentifier: "Login") as UIViewController
-        navigationController.pushViewController(viewController, animated: true)
-        self.loginViewController = navigationController
-        
-        let viewController2 = TapbarVC()
-        navigationController2.pushViewController(viewController2, animated: true)
-        self.mainViewController = navigationController2
+    fileprivate func hasToken() -> Bool {
+         if UserDefaults.standard.object(forKey: "SsgSagToken") != nil {
+            return true
+         } else {
+            return false
+        }
     }
     
+    fileprivate func setupEntryController() {
+         let loginStoryBoard = UIStoryboard(name: "LoginStoryBoard", bundle: nil)
+        
+        let navigationController = loginStoryBoard.instantiateViewController(withIdentifier: "LoginNavigator") as! UINavigationController
+        let navigationController2 = loginStoryBoard.instantiateViewController(withIdentifier: "LoginNavigator") as! UINavigationController
+        let mainVC = TapbarVC() as UIViewController
+        let loginVC = loginStoryBoard.instantiateViewController(withIdentifier: "Login") as UIViewController
+        
+//        if hasToken() {
+//            let
+        
+            navigationController2.pushViewController(mainVC, animated: true)
+            self.mainViewController = navigationController2
+//        } else {
+            //토큰 값 없음
+            
+            
+            navigationController.pushViewController(loginVC, animated: true)
+            self.loginViewController = navigationController
+//        }
+            
+    }
     
     fileprivate func reloadRootViewController() {
         let isOpened = KOSession.shared().isOpen()
-        if !isOpened {
+        let hasToken = self.hasToken()
+
+        if !isOpened || !hasToken {
             let mainViewController = self.mainViewController as! UINavigationController
             mainViewController.popToRootViewController(animated: true)
         }
-        
         self.window?.rootViewController = isOpened ? self.mainViewController : self.loginViewController
+        self.window?.rootViewController = hasToken ? self.mainViewController : self.loginViewController
+
         self.window?.makeKeyAndVisible()
     }
     
     @objc func kakaoSessionDidChangeWithNotification() {
-        reloadRootViewController()
+        //reloadRootViewController()
     }
     
-    
-
     func applicationWillResignActive(_ application: UIApplication) {
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
         // Use this method to pause ongoing tasks, disable timers, and invalidate graphics rendering callbacks. Games should use this method to pause the game.
     }
-
+    
     func applicationDidEnterBackground(_ application: UIApplication) {
         // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
         // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
     }
-
+    
     func applicationWillEnterForeground(_ application: UIApplication) {
         // Called as part of the transition from the background to the active state; here you can undo many of the changes made on entering the background.
     }
-
+    
     func applicationDidBecomeActive(_ application: UIApplication) {
         // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
         KOSession.handleDidBecomeActive()
     }
-
+    
     func applicationWillTerminate(_ application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
         // Saves changes in the application's managed object context before the application terminates.
@@ -132,22 +145,21 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
         return true
     }
-
+    
     // MARK: - Core Data stack
-
     lazy var persistentContainer: NSPersistentContainer = {
         /*
          The persistent container for the application. This implementation
          creates and returns a container, having loaded the store for the
          application to it. This property is optional since there are legitimate
          error conditions that could cause the creation of the store to fail.
-        */
+         */
         let container = NSPersistentContainer(name: "SsgSag")
         container.loadPersistentStores(completionHandler: { (storeDescription, error) in
             if let error = error as NSError? {
                 // Replace this implementation with code to handle the error appropriately.
                 // fatalError() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
-                 
+                
                 /*
                  Typical reasons for an error here include:
                  * The parent directory does not exist, cannot be created, or disallows writing.
@@ -161,9 +173,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         })
         return container
     }()
-
+    
     // MARK: - Core Data Saving support
-
     func saveContext () {
         let context = persistentContainer.viewContext
         if context.hasChanges {
@@ -177,6 +188,5 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             }
         }
     }
-
+    
 }
-

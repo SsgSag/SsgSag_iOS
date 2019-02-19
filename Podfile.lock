@@ -7,6 +7,7 @@ PODS:
   - lottie-ios (2.5.2)
   - naveridlogin-sdk-ios (4.0.10)
   - ObjectMapper (3.4.2)
+  - SearchTextField (1.2.2)
 
 DEPENDENCIES:
   - Alamofire
@@ -15,6 +16,7 @@ DEPENDENCIES:
   - lottie-ios
   - naveridlogin-sdk-ios
   - ObjectMapper
+  - SearchTextField
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
@@ -24,6 +26,7 @@ SPEC REPOS:
     - lottie-ios
     - naveridlogin-sdk-ios
     - ObjectMapper
+    - SearchTextField
 
 SPEC CHECKSUMS:
   Alamofire: 3ec537f71edc9804815215393ae2b1a8ea33a844
@@ -32,7 +35,8 @@ SPEC CHECKSUMS:
   lottie-ios: 3fef45d3fabe63e3c7c2eb603dd64ddfffc73062
   naveridlogin-sdk-ios: b5a31343e7f98bab1a5a37b1bc0af3354ad59d11
   ObjectMapper: 0d4402610f4e468903ae64629eec4784531e5c51
+  SearchTextField: a0992739d4b05dcbb40fb3a5cc6526bd991bdd23
 
-PODFILE CHECKSUM: 3ba7d5dff11ef76af68c9e84c4cef344d063aca5
+PODFILE CHECKSUM: f8b2a4f3d6c4d5215b72787b372daf6f7fb2904c
 
 COCOAPODS: 1.6.0.beta.2

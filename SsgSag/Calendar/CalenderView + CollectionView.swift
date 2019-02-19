@@ -22,6 +22,7 @@ extension CalenderView: UICollectionViewDelegate, UICollectionViewDataSource {
     
     fileprivate func drawDotAndLineView(_ indexPath: IndexPath, _ cell: DayCollectionViewCell) {
         let eventNum = eventDictionary[indexPath.row]!.count
+        print("vvvvvvvvvv \(indexPath.item) : \(eventNum)")
         
         cell.dotAndLineView1.isHidden = true
         cell.dotAndLineView2.isHidden = true
@@ -34,8 +35,6 @@ extension CalenderView: UICollectionViewDelegate, UICollectionViewDataSource {
         cell.dotAndLineView3.backgroundColor = .clear
         cell.dotAndLineView4.backgroundColor = .clear
         cell.dotAndLineView5.backgroundColor = .clear
-        
-        var dotPositionXConstant: CGFloat = cell.frame.midX * 0.2
         
         if eventNum > 0 {
             if cell.todoStatus == -1 {
@@ -53,10 +52,10 @@ extension CalenderView: UICollectionViewDelegate, UICollectionViewDataSource {
                     cell.dotAndLineView1HeightAnchor?.isActive = false
                     cell.dotAndLineView1CenterXAnchor?.isActive = false
                     
-                    cell.dotAndLineView1TopAnchor = cell.dotAndLineView1.topAnchor.constraint(equalTo: cell.lbl.bottomAnchor)
+                    cell.dotAndLineView1TopAnchor = cell.dotAndLineView1.topAnchor.constraint(equalTo: cell.lbl.bottomAnchor, constant: 4)
                     cell.dotAndLineView1WidthAnchor = cell.dotAndLineView1.widthAnchor.constraint(equalToConstant: cell.frame.width * 0.1)
                     cell.dotAndLineView1HeightAnchor = cell.dotAndLineView1.heightAnchor.constraint(equalToConstant: cell.frame.height * 0.1)
-                    cell.dotAndLineView1CenterXAnchor = cell.dotAndLineView1.centerXAnchor.constraint(equalTo: cell.centerXAnchor, constant: -dotPositionXConstant)
+                    cell.dotAndLineView1CenterXAnchor = cell.dotAndLineView1.centerXAnchor.constraint(equalTo: cell.centerXAnchor)
                     
                     cell.dotAndLineView1TopAnchor?.isActive = true
                     cell.dotAndLineView1WidthAnchor?.isActive = true
@@ -74,15 +73,15 @@ extension CalenderView: UICollectionViewDelegate, UICollectionViewDataSource {
                     cell.dotAndLineView2WidthAnchor?.isActive = false
                     cell.dotAndLineView2HeightAnchor?.isActive = false
                     cell.dotAndLineView2CenterXAnchor?.isActive = false
-
-                    cell.dotAndLineView1TopAnchor = cell.dotAndLineView1.topAnchor.constraint(equalTo: cell.lbl.bottomAnchor)
+                    
+                    cell.dotAndLineView1TopAnchor = cell.dotAndLineView1.topAnchor.constraint(equalTo: cell.lbl.bottomAnchor, constant: 4)
                     cell.dotAndLineView1WidthAnchor = cell.dotAndLineView1.widthAnchor.constraint(equalToConstant: cell.frame.width * 0.1)
                     cell.dotAndLineView1HeightAnchor = cell.dotAndLineView1.heightAnchor.constraint(equalToConstant: cell.frame.height * 0.1)
                     cell.dotAndLineView1CenterXAnchor = cell.dotAndLineView1.centerXAnchor.constraint(equalTo: cell.centerXAnchor, constant: -3)
-
-                    cell.dotAndLineView2TopAnchor = cell.dotAndLineView2.topAnchor.constraint(equalTo: cell.lbl.bottomAnchor)
+                    
+                    cell.dotAndLineView2TopAnchor = cell.dotAndLineView2.topAnchor.constraint(equalTo: cell.lbl.bottomAnchor, constant: 4)
                     cell.dotAndLineView2WidthAnchor = cell.dotAndLineView2.widthAnchor.constraint(equalToConstant: cell.frame.width * 0.1)
-                    cell.dotAndLineView2HeightAnchor = cell.dotAndLineView2.heightAnchor.constraint(equalToConstant: cell.frame.width * 0.1)
+                    cell.dotAndLineView2HeightAnchor = cell.dotAndLineView2.heightAnchor.constraint(equalToConstant: cell.frame.height * 0.1)
                     cell.dotAndLineView2CenterXAnchor = cell.dotAndLineView2.centerXAnchor.constraint(equalTo: cell.centerXAnchor, constant: 3)
                     
                     cell.dotAndLineView1TopAnchor?.isActive = true
@@ -97,7 +96,6 @@ extension CalenderView: UICollectionViewDelegate, UICollectionViewDataSource {
                     
                     cell.dotAndLineView1.isHidden = false
                     cell.dotAndLineView2.isHidden = false
-                    
                 case 3:
                     cell.dotAndLineView1TopAnchor?.isActive = false
                     cell.dotAndLineView1WidthAnchor?.isActive = false
@@ -121,12 +119,12 @@ extension CalenderView: UICollectionViewDelegate, UICollectionViewDataSource {
                     
                     cell.dotAndLineView2TopAnchor = cell.dotAndLineView2.topAnchor.constraint(equalTo: cell.lbl.bottomAnchor)
                     cell.dotAndLineView2WidthAnchor = cell.dotAndLineView2.widthAnchor.constraint(equalToConstant: cell.frame.width * 0.1)
-                    cell.dotAndLineView2HeightAnchor = cell.dotAndLineView2.heightAnchor.constraint(equalToConstant: cell.frame.width * 0.1)
+                    cell.dotAndLineView2HeightAnchor = cell.dotAndLineView2.heightAnchor.constraint(equalToConstant: cell.frame.height * 0.1)
                     cell.dotAndLineView2CenterXAnchor = cell.dotAndLineView2.centerXAnchor.constraint(equalTo: cell.centerXAnchor)
                     
                     cell.dotAndLineView3TopAnchor = cell.dotAndLineView3.topAnchor.constraint(equalTo: cell.lbl.bottomAnchor)
                     cell.dotAndLineView3WidthAnchor = cell.dotAndLineView3.widthAnchor.constraint(equalToConstant: cell.frame.width * 0.1)
-                    cell.dotAndLineView3HeightAnchor = cell.dotAndLineView3.heightAnchor.constraint(equalToConstant: cell.frame.width * 0.1)
+                    cell.dotAndLineView3HeightAnchor = cell.dotAndLineView3.heightAnchor.constraint(equalToConstant: cell.frame.height * 0.1)
                     cell.dotAndLineView3CenterXAnchor = cell.dotAndLineView3.centerXAnchor.constraint(equalTo: cell.centerXAnchor, constant: 5)
                     
                     cell.dotAndLineView1TopAnchor?.isActive = true
@@ -171,22 +169,22 @@ extension CalenderView: UICollectionViewDelegate, UICollectionViewDataSource {
                     cell.dotAndLineView1TopAnchor = cell.dotAndLineView1.topAnchor.constraint(equalTo: cell.lbl.bottomAnchor)
                     cell.dotAndLineView1WidthAnchor = cell.dotAndLineView1.widthAnchor.constraint(equalToConstant: cell.frame.width * 0.1)
                     cell.dotAndLineView1HeightAnchor = cell.dotAndLineView1.heightAnchor.constraint(equalToConstant: cell.frame.height * 0.1)
-                    cell.dotAndLineView1CenterXAnchor = cell.dotAndLineView1.centerXAnchor.constraint(equalTo: cell.centerXAnchor, constant: -6)
+                    cell.dotAndLineView1CenterXAnchor = cell.dotAndLineView1.centerXAnchor.constraint(equalTo: cell.centerXAnchor, constant: -5)
                     
                     cell.dotAndLineView2TopAnchor = cell.dotAndLineView2.topAnchor.constraint(equalTo: cell.lbl.bottomAnchor)
                     cell.dotAndLineView2WidthAnchor = cell.dotAndLineView2.widthAnchor.constraint(equalToConstant: cell.frame.width * 0.1)
-                    cell.dotAndLineView2HeightAnchor = cell.dotAndLineView2.heightAnchor.constraint(equalToConstant: cell.frame.width * 0.1)
-                    cell.dotAndLineView2CenterXAnchor = cell.dotAndLineView2.centerXAnchor.constraint(equalTo: cell.centerXAnchor, constant: -2.5)
+                    cell.dotAndLineView2HeightAnchor = cell.dotAndLineView2.heightAnchor.constraint(equalToConstant: cell.frame.height * 0.1)
+                    cell.dotAndLineView2CenterXAnchor = cell.dotAndLineView2.centerXAnchor.constraint(equalTo: cell.centerXAnchor, constant: -2)
                     
                     cell.dotAndLineView3TopAnchor = cell.dotAndLineView3.topAnchor.constraint(equalTo: cell.lbl.bottomAnchor)
                     cell.dotAndLineView3WidthAnchor = cell.dotAndLineView3.widthAnchor.constraint(equalToConstant: cell.frame.width * 0.1)
-                    cell.dotAndLineView3HeightAnchor = cell.dotAndLineView3.heightAnchor.constraint(equalToConstant: cell.frame.width * 0.1)
-                    cell.dotAndLineView3CenterXAnchor = cell.dotAndLineView3.centerXAnchor.constraint(equalTo: cell.centerXAnchor, constant: 2.5)
+                    cell.dotAndLineView3HeightAnchor = cell.dotAndLineView3.heightAnchor.constraint(equalToConstant: cell.frame.height * 0.1)
+                    cell.dotAndLineView3CenterXAnchor = cell.dotAndLineView3.centerXAnchor.constraint(equalTo: cell.centerXAnchor, constant: 2)
                     
                     cell.dotAndLineView4TopAnchor = cell.dotAndLineView4.topAnchor.constraint(equalTo: cell.lbl.bottomAnchor)
                     cell.dotAndLineView4WidthAnchor = cell.dotAndLineView4.widthAnchor.constraint(equalToConstant: cell.frame.width * 0.1)
-                    cell.dotAndLineView4HeightAnchor = cell.dotAndLineView4.heightAnchor.constraint(equalToConstant: cell.frame.width * 0.1)
-                    cell.dotAndLineView4CenterXAnchor = cell.dotAndLineView4.centerXAnchor.constraint(equalTo: cell.centerXAnchor, constant: 6)
+                    cell.dotAndLineView4HeightAnchor = cell.dotAndLineView4.heightAnchor.constraint(equalToConstant: cell.frame.height * 0.1)
+                    cell.dotAndLineView4CenterXAnchor = cell.dotAndLineView4.centerXAnchor.constraint(equalTo: cell.centerXAnchor, constant: 5)
                     
                     cell.dotAndLineView1TopAnchor?.isActive = true
                     cell.dotAndLineView1CenterXAnchor?.isActive = true
@@ -245,22 +243,22 @@ extension CalenderView: UICollectionViewDelegate, UICollectionViewDataSource {
                     
                     cell.dotAndLineView2TopAnchor = cell.dotAndLineView2.topAnchor.constraint(equalTo: cell.lbl.bottomAnchor)
                     cell.dotAndLineView2WidthAnchor = cell.dotAndLineView2.widthAnchor.constraint(equalToConstant: cell.frame.width * 0.1)
-                    cell.dotAndLineView2HeightAnchor = cell.dotAndLineView2.heightAnchor.constraint(equalToConstant: cell.frame.width * 0.1)
+                    cell.dotAndLineView2HeightAnchor = cell.dotAndLineView2.heightAnchor.constraint(equalToConstant: cell.frame.height * 0.1)
                     cell.dotAndLineView2CenterXAnchor = cell.dotAndLineView2.centerXAnchor.constraint(equalTo: cell.centerXAnchor, constant: -2.5)
                     
                     cell.dotAndLineView3TopAnchor = cell.dotAndLineView3.topAnchor.constraint(equalTo: cell.lbl.bottomAnchor)
                     cell.dotAndLineView3WidthAnchor = cell.dotAndLineView3.widthAnchor.constraint(equalToConstant: cell.frame.width * 0.1)
-                    cell.dotAndLineView3HeightAnchor = cell.dotAndLineView3.heightAnchor.constraint(equalToConstant: cell.frame.width * 0.1)
+                    cell.dotAndLineView3HeightAnchor = cell.dotAndLineView3.heightAnchor.constraint(equalToConstant: cell.frame.height * 0.1)
                     cell.dotAndLineView3CenterXAnchor = cell.dotAndLineView3.centerXAnchor.constraint(equalTo: cell.centerXAnchor)
                     
                     cell.dotAndLineView4TopAnchor = cell.dotAndLineView4.topAnchor.constraint(equalTo: cell.lbl.bottomAnchor)
                     cell.dotAndLineView4WidthAnchor = cell.dotAndLineView4.widthAnchor.constraint(equalToConstant: cell.frame.width * 0.1)
-                    cell.dotAndLineView4HeightAnchor = cell.dotAndLineView4.heightAnchor.constraint(equalToConstant: cell.frame.width * 0.1)
+                    cell.dotAndLineView4HeightAnchor = cell.dotAndLineView4.heightAnchor.constraint(equalToConstant: cell.frame.height * 0.1)
                     cell.dotAndLineView4CenterXAnchor = cell.dotAndLineView4.centerXAnchor.constraint(equalTo: cell.centerXAnchor, constant: 2.5)
                     
                     cell.dotAndLineView5TopAnchor = cell.dotAndLineView5.topAnchor.constraint(equalTo: cell.lbl.bottomAnchor)
                     cell.dotAndLineView5WidthAnchor = cell.dotAndLineView5.widthAnchor.constraint(equalToConstant: cell.frame.width * 0.1)
-                    cell.dotAndLineView5HeightAnchor = cell.dotAndLineView5.heightAnchor.constraint(equalToConstant: cell.frame.width * 0.1)
+                    cell.dotAndLineView5HeightAnchor = cell.dotAndLineView5.heightAnchor.constraint(equalToConstant: cell.frame.height * 0.1)
                     cell.dotAndLineView5CenterXAnchor = cell.dotAndLineView5.centerXAnchor.constraint(equalTo: cell.centerXAnchor, constant: 6)
                     
                     cell.dotAndLineView1TopAnchor?.isActive = true
@@ -298,166 +296,113 @@ extension CalenderView: UICollectionViewDelegate, UICollectionViewDataSource {
                     
                 }
             } else {
-                let event = eventDictionary[indexPath.row]!
+                let event = eventDictionary[indexPath.item]!
                 var eventCategoryList: [Int] = []
                 
                 for i in event {
                     eventCategoryList.append(i.categoryIdx)
                 }
                 
+                print("here \(indexPath.item)")
+                
+                let dotAndLineView1Constraints = [
+                    cell.dotAndLineView1.topAnchor.constraint(equalTo: cell.lbl.bottomAnchor, constant: 4),
+                    cell.dotAndLineView1.widthAnchor.constraint(equalToConstant: cell.bounds.width),
+                    cell.dotAndLineView1.heightAnchor.constraint(equalToConstant: cell.frame.height * 0.08),
+                    cell.dotAndLineView1.centerXAnchor.constraint(equalTo: cell.centerXAnchor)
+                ]
+                let dotAndLineView2Constraints = [
+                    cell.dotAndLineView2.topAnchor.constraint(equalTo: cell.dotAndLineView1.bottomAnchor, constant: 2.5),
+                    cell.dotAndLineView2.widthAnchor.constraint(equalToConstant: cell.bounds.width),
+                    cell.dotAndLineView2.heightAnchor.constraint(equalToConstant: cell.frame.height * 0.08),
+                    cell.dotAndLineView2.centerXAnchor.constraint(equalTo: cell.centerXAnchor)
+                ]
+                let dotAndLineView3Constraints = [
+                    cell.dotAndLineView3.topAnchor.constraint(equalTo: cell.dotAndLineView2.bottomAnchor, constant: 2.5),
+                    cell.dotAndLineView3.widthAnchor.constraint(equalToConstant: cell.bounds.width),
+                    cell.dotAndLineView3.heightAnchor.constraint(equalToConstant: cell.frame.height * 0.08),
+                    cell.dotAndLineView3.centerXAnchor.constraint(equalTo: cell.centerXAnchor)
+                ]
+                let dotAndLineView4Constraints = [
+                    cell.dotAndLineView4.topAnchor.constraint(equalTo: cell.dotAndLineView3.bottomAnchor, constant: 2.5),
+                    cell.dotAndLineView4.widthAnchor.constraint(equalToConstant: cell.bounds.width),
+                    cell.dotAndLineView4.heightAnchor.constraint(equalToConstant: cell.frame.height * 0.08),
+                    cell.dotAndLineView4.centerXAnchor.constraint(equalTo: cell.centerXAnchor)
+                ]
+                let dotAndLineView5Constraints = [
+                    cell.dotAndLineView5.topAnchor.constraint(equalTo: cell.dotAndLineView4.bottomAnchor, constant: 2.5),
+                    cell.dotAndLineView5.widthAnchor.constraint(equalToConstant: cell.bounds.width),
+                    cell.dotAndLineView5.heightAnchor.constraint(equalToConstant: cell.frame.height * 0.08),
+                    cell.dotAndLineView5.centerXAnchor.constraint(equalTo: cell.centerXAnchor)
+                ]
+                
+                
                 switch eventNum {
                 case 1:
-                    cell.dotAndLineView1WidthAnchor?.isActive = false
-                    cell.dotAndLineView1HeightAnchor?.isActive = false
-                    
-                    cell.dotAndLineView1WidthAnchor = cell.dotAndLineView1.widthAnchor.constraint(equalToConstant: cell.frame.width)
-                    cell.dotAndLineView1HeightAnchor = cell.dotAndLineView1.heightAnchor.constraint(equalToConstant: cell.frame.height * 0.14)
-                    cell.dotAndLineView1WidthAnchor?.isActive = true
-                    cell.dotAndLineView1HeightAnchor?.isActive = true
+                    NSLayoutConstraint.deactivate(dotAndLineView1Constraints)
+                    NSLayoutConstraint.activate(dotAndLineView1Constraints)
                     
                     cell.dotAndLineView1.isHidden = false
                 case 2:
                     //1
-                    cell.dotAndLineView1WidthAnchor?.isActive = false
-                    cell.dotAndLineView1HeightAnchor?.isActive = false
-                    cell.dotAndLineView1CenterXAnchor?.isActive = false
-                    
-                    cell.dotAndLineView1WidthAnchor = cell.dotAndLineView1.widthAnchor.constraint(equalToConstant: cell.bounds.width)
-                    cell.dotAndLineView1HeightAnchor = cell.dotAndLineView1.heightAnchor.constraint(equalToConstant: cell.frame.height * 0.08)
-                    cell.dotAndLineView1CenterXAnchor = cell.dotAndLineView1.centerXAnchor.constraint(equalTo: cell.centerXAnchor)
-                    
-                    cell.dotAndLineView1CenterXAnchor?.isActive = true
-                    cell.dotAndLineView1WidthAnchor?.isActive = true
-                    cell.dotAndLineView1HeightAnchor?.isActive = true
+                    NSLayoutConstraint.deactivate(dotAndLineView1Constraints)
+                    NSLayoutConstraint.activate(dotAndLineView1Constraints)
                     
                     //2
-                    cell.dotAndLineView2TopAnchor?.isActive = false
-                    cell.dotAndLineView2WidthAnchor?.isActive = false
-                    cell.dotAndLineView2HeightAnchor?.isActive = false
-                    cell.dotAndLineView2CenterXAnchor?.isActive = false
-                    
-                    cell.dotAndLineView2TopAnchor = cell.dotAndLineView2.topAnchor.constraint(equalTo: cell.dotAndLineView1.bottomAnchor, constant: 2.5)
-                    cell.dotAndLineView2WidthAnchor = cell.dotAndLineView2.widthAnchor.constraint(equalToConstant: cell.bounds.width)
-                    cell.dotAndLineView2HeightAnchor = cell.dotAndLineView2.heightAnchor.constraint(equalToConstant: cell.frame.height * 0.08)
-                    cell.dotAndLineView2CenterXAnchor = cell.dotAndLineView2.centerXAnchor.constraint(equalTo: cell.centerXAnchor)
-                    
-                    cell.dotAndLineView2TopAnchor?.isActive = true
-                    cell.dotAndLineView2WidthAnchor?.isActive = true
-                    cell.dotAndLineView2HeightAnchor?.isActive = true
-                    cell.dotAndLineView2CenterXAnchor?.isActive = true
+                    NSLayoutConstraint.deactivate(dotAndLineView2Constraints)
+                    NSLayoutConstraint.activate(dotAndLineView2Constraints)
                     
                     cell.dotAndLineView1.isHidden = false
                     cell.dotAndLineView2.isHidden = false
                 case 3:
                     //1
-                    cell.dotAndLineView1WidthAnchor?.isActive = false
-                    cell.dotAndLineView1HeightAnchor?.isActive = false
-                    cell.dotAndLineView1CenterXAnchor?.isActive = false
+                    //                   let dotAndLineView1Constraints = [
+                    //                    cell.dotAndLineView1.topAnchor.constraint(equalTo: cell.lbl.bottomAnchor, constant: 4),
+                    //                    cell.dotAndLineView1.widthAnchor.constraint(equalToConstant: cell.bounds.width),
+                    //                    cell.dotAndLineView1.heightAnchor.constraint(equalToConstant: cell.frame.height * 0.08),
+                    //                    cell.dotAndLineView1.centerXAnchor.constraint(equalTo: cell.centerXAnchor)
+                    //                   ]
                     
-                    cell.dotAndLineView1WidthAnchor = cell.dotAndLineView1.widthAnchor.constraint(equalToConstant: cell.bounds.width)
-                    cell.dotAndLineView1HeightAnchor = cell.dotAndLineView1.heightAnchor.constraint(equalToConstant: cell.frame.height * 0.08)
-                    cell.dotAndLineView1CenterXAnchor = cell.dotAndLineView1.centerXAnchor.constraint(equalTo: cell.centerXAnchor)
-                    
-                    cell.dotAndLineView1CenterXAnchor?.isActive = true
-                    cell.dotAndLineView1WidthAnchor?.isActive = true
-                    cell.dotAndLineView1HeightAnchor?.isActive = true
+                    NSLayoutConstraint.deactivate(dotAndLineView1Constraints)
+                    NSLayoutConstraint.activate(dotAndLineView1Constraints)
                     
                     //2
-                    cell.dotAndLineView2TopAnchor?.isActive = false
-                    cell.dotAndLineView2WidthAnchor?.isActive = false
-                    cell.dotAndLineView2HeightAnchor?.isActive = false
-                    cell.dotAndLineView2CenterXAnchor?.isActive = false
-                    
-                    cell.dotAndLineView2TopAnchor = cell.dotAndLineView2.topAnchor.constraint(equalTo: cell.dotAndLineView1.bottomAnchor, constant: 2.5)
-                    
-                    cell.dotAndLineView2WidthAnchor = cell.dotAndLineView2.widthAnchor.constraint(equalToConstant: cell.bounds.width)
-                    cell.dotAndLineView2HeightAnchor = cell.dotAndLineView2.heightAnchor.constraint(equalToConstant: cell.frame.height * 0.08)
-                    cell.dotAndLineView2CenterXAnchor = cell.dotAndLineView2.centerXAnchor.constraint(equalTo: cell.centerXAnchor)
-                    
-                    cell.dotAndLineView2TopAnchor?.isActive = true
-                    cell.dotAndLineView2WidthAnchor?.isActive = true
-                    cell.dotAndLineView2HeightAnchor?.isActive = true
-                    cell.dotAndLineView2CenterXAnchor?.isActive = true
+                    //                    let dotAndLineView2Constraints = [
+                    //                        cell.dotAndLineView2.topAnchor.constraint(equalTo: cell.dotAndLineView1.bottomAnchor, constant: 2.5),
+                    //                        cell.dotAndLineView2.widthAnchor.constraint(equalToConstant: cell.bounds.width),
+                    //                        cell.dotAndLineView2.heightAnchor.constraint(equalToConstant: cell.frame.height * 0.08),
+                    //                        cell.dotAndLineView2.centerXAnchor.constraint(equalTo: cell.centerXAnchor)
+                    //                   ]
+                    NSLayoutConstraint.deactivate(dotAndLineView2Constraints)
+                    NSLayoutConstraint.activate(dotAndLineView2Constraints)
                     
                     //3
-                    cell.dotAndLineView3TopAnchor?.isActive = false
-                    cell.dotAndLineView3WidthAnchor?.isActive = false
-                    cell.dotAndLineView3HeightAnchor?.isActive = false
-                    cell.dotAndLineView3CenterXAnchor?.isActive = false
+                    //                   let dotAndLineView3Constraints = [
+                    //                    cell.dotAndLineView3.topAnchor.constraint(equalTo: cell.dotAndLineView2.bottomAnchor, constant: 2.5),
+                    //                    cell.dotAndLineView3.widthAnchor.constraint(equalToConstant: cell.bounds.width),
+                    //                    cell.dotAndLineView3.heightAnchor.constraint(equalToConstant: cell.frame.height * 0.08),
+                    //                    cell.dotAndLineView3.centerXAnchor.constraint(equalTo: cell.centerXAnchor)
+                    //                   ]
                     
-                    cell.dotAndLineView3TopAnchor = cell.dotAndLineView3.topAnchor.constraint(equalTo: cell.dotAndLineView2.bottomAnchor, constant: 2.5)
-                    
-                    cell.dotAndLineView3WidthAnchor = cell.dotAndLineView3.widthAnchor.constraint(equalToConstant: cell.bounds.width)
-                    cell.dotAndLineView3HeightAnchor = cell.dotAndLineView3.heightAnchor.constraint(equalToConstant: cell.frame.height * 0.08)
-                    cell.dotAndLineView3CenterXAnchor = cell.dotAndLineView3.centerXAnchor.constraint(equalTo: cell.centerXAnchor)
-                    
-                    cell.dotAndLineView3TopAnchor?.isActive = true
-                    cell.dotAndLineView3WidthAnchor?.isActive = true
-                    cell.dotAndLineView3HeightAnchor?.isActive = true
-                    cell.dotAndLineView3CenterXAnchor?.isActive = true
+                    NSLayoutConstraint.deactivate(dotAndLineView3Constraints)
+                    NSLayoutConstraint.activate(dotAndLineView3Constraints)
                     
                     cell.dotAndLineView1.isHidden = false
                     cell.dotAndLineView2.isHidden = false
                     cell.dotAndLineView3.isHidden = false
                 case 4:
                     //1
-                    cell.dotAndLineView1WidthAnchor?.isActive = false
-                    cell.dotAndLineView1HeightAnchor?.isActive = false
-                    cell.dotAndLineView1CenterXAnchor?.isActive = false
+                    NSLayoutConstraint.deactivate(dotAndLineView1Constraints)
+                    NSLayoutConstraint.activate(dotAndLineView1Constraints)
                     
-                    cell.dotAndLineView2TopAnchor?.isActive = false
-                    cell.dotAndLineView2WidthAnchor?.isActive = false
-                    cell.dotAndLineView2HeightAnchor?.isActive = false
-                    cell.dotAndLineView2CenterXAnchor?.isActive = false
+                    NSLayoutConstraint.deactivate(dotAndLineView2Constraints)
+                    NSLayoutConstraint.activate(dotAndLineView2Constraints)
                     
-                    cell.dotAndLineView3TopAnchor?.isActive = false
-                    cell.dotAndLineView3WidthAnchor?.isActive = false
-                    cell.dotAndLineView3HeightAnchor?.isActive = false
-                    cell.dotAndLineView3CenterXAnchor?.isActive = false
+                    NSLayoutConstraint.deactivate(dotAndLineView3Constraints)
+                    NSLayoutConstraint.activate(dotAndLineView3Constraints)
                     
-                    cell.dotAndLineView4TopAnchor?.isActive = false
-                    cell.dotAndLineView4WidthAnchor?.isActive = false
-                    cell.dotAndLineView4HeightAnchor?.isActive = false
-                    cell.dotAndLineView4CenterXAnchor?.isActive = false
-                    
-                    cell.dotAndLineView1WidthAnchor = cell.dotAndLineView1.widthAnchor.constraint(equalToConstant: cell.bounds.width)
-                    cell.dotAndLineView1HeightAnchor = cell.dotAndLineView1.heightAnchor.constraint(equalToConstant: cell.frame.height * 0.08)
-                    cell.dotAndLineView1CenterXAnchor = cell.dotAndLineView1.centerXAnchor.constraint(equalTo: cell.centerXAnchor)
-                    
-                    cell.dotAndLineView2TopAnchor = cell.dotAndLineView2.topAnchor.constraint(equalTo: cell.dotAndLineView1.bottomAnchor, constant: 2.5)
-                    cell.dotAndLineView2WidthAnchor = cell.dotAndLineView2.widthAnchor.constraint(equalToConstant: cell.bounds.width)
-                    cell.dotAndLineView2HeightAnchor = cell.dotAndLineView2.heightAnchor.constraint(equalToConstant: cell.frame.height * 0.08)
-                    cell.dotAndLineView2CenterXAnchor = cell.dotAndLineView2.centerXAnchor.constraint(equalTo: cell.centerXAnchor)
-                    
-                    cell.dotAndLineView3TopAnchor = cell.dotAndLineView3.topAnchor.constraint(equalTo: cell.dotAndLineView2.bottomAnchor, constant: 2.5)
-                    cell.dotAndLineView3WidthAnchor = cell.dotAndLineView3.widthAnchor.constraint(equalToConstant: cell.bounds.width)
-                    cell.dotAndLineView3HeightAnchor = cell.dotAndLineView3.heightAnchor.constraint(equalToConstant: cell.frame.height * 0.08)
-                    cell.dotAndLineView3CenterXAnchor = cell.dotAndLineView3.centerXAnchor.constraint(equalTo: cell.centerXAnchor)
-                
-                    cell.dotAndLineView4TopAnchor = cell.dotAndLineView4.topAnchor.constraint(equalTo: cell.dotAndLineView3.bottomAnchor, constant: 2.5)
-                    cell.dotAndLineView4WidthAnchor = cell.dotAndLineView4.widthAnchor.constraint(equalToConstant: cell.bounds.width)
-                    cell.dotAndLineView4HeightAnchor = cell.dotAndLineView4.heightAnchor.constraint(equalToConstant: cell.frame.height * 0.08)
-                    cell.dotAndLineView4CenterXAnchor = cell.dotAndLineView4.centerXAnchor.constraint(equalTo: cell.centerXAnchor)
-
-                    
-                    cell.dotAndLineView1CenterXAnchor?.isActive = true
-                    cell.dotAndLineView1WidthAnchor?.isActive = true
-                    cell.dotAndLineView1HeightAnchor?.isActive = true
-                    
-                    cell.dotAndLineView2TopAnchor?.isActive = true
-                    cell.dotAndLineView2WidthAnchor?.isActive = true
-                    cell.dotAndLineView2HeightAnchor?.isActive = true
-                    cell.dotAndLineView2CenterXAnchor?.isActive = true
-                    
-                    cell.dotAndLineView3TopAnchor?.isActive = true
-                    cell.dotAndLineView3WidthAnchor?.isActive = true
-                    cell.dotAndLineView3HeightAnchor?.isActive = true
-                    cell.dotAndLineView3CenterXAnchor?.isActive = true
-                    
-                    cell.dotAndLineView4TopAnchor?.isActive = true
-                    cell.dotAndLineView4WidthAnchor?.isActive = true
-                    cell.dotAndLineView4HeightAnchor?.isActive = true
-                    cell.dotAndLineView4CenterXAnchor?.isActive = true
+                    NSLayoutConstraint.deactivate(dotAndLineView4Constraints)
+                    NSLayoutConstraint.activate(dotAndLineView4Constraints)
                     
                     cell.dotAndLineView1.isHidden = false
                     cell.dotAndLineView2.isHidden = false
@@ -466,83 +411,60 @@ extension CalenderView: UICollectionViewDelegate, UICollectionViewDataSource {
                     
                 case 5:
                     //1
-                    cell.dotAndLineView1WidthAnchor?.isActive = false
-                    cell.dotAndLineView1HeightAnchor?.isActive = false
-                    cell.dotAndLineView1CenterXAnchor?.isActive = false
                     
-                    cell.dotAndLineView2TopAnchor?.isActive = false
-                    cell.dotAndLineView2WidthAnchor?.isActive = false
-                    cell.dotAndLineView2HeightAnchor?.isActive = false
-                    cell.dotAndLineView2CenterXAnchor?.isActive = false
+                    NSLayoutConstraint.deactivate(dotAndLineView1Constraints)
+                    NSLayoutConstraint.deactivate(dotAndLineView2Constraints)
+                    NSLayoutConstraint.deactivate(dotAndLineView3Constraints)
+                    NSLayoutConstraint.deactivate(dotAndLineView4Constraints)
+                    NSLayoutConstraint.deactivate(dotAndLineView5Constraints)
                     
-                    cell.dotAndLineView3TopAnchor?.isActive = false
-                    cell.dotAndLineView3WidthAnchor?.isActive = false
-                    cell.dotAndLineView3HeightAnchor?.isActive = false
-                    cell.dotAndLineView3CenterXAnchor?.isActive = false
+                    let dotAndLineView1Constraints = [
+                        cell.dotAndLineView1.topAnchor.constraint(equalTo: cell.lbl.bottomAnchor, constant: 4),
+                        cell.dotAndLineView1.widthAnchor.constraint(equalToConstant: cell.bounds.width),
+                        cell.dotAndLineView1.heightAnchor.constraint(equalToConstant: cell.frame.height * 0.08),
+                        cell.dotAndLineView1.centerXAnchor.constraint(equalTo: cell.centerXAnchor)
+                    ]
+                    let dotAndLineView2Constraints = [
+                        cell.dotAndLineView2.topAnchor.constraint(equalTo: cell.dotAndLineView1.bottomAnchor, constant: 2.5),
+                        cell.dotAndLineView2.widthAnchor.constraint(equalToConstant: cell.bounds.width),
+                        cell.dotAndLineView2.heightAnchor.constraint(equalToConstant: cell.frame.height * 0.08),
+                        cell.dotAndLineView2.centerXAnchor.constraint(equalTo: cell.centerXAnchor)
+                    ]
+                    let dotAndLineView3Constraints = [
+                        cell.dotAndLineView3.topAnchor.constraint(equalTo: cell.dotAndLineView2.bottomAnchor, constant: 2.5),
+                        cell.dotAndLineView3.widthAnchor.constraint(equalToConstant: cell.bounds.width),
+                        cell.dotAndLineView3.heightAnchor.constraint(equalToConstant: cell.frame.height * 0.08),
+                        cell.dotAndLineView3.centerXAnchor.constraint(equalTo: cell.centerXAnchor)
+                    ]
+                    let dotAndLineView4Constraints = [
+                        cell.dotAndLineView4.topAnchor.constraint(equalTo: cell.dotAndLineView3.bottomAnchor, constant: 2.5),
+                        cell.dotAndLineView4.widthAnchor.constraint(equalToConstant: cell.bounds.width),
+                        cell.dotAndLineView4.heightAnchor.constraint(equalToConstant: cell.frame.height * 0.08),
+                        cell.dotAndLineView4.centerXAnchor.constraint(equalTo: cell.centerXAnchor)
+                    ]
+                    let dotAndLineView5Constraints = [
+                        cell.dotAndLineView5.topAnchor.constraint(equalTo: cell.dotAndLineView4.bottomAnchor, constant: 2.5),
+                        cell.dotAndLineView5.widthAnchor.constraint(equalToConstant: cell.bounds.width),
+                        cell.dotAndLineView5.heightAnchor.constraint(equalToConstant: cell.frame.height * 0.08),
+                        cell.dotAndLineView5.centerXAnchor.constraint(equalTo: cell.centerXAnchor)
+                    ]
                     
-                    cell.dotAndLineView4TopAnchor?.isActive = false
-                    cell.dotAndLineView4WidthAnchor?.isActive = false
-                    cell.dotAndLineView4HeightAnchor?.isActive = false
-                    cell.dotAndLineView4CenterXAnchor?.isActive = false
                     
-                    cell.dotAndLineView5TopAnchor?.isActive = false
-                    cell.dotAndLineView5WidthAnchor?.isActive = false
-                    cell.dotAndLineView5HeightAnchor?.isActive = false
-                    cell.dotAndLineView5CenterXAnchor?.isActive = false
                     
-                    cell.dotAndLineView1WidthAnchor = cell.dotAndLineView1.widthAnchor.constraint(equalToConstant: cell.bounds.width)
-                    cell.dotAndLineView1HeightAnchor = cell.dotAndLineView1.heightAnchor.constraint(equalToConstant: cell.frame.height * 0.08)
-                    cell.dotAndLineView1CenterXAnchor = cell.dotAndLineView1.centerXAnchor.constraint(equalTo: cell.centerXAnchor)
                     
-                    cell.dotAndLineView2TopAnchor = cell.dotAndLineView2.topAnchor.constraint(equalTo: cell.dotAndLineView1.bottomAnchor, constant: 2.5)
-                    cell.dotAndLineView2WidthAnchor = cell.dotAndLineView2.widthAnchor.constraint(equalToConstant: cell.bounds.width)
-                    cell.dotAndLineView2HeightAnchor = cell.dotAndLineView2.heightAnchor.constraint(equalToConstant: cell.frame.height * 0.08)
-                    cell.dotAndLineView2CenterXAnchor = cell.dotAndLineView2.centerXAnchor.constraint(equalTo: cell.centerXAnchor)
-                    
-                    cell.dotAndLineView3TopAnchor = cell.dotAndLineView3.topAnchor.constraint(equalTo: cell.dotAndLineView2.bottomAnchor, constant: 2.5)
-                    cell.dotAndLineView3WidthAnchor = cell.dotAndLineView3.widthAnchor.constraint(equalToConstant: cell.bounds.width)
-                    cell.dotAndLineView3HeightAnchor = cell.dotAndLineView3.heightAnchor.constraint(equalToConstant: cell.frame.height * 0.08)
-                    cell.dotAndLineView3CenterXAnchor = cell.dotAndLineView3.centerXAnchor.constraint(equalTo: cell.centerXAnchor)
-                    
-                    cell.dotAndLineView4TopAnchor = cell.dotAndLineView4.topAnchor.constraint(equalTo: cell.dotAndLineView3.bottomAnchor, constant: 2.5)
-                    cell.dotAndLineView4WidthAnchor = cell.dotAndLineView4.widthAnchor.constraint(equalToConstant: cell.bounds.width)
-                    cell.dotAndLineView4HeightAnchor = cell.dotAndLineView4.heightAnchor.constraint(equalToConstant: cell.frame.height * 0.08)
-                    cell.dotAndLineView4CenterXAnchor = cell.dotAndLineView4.centerXAnchor.constraint(equalTo: cell.centerXAnchor)
-                    
-                    cell.dotAndLineView5TopAnchor = cell.dotAndLineView5.topAnchor.constraint(equalTo: cell.dotAndLineView4.bottomAnchor, constant: 2.5)
-                    cell.dotAndLineView5WidthAnchor = cell.dotAndLineView5.widthAnchor.constraint(equalToConstant: cell.bounds.width)
-                    cell.dotAndLineView5HeightAnchor = cell.dotAndLineView5.heightAnchor.constraint(equalToConstant: cell.frame.height * 0.08)
-                    cell.dotAndLineView5CenterXAnchor = cell.dotAndLineView5.centerXAnchor.constraint(equalTo: cell.centerXAnchor)
-                    
-                    cell.dotAndLineView1CenterXAnchor?.isActive = true
-                    cell.dotAndLineView1WidthAnchor?.isActive = true
-                    cell.dotAndLineView1HeightAnchor?.isActive = true
-                    
-                    cell.dotAndLineView2TopAnchor?.isActive = true
-                    cell.dotAndLineView2WidthAnchor?.isActive = true
-                    cell.dotAndLineView2HeightAnchor?.isActive = true
-                    cell.dotAndLineView2CenterXAnchor?.isActive = true
-                    
-                    cell.dotAndLineView3TopAnchor?.isActive = true
-                    cell.dotAndLineView3WidthAnchor?.isActive = true
-                    cell.dotAndLineView3HeightAnchor?.isActive = true
-                    cell.dotAndLineView3CenterXAnchor?.isActive = true
-                    
-                    cell.dotAndLineView4TopAnchor?.isActive = true
-                    cell.dotAndLineView4WidthAnchor?.isActive = true
-                    cell.dotAndLineView4HeightAnchor?.isActive = true
-                    cell.dotAndLineView4CenterXAnchor?.isActive = true
-                    
-                    cell.dotAndLineView5TopAnchor?.isActive = true
-                    cell.dotAndLineView5WidthAnchor?.isActive = true
-                    cell.dotAndLineView5HeightAnchor?.isActive = true
-                    cell.dotAndLineView5CenterXAnchor?.isActive = true
                     
                     cell.dotAndLineView1.isHidden = false
                     cell.dotAndLineView2.isHidden = false
                     cell.dotAndLineView3.isHidden = false
                     cell.dotAndLineView4.isHidden = false
                     cell.dotAndLineView5.isHidden = false
+                    
+                    NSLayoutConstraint.activate(dotAndLineView1Constraints)
+                    NSLayoutConstraint.activate(dotAndLineView2Constraints)
+                    NSLayoutConstraint.activate(dotAndLineView3Constraints)
+                    NSLayoutConstraint.activate(dotAndLineView4Constraints)
+                    NSLayoutConstraint.activate(dotAndLineView5Constraints)
+                    
                 default:
                     break
                 }
@@ -669,36 +591,44 @@ extension CalenderView: UICollectionViewDelegate, UICollectionViewDataSource {
             }
         }
         
-        let date1 = "2019-02-11 14:59:59"
-        let date2 = "2019-02-11 15:59:59"
-        let date3 = "2019-02-11 16:59:59"
-        let date4 = "2019-02-11 16:59:59"
+//        let date1 = "2019-02-11 14:59:59"
+//        let date2 = "2019-02-11 15:59:59"
+//        let date3 = "2019-02-11 16:59:59"
+//        let date4 = "2019-02-11 16:59:59"
+//
+//        let dateFormatter = DateFormatter()
+//        dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+//
+//        let endDate1 = dateFormatter.date(from: date1)!
+//        let endDate2 = dateFormatter.date(from: date2)!
+//        let endDate3 = dateFormatter.date(from: date3)!
+//        let endDate4 = dateFormatter.date(from: date4)!
         
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+        //        eventDictionary[indexPath.row]?.append(event.init(eventDate: endDate1, title: "가가", categoryIdx: 1))
+        //
+        //        eventDictionary[indexPath.row]?.append(event.init(eventDate: endDate2, title: "니나", categoryIdx: 2))
+        //
+        //        eventDictionary[indexPath.row]?.append(event.init(eventDate: endDate3, title: "다다", categoryIdx: 3))
         
-        let endDate1 = dateFormatter.date(from: date1)!
-        let endDate2 = dateFormatter.date(from: date2)!
-        let endDate3 = dateFormatter.date(from: date3)!
-        let endDate4 = dateFormatter.date(from: date4)!
+        //        eventDictionary[indexPath.row]?.append(event.init(eventDate: endDate3, title: "라라", categoryIdx: 3))
+        //
+        //        eventDictionary[indexPath.row]?.append(event.init(eventDate: endDate3, title: "바바", categoryIdx: 3))
         
-        eventDictionary[indexPath.row]?.append(event.init(eventDate: endDate1, title: "가가", categoryIdx: 1))
-        
-        eventDictionary[indexPath.row]?.append(event.init(eventDate: endDate2, title: "니나", categoryIdx: 2))
-        
-        eventDictionary[indexPath.row]?.append(event.init(eventDate: endDate3, title: "다다", categoryIdx: 3))
-        
-        eventDictionary[indexPath.row]?.append(event.init(eventDate: endDate3, title: "라라", categoryIdx: 3))
-        
-//        if indexPath.row == 15 {
+//        if indexPath.item == 15 {
 //            eventDictionary[indexPath.row]?.append(event.init(eventDate: endDate1, title: "가가", categoryIdx: 1))
 //
 //            eventDictionary[indexPath.row]?.append(event.init(eventDate: endDate2, title: "니나", categoryIdx: 2))
 //
 //            eventDictionary[indexPath.row]?.append(event.init(eventDate: endDate3, title: "다다", categoryIdx: 3))
+//
+//            eventDictionary[indexPath.row]?.append(event.init(eventDate: endDate3, title: "라라", categoryIdx: 3))
+//
+//            eventDictionary[indexPath.row]?.append(event.init(eventDate: endDate3, title: "바바", categoryIdx: 3))
 //        }
         
         drawDotAndLineView(indexPath, cell)
+        
+        print(" indexPath \(indexPath.item)")
         
         let calcDate = indexPath.row - firstWeekDayOfMonth+2 //1~31일까지
         //다른달에 갔다 올때 오늘 날짜의 색
@@ -740,7 +670,7 @@ extension CalenderView: UICollectionViewDelegate, UICollectionViewDataSource {
         let day = components.day!
         
         let currentDateString: String = "\(year)-\(month)-\(day) 00:00:00"
-//        let todayDate = formatter.date(from: currentDateString)
+        //        let todayDate = formatter.date(from: currentDateString)
         
         if indexPath == lastSelectedIndexPath {
             cell.lbl.backgroundColor = UIColor.lightGray
@@ -753,8 +683,8 @@ extension CalenderView: UICollectionViewDelegate, UICollectionViewDataSource {
     
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-    
-//        self.calendarCollectionView.reloadData()
+        
+        //        self.calendarCollectionView.reloadData()
         
         let cell = collectionView.cellForItem(at: indexPath)
         let lbl = cell?.subviews[1] as! UILabel
@@ -762,7 +692,7 @@ extension CalenderView: UICollectionViewDelegate, UICollectionViewDataSource {
         
         lbl.backgroundColor = UIColor.lightGray
         lbl.textColor = UIColor.white
-
+        
         let cellYear = currentYear
         let cellMonth = currentMonth
         let cellDay = indexPath.row - firstWeekDayOfMonth+2
@@ -780,7 +710,6 @@ extension CalenderView: UICollectionViewDelegate, UICollectionViewDataSource {
         let userInfo = [ "currentCellDateTime" : currentCellDateTime ]
         NotificationCenter.default.post(name: NSNotification.Name(rawValue: "todoUpByDaySelected"), object: nil, userInfo: userInfo as [AnyHashable : Any])
     }
-    
     
     //새로운 셀 선택시 이전셀 복구
     func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {

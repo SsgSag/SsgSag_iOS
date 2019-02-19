@@ -44,15 +44,13 @@ class SignUpCompleteVC: UIViewController {
     var selectedValues: [Bool] = []
     var sendPreferenceValues: [Int] = []
     
-    var id: String = ""
-    var password: String = ""
     var name: String = ""
     var birth: String = ""
     var nickName: String = ""
     var gender: String = ""
     var school: String = ""
     var major: String = ""
-    var grade: String = ""
+    var grade: Int = 999
     var number: String = ""
     
     @IBOutlet var preferenceButtons: [UIButton]!
@@ -77,92 +75,129 @@ class SignUpCompleteVC: UIViewController {
         checkInterest()
         postData()
         
-        let tabbarVC = TapbarVC()
-        self.present(tabbarVC, animated: false, completion: nil)
+        //        let tabbarVC = TapbarVC()
+        //        self.present(tabbarVC, animated: false, completion: nil)
     }
-    
-    func setUpPreferenceButtons() {
-        var count = 0
-        for button in preferenceButtons {
-            button.tag = count
-            count += 1
-        }
-        preferenceButtons.forEach { (button) in
-            button.isSelected = false
-        }
-        for _ in 0 ..< count {
-            selectedValues.append(false)
-        }
-    }
-    
-    func myButtonTapped(myButton: UIButton, tag: Int) {
-        if myButton.isSelected {
-            myButton.isSelected = false;
-            selectedValues[myButton.tag] = false
-            myButton.setImage(UIImage(named: unActiveButtonImages[tag]), for: .normal)
-        } else {
-            myButton.isSelected = true;
-            selectedValues[myButton.tag] = true
-            myButton.setImage(UIImage(named: activeButtonImages[tag]), for: .normal)
-        }
         
-        if selectedValues.contains(true) {
-            startButton.isUserInteractionEnabled = true
-            startButton.setImage(UIImage(named: "btSaveMypageActive"), for: .normal)
-        } else {
-            startButton.isUserInteractionEnabled = false
-            startButton.setImage(UIImage(named: "btSaveMypageUnactive"), for: .normal)
-        }
-    }
-    
-    func checkInterest() {
-        for i in selectedValues {
-            var interest = 0
-            if i == true {
-                print(interest)
-                sendPreferenceValues.append(interest)
+        func setUpPreferenceButtons() {
+            var count = 0
+            for button in preferenceButtons {
+                button.tag = count
+                count += 1
             }
-            interest = interest + 1
+            preferenceButtons.forEach { (button) in
+                button.isSelected = false
+            }
+            for _ in 0 ..< count {
+                selectedValues.append(false)
+            }
         }
-    }
-    
-    
-    func postData() {
         
-        let json: [String: Any] = ["userEmail" : id,
-                                   "userPw" : password,
-                                   "userId" : nickName,
-                                   "userName" : name,
-                                   "userUniv" : school,
-                                   "userMajor" : major,
-                                   "userStudentNum" :number,
-                                   "userGender" : gender,
-                                   "userBirth" : birth,
-                                   "userPushAllow" : 1,
-                                   "userInfoAllow" : 1,
-                                   "userInterest" : sendPreferenceValues
-        ]
-        
-        let jsonData = try? JSONSerialization.data(withJSONObject: json)
-        
-        let url = URL(string: "http://54.180.32.22:8080/users")!
-        var request = URLRequest(url: url)
-        request.httpMethod = "POST"
-        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.httpBody = jsonData
-        
-        let task = URLSession.shared.dataTask(with: request) { data, response, error in
+        func myButtonTapped(myButton: UIButton, tag: Int) {
+            if myButton.isSelected {
+                myButton.isSelected = false;
+                selectedValues[myButton.tag] = false
+                myButton.setImage(UIImage(named: unActiveButtonImages[tag]), for: .normal)
+            } else {
+                myButton.isSelected = true;
+                selectedValues[myButton.tag] = true
+                myButton.setImage(UIImage(named: activeButtonImages[tag]), for: .normal)
+            }
             
-            guard let data = data, error == nil else {
-                print(error?.localizedDescription ?? "No data")
+            if selectedValues.contains(true) {
+                startButton.isUserInteractionEnabled = true
+                startButton.setImage(UIImage(named: "btSaveMypageActive"), for: .normal)
+            } else {
+                startButton.isUserInteractionEnabled = false
+                startButton.setImage(UIImage(named: "btSaveMypageUnactive"), for: .normal)
+            }
+        }
+        
+        func checkInterest() {
+            var interest = 0
+            for i in selectedValues {
+                
+                if i == true {
+                    print(interest)
+                    
+                    sendPreferenceValues.append(interest)
+                }
+                interest = interest + 1
+            }
+        }
+        
+        
+        func postData() {
+            
+            
+            
+            guard let sendToken = KOSession.shared()?.token.accessToken else {
                 return
             }
             
-            let responseJSON = try? JSONSerialization.jsonObject(with: data, options: [])
-            if let responseJSON = responseJSON as? [String: Any] {
-                print("responseJSON \(responseJSON)")
+            let json: [String: Any] = [
+                "userName" : name,
+                "userNickname" : nickName,
+                "signupType" : 0, //0은 카카오톡, 1은 네이버
+                "accessToken" : sendToken,
+                "userUniv" : school,
+                "userMajor" : major,
+                "userStudentNum" : number,
+                "userGender" : gender,
+                "userBirth" : birth,
+                "userPushAllow" : 1,
+                "userInfoAllow" : 1,
+                "userInterest" : sendPreferenceValues,
+                "userGrade" : grade
+            ]
+            
+            print(" userName : \(name), userNickname : \(nickName), signupType : 0, //0은 카카오톡, 1은 네이버 accessToken : \(sendToken),userUniv : \(school),userMajor : \(major),userStudentNum : \(number), userGender : \(gender), userBirth : \(birth), userPushAllow : 1, userInfoAllow : 1, userInterest : \(sendPreferenceValues), userGrade : \(grade)")
+            
+            
+            let jsonData = try? JSONSerialization.data(withJSONObject: json)
+            
+            let url = URL(string: "http://52.78.86.179:8080/user")!
+            var request = URLRequest(url: url)
+            request.httpMethod = "POST"
+            request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+            request.httpBody = jsonData
+            
+            NetworkManager.shared.getData(with: request) { (data, error, res) in
+                guard let data = data else {
+                    return
+                }
+                let responseJSON = try? JSONSerialization.jsonObject(with: data, options: [])
+                if let responseJSON = responseJSON as? [String: Any] {
+                    print("responseJSON \(responseJSON)")
+                    if let statusCode = responseJSON["status"] {
+                        let status = statusCode as! Int
+                        if status == 201 {
+                            let loginStoryBoard = UIStoryboard(name: "LoginStoryBoard", bundle: nil)
+                            let loginVC = loginStoryBoard.instantiateViewController(withIdentifier: "Login")
+                            self.present(loginVC, animated: true, completion: nil)
+                        }
+                    }
+                }
             }
         }
-        task.resume()
-    }
+        
 }
+
+
+/*
+ {
+ "userName" : "김현수",
+ "userNickname" : "김현슨",
+ "signupType" : 0, //0은 카카오톡, 1은 네이버
+ "accessToken" : "9_JkQE5SPfD0k1SbplKR2cU39g-l2MfOofz2lgoqAuYAAAFosk3w-w",
+ "userUniv" : "인하대학교",
+ "userMajor" :"컴퓨터공학과",
+ "userStudentNum" :"12141523",
+ "userGender" :"male",
+ "userBirth" :"951107",
+ "userPushAllow" : 1,
+ "userInfoAllow" : 1,
+ "userInterest" : [0, 1, 2, 3, 4, 5,  6, 7, 8, 9, 10, 11],
+ "userGrade" : 4
+ }
+ */

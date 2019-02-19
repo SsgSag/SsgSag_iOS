@@ -85,7 +85,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Z76-gD-Mja" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="820" y="7.6461769115442282"/>
+            <point key="canvasLocation" x="719" y="8"/>
         </scene>
         <!--SignupStoryBoard-->
         <scene sceneID="HGq-az-cSE">
@@ -93,7 +93,7 @@
                 <viewControllerPlaceholder storyboardIdentifier="Signup" storyboardName="SignupStoryBoard" id="gca-KB-TvZ" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="TVt-bY-a28" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1964" y="88"/>
+            <point key="canvasLocation" x="358" y="397"/>
         </scene>
         <!--LoginPopUp-->
         <scene sceneID="Ls2-OE-iqd">

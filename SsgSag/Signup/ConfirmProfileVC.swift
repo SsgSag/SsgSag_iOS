@@ -8,9 +8,10 @@
 
 import UIKit
 
-class ConfirmProfileVC: UIViewController {
+class ConfirmProfileVC: UIViewController, UITextFieldDelegate {
     
-    var id: String = ""
+    var name: String = ""
+    var nickName: String = ""
     var password: String = ""
     var gender: String = ""
     
@@ -30,29 +31,80 @@ class ConfirmProfileVC: UIViewController {
         super.viewDidLoad()
         
         nextButton.isUserInteractionEnabled = false
-        iniGestureRecognizer()
-        self.titleLabel.isHidden = false
-        self.titleImage.isHidden = false
-        self.navigationItem.setHidesBackButton(true, animated: true)
-        setBackBtn( color: .black)
+
+//        self.navigationItem.setHidesBackButton(true, animated: true)
+//        setBackBtn( color: .black)
+        let backButton = UIBarButtonItem(image: UIImage(named: "icArrowBack"),
+            style: .plain,
+            target: self,
+            action: #selector(self.back))
+        navigationItem.leftBarButtonItem = backButton
+        navigationItem.leftBarButtonItem?.tintColor = .black
+        navigationController?.interactivePopGestureRecognizer?.delegate = self as? UIGestureRecognizerDelegate
         setNavigationBar(color: .white)
+        
+        nameField.delegate = self
+        birthField.delegate = self
+        nickNameField.delegate = self
+        nickNameField.returnKeyType = .done
+        
+        nameField.tag = 1
+        birthField.tag = 2
+        nickNameField.tag = 3
+    }
+    //FIXME: - present..하지 마시오,,,,,
+    @objc func back(){
+        let storyboard = UIStoryboard(name: "LoginStoryBoard", bundle: nil)
+        let loginVC = storyboard.instantiateViewController(withIdentifier: "Login")
+        present(loginVC, animated: false, completion: nil)
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+//        self.nameField.becomeFirstResponder()
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
 
+        let nextTag = textField.tag + 1
+        
+        if let nextResponder =  self.view.viewWithTag(nextTag){
+            
+            nextResponder.becomeFirstResponder()
+        } else {
+            textField.resignFirstResponder()
+        }
+
+        return true
+    }
+    
     @IBAction func touchUpNextButton(_ sender: Any) {
-        
-        
+        if birthField.text?.count == 6 {
+            let storyboard = UIStoryboard(name: "SignupStoryBoard", bundle: nil)
+            let SchoolInfoVC = storyboard.instantiateViewController(withIdentifier: "SchoolInfoVC") as! SchoolInfoVC
+            
+            SchoolInfoVC.name = nameField.text ?? ""
+            SchoolInfoVC.birth = birthField.text ?? ""
+            SchoolInfoVC.nickName = nickNameField.text ?? ""
+            SchoolInfoVC.gender = gender
+            
+            self.navigationController?.pushViewController(SchoolInfoVC, animated: true)
+        } else {
+            simpleAlert(title: "잘못된 형식입니다", message: "생년월일은 970219, \n닉네임은 영한혼용하지 말아주십시요ㅗ....")
+            birthField.text = ""
+        }
     }
     
     @IBAction func touchUpMaleButton(_ sender: UIButton) {
         femaleButton.isSelected = false
         femaleButton.setImage(UIImage(named: "btFemaleUnactive"), for: .normal)
         if maleButton.isSelected {
-            self.gender = "male"
+            self.gender = ""
             maleButton.isUserInteractionEnabled = false
             maleButton.setImage(UIImage(named: "btMaleUnactive"), for: .normal)
         } else {
-            self.gender = "female"
+//            self.gender = "female"
+            self.gender = "male"
             maleButton.isSelected = true
             maleButton.setImage(UIImage(named: "btMaleActive"), for: .normal)
         }
@@ -64,11 +116,12 @@ class ConfirmProfileVC: UIViewController {
         maleButton.setImage(UIImage(named: "btMaleUnactive"), for: .normal)
         
         if femaleButton.isSelected {
-            self.gender = "female"
+            self.gender = ""
             femaleButton.isSelected = false
             femaleButton.setImage(UIImage(named: "btFemaleUnactive"), for: .normal)
         } else {
-            self.gender = "male"
+//            self.gender = "male"
+            self.gender = "female"
             femaleButton.isSelected = true
             femaleButton.setImage(UIImage(named: "btFemaleActive"), for: .normal)
         }
@@ -86,26 +139,7 @@ class ConfirmProfileVC: UIViewController {
         checkInformation(self)
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        registerForKeyboardNotifications()
-    }
     
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        unregisterForKeyboardNotifications()
-    }
-    
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        let navVC = segue.destination as! SchoolInfoVC
-        navVC.id = id
-        navVC.password = password
-        navVC.name = nameField.text ?? ""
-        navVC.birth = birthField.text ?? ""
-        navVC.nickName = nickNameField.text ?? ""
-        navVC.gender = gender
-        
-    }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         checkInformation(self)
@@ -138,76 +172,3 @@ class ConfirmProfileVC: UIViewController {
     }
 }
 
-extension ConfirmProfileVC : UIGestureRecognizerDelegate {
-    
-    func iniGestureRecognizer() {
-        let tap = UITapGestureRecognizer(target: self, action: #selector(handleTabMainView(_:)))
-        tap.delegate = self
-        view.addGestureRecognizer(tap)
-    }
-    
-    @objc func handleTabMainView(_ sender: UITapGestureRecognizer){
-        self.nameField.resignFirstResponder()
-        self.birthField.resignFirstResponder()
-        self.nickNameField.resignFirstResponder()
-    }
-    
-    private func gestureRecog(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
-        if (touch.view?.isDescendant(of: nameField))! || (touch.view?.isDescendant(of: birthField))! || (touch.view?.isDescendant(of: nickNameField))! {
-            return false
-        }
-        return true
-    }
-    
-    @objc func keyboardWillShow(_ notification: NSNotification) {
-        guard let duration = notification.userInfo?[UIResponder.keyboardAnimationDurationUserInfoKey] as? Double else {return}
-        guard let curve = notification.userInfo?[UIResponder.keyboardAnimationCurveUserInfoKey] as? UInt else {return}
-        UIView.animate(withDuration: duration, delay: 0.0, options: .init(rawValue: curve), animations: { [unowned self] in
-            print("현재 constraint: \(self.stackViewConstraint.constant)")
-            self.stackViewConstraint.constant = 10
-            self.titleImage.isHidden = true
-            self.titleLabel.isHidden = true
-//            let alpha: CGFloat = 0.5
-//            self.titleImage.alpha(alpha)
-            
-        })
-        stackViewConstraint.constant = 120
-        self.view.layoutIfNeeded()
-        
-    }
-    
-    @objc func keyboardWillHide(_ notification: NSNotification) {
-        guard let duration = notification.userInfo?[UIResponder.keyboardAnimationDurationUserInfoKey] as? Double else {return}
-        guard let curve = notification.userInfo?[UIResponder.keyboardAnimationCurveUserInfoKey] as? UInt else {return}
-        UIView.animate(withDuration: duration, delay: 0.0, options: .init(rawValue: curve), animations: {
-            self.stackViewConstraint.constant = 289
-            print(" constraint: \(self.stackViewConstraint.constant)")
-            self.titleLabel.isHidden = false
-            self.titleImage.isHidden = false
-            
-        })
-        stackViewConstraint.constant = 289
-        self.view.layoutIfNeeded()
-    }
-    
-    func registerForKeyboardNotifications() {
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(_:)), name: UIResponder.keyboardWillShowNotification, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(_:)), name: UIResponder.keyboardWillHideNotification, object: nil)
-    }
-    
-    func unregisterForKeyboardNotifications() {
-        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
-        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
-    }
-}
-
-extension UIImage {
-    
-    func alpha(_ value:CGFloat) -> UIImage {
-        UIGraphicsBeginImageContextWithOptions(size, false, scale)
-        draw(at: CGPoint.zero, blendMode: .normal, alpha: value)
-        let newImage = UIGraphicsGetImageFromCurrentImageContext()
-        UIGraphicsEndImageContext()
-        return newImage!
-    }
-}

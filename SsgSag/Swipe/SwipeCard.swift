@@ -142,11 +142,7 @@ class SwipeCard: UIView {
         
         request.httpBody = jsonData
         
-        let task = URLSession.shared.dataTask(with: request) { data, response, error in
-            guard error == nil else {
-                print(error!)
-                return
-            }
+        NetworkManager.shared.getData(with: request) { (data, err, res) in
             guard let data = data else {
                 return
             }
@@ -156,7 +152,6 @@ class SwipeCard: UIView {
                 print("JSON Parising Error")
             }
         }
-        task.resume()
     }
     
     //왼쪽 스와이프

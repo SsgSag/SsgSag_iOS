@@ -33,7 +33,7 @@ class UserInfoVC: UIViewController, UITextFieldDelegate {
         iniGestureRecognizer()
         self.titleLabel.isHidden = false
         self.titleImgae.isHidden = false
-        setNavigationBar(color: .white)
+//        setNavigationBar(color: .white)
         
     }
     
@@ -48,9 +48,10 @@ class UserInfoVC: UIViewController, UITextFieldDelegate {
     
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
         if let profileVC = segue.destination as? ConfirmProfileVC {
-            profileVC.id = emailTextField.text ?? ""
-            profileVC.password = passwordTextField.text ?? ""
+//            profileVC.id = emailTextField.text ?? ""
+//            profileVC.password = passwordTextField.text ?? ""
         }
     }
     

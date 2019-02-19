@@ -92,13 +92,15 @@
 		FAA2386721FF32B400C6DB13 /* ZoomPosterImageVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAA2386621FF32B400C6DB13 /* ZoomPosterImageVC.swift */; };
 		FAA2386F2202F34A00C6DB13 /* CareerVC + TableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAA2386E2202F34A00C6DB13 /* CareerVC + TableView.swift */; };
 		FAA238712202F37C00C6DB13 /* CareerVC + CollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAA238702202F37C00C6DB13 /* CareerVC + CollectionView.swift */; };
-		FAA238732203154400C6DB13 /* ViewCareerService.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAA238722203154400C6DB13 /* ViewCareerService.swift */; };
 		FAA238752203179F00C6DB13 /* Careers.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAA238742203179F00C6DB13 /* Careers.swift */; };
 		FAA238792203296500C6DB13 /* NonActivityCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAA238782203296500C6DB13 /* NonActivityCell.swift */; };
 		FAD25C132212CD78004B45E2 /* LoginPopUpVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAD25C122212CD78004B45E2 /* LoginPopUpVC.swift */; };
 		FAD323DB21E36FA6000C4FBA /* AddCertificationVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAD323DA21E36FA6000C4FBA /* AddCertificationVC.swift */; };
 		FAF0DF0021E948AB003F341F /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAF0DEFF21E948AB003F341F /* UserModel.swift */; };
 		FAF0DF0321E95B5A003F341F /* splash.json in Resources */ = {isa = PBXBuildFile; fileRef = FAF0DF0221E95B5A003F341F /* splash.json */; };
+		FAFB87D222145ABE002CDED9 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAFB87D122145ABE002CDED9 /* NetworkManager.swift */; };
+		FAFB87D822159F83002CDED9 /* univList.json in Resources */ = {isa = PBXBuildFile; fileRef = FAFB87D622159F83002CDED9 /* univList.json */; };
+		FAFB87DE2215ABBF002CDED9 /* majorList.json in Resources */ = {isa = PBXBuildFile; fileRef = FAFB87DD2215ABBF002CDED9 /* majorList.json */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -224,13 +226,15 @@
 		FAA2386621FF32B400C6DB13 /* ZoomPosterImageVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZoomPosterImageVC.swift; sourceTree = "<group>"; };
 		FAA2386E2202F34A00C6DB13 /* CareerVC + TableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CareerVC + TableView.swift"; sourceTree = "<group>"; };
 		FAA238702202F37C00C6DB13 /* CareerVC + CollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CareerVC + CollectionView.swift"; sourceTree = "<group>"; };
-		FAA238722203154400C6DB13 /* ViewCareerService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewCareerService.swift; sourceTree = "<group>"; };
 		FAA238742203179F00C6DB13 /* Careers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Careers.swift; sourceTree = "<group>"; };
 		FAA238782203296500C6DB13 /* NonActivityCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NonActivityCell.swift; sourceTree = "<group>"; };
 		FAD25C122212CD78004B45E2 /* LoginPopUpVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginPopUpVC.swift; sourceTree = "<group>"; };
 		FAD323DA21E36FA6000C4FBA /* AddCertificationVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddCertificationVC.swift; sourceTree = "<group>"; };
 		FAF0DEFF21E948AB003F341F /* UserModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserModel.swift; sourceTree = "<group>"; };
 		FAF0DF0221E95B5A003F341F /* splash.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = splash.json; sourceTree = "<group>"; };
+		FAFB87D122145ABE002CDED9 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
+		FAFB87D622159F83002CDED9 /* univList.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = univList.json; sourceTree = "<group>"; };
+		FAFB87DD2215ABBF002CDED9 /* majorList.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = majorList.json; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -351,6 +355,7 @@
 				845928A921D09CE0001DF6CC /* Info.plist */,
 				84A8AF2F2200782800CE72F8 /* Kakao_Header.h */,
 				FA3A8FD821DF3D5F0075A510 /* Extension.swift */,
+				FAFB87D122145ABE002CDED9 /* NetworkManager.swift */,
 			);
 			path = SsgSag;
 			sourceTree = "<group>";
@@ -422,15 +427,14 @@
 				FA7F4CB721DFB0C100D8643A /* CareerVC.swift */,
 				FAA2386E2202F34A00C6DB13 /* CareerVC + TableView.swift */,
 				FAA238702202F37C00C6DB13 /* CareerVC + CollectionView.swift */,
-				FAA238722203154400C6DB13 /* ViewCareerService.swift */,
 				FA61FE1821E204F300A28947 /* DatePickerPopUpVC.swift */,
 				FA61FE1021E0E4A200A28947 /* PreferenceVC.swift */,
 				FA61FE0E21E0E3D300A28947 /* JobVC.swift */,
+				FAA2386D2202F13200C6DB13 /* Add */,
 				FA7F4CC921DFD61300D8643A /* ActivityCell.swift */,
 				FAA238782203296500C6DB13 /* NonActivityCell.swift */,
 				FA7F4CB921DFC7E700D8643A /* CustomCareerCell.swift */,
 				FA23A93D21DF6FCF003DB5F9 /* myPageTableViewCell.swift */,
-				FAA2386D2202F13200C6DB13 /* Add */,
 				FA7F4CBE21DFCAF200D8643A /* ActivityCell.xib */,
 				FA7F4CC221DFCB1300D8643A /* PrizeCell.xib */,
 				FA7F4CC621DFCC7E00D8643A /* CertificationCell.xib */,
@@ -470,10 +474,12 @@
 			isa = PBXGroup;
 			children = (
 				FA524BF021D64E2400675289 /* SignupStoryBoard.storyboard */,
-				FA3A342121E5D64300668908 /* UserInfoVC.swift */,
 				FA3A344121E7285C00668908 /* ConfirmProfileVC.swift */,
 				FA3A344321E72F5200668908 /* SchoolInfoVC.swift */,
 				842C618421DCDC92001BA6D8 /* SignupCompleteVC.swift */,
+				FAFB87DD2215ABBF002CDED9 /* majorList.json */,
+				FAFB87D622159F83002CDED9 /* univList.json */,
+				FA3A342121E5D64300668908 /* UserInfoVC.swift */,
 			);
 			path = Signup;
 			sourceTree = "<group>";
@@ -612,6 +618,11 @@
 				TargetAttributes = {
 					8459289621D09CDD001DF6CC = {
 						CreatedOnToolsVersion = 10.1;
+						SystemCapabilities = {
+							com.apple.BackgroundModes = {
+								enabled = 0;
+							};
+						};
 					};
 					845928AD21D09CE0001DF6CC = {
 						CreatedOnToolsVersion = 10.1;
@@ -654,10 +665,12 @@
 				FA7F4CBC21DFC7E700D8643A /* CustomCareerCell.xib in Resources */,
 				FA3A8FD721DF3C3B0075A510 /* Splash.storyboard in Resources */,
 				FA7F4CC821DFCC7E00D8643A /* CertificationCell.xib in Resources */,
+				FAFB87D822159F83002CDED9 /* univList.json in Resources */,
 				FA5A882321E908DF008C2C41 /* Intro.storyboard in Resources */,
 				FA7F4CC421DFCB1300D8643A /* PrizeCell.xib in Resources */,
 				84B4268C21E9091D00B44F71 /* main_empty_hifive.json in Resources */,
 				845928A521D09CE0001DF6CC /* Assets.xcassets in Resources */,
+				FAFB87DE2215ABBF002CDED9 /* majorList.json in Resources */,
 				84264BA621DF0FF300849E6B /* Calendar.storyboard in Resources */,
 				845928CC21D09D09001DF6CC /* SwipeStoryBoard.storyboard in Resources */,
 				FA524BF121D64E2400675289 /* SignupStoryBoard.storyboard in Resources */,
@@ -765,6 +778,7 @@
 				"${BUILT_PRODUCTS_DIR}/AlamofireObjectMapper/AlamofireObjectMapper.framework",
 				"${BUILT_PRODUCTS_DIR}/Kingfisher/Kingfisher.framework",
 				"${BUILT_PRODUCTS_DIR}/ObjectMapper/ObjectMapper.framework",
+				"${BUILT_PRODUCTS_DIR}/SearchTextField/SearchTextField.framework",
 				"${BUILT_PRODUCTS_DIR}/lottie-ios/Lottie.framework",
 				"${PODS_ROOT}/naveridlogin-sdk-ios/NaverThirdPartyLogin.framework",
 			);
@@ -776,6 +790,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AlamofireObjectMapper.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Kingfisher.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ObjectMapper.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SearchTextField.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Lottie.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/NaverThirdPartyLogin.framework",
 			);
@@ -791,6 +806,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FAFB87D222145ABE002CDED9 /* NetworkManager.swift in Sources */,
 				84E19CE021DCC977006F72EC /* User.swift in Sources */,
 				842C619D21DD1807001BA6D8 /* posterData.swift in Sources */,
 				FA851DED21D5FDB0002065D0 /* SwipeModel.swift in Sources */,
@@ -824,7 +840,6 @@
 				84E19CE221DCC977006F72EC /* Token.swift in Sources */,
 				FAD25C132212CD78004B45E2 /* LoginPopUpVC.swift in Sources */,
 				FA3A344421E72F5200668908 /* SchoolInfoVC.swift in Sources */,
-				FAA238732203154400C6DB13 /* ViewCareerService.swift in Sources */,
 				84E19CD421DCC922006F72EC /* APIManager.swift in Sources */,
 				84E19CD621DCC922006F72EC /* NetworkResult.swift in Sources */,
 				840FEDC7220759E200581A3B /* CalenderVC + TableView.swift in Sources */,
