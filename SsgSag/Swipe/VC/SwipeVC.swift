@@ -3,8 +3,6 @@ let  SEPERATOR_DISTANCE = 8;
 let  TOPYAXIS = 75;
 
 import UIKit
-import Alamofire
-import ObjectMapper
 import Lottie
 
 class SwipeVC: UIViewController {

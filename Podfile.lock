@@ -1,42 +1,28 @@
 PODS:
-  - Alamofire (4.8.0)
-  - AlamofireObjectMapper (5.2.0):
-    - Alamofire (~> 4.7)
-    - ObjectMapper (~> 3.4)
-  - Kingfisher (5.0.1)
+  - Alamofire (4.8.1)
   - lottie-ios (2.5.2)
   - naveridlogin-sdk-ios (4.0.10)
-  - ObjectMapper (3.4.2)
   - SearchTextField (1.2.2)
 
 DEPENDENCIES:
   - Alamofire
-  - AlamofireObjectMapper
-  - Kingfisher
   - lottie-ios
   - naveridlogin-sdk-ios
-  - ObjectMapper
   - SearchTextField
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
     - Alamofire
-    - AlamofireObjectMapper
-    - Kingfisher
     - lottie-ios
     - naveridlogin-sdk-ios
-    - ObjectMapper
     - SearchTextField
 
 SPEC CHECKSUMS:
-  Alamofire: 3ec537f71edc9804815215393ae2b1a8ea33a844
-  AlamofireObjectMapper: 92b6ce2423a9d159e686f6a1d514a009bf903ddc
-  Kingfisher: 4f771421b9208185217550528a06fd48756cb7c2
+  Alamofire: 16ce2c353fb72865124ddae8a57c5942388f4f11
   lottie-ios: 3fef45d3fabe63e3c7c2eb603dd64ddfffc73062
   naveridlogin-sdk-ios: b5a31343e7f98bab1a5a37b1bc0af3354ad59d11
-  ObjectMapper: 0d4402610f4e468903ae64629eec4784531e5c51
   SearchTextField: a0992739d4b05dcbb40fb3a5cc6526bd991bdd23
 
-PODFILE CHECKSUM: f8b2a4f3d6c4d5215b72787b372daf6f7fb2904c
+PODFILE CHECKSUM: f583093057bd8353781e7f74963f3b6242a37815
 
 COCOAPODS: 1.6.0.beta.2
