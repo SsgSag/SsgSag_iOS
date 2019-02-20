@@ -20,9 +20,6 @@ class ZoomPosterImageVC: UIViewController, UIScrollViewDelegate {
 
         scrollView.delegate = self
         imageView.image = poster
-        
-        
-        
     }
     
     @IBAction func touchUpBackButton(_ sender: Any) {

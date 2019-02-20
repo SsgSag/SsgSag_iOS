@@ -290,7 +290,7 @@ class CalenderVC: UIViewController{
         NotificationCenter.default.post(name: NSNotification.Name("changeTodoTableStatusByButton"), object: nil)
         
         todoList.text = "투두리스트"
-//        todoTableView.reloadData()
+        todoTableView.reloadData()
     }
     
     //날짜 선택시 실행

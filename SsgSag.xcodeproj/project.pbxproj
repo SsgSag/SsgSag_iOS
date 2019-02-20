@@ -56,6 +56,7 @@
 		FA3A8FD721DF3C3B0075A510 /* Splash.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FA3A8FD621DF3C3B0075A510 /* Splash.storyboard */; };
 		FA3A8FD921DF3D5F0075A510 /* Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA3A8FD821DF3D5F0075A510 /* Extension.swift */; };
 		FA3A8FDB21DF3F410075A510 /* SplashVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA3A8FDA21DF3F410075A510 /* SplashVC.swift */; };
+		FA4FF272221D51D500C3D21A /* CalendarDetailPopUpVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA4FF271221D51D500C3D21A /* CalendarDetailPopUpVC.swift */; };
 		FA524BF121D64E2400675289 /* SignupStoryBoard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FA524BF021D64E2400675289 /* SignupStoryBoard.storyboard */; };
 		FA5A87F421E7D51D008C2C41 /* Career.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA5A87F321E7D51D008C2C41 /* Career.swift */; };
 		FA5A882321E908DF008C2C41 /* Intro.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FA5A882221E908DE008C2C41 /* Intro.storyboard */; };
@@ -75,7 +76,7 @@
 		FA7F4CCA21DFD61300D8643A /* ActivityCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA7F4CC921DFD61300D8643A /* ActivityCell.swift */; };
 		FA7F4CD221E0A0A000D8643A /* AddActivityVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA7F4CD121E0A0A000D8643A /* AddActivityVC.swift */; };
 		FA7F4CD421E0A0BB00D8643A /* AddVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA7F4CD321E0A0BB00D8643A /* AddVC.swift */; };
-		FA806B9A22060A8F00EB38D6 /* categoryColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA806B9922060A8F00EB38D6 /* categoryColor.swift */; };
+		FA806B9A22060A8F00EB38D6 /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA806B9922060A8F00EB38D6 /* Category.swift */; };
 		FA806B9C2206F3E100EB38D6 /* LineView.xib in Resources */ = {isa = PBXBuildFile; fileRef = FA806B9B2206F3E100EB38D6 /* LineView.xib */; };
 		FA806B9E2206F70900EB38D6 /* LineView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA806B9D2206F70900EB38D6 /* LineView.swift */; };
 		FA851DE921D3DBBC002065D0 /* SwipeCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA851DE821D3DBBC002065D0 /* SwipeCard.swift */; };
@@ -175,6 +176,7 @@
 		FA3A8FD621DF3C3B0075A510 /* Splash.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Splash.storyboard; sourceTree = "<group>"; };
 		FA3A8FD821DF3D5F0075A510 /* Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extension.swift; sourceTree = "<group>"; };
 		FA3A8FDA21DF3F410075A510 /* SplashVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashVC.swift; sourceTree = "<group>"; };
+		FA4FF271221D51D500C3D21A /* CalendarDetailPopUpVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarDetailPopUpVC.swift; sourceTree = "<group>"; };
 		FA524BF021D64E2400675289 /* SignupStoryBoard.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = SignupStoryBoard.storyboard; sourceTree = "<group>"; };
 		FA5A87F321E7D51D008C2C41 /* Career.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Career.swift; sourceTree = "<group>"; };
 		FA5A882221E908DE008C2C41 /* Intro.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Intro.storyboard; sourceTree = "<group>"; };
@@ -194,7 +196,7 @@
 		FA7F4CC921DFD61300D8643A /* ActivityCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityCell.swift; sourceTree = "<group>"; };
 		FA7F4CD121E0A0A000D8643A /* AddActivityVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddActivityVC.swift; sourceTree = "<group>"; };
 		FA7F4CD321E0A0BB00D8643A /* AddVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddVC.swift; sourceTree = "<group>"; };
-		FA806B9922060A8F00EB38D6 /* categoryColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = categoryColor.swift; sourceTree = "<group>"; };
+		FA806B9922060A8F00EB38D6 /* Category.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Category.swift; sourceTree = "<group>"; };
 		FA806B9B2206F3E100EB38D6 /* LineView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LineView.xib; sourceTree = "<group>"; };
 		FA806B9D2206F70900EB38D6 /* LineView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LineView.swift; sourceTree = "<group>"; };
 		FA82437D221C383A00F9B26E /* SsgSag.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = SsgSag.entitlements; sourceTree = "<group>"; };
@@ -326,6 +328,7 @@
 				FAAFB58821D3B6B8006BF728 /* Assets */,
 				845928A921D09CE0001DF6CC /* Info.plist */,
 				84A8AF2F2200782800CE72F8 /* Kakao_Header.h */,
+				FA806B9922060A8F00EB38D6 /* Category.swift */,
 				FA3A8FD821DF3D5F0075A510 /* Extension.swift */,
 				FAFB87D122145ABE002CDED9 /* NetworkManager.swift */,
 			);
@@ -365,13 +368,13 @@
 				845928D821D09F2F001DF6CC /* MonthView.swift */,
 				845928D721D09F2F001DF6CC /* WeekdaysView.swift */,
 				84264BA721DF106C00849E6B /* CalendarDetailVC.swift */,
-				84264BA921DF109200849E6B /* AddPassiveDateVC.swift */,
+				FA4FF271221D51D500C3D21A /* CalendarDetailPopUpVC.swift */,
 				FAA2386621FF32B400C6DB13 /* ZoomPosterImageVC.swift */,
+				84264BA921DF109200849E6B /* AddPassiveDateVC.swift */,
 				FA5FC0B82205A3F800CB83C8 /* DotView.xib */,
 				FA5FC0BA2205A48500CB83C8 /* DotView.swift */,
 				FA806B9B2206F3E100EB38D6 /* LineView.xib */,
 				FA806B9D2206F70900EB38D6 /* LineView.swift */,
-				FA806B9922060A8F00EB38D6 /* categoryColor.swift */,
 				84604F222205A0ED00212A00 /* todoCell.swift */,
 			);
 			path = Calendar;
@@ -769,6 +772,7 @@
 				FAFB87D222145ABE002CDED9 /* NetworkManager.swift in Sources */,
 				842C619D21DD1807001BA6D8 /* posterData.swift in Sources */,
 				FA851DED21D5FDB0002065D0 /* SwipeModel.swift in Sources */,
+				FA4FF272221D51D500C3D21A /* CalendarDetailPopUpVC.swift in Sources */,
 				84264BA821DF106C00849E6B /* CalendarDetailVC.swift in Sources */,
 				845928DC21D09F30001DF6CC /* MonthView.swift in Sources */,
 				8459289D21D09CDD001DF6CC /* SwipeVC.swift in Sources */,
@@ -805,7 +809,7 @@
 				FA7F4CD221E0A0A000D8643A /* AddActivityVC.swift in Sources */,
 				84BA694921DB394800BA8CB8 /* myPageVC.swift in Sources */,
 				84264BAA21DF109200849E6B /* AddPassiveDateVC.swift in Sources */,
-				FA806B9A22060A8F00EB38D6 /* categoryColor.swift in Sources */,
+				FA806B9A22060A8F00EB38D6 /* Category.swift in Sources */,
 				FA806B9E2206F70900EB38D6 /* LineView.swift in Sources */,
 				842C619E21DD1807001BA6D8 /* Json4Swift_Base.swift in Sources */,
 				FA3A342021E5127700668908 /* UserAPI.swift in Sources */,
@@ -981,6 +985,7 @@
 			baseConfigurationReference = 3DCBB39D00582EB5378B93D9 /* Pods-SsgSag.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 43FKD7C656;
 				ENABLE_BITCODE = YES;
@@ -1010,6 +1015,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.MinjiCho.SsgSag;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = SsgSag/Kakao_Header.h;
 				SWIFT_REFLECTION_METADATA_LEVEL = all;
 				SWIFT_VERSION = 4.2;
@@ -1022,6 +1028,7 @@
 			baseConfigurationReference = E015768EBB87E5CEEF53138B /* Pods-SsgSag.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 43FKD7C656;
 				ENABLE_BITCODE = YES;
@@ -1051,6 +1058,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.MinjiCho.SsgSag;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = SsgSag/Kakao_Header.h;
 				SWIFT_REFLECTION_METADATA_LEVEL = all;
 				SWIFT_VERSION = 4.2;

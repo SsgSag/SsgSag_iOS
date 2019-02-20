@@ -310,7 +310,6 @@ class SwipeVC: UIViewController {
                 if let hashTagArr = valueArray[i].posterInterest {
                     var text = ""
                     for i in hashTagArr{
-
                         switch i {
                         case 0:
                             text = text + "#기획/아이디어"

@@ -9,15 +9,33 @@
 
 import UIKit
 
-enum categoryIdx : String {
-    case contest
-    case activity
-    case club
-    case school
-    case career
-    case extra
+enum PosterCategory: Int {
+    case contest = 0
+    case activity = 1
+    case club = 2
+    case school = 3
+    case career = 4
+    case others = 5
     
-    func simpleDescription() -> UIColor {
+    func categoryString() -> String {
+        switch self {
+        case .contest:
+            return "공모전"
+        case .activity:
+            return "대외활동"
+        case .club:
+            return "동아리"
+        case .school:
+            return "교내공지"
+        case .career:
+            return "채용"
+        case .others:
+            return "기타"
+        }
+        
+    }
+    
+    func categoryColors() -> UIColor {
         switch self {
         case .contest:
             return UIColor.rgb(red: 97, green: 118, blue: 221)
@@ -29,10 +47,8 @@ enum categoryIdx : String {
             return UIColor.rgb(red: 7, green: 166, blue: 255)
         case .career:
             return UIColor.rgb(red: 208, green: 175, blue: 240)
-        case .extra:
+        case .others:
             return UIColor.rgb(red: 255, green: 160, blue: 160)
-        default:
-            return .clear
         }
     }
 }
