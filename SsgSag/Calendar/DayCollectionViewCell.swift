@@ -207,6 +207,7 @@ class DayCollectionViewCell: UICollectionViewCell {
         addSubview(lbl)
         lbl.topAnchor.constraint(equalTo: self.topAnchor).isActive = true
         lbl.centerXAnchor.constraint(equalTo: self.centerXAnchor).isActive = true
+        lbl.widthAnchor.constraint(equalTo: lbl.heightAnchor).isActive = true
         bringSubviewToFront(lbl)
     
         addSubview(dotAndLineView1)
@@ -236,7 +237,7 @@ class DayCollectionViewCell: UICollectionViewCell {
         let label = UILabel()
         label.text = "00"
         label.textAlignment = .center
-        //label.font = UIFont.systemFont(ofSize: 16)
+        label.font = UIFont.systemFont(ofSize: 14)
         label.sizeToFit()
         label.textColor=Colors.darkGray
         label.layer.cornerRadius = label.frame.height / 2

@@ -536,7 +536,8 @@ extension CalenderView: UICollectionViewDelegate, UICollectionViewDataSource {
             if calcDate == currentDay && currentYear == presentYear && currentMonth == presentMonthIndex { //오늘날짜
                 todaysIndexPath = indexPath
                 let lbl = cell.subviews[1] as! UILabel
-                lbl.layer.cornerRadius = (cell.frame.width * 0.47) / 2
+//                lbl.layer.cornerRadius = (cell.frame.width * 0.47) / 2
+                lbl.layer.cornerRadius = lbl.frame.height / 2
                 lbl.backgroundColor = #colorLiteral(red: 0.1176470588, green: 0.7921568627, blue: 0.2862745098, alpha: 1)
                 lbl.textColor=UIColor.white
             }
@@ -635,7 +636,8 @@ extension CalenderView: UICollectionViewDelegate, UICollectionViewDataSource {
         if lastSelectedDate != nil && calcDate == currentDay && currentYear == presentYear && currentMonth == presentMonthIndex{
             todaysIndexPath = indexPath
             let lbl = cell.subviews[1] as! UILabel
-            lbl.layer.cornerRadius = (cell.frame.width * 0.47) / 2
+//            lbl.layer.cornerRadius = (cell.frame.width * 0.47) / 2
+            lbl.layer.cornerRadius = lbl.frame.height / 2
             lbl.backgroundColor = #colorLiteral(red: 0.1176470588, green: 0.7921568627, blue: 0.2862745098, alpha: 1)
             lbl.textColor = UIColor.white
         }
