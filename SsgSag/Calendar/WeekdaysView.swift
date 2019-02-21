@@ -31,6 +31,7 @@ class WeekdaysView: UIView {
             lbl.textAlignment = .center
 //            lbl.textColor = Style.weekdaysLblColor
 //            lbl.sizeToFit()
+            lbl.font = UIFont.systemFont(ofSize: 13)
             lbl.textColor = .black
             myStackView.addArrangedSubview(lbl)
         }

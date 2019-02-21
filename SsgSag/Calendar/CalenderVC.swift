@@ -18,7 +18,7 @@ class CalenderVC: UIViewController{
 
     let todoSeparatorBar: UIView = {
         let todoView = UIView()
-        todoView.backgroundColor = UIColor(displayP3Red: 251/255, green: 251/255, blue: 251/255, alpha: 1.0)
+        todoView.backgroundColor = UIColor.rgb(red: 228, green: 228, blue: 228)
         todoView.translatesAutoresizingMaskIntoConstraints = false
         return todoView
     }()
@@ -39,10 +39,10 @@ class CalenderVC: UIViewController{
     }()
     */
     
-    let donwTodoView: UIImageView = {
+    let tabToDownButtonView: UIImageView = {
         let downView = UIImageView()
         downView.translatesAutoresizingMaskIntoConstraints = false
-        downView.image = UIImage(named: "icTodoDown")
+        downView.image = UIImage(named: "icListTabDown")
         return downView
     }()
     
@@ -50,7 +50,7 @@ class CalenderVC: UIViewController{
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints  = false
         label.text = "투두리스트"
-        label.font = UIFont.systemFont(ofSize: 18.0, weight: .medium)
+        label.font = UIFont.systemFont(ofSize: 20.0, weight: .medium)
         return label
     }()
     
@@ -88,8 +88,26 @@ class CalenderVC: UIViewController{
         bringUserDefaultsAndSetPosetTupels()
         posterTuples.sort{$0.1 < $1.1}
         addtoTODOTable()
+
+//        viewWillLayoutSubviews()
         
     }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(true)
+        print("adasdadsa \(todoTableView)")
+        
+        let color1 = UIColor.rgb(red: 251, green: 251, blue: 251)
+        let color2 = UIColor.rgb(red: 249, green: 249, blue: 249)
+        let color3 = UIColor.rgb(red: 246, green: 246, blue: 246)
+       
+        todoSeparatorBar.setGradientBackGround(colorOne: color1, colorTwo: color2, frame: todoSeparatorBar.bounds)
+        todoList.setGradientBackGround(colorOne: color1, colorTwo: color2, frame: todoList.bounds)
+        let bgView = UIView(frame: todoTableView.bounds)
+        bgView.setGradientBackGround(colorOne: color2, colorTwo: color3, frame: todoTableView.bounds)
+        todoTableView.backgroundView = bgView
+    }
+    
     
     func isDuplicatePosterTuple(_ posterTuples:[(Date, Date, Int, Int, String, Int)], input: (Date, Date, Int, Int, String, Int)) -> Bool {
         for i in posterTuples {
@@ -129,40 +147,37 @@ class CalenderVC: UIViewController{
         view.addSubview(todoTableView)
         view.addSubview(todoSeparatorBar)
         
-        todoSeparatorBar.addSubview(donwTodoView)
+        todoSeparatorBar.addSubview(tabToDownButtonView)
         todoSeparatorBar.addSubview(todoList)
         todoSeparatorBar.addSubview(separatorLine)
         view.addSubview(calenderView)
         view.addSubview(todoListButton)
         
         NSLayoutConstraint.activate([
-            todoTableView.leftAnchor.constraint(equalTo: view.leftAnchor),
-            todoTableView.rightAnchor.constraint(equalTo: view.rightAnchor),
+            todoTableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            todoTableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             todoTableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
             todoTableView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.4),
             
             todoSeparatorBar.bottomAnchor.constraint(equalTo: todoTableView.topAnchor),
             todoSeparatorBar.leftAnchor.constraint(equalTo: view.leftAnchor),
             todoSeparatorBar.rightAnchor.constraint(equalTo: view.rightAnchor),
-            todoSeparatorBar.heightAnchor.constraint(equalToConstant: 54),
+            todoSeparatorBar.heightAnchor.constraint(equalToConstant: 45),
             
-            donwTodoView.topAnchor.constraint(equalTo: todoSeparatorBar.topAnchor, constant: 10),
-            donwTodoView.centerXAnchor.constraint(equalTo: todoSeparatorBar.centerXAnchor),
-            donwTodoView.heightAnchor.constraint(equalToConstant: 9),
-            donwTodoView.widthAnchor.constraint(equalToConstant: 44),
-            
-            todoList.centerXAnchor.constraint(equalTo: todoSeparatorBar.centerXAnchor),
+            todoList.leadingAnchor.constraint(equalTo: todoSeparatorBar.leadingAnchor, constant: 18),
             todoList.bottomAnchor.constraint(equalTo: todoSeparatorBar.bottomAnchor),
-            todoList.topAnchor.constraint(equalTo: donwTodoView.bottomAnchor, constant: 10),
-            todoList.heightAnchor.constraint(equalToConstant: 21),
+            todoList.centerYAnchor.constraint(equalTo: todoSeparatorBar.centerYAnchor),
             
-            separatorLine.bottomAnchor.constraint(equalTo: todoSeparatorBar.bottomAnchor),
+            tabToDownButtonView.centerYAnchor.constraint(equalTo: todoSeparatorBar.centerYAnchor),
+            tabToDownButtonView.leadingAnchor.constraint(equalTo: todoList.trailingAnchor, constant: 13),
+            
+            separatorLine.bottomAnchor.constraint(equalTo: todoSeparatorBar.topAnchor),
             separatorLine.leftAnchor.constraint(equalTo: todoSeparatorBar.leftAnchor),
             separatorLine.rightAnchor.constraint(equalTo: todoSeparatorBar.rightAnchor),
-            separatorLine.heightAnchor.constraint(equalToConstant: 0.5),
+            separatorLine.heightAnchor.constraint(equalToConstant: 1),
         
             calenderView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 50),
-            calenderView.heightAnchor.constraint(equalToConstant: view.frame.height * 0.41),
+            calenderView.heightAnchor.constraint(equalToConstant: view.frame.height * 0.45),
             calenderView.leftAnchor.constraint(equalTo: view.leftAnchor),
             calenderView.rightAnchor.constraint(equalTo: view.rightAnchor),
             calenderView.bottomAnchor.constraint(equalTo: todoSeparatorBar.topAnchor),
@@ -173,19 +188,14 @@ class CalenderVC: UIViewController{
             todoListButton.heightAnchor.constraint(equalToConstant: 44)
         ])
         
-//        calenderView.backgroundColor = .red
-        
-        todoTableView.backgroundColor = UIColor(displayP3Red: 251 / 255, green: 251 / 255, blue: 251 / 255, alpha: 1.0)
-        
-        todoTableView.rowHeight = view.frame.height / 13
+//        todoTableView.rowHeight = view.frame.height / 13
+        todoTableView.rowHeight = todoTableView.frame.height / 3.5
         todoTableView.dataSource = self
         todoTableView.delegate = self
         todoTableView.register(TodoTableViewCell.self, forCellReuseIdentifier: "todoCell")
         
         todoTableView.separatorStyle = .none
-        todoTableView.backgroundColor = UIColor.rgb(red: 251, green: 251, blue: 251)
-        separatorLine.backgroundColor = UIColor(displayP3Red: 0, green: 0, blue: 0, alpha: 0.25)
-        todoList.backgroundColor = UIColor.rgb(red: 251, green: 251, blue: 251)
+        separatorLine.backgroundColor = UIColor.rgb(red: 228, green: 228, blue: 228)
         
         todoListButton.isHidden = true
         todoListButton.addTarget(self, action: #selector(changeTodoTable), for: .touchUpInside)
@@ -346,7 +356,7 @@ class CalenderVC: UIViewController{
         todoTableView.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
         todoTableView.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
         todoTableView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
-        todoTableView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.4).isActive = true
+        todoTableView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.35).isActive = true
         
         todoTableView.rowHeight = view.frame.height / 13
         todoTableView.dataSource = self

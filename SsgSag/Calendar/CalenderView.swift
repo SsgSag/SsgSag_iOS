@@ -202,12 +202,12 @@ class CalenderView: UIView, MonthViewDelegate {
         //월화수목금토
         addSubview(weekdaysView)
         weekdaysView.topAnchor.constraint(equalTo: monthView.bottomAnchor).isActive=true
-        weekdaysView.leftAnchor.constraint(equalTo: leftAnchor, constant: 16).isActive=true
-        weekdaysView.rightAnchor.constraint(equalTo: rightAnchor, constant: -16).isActive=true
+        weekdaysView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 13).isActive = true
+        weekdaysView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -13).isActive = true
         weekdaysView.heightAnchor.constraint(equalToConstant: 30).isActive = true
         
         addSubview(calendarCollectionView)
-        calendarCollectionView.topAnchor.constraint(equalTo: weekdaysView.bottomAnchor, constant: 13).isActive = true
+        calendarCollectionView.topAnchor.constraint(equalTo: weekdaysView.bottomAnchor, constant: 5).isActive = true
         calendarCollectionView.leftAnchor.constraint(equalTo: leftAnchor, constant: 16).isActive = true
         calendarCollectionView.rightAnchor.constraint(equalTo: rightAnchor, constant: -16).isActive = true
         calendarCollectionView.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true

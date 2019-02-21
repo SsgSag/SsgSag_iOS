@@ -1,7 +1,9 @@
 class TodoTableViewCell: UITableViewCell {
+    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        self.backgroundColor = UIColor.rgb(red: 251, green: 251, blue: 251)
+        
+        self.backgroundColor = UIColor.clear
         setupCell()
     }
     
@@ -13,15 +15,17 @@ class TodoTableViewCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    let borderView: UIView = {
+    let borderView: UIView = { //셀 테두리
         let bV = UIView()
-        bV.layer.cornerRadius = 5
+        bV.layer.cornerRadius = 4
         bV.layer.masksToBounds = true
+        bV.layer.borderWidth = 1
+        bV.layer.borderColor = UIColor.rgb(red: 243, green: 244, blue: 245).cgColor
         bV.translatesAutoresizingMaskIntoConstraints = false
         return bV
     }()
     
-    let leftLineView: UIView = {
+    let leftLineView: UIView = { //왼쪽 카테고리색상
         let leftView = UIView()
         leftView.translatesAutoresizingMaskIntoConstraints = false
         return leftView
@@ -29,21 +33,28 @@ class TodoTableViewCell: UITableViewCell {
     
     let categoryLabel:UILabel = { //공모전
         let lb = UILabel()
+        lb.font = UIFont.systemFont(ofSize: 12.0, weight: .bold)
         lb.textColor = UIColor.rgb(red: 97, green: 118, blue: 221)
         lb.translatesAutoresizingMaskIntoConstraints = false
+        
         return lb
     }()
     
     let contentLabel:UILabel = { //전국 창업연합 동아리
         let lb = UILabel()
-        lb.numberOfLines = 2
-        lb.font = UIFont.systemFont(ofSize: 17.0, weight: .light)
+        lb.numberOfLines = 1
+        lb.textColor = UIColor.rgb(red: 139, green: 139, blue: 139)
+        lb.font = UIFont.systemFont(ofSize: 16.0, weight: .light)
+        lb.minimumScaleFactor = 0.8
+        lb.adjustsFontSizeToFitWidth = true
         lb.translatesAutoresizingMaskIntoConstraints = false
         return lb
     }()
     
     let dateLabel: UILabel = { //날짜
         let lb = UILabel()
+        lb.font = UIFont.systemFont(ofSize: 13, weight: .light)
+        lb.textColor = UIColor.rgb(red: 139, green: 139, blue: 139)
         lb.translatesAutoresizingMaskIntoConstraints = false
         return lb
     }()
@@ -51,14 +62,17 @@ class TodoTableViewCell: UITableViewCell {
     let separatorView: UIView = {//세로선
         let sv = UIView()
         sv.translatesAutoresizingMaskIntoConstraints = false
-        sv.widthAnchor.constraint(equalToConstant: 1).isActive = true
-        sv.backgroundColor = UIColor(displayP3Red: 224/255, green: 224/255, blue: 224/255, alpha: 1.0)
+        sv.widthAnchor.constraint(equalToConstant: 0.5).isActive = true
+        sv.backgroundColor = UIColor.rgb(red: 232, green: 232, blue: 232)
         return sv
     }()
     
     let leftedDay: UILabel = { //남은 날짜
         let lb = UILabel()
         lb.translatesAutoresizingMaskIntoConstraints = false
+        lb.font = UIFont.systemFont(ofSize: 34, weight: .medium)
+        lb.adjustsFontSizeToFitWidth = true
+        lb.textAlignment = .center
         lb.text = "3"
         return lb
     }()
@@ -66,6 +80,10 @@ class TodoTableViewCell: UITableViewCell {
     let leftedDayBottom: UILabel = {//남은 날짜 밑에 (일 남음 텍스트)
         let lb = UILabel()
         lb.translatesAutoresizingMaskIntoConstraints = false
+        lb.font = UIFont.systemFont(ofSize: 10, weight: .medium)
+        lb.adjustsFontSizeToFitWidth = true
+        lb.textColor = UIColor.rgb(red: 134, green: 134, blue: 134)
+        lb.textAlignment = .center
         lb.text = "일 남음"
         return lb
     }()
@@ -79,53 +97,61 @@ class TodoTableViewCell: UITableViewCell {
     func setupCell(){
         self.selectionStyle = .none
         
+        //MARK: 테두리
         addSubview(borderView)
-        borderView.topAnchor.constraint(equalTo: self.topAnchor, constant: 10).isActive = true
-        borderView.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 10).isActive = true
-        borderView.rightAnchor.constraint(equalTo: self.rightAnchor, constant: -10 ).isActive = true
-        borderView.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -10).isActive = true
+        borderView.topAnchor.constraint(equalTo: topAnchor, constant: 10).isActive = true
+        borderView.leftAnchor.constraint(equalTo: leftAnchor, constant: 10).isActive = true
+        borderView.rightAnchor.constraint(equalTo: rightAnchor, constant: -10 ).isActive = true
+        borderView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -10).isActive = true
         borderView.backgroundColor = .white
-        borderView.addSubview(leftLineView)
         
+        //MARK: 카테고리색
+        borderView.addSubview(leftLineView)
         leftLineView.leftAnchor.constraint(equalTo: borderView.leftAnchor).isActive = true
         leftLineView.topAnchor.constraint(equalTo: borderView.topAnchor).isActive = true
         leftLineView.bottomAnchor.constraint(equalTo: borderView.bottomAnchor).isActive = true
-        leftLineView.widthAnchor.constraint(equalToConstant: 8.5).isActive = true
+        leftLineView.widthAnchor.constraint(equalToConstant: 5).isActive = true
         
+        //MARK: 세로선
+        borderView.addSubview(separatorView)
+//        separatorView.rightAnchor.constraint(equalTo: borderView.rightAnchor, constant: -70).isActive = true
+        NSLayoutConstraint(item: separatorView, attribute: .centerX, relatedBy: .equal, toItem: borderView, attribute: .centerX, multiplier: 1.6, constant: 0).isActive = true
+        separatorView.topAnchor.constraint(equalTo: borderView.topAnchor, constant: 5).isActive = true
+        separatorView.bottomAnchor.constraint(equalTo: borderView.bottomAnchor, constant: -5).isActive = true
+        
+        //MARK: 카테고리명(공모전, 채용..)
         borderView.addSubview(categoryLabel)
-        categoryLabel.text = "Label"
+        categoryLabel.text = "Label" //공모전
         categoryLabel.topAnchor.constraint(equalTo: borderView.topAnchor, constant: 10).isActive = true
-        categoryLabel.leftAnchor.constraint(equalTo: borderView.leftAnchor, constant: 20).isActive = true
-        categoryLabel.font = UIFont.systemFont(ofSize: 12.0, weight: .bold)
+        categoryLabel.leftAnchor.constraint(equalTo: borderView.leftAnchor, constant: 18).isActive = true
         
+        //MARK: 제목
         borderView.addSubview(contentLabel)
         contentLabel.topAnchor.constraint(equalTo: categoryLabel.bottomAnchor ,constant: 2).isActive
             = true
-        contentLabel.leftAnchor.constraint(equalTo: borderView.leftAnchor, constant: 20).isActive = true
-        contentLabel.font = UIFont.systemFont(ofSize: 17, weight: .light)
+        contentLabel.leadingAnchor.constraint(equalTo: borderView.leadingAnchor, constant: 18).isActive = true
+        contentLabel.trailingAnchor.constraint(equalTo: separatorView.leadingAnchor, constant: -16).isActive = true
+//        contentLabel.trailingAnchor.constraint(greaterThanOrEqualTo: separatorView.leadingAnchor, constant: 8).isActive = true
         
+        //MARK: 날짜
         borderView.addSubview(dateLabel)
         dateLabel.topAnchor.constraint(equalTo: contentLabel.bottomAnchor, constant: 3).isActive = true
-        dateLabel.leftAnchor.constraint(equalTo: borderView.leftAnchor, constant: 20).isActive = true
-        dateLabel.font = UIFont.systemFont(ofSize: 13, weight: .light)
-        dateLabel.textColor = UIColor.rgb(red: 139, green: 139, blue: 139)
+        dateLabel.leftAnchor.constraint(equalTo: borderView.leftAnchor, constant: 18).isActive = true
         
-        borderView.addSubview(separatorView)
-        separatorView.rightAnchor.constraint(equalTo: borderView.rightAnchor, constant: -70).isActive = true
-        separatorView.topAnchor.constraint(equalTo: borderView.topAnchor, constant: 5).isActive = true
-        separatorView.bottomAnchor.constraint(equalTo: borderView.bottomAnchor, constant: -5).isActive = true
-        separatorView.widthAnchor.constraint(equalToConstant: 3).isActive = true
-        
+        //MARK: 남은 날짜
         borderView.addSubview(leftedDay)
-        leftedDay.rightAnchor.constraint(equalTo: borderView.rightAnchor, constant: -28).isActive = true
+        leftedDay.leadingAnchor.constraint(equalTo: separatorView.trailingAnchor).isActive = true
+        leftedDay.trailingAnchor.constraint(equalTo: borderView.trailingAnchor).isActive = true
         leftedDay.topAnchor.constraint(equalTo: borderView.topAnchor, constant: 10).isActive = true
-        leftedDay.font = UIFont.systemFont(ofSize: 23, weight: .medium)
         
+        
+        //MARK: 일 남음
         borderView.addSubview(leftedDayBottom)
         leftedDayBottom.bottomAnchor.constraint(equalTo: borderView.bottomAnchor, constant: -8).isActive = true
-        leftedDayBottom.rightAnchor.constraint(equalTo: borderView.rightAnchor, constant: -21).isActive = true
-        leftedDayBottom.font = UIFont.systemFont(ofSize: 10, weight: .bold)
-        leftedDayBottom.textColor = UIColor.rgb(red: 134, green: 134, blue: 134)
+        leftedDayBottom.leadingAnchor.constraint(equalTo: separatorView.trailingAnchor).isActive = true
+        leftedDayBottom.trailingAnchor.constraint(equalTo: borderView.trailingAnchor).isActive = true
+        
+        
         
         borderView.addSubview(newImage)
         newImage.rightAnchor.constraint(equalTo: borderView.rightAnchor, constant: -20).isActive = true

@@ -651,7 +651,7 @@ extension CalenderView: UICollectionViewDelegate, UICollectionViewDataSource {
                 
                 cellDateString = "\(cellYear)-\(cellMonth)-\(cellDay) 00:00:00"
                 currentCellDateTime = formatter.date(from: cellDateString)
-            }else {
+            } else {
                 cellYear = nextYear
                 cellMonth = nextMonth
                 cellDay = nextDay

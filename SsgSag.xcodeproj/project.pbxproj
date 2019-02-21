@@ -359,6 +359,7 @@
 				84264BA521DF0FF300849E6B /* Calendar.storyboard */,
 				845928D521D09F2F001DF6CC /* CalenderVC.swift */,
 				840FEDC6220759E200581A3B /* CalenderVC + TableView.swift */,
+				84604F222205A0ED00212A00 /* todoCell.swift */,
 				840FEDC022074F6F00581A3B /* DayCollectionViewCell.swift */,
 				840FEDC22207500E00581A3B /* CalendarColor.swift */,
 				845928D621D09F2F001DF6CC /* CalenderView.swift */,
@@ -375,7 +376,6 @@
 				FA5FC0BA2205A48500CB83C8 /* DotView.swift */,
 				FA806B9B2206F3E100EB38D6 /* LineView.xib */,
 				FA806B9D2206F70900EB38D6 /* LineView.swift */,
-				84604F222205A0ED00212A00 /* todoCell.swift */,
 			);
 			path = Calendar;
 			sourceTree = "<group>";
