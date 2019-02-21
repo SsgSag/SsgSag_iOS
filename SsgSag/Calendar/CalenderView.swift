@@ -193,23 +193,23 @@ class CalenderView: UIView, MonthViewDelegate {
         //월
         addSubview(monthView)
         monthView.topAnchor.constraint(equalTo: topAnchor).isActive=true
-        monthView.leftAnchor.constraint(equalTo: leftAnchor, constant: 16).isActive=true
-        monthView.rightAnchor.constraint(equalTo: rightAnchor, constant: -16).isActive=true
-        monthView.heightAnchor.constraint(equalToConstant: 35).isActive=true
+        monthView.leftAnchor.constraint(equalTo: leftAnchor, constant: 12).isActive=true
+        monthView.rightAnchor.constraint(equalTo: rightAnchor, constant: -12).isActive=true
+        monthView.heightAnchor.constraint(equalToConstant: 28).isActive=true
         
         monthView.delegate = self
         
         //월화수목금토
         addSubview(weekdaysView)
         weekdaysView.topAnchor.constraint(equalTo: monthView.bottomAnchor).isActive=true
-        weekdaysView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 13).isActive = true
-        weekdaysView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -13).isActive = true
-        weekdaysView.heightAnchor.constraint(equalToConstant: 30).isActive = true
+        weekdaysView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 12).isActive = true
+        weekdaysView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -12).isActive = true
+        weekdaysView.heightAnchor.constraint(equalToConstant: 27).isActive = true
         
         addSubview(calendarCollectionView)
-        calendarCollectionView.topAnchor.constraint(equalTo: weekdaysView.bottomAnchor, constant: 5).isActive = true
-        calendarCollectionView.leftAnchor.constraint(equalTo: leftAnchor, constant: 16).isActive = true
-        calendarCollectionView.rightAnchor.constraint(equalTo: rightAnchor, constant: -16).isActive = true
+        calendarCollectionView.topAnchor.constraint(equalTo: weekdaysView.bottomAnchor).isActive = true
+        calendarCollectionView.leftAnchor.constraint(equalTo: leftAnchor, constant: 12).isActive = true
+        calendarCollectionView.rightAnchor.constraint(equalTo: rightAnchor, constant: -12).isActive = true
         calendarCollectionView.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
     }
     

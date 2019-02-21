@@ -25,6 +25,7 @@ class CalenderVC: UIViewController{
     
     let todoTableView: UITableView = {
         let todo = UITableView()
+        todo.showsVerticalScrollIndicator = false
         todo.translatesAutoresizingMaskIntoConstraints = false
         return todo
     }()
@@ -49,7 +50,7 @@ class CalenderVC: UIViewController{
     let todoList: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints  = false
-        label.text = "투두리스트"
+//        label.text = "투두리스트"
         label.font = UIFont.systemFont(ofSize: 20.0, weight: .medium)
         return label
     }()
@@ -88,15 +89,12 @@ class CalenderVC: UIViewController{
         bringUserDefaultsAndSetPosetTupels()
         posterTuples.sort{$0.1 < $1.1}
         addtoTODOTable()
-
 //        viewWillLayoutSubviews()
         
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(true)
-        print("adasdadsa \(todoTableView)")
-        
         let color1 = UIColor.rgb(red: 251, green: 251, blue: 251)
         let color2 = UIColor.rgb(red: 249, green: 249, blue: 249)
         let color3 = UIColor.rgb(red: 246, green: 246, blue: 246)
@@ -295,8 +293,6 @@ class CalenderVC: UIViewController{
         let today = Date()
         getDateAfterToday(today)
         
-        
-        //
         NotificationCenter.default.post(name: NSNotification.Name("changeTodoTableStatusByButton"), object: nil)
         
         todoList.text = "투두리스트"
@@ -345,7 +341,7 @@ class CalenderVC: UIViewController{
     
     func setCalendarVCWhenTODOShow() {
         for subview in view.subviews {
-            if subview == calenderView{
+            if subview == calenderView {
                 subview.removeFromSuperview()
             }
         }
@@ -353,27 +349,45 @@ class CalenderVC: UIViewController{
         print("contentOffset \(calenderView.calendarCollectionView.contentOffset.y)")
         
         view.addSubview(todoTableView)
-        todoTableView.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
-        todoTableView.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
-        todoTableView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
-        todoTableView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.35).isActive = true
+        view.addSubview(todoSeparatorBar)
+        view.addSubview(calenderView)
+        todoSeparatorBar.addSubview(separatorLine)
+        todoSeparatorBar.addSubview(todoList)
         
-        todoTableView.rowHeight = view.frame.height / 13
+        
+        NSLayoutConstraint.activate([
+            todoTableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            todoTableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            todoTableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            todoTableView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.4),
+            
+            todoSeparatorBar.bottomAnchor.constraint(equalTo: todoTableView.topAnchor),
+            todoSeparatorBar.leftAnchor.constraint(equalTo: view.leftAnchor),
+            todoSeparatorBar.rightAnchor.constraint(equalTo: view.rightAnchor),
+            todoSeparatorBar.heightAnchor.constraint(equalToConstant: 45),
+            
+            todoList.leadingAnchor.constraint(equalTo: todoSeparatorBar.leadingAnchor, constant: 18),
+            todoList.bottomAnchor.constraint(equalTo: todoSeparatorBar.bottomAnchor),
+            todoList.centerYAnchor.constraint(equalTo: todoSeparatorBar.centerYAnchor),
+            
+            separatorLine.bottomAnchor.constraint(equalTo: todoSeparatorBar.topAnchor),
+            separatorLine.leftAnchor.constraint(equalTo: todoSeparatorBar.leftAnchor),
+            separatorLine.rightAnchor.constraint(equalTo: todoSeparatorBar.rightAnchor),
+            separatorLine.heightAnchor.constraint(equalToConstant: 1),
+            
+            calenderView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 50),
+            calenderView.heightAnchor.constraint(equalToConstant: view.frame.height * 0.45),
+            calenderView.leftAnchor.constraint(equalTo: view.leftAnchor),
+            calenderView.rightAnchor.constraint(equalTo: view.rightAnchor),
+            calenderView.bottomAnchor.constraint(equalTo: todoSeparatorBar.topAnchor),
+            
+            ])
+        
+        todoTableView.rowHeight = todoTableView.frame.height / 3.5
         todoTableView.dataSource = self
         todoTableView.delegate = self
         todoTableView.register(TodoTableViewCell.self, forCellReuseIdentifier: "todoCell")
         
-        view.addSubview(todoSeparatorBar)
-        todoSeparatorBar.bottomAnchor.constraint(equalTo: todoTableView.topAnchor).isActive = true
-        todoSeparatorBar.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
-        todoSeparatorBar.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
-        todoSeparatorBar.heightAnchor.constraint(equalToConstant: 54).isActive = true
-        
-        view.addSubview(calenderView)
-        calenderView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 50).isActive = true
-        calenderView.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
-        calenderView.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
-        calenderView.bottomAnchor.constraint(equalTo: todoSeparatorBar.topAnchor).isActive = true
         
         view.bringSubviewToFront(todoListButton)
         todoListButton.isHidden = false
@@ -382,7 +396,7 @@ class CalenderVC: UIViewController{
             self.view.layoutIfNeeded()
         }
         
-        self.calenderView.calendarCollectionView.reloadData()
+//        self.calenderView.calendarCollectionView.reloadData()
     }
     
     //
@@ -417,13 +431,15 @@ class CalenderVC: UIViewController{
             let currentCellMonth = Calendar.current.component(.month, from: currentSelectedDateTime)
             let currentCellDay = Calendar.current.component(.day, from: currentSelectedDateTime)
             
-            todoList.text = "\(currentCellMonth)월 \(currentCellDay)일"
-            
-            self.todoTableView.reloadData()
+            let currentDateString = "\(currentCellMonth)월 \(currentCellDay)일"
+            todoList.text = currentDateString
+            print("todoList날짜: \(currentDateString)")
+            todoSeparatorBar.bringSubviewToFront(todoList)
+            todoTableView.reloadData()
         }
         
         todoStatus = -1
-        //calenderView.calendarCollectionView.reloadData()
+        calenderView.calendarCollectionView.reloadData()
         print("contentOffset \(calenderView.calendarCollectionView.contentOffset.y)")
     }
     
