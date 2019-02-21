@@ -198,6 +198,8 @@ class CalenderVC: UIViewController{
         todoListButton.isHidden = true
         todoListButton.addTarget(self, action: #selector(changeTodoTable), for: .touchUpInside)
         
+        todoList.text = "투두리스트"
+        
         /*
          view.addSubview(passiveScheduleAddButton)
          view.bringSubviewToFront(passiveScheduleAddButton)
@@ -295,7 +297,6 @@ class CalenderVC: UIViewController{
         
         NotificationCenter.default.post(name: NSNotification.Name("changeTodoTableStatusByButton"), object: nil)
         
-        todoList.text = "투두리스트"
         todoTableView.reloadData()
     }
     
@@ -334,9 +335,8 @@ class CalenderVC: UIViewController{
             self.todoListButton.isHidden = true
             self.todoTableView.reloadData()
         }
-        
-        self.view.layoutIfNeeded()
-        
+        todoStatus = -1
+        calenderView.calendarCollectionView.reloadData()
     }
     
     func setCalendarVCWhenTODOShow() {
@@ -352,7 +352,6 @@ class CalenderVC: UIViewController{
         view.addSubview(todoSeparatorBar)
         view.addSubview(calenderView)
         todoSeparatorBar.addSubview(separatorLine)
-        todoSeparatorBar.addSubview(todoList)
         
         
         NSLayoutConstraint.activate([
@@ -365,10 +364,6 @@ class CalenderVC: UIViewController{
             todoSeparatorBar.leftAnchor.constraint(equalTo: view.leftAnchor),
             todoSeparatorBar.rightAnchor.constraint(equalTo: view.rightAnchor),
             todoSeparatorBar.heightAnchor.constraint(equalToConstant: 45),
-            
-            todoList.leadingAnchor.constraint(equalTo: todoSeparatorBar.leadingAnchor, constant: 18),
-            todoList.bottomAnchor.constraint(equalTo: todoSeparatorBar.bottomAnchor),
-            todoList.centerYAnchor.constraint(equalTo: todoSeparatorBar.centerYAnchor),
             
             separatorLine.bottomAnchor.constraint(equalTo: todoSeparatorBar.topAnchor),
             separatorLine.leftAnchor.constraint(equalTo: todoSeparatorBar.leftAnchor),
