@@ -243,9 +243,19 @@ class DayCollectionViewCell: UICollectionViewCell {
         label.layer.cornerRadius = label.frame.height / 2
         label.layer.masksToBounds = true
         label.translatesAutoresizingMaskIntoConstraints = false
+        label.tag = 30
         return label
     }()
     
+    let LineLabel1: UILabel = {
+        let lb = UILabel()
+        lb.text = "테스트"
+        lb.backgroundColor = UIColor.white
+        lb.font = UIFont.systemFont(ofSize: 11)
+        lb.adjustsFontSizeToFitWidth = true
+        lb.translatesAutoresizingMaskIntoConstraints = false
+        return lb
+    }()
     
     let dotAndLineView1: UIView = {
         let dotView = UIView()

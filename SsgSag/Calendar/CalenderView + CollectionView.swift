@@ -314,6 +314,7 @@ extension CalenderView: UICollectionViewDelegate, UICollectionViewDataSource {
                     cell.dotAndLineView1WidthAnchor?.isActive = false
                     cell.dotAndLineView1HeightAnchor?.isActive = false
                     cell.dotAndLineView1CenterXAnchor?.isActive = false
+        
                     
                     cell.dotAndLineView1TopAnchor = cell.dotAndLineView1.topAnchor.constraint(equalTo: cell.lbl.bottomAnchor, constant: 4)
                     cell.dotAndLineView1WidthAnchor = cell.dotAndLineView1.widthAnchor.constraint(equalToConstant: cell.frame.width)
@@ -772,11 +773,16 @@ extension CalenderView: UICollectionViewDelegate, UICollectionViewDataSource {
         let currentDateString: String = "\(year)-\(month)-\(day) 00:00:00"
         //        let todayDate = formatter.date(from: currentDateString)
         
-        if indexPath == lastSelectedIndexPath {
+        if indexPath == lastSelectedIndexPath && todoButtonTapped == false {
             cell.lbl.backgroundColor = UIColor.lightGray
             cell.lbl.textColor = UIColor.white
         }
         
+        if indexPath == lastSelectedIndexPath && todoButtonTapped {
+            cell.lbl.backgroundColor = UIColor.clear
+            cell.lbl.textColor = UIColor.black
+            todoButtonTapped = false
+        }
         currentPosterTuple = []
         return cell
     }

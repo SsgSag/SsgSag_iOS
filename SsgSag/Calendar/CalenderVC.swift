@@ -50,7 +50,7 @@ class CalenderVC: UIViewController{
     let todoList: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints  = false
-//        label.text = "투두리스트"
+        label.text = "투두리스트"
         label.font = UIFont.systemFont(ofSize: 20.0, weight: .medium)
         return label
     }()
@@ -90,17 +90,19 @@ class CalenderVC: UIViewController{
         posterTuples.sort{$0.1 < $1.1}
         addtoTODOTable()
 //        viewWillLayoutSubviews()
+    
         
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(true)
+        
         let color1 = UIColor.rgb(red: 251, green: 251, blue: 251)
         let color2 = UIColor.rgb(red: 249, green: 249, blue: 249)
         let color3 = UIColor.rgb(red: 246, green: 246, blue: 246)
        
         todoSeparatorBar.setGradientBackGround(colorOne: color1, colorTwo: color2, frame: todoSeparatorBar.bounds)
-        todoList.setGradientBackGround(colorOne: color1, colorTwo: color2, frame: todoList.bounds)
+//        todoList.setGradientBackGround(colorOne: color1, colorTwo: color2, frame: todoList.bounds)
         let bgView = UIView(frame: todoTableView.bounds)
         bgView.setGradientBackGround(colorOne: color2, colorTwo: color3, frame: todoTableView.bounds)
         todoTableView.backgroundView = bgView
@@ -187,7 +189,7 @@ class CalenderVC: UIViewController{
         ])
         
 //        todoTableView.rowHeight = view.frame.height / 13
-        todoTableView.rowHeight = todoTableView.frame.height / 3.5
+//        todoTableView.rowHeight = todoTableView.frame.height / 3.5
         todoTableView.dataSource = self
         todoTableView.delegate = self
         todoTableView.register(TodoTableViewCell.self, forCellReuseIdentifier: "todoCell")
@@ -215,16 +217,18 @@ class CalenderVC: UIViewController{
     
     func setupGesture() {
         let todoTableShow = UISwipeGestureRecognizer(target: self, action: #selector(todoTableSwipeUp))
+        let todoTableSwipeHide = UISwipeGestureRecognizer(target: self, action: #selector(hideTodoTable))
         let todoTableHide = UITapGestureRecognizer(target: self, action: #selector(hideTodoTable))
         
         let movePreviousMonth = UISwipeGestureRecognizer(target: self, action: #selector(movePreviousMonthBySwipe))
         let moveNextMonth = UISwipeGestureRecognizer(target: self, action: #selector(moveNextMonthBySwipe))
         
-        calenderView.gestureRecognizers = [movePreviousMonth, moveNextMonth, todoTableShow]
+        calenderView.gestureRecognizers = [movePreviousMonth, moveNextMonth, todoTableShow, todoTableSwipeHide]
         
         movePreviousMonth.direction = .left
         moveNextMonth.direction = .right
         todoTableShow.direction = .up
+        todoTableSwipeHide.direction = .down
         
         todoSeparatorBar.gestureRecognizers = [todoTableHide]
     }
@@ -296,6 +300,7 @@ class CalenderVC: UIViewController{
         getDateAfterToday(today)
         
         NotificationCenter.default.post(name: NSNotification.Name("changeTodoTableStatusByButton"), object: nil)
+        todoList.text = "투두리스트"
         
         todoTableView.reloadData()
     }

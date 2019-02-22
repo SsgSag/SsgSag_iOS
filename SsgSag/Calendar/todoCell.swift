@@ -88,10 +88,11 @@ class TodoTableViewCell: UITableViewCell {
         return lb
     }()
     
-    let newImage: UIImageView = {//남은 날짜 밑에 (일 남음 텍스트)
-        let lb = UIImageView()
-        lb.translatesAutoresizingMaskIntoConstraints = false
-        return lb
+    let newImage: UIImageView = { //지원완료, 기간만료
+        let im = UIImageView()
+        im.translatesAutoresizingMaskIntoConstraints = false
+        im.contentMode = .scaleAspectFit
+        return im
     }()
     
     func setupCell(){
@@ -99,10 +100,10 @@ class TodoTableViewCell: UITableViewCell {
         
         //MARK: 테두리
         addSubview(borderView)
-        borderView.topAnchor.constraint(equalTo: topAnchor, constant: 10).isActive = true
+        borderView.topAnchor.constraint(equalTo: topAnchor, constant: 4).isActive = true
         borderView.leftAnchor.constraint(equalTo: leftAnchor, constant: 10).isActive = true
         borderView.rightAnchor.constraint(equalTo: rightAnchor, constant: -10 ).isActive = true
-        borderView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -10).isActive = true
+        borderView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -4).isActive = true
         borderView.backgroundColor = .white
         
         //MARK: 카테고리색
@@ -152,13 +153,17 @@ class TodoTableViewCell: UITableViewCell {
         leftedDayBottom.trailingAnchor.constraint(equalTo: borderView.trailingAnchor).isActive = true
         
         
-        
+        //MARK: 지원완료, 기간만료
         borderView.addSubview(newImage)
-        newImage.rightAnchor.constraint(equalTo: borderView.rightAnchor, constant: -20).isActive = true
-        newImage.topAnchor.constraint(equalTo: borderView.topAnchor, constant: 17).isActive = true
-        newImage.bottomAnchor.constraint(equalTo: borderView.bottomAnchor, constant:-17).isActive = true
-        newImage.widthAnchor.constraint(equalToConstant: 32).isActive = true
-        newImage.image = UIImage(named: "icTimePassed")
+        newImage.leadingAnchor.constraint(equalTo: separatorView.trailingAnchor).isActive = true
+        newImage.trailingAnchor.constraint(equalTo: borderView.trailingAnchor).isActive = true
+//        newImage.centerYAnchor.constraint(equalTo: borderView.centerYAnchor).isActive = true
+        newImage.topAnchor.constraint(equalTo: borderView.topAnchor, constant: 10).isActive = true
+        newImage.bottomAnchor.constraint(equalTo: borderView.bottomAnchor, constant: -17).isActive = true
+//        newImage.widthAnchor.constraint(equalToConstant: 30).isActive = true
+//        newImage.heightAnchor.constraint(equalToConstant: 30).isActive = true
+        
+        newImage.image = UIImage(named: "icTaskComplete")
         newImage.isHidden = true
         
         NotificationCenter.default.addObserver(self, selector: #selector(rightItemHidden), name: NSNotification.Name("rightItemHidden"), object: nil)

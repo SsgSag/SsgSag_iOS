@@ -89,7 +89,7 @@ extension CalenderVC: UITableViewDelegate,UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 90
+        return tableView.frame.height / 3.5
     }
     
     func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
@@ -115,8 +115,8 @@ extension CalenderVC: UITableViewDelegate,UITableViewDataSource {
             tableView.reloadData()
         })
         
-        deleteAction.backgroundColor = UIColor.red
-        editAction.backgroundColor = UIColor.blue
+        editAction.backgroundColor = UIColor.rgb(red: 49, green: 137, blue: 240)
+        deleteAction.backgroundColor = UIColor.rgb(red: 249, green: 106, blue: 106)
         
         return [editAction, deleteAction]
     }
