@@ -11,6 +11,8 @@ import Foundation
 
 struct UserAPI {
     private static let baseURLString = "http://54.180.32.22:8080"
+}
+
 //    private static let dateFormatter : DateFormatter = {
 //        let formatter = DateFormatter()
 //        formatter.dateStyle = .medium
@@ -76,7 +78,7 @@ struct UserAPI {
 //        return URL(string: baseURLString + "/image/" + id)
 //    }
 //
-    
+
 //
 //    static func user(from data : Data) -> User? {
 //        let jsonObject = try? JSONSerialization.jsonObject(with: data, options: [])
@@ -87,7 +89,7 @@ struct UserAPI {
 //        }
 //        return User(id: id, email: email)
 //    }
-    
+
 //    static func articles(from jsonData: Data) -> ArticleResult {
 //        do {
 //            let jsonObject = try JSONSerialization.jsonObject(with: jsonData, options: [])
@@ -110,7 +112,7 @@ struct UserAPI {
 //            return .failure(error)
 //        }
 //    }
-    
+
 //    private static func article(from jsonObject : [String : AnyObject]) -> Article? {
 //        guard let id = jsonObject["_id"] as? String,
 //            let authorId = jsonObject["author"] as? String,
@@ -125,4 +127,3 @@ struct UserAPI {
 //        let dateCreated = dateFormatter.string(from: Date(timeIntervalSince1970: TimeInterval(timeStamp)))
 //        return Article(id: id, dateCreated: dateCreated, thumbURL: thumbURL, imageURL: imageURL, authorNickName: authorNickName, authorId: authorId, imageDescription: imageDesc, imageTitle: imageTitle)
 //    }
-}

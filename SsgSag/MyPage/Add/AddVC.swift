@@ -93,7 +93,7 @@ class AddVC: UIViewController, UITextFieldDelegate, UITextViewDelegate {
         
         
         NetworkManager.shared.getData(with: request) { (data, err, res) in
-            guard let data = data else { return }
+           // guard let data = data else { return }
         }
     }
     

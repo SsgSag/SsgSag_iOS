@@ -1,7 +1,6 @@
-
 import UIKit
 
-class CalenderVC: UIViewController{
+class CalenderVC: UIViewController {
     var todoStatus = 1
     
     var daySelectedStatus = 0
@@ -24,10 +23,10 @@ class CalenderVC: UIViewController{
     }()
     
     let todoTableView: UITableView = {
-        let todo = UITableView()
-        todo.showsVerticalScrollIndicator = false
-        todo.translatesAutoresizingMaskIntoConstraints = false
-        return todo
+        let tableView = UITableView()
+        tableView.showsVerticalScrollIndicator = false
+        tableView.translatesAutoresizingMaskIntoConstraints = false
+        return tableView
     }()
     
     /* 일정 수동 추가 버튼
@@ -70,28 +69,23 @@ class CalenderVC: UIViewController{
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        //calenderView.calendarCollectionView.collectionViewLayout.invalidateLayout()
     }
 
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = Style.bgColor
-        
-        //NotificationCenter.default.post(name: NSNotification.Name(rawValue: "todoStatus"), object: nil)
+    
         setupContentView()
+        
         setupGesture()
         
-        //userDefaults 더하는 것에 요청함
         NotificationCenter.default.addObserver(self, selector: #selector(addUserDefaults), name: NSNotification.Name("addUserDefaults"), object: nil)
-        //todoTable의 변화를 받음
+        
         NotificationCenter.default.addObserver(self, selector: #selector(dayDidSelected(_:)), name: NSNotification.Name(rawValue: "todoUpByDaySelected"), object: nil)
         
-        bringUserDefaultsAndSetPosetTupels()
-        posterTuples.sort{$0.1 < $1.1}
-        addtoTODOTable()
-//        viewWillLayoutSubviews()
-    
+        setPosterTuple()
         
+        setTodoTableView()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -102,12 +96,12 @@ class CalenderVC: UIViewController{
         let color3 = UIColor.rgb(red: 246, green: 246, blue: 246)
        
         todoSeparatorBar.setGradientBackGround(colorOne: color1, colorTwo: color2, frame: todoSeparatorBar.bounds)
-//        todoList.setGradientBackGround(colorOne: color1, colorTwo: color2, frame: todoList.bounds)
-        let bgView = UIView(frame: todoTableView.bounds)
-        bgView.setGradientBackGround(colorOne: color2, colorTwo: color3, frame: todoTableView.bounds)
-        todoTableView.backgroundView = bgView
+        
+        let todoBackGroudGradient = UIView(frame: todoTableView.bounds)
+        todoBackGroudGradient.setGradientBackGround(colorOne: color2, colorTwo: color3, frame: todoTableView.bounds)
+        
+        todoTableView.backgroundView = todoBackGroudGradient
     }
-    
     
     func isDuplicatePosterTuple(_ posterTuples:[(Date, Date, Int, Int, String, Int)], input: (Date, Date, Int, Int, String, Int)) -> Bool {
         for i in posterTuples {
@@ -120,9 +114,6 @@ class CalenderVC: UIViewController{
     
     //여기서 중복 되는 것을 거르자.
     @objc func addUserDefaults() {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
-        
         let posterTupleFromCalendarView = calenderView.posterTuples
         
         let today = Date()
@@ -140,6 +131,7 @@ class CalenderVC: UIViewController{
                 }
             }
         }
+        
         todoTableView.reloadData()
     }
     
@@ -150,6 +142,7 @@ class CalenderVC: UIViewController{
         todoSeparatorBar.addSubview(tabToDownButtonView)
         todoSeparatorBar.addSubview(todoList)
         todoSeparatorBar.addSubview(separatorLine)
+        
         view.addSubview(calenderView)
         view.addSubview(todoListButton)
         
@@ -233,46 +226,73 @@ class CalenderVC: UIViewController{
         todoSeparatorBar.gestureRecognizers = [todoTableHide]
     }
     
-    private func addtoTODOTable() {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
-        
+    private func setTodoTableView() {
         let today = Date()
-        for i in posterTuples {
-            let posterTupleMonth = Calendar.current.component(.month, from: i.1)
-            let posterTupleDay = Calendar.current.component(.day, from: i.1)
+        
+        for posterTuple in posterTuples {
+            let posterMonth = Calendar.current.component(.month, from: posterTuple.1)
+            let posterDay = Calendar.current.component(.day, from: posterTuple.1)
             
             let todayMonth = Calendar.current.component(.month, from: today)
             let todayDay = Calendar.current.component(.day, from: today)
             
-            if posterTupleMonth == todayMonth && (posterTupleDay - todayDay) > 0 {
-                if isDuplicatePosterTuple(todoTableData, input: i) == false {
-                    todoTableData.append(i)
+            //같은 달에 있고
+            if posterMonth == todayMonth && (posterDay - todayDay) > 0 {
+                if !isDuplicatePosterTuple(todoTableData, input: posterTuple) {
+                    todoTableData.append(posterTuple)
                 }
             }
         }
     }
     
-    private func bringUserDefaultsAndSetPosetTupels(){
+    private func setPosterTuple(){
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
         
-        let defaults = UserDefaults.standard
+        guard let poster = UserDefaults.standard.object(forKey: "poster") as? Data else{
+            return
+        }
         
-        if let posterData = defaults.object(forKey: "poster") as? Data {
-            if let posterInfo = try? PropertyListDecoder().decode([Posters].self, from: posterData){
-                for poster in posterInfo {
-                    let posterStartDateTime = formatter.date(from: poster.posterStartDate!)
-                    let posterEndDateTime = formatter.date(from: poster.posterEndDate!)
-                    
-                    let components = Calendar.current.dateComponents([.day], from: posterStartDateTime!, to: posterEndDateTime!)
-                    let dayInterval = components.day! + 1
-                    
-                    if isDuplicatePosterTuple(posterTuples, input: ((posterStartDateTime!, posterEndDateTime!, dayInterval, poster.categoryIdx!, poster.posterName!, poster.categoryIdx!))) == false {
-                        posterTuples.append((posterStartDateTime!, posterEndDateTime!, dayInterval, poster.categoryIdx!, poster.posterName!, poster.categoryIdx!))
-                    }
-                }
+        guard let posters = try? PropertyListDecoder().decode([Posters].self, from: poster) else {
+            return
+        }
+    
+        for poster in posters {
+            guard let posterEndDateString = poster.posterEndDate else {
+                return
             }
+            
+            guard let posterStartDateString = poster.posterStartDate else {
+                return
+            }
+            
+            guard let posterEndDate = formatter.date(from: posterEndDateString) else {
+                return
+            }
+            
+            guard let posterStartDate = formatter.date(from: posterStartDateString) else {
+                return
+            }
+            
+            let components = Calendar.current.dateComponents([.day], from: posterStartDate, to: posterEndDate)
+            
+            guard let dayInterval = components.day else {
+                return
+            }
+            
+            let intervalDay = dayInterval + 1
+            
+            if isDuplicatePosterTuple(posterTuples,
+                                      input: ((posterStartDate, posterEndDate, intervalDay,
+                                               poster.categoryIdx!, poster.posterName!,
+                                               poster.categoryIdx!))) == false {
+                
+                posterTuples.append((posterStartDate, posterEndDate,
+                                     intervalDay, poster.categoryIdx!,
+                                     poster.posterName!, poster.categoryIdx!))
+            }
+            
+            posterTuples.sort{$0.1 < $1.1}
         }
     }
     
@@ -350,14 +370,12 @@ class CalenderVC: UIViewController{
                 subview.removeFromSuperview()
             }
         }
-        
-        print("contentOffset \(calenderView.calendarCollectionView.contentOffset.y)")
-        
+    
         view.addSubview(todoTableView)
         view.addSubview(todoSeparatorBar)
         view.addSubview(calenderView)
-        todoSeparatorBar.addSubview(separatorLine)
         
+        todoSeparatorBar.addSubview(separatorLine)
         
         NSLayoutConstraint.activate([
             todoTableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
@@ -399,7 +417,6 @@ class CalenderVC: UIViewController{
 //        self.calenderView.calendarCollectionView.reloadData()
     }
     
-    //
     @objc func todoUpByDaySelected(_ notification: Notification){
         setCalendarVCWhenTODOShow()
         NotificationCenter.default.post(name: NSNotification.Name("changeToUp"), object: nil)
@@ -494,6 +511,12 @@ fileprivate extension UIView {
         let mask = CAShapeLayer()
         mask.path = path.cgPath
         layer.mask = mask
+    }
+}
+
+extension DateFormatter {
+    var posterFormatter:String! {
+        return "yyyy-MM-dd HH:mm:ss"
     }
 }
 

@@ -23,7 +23,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
   
 
 //
-        if let ssgToken = UserDefaults.standard.object(forKey: "SsgSagToken") {
+        if let _ = UserDefaults.standard.object(forKey: "SsgSagToken") {
             window = UIWindow(frame: UIScreen.main.bounds)
 
             window?.rootViewController = TapbarVC()

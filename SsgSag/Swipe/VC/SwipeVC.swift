@@ -114,7 +114,7 @@ class SwipeVC: UIViewController {
             }
             
             do {
-                let order = try JSONDecoder().decode(Json4Swift_Base.self, from: data)
+                let order = try JSONDecoder().decode(networkData.self, from: data)
                 if let posters = order.data?.posters {
                     for i in posters {
                         //print(i.posterName)
@@ -480,7 +480,7 @@ extension UIImageView {
                 self?.image = UIImage(data: data)
 //                self?.image?.withRenderingMode(.alwaysOriginal)
 //                self?.image = self?.image?.resize(withWidth: 100)
-                print("selfasldjasldjaslkjdlkasdj\(self?.image?.size)")
+              //  print("selfasldjasldjaslkjdlkasdj\(self?.image?.size)")
             }
         }
     }

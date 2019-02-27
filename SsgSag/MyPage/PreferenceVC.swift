@@ -150,9 +150,7 @@ class PreferenceVC: UIViewController {
         request.addValue("\(key2)", forHTTPHeaderField: "Application")
         
         NetworkManager.shared.getData(with: request) { (data, error, res) in
-            guard let data = data else {
-                return
-            }
+            
         }
     }
     

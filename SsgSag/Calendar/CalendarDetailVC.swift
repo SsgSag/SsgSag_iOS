@@ -10,8 +10,9 @@ import UIKit
 
 class CalendarDetailVC: UIViewController {
 
-    @IBOutlet var PosterImage: UIImageView!
     var Poster: Posters?
+    
+    @IBOutlet var PosterImage: UIImageView!
     @IBOutlet weak var scrollView: UIScrollView!
     
     
@@ -69,11 +70,6 @@ class CalendarDetailVC: UIViewController {
         if let period = recruitPeriodLabel.text {
             titlePeriodLabel.text = "기간 | " +  period
         }
-        
-        
-      
-
-    
     }
 //    override func viewWillAppear(_ animated: Bool) {
 //        super.viewWillAppear(true)

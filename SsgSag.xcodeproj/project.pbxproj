@@ -19,7 +19,7 @@
 		84264BAA21DF109200849E6B /* AddPassiveDateVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84264BA921DF109200849E6B /* AddPassiveDateVC.swift */; };
 		842C618521DCDC92001BA6D8 /* SignupCompleteVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842C618421DCDC92001BA6D8 /* SignupCompleteVC.swift */; };
 		842C619D21DD1807001BA6D8 /* posterData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842C619A21DD1807001BA6D8 /* posterData.swift */; };
-		842C619E21DD1807001BA6D8 /* Json4Swift_Base.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842C619B21DD1807001BA6D8 /* Json4Swift_Base.swift */; };
+		842C619E21DD1807001BA6D8 /* networkData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842C619B21DD1807001BA6D8 /* networkData.swift */; };
 		842C619F21DD1807001BA6D8 /* Posters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842C619C21DD1807001BA6D8 /* Posters.swift */; };
 		8459289B21D09CDD001DF6CC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8459289A21D09CDD001DF6CC /* AppDelegate.swift */; };
 		8459289D21D09CDD001DF6CC /* SwipeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8459289C21D09CDD001DF6CC /* SwipeVC.swift */; };
@@ -84,7 +84,6 @@
 		FAA2386721FF32B400C6DB13 /* ZoomPosterImageVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAA2386621FF32B400C6DB13 /* ZoomPosterImageVC.swift */; };
 		FAA2386F2202F34A00C6DB13 /* CareerVC + TableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAA2386E2202F34A00C6DB13 /* CareerVC + TableView.swift */; };
 		FAA238712202F37C00C6DB13 /* CareerVC + CollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAA238702202F37C00C6DB13 /* CareerVC + CollectionView.swift */; };
-		FAA238752203179F00C6DB13 /* Careers.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAA238742203179F00C6DB13 /* Careers.swift */; };
 		FAA238792203296500C6DB13 /* NonActivityCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAA238782203296500C6DB13 /* NonActivityCell.swift */; };
 		FAD25C132212CD78004B45E2 /* LoginPopUpVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAD25C122212CD78004B45E2 /* LoginPopUpVC.swift */; };
 		FAD323DB21E36FA6000C4FBA /* AddCertificationVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAD323DA21E36FA6000C4FBA /* AddCertificationVC.swift */; };
@@ -126,7 +125,7 @@
 		84264BA921DF109200849E6B /* AddPassiveDateVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPassiveDateVC.swift; sourceTree = "<group>"; };
 		842C618421DCDC92001BA6D8 /* SignupCompleteVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupCompleteVC.swift; sourceTree = "<group>"; };
 		842C619A21DD1807001BA6D8 /* posterData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = posterData.swift; sourceTree = "<group>"; };
-		842C619B21DD1807001BA6D8 /* Json4Swift_Base.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Json4Swift_Base.swift; sourceTree = "<group>"; };
+		842C619B21DD1807001BA6D8 /* networkData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = networkData.swift; sourceTree = "<group>"; };
 		842C619C21DD1807001BA6D8 /* Posters.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Posters.swift; sourceTree = "<group>"; };
 		8459289721D09CDD001DF6CC /* SsgSag.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SsgSag.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8459289A21D09CDD001DF6CC /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -205,7 +204,6 @@
 		FAA2386621FF32B400C6DB13 /* ZoomPosterImageVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZoomPosterImageVC.swift; sourceTree = "<group>"; };
 		FAA2386E2202F34A00C6DB13 /* CareerVC + TableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CareerVC + TableView.swift"; sourceTree = "<group>"; };
 		FAA238702202F37C00C6DB13 /* CareerVC + CollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CareerVC + CollectionView.swift"; sourceTree = "<group>"; };
-		FAA238742203179F00C6DB13 /* Careers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Careers.swift; sourceTree = "<group>"; };
 		FAA238782203296500C6DB13 /* NonActivityCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NonActivityCell.swift; sourceTree = "<group>"; };
 		FAD25C122212CD78004B45E2 /* LoginPopUpVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginPopUpVC.swift; sourceTree = "<group>"; };
 		FAD323DA21E36FA6000C4FBA /* AddCertificationVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddCertificationVC.swift; sourceTree = "<group>"; };
@@ -275,16 +273,6 @@
 				8415586321D8D96900A0EDB5 /* SwipeCardDelegate.swift */,
 			);
 			path = delegate;
-			sourceTree = "<group>";
-		};
-		842C618621DCEB8B001BA6D8 /* Swipe */ = {
-			isa = PBXGroup;
-			children = (
-				842C619A21DD1807001BA6D8 /* posterData.swift */,
-				842C619B21DD1807001BA6D8 /* Json4Swift_Base.swift */,
-				842C619C21DD1807001BA6D8 /* Posters.swift */,
-			);
-			path = Swipe;
 			sourceTree = "<group>";
 		};
 		8459288E21D09CDD001DF6CC = {
@@ -398,7 +386,6 @@
 				84E4EFCA21E516970051F6E6 /* Welcome.swift */,
 				FAF0DEFF21E948AB003F341F /* UserModel.swift */,
 				FA5A87F321E7D51D008C2C41 /* Career.swift */,
-				FAA238742203179F00C6DB13 /* Careers.swift */,
 				FA7F4CB721DFB0C100D8643A /* CareerVC.swift */,
 				FAA2386E2202F34A00C6DB13 /* CareerVC + TableView.swift */,
 				FAA238702202F37C00C6DB13 /* CareerVC + CollectionView.swift */,
@@ -431,7 +418,9 @@
 		84E19CD821DCC977006F72EC /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				842C618621DCEB8B001BA6D8 /* Swipe */,
+				842C619A21DD1807001BA6D8 /* posterData.swift */,
+				842C619B21DD1807001BA6D8 /* networkData.swift */,
+				842C619C21DD1807001BA6D8 /* Posters.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -811,7 +800,7 @@
 				84264BAA21DF109200849E6B /* AddPassiveDateVC.swift in Sources */,
 				FA806B9A22060A8F00EB38D6 /* Category.swift in Sources */,
 				FA806B9E2206F70900EB38D6 /* LineView.swift in Sources */,
-				842C619E21DD1807001BA6D8 /* Json4Swift_Base.swift in Sources */,
+				842C619E21DD1807001BA6D8 /* networkData.swift in Sources */,
 				FA3A342021E5127700668908 /* UserAPI.swift in Sources */,
 				FAA2386721FF32B400C6DB13 /* ZoomPosterImageVC.swift in Sources */,
 				842C619F21DD1807001BA6D8 /* Posters.swift in Sources */,
@@ -826,7 +815,6 @@
 				845928D921D09F30001DF6CC /* CalenderVC.swift in Sources */,
 				FA3A8FDB21DF3F410075A510 /* SplashVC.swift in Sources */,
 				845928E521D38771001DF6CC /* DetailImageSwipeCard.swift in Sources */,
-				FAA238752203179F00C6DB13 /* Careers.swift in Sources */,
 				84BA694D21DB74BD00BA8CB8 /* TapbarVC.swift in Sources */,
 				FA25A58221D36EC500C9FC93 /* SegmentedProgressBar.swift in Sources */,
 			);

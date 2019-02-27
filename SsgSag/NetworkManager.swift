@@ -14,11 +14,9 @@ class NetworkManager {
         self.init(.default)
     }
     
-    func getData(with: URLRequest, completion: @escaping (Data?, Error?, URLResponse?) -> Void) {
-        let task = URLSession.shared.dataTask(with: with) { (data, res, error) in
-            
+    func getData(with: URLRequest, completionHandler: @escaping (Data?, Error?, URLResponse?) -> Void) {
+        let task = URLSession.shared.dataTask(with: with) { (data, response, error) in
             if error != nil {
-                print(error?.localizedDescription)
                 print("network error")
             }
             
@@ -26,9 +24,55 @@ class NetworkManager {
                 return
             }
             
-            completion(data, nil, res)
+            completionHandler(data, nil, response)
         }
         task.resume()
     }
 }
 
+/*
+enum NetworkingErrors: Error {
+    case parsingJSON
+    case noInternetConnection
+    case dataReturnedNil
+    case returnedError(Error)
+    case invalidStatusCode(Int)
+    case customError(String)
+}
+
+
+public enum HTTPStatusCode: Int {
+    
+    // 100
+    case `continue` = 100
+    
+    // 200
+    case ok = 200
+    
+    // 400
+    case badRequest = 400
+    case unauthorized
+    case forbidden = 403
+    case notFound
+    
+    // 500
+    case internalServerError = 500
+    case notImplemented
+    case badGateway
+    
+    case `nil` = 9999
+}
+
+
+public extension HTTPURLResponse {
+    var httpStatusCode: HTTPStatusCode {
+        get {
+            guard let code = HTTPStatusCode(rawValue: statusCode) else {
+                return HTTPStatusCode.nil
+            }
+
+            return code
+        }
+    }
+}
+*/

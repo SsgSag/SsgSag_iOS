@@ -63,12 +63,12 @@ class LoginPopUpVC: UIViewController {
     }
     
     func postData(accessToken: String, loginType: Int) {
-        let loginStoryBoard = UIStoryboard(name: "LoginStoryBoard", bundle: nil)
+        //let loginStoryBoard = UIStoryboard(name: "LoginStoryBoard", bundle: nil)
         let storyboard = UIStoryboard(name: "SignupStoryBoard", bundle: nil)
         let mainVC = TapbarVC()
 //        let loginNavigator = loginStoryBoard.instantiateViewController(withIdentifier: "LoginNavigator") as! UINavigationController
         
-         let signupVC = storyboard.instantiateViewController(withIdentifier: "SignupFirst") as! UIViewController
+         let signupVC = storyboard.instantiateViewController(withIdentifier: "SignupFirst")
         let signupNavigator = UINavigationController(rootViewController: signupVC)
         
        
@@ -124,13 +124,13 @@ class LoginPopUpVC: UIViewController {
             
             do {
                 let tokenResponse = try? JSONDecoder().decode(TokenResponse.self, from: data)
-                print("/////////토큰////////")
+                //print("/////////토큰////////")
                
                 if let token = tokenResponse?.data {
-                     print(token.token)
+                     //print(token.token)
                     UserDefaults.standard.set(token.token, forKey: "SsgSagToken")
-                    print("유저디폴트")
-                    print("\(UserDefaults.standard.object(forKey: "SsgSagToken"))")
+                    //print("유저디폴트")
+                  //  print("\(UserDefaults.standard.object(forKey: "SsgSagToken"))")
                 }
             } catch {
                 print(error)
@@ -221,9 +221,9 @@ extension LoginPopUpVC: NaverThirdPartyLoginConnectionDelegate {
         Alamofire.request("https://openapi.naver.com/v1/nid/me", method: .get, parameters: nil, encoding: JSONEncoding.default, headers: ["Authorization" : authorization]).responseJSON { (response) in
             guard let result = response.result.value as? [String: Any] else {return}
             guard let object = result["response"] as? [String: Any] else {return}
-            guard let birthday = object["birthday"] as? String else {return}
-            guard let name = object["name"] as? String else {return}
-            guard let email = object["email"] as? String else {return}
+            //guard let birthday = object["birthday"] as? String else {return}
+            //guard let name = object["name"] as? String else {return}
+            //guard let email = object["email"] as? String else {return}
             
             //            self.birthLabel.text = birthday
             //            self.emailLabel.text = email

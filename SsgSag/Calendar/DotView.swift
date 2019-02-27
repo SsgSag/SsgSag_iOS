@@ -17,6 +17,7 @@ class DotView: UIView {
     @IBOutlet weak var dotView3: UIView!
     @IBOutlet weak var dotView4: UIView!
     @IBOutlet weak var dotView5: UIView!
+    
 //
 //    override init(frame: CGRect) { //for using CustomView in code
 //        super.init(frame: frame)
@@ -34,6 +35,7 @@ class DotView: UIView {
 //        contentView.frame = self.bounds
 //        contentView.autoresizingMask = [.flexibleHeight, .flexibleWidth ]
 //    }
+    
     private let xibName = "DotView"
     
     override init(frame: CGRect) {

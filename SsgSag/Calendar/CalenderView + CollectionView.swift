@@ -11,7 +11,7 @@ import Foundation
 extension CalenderView: UICollectionViewDelegate, UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        reValue = 0
+        
         if numOfDaysInMonth[currentMonth-1] + firstWeekDayOfMonth - 1 > 35 {
             reValue = 42
         }else {
@@ -22,7 +22,6 @@ extension CalenderView: UICollectionViewDelegate, UICollectionViewDataSource {
     
     fileprivate func drawDotAndLineView(_ indexPath: IndexPath, _ cell: DayCollectionViewCell) {
         let eventNum = eventDictionary[indexPath.row]!.count
-        print("eventNum \(indexPath.item) : \(eventNum)")
         
         cell.dotAndLineView1.isHidden = true
         cell.dotAndLineView2.isHidden = true
@@ -45,7 +44,7 @@ extension CalenderView: UICollectionViewDelegate, UICollectionViewDataSource {
                 }
                 
                 let dotWidth = cell.frame.width * 0.1
-                let dotTopAnchor = cell.lbl.frame.origin.y + cell.lbl.frame.height + 5
+                //let dotTopAnchor = cell.lbl.frame.origin.y + cell.lbl.frame.height + 5
                 switch eventNum {
                 case 1:
                     cell.dotAndLineView1TopAnchor?.isActive = false
@@ -770,7 +769,7 @@ extension CalenderView: UICollectionViewDelegate, UICollectionViewDataSource {
         let month = components.month!
         let day = components.day!
         
-        let currentDateString: String = "\(year)-\(month)-\(day) 00:00:00"
+        //let currentDateString: String = "\(year)-\(month)-\(day) 00:00:00"
         //        let todayDate = formatter.date(from: currentDateString)
         
         if indexPath == lastSelectedIndexPath && todoButtonTapped == false {

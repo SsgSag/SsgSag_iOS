@@ -115,7 +115,7 @@ class TodoTableViewCell: UITableViewCell {
         
         //MARK: 세로선
         borderView.addSubview(separatorView)
-//        separatorView.rightAnchor.constraint(equalTo: borderView.rightAnchor, constant: -70).isActive = true
+        //separatorView.rightAnchor.constraint(equalTo: borderView.rightAnchor, constant: -70).isActive = true
         NSLayoutConstraint(item: separatorView, attribute: .centerX, relatedBy: .equal, toItem: borderView, attribute: .centerX, multiplier: 1.6, constant: 0).isActive = true
         separatorView.topAnchor.constraint(equalTo: borderView.topAnchor, constant: 5).isActive = true
         separatorView.bottomAnchor.constraint(equalTo: borderView.bottomAnchor, constant: -5).isActive = true
@@ -132,7 +132,7 @@ class TodoTableViewCell: UITableViewCell {
             = true
         contentLabel.leadingAnchor.constraint(equalTo: borderView.leadingAnchor, constant: 18).isActive = true
         contentLabel.trailingAnchor.constraint(equalTo: separatorView.leadingAnchor, constant: -16).isActive = true
-//        contentLabel.trailingAnchor.constraint(greaterThanOrEqualTo: separatorView.leadingAnchor, constant: 8).isActive = true
+        //contentLabel.trailingAnchor.constraint(greaterThanOrEqualTo: separatorView.leadingAnchor, constant: 8).isActive = true
         
         //MARK: 날짜
         borderView.addSubview(dateLabel)
@@ -157,11 +157,11 @@ class TodoTableViewCell: UITableViewCell {
         borderView.addSubview(newImage)
         newImage.leadingAnchor.constraint(equalTo: separatorView.trailingAnchor).isActive = true
         newImage.trailingAnchor.constraint(equalTo: borderView.trailingAnchor).isActive = true
-//        newImage.centerYAnchor.constraint(equalTo: borderView.centerYAnchor).isActive = true
+        //newImage.centerYAnchor.constraint(equalTo: borderView.centerYAnchor).isActive = true
         newImage.topAnchor.constraint(equalTo: borderView.topAnchor, constant: 10).isActive = true
         newImage.bottomAnchor.constraint(equalTo: borderView.bottomAnchor, constant: -17).isActive = true
-//        newImage.widthAnchor.constraint(equalToConstant: 30).isActive = true
-//        newImage.heightAnchor.constraint(equalToConstant: 30).isActive = true
+        //newImage.widthAnchor.constraint(equalToConstant: 30).isActive = true
+        //newImage.heightAnchor.constraint(equalToConstant: 30).isActive = true
         
         newImage.image = UIImage(named: "icTaskComplete")
         newImage.isHidden = true

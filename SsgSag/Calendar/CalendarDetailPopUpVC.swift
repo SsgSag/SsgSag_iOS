@@ -39,6 +39,7 @@ class CalendarDetailPopUpVC: UIViewController {
             if #available(iOS 10, *) {
                 UIApplication.shared.open(URL(string: webURL)!)
             }
+            
             UIApplication.shared.openURL(URL(string: webURL)!)
         }
         

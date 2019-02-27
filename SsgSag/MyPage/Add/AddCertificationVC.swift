@@ -83,9 +83,7 @@ class AddCertificationVC: UIViewController, UITextFieldDelegate, UITextViewDeleg
         request.httpBody = jsonData
         
         NetworkManager.shared.getData(with: request) { (data, error, res) in
-            guard let data = data else {
-                return
-            }
+    
         }
     }
     
