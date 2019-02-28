@@ -17,13 +17,6 @@ class DayCollectionViewCell: UICollectionViewCell {
         NotificationCenter.default.addObserver(self, selector: #selector(changeToUp), name: NSNotification.Name("changeToUp"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(changeToDown), name: NSNotification.Name("changeToDown"), object: nil)
         
-        //layoutSubviews()
-        setupViews()
-    }
-    
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        
         setupViews()
     }
     
@@ -31,11 +24,12 @@ class DayCollectionViewCell: UICollectionViewCell {
         super.layoutIfNeeded()
         
         if todoStatus == .todoShow {
-            dotAndLineView1.layer.cornerRadius = dotAndLineView1.frame.width / 2
-            dotAndLineView2.layer.cornerRadius = dotAndLineView2.frame.width / 2
-            dotAndLineView3.layer.cornerRadius = dotAndLineView3.frame.width / 2
-            dotAndLineView4.layer.cornerRadius = dotAndLineView4.frame.width / 2
-            dotAndLineView5.layer.cornerRadius = dotAndLineView5.frame.width / 2
+
+            dotAndLineView1.circleView()
+            dotAndLineView2.circleView()
+            dotAndLineView3.circleView()
+            dotAndLineView4.circleView()
+            dotAndLineView5.circleView()
             
         } else {
             
@@ -46,9 +40,6 @@ class DayCollectionViewCell: UICollectionViewCell {
             dotAndLineView5.applyRadius(radius: 0)
         }
     }
-    
-    
-
     
     @objc func changeToUp() {
         todoStatus = .todoShow
@@ -128,6 +119,32 @@ class DayCollectionViewCell: UICollectionViewCell {
         dotAndLineView5WidthAnchor = dotAndLineView5.widthAnchor.constraint(equalToConstant: dotWidth)
         dotAndLineView5HeightAnchor = dotAndLineView5.heightAnchor.constraint(equalToConstant: dotWidth)
         dotAndLineView5CenterXAnchor = NSLayoutConstraint(item: dotAndLineView5, attribute: .centerX, relatedBy: .equal, toItem: self, attribute: .centerX, multiplier: 1, constant: 6)
+        
+        dotAndLineView1WidthAnchor.identifier = "dotAndLineView1WidthAnchor"
+        dotAndLineView1TopAnchor.identifier = "dotAndLineView1TopAnchor"
+        dotAndLineView1HeightAnchor.identifier = "dotAndLineView1HeightAnchor"
+        dotAndLineView1CenterXAnchor.identifier = "dotAndLineView1CenterXAnchor"
+        
+        dotAndLineView2WidthAnchor.identifier = "dotAndLineView2WidthAnchor"
+        dotAndLineView2TopAnchor.identifier = "dotAndLineView2TopAnchor"
+        dotAndLineView2HeightAnchor.identifier = "dotAndLineView2HeightAnchor"
+        dotAndLineView2CenterXAnchor.identifier = "dotAndLineView2CenterXAnchor"
+        
+        dotAndLineView3WidthAnchor.identifier = "dotAndLineView3WidthAnchor"
+        dotAndLineView3TopAnchor.identifier = "dotAndLineView3TopAnchor"
+        dotAndLineView3HeightAnchor.identifier = "dotAndLineView3HeightAnchor"
+        dotAndLineView3CenterXAnchor.identifier = "dotAndLineView3CenterXAnchor"
+        
+        dotAndLineView4WidthAnchor.identifier = "dotAndLineView4WidthAnchor"
+        dotAndLineView4TopAnchor.identifier = "dotAndLineView4TopAnchor"
+        dotAndLineView4HeightAnchor.identifier = "dotAndLineView4HeightAnchor"
+        dotAndLineView4CenterXAnchor.identifier = "dotAndLineView4CenterXAnchor"
+        
+        dotAndLineView4WidthAnchor.identifier = "dotAndLineView4WidthAnchor"
+        dotAndLineView4TopAnchor.identifier = "dotAndLineView4TopAnchor"
+        dotAndLineView4HeightAnchor.identifier = "dotAndLineView4HeightAnchor"
+        dotAndLineView4CenterXAnchor.identifier = "dotAndLineView4CenterXAnchor"
+        
     }
     
     //일
@@ -415,16 +432,10 @@ class DayCollectionViewCell: UICollectionViewCell {
                 break
             }
             
-            dotAndLineView1.layer.cornerRadius = dotAndLineView1.frame.width / 2
-            dotAndLineView2.layer.cornerRadius = dotAndLineView2.frame.width / 2
-            dotAndLineView3.layer.cornerRadius = dotAndLineView3.frame.width / 2
-            dotAndLineView4.layer.cornerRadius = dotAndLineView4.frame.width / 2
-            dotAndLineView5.layer.cornerRadius = dotAndLineView5.frame.width / 2
-
         } else {
             switch eventNum {
             case 1:
-                dotAndLineView1.isHidden = false
+                
         
                 dotAndLineView1TopAnchor.constant = 4
                 dotAndLineView1WidthAnchor.constant = lineWidth
@@ -437,6 +448,11 @@ class DayCollectionViewCell: UICollectionViewCell {
                     dotAndLineView1HeightAnchor,
                     dotAndLineView1CenterXAnchor
                     ])
+                
+                
+                
+                dotAndLineView1.isHidden = false
+        
             case 2:
                 
                 dotAndLineView1.isHidden = false
@@ -551,7 +567,6 @@ class DayCollectionViewCell: UICollectionViewCell {
                     ])
                 
             case 5:
-                
                 dotAndLineView1.isHidden = false
                 dotAndLineView2.isHidden = false
                 dotAndLineView3.isHidden = false
@@ -613,16 +628,14 @@ class DayCollectionViewCell: UICollectionViewCell {
             default:
                 break
             }
-            
-            dotAndLineView1.applyRadius(radius: 0)
-            dotAndLineView2.applyRadius(radius: 0)
-            dotAndLineView3.applyRadius(radius: 0)
-            dotAndLineView4.applyRadius(radius: 0)
-            dotAndLineView5.applyRadius(radius: 0)
+
         }
-    
-        
     }
-    
-    
+}
+
+extension NSLayoutConstraint {
+    override open var description: String {
+        let id = identifier ?? ""
+        return "id: \(id), constant: \(constant)" //you may print whatever you want here
+    }
 }
