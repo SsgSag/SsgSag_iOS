@@ -86,6 +86,7 @@ class CalenderVC: UIViewController {
         setPosterTuple()
         
         setTodoTableView()
+        
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -146,11 +147,14 @@ class CalenderVC: UIViewController {
         view.addSubview(calenderView)
         view.addSubview(todoListButton)
         
+        let todoTableViewHeightAnchor = todoTableView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.4)
+        todoTableViewHeightAnchor.priority = UILayoutPriority(750)
+        
         NSLayoutConstraint.activate([
             todoTableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             todoTableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             todoTableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-            todoTableView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.4),
+            todoTableViewHeightAnchor,
             
             todoSeparatorBar.bottomAnchor.constraint(equalTo: todoTableView.topAnchor),
             todoSeparatorBar.leftAnchor.constraint(equalTo: view.leftAnchor),
@@ -357,6 +361,7 @@ class CalenderVC: UIViewController {
                     todoTableData.append(i)
                 }
             }
+            
             self.todoListButton.isHidden = true
             self.todoTableView.reloadData()
         }
@@ -377,11 +382,14 @@ class CalenderVC: UIViewController {
         
         todoSeparatorBar.addSubview(separatorLine)
         
+        let todotableViewBottomAnchor: NSLayoutConstraint = todoTableView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.35)
+        todotableViewBottomAnchor.priority = UILayoutPriority(750)
+        
         NSLayoutConstraint.activate([
             todoTableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             todoTableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             todoTableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-            todoTableView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.4),
+            todotableViewBottomAnchor,
             
             todoSeparatorBar.bottomAnchor.constraint(equalTo: todoTableView.topAnchor),
             todoSeparatorBar.leftAnchor.constraint(equalTo: view.leftAnchor),
@@ -469,11 +477,11 @@ class CalenderVC: UIViewController {
             }
         }
     
-        
-        calenderView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 50).isActive = true
+        calenderView.topAnchor.constraint(equalTo: self.tabBarController?.tabBar.bottomAnchor ?? .init(), constant:5).isActive = true
         calenderView.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
         calenderView.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
-        calenderView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor).isActive = true
+        calenderView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
+        
         todoListButton.isHidden = true
         
         

@@ -197,7 +197,7 @@ class CalenderView: UIView, MonthViewDelegate {
     func setupViews() {
         //월
         addSubview(monthView)
-        monthView.topAnchor.constraint(equalTo: topAnchor).isActive=true
+        monthView.topAnchor.constraint(equalTo: topAnchor).isActive = true
         monthView.leftAnchor.constraint(equalTo: leftAnchor, constant: 12).isActive=true
         monthView.rightAnchor.constraint(equalTo: rightAnchor, constant: -12).isActive=true
         monthView.heightAnchor.constraint(equalToConstant: 28).isActive=true
@@ -206,13 +206,13 @@ class CalenderView: UIView, MonthViewDelegate {
         
         //월화수목금토
         addSubview(weekdaysView)
-        weekdaysView.topAnchor.constraint(equalTo: monthView.bottomAnchor).isActive=true
+        weekdaysView.topAnchor.constraint(equalTo: monthView.bottomAnchor, constant: 4).isActive=true
         weekdaysView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 12).isActive = true
         weekdaysView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -12).isActive = true
-        weekdaysView.heightAnchor.constraint(equalToConstant: 27).isActive = true
+        weekdaysView.heightAnchor.constraint(equalToConstant: 15).isActive = true
         
         addSubview(calendarCollectionView)
-        calendarCollectionView.topAnchor.constraint(equalTo: weekdaysView.bottomAnchor).isActive = true
+        calendarCollectionView.topAnchor.constraint(equalTo: weekdaysView.bottomAnchor, constant: 4).isActive = true
         calendarCollectionView.leftAnchor.constraint(equalTo: leftAnchor, constant: 12).isActive = true
         calendarCollectionView.rightAnchor.constraint(equalTo: rightAnchor, constant: -12).isActive = true
         calendarCollectionView.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
@@ -235,11 +235,13 @@ class CalenderView: UIView, MonthViewDelegate {
         layout.sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
         
         let myCollectionView = UICollectionView(frame: CGRect.zero, collectionViewLayout: layout)
-        myCollectionView.showsHorizontalScrollIndicator = true
+        myCollectionView.showsHorizontalScrollIndicator = false
+        myCollectionView.showsVerticalScrollIndicator = false
         myCollectionView.isScrollEnabled = false
         myCollectionView.translatesAutoresizingMaskIntoConstraints=false
         myCollectionView.backgroundColor=UIColor.clear
-        myCollectionView.allowsMultipleSelection=false
+        myCollectionView.allowsMultipleSelection = false
+        
         return myCollectionView
     }()
     
