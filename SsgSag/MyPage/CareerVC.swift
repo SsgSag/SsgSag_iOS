@@ -15,10 +15,11 @@ class CareerVC: UIViewController {
     let certificationTableView: UITableView = UITableView(frame: CGRect.zero, style: .grouped)
     var indicatorViewLeadingConstraint: NSLayoutConstraint!
     
-    lazy var activityList: [Datum] = []
-    lazy var prizeList: [Datum] = []
-    lazy var certificationList: [Datum] = []
+    lazy var activityList: [careerData] = []
+    lazy var prizeList: [careerData] = []
+    lazy var certificationList: [careerData] = []
     
+    private var latestContentOffsetX: CGFloat = 0
     
     var customTabBarCollectionView: UICollectionView = {
         let collectionViewLayout = UICollectionViewFlowLayout()
@@ -31,19 +32,6 @@ class CareerVC: UIViewController {
     var indicatorView: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
-//        view.backgroundColor = UIColor.rgb(red: 155, green: 65, blue: 250)
-        
-        //        view.setGradient(from: UIColor.rgb(red: 65, green: 163, blue: 255), to: UIColor.rgb(red: 155, green: 65, blue: 250))
-        //        var gradient = CAGradientLayer()
-        //        gradient.frame = view.bounds
-        //
-        //        gradient.colors = [
-        //            UIColor.rgb(red: 65, green: 163, blue: 255).cgColor, // Top
-        //            UIColor.rgb(red: 155, green: 65, blue: 250).cgColor
-        //        ]
-        //        gradient.startPoint = CGPoint(x: 0, y: 0.5)
-        //        gradient.endPoint = CGPoint(x: 1, y: 0.5)
-        //        view.layer.addSublayer(gradient)
         return view
     }()
     
@@ -54,15 +42,24 @@ class CareerVC: UIViewController {
         return view
     }()
     
-    
-    
-    
     @IBOutlet weak var scrollView: UIScrollView!
     
-    
-    //MARK: ViewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        setupScrollView()
+        
+        setUpTableView()
+        
+        setTableViewPosition()
+        
+        setUpCustomTabBar()
+        
+        setupTablViewRegister()
+        
+    }
+    
+    private func setupScrollView() {
         scrollView.delegate = self
         scrollView.backgroundColor = UIColor.rgb(red: 242, green: 243, blue: 245)
         scrollView.isPagingEnabled = true
@@ -70,37 +67,30 @@ class CareerVC: UIViewController {
         scrollView.showsVerticalScrollIndicator = false
         
         
-        setUpTableView()
-        setTableViewPosition()
-        setUpCustomTabBar()
-        
+    }
+    
+    private func setupTablViewRegister() {
         let activityNib = UINib(nibName: "ActivityCell", bundle: nil)
         activityTableView.register(activityNib, forCellReuseIdentifier: "ActivityCell")
         let prizeNib = UINib(nibName: "PrizeCell", bundle: nil)
         prizeTableView.register(prizeNib, forCellReuseIdentifier: "PrizeCell")
         let certificationNib = UINib(nibName: "CertificationCell", bundle: nil)
         certificationTableView.register(certificationNib, forCellReuseIdentifier: "CertificationCell")
-        
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-    }
-    
-    func setUpCollectionView(){
+    private func setUpCollectionView(){
         customTabBarCollectionView.delegate = self
         customTabBarCollectionView.dataSource = self
         customTabBarCollectionView.backgroundColor = .white
         customTabBarCollectionView.showsHorizontalScrollIndicator = false
+        
         let customNib = UINib(nibName: "CustomCareerCell", bundle: nil)
         customTabBarCollectionView.register(customNib, forCellWithReuseIdentifier: "CustomCareerCell")
         customTabBarCollectionView.isScrollEnabled = false
     }
     
     @objc func dismissModal(){
-        
         self.dismiss(animated: true, completion: nil)
-//        navigationController?.popViewController(animated: true)
     }
     
     func setUpCustomTabBar(){
@@ -109,9 +99,14 @@ class CareerVC: UIViewController {
         let navigationBar = UINavigationBar()
         navigationBar.translatesAutoresizingMaskIntoConstraints = false
         self.view.addSubview(navigationBar)
+        
         navigationBar.leadingAnchor.constraint(equalTo: self.view.leadingAnchor).isActive = true
         navigationBar.trailingAnchor.constraint(equalTo: self.view.trailingAnchor).isActive = true
         navigationBar.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor).isActive = true
+        
+        scrollView.translatesAutoresizingMaskIntoConstraints = false
+        scrollView.topAnchor.constraint(equalTo: navigationBar.bottomAnchor, constant: 60).isActive = true
+        
         let backButton = UIBarButtonItem(image: UIImage(named: "icArrowBack"),
                                          style: .plain,
                                          target: self,
@@ -127,14 +122,10 @@ class CareerVC: UIViewController {
         self.navigationItem.leftBarButtonItem?.tintColor = .black
         self.navigationItem.title = "이력"
         
-        scrollView.translatesAutoresizingMaskIntoConstraints = false
-        scrollView.topAnchor.constraint(equalTo: navigationBar.bottomAnchor, constant: 60).isActive = true
-        
         self.view.addSubview(customTabBar)
         customTabBar.leadingAnchor.constraint(equalTo: self.view.leadingAnchor).isActive = true
         customTabBar.trailingAnchor.constraint(equalTo: self.view.trailingAnchor).isActive = true
         customTabBar.topAnchor.constraint(equalTo: navigationBar.bottomAnchor).isActive = true
-        
         customTabBar.heightAnchor.constraint(equalToConstant: 50).isActive = true
         
         customTabBar.addSubview(customTabBarCollectionView)
@@ -157,15 +148,11 @@ class CareerVC: UIViewController {
         let gradientLayer = CAGradientLayer()
         gradientLayer.frame = CGRect(x: 0, y: 0, width: view.frame.width/3, height: 3)
         gradientLayer.colors = [color1.cgColor, color2.cgColor]
-//        gradientLayer.locations = [0.3, 0.7]
         gradientLayer.startPoint = CGPoint(x: 0.0, y: 0.0)
         gradientLayer.endPoint = CGPoint(x: 1.0, y: 0.0)
         indicatorView.layer.insertSublayer(gradientLayer, at: 0)
         
     }
-    
-    private var latestContentOffsetX: CGFloat = 0
-    
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         if scrollView.contentOffset.x != latestContentOffsetX {
@@ -179,7 +166,7 @@ class CareerVC: UIViewController {
         }
     }
 
-    
+
     func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
         if scrollView.contentOffset.x != latestContentOffsetX {
             if scrollView == scrollView {
@@ -339,9 +326,6 @@ class CareerVC: UIViewController {
             
             do {
                 let apiResponse = try JSONDecoder().decode(Career.self, from: data)
-                
-                print("커리어타이뿌: \(careerType)")
-                print("orders: \(apiResponse)")
                 
                 if careerType == 0 {
                     print("00000000")

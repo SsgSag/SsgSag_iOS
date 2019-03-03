@@ -56,29 +56,7 @@ extension CareerVC : UICollectionViewDelegate, UICollectionViewDataSource, UICol
         UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.9, initialSpringVelocity: 1, options: .curveEaseOut, animations: {
             self.customTabBar.layoutIfNeeded()
         }, completion: nil)
-        
-        let myPageStoryBoard = UIStoryboard(name: "MyPageStoryBoard", bundle: nil)
-        
-//        if indexPath.row == 0 {
-//            if plusButton.target(forAction: #selector(addPresentAction), withSender: nil) != nil{
-//                plusButton.removeTarget(self, action: #selector(addPresentAction), for: .touchUpInside)
-//            }
-//            
-//            plusButton.addTarget(self, action: #selector(addActivityPresentAction), for: .touchUpInside)
-//        }else if indexPath.row == 1{
-//            if plusButton.target(forAction: #selector(addActivityPresentAction), withSender: nil) != nil{
-//                plusButton.removeTarget(self, action: #selector(addActivityPresentAction), for: .touchUpInside)
-//            }
-//            plusButton.addTarget(self, action: #selector(addPresentAction), for: .touchUpInside)
-//            
-//        }else {
-//            if plusButton.target(forAction: #selector(addActivityPresentAction), withSender: nil) != nil{
-//                plusButton.removeTarget(self, action: #selector(addActivityPresentAction), for: .touchUpInside)
-//            }
-//            plusButton.addTarget(self, action: #selector(certifiPresenAction), for: .touchUpInside)
-//        }
-        
-        
+
         DispatchQueue.main.async {
             UIView.animate(withDuration: 0.2, delay: 0, options: .curveLinear, animations: {
                 self.scrollView.contentOffset.x = self.view.frame.width * CGFloat(indexPath.row)

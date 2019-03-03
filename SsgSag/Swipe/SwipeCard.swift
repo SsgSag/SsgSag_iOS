@@ -143,14 +143,14 @@ class SwipeCard: UIView {
         request.httpBody = jsonData
         
         NetworkManager.shared.getData(with: request) { (data, err, res) in
-            guard let data = data else {
-                return
-            }
-            do {
-                let order = try JSONDecoder().decode(Json4Swift_Base.self, from: data)
-            } catch {
-                print("JSON Parising Error")
-            }
+//            guard let data = data else {
+//                return
+//            }
+//            do {
+//                //let order = try JSONDecoder().decode(networkData.self, from: data)
+//            } catch {
+//                print("JSON Parising Error")
+//            }
         }
     }
     

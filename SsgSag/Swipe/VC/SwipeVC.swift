@@ -3,8 +3,6 @@ let  SEPERATOR_DISTANCE = 8;
 let  TOPYAXIS = 75;
 
 import UIKit
-import Alamofire
-import ObjectMapper
 import Lottie
 
 class SwipeVC: UIViewController {
@@ -106,8 +104,11 @@ class SwipeVC: UIViewController {
 //                request.addValue(savedToken, forHTTPHeaderField: "Authorization")
 //        }
         
-        let key2 = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJEb0lUU09QVCIsInVzZXJfaWR4IjoxfQ.5lCvAqnzYP4-2pFx1KTgLVOxYzBQ6ygZvkx5jKCFM08"
-        request.addValue(key2, forHTTPHeaderField: "Authorization")
+        guard let key = UserDefaults.standard.object(forKey: "SsgSagToken") as? String else {
+            fatalError("SsgSagToken is not exist")
+        }
+
+        request.addValue(key, forHTTPHeaderField: "Authorization")
         //request.allHTTPHeaderFields = ["Authorization": "9_JkQE5SPfD0k1SbplKR2cU39g-l2MfOofz2lgoqAuYAAAFosk3w-w"]
         
         NetworkManager.shared.getData(with: request) { (data, err, res) in
@@ -116,7 +117,7 @@ class SwipeVC: UIViewController {
             }
             
             do {
-                let order = try JSONDecoder().decode(Json4Swift_Base.self, from: data)
+                let order = try JSONDecoder().decode(networkData.self, from: data)
                 if let posters = order.data?.posters {
                     for i in posters {
                         //print(i.posterName)
@@ -312,7 +313,6 @@ class SwipeVC: UIViewController {
                 if let hashTagArr = valueArray[i].posterInterest {
                     var text = ""
                     for i in hashTagArr{
-
                         switch i {
                         case 0:
                             text = text + "#기획/아이디어"
@@ -483,7 +483,7 @@ extension UIImageView {
                 self?.image = UIImage(data: data)
 //                self?.image?.withRenderingMode(.alwaysOriginal)
 //                self?.image = self?.image?.resize(withWidth: 100)
-                print("selfasldjasldjaslkjdlkasdj\(self?.image?.size)")
+              //  print("selfasldjasldjaslkjdlkasdj\(self?.image?.size)")
             }
         }
     }

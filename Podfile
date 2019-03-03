@@ -8,9 +8,6 @@ target 'SsgSag' do
   # Pods for SsgSag
 	
   pod 'Alamofire'
-  pod 'AlamofireObjectMapper'
-  pod 'ObjectMapper'
-  pod 'Kingfisher'
   pod 'lottie-ios'
   pod 'naveridlogin-sdk-ios'
   pod 'SearchTextField'

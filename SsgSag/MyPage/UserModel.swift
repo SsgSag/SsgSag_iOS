@@ -1,15 +1,3 @@
-//
-//  User.swift
-//  SsgSag
-//
-//  Created by CHOMINJI on 2019. 1. 12..
-//  Copyright © 2019년 wndzlf. All rights reserved.
-//
-
-// To parse the JSON, add this file to your project and do:
-//
-//   let career = try? newJSONDecoder().decode(Career.self, from: jsonData)
-
 import Foundation
 
 struct UserModel: Codable {
