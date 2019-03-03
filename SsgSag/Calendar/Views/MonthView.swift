@@ -84,17 +84,20 @@ class MonthView: UIView {
     
     func setupViews() {
         self.addSubview(monthName)
-        monthName.topAnchor.constraint(equalTo: topAnchor).isActive=true
-        monthName.centerXAnchor.constraint(equalTo: centerXAnchor).isActive=true
+        
+        monthName.topAnchor.constraint(equalTo: topAnchor).isActive = true
+        monthName.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 12).isActive = true
+        //monthName.centerXAnchor.constraint(equalTo: centerXAnchor).isActive=true
+        
         monthName.text="\(currentYear) \(monthsArr[currentMonthIndex])"
         
-        self.addSubview(btnRight)
-        btnRight.topAnchor.constraint(equalTo: topAnchor).isActive=true
-        btnRight.rightAnchor.constraint(equalTo: rightAnchor).isActive=true
-
-        self.addSubview(btnLeft)
-        btnLeft.topAnchor.constraint(equalTo: topAnchor).isActive=true
-        btnLeft.leftAnchor.constraint(equalTo: leftAnchor).isActive=true
+//        self.addSubview(btnRight)
+//        btnRight.topAnchor.constraint(equalTo: topAnchor).isActive=true
+//        btnRight.rightAnchor.constraint(equalTo: rightAnchor).isActive=true
+//
+//        self.addSubview(btnLeft)
+//        btnLeft.topAnchor.constraint(equalTo: topAnchor).isActive=true
+//        btnLeft.leftAnchor.constraint(equalTo: leftAnchor).isActive=true
 
 
     }

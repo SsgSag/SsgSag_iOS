@@ -142,6 +142,9 @@ class CalenderView: UIView, MonthViewDelegate {
         monthView.btnLeft.setTitleColor(Style.monthViewBtnLeftColor, for: .normal)
         for i in 0..<7 {
             (weekdaysView.myStackView.subviews[i] as! UILabel).textColor = .black
+            if i == 0 {
+                (weekdaysView.myStackView.subviews[i] as! UILabel).textColor = .red
+            }
         }
     }
     

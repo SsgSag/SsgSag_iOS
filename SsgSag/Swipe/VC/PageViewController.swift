@@ -111,7 +111,6 @@ class PageViewController: UIPageViewController, UIPageViewControllerDelegate, UI
     
     @objc func tapOn(_ sender: UITapGestureRecognizer) {
         self.view.layer.backgroundColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
-        print("탭탭탭탭탭탭탭탭탭탭탭탭탭탭탭탭탭탭탭탭탭탭탭탭탭탭탭탭탭탭탭탭탭탭탭탭탭탭탭탭")
         view.backgroundColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
         
         if pageIndex == 0 {
@@ -130,7 +129,6 @@ class PageViewController: UIPageViewController, UIPageViewControllerDelegate, UI
             orderedViewControllers[1].view.isHidden = false
             pageStatus = 1
         }
-        
     }
     
     //MARK: - Play or show image
