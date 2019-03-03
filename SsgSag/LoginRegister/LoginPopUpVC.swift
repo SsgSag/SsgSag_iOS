@@ -41,9 +41,7 @@ class LoginPopUpVC: UIViewController {
             s.open { (error) in
                 if error == nil {
                     if s.isOpen() {
-                        
-                        print("success")
-                        print("kakao_token: \(s.token.accessToken)")
+    
                         self.postData(accessToken: s.token.accessToken, loginType: 0)
                         
                     } else {
