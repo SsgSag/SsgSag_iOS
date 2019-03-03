@@ -138,30 +138,30 @@ extension CalenderView: UICollectionViewDelegate, UICollectionViewDataSource {
             }
         }
         
-        let date1 = "2019-02-11 14:59:59"
-        let date2 = "2019-02-11 15:59:59"
-        let date3 = "2019-02-11 16:59:59"
-        let date4 = "2019-02-11 16:59:59"
-        let date5 = "2019-02-11 16:59:59"
-
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
-
-        let endDate1 = dateFormatter.date(from: date1)!
-        let endDate2 = dateFormatter.date(from: date2)!
-        let endDate3 = dateFormatter.date(from: date3)!
-        let endDate4 = dateFormatter.date(from: date4)!
-        //let endDate5 = dateFormatter.date(from: date4)!
-
-        if indexPath.item == 15 {
-            eventDictionary[indexPath.row]?.append(event.init(eventDate: endDate1, title: "가가", categoryIdx: 1))
-
-            eventDictionary[indexPath.row]?.append(event.init(eventDate: endDate2, title: "니나", categoryIdx: 2))
-
-            eventDictionary[indexPath.row]?.append(event.init(eventDate: endDate3, title: "다다", categoryIdx: 3))
-
-            eventDictionary[indexPath.row]?.append(event.init(eventDate: endDate3, title: "라라", categoryIdx: 3))
-        }
+//        let date1 = "2019-02-11 14:59:59"
+//        let date2 = "2019-02-11 15:59:59"
+//        let date3 = "2019-02-11 16:59:59"
+//        let date4 = "2019-02-11 16:59:59"
+//        let date5 = "2019-02-11 16:59:59"
+//
+//        let dateFormatter = DateFormatter()
+//        dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+//
+//        let endDate1 = dateFormatter.date(from: date1)!
+//        let endDate2 = dateFormatter.date(from: date2)!
+//        let endDate3 = dateFormatter.date(from: date3)!
+//        let endDate4 = dateFormatter.date(from: date4)!
+//        //let endDate5 = dateFormatter.date(from: date4)!
+//
+//        if indexPath.item == 15 {
+//            eventDictionary[indexPath.row]?.append(event.init(eventDate: endDate1, title: "가가", categoryIdx: 1))
+//
+//            eventDictionary[indexPath.row]?.append(event.init(eventDate: endDate2, title: "니나", categoryIdx: 2))
+//
+//            eventDictionary[indexPath.row]?.append(event.init(eventDate: endDate3, title: "다다", categoryIdx: 3))
+//
+//            eventDictionary[indexPath.row]?.append(event.init(eventDate: endDate3, title: "라라", categoryIdx: 3))
+//        }
         
         //eventDictionary[indexPath.row]?.append(event.init(eventDate: endDate3, title: "마마", categoryIdx: 3))
         

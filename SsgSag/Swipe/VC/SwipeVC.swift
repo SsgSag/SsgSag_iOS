@@ -104,8 +104,11 @@ class SwipeVC: UIViewController {
 //                request.addValue(savedToken, forHTTPHeaderField: "Authorization")
 //        }
         
-        let key2 = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJEb0lUU09QVCIsInVzZXJfaWR4IjoxfQ.5lCvAqnzYP4-2pFx1KTgLVOxYzBQ6ygZvkx5jKCFM08"
-        request.addValue(key2, forHTTPHeaderField: "Authorization")
+        guard let key = UserDefaults.standard.object(forKey: "SsgSagToken") as? String else {
+            fatalError("SsgSagToken is not exist")
+        }
+
+        request.addValue(key, forHTTPHeaderField: "Authorization")
         //request.allHTTPHeaderFields = ["Authorization": "9_JkQE5SPfD0k1SbplKR2cU39g-l2MfOofz2lgoqAuYAAAFosk3w-w"]
         
         NetworkManager.shared.getData(with: request) { (data, err, res) in

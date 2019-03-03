@@ -9,6 +9,8 @@ class CalenderVC: UIViewController {
     
     var posterTuples:[(Date, Date, Int, Int, String, Int)] = []
     
+    var eventDictionary: [Int:[event]] = [:]
+    
     let calenderView: CalenderView = {
         let v = CalenderView(theme: MyTheme.light)
         v.translatesAutoresizingMaskIntoConstraints=false
@@ -360,6 +362,7 @@ class CalenderVC: UIViewController {
         
         todoStatus = .todoNotShow
         calenderView.calendarCollectionView.reloadData()
+        
         print("contentOffset \(calenderView.calendarCollectionView.contentOffset.y)")
     }
     
@@ -449,7 +452,7 @@ class CalenderVC: UIViewController {
             
             ])
         
-        todoTableView.rowHeight = todoTableView.frame.height / 3.5
+        todoTableView.rowHeight = todoTableView.frame.height / 3
         
         todoTableView.dataSource = self
         

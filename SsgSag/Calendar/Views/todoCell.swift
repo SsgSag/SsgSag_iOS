@@ -73,7 +73,7 @@ class TodoTableViewCell: UITableViewCell {
         lb.font = UIFont.systemFont(ofSize: 34, weight: .medium)
         lb.adjustsFontSizeToFitWidth = true
         lb.textAlignment = .center
-        lb.text = "3"
+        lb.text = "X"
         return lb
     }()
     
