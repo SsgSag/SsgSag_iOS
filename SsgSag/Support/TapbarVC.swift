@@ -24,28 +24,14 @@ class TapbarVC: UITabBarController {
         let thirdViewController = CalenderVC()
         thirdViewController.tabBarItem = UITabBarItem(title: "", image: UIImage(named: "icCal"), selectedImage: UIImage(named: "icCalActive"))
         
-        
         let tabBarList = [secondViewController, firstViewController, thirdViewController]
-        self.viewControllers = tabBarList
         
-        //self.view.superview?.addSubview(self.tabBar)
-        //self.view.addSubview(self.tabBar)
-        //self.view.bringSubviewToFront(self.tabBar)
-        //self.view.sendSubviewToBack(self.tabBar)
+        self.viewControllers = tabBarList
         
         self.tabBar.barTintColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
         self.tabBar.layer.borderColor = UIColor.clear.cgColor
         self.tabBar.barStyle = .black
         
-        
-        for i in self.view.subviews {
-            print("\(i.description) 탭바 컨트롤러")
-        }
-        
-        print("\(self.view.subviews.count) 탭바 컨트롤러 개수")
-        
-        
-        //self.tabBarController.selectedIndex = 2
         self.selectedIndex = 1
     }
     
@@ -57,6 +43,5 @@ class TapbarVC: UITabBarController {
         let barHeight: CGFloat = 56
         tabFrame.size.height = barHeight
         self.tabBar.frame = tabFrame
-        
     }
 }

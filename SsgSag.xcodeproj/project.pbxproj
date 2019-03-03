@@ -314,10 +314,10 @@
 		8459289921D09CDD001DF6CC /* SsgSag */ = {
 			isa = PBXGroup;
 			children = (
-				FA82437D221C383A00F9B26E /* SsgSag.entitlements */,
-				FA61FE1221E1D48D00A28947 /* .gitignore */,
-				8459289A21D09CDD001DF6CC /* AppDelegate.swift */,
-				84BA694C21DB74BD00BA8CB8 /* TapbarVC.swift */,
+				84A8AF2F2200782800CE72F8 /* Kakao_Header.h */,
+				845928A921D09CE0001DF6CC /* Info.plist */,
+				845C7CD2222B921C003AA9C7 /* Enum */,
+				845C7CD1222B9204003AA9C7 /* Extension */,
 				84E19CD821DCC977006F72EC /* Models */,
 				84E19CCB21DCC922006F72EC /* APIServices */,
 				FAF0DF0121E95B31003F341F /* Splash */,
@@ -327,12 +327,7 @@
 				84BA694721DB391D00BA8CB8 /* MyPage */,
 				FAAFB58721D3B5E5006BF728 /* Swipe */,
 				845928DD21D09F38001DF6CC /* Calendar */,
-				FAAFB58821D3B6B8006BF728 /* Assets */,
-				845928A921D09CE0001DF6CC /* Info.plist */,
-				84A8AF2F2200782800CE72F8 /* Kakao_Header.h */,
-				FA806B9922060A8F00EB38D6 /* Category.swift */,
-				FA3A8FD821DF3D5F0075A510 /* Extension.swift */,
-				FAFB87D122145ABE002CDED9 /* NetworkManager.swift */,
+				FAAFB58821D3B6B8006BF728 /* Support */,
 			);
 			path = SsgSag;
 			sourceTree = "<group>";
@@ -380,6 +375,22 @@
 				FAD25C122212CD78004B45E2 /* LoginPopUpVC.swift */,
 			);
 			path = LoginRegister;
+			sourceTree = "<group>";
+		};
+		845C7CD1222B9204003AA9C7 /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				FA3A8FD821DF3D5F0075A510 /* Extension.swift */,
+			);
+			path = Extension;
+			sourceTree = "<group>";
+		};
+		845C7CD2222B921C003AA9C7 /* Enum */ = {
+			isa = PBXGroup;
+			children = (
+				FA806B9922060A8F00EB38D6 /* Category.swift */,
+			);
+			path = Enum;
 			sourceTree = "<group>";
 		};
 		84BA694721DB391D00BA8CB8 /* MyPage */ = {
@@ -486,13 +497,18 @@
 			path = Swipe;
 			sourceTree = "<group>";
 		};
-		FAAFB58821D3B6B8006BF728 /* Assets */ = {
+		FAAFB58821D3B6B8006BF728 /* Support */ = {
 			isa = PBXGroup;
 			children = (
+				FA82437D221C383A00F9B26E /* SsgSag.entitlements */,
+				FA61FE1221E1D48D00A28947 /* .gitignore */,
+				8459289A21D09CDD001DF6CC /* AppDelegate.swift */,
+				84BA694C21DB74BD00BA8CB8 /* TapbarVC.swift */,
+				FAFB87D122145ABE002CDED9 /* NetworkManager.swift */,
 				845928A421D09CE0001DF6CC /* Assets.xcassets */,
 				845928A121D09CDD001DF6CC /* SsgSag.xcdatamodeld */,
 			);
-			path = Assets;
+			path = Support;
 			sourceTree = "<group>";
 		};
 		FAF0DF0121E95B31003F341F /* Splash */ = {

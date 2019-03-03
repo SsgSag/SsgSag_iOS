@@ -19,11 +19,9 @@ class NetworkManager {
             if error != nil {
                 print("network error")
             }
-            
             guard let data = data else {
                 return
             }
-            
             completionHandler(data, nil, response)
         }
         task.resume()

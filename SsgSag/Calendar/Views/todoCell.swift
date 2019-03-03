@@ -166,17 +166,10 @@ class TodoTableViewCell: UITableViewCell {
         newImage.image = UIImage(named: "icTaskComplete")
         newImage.isHidden = true
         
-        NotificationCenter.default.addObserver(self, selector: #selector(rightItemHidden), name: NSNotification.Name("rightItemHidden"), object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(changeTodoTableStatusByButton), name: NSNotification.Name("changeTodoTableStatusByButton"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(todoListButtonAction), name: NSNotification.Name("todoListButtonAction"), object: nil)
     }
     
-    @objc func rightItemHidden() {
-        leftedDay.isHidden = true
-        leftedDayBottom.isHidden = true
-        newImage.isHidden = false
-    }
-    
-    @objc func changeTodoTableStatusByButton() {
+    @objc func todoListButtonAction() {
         leftedDay.isHidden = false
         leftedDayBottom.isHidden = false
         newImage.isHidden = true

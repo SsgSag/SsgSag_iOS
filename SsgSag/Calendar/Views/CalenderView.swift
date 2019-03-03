@@ -20,8 +20,6 @@ class CalenderView: UIView, MonthViewDelegate {
     
     var posterTuples: [(startDate: Date, endDate: Date, dayInterval: Int, categoryIdx: Int, title: String, Int)] = []
     
-    var currentPosterTuple:[(Date, Date, Int, Int, String, Int)] = []
-    
     var eventDictionary: [Int:[event]] = [:]
     
     var lastSelectedDate: Date?
@@ -40,7 +38,7 @@ class CalenderView: UIView, MonthViewDelegate {
         setupPosterTuple()
         initMonthAndCalendarCollectionView()
         
-        NotificationCenter.default.addObserver(self, selector: #selector(changeTodoTableStatusByButton), name: NSNotification.Name("changeTodoTableStatusByButton"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(todoListButtonAction), name: NSNotification.Name("todoListButtonAction"), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(addUserDefaults), name: NSNotification.Name("addUserDefaults"), object: nil)
     }
     convenience init(theme: MyTheme) {
@@ -82,7 +80,7 @@ class CalenderView: UIView, MonthViewDelegate {
     
     //마지막 선택된 날짜의 셀의 백그라운드 색깔을 지우자
     //투두리스트를 표현하자
-    @objc func changeTodoTableStatusByButton() {
+    @objc func todoListButtonAction() {
         todoButtonTapped = true
         if let index = lastSelectedIndexPath {
                 calendarCollectionView.reloadItems(at: [index])
@@ -211,11 +209,15 @@ class CalenderView: UIView, MonthViewDelegate {
         weekdaysView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -12).isActive = true
         weekdaysView.heightAnchor.constraint(equalToConstant: 15).isActive = true
         
+        let calendarCollectionViewBottonAnchor = calendarCollectionView.bottomAnchor.constraint(equalTo: bottomAnchor)
+        calendarCollectionViewBottonAnchor.priority = UILayoutPriority(750)
+        calendarCollectionViewBottonAnchor.identifier = "calendarCollectionViewBottonAnchor"
         addSubview(calendarCollectionView)
+        
         calendarCollectionView.topAnchor.constraint(equalTo: weekdaysView.bottomAnchor, constant: 4).isActive = true
         calendarCollectionView.leftAnchor.constraint(equalTo: leftAnchor, constant: 12).isActive = true
         calendarCollectionView.rightAnchor.constraint(equalTo: rightAnchor, constant: -12).isActive = true
-        calendarCollectionView.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
+        calendarCollectionViewBottonAnchor.isActive = true
     }
     
     let monthView: MonthView = {
