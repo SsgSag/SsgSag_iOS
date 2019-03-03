@@ -12,7 +12,7 @@ import UIKit
 class WeekdaysView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
-        self.backgroundColor=UIColor.clear
+        self.backgroundColor = UIColor.clear
         
         setupViews()
     }
@@ -25,14 +25,18 @@ class WeekdaysView: UIView {
         myStackView.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
         
         var daysArr = ["일", "월", "화", "수", "목", "금", "토"]
+        
         for i in 0..<7 {
             let lbl = UILabel()
+            
             lbl.text = daysArr[i]
             lbl.textAlignment = .center
-//            lbl.textColor = Style.weekdaysLblColor
-//            lbl.sizeToFit()
             lbl.font = UIFont.systemFont(ofSize: 13)
-            lbl.textColor = .black
+            
+//            if i == 0 {
+//                lbl.textColor = .red
+//            }
+            
             myStackView.addArrangedSubview(lbl)
         }
     }
