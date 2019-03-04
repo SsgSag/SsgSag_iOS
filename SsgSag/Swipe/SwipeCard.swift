@@ -41,7 +41,6 @@ class SwipeCard: UIView {
         let panGestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(self.beingDragged))
         addGestureRecognizer(panGestureRecognizer)
         
-        
         imageViewStatus = UIImageView(frame: CGRect(x: (frame.size.width / 2) - 37.5, y: 75, width: 75, height: 75))
         let imageURL = URL(string: value)
         imageViewStatus.load(url: imageURL!)
@@ -93,6 +92,7 @@ class SwipeCard: UIView {
         if xCenter > THERESOLD_MARGIN {
             rightAction()
         }
+            
         else if xCenter < -THERESOLD_MARGIN {
             leftAction()
         } else {
@@ -104,18 +104,24 @@ class SwipeCard: UIView {
             })
         }
         
-        print("카드 스와이핑 액션이 왼족 오른쪽에 따라 완전히 끝났다")
+        print("카드 스와이핑 액션이 왼쪽 오른쪽에 따라 완전히 끝났다")
+        
     }
     
     //오른쪽 스와이프 , 좋아요
     func rightAction() {
-        let finishPoint = CGPoint(x: frame.size.width*2, y: 2 * yCenter + originalPoint.y)
+        let finishPoint = CGPoint(x: frame.size.width * 2, y: 2 * yCenter + originalPoint.y)
+        
         UIView.animate(withDuration: 0.5, animations: {
             self.center = finishPoint
         }, completion: {(_) in
-            self.removeFromSuperview()
+            DispatchQueue.main.async {
+                self.removeFromSuperview()
+            }
         })
+        
         isLiked = true
+        
         delegate?.cardGoesRight(card: self)
         
         getPosterData()

@@ -49,32 +49,47 @@ class CalenderView: UIView, MonthViewDelegate {
     
     @objc func addUserDefaults() {
         setupPosterTuple()
+        
         self.calendarCollectionView.reloadData()
     }
     
     func setupPosterTuple() {
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
-        let defaults = UserDefaults.standard
         
-        if let posterData = defaults.object(forKey: "poster") as? Data {
+        if let posterData = UserDefaults.standard.object(forKey: "poster") as? Data {
+            
             if let posterInfo = try? PropertyListDecoder().decode([Posters].self, from: posterData){
-                for poster in posterInfo { //userDefaults에 있는 모든 poster 정보를 불러온다.
+                
+                for poster in posterInfo {
                     
                     let posterStartDateTime = formatter.date(from: poster.posterStartDate!)
+                    
                     let posterEndDateTime = formatter.date(from: poster.posterEndDate!)
+                    
                     let components = Calendar.current.dateComponents([.day], from: posterStartDateTime!, to: posterEndDateTime!)
+                    
                     let dayInterval = components.day! + 1
                     
                     if isDuplicatePosterTuple(posterTuples,
-                                              input: (posterStartDateTime!.addingTimeInterval(60.0 * 60.0 * 9.0), posterEndDateTime!.addingTimeInterval(60.0 * 60.0 * 9.0),
+                                              input: (posterStartDateTime!.addingTimeInterval(60.0 * 60.0 * 9.0),       posterEndDateTime!.addingTimeInterval(60.0 * 60.0 * 9.0),
                                                       dayInterval, poster.categoryIdx!,
                                                       poster.posterName!,
                                                       poster.categoryIdx!)) == false {
-                        posterTuples.append((posterStartDateTime!, posterEndDateTime!, dayInterval, poster.categoryIdx!, poster.posterName!, poster.categoryIdx!))
+                        
+                        posterTuples.append((posterStartDateTime!,
+                                             posterEndDateTime!,
+                                             dayInterval,
+                                             poster.categoryIdx!,
+                                             poster.posterName!,
+                                             poster.categoryIdx!))
                     }
                 }
+            } else {
+                print("posterInfo Error")
             }
+        } else {
+            print("posterData Error")
         }
     }
     

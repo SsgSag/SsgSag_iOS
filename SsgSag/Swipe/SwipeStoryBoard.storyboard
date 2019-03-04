@@ -158,7 +158,7 @@
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="OUh-Zq-U6j" userLabel="Detail ImageView">
                                 <rect key="frame" x="0.0" y="94" width="345" height="405.5"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" secondItem="OUh-Zq-U6j" secondAttribute="height" multiplier="565:800" id="qHd-bP-lTM"/>
+                                    <constraint firstAttribute="width" secondItem="OUh-Zq-U6j" secondAttribute="height" multiplier="565:800" priority="750" id="qHd-bP-lTM"/>
                                 </constraints>
                             </imageView>
                         </subviews>
