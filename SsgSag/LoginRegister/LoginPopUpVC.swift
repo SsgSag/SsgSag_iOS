@@ -12,7 +12,6 @@ import Alamofire
 
 class LoginPopUpVC: UIViewController {
     
-    
     @IBOutlet weak var backView: UIView!
     @IBOutlet var loginBtn: UIButton!
     
@@ -21,7 +20,6 @@ class LoginPopUpVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         backView.makeRounded(cornerRadius: 4)
-        
         
     }
     
@@ -41,7 +39,7 @@ class LoginPopUpVC: UIViewController {
             s.open { (error) in
                 if error == nil {
                     if s.isOpen() {
-    
+                        
                         self.postData(accessToken: s.token.accessToken, loginType: 0)
                         
                     } else {
@@ -66,10 +64,9 @@ class LoginPopUpVC: UIViewController {
         let mainVC = TapbarVC()
 //        let loginNavigator = loginStoryBoard.instantiateViewController(withIdentifier: "LoginNavigator") as! UINavigationController
         
-         let signupVC = storyboard.instantiateViewController(withIdentifier: "SignupFirst")
-        let signupNavigator = UINavigationController(rootViewController: signupVC)
+        let signupVC = storyboard.instantiateViewController(withIdentifier: "SignupFirst")
         
-       
+        let signupNavigator = UINavigationController(rootViewController: signupVC)
         
         let json: [String: Any] = [ "accessToken": accessToken,
                                     "loginType" : loginType //0 카톡 로그인, 1은 네이버 로그인(업데이트 예정)
@@ -137,8 +134,6 @@ class LoginPopUpVC: UIViewController {
     }
 }
 
-
-    
     func touchUpLoginButton() {
 //        guard let email = emailTextField.text else {
 //            return ""
@@ -178,7 +173,6 @@ class LoginPopUpVC: UIViewController {
 //            self.present(tabbarVC, animated: true, completion: nil)
 //        }
     }
-
 
 extension LoginPopUpVC: NaverThirdPartyLoginConnectionDelegate {
     // ---- 3

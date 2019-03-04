@@ -15,16 +15,22 @@ class NetworkManager {
     }
     
     func getData(with: URLRequest, completionHandler: @escaping (Data?, Error?, URLResponse?) -> Void) {
-        let task = URLSession.shared.dataTask(with: with) { (data, response, error) in
-            if error != nil {
-                print("network error")
+        DispatchQueue.global().async {
+            let task = URLSession.shared.dataTask(with: with) { (data, response, error) in
+                if error != nil {
+                    print("network error")
+                }
+                
+                guard let data = data else {
+                    return
+                }
+                
+                DispatchQueue.main.async {
+                    completionHandler(data, nil, response)
+                }
             }
-            guard let data = data else {
-                return
-            }
-            completionHandler(data, nil, response)
+            task.resume()
         }
-        task.resume()
     }
 }
 
