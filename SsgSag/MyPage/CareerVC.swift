@@ -317,6 +317,7 @@ class CareerVC: UIViewController {
         let token = UserDefaults.standard.object(forKey: "SsgSagToken") as! String
         
         request.addValue(token, forHTTPHeaderField: "Authorization")
+        
         request.httpBody = jsonData
 
         NetworkManager.shared.getData(with: request) { (data, error, res) in
@@ -325,6 +326,7 @@ class CareerVC: UIViewController {
             }
             
             do {
+                
                 let apiResponse = try JSONDecoder().decode(Career.self, from: data)
                 
                 if careerType == 0 {

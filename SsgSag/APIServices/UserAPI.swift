@@ -9,8 +9,13 @@
 import Foundation
 
 
-struct UserAPI {
-    private static let baseURLString = "http://54.180.32.22:8080"
+class UserAPI {
+    
+    private init() { }
+    
+    static let sharedInstance = UserAPI()
+    
+    let baseURLString = "http://52.78.86.179:8080"
 }
 
 //    private static let dateFormatter : DateFormatter = {

@@ -444,6 +444,7 @@ extension SwipeVC : SwipeCardDelegate {
     func cardGoesLeft(card: SwipeCard) {
         removeObjectAndAddNewValues()
     }
+    
     //카드 오른쪽으로 갔을때
     func cardGoesRight(card: SwipeCard) {
         
