@@ -85,6 +85,7 @@
 		FAD323DB21E36FA6000C4FBA /* AddCertificationVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAD323DA21E36FA6000C4FBA /* AddCertificationVC.swift */; };
 		FAF0DF0021E948AB003F341F /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAF0DEFF21E948AB003F341F /* UserModel.swift */; };
 		FAF0DF0321E95B5A003F341F /* splash.json in Resources */ = {isa = PBXBuildFile; fileRef = FAF0DF0221E95B5A003F341F /* splash.json */; };
+		FAF6DEE4222EAAEF001C70CC /* Interests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAF6DEE3222EAAEE001C70CC /* Interests.swift */; };
 		FAFB87D222145ABE002CDED9 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAFB87D122145ABE002CDED9 /* NetworkManager.swift */; };
 		FAFB87D822159F83002CDED9 /* univList.json in Resources */ = {isa = PBXBuildFile; fileRef = FAFB87D622159F83002CDED9 /* univList.json */; };
 		FAFB87DE2215ABBF002CDED9 /* majorList.json in Resources */ = {isa = PBXBuildFile; fileRef = FAFB87DD2215ABBF002CDED9 /* majorList.json */; };
@@ -201,6 +202,7 @@
 		FAD323DA21E36FA6000C4FBA /* AddCertificationVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddCertificationVC.swift; sourceTree = "<group>"; };
 		FAF0DEFF21E948AB003F341F /* UserModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserModel.swift; sourceTree = "<group>"; };
 		FAF0DF0221E95B5A003F341F /* splash.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = splash.json; sourceTree = "<group>"; };
+		FAF6DEE3222EAAEE001C70CC /* Interests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Interests.swift; sourceTree = "<group>"; };
 		FAFB87D122145ABE002CDED9 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		FAFB87D622159F83002CDED9 /* univList.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = univList.json; sourceTree = "<group>"; };
 		FAFB87DD2215ABBF002CDED9 /* majorList.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = majorList.json; sourceTree = "<group>"; };
@@ -406,6 +408,7 @@
 				FAA238702202F37C00C6DB13 /* CareerVC + CollectionView.swift */,
 				FA61FE1821E204F300A28947 /* DatePickerPopUpVC.swift */,
 				FA61FE1021E0E4A200A28947 /* PreferenceVC.swift */,
+				FAF6DEE3222EAAEE001C70CC /* Interests.swift */,
 				FA61FE0E21E0E3D300A28947 /* JobVC.swift */,
 				FAA2386D2202F13200C6DB13 /* Add */,
 				FA7F4CC921DFD61300D8643A /* ActivityCell.swift */,
@@ -805,6 +808,7 @@
 				8459289B21D09CDD001DF6CC /* AppDelegate.swift in Sources */,
 				FAD25C132212CD78004B45E2 /* LoginPopUpVC.swift in Sources */,
 				FA3A344421E72F5200668908 /* SchoolInfoVC.swift in Sources */,
+				FAF6DEE4222EAAEF001C70CC /* Interests.swift in Sources */,
 				840FEDC7220759E200581A3B /* CalenderVC + TableView.swift in Sources */,
 				FA5FC0B72205964C00CB83C8 /* CalenderView + CollectionView.swift in Sources */,
 				FA3A342221E5D64300668908 /* UserInfoVC.swift in Sources */,
