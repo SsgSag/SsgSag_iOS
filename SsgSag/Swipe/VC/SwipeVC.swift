@@ -253,7 +253,6 @@ class SwipeVC: UIViewController {
             guard let pageURL = URL(string: valueArray[i].photoUrl!) else {return}
             page.detailImageVIew.load(url: pageURL)
             
-            
             let cardWidth = viewTinderBackGround.frame.width
             let cardHeight = viewTinderBackGround.frame.height
             page.imageWidth = cardWidth
@@ -364,14 +363,6 @@ class SwipeVC: UIViewController {
                 detailTextSwipe.benefit.text = benefit
                 detailTextSwipe.period.text = period
             }
-            
-            //            detailTextSwipe.posterName.text = valueArray[i].posterName!
-            //            detailTextSwipe.hashTag.text = "\(valueArray[i].categoryIdx)"
-            //
-            //            detailTextSwipe.outline.text = valueArray[i].outline!
-            //            detailTextSwipe.target.text = valueArray[i].target!
-            //            detailTextSwipe.benefit.text = valueArray[i].benefit!
-            //            detailTextSwipe.period.text = valueArray[i].period!
             
             self.addChild(pageVC)
             self.currentLoadedCardsArray[i].insertSubview(pageVC.view, at: 0)

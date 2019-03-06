@@ -75,12 +75,13 @@ class CalenderVC: UIViewController {
         
         NotificationCenter.default.addObserver(self, selector: #selector(dayDidSelected(_:)), name: NSNotification.Name(rawValue: "didselectItem"), object: nil)
         
+        NotificationCenter.default.addObserver(self, selector: #selector(deleteUserDefaults), name: NSNotification.Name(rawValue: "deleteUserDefaults"), object: nil)
+        
         setPosterTuple()
         
         setTodoTableView()
         
         calendarViewBottomAnchor?.priority = UILayoutPriority(750)
-        
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -91,11 +92,8 @@ class CalenderVC: UIViewController {
         let color3 = UIColor.rgb(red: 246, green: 246, blue: 246)
        
         todoSeparatorBar.setGradientBackGround(colorOne: color1, colorTwo: color2, frame: todoSeparatorBar.bounds)
-        
-        let todoBackGroudGradient = UIView(frame: todoTableView.bounds)
-        todoBackGroudGradient.setGradientBackGround(colorOne: color2, colorTwo: color3, frame: todoTableView.bounds)
-        
-        todoTableView.backgroundView = todoBackGroudGradient
+
+        todoTableView.backgroundColor = UIColor(displayP3Red: 246/255, green: 246/255, blue: 246/255, alpha: 1.0)
     }
     
     func isDuplicatePosterTuple(_ posterTuples:[(Date, Date, Int, Int, String, Int)], input: (Date, Date, Int, Int, String, Int)) -> Bool {
@@ -107,13 +105,25 @@ class CalenderVC: UIViewController {
         return false
     }
     
+    @objc func deleteUserDefaults() {
+        
+        todoTableData = []
+        
+        for posterTuple in CalenderView.posterTuples {
+            
+            todoTableData.append(posterTuple)
+        }
+        
+        todoTableView.reloadData()
+    }
+    
+    
     //여기서 중복 되는 것을 거르자.
     @objc func addUserDefaults() {
-        let posterTupleFromCalendarView = calenderView.posterTuples
         
         let today = Date()
         
-        for posterTuple in posterTupleFromCalendarView {
+        for posterTuple in CalenderView.posterTuples {
             let posterTupleMonth = Calendar.current.component(.month, from: posterTuple.1)
             let posterTupleDay = Calendar.current.component(.day, from: posterTuple.1)
             
@@ -131,6 +141,7 @@ class CalenderVC: UIViewController {
     }
     
     func setupContentView() {
+        
         view.addSubview(todoTableView)
         view.addSubview(todoSeparatorBar)
         
@@ -187,7 +198,6 @@ class CalenderVC: UIViewController {
         separatorLine.backgroundColor = UIColor.rgb(red: 228, green: 228, blue: 228)
         
         todoListButton.isHidden = true
-        
         todoListButton.addTarget(self, action: #selector(todoListButtonAction), for: .touchUpInside)
         
         todoList.text = "투두리스트"
@@ -323,13 +333,17 @@ class CalenderVC: UIViewController {
         todoTableView.reloadData()
     }
     
-    //날짜 선택시 실행
+    //날짜 선택시 실행 스몰 뷰에서 선택시와 풀뷰에서 선택시를 나누자.
     @objc func dayDidSelected(_ notification: Notification) {
         
+        if todoStatus == .todoNotShow {
+            setCalendarVCWhenTODOShow()
+            todoStatus = .todoShow
+        }
+
         daySelectedStatus += 1
-        
-        setCalendarVCWhenTODOShow()
-        
+        todoStatus = .todoShow
+    
         if let currentSelectedDateTime = notification.userInfo?["currentCellDateTime"] as? Date {
             todoTableData = []
             
@@ -360,10 +374,7 @@ class CalenderVC: UIViewController {
             todoTableView.reloadData()
         }
         
-        todoStatus = .todoNotShow
         calenderView.calendarCollectionView.reloadData()
-        
-        print("contentOffset \(calenderView.calendarCollectionView.contentOffset.y)")
     }
     
     @objc func addPassiveDate() {
@@ -459,7 +470,6 @@ class CalenderVC: UIViewController {
         todoTableView.delegate = self
         
         todoTableView.register(TodoTableViewCell.self, forCellReuseIdentifier: "todoCell")
-        
         
         view.bringSubviewToFront(todoListButton)
         todoListButton.isHidden = false
