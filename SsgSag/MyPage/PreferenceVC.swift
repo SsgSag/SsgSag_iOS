@@ -47,30 +47,35 @@ class PreferenceVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         setUpPreferenceButtons()
         saveButton.isUserInteractionEnabled = false
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
         getData()
     }
     
     func postData() {
         
         var selectedInterests: [Int] = []
+        
         for i in 0..<selectedValue.count {
             if selectedValue[i] == true {
                 selectedInterests.append(i)
             }
         }
-        print(selectedInterests)
+        
         let json: [String: Any] = [
             "userInterest" : selectedInterests
         ]
+        
         let jsonData = try? JSONSerialization.data(withJSONObject: json)
         
         let url = URL(string: "http://52.78.86.179:8080/user/reInterestReq1")!
+        
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
@@ -82,30 +87,50 @@ class PreferenceVC: UIViewController {
             guard let data = data else {
                 return
             }
+            
             let responseJSON = try? JSONSerialization.jsonObject(with: data, options: [])
+            
             if let responseJSON = responseJSON as? [String: Any] {
-                print("responseJSON \(responseJSON)")
                 if let statusCode = responseJSON["status"] {
                     let status = statusCode as! Int
                     if status == 200 {
-                        self.simplerAlert(title: "저장되었습니다")
-                        self.getData()
+                        DispatchQueue.main.async {
+                            let alert = UIAlertController(title: "저장되었습니다.", message: nil, preferredStyle: .alert)
+                            
+                            let action = UIAlertAction(title: "확인", style: .default, handler: { (action) in
+                                
+                                print("확인 되었습니다")
+                                self.dismiss(animated: true, completion: nil)
+                            })
+                            
+                            alert.addAction(action)
+                            self.present(alert, animated: true, completion: nil)
+                        }
                     } else {
-                        self.simplerAlert(title: "저장에 실패하였습니다")
+                        DispatchQueue.main.async {
+                            self.simplerAlert(title: "저장에 실패하였습니다")
+                        }
                     }
                 }
             }
         }
-       
-        
     }
     
     func getData() {
-        let url = URL(string: "http://52.78.86.179:8080/user/interest")!
+        
+        let urlString = UserAPI.sharedInstance.getURL("/user/interest")
+        
+        guard let url = URL(string: urlString) else {
+            return
+        }
+        
+        guard let token = UserDefaults.standard.object(forKey: "SsgSagToken") as? String else {
+            return
+        }
+        
         var request = URLRequest(url: url)
         request.httpMethod = "GET"
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-        let token = UserDefaults.standard.object(forKey: "SsgSagToken") as! String
         request.addValue(token, forHTTPHeaderField: "Authorization")
         
         NetworkManager.shared.getData(with: request) { (data, error, res) in

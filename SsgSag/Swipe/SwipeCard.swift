@@ -1,5 +1,3 @@
-
-let NAMES = ["Adam Gontier","Matt Walst","Brad Walst","Neil Sanderson","Barry Stock","Nicky Patson"]
 let THERESOLD_MARGIN = (UIScreen.main.bounds.size.width/2) * 0.5
 let SCALE_STRENGTH : CGFloat = 4
 let SCALE_RANGE : CGFloat = 0.90

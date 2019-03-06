@@ -54,9 +54,8 @@ class AddVC: UIViewController, UITextFieldDelegate, UITextViewDelegate {
         saveButton.addSubview(animation)
         animation.play()
         
-        getData(careerType: 1)
+        //getData(careerType: 1)
         postData()
-//        simplerAlert(title: "저장되었습니다")
     }
     
     @IBAction func dismissModalAction(_ sender: Any) {

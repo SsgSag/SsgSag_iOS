@@ -306,37 +306,35 @@ class CareerVC: UIViewController {
         
         let jsonData = try? JSONSerialization.data(withJSONObject: json)
         
-        let url = URL(string: "http://52.78.86.179:8080/career/\(careerType)")!
+        let urlString = UserAPI.sharedInstance.getURL("/career/\(careerType)")
+        
+        guard let url = URL(string: urlString) else {
+            return
+        }
+        
+        guard let token = UserDefaults.standard.object(forKey: "SsgSagToken") as? String else {
+            return
+        }
         
         var request = URLRequest(url: url)
-        
         request.httpMethod = "GET"
-        
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-        
-        let token = UserDefaults.standard.object(forKey: "SsgSagToken") as! String
-        
         request.addValue(token, forHTTPHeaderField: "Authorization")
-        
         request.httpBody = jsonData
 
         NetworkManager.shared.getData(with: request) { (data, error, res) in
             guard let data = data else {
                 return
             }
-            
             do {
-                
                 let apiResponse = try JSONDecoder().decode(Career.self, from: data)
                 
                 if careerType == 0 {
-                    print("00000000")
                     self.activityList = apiResponse.data
                     DispatchQueue.main.async {
                         self.activityTableView.reloadData()
                     }
                 } else if careerType == 1 {
-                    print("111111111")
                     self.prizeList = apiResponse.data
                     DispatchQueue.main.async {
                         self.prizeTableView.reloadData()
@@ -351,7 +349,6 @@ class CareerVC: UIViewController {
                 
             } catch (let err) {
                 print(err.localizedDescription)
-                print("sladjalsdjlasjdlasjdlajsldjas")
             }
         }
     }

@@ -17,6 +17,7 @@ class DetailImageSwipeCardVC: UIViewController {
     
     var imageWidth: CGFloat = 0.0
     var imageHeight: CGFloat = 0.0
+    
     override func viewDidLoad() {
         super.viewDidLoad()
     }
