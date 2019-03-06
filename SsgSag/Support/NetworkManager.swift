@@ -17,6 +17,7 @@ class NetworkManager {
     func getData(with: URLRequest, completionHandler: @escaping (Data?, Error?, URLResponse?) -> Void) {
         DispatchQueue.global().async {
             let task = URLSession.shared.dataTask(with: with) { (data, response, error) in
+                
                 if error != nil {
                     print("network error")
                 }

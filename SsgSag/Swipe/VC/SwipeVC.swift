@@ -14,12 +14,17 @@ class SwipeVC: UIViewController {
     @IBOutlet private weak var likedButton: UIButton!
     
     private var currentLoadedCardsArray = [SwipeCard]()
+    
     private var allCardsArray = [SwipeCard]()
     
-    lazy private var valueArray:[Posters] = []
-    lazy private var likedArray:[Posters] = []
+    private static let numberOfTopCards = 2
     
+    lazy private var valueArray:[Posters] = []
+    
+    private var lastCardIndex:Int = 0
+
     private var currentIndex = 0
+    
     private var countTotalCardIndex = 0
     
     private func setEmptyPosterAnimation() {
@@ -41,9 +46,9 @@ class SwipeVC: UIViewController {
         simplerAlert(title: "저장되었습니다")
     }
     
-    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         getPosterData()
         
         countLabel.layer.cornerRadius = 10
@@ -58,7 +63,6 @@ class SwipeVC: UIViewController {
         
         dislikedButton.addTarget(self, action: #selector(touchDownDisLiked(_:)), for: .touchDown)
         dislikedButton.addTarget(self, action: #selector(touchUpDisLiked(_:)), for: .touchUpInside)
-        
         
         setEmptyPosterAnimation()
         
@@ -92,43 +96,42 @@ class SwipeVC: UIViewController {
     }
     
     func getPosterData() {
-        guard let posterURL = URL(string: "http://52.78.86.179:8080/poster/show") else {
+        
+        let urlString = UserAPI.sharedInstance.getURL("/poster/show")
+        
+        guard let requestURL = URL(string: urlString) else {
             return
         }
         
-        guard let key = UserDefaults.standard.object(forKey: "SsgSagToken") as? String else {
+        guard let tokenKey = UserDefaults.standard.object(forKey: "SsgSagToken") as? String else {
             return
         }
         
-        var request = URLRequest(url: posterURL)
-        
-        request.addValue(key, forHTTPHeaderField: "Authorization")
+        var request = URLRequest(url: requestURL)
+        request.addValue(tokenKey, forHTTPHeaderField: "Authorization")
         
         NetworkManager.shared.getData(with: request) { (data, err, res) in
             DispatchQueue.global().async {
-                
                 guard let data = data else {
                     return
                 }
-                
+
                 do {
                     let order = try JSONDecoder().decode(networkData.self, from: data)
-                    if let posters = order.data?.posters {
-                        for i in posters {
-                            self.valueArray.append(i)
-                            //self.likedArray.append(i)
-                        }
-                        
-                        //main queue에서 리로드하고 카드들을 표현
-                        DispatchQueue.main.async {
-                            self.loadCardValues()
-                            
-                            //전체 카드 개수
-                            self.countLabel.text = "\(self.valueArray.count)"
-                        }
-                        
+                    
+                    guard let posters = order.data?.posters else {
+                        return
                     }
-                }catch{
+                    
+                    for poster in posters {
+                        self.valueArray.append(poster)
+                    }
+                
+                    DispatchQueue.main.async {
+                        self.loadCardValues()
+                        self.countLabel.text = "\(self.valueArray.count)"
+                    }
+                } catch{
                     print("JSON Parising Error")
                 }
             }
@@ -146,7 +149,8 @@ class SwipeVC: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
-        view.layoutIfNeeded()
+        
+        
     }
     
     private func loadCardValueAtTopOnlyTwoCards() {
@@ -155,23 +159,20 @@ class SwipeVC: UIViewController {
         }
     }
     
-    var lastIndex:Int = 0
+    
     
     //카드를 로드한다.
     func loadCardValues() {
-        //카드에 값이 있을때
         if valueArray.count > 0 {
             if currentIndex == 0 {
                 for (index,value) in valueArray.enumerated() {
-                    
                     if let photoURL = value.photoUrl {
-                        
                         let newCard = createSwipeCard(at: index, value: photoURL)
                         
-                        if index < 2 {
+                        if index < SwipeVC.numberOfTopCards {
                             
                             currentLoadedCardsArray.append(newCard)
-                            lastIndex = index
+                            lastCardIndex = index
                         }
                     }
                 }
@@ -185,18 +186,19 @@ class SwipeVC: UIViewController {
                 }
                 
                 animateCardAfterSwiping() //카드 처음로드 혹은 제거 추가 할시
+                
             } else if currentIndex >= 1 {
                 for (index,value) in valueArray.enumerated() {
                     
-                    if index > lastIndex {
+                    if index > lastCardIndex {
                         if let photoURL = value.photoUrl {
                             let newCard = createSwipeCard(at: index, value: photoURL)
                             
-                            if (index - lastIndex) <= 2 {
+                            if (index - lastCardIndex) <= 2 {
                                 currentLoadedCardsArray.append(newCard)
                             }
                             
-                            lastIndex = index
+                            lastCardIndex = index
                         }
                     }
                 }
@@ -216,7 +218,6 @@ class SwipeVC: UIViewController {
     
     //카드 객체 제거, 새로운 value추가
     func removeObjectAndAddNewValues() {
-        
         currentLoadedCardsArray.remove(at: 0)
         
         currentIndex = currentIndex + 1
@@ -226,19 +227,6 @@ class SwipeVC: UIViewController {
         }
         
         countLabel.text = "\(valueArray.count-currentIndex)"
-        
-        // 왼쪽값은 항상 같음
-        //        if (currentIndex + currentLoadedCardsArray.count) < allCardsArray.count {
-        //
-        //            let card = allCardsArray[currentIndex + currentLoadedCardsArray.count]
-        //
-        //            currentLoadedCardsArray.append(card)
-        //
-        //            viewTinderBackGround.insertSubview(currentLoadedCardsArray[MAX_BUFFER_SIZE - 1],
-        //                                               belowSubview: currentLoadedCardsArray[MAX_BUFFER_SIZE - 2])
-        //        }
-        //        animateCardAfterSwiping()
-        
     }
     
     //SwipeCard 생성
@@ -254,9 +242,6 @@ class SwipeVC: UIViewController {
         
         return card
     }
-    
-    
-    
     
     func animateCardAfterSwiping() {
         for (i,card) in currentLoadedCardsArray.enumerated() {
@@ -379,6 +364,7 @@ class SwipeVC: UIViewController {
                 detailTextSwipe.benefit.text = benefit
                 detailTextSwipe.period.text = period
             }
+            
             //            detailTextSwipe.posterName.text = valueArray[i].posterName!
             //            detailTextSwipe.hashTag.text = "\(valueArray[i].categoryIdx)"
             //
@@ -444,6 +430,7 @@ extension SwipeVC : SwipeCardDelegate {
     func cardGoesLeft(card: SwipeCard) {
         removeObjectAndAddNewValues()
     }
+    
     //카드 오른쪽으로 갔을때
     func cardGoesRight(card: SwipeCard) {
         
@@ -452,19 +439,20 @@ extension SwipeVC : SwipeCardDelegate {
         var likedPoster: [Posters] = []
         
         let defaults = UserDefaults.standard
+        
         if let posterData = defaults.object(forKey: "poster") as? Data {
             if let posterInfo = try? PropertyListDecoder().decode([Posters].self, from: posterData) {
-                for i in posterInfo {
-                    if isDuplicateInLikedPoster(likedPoster, input: i) == false {//중복 되지 않을때만 넣는다.
-                        likedPoster.append(i)
+                for poster in posterInfo {
+                    if isDuplicateInLikedPoster(likedPoster, input: poster) == false {//중복 되지 않을때만 넣는다.
+                        likedPoster.append(poster)
                     }
                 }
             }
         }
         
         likedPoster.append(self.valueArray[currentIndex-1])
-
         UserDefaults.standard.setValue(try? PropertyListEncoder().encode(likedPoster), forKey: "poster")
+        
         NotificationCenter.default.post(name: NSNotification.Name("addUserDefaults"), object: nil)
     }
     

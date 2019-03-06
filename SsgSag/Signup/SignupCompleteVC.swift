@@ -74,113 +74,120 @@ class SignUpCompleteVC: UIViewController {
     @IBAction func touchUpStartButton(_ sender: Any) {
         checkInterest()
         postData()
-        
-        //        let tabbarVC = TapbarVC()
-        //        self.present(tabbarVC, animated: false, completion: nil)
     }
-        
-        func setUpPreferenceButtons() {
-            var count = 0
-            for button in preferenceButtons {
-                button.tag = count
-                count += 1
-            }
-            preferenceButtons.forEach { (button) in
-                button.isSelected = false
-            }
-            for _ in 0 ..< count {
-                selectedValues.append(false)
-            }
+    
+    func setUpPreferenceButtons() {
+        var count = 0
+        for button in preferenceButtons {
+            button.tag = count
+            count += 1
+        }
+        preferenceButtons.forEach { (button) in
+            button.isSelected = false
+        }
+        for _ in 0 ..< count {
+            selectedValues.append(false)
+        }
+    }
+    
+    func myButtonTapped(myButton: UIButton, tag: Int) {
+        if myButton.isSelected {
+            myButton.isSelected = false;
+            selectedValues[myButton.tag] = false
+            myButton.setImage(UIImage(named: unActiveButtonImages[tag]), for: .normal)
+        } else {
+            myButton.isSelected = true;
+            selectedValues[myButton.tag] = true
+            myButton.setImage(UIImage(named: activeButtonImages[tag]), for: .normal)
         }
         
-        func myButtonTapped(myButton: UIButton, tag: Int) {
-            if myButton.isSelected {
-                myButton.isSelected = false;
-                selectedValues[myButton.tag] = false
-                myButton.setImage(UIImage(named: unActiveButtonImages[tag]), for: .normal)
-            } else {
-                myButton.isSelected = true;
-                selectedValues[myButton.tag] = true
-                myButton.setImage(UIImage(named: activeButtonImages[tag]), for: .normal)
-            }
-            
-            if selectedValues.contains(true) {
-                startButton.isUserInteractionEnabled = true
-                startButton.setImage(UIImage(named: "btSaveMypageActive"), for: .normal)
-            } else {
-                startButton.isUserInteractionEnabled = false
-                startButton.setImage(UIImage(named: "btSaveMypageUnactive"), for: .normal)
-            }
+        if selectedValues.contains(true) {
+            startButton.isUserInteractionEnabled = true
+            startButton.setImage(UIImage(named: "btSaveMypageActive"), for: .normal)
+        } else {
+            startButton.isUserInteractionEnabled = false
+            startButton.setImage(UIImage(named: "btSaveMypageUnactive"), for: .normal)
         }
-        
-        func checkInterest() {
-            var interest = 0
-            for i in selectedValues {
+    }
+    
+    func checkInterest() {
+        var interest = 0
+        for i in selectedValues {
+            if i == true {
+                print(interest)
                 
-                if i == true {
-                    print(interest)
-                    
-                    sendPreferenceValues.append(interest)
-                }
-                interest = interest + 1
+                sendPreferenceValues.append(interest)
             }
+            interest = interest + 1
+        }
+    }
+    
+    func postData() {
+        guard let sendToken = KOSession.shared()?.token.accessToken else {
+            return
         }
         
+        let sendData: [String: Any] = [
+            "userName" : name,
+            "userNickname" : nickName,
+            "signupType" : 0, //0은 카카오톡, 1은 네이버
+            "accessToken" : sendToken,
+            "userUniv" : school,
+            "userMajor" : major,
+            "userStudentNum" : number,
+            "userGender" : gender,
+            "userBirth" : birth,
+            "userPushAllow" : 1,
+            "userInfoAllow" : 1,
+            "userInterest" : sendPreferenceValues,
+            "userGrade" : grade
+        ]
         
-        func postData() {
-            
-            
-            
-            guard let sendToken = KOSession.shared()?.token.accessToken else {
+        /*
+        print(" userName : \(name), userNickname : \(nickName), signupType : 0, //0은 카카오톡, 1은 네이버 accessToken : \(sendToken),userUniv : \(school),userMajor : \(major),userStudentNum : \(number), userGender : \(gender), userBirth : \(birth), userPushAllow : 1, userInfoAllow : 1, userInterest : \(sendPreferenceValues), userGrade : \(grade)")
+        */
+        
+        let jsonData = try? JSONSerialization.data(withJSONObject: sendData)
+        
+        let urlString = UserAPI.sharedInstance.getURL("/user")
+    
+        guard let url = URL(string: urlString) else {
+            return
+        }
+        
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.httpBody = jsonData
+        
+        NetworkManager.shared.getData(with: request) { (data, error, res) in
+            guard let data = data else {
                 return
             }
             
-            let json: [String: Any] = [
-                "userName" : name,
-                "userNickname" : nickName,
-                "signupType" : 0, //0은 카카오톡, 1은 네이버
-                "accessToken" : sendToken,
-                "userUniv" : school,
-                "userMajor" : major,
-                "userStudentNum" : number,
-                "userGender" : gender,
-                "userBirth" : birth,
-                "userPushAllow" : 1,
-                "userInfoAllow" : 1,
-                "userInterest" : sendPreferenceValues,
-                "userGrade" : grade
-            ]
+            let responseJSON = try? JSONSerialization.jsonObject(with: data, options: [])
             
-            print(" userName : \(name), userNickname : \(nickName), signupType : 0, //0은 카카오톡, 1은 네이버 accessToken : \(sendToken),userUniv : \(school),userMajor : \(major),userStudentNum : \(number), userGender : \(gender), userBirth : \(birth), userPushAllow : 1, userInfoAllow : 1, userInterest : \(sendPreferenceValues), userGrade : \(grade)")
-            
-            
-            let jsonData = try? JSONSerialization.data(withJSONObject: json)
-            
-            let url = URL(string: "http://52.78.86.179:8080/user")!
-            var request = URLRequest(url: url)
-            request.httpMethod = "POST"
-            request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-            request.httpBody = jsonData
-            
-            NetworkManager.shared.getData(with: request) { (data, error, res) in
-                guard let data = data else {
-                    return
-                }
-                let responseJSON = try? JSONSerialization.jsonObject(with: data, options: [])
-                if let responseJSON = responseJSON as? [String: Any] {
-                    print("responseJSON \(responseJSON)")
-                    if let statusCode = responseJSON["status"] {
-                        let status = statusCode as! Int
-                        if status == 201 {
-                            let loginStoryBoard = UIStoryboard(name: "LoginStoryBoard", bundle: nil)
-                            let loginVC = loginStoryBoard.instantiateViewController(withIdentifier: "Login")
-                            self.present(loginVC, animated: true, completion: nil)
-                        }
+            if let responseJSON = responseJSON as? [String: Any] {
+                
+                if let statusCode = responseJSON["status"] {
+                    
+                    guard let status = statusCode as? Int else {
+                        return
+                    }
+                    
+                    if status == 201 {
+                        
+                        let loginStoryBoard = UIStoryboard(name: "LoginStoryBoard", bundle: nil)
+                        
+                        let loginVC = loginStoryBoard.instantiateViewController(withIdentifier: "Login")
+                        
+                        self.present(loginVC, animated: true, completion: nil)
                     }
                 }
             }
         }
-        
+    }
+    
 }
 
 

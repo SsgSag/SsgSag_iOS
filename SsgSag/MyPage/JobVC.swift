@@ -32,6 +32,7 @@ class JobVC: UIViewController {
         super.viewDidLoad()
         setUpJobButtons()
         changeStateJobButtons()
+        
         saveButton.isUserInteractionEnabled = false
     }
     
@@ -45,11 +46,73 @@ class JobVC: UIViewController {
     }
     
     @IBAction func touchUpSaveButton(_ sender: Any) {
+        //saveData()
+        
         simplerAlert(title: "저장되었습니다")
     }
     @IBAction func valueChangeJobSwitch(_ sender: Any) {
         changeStateJobButtons()
     }
+    /*
+    private func saveData() {
+        
+            
+            var selectedInterests: [Int] = []
+            
+            for i in 0..<selectedValue.count {
+                if selectedValue[i] == true {
+                    selectedInterests.append(i)
+                }
+            }
+            
+            let json: [String: Any] = [
+                "userInterest" : selectedInterests
+            ]
+            
+            let jsonData = try? JSONSerialization.data(withJSONObject: json)
+            
+            let url = URL(string: "http://52.78.86.179:8080/user/reInterestReq1")!
+            
+            var request = URLRequest(url: url)
+            request.httpMethod = "POST"
+            request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+            let token = UserDefaults.standard.object(forKey: "SsgSagToken") as! String
+            request.addValue(token, forHTTPHeaderField: "Authorization")
+            request.httpBody = jsonData
+            
+            NetworkManager.shared.getData(with: request) { (data, error, res) in
+                guard let data = data else {
+                    return
+                }
+                
+                let responseJSON = try? JSONSerialization.jsonObject(with: data, options: [])
+                
+                if let responseJSON = responseJSON as? [String: Any] {
+                    if let statusCode = responseJSON["status"] {
+                        let status = statusCode as! Int
+                        if status == 200 {
+                            DispatchQueue.main.async {
+                                let alert = UIAlertController(title: "저장되었습니다.", message: nil, preferredStyle: .alert)
+                                
+                                let action = UIAlertAction(title: "확인", style: .default, handler: { (action) in
+                                    
+                                    print("확인 되었습니다")
+                                    self.dismiss(animated: true, completion: nil)
+                                })
+                                
+                                alert.addAction(action)
+                                self.present(alert, animated: true, completion: nil)
+                            }
+                        } else {
+                            DispatchQueue.main.async {
+                                self.simplerAlert(title: "저장에 실패하였습니다")
+                            }
+                        }
+                    }
+                }
+            }
+    }
+    */
     
     func setUpJobButtons() {
         var count = 0

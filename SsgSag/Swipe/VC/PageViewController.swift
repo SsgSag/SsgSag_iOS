@@ -106,7 +106,6 @@ class PageViewController: UIPageViewController, UIPageViewControllerDelegate, UI
     
     func segmentedProgressBarFinished() {
         print("segmentedProgressBarFinished 끝나벌여~")
-
     }
     
     @objc func tapOn(_ sender: UITapGestureRecognizer) {

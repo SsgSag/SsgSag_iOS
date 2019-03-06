@@ -31,16 +31,16 @@ class LoginPopUpVC: UIViewController {
     @IBAction func kakaoLogin(_ sender: Any) {
         let session = KOSession.shared() //세션 생성
         
-        if let s = session {
-            if s.isOpen() {//세션이 열려있는지 확인
-                s.close()
+        if let kakaoSession = session {
+            if kakaoSession.isOpen() {//세션이 열려있는지 확인
+                kakaoSession.close()
             }
             
-            s.open { (error) in
+            kakaoSession.open { (error) in
                 if error == nil {
-                    if s.isOpen() {
+                    if kakaoSession.isOpen() {
                         
-                        self.postData(accessToken: s.token.accessToken, loginType: 0)
+                        self.postData(accessToken: kakaoSession.token.accessToken, loginType: 0)
                         
                     } else {
                         print("fail")
@@ -59,21 +59,26 @@ class LoginPopUpVC: UIViewController {
     }
     
     func postData(accessToken: String, loginType: Int) {
-        //let loginStoryBoard = UIStoryboard(name: "LoginStoryBoard", bundle: nil)
         let storyboard = UIStoryboard(name: "SignupStoryBoard", bundle: nil)
-        let mainVC = TapbarVC()
-//        let loginNavigator = loginStoryBoard.instantiateViewController(withIdentifier: "LoginNavigator") as! UINavigationController
         
         let signupVC = storyboard.instantiateViewController(withIdentifier: "SignupFirst")
         
         let signupNavigator = UINavigationController(rootViewController: signupVC)
         
+        let mainVC = TapbarVC()
+        
+        //0 카톡 로그인, 1은 네이버 로그인(업데이트 예정)
         let json: [String: Any] = [ "accessToken": accessToken,
-                                    "loginType" : loginType //0 카톡 로그인, 1은 네이버 로그인(업데이트 예정)
+                                    "loginType" : loginType
+            
         ]
         
         let jsonData = try? JSONSerialization.data(withJSONObject: json)
-        let url = URL(string: "http://52.78.86.179:8080/login")!
+        
+        guard let url = URL(string: "http://52.78.86.179:8080/login") else {
+            return
+        }
+        
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
@@ -95,37 +100,15 @@ class LoginPopUpVC: UIViewController {
                         self.present(mainVC, animated: true, completion: nil)
                     } else if status == 404 {
                         print("회원가입필요")
-//                        self.view.removeFromSuperview()
-//                        self.parent?.navigationController?.pushViewController(signupVC, animated: true)
-//
-                        
-//                        self.navigationController?.pushViewController(signupVC, animated: true)
                         self.present(signupNavigator, animated: true, completion: nil)
                     }
                 }
             }
             
-//            if let response = res as? HTTPURLResponse {
-//                if response.statusCode == 200 {
-//                    print("로그인성공")
-//                    self.present(mainVC, animated: true, completion: nil)
-//
-//
-//                } else if response.statusCode == 404 {
-//                    print("회원가입필요")
-//                    self.present(signupVC, animated: true, completion: nil)
-//                }
-//            }
-            
             do {
                 let tokenResponse = try? JSONDecoder().decode(TokenResponse.self, from: data)
-                //print("/////////토큰////////")
-               
                 if let token = tokenResponse?.data {
-                     //print(token.token)
                     UserDefaults.standard.set(token.token, forKey: "SsgSagToken")
-                    //print("유저디폴트")
-                  //  print("\(UserDefaults.standard.object(forKey: "SsgSagToken"))")
                 }
             } catch {
                 print(error)

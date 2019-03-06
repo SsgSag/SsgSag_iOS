@@ -25,30 +25,36 @@ class AddActivityVC: UIViewController, UITextViewDelegate, UITextFieldDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         let currentDate = Date()
         let calendar = Calendar.current
         let components = calendar.dateComponents([.year, .month, .day], from: currentDate)
+        
         let year = components.year!
         let month = components.month!
         let day = components.day!
+        
         let currentDateString: String = "\(year)년 \(month)월 \(day)일"
-        //print("유저토큰: \(UserDefaults.standard.object(forKey: "SsgSagToken"))")
-//        activityNavigationBar.barStyle = .black
+        
         startDateLabel.text = currentDateString
         endDateLabel.text = currentDateString
         
         titleTextField.delegate = self
         contentTextView.delegate = self
         contentTextView.applyBorderTextView()
+        
         if(contentTextView.text == "") {
             textViewDidEndEditing(contentTextView)
         }
+        
         if let title = titleString {
             titleTextField.text = title
         }
+        
         if let content = contentTextString {
             contentTextView.text = content
         }
+        
     }
     
     @IBAction func touchUpStartDateButton(_ sender: UIButton) {
@@ -70,8 +76,8 @@ class AddActivityVC: UIViewController, UITextViewDelegate, UITextFieldDelegate {
         let animation = LOTAnimationView(name: "bt_save_round")
         saveButton.addSubview(animation)
         animation.play()
-//        getData(careerType: 0)
-
+        //        getData(careerType: 0)
+        
         postData()
         
     }
@@ -105,9 +111,9 @@ class AddActivityVC: UIViewController, UITextViewDelegate, UITextFieldDelegate {
         request.httpBody = jsonData
         
         NetworkManager.shared.getData(with: request) { (data, error, res) in
-//            guard let data = data else {
-//                return
-//            }
+            //            guard let data = data else {
+            //                return
+            //            }
         }
     }
     
@@ -140,54 +146,106 @@ class AddActivityVC: UIViewController, UITextViewDelegate, UITextFieldDelegate {
         self.view.addSubview(popVC.view)
         
         popVC.didMove(toParent: self)
+        
         let sendData = popVC as! DatePickerPopUpVC
         sendData.buttonTag = button.tag
+        
         if startDateLabel != nil {
             sendData.startDateString = startDateLabel.text!
         }
+        
         if endDateLabel != nil {
             sendData.endDateString = endDateLabel.text!
             print("endDateLabel전송: \(sendData.endDateString)")
         }
     }
     
+    private func stringConverted(with: String) -> String {
+        
+        var intArray: [Int] = []
+        var monthString:String = ""
+        var dayString:String = ""
+        var stringArray = with.components(separatedBy: CharacterSet.decimalDigits.inverted)
+        
+        for item in stringArray {
+            if let number = Int(item) {
+                intArray.append(number)
+            }
+        }
+    
+        monthString = intArray[1] >= 10 ? "\(intArray[1])" : "0\(intArray[1])"
+        dayString = intArray[2] >= 10 ? "\(intArray[2])" : "0\(intArray[2])"
+        
+        return "\(intArray[0])-\(monthString)-\(dayString)"
+    }
+    
     func postData() {
+        
+        guard let startData = startDateLabel.text else {
+            return
+        }
+        
+        guard let endData = endDateLabel.text else {
+            return
+        }
+        
+        let sendStartData = stringConverted(with: startData)
+        let sendEndData = stringConverted(with: endData)
+        
+        print(sendStartData)
+        print(sendEndData)
+        
         let json: [String: Any] = [
             "careerType" : 0,
             "careerName" : titleTextField.text ?? "",
             "careerContent" : contentTextView.text ?? "",
-            "careerDate1" : "2019-01-12",
-                //startDateLabel.text ?? "", //일까지 줘도 상관없음 ex)"2019-01-12"
-            "careerDate2" : "2019-01-14"
-                //endDateLabel.text ?? ""
+            "careerDate1" : sendStartData,
+            "careerDate2" : sendEndData
         ]
-        print("jsonmmladlksaldk: \(json)")
+        
         let jsonData = try? JSONSerialization.data(withJSONObject: json)
-        // create post request
-        let url = URL(string: "http://52.78.86.179:8080/career")
-        var request = URLRequest(url: url!)
-    
-
-        let token = UserDefaults.standard.object(forKey: "SsgSagToken") as! String
-        print(" key2: \(token)") //
+        let urlString = UserAPI.sharedInstance.getURL("/career")
+        
+        guard let url = URL(string: urlString) else {
+            return
+        }
+        
+        guard let token = UserDefaults.standard.object(forKey: "SsgSagToken") as? String else {
+            return
+        }
+        
+        var request = URLRequest(url: url)
         request.httpMethod = "POST"
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         request.addValue(token, forHTTPHeaderField: "Authorization")
         request.httpBody = jsonData
         
-        NetworkManager.shared.getData(with: request) { (datas, error, res) in
-            
-            guard let data = datas else {
-                print("로컬어쩌구에러")
-                print(error?.localizedDescription ?? "No data")
-                return
-            }
-            let responseJSON = try? JSONSerialization.jsonObject(with: data, options: [])
-            
-            if let responseJSON = responseJSON as? [String: Any] {
-                if let statusCode = responseJSON["status"] {
-                    let status = statusCode as! Int
-                    if status == 201 {
+        NetworkManager.shared.getData(with: request) { (data, error, res) in
+            DispatchQueue.global().async {
+                guard let data = data else {
+                    return
+                }
+                print(res)
+                
+                do {
+                    guard let responseJSON = try? JSONSerialization.jsonObject(with: data, options: []) else {
+                        throw JSONSerializationError.data
+                    }
+                    
+                    guard let responseJson = responseJSON as? [String: Any] else {
+                        return
+                    }
+                    
+                    guard let statusCode = responseJson["status"] else {
+                        return
+                    }
+                    
+                    guard let status = statusCode as? Int else {
+                        return
+                    }
+                    
+                    switch status {
+                    case 201:
                         print("이력추가 성공")
                         DispatchQueue.main.async {
                             self.simplerAlertwhenSave(title: "저장되었습니다")
@@ -195,24 +253,37 @@ class AddActivityVC: UIViewController, UITextViewDelegate, UITextFieldDelegate {
                             parentVC.getData(careerType: 0)
                             parentVC.activityTableView.reloadData()
                         }
-                    } else  {
+                    case 600:
                         print("이력추가 실패")
                         DispatchQueue.main.async {
                             self.simplerAlert(title: "저장에 실패했습니다")
                         }
+                    case 500:
+                        print("이력추가 실패")
+                        DispatchQueue.main.async {
+                            self.simplerAlert(title: "저장에 실패했습니다")
+                        }
+                    default:
+                        break
                     }
-                } else {
+                    
+                } catch {
+                    print("이력추가 실패")
                     DispatchQueue.main.async {
                         self.simplerAlert(title: "저장에 실패했습니다")
                     }
+                    print("Json Parsing Error")
                 }
             }
-            
-            
-            
-            //저장된 후에 추가하자.
-            
         }
     }
-    
+}
+
+enum JSONSerializationError: Error
+{
+    case file
+    case data
+    case json
+    case key
+    case failed
 }

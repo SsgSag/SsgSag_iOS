@@ -47,24 +47,40 @@ class PreferenceVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         setUpPreferenceButtons()
         saveButton.isUserInteractionEnabled = false
-        
-        
     }
     
-    func getData() {
-        let json: [String: Any] = ["userIdx" : "25",
-                                   "categoryIdx": [
-                                    "1","3","5"]
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        getData()
+    }
+    
+    func postData() {
+        
+        var selectedInterests: [Int] = []
+        
+        for i in 0..<selectedValue.count {
+            if selectedValue[i] == true {
+                selectedInterests.append(i)
+            }
+        }
+        
+        let json: [String: Any] = [
+            "userInterest" : selectedInterests
         ]
+        
         let jsonData = try? JSONSerialization.data(withJSONObject: json)
-        let url = URL(string: "http://54.180.32.22:8080/interests")!
+        
+        let url = URL(string: "http://52.78.86.179:8080/user/reInterestReq1")!
+        
         var request = URLRequest(url: url)
-        request.httpMethod = "PUT"
+        request.httpMethod = "POST"
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-        let key2 = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJEb0lUU09QVCIsInVzZXJfaWR4IjoxfQ.5lCvAqnzYP4-2pFx1KTgLVOxYzBQ6ygZvkx5jKCFM08"
-        request.addValue(key2, forHTTPHeaderField: "Authorization")
+        let token = UserDefaults.standard.object(forKey: "SsgSagToken") as! String
+        request.addValue(token, forHTTPHeaderField: "Authorization")
         request.httpBody = jsonData
         
         NetworkManager.shared.getData(with: request) { (data, error, res) in
@@ -75,11 +91,78 @@ class PreferenceVC: UIViewController {
             let responseJSON = try? JSONSerialization.jsonObject(with: data, options: [])
             
             if let responseJSON = responseJSON as? [String: Any] {
-                print("관심분야 responseJSON \(responseJSON)")
+                if let statusCode = responseJSON["status"] {
+                    let status = statusCode as! Int
+                    if status == 200 {
+                        DispatchQueue.main.async {
+                            let alert = UIAlertController(title: "저장되었습니다.", message: nil, preferredStyle: .alert)
+                            
+                            let action = UIAlertAction(title: "확인", style: .default, handler: { (action) in
+                                
+                                print("확인 되었습니다")
+                                self.dismiss(animated: true, completion: nil)
+                            })
+                            
+                            alert.addAction(action)
+                            self.present(alert, animated: true, completion: nil)
+                        }
+                    } else {
+                        DispatchQueue.main.async {
+                            self.simplerAlert(title: "저장에 실패하였습니다")
+                        }
+                    }
+                }
             }
         }
     }
     
+    func getData() {
+        
+        let urlString = UserAPI.sharedInstance.getURL("/user/interest")
+        
+        guard let url = URL(string: urlString) else {
+            return
+        }
+        
+        guard let token = UserDefaults.standard.object(forKey: "SsgSagToken") as? String else {
+            return
+        }
+        
+        var request = URLRequest(url: url)
+        request.httpMethod = "GET"
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.addValue(token, forHTTPHeaderField: "Authorization")
+        
+        NetworkManager.shared.getData(with: request) { (data, error, res) in
+            guard let data = data else {
+                return
+            }
+            
+            do {
+                let apiResponse = try JSONDecoder().decode(Interests.self, from: data)
+                
+                print(apiResponse.data?.interests)
+                
+                self.setUpFirstStatus(interests: apiResponse.data?.interests)
+                
+            } catch (let err) {
+                print(err.localizedDescription)
+            }
+        }
+    }
+    
+    func setUpFirstStatus(interests: [Int]?) {
+        guard let interests = interests else {
+            saveButton.isUserInteractionEnabled = false
+            return
+        }
+        
+        for interest in interests {
+            selectedValue[interest] = true
+            preferenceButtons[interest].setImage(UIImage(named: activeButtonImages[interest]), for: .normal)
+            preferenceButtons[interest].isSelected = true
+        }
+    }
     
     @IBAction func touchUpBackButton(_ sender: Any) {
         dismiss(animated: true, completion: nil)
@@ -91,20 +174,7 @@ class PreferenceVC: UIViewController {
     }
     
     @IBAction func touchUpSaveButton(_ sender: Any) {
-        //TODO: - 네트워크 연결
-        print("asdgasdgasdg")
-        getData()
-        
-        simplerAlert(title: "저장되었습니다")
-        //        let myPageStoryBoard = UIStoryboard(name: "MyPageStoryBoard", bundle: nil)
-        //        let popVC = myPageStoryBoard.instantiateViewController(withIdentifier: "PopUp")
-        //        self.addChild(popVC)
-        //        popVC.view.frame = self.view.frame
-        //        self.view.addSubview(popVC.view)
-        
-        
-        //        popVC.didMove(toParent: self)
-        
+        postData()
     }
     
     func setUpPreferenceButtons() {
@@ -138,19 +208,6 @@ class PreferenceVC: UIViewController {
             saveButton.setImage(UIImage(named: "btSaveMypageActive"), for: .normal)
         } else {
             saveButton.setImage(UIImage(named: "btSaveMypageUnactive"), for: .normal)
-        }
-    }
-    
-    
-    func getPosterData() {
-        let posterURL = URL(string: "http://54.180.32.22:8080/interests")
-        var request = URLRequest(url: posterURL!)
-        request.httpMethod = "PUT"
-        let key2 = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJEb0lUU09QVCIsInVzZXJfaWR4IjoxfQ.5lCvAqnzYP4-2pFx1KTgLVOxYzBQ6ygZvkx5jKCFM08"
-        request.addValue("\(key2)", forHTTPHeaderField: "Application")
-        
-        NetworkManager.shared.getData(with: request) { (data, error, res) in
-            
         }
     }
     
