@@ -15,7 +15,11 @@ class UserAPI {
     
     static let sharedInstance = UserAPI()
     
-    let baseURLString = "http://52.78.86.179:8080"
+    private let baseURLString = "http://52.78.86.179:8080"
+    
+    func getURL(_ getString: String) -> String {
+        return baseURLString + getString
+    }
 }
 
 //    private static let dateFormatter : DateFormatter = {

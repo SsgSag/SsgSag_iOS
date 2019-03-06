@@ -149,9 +149,8 @@ class SignUpCompleteVC: UIViewController {
         
         let jsonData = try? JSONSerialization.data(withJSONObject: sendData)
         
-        let query = "/user"
-        let urlString = "\(UserAPI.sharedInstance.baseURLString) + \(query)"
-        
+        let urlString = UserAPI.sharedInstance.getURL("/user")
+    
         guard let url = URL(string: urlString) else {
             return
         }
