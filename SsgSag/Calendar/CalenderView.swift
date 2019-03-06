@@ -33,6 +33,7 @@ class CalenderView: UIView, MonthViewDelegate {
     override init(frame: CGRect) {
         super.init(frame: frame)
         setCalenderViewColor()
+        
         setupPosterTuple()
         
         initMonthAndCalendarCollectionView()
@@ -51,42 +52,45 @@ class CalenderView: UIView, MonthViewDelegate {
     }
     
     @objc func addUserDefaults() {
+        
         setupPosterTuple()
         
         self.calendarCollectionView.reloadData()
+        
+    }
+    
+    private func getPosterUsingUserDefaults() -> [Posters] {
+        guard let posterData = UserDefaults.standard.object(forKey: "poster") as? Data else {
+            return []
+        }
+        guard let posterInfo = try? PropertyListDecoder().decode([Posters].self, from: posterData) else {
+            return []
+        }
+        return posterInfo
     }
     
     @objc func deleteUserDefaults() {
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
-
-        if let posterData = UserDefaults.standard.object(forKey: "poster") as? Data {
-            if let posterInfo = try? PropertyListDecoder().decode([Posters].self, from: posterData){
-                CalenderView.posterTuples = []
-                for poster in posterInfo {
-                    
-                    let posterStartDateTime = formatter.date(from: poster.posterStartDate!)
-                    
-                    let posterEndDateTime = formatter.date(from: poster.posterEndDate!)
-                    
-                    let components = Calendar.current.dateComponents([.day], from: posterStartDateTime!, to: posterEndDateTime!)
-                    
-                    let dayInterval = components.day! + 1
-                    
-                    CalenderView.posterTuples.append((posterStartDateTime!,
-                                         posterEndDateTime!,
-                                         dayInterval,
-                                         poster.categoryIdx!,
-                                         poster.posterName!,
-                                         poster.categoryIdx!))
-                }
-            } else {
-                print("posterInfo Error")
-            }
-        } else {
-            print("posterData Error")
-        }
         
+        let posterInfo = getPosterUsingUserDefaults()
+        
+        CalenderView.posterTuples = []
+        
+        for poster in posterInfo {
+            
+            let startDate = formatter.date(from: poster.posterStartDate!)
+            let endDate = formatter.date(from: poster.posterEndDate!)
+            let components = Calendar.current.dateComponents([.day], from: startDate!, to: endDate!)
+            let dayInterval = components.day! + 1
+            
+            CalenderView.posterTuples.append((startDate!,
+                                              endDate!,
+                                              dayInterval,
+                                              poster.categoryIdx!,
+                                              poster.posterName!,
+                                              poster.categoryIdx!))
+        }
         
         self.calendarCollectionView.reloadData()
     }
@@ -95,39 +99,28 @@ class CalenderView: UIView, MonthViewDelegate {
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
         
-        if let posterData = UserDefaults.standard.object(forKey: "poster") as? Data {
-            
-            if let posterInfo = try? PropertyListDecoder().decode([Posters].self, from: posterData){
-                
+        let posterInfo = getPosterUsingUserDefaults()
                 for poster in posterInfo {
                     
                     let posterStartDateTime = formatter.date(from: poster.posterStartDate!)
-                    
                     let posterEndDateTime = formatter.date(from: poster.posterEndDate!)
-                    
                     let components = Calendar.current.dateComponents([.day], from: posterStartDateTime!, to: posterEndDateTime!)
-                    
                     let dayInterval = components.day! + 1
                     
                     if isDuplicatePosterTuple(CalenderView.posterTuples,
                                               input: (posterStartDateTime!.addingTimeInterval(60.0 * 60.0 * 9.0),       posterEndDateTime!.addingTimeInterval(60.0 * 60.0 * 9.0),
-                                                      dayInterval, poster.categoryIdx!,
+                                                      dayInterval,
+                                                      poster.categoryIdx!,
                                                       poster.posterName!,
                                                       poster.categoryIdx!)) == false {
                         
                         CalenderView.posterTuples.append((posterStartDateTime!,
-                                             posterEndDateTime!,
-                                             dayInterval,
-                                             poster.categoryIdx!,
-                                             poster.posterName!,
-                                             poster.categoryIdx!))
-                    }
-                }
-            } else {
-                print("posterInfo Error")
+                                                          posterEndDateTime!,
+                                                          dayInterval,
+                                                          poster.categoryIdx!,
+                                                          poster.posterName!,
+                                                          poster.categoryIdx!))
             }
-        } else {
-            print("posterData Error")
         }
     }
     
@@ -136,15 +129,15 @@ class CalenderView: UIView, MonthViewDelegate {
     @objc func todoListButtonAction() {
         todoButtonTapped = true
         if let index = lastSelectedIndexPath {
-                calendarCollectionView.reloadItems(at: [index])
-    //            let cell = collectionView(calendarCollectionView, cellForItemAt: index) as! DayCollectionViewCell
-    //            print("cell: \(cell)")
-    //            print("indexPath: \(index)")
-    //            cell.lbl.backgroundColor = .red
-    //            cell.lbl.textColor = .black
-    //            cell.layoutIfNeeded()
+            calendarCollectionView.reloadItems(at: [index])
+            //            let cell = collectionView(calendarCollectionView, cellForItemAt: index) as! DayCollectionViewCell
+            //            print("cell: \(cell)")
+            //            print("indexPath: \(index)")
+            //            cell.lbl.backgroundColor = .red
+            //            cell.lbl.textColor = .black
+            //            cell.layoutIfNeeded()
         }
-//        calendarCollectionView.reloadData()
+        //        calendarCollectionView.reloadData()
         
     }
     
@@ -489,14 +482,14 @@ extension CalenderView: UICollectionViewDelegate, UICollectionViewDataSource {
         }
         
         let componentsSelectedCell = calendar.dateComponents([.year, .month, .day], from: lastSelectDate)
-            
-            if componentsCell.month! == componentsSelectedCell.month! &&
-                componentsCell.year! == componentsSelectedCell.year! &&
-                componentsCell.day! == componentsSelectedCell.day! &&
-                todoButtonTapped == false {
-                cell.lbl.backgroundColor = UIColor.lightGray
-                cell.lbl.textColor = UIColor.white
-            }
+        
+        if componentsCell.month! == componentsSelectedCell.month! &&
+            componentsCell.year! == componentsSelectedCell.year! &&
+            componentsCell.day! == componentsSelectedCell.day! &&
+            todoButtonTapped == false {
+            cell.lbl.backgroundColor = UIColor.lightGray
+            cell.lbl.textColor = UIColor.white
+        }
         
         if indexPath == lastSelectedIndexPath && todoButtonTapped {
             cell.lbl.backgroundColor = UIColor.clear
@@ -507,6 +500,7 @@ extension CalenderView: UICollectionViewDelegate, UICollectionViewDataSource {
         return cell
     }
     
+    //콜렉션뷰의 날짜를 선택하면 테이블뷰의 데이터가 변한다.
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
         let cellYear = currentYear
@@ -528,7 +522,7 @@ extension CalenderView: UICollectionViewDelegate, UICollectionViewDataSource {
         NotificationCenter.default.post(name: NSNotification.Name(rawValue: "didselectItem"), object: nil, userInfo: userInfo as [AnyHashable : Any])
         
     }
-
+    
     //새로운 셀 선택시 이전셀 복구
     func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
         
