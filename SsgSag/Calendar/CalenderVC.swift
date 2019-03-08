@@ -89,7 +89,7 @@ class CalenderVC: UIViewController {
         
         let color1 = UIColor.rgb(red: 251, green: 251, blue: 251)
         let color2 = UIColor.rgb(red: 249, green: 249, blue: 249)
-        let color3 = UIColor.rgb(red: 246, green: 246, blue: 246)
+        let _ = UIColor.rgb(red: 246, green: 246, blue: 246)
         
         todoSeparatorBar.setGradientBackGround(colorOne: color1, colorTwo: color2, frame: todoSeparatorBar.bounds)
         

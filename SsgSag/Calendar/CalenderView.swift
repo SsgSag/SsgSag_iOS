@@ -419,7 +419,7 @@ extension CalenderView: UICollectionViewDelegate, UICollectionViewDataSource {
         
         for posterTuple in CalenderView.posterTuples {
             //현재 셀의 연, 월 , 일 == tuple의 연 월 일이 모두 같아야만 그려준다.
-            if let currentCellDate = currentCellDateTime {
+            if let _ = currentCellDateTime {
                 
                 let currentPosterYear = Calendar.current.component(.year, from: posterTuple.endDate)
                 let currentPosterMonth = Calendar.current.component(.month, from: posterTuple.endDate)
@@ -433,7 +433,6 @@ extension CalenderView: UICollectionViewDelegate, UICollectionViewDataSource {
                     (cellDay == currentPosterDay) {
                     eventDictionary[indexPath.row]?.append(event.init(eventDate: posterTuple.endDate, title: posterTuple.title, categoryIdx: posterTuple.categoryIdx))
                 }
-                
             }
         }
         
