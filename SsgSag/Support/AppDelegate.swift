@@ -20,8 +20,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
   
-
-//
         if let _ = UserDefaults.standard.object(forKey: "SsgSagToken") {
             window = UIWindow(frame: UIScreen.main.bounds)
 
@@ -36,14 +34,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             window?.makeKeyAndVisible()
         }
         
-       // setupEntryController()
-        // 로그인,로그아웃 상태 변경 받기
-//        NotificationCenter.default.addObserver(self,
-//                                               selector: #selector(AppDelegate.kakaoSessionDidChangeWithNotification),
-//                                               name: NSNotification.Name.KOSessionDidChange,
-//                                               object: nil)
-//        reloadRootViewController()
-//
         let instance = NaverThirdPartyLoginConnection.getSharedInstance()
         instance?.isInAppOauthEnable = true // --- 1
         instance?.isNaverAppOauthEnable = true // --- 2
@@ -56,6 +46,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         return true
     }
+    
+    // setupEntryController()
+    // 로그인,로그아웃 상태 변경 받기
+    //        NotificationCenter.default.addObserver(self,
+    //                                               selector: #selector(AppDelegate.kakaoSessionDidChangeWithNotification),
+    //                                               name: NSNotification.Name.KOSessionDidChange,
+    //                                               object: nil)
+    //        reloadRootViewController()
+    //
     
     fileprivate func hasToken() -> Bool {
          if UserDefaults.standard.object(forKey: "SsgSagToken") != nil {

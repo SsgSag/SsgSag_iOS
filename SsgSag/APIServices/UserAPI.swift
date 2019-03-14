@@ -20,6 +20,7 @@ class UserAPI {
     func getURL(_ getString: String) -> String {
         return baseURLString + getString
     }
+    
 }
 
 //    private static let dateFormatter : DateFormatter = {

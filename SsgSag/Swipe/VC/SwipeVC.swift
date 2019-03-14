@@ -175,7 +175,6 @@ class SwipeVC: UIViewController {
                     viewTinderBackGround.addSubview(currentLoadedCardsArray[i])
                 }
             }
-
             setPageVCAndAddToSubView()
         }
     }
