@@ -165,7 +165,7 @@ class AddActivityVC: UIViewController, UITextViewDelegate, UITextFieldDelegate {
         var intArray: [Int] = []
         var monthString:String = ""
         var dayString:String = ""
-        var stringArray = with.components(separatedBy: CharacterSet.decimalDigits.inverted)
+        let stringArray = with.components(separatedBy: CharacterSet.decimalDigits.inverted)
         
         for item in stringArray {
             if let number = Int(item) {
@@ -225,7 +225,8 @@ class AddActivityVC: UIViewController, UITextViewDelegate, UITextFieldDelegate {
                 guard let data = data else {
                     return
                 }
-                print(res)
+                
+                //print(res)
                 
                 do {
                     guard let responseJSON = try? JSONSerialization.jsonObject(with: data, options: []) else {

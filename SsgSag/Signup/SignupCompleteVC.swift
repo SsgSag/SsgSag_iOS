@@ -166,7 +166,6 @@ class SignUpCompleteVC: UIViewController {
             }
             
             let responseJSON = try? JSONSerialization.jsonObject(with: data, options: [])
-            
             if let responseJSON = responseJSON as? [String: Any] {
                 
                 if let statusCode = responseJSON["status"] {
@@ -175,19 +174,30 @@ class SignUpCompleteVC: UIViewController {
                         return
                     }
                     
-                    if status == 201 {
-                        
+                    guard let httpStatus = HttpStatus(rawValue: status) else {
+                        return
+                    }
+                    
+                    switch httpStatus {
+                    case .sucess:
                         let loginStoryBoard = UIStoryboard(name: "LoginStoryBoard", bundle: nil)
-                        
                         let loginVC = loginStoryBoard.instantiateViewController(withIdentifier: "Login")
-                        
                         self.present(loginVC, animated: true, completion: nil)
+                    case .databaseError:
+                        self.simpleAlert(title: "데이터베이스 에러", message: "서버 오류")
+                    case .doNotMatch:
+                        self.simpleAlert(title: "잘못된 형식이 포함되었습니다.", message: "회원가입 정보를 정확히 다시 기입해주세요.")
                     }
                 }
             }
         }
     }
-    
+}
+
+enum HttpStatus:Int {
+    case sucess = 201
+    case databaseError = 600
+    case doNotMatch = 400
 }
 
 

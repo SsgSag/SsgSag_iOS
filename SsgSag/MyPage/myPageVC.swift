@@ -110,7 +110,7 @@ class myPageVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
             return
         }
     
-        let boundary = generateBoundaryString()
+        let _ = generateBoundaryString()
         
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
@@ -131,7 +131,6 @@ class myPageVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
                 self?.profileImageView.image = sendImage
             }
             print(data.description)
-            print(res)
         }
     }
     

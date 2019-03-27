@@ -22,7 +22,7 @@ class SwipeVC: UIViewController {
     lazy private var valueArray:[Posters] = []
     
     private var lastCardIndex:Int = 0
-
+    
     private var currentIndex = 0
     
     private var countTotalCardIndex = 0
@@ -115,7 +115,7 @@ class SwipeVC: UIViewController {
                 guard let data = data else {
                     return
                 }
-
+                
                 do {
                     let order = try JSONDecoder().decode(networkData.self, from: data)
                     
@@ -126,7 +126,7 @@ class SwipeVC: UIViewController {
                     for poster in posters {
                         self.valueArray.append(poster)
                     }
-                
+                    
                     DispatchQueue.main.async {
                         self.loadCardValues()
                         self.countLabel.text = "\(self.valueArray.count)"
@@ -153,84 +153,68 @@ class SwipeVC: UIViewController {
         
     }
     
-    private func loadCardValueAtTopOnlyTwoCards() {
-        if valueArray.count > 0 {
-            
-        }
-    }
-    
-    
-    
     //카드를 로드한다.
     func loadCardValues() {
         if valueArray.count > 0 {
-            if currentIndex == 0 {
-                for (index,value) in valueArray.enumerated() {
-                    if let photoURL = value.photoUrl {
-                        let newCard = createSwipeCard(at: index, value: photoURL)
-                        
-                        if index < SwipeVC.numberOfTopCards {
-                            
-                            currentLoadedCardsArray.append(newCard)
-                            lastCardIndex = index
-                        }
+            for (index,value) in valueArray.enumerated() {
+                if index < SwipeVC.numberOfTopCards {
+                    guard let photoURL = value.photoUrl else {
+                        return
                     }
-                }
-                
-                for (i,_) in currentLoadedCardsArray.enumerated() {
-                    if i > 0 {
-                        viewTinderBackGround.insertSubview(currentLoadedCardsArray[i], belowSubview: currentLoadedCardsArray[i - 1])
-                    } else {
-                        viewTinderBackGround.addSubview(currentLoadedCardsArray[i])
-                    }
-                }
-                
-                animateCardAfterSwiping() //카드 처음로드 혹은 제거 추가 할시
-                
-            } else if currentIndex >= 1 {
-                for (index,value) in valueArray.enumerated() {
+                    let newCard = createSwipeCard(at: index, value: photoURL)
+                    currentLoadedCardsArray.append(newCard)
                     
-                    if index > lastCardIndex {
-                        if let photoURL = value.photoUrl {
-                            let newCard = createSwipeCard(at: index, value: photoURL)
-                            
-                            if (index - lastCardIndex) <= 2 {
-                                currentLoadedCardsArray.append(newCard)
-                            }
-                            
-                            lastCardIndex = index
-                        }
-                    }
+                    lastCardIndex = index
                 }
-                
-                for (i,_) in currentLoadedCardsArray.enumerated() {
-                    if i > 0 {
-                        viewTinderBackGround.insertSubview(currentLoadedCardsArray[i], belowSubview: currentLoadedCardsArray[i - 1])
-                    } else {
-                        viewTinderBackGround.addSubview(currentLoadedCardsArray[i])
-                    }
-                }
-                
-                animateCardAfterSwiping() //카드 처음로드 혹은 제거 추가 할시
             }
+            
+            for (i,_) in currentLoadedCardsArray.enumerated() {
+                if i > 0 {
+                    viewTinderBackGround.insertSubview(currentLoadedCardsArray[i], belowSubview: currentLoadedCardsArray[i - 1])
+                } else {
+                    viewTinderBackGround.addSubview(currentLoadedCardsArray[i])
+                }
+            }
+            setPageVCAndAddToSubView()
         }
     }
     
-    //카드 객체 제거, 새로운 value추가
-    func removeObjectAndAddNewValues() {
+    //0 , 1로드 이후 1, 2가 로드 되어야 한다.
+    private func loadCardValuesAfterRemoveObject() {
         currentLoadedCardsArray.remove(at: 0)
         
-        currentIndex = currentIndex + 1
+        currentIndex += 1
+        lastCardIndex += 1
         
-        if currentIndex % 2 == 1 {
-            loadCardValues()
+        //등호가 올바른 것인지 확인 바람
+        if valueArray.count-1 >= lastCardIndex {
+            guard let photoURL = valueArray[lastCardIndex].photoUrl else {
+                return
+            }
+            
+            let newCard = createSwipeCard(at: lastCardIndex, value: photoURL)
+            currentLoadedCardsArray.append(newCard)
         }
         
+        for (i,_) in currentLoadedCardsArray.enumerated() {
+            if i > 0 {
+                viewTinderBackGround.insertSubview(currentLoadedCardsArray[i], belowSubview: currentLoadedCardsArray[i - 1])
+            } else {
+                viewTinderBackGround.addSubview(currentLoadedCardsArray[i])
+            }
+        }
+        
+        setPageVCAndAddToSubViewAfterRemove()
+    }
+    
+    //카드 객체 제거, 새로운 value추가
+    private func removeObjectAndAddNewValues() {
+        loadCardValuesAfterRemoveObject()
         countLabel.text = "\(valueArray.count-currentIndex)"
     }
     
     //SwipeCard 생성
-    func createSwipeCard(at index: Int , value :String) -> SwipeCard {
+    private func createSwipeCard(at index: Int , value :String) -> SwipeCard {
         let card = SwipeCard(frame: CGRect(x: 0, y: 0,
                                            width: viewTinderBackGround.frame.size.width,
                                            height: viewTinderBackGround.frame.size.height),
@@ -243,164 +227,172 @@ class SwipeVC: UIViewController {
         return card
     }
     
-    func animateCardAfterSwiping() {
-        for (i,card) in currentLoadedCardsArray.enumerated() {
-            let storyboard = UIStoryboard(name: "SwipeStoryBoard", bundle: nil)
-            let pageVC = storyboard.instantiateViewController(withIdentifier: "PageViewController") as! PageViewController
-            
-            pageVC.view.frame = self.currentLoadedCardsArray[i].frame
-            let page = pageVC.orderedViewControllers[1] as! DetailImageSwipeCardVC
-            guard let pageURL = URL(string: valueArray[i].photoUrl!) else {return}
-            page.detailImageVIew.load(url: pageURL)
-            
-            
-            let cardWidth = viewTinderBackGround.frame.width
-            let cardHeight = viewTinderBackGround.frame.height
-            page.imageWidth = cardWidth
-            page.imageHeight = cardHeight
-            page.name.text = valueArray[i].posterName!
-            
-            var text = ""
-            if let num = valueArray[i].posterInterest {
-                for i in num{
-                    switch i {
-                    case 0:
-                        text = text + "#기획/아이디어"
-                        break
-                    case 1:
-                        text = text + "#금융/경제"
-                        break
-                    case 2:
-                        text = text + "#디자인"
-                        break
-                    case 3:
-                        text = text + "#문학/글쓰기"
-                        break
-                    case 4:
-                        text = text + "#문화/예술"
-                        break
-                    case 5:
-                        text = text + "#브랜딩/마케팅"
-                        break
-                    case 6:
-                        text = text + "#봉사/사회활동"
-                        break
-                    case 7:
-                        text = text + "#사진/영상"
-                        break
-                    case 8:
-                        text = text + "#창업/스타트업"
-                        break
-                    case 9:
-                        text = text + "#체육/건강"
-                        break
-                    case 10:
-                        text = text + "#학술/교양"
-                        break
-                    case 11:
-                        text = text + "#IT/기술"
-                        break
-                    default: break
-                        
-                    }
+    private func setCategoryText(_ posterInterest:[Int]?) -> String {
+        var text = ""
+        if let num = posterInterest {
+            for i in num{
+                switch i {
+                case 0:
+                    text = text + "#기획/아이디어"
+                    break
+                case 1:
+                    text = text + "#금융/경제"
+                    break
+                case 2:
+                    text = text + "#디자인"
+                    break
+                case 3:
+                    text = text + "#문학/글쓰기"
+                    break
+                case 4:
+                    text = text + "#문화/예술"
+                    break
+                case 5:
+                    text = text + "#브랜딩/마케팅"
+                    break
+                case 6:
+                    text = text + "#봉사/사회활동"
+                    break
+                case 7:
+                    text = text + "#사진/영상"
+                    break
+                case 8:
+                    text = text + "#창업/스타트업"
+                    break
+                case 9:
+                    text = text + "#체육/건강"
+                    break
+                case 10:
+                    text = text + "#학술/교양"
+                    break
+                case 11:
+                    text = text + "#IT/기술"
+                    break
+                default: break
                 }
             }
-            page.category.text = text
+        }
+        return text
+    }
+    
+    private func setPageVCAndAddToSubViewAfterRemove() {
+        if currentLoadedCardsArray.count > 1 {
             
-            let detailTextSwipe = pageVC.orderedViewControllers[0] as! DetailTextSwipeCard
-            
-            if let posterName = valueArray[i].posterName , let outline = valueArray[i].outline ,let target = valueArray[i].target ,let benefit = valueArray[i].benefit, let period = valueArray[i].period {
-                
-                detailTextSwipe.posterName.text = posterName
-                
-                if let hashTagArr = valueArray[i].posterInterest {
-                    var text = ""
-                    for i in hashTagArr{
-                        switch i {
-                        case 0:
-                            text = text + "#기획/아이디어"
-                            break
-                        case 1:
-                            text = text + "#금융/경제"
-                            break
-                        case 2:
-                            text = text + "#디자인"
-                            break
-                        case 3:
-                            text = text + "#문학/글쓰기"
-                            break
-                        case 4:
-                            text = text + "#문화/예술"
-                            break
-                        case 5:
-                            text = text + "#브랜딩/마케팅"
-                            break
-                        case 6:
-                            text = text + "#봉사/사회활동"
-                            break
-                        case 7:
-                            text = text + "#사진/영상"
-                            break
-                        case 8:
-                            text = text + "#창업/스타트업"
-                            break
-                        case 9:
-                            text = text + "#체육/건강"
-                            break
-                        case 10:
-                            text = text + "#학술/교양"
-                            break
-                        case 11:
-                            text = text + "#IT/기술"
-                            break
-                        default: break
-                        }
-                    }
-                }
-                
-                detailTextSwipe.hashTag.text = text
-                detailTextSwipe.outline.text = outline
-                detailTextSwipe.target.text = target
-                detailTextSwipe.benefit.text = benefit
-                detailTextSwipe.period.text = period
+        let storyboard = UIStoryboard(name: "SwipeStoryBoard", bundle: nil)
+        
+        let cardWidth = viewTinderBackGround.frame.width
+        let cardHeight = viewTinderBackGround.frame.height
+        
+            guard let pageVC = storyboard.instantiateViewController(withIdentifier: "PageViewController") as? PageViewController else {
+                return
             }
             
-            //            detailTextSwipe.posterName.text = valueArray[i].posterName!
-            //            detailTextSwipe.hashTag.text = "\(valueArray[i].categoryIdx)"
-            //
-            //            detailTextSwipe.outline.text = valueArray[i].outline!
-            //            detailTextSwipe.target.text = valueArray[i].target!
-            //            detailTextSwipe.benefit.text = valueArray[i].benefit!
-            //            detailTextSwipe.period.text = valueArray[i].period!
+            guard let detailImageSwipeCardVC = pageVC.orderedViewControllers[1] as? DetailImageSwipeCardVC else {
+                return
+            }
+            
+            guard let detailTextSwipeCard = pageVC.orderedViewControllers[0] as? DetailTextSwipeCard else {
+                return
+            }
+            
+            guard let posterURLString = valueArray[lastCardIndex].photoUrl else {
+                return
+            }
+            
+            guard let posterURL = URL(string: posterURLString) else {
+                return
+            }
+        
+            pageVC.view.frame = self.currentLoadedCardsArray[1].frame
+            
+            if valueArray.count > lastCardIndex {
+                
+            if let posterName = valueArray[lastCardIndex].posterName,
+                let outline = valueArray[lastCardIndex].outline,
+                let target = valueArray[lastCardIndex].target,
+                let benefit = valueArray[lastCardIndex].benefit {
+                
+                detailTextSwipeCard.posterName.text = posterName
+                detailTextSwipeCard.hashTag.text = setCategoryText(valueArray[lastCardIndex].posterInterest)
+                detailTextSwipeCard.outline.text = outline
+                detailTextSwipeCard.target.text = target
+                detailTextSwipeCard.benefit.text = benefit
+                
+                detailImageSwipeCardVC.detailImageVIew.load(url: posterURL)
+                detailImageSwipeCardVC.imageWidth = cardWidth
+                detailImageSwipeCardVC.imageHeight = cardHeight
+                detailImageSwipeCardVC.name.text = posterName
+                detailImageSwipeCardVC.category.text = setCategoryText(valueArray[lastCardIndex].posterInterest)
+            }
+                
+            detailTextSwipeCard.period.text = valueArray[lastCardIndex].period ?? ""
             
             self.addChild(pageVC)
-            self.currentLoadedCardsArray[i].insertSubview(pageVC.view, at: 0)
+            
+            self.currentLoadedCardsArray[1].insertSubview(pageVC.view, at: 0)
+            
             pageVC.didMove(toParent: self)
-            if i == 0 {
-                card.isUserInteractionEnabled = true
+                
             }
         }
     }
     
-    func cropToBounds(image: UIImage, width: Double, height: Double) -> UIImage {
-        let contextImage: UIImage = UIImage(cgImage: image.cgImage!)
+    //처음에만 0, 1로 로드한다.
+    private func setPageVCAndAddToSubView() {
+        let storyboard = UIStoryboard(name: "SwipeStoryBoard", bundle: nil)
         
-        let contextSize: CGSize = contextImage.size
-        let posX: CGFloat = contextSize.width
-        let posY: CGFloat = contextSize.width
-        let cgwidth: CGFloat = CGFloat(width)
-        let cgheight: CGFloat = CGFloat(height)
-        // See what size is longer and create the center off of that
+        let cardWidth = viewTinderBackGround.frame.width
+        let cardHeight = viewTinderBackGround.frame.height
         
-        let rect: CGRect = CGRect(x: posX-cgwidth/2, y: posY-cgheight/2, width: cgwidth, height: cgheight)
-        // Create bitmap image from context using the rect
-        let imageRef: CGImage = contextImage.cgImage!.cropping(to: rect)!
-        
-        // Create a new image based on the imageRef and rotate back to the original orientation
-        let image: UIImage = UIImage(cgImage: imageRef, scale: image.scale, orientation: image.imageOrientation)
-        
-        return image
+        for (i, _ ) in currentLoadedCardsArray.enumerated() {
+            guard let pageVC = storyboard.instantiateViewController(withIdentifier: "PageViewController") as? PageViewController else {
+                return
+            }
+            
+            guard let detailImageSwipeCardVC = pageVC.orderedViewControllers[1] as? DetailImageSwipeCardVC else {
+                return
+            }
+            
+            guard let detailTextSwipeCard = pageVC.orderedViewControllers[0] as? DetailTextSwipeCard else {
+                return
+            }
+            
+            guard let posterURLString = valueArray[i].photoUrl else {
+                return
+            }
+            
+            guard let posterURL = URL(string: posterURLString) else {
+                return
+            }
+            
+            pageVC.view.frame = self.currentLoadedCardsArray[i].frame
+            
+            if let posterName = valueArray[i].posterName,
+                let outline = valueArray[i].outline,
+                let target = valueArray[i].target,
+                let benefit = valueArray[i].benefit,
+                let period = valueArray[i].period {
+                
+                detailTextSwipeCard.posterName.text = posterName
+                detailTextSwipeCard.hashTag.text = setCategoryText(valueArray[i].posterInterest)
+                detailTextSwipeCard.outline.text = outline
+                detailTextSwipeCard.target.text = target
+                detailTextSwipeCard.benefit.text = benefit
+                detailTextSwipeCard.period.text = period
+                
+                detailImageSwipeCardVC.detailImageVIew.load(url: posterURL)
+                detailImageSwipeCardVC.imageWidth = cardWidth
+                detailImageSwipeCardVC.imageHeight = cardHeight
+                detailImageSwipeCardVC.name.text = posterName
+                detailImageSwipeCardVC.category.text = setCategoryText(valueArray[i].posterInterest)
+            }
+            
+            self.addChild(pageVC)
+            self.currentLoadedCardsArray[i].insertSubview(pageVC.view, at: 0)
+            pageVC.didMove(toParent: self)
+        }
     }
+
     //싫어요
     @IBAction func disLikeButtonAction(_ sender: Any) {
         let card = currentLoadedCardsArray.first
@@ -451,6 +443,7 @@ extension SwipeVC : SwipeCardDelegate {
         }
         
         likedPoster.append(self.valueArray[currentIndex-1])
+        
         UserDefaults.standard.setValue(try? PropertyListEncoder().encode(likedPoster), forKey: "poster")
         
         NotificationCenter.default.post(name: NSNotification.Name("addUserDefaults"), object: nil)
@@ -485,14 +478,5 @@ extension UIImageView {
 }
 
 
-//
-//extension UIImage {
-//    func resized(toWidth width: CGFloat) -> UIImage? {
-//        let canvasSize = CGSize(width: width, height: CGFloat(ceil(width/size.width * size.height)))
-//        UIGraphicsBeginImageContextWithOptions(canvasSize, false, scale)
-//        defer { UIGraphicsEndImageContext() }
-//        draw(in: CGRect(origin: .zero, size: canvasSize))
-//        return UIGraphicsGetImageFromCurrentImageContext()
-//    }
-//}
+
 

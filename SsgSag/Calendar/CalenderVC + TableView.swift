@@ -91,22 +91,29 @@ extension CalenderVC: UITableViewDelegate,UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
+        
         let editAction = UITableViewRowAction(style: .default, title: "완료", handler: { (action, indexPath) in
             
         })
+        
         let deleteAction = UITableViewRowAction(style: .default, title: "삭제", handler: { (action, indexPath) in
-            let defaults = UserDefaults.standard
             
-            if let posterData = defaults.object(forKey: "poster") as? Data {
+            //유저 디폴츠에서 꺼낸
+            if let posterData =  UserDefaults.standard.object(forKey: "poster") as? Data {
                 if let posterInfo = try? PropertyListDecoder().decode([Posters].self, from: posterData){
-                    for i in 0...posterInfo.count-1 {
-                        if posterInfo[i].posterName! == self.todoTableData[indexPath.row].4 {
-                            self.todoTableData.remove(at: i)
+                    
+                    for index in 0...posterInfo.count-1 {
+                        //유저디폴츠에서 꺼낸 poster과 todoTableData의 이름이 같다면
+                        if posterInfo[index].posterName! == self.todoTableData[indexPath.row].4 {
+                            var userDefaultsData = posterInfo
+                            userDefaultsData.remove(at: index)
+                            
+                            UserDefaults.standard.setValue(try? PropertyListEncoder().encode(userDefaultsData), forKey: "poster")
+                            NotificationCenter.default.post(name: NSNotification.Name("deleteUserDefaults"), object: nil)
                         }
                     }
                 }
             }
-            tableView.reloadData()
         })
         
         editAction.backgroundColor = UIColor.rgb(red: 49, green: 137, blue: 240)

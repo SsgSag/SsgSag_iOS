@@ -39,14 +39,17 @@ class SwipeCard: UIView {
         let panGestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(self.beingDragged))
         addGestureRecognizer(panGestureRecognizer)
         
-        imageViewStatus = UIImageView(frame: CGRect(x: (frame.size.width / 2) - 37.5, y: 75, width: 75, height: 75))
-        let imageURL = URL(string: value)
-        imageViewStatus.load(url: imageURL!)
-        imageViewStatus.alpha = 0
-        addSubview(imageViewStatus)
+//        imageViewStatus = UIImageView(frame: CGRect(x: (frame.size.width / 2) - 37.5, y: 75, width: 75, height: 75))
+//        let imageURL = URL(string: value)
+//        imageViewStatus.load(url: imageURL!)
+//        imageViewStatus.alpha = 0
+//        addSubview(imageViewStatus)
         
+        
+        let imageURL = URL(string: value)
         overLayImage = UIImageView(frame:bounds)
         overLayImage.alpha = 0
+        overLayImage.load(url: imageURL!)
         addSubview(overLayImage)
     }
     
@@ -142,6 +145,7 @@ class SwipeCard: UIView {
             "manualEndDate" : "2019-01-09 05:10",
             "isAlarm" : 1
         ]
+        
         let jsonData = try? JSONSerialization.data(withJSONObject: json)
         
         request.httpBody = jsonData

@@ -141,7 +141,7 @@ class PreferenceVC: UIViewController {
             do {
                 let apiResponse = try JSONDecoder().decode(Interests.self, from: data)
                 
-                print(apiResponse.data?.interests)
+                //print(apiResponse.data?.interests)
                 
                 self.setUpFirstStatus(interests: apiResponse.data?.interests)
                 
