@@ -8,6 +8,7 @@
 //
 
 import UIKit
+import NaverThirdPartyLogin
 
 class SignUpCompleteVC: UIViewController {
     
@@ -73,6 +74,7 @@ class SignUpCompleteVC: UIViewController {
     
     @IBAction func touchUpStartButton(_ sender: Any) {
         checkInterest()
+        
         postData()
     }
     
@@ -122,15 +124,31 @@ class SignUpCompleteVC: UIViewController {
         }
     }
     
-    func postData() {
-        guard let sendToken = KOSession.shared()?.token.accessToken else {
-            return
+    private func setSendTokenAndSendType(sendToken:inout String, sendType:inout Int) {
+        if KOSession.shared()?.token != nil {
+            guard let sendKakaoToken = KOSession.shared()?.token.accessToken else {
+                return
+            }
+            sendToken = sendKakaoToken
+        } else {
+            guard let loginConn = NaverThirdPartyLoginConnection.getSharedInstance() else {return}
+            guard let accessToken = loginConn.accessToken else {return}
+            
+            sendToken = accessToken
+            sendType = 1
         }
+    }
+    
+    func postData() {
+        var sendToken: String = ""
+        var sendType: Int = 0
+        
+        setSendTokenAndSendType(sendToken: &sendToken, sendType: &sendType)
         
         let sendData: [String: Any] = [
             "userName" : name,
             "userNickname" : nickName,
-            "signupType" : 0, //0은 카카오톡, 1은 네이버
+            "signupType" : sendType, //0은 카카오톡, 1은 네이버
             "accessToken" : sendToken,
             "userUniv" : school,
             "userMajor" : major,
@@ -142,10 +160,6 @@ class SignUpCompleteVC: UIViewController {
             "userInterest" : sendPreferenceValues,
             "userGrade" : grade
         ]
-        
-        /*
-        print(" userName : \(name), userNickname : \(nickName), signupType : 0, //0은 카카오톡, 1은 네이버 accessToken : \(sendToken),userUniv : \(school),userMajor : \(major),userStudentNum : \(number), userGender : \(gender), userBirth : \(birth), userPushAllow : 1, userInfoAllow : 1, userInterest : \(sendPreferenceValues), userGrade : \(grade)")
-        */
         
         let jsonData = try? JSONSerialization.data(withJSONObject: sendData)
         
@@ -166,6 +180,7 @@ class SignUpCompleteVC: UIViewController {
             }
             
             let responseJSON = try? JSONSerialization.jsonObject(with: data, options: [])
+            
             if let responseJSON = responseJSON as? [String: Any] {
                 
                 if let statusCode = responseJSON["status"] {
@@ -199,7 +214,6 @@ enum HttpStatus:Int {
     case databaseError = 600
     case doNotMatch = 400
 }
-
 
 /*
  {

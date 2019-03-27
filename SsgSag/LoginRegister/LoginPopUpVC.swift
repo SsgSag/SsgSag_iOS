@@ -19,6 +19,7 @@ class LoginPopUpVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         backView.makeRounded(cornerRadius: 4)
     }
     
@@ -26,35 +27,37 @@ class LoginPopUpVC: UIViewController {
         loginInstance?.delegate = self
         loginInstance?.requestThirdPartyLogin()
         
-        // getNaverEmailFromURL()
-        // guard let tokenType = loginInstance!.tokenType else {return}
-        // guard let accessToken = loginInstance!.accessToken else {return}
+        print(loginInstance?.accessToken)
+        
     }
     
     @IBAction func kakaoLogin(_ sender: Any) {
         let session = KOSession.shared() //세션 생성
         
-        if let kakaoSession = session {
-            if kakaoSession.isOpen() {//세션이 열려있는지 확인
-                kakaoSession.close()
-            }
-            
-            kakaoSession.open { (error) in
-                if error == nil {
-                    if kakaoSession.isOpen() {
-                        
-                        self.postData(accessToken: kakaoSession.token.accessToken, loginType: 0)
-                        
-                    } else {
-                        print("fail")
-                    }
-                } else {
-                    print(error!)
-                }
-            }
-        } else {
+        guard let kakaoSession = session else {
             print("no session")
+            return
         }
+        
+        if kakaoSession.isOpen() {//세션이 열려있는지 확인
+            kakaoSession.close()
+        }
+        
+        kakaoSession.open { (error) in
+            if error == nil {
+                if kakaoSession.isOpen() {
+                    
+                    self.postData(accessToken: kakaoSession.token.accessToken, loginType: 0)
+                    
+                } else {
+                    print("fail")
+                }
+            } else {
+                print(error!)
+            }
+        }
+        
+        
     }
     
     @IBAction func touchUpCancelButton(_ sender: UIButton) {
@@ -110,11 +113,14 @@ class LoginPopUpVC: UIViewController {
             }
             
             do {
+                
                 let tokenResponse = try? JSONDecoder().decode(TokenResponse.self, from: data)
+                
                 if let token = tokenResponse?.data {
                     UserDefaults.standard.set(token.token, forKey: "SsgSagToken")
                 }
-            } 
+            }
+            
         }
     }
 }
@@ -125,31 +131,30 @@ extension LoginPopUpVC: NaverThirdPartyLoginConnectionDelegate {
         let naverSignInViewController = NLoginThirdPartyOAuth20InAppBrowserViewController(request: request)!
         present(naverSignInViewController, animated: true, completion: nil)
     }
+    
     // ---- 4
     func oauth20ConnectionDidFinishRequestACTokenWithAuthCode() {
         print("Success oauth20ConnectionDidFinishRequestACTokenWithAuthCode")
         getNaverEmailFromURL()
-        //        logoutBtn.isHidden = false
-        loginBtn.isHidden = true
     }
     
     // ---- 5
     func oauth20ConnectionDidFinishRequestACTokenWithRefreshToken() {
         print("Success oauth20ConnectionDidFinishRequestACTokenWithRefreshToken")
         getNaverEmailFromURL()
-        //        logoutBtn.isHidden = false
-        loginBtn.isHidden = true
     }
     
     // ---- 6
     func oauth20ConnectionDidFinishDeleteToken() {
         print("네이버 연동이 완료되었습니다")
     }
+    
     // ---- 7
     func oauth20Connection(_ oauthConnection: NaverThirdPartyLoginConnection!, didFailWithError error: Error!) {
         print(error.localizedDescription)
         print(error)
     }
+    
     // ---- 8
     func getNaverEmailFromURL(){
         guard let loginConn = NaverThirdPartyLoginConnection.getSharedInstance() else {return}
@@ -158,20 +163,24 @@ extension LoginPopUpVC: NaverThirdPartyLoginConnectionDelegate {
         
         let authorization = "\(tokenType) \(accessToken)"
         print(authorization)
-        Alamofire.request("https://openapi.naver.com/v1/nid/me", method: .get, parameters: nil, encoding: JSONEncoding.default, headers: ["Authorization" : authorization]).responseJSON { (response) in
-            guard let result = response.result.value as? [String: Any] else {return}
-            guard let _ = result["response"] as? [String: Any] else {return}
-            //guard let birthday = object["birthday"] as? String else {return}
-            //guard let name = object["name"] as? String else {return}
-            //guard let email = object["email"] as? String else {return}
-            
-            //            self.birthLabel.text = birthday
-            //            self.emailLabel.text = email
-            //            self.nameLabel.text = name
-            
-            print(result)
-        }
+        
+        self.postData(accessToken: accessToken, loginType: 1)
     }
+    
+    func abcdefg() {
+//        guard let loginConn = NaverThirdPartyLoginConnection.getSharedInstance() else {return}
+//        guard let tokenType = loginConn.tokenType else {return}
+//        guard let accessToken = loginConn.accessToken else {return}
+//
+//        let authorization = "\(tokenType) \(accessToken)"
+//
+//        Alamofire.request("https://openapi.naver.com/v1/nid/me", method: .get, parameters: nil, encoding: JSONEncoding.default, headers: ["Authorization" : authorization]).responseJSON { (response) in
+//            guard let result = response.result.value as? [String: Any] else {return}
+//
+//            print(result)
+//        }
+    }
+    
 }
 
 struct TokenResponse: Codable {
@@ -186,43 +195,43 @@ struct SsgSagToken: Codable {
 
 
 /* 혹시나 쓸수 있을까봐 남깁니다.
-func touchUpLoginButton() {
-    //        guard let email = emailTextField.text else {
-    //            return ""
-    //        }
-    //        guard let password = passwordTextField.text else {
-    //            return ""
-    //        }
-    //        print("5")
-    //
-    //        LoginService.shared.login(email: email, password: password) { (data,status) in
-    //            //            print("this is data token \(data?.token) \(status)")
-    //            if data?.token == nil {
-    //                self.emailTextField.text = ""
-    //                self.passwordTextField.text = ""
-    //                print("500")
-    //                if status == 400 {
-    //                    print("400")
-    //                    let alertController = UIAlertController(title: "로그인 실패", message: "정확한 ID와 Password를 입력해주세요", preferredStyle: UIAlertController.Style.alert)
-    //                    let action = UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil)
-    //                    alertController.addAction(action)
-    //                    self.present(alertController, animated: true, completion: nil)
-    //                } else if status == 500 {
-    //                    let alterController = UIAlertController(title: "로그인 실패", message: "서버 내부 에러", preferredStyle: UIAlertController.Style.alert)
-    //                    let action = UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil)
-    //                    alterController.addAction(action)
-    //                    self.present(alterController, animated: true, completion: nil)
-    //                }
-    //            }
-    //
-    //            guard let token = data?.token else {return}
-    //            //토큰 저장
-    //            UserDefaults.standard.set(token, forKey: "token")
-    //            let savedToken = UserDefaults.standard.object(forKey: "token")
-    //            print("저장된 토큰 값 \(savedToken!)")
-    //
-    //            let tabbarVC = TapbarVC()
-    //            self.present(tabbarVC, animated: true, completion: nil)
-    //        }
-}
-*/
+ func touchUpLoginButton() {
+ //        guard let email = emailTextField.text else {
+ //            return ""
+ //        }
+ //        guard let password = passwordTextField.text else {
+ //            return ""
+ //        }
+ //        print("5")
+ //
+ //        LoginService.shared.login(email: email, password: password) { (data,status) in
+ //            //            print("this is data token \(data?.token) \(status)")
+ //            if data?.token == nil {
+ //                self.emailTextField.text = ""
+ //                self.passwordTextField.text = ""
+ //                print("500")
+ //                if status == 400 {
+ //                    print("400")
+ //                    let alertController = UIAlertController(title: "로그인 실패", message: "정확한 ID와 Password를 입력해주세요", preferredStyle: UIAlertController.Style.alert)
+ //                    let action = UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil)
+ //                    alertController.addAction(action)
+ //                    self.present(alertController, animated: true, completion: nil)
+ //                } else if status == 500 {
+ //                    let alterController = UIAlertController(title: "로그인 실패", message: "서버 내부 에러", preferredStyle: UIAlertController.Style.alert)
+ //                    let action = UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil)
+ //                    alterController.addAction(action)
+ //                    self.present(alterController, animated: true, completion: nil)
+ //                }
+ //            }
+ //
+ //            guard let token = data?.token else {return}
+ //            //토큰 저장
+ //            UserDefaults.standard.set(token, forKey: "token")
+ //            let savedToken = UserDefaults.standard.object(forKey: "token")
+ //            print("저장된 토큰 값 \(savedToken!)")
+ //
+ //            let tabbarVC = TapbarVC()
+ //            self.present(tabbarVC, animated: true, completion: nil)
+ //        }
+ }
+ */

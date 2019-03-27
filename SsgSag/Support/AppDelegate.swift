@@ -22,21 +22,32 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         naverLogin()
         
-        if let _ = UserDefaults.standard.object(forKey: "SsgSagToken") {
-            window = UIWindow(frame: UIScreen.main.bounds)
+        window = UIWindow(frame: UIScreen.main.bounds)
+    
+        setWindowRootViewController()
 
+        window?.makeKeyAndVisible()
+        
+        return true
+    }
+    
+    private func setWindowRootViewController() {
+        if isTokenExist() {
             window?.rootViewController = TapbarVC()
-
-            window?.makeKeyAndVisible()
         } else {
             let loginStoryBoard = UIStoryboard(name: "LoginStoryBoard", bundle: nil)
             let loginVC = loginStoryBoard.instantiateViewController(withIdentifier: "Login")
-            window = UIWindow(frame: UIScreen.main.bounds)
+            
             window?.rootViewController = loginVC
-            window?.makeKeyAndVisible()
         }
-        
-        return true
+    }
+    
+    private func isTokenExist() -> Bool {
+        if let _ = UserDefaults.standard.object(forKey: "SsgSagToken") {
+            return true
+        } else {
+            return false
+        }
     }
     
     private func naverLogin() {
@@ -51,15 +62,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         instance?.appName = kServiceAppName
     }
     
-    // setupEntryController()
-    // 로그인,로그아웃 상태 변경 받기
-    //        NotificationCenter.default.addObserver(self,
-    //                                               selector: #selector(AppDelegate.kakaoSessionDidChangeWithNotification),
-    //                                               name: NSNotification.Name.KOSessionDidChange,
-    //                                               object: nil)
-    //        reloadRootViewController()
-    //
-    
     fileprivate func hasToken() -> Bool {
          if UserDefaults.standard.object(forKey: "SsgSagToken") != nil {
             return true
@@ -69,26 +71,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     fileprivate func setupEntryController() {
-         let loginStoryBoard = UIStoryboard(name: "LoginStoryBoard", bundle: nil)
+        let loginStoryBoard = UIStoryboard(name: "LoginStoryBoard", bundle: nil)
         
         let navigationController = loginStoryBoard.instantiateViewController(withIdentifier: "LoginNavigator") as! UINavigationController
         let navigationController2 = loginStoryBoard.instantiateViewController(withIdentifier: "LoginNavigator") as! UINavigationController
         let mainVC = TapbarVC() as UIViewController
         let loginVC = loginStoryBoard.instantiateViewController(withIdentifier: "Login") as UIViewController
+    
+        navigationController2.pushViewController(mainVC, animated: true)
+        self.mainViewController = navigationController2
         
-//        if hasToken() {
-//            let
-        
-            navigationController2.pushViewController(mainVC, animated: true)
-            self.mainViewController = navigationController2
-//        } else {
-            //토큰 값 없음
-            
-            
-            navigationController.pushViewController(loginVC, animated: true)
-            self.loginViewController = navigationController
-//        }
-            
+        navigationController.pushViewController(loginVC, animated: true)
+        self.loginViewController = navigationController
     }
     
     fileprivate func reloadRootViewController() {

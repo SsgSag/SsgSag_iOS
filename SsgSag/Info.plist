@@ -22,10 +22,18 @@
 			<key>CFBundleTypeRole</key>
 			<string>Editor</string>
 			<key>CFBundleURLName</key>
-			<string>naverlogin</string>
+			<string>ssgsagnaverlogin</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>naverlogin</string>
+				<string>ssgsagnaverlogin</string>
+			</array>
+		</dict>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>kakaoed0a3c51db01fecdca098dde710f2753</string>
 			</array>
 		</dict>
 	</array>
@@ -41,8 +49,8 @@
 		<string>kakaolink</string>
 		<string>kakaotalk-4.5.0</string>
 		<string>kakaostory-2.9.0</string>
-        <string>naversearchapp</string>
-        <string>naversearchthirdlogin</string>
+		<string>naversearchapp</string>
+		<string>naversearchthirdlogin</string>
 	</array>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
