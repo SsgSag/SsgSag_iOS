@@ -20,7 +20,6 @@ class LoginPopUpVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         backView.makeRounded(cornerRadius: 4)
-        
     }
     
     @IBAction func naverLogin(_ sender: Any) {
