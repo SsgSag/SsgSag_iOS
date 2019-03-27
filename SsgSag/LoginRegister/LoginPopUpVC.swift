@@ -26,10 +26,9 @@ class LoginPopUpVC: UIViewController {
         loginInstance?.delegate = self
         loginInstance?.requestThirdPartyLogin()
         
-//        getNaverEmailFromURL()
-        
-        guard let tokenType = loginInstance!.tokenType else {return}
-        guard let accessToken = loginInstance!.accessToken else {return}
+        // getNaverEmailFromURL()
+        // guard let tokenType = loginInstance!.tokenType else {return}
+        // guard let accessToken = loginInstance!.accessToken else {return}
     }
     
     @IBAction func kakaoLogin(_ sender: Any) {

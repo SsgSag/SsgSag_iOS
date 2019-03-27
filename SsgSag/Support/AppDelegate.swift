@@ -19,7 +19,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     // Override point for customization after application launch.
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-  
+        
+        naverLogin()
+        
         if let _ = UserDefaults.standard.object(forKey: "SsgSagToken") {
             window = UIWindow(frame: UIScreen.main.bounds)
 
@@ -34,6 +36,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             window?.makeKeyAndVisible()
         }
         
+        return true
+    }
+    
+    private func naverLogin() {
         let instance = NaverThirdPartyLoginConnection.getSharedInstance()
         instance?.isInAppOauthEnable = true // --- 1
         instance?.isNaverAppOauthEnable = true // --- 2
@@ -43,8 +49,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         instance?.consumerKey = kConsumerKey
         instance?.consumerSecret = kConsumerSecret
         instance?.appName = kServiceAppName
-        
-        return true
     }
     
     // setupEntryController()
