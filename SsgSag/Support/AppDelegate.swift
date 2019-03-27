@@ -100,7 +100,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     @objc func kakaoSessionDidChangeWithNotification() {
-        //reloadRootViewController()
+        reloadRootViewController()
     }
     
     func applicationWillResignActive(_ application: UIApplication) {

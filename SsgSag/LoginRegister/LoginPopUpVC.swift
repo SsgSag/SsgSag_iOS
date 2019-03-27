@@ -71,7 +71,7 @@ class LoginPopUpVC: UIViewController {
         
         let signupNavigator = UINavigationController(rootViewController: signupVC)
         
-        let mainVC = TapbarVC()
+       // let mainVC = TapbarVC()
         
         //0 카톡 로그인, 1은 네이버 로그인(업데이트 예정)
         let json: [String: Any] = [ "accessToken": accessToken,
@@ -94,7 +94,7 @@ class LoginPopUpVC: UIViewController {
             guard let data = data else {
                 return
             }
-            
+                                                      
             let responseJSON = try? JSONSerialization.jsonObject(with: data, options: [])
             
             if let responseJSON = responseJSON as? [String: Any] {
@@ -104,14 +104,13 @@ class LoginPopUpVC: UIViewController {
                     print("statusCode: \(statusCode)")
                     if status == 200 {
                         print("로그인성공")
-                        self.present(mainVC, animated: true, completion: nil)
+                        self.present(TapbarVC(), animated: true, completion: nil)
                     } else if status == 404 {
                         print("회원가입필요")
                         self.present(signupNavigator, animated: true, completion: nil)
                     }
                 }
             }
-            
             do {
                 
                 let tokenResponse = try? JSONDecoder().decode(TokenResponse.self, from: data)
