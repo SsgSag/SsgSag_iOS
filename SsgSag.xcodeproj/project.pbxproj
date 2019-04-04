@@ -48,7 +48,6 @@
 		B3B272324E5CE5E03C1B0C40 /* Pods_SsgSagUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E3C1F7A7EF024A1619F0DFCB /* Pods_SsgSagUITests.framework */; };
 		E363B0EBD73A4128A2F7C0BB /* Pods_SsgSagTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 79CF1D630B2315598FD05788 /* Pods_SsgSagTests.framework */; };
 		FA23A93F21DF6FCF003DB5F9 /* myPageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA23A93D21DF6FCF003DB5F9 /* myPageTableViewCell.swift */; };
-		FA25A58221D36EC500C9FC93 /* SegmentedProgressBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA25A58121D36EC500C9FC93 /* SegmentedProgressBar.swift */; };
 		FA3A342021E5127700668908 /* UserAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA3A341F21E5127700668908 /* UserAPI.swift */; };
 		FA3A342221E5D64300668908 /* UserInfoVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA3A342121E5D64300668908 /* UserInfoVC.swift */; };
 		FA3A344221E7285C00668908 /* ConfirmProfileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA3A344121E7285C00668908 /* ConfirmProfileVC.swift */; };
@@ -162,7 +161,6 @@
 		E43CB28ACDEE342412E92267 /* Pods_SsgSag.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SsgSag.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		FA23A93D21DF6FCF003DB5F9 /* myPageTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = myPageTableViewCell.swift; sourceTree = "<group>"; };
 		FA23A93E21DF6FCF003DB5F9 /* myPageTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = myPageTableViewCell.xib; sourceTree = "<group>"; };
-		FA25A58121D36EC500C9FC93 /* SegmentedProgressBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SegmentedProgressBar.swift; sourceTree = "<group>"; };
 		FA3A341F21E5127700668908 /* UserAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserAPI.swift; sourceTree = "<group>"; };
 		FA3A342121E5D64300668908 /* UserInfoVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfoVC.swift; sourceTree = "<group>"; };
 		FA3A344121E7285C00668908 /* ConfirmProfileVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmProfileVC.swift; sourceTree = "<group>"; };
@@ -495,7 +493,6 @@
 				FA851DE821D3DBBC002065D0 /* SwipeCard.swift */,
 				845928E421D38771001DF6CC /* DetailImageSwipeCard.swift */,
 				845928E621D3877D001DF6CC /* DetailTextSwipeCard.swift */,
-				FA25A58121D36EC500C9FC93 /* SegmentedProgressBar.swift */,
 				FA851DEC21D5FDB0002065D0 /* SwipeModel.swift */,
 				84B4268B21E9091C00B44F71 /* main_empty_hifive.json */,
 			);
@@ -836,7 +833,6 @@
 				FA3A8FDB21DF3F410075A510 /* SplashVC.swift in Sources */,
 				845928E521D38771001DF6CC /* DetailImageSwipeCard.swift in Sources */,
 				84BA694D21DB74BD00BA8CB8 /* TapbarVC.swift in Sources */,
-				FA25A58221D36EC500C9FC93 /* SegmentedProgressBar.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1021,7 +1017,7 @@
 					"\"UIKit\"",
 					"-all_load",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.MinjiCho.SsgSag;
+				PRODUCT_BUNDLE_IDENTIFIER = com.wndzlf.SsgSag;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = SsgSag/Kakao_Header.h;
@@ -1064,7 +1060,7 @@
 					"\"UIKit\"",
 					"-all_load",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.MinjiCho.SsgSag;
+				PRODUCT_BUNDLE_IDENTIFIER = com.wndzlf.SsgSag;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = SsgSag/Kakao_Header.h;

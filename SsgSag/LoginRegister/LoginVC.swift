@@ -20,7 +20,7 @@ class LoginVC: UIViewController {
     
     @IBAction func touchUpAutoLoginButton(_ sender: UIButton) {
         if sender.isSelected {
-            sender.isSelected = false
+            sender.isSelected = false 
             sender.setImage(UIImage(named:"checkboxRound"), for: .normal)
             
         } else {
@@ -28,6 +28,7 @@ class LoginVC: UIViewController {
             sender.setImage(UIImage(named: "checkboxRoundActive"), for: .normal)
             sender.isSelected = true
         }
+        
     }
     
     func popUpSocialLogin(button: UIButton) {

@@ -20,25 +20,35 @@ class DetailImageSwipeCardVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        view.addSubview(segmentView)
+        view.addSubview(segmentSecondView)
+        
+        NSLayoutConstraint.activate([
+            segmentView.trailingAnchor.constraint(equalTo: view.centerXAnchor),
+            segmentView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            segmentView.heightAnchor.constraint(equalToConstant: 3),
+            segmentView.topAnchor.constraint(equalTo: view.topAnchor),
+            
+            segmentSecondView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            segmentSecondView.leadingAnchor.constraint(equalTo: view.centerXAnchor),
+            segmentSecondView.heightAnchor.constraint(equalToConstant: 3),
+            segmentSecondView.topAnchor.constraint(equalTo: view.topAnchor),
+            ])
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(true)
-    }
-}
-
-extension UIImage {
+    var segmentView: UIView = {
+        let segmentView = UIView()
+        segmentView.backgroundColor = #colorLiteral(red: 0.2039215686, green: 0.4274509804, blue: 0.9529411765, alpha: 1)
+        segmentView.translatesAutoresizingMaskIntoConstraints = false
+        return segmentView
+    }()
     
-    func resize(withWidth newWidth: CGFloat) -> UIImage? {
-        
-        let scale = newWidth / self.size.width
-        let newHeight = self.size.height * scale
-        UIGraphicsBeginImageContext(CGSize(width: newWidth, height: newHeight))
-        self.draw(in: CGRect(x: 0, y: 0, width: newWidth, height: newHeight))
-        let newImage = UIGraphicsGetImageFromCurrentImageContext()
-        UIGraphicsEndImageContext()
-        
-        return newImage
-    }
+    var segmentSecondView: UIView = {
+        let segmentView = UIView()
+        segmentView.backgroundColor = .lightGray
+        segmentView.translatesAutoresizingMaskIntoConstraints = false
+        return segmentView
+    }()
 }
 

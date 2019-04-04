@@ -26,12 +26,10 @@ class LoginPopUpVC: UIViewController {
     @IBAction func naverLogin(_ sender: Any) {
         loginInstance?.delegate = self
         loginInstance?.requestThirdPartyLogin()
-        
-        print(loginInstance?.accessToken)
-        
     }
     
     @IBAction func kakaoLogin(_ sender: Any) {
+        
         let session = KOSession.shared() //세션 생성
         
         guard let kakaoSession = session else {
@@ -56,7 +54,6 @@ class LoginPopUpVC: UIViewController {
                 print(error!)
             }
         }
-        
         
     }
     
@@ -94,6 +91,14 @@ class LoginPopUpVC: UIViewController {
             guard let data = data else {
                 return
             }
+            
+            do {
+                let tokenResponse = try? JSONDecoder().decode(TokenResponse.self, from: data)
+                
+                if let token = tokenResponse?.data {
+                    UserDefaults.standard.set(token.token, forKey: "SsgSagToken")
+                }
+            }
                                                       
             let responseJSON = try? JSONSerialization.jsonObject(with: data, options: [])
             
@@ -109,14 +114,6 @@ class LoginPopUpVC: UIViewController {
                         print("회원가입필요")
                         self.present(signupNavigator, animated: true, completion: nil)
                     }
-                }
-            }
-            do {
-                
-                let tokenResponse = try? JSONDecoder().decode(TokenResponse.self, from: data)
-                
-                if let token = tokenResponse?.data {
-                    UserDefaults.standard.set(token.token, forKey: "SsgSagToken")
                 }
             }
             

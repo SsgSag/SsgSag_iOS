@@ -31,6 +31,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return true
     }
     
+    func application(_ application: UIApplication, open url: URL, sourceApplication: String?, annotation: Any) -> Bool {
+        
+        if KOSession.isKakaoAccountLoginCallback(url) {
+            return KOSession.handleOpen(url)
+        }
+        
+        return true
+    }
+    
     private func setWindowRootViewController() {
         if isTokenExist() {
             window?.rootViewController = TapbarVC()
@@ -132,13 +141,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         if KOSession.isKakaoAccountLoginCallback(url) {
             return KOSession.handleOpen(url)
         }
-        return true
-    }
-    
-    func application(_ application: UIApplication, open url: URL, sourceApplication: String?, annotation: Any) -> Bool {
-        if KOSession.isKakaoAccountLoginCallback(url) {
-            return KOSession.handleOpen(url)
-        }
+        
         return true
     }
     
