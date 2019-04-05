@@ -127,6 +127,7 @@ class CalendarDetailVC: UIViewController {
     func popUpDetailInfo(button: UIButton) {
         let storyBoard = UIStoryboard(name: "Calendar", bundle: nil)
         let popVC = storyBoard.instantiateViewController(withIdentifier: "CalendarDetailPopUpVC") as! CalendarDetailPopUpVC
+        
         self.addChild(popVC)
         popVC.view.frame = self.view.frame
         
