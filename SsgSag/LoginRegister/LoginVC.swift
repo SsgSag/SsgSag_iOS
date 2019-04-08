@@ -10,8 +10,22 @@ import UIKit
 
 class LoginVC: UIViewController {
     
+    @IBOutlet weak var emailTextField: UITextField!
+    @IBOutlet weak var passwordTextField: UITextField!
+    
+    
+    @IBOutlet weak var autoLoginButton: UIButton!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        setEmailAndPasswordTextField()
+        
+    }
+    
+    private func setEmailAndPasswordTextField() {
+        emailTextField.borderStyle = .none
+        passwordTextField.borderStyle = .none
     }
     
     @IBAction func touchUpStartButton(_ sender: UIButton) {
@@ -20,16 +34,24 @@ class LoginVC: UIViewController {
     
     @IBAction func touchUpAutoLoginButton(_ sender: UIButton) {
         if sender.isSelected {
-            sender.isSelected = false 
-            sender.setImage(UIImage(named:"checkboxRound"), for: .normal)
-            
+            sender.isSelected = false
+            autoLoginButton.setImage(UIImage(named:"checkboxRound"), for: .normal)
         } else {
             sender.isSelected = true
-            sender.setImage(UIImage(named: "checkboxRoundActive"), for: .normal)
+            autoLoginButton.setImage(UIImage(named: "checkboxRoundActive"), for: .normal)
             sender.isSelected = true
         }
-        
     }
+    
+    @IBAction func ssgSagLogin(_ sender: Any) {
+        print("로그인")
+    }
+    
+    @IBAction func ssgSagSignUp(_ sender: Any) {
+        print("회원가입")
+    }
+    
+    
     
     func popUpSocialLogin(button: UIButton) {
         let myPageStoryBoard = UIStoryboard(name: "LoginStoryBoard", bundle: nil)

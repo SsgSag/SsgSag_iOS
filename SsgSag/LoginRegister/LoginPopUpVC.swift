@@ -95,25 +95,26 @@ class LoginPopUpVC: UIViewController {
             do {
                 let tokenResponse = try? JSONDecoder().decode(TokenResponse.self, from: data)
                 
+                //토큰 저장시 옵셔널로 저장하면 처음 로그인시 포스터를 제대로 받아오지 못합니다.
                 if let token = tokenResponse?.data {
-                    UserDefaults.standard.set(token.token, forKey: "SsgSagToken")
+                    if let storeToken = token.token {
+                        UserDefaults.standard.set(storeToken, forKey: "SsgSagToken")
+                    }
                 }
             }
                                                       
             let responseJSON = try? JSONSerialization.jsonObject(with: data, options: [])
             
             if let responseJSON = responseJSON as? [String: Any] {
-                print("responseJSON \(responseJSON)")
                 if let statusCode = responseJSON["status"] {
                     let status = statusCode as! Int
-                    print("statusCode: \(statusCode)")
+                    
                     if status == 200 {
-                        print("로그인성공")
                         self.present(TapbarVC(), animated: true, completion: nil)
                     } else if status == 404 {
-                        print("회원가입필요")
                         self.present(signupNavigator, animated: true, completion: nil)
                     }
+                    
                 }
             }
             

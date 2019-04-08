@@ -6,7 +6,6 @@
 //  Copyright © 2019 wndzlf. All rights reserved.
 //
 
-
 import UIKit
 
 enum PosterCategory: Int {

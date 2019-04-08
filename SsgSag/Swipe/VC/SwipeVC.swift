@@ -31,6 +31,44 @@ class SwipeVC: UIViewController {
     
     private var countTotalCardIndex = 0
     
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        //resetDefaults()
+        
+        getPosterData()
+        
+        setCountLabel()
+        setView()
+        setButtonTarget()
+        
+        hideStatusBar()
+        
+        setEmptyPosterAnimation()
+    }
+    
+    private func hideStatusBar() {
+        self.view.addSubview(overLapView)
+    }
+    
+    private func setCountLabel() {
+        countLabel.layer.cornerRadius = 10
+        countLabel.layer.masksToBounds = true
+    }
+    
+    private func setView() {
+        self.view.backgroundColor = UIColor(displayP3Red: 242/255, green: 243/255, blue: 245/255, alpha: 1.0)
+        self.view.bringSubviewToFront(viewTinderBackGround)
+    }
+    
+    private func setButtonTarget() {
+        likedButton.addTarget(self, action: #selector(touchDownLiked(_:)), for: .touchDown)
+        likedButton.addTarget(self, action: #selector(touchUpLiked(_:)), for: .touchUpInside)
+        
+        dislikedButton.addTarget(self, action: #selector(touchDownDisLiked(_:)), for: .touchDown)
+        dislikedButton.addTarget(self, action: #selector(touchUpDisLiked(_:)), for: .touchUpInside)
+    }
+    
     private func setEmptyPosterAnimation() {
         
         let animation = LOTAnimationView(name: "main_empty_hifive")
@@ -48,29 +86,6 @@ class SwipeVC: UIViewController {
         animation.play()
         
         simplerAlert(title: "저장되었습니다")
-    }
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        getPosterData()
-        
-        countLabel.layer.cornerRadius = 10
-        countLabel.layer.masksToBounds = true
-        
-        self.view.backgroundColor = UIColor(displayP3Red: 242/255, green: 243/255, blue: 245/255, alpha: 1.0)
-        
-        self.view.bringSubviewToFront(viewTinderBackGround)
-        
-        likedButton.addTarget(self, action: #selector(touchDownLiked(_:)), for: .touchDown)
-        likedButton.addTarget(self, action: #selector(touchUpLiked(_:)), for: .touchUpInside)
-        
-        dislikedButton.addTarget(self, action: #selector(touchDownDisLiked(_:)), for: .touchDown)
-        dislikedButton.addTarget(self, action: #selector(touchUpDisLiked(_:)), for: .touchUpInside)
-        
-        setEmptyPosterAnimation()
-        
-        self.view.bringSubviewToFront(overLapView)
     }
     
     func resetDefaults() {
@@ -190,7 +205,6 @@ class SwipeVC: UIViewController {
         
     }
     
-    //0 , 1로드 이후 1, 2가 로드 되어야 한다.
     private func loadCardValuesAfterRemoveObject() {
         currentLoadedCardsArray.remove(at: 0)
         
@@ -466,16 +480,6 @@ extension SwipeVC : SwipeCardDelegate {
         UserDefaults.standard.setValue(try? PropertyListEncoder().encode(likedPoster), forKey: "poster")
         
         NotificationCenter.default.post(name: NSNotification.Name("addUserDefaults"), object: nil)
-    }
-    
-    func resizeImage(image: UIImage, newWidth: CGFloat) -> UIImage {
-        let scale = newWidth / image.size.width
-        let newHeight = image.size.height * scale
-        UIGraphicsBeginImageContext(CGSize(width: newWidth, height: newHeight))
-        image.draw(in: CGRect(x: 0, y: 0, width: newWidth, height: newHeight))
-        let newImage = UIGraphicsGetImageFromCurrentImageContext()
-        UIGraphicsEndImageContext()
-        return newImage!
     }
 }
 
