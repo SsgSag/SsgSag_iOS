@@ -938,7 +938,7 @@
         <!--User InfoVC-->
         <scene sceneID="Mxc-4g-kB8">
             <objects>
-                <viewController id="GGt-42-CPf" customClass="UserInfoVC" customModule="SsgSag" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="UserInfoVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="GGt-42-CPf" customClass="UserInfoVC" customModule="SsgSag" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="4aU-pQ-qes">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1032,6 +1032,9 @@
                                 <state key="normal" image="btNextUnactive">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
+                                <connections>
+                                    <action selector="nextActionButton:" destination="GGt-42-CPf" eventType="touchUpInside" id="Gw6-zn-b7K"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -1079,7 +1082,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="TJf-ZG-AY3" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-538" y="844"/>
+            <point key="canvasLocation" x="529" y="180"/>
         </scene>
     </scenes>
     <resources>

@@ -100,7 +100,7 @@
                                 </constraints>
                                 <color key="textColor" red="0.96078431369999995" green="0.96078431369999995" blue="0.96078431369999995" alpha="1" colorSpace="calibratedRGB"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
+                                <textInputTraits key="textInputTraits" secureTextEntry="YES" textContentType="password"/>
                             </textField>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VWf-ra-Qwk">
                                 <rect key="frame" x="28" y="353" width="319" height="1"/>
@@ -310,7 +310,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="lb4-ov-LP3" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1542" y="8"/>
+            <point key="canvasLocation" x="1468" y="8"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="ltr-2A-WOE">
