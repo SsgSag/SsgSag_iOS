@@ -104,9 +104,6 @@ class SwipeCard: UIView {
                 self.overLayImage.alpha = 0
             })
         }
-        
-        print("카드 스와이핑 액션이 왼쪽 오른쪽에 따라 완전히 끝났다")
-        
     }
     
     //오른쪽 스와이프 , 좋아요

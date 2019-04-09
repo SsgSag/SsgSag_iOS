@@ -59,10 +59,13 @@ class CalendarDetailVC: UIViewController {
             benefitLabel.text = poster.benefit
             
             if let posterInterest = poster.posterInterest {
+                
                 var hashTagString = ""
-                for hashInterest in posterInterest {
-                    hashTagString = hashTagString + "#" + hashTags[hashInterest]! + " "
-                }
+                    for hashInterest in posterInterest {
+                        if let hashTagsHashInterest = hashTags[hashInterest] {
+                            hashTagString = hashTagString + "#" + hashTagsHashInterest + " "
+                        }
+                    }
                 hashTagLabel.text = hashTagString
             }
         }
@@ -124,6 +127,7 @@ class CalendarDetailVC: UIViewController {
     func popUpDetailInfo(button: UIButton) {
         let storyBoard = UIStoryboard(name: "Calendar", bundle: nil)
         let popVC = storyBoard.instantiateViewController(withIdentifier: "CalendarDetailPopUpVC") as! CalendarDetailPopUpVC
+        
         self.addChild(popVC)
         popVC.view.frame = self.view.frame
         

@@ -190,7 +190,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9ah-Vi-Zcy" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2749.5999999999999" y="71.064467766116948"/>
+            <point key="canvasLocation" x="2684" y="72"/>
         </scene>
         <!--Detail Text Swipe Card-->
         <scene sceneID="Gv6-l5-7Qr">

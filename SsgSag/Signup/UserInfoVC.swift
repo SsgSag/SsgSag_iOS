@@ -16,13 +16,9 @@ class UserInfoVC: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var nextButton: UIButton!
     @IBOutlet weak var stackViewConstraint: NSLayoutConstraint!
     @IBOutlet weak var constraint2: NSLayoutConstraint!
-    
     @IBOutlet weak var constraint3: NSLayoutConstraint!
-    
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var titleImgae: UIImageView!
-    
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -31,32 +27,74 @@ class UserInfoVC: UIViewController, UITextFieldDelegate {
         passwordCheckTextField.returnKeyType = .done
         
         iniGestureRecognizer()
+        
         self.titleLabel.isHidden = false
         self.titleImgae.isHidden = false
-//        setNavigationBar(color: .white)
         
+    }
+    
+    @IBAction func nextActionButton(_ sender: Any) {
+        //여기서 중복 확인을 하자.
+        
+        guard let userEmailString = emailTextField.text else { return }
+        
+        let signupType:Int = 10 //자체 로그인은 10
+        
+        let urlString = UserAPI.sharedInstance.getURL("/user/validate?userEmail=\(userEmailString)&signupType=\(signupType)")
+        
+        guard let requestURL = URL(string: urlString) else { return }
+        
+        var request = URLRequest(url: requestURL)
+        request.httpMethod = "GET"
+        
+        NetworkManager.shared.getData(with: request) { (data, error, response) in
+            guard let data = data else {return}
+            
+            do {
+                let isDuplicateNetworkModel = try JSONDecoder().decode(EmailDuplicate.self, from: data)
+                
+                guard let httpStatusCode = isDuplicateNetworkModel.status else {return}
+                
+                guard let status = HttpStatusCode(rawValue: httpStatusCode) else {return}
+                
+                switch status {
+                case .sucess:
+                    guard let isDuplicated = isDuplicateNetworkModel.data else {return}
+                    
+                    DispatchQueue.main.async {
+                        if isDuplicated  {
+                            let storyboard = UIStoryboard(name: "SignupStoryBoard", bundle: nil)
+                            let SchoolInfoVC = storyboard.instantiateViewController(withIdentifier: "SignupFirst") as! ConfirmProfileVC
+                            self.navigationController?.pushViewController(SchoolInfoVC, animated: true)
+                        } else {
+                            self.simplerAlert(title: "중복되는 이메일이 존재합니다.")
+                        }
+                    }
+                case .dataBaseError:
+                    print("Email Duplicate DatabaseError")
+                case .serverError:
+                    print("Email Duplicate ServerError")
+                default:
+                    break
+                }
+            } catch {
+                print("Email Duplicate Parsing Error")
+            }
+        }
+    }
+    
+    @IBAction func touchUpBackButton(_ sender: UIBarButtonItem) {
+        self.dismiss(animated: true, completion: nil)
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         registerForKeyboardNotifications()
     }
+    
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         unregisterForKeyboardNotifications()
-    }
-    
-    
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        
-//        if let profileVC = segue.destination as? ConfirmProfileVC {
-////            profileVC.id = emailTextField.text ?? ""
-////            profileVC.password = passwordTextField.text ?? ""
-//        }
-    }
-    
-    @IBAction func touchUpBackButton(_ sender: UIBarButtonItem) {
-        
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -79,7 +117,6 @@ class UserInfoVC: UIViewController, UITextFieldDelegate {
     }
     
     @objc func checkInformation(_ sender: Any) {
-        print("checkinformation start")
         if (emailTextField.hasText && passwordTextField.hasText && passwordCheckTextField.hasText) {
             print("idfield check / password, confirmpassword, inform check")
             if (passwordTextField.text == passwordCheckTextField.text) {
@@ -155,4 +192,10 @@ extension UserInfoVC : UIGestureRecognizerDelegate {
         NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
     }
+}
+
+struct EmailDuplicate: Codable {
+    let status: Int?
+    let message: String?
+    let data: Bool?
 }

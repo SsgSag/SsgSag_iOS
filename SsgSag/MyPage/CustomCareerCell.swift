@@ -27,14 +27,8 @@ class CustomCareerCell: UICollectionViewCell {
         
         addSubview(label)
         
-        
         label.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
         label.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
-        
-        
-        //        indicatorView.setGradient(from: .red, to: .blue)
-
-        
     }
 
 }

@@ -102,8 +102,20 @@ class CalenderView: UIView, MonthViewDelegate {
         let posterInfo = getPosterUsingUserDefaults()
                 for poster in posterInfo {
                     
-                    let posterStartDateTime = formatter.date(from: poster.posterStartDate!)
-                    let posterEndDateTime = formatter.date(from: poster.posterEndDate!)
+                    guard let posterStartDate = poster.posterStartDate else {
+                        return
+                    }
+                    
+                    guard let posterEndDate = poster.posterEndDate else {
+                        return
+                    }
+                    
+//                    guard let componetsDay = components.day else {
+//                        return
+//                    }
+                    
+                    let posterStartDateTime = formatter.date(from: posterStartDate)
+                    let posterEndDateTime = formatter.date(from: posterEndDate)
                     let components = Calendar.current.dateComponents([.day], from: posterStartDateTime!, to: posterEndDateTime!)
                     let dayInterval = components.day! + 1
                     

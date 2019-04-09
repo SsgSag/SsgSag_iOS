@@ -29,7 +29,6 @@ class SchoolInfoVC: UIViewController, UITextFieldDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        
         nextButton.isUserInteractionEnabled = false
         
         self.navigationItem.setHidesBackButton(true, animated: true)

@@ -8,6 +8,7 @@
 //
 
 import UIKit
+import NaverThirdPartyLogin
 
 class SignUpCompleteVC: UIViewController {
     
@@ -73,6 +74,7 @@ class SignUpCompleteVC: UIViewController {
     
     @IBAction func touchUpStartButton(_ sender: Any) {
         checkInterest()
+        
         postData()
     }
     
@@ -122,30 +124,80 @@ class SignUpCompleteVC: UIViewController {
         }
     }
     
-    func postData() {
-        guard let sendToken = KOSession.shared()?.token.accessToken else {
-            return
+    private func setSendTokenAndSendType(sendToken:inout String, sendType:inout Int) {
+        
+        if KOSession.shared()?.token != nil {
+            guard let sendKakaoToken = KOSession.shared()?.token.accessToken else {
+                return
+            }
+            
+            sendToken = sendKakaoToken
+            sendType = 0
+        } else {
+            guard let loginConn = NaverThirdPartyLoginConnection.getSharedInstance() else {
+                sendType = 10
+                
+                return
+            }
+            guard let accessToken = loginConn.accessToken else {
+                sendType = 10
+                return
+            }
+            
+            sendToken = accessToken
+            sendType = 1
         }
         
-        let sendData: [String: Any] = [
-            "userName" : name,
-            "userNickname" : nickName,
-            "signupType" : 0, //0은 카카오톡, 1은 네이버
-            "accessToken" : sendToken,
-            "userUniv" : school,
-            "userMajor" : major,
-            "userStudentNum" : number,
-            "userGender" : gender,
-            "userBirth" : birth,
-            "userPushAllow" : 1,
-            "userInfoAllow" : 1,
-            "userInterest" : sendPreferenceValues,
-            "userGrade" : grade
-        ]
+    }
+    
+    func postData() {
+        var sendToken: String = ""
+        var sendType: Int = 0
         
-        /*
-        print(" userName : \(name), userNickname : \(nickName), signupType : 0, //0은 카카오톡, 1은 네이버 accessToken : \(sendToken),userUniv : \(school),userMajor : \(major),userStudentNum : \(number), userGender : \(gender), userBirth : \(birth), userPushAllow : 1, userInfoAllow : 1, userInterest : \(sendPreferenceValues), userGrade : \(grade)")
-        */
+        setSendTokenAndSendType(sendToken: &sendToken, sendType: &sendType)
+        print("sendType \(sendType)")
+        
+        var sendData: [String: Any] = [:]
+        
+        let UserInfoVC = self.navigationController?.viewControllers[0] as! UserInfoVC
+        print("UserInfoVC.emailTextField.text \(UserInfoVC.emailTextField.text)")
+        
+        //자체 로그인 아닐 시에는
+        if sendType != 10 {
+            sendData = [
+                "userName" : name,
+                "userNickname" : nickName,
+                "signupType" : sendType, //0은 카카오톡, 1은 네이버
+                "accessToken" : sendToken,
+                "userUniv" : school,
+                "userMajor" : major,
+                "userStudentNum" : number,
+                "userGender" : gender,
+                "userBirth" : birth,
+                "userPushAllow" : 1,
+                "userInfoAllow" : 1,
+                "userInterest" : sendPreferenceValues,
+                "userGrade" : grade
+            ]
+            //자체로그인일 때는
+        } else {
+            sendData = [
+                "userEmail" : "\(UserInfoVC.emailTextField.text!)", //유저 아이디 //추가
+                "userId" : "\(UserInfoVC.passwordTextField.text!)", //유저 비밀번호 //추가
+                "userName" : name,
+                "userNickname" : nickName,
+                "signupType" : sendType, //0은 카카오톡, 1은 네이버
+                "userUniv" : school,
+                "userMajor" : major,
+                "userStudentNum" : number,
+                "userGender" : gender,
+                "userBirth" : birth,
+                "userPushAllow" : 1,
+                "userInfoAllow" : 1,
+                "userInterest" : sendPreferenceValues,
+                "userGrade" : grade
+            ]
+        }
         
         let jsonData = try? JSONSerialization.data(withJSONObject: sendData)
         
@@ -166,6 +218,7 @@ class SignUpCompleteVC: UIViewController {
             }
             
             let responseJSON = try? JSONSerialization.jsonObject(with: data, options: [])
+            
             if let responseJSON = responseJSON as? [String: Any] {
                 
                 if let statusCode = responseJSON["status"] {
@@ -199,22 +252,3 @@ enum HttpStatus:Int {
     case databaseError = 600
     case doNotMatch = 400
 }
-
-
-/*
- {
- "userName" : "김현수",
- "userNickname" : "김현슨",
- "signupType" : 0, //0은 카카오톡, 1은 네이버
- "accessToken" : "9_JkQE5SPfD0k1SbplKR2cU39g-l2MfOofz2lgoqAuYAAAFosk3w-w",
- "userUniv" : "인하대학교",
- "userMajor" :"컴퓨터공학과",
- "userStudentNum" :"12141523",
- "userGender" :"male",
- "userBirth" :"951107",
- "userPushAllow" : 1,
- "userInfoAllow" : 1,
- "userInterest" : [0, 1, 2, 3, 4, 5,  6, 7, 8, 9, 10, 11],
- "userGrade" : 4
- }
- */
