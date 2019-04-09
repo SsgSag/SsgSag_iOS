@@ -16,10 +16,27 @@ class LoginVC: UIViewController {
     
     static let ssgSagToken = "SsgSagToken"
     
+    private let isAutoLogin = "isAutoLogin"
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        setAutoLoginButton()
         setEmailAndPasswordTextField()
+    }
+    
+    private func setAutoLoginButton() {
+        guard let isAuto = UserDefaults.standard.object(forKey: "isAutoLogin") as? Bool else {
+            autoLoginButton.setImage(UIImage(named: "checkboxRoundActive"), for: .normal)
+            return
+        }
+    
+        if isAuto {
+            autoLoginButton.setImage(UIImage(named: "checkboxRoundActive"), for: .normal)
+        } else {
+            autoLoginButton.setImage(UIImage(named: "checkboxRound"), for: .normal)
+        }
+        
     }
     
     private func setEmailAndPasswordTextField() {
@@ -32,12 +49,17 @@ class LoginVC: UIViewController {
     }
     
     @IBAction func touchUpAutoLoginButton(_ sender: UIButton) {
-        if sender.isSelected {
-            sender.isSelected = false
-            autoLoginButton.setImage(UIImage(named: "checkboxRoundActive"), for: .normal)
-        } else {
-            sender.isSelected = true
+        
+        guard let autoLoginButtonImage = autoLoginButton.imageView?.image else {
+            return
+        }
+        
+        if autoLoginButtonImage == UIImage(named: "checkboxRoundActive") {
             autoLoginButton.setImage(UIImage(named:"checkboxRound"), for: .normal)
+            UserDefaults.standard.set(false, forKey: "isAutoLogin")
+        } else {
+            autoLoginButton.setImage(UIImage(named: "checkboxRoundActive"), for: .normal)
+            UserDefaults.standard.set(true, forKey: "isAutoLogin")
         }
     }
     
