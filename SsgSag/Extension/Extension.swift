@@ -312,3 +312,18 @@ extension UIImage {
         return newImage!
     }
 }
+
+extension UIImageView {
+    func getData(from url: URL, completion: @escaping (Data?, URLResponse?, Error?) -> ()) {
+        URLSession.shared.dataTask(with: url, completionHandler: completion).resume()
+    }
+    
+    func load(url: URL) {
+        getData(from: url) { [weak self] data, response, error in
+            guard let data = data, error == nil else { return }
+            DispatchQueue.main.async() {
+                self?.image = UIImage(data: data)
+            }
+        }
+    }
+}

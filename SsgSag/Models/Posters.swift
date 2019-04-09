@@ -1,5 +1,3 @@
-
-
 import Foundation
 
 struct Posters : Codable {
@@ -11,7 +9,6 @@ struct Posters : Codable {
     let posterStartDate : String?
     let posterEndDate : String?
     let posterWebSite : String?
-    let isSeek : Int?
     let outline : String?
     let target : String?
     let period : String?
@@ -22,6 +19,7 @@ struct Posters : Codable {
     let posterDetail : String?
     let posterInterest : [Int]?
     let dday : Int?
+    let keyword: String?
     
     enum CodingKeys: String, CodingKey {
         
@@ -29,11 +27,11 @@ struct Posters : Codable {
         case categoryIdx = "categoryIdx"
         case photoUrl = "photoUrl"
         case posterName = "posterName"
+        case keyword = "keyword"
         case posterRegDate = "posterRegDate"
         case posterStartDate = "posterStartDate"
         case posterEndDate = "posterEndDate"
         case posterWebSite = "posterWebSite"
-        case isSeek = "isSeek"
         case outline = "outline"
         case target = "target"
         case period = "period"
@@ -52,11 +50,11 @@ struct Posters : Codable {
         categoryIdx = try values.decodeIfPresent(Int.self, forKey: .categoryIdx)
         photoUrl = try values.decodeIfPresent(String.self, forKey: .photoUrl)
         posterName = try values.decodeIfPresent(String.self, forKey: .posterName)
+        keyword = try values.decodeIfPresent(String.self, forKey: .keyword)
         posterRegDate = try values.decodeIfPresent(String.self, forKey: .posterRegDate)
         posterStartDate = try values.decodeIfPresent(String.self, forKey: .posterStartDate)
         posterEndDate = try values.decodeIfPresent(String.self, forKey: .posterEndDate)
         posterWebSite = try values.decodeIfPresent(String.self, forKey: .posterWebSite)
-        isSeek = try values.decodeIfPresent(Int.self, forKey: .isSeek)
         outline = try values.decodeIfPresent(String.self, forKey: .outline)
         target = try values.decodeIfPresent(String.self, forKey: .target)
         period = try values.decodeIfPresent(String.self, forKey: .period)

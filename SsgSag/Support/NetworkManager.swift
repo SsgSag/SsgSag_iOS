@@ -19,7 +19,8 @@ class NetworkManager {
             let task = URLSession.shared.dataTask(with: with) { (data, response, error) in
                 
                 if error != nil {
-                    print("network error")
+                    
+                    //print("network error")
                 }
                 
                 guard let data = data else {
