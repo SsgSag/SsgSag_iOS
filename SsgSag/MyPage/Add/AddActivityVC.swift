@@ -227,7 +227,6 @@ class AddActivityVC: UIViewController, UITextViewDelegate, UITextFieldDelegate {
                 }
                 
                 //print(res)
-                
                 do {
                     guard let responseJSON = try? JSONSerialization.jsonObject(with: data, options: []) else {
                         throw JSONSerializationError.data

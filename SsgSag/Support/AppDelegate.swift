@@ -13,6 +13,7 @@ import NaverThirdPartyLogin
 class AppDelegate: UIResponder, UIApplicationDelegate {
     
     var window: UIWindow?
+    
     var loginViewController: UIViewController?
     var mainViewController: UIViewController?
     
@@ -41,14 +42,24 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     private func setWindowRootViewController() {
-        if isTokenExist() {
-            window?.rootViewController = TapbarVC()
-        } else {
-            let loginStoryBoard = UIStoryboard(name: "LoginStoryBoard", bundle: nil)
-            let loginVC = loginStoryBoard.instantiateViewController(withIdentifier: "Login")
-            
-            window?.rootViewController = loginVC
+        if let isAutoLogin = UserDefaults.standard.object(forKey: "isAutoLogin") as? Bool {
+            if isAutoLogin {
+                if isTokenExist() {
+                    window?.rootViewController = TapbarVC()
+                } else {
+                    let loginStoryBoard = UIStoryboard(name: "LoginStoryBoard", bundle: nil)
+                    let loginVC = loginStoryBoard.instantiateViewController(withIdentifier: "Login")
+                    
+                    window?.rootViewController = loginVC
+                }
+            } else {
+                let loginStoryBoard = UIStoryboard(name: "LoginStoryBoard", bundle: nil)
+                let loginVC = loginStoryBoard.instantiateViewController(withIdentifier: "Login")
+                
+                window?.rootViewController = loginVC
+            }
         }
+        
     }
     
     private func isTokenExist() -> Bool {

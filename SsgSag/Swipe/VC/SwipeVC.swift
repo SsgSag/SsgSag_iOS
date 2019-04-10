@@ -411,6 +411,9 @@ extension SwipeVC : SwipeCardDelegate {
     //카드가 왼쪽으로 갔을때
     func cardGoesLeft(card: SwipeCard) {
         loadCardValuesAfterRemoveObject()
+        
+        let disLikedCategory = 0
+        sendPosterIsLiked(poster: self.posters[currentIndex-1], likedCategory: disLikedCategory)
     }
     
     //카드 오른쪽으로 갔을때
@@ -435,6 +438,63 @@ extension SwipeVC : SwipeCardDelegate {
         
         UserDefaults.standard.setValue(try? PropertyListEncoder().encode(likedPoster), forKey: "poster")
         
+        let likedCategory = 1
+        sendPosterIsLiked(poster: self.posters[currentIndex-1], likedCategory: likedCategory)
+        
         NotificationCenter.default.post(name: NSNotification.Name("addUserDefaults"), object: nil)
     }
+    
+    private func sendPosterIsLiked(poster: Posters, likedCategory: Int) {
+        
+        let like = likedCategory
+        
+        guard let posterIdx = poster.posterIdx else { return }
+        
+        let urlString = UserAPI.sharedInstance.getURL("/poster/like?posterIdx=\(posterIdx)&like=\(like)")
+        
+        guard let requestURL = URL(string: urlString) else { return }
+        
+        guard let key = UserDefaults.standard.object(forKey: "SsgSagToken") as? String else { return }
+        
+        var request = URLRequest(url: requestURL)
+        request.httpMethod = "POST"
+        request.addValue(key, forHTTPHeaderField: "Authorization")
+        
+        NetworkManager.shared.getData(with: request) { (data, error, response) in
+            guard let data = data else { return }
+            
+            do {
+                let likedPosterNetworkData = try JSONDecoder().decode(PosterFavoriteForNetwork.self, from: data)
+                
+                guard let statusCode = likedPosterNetworkData.status else { return }
+                
+                guard let httpStatusCode = HttpStatusCode(rawValue: statusCode) else { return }
+                
+                switch httpStatusCode {
+                case .sucess:
+                    if likedCategory == 1 {
+                        print("posterFavorite liked is Send to Server")
+                    } else if likedCategory == 0 {
+                        print("posterFavorite Disliked is Send to Server")
+                    }
+                case .dataBaseError:
+                    print("posterFavorite Database Error")
+                case .serverError:
+                    print("posterFavorite Server Error")
+                default:
+                    break
+                }
+            } catch {
+                print("likedPosterNetworkData parsing Error")
+            }
+        }
+    }
 }
+
+struct PosterFavoriteForNetwork: Codable {
+    let status: Int?
+    let message: String?
+    let data: Int?
+}
+
+
