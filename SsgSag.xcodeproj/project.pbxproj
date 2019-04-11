@@ -37,6 +37,14 @@
 		845928E721D3877D001DF6CC /* DetailTextSwipeCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845928E621D3877D001DF6CC /* DetailTextSwipeCard.swift */; };
 		84604F232205A0ED00212A00 /* todoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84604F222205A0ED00212A00 /* todoCell.swift */; };
 		84836ABF222E515200922A78 /* UserNetworkModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84836ABE222E515200922A78 /* UserNetworkModel.swift */; };
+		84A45D07225F9B3100C60287 /* EndPointType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A45D06225F9B3100C60287 /* EndPointType.swift */; };
+		84A45D09225F9B8B00C60287 /* HTTPMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A45D08225F9B8B00C60287 /* HTTPMethod.swift */; };
+		84A45D0B225F9BC100C60287 /* HTTPTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A45D0A225F9BC100C60287 /* HTTPTask.swift */; };
+		84A45D0D225F9C8400C60287 /* ParameterEncoding.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A45D0C225F9C8400C60287 /* ParameterEncoding.swift */; };
+		84A45D0F225F9E0000C60287 /* URLParameterEncoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A45D0E225F9E0000C60287 /* URLParameterEncoder.swift */; };
+		84A45D11225FA03800C60287 /* JSONParameterEncoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A45D10225FA03800C60287 /* JSONParameterEncoder.swift */; };
+		84A45D13225FA0E400C60287 /* NetworkRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A45D12225FA0E400C60287 /* NetworkRouter.swift */; };
+		84A45D15225FA1E800C60287 /* Router.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A45D14225FA1E800C60287 /* Router.swift */; };
 		84A8AF2E22006FEB00CE72F8 /* KakaoOpenSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84A8AF2D22006FEB00CE72F8 /* KakaoOpenSDK.framework */; };
 		84B4268A21E9063600B44F71 /* bt_save_round.json in Resources */ = {isa = PBXBuildFile; fileRef = 84B4268921E9063600B44F71 /* bt_save_round.json */; };
 		84B4268C21E9091D00B44F71 /* main_empty_hifive.json in Resources */ = {isa = PBXBuildFile; fileRef = 84B4268B21E9091C00B44F71 /* main_empty_hifive.json */; };
@@ -136,12 +144,20 @@
 		845928D621D09F2F001DF6CC /* CalenderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalenderView.swift; sourceTree = "<group>"; };
 		845928D721D09F2F001DF6CC /* WeekdaysView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WeekdaysView.swift; sourceTree = "<group>"; };
 		845928D821D09F2F001DF6CC /* MonthView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MonthView.swift; sourceTree = "<group>"; };
-		845928E021D20068001DF6CC /* LoginVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginVC.swift; sourceTree = "<group>"; };
+		845928E021D20068001DF6CC /* LoginVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = LoginVC.swift; path = /Users/admin/Desktop/SsgSag/SsgSag/Controller/Login/LoginVC.swift; sourceTree = "<absolute>"; };
 		845928E221D35F09001DF6CC /* PageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageViewController.swift; sourceTree = "<group>"; };
 		845928E421D38771001DF6CC /* DetailImageSwipeCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailImageSwipeCard.swift; sourceTree = "<group>"; };
 		845928E621D3877D001DF6CC /* DetailTextSwipeCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailTextSwipeCard.swift; sourceTree = "<group>"; };
 		84604F222205A0ED00212A00 /* todoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = todoCell.swift; sourceTree = "<group>"; };
 		84836ABE222E515200922A78 /* UserNetworkModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserNetworkModel.swift; sourceTree = "<group>"; };
+		84A45D06225F9B3100C60287 /* EndPointType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EndPointType.swift; sourceTree = "<group>"; };
+		84A45D08225F9B8B00C60287 /* HTTPMethod.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPMethod.swift; sourceTree = "<group>"; };
+		84A45D0A225F9BC100C60287 /* HTTPTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPTask.swift; sourceTree = "<group>"; };
+		84A45D0C225F9C8400C60287 /* ParameterEncoding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParameterEncoding.swift; sourceTree = "<group>"; };
+		84A45D0E225F9E0000C60287 /* URLParameterEncoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLParameterEncoder.swift; sourceTree = "<group>"; };
+		84A45D10225FA03800C60287 /* JSONParameterEncoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONParameterEncoder.swift; sourceTree = "<group>"; };
+		84A45D12225FA0E400C60287 /* NetworkRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkRouter.swift; sourceTree = "<group>"; };
+		84A45D14225FA1E800C60287 /* Router.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Router.swift; sourceTree = "<group>"; };
 		84A8AF2D22006FEB00CE72F8 /* KakaoOpenSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = KakaoOpenSDK.framework; sourceTree = "<group>"; };
 		84A8AF2F2200782800CE72F8 /* Kakao_Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Kakao_Header.h; sourceTree = "<group>"; };
 		84B4268921E9063600B44F71 /* bt_save_round.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = bt_save_round.json; sourceTree = "<group>"; };
@@ -347,8 +363,14 @@
 		84617609225F6EF8005E6173 /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				84A45D05225F9AE700C60287 /* Encoding */,
+				84A45D04225F9AE000C60287 /* Service */,
+				84A45D03225F9AD000C60287 /* Manager */,
+				84617615225F9AB3005E6173 /* EndPoint */,
 				FAFB87D122145ABE002CDED9 /* NetworkManager.swift */,
 				FA3A341F21E5127700668908 /* UserAPI.swift */,
+				84A45D06225F9B3100C60287 /* EndPointType.swift */,
+				84A45D08225F9B8B00C60287 /* HTTPMethod.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -372,8 +394,7 @@
 			children = (
 				84BA694C21DB74BD00BA8CB8 /* TapbarVC.swift */,
 				FA3A8FDA21DF3F410075A510 /* SplashVC.swift */,
-				845928E021D20068001DF6CC /* LoginVC.swift */,
-				FAD25C122212CD78004B45E2 /* LoginPopUpVC.swift */,
+				84617613225F74C3005E6173 /* Login */,
 				8461760E225F70B2005E6173 /* Calendar */,
 				8461760D225F705B005E6173 /* MyPage */,
 				8461760C225F6FF9005E6173 /* Signup */,
@@ -464,6 +485,22 @@
 			path = Swipe;
 			sourceTree = "<group>";
 		};
+		84617613225F74C3005E6173 /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				845928E021D20068001DF6CC /* LoginVC.swift */,
+				FAD25C122212CD78004B45E2 /* LoginPopUpVC.swift */,
+			);
+			path = Login;
+			sourceTree = "<group>";
+		};
+		84617615225F9AB3005E6173 /* EndPoint */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = EndPoint;
+			sourceTree = "<group>";
+		};
 		84836AC0222E5F4A00922A78 /* MyPage */ = {
 			isa = PBXGroup;
 			children = (
@@ -472,6 +509,33 @@
 				84836ABE222E515200922A78 /* UserNetworkModel.swift */,
 			);
 			path = MyPage;
+			sourceTree = "<group>";
+		};
+		84A45D03225F9AD000C60287 /* Manager */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Manager;
+			sourceTree = "<group>";
+		};
+		84A45D04225F9AE000C60287 /* Service */ = {
+			isa = PBXGroup;
+			children = (
+				84A45D0A225F9BC100C60287 /* HTTPTask.swift */,
+				84A45D12225FA0E400C60287 /* NetworkRouter.swift */,
+				84A45D14225FA1E800C60287 /* Router.swift */,
+			);
+			path = Service;
+			sourceTree = "<group>";
+		};
+		84A45D05225F9AE700C60287 /* Encoding */ = {
+			isa = PBXGroup;
+			children = (
+				84A45D0C225F9C8400C60287 /* ParameterEncoding.swift */,
+				84A45D0E225F9E0000C60287 /* URLParameterEncoder.swift */,
+				84A45D10225FA03800C60287 /* JSONParameterEncoder.swift */,
+			);
+			path = Encoding;
 			sourceTree = "<group>";
 		};
 		84BA694721DB391D00BA8CB8 /* MyPage */ = {
@@ -805,6 +869,7 @@
 				FA4FF272221D51D500C3D21A /* CalendarDetailPopUpVC.swift in Sources */,
 				84264BA821DF106C00849E6B /* CalendarDetailVC.swift in Sources */,
 				845928DC21D09F30001DF6CC /* MonthView.swift in Sources */,
+				84A45D0B225F9BC100C60287 /* HTTPTask.swift in Sources */,
 				8459289D21D09CDD001DF6CC /* SwipeVC.swift in Sources */,
 				840FEDC32207500E00581A3B /* CalendarColor.swift in Sources */,
 				FA5A87F421E7D51D008C2C41 /* Career.swift in Sources */,
@@ -817,11 +882,14 @@
 				FA7F4CD421E0A0BB00D8643A /* AddVC.swift in Sources */,
 				FA7F4CB821DFB0C100D8643A /* CareerVC.swift in Sources */,
 				845928A321D09CDD001DF6CC /* SsgSag.xcdatamodeld in Sources */,
+				84A45D13225FA0E400C60287 /* NetworkRouter.swift in Sources */,
 				FA851DE921D3DBBC002065D0 /* SwipeCard.swift in Sources */,
+				84A45D11225FA03800C60287 /* JSONParameterEncoder.swift in Sources */,
 				840FEDC52207569D00581A3B /* CalendarView + extension.swift in Sources */,
 				845928DA21D09F30001DF6CC /* CalenderView.swift in Sources */,
 				FAA238712202F37C00C6DB13 /* CareerVC + CollectionView.swift in Sources */,
 				FA61FE1921E204F300A28947 /* DatePickerPopUpVC.swift in Sources */,
+				84A45D0F225F9E0000C60287 /* URLParameterEncoder.swift in Sources */,
 				845928E721D3877D001DF6CC /* DetailTextSwipeCard.swift in Sources */,
 				845928DB21D09F30001DF6CC /* WeekdaysView.swift in Sources */,
 				8459289B21D09CDD001DF6CC /* AppDelegate.swift in Sources */,
@@ -831,19 +899,23 @@
 				840FEDC7220759E200581A3B /* CalenderVC + TableView.swift in Sources */,
 				FA3A342221E5D64300668908 /* UserInfoVC.swift in Sources */,
 				FAA238792203296500C6DB13 /* NonActivityCell.swift in Sources */,
+				84A45D15225FA1E800C60287 /* Router.swift in Sources */,
 				FAD323DB21E36FA6000C4FBA /* AddCertificationVC.swift in Sources */,
 				FA3A344221E7285C00668908 /* ConfirmProfileVC.swift in Sources */,
 				FA3A8FD921DF3D5F0075A510 /* Extension.swift in Sources */,
 				FA7F4CD221E0A0A000D8643A /* AddActivityVC.swift in Sources */,
 				84BA694921DB394800BA8CB8 /* myPageVC.swift in Sources */,
 				84264BAA21DF109200849E6B /* AddPassiveDateVC.swift in Sources */,
+				84A45D07225F9B3100C60287 /* EndPointType.swift in Sources */,
 				FA806B9A22060A8F00EB38D6 /* Category.swift in Sources */,
 				842C619E21DD1807001BA6D8 /* networkData.swift in Sources */,
 				FA3A342021E5127700668908 /* UserAPI.swift in Sources */,
 				FAA2386721FF32B400C6DB13 /* ZoomPosterImageVC.swift in Sources */,
 				842C619F21DD1807001BA6D8 /* Posters.swift in Sources */,
+				84A45D09225F9B8B00C60287 /* HTTPMethod.swift in Sources */,
 				FA61FE1121E0E4A200A28947 /* PreferenceVC.swift in Sources */,
 				840FEDC122074F6F00581A3B /* DayCollectionViewCell.swift in Sources */,
+				84A45D0D225F9C8400C60287 /* ParameterEncoding.swift in Sources */,
 				845928E321D35F09001DF6CC /* PageViewController.swift in Sources */,
 				FAA2386F2202F34A00C6DB13 /* CareerVC + TableView.swift in Sources */,
 				842C618521DCDC92001BA6D8 /* SignupCompleteVC.swift in Sources */,

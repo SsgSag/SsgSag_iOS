@@ -415,12 +415,14 @@ extension SwipeVC : SwipeCardDelegate {
     func cardGoesLeft(card: SwipeCard) {
         loadCardValuesAfterRemoveObject()
         
-        let disLikedCategory = 0
+        guard let disLikedCategory = likedOrDisLiked(rawValue: 0) else { return }
+        
         sendPosterIsLiked(poster: self.posters[currentIndex-1], likedCategory: disLikedCategory)
     }
     
     //카드 오른쪽으로 갔을때
     func cardGoesRight(card: SwipeCard) {
+        
         loadCardValuesAfterRemoveObject()
         
         var likedPoster: [Posters] = []
@@ -441,15 +443,16 @@ extension SwipeVC : SwipeCardDelegate {
         
         UserDefaults.standard.setValue(try? PropertyListEncoder().encode(likedPoster), forKey: "poster")
         
-        let likedCategory = 1
+        guard let likedCategory = likedOrDisLiked(rawValue: 1) else { return }
+        
         sendPosterIsLiked(poster: self.posters[currentIndex-1], likedCategory: likedCategory)
         
         NotificationCenter.default.post(name: NSNotification.Name("addUserDefaults"), object: nil)
     }
     
-    private func sendPosterIsLiked(poster: Posters, likedCategory: Int) {
+    private func sendPosterIsLiked(poster: Posters, likedCategory: likedOrDisLiked) {
         
-        let like = likedCategory
+        let like = likedCategory.rawValue
         
         guard let posterIdx = poster.posterIdx else { return }
         
@@ -475,9 +478,9 @@ extension SwipeVC : SwipeCardDelegate {
                 
                 switch httpStatusCode {
                 case .sucess:
-                    if likedCategory == 1 {
+                    if likedCategory == .liked {
                         print("posterFavorite liked is Send to Server")
-                    } else if likedCategory == 0 {
+                    } else if likedCategory == .disliked {
                         print("posterFavorite Disliked is Send to Server")
                     }
                 case .dataBaseError:
@@ -505,3 +508,7 @@ protocol SwipeCardDelegate: NSObjectProtocol {
     func cardGoesRight(card: SwipeCard)
 }
 
+enum likedOrDisLiked: Int {
+    case liked = 1
+    case disliked = 0
+}
