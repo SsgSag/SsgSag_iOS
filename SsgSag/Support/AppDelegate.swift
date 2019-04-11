@@ -58,8 +58,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 
                 window?.rootViewController = loginVC
             }
+        } else {
+            let loginStoryBoard = UIStoryboard(name: "LoginStoryBoard", bundle: nil)
+            let loginVC = loginStoryBoard.instantiateViewController(withIdentifier: "Login")
+            window?.rootViewController = loginVC
         }
-        
     }
     
     private func isTokenExist() -> Bool {

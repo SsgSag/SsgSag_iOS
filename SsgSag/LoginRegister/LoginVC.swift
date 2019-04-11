@@ -26,8 +26,13 @@ class LoginVC: UIViewController {
     }
     
     private func setAutoLoginButton() {
+        
         guard let isAuto = UserDefaults.standard.object(forKey: "isAutoLogin") as? Bool else {
+            
             autoLoginButton.setImage(UIImage(named: "checkboxRoundActive"), for: .normal)
+            
+            UserDefaults.standard.setValue(true, forKey: "isAutoLogin")
+            
             return
         }
     

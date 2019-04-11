@@ -180,12 +180,15 @@ class SwipeVC: UIViewController {
     private func loadCard() {
         for (index,value) in posters.enumerated() {
             if index < SwipeVC.numberOfTopCards {
+                
                 guard let photoURL = value.photoUrl else {
                     return
                 }
+                
                 let newCard = createSwipeCard(at: index, value: photoURL)
                 currentLoadedCardsArray.append(newCard)
                 lastCardIndex = index
+                
             }
         }
     }
@@ -367,15 +370,15 @@ class SwipeVC: UIViewController {
             let outline = posters.outline,
             let target = posters.target,
             let benefit = posters.benefit,
-            let keyword = posters.keyword,
-            let period = posters.period {
+            let keyword = posters.keyword {
+            //let period = posters.period {
             
             detailTextSwipeCard.posterName.text = posterName
             detailTextSwipeCard.hashTag.text = keyword
             detailTextSwipeCard.outline.text = outline
             detailTextSwipeCard.target.text = target
             detailTextSwipeCard.benefit.text = benefit
-            detailTextSwipeCard.period.text = period
+            //detailTextSwipeCard.period.text = period
             
             detailImageSwipeCardVC.detailImageVIew.load(url: posterURL)
             detailImageSwipeCardVC.imageWidth = cardWidth
