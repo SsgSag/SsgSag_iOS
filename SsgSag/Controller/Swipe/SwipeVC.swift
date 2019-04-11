@@ -500,4 +500,8 @@ struct PosterFavoriteForNetwork: Codable {
     let data: Int?
 }
 
+protocol SwipeCardDelegate: NSObjectProtocol {
+    func cardGoesLeft(card: SwipeCard)
+    func cardGoesRight(card: SwipeCard)
+}
 
