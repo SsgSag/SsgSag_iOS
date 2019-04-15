@@ -54,7 +54,6 @@ class LoginPopUpVC: UIViewController {
                 print(error!)
             }
         }
-        
     }
     
     @IBAction func touchUpCancelButton(_ sender: UIButton) {
@@ -115,9 +114,9 @@ class LoginPopUpVC: UIViewController {
                     
                 }
             }
-            
         }
     }
+    
 }
 
 extension LoginPopUpVC: NaverThirdPartyLoginConnectionDelegate {

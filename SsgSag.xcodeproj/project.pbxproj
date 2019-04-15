@@ -127,7 +127,7 @@
 		842C619A21DD1807001BA6D8 /* posterData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = posterData.swift; sourceTree = "<group>"; };
 		842C619B21DD1807001BA6D8 /* networkData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = networkData.swift; sourceTree = "<group>"; };
 		842C619C21DD1807001BA6D8 /* Posters.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Posters.swift; sourceTree = "<group>"; };
-		8459289721D09CDD001DF6CC /* SsgSag.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SsgSag.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		8459289721D09CDD001DF6CC /* 슥삭.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "슥삭.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		8459289A21D09CDD001DF6CC /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8459289C21D09CDD001DF6CC /* SwipeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwipeVC.swift; sourceTree = "<group>"; };
 		845928A221D09CDD001DF6CC /* SsgSag.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = SsgSag.xcdatamodel; sourceTree = "<group>"; };
@@ -284,7 +284,7 @@
 		8459289821D09CDD001DF6CC /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				8459289721D09CDD001DF6CC /* SsgSag.app */,
+				8459289721D09CDD001DF6CC /* 슥삭.app */,
 				845928AE21D09CE0001DF6CC /* SsgSagTests.xctest */,
 				845928B921D09CE0001DF6CC /* SsgSagUITests.xctest */,
 			);
@@ -627,7 +627,7 @@
 			);
 			name = SsgSag;
 			productName = SsgSag;
-			productReference = 8459289721D09CDD001DF6CC /* SsgSag.app */;
+			productReference = 8459289721D09CDD001DF6CC /* 슥삭.app */;
 			productType = "com.apple.product-type.application";
 		};
 		845928AD21D09CE0001DF6CC /* SsgSagTests */ = {
@@ -1110,9 +1110,9 @@
 					"-all_load",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.wndzlf.SsgSag;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "슥삭";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				SWIFT_OBJC_BRIDGING_HEADER = SsgSag/Support/Kakao_Header.h;
+				SWIFT_OBJC_BRIDGING_HEADER = ./SsgSag/Support/Kakao_Header.h;
 				SWIFT_REFLECTION_METADATA_LEVEL = all;
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = 1;
@@ -1153,9 +1153,9 @@
 					"-all_load",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.wndzlf.SsgSag;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "슥삭";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				SWIFT_OBJC_BRIDGING_HEADER = SsgSag/Support/Kakao_Header.h;
+				SWIFT_OBJC_BRIDGING_HEADER = ./SsgSag/Support/Kakao_Header.h;
 				SWIFT_REFLECTION_METADATA_LEVEL = all;
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = 1;

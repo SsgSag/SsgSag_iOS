@@ -33,13 +33,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func application(_ application: UIApplication, open url: URL, sourceApplication: String?, annotation: Any) -> Bool {
-        
-        if KOSession.isKakaoAccountLoginCallback(url) {
-            return KOSession.handleOpen(url)
+        if KOSession.handleOpen(url) {
+            return true
         }
-        
-        return true
+        return false
     }
+
     
     private func setWindowRootViewController() {
         if let isAutoLogin = UserDefaults.standard.object(forKey: "isAutoLogin") as? Bool {
@@ -120,6 +119,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         self.window?.rootViewController = hasToken ? self.mainViewController : self.loginViewController
 
         self.window?.makeKeyAndVisible()
+        
     }
     
     @objc func kakaoSessionDidChangeWithNotification() {
@@ -132,17 +132,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func applicationDidEnterBackground(_ application: UIApplication) {
-        // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
-        // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
+        KOSession.handleDidEnterBackground()
+    }
+    
+    func applicationDidBecomeActive(_ application: UIApplication) {
+        KOSession.handleDidBecomeActive()
     }
     
     func applicationWillEnterForeground(_ application: UIApplication) {
         // Called as part of the transition from the background to the active state; here you can undo many of the changes made on entering the background.
-    }
-    
-    func applicationDidBecomeActive(_ application: UIApplication) {
-        // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
-        KOSession.handleDidBecomeActive()
     }
     
     func applicationWillTerminate(_ application: UIApplication) {
@@ -151,12 +149,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         self.saveContext()
     }
     
-    func application(_ application: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey: Any]) -> Bool {
+    func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any]) -> Bool {
+        if KOSession.handleOpen(url) {
+            return true
+        }
+        return false
+    }
+    
+    func application(application: UIApplication, handleOpenURL url: URL) -> Bool {
         if KOSession.isKakaoAccountLoginCallback(url) {
             return KOSession.handleOpen(url)
         }
-        
-        return true
+        return false
     }
     
     // MARK: - Core Data stack
@@ -167,6 +171,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
          application to it. This property is optional since there are legitimate
          error conditions that could cause the creation of the store to fail.
          */
+        
         let container = NSPersistentContainer(name: "SsgSag")
         container.loadPersistentStores(completionHandler: { (storeDescription, error) in
             if let error = error as NSError? {
@@ -200,6 +205,5 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 fatalError("Unresolved error \(nserror), \(nserror.userInfo)")
             }
         }
-    }
-    
+    }    
 }
