@@ -82,6 +82,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         instance?.consumerKey = kConsumerKey
         instance?.consumerSecret = kConsumerSecret
         instance?.appName = kServiceAppName
+        
+        
+        
+        
     }
     
     fileprivate func hasToken() -> Bool {
@@ -150,10 +154,28 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any]) -> Bool {
-        if KOSession.handleOpen(url) {
-            return true
+        //NaverThirdPartyLoginConnection.getSharedInstance()?.application(app, open: url, options: options)
+        
+        var naverSignInResult = false
+        
+        if url.scheme == kServiceAppUrlScheme {
+            if url.host == kCheckResultPage {
+                let loginConn = NaverThirdPartyLoginConnection.getSharedInstance()
+                let resultType = loginConn?.receiveAccessToken(url)
+                
+                if resultType == SUCCESS {
+                    naverSignInResult = true
+                }
+            }
         }
-        return false
+        
+        return naverSignInResult
+//
+//        if KOSession.handleOpen(url) {
+//            return true
+//        }
+//
+//        return false
     }
     
     func application(application: UIApplication, handleOpenURL url: URL) -> Bool {

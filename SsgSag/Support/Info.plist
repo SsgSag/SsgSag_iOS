@@ -46,10 +46,11 @@
 	<key>LSApplicationQueriesSchemes</key>
 	<array>
 		<string>kakaoed0a3c51db01fecdca098dde710f2753</string>
-		<string>kakaokompassauth</string>
-		<string>kakaolink</string>
-		<string>kakaotalk-4.5.0</string>
-		<string>kakaostory-2.9.0</string>
+        
+        <!-- 카카오톡링크 -->
+        <string>kakaolink</string>
+        <string>kakaotalk-5.9.7</string>
+        
 		<string>naversearchapp</string>
 		<string>naversearchthirdlogin</string>
 	</array>

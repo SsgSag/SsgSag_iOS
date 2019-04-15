@@ -161,6 +161,7 @@ class SwipeVC: UIViewController {
                         self.countLabel.text =
                             "\(self.countTotalCardIndex)"
                         
+                        
                     }
                     
                 } catch{
@@ -215,6 +216,7 @@ class SwipeVC: UIViewController {
             
             setPageVCAndAddToSubView()
         }
+        
     }
     
     private func addNewCard() {
@@ -224,6 +226,7 @@ class SwipeVC: UIViewController {
             guard let photoURL = posters[lastCardIndex].photoUrl else {
                 return
             }
+            print("\(posters[lastCardIndex].period)")
             
             let newCard = createSwipeCard(at: lastCardIndex, value: photoURL)
             currentLoadedCardsArray.append(newCard)
