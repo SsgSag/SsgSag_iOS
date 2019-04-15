@@ -14,6 +14,7 @@ class UserInfoVC: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var passwordTextField: UITextField!
     @IBOutlet weak var passwordCheckTextField: UITextField!
     @IBOutlet weak var nextButton: UIButton!
+    
     @IBOutlet weak var stackViewConstraint: NSLayoutConstraint!
     @IBOutlet weak var constraint2: NSLayoutConstraint!
     @IBOutlet weak var constraint3: NSLayoutConstraint!
@@ -22,6 +23,7 @@ class UserInfoVC: UIViewController, UITextFieldDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         nextButton.isUserInteractionEnabled = false
         
         passwordCheckTextField.returnKeyType = .done
@@ -107,7 +109,6 @@ class UserInfoVC: UIViewController, UITextFieldDelegate {
     }
     
     func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
-        print("textfieldshouldBeginEditing")
         checkInformation(self)
         return true
     }
@@ -158,27 +159,27 @@ extension UserInfoVC : UIGestureRecognizerDelegate {
     @objc func keyboardWillShow(_ notification: NSNotification) {
         guard let duration = notification.userInfo?[UIResponder.keyboardAnimationDurationUserInfoKey] as? Double else {return}
         guard let curve = notification.userInfo?[UIResponder.keyboardAnimationCurveUserInfoKey] as? UInt else {return}
-        UIView.animate(withDuration: duration, delay: 0.0, options: .init(rawValue: curve), animations: { [unowned self] in
-            print("현재 constraint: \(self.stackViewConstraint.constant)")
+        
+        UIView.animate(withDuration: duration, delay: 0.3, options: .init(rawValue: curve), animations: { [unowned self] in
             self.stackViewConstraint.constant = 120
             self.titleImgae.isHidden = true
             self.titleLabel.isHidden = true
         })
+        
         stackViewConstraint.constant = 120
         self.view.layoutIfNeeded()
-        
     }
     
     @objc func keyboardWillHide(_ notification: NSNotification) {
         guard let duration = notification.userInfo?[UIResponder.keyboardAnimationDurationUserInfoKey] as? Double else {return}
         guard let curve = notification.userInfo?[UIResponder.keyboardAnimationCurveUserInfoKey] as? UInt else {return}
-        UIView.animate(withDuration: duration, delay: 0.0, options: .init(rawValue: curve), animations: {
+        UIView.animate(withDuration: duration, delay: 0.3, options: .init(rawValue: curve), animations: {
+            
             self.stackViewConstraint.constant = 299
-            print(" constraint: \(self.stackViewConstraint.constant)")
             self.titleLabel.isHidden = false
             self.titleImgae.isHidden = false
-            
         })
+        
         stackViewConstraint.constant = 299
         self.view.layoutIfNeeded()
     }

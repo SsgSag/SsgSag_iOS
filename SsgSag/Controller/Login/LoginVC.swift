@@ -25,17 +25,7 @@ class LoginVC: UIViewController, UITextFieldDelegate {
         
         setAutoLoginButton()
         setEmailAndPasswordTextField()
-        //setGesture()
     }
-    
-//    private func setGesture() {
-//        let tapGesture = UITapGestureRecognizer(target: self.view, action: selector("endEditing:"))
-//        view.addGestureRecognizer(tapGesture)
-//    }
-//
-//    @objc private func endEditing() {
-//        textfieldend
-//    }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         view.endEditing(true)
@@ -88,6 +78,7 @@ class LoginVC: UIViewController, UITextFieldDelegate {
     }
     
     @IBAction func ssgSagLogin(_ sender: Any) {
+        
         let urlString = UserAPI.sharedInstance.getURL("/login2")
         
         guard let requestURL = URL(string: urlString) else {
