@@ -30,6 +30,7 @@ class Router<EndPoint: EndPointType>: NetworkRouter {
     func cancel() {
         
     }
+    
     /// This function is responsible for all the vital work in our network layer.
     ///
     /// 1. We instantiate a variable request of type URLRequest. Give it our base URL and append the specific path we are going to use.
@@ -67,6 +68,7 @@ class Router<EndPoint: EndPointType>: NetworkRouter {
                                              urlParameters: urlParameters,
                                              request: &request)
             }
+            
             return request
         } catch {
             throw error
@@ -80,9 +82,11 @@ class Router<EndPoint: EndPointType>: NetworkRouter {
             if let bodyParameters = bodyParameters {
                 try JSONParamterEncoder.encode(urlRequest: &request, with: bodyParameters)
             }
+            
             if let urlParameters = urlParameters {
                 try URLParameterEncoder.encode(urlRequest: &request, with: urlParameters)
             }
+            
         } catch {
             throw error
         }

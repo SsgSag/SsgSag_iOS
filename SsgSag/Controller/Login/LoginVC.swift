@@ -8,10 +8,12 @@
 
 import UIKit
 
-class LoginVC: UIViewController {
+class LoginVC: UIViewController, UITextFieldDelegate {
     
     @IBOutlet weak var emailTextField: UITextField!
+    
     @IBOutlet weak var passwordTextField: UITextField!
+    
     @IBOutlet weak var autoLoginButton: UIButton!
     
     static let ssgSagToken = "SsgSagToken"
@@ -23,6 +25,20 @@ class LoginVC: UIViewController {
         
         setAutoLoginButton()
         setEmailAndPasswordTextField()
+        //setGesture()
+    }
+    
+//    private func setGesture() {
+//        let tapGesture = UITapGestureRecognizer(target: self.view, action: selector("endEditing:"))
+//        view.addGestureRecognizer(tapGesture)
+//    }
+//
+//    @objc private func endEditing() {
+//        textfieldend
+//    }
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        view.endEditing(true)
     }
     
     private func setAutoLoginButton() {
@@ -47,6 +63,9 @@ class LoginVC: UIViewController {
     private func setEmailAndPasswordTextField() {
         emailTextField.borderStyle = .none
         passwordTextField.borderStyle = .none
+        
+        emailTextField.delegate = self
+        passwordTextField.delegate = self
     }
     
     @IBAction func touchUpStartButton(_ sender: UIButton) {
@@ -140,7 +159,13 @@ class LoginVC: UIViewController {
         popVC.didMove(toParent: self)
     }
     
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        emailTextField.resignFirstResponder()
+        passwordTextField.resignFirstResponder()
+        return true
+    }
 }
+
 
 enum HttpStatusCode: Int {
     case sucess = 200
