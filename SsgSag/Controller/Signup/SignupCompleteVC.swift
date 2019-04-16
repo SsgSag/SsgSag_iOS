@@ -149,21 +149,36 @@ class SignUpCompleteVC: UIViewController {
         
     }
     
-    private func autoLogin(sendType: Int) {
+    private func autoLogin(sendType: Int, sendToken: String) {
         
-        let urlString = UserAPI.sharedInstance.getURL("/login2")
+        var urlString: String = ""
+        
+        var sendData: [String: Any] = [:]
+        
+        //자체로그인
+        if sendType == 10 {
+            urlString = UserAPI.sharedInstance.getURL("/login2")
+            
+            let UserInfoVC = self.navigationController?.viewControllers[0] as! UserInfoVC
+            
+            sendData = [
+                "userEmail": "\(UserInfoVC.emailTextField.text!)",
+                "userId" : "\(UserInfoVC.passwordTextField.text!)",
+                "loginType" : sendType //10은 자체 로그인
+            ]
+        } else {
+            
+            urlString = UserAPI.sharedInstance.getURL("/login")
+            
+            sendData = [
+                "accessToken": sendToken,
+                "loginType" : sendType //10은 자체 로그인
+            ]
+        }
         
         guard let requestURL = URL(string: urlString) else {
             return
         }
-        
-        let UserInfoVC = self.navigationController?.viewControllers[0] as! UserInfoVC
-        
-        let sendData: [String: Any] = [
-            "userEmail": "\(UserInfoVC.emailTextField.text!)",
-            "userId" : "\(UserInfoVC.passwordTextField.text!)",
-            "loginType" : sendType //10은 자체 로그인
-        ]
         
         let jsonData = try? JSONSerialization.data(withJSONObject: sendData)
         
@@ -192,6 +207,7 @@ class SignUpCompleteVC: UIViewController {
                             UserDefaults.standard.set(storeToken,
                                                       forKey: LoginVC.ssgSagToken)
                         }
+                        
                         self.present(TapbarVC(), animated: true, completion: nil)
                     case .failure:
                         self.simpleAlert(title: "로그인 실패", message: "")
@@ -211,12 +227,8 @@ class SignUpCompleteVC: UIViewController {
         var sendType: Int = 0
         
         setSendTokenAndSendType(sendToken: &sendToken, sendType: &sendType)
-        print("sendType \(sendType)")
         
         var sendData: [String: Any] = [:]
-        
-        let UserInfoVC = self.navigationController?.viewControllers[0] as! UserInfoVC
-        print("UserInfoVC.emailTextField.text \(UserInfoVC.emailTextField.text)")
         
         //자체 로그인 아닐 시에는
         if sendType != 10 {
@@ -235,8 +247,10 @@ class SignUpCompleteVC: UIViewController {
                 "userInterest" : sendPreferenceValues,
                 "userGrade" : grade
             ]
-            //자체로그인일 때는
-        } else {
+        } else { //자체로그인일 때는
+            
+            let UserInfoVC = self.navigationController?.viewControllers[0] as! UserInfoVC
+            
             sendData = [
                 "userEmail" : "\(UserInfoVC.emailTextField.text!)", //유저 아이디 //추가
                 "userId" : "\(UserInfoVC.passwordTextField.text!)", //유저 비밀번호 //추가
@@ -290,11 +304,7 @@ class SignUpCompleteVC: UIViewController {
                     switch httpStatus {
                     case .sucess:
                         //바로 로그인 되도록 수정해야한다.
-                        self.autoLogin(sendType: sendType)
-                        
-//                        let loginStoryBoard = UIStoryboard(name: "LoginStoryBoard", bundle: nil)
-//                        let loginVC = loginStoryBoard.instantiateViewController(withIdentifier: "Login")
-//                        self.present(loginVC, animated: true, completion: nil)
+                        self.autoLogin(sendType: sendType, sendToken: sendToken)
                     case .databaseError:
                         self.simpleAlert(title: "데이터베이스 에러", message: "서버 오류")
                     case .doNotMatch:
