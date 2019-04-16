@@ -18,8 +18,6 @@ class CalenderView: UIView, MonthViewDelegate {
     
     private var numberOfCurrentMonthDays = 0
     
-    static var posterTuples: [(startDate: Date, endDate: Date, dayInterval: Int, categoryIdx: Int, title: String, Int)] = []
-    
     private var eventDictionary: [Int:[event]] = [:]
     
     private var lastSelectedDate: Date?
@@ -33,8 +31,6 @@ class CalenderView: UIView, MonthViewDelegate {
     override init(frame: CGRect) {
         super.init(frame: frame)
         setCalenderViewColor()
-        
-        setupPosterTuple()
         
         initMonthAndCalendarCollectionView()
         
@@ -52,86 +48,28 @@ class CalenderView: UIView, MonthViewDelegate {
     }
     
     @objc func addUserDefaults() {
-        
-        setupPosterTuple()
-        
+
         self.calendarCollectionView.reloadData()
         
     }
     
-    private func getPosterUsingUserDefaults() -> [Posters] {
+    static func getPosterUsingUserDefaults() -> [Posters] {
+        
         guard let posterData = UserDefaults.standard.object(forKey: "poster") as? Data else {
             return []
         }
+        
         guard let posterInfo = try? PropertyListDecoder().decode([Posters].self, from: posterData) else {
             return []
         }
+        
         return posterInfo
     }
     
     @objc func deleteUserDefaults() {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
-        
-        let posterInfo = getPosterUsingUserDefaults()
-        
-        CalenderView.posterTuples = []
-        
-        for poster in posterInfo {
-            
-            let startDate = formatter.date(from: poster.posterStartDate!)
-            let endDate = formatter.date(from: poster.posterEndDate!)
-            let components = Calendar.current.dateComponents([.day], from: startDate!, to: endDate!)
-            let dayInterval = components.day! + 1
-            
-            CalenderView.posterTuples.append((startDate!,
-                                              endDate!,
-                                              dayInterval,
-                                              poster.categoryIdx!,
-                                              poster.posterName!,
-                                              poster.categoryIdx!))
-        }
-        
         self.calendarCollectionView.reloadData()
     }
     
-    func setupPosterTuple() {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
-        
-        let posterInfo = getPosterUsingUserDefaults()
-                for poster in posterInfo {
-                    
-                    guard let posterStartDate = poster.posterStartDate else {
-                        return
-                    }
-                    
-                    guard let posterEndDate = poster.posterEndDate else {
-                        return
-                    }
-                    
-                    let posterStartDateTime = formatter.date(from: posterStartDate)
-                    let posterEndDateTime = formatter.date(from: posterEndDate)
-                    
-                    let components = Calendar.current.dateComponents([.day], from: posterStartDateTime!, to: posterEndDateTime!)
-                    let dayInterval = components.day! + 1
-                    
-                    if isDuplicatePosterTuple(CalenderView.posterTuples,
-                                              input: (posterStartDateTime!.addingTimeInterval(60.0 * 60.0 * 9.0),       posterEndDateTime!.addingTimeInterval(60.0 * 60.0 * 9.0),
-                                                      dayInterval,
-                                                      poster.categoryIdx!,
-                                                      poster.posterName!,
-                                                      poster.categoryIdx!)) == false {
-                        
-                        CalenderView.posterTuples.append((posterStartDateTime!,
-                                                          posterEndDateTime!,
-                                                          dayInterval,
-                                                          poster.categoryIdx!,
-                                                          poster.posterName!,
-                                                          poster.categoryIdx!))
-            }
-        }
-    }
     
     //마지막 선택된 날짜의 셀의 백그라운드 색깔을 지우자
     //투두리스트를 표현하자
@@ -182,12 +120,16 @@ class CalenderView: UIView, MonthViewDelegate {
         return true
     }
     
-    func isDuplicatePosterTuple(_ posterTuples:[(Date, Date, Int, Int, String, Int)], input: (Date, Date, Int, Int, String, Int)) -> Bool {
-        for i in posterTuples {
-            if i.4 == input.4 {
+    static func isDuplicatePosterTuple(_ posterTuples:[Posters], input: Posters) -> Bool {
+        
+        for poster in posterTuples {
+            
+            if poster.posterName! == input.posterName! {
                 return true
             }
+            
         }
+        
         return false
     }
     
@@ -436,41 +378,31 @@ extension CalenderView: UICollectionViewDelegate, UICollectionViewDataSource {
         
         eventDictionary[indexPath.row] = []
         
-        /* 여기서 userdefaults를 사용해서 가져오도록 바꾸자.
-        let defaults = UserDefaults.standard
-        
-        if let posterData = defaults.object(forKey: "poster") as? Data {
-            if let posterInfo = try? PropertyListDecoder().decode([Posters].self, from: posterData) {
-                for poster in posterInfo {
-                    if isDuplicateInLikedPoster(likedPoster, input: poster) == false {//중복 되지 않을때만 넣는다.
-                        likedPoster.append(poster)
-                    }
-                }
-            }
-        }
-        
-        likedPoster.append(self.posters[currentIndex-1])
-        
-        UserDefaults.standard.setValue(try? PropertyListEncoder().encode(likedPoster), forKey: "poster")
-        */
-
-        for posterTuple in CalenderView.posterTuples {
+        for poster in CalenderView.getPosterUsingUserDefaults() {
             if let _ = currentCellDateTime {
                 
-                let currentPosterYear = Calendar.current.component(.year, from: posterTuple.endDate)
-                let currentPosterMonth = Calendar.current.component(.month, from: posterTuple.endDate)
-                let currentPosterDay = Calendar.current.component(.day, from: posterTuple.endDate)
+                guard let posterEndDateString = poster.posterEndDate else { return .init() }
                 
-                //\(posterTuple.endDate.addingTimeInterval(60.0 * 60.0 * 9.0))")
+                guard let posterEndDate = formatter.date(from: posterEndDateString) else {return .init()}
+                
+                guard let posterName = poster.posterName else { return .init()}
+                
+                guard let posterCategortIdx = poster.categoryIdx else { return .init()}
+                
+                let currentPosterYear = Calendar.current.component(.year, from: posterEndDate)
+                let currentPosterMonth = Calendar.current.component(.month, from: posterEndDate)
+                let currentPosterDay = Calendar.current.component(.day, from: posterEndDate)
                 
                 if (cellYear == currentPosterYear) &&
                     (cellMonth == currentPosterMonth) &&
                     (cellDay == currentPosterDay) {
                     
-                    eventDictionary[indexPath.row]?.append(event(eventDate: posterTuple.endDate,
-                                                                 title: posterTuple.title,
-                                                                 categoryIdx: posterTuple.categoryIdx))
+                    eventDictionary[indexPath.row]?.append(event(eventDate: posterEndDate,
+                                                                 title: posterName,
+                                                                 categoryIdx: posterCategortIdx)
+                                                                    )
                 }
+                
             }
         }
         

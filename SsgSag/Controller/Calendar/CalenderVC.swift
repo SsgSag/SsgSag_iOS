@@ -5,9 +5,9 @@ class CalenderVC: UIViewController {
     
     var daySelectedStatus = 0
     
-    var todoTableData:[(Date, Date, Int, Int, String, Int)] = []
+    var todoTableData:[Posters] = []
     
-    var posterTuples:[(Date, Date, Int, Int, String, Int)] = []
+    var posterTuples:[Posters] = []
     
     var eventDictionary: [Int:[event]] = [:]
     
@@ -96,40 +96,33 @@ class CalenderVC: UIViewController {
         todoTableView.backgroundColor = UIColor(displayP3Red: 246/255, green: 246/255, blue: 246/255, alpha: 1.0)
     }
     
-    func isDuplicatePosterTuple(_ posterTuples:[(Date, Date, Int, Int, String, Int)], input: (Date, Date, Int, Int, String, Int)) -> Bool {
-        for i in posterTuples {
-            if i.4 == input.4 {
-                return true
-            }
-        }
-        return false
-    }
-    
     @objc func deleteUserDefaults() {
-        todoTableData = []
+        todoTableData = CalenderView.getPosterUsingUserDefaults()
         
-        for posterTuple in CalenderView.posterTuples {
-            todoTableData.append(posterTuple)
-        }
         todoTableView.reloadData()
     }
     //여기서 중복 되는 것을 거르자.
     @objc func addUserDefaults() {
         
-        let today = Date()
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
         
-        for posterTuple in CalenderView.posterTuples {
-            let posterTupleMonth = Calendar.current.component(.month, from: posterTuple.1)
-            let posterTupleDay = Calendar.current.component(.day, from: posterTuple.1)
+        for poster in CalenderView.getPosterUsingUserDefaults() {
+        
+            guard let posterEndDateString = poster.posterEndDate else { return }
             
-            let todayMonth = Calendar.current.component(.month, from: today)
-            let todayDay = Calendar.current.component(.day, from: today)
+            guard let posterEndDate = formatter.date(from: posterEndDateString) else { return }
             
-            //오늘 날짜보다 큰 애들만 todoTableData에 추가한다.
-            if posterTupleMonth == todayMonth && (posterTupleDay - todayDay) > 0{
-                if isDuplicatePosterTuple(todoTableData, input: posterTuple) == false {
-                    todoTableData.append(posterTuple)
-                }
+            let posterMonth = Calendar.current.component(.month, from: posterEndDate)
+            let posterDay = Calendar.current.component(.day, from: posterEndDate)
+            
+            let todayMonth = Calendar.current.component(.month, from: Date())
+            let todayDay = Calendar.current.component(.day, from: Date())
+            
+            if posterMonth == todayMonth &&
+                posterDay - todayDay > 0 {
+                
+                todoTableData.append(poster)
             }
         }
         
@@ -230,21 +223,31 @@ class CalenderVC: UIViewController {
     }
     
     private func setTodoTableView() {
-        let today = Date()
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
         
-        for posterTuple in posterTuples {
-            let posterMonth = Calendar.current.component(.month, from: posterTuple.1)
-            let posterDay = Calendar.current.component(.day, from: posterTuple.1)
+        for posterFromUserDefault in CalenderView.getPosterUsingUserDefaults() {
             
-            let todayMonth = Calendar.current.component(.month, from: today)
-            let todayDay = Calendar.current.component(.day, from: today)
+            guard let posterEndDateString = posterFromUserDefault.posterEndDate else { return }
+            
+            guard let posterEndDate = formatter.date(from: posterEndDateString) else { return }
+            
+            let posterMonth = Calendar.current.component(.month, from: posterEndDate)
+            let posterDay = Calendar.current.component(.day, from: posterEndDate)
+            
+            let todayMonth = Calendar.current.component(.month, from: Date())
+            let todayDay = Calendar.current.component(.day, from: Date())
             
             //같은 달에 있고
-            if posterMonth == todayMonth && (posterDay - todayDay) > 0 {
-                if !isDuplicatePosterTuple(todoTableData, input: posterTuple) {
-                    todoTableData.append(posterTuple)
+            if posterMonth == todayMonth &&
+                (posterDay - todayDay) > 0 {
+                
+                if !CalenderView.isDuplicatePosterTuple(todoTableData, input: posterFromUserDefault) {
+                    todoTableData.append(posterFromUserDefault)
                 }
+                
             }
+            
         }
     }
     
@@ -260,57 +263,33 @@ class CalenderVC: UIViewController {
             return
         }
         
-        for poster in posters {
-            guard let posterEndDateString = poster.posterEndDate else {
-                return
-            }
-            
-            guard let posterStartDateString = poster.posterStartDate else {
-                return
-            }
-            
-            guard let posterEndDate = formatter.date(from: posterEndDateString) else {
-                return
-            }
-            
-            guard let posterStartDate = formatter.date(from: posterStartDateString) else {
-                return
-            }
-            
-            let components = Calendar.current.dateComponents([.day], from: posterStartDate, to: posterEndDate)
-            
-            guard let dayInterval = components.day else {
-                return
-            }
-            
-            let intervalDay = dayInterval + 1
-            
-            if isDuplicatePosterTuple(posterTuples,
-                                      input: ((posterStartDate, posterEndDate, intervalDay,
-                                               poster.categoryIdx!, poster.posterName!,
-                                               poster.categoryIdx!))) == false {
-                
-                posterTuples.append((posterStartDate, posterEndDate,
-                                     intervalDay, poster.categoryIdx!,
-                                     poster.posterName!, poster.categoryIdx!))
-            }
-            
-            posterTuples.sort{$0.1 < $1.1}
-        }
+        posterTuples = posters
+    
+        posterTuples.sort{$0.posterEndDate! < $1.posterEndDate!}
+        
     }
     
     fileprivate func getDateAfterToday(_ today: Date) {
-        for i in posterTuples {
+        
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+        
+        for poster in posterTuples {
             
-            let posteurTupleMonth = Calendar.current.component(.month, from: i.1)
-            let posterTupleDay = Calendar.current.component(.day, from: i.1)
+            guard let posterEndDateString = poster.posterEndDate else { return }
+            
+            guard let posterEndDate = formatter.date(from: posterEndDateString) else { return }
+            
+            let posteurTupleMonth = Calendar.current.component(.month, from: posterEndDate)
+            let posterTupleDay = Calendar.current.component(.day, from: posterEndDate)
             
             let todayMonth = Calendar.current.component(.month, from: today)
             let todayDay = Calendar.current.component(.day, from: today)
+            
             //월이 같고 오늘보다 큰 날짜의 데이터들만 투두 테이블 데이터에 추가한다.
-            if posteurTupleMonth == todayMonth && (posterTupleDay - todayDay) > 0{
-                if isDuplicatePosterTuple(todoTableData, input: i) == false {
-                    todoTableData.append(i)
+            if posteurTupleMonth == todayMonth && (posterTupleDay - todayDay) > 0 {
+                if !CalenderView.isDuplicatePosterTuple(todoTableData, input: poster) == false {
+                    todoTableData.append(poster)
                 }
             }
         }
@@ -356,19 +335,26 @@ class CalenderVC: UIViewController {
         let currentSelectedDateDay = Calendar.current.component(.day, from: currentSelectedDateTime)
         let currentDateString = "\(currentSelectedDateMonth)월 \(currentSelectedDateDay)일"
         
-        for posterTuple in CalenderView.posterTuples {
-            let posterTupleEndDateYear = Calendar.current.component(.year, from: posterTuple.1)
-            let posterTupleEndDateMonth = Calendar.current.component(.month, from: posterTuple.1)
-            let posterTupleEndDateDay = Calendar.current.component(.day, from: posterTuple.1)
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+        
+        for poster in CalenderView.getPosterUsingUserDefaults() {
+            
+            guard let posterEndDateString = poster.posterEndDate else { return }
+            
+            guard let posterEndDate = formatter.date(from: posterEndDateString) else { return }
+            
+            let posterTupleEndDateYear = Calendar.current.component(.year, from: posterEndDate)
+            let posterTupleEndDateMonth = Calendar.current.component(.month, from: posterEndDate)
+            let posterTupleEndDateDay = Calendar.current.component(.day, from: posterEndDate)
             
             //포스터의 날짜가 현재 달력에 선택된 날짜와 같은 것들만 표시해준다.
             if posterTupleEndDateYear == currentSelectedDateYear &&
                 posterTupleEndDateMonth == currentSelectedDateMonth &&
                 posterTupleEndDateDay == currentSelectedDateDay {
-                todoTableData.append(posterTuple)
+                todoTableData.append(poster)
             }
         }
-        
         
         todoList.text = currentDateString
         todoSeparatorBar.bringSubviewToFront(todoList)
@@ -397,15 +383,24 @@ class CalenderVC: UIViewController {
             todoTableData = []
             
             let today = Date()
-            for i in posterTuples {
-                let posteurTupleMonth = Calendar.current.component(.month, from: i.1)
-                let posterTupleDay = Calendar.current.component(.day, from: i.1)
+            
+            let formatter = DateFormatter()
+            formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+            
+            for poster in posterTuples {
+                
+                guard let posterEndDateString = poster.posterEndDate else { return }
+                
+                guard let posterEndDate = formatter.date(from: posterEndDateString) else { return }
+                
+                let posteurTupleMonth = Calendar.current.component(.month, from: posterEndDate)
+                let posterTupleDay = Calendar.current.component(.day, from: posterEndDate)
                 
                 let todayMonth = Calendar.current.component(.month, from: today)
                 let todayDay = Calendar.current.component(.day, from: today)
                 
                 if posteurTupleMonth == todayMonth && (posterTupleDay - todayDay) > 0{
-                    todoTableData.append(i)
+                    todoTableData.append(poster)
                 }
             }
             
