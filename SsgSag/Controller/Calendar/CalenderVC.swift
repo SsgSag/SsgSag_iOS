@@ -124,6 +124,7 @@ class CalenderVC: UIViewController {
                 
                 todoTableData.append(poster)
             }
+            
         }
         
         todoTableView.reloadData()
@@ -223,6 +224,7 @@ class CalenderVC: UIViewController {
     }
     
     private func setTodoTableView() {
+        
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
         
@@ -232,22 +234,16 @@ class CalenderVC: UIViewController {
             
             guard let posterEndDate = formatter.date(from: posterEndDateString) else { return }
             
-            let posterMonth = Calendar.current.component(.month, from: posterEndDate)
-            let posterDay = Calendar.current.component(.day, from: posterEndDate)
+            let dayInterval = Calendar.current.dateComponents([.day],
+                                                              from: Date(),
+                                                              to: posterEndDate)
             
-            let todayMonth = Calendar.current.component(.month, from: Date())
-            let todayDay = Calendar.current.component(.day, from: Date())
+            guard let interval = dayInterval.day else {return}
             
-            //같은 달에 있고
-            if posterMonth == todayMonth &&
-                (posterDay - todayDay) > 0 {
-                
-                if !CalenderView.isDuplicatePosterTuple(todoTableData, input: posterFromUserDefault) {
-                    todoTableData.append(posterFromUserDefault)
-                }
-                
+            if interval > 0  {
+                todoTableData.append(posterFromUserDefault)
             }
-            
+
         }
     }
     
@@ -269,30 +265,28 @@ class CalenderVC: UIViewController {
         
     }
     
-    fileprivate func getDateAfterToday(_ today: Date) {
+    fileprivate func setTodoListData(_ today: Date) {
         
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
         
-        for poster in posterTuples {
+        for poster in CalenderView.getPosterUsingUserDefaults() {
             
             guard let posterEndDateString = poster.posterEndDate else { return }
             
             guard let posterEndDate = formatter.date(from: posterEndDateString) else { return }
             
-            let posteurTupleMonth = Calendar.current.component(.month, from: posterEndDate)
-            let posterTupleDay = Calendar.current.component(.day, from: posterEndDate)
+            let dayInterval = Calendar.current.dateComponents([.day],
+                                                              from: Date(), to: posterEndDate)
             
-            let todayMonth = Calendar.current.component(.month, from: today)
-            let todayDay = Calendar.current.component(.day, from: today)
+            guard let interval = dayInterval.day else {return}
             
-            //월이 같고 오늘보다 큰 날짜의 데이터들만 투두 테이블 데이터에 추가한다.
-            if posteurTupleMonth == todayMonth && (posterTupleDay - todayDay) > 0 {
-                if !CalenderView.isDuplicatePosterTuple(todoTableData, input: poster) == false {
-                    todoTableData.append(poster)
-                }
+            if interval > 0  {
+                todoTableData.append(poster)
             }
+            
         }
+        
     }
     
     @objc func todoListButtonAction() {
@@ -305,8 +299,10 @@ class CalenderVC: UIViewController {
         
         let today = Date()
         
-        getDateAfterToday(today)
+        setTodoListData(today)
+        
         NotificationCenter.default.post(name: NSNotification.Name("todoListButtonAction"), object: nil)
+        
         todoList.text = "투두리스트"
         
         todoTableView.reloadData()

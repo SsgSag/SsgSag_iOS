@@ -379,7 +379,7 @@ extension CalenderView: UICollectionViewDelegate, UICollectionViewDataSource {
         eventDictionary[indexPath.row] = []
         
         for poster in CalenderView.getPosterUsingUserDefaults() {
-            if let _ = currentCellDateTime {
+            if currentCellDateTime != nil {
                 
                 guard let posterEndDateString = poster.posterEndDate else { return .init() }
                 

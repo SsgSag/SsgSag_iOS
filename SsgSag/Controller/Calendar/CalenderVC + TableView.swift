@@ -34,9 +34,6 @@ extension CalenderVC: UITableViewDelegate,UITableViewDataSource {
         
         guard let posterStartDate = formatter.date(from: posterStartDateString) else { return .init() }
         
-        let todayDay = Calendar.current.component(.day, from: Date())
-        let todoListDay = Calendar.current.component(.day, from: posterEndDate)
-        
         if let category : PosterCategory = PosterCategory(rawValue:posterCagegoryIdx) {
             cell.categoryLabel.text = category.categoryString()
             cell.categoryLabel.textColor = category.categoryColors()
@@ -49,6 +46,7 @@ extension CalenderVC: UITableViewDelegate,UITableViewDataSource {
         let todoDataStartDay = Calendar.current.component(.day, from: posterStartDate)
         
         let todoDataEndMonth = Calendar.current.component(.month, from: posterEndDate)
+        
         let todoDataEndDay = Calendar.current.component(.day, from: posterEndDate)
         
         cell.dateLabel.text = "\(todoDataStartMonth).\(todoDataStartDay) ~ \(todoDataEndMonth).\(todoDataEndDay)"
@@ -60,9 +58,15 @@ extension CalenderVC: UITableViewDelegate,UITableViewDataSource {
             cell.leftedDay.isHidden = false
             cell.leftedDayBottom.isHidden = false
             
-            cell.leftedDay.text = "\(todoListDay-todayDay)"
+            let dayInterval = Calendar.current.dateComponents([.day],
+                                                              from: Date(),
+                                                              to: posterEndDate)
+            
+            guard let interval = dayInterval.day else { return .init() }
+            cell.leftedDay.text = "\(interval)"
+            
         } else {
-            cell.newImage.isHidden = false
+            cell.newImage.isHidden = false 
             cell.leftedDay.isHidden = true
             cell.leftedDayBottom.isHidden = true
         }
@@ -78,9 +82,8 @@ extension CalenderVC: UITableViewDelegate,UITableViewDataSource {
         
         let storyBoard = UIStoryboard(name: "Calendar", bundle: nil)
         let nav = storyBoard.instantiateViewController(withIdentifier: "DetailPoster") as! CalendarDetailVC
-        
-        let defaults = UserDefaults.standard
-        if let posterData = defaults.object(forKey: "poster") as? Data {
+    
+        if let posterData = UserDefaults.standard.object(forKey: "poster") as? Data {
             if let posterInfo = try? PropertyListDecoder().decode([Posters].self, from: posterData){
                 for poster in posterInfo {
                     guard let posterName = todoTableData[indexPath.row].posterName else { return }
@@ -114,6 +117,7 @@ extension CalenderVC: UITableViewDelegate,UITableViewDataSource {
             //유저 디폴츠에서 꺼낸
             if let posterData =  UserDefaults.standard.object(forKey: "poster") as? Data {
                 if let posterInfo = try? PropertyListDecoder().decode([Posters].self, from: posterData){
+
                     for index in 0...posterInfo.count-1 {
                         //유저디폴츠에서 꺼낸 poster과 todoTableData의 이름이 같다면
                         if posterInfo[index].posterName! == self.todoTableData[indexPath.row].posterName! {
