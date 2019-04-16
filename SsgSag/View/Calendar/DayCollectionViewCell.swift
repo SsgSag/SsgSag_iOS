@@ -260,7 +260,6 @@ class DayCollectionViewCell: UICollectionViewCell {
         
         if todoStatus == .todoShow {
             
-            
             //setDotAndLineViewBackgroundColor(eventCategoryList)
             
             switch eventNum {

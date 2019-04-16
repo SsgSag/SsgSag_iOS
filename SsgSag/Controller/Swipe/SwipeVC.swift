@@ -226,7 +226,8 @@ class SwipeVC: UIViewController {
             guard let photoURL = posters[lastCardIndex].photoUrl else {
                 return
             }
-            print("\(posters[lastCardIndex].period)")
+            
+            //print("\(posters[lastCardIndex].period)")
             
             let newCard = createSwipeCard(at: lastCardIndex, value: photoURL)
             currentLoadedCardsArray.append(newCard)
@@ -403,9 +404,9 @@ class SwipeVC: UIViewController {
         card?.rightClickAction()
     }
     
-    func isDuplicateInLikedPoster(_ likedPoster:[Posters], input: Posters) -> Bool {
-        for i in likedPoster {
-            if i.posterName! == input.posterName! {
+    func isDuplicateInLikedPoster(_ posters:[Posters], input: Posters) -> Bool {
+        for poster in posters {
+            if poster.posterName! == input.posterName! {
                 return true
             }
         }
@@ -428,21 +429,15 @@ extension SwipeVC : SwipeCardDelegate {
         
         loadCardValuesAfterRemoveObject()
         
-        var likedPoster: [Posters] = []
+        guard let posterData = UserDefaults.standard.object(forKey: "poster") as? Data else { return }
         
-        let defaults = UserDefaults.standard
+        guard let posterInfo = try? PropertyListDecoder().decode([Posters].self, from: posterData) else { return }
         
-        if let posterData = defaults.object(forKey: "poster") as? Data {
-            if let posterInfo = try? PropertyListDecoder().decode([Posters].self, from: posterData) {
-                for poster in posterInfo {
-                    if isDuplicateInLikedPoster(likedPoster, input: poster) == false {//중복 되지 않을때만 넣는다.
-                        likedPoster.append(poster)
-                    }
-                }
-            }
+        var likedPoster = posterInfo
+                
+        if isDuplicateInLikedPoster(likedPoster, input: posters[currentIndex-1]) == false {
+                likedPoster.append(self.posters[currentIndex-1])
         }
-        
-        likedPoster.append(self.posters[currentIndex-1])
         
         UserDefaults.standard.setValue(try? PropertyListEncoder().encode(likedPoster), forKey: "poster")
         
