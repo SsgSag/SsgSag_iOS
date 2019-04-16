@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "8459289621D09CDD001DF6CC"
-               BuildableName = "SsgSag.app"
+               BuildableName = "&#x1109;&#x1173;&#x11a8;&#x1109;&#x1161;&#x11a8;.app"
                BlueprintName = "SsgSag"
                ReferencedContainer = "container:SsgSag.xcodeproj">
             </BuildableReference>
@@ -53,7 +53,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "8459289621D09CDD001DF6CC"
-            BuildableName = "SsgSag.app"
+            BuildableName = "&#x1109;&#x1173;&#x11a8;&#x1109;&#x1161;&#x11a8;.app"
             BlueprintName = "SsgSag"
             ReferencedContainer = "container:SsgSag.xcodeproj">
          </BuildableReference>
@@ -76,7 +76,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "8459289621D09CDD001DF6CC"
-            BuildableName = "SsgSag.app"
+            BuildableName = "&#x1109;&#x1173;&#x11a8;&#x1109;&#x1161;&#x11a8;.app"
             BlueprintName = "SsgSag"
             ReferencedContainer = "container:SsgSag.xcodeproj">
          </BuildableReference>
@@ -95,7 +95,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "8459289621D09CDD001DF6CC"
-            BuildableName = "SsgSag.app"
+            BuildableName = "&#x1109;&#x1173;&#x11a8;&#x1109;&#x1161;&#x11a8;.app"
             BlueprintName = "SsgSag"
             ReferencedContainer = "container:SsgSag.xcodeproj">
          </BuildableReference>

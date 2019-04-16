@@ -10,9 +10,10 @@ import UIKit
 import NaverThirdPartyLogin
 import Alamofire
 
-class LoginPopUpVC: UIViewController {
+class LoginPopUpVC: UIViewController, NaverThirdPartyLoginConnectionDelegate {
     
     @IBOutlet weak var backView: UIView!
+    
     @IBOutlet var loginBtn: UIButton!
     
     let loginInstance = NaverThirdPartyLoginConnection.getSharedInstance()
@@ -54,7 +55,6 @@ class LoginPopUpVC: UIViewController {
                 print(error!)
             }
         }
-        
     }
     
     @IBAction func touchUpCancelButton(_ sender: UIButton) {
@@ -115,16 +115,19 @@ class LoginPopUpVC: UIViewController {
                     
                 }
             }
-            
         }
     }
-}
-
-extension LoginPopUpVC: NaverThirdPartyLoginConnectionDelegate {
+    
+    
+    //MARK: - Naver Login
     // ---- 3
     func oauth20ConnectionDidOpenInAppBrowser(forOAuth request: URLRequest!) {
-        let naverSignInViewController = NLoginThirdPartyOAuth20InAppBrowserViewController(request: request)!
-        present(naverSignInViewController, animated: true, completion: nil)
+        if request != nil {
+            presentWebViewControllerWithRequest(loginRequest: request)
+        } else {
+            print("Nil Request")
+        }
+        
     }
     
     // ---- 4
@@ -160,6 +163,28 @@ extension LoginPopUpVC: NaverThirdPartyLoginConnectionDelegate {
         print(authorization)
         
         self.postData(accessToken: accessToken, loginType: 1)
+    }
+    
+    //---9
+    func requestThirdPartyLogin() {
+        let naverLoginConnection: NaverThirdPartyLoginConnection = NaverThirdPartyLoginConnection.getSharedInstance()
+        naverLoginConnection.isNaverAppOauthEnable = false
+        naverLoginConnection.isInAppOauthEnable = true
+        
+        naverLoginConnection.consumerKey = kConsumerKey
+        naverLoginConnection.consumerSecret = kConsumerSecret
+        naverLoginConnection.appName = kServiceAppName
+        naverLoginConnection.serviceUrlScheme = kServiceAppUrlScheme
+        
+        naverLoginConnection.delegate = self
+        naverLoginConnection.requestThirdPartyLogin()
+    }
+    
+    func presentWebViewControllerWithRequest(loginRequest: URLRequest) {
+        print(loginRequest.description)
+        
+        let inAppBrowser: NLoginThirdPartyOAuth20InAppBrowserViewController = NLoginThirdPartyOAuth20InAppBrowserViewController(request: loginRequest)
+        self.present(inAppBrowser, animated: true, completion: nil)
     }
 }
 

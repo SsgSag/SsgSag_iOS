@@ -110,12 +110,9 @@ class CalenderView: UIView, MonthViewDelegate {
                         return
                     }
                     
-//                    guard let componetsDay = components.day else {
-//                        return
-//                    }
-                    
                     let posterStartDateTime = formatter.date(from: posterStartDate)
                     let posterEndDateTime = formatter.date(from: posterEndDate)
+                    
                     let components = Calendar.current.dateComponents([.day], from: posterStartDateTime!, to: posterEndDateTime!)
                     let dayInterval = components.day! + 1
                     
@@ -326,40 +323,29 @@ extension CalenderView: UICollectionViewDelegate, UICollectionViewDataSource {
         return numberOfCurrentMonthDays
     }
     
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Cell", for: indexPath) as? DayCollectionViewCell else {
-            return .init()
-        }
-        
-        var beforeMonthIndex = 0
-        
-        var beforeYear = 0 //이번달의 전 달이 어떤날에 해당하는지 확인!!
-        
-        var nextYear = 0
-        
-        var nextMonth = 0
-        
-        var nextMonthDay = 0
-        
-        if currentMonth == 1 { //이번달이 1월이면 이전달은 12월
+    private func setbeforeMonthAndYear(beforeMonthIndex:inout Int, beforeYear: inout Int) {
+        if currentMonth == 1 {
             beforeMonthIndex = 12
-            beforeYear = currentYear - 1
+            beforeYear = currentYear
         } else {
             beforeMonthIndex = currentMonth - 1
             beforeYear = currentYear
         }
-        
-        var beforeMonthCount = numOfDaysInMonth[beforeMonthIndex-1]
-        
+    }
+    
+    private func setbeforeMonthCount(beforeMonthIndex: Int) -> Int {
         if beforeMonthIndex == 2 {
             if currentYear % 4 == 0 {
-                beforeMonthCount = numOfDaysInMonth[beforeMonthIndex-1] + 1
+                return numOfDaysInMonth[beforeMonthIndex-1] + 1
             } else {
-                beforeMonthCount = numOfDaysInMonth[beforeMonthIndex-1]
+                return numOfDaysInMonth[beforeMonthIndex-1]
             }
         }
         
+        return numOfDaysInMonth[beforeMonthIndex-1]
+    }
+    
+    private func setNextYearAndMonth(nextYear: inout Int, nextMonth: inout Int) {
         if currentMonth == 12 {
             nextYear = currentYear + 1
             nextMonth = 1
@@ -367,31 +353,53 @@ extension CalenderView: UICollectionViewDelegate, UICollectionViewDataSource {
             nextYear = currentYear
             nextMonth = currentMonth + 1
         }
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
-        let shouldShowBeforeMonthDay = indexPath.item <= firstWeekDayOfMonth - 2
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Cell", for: indexPath) as? DayCollectionViewCell else {
+            return .init()
+        }
+        
+        var beforeMonthIndex = 0
+        var beforeYear = 0
+        
+        var nextYear = 0
+        var nextMonth = 0
+        var nextMonthDay = 0
+        
+        setbeforeMonthAndYear(beforeMonthIndex: &beforeMonthIndex, beforeYear: &beforeYear)
+        
+        let beforeMonthCount = setbeforeMonthCount(beforeMonthIndex: beforeMonthIndex)
+        
+        setNextYearAndMonth(nextYear: &nextYear, nextMonth: &nextMonth)
+        
+        let shouldShowBeforeMonthDay: Bool = indexPath.item <= firstWeekDayOfMonth - 2
         
         if shouldShowBeforeMonthDay { //이전달의 표현해야 하는 날짜들
-            let beforeMonthDay = beforeMonthCount-firstWeekDayOfMonth+indexPath.row+2
-            cell.isHidden = false
-            cell.lbl.textColor = UIColor.rgb(red: 224, green: 224, blue: 224)
+            
+            let beforeMonthDay = beforeMonthCount-firstWeekDayOfMonth+indexPath.row + 2
+            cell.isHidden = true
+            cell.lbl.textColor = #colorLiteral(red: 0.8784313725, green: 0.8784313725, blue: 0.8784313725, alpha: 1)
             cell.lbl.text = "\(beforeMonthDay)"
             cell.isUserInteractionEnabled = false
             
         } else { //현재달에 표현해야 하는 날짜들
             
-            let shouldShowDay = indexPath.row-firstWeekDayOfMonth+2
+            let shouldShowDay = indexPath.row - firstWeekDayOfMonth + 2
             
             cell.isHidden = false
             cell.lbl.text = "\(shouldShowDay)"
             cell.isUserInteractionEnabled = true
-            cell.lbl.textColor = Style.activeCellLblColor
+            cell.lbl.textColor = UIColor.black
             cell.lbl.backgroundColor = .clear
             
             if shouldShowDay == currentDay &&
                 currentYear == presentYear &&
                 currentMonth == presentMonthIndex { //오늘날짜
-                todaysIndexPath = indexPath
                 
+                todaysIndexPath = indexPath
+
                 guard let lbl = cell.subviews[1] as? UILabel else {
                     return .init()
                 }
@@ -408,12 +416,11 @@ extension CalenderView: UICollectionViewDelegate, UICollectionViewDataSource {
             nextMonthDay = (shouldShowDay + firstWeekDayOfMonth - 1) - (numOfDaysInMonth[currentMonth-1] + firstWeekDayOfMonth - 1)
             //다음달 일수 출력
             if nextMonthDay >= 1 {
-                cell.isHidden = false
+                cell.isHidden = true
                 cell.lbl.text="\(nextMonthDay)"
                 cell.isUserInteractionEnabled = false
                 cell.lbl.textColor = .lightGray
             }
-            
         }
         
         var cellYear = currentYear
@@ -429,21 +436,40 @@ extension CalenderView: UICollectionViewDelegate, UICollectionViewDataSource {
         
         eventDictionary[indexPath.row] = []
         
+        /* 여기서 userdefaults를 사용해서 가져오도록 바꾸자.
+        let defaults = UserDefaults.standard
+        
+        if let posterData = defaults.object(forKey: "poster") as? Data {
+            if let posterInfo = try? PropertyListDecoder().decode([Posters].self, from: posterData) {
+                for poster in posterInfo {
+                    if isDuplicateInLikedPoster(likedPoster, input: poster) == false {//중복 되지 않을때만 넣는다.
+                        likedPoster.append(poster)
+                    }
+                }
+            }
+        }
+        
+        likedPoster.append(self.posters[currentIndex-1])
+        
+        UserDefaults.standard.setValue(try? PropertyListEncoder().encode(likedPoster), forKey: "poster")
+        */
+
         for posterTuple in CalenderView.posterTuples {
-            //현재 셀의 연, 월 , 일 == tuple의 연 월 일이 모두 같아야만 그려준다.
             if let _ = currentCellDateTime {
                 
                 let currentPosterYear = Calendar.current.component(.year, from: posterTuple.endDate)
                 let currentPosterMonth = Calendar.current.component(.month, from: posterTuple.endDate)
                 let currentPosterDay = Calendar.current.component(.day, from: posterTuple.endDate)
                 
-                //print("그려라라라라 \(currentCellDate) \(posterTuple.categoryIdx)  \(posterTuple.endDate.addingTimeInterval(60.0 * 60.0 * 9.0))")
-                //Dictionary에 이벤트 추가
+                //\(posterTuple.endDate.addingTimeInterval(60.0 * 60.0 * 9.0))")
                 
-                if (cellYear ==  currentPosterYear) &&
+                if (cellYear == currentPosterYear) &&
                     (cellMonth == currentPosterMonth) &&
                     (cellDay == currentPosterDay) {
-                    eventDictionary[indexPath.row]?.append(event.init(eventDate: posterTuple.endDate, title: posterTuple.title, categoryIdx: posterTuple.categoryIdx))
+                    
+                    eventDictionary[indexPath.row]?.append(event(eventDate: posterTuple.endDate,
+                                                                 title: posterTuple.title,
+                                                                 categoryIdx: posterTuple.categoryIdx))
                 }
             }
         }
@@ -453,18 +479,18 @@ extension CalenderView: UICollectionViewDelegate, UICollectionViewDataSource {
         cell.layoutSubviews()
         cell.layoutIfNeeded()
         
-        //다른달에 갔다 올때 마지막 선택된 날짜가 있고 현재 셀이
-        if lastSelectedDate != nil &&
-            currentDay == cellDay &&
-            currentYear == presentYear &&
-            currentMonth == presentMonthIndex{
-            
-            todaysIndexPath = indexPath
-            let lbl = cell.subviews[1] as! UILabel
-            lbl.layer.cornerRadius = lbl.frame.height / 2
-            lbl.backgroundColor = #colorLiteral(red: 0.1176470588, green: 0.7921568627, blue: 0.2862745098, alpha: 1)
-            lbl.textColor = UIColor.white
-        }
+        //FIXME: - 여기서 처음 날짜 그려지는 문제 발생
+//        if lastSelectedDate != nil &&
+//            currentDay == cellDay &&
+//            currentYear == presentYear &&
+//            currentMonth == presentMonthIndex{
+//
+//            todaysIndexPath = indexPath
+//            let lbl = cell.subviews[1] as! UILabel
+//            lbl.layer.cornerRadius = lbl.frame.height / 2
+//            lbl.backgroundColor = #colorLiteral(red: 0.1176470588, green: 0.7921568627, blue: 0.2862745098, alpha: 1)
+//            lbl.textColor = UIColor.white
+//        }
         
         if currentCellDateTime == nil {
             //전달이면
@@ -502,10 +528,13 @@ extension CalenderView: UICollectionViewDelegate, UICollectionViewDataSource {
             cell.lbl.textColor = UIColor.white
         }
         
-        if indexPath == lastSelectedIndexPath && todoButtonTapped {
-            cell.lbl.backgroundColor = UIColor.clear
-            cell.lbl.textColor = UIColor.black
-            todoButtonTapped = false
+        
+        if let lastselectedIndex = lastSelectedIndexPath {
+            if indexPath == lastselectedIndex && todoButtonTapped {
+                cell.lbl.backgroundColor = UIColor.clear
+                cell.lbl.textColor = UIColor.black
+                todoButtonTapped = false
+            }
         }
         
         return cell
@@ -561,16 +590,6 @@ extension CalenderView: UICollectionViewDelegate, UICollectionViewDataSource {
         let month = components.month!
         let day = components.day!
         
-        let formatter = DateFormatter()
-        formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
-        
-        let currentDateString: String = "\(year)-\(month)-\(day) 00:00:00"
-        let todayDate = formatter.date(from: currentDateString)
-        
-        if lastSelectedDate == todayDate{ //마지막 선택된 날짜가 오늘이라면
-            lbl.backgroundColor = #colorLiteral(red: 0.1176470588, green: 0.7921568627, blue: 0.2862745098, alpha: 1)
-            lbl.textColor = UIColor.white
-        }
     }
     
 }

@@ -13,6 +13,7 @@ import NaverThirdPartyLogin
 class AppDelegate: UIResponder, UIApplicationDelegate {
     
     var window: UIWindow?
+    
     var loginViewController: UIViewController?
     var mainViewController: UIViewController?
     
@@ -32,21 +33,33 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func application(_ application: UIApplication, open url: URL, sourceApplication: String?, annotation: Any) -> Bool {
-        
-        if KOSession.isKakaoAccountLoginCallback(url) {
-            return KOSession.handleOpen(url)
+        if KOSession.handleOpen(url) {
+            return true
         }
-        
-        return true
+        return false
     }
+
     
     private func setWindowRootViewController() {
-        if isTokenExist() {
-            window?.rootViewController = TapbarVC()
+        if let isAutoLogin = UserDefaults.standard.object(forKey: "isAutoLogin") as? Bool {
+            if isAutoLogin {
+                if isTokenExist() {
+                    window?.rootViewController = TapbarVC()
+                } else {
+                    let loginStoryBoard = UIStoryboard(name: "LoginStoryBoard", bundle: nil)
+                    let loginVC = loginStoryBoard.instantiateViewController(withIdentifier: "Login")
+                    
+                    window?.rootViewController = loginVC
+                }
+            } else {
+                let loginStoryBoard = UIStoryboard(name: "LoginStoryBoard", bundle: nil)
+                let loginVC = loginStoryBoard.instantiateViewController(withIdentifier: "Login")
+                
+                window?.rootViewController = loginVC
+            }
         } else {
             let loginStoryBoard = UIStoryboard(name: "LoginStoryBoard", bundle: nil)
             let loginVC = loginStoryBoard.instantiateViewController(withIdentifier: "Login")
-            
             window?.rootViewController = loginVC
         }
     }
@@ -69,6 +82,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         instance?.consumerKey = kConsumerKey
         instance?.consumerSecret = kConsumerSecret
         instance?.appName = kServiceAppName
+        
+        
+        
+        
     }
     
     fileprivate func hasToken() -> Bool {
@@ -106,6 +123,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         self.window?.rootViewController = hasToken ? self.mainViewController : self.loginViewController
 
         self.window?.makeKeyAndVisible()
+        
     }
     
     @objc func kakaoSessionDidChangeWithNotification() {
@@ -118,17 +136,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func applicationDidEnterBackground(_ application: UIApplication) {
-        // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
-        // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
+        KOSession.handleDidEnterBackground()
+    }
+    
+    func applicationDidBecomeActive(_ application: UIApplication) {
+        KOSession.handleDidBecomeActive()
     }
     
     func applicationWillEnterForeground(_ application: UIApplication) {
         // Called as part of the transition from the background to the active state; here you can undo many of the changes made on entering the background.
-    }
-    
-    func applicationDidBecomeActive(_ application: UIApplication) {
-        // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
-        KOSession.handleDidBecomeActive()
     }
     
     func applicationWillTerminate(_ application: UIApplication) {
@@ -137,12 +153,36 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         self.saveContext()
     }
     
-    func application(_ application: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey: Any]) -> Bool {
+    func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any]) -> Bool {
+        //NaverThirdPartyLoginConnection.getSharedInstance()?.application(app, open: url, options: options)
+        
+        var naverSignInResult = false
+        
+        if url.scheme == kServiceAppUrlScheme {
+            if url.host == kCheckResultPage {
+                let loginConn = NaverThirdPartyLoginConnection.getSharedInstance()
+                let resultType = loginConn?.receiveAccessToken(url)
+                
+                if resultType == SUCCESS {
+                    naverSignInResult = true
+                }
+            }
+        }
+        
+        return naverSignInResult
+//
+//        if KOSession.handleOpen(url) {
+//            return true
+//        }
+//
+//        return false
+    }
+    
+    func application(application: UIApplication, handleOpenURL url: URL) -> Bool {
         if KOSession.isKakaoAccountLoginCallback(url) {
             return KOSession.handleOpen(url)
         }
-        
-        return true
+        return false
     }
     
     // MARK: - Core Data stack
@@ -153,6 +193,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
          application to it. This property is optional since there are legitimate
          error conditions that could cause the creation of the store to fail.
          */
+        
         let container = NSPersistentContainer(name: "SsgSag")
         container.loadPersistentStores(completionHandler: { (storeDescription, error) in
             if let error = error as NSError? {
@@ -186,6 +227,5 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 fatalError("Unresolved error \(nserror), \(nserror.userInfo)")
             }
         }
-    }
-    
+    }    
 }

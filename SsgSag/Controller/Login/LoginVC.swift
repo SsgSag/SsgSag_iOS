@@ -8,23 +8,54 @@
 
 import UIKit
 
-class LoginVC: UIViewController {
+class LoginVC: UIViewController, UITextFieldDelegate {
     
     @IBOutlet weak var emailTextField: UITextField!
+    
     @IBOutlet weak var passwordTextField: UITextField!
+    
     @IBOutlet weak var autoLoginButton: UIButton!
     
     static let ssgSagToken = "SsgSagToken"
     
+    private let isAutoLogin = "isAutoLogin"
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        setAutoLoginButton()
         setEmailAndPasswordTextField()
+    }
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        view.endEditing(true)
+    }
+    
+    private func setAutoLoginButton() {
+        
+        guard let isAuto = UserDefaults.standard.object(forKey: "isAutoLogin") as? Bool else {
+            
+            autoLoginButton.setImage(UIImage(named: "checkboxRoundActive"), for: .normal)
+            
+            UserDefaults.standard.setValue(true, forKey: "isAutoLogin")
+            
+            return
+        }
+    
+        if isAuto {
+            autoLoginButton.setImage(UIImage(named: "checkboxRoundActive"), for: .normal)
+        } else {
+            autoLoginButton.setImage(UIImage(named: "checkboxRound"), for: .normal)
+        }
+        
     }
     
     private func setEmailAndPasswordTextField() {
         emailTextField.borderStyle = .none
         passwordTextField.borderStyle = .none
+        
+        emailTextField.delegate = self
+        passwordTextField.delegate = self
     }
     
     @IBAction func touchUpStartButton(_ sender: UIButton) {
@@ -32,16 +63,22 @@ class LoginVC: UIViewController {
     }
     
     @IBAction func touchUpAutoLoginButton(_ sender: UIButton) {
-        if sender.isSelected {
-            sender.isSelected = false
-            autoLoginButton.setImage(UIImage(named: "checkboxRoundActive"), for: .normal)
-        } else {
-            sender.isSelected = true
+        
+        guard let autoLoginButtonImage = autoLoginButton.imageView?.image else {
+            return
+        }
+        
+        if autoLoginButtonImage == UIImage(named: "checkboxRoundActive") {
             autoLoginButton.setImage(UIImage(named:"checkboxRound"), for: .normal)
+            UserDefaults.standard.set(false, forKey: "isAutoLogin")
+        } else {
+            autoLoginButton.setImage(UIImage(named: "checkboxRoundActive"), for: .normal)
+            UserDefaults.standard.set(true, forKey: "isAutoLogin")
         }
     }
     
     @IBAction func ssgSagLogin(_ sender: Any) {
+        
         let urlString = UserAPI.sharedInstance.getURL("/login2")
         
         guard let requestURL = URL(string: urlString) else {
@@ -113,7 +150,13 @@ class LoginVC: UIViewController {
         popVC.didMove(toParent: self)
     }
     
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        emailTextField.resignFirstResponder()
+        passwordTextField.resignFirstResponder()
+        return true
+    }
 }
+
 
 enum HttpStatusCode: Int {
     case sucess = 200
