@@ -75,11 +75,10 @@ class AddActivityVC: UIViewController, UITextViewDelegate, UITextFieldDelegate {
     @IBAction func touchUpSaveButton(_ sender: Any) {
         let animation = LOTAnimationView(name: "bt_save_round")
         saveButton.addSubview(animation)
+        
         animation.play()
-        //        getData(careerType: 0)
         
         postData()
-        
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -137,17 +136,19 @@ class AddActivityVC: UIViewController, UITextViewDelegate, UITextFieldDelegate {
         textView.becomeFirstResponder()
     }
     
-    
     func popUpDatePicker(button: UIButton) {
         let myPageStoryBoard = UIStoryboard(name: "MyPageStoryBoard", bundle: nil)
-        let popVC = myPageStoryBoard.instantiateViewController(withIdentifier: "DatePickerPoPUp")
+        let popVC = myPageStoryBoard.instantiateViewController(withIdentifier: "DatePickerPoPUp") as! DatePickerPopUpVC
+        
+        popVC.activityCategory = ActivityCategory.AddActivityVC
+            
         self.addChild(popVC)
         popVC.view.frame = self.view.frame
         self.view.addSubview(popVC.view)
         
         popVC.didMove(toParent: self)
         
-        let sendData = popVC as! DatePickerPopUpVC
+        let sendData = popVC
         sendData.buttonTag = button.tag
         
         if startDateLabel != nil {
@@ -190,6 +191,7 @@ class AddActivityVC: UIViewController, UITextViewDelegate, UITextFieldDelegate {
         }
         
         let sendStartData = stringConverted(with: startData)
+        
         let sendEndData = stringConverted(with: endData)
         
         print(sendStartData)
@@ -272,7 +274,7 @@ class AddActivityVC: UIViewController, UITextViewDelegate, UITextFieldDelegate {
                     DispatchQueue.main.async {
                         self.simplerAlert(title: "저장에 실패했습니다")
                     }
-                    print("Json Parsing Error")
+                    print("AddActivity Json Parsing Error")
                 }
             }
         }

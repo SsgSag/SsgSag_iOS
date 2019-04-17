@@ -160,14 +160,10 @@ class SwipeVC: UIViewController {
                         self.loadCardValues()
                         self.countLabel.text =
                             "\(self.countTotalCardIndex)"
-                        
-                        
                     }
-                    
-                } catch{
+                } catch {
                     print("JSON Parising Error")
                 }
-                
             }
         }
     }
@@ -179,7 +175,9 @@ class SwipeVC: UIViewController {
     }
     
     private func loadCard() {
+        
         for (index,value) in posters.enumerated() {
+            
             if index < SwipeVC.numberOfTopCards {
                 
                 guard let photoURL = value.photoUrl else {
@@ -208,6 +206,7 @@ class SwipeVC: UIViewController {
     
     //카드를 로드한다.
     func loadCardValues() {
+        
         if posters.count > 0 {
             
             loadCard()

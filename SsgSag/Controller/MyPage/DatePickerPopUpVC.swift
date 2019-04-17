@@ -22,6 +22,7 @@ class DatePickerPopUpVC: UIViewController {
     var buttonTag: Int = 0
     var startDateString: String = ""
     var endDateString: String = ""
+    var activityCategory: ActivityCategory?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -37,9 +38,8 @@ class DatePickerPopUpVC: UIViewController {
         if let endDate: Date = self.dateFormatter.date(from: endDateString) {
             datePicker.maximumDate = endDate
         }
-        
-        
     }
+    
     @IBAction func didDatePickerValueChanged(_ sender: UIDatePicker) {
         let date: Date = self.datePicker.date
         dateString = self.dateFormatter.string(from: date)
@@ -51,23 +51,46 @@ class DatePickerPopUpVC: UIViewController {
             isStartDateBeforeEndDate(startDate: date, endDate: endDate)
             isEndDateAfterStartDate(startDate: date, endDate: endDate)
         }
-        
     }
-    
     
     @IBAction func touchUpCancelButton(_ sender: UIButton) {
         self.view.removeFromSuperview()
     }
     
     @IBAction func touchUpOkButton(_ sender: UIButton) {
-        print(buttonTag)
-        let previousVC = self.parent as! AddActivityVC
-        if buttonTag == 0 {
-            previousVC.startDateLabel.text = dateString
-        } else {
-            previousVC.endDateLabel.text = dateString
-            print("끝날짜 \(dateString)")
+        
+        guard let activityCategory = activityCategory else {
+            return
         }
+        
+        switch activityCategory {
+        case .AddActivityVC:
+            
+            let previousVC = self.parent as! AddActivityVC
+            
+            if buttonTag == 0 {
+                previousVC.startDateLabel.text = dateString
+            } else {
+                previousVC.endDateLabel.text = dateString
+                print("끝날짜 \(dateString)")
+            }
+            
+        case .AddVC:
+            
+            let previousVC = self.parent as! AddVC
+
+            previousVC.dateButton.setTitle(dateString, for: .normal)
+            
+        case .AddCertificationVC:
+            
+            let previousVC = self.parent as! AddCertificationVC
+            
+            
+        default:
+            break
+        }
+        
+        print(buttonTag)
         print("끝날짜 선택")
         self.view.removeFromSuperview()
     }
