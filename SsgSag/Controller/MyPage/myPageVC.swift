@@ -21,6 +21,8 @@ class myPageVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
     
     @IBOutlet weak var majorLabel: UILabel!
     
+    static private let myImage: String = "myImage"
+    
     lazy var imagePicker: UIImagePickerController = {
         let picker: UIImagePickerController = UIImagePickerController()
         picker.sourceType = .photoLibrary
@@ -32,11 +34,19 @@ class myPageVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        loadImage()
+
         profileImageView.applyRadius(radius: profileImageView.frame.height / 2)
     }
-  
+
     override func viewWillAppear(_ animated: Bool) {
         getData()
+    }
+    
+    private func loadImage() {
+        if let loadedImage = loadImageFromDiskWith(fileName: myPageVC.myImage) {
+            profileImageView.image = loadedImage
+        }
     }
     
     @IBAction func touchUpCameraButton(_ sender: UIButton) {
@@ -72,13 +82,57 @@ class myPageVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
         
     }
     
+    // MARK: - Save Image API
+    func saveImage(imageName: String, image: UIImage) {
+        
+        guard let documentsDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first else { return }
+        
+        let fileName = imageName
+        let fileURL = documentsDirectory.appendingPathComponent(fileName)
+        guard let data = image.jpegData(compressionQuality: 1) else { return }
+        
+        //Checks if file exists, removes it if so.
+        if FileManager.default.fileExists(atPath: fileURL.path) {
+            do {
+                try FileManager.default.removeItem(atPath: fileURL.path)
+                print("Removed old image")
+            } catch let removeError {
+                print("couldn't remove file at path", removeError)
+            }
+            
+        }
+        
+        do {
+            try data.write(to: fileURL)
+        } catch let error {
+            print("error saving file with error", error)
+        }
+    }
+    
+    func loadImageFromDiskWith(fileName: String) -> UIImage? {
+        
+        let documentDirectory = FileManager.SearchPathDirectory.documentDirectory
+        
+        let userDomainMask = FileManager.SearchPathDomainMask.userDomainMask
+        let paths = NSSearchPathForDirectoriesInDomains(documentDirectory, userDomainMask, true)
+        
+        if let dirPath = paths.first {
+            let imageUrl = URL(fileURLWithPath: dirPath).appendingPathComponent(fileName)
+            let image = UIImage(contentsOfFile: imageUrl.path)
+            return image
+            
+        }
+        return nil
+    }
+    
+    
     @objc func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         
         var selectedImage: UIImage?
         
         if let editedImage: UIImage = info[.editedImage] as? UIImage {
             selectedImage = editedImage
-            //uploadImage(selectedImage)
+            saveImage(imageName: myPageVC.myImage, image: editedImage)
             self.profileImageView.image = selectedImage
             picker.dismiss(animated: true, completion: nil)
             
@@ -94,6 +148,7 @@ class myPageVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
         self.dismiss(animated: true, completion: nil)
     }
     
+    // MARK: - Network
     private func uploadImage(_ selecteImage: UIImage?) {
         
         let urlString = UserAPI.sharedInstance.getURL("/user/photo")
@@ -115,12 +170,7 @@ class myPageVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
         request.addValue(key, forHTTPHeaderField: "Authorization")
-        
-//        request.httpBody?.append("--\(boundary)\r\n".data(using: .utf8)!)
-//        request.httpBody?.append("Content-Disposition: form-data; name=\"\(sendImage)\";".data(using: .utf8)!)
-//        request.httpBody?.append(sendImage.pngData()!)
-//        request.httpBody?.append("\r\n".data(using: .utf8)!)
-        
+    
         NetworkManager.shared.getData(with: request) { (data, error, res) in
             
             guard let data = data else {
@@ -177,108 +227,9 @@ class myPageVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
         }
     }
     
-    
-//    func createRequest(userid: String, password: String, email: String) throws -> URLRequest {
-//        let parameters = [
-//            "user_id"  : userid,
-//            "email"    : email,
-//            "password" : password]  // build your dictionary however appropriate
-//
-//        let boundary = generateBoundaryString()
-//
-//        let url = URL(string: "https://example.com/imageupload.php")!
-//        var request = URLRequest(url: url)
-//        request.httpMethod = "POST"
-//        request.setValue("multipart/form-data; boundary=\(boundary)", forHTTPHeaderField: "Content-Type")
-//
-//        let path1 = Bundle.main.path(forResource: "image1", ofType: "png")!
-//        request.httpBody = try createBody(with: parameters, filePathKey: "file", paths: [path1], boundary: boundary)
-//
-//        return request
-//    }
-//
-    /// Create body of the `multipart/form-data` request
-    ///
-    /// - parameter parameters:   The optional dictionary containing keys and values to be passed to web service
-    /// - parameter filePathKey:  The optional field name to be used when uploading files. If you supply paths, you must supply filePathKey, too.
-    /// - parameter paths:        The optional array of file paths of the files to be uploaded
-    /// - parameter boundary:     The `multipart/form-data` boundary
-    ///
-    /// - returns:                The `Data` of the body of the request
-    
-//    private func createBody(with parameters: [String: Data]? , boundary: String) throws -> Data {
-//        var body = Data()
-//
-//        if parameters != nil {
-//            for (key, value) in parameters! {
-//                body.append("--\(boundary)\r\n")
-//                body.append("Content-Disposition: form-data; name=\"\(key)\"\r\n\r\n")
-//                body.append(value)
-//            }
-//        }
-//
-//        body.append("--\(boundary)--\r\n")
-//        return body
-//    }
-    
-    /// Create boundary string for multipart/form-data request
-    ///
-    /// - returns:            The boundary string that consists of "Boundary-" followed by a UUID string.
-    
     private func generateBoundaryString() -> String {
         return "Boundary-\(UUID().uuidString)"
     }
-    
-    /// Determine mime type on the basis of extension of a file.
-    ///
-    /// This requires `import MobileCoreServices`.
-    ///
-    /// - parameter path:         The path of the file for which we are going to determine the mime type.
-    ///
-    /// - returns:                Returns the mime type if successful. Returns `application/octet-stream` if unable to determine mime type.
-    
-//    private func mimeType(for path: String) -> String {
-//        let url = URL(fileURLWithPath: path)
-//        let pathExtension = url.pathExtension
-//
-//        if let uti = UTTypeCreatePreferredIdentifierForTag(kUTTagClassFilenameExtension, pathExtension as NSString, nil)?.takeRetainedValue() {
-//            if let mimetype = UTTypeCopyPreferredTagWithClass(uti, kUTTagClassMIMEType)?.takeRetainedValue() {
-//                return mimetype as String
-//            }
-//        }
-//        return "application/octet-stream"
-//    }
 
 }
 
-
-
-/* 혹시나 쓸수 있어서 남겨 둡니다.
- @objc func logoutClicked(_ sender: AnyObject) {
- KOSession.shared().logoutAndClose { [weak self] (success, error) -> Void in
- _ = self?.navigationController?.popViewController(animated: true)
- }
- }
- 
- @objc func removeDefaults(_ sender: Any) {
- let dictionary = UserDefaults.standard.dictionaryRepresentation()
- 
- dictionary.keys.forEach { (key) in
- UserDefaults.standard.removeObject(forKey: "poster")
- }
- }
- */
-//extension Data {
-//
-//    /// Append string to Data
-//    ///
-//    /// Rather than littering my code with calls to `data(using: .utf8)` to convert `String` values to `Data`, this wraps it in a nice convenient little extension to Data. This defaults to converting using UTF-8.
-//    ///
-//    /// - parameter string:       The string to be added to the `Data`.
-//
-//    mutating func append(_ string: String, using encoding: String.Encoding = .utf8) {
-//        if let data = string.data(using: encoding) {
-//            append(data)
-//        }
-//    }
-//}

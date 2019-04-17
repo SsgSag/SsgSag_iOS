@@ -714,6 +714,8 @@ class DayCollectionViewCell: UICollectionViewCell {
             
         } else {
             switch eventNum {
+            case 0:
+                break
             case 1:
                 
                 NSLayoutConstraint.deactivate([
@@ -1045,7 +1047,111 @@ class DayCollectionViewCell: UICollectionViewCell {
                     dotAndLineView5CenterXAnchor
                     ])
             default:
-                break
+                dotAndLineView1.isHidden = false
+                dotAndLineView2.isHidden = false
+                dotAndLineView3.isHidden = false
+                dotAndLineView4.isHidden = false
+                dotAndLineView5.isHidden = false
+                
+                if let category : PosterCategory = PosterCategory(rawValue:eventCategoryList[0]) {
+                    dotAndLineView1.backgroundColor =  category.categoryColors()
+                }
+                
+                if let category : PosterCategory = PosterCategory(rawValue:eventCategoryList[1]) {
+                    dotAndLineView2.backgroundColor =  category.categoryColors()
+                }
+                
+                if let category : PosterCategory = PosterCategory(rawValue:eventCategoryList[2]) {
+                    dotAndLineView3.backgroundColor =  category.categoryColors()
+                }
+                
+                if let category : PosterCategory = PosterCategory(rawValue:eventCategoryList[3]) {
+                    dotAndLineView4.backgroundColor =  category.categoryColors()
+                }
+                
+                if let category : PosterCategory = PosterCategory(rawValue:eventCategoryList[4]) {
+                    dotAndLineView5.backgroundColor =  category.categoryColors()
+                }
+                
+                NSLayoutConstraint.deactivate([
+                    dotAndLineView1TopAnchor,
+                    dotAndLineView1WidthAnchor,
+                    dotAndLineView1HeightAnchor,
+                    dotAndLineView1CenterXAnchor,
+                    
+                    dotAndLineView2TopAnchor,
+                    dotAndLineView2WidthAnchor,
+                    dotAndLineView2HeightAnchor,
+                    dotAndLineView2CenterXAnchor,
+                    
+                    dotAndLineView3TopAnchor,
+                    dotAndLineView3WidthAnchor,
+                    dotAndLineView3HeightAnchor,
+                    dotAndLineView3CenterXAnchor,
+                    
+                    dotAndLineView4TopAnchor,
+                    dotAndLineView4WidthAnchor,
+                    dotAndLineView4HeightAnchor,
+                    dotAndLineView4CenterXAnchor,
+                    
+                    dotAndLineView5TopAnchor,
+                    dotAndLineView5WidthAnchor,
+                    dotAndLineView5HeightAnchor,
+                    dotAndLineView5CenterXAnchor
+                    ])
+                
+                dotAndLineView1TopAnchor.constant = 4
+                dotAndLineView1WidthAnchor.constant = lineWidth
+                dotAndLineView1HeightAnchor.constant = lineHeight
+                dotAndLineView1CenterXAnchor = NSLayoutConstraint(item: dotAndLineView1, attribute: .centerX, relatedBy: .equal, toItem: self, attribute: .centerX, multiplier: 1, constant: 0)
+                
+                dotAndLineView2TopAnchor.constant = lineHeight + 5
+                dotAndLineView2WidthAnchor.constant = lineWidth
+                dotAndLineView2HeightAnchor.constant = lineHeight
+                dotAndLineView2CenterXAnchor = NSLayoutConstraint(item: dotAndLineView2, attribute: .centerX, relatedBy: .equal, toItem: self, attribute: .centerX, multiplier: 1, constant: 0)
+                
+                dotAndLineView3TopAnchor.constant = lineHeight*2 + 6
+                dotAndLineView3WidthAnchor.constant = lineWidth
+                dotAndLineView3HeightAnchor.constant = lineHeight
+                dotAndLineView3CenterXAnchor = NSLayoutConstraint(item: dotAndLineView3, attribute: .centerX, relatedBy: .equal, toItem: self, attribute: .centerX, multiplier: 1, constant: 0)
+                
+                dotAndLineView4TopAnchor.constant = lineHeight*3 + 7
+                dotAndLineView4WidthAnchor.constant = lineWidth
+                dotAndLineView4HeightAnchor.constant = lineHeight
+                dotAndLineView4CenterXAnchor = NSLayoutConstraint(item: dotAndLineView4, attribute: .centerX, relatedBy: .equal, toItem: self, attribute: .centerX, multiplier: 1, constant: 0)
+                
+                dotAndLineView5TopAnchor.constant = lineHeight*4 + 8
+                dotAndLineView5WidthAnchor.constant = lineWidth
+                dotAndLineView5HeightAnchor.constant = lineHeight
+                dotAndLineView5CenterXAnchor = NSLayoutConstraint(item: dotAndLineView5, attribute: .centerX, relatedBy: .equal, toItem: self, attribute: .centerX, multiplier: 1, constant: 0)
+                
+                NSLayoutConstraint.activate([
+                    dotAndLineView1TopAnchor,
+                    dotAndLineView1WidthAnchor,
+                    dotAndLineView1HeightAnchor,
+                    dotAndLineView1CenterXAnchor,
+                    
+                    dotAndLineView2TopAnchor,
+                    dotAndLineView2WidthAnchor,
+                    dotAndLineView2HeightAnchor,
+                    dotAndLineView2CenterXAnchor,
+                    
+                    dotAndLineView3TopAnchor,
+                    dotAndLineView3WidthAnchor,
+                    dotAndLineView3HeightAnchor,
+                    dotAndLineView3CenterXAnchor,
+                    
+                    dotAndLineView4TopAnchor,
+                    dotAndLineView4WidthAnchor,
+                    dotAndLineView4HeightAnchor,
+                    dotAndLineView4CenterXAnchor,
+                    
+                    dotAndLineView5TopAnchor,
+                    dotAndLineView5WidthAnchor,
+                    dotAndLineView5HeightAnchor,
+                    dotAndLineView5CenterXAnchor
+                    ])
+
             }
 
         }

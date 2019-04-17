@@ -1,6 +1,7 @@
 import UIKit
 
 class CalenderVC: UIViewController {
+    
     var todoStatus: todoTableStatus = .todoShow
     
     var daySelectedStatus = 0
@@ -337,10 +338,13 @@ class CalenderVC: UIViewController {
         for poster in CalenderView.getPosterUsingUserDefaults() {
             
             guard let posterEndDateString = poster.posterEndDate else { return }
+            
             guard let posterEndDate = formatter.date(from: posterEndDateString) else { return }
             
             let posterTupleEndDateYear = Calendar.current.component(.year, from: posterEndDate)
+            
             let posterTupleEndDateMonth = Calendar.current.component(.month, from: posterEndDate)
+            
             let posterTupleEndDateDay = Calendar.current.component(.day, from: posterEndDate)
             
             //포스터의 날짜가 현재 달력에 선택된 날짜와 같은 것들만 표시해준다.
