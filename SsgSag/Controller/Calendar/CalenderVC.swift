@@ -327,8 +327,11 @@ class CalenderVC: UIViewController {
         todoTableData = []
         
         let currentSelectedDateYear = Calendar.current.component(.year, from: currentSelectedDateTime)
+        
         let currentSelectedDateMonth = Calendar.current.component(.month, from: currentSelectedDateTime)
+        
         let currentSelectedDateDay = Calendar.current.component(.day, from: currentSelectedDateTime)
+        
         let currentDateString = "\(currentSelectedDateMonth)월 \(currentSelectedDateDay)일"
         
         let formatter = DateFormatter()
@@ -381,6 +384,7 @@ class CalenderVC: UIViewController {
         NotificationCenter.default.post(name: NSNotification.Name("changeToUp"), object: nil)
         
         if daySelectedStatus == 0 {
+            
             todoTableData = []
             
             let today = Date()
@@ -390,9 +394,13 @@ class CalenderVC: UIViewController {
             
             for poster in posterTuples {
                 
-                guard let posterEndDateString = poster.posterEndDate else { return }
+                guard let posterEndDateString = poster.posterEndDate else {
+                    return
+                }
                 
-                guard let posterEndDate = formatter.date(from: posterEndDateString) else { return }
+                guard let posterEndDate = formatter.date(from: posterEndDateString) else {
+                    return
+                }
                 
                 let posteurTupleMonth = Calendar.current.component(.month, from: posterEndDate)
                 let posterTupleDay = Calendar.current.component(.day, from: posterEndDate)
@@ -410,7 +418,6 @@ class CalenderVC: UIViewController {
         }
         
         todoStatus = .todoShow
-        
         
         calenderView.calendarCollectionView.reloadData()
         //calenderView.calendarCollectionView.layoutIfNeeded()

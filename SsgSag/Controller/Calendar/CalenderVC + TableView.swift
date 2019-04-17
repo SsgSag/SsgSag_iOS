@@ -22,32 +22,32 @@ extension CalenderVC: UITableViewDelegate,UITableViewDataSource {
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
         
-        guard let posterEndDateString = todoTableData[indexPath.row].posterEndDate else { return .init()}
+        guard let posterEndDateString = todoTableData[indexPath.row].posterEndDate else { return cell}
         
-        guard let posterEndDate = formatter.date(from: posterEndDateString) else { return .init() }
+        guard let posterEndDate = formatter.date(from: posterEndDateString) else { return cell }
         
-        guard let posterCagegoryIdx = todoTableData[indexPath.row].categoryIdx else { return .init()}
+        let todoDataEndMonth = Calendar.current.component(.month, from: posterEndDate)
         
-        guard let posterName = todoTableData[indexPath.row].posterName else {return .init()}
+        let todoDataEndDay = Calendar.current.component(.day, from: posterEndDate)
         
-        guard let posterStartDateString = todoTableData[indexPath.row].posterStartDate else { return .init()}
+        guard let posterCagegoryIdx = todoTableData[indexPath.row].categoryIdx else { return cell}
         
-        guard let posterStartDate = formatter.date(from: posterStartDateString) else { return .init() }
+        guard let posterName = todoTableData[indexPath.row].posterName else { return cell}
         
-        if let category : PosterCategory = PosterCategory(rawValue:posterCagegoryIdx) {
+        cell.contentLabel.text = "\(posterName)"
+        
+        if let category = PosterCategory(rawValue: posterCagegoryIdx) {
             cell.categoryLabel.text = category.categoryString()
             cell.categoryLabel.textColor = category.categoryColors()
             cell.leftLineView.backgroundColor =  category.categoryColors()
         }
         
-        cell.contentLabel.text = "\(posterName)"
+        guard let posterStartDateString = todoTableData[indexPath.row].posterStartDate else { return cell }
+        
+        guard let posterStartDate = formatter.date(from: posterStartDateString) else { return cell }
         
         let todoDataStartMonth = Calendar.current.component(.month, from: posterStartDate)
         let todoDataStartDay = Calendar.current.component(.day, from: posterStartDate)
-        
-        let todoDataEndMonth = Calendar.current.component(.month, from: posterEndDate)
-        
-        let todoDataEndDay = Calendar.current.component(.day, from: posterEndDate)
         
         cell.dateLabel.text = "\(todoDataStartMonth).\(todoDataStartDay) ~ \(todoDataEndMonth).\(todoDataEndDay)"
         
@@ -62,9 +62,9 @@ extension CalenderVC: UITableViewDelegate,UITableViewDataSource {
                                                               from: Date(),
                                                               to: posterEndDate)
             
-            guard let interval = dayInterval.day else { return .init() }
-            cell.leftedDay.text = "\(interval)"
+            guard let interval = dayInterval.day else { return cell }
             
+            cell.leftedDay.text = "\(interval)"
         } else {
             cell.newImage.isHidden = false 
             cell.leftedDay.isHidden = true
