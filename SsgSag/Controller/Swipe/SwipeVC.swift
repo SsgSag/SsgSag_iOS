@@ -434,7 +434,8 @@ extension SwipeVC : SwipeCardDelegate {
         guard let posterInfo = try? PropertyListDecoder().decode([Posters].self, from: posterData) else { return }
         
         var likedPoster = posterInfo
-                
+        
+        //중복 되지 않을때만 UserDefaults에 넣는다.
         if isDuplicateInLikedPoster(likedPoster, input: posters[currentIndex-1]) == false {
                 likedPoster.append(self.posters[currentIndex-1])
         }

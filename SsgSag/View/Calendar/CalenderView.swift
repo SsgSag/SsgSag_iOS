@@ -2,6 +2,7 @@
 import UIKit
 
 class CalenderView: UIView, MonthViewDelegate {
+    
     private var numOfDaysInMonth = [31,28,31,30,31,30,31,31,30,31,30,31]//12달
     
     private var currentMonth: Int = 0
@@ -18,8 +19,6 @@ class CalenderView: UIView, MonthViewDelegate {
     
     private var numberOfCurrentMonthDays = 0
     
-    static var posterTuples: [(startDate: Date, endDate: Date, dayInterval: Int, categoryIdx: Int, title: String, Int)] = []
-    
     private var eventDictionary: [Int:[event]] = [:]
     
     private var lastSelectedDate: Date?
@@ -30,19 +29,25 @@ class CalenderView: UIView, MonthViewDelegate {
     
     private var todoButtonTapped = false
     
+    static private let leapYear = 4
+    
+    static private let leapMonth = 2
+    
+    static private let leapDays = 29
+    
+    
+    // MARK: - init func
     override init(frame: CGRect) {
         super.init(frame: frame)
         setCalenderViewColor()
-        
-        setupPosterTuple()
         
         initMonthAndCalendarCollectionView()
         
         NotificationCenter.default.addObserver(self, selector: #selector(todoListButtonAction), name: NSNotification.Name("todoListButtonAction"), object: nil)
         
-        NotificationCenter.default.addObserver(self, selector: #selector(addUserDefaults), name: NSNotification.Name("addUserDefaults"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(changeUserDefaultsAndReloadData), name: NSNotification.Name("addUserDefaults"), object: nil)
         
-        NotificationCenter.default.addObserver(self, selector: #selector(deleteUserDefaults), name: NSNotification.Name(rawValue: "deleteUserDefaults"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(changeUserDefaultsAndReloadData), name: NSNotification.Name(rawValue: "deleteUserDefaults"), object: nil)
     }
     
     convenience init(theme: MyTheme) {
@@ -51,159 +56,61 @@ class CalenderView: UIView, MonthViewDelegate {
         initMonthAndCalendarCollectionView()
     }
     
-    @objc func addUserDefaults() {
-        
-        setupPosterTuple()
-        
-        self.calendarCollectionView.reloadData()
-        
-    }
-    
-    private func getPosterUsingUserDefaults() -> [Posters] {
-        guard let posterData = UserDefaults.standard.object(forKey: "poster") as? Data else {
-            return []
-        }
-        guard let posterInfo = try? PropertyListDecoder().decode([Posters].self, from: posterData) else {
-            return []
-        }
-        return posterInfo
-    }
-    
-    @objc func deleteUserDefaults() {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
-        
-        let posterInfo = getPosterUsingUserDefaults()
-        
-        CalenderView.posterTuples = []
-        
-        for poster in posterInfo {
-            
-            let startDate = formatter.date(from: poster.posterStartDate!)
-            let endDate = formatter.date(from: poster.posterEndDate!)
-            let components = Calendar.current.dateComponents([.day], from: startDate!, to: endDate!)
-            let dayInterval = components.day! + 1
-            
-            CalenderView.posterTuples.append((startDate!,
-                                              endDate!,
-                                              dayInterval,
-                                              poster.categoryIdx!,
-                                              poster.posterName!,
-                                              poster.categoryIdx!))
-        }
-        
+    // MARK: - Notification func
+    @objc func changeUserDefaultsAndReloadData() {
         self.calendarCollectionView.reloadData()
     }
     
-    func setupPosterTuple() {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
-        
-        let posterInfo = getPosterUsingUserDefaults()
-                for poster in posterInfo {
-                    
-                    guard let posterStartDate = poster.posterStartDate else {
-                        return
-                    }
-                    
-                    guard let posterEndDate = poster.posterEndDate else {
-                        return
-                    }
-                    
-                    let posterStartDateTime = formatter.date(from: posterStartDate)
-                    let posterEndDateTime = formatter.date(from: posterEndDate)
-                    
-                    let components = Calendar.current.dateComponents([.day], from: posterStartDateTime!, to: posterEndDateTime!)
-                    let dayInterval = components.day! + 1
-                    
-                    if isDuplicatePosterTuple(CalenderView.posterTuples,
-                                              input: (posterStartDateTime!.addingTimeInterval(60.0 * 60.0 * 9.0),       posterEndDateTime!.addingTimeInterval(60.0 * 60.0 * 9.0),
-                                                      dayInterval,
-                                                      poster.categoryIdx!,
-                                                      poster.posterName!,
-                                                      poster.categoryIdx!)) == false {
-                        
-                        CalenderView.posterTuples.append((posterStartDateTime!,
-                                                          posterEndDateTime!,
-                                                          dayInterval,
-                                                          poster.categoryIdx!,
-                                                          poster.posterName!,
-                                                          poster.categoryIdx!))
-            }
-        }
-    }
-    
-    //마지막 선택된 날짜의 셀의 백그라운드 색깔을 지우자
-    //투두리스트를 표현하자
-    @objc func todoListButtonAction() {
+    @objc func todoListButtonAction() { //투두리스트를 표현하자
         todoButtonTapped = true
         if let index = lastSelectedIndexPath {
             calendarCollectionView.reloadItems(at: [index])
-            //            let cell = collectionView(calendarCollectionView, cellForItemAt: index) as! DayCollectionViewCell
-            //            print("cell: \(cell)")
-            //            print("indexPath: \(index)")
-            //            cell.lbl.backgroundColor = .red
-            //            cell.lbl.textColor = .black
-            //            cell.layoutIfNeeded()
         }
-        //        calendarCollectionView.reloadData()
+    }
+    
+    static func getPosterUsingUserDefaults() -> [Posters] {
         
+        guard let posterData = UserDefaults.standard.object(forKey: "poster") as? Data else {
+            return []
+        }
+        
+        guard let posterInfo = try? PropertyListDecoder().decode([Posters].self, from: posterData) else {
+            return []
+        }
+        
+        return posterInfo
     }
     
-    //putDate를 lineArray에 날짜 중복되지 않고 넣을 수 있는가?
-    func isGoodTopPut(lineArray:[(Date,Date,Int,Int,String,Int)] , putDate:(Date, Date,Int,Int,String,Int)) -> Bool {
-        var count = 0
-        for i in lineArray {
-            //어레이에 들어있는 모든 원소들이 이제 넣어야할 원소와 하나도 겹치지 않는다면
-            if i == putDate {
-                return false
-            }
-            if isDuplicate(startDate: i.0, endDate: i.1, startSecondDate: putDate.0, endSecondDate: putDate.1) == false {
-                count += 1
-            }else {
-                return false
-            }
-        }
-        if count == lineArray.count {
-            return true
-        }else {
-            return false
-        }
-    }
-    
-    //안겹치면 false를 리턴
-    func isDuplicate(startDate: Date, endDate: Date, startSecondDate: Date, endSecondDate: Date) -> Bool {
-        if startDate > endSecondDate {
-            return false
-        }
-        if endDate < startSecondDate {
-            return false
-        }
-        return true
-    }
-    
-    func isDuplicatePosterTuple(_ posterTuples:[(Date, Date, Int, Int, String, Int)], input: (Date, Date, Int, Int, String, Int)) -> Bool {
-        for i in posterTuples {
-            if i.4 == input.4 {
+    static func isDuplicatePosterTuple(_ posterTuples:[Posters], input: Posters) -> Bool {
+        
+        for poster in posterTuples {
+            
+            if poster.posterName! == input.posterName! {
                 return true
             }
+            
         }
+        
         return false
     }
     
     private func setCalenderViewColor() {
+        
         monthView.monthName.textColor = .black
         monthView.btnRight.setTitleColor(Style.monthViewBtnRightColor, for: .normal)
         monthView.btnLeft.setTitleColor(Style.monthViewBtnLeftColor, for: .normal)
-        for i in 0..<7 {
-            (weekdaysView.myStackView.subviews[i] as! UILabel).textColor = .black
-            if i == 0 {
-                (weekdaysView.myStackView.subviews[i] as! UILabel).textColor = .red
+        
+        for day in 0..<7 {
+            (weekdaysView.myStackView.subviews[day] as! UILabel).textColor = .black
+            if day == 0 {
+                (weekdaysView.myStackView.subviews[day] as! UILabel).textColor = .red
             }
         }
+        
     }
     
     func initMonthAndCalendarCollectionView() {
+        
         currentMonth = Calendar.current.component(.month, from: Date())
         currentYear = Calendar.current.component(.year, from: Date())
         currentDay = Calendar.current.component(.day, from: Date())
@@ -211,8 +118,8 @@ class CalenderView: UIView, MonthViewDelegate {
         firstWeekDayOfMonth = getFirstWeekDay()
         
         //윤년 계산 4년에 한번씩 2월은 29일
-        if currentMonth == 2 && currentYear % 4 == 0 {
-            numOfDaysInMonth[currentMonth-1] = 29
+        if currentMonth == CalenderView.leapMonth && currentYear % CalenderView.leapYear == 0 {
+            numOfDaysInMonth[currentMonth-1] = CalenderView.leapDays
         }
         
         presentMonthIndex = currentMonth
@@ -228,20 +135,18 @@ class CalenderView: UIView, MonthViewDelegate {
     
     func getFirstWeekDay() -> Int {
         let day = ("\(currentYear)-\(currentMonth)-01".date?.firstDayOfTheMonth.weekday)!
-        //return day == 7 ? 1 : day
         return day
     }
     
     func didChangeMonth(monthIndex: Int, year: Int) {
         currentMonth = monthIndex + 1 //월+1
         currentYear = year
+        
         //for leap year, make february month of 29 days
         if monthIndex == 1 { //4년에 한번 29일까지
-            if currentYear % 4 == 0 {
-                numOfDaysInMonth[monthIndex] = 29
-            } else {
-                numOfDaysInMonth[monthIndex] = 28
-            }
+            
+            let leapDays = currentYear % CalenderView.leapYear == 0 ? CalenderView.leapDays : 28
+            numOfDaysInMonth[monthIndex] = leapDays
         }
         
         firstWeekDayOfMonth = getFirstWeekDay()
@@ -257,7 +162,6 @@ class CalenderView: UIView, MonthViewDelegate {
         monthView.leftAnchor.constraint(equalTo: leftAnchor, constant: 12).isActive=true
         monthView.rightAnchor.constraint(equalTo: rightAnchor, constant: -12).isActive=true
         monthView.heightAnchor.constraint(equalToConstant: 28).isActive=true
-        
         monthView.delegate = self
         
         //월화수목금토
@@ -310,16 +214,17 @@ class CalenderView: UIView, MonthViewDelegate {
     }
 }
 
+// MARK: - Delegate
 extension CalenderView: UICollectionViewDelegate, UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         
-        //현재달의 표현해야하는 일자의 개수를 return한다.
         if numOfDaysInMonth[currentMonth-1] + firstWeekDayOfMonth - 1 > 35 {
             numberOfCurrentMonthDays = 42
         }else {
             numberOfCurrentMonthDays = 35
         }
+        
         return numberOfCurrentMonthDays
     }
     
@@ -334,6 +239,7 @@ extension CalenderView: UICollectionViewDelegate, UICollectionViewDataSource {
     }
     
     private func setbeforeMonthCount(beforeMonthIndex: Int) -> Int {
+        
         if beforeMonthIndex == 2 {
             if currentYear % 4 == 0 {
                 return numOfDaysInMonth[beforeMonthIndex-1] + 1
@@ -436,41 +342,31 @@ extension CalenderView: UICollectionViewDelegate, UICollectionViewDataSource {
         
         eventDictionary[indexPath.row] = []
         
-        /* 여기서 userdefaults를 사용해서 가져오도록 바꾸자.
-        let defaults = UserDefaults.standard
-        
-        if let posterData = defaults.object(forKey: "poster") as? Data {
-            if let posterInfo = try? PropertyListDecoder().decode([Posters].self, from: posterData) {
-                for poster in posterInfo {
-                    if isDuplicateInLikedPoster(likedPoster, input: poster) == false {//중복 되지 않을때만 넣는다.
-                        likedPoster.append(poster)
-                    }
-                }
-            }
-        }
-        
-        likedPoster.append(self.posters[currentIndex-1])
-        
-        UserDefaults.standard.setValue(try? PropertyListEncoder().encode(likedPoster), forKey: "poster")
-        */
-
-        for posterTuple in CalenderView.posterTuples {
-            if let _ = currentCellDateTime {
+        for poster in CalenderView.getPosterUsingUserDefaults() {
+            if currentCellDateTime != nil {
                 
-                let currentPosterYear = Calendar.current.component(.year, from: posterTuple.endDate)
-                let currentPosterMonth = Calendar.current.component(.month, from: posterTuple.endDate)
-                let currentPosterDay = Calendar.current.component(.day, from: posterTuple.endDate)
+                guard let posterEndDateString = poster.posterEndDate else { return .init() }
                 
-                //\(posterTuple.endDate.addingTimeInterval(60.0 * 60.0 * 9.0))")
+                guard let posterEndDate = formatter.date(from: posterEndDateString) else {return .init()}
+                
+                guard let posterName = poster.posterName else { return .init()}
+                
+                guard let posterCategortIdx = poster.categoryIdx else { return .init()}
+                
+                let currentPosterYear = Calendar.current.component(.year, from: posterEndDate)
+                let currentPosterMonth = Calendar.current.component(.month, from: posterEndDate)
+                let currentPosterDay = Calendar.current.component(.day, from: posterEndDate)
                 
                 if (cellYear == currentPosterYear) &&
                     (cellMonth == currentPosterMonth) &&
                     (cellDay == currentPosterDay) {
                     
-                    eventDictionary[indexPath.row]?.append(event(eventDate: posterTuple.endDate,
-                                                                 title: posterTuple.title,
-                                                                 categoryIdx: posterTuple.categoryIdx))
+                    eventDictionary[indexPath.row]?.append(event(eventDate: posterEndDate,
+                                                                 title: posterName,
+                                                                 categoryIdx: posterCategortIdx)
+                                                                    )
                 }
+                
             }
         }
         
@@ -585,10 +481,6 @@ extension CalenderView: UICollectionViewDelegate, UICollectionViewDataSource {
         let currentDate = Date()
         let calendar = Calendar.current
         let components = calendar.dateComponents([.year, .month, .day], from: currentDate)
-        
-        let year = components.year!
-        let month = components.month!
-        let day = components.day!
         
     }
     
