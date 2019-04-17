@@ -337,7 +337,6 @@ class CalenderVC: UIViewController {
         for poster in CalenderView.getPosterUsingUserDefaults() {
             
             guard let posterEndDateString = poster.posterEndDate else { return }
-            
             guard let posterEndDate = formatter.date(from: posterEndDateString) else { return }
             
             let posterTupleEndDateYear = Calendar.current.component(.year, from: posterEndDate)
@@ -348,7 +347,9 @@ class CalenderVC: UIViewController {
             if posterTupleEndDateYear == currentSelectedDateYear &&
                 posterTupleEndDateMonth == currentSelectedDateMonth &&
                 posterTupleEndDateDay == currentSelectedDateDay {
+                
                 todoTableData.append(poster)
+                
             }
         }
         
@@ -359,6 +360,7 @@ class CalenderVC: UIViewController {
         
         todoTableView.reloadData()
         calenderView.calendarCollectionView.reloadData()
+        
     }
     
     @objc func addPassiveDate() {
@@ -515,6 +517,7 @@ class CalenderVC: UIViewController {
         super.viewWillLayoutSubviews()
         calenderView.calendarCollectionView.collectionViewLayout.invalidateLayout()
     }
+    
 }
 
 fileprivate extension UIView {
