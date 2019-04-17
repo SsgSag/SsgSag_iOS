@@ -334,12 +334,11 @@ extension CalenderView: UICollectionViewDelegate, UICollectionViewDataSource {
         var cellMonth = currentMonth
         var cellDay = indexPath.row - firstWeekDayOfMonth + 2
         
-        let formatter = DateFormatter()
-        formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+        let dateFormatter = DateFormatter.genericDateFormatter
         
         var cellDateString = "\(cellYear)-\(cellMonth)-\(cellDay) 00:00:00"
         
-        var currentCellDateTime = formatter.date(from: cellDateString)
+        var currentCellDateTime = dateFormatter.date(from: cellDateString)
         
         eventDictionary[indexPath.row] = []
         
@@ -348,7 +347,7 @@ extension CalenderView: UICollectionViewDelegate, UICollectionViewDataSource {
                 
                 guard let posterEndDateString = poster.posterEndDate else { return .init() }
                 
-                guard let posterEndDate = formatter.date(from: posterEndDateString) else {return .init()}
+                guard let posterEndDate = dateFormatter.date(from: posterEndDateString) else {return .init()}
                 
                 guard let posterName = poster.posterName else { return .init()}
                 
@@ -397,14 +396,14 @@ extension CalenderView: UICollectionViewDelegate, UICollectionViewDataSource {
                 cellDay = beforeMonthCount-firstWeekDayOfMonth+indexPath.row+2
                 
                 cellDateString = "\(cellYear)-\(cellMonth)-\(cellDay) 00:00:00"
-                currentCellDateTime = formatter.date(from: cellDateString)
+                currentCellDateTime = dateFormatter.date(from: cellDateString)
             } else {
                 cellYear = nextYear
                 cellMonth = nextMonth
                 cellDay = nextMonthDay
                 
                 cellDateString = "\(cellYear)-\(cellMonth)-\(cellDay) 00:00:00"
-                currentCellDateTime = formatter.date(from: cellDateString)
+                currentCellDateTime = dateFormatter.date(from: cellDateString)
             }
         }
         
@@ -444,11 +443,10 @@ extension CalenderView: UICollectionViewDelegate, UICollectionViewDataSource {
         let cellMonth = currentMonth
         let cellDay = indexPath.row - firstWeekDayOfMonth + 2
         
-        let formatter = DateFormatter()
-        formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+        let dateFormatter = DateFormatter.genericDateFormatter
         
         let cellDateString = "\(cellYear)-\(cellMonth)-\(cellDay) 00:00:00"
-        let currentCellDateTime = formatter.date(from: cellDateString)
+        let currentCellDateTime = dateFormatter.date(from: cellDateString)
         
         lastSelectedDate = currentCellDateTime//현재 선택된 셀의 date객체
         lastSelectedIndexPath = indexPath
@@ -513,41 +511,6 @@ extension CalenderView: UICollectionViewDelegateFlowLayout {
         return 0.0
     }
 }
-
-
-
-
-/*
- func addTestData(eventDictionary: [Int:[event]], indexpath: IndexPath) {
- 
- let date1 = "2019-02-11 14:59:59"
- let date2 = "2019-02-11 15:59:59"
- let date3 = "2019-02-11 16:59:59"
- let date4 = "2019-02-11 16:59:59"
- let date5 = "2019-02-11 16:59:59"
- 
- let dateFormatter = DateFormatter()
- dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
- 
- let endDate1 = dateFormatter.date(from: date1)!
- let endDate2 = dateFormatter.date(from: date2)!
- let endDate3 = dateFormatter.date(from: date3)!
- let endDate4 = dateFormatter.date(from: date4)!
- //let endDate5 = dateFormatter.date(from: date4)!
- 
- if indexPath.item == 15 {
- eventDictionary[indexPath.row]?.append(event.init(eventDate: endDate1, title: "가가", categoryIdx: 1))
- 
- eventDictionary[indexPath.row]?.append(event.init(eventDate: endDate2, title: "니나", categoryIdx: 2))
- 
- eventDictionary[indexPath.row]?.append(event.init(eventDate: endDate3, title: "다다", categoryIdx: 3))
- 
- eventDictionary[indexPath.row]?.append(event.init(eventDate: endDate3, title: "라라", categoryIdx: 3))
- }
- 
- eventDictionary[indexPath.row]?.append(event.init(eventDate: endDate3, title: "마마", categoryIdx: 3))
- }
- */
 
 
 

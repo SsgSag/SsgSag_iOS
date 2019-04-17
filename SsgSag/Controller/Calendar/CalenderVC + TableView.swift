@@ -19,12 +19,15 @@ extension CalenderVC: UITableViewDelegate,UITableViewDataSource {
             return .init()
         }
         
-        let formatter = DateFormatter()
-        formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+        let dateFormatter = DateFormatter.genericDateFormatter
         
-        guard let posterEndDateString = todoTableData[indexPath.row].posterEndDate else { return cell}
+        guard let posterEndDateString = todoTableData[indexPath.row].posterEndDate else {
+            return cell
+        }
         
-        guard let posterEndDate = formatter.date(from: posterEndDateString) else { return cell }
+        guard let posterEndDate = dateFormatter.date(from: posterEndDateString) else {
+            return cell
+        }
         
         let todoDataEndMonth = Calendar.current.component(.month, from: posterEndDate)
         
@@ -44,7 +47,7 @@ extension CalenderVC: UITableViewDelegate,UITableViewDataSource {
         
         guard let posterStartDateString = todoTableData[indexPath.row].posterStartDate else { return cell }
         
-        guard let posterStartDate = formatter.date(from: posterStartDateString) else { return cell }
+        guard let posterStartDate = dateFormatter.date(from: posterStartDateString) else { return cell }
         
         let todoDataStartMonth = Calendar.current.component(.month, from: posterStartDate)
         let todoDataStartDay = Calendar.current.component(.day, from: posterStartDate)
@@ -81,20 +84,20 @@ extension CalenderVC: UITableViewDelegate,UITableViewDataSource {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         let storyBoard = UIStoryboard(name: "Calendar", bundle: nil)
-        let nav = storyBoard.instantiateViewController(withIdentifier: "DetailPoster") as! CalendarDetailVC
+        let CalendarDetailVC = storyBoard.instantiateViewController(withIdentifier: "DetailPoster") as! CalendarDetailVC
     
         if let posterData = UserDefaults.standard.object(forKey: "poster") as? Data {
             if let posterInfo = try? PropertyListDecoder().decode([Posters].self, from: posterData){
                 for poster in posterInfo {
                     guard let posterName = todoTableData[indexPath.row].posterName else { return }
                     if posterName == poster.posterName! {
-                        nav.Poster = poster
+                        CalendarDetailVC.Poster = poster
                     }
                 }
             }
         }
         
-        present(nav, animated: true, completion: nil)
+        present(CalendarDetailVC, animated: true, completion: nil)
         
     }
     
