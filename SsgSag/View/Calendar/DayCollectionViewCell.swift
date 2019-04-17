@@ -214,7 +214,9 @@ class DayCollectionViewCell: UICollectionViewCell {
     private func setDotAndLineViewBackgroundColor(_ category: [Int]) {
         //0 공모전 , 1 대외활동, 2 동아리, 3 교내공지 , 4 채용, 5 기타
         if category.count == 1 {
+            
             switch category[0] {
+                
             case 0:
                 dotAndLineView1.backgroundColor = UIColor(displayP3Red: 96 / 255, green: 118 / 255, blue: 221 / 255, alpha: 1.0)
             case 1:

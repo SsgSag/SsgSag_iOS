@@ -105,14 +105,13 @@ class CalenderVC: UIViewController {
     //여기서 중복 되는 것을 거르자.
     @objc func addUserDefaults() {
         
-        let formatter = DateFormatter()
-        formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+        let dateFormatter = DateFormatter.genericDateFormatter
         
         for poster in CalenderView.getPosterUsingUserDefaults() {
         
             guard let posterEndDateString = poster.posterEndDate else { return }
             
-            guard let posterEndDate = formatter.date(from: posterEndDateString) else { return }
+            guard let posterEndDate = dateFormatter.date(from: posterEndDateString) else { return }
             
             let posterMonth = Calendar.current.component(.month, from: posterEndDate)
             let posterDay = Calendar.current.component(.day, from: posterEndDate)
@@ -125,7 +124,6 @@ class CalenderVC: UIViewController {
                 
                 todoTableData.append(poster)
             }
-            
         }
         
         todoTableView.reloadData()
@@ -226,14 +224,13 @@ class CalenderVC: UIViewController {
     
     private func setTodoTableView() {
         
-        let formatter = DateFormatter()
-        formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+        let dateFormatter = DateFormatter.genericDateFormatter
         
         for posterFromUserDefault in CalenderView.getPosterUsingUserDefaults() {
             
             guard let posterEndDateString = posterFromUserDefault.posterEndDate else { return }
             
-            guard let posterEndDate = formatter.date(from: posterEndDateString) else { return }
+            guard let posterEndDate = dateFormatter.date(from: posterEndDateString) else { return }
             
             let dayInterval = Calendar.current.dateComponents([.day],
                                                               from: Date(),
@@ -249,8 +246,7 @@ class CalenderVC: UIViewController {
     }
     
     private func setPosterTuple(){
-        let formatter = DateFormatter()
-        formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+        let dateFormatter = DateFormatter.genericDateFormatter
         
         guard let poster = UserDefaults.standard.object(forKey: "poster") as? Data else{
             return
@@ -268,14 +264,13 @@ class CalenderVC: UIViewController {
     
     fileprivate func setTodoListData(_ today: Date) {
         
-        let formatter = DateFormatter()
-        formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+        let dateFormatter = DateFormatter.genericDateFormatter
         
         for poster in CalenderView.getPosterUsingUserDefaults() {
             
             guard let posterEndDateString = poster.posterEndDate else { return }
             
-            guard let posterEndDate = formatter.date(from: posterEndDateString) else { return }
+            guard let posterEndDate = dateFormatter.date(from: posterEndDateString) else { return }
             
             let dayInterval = Calendar.current.dateComponents([.day],
                                                               from: Date(), to: posterEndDate)
@@ -328,18 +323,20 @@ class CalenderVC: UIViewController {
         todoTableData = []
         
         let currentSelectedDateYear = Calendar.current.component(.year, from: currentSelectedDateTime)
+        
         let currentSelectedDateMonth = Calendar.current.component(.month, from: currentSelectedDateTime)
+        
         let currentSelectedDateDay = Calendar.current.component(.day, from: currentSelectedDateTime)
+        
         let currentDateString = "\(currentSelectedDateMonth)월 \(currentSelectedDateDay)일"
         
-        let formatter = DateFormatter()
-        formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+        let dateFormatter = DateFormatter.genericDateFormatter
         
         for poster in CalenderView.getPosterUsingUserDefaults() {
             
             guard let posterEndDateString = poster.posterEndDate else { return }
             
-            guard let posterEndDate = formatter.date(from: posterEndDateString) else { return }
+            guard let posterEndDate = dateFormatter.date(from: posterEndDateString) else { return }
             
             let posterTupleEndDateYear = Calendar.current.component(.year, from: posterEndDate)
             
@@ -382,18 +379,22 @@ class CalenderVC: UIViewController {
         NotificationCenter.default.post(name: NSNotification.Name("changeToUp"), object: nil)
         
         if daySelectedStatus == 0 {
+            
             todoTableData = []
             
             let today = Date()
             
-            let formatter = DateFormatter()
-            formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+            let dateFormatter = DateFormatter.genericDateFormatter
             
             for poster in posterTuples {
                 
-                guard let posterEndDateString = poster.posterEndDate else { return }
+                guard let posterEndDateString = poster.posterEndDate else {
+                    return
+                }
                 
-                guard let posterEndDate = formatter.date(from: posterEndDateString) else { return }
+                guard let posterEndDate = dateFormatter.date(from: posterEndDateString) else {
+                    return
+                }
                 
                 let posteurTupleMonth = Calendar.current.component(.month, from: posterEndDate)
                 let posterTupleDay = Calendar.current.component(.day, from: posterEndDate)
@@ -411,7 +412,6 @@ class CalenderVC: UIViewController {
         }
         
         todoStatus = .todoShow
-        
         
         calenderView.calendarCollectionView.reloadData()
         //calenderView.calendarCollectionView.layoutIfNeeded()
@@ -531,13 +531,5 @@ fileprivate extension UIView {
         mask.path = path.cgPath
         layer.mask = mask
     }
-}
-
-extension DateFormatter {
-    var posterFormatter:String! {
-        return "yyyy-MM-dd HH:mm:ss"
-    }
-    
-    
 }
 

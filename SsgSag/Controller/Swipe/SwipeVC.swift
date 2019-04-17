@@ -424,20 +424,26 @@ extension SwipeVC : SwipeCardDelegate {
         sendPosterIsLiked(poster: self.posters[currentIndex-1], likedCategory: disLikedCategory)
     }
     
-    //카드 오른쪽으로 갔을때
-    func cardGoesRight(card: SwipeCard) {
+    private func addUserDefaultsWhenNoData() {
+        var likedPoster: [Posters] = []
         
-        loadCardValuesAfterRemoveObject()
+        likedPoster.append(self.posters[currentIndex-1])
         
-        guard let posterData = UserDefaults.standard.object(forKey: "poster") as? Data else { return }
+        UserDefaults.standard.setValue(try? PropertyListEncoder().encode(likedPoster), forKey: "poster")
         
-        guard let posterInfo = try? PropertyListDecoder().decode([Posters].self, from: posterData) else { return }
+        guard let likedCategory = likedOrDisLiked(rawValue: 1) else { return }
         
+        sendPosterIsLiked(poster: self.posters[currentIndex-1], likedCategory: likedCategory)
+        
+        NotificationCenter.default.post(name: NSNotification.Name("addUserDefaults"), object: nil)
+    }
+    
+    private func addUserDefautlsWhenDataIsExist(_ posterInfo: [Posters]) {
         var likedPoster = posterInfo
         
         //중복 되지 않을때만 UserDefaults에 넣는다.
         if isDuplicateInLikedPoster(likedPoster, input: posters[currentIndex-1]) == false {
-                likedPoster.append(self.posters[currentIndex-1])
+            likedPoster.append(self.posters[currentIndex-1])
         }
         
         UserDefaults.standard.setValue(try? PropertyListEncoder().encode(likedPoster), forKey: "poster")
@@ -447,6 +453,23 @@ extension SwipeVC : SwipeCardDelegate {
         sendPosterIsLiked(poster: self.posters[currentIndex-1], likedCategory: likedCategory)
         
         NotificationCenter.default.post(name: NSNotification.Name("addUserDefaults"), object: nil)
+    }
+    
+    //카드 오른쪽으로 갔을때
+    func cardGoesRight(card: SwipeCard) {
+        
+        loadCardValuesAfterRemoveObject()
+        
+        guard let posterData = UserDefaults.standard.object(forKey: "poster") as? Data else {
+            addUserDefaultsWhenNoData()
+            return
+        }
+        
+        guard let posterInfo = try? PropertyListDecoder().decode([Posters].self, from: posterData) else {
+            return
+        }
+        
+        addUserDefautlsWhenDataIsExist(posterInfo)
     }
     
     private func sendPosterIsLiked(poster: Posters, likedCategory: likedOrDisLiked) {

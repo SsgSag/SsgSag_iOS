@@ -9,6 +9,7 @@ extension Date {
 }
 
 extension String {
+    
     static var dateFormatter: DateFormatter = {
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyy-MM-dd"
@@ -18,4 +19,14 @@ extension String {
     var date: Date? {
         return String.dateFormatter.date(from: self)
     }
+}
+
+extension DateFormatter {
+    
+    static let genericDateFormatter: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+        return formatter
+    }()
+    
 }
