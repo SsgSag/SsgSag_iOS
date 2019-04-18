@@ -141,29 +141,24 @@ class SwipeVC: UIViewController {
         request.addValue(tokenKey, forHTTPHeaderField: "Authorization")
         
         NetworkManager.shared.getData(with: request) { (data, err, res) in
-            DispatchQueue.global().async {
-                guard let data = data else {
-                    return
+            guard let data = data else { return }
+            
+            do {
+                let order = try JSONDecoder().decode(networkData.self, from: data)
+                
+                guard let posters = order.data?.posters else { return }
+                
+                self.posters = posters
+                self.countTotalCardIndex = self.posters.count
+                
+                DispatchQueue.main.async {
+                    self.loadCardValues()
+                    self.countLabel.text =
+                    "\(self.countTotalCardIndex)"
                 }
                 
-                do {
-                    let order = try JSONDecoder().decode(networkData.self, from: data)
-                    
-                    guard let posters = order.data?.posters else {
-                        return
-                    }
-                    
-                    self.posters = posters
-                    self.countTotalCardIndex = self.posters.count
-                    
-                    DispatchQueue.main.async {
-                        self.loadCardValues()
-                        self.countLabel.text =
-                            "\(self.countTotalCardIndex)"
-                    }
-                } catch {
-                    print("JSON Parising Error")
-                }
+            } catch {
+                print("getPosterData JSON Parising Error")
             }
         }
     }
@@ -175,7 +170,6 @@ class SwipeVC: UIViewController {
     }
     
     private func loadCard() {
-        
         for (index,value) in posters.enumerated() {
             
             if index < SwipeVC.numberOfTopCards {
@@ -187,7 +181,6 @@ class SwipeVC: UIViewController {
                 let newCard = createSwipeCard(at: index, value: photoURL)
                 currentLoadedCardsArray.append(newCard)
                 lastCardIndex = index
-                
             }
         }
     }
@@ -489,7 +482,7 @@ extension SwipeVC : SwipeCardDelegate {
         
         NetworkManager.shared.getData(with: request) { (data, error, response) in
             guard let data = data else { return }
-            
+        
             do {
                 let likedPosterNetworkData = try JSONDecoder().decode(PosterFavoriteForNetwork.self, from: data)
                 
@@ -497,31 +490,69 @@ extension SwipeVC : SwipeCardDelegate {
                 
                 guard let httpStatusCode = HttpStatusCode(rawValue: statusCode) else { return }
                 
-                switch httpStatusCode {
-                case .sucess:
-                    if likedCategory == .liked {
-                        print("posterFavorite liked is Send to Server")
-                    } else if likedCategory == .disliked {
-                        print("posterFavorite Disliked is Send to Server")
-                    }
-                case .dataBaseError:
-                    print("posterFavorite Database Error")
-                case .serverError:
-                    print("posterFavorite Server Error")
-                default:
-                    break
+                do {
+                    try self.likedErrorHandling(httpStatusCode, likedCategory: likedCategory)
+                } catch HttpStatusCode.dataBaseError {
+                    print("likedPosterNetworkData dataBaseError")
+                } catch HttpStatusCode.serverError {
+                    print("likedPosterNetworkData serverError")
                 }
+                
             } catch {
                 print("likedPosterNetworkData parsing Error")
             }
+            
         }
     }
+    
+    func likedErrorHandling(_ httpStatusCode: HttpStatusCode, likedCategory: likedOrDisLiked) throws {
+        switch httpStatusCode {
+        case .sucess:
+            if likedCategory == .liked {
+                print("posterFavorite liked is Send to Server")
+            } else if likedCategory == .disliked {
+                print("posterFavorite Disliked is Send to Server")
+            }
+        case .dataBaseError, .serverError:
+            try httpStatusCode.throwError()
+        default:
+            break
+        }
+    }
+        
 }
 
 struct PosterFavoriteForNetwork: Codable {
     let status: Int?
     let message: String?
     let data: Int?
+    
+//    enum posterNetworkError: Error {
+//
+//        case posterParsingError
+//
+//        enum HttpStatusCode: Int, Error {
+//
+//            case sucess = 200
+//            case failure = 404
+//            case dataBaseError = 600
+//            case serverError = 500
+//
+//            func throwError() throws {
+//                switch self {
+//                case .failure:
+//                    throw HttpStatusCode.failure
+//                case .dataBaseError:
+//                    throw HttpStatusCode.dataBaseError
+//                case .serverError:
+//                    throw HttpStatusCode.serverError
+//                default:
+//                    break
+//                }
+//            }
+//        }
+//    }
+    
 }
 
 protocol SwipeCardDelegate: NSObjectProtocol {

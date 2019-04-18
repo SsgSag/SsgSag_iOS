@@ -158,11 +158,26 @@ class LoginVC: UIViewController, UITextFieldDelegate {
 }
 
 
-enum HttpStatusCode: Int {
+enum HttpStatusCode: Int, Error {
+    
     case sucess = 200
     case failure = 404
     case dataBaseError = 600
     case serverError = 500
+    
+    func throwError() throws {
+        switch self {
+        case .failure:
+            throw HttpStatusCode.failure
+        case .dataBaseError:
+            throw HttpStatusCode.dataBaseError
+        case .serverError:
+            throw HttpStatusCode.serverError
+        default:
+            break
+        }
+    }
+    
 }
 
 struct LoginStruct: Codable {

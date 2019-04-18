@@ -11,6 +11,19 @@ struct networkData : Codable {
 		case message = "message"
 		case data = "data"
 	}
+    
+    enum ReadError: Error {
+        case JsonError
+        
+        func printErrorType() {
+            switch self {
+            case .JsonError:
+                print("networkData Json Parsing Error")
+            default:
+                break
+            }
+        }
+    }
 
 	init(from decoder: Decoder) throws {
 		let values = try decoder.container(keyedBy: CodingKeys.self)
