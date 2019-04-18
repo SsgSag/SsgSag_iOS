@@ -532,4 +532,3 @@ fileprivate extension UIView {
         layer.mask = mask
     }
 }
-
