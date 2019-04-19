@@ -15,7 +15,6 @@ class CalendarDetailVC: UIViewController {
     @IBOutlet var PosterImage: UIImageView!
     @IBOutlet weak var scrollView: UIScrollView!
     
-    
     @IBOutlet weak var shareButton: UIBarButtonItem!
     @IBOutlet weak var categoryColorView: UIView!
     @IBOutlet weak var categoryLabel: UILabel!
@@ -74,15 +73,6 @@ class CalendarDetailVC: UIViewController {
             titlePeriodLabel.text = "기간 | " +  period
         }
     }
-//    override func viewWillAppear(_ animated: Bool) {
-//        super.viewWillAppear(true)
-//
-//        scrollView.layoutIfNeeded()
-//        let scrollViewHeight = seeDetailButton.frame.origin.y + seeDetailButton.frame.height
-//        scrollView.contentSize = CGSize(width: scrollView.contentSize.width, height: scrollViewHeight + 30)
-//    }
-//
-//
     
     @IBAction func touchUpShareButton(_ sender: Any) {
         share(sender:view)

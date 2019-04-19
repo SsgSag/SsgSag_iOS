@@ -48,6 +48,8 @@
 		84A45D15225FA1E800C60287 /* Router.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A45D14225FA1E800C60287 /* Router.swift */; };
 		84A8AF2E22006FEB00CE72F8 /* KakaoOpenSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84A8AF2D22006FEB00CE72F8 /* KakaoOpenSDK.framework */; };
 		84B1B24E2269DFC600077DF9 /* CalendarForNetwork.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B1B24D2269DFC600077DF9 /* CalendarForNetwork.swift */; };
+		84B1B250226A364100077DF9 /* DataResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B1B24F226A364100077DF9 /* DataResponse.swift */; };
+		84B1B254226A385A00077DF9 /* PosterServiceImp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B1B253226A385A00077DF9 /* PosterServiceImp.swift */; };
 		84B4268A21E9063600B44F71 /* bt_save_round.json in Resources */ = {isa = PBXBuildFile; fileRef = 84B4268921E9063600B44F71 /* bt_save_round.json */; };
 		84B4268C21E9091D00B44F71 /* main_empty_hifive.json in Resources */ = {isa = PBXBuildFile; fileRef = 84B4268B21E9091C00B44F71 /* main_empty_hifive.json */; };
 		84BA694921DB394800BA8CB8 /* myPageVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84BA694821DB394800BA8CB8 /* myPageVC.swift */; };
@@ -164,6 +166,8 @@
 		84A8AF2D22006FEB00CE72F8 /* KakaoOpenSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = KakaoOpenSDK.framework; sourceTree = "<group>"; };
 		84A8AF2F2200782800CE72F8 /* Kakao_Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Kakao_Header.h; sourceTree = "<group>"; };
 		84B1B24D2269DFC600077DF9 /* CalendarForNetwork.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarForNetwork.swift; sourceTree = "<group>"; };
+		84B1B24F226A364100077DF9 /* DataResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = DataResponse.swift; path = SsgSag/Model/Calendar/DataResponse.swift; sourceTree = SOURCE_ROOT; };
+		84B1B253226A385A00077DF9 /* PosterServiceImp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PosterServiceImp.swift; sourceTree = "<group>"; };
 		84B4268921E9063600B44F71 /* bt_save_round.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = bt_save_round.json; sourceTree = "<group>"; };
 		84B4268B21E9091C00B44F71 /* main_empty_hifive.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = main_empty_hifive.json; sourceTree = "<group>"; };
 		84BA694821DB394800BA8CB8 /* myPageVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = myPageVC.swift; sourceTree = "<group>"; };
@@ -298,6 +302,7 @@
 		8459289921D09CDD001DF6CC /* SsgSag */ = {
 			isa = PBXGroup;
 			children = (
+				84B1B251226A37B800077DF9 /* ViewModel */,
 				8461760B225F6F04005E6173 /* Controller */,
 				8461760A225F6EFD005E6173 /* View */,
 				84617609225F6EF8005E6173 /* Services */,
@@ -362,6 +367,7 @@
 		84617607225F6EE3005E6173 /* Helper */ = {
 			isa = PBXGroup;
 			children = (
+				84B1B24F226A364100077DF9 /* DataResponse.swift */,
 			);
 			path = Helper;
 			sourceTree = "<group>";
@@ -542,6 +548,22 @@
 				84A45D10225FA03800C60287 /* JSONParameterEncoder.swift */,
 			);
 			path = Encoding;
+			sourceTree = "<group>";
+		};
+		84B1B251226A37B800077DF9 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				84B1B252226A37C100077DF9 /* SwipeVC */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		84B1B252226A37C100077DF9 /* SwipeVC */ = {
+			isa = PBXGroup;
+			children = (
+				84B1B253226A385A00077DF9 /* PosterServiceImp.swift */,
+			);
+			path = SwipeVC;
 			sourceTree = "<group>";
 		};
 		84BA694721DB391D00BA8CB8 /* MyPage */ = {
@@ -874,6 +896,7 @@
 				FA851DED21D5FDB0002065D0 /* SwipeModel.swift in Sources */,
 				FA4FF272221D51D500C3D21A /* CalendarDetailPopUpVC.swift in Sources */,
 				84264BA821DF106C00849E6B /* CalendarDetailVC.swift in Sources */,
+				84B1B254226A385A00077DF9 /* PosterServiceImp.swift in Sources */,
 				845928DC21D09F30001DF6CC /* MonthView.swift in Sources */,
 				84A45D0B225F9BC100C60287 /* HTTPTask.swift in Sources */,
 				8459289D21D09CDD001DF6CC /* SwipeVC.swift in Sources */,
@@ -902,6 +925,7 @@
 				84B1B24E2269DFC600077DF9 /* CalendarForNetwork.swift in Sources */,
 				FAD25C132212CD78004B45E2 /* LoginPopUpVC.swift in Sources */,
 				FA3A344421E72F5200668908 /* SchoolInfoVC.swift in Sources */,
+				84B1B250226A364100077DF9 /* DataResponse.swift in Sources */,
 				FAF6DEE4222EAAEF001C70CC /* Interests.swift in Sources */,
 				840FEDC7220759E200581A3B /* CalenderVC + TableView.swift in Sources */,
 				FA3A342221E5D64300668908 /* UserInfoVC.swift in Sources */,

@@ -12,6 +12,8 @@ class CalenderVC: UIViewController {
     
     var eventDictionary: [Int:[event]] = [:]
     
+    var calendarViewBottomAnchor: NSLayoutConstraint?
+    
     let calenderView: CalenderView = {
         let v = CalenderView(theme: MyTheme.light)
         v.translatesAutoresizingMaskIntoConstraints=false
@@ -60,10 +62,7 @@ class CalenderVC: UIViewController {
         return tb
     }()
     
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-    }
-    
+    // MARK: - lifeCycle func
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = Style.bgColor
@@ -93,6 +92,15 @@ class CalenderVC: UIViewController {
         todoSeparatorBar.setGradientBackGround(colorOne: color1, colorTwo: color2, frame: todoSeparatorBar.bounds)
         
         todoTableView.backgroundColor = UIColor(displayP3Red: 246/255, green: 246/255, blue: 246/255, alpha: 1.0)
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+    }
+    
+    override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
+        calenderView.calendarCollectionView.collectionViewLayout.invalidateLayout()
     }
     
     private func getPostersAndStore() {
@@ -250,11 +258,16 @@ class CalenderVC: UIViewController {
     }
     
     func setupGesture() {
-        let todoTableShow = UISwipeGestureRecognizer(target: self, action: #selector(todoTableSwipeUp))
-        let todoTableSwipeHide = UISwipeGestureRecognizer(target: self, action: #selector(hideTodoTable))
-        let todoTableHide = UITapGestureRecognizer(target: self, action: #selector(hideTodoTable))
         
-        let movePreviousMonth = UISwipeGestureRecognizer(target: self, action: #selector(movePreviousMonthBySwipe))
+        let todoTableShow = UISwipeGestureRecognizer(target: self,
+                                                     action: #selector(todoTableSwipeUp))
+        let todoTableSwipeHide = UISwipeGestureRecognizer(target: self,
+                                                          action: #selector(hideTodoTable))
+        let todoTableHide = UITapGestureRecognizer(target: self,
+                                                   action: #selector(hideTodoTable))
+        
+        let movePreviousMonth = UISwipeGestureRecognizer(target: self,
+                                                         action: #selector(movePreviousMonthBySwipe))
         let moveNextMonth = UISwipeGestureRecognizer(target: self, action: #selector(moveNextMonthBySwipe))
         
         calenderView.gestureRecognizers = [movePreviousMonth, moveNextMonth, todoTableShow, todoTableSwipeHide]
@@ -413,8 +426,6 @@ class CalenderVC: UIViewController {
         present(nav, animated: true, completion: nil)
     }
     
-    var calendarViewBottomAnchor: NSLayoutConstraint?
-    
     @objc func todoTableSwipeUp(){
         
         setCalendarVCWhenTODOShow()
@@ -527,11 +538,7 @@ class CalenderVC: UIViewController {
                 subview.removeFromSuperview()
             }
         }
-        
-        //        calenderView.topAnchor.constraint(equalTo: self.tabBarController?.tabBar.bottomAnchor ?? .init(), constant:5).isActive = true
-        //        calenderView.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
-        //        calenderView.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
-        
+    
         calenderView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -20).isActive = true
         
         todoListButton.isHidden = true
@@ -559,19 +566,5 @@ class CalenderVC: UIViewController {
         hideTodoTable()
         calenderView.monthView.leftPanGestureAction()
     }
-    
-    override func viewWillLayoutSubviews() {
-        super.viewWillLayoutSubviews()
-        calenderView.calendarCollectionView.collectionViewLayout.invalidateLayout()
-    }
-    
 }
 
-fileprivate extension UIView {
-    func roundCorners(corners: UIRectCorner, radius: CGFloat) {
-        let path = UIBezierPath(roundedRect: bounds, byRoundingCorners: corners, cornerRadii: CGSize(width: radius, height: radius))
-        let mask = CAShapeLayer()
-        mask.path = path.cgPath
-        layer.mask = mask
-    }
-}
