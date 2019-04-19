@@ -152,7 +152,7 @@ class SwipeVC: UIViewController {
                 self.countTotalCardIndex = self.posters.count
                 
                 DispatchQueue.main.async {
-                    self.loadCardValues()
+                    self.loadCardAndSetPageVC()
                     self.countLabel.text =
                     "\(self.countTotalCardIndex)"
                 }
@@ -198,7 +198,7 @@ class SwipeVC: UIViewController {
     
     
     //카드를 로드한다.
-    func loadCardValues() {
+    func loadCardAndSetPageVC() {
         
         if posters.count > 0 {
             
@@ -339,7 +339,9 @@ class SwipeVC: UIViewController {
             
             pageVC.view.frame = self.currentLoadedCardsArray[i].frame
             
-            setDetailSwipeCardAndSwipeCardVC(detailTextSwipeCard, detailImageSwipeCardVC , posters[i])
+            setDetailSwipeCardAndSwipeCardVC(of: detailTextSwipeCard,
+                                             of: detailImageSwipeCardVC,
+                                             by: posters[i])
             
             self.addChild(pageVC)
             self.currentLoadedCardsArray[i].insertSubview(pageVC.view, at: 0)
@@ -347,9 +349,10 @@ class SwipeVC: UIViewController {
         }
     }
     
-    func setDetailSwipeCardAndSwipeCardVC(_ detailTextSwipeCard:DetailTextSwipeCard,
-                                          _ detailImageSwipeCardVC:DetailImageSwipeCardVC,
-                                          _ posters:Posters ) {
+    /// show 'detailTextSwipeCard' and 'detailImageSwipeCard'
+    private func setDetailSwipeCardAndSwipeCardVC(of detailTextSwipeCard:DetailTextSwipeCard,
+                                                  of detailImageSwipeCardVC:DetailImageSwipeCardVC,
+                                                  by posters:Posters ) {
         
         let cardWidth = viewTinderBackGround.frame.width
         let cardHeight = viewTinderBackGround.frame.height
@@ -384,21 +387,19 @@ class SwipeVC: UIViewController {
         }
     }
     
-    //싫어요
     @IBAction func disLikeButtonAction(_ sender: Any) {
         let card = currentLoadedCardsArray.first
         card?.leftClickAction()
     }
     
-    //좋아요
     @IBAction func LikeButtonAction(_ sender: Any) {
         let card = currentLoadedCardsArray.first
         card?.rightClickAction()
     }
     
-    func isDuplicateInLikedPoster(_ posters:[Posters], input: Posters) -> Bool {
+    func isDuplicated(in posters:[Posters], checkValue: Posters) -> Bool {
         for poster in posters {
-            if poster.posterName! == input.posterName! {
+            if poster.posterName! == checkValue.posterName! {
                 return true
             }
         }
@@ -434,7 +435,7 @@ extension SwipeVC : SwipeCardDelegate {
         var likedPoster = posterInfo
         
         //중복 되지 않을때만 UserDefaults에 넣는다.
-        if isDuplicateInLikedPoster(likedPoster, input: posters[currentIndex-1]) == false {
+        if isDuplicated(in: likedPoster, checkValue: posters[currentIndex-1]) == false {
             likedPoster.append(self.posters[currentIndex-1])
         }
         

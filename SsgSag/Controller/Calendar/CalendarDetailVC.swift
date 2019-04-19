@@ -42,7 +42,6 @@ class CalendarDetailVC: UIViewController {
                 PosterImage.load(url: url)
             }
         }
-        
 
         if let poster = Poster {
             
@@ -51,6 +50,7 @@ class CalendarDetailVC: UIViewController {
                 categoryLabel.textColor = category.categoryColors()
                 categoryColorView.backgroundColor =  category.categoryColors()
             }
+            
             nameLabel.text = poster.posterName
             recruitPeriodLabel.text = poster.documentDate
             actionPeriodLabel.text = poster.period

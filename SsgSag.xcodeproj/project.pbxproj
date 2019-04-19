@@ -47,6 +47,7 @@
 		84A45D13225FA0E400C60287 /* NetworkRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A45D12225FA0E400C60287 /* NetworkRouter.swift */; };
 		84A45D15225FA1E800C60287 /* Router.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84A45D14225FA1E800C60287 /* Router.swift */; };
 		84A8AF2E22006FEB00CE72F8 /* KakaoOpenSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84A8AF2D22006FEB00CE72F8 /* KakaoOpenSDK.framework */; };
+		84B1B24E2269DFC600077DF9 /* CalendarForNetwork.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B1B24D2269DFC600077DF9 /* CalendarForNetwork.swift */; };
 		84B4268A21E9063600B44F71 /* bt_save_round.json in Resources */ = {isa = PBXBuildFile; fileRef = 84B4268921E9063600B44F71 /* bt_save_round.json */; };
 		84B4268C21E9091D00B44F71 /* main_empty_hifive.json in Resources */ = {isa = PBXBuildFile; fileRef = 84B4268B21E9091C00B44F71 /* main_empty_hifive.json */; };
 		84BA694921DB394800BA8CB8 /* myPageVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84BA694821DB394800BA8CB8 /* myPageVC.swift */; };
@@ -162,6 +163,7 @@
 		84A45D14225FA1E800C60287 /* Router.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Router.swift; sourceTree = "<group>"; };
 		84A8AF2D22006FEB00CE72F8 /* KakaoOpenSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = KakaoOpenSDK.framework; sourceTree = "<group>"; };
 		84A8AF2F2200782800CE72F8 /* Kakao_Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Kakao_Header.h; sourceTree = "<group>"; };
+		84B1B24D2269DFC600077DF9 /* CalendarForNetwork.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarForNetwork.swift; sourceTree = "<group>"; };
 		84B4268921E9063600B44F71 /* bt_save_round.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = bt_save_round.json; sourceTree = "<group>"; };
 		84B4268B21E9091C00B44F71 /* main_empty_hifive.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = main_empty_hifive.json; sourceTree = "<group>"; };
 		84BA694821DB394800BA8CB8 /* myPageVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = myPageVC.swift; sourceTree = "<group>"; };
@@ -466,6 +468,7 @@
 			isa = PBXGroup;
 			children = (
 				8406BB7C220E9EE80065B180 /* Event.swift */,
+				84B1B24D2269DFC600077DF9 /* CalendarForNetwork.swift */,
 			);
 			path = Calendar;
 			sourceTree = "<group>";
@@ -896,6 +899,7 @@
 				845928E721D3877D001DF6CC /* DetailTextSwipeCard.swift in Sources */,
 				845928DB21D09F30001DF6CC /* WeekdaysView.swift in Sources */,
 				8459289B21D09CDD001DF6CC /* AppDelegate.swift in Sources */,
+				84B1B24E2269DFC600077DF9 /* CalendarForNetwork.swift in Sources */,
 				FAD25C132212CD78004B45E2 /* LoginPopUpVC.swift in Sources */,
 				FA3A344421E72F5200668908 /* SchoolInfoVC.swift in Sources */,
 				FAF6DEE4222EAAEF001C70CC /* Interests.swift in Sources */,

@@ -32,19 +32,13 @@ class SwipeCard: UIView {
         layer.shadowOffset = CGSize(width: 0.5, height: 3)
         layer.shadowColor = UIColor.darkGray.cgColor
         clipsToBounds = true
+        
         //이거 false로 하면 첫번째 카드만 반응함
         isUserInteractionEnabled = true
         originalPoint = center
         
         let panGestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(self.beingDragged))
         addGestureRecognizer(panGestureRecognizer)
-        
-//        imageViewStatus = UIImageView(frame: CGRect(x: (frame.size.width / 2) - 37.5, y: 75, width: 75, height: 75))
-//        let imageURL = URL(string: value)
-//        imageViewStatus.load(url: imageURL!)
-//        imageViewStatus.alpha = 0
-//        addSubview(imageViewStatus)
-        
         
         let imageURL = URL(string: value)
         overLayImage = UIImageView(frame:bounds)
@@ -53,16 +47,17 @@ class SwipeCard: UIView {
         addSubview(overLayImage)
     }
     
+    //여기서 컨트롤 할 수 있어야 카드의 움직임을 제한할 수 있습니다.
     @objc func beingDragged(_ gestureRecognizer: UIPanGestureRecognizer) {
+        
         xCenter = gestureRecognizer.translation(in: self).x
         yCenter = gestureRecognizer.translation(in: self).y
         
         switch gestureRecognizer.state {
         case .began:
-            originalPoint = self.center;
-            break;
+            originalPoint = self.center
         case .changed:
-            let rotationStrength = min(xCenter / UIScreen.main.bounds.size.width, 1)
+            let rotationStrength = min( xCenter / UIScreen.main.bounds.size.width, 1)
             let rotationAngel = .pi/8*rotationStrength
             let scale = max(1 - abs(rotationStrength) / SCALE_STRENGTH, SCALE_RANGE)
             center = CGPoint(x: originalPoint.x + xCenter, y: originalPoint.y + yCenter)
@@ -70,31 +65,33 @@ class SwipeCard: UIView {
             let scaleTransform: CGAffineTransform = transforms.scaledBy(x: scale, y: scale)
             self.transform = scaleTransform
             updateOverlay(xCenter)
-            break;
         case .ended:
             afterSwipeAction()
-            break;
-        case .possible:break
-        case .cancelled:break
-        case .failed:break
+        case .possible:
+            break
+        case .cancelled:
+            break
+        case .failed:
+            break
         }
+        
     }
     
     //좋아요 되는동안 바뀌는 부분
     func updateOverlay(_ distance: CGFloat) {
+        
         overLayImage.image = distance > 0 ? #imageLiteral(resourceName: "imgMainSwipeO") : #imageLiteral(resourceName: "imgMainSwipeX")
+        
         imageViewStatus.alpha = min(abs(distance) / 100, 1)
+        
         overLayImage.alpha = min(abs(distance) / 100, 1)
     }
     
     //스와이프 끝남
     func afterSwipeAction() {
-        //일정 부분 이상 지나면 rightAction
         if xCenter > THERESOLD_MARGIN {
             rightAction()
-        }
-            
-        else if xCenter < -THERESOLD_MARGIN {
+        } else if xCenter < -THERESOLD_MARGIN {
             leftAction()
         } else {
             UIView.animate(withDuration: 0.3, delay: 0.0, usingSpringWithDamping: 0.5, initialSpringVelocity: 1.0, options: [], animations: {
@@ -110,59 +107,21 @@ class SwipeCard: UIView {
     func rightAction() {
         let finishPoint = CGPoint(x: frame.size.width * 2, y: 2 * yCenter + originalPoint.y)
         
-        UIView.animate(withDuration: 0.5, animations: {
+        UIView.animate(withDuration: 0.15, animations: {
             self.center = finishPoint
         }, completion: {(_) in
             DispatchQueue.main.async {
                 self.removeFromSuperview()
             }
         })
-        
         isLiked = true
-        
         delegate?.cardGoesRight(card: self)
-        
-        getPosterData()
-    }
-    
-    //수동입력 추가 완료
-    func getPosterData() {
-        let posterURL = URL(string: "http://54.180.32.22:8080/posters/manualAdd")
-        var request = URLRequest(url: posterURL!)
-        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.httpMethod = "POST"
-        let key2 = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJEb0lUU09QVCIsInVzZXJfaWR4IjoyfQ.kl46Nyv3eGs6kW7DkgiJgmf_1u1-bce1kLXkO7mcQvw"
-        request.addValue("\(key2)", forHTTPHeaderField: "Authorization")
-        
-        let json: [String: Any] =  [
-            "categoryIdx" : 2,
-            "manualName" : "민지쓰",
-            "manualDetail" : "허수진 API짜주세요",
-            "manualStartDate" : "2019-01-07 05:10",
-            "manualEndDate" : "2019-01-09 05:10",
-            "isAlarm" : 1
-        ]
-        
-        let jsonData = try? JSONSerialization.data(withJSONObject: json)
-        
-        request.httpBody = jsonData
-        
-        NetworkManager.shared.getData(with: request) { (data, err, res) in
-//            guard let data = data else {
-//                return
-//            }
-//            do {
-//                //let order = try JSONDecoder().decode(networkData.self, from: data)
-//            } catch {
-//                print("JSON Parising Error")
-//            }
-        }
     }
     
     //왼쪽 스와이프
     func leftAction() {
         let finishPoint = CGPoint(x: -frame.size.width*2, y: 2 * yCenter + originalPoint.y)
-        UIView.animate(withDuration: 0.5, animations: {
+        UIView.animate(withDuration: 0.15, animations: {
             self.center = finishPoint
         }, completion: {(_) in
             self.removeFromSuperview()
