@@ -455,6 +455,7 @@ extension CalenderView: UICollectionViewDelegate, UICollectionViewDataSource {
         
         //CalendarVC에 지금 선택된 날짜를 전송 안해도 되고 변수에 저장해 놓으면 됨
         NotificationCenter.default.post(name: NSNotification.Name(rawValue: "didselectItem"), object: nil, userInfo: userInfo as [AnyHashable : Any])
+        
     }
     
     //새로운 셀 선택시 이전셀 복구

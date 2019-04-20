@@ -64,6 +64,7 @@ class DayCollectionViewCell: UICollectionViewCell {
         return dotView
     }()
     
+    
     private lazy var dotWidth = self.frame.width * 0.11
     
     private lazy var lineHeight = self.frame.height * 0.08
@@ -109,7 +110,7 @@ class DayCollectionViewCell: UICollectionViewCell {
         NotificationCenter.default.addObserver(self, selector: #selector(changeToUp), name: NSNotification.Name("changeToUp"), object: nil)
         
         NotificationCenter.default.addObserver(self, selector: #selector(changeToDown), name: NSNotification.Name("changeToDown"), object: nil)
-
+        
         setupViews()
     }
     

@@ -29,12 +29,16 @@ class SwipeVC: UIViewController {
     
     private var countTotalCardIndex = 0
     
+    private var posterServiceImp: PosterService?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         //resetDefaults()
         
-        getPosterData()
+        posterServiceImp = PosterServiceImp()
+        
+        initPoster()
         
         setCountLabel()
         
@@ -125,40 +129,19 @@ class SwipeVC: UIViewController {
         })
     }
     
-    func getPosterData() {
-        
-        let urlString = UserAPI.sharedInstance.getURL("/poster/show")
-        
-        guard let requestURL = URL(string: urlString) else {
-            return
-        }
-        
-        guard let tokenKey = UserDefaults.standard.object(forKey: "SsgSagToken") as? String else {
-            return
-        }
-        
-        var request = URLRequest(url: requestURL)
-        request.addValue(tokenKey, forHTTPHeaderField: "Authorization")
-        
-        NetworkManager.shared.getData(with: request) { (data, err, res) in
-            guard let data = data else { return }
+
+    private func initPoster() {
+
+        posterServiceImp?.requestPoster { (response) in
             
-            do {
-                let order = try JSONDecoder().decode(networkData.self, from: data)
-                
-                guard let posters = order.data?.posters else { return }
-                
-                self.posters = posters
-                self.countTotalCardIndex = self.posters.count
-                
-                DispatchQueue.main.async {
-                    self.loadCardValues()
-                    self.countLabel.text =
-                    "\(self.countTotalCardIndex)"
-                }
-                
-            } catch {
-                print("getPosterData JSON Parising Error")
+            guard response.isSuccess, let posters = response.value else { return }
+            
+            self.posters = posters
+            self.countTotalCardIndex = self.posters.count
+            
+            DispatchQueue.main.async {
+                self.loadCardAndSetPageVC()
+                self.countLabel.text = "\(self.countTotalCardIndex)"
             }
         }
     }
@@ -198,7 +181,7 @@ class SwipeVC: UIViewController {
     
     
     //카드를 로드한다.
-    func loadCardValues() {
+    func loadCardAndSetPageVC() {
         
         if posters.count > 0 {
             
@@ -339,7 +322,9 @@ class SwipeVC: UIViewController {
             
             pageVC.view.frame = self.currentLoadedCardsArray[i].frame
             
-            setDetailSwipeCardAndSwipeCardVC(detailTextSwipeCard, detailImageSwipeCardVC , posters[i])
+            setDetailSwipeCardAndSwipeCardVC(of: detailTextSwipeCard,
+                                             of: detailImageSwipeCardVC,
+                                             by: posters[i])
             
             self.addChild(pageVC)
             self.currentLoadedCardsArray[i].insertSubview(pageVC.view, at: 0)
@@ -347,9 +332,10 @@ class SwipeVC: UIViewController {
         }
     }
     
-    func setDetailSwipeCardAndSwipeCardVC(_ detailTextSwipeCard:DetailTextSwipeCard,
-                                          _ detailImageSwipeCardVC:DetailImageSwipeCardVC,
-                                          _ posters:Posters ) {
+    /// show 'detailTextSwipeCard' and 'detailImageSwipeCard'
+    private func setDetailSwipeCardAndSwipeCardVC(of detailTextSwipeCard:DetailTextSwipeCard,
+                                                  of detailImageSwipeCardVC:DetailImageSwipeCardVC,
+                                                  by posters:Posters ) {
         
         let cardWidth = viewTinderBackGround.frame.width
         let cardHeight = viewTinderBackGround.frame.height
@@ -384,21 +370,19 @@ class SwipeVC: UIViewController {
         }
     }
     
-    //싫어요
     @IBAction func disLikeButtonAction(_ sender: Any) {
         let card = currentLoadedCardsArray.first
         card?.leftClickAction()
     }
     
-    //좋아요
     @IBAction func LikeButtonAction(_ sender: Any) {
         let card = currentLoadedCardsArray.first
         card?.rightClickAction()
     }
     
-    func isDuplicateInLikedPoster(_ posters:[Posters], input: Posters) -> Bool {
+    func isDuplicated(in posters:[Posters], checkValue: Posters) -> Bool {
         for poster in posters {
-            if poster.posterName! == input.posterName! {
+            if poster.posterName! == checkValue.posterName! {
                 return true
             }
         }
@@ -413,7 +397,7 @@ extension SwipeVC : SwipeCardDelegate {
         
         guard let disLikedCategory = likedOrDisLiked(rawValue: 0) else { return }
         
-        sendPosterIsLiked(poster: self.posters[currentIndex-1], likedCategory: disLikedCategory)
+        posterServiceImp?.requestPosterLiked(of: self.posters[currentIndex-1], type: disLikedCategory)
     }
     
     private func addUserDefaultsWhenNoData() {
@@ -425,7 +409,7 @@ extension SwipeVC : SwipeCardDelegate {
         
         guard let likedCategory = likedOrDisLiked(rawValue: 1) else { return }
         
-        sendPosterIsLiked(poster: self.posters[currentIndex-1], likedCategory: likedCategory)
+        posterServiceImp?.requestPosterLiked(of: self.posters[currentIndex-1], type: likedCategory)
         
         NotificationCenter.default.post(name: NSNotification.Name("addUserDefaults"), object: nil)
     }
@@ -433,8 +417,7 @@ extension SwipeVC : SwipeCardDelegate {
     private func addUserDefautlsWhenDataIsExist(_ posterInfo: [Posters]) {
         var likedPoster = posterInfo
         
-        //중복 되지 않을때만 UserDefaults에 넣는다.
-        if isDuplicateInLikedPoster(likedPoster, input: posters[currentIndex-1]) == false {
+        if isDuplicated(in: likedPoster, checkValue: posters[currentIndex-1]) == false {
             likedPoster.append(self.posters[currentIndex-1])
         }
         
@@ -442,7 +425,7 @@ extension SwipeVC : SwipeCardDelegate {
         
         guard let likedCategory = likedOrDisLiked(rawValue: 1) else { return }
         
-        sendPosterIsLiked(poster: self.posters[currentIndex-1], likedCategory: likedCategory)
+        posterServiceImp?.requestPosterLiked(of: self.posters[currentIndex-1], type: likedCategory)
         
         NotificationCenter.default.post(name: NSNotification.Name("addUserDefaults"), object: nil)
     }
@@ -463,63 +446,6 @@ extension SwipeVC : SwipeCardDelegate {
         
         addUserDefautlsWhenDataIsExist(posterInfo)
     }
-    
-    private func sendPosterIsLiked(poster: Posters, likedCategory: likedOrDisLiked) {
-        
-        let like = likedCategory.rawValue
-        
-        guard let posterIdx = poster.posterIdx else { return }
-        
-        let urlString = UserAPI.sharedInstance.getURL("/poster/like?posterIdx=\(posterIdx)&like=\(like)")
-        
-        guard let requestURL = URL(string: urlString) else { return }
-        
-        guard let key = UserDefaults.standard.object(forKey: "SsgSagToken") as? String else { return }
-        
-        var request = URLRequest(url: requestURL)
-        request.httpMethod = "POST"
-        request.addValue(key, forHTTPHeaderField: "Authorization")
-        
-        NetworkManager.shared.getData(with: request) { (data, error, response) in
-            guard let data = data else { return }
-        
-            do {
-                let likedPosterNetworkData = try JSONDecoder().decode(PosterFavoriteForNetwork.self, from: data)
-                
-                guard let statusCode = likedPosterNetworkData.status else { return }
-                
-                guard let httpStatusCode = HttpStatusCode(rawValue: statusCode) else { return }
-                
-                do {
-                    try self.likedErrorHandling(httpStatusCode, likedCategory: likedCategory)
-                } catch HttpStatusCode.dataBaseError {
-                    print("likedPosterNetworkData dataBaseError")
-                } catch HttpStatusCode.serverError {
-                    print("likedPosterNetworkData serverError")
-                }
-                
-            } catch {
-                print("likedPosterNetworkData parsing Error")
-            }
-            
-        }
-    }
-    
-    func likedErrorHandling(_ httpStatusCode: HttpStatusCode, likedCategory: likedOrDisLiked) throws {
-        switch httpStatusCode {
-        case .sucess:
-            if likedCategory == .liked {
-                print("posterFavorite liked is Send to Server")
-            } else if likedCategory == .disliked {
-                print("posterFavorite Disliked is Send to Server")
-            }
-        case .dataBaseError, .serverError:
-            try httpStatusCode.throwError()
-        default:
-            break
-        }
-    }
-        
 }
 
 struct PosterFavoriteForNetwork: Codable {
@@ -563,4 +489,10 @@ protocol SwipeCardDelegate: NSObjectProtocol {
 enum likedOrDisLiked: Int {
     case liked = 1
     case disliked = 0
+}
+
+protocol PosterService: class {
+    func requestPoster(completionHandler: @escaping (DataResponse<[Posters]>) -> Void )
+    func requestPosterLiked(of poster: Posters,
+                            type likedCategory: likedOrDisLiked)
 }
