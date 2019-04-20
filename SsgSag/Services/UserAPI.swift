@@ -17,8 +17,12 @@ class UserAPI {
     
     private let baseURLString = "http://52.78.86.179:8080"
     
-    func getURL(_ getString: String) -> String {
-        return baseURLString + getString
+    func getURL(_ getString: String) -> URL? {
+        let urlString = baseURLString + getString
+        
+        guard let resultURL = URL(string: urlString) else { return nil }
+        
+        return resultURL
     }
     
 }

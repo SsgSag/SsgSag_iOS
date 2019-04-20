@@ -118,12 +118,8 @@ class PreferenceVC: UIViewController {
     
     func getData() {
         
-        let urlString = UserAPI.sharedInstance.getURL("/user/interest")
-        
-        guard let url = URL(string: urlString) else {
-            return
-        }
-        
+        guard let url = UserAPI.sharedInstance.getURL("/user/interest") else {return}
+    
         guard let token = UserDefaults.standard.object(forKey: "SsgSagToken") as? String else {
             return
         }

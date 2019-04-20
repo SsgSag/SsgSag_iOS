@@ -11,6 +11,8 @@ import Foundation
 enum RequestURL {
     case posterLiked(posterIdx: Int, likeType: Int)
     case initPoster
+    case login
+    case snsLogin
     
     func getRequestURL() -> String {
         switch self {
@@ -18,6 +20,10 @@ enum RequestURL {
             return "/poster/like?posterIdx=\(posterIdx)&like=\(like)"
         case .initPoster:
             return "/poster/show"
+        case .login:
+            return "/login2"
+        case .snsLogin:
+            return "/login"
         }
     }
     

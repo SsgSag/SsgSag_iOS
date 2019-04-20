@@ -105,11 +105,7 @@ class CalenderVC: UIViewController {
     
     private func getPostersAndStore() {
         
-        let urlString = UserAPI.sharedInstance.getURL("/todo?year=0000&month=00&day=00")
-        
-        guard let url = URL(string: urlString) else {
-            return
-        }
+        guard let url = UserAPI.sharedInstance.getURL("/todo?year=0000&month=00&day=00") else { return }
         
         guard let token = UserDefaults.standard.object(forKey: "SsgSagToken") as? String else {
             return

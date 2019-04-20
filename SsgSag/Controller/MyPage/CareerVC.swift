@@ -306,11 +306,7 @@ class CareerVC: UIViewController {
         
         let jsonData = try? JSONSerialization.data(withJSONObject: json)
         
-        let urlString = UserAPI.sharedInstance.getURL("/career/\(careerType)")
-        
-        guard let url = URL(string: urlString) else {
-            return
-        }
+        guard let url = UserAPI.sharedInstance.getURL("/career/\(careerType)") else {return}
         
         guard let token = UserDefaults.standard.object(forKey: "SsgSagToken") as? String else {
             return

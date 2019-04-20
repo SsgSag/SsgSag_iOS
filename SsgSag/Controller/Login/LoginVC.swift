@@ -79,57 +79,36 @@ class LoginVC: UIViewController, UITextFieldDelegate {
     
     @IBAction func ssgSagLogin(_ sender: Any) {
         
-        let urlString = UserAPI.sharedInstance.getURL("/login2")
-        
-        guard let requestURL = URL(string: urlString) else {
-            return
-        }
-        
         let sendData: [String: Any] = [
             "userEmail": emailTextField.text!,
             "userId" : passwordTextField.text!,
             "loginType" : 10 //10은 자체 로그인
         ]
         
-        let jsonData = try? JSONSerialization.data(withJSONObject: sendData)
+        let loginServiceImp: LoginService = LoginServiceImp()
         
-        var request = URLRequest(url: requestURL)
-        request.httpMethod = "POST"
-        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.httpBody = jsonData
+        loginServiceImp.requestLogin(send: sendData) { (dataResponse) in
 
-        NetworkManager.shared.getData(with: request) { (data, err, res) in
-            guard let data = data else {
-                return
-            }
+            guard let statusCode = dataResponse.value?.status else {return}
             
-            do {
-                let login = try JSONDecoder().decode(LoginStruct.self, from: data)
-                
-                guard let statusCode = login.status else {return}
-                
-                guard let httpStatusCode = HttpStatusCode(rawValue: statusCode) else {return}
+            guard let httpStatusCode = HttpStatusCode(rawValue: statusCode) else {return}
             
-                DispatchQueue.main.async {
-                    switch httpStatusCode {
-                    case .sucess:
-                        
-                        if let storeToken = login.data?.token {
-                            UserDefaults.standard.set(storeToken,
-                                                      forKey: LoginVC.ssgSagToken)
-                        }
-                        
-                        self.present(TapbarVC(), animated: true, completion: nil)
-                    case .failure:
-                        self.simpleAlert(title: "로그인 실패", message: "")
-                    default:
-                        break
+            DispatchQueue.main.async {
+                switch httpStatusCode {
+                case .sucess:
+                    if let storeToken = dataResponse.value?.data?.token {
+                        UserDefaults.standard.set(storeToken,
+                                                  forKey: LoginVC.ssgSagToken)
                     }
+                    self.present(TapbarVC(), animated: true, completion: nil)
+                case .failure:
+                    self.simpleAlert(title: "로그인 실패", message: "")
+                default:
+                    break
                 }
-            } catch {
-                print("LoginStruct Parsing Error")
             }
         }
+        
     }
     
     @IBAction func ssgSagSignUp(_ sender: Any) {
@@ -155,8 +134,13 @@ class LoginVC: UIViewController, UITextFieldDelegate {
         passwordTextField.resignFirstResponder()
         return true
     }
+    
 }
 
+protocol LoginService: class {
+    func requestLogin(send data:[String:Any] , completionHandler: @escaping (DataResponse<LoginStruct>) -> Void)
+    func requestSnsLogin(using accessToken: String, type login: Int, completionHandler: @escaping (DataResponse<TokenResponse>) -> Void)
+}
 
 enum HttpStatusCode: Int, Error {
     

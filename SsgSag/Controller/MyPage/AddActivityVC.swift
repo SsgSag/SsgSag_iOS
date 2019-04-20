@@ -206,11 +206,8 @@ class AddActivityVC: UIViewController, UITextViewDelegate, UITextFieldDelegate {
         ]
         
         let jsonData = try? JSONSerialization.data(withJSONObject: json)
-        let urlString = UserAPI.sharedInstance.getURL("/career")
         
-        guard let url = URL(string: urlString) else {
-            return
-        }
+        guard let url = UserAPI.sharedInstance.getURL("/career") else {return}
         
         guard let token = UserDefaults.standard.object(forKey: "SsgSagToken") as? String else {
             return
@@ -222,6 +219,7 @@ class AddActivityVC: UIViewController, UITextViewDelegate, UITextFieldDelegate {
         request.addValue(token, forHTTPHeaderField: "Authorization")
         request.httpBody = jsonData
         
+        // FIXME: - 네트워크 통신 고쳐야 합니다.
         NetworkManager.shared.getData(with: request) { (data, error, res) in
             DispatchQueue.global().async {
                 guard let data = data else {

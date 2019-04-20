@@ -151,7 +151,7 @@ class SignUpCompleteVC: UIViewController {
     
     private func autoLogin(sendType: Int, sendToken: String) {
         
-        var urlString: String = ""
+        var urlString:URL?
         
         var sendData: [String: Any] = [:]
         
@@ -176,13 +176,11 @@ class SignUpCompleteVC: UIViewController {
             ]
         }
         
-        guard let requestURL = URL(string: urlString) else {
-            return
-        }
+        guard let url = urlString else {return }
         
         let jsonData = try? JSONSerialization.data(withJSONObject: sendData)
         
-        var request = URLRequest(url: requestURL)
+        var request = URLRequest(url: url)
         request.httpMethod = "POST"
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         request.httpBody = jsonData
@@ -271,11 +269,7 @@ class SignUpCompleteVC: UIViewController {
         
         let jsonData = try? JSONSerialization.data(withJSONObject: sendData)
         
-        let urlString = UserAPI.sharedInstance.getURL("/user")
-    
-        guard let url = URL(string: urlString) else {
-            return
-        }
+        guard let url = UserAPI.sharedInstance.getURL("/user") else {return }
         
         var request = URLRequest(url: url)
         request.httpMethod = "POST"

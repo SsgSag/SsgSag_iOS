@@ -18,8 +18,12 @@ class LoginPopUpVC: UIViewController, NaverThirdPartyLoginConnectionDelegate {
     
     let loginInstance = NaverThirdPartyLoginConnection.getSharedInstance()
     
+    private var snsLoginServiceImp: LoginService?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        snsLoginServiceImp = LoginServiceImp()
         
         backView.makeRounded(cornerRadius: 4)
     }
@@ -42,12 +46,37 @@ class LoginPopUpVC: UIViewController, NaverThirdPartyLoginConnectionDelegate {
             kakaoSession.close()
         }
         
-        kakaoSession.open { (error) in
+        kakaoSession.open { [weak self] (error) in
             if error == nil {
                 if kakaoSession.isOpen() {
                     
-                    self.postData(accessToken: kakaoSession.token.accessToken, loginType: 0)
+                    //self.postData(accessToken: kakaoSession.token.accessToken, loginType: 0)
                     
+                    self?.snsLoginServiceImp?.requestSnsLogin(using: kakaoSession.token.accessToken, type: 0) { (dataResponse) in
+                        
+                        if let storeToken = dataResponse.value?.data?.token {
+                            UserDefaults.standard.set(storeToken, forKey: "SsgSagToken")
+                        }
+                        
+                        guard let statusCode = dataResponse.value?.status else {return}
+                        
+                        DispatchQueue.main.async {
+                            switch statusCode {
+                            case 200:
+                                self?.present(TapbarVC(), animated: true, completion: nil)
+                            case 404:
+                                let storyboard = UIStoryboard(name: "SignupStoryBoard", bundle: nil)
+                                
+                                let signupVC = storyboard.instantiateViewController(withIdentifier: "SignupFirst")
+                                
+                                let signupNavigator = UINavigationController(rootViewController: signupVC)
+                                
+                                self?.present(signupNavigator, animated: true, completion: nil)
+                            default:
+                                break
+                            }
+                        }
+                    }
                 } else {
                     print("fail")
                 }
@@ -57,68 +86,12 @@ class LoginPopUpVC: UIViewController, NaverThirdPartyLoginConnectionDelegate {
         }
     }
     
+    
+    
     @IBAction func touchUpCancelButton(_ sender: UIButton) {
         self.view.removeFromSuperview()
     }
-    
-    func postData(accessToken: String, loginType: Int) {
-        let storyboard = UIStoryboard(name: "SignupStoryBoard", bundle: nil)
-        
-        let signupVC = storyboard.instantiateViewController(withIdentifier: "SignupFirst")
-        
-        let signupNavigator = UINavigationController(rootViewController: signupVC)
-        
-       // let mainVC = TapbarVC()
-        
-        //0 카톡 로그인, 1은 네이버 로그인(업데이트 예정)
-        let json: [String: Any] = [ "accessToken": accessToken,
-                                    "loginType" : loginType
-            
-        ]
-        
-        let jsonData = try? JSONSerialization.data(withJSONObject: json)
-        
-        guard let url = URL(string: "http://52.78.86.179:8080/login") else {
-            return
-        }
-        
-        var request = URLRequest(url: url)
-        request.httpMethod = "POST"
-        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.httpBody = jsonData
-        
-        NetworkManager.shared.getData(with: request) { (data, error, res) in
-            guard let data = data else {
-                return
-            }
-            
-            do {
-                let tokenResponse = try? JSONDecoder().decode(TokenResponse.self, from: data)
-                
-                //토큰 저장시 옵셔널로 저장하면 처음 로그인시 포스터를 제대로 받아오지 못합니다.
-                if let storeToken = tokenResponse?.data?.token {
-                    UserDefaults.standard.set(storeToken, forKey: "SsgSagToken")
-                }
-            }
-                                                      
-            let responseJSON = try? JSONSerialization.jsonObject(with: data, options: [])
-            
-            if let responseJSON = responseJSON as? [String: Any] {
-                if let statusCode = responseJSON["status"] {
-                    let status = statusCode as! Int
-                    
-                    if status == 200 {
-                        self.present(TapbarVC(), animated: true, completion: nil)
-                    } else if status == 404 {
-                        self.present(signupNavigator, animated: true, completion: nil)
-                    }
-                    
-                }
-            }
-        }
-    }
-    
-    
+
     //MARK: - Naver Login
     // ---- 3
     func oauth20ConnectionDidOpenInAppBrowser(forOAuth request: URLRequest!) {
@@ -162,7 +135,31 @@ class LoginPopUpVC: UIViewController, NaverThirdPartyLoginConnectionDelegate {
         let authorization = "\(tokenType) \(accessToken)"
         print(authorization)
         
-        self.postData(accessToken: accessToken, loginType: 1)
+        snsLoginServiceImp?.requestSnsLogin(using: accessToken, type: 1) { (dataResponse) in
+            
+            if let storeToken = dataResponse.value?.data?.token {
+                UserDefaults.standard.set(storeToken, forKey: "SsgSagToken")
+            }
+            
+            guard let statusCode = dataResponse.value?.status else {return}
+            
+            DispatchQueue.main.async {
+                switch statusCode {
+                case 200:
+                    self.present(TapbarVC(), animated: true, completion: nil)
+                case 404:
+                    let storyboard = UIStoryboard(name: "SignupStoryBoard", bundle: nil)
+                    
+                    let signupVC = storyboard.instantiateViewController(withIdentifier: "SignupFirst")
+                    
+                    let signupNavigator = UINavigationController(rootViewController: signupVC)
+                    
+                    self.present(signupNavigator, animated: true, completion: nil)
+                default:
+                    break
+                }
+            }
+        }
     }
     
     //---9

@@ -16,15 +16,11 @@ class PosterServiceImp: PosterService {
         
         guard let posterIdx = poster.posterIdx else { return }
         
-        let url = RequestURL.posterLiked(posterIdx: posterIdx, likeType: like)
-        
-        let urlString = UserAPI.sharedInstance.getURL(url.getRequestURL())
-        
-        guard let requestURL = URL(string: urlString) else { return }
+        guard let url = UserAPI.sharedInstance.getURL(RequestURL.posterLiked(posterIdx: posterIdx, likeType: like).getRequestURL()) else {return}
         
         guard let key = UserDefaults.standard.object(forKey: "SsgSagToken") as? String else { return }
         
-        var request = URLRequest(url: requestURL)
+        var request = URLRequest(url: url)
         request.httpMethod = "POST"
         request.addValue(key, forHTTPHeaderField: "Authorization")
         
@@ -74,17 +70,13 @@ class PosterServiceImp: PosterService {
     
     func requestPoster(completionHandler: @escaping (DataResponse<[Posters]>) -> Void) {
         
-        let urlString = UserAPI.sharedInstance.getURL(RequestURL.initPoster.getRequestURL())
-        
-        guard let requestURL = URL(string: urlString) else {
-            return
-        }
-        
+        guard let url = UserAPI.sharedInstance.getURL(RequestURL.initPoster.getRequestURL()) else {return}
+    
         guard let tokenKey = UserDefaults.standard.object(forKey: "SsgSagToken") as? String else {
             return
         }
         
-        var request = URLRequest(url: requestURL)
+        var request = URLRequest(url: url)
         request.addValue(tokenKey, forHTTPHeaderField: "Authorization")
         
         NetworkManager.shared.getData(with: request) { (data, err, res) in
