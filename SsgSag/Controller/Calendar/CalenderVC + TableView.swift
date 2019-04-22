@@ -1,4 +1,4 @@
-var Staticheight: CGFloat = 0
+var sharedTableViewHeight: CGFloat = 0
 
 extension CalenderVC: UITableViewDelegate,UITableViewDataSource {
     //MARK: UITableViewDataSource
@@ -15,6 +15,7 @@ extension CalenderVC: UITableViewDelegate,UITableViewDataSource {
         if editingStyle == .insert {
             
         }
+        
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -49,7 +50,7 @@ extension CalenderVC: UITableViewDelegate,UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        Staticheight = tableView.frame.height / 3
+        sharedTableViewHeight = tableView.frame.height / 3
         return tableView.frame.height / 3
     }
     
@@ -64,7 +65,27 @@ extension CalenderVC: UITableViewDelegate,UITableViewDataSource {
             guard let posterIdx = self.todoTableData[indexPath.row].posterIdx else {return}
             
             UserDefaults.standard.setValue(1, forKey: "completed\(posterIdx)")
-        
+            
+            let posterComplete = CalendarServiceImp()
+            posterComplete.reqeustComplete(posterIdx) { (dataResponse) in
+                
+                guard let statusCode = dataResponse.value?.status else {return}
+                
+                guard let httpStatusCode = HttpStatusCode(rawValue: statusCode) else {return}
+                
+                switch httpStatusCode {
+                case .favoriteSuccess:
+                    print("CompleteApplyPoster isSuccessfull")
+                case .serverError:
+                    print("CompleteApplyPoster serverError")
+                case .dataBaseError:
+                    print("CompleteApplyPoster dataBaseError")
+                default:
+                    break
+                }
+                
+            }
+            
             tableView.reloadData()
         })
         
@@ -107,9 +128,6 @@ extension CalenderVC: UITableViewDelegate,UITableViewDataSource {
                     
                     UserDefaults.standard.setValue(try? PropertyListEncoder().encode(userDefaultsData), forKey: "poster")
                     NotificationCenter.default.post(name: NSNotification.Name("deleteUserDefaults"), object: nil)
-                    
-                    
-                    
                 }
             }
             

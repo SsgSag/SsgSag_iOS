@@ -15,6 +15,7 @@ enum RequestURL {
     case snsLogin
     case favorite(posterIdx: Int)
     case deletePoster(posterIdx: Int)
+    case completeApply(posterIdx: Int)
     
     func getRequestURL() -> String {
         switch self {
@@ -30,6 +31,8 @@ enum RequestURL {
             return "/todo/favorite/\(posterIdx)"
         case .deletePoster(posterIdx: let posterIdx):
             return "/todo/\(posterIdx)"
+        case .completeApply(posterIdx: let posterIdx):
+            return "/todo/complete/\(posterIdx)"
         }
     }
     

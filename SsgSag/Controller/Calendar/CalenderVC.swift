@@ -4,7 +4,12 @@ class CalenderVC: UIViewController {
     
     var todoStatus: todoTableStatus = .todoShow
     
-    var daySelectedStatus = 0
+    var daySelectedStatus: daySelectState = .notSelected
+    
+    enum daySelectState: Int {
+        case selected = 1
+        case notSelected = 0
+    }
     
     var todoTableData:[Posters] = []
     
@@ -23,7 +28,7 @@ class CalenderVC: UIViewController {
     let applySuccess: UIButton = {
         let button = UIButton()
         button.addTarget(self, action: #selector(moveToApplySuccessVC), for: .touchUpInside)
-        button.backgroundColor = .red
+        button.setImage(#imageLiteral(resourceName: "icCategorySchoolActive"), for: .normal)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
@@ -66,6 +71,7 @@ class CalenderVC: UIViewController {
     // MARK: - lifeCycle func
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         self.view.backgroundColor = Style.bgColor
         
         getPostersAndStore()
@@ -138,7 +144,7 @@ class CalenderVC: UIViewController {
         
                 guard let calendar = calendarForNetwork.data else {return}
                 
-                for a in calendar {
+                for _ in calendar {
                     //print("123123123123")
                 }
                 
@@ -151,7 +157,7 @@ class CalenderVC: UIViewController {
     private func setNotificationObserver() {
         NotificationCenter.default.addObserver(self, selector: #selector(addUserDefaults), name: NSNotification.Name("addUserDefaults"), object: nil)
     
-        NotificationCenter.default.addObserver(self, selector: #selector(changeTableView(_:)), name: NSNotification.Name(rawValue: "didselectItem"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(sortSpecificDayOftodoList), name: NSNotification.Name(rawValue: "didselectItem"), object: nil)
     
         NotificationCenter.default.addObserver(self, selector: #selector(deleteUserDefaults), name: NSNotification.Name(rawValue: "deleteUserDefaults"), object: nil)
     }
@@ -226,7 +232,7 @@ class CalenderVC: UIViewController {
             tabToDownButtonView.leadingAnchor.constraint(equalTo: todoList.trailingAnchor, constant: 13),
             
             applySuccess.centerYAnchor.constraint(equalTo: todoSeparatorBar.centerYAnchor),
-            applySuccess.heightAnchor.constraint(equalTo: todoSeparatorBar.heightAnchor, multiplier: 0.666),
+            applySuccess.heightAnchor.constraint(equalTo: todoSeparatorBar.heightAnchor, multiplier: 0.8),
             applySuccess.widthAnchor.constraint(equalTo: applySuccess.heightAnchor),
             applySuccess.trailingAnchor.constraint(equalTo: todoSeparatorBar.trailingAnchor, constant: -24),
             
@@ -296,6 +302,7 @@ class CalenderVC: UIViewController {
             }
             
         }
+        
     }
     
     private func setPosters(){
@@ -339,7 +346,7 @@ class CalenderVC: UIViewController {
     
     @objc func todoListButtonAction() {
         
-        daySelectedStatus = 0
+        daySelectedStatus = .notSelected
         
         todoTableData = []
         
@@ -354,16 +361,17 @@ class CalenderVC: UIViewController {
         todoTableView.reloadData()
     }
     
-    //날짜 선택시 실행 스몰 뷰에서 선택시와 풀뷰에서 선택시를 나누자.
-    @objc func changeTableView(_ notification: Notification) {
+    /// day did selected
+    ///
+    /// - Use this func for sort todoList of specific day
+    @objc func sortSpecificDayOftodoList(_ notification: Notification) {
         
         if todoStatus == .todoNotShow {
             setCalendarVCWhenTODOShow()
             todoStatus = .todoShow
         }
         
-        daySelectedStatus += 1
-        todoStatus = .todoShow
+        daySelectedStatus = .selected
         
         //현재 선택된 날짜에 따라
         guard let currentSelectedDateTime = notification.userInfo?["currentCellDateTime"] as? Date else {
@@ -378,28 +386,44 @@ class CalenderVC: UIViewController {
         
         let currentSelectedDateDay = Calendar.current.component(.day, from: currentSelectedDateTime)
         
-        let currentDateString = "\(currentSelectedDateMonth)월 \(currentSelectedDateDay)일"
+        let todayYear = Calendar.current.component(.year, from: Date())
+        
+        let todayMonth = Calendar.current.component(.month, from: Date())
+        
+        let todayDay = Calendar.current.component(.day, from: Date())
+        
+        var currentDateString = "\(currentSelectedDateMonth)월 \(currentSelectedDateDay)일"
         
         let dateFormatter = DateFormatter.genericDateFormatter
         
-        for poster in CalenderView.getPosterUsingUserDefaults() {
+        // 오늘일 경우 투두리스트의 모든 데이터를 보여준다.
+        if currentSelectedDateYear == todayYear &&
+            currentSelectedDateMonth == todayMonth &&
+            currentSelectedDateDay == todayDay {
             
-            guard let posterEndDateString = poster.posterEndDate else { return }
-            
-            guard let posterEndDate = dateFormatter.date(from: posterEndDateString) else { return }
-            
-            let posterTupleEndDateYear = Calendar.current.component(.year, from: posterEndDate)
-            
-            let posterTupleEndDateMonth = Calendar.current.component(.month, from: posterEndDate)
-            
-            let posterTupleEndDateDay = Calendar.current.component(.day, from: posterEndDate)
-            
-            //포스터의 날짜가 현재 달력에 선택된 날짜와 같은 것들만 표시해준다.
-            if posterTupleEndDateYear == currentSelectedDateYear &&
-                posterTupleEndDateMonth == currentSelectedDateMonth &&
-                posterTupleEndDateDay == currentSelectedDateDay {
+            todoTableData = CalenderView.getPosterUsingUserDefaults()
+            currentDateString = "\(currentSelectedDateMonth)월 \(currentSelectedDateDay)일 투두리스트"
+        } else {
+        
+            for poster in CalenderView.getPosterUsingUserDefaults() {
                 
-                todoTableData.append(poster)
+                guard let posterEndDateString = poster.posterEndDate else { return }
+                
+                guard let posterEndDate = dateFormatter.date(from: posterEndDateString) else { return }
+                
+                let posterTupleEndDateYear = Calendar.current.component(.year, from: posterEndDate)
+                
+                let posterTupleEndDateMonth = Calendar.current.component(.month, from: posterEndDate)
+                
+                let posterTupleEndDateDay = Calendar.current.component(.day, from: posterEndDate)
+                
+                //포스터의 날짜가 현재 달력에 선택된 날짜와 같은 것들만 표시해준다.
+                if posterTupleEndDateYear == currentSelectedDateYear &&
+                    posterTupleEndDateMonth == currentSelectedDateMonth &&
+                    posterTupleEndDateDay == currentSelectedDateDay {
+                    
+                    todoTableData.append(poster)
+                }
             }
         }
         
@@ -408,7 +432,6 @@ class CalenderVC: UIViewController {
         
         todoTableView.reloadData()
         calenderView.calendarCollectionView.reloadData()
-        
     }
     
     @objc func addPassiveDate() {
@@ -423,7 +446,7 @@ class CalenderVC: UIViewController {
         
         NotificationCenter.default.post(name: NSNotification.Name("changeToUp"), object: nil)
         
-        if daySelectedStatus == 0 {
+        if daySelectedStatus == .notSelected {
             
             todoTableData = []
             

@@ -10,6 +10,29 @@ import Foundation
 
 class CalendarServiceImp: CalendarService {
     
+    func reqeustComplete(_ posterIdx: Int, completionHandler: @escaping (DataResponse<PosterFavorite>) -> Void) {
+        guard let url = UserAPI.sharedInstance.getURL(RequestURL.completeApply(posterIdx: posterIdx).getRequestURL()) else {return}
+        
+        guard let key = UserDefaults.standard.object(forKey: "SsgSagToken") as? String else { return }
+        
+        var request = URLRequest(url: url)
+        request.setValue(key, forHTTPHeaderField: "Authorization")
+        request.httpMethod = "POST"
+        
+        NetworkManager.shared.getData(with: request) { (data, error, response) in
+            guard let data = data else { return }
+            
+            do {
+                let response = try JSONDecoder().decode(PosterFavorite.self, from: data)
+                
+                completionHandler(DataResponse.success(response))
+            } catch {
+                print("CompleteApplyPoster Parsing Error")
+            }
+            
+        }
+    }
+    
     func requestDelete(_ posterIdx: Int, completionHandler: @escaping (DataResponse<PosterFavorite>) -> Void) {
         guard let url = UserAPI.sharedInstance.getURL(RequestURL.deletePoster(posterIdx: posterIdx).getRequestURL()) else {return}
         

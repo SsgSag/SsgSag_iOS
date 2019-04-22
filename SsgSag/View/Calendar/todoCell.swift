@@ -31,7 +31,7 @@ class TodoTableViewCell: UITableViewCell {
     
     private func setFavoriteColor(with category: PosterCategory, posterIdx: Int) {
         
-        guard let isFavorite = UserDefaults.standard.object(forKey: "posterIdx\(posterIdx)") as? Int else {
+        guard let isFavorite = UserDefaults.standard.object(forKey: "favorite\(posterIdx)") as? Int else {
             
             let favoriteState: favoriteState = .notFavorite
             
@@ -238,13 +238,13 @@ class TodoTableViewCell: UITableViewCell {
         guard let category = PosterCategory(rawValue: posterCagegoryIdx) else {return}
         
         //한번도 서버에 전송한적이 없다면
-        guard let isFavorite = UserDefaults.standard.object(forKey: "posterIdx\(posterIdx)") as? Int else {
+        guard let isFavorite = UserDefaults.standard.object(forKey: "favorite\(posterIdx)") as? Int else {
             
             let favoriteState: favoriteState = .notFavorite
             
             favoriteState.changeColor(category, favorite: favorite, favoriteIntervalDay: favoriteIntervalDay, posterIdx: posterIdx)
             
-            UserDefaults.standard.setValue(1, forKey: "posterIdx\(posterIdx)")
+            UserDefaults.standard.setValue(1, forKey: "favorite\(posterIdx)")
             
             return
         }
@@ -384,7 +384,7 @@ enum favoriteState: Int {
         switch self {
         case .favorite:
             
-            UserDefaults.standard.setValue(0, forKey: "posterIdx\(posterIdx)")
+            UserDefaults.standard.setValue(0, forKey: "favorite\(posterIdx)")
             
             favorite.layer.borderColor = category.categoryColors().cgColor
             favorite.backgroundColor = .white
@@ -392,7 +392,7 @@ enum favoriteState: Int {
             favoriteIntervalDay.textColor = category.categoryColors()
             
         case .notFavorite:
-            UserDefaults.standard.setValue(1, forKey: "posterIdx\(posterIdx)")
+            UserDefaults.standard.setValue(1, forKey: "favorite\(posterIdx)")
             
             favorite.backgroundColor = category.categoryColors()
             favorite.setTitleColor(.white, for: .normal)
@@ -406,6 +406,8 @@ protocol CalendarService: class {
     func requestFavorite(_ favorite: favoriteState, _ posterIdx: Int,completionHandler: @escaping (DataResponse<PosterFavorite>) -> Void)
     
     func requestDelete(_ posterIdx: Int, completionHandler: @escaping (DataResponse<PosterFavorite>) -> Void)
+    
+    func reqeustComplete(_ posterIdx: Int, completionHandler: @escaping (DataResponse<PosterFavorite>) -> Void)
 }
 
 
