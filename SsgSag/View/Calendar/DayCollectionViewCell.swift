@@ -12,7 +12,6 @@ class DayCollectionViewCell: UICollectionViewCell {
         label.text = "00"
         label.textAlignment = .center
         label.font = UIFont.systemFont(ofSize: 14)
-        label.sizeToFit()
         label.textColor = Colors.darkGray
         label.layer.cornerRadius = label.frame.height / 2
         label.layer.masksToBounds = true
@@ -116,6 +115,10 @@ class DayCollectionViewCell: UICollectionViewCell {
     
     override func layoutIfNeeded() {
         super.layoutIfNeeded()
+        
+        lbl.layer.cornerRadius = lbl.frame.height / 2
+        lbl.layer.masksToBounds = true
+        
         if todoStatus == .todoShow {
             dotAndLineView1.circleView()
             dotAndLineView2.circleView()
@@ -130,6 +133,7 @@ class DayCollectionViewCell: UICollectionViewCell {
             dotAndLineView4.applyRadius(radius: 0)
             dotAndLineView5.applyRadius(radius: 0)
         }
+        
     }
     
     @objc func changeToUp() {
@@ -145,9 +149,8 @@ class DayCollectionViewCell: UICollectionViewCell {
         addSubview(lbl)
         lbl.topAnchor.constraint(equalTo: self.topAnchor).isActive = true
         lbl.centerXAnchor.constraint(equalTo: self.centerXAnchor).isActive = true
-        lbl.widthAnchor.constraint(equalTo: lbl.heightAnchor).isActive = true
-        
-        lbl.layer.cornerRadius = lbl.frame.width / 2
+        lbl.heightAnchor.constraint(equalToConstant: 23).isActive = true
+        lbl.widthAnchor.constraint(equalToConstant: 23).isActive = true
         bringSubviewToFront(lbl)
     
         addSubview(dotAndLineView1)

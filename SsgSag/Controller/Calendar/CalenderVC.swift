@@ -20,6 +20,13 @@ class CalenderVC: UIViewController {
         return v
     }()
     
+    let applySuccess: UIButton = {
+        let bt = UIButton()
+        bt.backgroundColor = .red
+        bt.translatesAutoresizingMaskIntoConstraints = false
+        return bt
+    }()
+    
     let todoSeparatorBar: UIView = {
         let todoView = UIView()
         todoView.backgroundColor = UIColor.rgb(red: 228, green: 228, blue: 228)
@@ -53,13 +60,6 @@ class CalenderVC: UIViewController {
         let separ = UIView()
         separ.translatesAutoresizingMaskIntoConstraints = false
         return separ
-    }()
-    
-    let todoListButton: UIButton = {
-        let tb = UIButton()
-        tb.setImage(UIImage(named: "icTodolistBtn"), for: .normal)
-        tb.translatesAutoresizingMaskIntoConstraints = false
-        return tb
     }()
     
     // MARK: - lifeCycle func
@@ -100,6 +100,10 @@ class CalenderVC: UIViewController {
     
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
+        
+        applySuccess.layer.cornerRadius = applySuccess.bounds.size.width / 2
+        applySuccess.layer.masksToBounds = true
+        
         calenderView.calendarCollectionView.collectionViewLayout.invalidateLayout()
     }
     
@@ -186,9 +190,9 @@ class CalenderVC: UIViewController {
         todoSeparatorBar.addSubview(tabToDownButtonView)
         todoSeparatorBar.addSubview(todoList)
         todoSeparatorBar.addSubview(separatorLine)
+        todoSeparatorBar.addSubview(applySuccess)
         
         view.addSubview(calenderView)
-        view.addSubview(todoListButton)
         
         let todoTableViewHeightAnchor = todoTableView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.4)
         todoTableViewHeightAnchor.priority = UILayoutPriority(750)
@@ -211,6 +215,11 @@ class CalenderVC: UIViewController {
             tabToDownButtonView.centerYAnchor.constraint(equalTo: todoSeparatorBar.centerYAnchor),
             tabToDownButtonView.leadingAnchor.constraint(equalTo: todoList.trailingAnchor, constant: 13),
             
+            applySuccess.centerYAnchor.constraint(equalTo: todoSeparatorBar.centerYAnchor),
+            applySuccess.heightAnchor.constraint(equalTo: todoSeparatorBar.heightAnchor, multiplier: 0.666),
+            applySuccess.widthAnchor.constraint(equalTo: applySuccess.heightAnchor),
+            applySuccess.trailingAnchor.constraint(equalTo: todoSeparatorBar.trailingAnchor, constant: -24),
+            
             separatorLine.bottomAnchor.constraint(equalTo: todoSeparatorBar.topAnchor),
             separatorLine.leftAnchor.constraint(equalTo: todoSeparatorBar.leftAnchor),
             separatorLine.rightAnchor.constraint(equalTo: todoSeparatorBar.rightAnchor),
@@ -219,12 +228,7 @@ class CalenderVC: UIViewController {
             calenderView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 50),
             calenderView.leftAnchor.constraint(equalTo: view.leftAnchor),
             calenderView.rightAnchor.constraint(equalTo: view.rightAnchor),
-            calenderView.bottomAnchor.constraint(equalTo: todoSeparatorBar.topAnchor),
-            
-            todoListButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant:-34),
-            todoListButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            todoListButton.widthAnchor.constraint(equalToConstant: 135),
-            todoListButton.heightAnchor.constraint(equalToConstant: 44)
+            calenderView.bottomAnchor.constraint(equalTo: todoSeparatorBar.topAnchor)
             ])
         
         todoTableView.dataSource = self
@@ -234,9 +238,6 @@ class CalenderVC: UIViewController {
         
         todoTableView.separatorStyle = .none
         separatorLine.backgroundColor = UIColor.rgb(red: 228, green: 228, blue: 228)
-        
-        todoListButton.isHidden = true
-        todoListButton.addTarget(self, action: #selector(todoListButtonAction), for: .touchUpInside)
         
         todoList.text = "투두리스트"
         
@@ -342,8 +343,6 @@ class CalenderVC: UIViewController {
         
         daySelectedStatus = 0
         
-        todoListButton.isHidden = true
-        
         todoTableData = []
         
         let today = Date()
@@ -408,8 +407,6 @@ class CalenderVC: UIViewController {
         
         todoList.text = currentDateString
         todoSeparatorBar.bringSubviewToFront(todoList)
-        view.bringSubviewToFront(todoListButton)
-        todoListButton.isHidden = false
         
         todoTableView.reloadData()
         calenderView.calendarCollectionView.reloadData()
@@ -456,8 +453,7 @@ class CalenderVC: UIViewController {
                     todoTableData.append(poster)
                 }
             }
-            
-            self.todoListButton.isHidden = true
+        
             self.todoTableView.reloadData()
         }
         
@@ -517,9 +513,6 @@ class CalenderVC: UIViewController {
         todoTableView.delegate = self
         todoTableView.register(TodoTableViewCell.self, forCellReuseIdentifier: "todoCell")
         
-        view.bringSubviewToFront(todoListButton)
-        todoListButton.isHidden = false
-        
         UIView.animate(withDuration: 0.1) {
             self.view.layoutIfNeeded()
         }
@@ -537,7 +530,6 @@ class CalenderVC: UIViewController {
     
         calenderView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -20).isActive = true
         
-        todoListButton.isHidden = true
         
         UIView.animate(withDuration: 0.1) {
             self.view.layoutIfNeeded()

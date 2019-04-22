@@ -130,7 +130,7 @@ class SwipeCard: UIView {
         delegate?.cardGoesLeft(card: self)
     }
     
-    // right click action
+    /// Right Like Button
     func rightClickAction() {
         overLayImage.image = UIImage(named: "imgMainSwipeO")
         let finishPoint = CGPoint(x: center.x + frame.size.width * 2, y: center.y)
@@ -149,7 +149,7 @@ class SwipeCard: UIView {
         delegate?.cardGoesRight(card: self)
     }
     
-    // left click action
+    /// Left Dislike Button
     func leftClickAction() {
         overLayImage.image = UIImage(named: "imgMainSwipeX")
         let finishPoint = CGPoint(x: center.x - frame.size.width * 2, y: center.y)
@@ -167,6 +167,5 @@ class SwipeCard: UIView {
         
         isLiked = false
         delegate?.cardGoesLeft(card: self)
-        print("WATCHOUT LEFT ACTION")
     }
 }

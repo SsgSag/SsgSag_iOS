@@ -15,69 +15,13 @@ extension CalenderVC: UITableViewDelegate,UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: "todoCell") as? TodoTableViewCell else {
+        guard let todoTableViewCell = tableView.dequeueReusableCell(withIdentifier: "todoCell") as? TodoTableViewCell else {
             return .init()
         }
         
-        let dateFormatter = DateFormatter.genericDateFormatter
+        todoTableViewCell.poster = todoTableData[indexPath.row]
         
-        guard let posterEndDateString = todoTableData[indexPath.row].posterEndDate else {
-            return cell
-        }
-        
-        guard let posterEndDate = dateFormatter.date(from: posterEndDateString) else {
-            return cell
-        }
-        
-        let todoDataEndMonth = Calendar.current.component(.month, from: posterEndDate)
-        
-        let todoDataEndDay = Calendar.current.component(.day, from: posterEndDate)
-        
-        guard let posterCagegoryIdx = todoTableData[indexPath.row].categoryIdx else { return cell}
-        
-        guard let posterName = todoTableData[indexPath.row].posterName else { return cell}
-        
-        cell.contentLabel.text = "\(posterName)"
-        
-        if let category = PosterCategory(rawValue: posterCagegoryIdx) {
-            cell.categoryLabel.text = category.categoryString()
-            cell.categoryLabel.textColor = category.categoryColors()
-            cell.leftLineView.backgroundColor =  category.categoryColors()
-        }
-        
-        guard let posterStartDateString = todoTableData[indexPath.row].posterStartDate else { return cell }
-        
-        guard let posterStartDate = dateFormatter.date(from: posterStartDateString) else { return cell }
-        
-        let todoDataStartMonth = Calendar.current.component(.month, from: posterStartDate)
-        let todoDataStartDay = Calendar.current.component(.day, from: posterStartDate)
-        
-        cell.dateLabel.text = "\(todoDataStartMonth).\(todoDataStartDay) ~ \(todoDataEndMonth).\(todoDataEndDay)"
-        
-        if Date() < posterEndDate {
-            cell.newImage.isHidden = true
-            cell.newImage.image = #imageLiteral(resourceName: "icTaskTimeout")
-            
-            cell.leftedDay.isHidden = false
-            cell.leftedDayBottom.isHidden = false
-            
-            let dayInterval = Calendar.current.dateComponents([.day],
-                                                              from: Date(),
-                                                              to: posterEndDate)
-            
-            guard let interval = dayInterval.day else { return cell }
-            
-            cell.leftedDay.text = "\(interval)"
-        } else {
-            cell.newImage.isHidden = false 
-            cell.leftedDay.isHidden = true
-            cell.leftedDayBottom.isHidden = true
-        }
-        
-        cell.dateLabel.font = UIFont.systemFont(ofSize: 13.0, weight: .light)
-        cell.leftedDay.font = UIFont.systemFont(ofSize: 34.0, weight: .medium)
-        
-        return cell
+        return todoTableViewCell
     }
     
     //MARK: UITableviewDelegate
