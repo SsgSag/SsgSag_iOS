@@ -17,6 +17,29 @@ class DetailTextSwipeCard: UIViewController {
     @IBOutlet var period: UILabel!
     @IBOutlet var benefit: UILabel!
     
+    var poster: Posters? {
+        didSet {
+            guard let poster = poster else { return }
+            
+            posterName.text = poster.posterName
+            hashTag.text = poster.keyword
+            outline.text = poster.outline
+            target.text = poster.target
+            benefit.text = poster.benefit
+            posterCategory = poster.categoryIdx
+        }
+    }
+    
+    var posterCategory: Int? {
+        didSet {
+            guard let posterCategoryIdx = posterCategory else { return }
+            
+            guard let category = PosterCategory(rawValue: posterCategoryIdx) else {return}
+            
+            segmentSecondView.backgroundColor = category.categoryColors()
+        }
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -46,7 +69,7 @@ class DetailTextSwipeCard: UIViewController {
     
     var segmentSecondView: UIView = {
         let segmentView = UIView()
-        segmentView.backgroundColor = #colorLiteral(red: 0.2039215686, green: 0.4274509804, blue: 0.9529411765, alpha: 1)
+        //segmentView.backgroundColor = #colorLiteral(red: 0.2039215686, green: 0.4274509804, blue: 0.9529411765, alpha: 1)
         segmentView.translatesAutoresizingMaskIntoConstraints = false
         return segmentView
     }()

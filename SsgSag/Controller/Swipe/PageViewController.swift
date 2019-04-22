@@ -35,7 +35,6 @@ class PageViewController: UIPageViewController, UIPageViewControllerDelegate, UI
         orderedViewControllers[0].view.isUserInteractionEnabled = true
         orderedViewControllers[1].view.isUserInteractionEnabled = true
         
-        
         let tapGestureImage = UITapGestureRecognizer(target: self, action: #selector(tapOn(_:)))
         tapGestureImage.numberOfTapsRequired = 1
         tapGestureImage.numberOfTouchesRequired = 1
@@ -70,6 +69,7 @@ class PageViewController: UIPageViewController, UIPageViewControllerDelegate, UI
             orderedViewControllers[1].view.isHidden = false
             
             segmentOrder = .first
+            
         }        
     }
     

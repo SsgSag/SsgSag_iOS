@@ -242,10 +242,6 @@ class SwipeVC: UIViewController {
             
             let storyboard = UIStoryboard(name: "SwipeStoryBoard", bundle: nil)
             
-            let cardWidth = viewTinderBackGround.frame.width
-            
-            let cardHeight = viewTinderBackGround.frame.height
-            
             guard let pageVC = storyboard.instantiateViewController(withIdentifier: "PageViewController") as? PageViewController else {
                 return
             }
@@ -257,48 +253,22 @@ class SwipeVC: UIViewController {
             guard let detailTextSwipeCard = pageVC.orderedViewControllers[0] as? DetailTextSwipeCard else {
                 return
             }
-            
-            guard let posterURLString = posters[lastCardIndex].photoUrl else {
-                return
-            }
-            
-            guard let posterURL = URL(string: posterURLString) else {
-                return
-            }
-            
+        
             pageVC.view.frame = self.currentLoadedCardsArray[1].frame
             
             if posters.count > lastCardIndex {
-                if let posterName = posters[lastCardIndex].posterName,
-                    let outline = posters[lastCardIndex].outline,
-                    let target = posters[lastCardIndex].target,
-                    let benefit = posters[lastCardIndex].benefit,
-                    let keyword = posters[lastCardIndex].keyword {
-                    //let period = posters[lastCardIndex].period {
-                    
-                    detailTextSwipeCard.posterName.text = posterName
-                    detailTextSwipeCard.hashTag.text = keyword
-                    detailTextSwipeCard.outline.text = outline
-                    detailTextSwipeCard.target.text = target
-                    detailTextSwipeCard.benefit.text = benefit
-                    //detailTextSwipeCard.period.text = period
-                    
-                    detailImageSwipeCardVC.detailImageVIew.load(url: posterURL)
-                    detailImageSwipeCardVC.imageWidth = cardWidth
-                    detailImageSwipeCardVC.imageHeight = cardHeight
-                    detailImageSwipeCardVC.name.text = posterName
-                    detailImageSwipeCardVC.category.text = keyword
-                }
                 
-                detailTextSwipeCard.period.text = posters[lastCardIndex].period ?? ""
+                detailTextSwipeCard.poster = posters[lastCardIndex]
                 
+                detailImageSwipeCardVC.poster = posters[lastCardIndex]
+            
                 self.addChild(pageVC)
                 
                 self.currentLoadedCardsArray[1].insertSubview(pageVC.view, at: 0)
                 
                 pageVC.didMove(toParent: self)
-                
             }
+            
         }
     }
     
@@ -336,38 +306,9 @@ class SwipeVC: UIViewController {
     private func setDetailSwipeCardAndSwipeCardVC(of detailTextSwipeCard:DetailTextSwipeCard,
                                                   of detailImageSwipeCardVC:DetailImageSwipeCardVC,
                                                   by posters:Posters ) {
-        
-        let cardWidth = viewTinderBackGround.frame.width
-        let cardHeight = viewTinderBackGround.frame.height
-        
-        guard let posterURLString = posters.photoUrl else {
-            return
-        }
-        
-        guard let posterURL = URL(string: posterURLString) else {
-            return
-        }
-        
-        if let posterName = posters.posterName,
-            let outline = posters.outline,
-            let target = posters.target,
-            let benefit = posters.benefit,
-            let keyword = posters.keyword {
-            //let period = posters.period {
-            
-            detailTextSwipeCard.posterName.text = posterName
-            detailTextSwipeCard.hashTag.text = keyword
-            detailTextSwipeCard.outline.text = outline
-            detailTextSwipeCard.target.text = target
-            detailTextSwipeCard.benefit.text = benefit
-            //detailTextSwipeCard.period.text = period
-            
-            detailImageSwipeCardVC.detailImageVIew.load(url: posterURL)
-            detailImageSwipeCardVC.imageWidth = cardWidth
-            detailImageSwipeCardVC.imageHeight = cardHeight
-            detailImageSwipeCardVC.name.text = posterName
-            detailImageSwipeCardVC.category.text = keyword
-        }
+    
+        detailTextSwipeCard.poster = posters
+        detailImageSwipeCardVC.poster = posters
     }
     
     @IBAction func disLikeButtonAction(_ sender: Any) {
@@ -452,32 +393,6 @@ struct PosterFavoriteForNetwork: Codable {
     let status: Int?
     let message: String?
     let data: Int?
-    
-//    enum posterNetworkError: Error {
-//
-//        case posterParsingError
-//
-//        enum HttpStatusCode: Int, Error {
-//
-//            case sucess = 200
-//            case failure = 404
-//            case dataBaseError = 600
-//            case serverError = 500
-//
-//            func throwError() throws {
-//                switch self {
-//                case .failure:
-//                    throw HttpStatusCode.failure
-//                case .dataBaseError:
-//                    throw HttpStatusCode.dataBaseError
-//                case .serverError:
-//                    throw HttpStatusCode.serverError
-//                default:
-//                    break
-//                }
-//            }
-//        }
-//    }
     
 }
 

@@ -31,7 +31,6 @@ enum PosterCategory: Int {
         case .others:
             return "기타"
         }
-        
     }
     
     func categoryColors() -> UIColor {
