@@ -137,7 +137,7 @@ class SwipeCard: UIView {
         imageViewStatus.alpha = 0.5
         overLayImage.alpha = 1.0
         
-        UIView.animate(withDuration: 0.5, animations: {() -> Void in
+        UIView.animate(withDuration: 0.15, animations: {() -> Void in
             self.center = finishPoint
             self.transform = CGAffineTransform(rotationAngle: 1)
             self.imageViewStatus.alpha = 1.0
@@ -156,7 +156,7 @@ class SwipeCard: UIView {
         imageViewStatus.alpha = 0.5
         overLayImage.alpha = 1.0
         
-        UIView.animate(withDuration: 0.3, animations: {() -> Void in
+        UIView.animate(withDuration: 0.15, animations: {() -> Void in
             self.center = finishPoint
             self.transform = CGAffineTransform(rotationAngle: -1)
             self.imageViewStatus.alpha = 1.0
