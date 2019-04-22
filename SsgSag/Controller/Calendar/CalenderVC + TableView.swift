@@ -85,3 +85,7 @@ extension CalenderVC: UITableViewDelegate,UITableViewDataSource {
         return [editAction, deleteAction]
     }
 }
+
+protocol CalendarService: class {
+    func requestFavorite(completionHandler: @escaping (DataResponse<PosterFavorite>) -> Void)
+}

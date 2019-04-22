@@ -21,10 +21,11 @@ class CalenderVC: UIViewController {
     }()
     
     let applySuccess: UIButton = {
-        let bt = UIButton()
-        bt.backgroundColor = .red
-        bt.translatesAutoresizingMaskIntoConstraints = false
-        return bt
+        let button = UIButton()
+        button.addTarget(self, action: #selector(moveToApplySuccessVC), for: .touchUpInside)
+        button.backgroundColor = .red
+        button.translatesAutoresizingMaskIntoConstraints = false
+        return button
     }()
     
     let todoSeparatorBar: UIView = {
@@ -107,6 +108,12 @@ class CalenderVC: UIViewController {
         calenderView.calendarCollectionView.collectionViewLayout.invalidateLayout()
     }
     
+    @objc private func moveToApplySuccessVC() {
+        let storyBoard = UIStoryboard(name: "ApplySuccess", bundle: nil)
+        let applySuccessViewController = storyBoard.instantiateViewController(withIdentifier: "applySucess")
+        self.present(applySuccessViewController, animated: true, completion: nil)
+    }
+    
     private func getPostersAndStore() {
         
         guard let url = UserAPI.sharedInstance.getURL("/todo?year=0000&month=00&day=00") else { return }
@@ -130,8 +137,9 @@ class CalenderVC: UIViewController {
                 guard let calendar = calendarForNetwork.data else {return}
                 
                 for a in calendar {
-                    //print(a.posterEndDate)
+                    //print("123123123123")
                 }
+                
             } catch (let err) {
                 print(err.localizedDescription)
             }
@@ -240,18 +248,6 @@ class CalenderVC: UIViewController {
         separatorLine.backgroundColor = UIColor.rgb(red: 228, green: 228, blue: 228)
         
         todoList.text = "투두리스트"
-        
-        /*
-         view.addSubview(passiveScheduleAddButton)
-         view.bringSubviewToFront(passiveScheduleAddButton)
-         passiveScheduleAddButton.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -15).isActive = true
-         passiveScheduleAddButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -15).isActive = true
-         passiveScheduleAddButton.widthAnchor.constraint(equalToConstant: 54).isActive = true
-         passiveScheduleAddButton.heightAnchor.constraint(equalToConstant: 54).isActive = true
-         passiveScheduleAddButton.layer.cornerRadius = 54 / 2
-         passiveScheduleAddButton.layer.masksToBounds = true
-         passiveScheduleAddButton.addTarget(self, action: #selector(addPassiveDate), for: .touchUpInside)
-         */
     }
     
     func setupGesture() {
@@ -484,12 +480,14 @@ class CalenderVC: UIViewController {
         calendarViewBottomAnchor = calenderView.bottomAnchor.constraint(equalTo: todoSeparatorBar.topAnchor)
         calendarViewBottomAnchor?.identifier = "calendarViewBottomAnchor"
         
+        let todoTableViewHeightAnchor = todoTableView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.4)
+        todoTableViewHeightAnchor.priority = UILayoutPriority(750)
         
         NSLayoutConstraint.activate([
             todoTableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             todoTableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             todoTableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-            todotableViewBottomAnchor,
+            todoTableViewHeightAnchor,
             
             todoSeparatorBar.bottomAnchor.constraint(equalTo: todoTableView.topAnchor),
             todoSeparatorBar.leftAnchor.constraint(equalTo: view.leftAnchor),
@@ -516,7 +514,7 @@ class CalenderVC: UIViewController {
         UIView.animate(withDuration: 0.1) {
             self.view.layoutIfNeeded()
         }
-        
+
     }
     
     func setCalendarVCWhenTODOHide() {
@@ -536,6 +534,8 @@ class CalenderVC: UIViewController {
         }
         
     }
+    
+    
     
     @objc func hideTodoTable(){
         setCalendarVCWhenTODOHide()

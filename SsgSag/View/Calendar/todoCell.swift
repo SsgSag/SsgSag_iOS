@@ -5,14 +5,19 @@ class TodoTableViewCell: UITableViewCell {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
         self.backgroundColor = UIColor.clear
+        
+        favorite.addTarget(self, action: #selector(addFavorite), for: .touchUpInside)
+        
         setupCell()
     }
     
     override func layoutIfNeeded() {
         super.layoutIfNeeded()
         
-        leftLineView.layer.cornerRadius = leftLineView.bounds.size.width / 2
-        leftLineView.layer.masksToBounds = true
+        favorite.layer.cornerRadius = favorite.bounds.size.width / 2
+        favorite.layer.borderWidth = 1
+        favorite.layer.masksToBounds = true
+        
     }
     
     override func awakeFromNib() {
@@ -24,6 +29,22 @@ class TodoTableViewCell: UITableViewCell {
     }
     
     static private let weekDaySymbol = ["토", "일", "월", "화", "수", "목", "금"]
+    
+    private func setFavoriteColor(with category: PosterCategory, posterIdx: Int) {
+        
+        guard let isFavorite = UserDefaults.standard.object(forKey: "posterIdx\(posterIdx)") as? Int else {
+            
+            let favoriteState: favoriteState = .notFavorite
+            
+            favoriteState.setColor(category, favorite: favorite, favoriteIntervalDay: favoriteIntervalDay)
+        
+            return
+        }
+        
+        guard let favoriteState = favoriteState(rawValue: isFavorite) else {return}
+        
+        favoriteState.setColor(category, favorite: favorite, favoriteIntervalDay: favoriteIntervalDay)
+    }
     
     // StartDate는 없을 수도 있고 EndDate는 무조건 존재한다.
     var poster: Posters? {
@@ -50,12 +71,15 @@ class TodoTableViewCell: UITableViewCell {
             
             guard let posterName = poster.posterName else { return }
             
+            guard let posterIdx = poster.posterIdx else {return}
+            
             contentLabel.text = "\(posterName)"
             
             if let category = PosterCategory(rawValue: posterCagegoryIdx) {
                 categoryLabel.text = category.categoryString()
                 categoryLabel.textColor = category.categoryColors()
-                leftLineView.backgroundColor =  category.categoryColors()
+                
+                setFavoriteColor(with: category, posterIdx: posterIdx)
             }
             
             if Date() < posterEndDate {
@@ -71,7 +95,7 @@ class TodoTableViewCell: UITableViewCell {
                 
                 guard let interval = dayInterval.day else { return  }
                 
-                leftedDay.text = "\(interval)"
+                favorite.setTitle("\(interval)일", for: .normal)
             } else {
                 newImage.isHidden = false
                 leftedDay.isHidden = true
@@ -108,10 +132,18 @@ class TodoTableViewCell: UITableViewCell {
         return bV
     }()
     
-    let leftLineView: UIView = { //왼쪽 카테고리색상
-        let leftView = UIView()
-        leftView.translatesAutoresizingMaskIntoConstraints = false
-        return leftView
+    let favorite: UIButton = { //왼쪽 카테고리색상
+        let button = UIButton()
+        button.translatesAutoresizingMaskIntoConstraints = false
+        return button
+    }()
+    
+    let favoriteIntervalDay: UILabel = {
+        let label = UILabel()
+        label.text = "남음"
+        label.font = UIFont.systemFont(ofSize: 10)
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
     }()
     
     let categoryLabel:UILabel = { //공모전
@@ -174,6 +206,32 @@ class TodoTableViewCell: UITableViewCell {
         return im
     }()
     
+    @objc func addFavorite() {
+    
+        guard let posterIdx = poster?.posterIdx else {return}
+        
+        guard let posterCagegoryIdx = poster?.categoryIdx else { return }
+        
+        guard let category = PosterCategory(rawValue: posterCagegoryIdx) else {return}
+        
+        //한번도 서버에 전송한적이 없다면
+        guard let isFavorite = UserDefaults.standard.object(forKey: "posterIdx\(posterIdx)") as? Int else {
+            
+            let favoriteState: favoriteState = .notFavorite
+            
+            favoriteState.changeColor(category, favorite: favorite, favoriteIntervalDay: favoriteIntervalDay, posterIdx: posterIdx)
+            
+            UserDefaults.standard.setValue(1, forKey: "posterIdx\(posterIdx)")
+            
+            return
+        }
+        
+        guard let favoriteState = favoriteState(rawValue: isFavorite) else {return}
+        
+        favoriteState.changeColor(category, favorite: favorite, favoriteIntervalDay: favoriteIntervalDay, posterIdx: posterIdx)
+    
+    }
+    
     func setupCell(){
         self.selectionStyle = .none
         
@@ -186,17 +244,22 @@ class TodoTableViewCell: UITableViewCell {
         borderView.backgroundColor = .white
         
         //MARK: 카테고리색
-        borderView.addSubview(leftLineView)
-        leftLineView.heightAnchor.constraint(equalTo: borderView.heightAnchor, multiplier: 0.66).isActive = true
-        leftLineView.widthAnchor.constraint(equalTo: borderView.heightAnchor, multiplier: 0.66).isActive = true
-        leftLineView.leadingAnchor.constraint(equalTo: borderView.leadingAnchor, constant: 13).isActive = true
-        leftLineView.centerYAnchor.constraint(equalTo: borderView.centerYAnchor).isActive = true
+        borderView.addSubview(favorite)
+        favorite.heightAnchor.constraint(equalTo: borderView.heightAnchor, multiplier: 0.66).isActive = true
+        favorite.widthAnchor.constraint(equalTo: borderView.heightAnchor, multiplier: 0.66).isActive = true
+        favorite.leadingAnchor.constraint(equalTo: borderView.leadingAnchor, constant: 13).isActive = true
+        favorite.centerYAnchor.constraint(equalTo: borderView.centerYAnchor).isActive = true
+        
+        //MARK: 남음
+        favorite.addSubview(favoriteIntervalDay)
+        favoriteIntervalDay.centerXAnchor.constraint(equalTo: favorite.centerXAnchor).isActive = true
+        favoriteIntervalDay.topAnchor.constraint(equalTo: favorite.titleLabel?.bottomAnchor ?? .init()).isActive = true
         
         //MARK: 카테고리명(공모전, 채용..)
         borderView.addSubview(categoryLabel)
         categoryLabel.text = "Label" //공모전
         categoryLabel.topAnchor.constraint(equalTo: borderView.topAnchor, constant: 10).isActive = true
-        categoryLabel.leadingAnchor.constraint(equalTo: leftLineView.trailingAnchor, constant: 18).isActive = true
+        categoryLabel.leadingAnchor.constraint(equalTo: favorite.trailingAnchor, constant: 18).isActive = true
         
         //MARK: 제목
         borderView.addSubview(contentLabel)
@@ -215,30 +278,6 @@ class TodoTableViewCell: UITableViewCell {
         separatorView.topAnchor.constraint(equalTo: borderView.topAnchor, constant: 5).isActive = true
         separatorView.bottomAnchor.constraint(equalTo: borderView.bottomAnchor, constant: -5).isActive = true
         
-        /*
-        //MARK: 남은 날짜
-        borderView.addSubview(leftedDay)
-        leftedDay.leadingAnchor.constraint(equalTo: separatorView.trailingAnchor).isActive = true
-        leftedDay.trailingAnchor.constraint(equalTo: borderView.trailingAnchor).isActive = true
-        leftedDay.topAnchor.constraint(equalTo: borderView.topAnchor, constant: 10).isActive = true
-        
-        //MARK: 일 남음
-        borderView.addSubview(leftedDayBottom)
-        leftedDayBottom.bottomAnchor.constraint(equalTo: borderView.bottomAnchor, constant: -8).isActive = true
-        leftedDayBottom.leadingAnchor.constraint(equalTo: separatorView.trailingAnchor).isActive = true
-        leftedDayBottom.trailingAnchor.constraint(equalTo: borderView.trailingAnchor).isActive = true
-        
-        //MARK: 지원완료, 기간만료
-        borderView.addSubview(newImage)
-        newImage.leadingAnchor.constraint(equalTo: separatorView.trailingAnchor).isActive = true
-        newImage.trailingAnchor.constraint(equalTo: borderView.trailingAnchor).isActive = true
-        newImage.topAnchor.constraint(equalTo: borderView.topAnchor, constant: 10).isActive = true
-        newImage.bottomAnchor.constraint(equalTo: borderView.bottomAnchor, constant: -17).isActive = true
- 
-        newImage.image = UIImage(named: "icTaskComplete")
-        newImage.isHidden = true
-        */
-        
         NotificationCenter.default.addObserver(self, selector: #selector(todoListButtonAction), name: NSNotification.Name("todoListButtonAction"), object: nil)
     }
     
@@ -248,3 +287,46 @@ class TodoTableViewCell: UITableViewCell {
         newImage.isHidden = true
     }
 }
+
+enum favoriteState: Int {
+    case favorite = 1
+    case notFavorite = 0
+    
+    func setColor(_ category: PosterCategory, favorite: UIButton, favoriteIntervalDay: UILabel) {
+        switch self {
+            
+        case .favorite:
+            favorite.backgroundColor = category.categoryColors()
+            favorite.layer.borderColor = category.categoryColors().cgColor
+            favorite.setTitleColor(.white, for: .normal)
+            favoriteIntervalDay.textColor = .white
+        case .notFavorite:
+            favorite.layer.borderColor = category.categoryColors().cgColor
+            favorite.backgroundColor = .white
+            favorite.setTitleColor(category.categoryColors(), for: .normal)
+            favoriteIntervalDay.textColor = category.categoryColors()
+        }
+    }
+    
+    func changeColor(_ category: PosterCategory, favorite: UIButton, favoriteIntervalDay: UILabel, posterIdx: Int) {
+        switch self {
+        case .favorite:
+            
+            UserDefaults.standard.setValue(0, forKey: "posterIdx\(posterIdx)")
+            
+            favorite.layer.borderColor = category.categoryColors().cgColor
+            favorite.backgroundColor = .white
+            favorite.setTitleColor(category.categoryColors(), for: .normal)
+            favoriteIntervalDay.textColor = category.categoryColors()
+        case .notFavorite:
+            UserDefaults.standard.setValue(1, forKey: "posterIdx\(posterIdx)")
+            
+            favorite.backgroundColor = category.categoryColors()
+            favorite.setTitleColor(.white, for: .normal)
+            favoriteIntervalDay.textColor = .white
+        }
+    }
+    
+}
+
+
