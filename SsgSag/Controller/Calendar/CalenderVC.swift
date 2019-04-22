@@ -532,10 +532,7 @@ class CalenderVC: UIViewController {
         UIView.animate(withDuration: 0.1) {
             self.view.layoutIfNeeded()
         }
-        
     }
-    
-    
     
     @objc func hideTodoTable(){
         setCalendarVCWhenTODOHide()

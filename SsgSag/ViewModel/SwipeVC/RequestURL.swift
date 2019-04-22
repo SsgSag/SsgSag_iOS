@@ -13,6 +13,7 @@ enum RequestURL {
     case initPoster
     case login
     case snsLogin
+    case favorite(posterIdx: Int)
     
     func getRequestURL() -> String {
         switch self {
@@ -24,6 +25,8 @@ enum RequestURL {
             return "/login2"
         case .snsLogin:
             return "/login"
+        case .favorite(posterIdx: let posterIdx):
+            return "/todo/favorite/\(posterIdx)"
         }
     }
     

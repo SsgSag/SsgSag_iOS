@@ -17,7 +17,6 @@ class TodoTableViewCell: UITableViewCell {
         favorite.layer.cornerRadius = favorite.bounds.size.width / 2
         favorite.layer.borderWidth = 1
         favorite.layer.masksToBounds = true
-        
     }
     
     override func awakeFromNib() {
@@ -309,6 +308,26 @@ enum favoriteState: Int {
     }
     
     func changeColor(_ category: PosterCategory, favorite: UIButton, favoriteIntervalDay: UILabel, posterIdx: Int) {
+        
+        let calendarServiceImp = CalendarServiceImp()
+        calendarServiceImp.requestFavorite(self, posterIdx) { (dataResponse) in
+            guard let statusCode = dataResponse.value?.status else {return}
+            
+            guard let httpStatus = HttpStatusCode(rawValue: statusCode) else {return}
+            
+            switch httpStatus {
+            case .favoriteSuccess:
+                print("성공적으로 즐겨찾기를 등록하였습니다")
+            case .dataBaseError:
+                print("Favorite Database Error")
+            case .serverError:
+                print("Favorite Server Error")
+            default:
+                break
+            }
+            
+        }
+        
         switch self {
         case .favorite:
             
@@ -318,6 +337,7 @@ enum favoriteState: Int {
             favorite.backgroundColor = .white
             favorite.setTitleColor(category.categoryColors(), for: .normal)
             favoriteIntervalDay.textColor = category.categoryColors()
+            
         case .notFavorite:
             UserDefaults.standard.setValue(1, forKey: "posterIdx\(posterIdx)")
             
@@ -326,7 +346,12 @@ enum favoriteState: Int {
             favoriteIntervalDay.textColor = .white
         }
     }
-    
 }
+
+
+protocol CalendarService: class {
+    func requestFavorite(_ favorite: favoriteState, _ posterIdx: Int,completionHandler: @escaping (DataResponse<PosterFavorite>) -> Void)
+}
+
 
 
