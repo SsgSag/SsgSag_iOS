@@ -74,19 +74,46 @@ extension CalenderVC: UITableViewDelegate,UITableViewDataSource {
             if let posterData =  UserDefaults.standard.object(forKey: "poster") as? Data {
                 if let posterInfo = try? PropertyListDecoder().decode([Posters].self, from: posterData){
 
+                    var userDefaultsData = posterInfo
+                    
                     for index in 0...posterInfo.count-1 {
                         //유저디폴츠에서 꺼낸 poster과 todoTableData의 이름이 같다면
                         if posterInfo[index].posterName! == self.todoTableData[indexPath.row].posterName! {
-                            var userDefaultsData = posterInfo
+                            
                             userDefaultsData.remove(at: index)
                             
-                            UserDefaults.standard.setValue(try? PropertyListEncoder().encode(userDefaultsData), forKey: "poster")
-                            NotificationCenter.default.post(name: NSNotification.Name("deleteUserDefaults"), object: nil)
+                            let posterDelete = CalendarServiceImp()
+                            guard let posterIdx = self.todoTableData[indexPath.row].posterIdx else {return}
+                            posterDelete.requestDelete(posterIdx) { (dataResponse) in
+                                
+                                guard let statusCode = dataResponse.value?.status else {return}
+                                
+                                guard let httpStatusCode = HttpStatusCode(rawValue: statusCode) else {return}
+                                
+                                switch httpStatusCode {
+                                case .favoriteSuccess:
+                                    print("DeletePoster isSuccessfull")
+                                case .serverError:
+                                    print("DeletePoster serverError")
+                                case .dataBaseError:
+                                    print("DeletePoster dataBaseError")
+                                default:
+                                    break
+                                }
+                            }
+                            
                         }
                     }
+                    
+                    UserDefaults.standard.setValue(try? PropertyListEncoder().encode(userDefaultsData), forKey: "poster")
+                    NotificationCenter.default.post(name: NSNotification.Name("deleteUserDefaults"), object: nil)
+                    
+                    
+                    
                 }
             }
             
+           
         })
         
         editAction.backgroundColor = UIColor.rgb(red: 49, green: 137, blue: 240)

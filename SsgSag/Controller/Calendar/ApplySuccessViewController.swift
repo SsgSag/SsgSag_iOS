@@ -10,7 +10,7 @@ import UIKit
 
 class ApplySuccessViewController: UIViewController {
     
-    var posters: [Posters] {
+    private func getPostersData() -> [Posters]{
         let userDefaultsPoster = CalenderView.getPosterUsingUserDefaults()
         
         var resultPoster: [Posters] = []
@@ -31,6 +31,8 @@ class ApplySuccessViewController: UIViewController {
         return resultPoster
     }
     
+    var posters: [Posters] = []
+    
     @IBOutlet weak var tableView: UITableView!
     
     @IBAction func moveToCalendar(_ sender: Any) {
@@ -39,6 +41,8 @@ class ApplySuccessViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        posters = getPostersData()
         
         tableView.delegate = self
         tableView.dataSource = self
@@ -66,6 +70,61 @@ extension ApplySuccessViewController: UITableViewDelegate, UITableViewDataSource
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         
         return Staticheight
+    }
+    
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        return true
+    }
+    
+    func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
+        
+        let deleteAction = UITableViewRowAction(style: .default, title: "삭제", handler: { (action, indexPath) in
+        
+            var posterInfo = CalenderView.getPosterUsingUserDefaults()
+            
+            guard let posterIdx = self.posters[indexPath.row].posterIdx else {return}
+            
+            for index in 0..<posterInfo.count-1 {
+                
+                guard let posterInfoPosterIdx = posterInfo[index].posterIdx else { return }
+                
+                if posterIdx == posterInfoPosterIdx {
+                        posterInfo.remove(at: index)
+                    
+                    let posterDelete = CalendarServiceImp()
+                    posterDelete.requestDelete(posterIdx) { (dataResponse) in
+                        
+                        guard let statusCode = dataResponse.value?.status else {return}
+                        
+                        guard let httpStatusCode = HttpStatusCode(rawValue: statusCode) else {return}
+                        
+                        switch httpStatusCode {
+                        case .favoriteSuccess:
+                            print("DeletePoster isSuccessfull")
+                        case .serverError:
+                            print("DeletePoster serverError")
+                        case .dataBaseError:
+                            print("DeletePoster dataBaseError")
+                        default:
+                            break
+                        }
+                    }
+                    
+                }
+            }
+            
+            UserDefaults.standard.setValue(try? PropertyListEncoder().encode(posterInfo), forKey: "poster")
+            
+            NotificationCenter.default.post(name: NSNotification.Name("deleteUserDefaults"), object: nil)
+        
+            self.posters = self.getPostersData()
+            
+            tableView.reloadData()
+        })
+        
+        deleteAction.backgroundColor = UIColor.rgb(red: 249, green: 106, blue: 106)
+        
+        return [deleteAction]
     }
     
 }

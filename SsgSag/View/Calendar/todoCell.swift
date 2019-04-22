@@ -404,6 +404,8 @@ enum favoriteState: Int {
 
 protocol CalendarService: class {
     func requestFavorite(_ favorite: favoriteState, _ posterIdx: Int,completionHandler: @escaping (DataResponse<PosterFavorite>) -> Void)
+    
+    func requestDelete(_ posterIdx: Int, completionHandler: @escaping (DataResponse<PosterFavorite>) -> Void)
 }
 
 
