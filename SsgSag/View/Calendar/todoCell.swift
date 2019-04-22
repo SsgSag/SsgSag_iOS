@@ -45,6 +45,22 @@ class TodoTableViewCell: UITableViewCell {
         favoriteState.setColor(category, favorite: favorite, favoriteIntervalDay: favoriteIntervalDay)
     }
     
+    private func setComplted(posterIdx: Int) {
+        guard let isComplted = UserDefaults.standard.object(forKey: "completed\(posterIdx)") as? Int else {
+            
+            let completeState: applyCompleted = .notCompleted
+            
+            completeState.setComplete(posterIdx: posterIdx, complete: complete, favorite: favorite, favoriteIntervalDay:favoriteIntervalDay )
+            
+            return
+        }
+        
+        guard let complteState = applyCompleted(rawValue: isComplted) else {return}
+        
+        complteState.setComplete(posterIdx: posterIdx, complete: complete, favorite: favorite, favoriteIntervalDay:favoriteIntervalDay )
+        
+    }
+    
     // StartDate는 없을 수도 있고 EndDate는 무조건 존재한다.
     var poster: Posters? {
         didSet {
@@ -79,6 +95,7 @@ class TodoTableViewCell: UITableViewCell {
                 categoryLabel.textColor = category.categoryColors()
                 
                 setFavoriteColor(with: category, posterIdx: posterIdx)
+                setComplted(posterIdx: posterIdx)
             }
             
             if Date() < posterEndDate {
@@ -120,6 +137,13 @@ class TodoTableViewCell: UITableViewCell {
             dateLabel.text = "\(todoDataStartMonth).\(todoDataStartDay)(\(weekDaySymbol)) ~ \(todoDataEndMonth).\(todoDataEndDay)(\(weekDaySymbol)) \(todoDateEndHour):\(todoDateEndminute)  "
         }
     }
+    
+    let complete: UIImageView = {
+        let imageView = UIImageView()
+        imageView.image = #imageLiteral(resourceName: "icTaskComplete")
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        return imageView
+    }()
     
     let borderView: UIView = { //셀 테두리
         let bV = UIView()
@@ -249,6 +273,13 @@ class TodoTableViewCell: UITableViewCell {
         favorite.leadingAnchor.constraint(equalTo: borderView.leadingAnchor, constant: 13).isActive = true
         favorite.centerYAnchor.constraint(equalTo: borderView.centerYAnchor).isActive = true
         
+        //지원완료
+        borderView.addSubview(complete)
+        complete.leadingAnchor.constraint(equalTo: favorite.leadingAnchor).isActive = true
+        complete.trailingAnchor.constraint(equalTo: favorite.trailingAnchor).isActive = true
+        complete.topAnchor.constraint(equalTo: favorite.topAnchor).isActive = true
+        complete.bottomAnchor.constraint(equalTo: favorite.bottomAnchor).isActive = true
+        
         //MARK: 남음
         favorite.addSubview(favoriteIntervalDay)
         favoriteIntervalDay.centerXAnchor.constraint(equalTo: favorite.centerXAnchor).isActive = true
@@ -285,9 +316,31 @@ class TodoTableViewCell: UITableViewCell {
         leftedDayBottom.isHidden = false
         newImage.isHidden = true
     }
+    
+}
+
+enum applyCompleted:Int {
+    case completed = 1
+    case notCompleted = 0
+    
+    func setComplete(posterIdx: Int, complete: UIImageView, favorite: UIButton, favoriteIntervalDay: UILabel) {
+        switch self {
+        case .completed:
+            complete.isHidden = false
+            
+            favorite.isHidden = true
+            favoriteIntervalDay.isHidden = true
+        case .notCompleted:
+            complete.isHidden = true
+            
+            favorite.isHidden = false
+            favoriteIntervalDay.isHidden = false
+        }
+    }
 }
 
 enum favoriteState: Int {
+
     case favorite = 1
     case notFavorite = 0
     

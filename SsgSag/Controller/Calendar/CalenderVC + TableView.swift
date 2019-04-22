@@ -1,3 +1,5 @@
+var Staticheight: CGFloat = 0
+
 extension CalenderVC: UITableViewDelegate,UITableViewDataSource {
     //MARK: UITableViewDataSource
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -9,6 +11,7 @@ extension CalenderVC: UITableViewDelegate,UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        
         if editingStyle == .insert {
             
         }
@@ -46,6 +49,7 @@ extension CalenderVC: UITableViewDelegate,UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        Staticheight = tableView.frame.height / 3
         return tableView.frame.height / 3
     }
     
@@ -57,6 +61,11 @@ extension CalenderVC: UITableViewDelegate,UITableViewDataSource {
         
         let editAction = UITableViewRowAction(style: .default, title: "완료", handler: { (action, indexPath) in
             
+            guard let posterIdx = self.todoTableData[indexPath.row].posterIdx else {return}
+            
+            UserDefaults.standard.setValue(1, forKey: "completed\(posterIdx)")
+        
+            tableView.reloadData()
         })
         
         let deleteAction = UITableViewRowAction(style: .default, title: "삭제", handler: { (action, indexPath) in
@@ -77,12 +86,13 @@ extension CalenderVC: UITableViewDelegate,UITableViewDataSource {
                     }
                 }
             }
+            
         })
         
         editAction.backgroundColor = UIColor.rgb(red: 49, green: 137, blue: 240)
         deleteAction.backgroundColor = UIColor.rgb(red: 249, green: 106, blue: 106)
         
-        return [editAction, deleteAction]
+        return [deleteAction, editAction]
     }
 }
 

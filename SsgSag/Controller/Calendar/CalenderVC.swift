@@ -110,8 +110,9 @@ class CalenderVC: UIViewController {
     
     @objc private func moveToApplySuccessVC() {
         let storyBoard = UIStoryboard(name: "ApplySuccess", bundle: nil)
-        let applySuccessViewController = storyBoard.instantiateViewController(withIdentifier: "applySucess")
-        self.present(applySuccessViewController, animated: true, completion: nil)
+        let navigationVC = storyBoard.instantiateViewController(withIdentifier: "applySucess") as! UINavigationController
+        
+        self.present(navigationVC, animated: true, completion: nil)
     }
     
     private func getPostersAndStore() {
