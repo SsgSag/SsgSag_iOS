@@ -14,7 +14,7 @@ struct AllTodoList: Codable {
     let data: [TodoList]?
 }
 
-struct TodoList: Codable, posterProtocol {
+struct TodoList: Codable {
     var posterIdx: Int?
     
     var categoryIdx: Int?

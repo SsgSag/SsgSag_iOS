@@ -1,6 +1,6 @@
 import Foundation
 
-struct Posters : Codable  {
+struct Posters: Codable {
     var posterIdx: Int?
     var categoryIdx: Int?
     var isCompleted: Int?
@@ -26,7 +26,6 @@ struct Posters : Codable  {
     var adminAccept: Int?
     
     enum CodingKeys: String, CodingKey {
-        
         case posterIdx = "posterIdx"
         case categoryIdx = "categoryIdx"
         case photoUrl = "photoUrl"

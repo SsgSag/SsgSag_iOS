@@ -144,8 +144,6 @@ class CalenderVC: UIViewController {
                 guard let todoPosterIdx = todo.posterIdx else {return}
                 
                 self.posterIdx.append(todoPosterIdx)
-                
-                print("What i search for\(todoPosterIdx) \(todo.posterName)")
             }
             
         }

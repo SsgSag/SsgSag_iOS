@@ -472,11 +472,7 @@ extension CalenderView: UICollectionViewDelegate, UICollectionViewDataSource {
             lbl.textColor = UIColor.red
             lbl.backgroundColor = UIColor.clear
         }
-        
-        let currentDate = Date()
-        let calendar = Calendar.current
-        let components = calendar.dateComponents([.year, .month, .day], from: currentDate)
-        
+
     }
     
 }
