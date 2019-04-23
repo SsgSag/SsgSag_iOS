@@ -20,53 +20,69 @@ class DayCollectionViewCell: UICollectionViewCell {
         return label
     }()
     
-    let dotAndLineView1: UIView = {
-        let dotView = UIView()
+    let dotAndLineView1: UILabel = {
+        let dotView = UILabel()
         dotView.translatesAutoresizingMaskIntoConstraints = false
         dotView.layer.masksToBounds = true
+        dotView.font = UIFont.boldSystemFont(ofSize: fontSize)
         dotView.clipsToBounds = true
+        dotView.textColor = .white
+        dotView.lineBreakMode = NSLineBreakMode.byWordWrapping
         dotView.backgroundColor = UIColor(displayP3Red: 96 / 255, green: 118 / 255, blue: 221 / 255, alpha: 1.0)
         
         return dotView
     }()
     
-    let dotAndLineView2: UIView = {
-        let dotView = UIView()
+    let dotAndLineView2: UILabel = {
+        let dotView = UILabel()
         dotView.translatesAutoresizingMaskIntoConstraints = false
         dotView.layer.masksToBounds = true
+        dotView.font = UIFont.boldSystemFont(ofSize: fontSize)
         dotView.clipsToBounds = true
+        dotView.textColor = .white
+        dotView.lineBreakMode = NSLineBreakMode.byWordWrapping
         dotView.backgroundColor = UIColor(displayP3Red: 7 / 255, green: 166 / 255, blue: 255 / 255, alpha: 1.0)
         return dotView
     }()
     
-    let dotAndLineView3: UIView = {
-        let dotView = UIView()
+    let dotAndLineView3: UILabel = {
+        let dotView = UILabel()
         dotView.translatesAutoresizingMaskIntoConstraints = false
         dotView.clipsToBounds = true
+        dotView.font = UIFont.boldSystemFont(ofSize: fontSize)
+        dotView.textColor = .white
+        dotView.lineBreakMode = NSLineBreakMode.byWordWrapping
         dotView.backgroundColor = UIColor(displayP3Red: 254 / 255, green: 109 / 255, blue: 109 / 255, alpha: 1.0)
         return dotView
     }()
     
-    let dotAndLineView4: UIView = {
-        let dotView = UIView()
+    let dotAndLineView4: UILabel = {
+        let dotView = UILabel()
         dotView.translatesAutoresizingMaskIntoConstraints = false
         dotView.clipsToBounds = true
+        dotView.font = UIFont.boldSystemFont(ofSize: fontSize)
+        dotView.textColor = .white
+        dotView.lineBreakMode = NSLineBreakMode.byWordWrapping
         dotView.backgroundColor = UIColor(displayP3Red: 255 / 255, green: 160 / 255, blue: 160 / 255, alpha: 1.0)
         return dotView
     }()
     
-    let dotAndLineView5: UIView = {
-        let dotView = UIView()
+    let dotAndLineView5: UILabel = {
+        let dotView = UILabel()
         dotView.translatesAutoresizingMaskIntoConstraints = false
         dotView.clipsToBounds = true
+        dotView.font = UIFont.boldSystemFont(ofSize: fontSize)
+        dotView.textColor = .white
+        dotView.lineBreakMode = NSLineBreakMode.byWordWrapping
         dotView.backgroundColor = .black
         return dotView
     }()
     
-    
     private lazy var dotWidth = self.frame.width * 0.11
     
-    private lazy var lineHeight = self.frame.height * 0.08
+    private lazy var lineHeight = self.frame.height * 0.12
+    
+    static private let fontSize:CGFloat = 7
     
     private lazy var lineWidth = self.frame.width
     
@@ -269,12 +285,17 @@ class DayCollectionViewCell: UICollectionViewCell {
             
             //setDotAndLineViewBackgroundColor(eventCategoryList)
             
+            dotAndLineView1.text = ""
+            dotAndLineView2.text = ""
+            dotAndLineView3.text = ""
+            dotAndLineView4.text = ""
+            dotAndLineView5.text = ""
+            
             switch eventNum {
                 
             case 0:
                 break
             case 1:
-                
                 dotAndLineView1.isHidden = false
                 
                 if let category : PosterCategory = PosterCategory(rawValue:eventCategoryList[0]) {
@@ -715,7 +736,6 @@ class DayCollectionViewCell: UICollectionViewCell {
                     dotAndLineView5HeightAnchor,
                     dotAndLineView5CenterXAnchor
                     ])
-                
             }
             
         } else {
@@ -723,6 +743,8 @@ class DayCollectionViewCell: UICollectionViewCell {
             case 0:
                 break
             case 1:
+                
+                dotAndLineView1.text = " \(events[0].title)"
                 
                 NSLayoutConstraint.deactivate([
                     dotAndLineView1TopAnchor,
@@ -735,7 +757,6 @@ class DayCollectionViewCell: UICollectionViewCell {
                     dotAndLineView1.backgroundColor =  category.categoryColors()
                 }
                 
-
                 dotAndLineView1TopAnchor.constant = 4
                 dotAndLineView1WidthAnchor.constant = lineWidth
                 dotAndLineView1HeightAnchor.constant = lineHeight
@@ -750,9 +771,14 @@ class DayCollectionViewCell: UICollectionViewCell {
                 
                 dotAndLineView1.isHidden = false
                 
+                
+                
             case 2:
                 dotAndLineView1.isHidden = false
                 dotAndLineView2.isHidden = false
+                
+                dotAndLineView1.text = " \(events[0].title)"
+                dotAndLineView2.text = " \(events[1].title)"
                 
                 if let category : PosterCategory = PosterCategory(rawValue:eventCategoryList[0]) {
                     dotAndLineView1.backgroundColor =  category.categoryColors()
@@ -799,6 +825,10 @@ class DayCollectionViewCell: UICollectionViewCell {
                 dotAndLineView1.isHidden = false
                 dotAndLineView2.isHidden = false
                 dotAndLineView3.isHidden = false
+                
+                dotAndLineView1.text = " \(events[0].title)"
+                dotAndLineView2.text = " \(events[1].title)"
+                dotAndLineView3.text = " \(events[2].title)"
                 
                 if let category : PosterCategory = PosterCategory(rawValue:eventCategoryList[0]) {
                     dotAndLineView1.backgroundColor =  category.categoryColors()
@@ -866,6 +896,11 @@ class DayCollectionViewCell: UICollectionViewCell {
                 dotAndLineView2.isHidden = false
                 dotAndLineView3.isHidden = false
                 dotAndLineView4.isHidden = false
+                
+                dotAndLineView1.text = " \(events[0].title)"
+                dotAndLineView2.text = " \(events[1].title)"
+                dotAndLineView3.text = " \(events[2].title)"
+                dotAndLineView4.text = " \(events[3].title)"
                 
                 if let category : PosterCategory = PosterCategory(rawValue:eventCategoryList[0]) {
                     dotAndLineView1.backgroundColor =  category.categoryColors()
@@ -953,6 +988,12 @@ class DayCollectionViewCell: UICollectionViewCell {
                 dotAndLineView3.isHidden = false
                 dotAndLineView4.isHidden = false
                 dotAndLineView5.isHidden = false
+                
+                dotAndLineView1.text = " \(events[0].title)"
+                dotAndLineView2.text = " \(events[1].title)"
+                dotAndLineView3.text = " \(events[2].title)"
+                dotAndLineView4.text = " \(events[3].title)"
+                dotAndLineView5.text = " \(events[4].title)"
                 
                 if let category : PosterCategory = PosterCategory(rawValue:eventCategoryList[0]) {
                     dotAndLineView1.backgroundColor =  category.categoryColors()
@@ -1058,6 +1099,12 @@ class DayCollectionViewCell: UICollectionViewCell {
                 dotAndLineView3.isHidden = false
                 dotAndLineView4.isHidden = false
                 dotAndLineView5.isHidden = false
+                
+                dotAndLineView1.text = " \(events[0].title)"
+                dotAndLineView2.text = " \(events[1].title)"
+                dotAndLineView3.text = " \(events[2].title)"
+                dotAndLineView4.text = " \(events[3].title)"
+                dotAndLineView5.text = " \(events[4].title)"
                 
                 if let category : PosterCategory = PosterCategory(rawValue:eventCategoryList[0]) {
                     dotAndLineView1.backgroundColor =  category.categoryColors()
