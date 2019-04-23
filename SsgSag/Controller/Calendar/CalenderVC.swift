@@ -68,11 +68,16 @@ class CalenderVC: UIViewController {
         return separ
     }()
     
+    var calendarServiceImp: CalendarService?
+    
     // MARK: - lifeCycle func
     override func viewDidLoad() {
         super.viewDidLoad()
         
         self.view.backgroundColor = Style.bgColor
+        
+        calendarServiceImp = CalendarServiceImp()
+        
         
         getPostersAndStore()
         
@@ -86,7 +91,11 @@ class CalenderVC: UIViewController {
         
         setTodoTableView()
         
+        //UserDefaults.standard.removeObject(forKey: "start")
+        
         calendarViewBottomAnchor?.priority = UILayoutPriority(750)
+        
+        
     }
     
 
@@ -122,36 +131,42 @@ class CalenderVC: UIViewController {
         self.present(navigationVC, animated: true, completion: nil)
     }
     
+    var posterIdx: [Int] = []
+    
+    private func syncDataAtFirst() {
+        
+        calendarServiceImp?.requestAllTodoList { (dataResponse) in
+            
+            guard let todoList = dataResponse.value?.data else { return }
+            
+            UserDefaults.standard.object(forKey: "poster")
+            for todo in todoList {
+                guard let todoPosterIdx = todo.posterIdx else {return}
+                
+                self.posterIdx.append(todoPosterIdx)
+                
+                print("What i search for\(todoPosterIdx) \(todo.posterName)")
+            }
+            
+        }
+    }
+    
+    var tempDetailPosters: [Posters]?
+    
+    /// start only at first time
     private func getPostersAndStore() {
         
-        guard let url = UserAPI.sharedInstance.getURL("/todo?year=0000&month=00&day=00") else { return }
-        
-        guard let token = UserDefaults.standard.object(forKey: "SsgSagToken") as? String else {
+        guard let _ = UserDefaults.standard.object(forKey: "start") as? Bool else {
+            
+            let start = true
+            
+            UserDefaults.standard.setValue(start, forKey: "start")
+            
+            syncDataAtFirst()
+            
             return
         }
         
-        var request = URLRequest(url: url)
-        request.httpMethod = "GET"
-        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.addValue(token, forHTTPHeaderField: "Authorization")
-        
-        NetworkManager.shared.getData(with: request) { (data, error, res) in
-            guard let data = data else {
-                return
-            }
-            do {
-                let calendarForNetwork = try JSONDecoder().decode(CalendarForNetwork.self, from: data)
-        
-                guard let calendar = calendarForNetwork.data else {return}
-                
-                for _ in calendar {
-                    //print("123123123123")
-                }
-                
-            } catch (let err) {
-                print(err.localizedDescription)
-            }
-        }
     }
     
     private func setNotificationObserver() {

@@ -16,6 +16,8 @@ enum RequestURL {
     case favorite(posterIdx: Int)
     case deletePoster(posterIdx: Int)
     case completeApply(posterIdx: Int)
+    case allTodoList
+    case posterDetail(posterIdx: Int)
     
     func getRequestURL() -> String {
         switch self {
@@ -33,6 +35,10 @@ enum RequestURL {
             return "/todo/\(posterIdx)"
         case .completeApply(posterIdx: let posterIdx):
             return "/todo/complete/\(posterIdx)"
+        case .allTodoList:
+            return "/todo?year=0000&month=00&day=00"
+        case .posterDetail(posterIdx: let posterIdx):
+            return "/poster/\(posterIdx)"
         }
     }
     

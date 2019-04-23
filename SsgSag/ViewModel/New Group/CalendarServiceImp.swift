@@ -10,6 +10,53 @@ import Foundation
 
 class CalendarServiceImp: CalendarService {
     
+    func requestEachPoster(_ posterIdx: Int, completionHandler: @escaping (DataResponse<networkPostersData>) -> Void) {
+        
+        guard let url = UserAPI.sharedInstance.getURL(RequestURL.posterDetail(posterIdx: posterIdx).getRequestURL()) else {return}
+        
+        var request = URLRequest(url: url)
+        request.httpMethod = "GET"
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        
+        NetworkManager.shared.getData(with: request) { (data, error, response) in
+            
+            guard let data = data else {return}
+            
+            do {
+                let response = try JSONDecoder().decode(networkPostersData.self, from: data)
+                
+                completionHandler(DataResponse.success(response))
+            } catch {
+                print("EachPoster Parsing Error")
+            }
+        }
+    }
+    
+    func requestAllTodoList(completionHandler: @escaping (DataResponse<AllTodoList>) -> Void) {
+        guard let url = UserAPI.sharedInstance.getURL(RequestURL.allTodoList.getRequestURL()) else {return}
+        
+        guard let key = UserDefaults.standard.object(forKey: "SsgSagToken") as? String else { return }
+        
+        var request = URLRequest(url: url)
+        request.setValue(key, forHTTPHeaderField: "Authorization")
+        request.httpMethod = "GET"
+        
+        NetworkManager.shared.getData(with: request) { (data, error, response) in
+            guard let data = data else { return }
+            
+            do {
+                let response = try JSONDecoder().decode(AllTodoList.self, from: data)
+                
+                completionHandler(DataResponse.success(response))
+                
+            } catch {
+                print("AllTodoList Parsing Error")
+            }
+            
+        }
+        
+    }
+    
     func reqeustComplete(_ posterIdx: Int, completionHandler: @escaping (DataResponse<PosterFavorite>) -> Void) {
         guard let url = UserAPI.sharedInstance.getURL(RequestURL.completeApply(posterIdx: posterIdx).getRequestURL()) else {return}
         
