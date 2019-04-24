@@ -20,6 +20,7 @@
 		842C619D21DD1807001BA6D8 /* posterData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842C619A21DD1807001BA6D8 /* posterData.swift */; };
 		842C619E21DD1807001BA6D8 /* networkData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842C619B21DD1807001BA6D8 /* networkData.swift */; };
 		842C619F21DD1807001BA6D8 /* Posters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842C619C21DD1807001BA6D8 /* Posters.swift */; };
+		843813112270153900C9E47B /* MypageServiceImp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 843813102270153900C9E47B /* MypageServiceImp.swift */; };
 		8459289B21D09CDD001DF6CC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8459289A21D09CDD001DF6CC /* AppDelegate.swift */; };
 		8459289D21D09CDD001DF6CC /* SwipeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8459289C21D09CDD001DF6CC /* SwipeVC.swift */; };
 		845928A321D09CDD001DF6CC /* SsgSag.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 845928A121D09CDD001DF6CC /* SsgSag.xcdatamodeld */; };
@@ -138,6 +139,7 @@
 		842C619A21DD1807001BA6D8 /* posterData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = posterData.swift; sourceTree = "<group>"; };
 		842C619B21DD1807001BA6D8 /* networkData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = networkData.swift; sourceTree = "<group>"; };
 		842C619C21DD1807001BA6D8 /* Posters.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Posters.swift; sourceTree = "<group>"; };
+		843813102270153900C9E47B /* MypageServiceImp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MypageServiceImp.swift; sourceTree = "<group>"; };
 		8459289721D09CDD001DF6CC /* 슥삭.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "슥삭.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		8459289A21D09CDD001DF6CC /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8459289C21D09CDD001DF6CC /* SwipeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwipeVC.swift; sourceTree = "<group>"; };
@@ -542,14 +544,6 @@
 			path = MyPage;
 			sourceTree = "<group>";
 		};
-		8486D264226E18CE00D7A0C7 /* New Group */ = {
-			isa = PBXGroup;
-			children = (
-				8486D265226E18E800D7A0C7 /* CalendarServiceImp.swift */,
-			);
-			path = "New Group";
-			sourceTree = "<group>";
-		};
 		84A45D03225F9AD000C60287 /* Manager */ = {
 			isa = PBXGroup;
 			children = (
@@ -580,19 +574,12 @@
 		84B1B251226A37B800077DF9 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
-				8486D264226E18CE00D7A0C7 /* New Group */,
-				84FB4FE2226B7F6F00D9F2F9 /* Login */,
-				84B1B252226A37C100077DF9 /* SwipeVC */,
+				8486D265226E18E800D7A0C7 /* CalendarServiceImp.swift */,
+				84FB4FE3226B7F7D00D9F2F9 /* LoginServiceImp.swift */,
+				84B1B253226A385A00077DF9 /* PosterServiceImp.swift */,
+				843813102270153900C9E47B /* MypageServiceImp.swift */,
 			);
 			path = ViewModel;
-			sourceTree = "<group>";
-		};
-		84B1B252226A37C100077DF9 /* SwipeVC */ = {
-			isa = PBXGroup;
-			children = (
-				84B1B253226A385A00077DF9 /* PosterServiceImp.swift */,
-			);
-			path = SwipeVC;
 			sourceTree = "<group>";
 		};
 		84BA694721DB391D00BA8CB8 /* MyPage */ = {
@@ -611,14 +598,6 @@
 				84B4268921E9063600B44F71 /* bt_save_round.json */,
 			);
 			path = MyPage;
-			sourceTree = "<group>";
-		};
-		84FB4FE2226B7F6F00D9F2F9 /* Login */ = {
-			isa = PBXGroup;
-			children = (
-				84FB4FE3226B7F7D00D9F2F9 /* LoginServiceImp.swift */,
-			);
-			path = Login;
 			sourceTree = "<group>";
 		};
 		FA524BEF21D64DFD00675289 /* Signup */ = {
@@ -990,6 +969,7 @@
 				8486D266226E18E800D7A0C7 /* CalendarServiceImp.swift in Sources */,
 				84A45D09225F9B8B00C60287 /* HTTPMethod.swift in Sources */,
 				FA61FE1121E0E4A200A28947 /* PreferenceVC.swift in Sources */,
+				843813112270153900C9E47B /* MypageServiceImp.swift in Sources */,
 				840FEDC122074F6F00581A3B /* DayCollectionViewCell.swift in Sources */,
 				84A45D0D225F9C8400C60287 /* ParameterEncoding.swift in Sources */,
 				845928E321D35F09001DF6CC /* PageViewController.swift in Sources */,

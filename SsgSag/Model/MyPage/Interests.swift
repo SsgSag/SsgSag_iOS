@@ -22,3 +22,9 @@ struct Interest: Codable {
     let interests: [Int]?
     let isSeeker: Int?
 }
+
+struct ReInterest: Codable {
+    let status: Int?
+    let message: String?
+    let data: JSONNull?
+}

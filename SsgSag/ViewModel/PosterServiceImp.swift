@@ -28,7 +28,6 @@ class PosterServiceImp: PosterService {
             guard let data = data else { return }
             
             do {
-            
                 let likedPosterNetworkData = try JSONDecoder().decode(PosterFavoriteForNetwork.self, from: data)
                 
                 guard let statusCode = likedPosterNetworkData.status else { return }
@@ -47,6 +46,7 @@ class PosterServiceImp: PosterService {
                 print("likedPosterNetworkData parsing Error")
             }
         }
+        
     }
     
     func likedErrorHandling(_ httpStatusCode: HttpStatusCode, likedCategory: likedOrDisLiked) throws {

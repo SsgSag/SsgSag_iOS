@@ -9,6 +9,7 @@
 import Foundation
 
 class LoginServiceImp: LoginService {
+    
     func requestSnsLogin(using accessToken: String, type login: Int,
                          completionHandler: @escaping ((DataResponse<TokenResponse>) -> Void)) {
         
@@ -36,8 +37,8 @@ class LoginServiceImp: LoginService {
                 print("LoginService Parsing Error")
             }
         }
+        
     }
-    
     
     func requestLogin(send data: [String : Any], completionHandler: @escaping (DataResponse<LoginStruct>) -> Void) {
         

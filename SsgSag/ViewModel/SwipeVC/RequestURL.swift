@@ -18,6 +18,8 @@ enum RequestURL {
     case completeApply(posterIdx: Int)
     case allTodoList
     case posterDetail(posterIdx: Int)
+    case interestingField
+    case reIntersting
     
     func getRequestURL() -> String {
         switch self {
@@ -39,6 +41,10 @@ enum RequestURL {
             return "/todo?year=0000&month=00&day=00"
         case .posterDetail(posterIdx: let posterIdx):
             return "/poster/\(posterIdx)"
+        case .interestingField:
+            return "/user/interest"
+        case .reIntersting:
+            return "/user/reInterestReq1"
         }
     }
     

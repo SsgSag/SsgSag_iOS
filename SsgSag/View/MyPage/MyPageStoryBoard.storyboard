@@ -770,12 +770,12 @@
                                 </constraints>
                             </scrollView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vfg-mP-sok" userLabel="저장">
-                                <rect key="frame" x="0.0" y="1270" width="375" height="80"/>
+                                <rect key="frame" x="0.0" y="1290" width="375" height="60"/>
                                 <color key="backgroundColor" red="0.78823529410000004" green="0.78823529410000004" blue="0.78823529410000004" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="80" id="9rB-dk-9iy"/>
+                                    <constraint firstAttribute="height" constant="60" id="9rB-dk-9iy"/>
                                 </constraints>
-                                <state key="normal" image="btSaveMypageUnactive"/>
+                                <state key="normal" image="btSaveMypageActive"/>
                                 <connections>
                                     <action selector="touchUpSaveButton:" destination="17w-h8-msn" eventType="touchUpInside" id="0zz-q3-KiR"/>
                                 </connections>
@@ -1451,6 +1451,7 @@
         <image name="btPreferenceSocietyUnactive" width="162" height="162"/>
         <image name="btPreferenceStartupUnactive" width="162" height="162"/>
         <image name="btPreferenceTechUnactive" width="162" height="162"/>
+        <image name="btSaveMypageActive" width="375" height="80"/>
         <image name="btSaveMypageUnactive" width="375" height="80"/>
         <image name="icArrowBack" width="24" height="24"/>
         <image name="icArrowGradation" width="44" height="50"/>
