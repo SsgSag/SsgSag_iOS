@@ -75,11 +75,10 @@ class AddActivityVC: UIViewController, UITextViewDelegate, UITextFieldDelegate {
     @IBAction func touchUpSaveButton(_ sender: Any) {
         let animation = LOTAnimationView(name: "bt_save_round")
         saveButton.addSubview(animation)
+        
         animation.play()
-        //        getData(careerType: 0)
         
         postData()
-        
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -137,17 +136,19 @@ class AddActivityVC: UIViewController, UITextViewDelegate, UITextFieldDelegate {
         textView.becomeFirstResponder()
     }
     
-    
     func popUpDatePicker(button: UIButton) {
         let myPageStoryBoard = UIStoryboard(name: "MyPageStoryBoard", bundle: nil)
-        let popVC = myPageStoryBoard.instantiateViewController(withIdentifier: "DatePickerPoPUp")
+        let popVC = myPageStoryBoard.instantiateViewController(withIdentifier: "DatePickerPoPUp") as! DatePickerPopUpVC
+        
+        popVC.activityCategory = ActivityCategory.AddActivityVC
+            
         self.addChild(popVC)
         popVC.view.frame = self.view.frame
         self.view.addSubview(popVC.view)
         
         popVC.didMove(toParent: self)
         
-        let sendData = popVC as! DatePickerPopUpVC
+        let sendData = popVC
         sendData.buttonTag = button.tag
         
         if startDateLabel != nil {
@@ -190,6 +191,7 @@ class AddActivityVC: UIViewController, UITextViewDelegate, UITextFieldDelegate {
         }
         
         let sendStartData = stringConverted(with: startData)
+        
         let sendEndData = stringConverted(with: endData)
         
         print(sendStartData)
@@ -204,11 +206,8 @@ class AddActivityVC: UIViewController, UITextViewDelegate, UITextFieldDelegate {
         ]
         
         let jsonData = try? JSONSerialization.data(withJSONObject: json)
-        let urlString = UserAPI.sharedInstance.getURL("/career")
         
-        guard let url = URL(string: urlString) else {
-            return
-        }
+        guard let url = UserAPI.sharedInstance.getURL("/career") else {return}
         
         guard let token = UserDefaults.standard.object(forKey: "SsgSagToken") as? String else {
             return
@@ -220,6 +219,7 @@ class AddActivityVC: UIViewController, UITextViewDelegate, UITextFieldDelegate {
         request.addValue(token, forHTTPHeaderField: "Authorization")
         request.httpBody = jsonData
         
+        // FIXME: - 네트워크 통신 고쳐야 합니다.
         NetworkManager.shared.getData(with: request) { (data, error, res) in
             DispatchQueue.global().async {
                 guard let data = data else {
@@ -272,7 +272,7 @@ class AddActivityVC: UIViewController, UITextViewDelegate, UITextFieldDelegate {
                     DispatchQueue.main.async {
                         self.simplerAlert(title: "저장에 실패했습니다")
                     }
-                    print("Json Parsing Error")
+                    print("AddActivity Json Parsing Error")
                 }
             }
         }

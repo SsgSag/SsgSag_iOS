@@ -9,12 +9,18 @@
 import UIKit
 import Lottie
 
+enum ActivityCategory {
+    case AddActivityVC
+    case AddVC
+    case AddCertificationVC
+}
+
 class AddVC: UIViewController, UITextFieldDelegate, UITextViewDelegate {
     
     @IBOutlet weak var titleTextField: UITextField!
-    @IBOutlet weak var yearTextField: UITextField!
     @IBOutlet weak var contentTextView: UITextView!
     @IBOutlet weak var saveButton: UIButton!
+    @IBOutlet weak var dateButton: UIButton!
     
     var titleString: String?
     var yearString: String?
@@ -29,32 +35,29 @@ class AddVC: UIViewController, UITextFieldDelegate, UITextViewDelegate {
         let month = components.month!
         let day = components.day!
         let currentDateString: String = "\(year)년 \(month)월 \(day)일"
-        yearTextField.placeholder = currentDateString
+        
+        dateButton.setTitle(currentDateString, for: .normal)
+        
         contentTextView.applyBorderTextView()
         
         contentTextView.delegate = self
         titleTextField.delegate = self
-        yearTextField.delegate = self
         
         if let title = titleString {
             titleTextField.text = title
         }
-        
-        if let year = yearString {
-            yearTextField.text = year
-        }
-        
+    
         if let content = contentString {
             contentTextView.text = content
         }
         
     }
+    
+    @IBAction func addActiveDate(_ sender: UIButton) {
+        popUpDatePicker(button: sender, activityCategory: ActivityCategory.AddVC)
+    }
+    
     @IBAction func touchUpSaveButton(_ sender: UIButton) {
-        let animation = LOTAnimationView(name: "bt_save_round")
-        saveButton.addSubview(animation)
-        animation.play()
-        
-        //getData(careerType: 1)
         postData()
     }
     
@@ -96,6 +99,20 @@ class AddVC: UIViewController, UITextFieldDelegate, UITextViewDelegate {
         }
     }
     
+    func popUpDatePicker(button: UIButton, activityCategory: ActivityCategory) {
+        
+        let myPageStoryBoard = UIStoryboard(name: "MyPageStoryBoard", bundle: nil)
+        let popVC = myPageStoryBoard.instantiateViewController(withIdentifier: "DatePickerPoPUp") as! DatePickerPopUpVC
+        
+        popVC.activityCategory = activityCategory
+        
+        self.addChild(popVC)
+        
+        popVC.view.frame = self.view.frame
+        self.view.addSubview(popVC.view)
+        
+        popVC.didMove(toParent: self)
+    }
     
     func postData() {
         
@@ -103,7 +120,7 @@ class AddVC: UIViewController, UITextFieldDelegate, UITextViewDelegate {
             "careerType" : 1,
             "careerName" : titleTextField.text ?? "",
             "careerContent" : contentTextView.text ?? "",
-            "careerDate1" : yearTextField.text ?? "" //일까지 줘도 상관없음 ex)"2019-01-12"
+            "careerDate1" : dateButton.titleLabel?.text ?? "" //일까지 줘도 상관없음 ex)"2019-01-12"
         ]
         
         let jsonData = try? JSONSerialization.data(withJSONObject: json)
@@ -124,18 +141,20 @@ class AddVC: UIViewController, UITextFieldDelegate, UITextViewDelegate {
                 print(error?.localizedDescription ?? "No data")
                 return
             }
+            
             let responseJSON = try? JSONSerialization.jsonObject(with: data, options: [])
             
             if let responseJSON = responseJSON as? [String: Any] {
                 if let statusCode = responseJSON["status"] {
                     let status = statusCode as! Int
                     if status == 201 {
-                        print("이력추가 성공")
                         DispatchQueue.main.async {
+                            
+                            //저장되었습니다 확인을 누르고 나서 parentVC.getData()를 하면 좋을것 같습니다.
                             self.simplerAlertwhenSave(title: "저장되었습니다")
                             let parentVC = self.presentingViewController as! CareerVC
+                            
                             parentVC.getData(careerType: 1)
-                            parentVC.prizeTableView.reloadData()
                         }
                     } else  {
                         print("이력추가 실패")

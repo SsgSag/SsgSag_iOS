@@ -151,13 +151,9 @@ class myPageVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
     // MARK: - Network
     private func uploadImage(_ selecteImage: UIImage?) {
         
-        let urlString = UserAPI.sharedInstance.getURL("/user/photo")
+        guard let url = UserAPI.sharedInstance.getURL("/user/photo") else {return}
         
         guard let sendImage = selecteImage else {
-            return
-        }
-        
-        guard let url = URL(string: urlString) else {
             return
         }
         
@@ -186,11 +182,7 @@ class myPageVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
     
     
     private func getData() {
-        let urlString = UserAPI.sharedInstance.getURL("/user")
-        
-        guard let url = URL(string: urlString) else {
-            return
-        }
+        guard let url = UserAPI.sharedInstance.getURL("/user") else {return}
         
         guard let key = UserDefaults.standard.object(forKey: "SsgSagToken") as? String else {
             return

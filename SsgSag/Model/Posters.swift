@@ -1,28 +1,31 @@
 import Foundation
 
-struct Posters : Codable {
-    let posterIdx : Int?
-    let categoryIdx : Int?
-    let photoUrl : String?
-    let posterName : String?
-    let posterRegDate : String?
-    let posterStartDate : String?
-    let posterEndDate : String?
-    let posterWebSite : String?
-    let outline : String?
-    let target : String?
-    let period : String?
-    let benefit : String?
-    let documentDate : String?
-    let contentIdx : Int?
-    let hostIdx : Int?
-    let posterDetail : String?
-    let posterInterest : [Int]?
-    let dday : Int?
-    let keyword: String?
+struct Posters: Codable {
+    var posterIdx: Int?
+    var categoryIdx: Int?
+    var isCompleted: Int?
+    var isEnded: Int?
+    var posterName: String?
+    var outline: String?
+    var posterStartDate: String?
+    var posterEndDate: String?
+    var documentDate: String?
+    var dday: Int?
+    var isFavorite: Int?
+    var photoUrl : String?
+    var posterRegDate : String?
+    var posterWebSite : String?
+    var target : String?
+    var period : String?
+    var benefit : String?
+    var contentIdx : Int?
+    var hostIdx : Int?
+    var posterDetail : String?
+    var posterInterest : [Int]?
+    var keyword: String?
+    var adminAccept: Int?
     
     enum CodingKeys: String, CodingKey {
-        
         case posterIdx = "posterIdx"
         case categoryIdx = "categoryIdx"
         case photoUrl = "photoUrl"
@@ -42,6 +45,7 @@ struct Posters : Codable {
         case posterDetail = "posterDetail"
         case posterInterest = "posterInterest"
         case dday = "dday"
+        case adminAccept = "adminAccept"
     }
     
     init(from decoder: Decoder) throws {
@@ -65,6 +69,7 @@ struct Posters : Codable {
         posterDetail = try values.decodeIfPresent(String.self, forKey: .posterDetail)
         posterInterest = try values.decodeIfPresent([Int].self, forKey: .posterInterest)
         dday = try values.decodeIfPresent(Int.self, forKey: .dday)
+        adminAccept = try values.decodeIfPresent(Int.self, forKey: .adminAccept)
     }
     
 }

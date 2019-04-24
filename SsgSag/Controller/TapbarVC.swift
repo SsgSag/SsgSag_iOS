@@ -8,16 +8,23 @@
 
 import UIKit
 
+struct StoryBoardName {
+    static let swipe = "SwipeStoryBoard"
+    static let mypage = "MyPageStoryBoard"
+}
+
 class TapbarVC: UITabBarController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let swipeStoryBoard = UIStoryboard(name: "SwipeStoryBoard", bundle: nil)
+        let swipeStoryBoard = UIStoryboard(name: StoryBoardName.swipe, bundle: nil)
+        let mypageStoryBoard = UIStoryboard(name: StoryBoardName.mypage, bundle: nil)
+        
+        
         let firstViewController = swipeStoryBoard.instantiateViewController(withIdentifier: "Swipe")
         firstViewController.tabBarItem = UITabBarItem(title: "", image: UIImage(named: "icMain"), selectedImage: UIImage(named: "icMainActive"))
         
-        let mypageStoryBoard = UIStoryboard(name: "MyPageStoryBoard", bundle: nil)
         let secondViewController = mypageStoryBoard.instantiateViewController(withIdentifier: "MyPageVC")
         secondViewController.tabBarItem = UITabBarItem(title: "", image: UIImage(named: "icUser"), selectedImage: UIImage(named: "icUserActive"))
         

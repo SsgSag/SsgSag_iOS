@@ -366,7 +366,6 @@ extension CalenderView: UICollectionViewDelegate, UICollectionViewDataSource {
                                                                  categoryIdx: posterCategortIdx)
                                                                     )
                 }
-                
             }
         }
         
@@ -424,7 +423,6 @@ extension CalenderView: UICollectionViewDelegate, UICollectionViewDataSource {
             cell.lbl.textColor = UIColor.white
         }
         
-        
         if let lastselectedIndex = lastSelectedIndexPath {
             if indexPath == lastselectedIndex && todoButtonTapped {
                 cell.lbl.backgroundColor = UIColor.clear
@@ -452,9 +450,8 @@ extension CalenderView: UICollectionViewDelegate, UICollectionViewDataSource {
         lastSelectedIndexPath = indexPath
         
         let userInfo = [ "currentCellDateTime" : currentCellDateTime ]
-        
-        //CalendarVC에 지금 선택된 날짜를 전송 안해도 되고 변수에 저장해 놓으면 됨
         NotificationCenter.default.post(name: NSNotification.Name(rawValue: "didselectItem"), object: nil, userInfo: userInfo as [AnyHashable : Any])
+        
     }
     
     //새로운 셀 선택시 이전셀 복구
@@ -475,11 +472,7 @@ extension CalenderView: UICollectionViewDelegate, UICollectionViewDataSource {
             lbl.textColor = UIColor.red
             lbl.backgroundColor = UIColor.clear
         }
-        
-        let currentDate = Date()
-        let calendar = Calendar.current
-        let components = calendar.dateComponents([.year, .month, .day], from: currentDate)
-        
+
     }
     
 }

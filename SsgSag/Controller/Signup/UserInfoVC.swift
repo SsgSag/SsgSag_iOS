@@ -42,11 +42,9 @@ class UserInfoVC: UIViewController, UITextFieldDelegate {
         
         let signupType:Int = 10 //자체 로그인은 10
         
-        let urlString = UserAPI.sharedInstance.getURL("/user/validate?userEmail=\(userEmailString)&signupType=\(signupType)")
+        guard let url = UserAPI.sharedInstance.getURL("/user/validate?userEmail=\(userEmailString)&signupType=\(signupType)") else {return}
         
-        guard let requestURL = URL(string: urlString) else { return }
-        
-        var request = URLRequest(url: requestURL)
+        var request = URLRequest(url: url)
         request.httpMethod = "GET"
         
         NetworkManager.shared.getData(with: request) { (data, error, response) in

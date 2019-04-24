@@ -13,7 +13,7 @@
         <!--LoginVC-->
         <scene sceneID="FVm-Ac-nOB">
             <objects>
-                <viewController storyboardIdentifier="Login" id="tMf-Vk-5XN" customClass="LoginVC" customModule="SsgSag" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="Login" id="tMf-Vk-5XN" customClass="LoginVC" customModule="슥삭" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="To5-i1-NtQ">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -192,7 +192,7 @@
         <!--LoginPopUp-->
         <scene sceneID="Ls2-OE-iqd">
             <objects>
-                <viewController storyboardIdentifier="LoginPopUp" title="LoginPopUp" id="Hcx-fy-uQX" customClass="LoginPopUpVC" customModule="SsgSag" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="LoginPopUp" title="LoginPopUp" id="Hcx-fy-uQX" customClass="LoginPopUpVC" customModule="슥삭" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="ZRA-W0-gko">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -322,7 +322,7 @@
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
-                        <segue destination="tMf-Vk-5XN" kind="show" id="MOn-pQ-0xi"/>
+                        <segue destination="tMf-Vk-5XN" kind="show" identifier="LoginSegue" id="MOn-pQ-0xi"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="DEY-oX-9gQ" userLabel="First Responder" sceneMemberID="firstResponder"/>

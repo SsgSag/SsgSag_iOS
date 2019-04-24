@@ -14,7 +14,7 @@
         <!--My PageVC-->
         <scene sceneID="X3p-sD-j5P">
             <objects>
-                <viewController storyboardIdentifier="MyPageVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="xxg-7e-42k" customClass="myPageVC" customModule="SsgSag" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="MyPageVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="xxg-7e-42k" customClass="myPageVC" customModule="슥삭" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="5iA-ni-bLV">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -187,7 +187,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icArrowNextMypage" translatesAutoresizingMaskIntoConstraints="NO" id="ZqY-EB-LcC">
-                                                    <rect key="frame" x="331" y="16" width="24" height="23.666666666666671"/>
+                                                    <rect key="frame" x="370" y="16" width="24" height="23.666666666666671"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" secondItem="ZqY-EB-LcC" secondAttribute="height" multiplier="24:24" id="8xJ-IQ-Vwp"/>
                                                     </constraints>
@@ -216,7 +216,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icArrowNextMypage" translatesAutoresizingMaskIntoConstraints="NO" id="vqg-fx-2BB">
-                                                    <rect key="frame" x="331" y="16" width="24" height="23.666666666666671"/>
+                                                    <rect key="frame" x="370" y="16" width="24" height="23.666666666666671"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" secondItem="vqg-fx-2BB" secondAttribute="height" multiplier="24:24" id="WWV-3Q-nf8"/>
                                                     </constraints>
@@ -245,7 +245,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icArrowNextMypage" translatesAutoresizingMaskIntoConstraints="NO" id="BSC-fw-4DZ">
-                                                    <rect key="frame" x="331" y="16" width="24" height="23.666666666666671"/>
+                                                    <rect key="frame" x="370" y="16" width="24" height="23.666666666666671"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" secondItem="BSC-fw-4DZ" secondAttribute="height" multiplier="24:24" id="YAU-z4-R7e"/>
                                                     </constraints>
@@ -276,7 +276,7 @@
         <!--구직여부-->
         <scene sceneID="RtO-2j-Vli">
             <objects>
-                <viewController id="cnl-e1-rb8" customClass="JobVC" customModule="SsgSag" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="cnl-e1-rb8" customClass="JobVC" customModule="슥삭" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="l5A-Az-eQy">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="1600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -570,7 +570,7 @@
         <!--Preference-->
         <scene sceneID="1uQ-gR-vGC">
             <objects>
-                <viewController storyboardIdentifier="PreferenceVC" title="Preference" id="17w-h8-msn" customClass="PreferenceVC" customModule="SsgSag" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="PreferenceVC" title="Preference" id="17w-h8-msn" customClass="PreferenceVC" customModule="슥삭" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="wnZ-KW-xtJ">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="1350"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -770,12 +770,12 @@
                                 </constraints>
                             </scrollView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vfg-mP-sok" userLabel="저장">
-                                <rect key="frame" x="0.0" y="1270" width="375" height="80"/>
+                                <rect key="frame" x="0.0" y="1290" width="375" height="60"/>
                                 <color key="backgroundColor" red="0.78823529410000004" green="0.78823529410000004" blue="0.78823529410000004" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="80" id="9rB-dk-9iy"/>
+                                    <constraint firstAttribute="height" constant="60" id="9rB-dk-9iy"/>
                                 </constraints>
-                                <state key="normal" image="btSaveMypageUnactive"/>
+                                <state key="normal" image="btSaveMypageActive"/>
                                 <connections>
                                     <action selector="touchUpSaveButton:" destination="17w-h8-msn" eventType="touchUpInside" id="0zz-q3-KiR"/>
                                 </connections>
@@ -827,7 +827,7 @@
         <!--이력-->
         <scene sceneID="H19-Ba-ugb">
             <objects>
-                <viewController id="irf-eB-z6L" customClass="CareerVC" customModule="SsgSag" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="irf-eB-z6L" customClass="CareerVC" customModule="슥삭" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="b5g-IK-pcL">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -871,7 +871,7 @@
         <!--Add ActivityVC-->
         <scene sceneID="AOx-f6-E6w">
             <objects>
-                <viewController storyboardIdentifier="AddActivityVC" id="F2a-8a-TlB" customClass="AddActivityVC" customModule="SsgSag" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="AddActivityVC" id="F2a-8a-TlB" customClass="AddActivityVC" customModule="슥삭" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="loc-3D-plY">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1067,7 +1067,7 @@
         <!--AddVC-->
         <scene sceneID="P0I-AS-jHU">
             <objects>
-                <viewController storyboardIdentifier="AddVC" id="3BH-gx-Png" customClass="AddVC" customModule="SsgSag" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="AddVC" id="3BH-gx-Png" customClass="AddVC" customModule="슥삭" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="MOM-cR-hh1">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1109,30 +1109,37 @@
                                                 </constraints>
                                             </view>
                                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="BLm-x9-ZYF">
-                                                <rect key="frame" x="20" y="138" width="353.33333333333331" height="22"/>
+                                                <rect key="frame" x="20" y="138" width="353.33333333333331" height="33"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="수상연도" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0s4-5I-Xyb">
-                                                        <rect key="frame" x="0.0" y="0.0" width="176.66666666666666" height="22"/>
-                                                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="16"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="176.66666666666666" height="33"/>
+                                                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="20"/>
                                                         <color key="textColor" red="0.25882352939999997" green="0.36862745099999999" blue="0.8980392157" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
-                                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="2018년 12월 12일" textAlignment="right" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="w5C-gp-3gB">
-                                                        <rect key="frame" x="176.66666666666669" y="0.0" width="176.66666666666669" height="22"/>
-                                                        <nil key="textColor"/>
-                                                        <fontDescription key="fontDescription" type="system" pointSize="18"/>
-                                                        <textInputTraits key="textInputTraits"/>
-                                                    </textField>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="x82-Tr-uxa">
+                                                        <rect key="frame" x="176.66666666666669" y="0.0" width="176.66666666666669" height="33"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                        <state key="normal" title="2019년 1월 30일">
+                                                            <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        </state>
+                                                        <variation key="heightClass=regular-widthClass=regular">
+                                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                        </variation>
+                                                        <connections>
+                                                            <action selector="addActiveDate:" destination="3BH-gx-Png" eventType="touchUpInside" id="GkV-TC-exn"/>
+                                                        </connections>
+                                                    </button>
                                                 </subviews>
                                             </stackView>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="메모" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5n9-bF-Sdu">
-                                                <rect key="frame" x="20" y="220" width="28" height="19.333333333333343"/>
+                                                <rect key="frame" x="20" y="231" width="28" height="19.333333333333343"/>
                                                 <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="16"/>
                                                 <color key="textColor" red="0.25882352939999997" green="0.36862745099999999" blue="0.8980392157" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="4ey-hm-Jfs">
-                                                <rect key="frame" x="39.333333333333314" y="255.33333333333331" width="315" height="150"/>
+                                                <rect key="frame" x="39.333333333333314" y="266.33333333333331" width="315" height="150"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="150" id="eVS-Rn-s6c"/>
@@ -1192,9 +1199,9 @@
                     </view>
                     <connections>
                         <outlet property="contentTextView" destination="4ey-hm-Jfs" id="eWa-Ue-Svs"/>
+                        <outlet property="dateButton" destination="x82-Tr-uxa" id="4iK-ik-i9v"/>
                         <outlet property="saveButton" destination="7QG-Cw-qpq" id="ahS-pN-ZwP"/>
                         <outlet property="titleTextField" destination="XKN-GJ-sIe" id="GSZ-QM-e4j"/>
-                        <outlet property="yearTextField" destination="w5C-gp-3gB" id="gKH-0L-RYs"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bmK-ww-rvv" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1204,7 +1211,7 @@
         <!--DatePickerPopUp-->
         <scene sceneID="kN9-gy-Lxn">
             <objects>
-                <viewController storyboardIdentifier="DatePickerPoPUp" title="DatePickerPopUp" id="9Bf-yL-rXw" customClass="DatePickerPopUpVC" customModule="SsgSag" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="DatePickerPoPUp" title="DatePickerPopUp" id="9Bf-yL-rXw" customClass="DatePickerPopUpVC" customModule="슥삭" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="oPy-N5-Hte">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1280,7 +1287,7 @@
         <!--Add CertificationVC-->
         <scene sceneID="Svq-WU-yJN">
             <objects>
-                <viewController storyboardIdentifier="AddCertificationVC" id="RVd-cn-La7" customClass="AddCertificationVC" customModule="SsgSag" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="AddCertificationVC" id="RVd-cn-La7" customClass="AddCertificationVC" customModule="슥삭" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="OvO-va-uMd">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1412,7 +1419,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9GI-Xx-Y7H" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="6722" y="1716"/>
+            <point key="canvasLocation" x="6704" y="1726"/>
         </scene>
     </scenes>
     <resources>
@@ -1444,6 +1451,7 @@
         <image name="btPreferenceSocietyUnactive" width="162" height="162"/>
         <image name="btPreferenceStartupUnactive" width="162" height="162"/>
         <image name="btPreferenceTechUnactive" width="162" height="162"/>
+        <image name="btSaveMypageActive" width="375" height="80"/>
         <image name="btSaveMypageUnactive" width="375" height="80"/>
         <image name="icArrowBack" width="24" height="24"/>
         <image name="icArrowGradation" width="44" height="50"/>

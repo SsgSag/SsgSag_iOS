@@ -88,6 +88,7 @@ class AddCertificationVC: UIViewController, UITextFieldDelegate, UITextViewDeleg
     }
     
     func postData() {
+        
         let json: [String: Any] = [
             "careerType" : 2,
             "careerName" : titleTextField.text ?? "",
@@ -141,6 +142,20 @@ class AddCertificationVC: UIViewController, UITextFieldDelegate, UITextViewDeleg
         }
     }
     
+    func popUpDatePicker(button: UIButton, activityCategory: ActivityCategory) {
+        
+        let myPageStoryBoard = UIStoryboard(name: "MyPageStoryBoard", bundle: nil)
+        let popVC = myPageStoryBoard.instantiateViewController(withIdentifier: "DatePickerPoPUp") as! DatePickerPopUpVC
+        
+        popVC.activityCategory = activityCategory
+        
+        self.addChild(popVC)
+        
+        popVC.view.frame = self.view.frame
+        self.view.addSubview(popVC.view)
+        
+        popVC.didMove(toParent: self)
+    }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         view.endEditing(true)
@@ -150,5 +165,5 @@ class AddCertificationVC: UIViewController, UITextFieldDelegate, UITextViewDeleg
         textField.resignFirstResponder()
         return true
     }
-
+    
 }

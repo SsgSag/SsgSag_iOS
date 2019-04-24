@@ -13,7 +13,7 @@
         <!--Confirm ProfileVC-->
         <scene sceneID="u2p-Ft-3lL">
             <objects>
-                <viewController storyboardIdentifier="SignupFirst" id="9Eg-LF-Rpx" customClass="ConfirmProfileVC" customModule="SsgSag" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="SignupFirst" id="9Eg-LF-Rpx" customClass="ConfirmProfileVC" customModule="슥삭" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="02G-GO-XOn">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -24,10 +24,10 @@
                                     <constraint firstAttribute="height" constant="4" id="v8R-H7-Mf7"/>
                                 </constraints>
                             </imageView>
-                            <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" axis="vertical" alignment="top" spacing="3" translatesAutoresizingMaskIntoConstraints="NO" id="n04-fx-RxB" userLabel="Title Stack View">
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="3" translatesAutoresizingMaskIntoConstraints="NO" id="n04-fx-RxB" userLabel="Title Stack View">
                                 <rect key="frame" x="20" y="44" width="284.5" height="46.5"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="편리한 서비스 제공을 위해 몇 가지 정보가 필요해요!" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Rpg-68-y2z">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" verticalCompressionResistancePriority="751" text="편리한 서비스 제공을 위해 몇 가지 정보가 필요해요!" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Rpg-68-y2z">
                                         <rect key="frame" x="0.0" y="0.0" width="284.5" height="17"/>
                                         <fontDescription key="fontDescription" type="system" weight="medium" pointSize="14"/>
                                         <nil key="textColor"/>
@@ -42,19 +42,19 @@
                                 </subviews>
                             </stackView>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="55" baselineRelativeArrangement="YES" translatesAutoresizingMaskIntoConstraints="NO" id="tD0-Bf-Ut5" userLabel="이름생년월일닉네임">
-                                <rect key="frame" x="20" y="185.5" width="280" height="158"/>
+                                <rect key="frame" x="20" y="183.5" width="280" height="162"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="Vkk-9Q-tbl" userLabel="이름">
-                                        <rect key="frame" x="0.0" y="0.0" width="280" height="26.5"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="280" height="27"/>
                                         <subviews>
                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="이름" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Iso-vu-rDR">
-                                                <rect key="frame" x="0.0" y="0.0" width="280" height="17.5"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="280" height="18"/>
                                                 <nil key="textColor"/>
                                                 <fontDescription key="fontDescription" type="system" weight="medium" pointSize="18"/>
                                                 <textInputTraits key="textInputTraits" autocorrectionType="no" returnKeyType="next"/>
                                             </textField>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rv9-xn-4ee">
-                                                <rect key="frame" x="0.0" y="25.5" width="280" height="1"/>
+                                                <rect key="frame" x="0.0" y="26" width="280" height="1"/>
                                                 <color key="backgroundColor" red="0.8784313725490196" green="0.8784313725490196" blue="0.8784313725490196" alpha="1" colorSpace="calibratedRGB"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="1" id="ruO-WO-O3L"/>
@@ -63,16 +63,16 @@
                                         </subviews>
                                     </stackView>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="ZOY-pb-cfr" userLabel="생년월일">
-                                        <rect key="frame" x="0.0" y="66" width="280" height="26.5"/>
+                                        <rect key="frame" x="0.0" y="67.5" width="280" height="27"/>
                                         <subviews>
                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="생년월일" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="q14-uV-z4K">
-                                                <rect key="frame" x="0.0" y="0.0" width="280" height="17.5"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="280" height="18"/>
                                                 <nil key="textColor"/>
                                                 <fontDescription key="fontDescription" type="system" weight="medium" pointSize="18"/>
                                                 <textInputTraits key="textInputTraits" autocorrectionType="no" keyboardType="numbersAndPunctuation" returnKeyType="next"/>
                                             </textField>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OhO-Ak-EJB">
-                                                <rect key="frame" x="0.0" y="25.5" width="280" height="1"/>
+                                                <rect key="frame" x="0.0" y="26" width="280" height="1"/>
                                                 <color key="backgroundColor" red="0.87843137250000003" green="0.87843137250000003" blue="0.87843137250000003" alpha="1" colorSpace="calibratedRGB"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="1" id="M5j-AE-pBg"/>
@@ -81,16 +81,16 @@
                                         </subviews>
                                     </stackView>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="Foy-Wg-RCD" userLabel="닉네임">
-                                        <rect key="frame" x="0.0" y="132" width="280" height="26"/>
+                                        <rect key="frame" x="0.0" y="135" width="280" height="27"/>
                                         <subviews>
                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="닉네임" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Ght-fL-2Pg">
-                                                <rect key="frame" x="0.0" y="0.0" width="280" height="17"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="280" height="18"/>
                                                 <nil key="textColor"/>
                                                 <fontDescription key="fontDescription" type="system" weight="medium" pointSize="18"/>
                                                 <textInputTraits key="textInputTraits" autocorrectionType="no"/>
                                             </textField>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cIS-ln-Gwv">
-                                                <rect key="frame" x="0.0" y="25" width="280" height="1"/>
+                                                <rect key="frame" x="0.0" y="26" width="280" height="1"/>
                                                 <color key="backgroundColor" red="0.87843137250000003" green="0.87843137250000003" blue="0.87843137250000003" alpha="1" colorSpace="calibratedRGB"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="1" id="sPj-QJ-JbN"/>
@@ -106,11 +106,8 @@
                                     <constraint firstItem="Foy-Wg-RCD" firstAttribute="height" secondItem="tD0-Bf-Ut5" secondAttribute="height" multiplier="1:6" id="ouR-fS-hFw"/>
                                 </constraints>
                             </stackView>
-                            <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yBw-vu-4Lb" userLabel="남자여자">
-                                <rect key="frame" x="20" y="448" width="335" height="47.5"/>
-                            </stackView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PgG-AB-IYO" userLabel="malefemaleView">
-                                <rect key="frame" x="20" y="358.5" width="280" height="40"/>
+                                <rect key="frame" x="20" y="360.5" width="280" height="40"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Pcm-NO-I1H">
                                         <rect key="frame" x="0.0" y="0.0" width="140" height="40"/>
@@ -149,10 +146,10 @@
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pVv-Uz-3v6">
-                                <rect key="frame" x="20" y="438.5" width="280" height="50"/>
+                                <rect key="frame" x="20" y="440.5" width="280" height="50"/>
                                 <subviews>
-                                    <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" distribution="fillProportionally" spacing="3" translatesAutoresizingMaskIntoConstraints="NO" id="kAV-ok-pxn" userLabel="서비스이용약관">
-                                        <rect key="frame" x="-4" y="17" width="295.5" height="20"/>
+                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" spacing="3" translatesAutoresizingMaskIntoConstraints="NO" id="kAV-ok-pxn" userLabel="서비스이용약관">
+                                        <rect key="frame" x="-7.5" y="15" width="295.5" height="20"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GHl-td-mNV">
                                                 <rect key="frame" x="0.0" y="0.0" width="20" height="20"/>
@@ -199,6 +196,8 @@
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" secondItem="kAV-ok-pxn" secondAttribute="height" constant="30" id="1GY-Vp-bDK"/>
+                                    <constraint firstItem="kAV-ok-pxn" firstAttribute="centerX" secondItem="pVv-Uz-3v6" secondAttribute="centerX" id="7bA-2B-uvb"/>
+                                    <constraint firstItem="kAV-ok-pxn" firstAttribute="centerY" secondItem="pVv-Uz-3v6" secondAttribute="centerY" id="obc-z2-DSZ"/>
                                 </constraints>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XVj-W4-E6d" userLabel="다음">
@@ -214,7 +213,7 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="PgG-AB-IYO" firstAttribute="width" secondItem="02G-GO-XOn" secondAttribute="width" multiplier="0.89" id="6fk-1s-tb8"/>
+                            <constraint firstItem="tD0-Bf-Ut5" firstAttribute="top" secondItem="n04-fx-RxB" secondAttribute="bottom" constant="93" id="7zx-l0-IUT"/>
                             <constraint firstItem="pVv-Uz-3v6" firstAttribute="leading" secondItem="PtI-Gz-Ygn" secondAttribute="leading" constant="20" id="8c4-9C-Z9q"/>
                             <constraint firstItem="wge-HS-lsL" firstAttribute="top" secondItem="PtI-Gz-Ygn" secondAttribute="top" id="Ac8-NK-V6i"/>
                             <constraint firstItem="n04-fx-RxB" firstAttribute="top" secondItem="wge-HS-lsL" secondAttribute="bottom" constant="20" id="ArC-XP-Kan"/>
@@ -223,8 +222,7 @@
                             <constraint firstAttribute="bottom" secondItem="XVj-W4-E6d" secondAttribute="bottom" id="Dee-ZL-wZx"/>
                             <constraint firstItem="PtI-Gz-Ygn" firstAttribute="trailing" secondItem="PgG-AB-IYO" secondAttribute="trailing" constant="20" id="IAM-PL-rb1"/>
                             <constraint firstItem="pVv-Uz-3v6" firstAttribute="top" secondItem="PgG-AB-IYO" secondAttribute="bottom" constant="40" id="IqW-q1-6sf"/>
-                            <constraint firstItem="yBw-vu-4Lb" firstAttribute="leading" secondItem="PtI-Gz-Ygn" secondAttribute="leading" constant="20" id="Kyc-pt-ZPL"/>
-                            <constraint firstItem="yBw-vu-4Lb" firstAttribute="centerX" secondItem="PtI-Gz-Ygn" secondAttribute="centerX" id="NvB-Dw-7Ee"/>
+                            <constraint firstItem="n04-fx-RxB" firstAttribute="leading" secondItem="tD0-Bf-Ut5" secondAttribute="leading" id="Nat-6T-Rd5"/>
                             <constraint firstItem="wge-HS-lsL" firstAttribute="width" secondItem="02G-GO-XOn" secondAttribute="width" id="UBH-o7-rBZ"/>
                             <constraint firstItem="PtI-Gz-Ygn" firstAttribute="trailing" secondItem="tD0-Bf-Ut5" secondAttribute="trailing" constant="20" id="YZ5-Wc-hHT"/>
                             <constraint firstItem="wge-HS-lsL" firstAttribute="centerX" secondItem="PtI-Gz-Ygn" secondAttribute="centerX" id="bAQ-9E-Nqd"/>
@@ -232,23 +230,13 @@
                             <constraint firstItem="XVj-W4-E6d" firstAttribute="height" secondItem="02G-GO-XOn" secondAttribute="height" multiplier="0.07" id="crE-Il-6Yy"/>
                             <constraint firstItem="tD0-Bf-Ut5" firstAttribute="centerY" secondItem="PtI-Gz-Ygn" secondAttribute="centerY" multiplier="0.9" id="ix2-pZ-z6H"/>
                             <constraint firstItem="XVj-W4-E6d" firstAttribute="centerX" secondItem="PtI-Gz-Ygn" secondAttribute="centerX" id="j90-Xy-xJj"/>
-                            <constraint firstItem="yBw-vu-4Lb" firstAttribute="top" secondItem="tD0-Bf-Ut5" secondAttribute="bottom" constant="38" id="jHt-VN-LJM"/>
-                            <constraint firstItem="PtI-Gz-Ygn" firstAttribute="trailing" relation="lessThanOrEqual" secondItem="n04-fx-RxB" secondAttribute="trailing" constant="20" id="jYQ-FK-7Yx"/>
                             <constraint firstItem="XVj-W4-E6d" firstAttribute="top" relation="greaterThanOrEqual" secondItem="pVv-Uz-3v6" secondAttribute="bottom" constant="15" id="kHc-lw-ItB"/>
                             <constraint firstItem="PgG-AB-IYO" firstAttribute="leading" secondItem="PtI-Gz-Ygn" secondAttribute="leading" constant="20" id="mo9-mj-Np2"/>
                             <constraint firstItem="PtI-Gz-Ygn" firstAttribute="trailing" secondItem="pVv-Uz-3v6" secondAttribute="trailing" constant="20" id="pz5-bJ-Ccm"/>
-                            <constraint firstItem="pVv-Uz-3v6" firstAttribute="top" relation="greaterThanOrEqual" secondItem="yBw-vu-4Lb" secondAttribute="bottom" constant="50" id="qRd-3Q-XGg"/>
                             <constraint firstItem="tD0-Bf-Ut5" firstAttribute="centerX" secondItem="PtI-Gz-Ygn" secondAttribute="centerX" id="qWP-2Y-5gr"/>
-                            <constraint firstItem="n04-fx-RxB" firstAttribute="leading" relation="lessThanOrEqual" secondItem="PtI-Gz-Ygn" secondAttribute="leading" constant="20" id="rlp-87-jhg"/>
-                            <constraint firstItem="PtI-Gz-Ygn" firstAttribute="trailing" secondItem="yBw-vu-4Lb" secondAttribute="trailing" constant="20" id="teu-Gq-mVq"/>
                             <constraint firstItem="tD0-Bf-Ut5" firstAttribute="leading" secondItem="PtI-Gz-Ygn" secondAttribute="leading" constant="20" id="xu6-X1-B3T"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="PtI-Gz-Ygn"/>
-                        <variation key="default">
-                            <mask key="subviews">
-                                <exclude reference="yBw-vu-4Lb"/>
-                            </mask>
-                        </variation>
                     </view>
                     <navigationItem key="navigationItem" id="zy7-Zh-0bz"/>
                     <connections>
@@ -269,7 +257,7 @@
         <!--School InfoVC-->
         <scene sceneID="Ju5-wv-H7z">
             <objects>
-                <viewController storyboardIdentifier="SchoolInfoVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="xEW-PO-qx4" customClass="SchoolInfoVC" customModule="SsgSag" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="SchoolInfoVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="xEW-PO-qx4" customClass="SchoolInfoVC" customModule="슥삭" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="ik2-Fr-Cx4">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -414,10 +402,10 @@
         <!--LoginStoryBoard-->
         <scene sceneID="E0G-4V-JoE">
             <objects>
-                <viewControllerPlaceholder storyboardName="LoginStoryBoard" id="bfa-jc-OCO" sceneMemberID="viewController"/>
+                <viewControllerPlaceholder storyboardIdentifier="LoginStoryBoard" storyboardName="LoginStoryBoard" id="bfa-jc-OCO" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ehQ-ye-Zvb" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="850" y="-324"/>
+            <point key="canvasLocation" x="744" y="-322"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="B4s-dS-Osl">
@@ -702,7 +690,7 @@
         <!--Sign Up CompleteVC-->
         <scene sceneID="DBu-AB-l0U">
             <objects>
-                <viewController storyboardIdentifier="SignUpCompleteVC" id="V0j-KU-b25" customClass="SignUpCompleteVC" customModule="SsgSag" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="SignUpCompleteVC" id="V0j-KU-b25" customClass="SignUpCompleteVC" customModule="슥삭" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="21C-TB-Rv6">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="1350"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -938,7 +926,7 @@
         <!--User InfoVC-->
         <scene sceneID="Mxc-4g-kB8">
             <objects>
-                <viewController storyboardIdentifier="UserInfoVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="GGt-42-CPf" customClass="UserInfoVC" customModule="SsgSag" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="UserInfoVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="GGt-42-CPf" customClass="UserInfoVC" customModule="슥삭" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="4aU-pQ-qes">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

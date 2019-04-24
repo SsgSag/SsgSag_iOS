@@ -15,4 +15,5 @@ struct posterData : Codable {
 		userCnt = try values.decodeIfPresent(Int.self, forKey: .userCnt)
 	}
     
+    
 }
