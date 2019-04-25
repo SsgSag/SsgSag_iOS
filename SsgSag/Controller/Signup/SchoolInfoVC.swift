@@ -45,10 +45,8 @@ class SchoolInfoVC: UIViewController, UITextFieldDelegate {
         gradeField.tag = 3
         numberField.tag = 4
         
-        // 1 - Configure a simple search text field
         configureSimpleSearchTextField()
         configureSimpleMajorSearchTextField()
-        
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
@@ -65,11 +63,6 @@ class SchoolInfoVC: UIViewController, UITextFieldDelegate {
    
     
     @IBAction func touchUpNextButton(_ sender: Any) {
-        
-//        let gradeSequence = 1...4
-//        gradeField.text?.filter({ (gradeText) -> Bool in
-//            return true
-//        })
         
         let storyboard = UIStoryboard(name: StoryBoardName.signup, bundle: nil)
         guard let SignUpCompleteVC = storyboard.instantiateViewController(withIdentifier: "SignUpCompleteVC") as? SignUpCompleteVC else {return}

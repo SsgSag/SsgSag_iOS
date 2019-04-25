@@ -8,32 +8,32 @@
 
 import UIKit
 
-class ConfirmProfileVC: UIViewController, UITextFieldDelegate {
+class ConfirmProfileVC: UIViewController, UITextFieldDelegate, UIGestureRecognizerDelegate {
     
-    var name: String = ""
-    var nickName: String = ""
-    var password: String = ""
-    var gender: String = ""
+    private var name: String = ""
+    private var nickName: String = ""
+    private var password: String = ""
+    private var gender: String = ""
     
     @IBOutlet weak var titleLabel: UILabel!
-    @IBOutlet weak var titleImage: UIImageView!
+    
     @IBOutlet weak var nameField: UITextField!
     @IBOutlet weak var birthField: UITextField!
     @IBOutlet weak var nickNameField: UITextField!
+    
     @IBOutlet weak var maleButton: UIButton!
     @IBOutlet weak var femaleButton: UIButton!
     @IBOutlet weak var checkBoxButton: UIButton!
     @IBOutlet weak var nextButton: UIButton!
-    @IBOutlet weak var stackViewConstraint:  NSLayoutConstraint! //289
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         nextButton.isUserInteractionEnabled = false
-
-//        self.navigationItem.setHidesBackButton(true, animated: true)
-//        setBackBtn( color: .black)
+        
+        iniGestureRecognizer()
+        
         let backButton = UIBarButtonItem(image: UIImage(named: "icArrowBack"),
             style: .plain,
             target: self,
@@ -52,6 +52,19 @@ class ConfirmProfileVC: UIViewController, UITextFieldDelegate {
         birthField.tag = 2
         nickNameField.tag = 3
     }
+    
+    private func iniGestureRecognizer() {
+        let tap = UITapGestureRecognizer(target: self, action: #selector(handleTabMainView(_:)))
+        tap.delegate = self
+        view.addGestureRecognizer(tap)
+    }
+    
+    @objc func handleTabMainView(_ sender: UITapGestureRecognizer){
+        nameField.resignFirstResponder()
+        nickNameField.resignFirstResponder()
+        birthField.resignFirstResponder()
+    }
+    
     //FIXME: - present..하지 마시오,,,,,
     @objc func back(){
         let storyboard = UIStoryboard(name: "LoginStoryBoard", bundle: nil)
@@ -61,16 +74,16 @@ class ConfirmProfileVC: UIViewController, UITextFieldDelegate {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-//        self.nameField.becomeFirstResponder()
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
 
         let nextTag = textField.tag + 1
         
-        if let nextResponder =  self.view.viewWithTag(nextTag){
+        if let nextResponder = self.view.viewWithTag(nextTag){
             
             nextResponder.becomeFirstResponder()
+            
         } else {
             textField.resignFirstResponder()
         }
@@ -89,8 +102,9 @@ class ConfirmProfileVC: UIViewController, UITextFieldDelegate {
             SchoolInfoVC.gender = gender
             
             self.navigationController?.pushViewController(SchoolInfoVC, animated: true)
+            
         } else {
-            simpleAlert(title: "잘못된 형식입니다", message: "생년월일은 970219, \n닉네임은 영한혼용하지 말아주십시요ㅗ....")
+            simpleAlert(title: "잘못된 형식입니다", message: "생년월일은 주민번호앞자리 \n닉네임은 영한혼용하지 말아주세요.")
             birthField.text = ""
         }
     }
@@ -100,10 +114,9 @@ class ConfirmProfileVC: UIViewController, UITextFieldDelegate {
         femaleButton.setImage(UIImage(named: "btFemaleUnactive"), for: .normal)
         if maleButton.isSelected {
             self.gender = ""
-            maleButton.isUserInteractionEnabled = false
+            maleButton.isSelected = false
             maleButton.setImage(UIImage(named: "btMaleUnactive"), for: .normal)
         } else {
-//            self.gender = "female"
             self.gender = "male"
             maleButton.isSelected = true
             maleButton.setImage(UIImage(named: "btMaleActive"), for: .normal)
@@ -120,7 +133,6 @@ class ConfirmProfileVC: UIViewController, UITextFieldDelegate {
             femaleButton.isSelected = false
             femaleButton.setImage(UIImage(named: "btFemaleUnactive"), for: .normal)
         } else {
-//            self.gender = "male"
             self.gender = "female"
             femaleButton.isSelected = true
             femaleButton.setImage(UIImage(named: "btFemaleActive"), for: .normal)
@@ -138,8 +150,6 @@ class ConfirmProfileVC: UIViewController, UITextFieldDelegate {
         }
         checkInformation(self)
     }
-    
-    
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         checkInformation(self)

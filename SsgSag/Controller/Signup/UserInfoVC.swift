@@ -18,6 +18,7 @@ class UserInfoVC: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var stackViewConstraint: NSLayoutConstraint!
     @IBOutlet weak var constraint2: NSLayoutConstraint!
     @IBOutlet weak var constraint3: NSLayoutConstraint!
+    
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var titleImgae: UIImageView!
     
@@ -30,9 +31,23 @@ class UserInfoVC: UIViewController, UITextFieldDelegate {
         
         iniGestureRecognizer()
         
+        setDelegate()
+        setViewWithTag()
+        
         self.titleLabel.isHidden = false
         self.titleImgae.isHidden = false
-        
+    }
+    
+    private func setDelegate() {
+        emailTextField.delegate = self
+        passwordTextField.delegate = self
+        passwordCheckTextField.delegate = self
+    }
+    
+    private func setViewWithTag() {
+        emailTextField.tag = 1
+        passwordTextField.tag = 2
+        passwordCheckTextField.tag = 3
     }
     
     @IBAction func nextActionButton(_ sender: Any) {
@@ -62,7 +77,7 @@ class UserInfoVC: UIViewController, UITextFieldDelegate {
                     guard let isDuplicated = isDuplicateNetworkModel.data else {return}
                     
                     DispatchQueue.main.async {
-                        if isDuplicated  {
+                        if isDuplicated {
                             let storyboard = UIStoryboard(name: "SignupStoryBoard", bundle: nil)
                             let SchoolInfoVC = storyboard.instantiateViewController(withIdentifier: "SignupFirst") as! ConfirmProfileVC
                             self.navigationController?.pushViewController(SchoolInfoVC, animated: true)
@@ -71,10 +86,8 @@ class UserInfoVC: UIViewController, UITextFieldDelegate {
                         }
                     }
                     
-                case .dataBaseError:
-                    print("Email Duplicate DatabaseError")
-                case .serverError:
-                    print("Email Duplicate ServerError")
+                case .dataBaseError, .serverError:
+                    self.simplerAlert(title: "서버 내부 에러")
                 default:
                     break
                 }
@@ -83,6 +96,21 @@ class UserInfoVC: UIViewController, UITextFieldDelegate {
             }
         }
     }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        let nextTag = textField.tag + 1
+        
+        if let nextResponder = self.view.viewWithTag(nextTag){
+            
+            nextResponder.becomeFirstResponder()
+            
+        } else {
+            textField.resignFirstResponder()
+        }
+        
+        return true
+    }
+    
     
     @IBAction func touchUpBackButton(_ sender: UIBarButtonItem) {
         self.dismiss(animated: true, completion: nil)
@@ -126,6 +154,10 @@ class UserInfoVC: UIViewController, UITextFieldDelegate {
             } else {
                 nextButton.isUserInteractionEnabled = false
                 nextButton.setImage(UIImage(named: "btNextUnactive"), for: .normal)
+                
+                self.simplerAlert(title: "두개의 패스워드가 다릅니다.")
+                passwordTextField.text = ""
+                passwordCheckTextField.text = ""
             }
         } else {
             nextButton.isUserInteractionEnabled = false
