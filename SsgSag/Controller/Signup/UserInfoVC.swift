@@ -70,6 +70,7 @@ class UserInfoVC: UIViewController, UITextFieldDelegate {
                             self.simplerAlert(title: "중복되는 이메일이 존재합니다.")
                         }
                     }
+                    
                 case .dataBaseError:
                     print("Email Duplicate DatabaseError")
                 case .serverError:

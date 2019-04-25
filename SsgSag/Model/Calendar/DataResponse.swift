@@ -43,4 +43,5 @@ public enum DataResponse<Data> {
             return error
         }
     }
+    
 }

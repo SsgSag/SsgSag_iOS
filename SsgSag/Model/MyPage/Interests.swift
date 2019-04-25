@@ -28,3 +28,9 @@ struct ReInterest: Codable {
     let message: String?
     let data: JSONNull?
 }
+
+struct Activity: Codable {
+    let status: Int?
+    let message: String?
+    let data: JSONNull?
+}

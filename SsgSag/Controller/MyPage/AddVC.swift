@@ -27,6 +27,7 @@ class AddVC: UIViewController, UITextFieldDelegate, UITextViewDelegate {
     var contentString: String?
     
     override func viewDidLoad() {
+        
         super.viewDidLoad()
         let currentDate = Date()
         let calendar = Calendar.current

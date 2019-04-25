@@ -145,6 +145,7 @@ protocol LoginService: class {
 enum HttpStatusCode: Int, Error {
     
     case sucess = 200
+    case secondSucess = 201
     case favoriteSuccess = 204
     case failure = 404
     case dataBaseError = 600

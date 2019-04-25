@@ -78,7 +78,6 @@ class CalenderVC: UIViewController {
         
         calendarServiceImp = CalendarServiceImp()
         
-        
         getPostersAndStore()
         
         setupContentView()
@@ -94,11 +93,8 @@ class CalenderVC: UIViewController {
         //UserDefaults.standard.removeObject(forKey: "start")
         
         calendarViewBottomAnchor?.priority = UILayoutPriority(750)
-        
-        
     }
     
-
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(true)
         

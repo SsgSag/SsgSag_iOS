@@ -8,39 +8,43 @@
 
 import UIKit
 import Lottie
-//TODO: 저장하기
+
 class AddActivityVC: UIViewController, UITextViewDelegate, UITextFieldDelegate {
     
     @IBOutlet weak var activityNavigationBar: UINavigationBar!
+    
     @IBOutlet weak var titleTextField: UITextField!
+    
     @IBOutlet weak var startDateLabel: UILabel!
+    
     @IBOutlet weak var endDateLabel: UILabel!
+    
     @IBOutlet weak var contentTextView: UITextView!
+    
     @IBOutlet weak var saveButton: UIButton!
     
     var titleString : String?
-    var startDateString = ""
-    var endDateString = ""
+    private var startDateString = ""
+    private var endDateString = ""
     var contentTextString: String?
+    
+    private var myPageServiceImp : myPageService?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let currentDate = Date()
-        let calendar = Calendar.current
-        let components = calendar.dateComponents([.year, .month, .day], from: currentDate)
+        myPageServiceImp = MyPageServiceImp()
         
-        let year = components.year!
-        let month = components.month!
-        let day = components.day!
+        let components = Calendar.current.dateComponents([.year, .month, .day], from: Date())
         
-        let currentDateString: String = "\(year)년 \(month)월 \(day)일"
+        let currentDateString: String = "\(components.year!)년 \(components.month!)월 \(components.day!)일"
         
         startDateLabel.text = currentDateString
         endDateLabel.text = currentDateString
         
         titleTextField.delegate = self
         contentTextView.delegate = self
+        
         contentTextView.applyBorderTextView()
         
         if(contentTextView.text == "") {
@@ -73,11 +77,6 @@ class AddActivityVC: UIViewController, UITextViewDelegate, UITextFieldDelegate {
     }
     
     @IBAction func touchUpSaveButton(_ sender: Any) {
-        let animation = LOTAnimationView(name: "bt_save_round")
-        saveButton.addSubview(animation)
-        
-        animation.play()
-        
         postData()
     }
     
@@ -164,8 +163,8 @@ class AddActivityVC: UIViewController, UITextViewDelegate, UITextFieldDelegate {
     private func stringConverted(with: String) -> String {
         
         var intArray: [Int] = []
-        var monthString:String = ""
-        var dayString:String = ""
+        var monthString: String = ""
+        var dayString: String = ""
         let stringArray = with.components(separatedBy: CharacterSet.decimalDigits.inverted)
         
         for item in stringArray {
@@ -180,6 +179,28 @@ class AddActivityVC: UIViewController, UITextViewDelegate, UITextFieldDelegate {
         return "\(intArray[0])-\(monthString)-\(dayString)"
     }
     
+    struct Converter {
+        
+        static func convertToFormat(of date: String) -> String {
+            
+            var intArray: [Int] = []
+            var monthString: String = ""
+            var dayString: String = ""
+            let stringArray = date.components(separatedBy: CharacterSet.decimalDigits.inverted)
+            
+            for item in stringArray {
+                if let number = Int(item) {
+                    intArray.append(number)
+                }
+            }
+            
+            monthString = intArray[1] >= 10 ? "\(intArray[1])" : "0\(intArray[1])"
+            dayString = intArray[2] >= 10 ? "\(intArray[2])" : "0\(intArray[2])"
+            
+            return "\(intArray[0])-\(monthString)-\(dayString)"
+        }
+    }
+    
     func postData() {
         
         guard let startData = startDateLabel.text else {
@@ -190,12 +211,9 @@ class AddActivityVC: UIViewController, UITextViewDelegate, UITextFieldDelegate {
             return
         }
         
-        let sendStartData = stringConverted(with: startData)
+        let sendStartData = Converter.convertToFormat(of: startData)
         
         let sendEndData = stringConverted(with: endData)
-        
-        print(sendStartData)
-        print(sendEndData)
         
         let json: [String: Any] = [
             "careerType" : 0,
@@ -205,76 +223,44 @@ class AddActivityVC: UIViewController, UITextViewDelegate, UITextFieldDelegate {
             "careerDate2" : sendEndData
         ]
         
-        let jsonData = try? JSONSerialization.data(withJSONObject: json)
-        
-        guard let url = UserAPI.sharedInstance.getURL("/career") else {return}
-        
-        guard let token = UserDefaults.standard.object(forKey: "SsgSagToken") as? String else {
-            return
-        }
-        
-        var request = URLRequest(url: url)
-        request.httpMethod = "POST"
-        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.addValue(token, forHTTPHeaderField: "Authorization")
-        request.httpBody = jsonData
-        
-        // FIXME: - 네트워크 통신 고쳐야 합니다.
-        NetworkManager.shared.getData(with: request) { (data, error, res) in
-            DispatchQueue.global().async {
-                guard let data = data else {
-                    return
-                }
+        myPageServiceImp?.requestStoreAddActivity(json){ (dataResponse) in
+            
+            if !dataResponse.isSuccess {
+                guard let readError = dataResponse.error as? ReadError else {return}
+                print(readError.printErrorType())
                 
-                //print(res)
-                do {
-                    guard let responseJSON = try? JSONSerialization.jsonObject(with: data, options: []) else {
-                        throw JSONSerializationError.data
-                    }
+                DispatchQueue.main.async {
+                    self.simplerAlert(title: "저장에 실패했습니다")
+                }
+            }
+    
+            guard let statusCode =  dataResponse.value?.status else {return}
+            
+            guard let httpStatus = HttpStatusCode(rawValue: statusCode) else {return}
+            
+            DispatchQueue.main.async {
+                switch httpStatus {
+                case .secondSucess:
+                    let animation = LOTAnimationView(name: "bt_save_round")
+                    self.saveButton.addSubview(animation)
                     
-                    guard let responseJson = responseJSON as? [String: Any] else {
-                        return
-                    }
+                    animation.play()
                     
-                    guard let statusCode = responseJson["status"] else {
-                        return
-                    }
+                    self.simplerAlertwhenSave(title: "저장되었습니다")
                     
-                    guard let status = statusCode as? Int else {
-                        return
-                    }
+                    let parentVC = self.presentingViewController as! CareerVC
+                    parentVC.getData(careerType: 0)
+                    parentVC.activityTableView.reloadData()
                     
-                    switch status {
-                    case 201:
-                        print("이력추가 성공")
-                        DispatchQueue.main.async {
-                            self.simplerAlertwhenSave(title: "저장되었습니다")
-                            let parentVC = self.presentingViewController as! CareerVC
-                            parentVC.getData(careerType: 0)
-                            parentVC.activityTableView.reloadData()
-                        }
-                    case 600:
-                        print("이력추가 실패")
-                        DispatchQueue.main.async {
-                            self.simplerAlert(title: "저장에 실패했습니다")
-                        }
-                    case 500:
-                        print("이력추가 실패")
-                        DispatchQueue.main.async {
-                            self.simplerAlert(title: "저장에 실패했습니다")
-                        }
-                    default:
-                        break
-                    }
-                    
-                } catch {
-                    print("이력추가 실패")
+                case .serverError, .dataBaseError:
                     DispatchQueue.main.async {
                         self.simplerAlert(title: "저장에 실패했습니다")
                     }
-                    print("AddActivity Json Parsing Error")
+                default:
+                    break
                 }
             }
+            
         }
     }
 }
