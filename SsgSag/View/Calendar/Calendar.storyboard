@@ -349,7 +349,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hs5-jU-oli" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1295.2" y="90.886699507389167"/>
+            <point key="canvasLocation" x="1116" y="90"/>
         </scene>
         <!--PopupVC-->
         <scene sceneID="BPV-vQ-OEg">
@@ -383,7 +383,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="el4-sn-u1o" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2425" y="91"/>
+            <point key="canvasLocation" x="1898" y="91"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="iIa-mM-Skb">
@@ -731,7 +731,7 @@
         <!--ZoomPoster-->
         <scene sceneID="6B4-sD-KAc">
             <objects>
-                <viewController title="ZoomPoster" id="R7j-Pw-dKL" customClass="ZoomPosterImageVC" customModule="슥삭" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ZoomPosterImageVC" title="ZoomPoster" useStoryboardIdentifierAsRestorationIdentifier="YES" id="R7j-Pw-dKL" customClass="ZoomPosterImageVC" customModule="슥삭" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="uNV-K6-1h4">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -787,7 +787,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0mh-ra-6Vi" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1257" y="1000"/>
+            <point key="canvasLocation" x="1116" y="849"/>
         </scene>
         <!--Calendar Detail Pop UpVC-->
         <scene sceneID="1Zk-EE-afO">
@@ -898,7 +898,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cIm-CW-Kpk" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1256.8" y="1714.0929535232385"/>
+            <point key="canvasLocation" x="1116" y="1612"/>
         </scene>
         <!--DatePickerPopUp-->
         <scene sceneID="GMx-w9-27H">
@@ -974,7 +974,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="71b-yX-ggn" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3402" y="91"/>
+            <point key="canvasLocation" x="2638" y="90"/>
         </scene>
     </scenes>
     <resources>
@@ -988,6 +988,6 @@
         <image name="icXClose" width="24" height="24"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="nAz-Rj-WSD"/>
+        <segue reference="nqc-ND-VnD"/>
     </inferredMetricsTieBreakers>
 </document>

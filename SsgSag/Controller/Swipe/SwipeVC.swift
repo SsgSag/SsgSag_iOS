@@ -29,7 +29,7 @@ class SwipeVC: UIViewController {
     
     private var countTotalCardIndex = 0
     
-    private var posterServiceImp: PosterService?
+    private var posterServiceImp: PosterService!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -62,6 +62,8 @@ class SwipeVC: UIViewController {
         
         countLabel.text = "\(countTotalCardIndex)"
     }
+    
+    
     
     private func setView() {
         self.view.backgroundColor = UIColor(displayP3Red: 242/255, green: 243/255, blue: 245/255, alpha: 1.0)
@@ -129,7 +131,7 @@ class SwipeVC: UIViewController {
         })
     }
     
-
+    //FIXME: - CategoryIdx가 3이거나 5일때 예외를 만든다.
     private func initPoster() {
 
         posterServiceImp?.requestPoster { (response) in
@@ -139,10 +141,15 @@ class SwipeVC: UIViewController {
             self.posters = posters
             self.countTotalCardIndex = self.posters.count
             
+            for poster in posters {
+                print("\(poster.categoryIdx) \(poster.outline)")
+            }
+            
             DispatchQueue.main.async {
                 self.loadCardAndSetPageVC()
                 self.countLabel.text = "\(self.countTotalCardIndex)"
             }
+            
         }
     }
     
@@ -250,6 +257,8 @@ class SwipeVC: UIViewController {
                 return
             }
             
+            detailImageSwipeCardVC.delegate = self
+            
             guard let detailTextSwipeCard = pageVC.orderedViewControllers[0] as? DetailTextSwipeCard else {
                 return
             }
@@ -285,6 +294,8 @@ class SwipeVC: UIViewController {
             guard let detailImageSwipeCardVC = pageVC.orderedViewControllers[1] as? DetailImageSwipeCardVC else {
                 return
             }
+            
+            detailImageSwipeCardVC.delegate = self
             
             guard let detailTextSwipeCard = pageVC.orderedViewControllers[0] as? DetailTextSwipeCard else {
                 return
@@ -328,6 +339,18 @@ class SwipeVC: UIViewController {
             }
         }
         return false
+    }
+}
+
+extension SwipeVC: movoToDetailPoster {
+    func pressButton() {
+        let storyboard = UIStoryboard(name: "SwipeStoryBoard", bundle: nil)
+
+        guard let zoomPosterVC = storyboard.instantiateViewController(withIdentifier: "ZoomPosterVC") as? ZoomPosterVC else {return}
+        
+        zoomPosterVC.urlString = self.posters[lastCardIndex-1].photoUrl
+
+        self.present(zoomPosterVC, animated: true, completion: nil)
     }
 }
 

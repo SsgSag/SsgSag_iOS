@@ -45,14 +45,6 @@ class PageViewController: UIPageViewController, UIPageViewControllerDelegate, UI
         return true
     }
     
-    func segmentedProgressBarChangedIndex(index: Int) {
-        print("111111")
-    }
-    
-    func segmentedProgressBarFinished() {
-        print("22222")
-    }
-    
     @objc func tapOn(_ sender: UITapGestureRecognizer) {
         self.view.layer.backgroundColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
         view.backgroundColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)

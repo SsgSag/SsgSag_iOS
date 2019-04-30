@@ -47,16 +47,19 @@ class DetailTextSwipeCard: UIViewController {
         view.addSubview(segmentSecondView)
         
         NSLayoutConstraint.activate([
-            segmentView.trailingAnchor.constraint(equalTo: view.centerXAnchor),
-            segmentView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            segmentView.heightAnchor.constraint(equalToConstant: 3),
-            segmentView.topAnchor.constraint(equalTo: view.topAnchor),
+            segmentView.trailingAnchor.constraint(equalTo: view.centerXAnchor, constant: -3),
+            segmentView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 3),
+            segmentView.heightAnchor.constraint(equalToConstant: 5),
+            segmentView.topAnchor.constraint(equalTo: view.topAnchor, constant: 9),
             
-            segmentSecondView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            segmentSecondView.leadingAnchor.constraint(equalTo: view.centerXAnchor),
-            segmentSecondView.heightAnchor.constraint(equalToConstant: 3),
-            segmentSecondView.topAnchor.constraint(equalTo: view.topAnchor),
+            segmentSecondView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -3),
+            segmentSecondView.leadingAnchor.constraint(equalTo: view.centerXAnchor, constant: 3),
+            segmentSecondView.heightAnchor.constraint(equalToConstant: 5),
+            segmentSecondView.topAnchor.constraint(equalTo: view.topAnchor, constant: 9),
             ])
+        
+        segmentView.layer.cornerRadius = 3
+        segmentSecondView.layer.cornerRadius = 3
         
     }
     

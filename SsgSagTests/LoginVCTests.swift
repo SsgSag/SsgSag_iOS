@@ -1,18 +1,21 @@
 //
-//  SsgSagTests.swift
-//  SsgSagTests
+//  LoginVC.swift
+//  SsgsagTests
 //
-//  Created by admin on 24/12/2018.
-//  Copyright © 2018 wndzlf. All rights reserved.
+//  Created by admin on 27/04/2019.
+//  Copyright © 2019 wndzlf. All rights reserved.
 //
 
 import XCTest
 @testable import SsgSag
 
-class SsgSagTests: XCTestCase {
+class LoginVC: XCTestCase {
+    
+    var loginVC: LoginVC!
 
     override func setUp() {
         // Put setup code here. This method is called before the invocation of each test method in the class.
+        loginVC = LoginVC()
     }
 
     override func tearDown() {
@@ -22,6 +25,7 @@ class SsgSagTests: XCTestCase {
     func testExample() {
         // This is an example of a functional test case.
         // Use XCTAssert and related functions to verify your tests produce the correct results.
+        
     }
 
     func testPerformanceExample() {

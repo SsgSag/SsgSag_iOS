@@ -11,15 +11,21 @@ import UIKit
 class UserInfoVC: UIViewController, UITextFieldDelegate {
     
     @IBOutlet weak var emailTextField: UITextField!
+    
     @IBOutlet weak var passwordTextField: UITextField!
+    
     @IBOutlet weak var passwordCheckTextField: UITextField!
+    
     @IBOutlet weak var nextButton: UIButton!
     
     @IBOutlet weak var stackViewConstraint: NSLayoutConstraint!
+    
     @IBOutlet weak var constraint2: NSLayoutConstraint!
+    
     @IBOutlet weak var constraint3: NSLayoutConstraint!
     
     @IBOutlet weak var titleLabel: UILabel!
+    
     @IBOutlet weak var titleImgae: UIImageView!
     
     override func viewDidLoad() {
@@ -32,15 +38,20 @@ class UserInfoVC: UIViewController, UITextFieldDelegate {
         iniGestureRecognizer()
         
         setDelegate()
+        
         setViewWithTag()
         
         self.titleLabel.isHidden = false
+        
         self.titleImgae.isHidden = false
     }
     
     private func setDelegate() {
+        
         emailTextField.delegate = self
+        
         passwordTextField.delegate = self
+        
         passwordCheckTextField.delegate = self
     }
     

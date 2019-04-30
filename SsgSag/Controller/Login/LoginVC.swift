@@ -8,6 +8,7 @@
 
 import UIKit
 
+
 class LoginVC: UIViewController, UITextFieldDelegate {
     
     @IBOutlet weak var emailTextField: UITextField!
@@ -20,13 +21,18 @@ class LoginVC: UIViewController, UITextFieldDelegate {
     
     private let isAutoLogin = "isAutoLogin"
     
+    var loginServiceImp:LoginService!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        loginServiceImp = LoginServiceImp()
+        
         setAutoLoginButton()
+        
         setEmailAndPasswordTextField()
     }
-    
+
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         view.endEditing(true)
     }
@@ -84,8 +90,6 @@ class LoginVC: UIViewController, UITextFieldDelegate {
             "userId" : passwordTextField.text!,
             "loginType" : 10 //10은 자체 로그인
         ]
-        
-        let loginServiceImp: LoginService = LoginServiceImp()
         
         loginServiceImp.requestLogin(send: sendData) { (dataResponse) in
 
