@@ -14,7 +14,7 @@ class PageViewController: UIPageViewController {
     private var segmentOrder: segmentOrder = .first
     
     //original: DetailText
-    static private let detailTextVCStoryboardId = "DetailText"
+    static private let detailTextVCStoryboardId = "DetailNewText"
     
     static private let detailImageVCStoryboardId = "DetailImage"
     
@@ -56,8 +56,6 @@ class PageViewController: UIPageViewController {
     @objc func tapOn(_ sender: UITapGestureRecognizer) {
         self.view.layer.backgroundColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
         view.backgroundColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
-        
-        
         
         if segmentOrder == .first {
             

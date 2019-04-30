@@ -143,9 +143,7 @@ class SwipeVC: UIViewController {
             self.posters = posters
             self.countTotalCardIndex = self.posters.count
             
-            for poster in posters {
-                print("\(poster.categoryIdx) \(poster.outline)")
-            }
+            print(posters[0])
             
             DispatchQueue.main.async {
                 self.loadCardAndSetPageVC()
@@ -261,7 +259,7 @@ class SwipeVC: UIViewController {
             
             detailImageSwipeCardVC.delegate = self
             
-            guard let detailTextSwipeCard = pageVC.orderedViewControllers[0] as? DetailTextSwipeCard else {
+            guard let detailTextSwipeCard = pageVC.orderedViewControllers[0] as? DetailNewTextSwipeCard else {
                 return
             }
         
@@ -300,7 +298,7 @@ class SwipeVC: UIViewController {
             
             detailImageSwipeCardVC.delegate = self
             
-            guard let detailTextSwipeCard = pageVC.orderedViewControllers[0] as? DetailTextSwipeCard else {
+            guard let detailTextSwipeCard = pageVC.orderedViewControllers[0] as? DetailNewTextSwipeCard else {
                 return
             }
             
@@ -313,12 +311,11 @@ class SwipeVC: UIViewController {
             self.addChild(pageVC)
             self.currentLoadedCardsArray[i].insertSubview(pageVC.view, at: 0)
             pageVC.didMove(toParent: self)
-            
         }
     }
     
     /// show 'detailTextSwipeCard' and 'detailImageSwipeCard'
-    private func setDetailSwipeCardAndSwipeCardVC(of detailTextSwipeCard:DetailTextSwipeCard,
+    private func setDetailSwipeCardAndSwipeCardVC(of detailTextSwipeCard:DetailNewTextSwipeCard,
                                                   of detailImageSwipeCardVC:DetailImageSwipeCardVC,
                                                   by posters:Posters ) {
     

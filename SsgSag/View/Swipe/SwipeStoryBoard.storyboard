@@ -588,7 +588,7 @@
         <!--Detail New Text Swipe Card-->
         <scene sceneID="k1T-3d-b8p">
             <objects>
-                <viewController storyboardIdentifier="DetailNewText" useStoryboardIdentifierAsRestorationIdentifier="YES" id="Bqe-br-d2U" customClass="DetailNewTextSwipeCard" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="DetailNewText" useStoryboardIdentifierAsRestorationIdentifier="YES" id="Bqe-br-d2U" customClass="DetailNewTextSwipeCard" customModule="슥삭" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="FME-J7-Yey">
                         <rect key="frame" x="0.0" y="0.0" width="345" height="499.5"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -680,15 +680,16 @@
                     </view>
                     <size key="freeformSize" width="345" height="499.5"/>
                     <connections>
-                        <outlet property="category" destination="iDd-PR-5sg" id="GhC-yu-fOQ"/>
-                        <outlet property="dayLefted" destination="BQ1-jD-cPh" id="NPC-Nk-5bI"/>
-                        <outlet property="hashTag" destination="1i3-MF-zsi" id="Vmw-Va-P0E"/>
-                        <outlet property="name" destination="ft9-6R-fAx" id="loU-VR-pVB"/>
+                        <outlet property="category" destination="iDd-PR-5sg" id="YWi-dr-dml"/>
+                        <outlet property="dayLefted" destination="BQ1-jD-cPh" id="Tj8-zI-Mgx"/>
+                        <outlet property="hashTag" destination="1i3-MF-zsi" id="eoD-4Q-y44"/>
+                        <outlet property="name" destination="ft9-6R-fAx" id="bNz-aN-xKm"/>
+                        <outlet property="overView" destination="jhb-n8-mQ1" id="8rM-is-PYb"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Jsb-3T-sqj" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2989.5999999999999" y="706.14692653673171"/>
+            <point key="canvasLocation" x="2900" y="707"/>
         </scene>
     </scenes>
     <resources>

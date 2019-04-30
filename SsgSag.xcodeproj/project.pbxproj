@@ -64,6 +64,7 @@
 		84C30E272276D417008F1165 /* GradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84C30E262276D417008F1165 /* GradientView.swift */; };
 		84C30E29227808FB008F1165 /* PosterDetailResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84C30E28227808FB008F1165 /* PosterDetailResponse.swift */; };
 		84C30E2B22780D50008F1165 /* DetailNewTextSwipeCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84C30E2A22780D50008F1165 /* DetailNewTextSwipeCard.swift */; };
+		84C30E2D22781FF0008F1165 /* DateCaculate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84C30E2C22781FF0008F1165 /* DateCaculate.swift */; };
 		84C77E4F22759AAF00DEE2D8 /* ZoomPosterVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84C77E4E22759AAF00DEE2D8 /* ZoomPosterVC.swift */; };
 		84E19CE421DCC9F4006F72EC /* LoginStoryBoard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 84E19CE321DCC9F4006F72EC /* LoginStoryBoard.storyboard */; };
 		84FB4FE1226B7CAA00D9F2F9 /* RequestURL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84FB4FE0226B7CAA00D9F2F9 /* RequestURL.swift */; };
@@ -209,6 +210,7 @@
 		84C30E262276D417008F1165 /* GradientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientView.swift; sourceTree = "<group>"; };
 		84C30E28227808FB008F1165 /* PosterDetailResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PosterDetailResponse.swift; sourceTree = "<group>"; };
 		84C30E2A22780D50008F1165 /* DetailNewTextSwipeCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailNewTextSwipeCard.swift; sourceTree = "<group>"; };
+		84C30E2C22781FF0008F1165 /* DateCaculate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = DateCaculate.swift; path = SsgSag/Controller/Swipe/DateCaculate.swift; sourceTree = SOURCE_ROOT; };
 		84C77E4E22759AAF00DEE2D8 /* ZoomPosterVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZoomPosterVC.swift; sourceTree = "<group>"; };
 		84E19CE321DCC9F4006F72EC /* LoginStoryBoard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LoginStoryBoard.storyboard; sourceTree = "<group>"; };
 		84FB4FE0226B7CAA00D9F2F9 /* RequestURL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = RequestURL.swift; path = SsgSag/ViewModel/SwipeVC/RequestURL.swift; sourceTree = SOURCE_ROOT; };
@@ -406,6 +408,7 @@
 			children = (
 				84B1B24F226A364100077DF9 /* DataResponse.swift */,
 				84FB4FE0226B7CAA00D9F2F9 /* RequestURL.swift */,
+				84C30E2C22781FF0008F1165 /* DateCaculate.swift */,
 			);
 			path = Helper;
 			sourceTree = "<group>";
@@ -1024,6 +1027,7 @@
 				FA61FE0F21E0E3D300A28947 /* JobVC.swift in Sources */,
 				FA7F4CCA21DFD61300D8643A /* ActivityCell.swift in Sources */,
 				FA7F4CD421E0A0BB00D8643A /* AddVC.swift in Sources */,
+				84C30E2D22781FF0008F1165 /* DateCaculate.swift in Sources */,
 				FA7F4CB821DFB0C100D8643A /* CareerVC.swift in Sources */,
 				84FB4FE1226B7CAA00D9F2F9 /* RequestURL.swift in Sources */,
 				845928A321D09CDD001DF6CC /* SsgSag.xcdatamodeld in Sources */,

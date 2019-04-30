@@ -31,8 +31,16 @@ class DetailImageSwipeCardVC: UIViewController {
             guard let poster = poster else { return }
             
             name.text = poster.posterName
+            
             hashTag.text = poster.keyword
+            
             posterCategory = poster.categoryIdx
+            
+            guard let posterEndDate = poster.posterEndDate else {return}
+            
+            let interval = DateCaculate.dayInterval(using: posterEndDate)
+            
+            dayLefted.text = "\(interval)일"
             
             guard let posterURLString = poster.photoUrl else { return }
             
