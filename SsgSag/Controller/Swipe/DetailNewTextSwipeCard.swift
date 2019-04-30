@@ -1,41 +1,28 @@
 //
-//  infoTextVC.swift
+//  DetailNewTextSwipeCard.swift
 //  SsgSag
 //
-//  Created by admin on 26/12/2018.
-//  Copyright © 2018 wndzlf. All rights reserved.
+//  Created by admin on 30/04/2019.
+//  Copyright © 2019 wndzlf. All rights reserved.
 //
 
-import UIKit
+import Foundation
 
-class DetailTextSwipeCard: UIViewController {
-    
-    @IBOutlet var posterName: UILabel!
-    
-    @IBOutlet var hashTag: UILabel!
-    
-    @IBOutlet var outline: UILabel!
-    
-    @IBOutlet var target: UILabel!
-    
-    @IBOutlet var period: UILabel!
-    
-    @IBOutlet var benefit: UILabel!
-    
+class DetailNewTextSwipeCard: UIViewController {
     var poster: Posters? {
         didSet {
             
             guard let poster = poster else { return }
             
-            posterName.text = poster.posterName
-            
-            hashTag.text = poster.keyword
-            
-            outline.text = poster.outline
-            
-            target.text = poster.target
-            
-            benefit.text = poster.benefit
+//            posterName.text = poster.posterName
+//
+//            hashTag.text = poster.keyword
+//
+//            outline.text = poster.outline
+//
+//            target.text = poster.target
+//
+//            benefit.text = poster.benefit
             
             posterCategory = poster.categoryIdx
         }
@@ -50,6 +37,19 @@ class DetailTextSwipeCard: UIViewController {
             segmentSecondView.backgroundColor = category.categoryColors()
         }
     }
+    
+    private var segmentView: UIView = {
+        let segmentView = UIView()
+        segmentView.backgroundColor = .lightGray
+        segmentView.translatesAutoresizingMaskIntoConstraints = false
+        return segmentView
+    }()
+    
+    private var segmentSecondView: UIView = {
+        let segmentView = UIView()
+        segmentView.translatesAutoresizingMaskIntoConstraints = false
+        return segmentView
+    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -73,20 +73,4 @@ class DetailTextSwipeCard: UIViewController {
         segmentSecondView.layer.cornerRadius = 3
         
     }
-    
-    private var segmentView: UIView = {
-        let segmentView = UIView()
-        segmentView.backgroundColor = .lightGray
-        segmentView.translatesAutoresizingMaskIntoConstraints = false
-        return segmentView
-    }()
-    
-    private var segmentSecondView: UIView = {
-        let segmentView = UIView()
-        segmentView.translatesAutoresizingMaskIntoConstraints = false
-        return segmentView
-    }()
 }
-
-
-

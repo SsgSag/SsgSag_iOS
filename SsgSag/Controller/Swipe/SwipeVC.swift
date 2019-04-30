@@ -49,6 +49,8 @@ class SwipeVC: UIViewController {
         hideStatusBar()
         
         setEmptyPosterAnimation()
+        
+        UIView.appearance().isExclusiveTouch = true
     }
     
     private func hideStatusBar() {
@@ -283,6 +285,7 @@ class SwipeVC: UIViewController {
     
     //처음에만 0, 1로 로드한다.
     private func setPageVCAndAddToSubView() {
+        
         let storyboard = UIStoryboard(name: "SwipeStoryBoard", bundle: nil)
         
         for (i, _ ) in currentLoadedCardsArray.enumerated() {
@@ -310,6 +313,7 @@ class SwipeVC: UIViewController {
             self.addChild(pageVC)
             self.currentLoadedCardsArray[i].insertSubview(pageVC.view, at: 0)
             pageVC.didMove(toParent: self)
+            
         }
     }
     

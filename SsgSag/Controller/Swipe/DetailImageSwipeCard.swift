@@ -67,7 +67,6 @@ class DetailImageSwipeCardVC: UIViewController {
         hashTag.adjustsFontSizeToFitWidth = true
         category.adjustsFontSizeToFitWidth = true
         
-        
         dayLefted.layer.cornerRadius = 59 / 2
         dayLefted.layer.masksToBounds = true
         
@@ -96,21 +95,20 @@ class DetailImageSwipeCardVC: UIViewController {
         segmentSecondView.layer.cornerRadius = 3
     }
     
-    var segmentView: UIView = {
+    private var segmentView: UIView = {
         let segmentView = UIView()
-        //segmentView.backgroundColor = #colorLiteral(red: 0.2039215686, green: 0.4274509804, blue: 0.9529411765, alpha: 1)
         segmentView.translatesAutoresizingMaskIntoConstraints = false
         return segmentView
     }()
     
-    var segmentSecondView: UIView = {
+    private var segmentSecondView: UIView = {
         let segmentView = UIView()
         segmentView.backgroundColor = .lightGray
         segmentView.translatesAutoresizingMaskIntoConstraints = false
         return segmentView
     }()
     
-    var detailPoster: UIButton = {
+    private var detailPoster: UIButton = {
         let button = UIButton()
         button.alpha = 0.7
         button.setImage(UIImage(named: "icMainExpand"), for: .normal)
@@ -120,10 +118,8 @@ class DetailImageSwipeCardVC: UIViewController {
     }()
     
     @objc private func moveToZoomPosterVC() {
-        
         delegate.pressButton()
     }
-    
 }
 
 protocol movoToDetailPoster {
