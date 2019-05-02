@@ -11,14 +11,21 @@ import UIKit
 class UserInfoVC: UIViewController, UITextFieldDelegate {
     
     @IBOutlet weak var emailTextField: UITextField!
+    
     @IBOutlet weak var passwordTextField: UITextField!
+    
     @IBOutlet weak var passwordCheckTextField: UITextField!
-    @IBOutlet weak var nextButton: UIButton!
+    
+    @IBOutlet weak var nextButton: GradientButton!
     
     @IBOutlet weak var stackViewConstraint: NSLayoutConstraint!
+    
     @IBOutlet weak var constraint2: NSLayoutConstraint!
+    
     @IBOutlet weak var constraint3: NSLayoutConstraint!
+    
     @IBOutlet weak var titleLabel: UILabel!
+    
     @IBOutlet weak var titleImgae: UIImageView!
     
     override func viewDidLoad() {
@@ -30,12 +37,32 @@ class UserInfoVC: UIViewController, UITextFieldDelegate {
         
         iniGestureRecognizer()
         
-        self.titleLabel.isHidden = false
-        self.titleImgae.isHidden = false
+        setDelegate()
         
+        setViewWithTag()
+        
+        self.titleLabel.isHidden = false
+        
+        self.titleImgae.isHidden = false
     }
     
-    @IBAction func nextActionButton(_ sender: Any) {
+    private func setDelegate() {
+        
+        emailTextField.delegate = self
+        
+        passwordTextField.delegate = self
+        
+        passwordCheckTextField.delegate = self
+    }
+    
+    private func setViewWithTag() {
+        emailTextField.tag = 1
+        passwordTextField.tag = 2
+        passwordCheckTextField.tag = 3
+    }
+    
+    
+    @IBAction func confirmEmail(_ sender: Any) {
         //여기서 중복 확인을 하자.
         
         guard let userEmailString = emailTextField.text else { return }
@@ -62,18 +89,22 @@ class UserInfoVC: UIViewController, UITextFieldDelegate {
                     guard let isDuplicated = isDuplicateNetworkModel.data else {return}
                     
                     DispatchQueue.main.async {
-                        if isDuplicated  {
+                        
+                        if isDuplicated {
+                            
                             let storyboard = UIStoryboard(name: "SignupStoryBoard", bundle: nil)
+                            
                             let SchoolInfoVC = storyboard.instantiateViewController(withIdentifier: "SignupFirst") as! ConfirmProfileVC
+                            
                             self.navigationController?.pushViewController(SchoolInfoVC, animated: true)
+                            
                         } else {
                             self.simplerAlert(title: "중복되는 이메일이 존재합니다.")
                         }
+                        
                     }
-                case .dataBaseError:
-                    print("Email Duplicate DatabaseError")
-                case .serverError:
-                    print("Email Duplicate ServerError")
+                case .dataBaseError, .serverError:
+                    self.simplerAlert(title: "서버 내부 에러")
                 default:
                     break
                 }
@@ -82,6 +113,22 @@ class UserInfoVC: UIViewController, UITextFieldDelegate {
             }
         }
     }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        let nextTag = textField.tag + 1
+        
+        if let nextResponder = self.view.viewWithTag(nextTag){
+            
+            nextResponder.becomeFirstResponder()
+            
+        } else {
+            
+            textField.resignFirstResponder()
+        }
+        
+        return true
+    }
+    
     
     @IBAction func touchUpBackButton(_ sender: UIBarButtonItem) {
         self.dismiss(animated: true, completion: nil)
@@ -97,39 +144,71 @@ class UserInfoVC: UIViewController, UITextFieldDelegate {
         unregisterForKeyboardNotifications()
     }
     
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        checkInformation(self)
-    }
-    
     func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
         self.view.endEditing(true)
         return true
     }
     
-    func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
-        checkInformation(self)
-        return true
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        if textField.tag == 3 {
+            checkInformation(self)
+        }
     }
     
-    func textFieldDidEndEditing(_ textField: UITextField) {
-        checkInformation(self)
+    // validate an email for the right format
+    private func isValidEmail(email:String?) -> Bool {
+        
+        guard email != nil else { return false }
+        
+        let regEx = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}"
+        
+        let pred = NSPredicate(format:"SELF MATCHES %@", regEx)
+        
+        return pred.evaluate(with: email)
     }
     
     @objc func checkInformation(_ sender: Any) {
-        if (emailTextField.hasText && passwordTextField.hasText && passwordCheckTextField.hasText) {
-            print("idfield check / password, confirmpassword, inform check")
-            if (passwordTextField.text == passwordCheckTextField.text) {
-                print("password correct check")
-                nextButton.isUserInteractionEnabled = true
-                nextButton.setImage(UIImage(named: "btNextActive"), for: .normal)
-            } else {
-                nextButton.isUserInteractionEnabled = false
-                nextButton.setImage(UIImage(named: "btNextUnactive"), for: .normal)
-            }
-        } else {
-            nextButton.isUserInteractionEnabled = false
-            nextButton.setImage(UIImage(named: "btNextUnactive"), for: .normal)
+        
+        guard isValidEmail(email: emailTextField.text) else {
+            self.simplerAlert(title: "이메일 형식이 아닙니다.")
+            emailTextField.text = ""
+            passwordTextField.text = ""
+            passwordCheckTextField.text = ""
+            
+            nextButton.topColor = .lightGray
+            nextButton.bottomColor = .white
+            return
         }
+        
+        guard emailTextField.hasText && passwordTextField.hasText && passwordCheckTextField.hasText else {
+            
+            nextButton.isUserInteractionEnabled = false
+            self.simplerAlert(title: "기입되지 않은 사항이 있습니다.")
+            
+            nextButton.topColor = .lightGray
+            nextButton.bottomColor = .white
+            return
+        }
+        
+        guard passwordTextField.text == passwordCheckTextField.text else {
+            
+            nextButton.isUserInteractionEnabled = false
+            
+            self.simplerAlert(title: "두개의 패스워드가 다릅니다.")
+            passwordTextField.text = ""
+            passwordCheckTextField.text = ""
+            
+            nextButton.topColor = .lightGray
+            nextButton.bottomColor = .white
+            
+            return
+        }
+        
+        nextButton.isUserInteractionEnabled = true
+        
+        nextButton.topColor = #colorLiteral(red: 0.2078431373, green: 0.9176470588, blue: 0.8901960784, alpha: 1)
+        nextButton.bottomColor = #colorLiteral(red: 0.6588235294, green: 0.2784313725, blue: 1, alpha: 1)
+        
     }
 }
 

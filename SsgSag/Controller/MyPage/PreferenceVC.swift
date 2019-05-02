@@ -185,6 +185,9 @@ class PreferenceVC: UIViewController {
 
 protocol myPageService: class {
     func requestSelectedState(completionHandler: @escaping ((DataResponse<Interests>) -> Void))
-    func requestStoreSelectedField(_ selectedJson: [String: Any] , completionHandler: @escaping ((DataResponse<ReInterest>) -> Void))
+    func requestStoreSelectedField(_ selectedJson: [String: Any] ,
+                                   completionHandler: @escaping ((DataResponse<ReInterest>) -> Void))
+    func requestStoreAddActivity(_ jsonData: [String: Any],
+                                 completionHandler: @escaping ((DataResponse<Activity>) -> Void))
 }
 

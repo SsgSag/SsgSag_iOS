@@ -43,18 +43,27 @@ class SignUpCompleteVC: UIViewController {
     ]
     
     var selectedValues: [Bool] = []
+    
     var sendPreferenceValues: [Int] = []
     
     var name: String = ""
+    
     var birth: String = ""
+    
     var nickName: String = ""
+    
     var gender: String = ""
+    
     var school: String = ""
+    
     var major: String = ""
+    
     var grade: Int = 999
+    
     var number: String = ""
     
     @IBOutlet var preferenceButtons: [UIButton]!
+    
     @IBOutlet weak var startButton: UIButton!
     
     override func viewDidLoad() {
@@ -78,26 +87,31 @@ class SignUpCompleteVC: UIViewController {
     }
     
     func setUpPreferenceButtons() {
+        
         var count = 0
-        for button in preferenceButtons {
-            button.tag = count
+        for preferenceButton in preferenceButtons {
+            preferenceButton.tag = count
             count += 1
         }
+        
         preferenceButtons.forEach { (button) in
             button.isSelected = false
         }
+        
         for _ in 0 ..< count {
             selectedValues.append(false)
         }
+        
     }
     
     func myButtonTapped(myButton: UIButton, tag: Int) {
+        
         if myButton.isSelected {
-            myButton.isSelected = false;
+            myButton.isSelected = false
             selectedValues[myButton.tag] = false
             myButton.setImage(UIImage(named: unActiveButtonImages[tag]), for: .normal)
         } else {
-            myButton.isSelected = true;
+            myButton.isSelected = true
             selectedValues[myButton.tag] = true
             myButton.setImage(UIImage(named: activeButtonImages[tag]), for: .normal)
         }
@@ -109,18 +123,23 @@ class SignUpCompleteVC: UIViewController {
             startButton.isUserInteractionEnabled = false
             startButton.setImage(UIImage(named: "btSaveMypageUnactive"), for: .normal)
         }
+        
     }
     
     func checkInterest() {
+        sendPreferenceValues = []
+        
         var interest = 0
+        
         for i in selectedValues {
             if i == true {
                 print(interest)
-                
                 sendPreferenceValues.append(interest)
             }
+            
             interest = interest + 1
         }
+        
     }
     
     private func setSendTokenAndSendType(sendToken:inout String, sendType:inout Int) {
@@ -281,30 +300,27 @@ class SignUpCompleteVC: UIViewController {
                 return
             }
             
-            let responseJSON = try? JSONSerialization.jsonObject(with: data, options: [])
-            
-            if let responseJSON = responseJSON as? [String: Any] {
+            do {
+                let modelData = try JSONDecoder().decode(PosterFavorite.self, from: data)
                 
-                if let statusCode = responseJSON["status"] {
-                    
-                    guard let status = statusCode as? Int else {
-                        return
-                    }
-                    
-                    guard let httpStatus = HttpStatus(rawValue: status) else {
-                        return
-                    }
-                    
-                    switch httpStatus {
-                    case .sucess:
-                        //바로 로그인 되도록 수정해야한다.
-                        self.autoLogin(sendType: sendType, sendToken: sendToken)
-                    case .databaseError:
-                        self.simpleAlert(title: "데이터베이스 에러", message: "서버 오류")
-                    case .doNotMatch:
-                        self.simpleAlert(title: "잘못된 형식이 포함되었습니다.", message: "회원가입 정보를 정확히 다시 기입해주세요.")
-                    }
+                guard let status = modelData.status else {return}
+                
+                guard let httpStatus = HttpStatus(rawValue: status) else {
+                    return
                 }
+                
+                switch httpStatus {
+                case .sucess:
+                    //바로 로그인 되도록 수정해야한다.
+                    self.autoLogin(sendType: sendType, sendToken: sendToken)
+                case .databaseError:
+                    self.simpleAlert(title: "데이터베이스 에러", message: "서버 오류")
+                case .doNotMatch:
+                    self.simpleAlert(title: "잘못된 형식이 포함되었습니다.", message: "회원가입 정보를 정확히 다시 기입해주세요.")
+                }
+                
+            } catch {
+                print("Json Parsing Error")
             }
         }
     }

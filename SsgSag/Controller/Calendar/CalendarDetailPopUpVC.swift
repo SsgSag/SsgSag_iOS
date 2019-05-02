@@ -11,12 +11,14 @@ import UIKit
 class CalendarDetailPopUpVC: UIViewController {
 
     @IBOutlet weak var backView: UIView!
+    
     @IBOutlet weak var websiteButton: UIButton!
+    
     @IBOutlet weak var detailTextView: UITextView!
     
     var websiteURL: String?
-    var posterDetailText: String?
     
+    var posterDetailText: String?
     
     override func viewDidLoad() {
         super.viewDidLoad()

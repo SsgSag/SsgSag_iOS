@@ -7,7 +7,7 @@ import Lottie
 
 class SwipeVC: UIViewController {
     
-    @IBOutlet private weak var viewTinderBackGround: UIView!
+    @IBOutlet weak var swipeCardView: UIView!
     
     @IBOutlet private var countLabel: UILabel!
     
@@ -29,7 +29,7 @@ class SwipeVC: UIViewController {
     
     private var countTotalCardIndex = 0
     
-    private var posterServiceImp: PosterService?
+    private var posterServiceImp: PosterService!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -49,6 +49,8 @@ class SwipeVC: UIViewController {
         hideStatusBar()
         
         setEmptyPosterAnimation()
+        
+        UIView.appearance().isExclusiveTouch = true
     }
     
     private func hideStatusBar() {
@@ -62,17 +64,19 @@ class SwipeVC: UIViewController {
         
         countLabel.text = "\(countTotalCardIndex)"
     }
-    
+
     private func setView() {
         self.view.backgroundColor = UIColor(displayP3Red: 242/255, green: 243/255, blue: 245/255, alpha: 1.0)
-        self.view.bringSubviewToFront(viewTinderBackGround)
+        self.view.bringSubviewToFront(swipeCardView)
     }
     
     private func setButtonTarget() {
         likedButton.addTarget(self, action: #selector(touchDownLiked(_:)), for: .touchDown)
+        
         likedButton.addTarget(self, action: #selector(touchUpLiked(_:)), for: .touchUpInside)
         
         dislikedButton.addTarget(self, action: #selector(touchDownDisLiked(_:)), for: .touchDown)
+        
         dislikedButton.addTarget(self, action: #selector(touchUpDisLiked(_:)), for: .touchUpInside)
     }
     
@@ -129,7 +133,7 @@ class SwipeVC: UIViewController {
         })
     }
     
-
+    //FIXME: - CategoryIdx가 3이거나 5일때 예외를 만든다.
     private func initPoster() {
 
         posterServiceImp?.requestPoster { (response) in
@@ -143,6 +147,7 @@ class SwipeVC: UIViewController {
                 self.loadCardAndSetPageVC()
                 self.countLabel.text = "\(self.countTotalCardIndex)"
             }
+            
         }
     }
     
@@ -153,6 +158,7 @@ class SwipeVC: UIViewController {
     }
     
     private func loadCard() {
+        
         for (index,value) in posters.enumerated() {
             
             if index < SwipeVC.numberOfTopCards {
@@ -165,18 +171,21 @@ class SwipeVC: UIViewController {
                 currentLoadedCardsArray.append(newCard)
                 lastCardIndex = index
             }
+            
         }
+        
     }
     
-    private func setBackground() {
+    private func setSwipeCardSubview() {
         for (i,_) in currentLoadedCardsArray.enumerated() {
             if i > 0 {
-                viewTinderBackGround.insertSubview(currentLoadedCardsArray[i],
+                swipeCardView.insertSubview(currentLoadedCardsArray[i],
                                                    belowSubview: currentLoadedCardsArray[i - 1])
             } else {
-                viewTinderBackGround.addSubview(currentLoadedCardsArray[i])
+                swipeCardView.addSubview(currentLoadedCardsArray[i])
             }
         }
+        
     }
     
     
@@ -187,7 +196,7 @@ class SwipeVC: UIViewController {
             
             loadCard()
             
-            setBackground()
+            setSwipeCardSubview()
             
             setPageVCAndAddToSubView()
         }
@@ -221,7 +230,7 @@ class SwipeVC: UIViewController {
         //등호가 올바른 것인지 확인 바람
         addNewCard()
         
-        setBackground()
+        setSwipeCardSubview()
         
         setPageVCAndAddToSubViewAfterRemove()
     }
@@ -229,8 +238,8 @@ class SwipeVC: UIViewController {
     //SwipeCard 생성
     private func createSwipeCard(at index: Int , value :String) -> SwipeCard {
         let card = SwipeCard(frame: CGRect(x: 0, y: 0,
-                                           width: viewTinderBackGround.frame.size.width,
-                                           height: viewTinderBackGround.frame.size.height),
+                                           width: swipeCardView.frame.size.width,
+                                           height: swipeCardView.frame.size.height),
                              value : value)
         card.delegate = self
         
@@ -250,7 +259,9 @@ class SwipeVC: UIViewController {
                 return
             }
             
-            guard let detailTextSwipeCard = pageVC.orderedViewControllers[0] as? DetailTextSwipeCard else {
+            detailImageSwipeCardVC.delegate = self
+            
+            guard let detailTextSwipeCard = pageVC.orderedViewControllers[0] as? DetailNewTextSwipeCard else {
                 return
             }
         
@@ -274,6 +285,7 @@ class SwipeVC: UIViewController {
     
     //처음에만 0, 1로 로드한다.
     private func setPageVCAndAddToSubView() {
+        
         let storyboard = UIStoryboard(name: "SwipeStoryBoard", bundle: nil)
         
         for (i, _ ) in currentLoadedCardsArray.enumerated() {
@@ -286,9 +298,11 @@ class SwipeVC: UIViewController {
                 return
             }
             
-            guard let detailTextSwipeCard = pageVC.orderedViewControllers[0] as? DetailTextSwipeCard else {
+            guard let detailTextSwipeCard = pageVC.orderedViewControllers[0] as? DetailNewTextSwipeCard else {
                 return
             }
+            
+            detailImageSwipeCardVC.delegate = self
             
             pageVC.view.frame = self.currentLoadedCardsArray[i].frame
             
@@ -300,10 +314,11 @@ class SwipeVC: UIViewController {
             self.currentLoadedCardsArray[i].insertSubview(pageVC.view, at: 0)
             pageVC.didMove(toParent: self)
         }
+        
     }
     
     /// show 'detailTextSwipeCard' and 'detailImageSwipeCard'
-    private func setDetailSwipeCardAndSwipeCardVC(of detailTextSwipeCard:DetailTextSwipeCard,
+    private func setDetailSwipeCardAndSwipeCardVC(of detailTextSwipeCard:DetailNewTextSwipeCard,
                                                   of detailImageSwipeCardVC:DetailImageSwipeCardVC,
                                                   by posters:Posters ) {
     
@@ -328,6 +343,18 @@ class SwipeVC: UIViewController {
             }
         }
         return false
+    }
+}
+
+extension SwipeVC: movoToDetailPoster {
+    func pressButton() {
+        let storyboard = UIStoryboard(name: "SwipeStoryBoard", bundle: nil)
+
+        guard let zoomPosterVC = storyboard.instantiateViewController(withIdentifier: "ZoomPosterVC") as? ZoomPosterVC else {return}
+        
+        zoomPosterVC.urlString = self.posters[lastCardIndex-1].photoUrl
+
+        self.present(zoomPosterVC, animated: true, completion: nil)
     }
 }
 

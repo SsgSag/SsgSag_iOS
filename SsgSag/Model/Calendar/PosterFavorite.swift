@@ -14,6 +14,10 @@ class JSONNull: Codable, Hashable {
         return true
     }
     
+    public func hash(into hasher: inout Hasher) {
+        return
+    }
+    
     public var hashValue: Int {
         return 0
     }

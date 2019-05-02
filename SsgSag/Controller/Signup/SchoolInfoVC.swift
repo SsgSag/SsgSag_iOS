@@ -45,10 +45,8 @@ class SchoolInfoVC: UIViewController, UITextFieldDelegate {
         gradeField.tag = 3
         numberField.tag = 4
         
-        // 1 - Configure a simple search text field
         configureSimpleSearchTextField()
         configureSimpleMajorSearchTextField()
-        
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
@@ -65,12 +63,9 @@ class SchoolInfoVC: UIViewController, UITextFieldDelegate {
    
     
     @IBAction func touchUpNextButton(_ sender: Any) {
-//        let gradeSequence = 1...4
-//        gradeField.text?.filter({ (gradeText) -> Bool in
-//            return true
-//        })
-         let storyboard = UIStoryboard(name: "SignupStoryBoard", bundle: nil)
-            let SignUpCompleteVC = storyboard.instantiateViewController(withIdentifier: "SignUpCompleteVC") as! SignUpCompleteVC
+        
+        let storyboard = UIStoryboard(name: StoryBoardName.signup, bundle: nil)
+        guard let SignUpCompleteVC = storyboard.instantiateViewController(withIdentifier: "SignUpCompleteVC") as? SignUpCompleteVC else {return}
         
         SignUpCompleteVC.name = name
         SignUpCompleteVC.birth = birth
@@ -82,8 +77,6 @@ class SchoolInfoVC: UIViewController, UITextFieldDelegate {
         SignUpCompleteVC.number = numberField.text ?? ""
         
         self.navigationController?.pushViewController(SignUpCompleteVC, animated: true)
-        
-        
     }
     
 //    override func viewWillAppear(_ animated: Bool) {
@@ -96,7 +89,7 @@ class SchoolInfoVC: UIViewController, UITextFieldDelegate {
 //        unregisterForKeyboardNotifications()
 //    }
 //
-    
+
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         checkInformation(self)

@@ -11,6 +11,8 @@ import UIKit
 struct StoryBoardName {
     static let swipe = "SwipeStoryBoard"
     static let mypage = "MyPageStoryBoard"
+    static let signup = "SignupStoryBoard"
+    
 }
 
 class TapbarVC: UITabBarController {
@@ -50,5 +52,7 @@ class TapbarVC: UITabBarController {
         let barHeight: CGFloat = 56
         tabFrame.size.height = barHeight
         self.tabBar.frame = tabFrame
+        
+        UIView.appearance().isExclusiveTouch = true
     }
 }

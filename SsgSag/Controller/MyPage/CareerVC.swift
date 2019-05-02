@@ -298,7 +298,6 @@ class CareerVC: UIViewController {
             //tableView.sendSubviewToBack(emptyLabel)
             view.sendSubviewToBack(emptyImageView)
         }
-        
     }
     
     func getData(careerType: Int) {
@@ -326,6 +325,7 @@ class CareerVC: UIViewController {
                 let apiResponse = try JSONDecoder().decode(Career.self, from: data)
                 
                 if careerType == 0 {
+                    
                     self.activityList = apiResponse.data
                     DispatchQueue.main.async {
                         self.activityTableView.reloadData()
@@ -342,7 +342,6 @@ class CareerVC: UIViewController {
                         self.certificationTableView.reloadData()
                     }
                 }
-                
             } catch (let err) {
                 print(err.localizedDescription)
             }

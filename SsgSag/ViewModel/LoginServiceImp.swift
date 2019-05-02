@@ -10,6 +10,8 @@ import Foundation
 
 class LoginServiceImp: LoginService {
     
+    private(set) var isFetchStatusCode = false
+    
     func requestSnsLogin(using accessToken: String, type login: Int,
                          completionHandler: @escaping ((DataResponse<TokenResponse>) -> Void)) {
         

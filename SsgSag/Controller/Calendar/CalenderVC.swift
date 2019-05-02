@@ -6,11 +6,6 @@ class CalenderVC: UIViewController {
     
     var daySelectedStatus: daySelectState = .notSelected
     
-    enum daySelectState: Int {
-        case selected = 1
-        case notSelected = 0
-    }
-    
     var todoTableData:[Posters] = []
     
     var posters:[Posters] = []
@@ -18,6 +13,8 @@ class CalenderVC: UIViewController {
     var eventDictionary: [Int:[event]] = [:]
     
     var calendarViewBottomAnchor: NSLayoutConstraint?
+    
+    var calendarServiceImp: CalendarService?
     
     let calenderView: CalenderView = {
         let v = CalenderView(theme: MyTheme.light)
@@ -68,7 +65,10 @@ class CalenderVC: UIViewController {
         return separ
     }()
     
-    var calendarServiceImp: CalendarService?
+    enum daySelectState: Int {
+        case selected = 1
+        case notSelected = 0
+    }
     
     // MARK: - lifeCycle func
     override func viewDidLoad() {
@@ -77,7 +77,6 @@ class CalenderVC: UIViewController {
         self.view.backgroundColor = Style.bgColor
         
         calendarServiceImp = CalendarServiceImp()
-        
         
         getPostersAndStore()
         
@@ -94,11 +93,8 @@ class CalenderVC: UIViewController {
         //UserDefaults.standard.removeObject(forKey: "start")
         
         calendarViewBottomAnchor?.priority = UILayoutPriority(750)
-        
-        
     }
     
-
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(true)
         
@@ -408,6 +404,7 @@ class CalenderVC: UIViewController {
         var currentDateString = "\(currentSelectedDateMonth)월 \(currentSelectedDateDay)일"
         
         let dateFormatter = DateFormatter.genericDateFormatter
+        
         
         // 오늘일 경우 투두리스트의 모든 데이터를 보여준다.
         if currentSelectedDateYear == todayYear &&

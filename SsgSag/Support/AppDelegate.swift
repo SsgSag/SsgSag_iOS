@@ -178,7 +178,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 //        return false
     }
     
-    func application(application: UIApplication, handleOpenURL url: URL) -> Bool {
+    func application(_ application: UIApplication, handleOpen url: URL) -> Bool {
         if KOSession.isKakaoAccountLoginCallback(url) {
             return KOSession.handleOpen(url)
         }
