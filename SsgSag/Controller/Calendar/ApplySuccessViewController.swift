@@ -11,6 +11,7 @@ import UIKit
 class ApplySuccessViewController: UIViewController {
     
     private func getPostersData() -> [Posters]{
+        
         let userDefaultsPoster = CalenderView.getPosterUsingUserDefaults()
         
         var resultPoster: [Posters] = []

@@ -13,20 +13,29 @@ class CalendarDetailVC: UIViewController {
     var Poster: Posters?
     
     @IBOutlet var PosterImage: UIImageView!
+    
     @IBOutlet weak var scrollView: UIScrollView!
     
     @IBOutlet weak var shareButton: UIBarButtonItem!
+    
     @IBOutlet weak var categoryColorView: UIView!
+    
     @IBOutlet weak var categoryLabel: UILabel!
+    
     @IBOutlet weak var nameLabel: UILabel!
+    
     @IBOutlet weak var hashTagLabel: UILabel!
+    
     @IBOutlet weak var titlePeriodLabel: UILabel!
     
     @IBOutlet weak var recruitPeriodLabel: UILabel!
+    
     @IBOutlet weak var actionPeriodLabel: UILabel!
     
     @IBOutlet var outLineLabel: UILabel!
+    
     @IBOutlet var benefitLabel: UILabel!
+    
     @IBOutlet var targetLabel: UILabel!
   
     @IBOutlet weak var seeDetailButton: UIButton!

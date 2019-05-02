@@ -10,6 +10,14 @@ import Foundation
 
 struct DateCaculate {
     
+    static func getDateOfStringDay(_ year: Int, _ month: Int, day: Int) -> Date? {
+        let dateFormatter = DateFormatter.genericDateFormatter
+        
+        var cellDateString = "\(year)-\(month)-\(day) 00:00:00"
+        
+        return dateFormatter.date(from: cellDateString)
+    }
+    
     static func dayInterval(using dateString: String) -> Int{
         
         let dateFormatter = DateFormatter.genericDateFormatter
@@ -52,5 +60,6 @@ struct DateCaculate {
         
         return "\(startMonth).\(startDay) ~ \(endMonth).\(endDay)"
     }
+ 
     
 }

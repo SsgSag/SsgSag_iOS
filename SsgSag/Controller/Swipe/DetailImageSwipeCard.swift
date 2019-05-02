@@ -20,6 +20,8 @@ class DetailImageSwipeCardVC: UIViewController {
     
     @IBOutlet weak var dayLefted: UILabel!
     
+    @IBOutlet weak var day: UILabel!
+    
     var imageWidth: CGFloat = 0.0
     
     var imageHeight: CGFloat = 0.0
@@ -40,7 +42,7 @@ class DetailImageSwipeCardVC: UIViewController {
             
             let interval = DateCaculate.dayInterval(using: posterEndDate)
             
-            dayLefted.text = "\(interval)일"
+            day.text = "\(interval)일"
             
             guard let posterURLString = poster.photoUrl else { return }
             
@@ -71,7 +73,7 @@ class DetailImageSwipeCardVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        name.adjustsFontSizeToFitWidth = true
+//        name.adjustsFontSizeToFitWidth = true
         hashTag.adjustsFontSizeToFitWidth = true
         category.adjustsFontSizeToFitWidth = true
         

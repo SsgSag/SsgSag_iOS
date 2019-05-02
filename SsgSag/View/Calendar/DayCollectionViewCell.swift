@@ -15,7 +15,7 @@ class DayCollectionViewCell: UICollectionViewCell {
     
     private lazy var lineWidth = self.frame.width
     
-    var todoStatus: todoTableStatus = .todoShow
+    private var todoStatus: todoTableStatus = .todoShow
     
     private lazy var cellWidth = self.frame.width * 0.1
     

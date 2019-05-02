@@ -107,8 +107,6 @@ enum ReadError: Error {
         switch self {
         case .JsonError:
             print("addActivity Json Parsing Error")
-        default:
-            break
         }
     }
 }

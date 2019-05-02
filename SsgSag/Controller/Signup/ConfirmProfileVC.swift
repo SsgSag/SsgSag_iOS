@@ -18,14 +18,18 @@ class ConfirmProfileVC: UIViewController, UITextFieldDelegate, UIGestureRecogniz
     @IBOutlet weak var titleLabel: UILabel!
     
     @IBOutlet weak var nameField: UITextField!
+    
     @IBOutlet weak var birthField: UITextField!
+    
     @IBOutlet weak var nickNameField: UITextField!
     
     @IBOutlet weak var maleButton: UIButton!
-    @IBOutlet weak var femaleButton: UIButton!
-    @IBOutlet weak var checkBoxButton: UIButton!
-    @IBOutlet weak var nextButton: UIButton!
     
+    @IBOutlet weak var femaleButton: UIButton!
+    
+    @IBOutlet weak var checkBoxButton: UIButton!
+    
+    @IBOutlet weak var nextButton: GradientButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -40,7 +44,8 @@ class ConfirmProfileVC: UIViewController, UITextFieldDelegate, UIGestureRecogniz
             action: #selector(self.back))
         navigationItem.leftBarButtonItem = backButton
         navigationItem.leftBarButtonItem?.tintColor = .black
-        navigationController?.interactivePopGestureRecognizer?.delegate = self as? UIGestureRecognizerDelegate
+        navigationController?.interactivePopGestureRecognizer?.delegate = self
+        
         setNavigationBar(color: .white)
         
         nameField.delegate = self
@@ -167,18 +172,31 @@ class ConfirmProfileVC: UIViewController, UITextFieldDelegate, UIGestureRecogniz
     }
     
      @objc func checkInformation(_ sender: Any) {
-        if (nameField.hasText && birthField.hasText && nickNameField.hasText && checkBoxButton.isSelected) {
-            if (maleButton.isSelected || femaleButton.isSelected) {
-                nextButton.isUserInteractionEnabled = true
-                nextButton.setImage(UIImage(named: "btNextActive"), for: .normal)
-            } else {
-                nextButton.isUserInteractionEnabled = false
-                nextButton.setImage(UIImage(named: "btNextUnactive"), for: .normal)
-            }
-        } else {
+        
+        guard nameField.hasText && birthField.hasText && nickNameField.hasText && checkBoxButton.isSelected else {
+            
             nextButton.isUserInteractionEnabled = false
-            nextButton.setImage(UIImage(named: "btNextUnactive"), for: .normal)
+            
+            nextButton.topColor = .lightGray
+            nextButton.bottomColor = .white
+            
+            return
         }
+        
+        guard maleButton.isSelected || femaleButton.isSelected else {
+            nextButton.isUserInteractionEnabled = false
+            
+            nextButton.topColor = .lightGray
+            nextButton.bottomColor = .white
+            
+            return
+        }
+        
+        nextButton.isUserInteractionEnabled = true
+        
+        nextButton.topColor = #colorLiteral(red: 0.2078431373, green: 0.9176470588, blue: 0.8901960784, alpha: 1)
+        nextButton.bottomColor = #colorLiteral(red: 0.6588235294, green: 0.2784313725, blue: 1, alpha: 1)
+        
     }
 }
 

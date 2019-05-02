@@ -20,6 +20,11 @@ class DetailNewTextSwipeCard: UIViewController {
     
     @IBOutlet weak var category: UILabel!
     
+    @IBOutlet weak var days: UILabel!
+    
+    @IBOutlet weak var circle: UILabel!
+    
+    
     private var intervalDate: UILabel = {
         let label = UILabel()
         label.font = UIFont.boldSystemFont(ofSize: 33)
@@ -36,8 +41,8 @@ class DetailNewTextSwipeCard: UIViewController {
     private var subject: UILabel = {
         let label = UILabel()
         label.text = "주제"
-        label.font = UIFont.systemFont(ofSize: 18)
-        label.alpha = 0.7
+        label.font = UIFont.systemFont(ofSize: 18, weight: .medium)
+        label.alpha = 0.85
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -45,6 +50,7 @@ class DetailNewTextSwipeCard: UIViewController {
     private var subjectDetailText: UILabel = {
         let label = UILabel()
         label.numberOfLines = 0
+        label.textColor = #colorLiteral(red: 0.2784313725, green: 0.2784313725, blue: 0.2784313725, alpha: 1)
         label.font = UIFont.systemFont(ofSize: 15)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -53,8 +59,8 @@ class DetailNewTextSwipeCard: UIViewController {
     private var benefit: UILabel = {
         let label = UILabel()
         label.text = "시상내역"
-        label.font = UIFont.systemFont(ofSize: 18)
-        label.alpha = 0.7
+        label.font = UIFont.systemFont(ofSize: 18, weight: .medium)
+        label.alpha = 0.85
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -62,6 +68,7 @@ class DetailNewTextSwipeCard: UIViewController {
     private var benefitTextField: UILabel = {
         let label = UILabel()
         label.numberOfLines = 0
+        label.textColor = #colorLiteral(red: 0.2784313725, green: 0.2784313725, blue: 0.2784313725, alpha: 1)
         label.font = UIFont.systemFont(ofSize: 15)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -70,8 +77,8 @@ class DetailNewTextSwipeCard: UIViewController {
     private var eligibility: UILabel = {
         let label = UILabel()
         label.text = "지원자격"
-        label.font = UIFont.systemFont(ofSize: 18)
-        label.alpha = 0.7
+        label.font = UIFont.systemFont(ofSize: 18, weight: .medium)
+        label.alpha = 0.85
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -79,6 +86,7 @@ class DetailNewTextSwipeCard: UIViewController {
     private var eligibilityDetailText: UILabel = {
         let label = UILabel()
         label.numberOfLines = 0
+        label.textColor = #colorLiteral(red: 0.2784313725, green: 0.2784313725, blue: 0.2784313725, alpha: 1)
         label.font = UIFont.systemFont(ofSize: 15)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -97,8 +105,9 @@ class DetailNewTextSwipeCard: UIViewController {
             
             let interval = DateCaculate.dayInterval(using: posterEndDate)
             
-            dayLefted.text = "\(interval)일"
-            
+            days.text = "\(interval)일"
+            dayLefted.text = "남음"
+        
             self.intervalDate.text = DateCaculate.getDifferenceBetweenStartAndEnd(startDate: poster.posterStartDate, endDate: poster.posterEndDate)
             
             guard let outline = poster.outline else {return}
@@ -159,12 +168,10 @@ class DetailNewTextSwipeCard: UIViewController {
     }()
     
     private func setTextProperty() {
-        name.adjustsFontSizeToFitWidth = true
-        hashTag.adjustsFontSizeToFitWidth = true
-        category.adjustsFontSizeToFitWidth = true
-    
-        dayLefted.layer.cornerRadius = 59 / 2
-        dayLefted.layer.masksToBounds = true
+        
+        circle.layer.cornerRadius = 59 / 2
+        circle.layer.masksToBounds = true
+        circle.backgroundColor = .lightGray
     }
     
     private func addSubviews() {
@@ -202,27 +209,27 @@ class DetailNewTextSwipeCard: UIViewController {
         categoryText.topAnchor.constraint(equalTo: intervalDate.topAnchor),
         categoryText.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -19),
             
-        subject.topAnchor.constraint(equalTo: intervalDate.bottomAnchor, constant: 16),
+        subject.topAnchor.constraint(equalTo: intervalDate.bottomAnchor, constant: 20),
         subject.leadingAnchor.constraint(equalTo: intervalDate.leadingAnchor),
         
         subjectDetailText.topAnchor.constraint(equalTo: subject.bottomAnchor, constant: 3),
         subjectDetailText.leadingAnchor.constraint(equalTo: intervalDate.leadingAnchor),
         subjectDetailText.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
             
-        benefit.topAnchor.constraint(equalTo: subjectDetailText.bottomAnchor, constant: 8),
+        benefit.topAnchor.constraint(equalTo: subjectDetailText.bottomAnchor, constant: 14),
         benefit.leadingAnchor.constraint(equalTo: intervalDate.leadingAnchor),
         
         benefitTextField.topAnchor.constraint(equalTo: benefit.bottomAnchor, constant: 3),
         benefitTextField.leadingAnchor.constraint(equalTo: intervalDate.leadingAnchor),
         benefitTextField.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
             
-        eligibility.topAnchor.constraint(equalTo: benefitTextField.bottomAnchor, constant: 8),
+        eligibility.topAnchor.constraint(equalTo: benefitTextField.bottomAnchor, constant: 14),
         eligibility.leadingAnchor.constraint(equalTo: intervalDate.leadingAnchor),
         
         eligibilityDetailText.topAnchor.constraint(equalTo: eligibility.bottomAnchor, constant: 3),
         eligibilityDetailText.leadingAnchor.constraint(equalTo: intervalDate.leadingAnchor),
         eligibilityDetailText.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20)
-            
+        
         ])
     
         segmentView.layer.cornerRadius = 3

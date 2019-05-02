@@ -19,10 +19,9 @@ struct networkData : Codable {
             switch self {
             case .JsonError:
                 print("networkData Json Parsing Error")
-            default:
-                break
             }
         }
+        
     }
 
 	init(from decoder: Decoder) throws {

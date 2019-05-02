@@ -83,11 +83,8 @@ class DatePickerPopUpVC: UIViewController {
             
         case .AddCertificationVC:
             
-            let previousVC = self.parent as! AddCertificationVC
+            let _ = self.parent as! AddCertificationVC
             
-            
-        default:
-            break
         }
         
         print(buttonTag)

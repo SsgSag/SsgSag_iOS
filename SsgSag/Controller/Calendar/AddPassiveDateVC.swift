@@ -18,18 +18,26 @@ class AddPassiveDateVC: UIViewController, UITextFieldDelegate, UITextViewDelegat
     let activeButtonImages: [String] = [
      "icCategoryContestActive", "icCategoryActivityActive", "icCategoryClubActive", "icCategorySchoolActive", "icCategoryCareerActive", "icCategoryExtraActive"
     ]
+    
     @IBOutlet weak var titleField: UITextField!
+    
     @IBOutlet var startYearMonthDay: UILabel!
+    
     @IBOutlet var startTime: UILabel!
+    
     @IBOutlet var endYearMonthDay: UILabel!
+    
     @IBOutlet var endTime: UILabel!
+    
     @IBOutlet weak var memoTextView: UITextView!
+    
     @IBOutlet weak var startDateLabel: UILabel!
+    
     @IBOutlet weak var endDateLabel: UILabel!
+    
     @IBOutlet var categoryButtons: [UIButton]!
     
     var selectedValues: [Bool] = []
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()

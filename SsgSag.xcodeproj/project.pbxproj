@@ -460,10 +460,10 @@
 		8461760C225F6FF9005E6173 /* Signup */ = {
 			isa = PBXGroup;
 			children = (
+				FA3A342121E5D64300668908 /* UserInfoVC.swift */,
 				FA3A344121E7285C00668908 /* ConfirmProfileVC.swift */,
 				FA3A344321E72F5200668908 /* SchoolInfoVC.swift */,
 				842C618421DCDC92001BA6D8 /* SignupCompleteVC.swift */,
-				FA3A342121E5D64300668908 /* UserInfoVC.swift */,
 			);
 			path = Signup;
 			sourceTree = "<group>";

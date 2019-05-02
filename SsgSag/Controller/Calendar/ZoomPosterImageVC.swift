@@ -13,6 +13,7 @@ class ZoomPosterImageVC: UIViewController, UIScrollViewDelegate {
     var poster: UIImage = #imageLiteral(resourceName: "1")
     
     @IBOutlet weak var scrollView: UIScrollView!
+    
     @IBOutlet weak var imageView: UIImageView!
     
     override func viewDidLoad() {

@@ -303,8 +303,6 @@ class SignUpCompleteVC: UIViewController {
             do {
                 let modelData = try JSONDecoder().decode(PosterFavorite.self, from: data)
                 
-                print(modelData.message)
-                
                 guard let status = modelData.status else {return}
                 
                 guard let httpStatus = HttpStatus(rawValue: status) else {

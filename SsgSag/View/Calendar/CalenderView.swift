@@ -270,10 +270,10 @@ extension CalenderView: UICollectionViewDelegate, UICollectionViewDataSource {
         
         var beforeMonthIndex = 0
         var beforeYear = 0
-        
         var nextYear = 0
         var nextMonth = 0
         var nextMonthDay = 0
+        let dateFormatter = DateFormatter.genericDateFormatter
         
         setbeforeMonthAndYear(beforeMonthIndex: &beforeMonthIndex, beforeYear: &beforeYear)
         
@@ -334,15 +334,12 @@ extension CalenderView: UICollectionViewDelegate, UICollectionViewDataSource {
         var cellMonth = currentMonth
         var cellDay = indexPath.row - firstWeekDayOfMonth + 2
         
-        let dateFormatter = DateFormatter.genericDateFormatter
-        
-        var cellDateString = "\(cellYear)-\(cellMonth)-\(cellDay) 00:00:00"
-        
-        var currentCellDateTime = dateFormatter.date(from: cellDateString)
+        var currentCellDateTime = DateCaculate.getDateOfStringDay(cellYear, cellMonth, day: cellDay)
         
         eventDictionary[indexPath.row] = []
         
         for poster in CalenderView.getPosterUsingUserDefaults() {
+            
             if currentCellDateTime != nil {
                 
                 guard let posterEndDateString = poster.posterEndDate else { return .init() }
@@ -356,7 +353,7 @@ extension CalenderView: UICollectionViewDelegate, UICollectionViewDataSource {
                 let currentPosterYear = Calendar.current.component(.year, from: posterEndDate)
                 let currentPosterMonth = Calendar.current.component(.month, from: posterEndDate)
                 let currentPosterDay = Calendar.current.component(.day, from: posterEndDate)
-                
+    
                 if (cellYear == currentPosterYear) &&
                     (cellMonth == currentPosterMonth) &&
                     (cellDay == currentPosterDay) {
@@ -374,63 +371,41 @@ extension CalenderView: UICollectionViewDelegate, UICollectionViewDataSource {
         cell.layoutSubviews()
         cell.layoutIfNeeded()
         
-        //FIXME: - 여기서 처음 날짜 그려지는 문제 발생
-//        if lastSelectedDate != nil &&
-//            currentDay == cellDay &&
-//            currentYear == presentYear &&
-//            currentMonth == presentMonthIndex{
-//
-//            todaysIndexPath = indexPath
-//            let lbl = cell.subviews[1] as! UILabel
-//            lbl.layer.cornerRadius = lbl.frame.height / 2
-//            lbl.backgroundColor = #colorLiteral(red: 0.1176470588, green: 0.7921568627, blue: 0.2862745098, alpha: 1)
-//            lbl.textColor = UIColor.white
-//        }
-        
         if currentCellDateTime == nil {
             //전달이면
+        
             if indexPath.row < 15 {
                 cellYear = beforeYear
                 cellMonth = beforeMonthIndex
                 cellDay = beforeMonthCount-firstWeekDayOfMonth+indexPath.row+2
-                
-                cellDateString = "\(cellYear)-\(cellMonth)-\(cellDay) 00:00:00"
-                currentCellDateTime = dateFormatter.date(from: cellDateString)
             } else {
                 cellYear = nextYear
                 cellMonth = nextMonth
                 cellDay = nextMonthDay
-                
-                cellDateString = "\(cellYear)-\(cellMonth)-\(cellDay) 00:00:00"
-                currentCellDateTime = dateFormatter.date(from: cellDateString)
             }
         }
         
-        let calendar = Calendar.current
-        let componentsCell = calendar.dateComponents([.year, .month, .day], from: currentCellDateTime!)
+        currentCellDateTime = DateCaculate.getDateOfStringDay(cellYear, cellMonth, day: cellDay)
         
-        guard let lastSelectDate = lastSelectedDate else {
+        guard let currentCellDate = currentCellDateTime else { return cell }
+        
+        let currentCellComponent = Calendar.current.dateComponents([.year, .month, .day], from: currentCellDate)
+        
+        guard let lastSelectDate = lastSelectedDate else { return cell }
+        
+        let componentsSelectedCell = Calendar.current.dateComponents([.year, .month, .day], from: lastSelectDate)
+        
+        guard currentCellComponent.month! == componentsSelectedCell.month! &&
+            currentCellComponent.year! == componentsSelectedCell.year! &&
+            currentCellComponent.day! == componentsSelectedCell.day! else {
+                
             return cell
         }
         
-        let componentsSelectedCell = calendar.dateComponents([.year, .month, .day], from: lastSelectDate)
+        cell.lbl.backgroundColor = UIColor.lightGray
+        cell.lbl.textColor = UIColor.white
         
-        if componentsCell.month! == componentsSelectedCell.month! &&
-            componentsCell.year! == componentsSelectedCell.year! &&
-            componentsCell.day! == componentsSelectedCell.day! &&
-            todoButtonTapped == false {
-            cell.lbl.backgroundColor = UIColor.lightGray
-            cell.lbl.textColor = UIColor.white
-        }
-        
-        if let lastselectedIndex = lastSelectedIndexPath {
-            if indexPath == lastselectedIndex && todoButtonTapped {
-                cell.lbl.backgroundColor = UIColor.clear
-                cell.lbl.textColor = UIColor.black
-                todoButtonTapped = false
-            }
-        }
-        
+
         return cell
     }
     
