@@ -27,6 +27,13 @@ class ZoomPosterVC: UIViewController, UIScrollViewDelegate {
         guard let posterURL = URL(string: posterURLString) else { return }
         
         imageView.load(url: posterURL)
+
+    }
+    
+    
+    
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .lightContent
     }
     
     func viewForZooming(in scrollView: UIScrollView) -> UIView? {

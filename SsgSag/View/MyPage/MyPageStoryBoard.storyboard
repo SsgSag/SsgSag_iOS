@@ -37,13 +37,13 @@
                                             <action selector="touchUpCameraButton:" destination="xxg-7e-42k" eventType="touchUpInside" id="aZj-4r-hwi"/>
                                         </connections>
                                     </button>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="(hero)" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cON-Tp-SAp" userLabel="아이디">
-                                        <rect key="frame" x="101.33333333333333" y="208" width="41.999999999999986" height="18"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="(슥삭)" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cON-Tp-SAp" userLabel="아이디">
+                                        <rect key="frame" x="101.33333333333333" y="208" width="36.999999999999986" height="18"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="허수진" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ojx-1I-pPr" userLabel="이름">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="홍길동" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ojx-1I-pPr" userLabel="이름">
                                         <rect key="frame" x="30.000000000000004" y="200" width="62.333333333333343" height="28.666666666666657"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="24"/>
                                         <nil key="textColor"/>
@@ -91,16 +91,16 @@
                                         </connections>
                                     </containerView>
                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="7" translatesAutoresizingMaskIntoConstraints="NO" id="LgH-1O-3Y3" userLabel="대학">
-                                        <rect key="frame" x="30" y="236.66666666666669" width="171" height="13"/>
+                                        <rect key="frame" x="30" y="236.66666666666669" width="158" height="13"/>
                                         <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="숙명여자대학교" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Dsn-Qk-bp2">
-                                                <rect key="frame" x="0.0" y="0.0" width="91" height="13"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="홍길동대학교" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Dsn-Qk-bp2">
+                                                <rect key="frame" x="0.0" y="0.0" width="78" height="13"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                 <color key="textColor" red="0.60784313725490191" green="0.60784313725490191" blue="0.60784313725490191" alpha="0.84999999999999998" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hUa-H5-UMP">
-                                                <rect key="frame" x="98" y="0.0" width="1" height="13"/>
+                                                <rect key="frame" x="85" y="0.0" width="1" height="13"/>
                                                 <color key="backgroundColor" red="0.60784313725490191" green="0.60784313725490191" blue="0.60784313725490191" alpha="1" colorSpace="calibratedRGB"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="13" id="bDE-FH-gE0"/>
@@ -108,7 +108,7 @@
                                                 </constraints>
                                             </view>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="컴퓨터공학" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="x3B-1a-HAT">
-                                                <rect key="frame" x="106" y="0.0" width="65" height="13"/>
+                                                <rect key="frame" x="93" y="0.0" width="65" height="13"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                 <color key="textColor" red="0.60784313729999995" green="0.60784313729999995" blue="0.60784313729999995" alpha="0.84999999999999998" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
@@ -271,7 +271,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Zf2-PM-DsH" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4642" y="1001"/>
+            <point key="canvasLocation" x="4645" y="988"/>
         </scene>
         <!--구직여부-->
         <scene sceneID="RtO-2j-Vli">
@@ -565,7 +565,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="W1S-eq-fDV" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3831" y="2277"/>
+            <point key="canvasLocation" x="3612" y="2436"/>
         </scene>
         <!--Preference-->
         <scene sceneID="1uQ-gR-vGC">
@@ -769,23 +769,52 @@
                                     <constraint firstAttribute="bottom" secondItem="BLh-5V-MeR" secondAttribute="bottom" id="xBz-G1-qW5"/>
                                 </constraints>
                             </scrollView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vfg-mP-sok" userLabel="저장">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vfg-mP-sok" userLabel="저장" customClass="GradientButton" customModule="슥삭" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="1290" width="375" height="60"/>
                                 <color key="backgroundColor" red="0.78823529410000004" green="0.78823529410000004" blue="0.78823529410000004" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="60" id="9rB-dk-9iy"/>
                                 </constraints>
-                                <state key="normal" image="btSaveMypageActive"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="topColor">
+                                        <color key="value" red="0.20784313725490194" green="0.91764705882352937" blue="0.8901960784313725" alpha="0.84705882352941175" colorSpace="calibratedRGB"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="bottomColor">
+                                        <color key="value" red="0.6588235294117647" green="0.27843137254901962" blue="1" alpha="0.84705882352941175" colorSpace="calibratedRGB"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="shadowColor">
+                                        <color key="value" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="startPointX">
+                                        <real key="value" value="0.0"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="startPointY">
+                                        <real key="value" value="0.5"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="endPointX">
+                                        <real key="value" value="1"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="endPointY">
+                                        <real key="value" value="0.5"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
                                 <connections>
                                     <action selector="touchUpSaveButton:" destination="17w-h8-msn" eventType="touchUpInside" id="0zz-q3-KiR"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="저장" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WHt-y4-h4a">
+                                <rect key="frame" x="166" y="1310" width="30" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="vfg-mP-sok" firstAttribute="bottom" secondItem="wnZ-KW-xtJ" secondAttribute="bottom" id="016-df-nis"/>
                             <constraint firstItem="Aau-bB-Gl2" firstAttribute="trailing" secondItem="zTd-0f-XkB" secondAttribute="trailing" id="1Dc-UZ-s61"/>
                             <constraint firstItem="QyU-wV-MYI" firstAttribute="leading" secondItem="Aau-bB-Gl2" secondAttribute="leading" id="4dF-ZM-k10"/>
+                            <constraint firstItem="WHt-y4-h4a" firstAttribute="centerY" secondItem="vfg-mP-sok" secondAttribute="centerY" id="6rr-b4-8cl"/>
                             <constraint firstItem="BLh-5V-MeR" firstAttribute="width" secondItem="wnZ-KW-xtJ" secondAttribute="width" id="Cd4-jC-tU8"/>
                             <constraint firstItem="zTd-0f-XkB" firstAttribute="top" secondItem="wnZ-KW-xtJ" secondAttribute="topMargin" id="Iq1-JJ-zdO"/>
                             <constraint firstItem="vfg-mP-sok" firstAttribute="width" secondItem="BLh-5V-MeR" secondAttribute="width" id="TRT-ql-owU"/>
@@ -794,6 +823,7 @@
                             <constraint firstItem="zTd-0f-XkB" firstAttribute="top" secondItem="Aau-bB-Gl2" secondAttribute="top" id="kM7-qI-rYq"/>
                             <constraint firstItem="vfg-mP-sok" firstAttribute="centerX" secondItem="BLh-5V-MeR" secondAttribute="centerX" id="myh-sF-PRl"/>
                             <constraint firstItem="Aau-bB-Gl2" firstAttribute="trailing" secondItem="QyU-wV-MYI" secondAttribute="trailing" id="tKh-kB-b9w"/>
+                            <constraint firstItem="WHt-y4-h4a" firstAttribute="centerX" secondItem="BLh-5V-MeR" secondAttribute="centerX" id="vXZ-2m-OSP"/>
                             <constraint firstItem="QyU-wV-MYI" firstAttribute="top" secondItem="zTd-0f-XkB" secondAttribute="bottom" id="y8B-gS-rty"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="Aau-bB-Gl2"/>
@@ -822,7 +852,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Bxi-Jf-5Yj" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2726" y="1925"/>
+            <point key="canvasLocation" x="2511" y="2208"/>
         </scene>
         <!--이력-->
         <scene sceneID="H19-Ba-ugb">
@@ -866,7 +896,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="sPZ-ON-3S6" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4476" y="1736"/>
+            <point key="canvasLocation" x="4372" y="1726"/>
         </scene>
         <!--Add ActivityVC-->
         <scene sceneID="AOx-f6-E6w">
@@ -1062,7 +1092,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="s4U-Fz-pr1" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5217" y="1726"/>
+            <point key="canvasLocation" x="5300" y="1726"/>
         </scene>
         <!--AddVC-->
         <scene sceneID="P0I-AS-jHU">
@@ -1206,7 +1236,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bmK-ww-rvv" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="6041" y="1726"/>
+            <point key="canvasLocation" x="5959" y="1726"/>
         </scene>
         <!--DatePickerPopUp-->
         <scene sceneID="kN9-gy-Lxn">
@@ -1282,7 +1312,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5M9-Sj-rM6" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4775" y="2436"/>
+            <point key="canvasLocation" x="5216" y="2491"/>
         </scene>
         <!--Add CertificationVC-->
         <scene sceneID="Svq-WU-yJN">
@@ -1419,7 +1449,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9GI-Xx-Y7H" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="6704" y="1726"/>
+            <point key="canvasLocation" x="6651" y="1726"/>
         </scene>
     </scenes>
     <resources>
@@ -1451,7 +1481,6 @@
         <image name="btPreferenceSocietyUnactive" width="162" height="162"/>
         <image name="btPreferenceStartupUnactive" width="162" height="162"/>
         <image name="btPreferenceTechUnactive" width="162" height="162"/>
-        <image name="btSaveMypageActive" width="375" height="80"/>
         <image name="btSaveMypageUnactive" width="375" height="80"/>
         <image name="icArrowBack" width="24" height="24"/>
         <image name="icArrowGradation" width="44" height="50"/>

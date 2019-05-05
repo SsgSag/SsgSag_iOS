@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		203A3F6260CB2DCADDDD7022 /* Pods_SsgSag.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E43CB28ACDEE342412E92267 /* Pods_SsgSag.framework */; };
 		8406BB7D220E9EE80065B180 /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8406BB7C220E9EE80065B180 /* Event.swift */; };
+		840DDD3E227EA85500D9D515 /* AllTodo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 840DDD3D227EA85500D9D515 /* AllTodo.swift */; };
+		840DDD40227EAC4000D9D515 /* TapbarServiceImp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 840DDD3F227EAC4000D9D515 /* TapbarServiceImp.swift */; };
 		840FEDC122074F6F00581A3B /* DayCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 840FEDC022074F6F00581A3B /* DayCollectionViewCell.swift */; };
 		840FEDC32207500E00581A3B /* CalendarColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 840FEDC22207500E00581A3B /* CalendarColor.swift */; };
 		840FEDC52207569D00581A3B /* CalendarView + extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 840FEDC42207569D00581A3B /* CalendarView + extension.swift */; };
@@ -147,6 +149,8 @@
 		3DCBB39D00582EB5378B93D9 /* Pods-SsgSag.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SsgSag.debug.xcconfig"; path = "Target Support Files/Pods-SsgSag/Pods-SsgSag.debug.xcconfig"; sourceTree = "<group>"; };
 		79CF1D630B2315598FD05788 /* Pods_SsgSagTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SsgSagTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8406BB7C220E9EE80065B180 /* Event.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Event.swift; sourceTree = "<group>"; };
+		840DDD3D227EA85500D9D515 /* AllTodo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllTodo.swift; sourceTree = "<group>"; };
+		840DDD3F227EAC4000D9D515 /* TapbarServiceImp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TapbarServiceImp.swift; sourceTree = "<group>"; };
 		840FEDC022074F6F00581A3B /* DayCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayCollectionViewCell.swift; sourceTree = "<group>"; };
 		840FEDC22207500E00581A3B /* CalendarColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarColor.swift; sourceTree = "<group>"; };
 		840FEDC42207569D00581A3B /* CalendarView + extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "CalendarView + extension.swift"; path = "../Controller/Calendar/CalendarView + extension.swift"; sourceTree = "<group>"; };
@@ -392,13 +396,14 @@
 		84617606225F6EBF005E6173 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				840DDD3D227EA85500D9D515 /* AllTodo.swift */,
 				842C619A21DD1807001BA6D8 /* posterData.swift */,
 				842C619B21DD1807001BA6D8 /* networkData.swift */,
 				842C619C21DD1807001BA6D8 /* Posters.swift */,
+				84C30E28227808FB008F1165 /* PosterDetailResponse.swift */,
 				84617611225F7157005E6173 /* Swipe */,
 				84617610225F7120005E6173 /* Calendar */,
 				84836AC0222E5F4A00922A78 /* MyPage */,
-				84C30E28227808FB008F1165 /* PosterDetailResponse.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -613,6 +618,7 @@
 				84FB4FE3226B7F7D00D9F2F9 /* LoginServiceImp.swift */,
 				84B1B253226A385A00077DF9 /* PosterServiceImp.swift */,
 				843813102270153900C9E47B /* MypageServiceImp.swift */,
+				840DDD3F227EAC4000D9D515 /* TapbarServiceImp.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -1060,6 +1066,7 @@
 				FA7F4CD221E0A0A000D8643A /* AddActivityVC.swift in Sources */,
 				84C30E2B22780D50008F1165 /* DetailNewTextSwipeCard.swift in Sources */,
 				84BA694921DB394800BA8CB8 /* myPageVC.swift in Sources */,
+				840DDD3E227EA85500D9D515 /* AllTodo.swift in Sources */,
 				84264BAA21DF109200849E6B /* AddPassiveDateVC.swift in Sources */,
 				84A45D07225F9B3100C60287 /* EndPointType.swift in Sources */,
 				FA806B9A22060A8F00EB38D6 /* Category.swift in Sources */,
@@ -1071,6 +1078,7 @@
 				842C619F21DD1807001BA6D8 /* Posters.swift in Sources */,
 				8486D266226E18E800D7A0C7 /* CalendarServiceImp.swift in Sources */,
 				84A45D09225F9B8B00C60287 /* HTTPMethod.swift in Sources */,
+				840DDD40227EAC4000D9D515 /* TapbarServiceImp.swift in Sources */,
 				FA61FE1121E0E4A200A28947 /* PreferenceVC.swift in Sources */,
 				843813112270153900C9E47B /* MypageServiceImp.swift in Sources */,
 				840FEDC122074F6F00581A3B /* DayCollectionViewCell.swift in Sources */,

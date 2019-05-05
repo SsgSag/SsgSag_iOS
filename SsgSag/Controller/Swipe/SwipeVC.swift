@@ -66,8 +66,15 @@ class SwipeVC: UIViewController {
     }
 
     private func setView() {
+        
+        swipeCardView.layer.cornerRadius = 4
+        swipeCardView.layer.masksToBounds = true
+        
         self.view.backgroundColor = UIColor(displayP3Red: 242/255, green: 243/255, blue: 245/255, alpha: 1.0)
+        
         self.view.bringSubviewToFront(swipeCardView)
+        
+        
     }
     
     private func setButtonTarget() {

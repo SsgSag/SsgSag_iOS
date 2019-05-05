@@ -38,8 +38,8 @@ class LoginServiceImp: LoginService {
             } catch {
                 print("LoginService Parsing Error")
             }
+            
         }
-        
     }
     
     func requestLogin(send data: [String : Any], completionHandler: @escaping (DataResponse<LoginStruct>) -> Void) {

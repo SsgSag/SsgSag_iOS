@@ -27,11 +27,12 @@ class SwipeCard: UIView {
     //카드 setup
     func setupView(at value:String) {
         //layer.cornerRadius = 20
-        layer.shadowRadius = 3
+        layer.shadowRadius = 4
         layer.shadowOpacity = 0.4
         layer.shadowOffset = CGSize(width: 0.5, height: 3)
         layer.shadowColor = UIColor.darkGray.cgColor
         clipsToBounds = true
+        layer.masksToBounds = true
         
         //이거 false로 하면 첫번째 카드만 반응함
         isUserInteractionEnabled = true

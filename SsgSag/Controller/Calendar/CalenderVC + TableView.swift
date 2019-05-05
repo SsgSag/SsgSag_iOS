@@ -127,6 +127,7 @@ extension CalenderVC: UITableViewDelegate,UITableViewDataSource {
                     }
                     
                     UserDefaults.standard.setValue(try? PropertyListEncoder().encode(userDefaultsData), forKey: "poster")
+                    
                     NotificationCenter.default.post(name: NSNotification.Name("deleteUserDefaults"), object: nil)
                 }
             }

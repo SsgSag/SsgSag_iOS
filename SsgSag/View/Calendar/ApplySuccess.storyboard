@@ -33,7 +33,8 @@
                         <viewLayoutGuide key="safeArea" id="3zV-3Z-TqY"/>
                     </view>
                     <navigationItem key="navigationItem" title="지원완료" id="ag4-EQ-7sS">
-                        <barButtonItem key="leftBarButtonItem" title="&lt;" id="HDR-mh-lGi">
+                        <barButtonItem key="leftBarButtonItem" image="group7" id="HDR-mh-lGi">
+                            <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <connections>
                                 <action selector="moveToCalendar:" destination="RJR-zz-BwM" id="QdQ-bC-HSa"/>
                             </connections>
@@ -64,4 +65,7 @@
             <point key="canvasLocation" x="13" y="-107"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="group7" width="19" height="19"/>
+    </resources>
 </document>

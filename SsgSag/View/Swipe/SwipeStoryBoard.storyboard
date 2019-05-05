@@ -520,7 +520,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0Au-Nd-7LX" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3711" y="734"/>
+            <point key="canvasLocation" x="3582" y="727"/>
         </scene>
         <!--ZoomPoster-->
         <scene sceneID="cFW-F4-OXa">
@@ -535,8 +535,10 @@
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="7OE-t3-GFV">
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="605"/>
+                                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </imageView>
                                 </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstItem="7OE-t3-GFV" firstAttribute="width" secondItem="VOO-cp-rLE" secondAttribute="width" id="8yH-SN-ctk"/>
                                     <constraint firstAttribute="bottom" secondItem="7OE-t3-GFV" secondAttribute="bottom" id="Hl9-9c-uDr"/>
@@ -549,35 +551,35 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="abo-sZ-7Vs">
                                 <rect key="frame" x="0.0" y="20" width="375" height="43"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AEf-EY-WMX">
-                                        <rect key="frame" x="8" y="2.5" width="38" height="38"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="포스터 상세 보기" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DIE-Gv-Dzg">
+                                        <rect key="frame" x="131.5" y="11" width="112" height="21"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AEf-EY-WMX">
+                                        <rect key="frame" x="343" y="9.5" width="24" height="24"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="38" id="Uax-iM-WXh"/>
-                                            <constraint firstAttribute="width" constant="38" id="bpR-bJ-wjp"/>
+                                            <constraint firstAttribute="height" constant="24" id="Uax-iM-WXh"/>
+                                            <constraint firstAttribute="width" constant="24" id="bpR-bJ-wjp"/>
                                         </constraints>
-                                        <state key="normal" title="&lt;"/>
+                                        <state key="normal" image="group7"/>
                                         <connections>
                                             <action selector="backToPresenting:" destination="KUT-TZ-Ipk" eventType="touchUpInside" id="T10-tC-Y4I"/>
                                         </connections>
                                     </button>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="포스터 상세 보기" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DIE-Gv-Dzg">
-                                        <rect key="frame" x="131.5" y="11" width="112" height="21"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <nil key="textColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
                                 </subviews>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="AEf-EY-WMX" secondAttribute="trailing" constant="8" id="2h6-Uv-iQa"/>
                                     <constraint firstAttribute="height" constant="43" id="5Sh-Gb-nNi"/>
                                     <constraint firstItem="DIE-Gv-Dzg" firstAttribute="centerX" secondItem="abo-sZ-7Vs" secondAttribute="centerX" id="LjS-6G-OMh"/>
                                     <constraint firstItem="AEf-EY-WMX" firstAttribute="centerY" secondItem="abo-sZ-7Vs" secondAttribute="centerY" id="Tzj-Q6-HtL"/>
-                                    <constraint firstItem="AEf-EY-WMX" firstAttribute="leading" secondItem="abo-sZ-7Vs" secondAttribute="leading" constant="8" id="bGf-d4-IME"/>
                                     <constraint firstItem="DIE-Gv-Dzg" firstAttribute="centerY" secondItem="abo-sZ-7Vs" secondAttribute="centerY" id="pRh-Lg-0eA"/>
                                 </constraints>
                             </view>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="abo-sZ-7Vs" firstAttribute="leading" secondItem="Jpy-OH-UWw" secondAttribute="leading" id="6xO-Zt-MgX"/>
                             <constraint firstItem="VOO-cp-rLE" firstAttribute="width" secondItem="GhI-XX-Lb3" secondAttribute="width" id="PfU-5l-6fQ"/>
@@ -724,6 +726,7 @@
     <resources>
         <image name="btO" width="66" height="66"/>
         <image name="btX" width="66" height="66"/>
+        <image name="group7" width="19" height="19"/>
         <image name="icCardProcessBell" width="42" height="42"/>
         <image name="icCardProcessFinal" width="42" height="42"/>
         <image name="icCardProcessInterview" width="42" height="42"/>

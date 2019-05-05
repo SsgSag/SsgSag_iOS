@@ -264,6 +264,7 @@ class SignUpCompleteVC: UIViewController {
                 "userInterest" : sendPreferenceValues,
                 "userGrade" : grade
             ]
+            
         } else { //자체로그인일 때는
             
             let UserInfoVC = self.navigationController?.viewControllers[0] as! UserInfoVC

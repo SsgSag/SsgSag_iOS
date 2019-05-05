@@ -12,10 +12,11 @@ struct StoryBoardName {
     static let swipe = "SwipeStoryBoard"
     static let mypage = "MyPageStoryBoard"
     static let signup = "SignupStoryBoard"
-    
 }
 
 class TapbarVC: UITabBarController {
+    
+    var tapbarServiceImp: TapbarService?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -23,6 +24,7 @@ class TapbarVC: UITabBarController {
         let swipeStoryBoard = UIStoryboard(name: StoryBoardName.swipe, bundle: nil)
         let mypageStoryBoard = UIStoryboard(name: StoryBoardName.mypage, bundle: nil)
         
+        tapbarServiceImp = TapbarServiceImp()
         
         let firstViewController = swipeStoryBoard.instantiateViewController(withIdentifier: "Swipe")
         firstViewController.tabBarItem = UITabBarItem(title: "", image: UIImage(named: "icMain"), selectedImage: UIImage(named: "icMainActive"))
@@ -42,6 +44,33 @@ class TapbarVC: UITabBarController {
         self.tabBar.barStyle = .black
         
         self.selectedIndex = 1
+        
+        getPostersAndStore()
+    }
+    
+    /// start only at first time
+    private func getPostersAndStore() {
+        
+        guard let _ = UserDefaults.standard.object(forKey: "start") as? Bool else {
+            
+            let start = true
+            
+            UserDefaults.standard.setValue(start, forKey: "start")
+            
+            syncDataAtFirst()
+            
+            return
+        }
+    }
+    
+    private func syncDataAtFirst() {
+        
+        tapbarServiceImp?.requestAllTodoList { (dataResponse) in
+            
+            guard let todoList = dataResponse.value else { return }
+        
+            UserDefaults.standard.setValue(try? PropertyListEncoder().encode(todoList), forKey: "poster")
+        }
     }
     
     override func viewWillLayoutSubviews() {
@@ -55,4 +84,8 @@ class TapbarVC: UITabBarController {
         
         UIView.appearance().isExclusiveTouch = true
     }
+}
+
+protocol TapbarService: class {
+    func requestAllTodoList(completionHandler: @escaping (DataResponse<[Posters]>) -> Void)
 }

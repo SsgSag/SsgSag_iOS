@@ -433,8 +433,6 @@ protocol CalendarService: class {
     
     func reqeustComplete(_ posterIdx: Int, completionHandler: @escaping (DataResponse<PosterFavorite>) -> Void)
     
-    func requestAllTodoList(completionHandler: @escaping (DataResponse<AllTodoList>) -> Void)
-    
     func requestEachPoster(_ posterIdx: Int, completionHandler: @escaping (DataResponse<networkPostersData>) -> Void)
 }
 

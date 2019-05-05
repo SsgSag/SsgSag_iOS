@@ -78,8 +78,6 @@ class CalenderVC: UIViewController {
         
         calendarServiceImp = CalendarServiceImp()
         
-        getPostersAndStore()
-        
         setupContentView()
         
         setupGesture()
@@ -129,39 +127,7 @@ class CalenderVC: UIViewController {
     
     var posterIdx: [Int] = []
     
-    private func syncDataAtFirst() {
-        
-        calendarServiceImp?.requestAllTodoList { (dataResponse) in
-            
-            guard let todoList = dataResponse.value?.data else { return }
-            
-            UserDefaults.standard.object(forKey: "poster")
-            for todo in todoList {
-                guard let todoPosterIdx = todo.posterIdx else {return}
-                
-                self.posterIdx.append(todoPosterIdx)
-            }
-            
-        }
-    }
-    
     var tempDetailPosters: [Posters]?
-    
-    /// start only at first time
-    private func getPostersAndStore() {
-        
-        guard let _ = UserDefaults.standard.object(forKey: "start") as? Bool else {
-            
-            let start = true
-            
-            UserDefaults.standard.setValue(start, forKey: "start")
-            
-            syncDataAtFirst()
-            
-            return
-        }
-        
-    }
     
     private func setNotificationObserver() {
         NotificationCenter.default.addObserver(self, selector: #selector(addUserDefaults), name: NSNotification.Name("addUserDefaults"), object: nil)
