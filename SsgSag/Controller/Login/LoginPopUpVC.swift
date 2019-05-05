@@ -29,8 +29,11 @@ class LoginPopUpVC: UIViewController, NaverThirdPartyLoginConnectionDelegate {
     }
     
     @IBAction func naverLogin(_ sender: Any) {
-        loginInstance?.delegate = self
-        loginInstance?.requestThirdPartyLogin()
+        
+        self.simplerAlert(title: "준비중입니다.")
+//        loginInstance?.delegate = self
+//        loginInstance?.requestThirdPartyLogin()
+        
     }
     
     @IBAction func kakaoLogin(_ sender: Any) {
@@ -86,8 +89,6 @@ class LoginPopUpVC: UIViewController, NaverThirdPartyLoginConnectionDelegate {
         }
     }
     
-    
-    
     @IBAction func touchUpCancelButton(_ sender: UIButton) {
         self.view.removeFromSuperview()
     }
@@ -100,7 +101,6 @@ class LoginPopUpVC: UIViewController, NaverThirdPartyLoginConnectionDelegate {
         } else {
             print("Nil Request")
         }
-        
     }
     
     // ---- 4
