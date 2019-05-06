@@ -6,12 +6,12 @@ import UIKit
 
 class SwipeCard: UIView {
     
-    var xCenter: CGFloat = 0.0
-    var yCenter: CGFloat = 0.0
-    var originalPoint = CGPoint.zero
-    var imageViewStatus = UIImageView()
-    var overLayImage = UIImageView()
-    var isLiked = false
+    private var xCenter: CGFloat = 0.0
+    private var yCenter: CGFloat = 0.0
+    private var originalPoint = CGPoint.zero
+    private var imageViewStatus = UIImageView()
+    private var overLayImage = UIImageView()
+    private var isLiked = false
     
     weak var delegate: SwipeCardDelegate?
     
@@ -62,17 +62,15 @@ class SwipeCard: UIView {
             let rotationAngel = .pi/8*rotationStrength
             let scale = max(1 - abs(rotationStrength) / SCALE_STRENGTH, SCALE_RANGE)
             center = CGPoint(x: originalPoint.x + xCenter, y: originalPoint.y + yCenter)
+            
             let transforms = CGAffineTransform(rotationAngle: rotationAngel)
             let scaleTransform: CGAffineTransform = transforms.scaledBy(x: scale, y: scale)
             self.transform = scaleTransform
             updateOverlay(xCenter)
+            
         case .ended:
             afterSwipeAction()
-        case .possible:
-            break
-        case .cancelled:
-            break
-        case .failed:
+        case .possible, .cancelled, .failed:
             break
         }
         
@@ -169,4 +167,5 @@ class SwipeCard: UIView {
         isLiked = false
         delegate?.cardGoesLeft(card: self)
     }
+    
 }

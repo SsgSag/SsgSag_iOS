@@ -110,18 +110,19 @@ class TodoTableViewCell: UITableViewCell {
                 
                 leftedDay.isHidden = false
                 
-                let dayInterval = Calendar.current.dateComponents([.day],
-                                                                  from: Date(),
-                                                                  to: posterEndDate)
-                
-                guard let interval = dayInterval.day else { return  }
-                
-                //favorite.setTitle("\(interval)일", for: .normal)
-                dayLefted.text = "\(interval)일"
             } else {
                 newImage.isHidden = false
                 leftedDay.isHidden = true
             }
+            
+            let dayInterval = Calendar.current.dateComponents([.day],
+                                                              from: Date(),
+                                                              to: posterEndDate)
+            
+            guard let interval = dayInterval.day else { return  }
+            
+            //favorite.setTitle("\(interval)일", for: .normal)
+            dayLefted.text = "\(interval)일"
             
             dateLabel.font = UIFont.systemFont(ofSize: 13.0, weight: .light)
             leftedDay.font = UIFont.systemFont(ofSize: 34.0, weight: .medium)

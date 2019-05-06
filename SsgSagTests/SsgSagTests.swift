@@ -1,22 +1,17 @@
 //
-//  SsgsagTests.swift
-//  SsgsagTests
+//  SsgSagTests.swift
+//  SsgSagTests
 //
-//  Created by admin on 27/04/2019.
+//  Created by admin on 06/05/2019.
 //  Copyright © 2019 wndzlf. All rights reserved.
 //
 
 import XCTest
 
-class SsgsagTests: XCTestCase {
-    
-    var loginVC: LoginVC!
+class SsgSagTests: XCTestCase {
 
     override func setUp() {
         // Put setup code here. This method is called before the invocation of each test method in the class.
-        
-        super.setUp()
-        
     }
 
     override func tearDown() {

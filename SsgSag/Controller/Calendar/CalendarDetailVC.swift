@@ -45,12 +45,17 @@ class CalendarDetailVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        setPosterContent()
+        
+    }
+    
+    private func setPosterContent() {
         if let photoURL = Poster?.photoUrl {
             if let url = URL(string: photoURL){
                 PosterImage.load(url: url)
             }
         }
-
+        
         if let poster = Poster {
             
             if let category : PosterCategory = PosterCategory(rawValue: poster.categoryIdx!) {
@@ -69,11 +74,11 @@ class CalendarDetailVC: UIViewController {
             if let posterInterest = poster.posterInterest {
                 
                 var hashTagString = ""
-                    for hashInterest in posterInterest {
-                        if let hashTagsHashInterest = hashTags[hashInterest] {
-                            hashTagString = hashTagString + "#" + hashTagsHashInterest + " "
-                        }
+                for hashInterest in posterInterest {
+                    if let hashTagsHashInterest = hashTags[hashInterest] {
+                        hashTagString = hashTagString + "#" + hashTagsHashInterest + " "
                     }
+                }
                 hashTagLabel.text = hashTagString
             }
         }
@@ -90,23 +95,38 @@ class CalendarDetailVC: UIViewController {
     @objc func share(sender:UIView){
         UIGraphicsBeginImageContext(view.frame.size)
         view.layer.render(in: UIGraphicsGetCurrentContext()!)
-        let image = UIGraphicsGetImageFromCurrentImageContext()
-        UIGraphicsEndImageContext()
         
-        let textToShare = "Check out my app"
+        var objectsToshare: [Any] = []
         
-        if let myWebsite = URL(string: "http://itunes.apple.com") {//Enter link to your app here
-            let objectsToShare = [textToShare, myWebsite, image ?? #imageLiteral(resourceName: "app-logo")] as [Any]
-            let activityVC = UIActivityViewController(activityItems: objectsToShare, applicationActivities: nil)
-            
-            //Excluded Activities
-            activityVC.excludedActivityTypes = [UIActivity.ActivityType.airDrop, UIActivity.ActivityType.addToReadingList, UIActivity.ActivityType.postToFacebook, UIActivity.ActivityType.mail
-            ]
-            //
-            
-            activityVC.popoverPresentationController?.sourceView = sender
-            self.present(activityVC, animated: true, completion: nil)
+        guard let posterName = Poster?.posterName else {return}
+        
+        objectsToshare.append(posterName)
+        
+        guard let posterImage = PosterImage.image else {
+            addObjects(with: objectsToshare, sender: sender)
+            return
         }
+        
+        objectsToshare.append(posterImage)
+        
+        guard let posterWebSiteURL = Poster?.posterWebSite else {
+            addObjects(with: objectsToshare, sender: sender)
+            return
+        }
+        
+        objectsToshare.append(posterWebSiteURL)
+        
+        addObjects(with: objectsToshare, sender: sender)
+        
+    }
+    
+    private func addObjects(with objectsToshare: [Any], sender: UIView) {
+        let activityVC = UIActivityViewController(activityItems: objectsToshare, applicationActivities: nil)
+        
+        activityVC.excludedActivityTypes = [UIActivity.ActivityType.airDrop, UIActivity.ActivityType.addToReadingList ]
+        
+        activityVC.popoverPresentationController?.sourceView = sender
+        self.present(activityVC, animated: true, completion: nil)
     }
     
     @IBAction func backButton(_ sender: UIBarButtonItem) {

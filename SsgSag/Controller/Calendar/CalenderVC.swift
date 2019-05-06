@@ -282,15 +282,7 @@ class CalenderVC: UIViewController {
     
     private func setPosters(){
         
-        guard let poster = UserDefaults.standard.object(forKey: "poster") as? Data else{
-            return
-        }
-        
-        guard let storedPosters = try? PropertyListDecoder().decode([Posters].self, from: poster) else {
-            return
-        }
-        
-        posters = storedPosters
+        posters = StoreAndFetchPoster.getPoster
         
         posters.sort{$0.posterEndDate! < $1.posterEndDate!}
         
@@ -371,7 +363,6 @@ class CalenderVC: UIViewController {
         
         let dateFormatter = DateFormatter.genericDateFormatter
         
-        
         // 오늘일 경우 투두리스트의 모든 데이터를 보여준다.
         if currentSelectedDateYear == todayYear &&
             currentSelectedDateMonth == todayMonth &&
@@ -400,6 +391,7 @@ class CalenderVC: UIViewController {
                     
                     todoTableData.append(poster)
                 }
+                
             }
         }
         

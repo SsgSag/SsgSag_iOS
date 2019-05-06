@@ -34,16 +34,15 @@ extension CalenderVC: UITableViewDelegate,UITableViewDataSource {
         let storyBoard = UIStoryboard(name: "Calendar", bundle: nil)
         let CalendarDetailVC = storyBoard.instantiateViewController(withIdentifier: "DetailPoster") as! CalendarDetailVC
     
-        if let posterData = UserDefaults.standard.object(forKey: "poster") as? Data {
-            if let posterInfo = try? PropertyListDecoder().decode([Posters].self, from: posterData){
+        let posterInfo = StoreAndFetchPoster.getPoster
                 for poster in posterInfo {
                     guard let posterName = todoTableData[indexPath.row].posterName else { return }
                     if posterName == poster.posterName! {
                         CalendarDetailVC.Poster = poster
                     }
                 }
-            }
-        }
+        
+    
         
         present(CalendarDetailVC, animated: true, completion: nil)
         
@@ -92,8 +91,7 @@ extension CalenderVC: UITableViewDelegate,UITableViewDataSource {
         let deleteAction = UITableViewRowAction(style: .default, title: "삭제", handler: { (action, indexPath) in
             
             //유저 디폴츠에서 꺼낸
-            if let posterData =  UserDefaults.standard.object(forKey: "poster") as? Data {
-                if let posterInfo = try? PropertyListDecoder().decode([Posters].self, from: posterData){
+            let posterInfo = StoreAndFetchPoster.getPoster
 
                     var userDefaultsData = posterInfo
                     
@@ -125,12 +123,10 @@ extension CalenderVC: UITableViewDelegate,UITableViewDataSource {
                             
                         }
                     }
-                    
-                    UserDefaults.standard.setValue(try? PropertyListEncoder().encode(userDefaultsData), forKey: "poster")
-                    
-                    NotificationCenter.default.post(name: NSNotification.Name("deleteUserDefaults"), object: nil)
-                }
-            }
+            
+                StoreAndFetchPoster.storePoster(posters: userDefaultsData)
+                                    
+                NotificationCenter.default.post(name: NSNotification.Name("deleteUserDefaults"), object: nil)
             
            
         })

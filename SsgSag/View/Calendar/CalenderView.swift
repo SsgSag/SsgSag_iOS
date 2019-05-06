@@ -71,13 +71,7 @@ class CalenderView: UIView, MonthViewDelegate {
     
     static func getPosterUsingUserDefaults() -> [Posters] {
         
-        guard let posterData = UserDefaults.standard.object(forKey: "poster") as? Data else {
-            return []
-        }
-        
-        guard let posterInfo = try? PropertyListDecoder().decode([Posters].self, from: posterData) else {
-            return []
-        }
+        let posterInfo = StoreAndFetchPoster.getPoster
         
         return posterInfo
     }

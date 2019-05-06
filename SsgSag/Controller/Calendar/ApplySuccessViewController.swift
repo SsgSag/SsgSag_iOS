@@ -114,7 +114,7 @@ extension ApplySuccessViewController: UITableViewDelegate, UITableViewDataSource
                 }
             }
             
-            UserDefaults.standard.setValue(try? PropertyListEncoder().encode(posterInfo), forKey: "poster")
+            StoreAndFetchPoster.storePoster(posters: posterInfo)
             
             NotificationCenter.default.post(name: NSNotification.Name("deleteUserDefaults"), object: nil)
         

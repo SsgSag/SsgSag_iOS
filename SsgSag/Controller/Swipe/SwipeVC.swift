@@ -380,7 +380,7 @@ extension SwipeVC : SwipeCardDelegate {
         
         likedPoster.append(self.posters[currentIndex-1])
         
-        UserDefaults.standard.setValue(try? PropertyListEncoder().encode(likedPoster), forKey: "poster")
+        StoreAndFetchPoster.storePoster(posters: likedPoster)
         
         guard let likedCategory = likedOrDisLiked(rawValue: 1) else { return }
         
@@ -396,7 +396,7 @@ extension SwipeVC : SwipeCardDelegate {
             likedPoster.append(self.posters[currentIndex-1])
         }
         
-        UserDefaults.standard.setValue(try? PropertyListEncoder().encode(likedPoster), forKey: "poster")
+        StoreAndFetchPoster.storePoster(posters: likedPoster)
         
         guard let likedCategory = likedOrDisLiked(rawValue: 1) else { return }
         

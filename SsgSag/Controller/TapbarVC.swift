@@ -69,7 +69,7 @@ class TapbarVC: UITabBarController {
             
             guard let todoList = dataResponse.value else { return }
         
-            UserDefaults.standard.setValue(try? PropertyListEncoder().encode(todoList), forKey: "poster")
+            StoreAndFetchPoster.storePoster(posters: todoList)
         }
     }
     
@@ -89,3 +89,5 @@ class TapbarVC: UITabBarController {
 protocol TapbarService: class {
     func requestAllTodoList(completionHandler: @escaping (DataResponse<[Posters]>) -> Void)
 }
+
+

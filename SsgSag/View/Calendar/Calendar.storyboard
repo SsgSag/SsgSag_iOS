@@ -450,7 +450,7 @@
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1Ii-5h-TyR" userLabel="ExpandButton">
-                                                <rect key="frame" x="319" y="106" width="40" height="40"/>
+                                                <rect key="frame" x="343" y="124" width="16" height="22"/>
                                                 <state key="normal" image="icMainExpand"/>
                                                 <connections>
                                                     <segue destination="R7j-Pw-dKL" kind="show" id="nAz-Rj-WSD"/>
@@ -543,7 +543,7 @@
                                                         </constraints>
                                                     </view>
                                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" spacing="7" translatesAutoresizingMaskIntoConstraints="NO" id="JpH-gi-uwd" userLabel="Action Stack View">
-                                                        <rect key="frame" x="185.5" y="18" width="124.5" height="36"/>
+                                                        <rect key="frame" x="180.5" y="18" width="134" height="36"/>
                                                         <subviews>
                                                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icMainAction" translatesAutoresizingMaskIntoConstraints="NO" id="o9i-o6-JjJ">
                                                                 <rect key="frame" x="0.0" y="0.0" width="36" height="36"/>
@@ -553,7 +553,7 @@
                                                                 </constraints>
                                                             </imageView>
                                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" alignment="top" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="PnC-1S-n9B">
-                                                                <rect key="frame" x="43" y="0.0" width="81.5" height="36"/>
+                                                                <rect key="frame" x="43" y="0.0" width="91" height="36"/>
                                                                 <subviews>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="활동기간" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="daF-Vk-euB">
                                                                         <rect key="frame" x="0.0" y="0.0" width="48.5" height="14"/>
