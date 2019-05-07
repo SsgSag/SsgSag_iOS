@@ -76,6 +76,7 @@ class CalenderView: UIView, MonthViewDelegate {
         return posterInfo
     }
     
+    
     static func isDuplicatePosterTuple(_ posterTuples:[Posters], input: Posters) -> Bool {
         
         for poster in posterTuples {
@@ -83,7 +84,6 @@ class CalenderView: UIView, MonthViewDelegate {
             if poster.posterName! == input.posterName! {
                 return true
             }
-            
         }
         
         return false

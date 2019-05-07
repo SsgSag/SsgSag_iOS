@@ -18,8 +18,6 @@ class CalendarDetailVC: UIViewController {
     
     @IBOutlet weak var shareButton: UIBarButtonItem!
     
-    @IBOutlet weak var categoryColorView: UIView!
-    
     @IBOutlet weak var categoryLabel: UILabel!
     
     @IBOutlet weak var nameLabel: UILabel!
@@ -27,10 +25,6 @@ class CalendarDetailVC: UIViewController {
     @IBOutlet weak var hashTagLabel: UILabel!
     
     @IBOutlet weak var titlePeriodLabel: UILabel!
-    
-    @IBOutlet weak var recruitPeriodLabel: UILabel!
-    
-    @IBOutlet weak var actionPeriodLabel: UILabel!
     
     @IBOutlet var outLineLabel: UILabel!
     
@@ -61,12 +55,12 @@ class CalendarDetailVC: UIViewController {
             if let category : PosterCategory = PosterCategory(rawValue: poster.categoryIdx!) {
                 categoryLabel.text = category.categoryString()
                 categoryLabel.textColor = category.categoryColors()
-                categoryColorView.backgroundColor =  category.categoryColors()
+                titlePeriodLabel.textColor = category.categoryColors()
+                
+                titlePeriodLabel.text = poster.keyword
             }
             
             nameLabel.text = poster.posterName
-            recruitPeriodLabel.text = poster.documentDate
-            actionPeriodLabel.text = poster.period
             outLineLabel.text = poster.outline
             targetLabel.text = poster.target
             benefitLabel.text = poster.benefit
@@ -82,14 +76,24 @@ class CalendarDetailVC: UIViewController {
                 hashTagLabel.text = hashTagString
             }
         }
-        
-        if let period = recruitPeriodLabel.text {
-            titlePeriodLabel.text = "기간 | " +  period
-        }
     }
     
     @IBAction func touchUpShareButton(_ sender: Any) {
         share(sender:view)
+    }
+    
+    
+    @IBAction func moveToWebsite(_ sender: Any) {
+        
+        guard let websiteURL = Poster?.posterWebSite else {
+            return
+        }
+        
+        guard let url = URL(string: websiteURL) else {
+            return
+        }
+        
+        UIApplication.shared.open(url)
     }
     
     @objc func share(sender:UIView){

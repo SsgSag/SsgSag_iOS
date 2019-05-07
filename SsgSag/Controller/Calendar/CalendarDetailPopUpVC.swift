@@ -32,18 +32,10 @@ class CalendarDetailPopUpVC: UIViewController {
         if let posterDetail = posterDetailText {
             detailTextView.text = posterDetail
         }
+        
     }
     
     @IBAction func touchUpWebsite(sender: UIButton) {
-        
-//        if let webURL = websiteURL {
-//            print("weburl: \(webURL)")
-//            if #available(iOS 10, *) {
-//                UIApplication.shared.open(URL(string: webURL)!)
-//            }
-//            UIApplication.shared.open(URL(string: webURL)!)
-//
-//        }
         
         guard let websiteURL = websiteURL else {
             return
