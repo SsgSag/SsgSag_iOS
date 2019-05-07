@@ -27,7 +27,7 @@ class TodoTableViewCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    static private let weekDaySymbol = ["토", "일", "월", "화", "수", "목", "금"]
+    static private let weekDaySymbol = ["일", "월", "화", "수", "목", "금","토"]
     
     private func setFavoriteColor(with category: PosterCategory, posterIdx: Int) {
         
@@ -78,6 +78,9 @@ class TodoTableViewCell: UITableViewCell {
             
             guard let posterEndDate = dateFormatter.date(from: posterEndDateString) else { return }
             
+            print("posterEndDateString \(posterEndDateString)")
+            print("addingPosterEndDate \(posterEndDate)")
+            
             let todoDataEndMonth = Calendar.current.component(.month, from: posterEndDate)
             
             let todoDataEndDay = Calendar.current.component(.day, from: posterEndDate)
@@ -115,7 +118,7 @@ class TodoTableViewCell: UITableViewCell {
                 leftedDay.isHidden = true
             }
             
-            let dayInterval = Calendar.current.dateComponents([.day],
+            var dayInterval = Calendar.current.dateComponents([.day],
                                                               from: Date(),
                                                               to: posterEndDate)
             
@@ -140,7 +143,7 @@ class TodoTableViewCell: UITableViewCell {
             
             let todoDataStartDay = Calendar.current.component(.day, from: posterStartDate)
             
-            dateLabel.text = "\(todoDataStartMonth).\(todoDataStartDay)(\(weekDaySymbol)) ~ \(todoDataEndMonth).\(todoDataEndDay)(\(weekDaySymbol)) \(todoDateEndHour):\(todoDateEndminute)  "
+            dateLabel.text = "\(todoDataStartMonth).\(todoDataStartDay)(\(weekDaySymbol)) ~ \(todoDataEndMonth).\(todoDataEndDay)(\(weekDaySymbol)) \(todoDateEndHour-9):\(todoDateEndminute)  "
         }
     }
     
@@ -436,6 +439,7 @@ protocol CalendarService: class {
     
     func requestEachPoster(_ posterIdx: Int, completionHandler: @escaping (DataResponse<networkPostersData>) -> Void)
 }
+
 
 
 
