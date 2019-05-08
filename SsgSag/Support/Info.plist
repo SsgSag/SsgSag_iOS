@@ -60,6 +60,10 @@
 	</dict>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>프로필사진을 등록하기 위해서 사진첩 접근 권한이 필요합니다.</string>
+	<key>UIBackgroundModes</key>
+	<array>
+		<string>remote-notification</string>
+	</array>
 	<key>UILaunchStoryboardName</key>
 	<string>Splash</string>
 	<key>UIMainStoryboardFile</key>

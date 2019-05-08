@@ -312,13 +312,13 @@ class SignUpCompleteVC: UIViewController {
                 
                 switch httpStatus {
                 case .sucess:
-                    //바로 로그인 되도록 수정해야한다.
                     self.autoLogin(sendType: sendType, sendToken: sendToken)
                 case .databaseError:
                     self.simpleAlert(title: "데이터베이스 에러", message: "서버 오류")
                 case .doNotMatch:
                     self.simpleAlert(title: "잘못된 형식이 포함되었습니다.", message: "회원가입 정보를 정확히 다시 기입해주세요.")
                 }
+                
                 
             } catch {
                 print("Json Parsing Error")
