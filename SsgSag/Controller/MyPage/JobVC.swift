@@ -10,6 +10,8 @@ import UIKit
 
 class JobVC: UIViewController {
     
+    static let syncInterestNum = 101
+    
     let unActiveButtonImages: [String] = [
         "btJobManagementUnactive", "btJobMarketingUnactive", "btJobTechUnactive", "btJobDesignUnactive", "btJobTradeUnactive", "btJobSalesUnactive", "btJobServiceUnactive", "btJobStudyUnactive",
         "btJobIndustryUnactive", "btJobLiteratureUnactive", "btJobConstructUnactive", "btJobMedicalUnactive",
@@ -22,18 +24,132 @@ class JobVC: UIViewController {
         "btJobStudyActive", "btJobIndustryActive", "btJobLiteratureActive", "btJobConstructActive", "btJobMedicalActive", "btJobArtActive", "btJobSpecialityActive"
     ]
     
+    private var storedJobs: [Int] = []
+    
     var selectedValue: [Bool] = []
     
+    private var myPageService: myPageService?
+    
+    private var isOn: isSwitchOn?
+    
     @IBOutlet var jobButtons: [UIButton]!
-    @IBOutlet weak var saveButton: UIButton!
+    
+    @IBOutlet weak var saveButton: GradientButton!
+    
     @IBOutlet weak var jobSwitch: UISwitch!
+    
+    override func viewWillAppear(_ animated: Bool) {
+        getStoredJobInfo()
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        setUpJobButtons()
-        changeStateJobButtons()
         
-        saveButton.isUserInteractionEnabled = false
+        setJobTag()
+        
+        myPageService = MyPageServiceImp()
+        
+        setSaveButtonColor()
+    }
+    
+    private func setSaveButtonColor() {
+        saveButton.topColor = UIColor.init(displayP3Red: 53 / 255, green: 234 / 255, blue: 227, alpha: 1.0)
+        
+        saveButton.bottomColor = UIColor(displayP3Red: 168 / 255, green: 71 / 255, blue: 255 / 255, alpha: 1.0)
+    }
+
+
+    private func setJobTag() {
+        var count = 0
+    
+        for button in jobButtons {
+            button.tag = count
+            count += 1
+        }
+    
+        jobButtons.forEach { (button) in
+            button.isSelected = false
+            button.isUserInteractionEnabled = false
+        }
+    
+        for _ in 0 ..< count {
+            selectedValue.append(false)
+        }
+        
+    }
+    
+    private func getStoredJobInfo() {
+        
+        myPageService?.requestSelectedState{ [weak self] (dataResponse) in
+            
+            guard let response = dataResponse.value else {return}
+            
+            guard let jobs = response.data else {return}
+            
+            guard let selected =  jobs.interests else {return}
+            
+            guard let swicthOnOff = jobs.isSeeker else {return}
+            
+            guard let swithStatus = isSwitchOn(rawValue: swicthOnOff) else {return}
+            
+            self?.storedJobs =  selected.filter{$0 >= 100}
+            
+            let syncButton = self?.storedJobs.map{$0 - JobVC.syncInterestNum}
+            
+            guard let sync = syncButton else {return}
+            
+            self?.setSelectedStatus(using: sync)
+            
+            DispatchQueue.main.async { [weak self] in
+                self?.setJobButtonsUsingNetwork()
+                self?.setSwitchOnOff(switchStatus: swithStatus)
+            }
+        }
+        
+    }
+    
+    private func setSwitchOnOff(switchStatus: isSwitchOn) {
+        switch switchStatus {
+        case .on:
+            
+            jobSwitch.setOn(true, animated: false)
+            
+
+            for jobButton in jobButtons {
+                jobButton.isUserInteractionEnabled = true
+            }
+            
+        case .off:
+            jobSwitch.setOn(false, animated: false)
+            
+            for jobButton in jobButtons {
+                jobButton.isUserInteractionEnabled = false
+            }
+            
+        }
+        
+    }
+    
+    private func setSelectedStatus(using sync: [Int]) {
+        for selected in jobButtons{
+            for synced in sync {
+                if selected.tag == synced {
+                    selected.isSelected = true
+                }
+            }
+        }
+    }
+    
+    private func setJobButtonsUsingNetwork() {
+    
+        for jobButton in jobButtons {
+            if jobButton.isSelected {
+                jobButton.setImage(UIImage(named: activeButtonImages[jobButton.tag]), for: .normal)
+            } else {
+                jobButton.setImage(UIImage(named: unActiveButtonImages[jobButton.tag]), for: .normal)
+            }
+        }
+        
     }
     
     @IBAction func touchUpBackButton(_ sender: Any) {
@@ -46,123 +162,112 @@ class JobVC: UIViewController {
     }
     
     @IBAction func touchUpSaveButton(_ sender: Any) {
-        //saveData()
         
-        simplerAlert(title: "저장되었습니다")
-    }
-    @IBAction func valueChangeJobSwitch(_ sender: Any) {
-        changeStateJobButtons()
-    }
-    /*
-    private func saveData() {
+        var sendJsonArray: [Int] = []
         
-            
-            var selectedInterests: [Int] = []
-            
-            for i in 0..<selectedValue.count {
-                if selectedValue[i] == true {
-                    selectedInterests.append(i)
-                }
+        for selected in jobButtons {
+            if selected.isSelected {
+                sendJsonArray.append(selected.tag + JobVC.syncInterestNum)
             }
-            
-            let json: [String: Any] = [
-                "userInterest" : selectedInterests
-            ]
-            
-            let jsonData = try? JSONSerialization.data(withJSONObject: json)
-            
-            let url = URL(string: "http://52.78.86.179:8080/user/reInterestReq1")!
-            
-            var request = URLRequest(url: url)
-            request.httpMethod = "POST"
-            request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-            let token = UserDefaults.standard.object(forKey: "SsgSagToken") as! String
-            request.addValue(token, forHTTPHeaderField: "Authorization")
-            request.httpBody = jsonData
-            
-            NetworkManager.shared.getData(with: request) { (data, error, res) in
-                guard let data = data else {
-                    return
-                }
-                
-                let responseJSON = try? JSONSerialization.jsonObject(with: data, options: [])
-                
-                if let responseJSON = responseJSON as? [String: Any] {
-                    if let statusCode = responseJSON["status"] {
-                        let status = statusCode as! Int
-                        if status == 200 {
-                            DispatchQueue.main.async {
-                                let alert = UIAlertController(title: "저장되었습니다.", message: nil, preferredStyle: .alert)
-                                
-                                let action = UIAlertAction(title: "확인", style: .default, handler: { (action) in
-                                    
-                                    print("확인 되었습니다")
-                                    self.dismiss(animated: true, completion: nil)
-                                })
-                                
-                                alert.addAction(action)
-                                self.present(alert, animated: true, completion: nil)
-                            }
-                        } else {
-                            DispatchQueue.main.async {
-                                self.simplerAlert(title: "저장에 실패하였습니다")
-                            }
-                        }
-                    }
-                }
-            }
-    }
-    */
-    
-    func setUpJobButtons() {
-        var count = 0
-        for button in jobButtons {
-            button.tag = count
-            count += 1
         }
-        jobButtons.forEach { (button) in
-            button.isSelected = false
-        }
-        for _ in 0 ..< count {
-            selectedValue.append(false)
-        }
-    }
-    
-    func changeStateJobButtons() {
-        if jobSwitch.isOn == false {
-            jobButtons.forEach { (button) in
-                button.isSelected = false
-                button.setImage(UIImage(named: unActiveButtonImages[button.tag]), for: .normal)
-                button.isUserInteractionEnabled = false
-            }
-            saveButton.isSelected = false
-            saveButton.isUserInteractionEnabled = false
+        
+        var isSeeker = 0
+        
+        if jobSwitch.isOn {
+            isSeeker = 1
         } else {
-            jobButtons.forEach { (button) in
-                button.isUserInteractionEnabled = true
+            isSeeker = 0
+        }
+        
+        var json: [String:Any] = [:]
+        
+        if isSeeker == 1 {
+            json = [
+                "isSeeker" : isSeeker, //on 했을 때
+                "userInterest" : sendJsonArray
+            ]
+        } else {
+            json = [
+                "isSeeker" : isSeeker
+            ]
+        }
+        
+        myPageService?.reqeuestStoreJobsState(json) { dataResponse in
+            guard let response = dataResponse.value else {return}
+            
+            guard let statusCode = response.status else {return}
+            
+            guard let status = HttpStatusCode(rawValue: statusCode) else {return}
+            
+            DispatchQueue.main.async { [weak self] in
+                switch status {
+                case .sucess:
+                    //저장된후 dismiss합시다.
+                    self?.successAlarm(title: "저장되었습니다")
+                case .dataBaseError, .serverError:
+                    self?.simplerAlert(title: "서버 에러가 발생하였습니다 \n 다시 시도해 주세요!")
+                default:
+                    break
+                }
             }
-            saveButton.isUserInteractionEnabled = true
         }
     }
     
+    private func chnageIsUserInteraction() {
+        
+        if jobSwitch.isOn {
+            for jobButton in jobButtons {
+                jobButton.isUserInteractionEnabled = true
+            }
+        } else {
+            for jobButton in jobButtons {
+                jobButton.isUserInteractionEnabled = false
+            }
+        }
+        
+    }
+    
+    @IBAction func tapSwitch(_ sender: Any) {
+        
+        if jobSwitch.isOn {
+            jobSwitch.setOn(false, animated: true)
+        } else {
+            jobSwitch.setOn(true, animated: true)
+        }
+        
+        DispatchQueue.main.async { [weak self] in
+            self?.chnageIsUserInteraction()
+        }
+        
+    }
+
     func myButtonTapped(myButton: UIButton, tag: Int) {
         if myButton.isSelected {
-            myButton.isSelected = false;
+            myButton.isSelected = false
             selectedValue[myButton.tag] = false
             myButton.setImage(UIImage(named: unActiveButtonImages[tag]), for: .normal)
         } else {
-            myButton.isSelected = true;
+            myButton.isSelected = true
             selectedValue[myButton.tag] = true
             myButton.setImage(UIImage(named: activeButtonImages[tag]), for: .normal)
         }
-        
-        if selectedValue.contains(true) {
-            saveButton.setImage(UIImage(named: "btSaveMypageActive"), for: .normal)
-        } else {
-            saveButton.setImage(UIImage(named: "btSaveMypageUnactive"), for: .normal)
-        }
     }
     
-    
+    private func successAlarm(title: String) {
+        let alert = UIAlertController(title: title, message: nil, preferredStyle: .alert)
+        let action = UIAlertAction(title: "확인", style: .default) { (action) in
+            self.dismiss(animated: true, completion: nil)
+        }
+        
+        alert.addAction(action)
+        present(alert, animated: true, completion: nil)
+    }
     
 }
+
+fileprivate enum isSwitchOn:Int {
+    case on = 1
+    case off = 0
+}
+
+

@@ -483,7 +483,7 @@
                                                 <rect key="frame" x="20" y="149" width="51" height="31"/>
                                                 <color key="onTintColor" red="0.3529411764705882" green="0.47058823529411764" blue="0.98039215686274506" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <connections>
-                                                    <action selector="valueChangeJobSwitch:" destination="cnl-e1-rb8" eventType="valueChanged" id="wLe-3C-T3x"/>
+                                                    <action selector="tapSwitch:" destination="cnl-e1-rb8" eventType="valueChanged" id="Wa2-rF-0kB"/>
                                                 </connections>
                                             </switch>
                                         </subviews>
@@ -510,24 +510,39 @@
                                     <constraint firstItem="bw2-gW-i9p" firstAttribute="leading" secondItem="GWF-5V-hYb" secondAttribute="leading" id="yMy-gM-Uxh"/>
                                 </constraints>
                             </scrollView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ihg-r8-Lx0" userLabel="저장">
-                                <rect key="frame" x="0.0" y="1520" width="375" height="80"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ihg-r8-Lx0" userLabel="저장" customClass="GradientButton" customModule="슥삭" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="1540" width="375" height="60"/>
                                 <color key="backgroundColor" red="0.78823529410000004" green="0.78823529410000004" blue="0.78823529410000004" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="80" id="dWj-9h-xdS"/>
+                                    <constraint firstAttribute="height" constant="60" id="dWj-9h-xdS"/>
                                 </constraints>
-                                <state key="normal" image="btSaveMypageUnactive"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="bottomColor">
+                                        <color key="value" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="topColor">
+                                        <color key="value" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
                                 <connections>
                                     <action selector="touchUpSaveButton:" destination="cnl-e1-rb8" eventType="touchUpInside" id="gMU-tz-p8b"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="저장" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rv7-2Y-Lm7">
+                                <rect key="frame" x="172.66666666666666" y="1560" width="29.666666666666657" height="20.333333333333258"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="cn7-Do-zMW" firstAttribute="leading" secondItem="aTU-8k-4LF" secondAttribute="leading" id="1rl-KG-1wP"/>
                             <constraint firstItem="ihg-r8-Lx0" firstAttribute="width" secondItem="bw2-gW-i9p" secondAttribute="width" id="3Up-Ca-Lkg"/>
                             <constraint firstItem="ihg-r8-Lx0" firstAttribute="bottom" secondItem="l5A-Az-eQy" secondAttribute="bottom" id="3rj-uu-0ZG"/>
+                            <constraint firstItem="rv7-2Y-Lm7" firstAttribute="centerY" secondItem="ihg-r8-Lx0" secondAttribute="centerY" id="5Ft-VP-SFc"/>
                             <constraint firstItem="GWF-5V-hYb" firstAttribute="top" secondItem="cn7-Do-zMW" secondAttribute="top" constant="44" id="B0h-fR-s4X"/>
+                            <constraint firstItem="rv7-2Y-Lm7" firstAttribute="centerX" secondItem="bw2-gW-i9p" secondAttribute="centerX" id="CZD-xy-dUF"/>
                             <constraint firstItem="bw2-gW-i9p" firstAttribute="width" secondItem="l5A-Az-eQy" secondAttribute="width" id="FgC-0o-IIe"/>
                             <constraint firstItem="aTU-8k-4LF" firstAttribute="trailing" secondItem="GWF-5V-hYb" secondAttribute="trailing" id="VyZ-aF-Btj"/>
                             <constraint firstItem="GWF-5V-hYb" firstAttribute="leading" secondItem="aTU-8k-4LF" secondAttribute="leading" id="b1b-Cn-UlD"/>
@@ -565,7 +580,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="W1S-eq-fDV" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3612" y="2436"/>
+            <point key="canvasLocation" x="3504" y="2435"/>
         </scene>
         <!--Preference-->
         <scene sceneID="1uQ-gR-vGC">
@@ -1481,7 +1496,6 @@
         <image name="btPreferenceSocietyUnactive" width="162" height="162"/>
         <image name="btPreferenceStartupUnactive" width="162" height="162"/>
         <image name="btPreferenceTechUnactive" width="162" height="162"/>
-        <image name="btSaveMypageUnactive" width="375" height="80"/>
         <image name="icArrowBack" width="24" height="24"/>
         <image name="icArrowGradation" width="44" height="50"/>
         <image name="icArrowNextMypage" width="24" height="24"/>
