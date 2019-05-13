@@ -7,6 +7,7 @@ class NetworkManager {
     static let shared: NetworkManager = NetworkManager()
     
     private init(_ configuration: URLSessionConfiguration) {
+        configuration.urlCache = nil
         self.session = URLSession(configuration: configuration)
     }
     

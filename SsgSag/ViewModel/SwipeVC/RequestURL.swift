@@ -22,6 +22,7 @@ enum RequestURL {
     case reIntersting
     case careerActivity
     case registerInterestJobs
+    case deleteAcitivity(careerIdx: Int)
     
     func getRequestURL() -> String {
         switch self {
@@ -51,6 +52,8 @@ enum RequestURL {
             return "/career"
         case .registerInterestJobs:
             return "/user/reInterestReq2"
+        case .deleteAcitivity(careerIdx: let careerIdx):
+            return "/career/\(careerIdx)"
         }
     }
     

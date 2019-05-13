@@ -127,6 +127,7 @@ class PreferenceVC: UIViewController {
     }
     
     func setUpFirstStatus(interests: [Int]?) {
+        
         guard let interests = interests else {
             saveButton.isUserInteractionEnabled = true
             return
@@ -140,6 +141,7 @@ class PreferenceVC: UIViewController {
             
             preferenceButtons[interest].isSelected = true
         }
+        
     }
     func setUpPreferenceButtons() {
         

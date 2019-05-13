@@ -111,14 +111,11 @@ class JobVC: UIViewController {
     private func setSwitchOnOff(switchStatus: isSwitchOn) {
         switch switchStatus {
         case .on:
-            
             jobSwitch.setOn(true, animated: false)
-            
-
+        
             for jobButton in jobButtons {
                 jobButton.isUserInteractionEnabled = true
             }
-            
         case .off:
             jobSwitch.setOn(false, animated: false)
             

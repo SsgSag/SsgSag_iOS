@@ -56,15 +56,17 @@ class MyPageServiceImp: myPageService {
         
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
-        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
         request.addValue(token, forHTTPHeaderField: "Authorization")
         request.httpBody = json
         
         NetworkManager.shared.getData(with: request) { (data, error, res) in
             
             guard let data = data else {return}
+            
             do {
                 let responsData = try JSONDecoder().decode(Activity.self, from: data)
+                
                 completionHandler(DataResponse.success(responsData))
             } catch {
                 completionHandler(DataResponse.failed(ReadError.JsonError))

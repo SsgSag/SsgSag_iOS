@@ -11,6 +11,7 @@ import UIKit
 class CareerVC: UIViewController {
     
     let activityTableView: UITableView = UITableView(frame: CGRect.zero, style: .grouped)
+    
     let prizeTableView: UITableView = UITableView(frame: CGRect.zero, style: .grouped)
     let certificationTableView: UITableView = UITableView(frame: CGRect.zero, style: .grouped)
     var indicatorViewLeadingConstraint: NSLayoutConstraint!
@@ -57,6 +58,11 @@ class CareerVC: UIViewController {
         
         setupTablViewRegister()
         
+        setupActivityDelegate()
+    }
+    
+    private func setupActivityDelegate() {
+        
     }
     
     private func setupScrollView() {
@@ -65,20 +71,23 @@ class CareerVC: UIViewController {
         scrollView.isPagingEnabled = true
         scrollView.showsHorizontalScrollIndicator = false
         scrollView.showsVerticalScrollIndicator = false
-        
-        
     }
     
     private func setupTablViewRegister() {
+        
         let activityNib = UINib(nibName: "ActivityCell", bundle: nil)
+        
         activityTableView.register(activityNib, forCellReuseIdentifier: "ActivityCell")
+        
         let prizeNib = UINib(nibName: "PrizeCell", bundle: nil)
         prizeTableView.register(prizeNib, forCellReuseIdentifier: "PrizeCell")
+        
         let certificationNib = UINib(nibName: "CertificationCell", bundle: nil)
         certificationTableView.register(certificationNib, forCellReuseIdentifier: "CertificationCell")
     }
     
     private func setUpCollectionView(){
+        
         customTabBarCollectionView.delegate = self
         customTabBarCollectionView.dataSource = self
         customTabBarCollectionView.backgroundColor = .white
@@ -251,10 +260,6 @@ class CareerVC: UIViewController {
         prizeTableView.showsVerticalScrollIndicator = false
         certificationTableView.showsVerticalScrollIndicator = false
         
-//        activityTableView.tableFooterView = UIView()
-//        prizeTableView.tableFooterView = UIView()
-//        certificationTableView.tableFooterView = UIView()
-        
         activityTableView.backgroundColor = UIColor.rgb(red: 242, green: 243, blue: 245)
         prizeTableView.backgroundColor = UIColor.rgb(red: 242, green: 243, blue: 245)
         certificationTableView.backgroundColor = UIColor.rgb(red: 242, green: 243, blue: 245)
@@ -267,35 +272,20 @@ class CareerVC: UIViewController {
     func setUpEmptyTableView(tableView: UITableView, isEmptyTable: Bool) {
         let emptyImageView = UIImageView()
         view.addSubview(emptyImageView)
+        
         emptyImageView.translatesAutoresizingMaskIntoConstraints = false
-        //emptyImageView.topAnchor.constraint(equalTo: tableView.topAnchor, constant: 122).isActive = true
-        //emptyImageView.leadingAnchor.constraint(equalTo: tableView.leadingAnchor, constant: 50).isActive = true
-        //emptyImageView.trailingAnchor.constraint(equalTo: tableView.trailingAnchor, constant: 50).isActive = true
         emptyImageView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         emptyImageView.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
         emptyImageView.heightAnchor.constraint(equalToConstant: 276).isActive = true
         emptyImageView.image = UIImage(named: "imgEmptyCareer")
         
-        //            let emptyLabel = UILabel()
-        //            emptyLabel.translatesAutoresizingMaskIntoConstraints = false
-        //            emptyLabel.text = "어떤 활동을 했는지\n기록해보세요!"
-        //            emptyLabel.numberOfLines = 2
-        //            emptyLabel.textColor = UIColor.rgb(red: 155, green: 155, blue: 155)
-        //            emptyLabel.font = UIFont.systemFont(ofSize: 19)
-        //            emptyLabel.textAlignment = .center
-        //            tableView.addSubview(emptyLabel)
-        //            emptyLabel.topAnchor.constraint(equalTo: emptyImageView.bottomAnchor, constant: 43).isActive = true
-        //            emptyLabel.centerXAnchor.constraint(equalTo: emptyImageView.centerXAnchor).isActive = true
-        //
-        
         if isEmptyTable {
+            
             emptyImageView.isHidden = false
-            //emptyLabel.isHidden = false
+            
         } else {
-            print("숨겨")
+            
             emptyImageView.isHidden = false
-            //emptyLabel.isHidden = true
-            //tableView.sendSubviewToBack(emptyLabel)
             view.sendSubviewToBack(emptyImageView)
         }
     }
@@ -327,9 +317,11 @@ class CareerVC: UIViewController {
                 if careerType == 0 {
                     
                     self.activityList = apiResponse.data
+                    
                     DispatchQueue.main.async {
                         self.activityTableView.reloadData()
                     }
+                    
                 } else if careerType == 1 {
                     self.prizeList = apiResponse.data
                     DispatchQueue.main.async {

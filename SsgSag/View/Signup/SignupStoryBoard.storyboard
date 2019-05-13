@@ -888,24 +888,40 @@
                                     <constraint firstItem="vlA-po-Anp" firstAttribute="top" secondItem="ZsK-xG-iqU" secondAttribute="top" id="x1c-Ec-kvt"/>
                                 </constraints>
                             </scrollView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tX4-2x-1jh" userLabel="저장">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tX4-2x-1jh" userLabel="저장" customClass="GradientButton" customModule="슥삭" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="1302" width="375" height="48"/>
                                 <color key="backgroundColor" red="0.78823529410000004" green="0.78823529410000004" blue="0.78823529410000004" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <state key="normal" image="btStartUnactiveIphone8"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="topColor">
+                                        <color key="value" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="bottomColor">
+                                        <color key="value" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
                                 <connections>
                                     <action selector="sendUserData:" destination="jUn-fX-9PF" eventType="touchUpInside" id="cWZ-nC-7bw"/>
                                     <action selector="touchUpStartButton:" destination="V0j-KU-b25" eventType="touchUpInside" id="hXM-Pz-fSK"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="다음" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4ch-vv-rH5">
+                                <rect key="frame" x="172.66666666666666" y="1316" width="29.666666666666657" height="20.333333333333258"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
+                            <constraint firstItem="4ch-vv-rH5" firstAttribute="centerX" secondItem="Rmd-y3-caE" secondAttribute="centerX" id="1LP-iu-brT"/>
                             <constraint firstItem="ZsK-xG-iqU" firstAttribute="top" secondItem="Rmd-y3-caE" secondAttribute="top" id="2Sa-74-sDF"/>
                             <constraint firstItem="Kq2-M8-xfU" firstAttribute="top" secondItem="Rmd-y3-caE" secondAttribute="top" id="AbY-lV-NYB"/>
                             <constraint firstItem="ZsK-xG-iqU" firstAttribute="leading" secondItem="Rmd-y3-caE" secondAttribute="leading" id="Dsb-t8-uca"/>
                             <constraint firstItem="Kq2-M8-xfU" firstAttribute="trailing" secondItem="Rmd-y3-caE" secondAttribute="trailing" id="G86-Ng-YjB"/>
                             <constraint firstItem="tX4-2x-1jh" firstAttribute="width" secondItem="vlA-po-Anp" secondAttribute="width" id="JWd-FP-YL9"/>
                             <constraint firstAttribute="bottom" secondItem="ZsK-xG-iqU" secondAttribute="bottom" constant="80" id="Xnm-ql-KPH"/>
+                            <constraint firstItem="4ch-vv-rH5" firstAttribute="centerY" secondItem="tX4-2x-1jh" secondAttribute="centerY" id="dc3-7X-6Cp"/>
                             <constraint firstItem="Kq2-M8-xfU" firstAttribute="leading" secondItem="Rmd-y3-caE" secondAttribute="leading" id="e4S-ep-r3Y"/>
                             <constraint firstItem="vlA-po-Anp" firstAttribute="width" secondItem="21C-TB-Rv6" secondAttribute="width" id="gVx-o9-bhX"/>
                             <constraint firstItem="tX4-2x-1jh" firstAttribute="centerX" secondItem="vlA-po-Anp" secondAttribute="centerX" id="ga0-kl-Sbh"/>
@@ -934,7 +950,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="uuq-rE-kDR" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="jUn-fX-9PF" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="3173" y="282"/>
+            <point key="canvasLocation" x="3172" y="281.5270935960591"/>
         </scene>
         <!--User InfoVC-->
         <scene sceneID="Mxc-4g-kB8">

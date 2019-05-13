@@ -22,11 +22,19 @@ class AddActivityVC: UIViewController, UITextViewDelegate, UITextFieldDelegate {
     @IBOutlet weak var contentTextView: UITextView!
     
     @IBOutlet weak var saveButton: UIButton!
+
+    private var titleString : String?
+    private var contentTextString: String?
     
-    var titleString : String?
-    private var startDateString = ""
-    private var endDateString = ""
-    var contentTextString: String?
+    var activityData: careerData? {
+        didSet {
+            guard let data = self.activityData else {return}
+            
+            self.titleString = data.careerName
+            self.contentTextString = data.careerContent
+        
+        }
+    }
     
     private var myPageServiceImp : myPageService?
     
@@ -35,15 +43,11 @@ class AddActivityVC: UIViewController, UITextViewDelegate, UITextFieldDelegate {
         
         myPageServiceImp = MyPageServiceImp()
         
-        let components = Calendar.current.dateComponents([.year, .month, .day], from: Date())
-        
-        let currentDateString: String = "\(components.year!)년 \(components.month!)월 \(components.day!)일"
-        
-        startDateLabel.text = currentDateString
-        endDateLabel.text = currentDateString
         
         titleTextField.delegate = self
         contentTextView.delegate = self
+        
+        setStartEndDate()
         
         contentTextView.applyBorderTextView()
         
@@ -58,7 +62,36 @@ class AddActivityVC: UIViewController, UITextViewDelegate, UITextFieldDelegate {
         if let content = contentTextString {
             contentTextView.text = content
         }
+    }
+    
+    private func setStartEndDate() {
         
+        guard let data = self.activityData else {return}
+        
+        let startDate = DateCaculate.stringToDateWithBasicFormatter(using: data.careerDate1)
+        let endDate = DateCaculate.stringToDateWithBasicFormatter(using: data.careerDate2 ?? "")
+        
+        var startDateString = ""
+        var endDateString = ""
+        
+        let startDateComponents = Calendar.current.dateComponents([.year, .month, .day], from: startDate)
+        
+        let endDateComponents = Calendar.current.dateComponents([.year, .month, .day], from: endDate)
+        
+        guard let startYear = startDateComponents.year else {return}
+        guard let startMonth = startDateComponents.month else {return}
+        guard let startDay = startDateComponents.day else {return}
+        
+        startDateString = "\(startYear)년 \(startMonth)월 \(startDay)일"
+        
+        guard let endYear = endDateComponents.year else {return endDateString = ""}
+        guard let endMonth = endDateComponents.month else {return endDateString = ""}
+        guard let endDay = endDateComponents.day else {return endDateString = ""}
+        
+        endDateString = "\(endYear)년 \(endMonth)월 \(endDay)일"
+        
+        startDateLabel.text = startDateString
+        endDateLabel.text = endDateString
     }
     
     @IBAction func touchUpStartDateButton(_ sender: UIButton) {
@@ -137,27 +170,23 @@ class AddActivityVC: UIViewController, UITextViewDelegate, UITextFieldDelegate {
     
     func popUpDatePicker(button: UIButton) {
         let myPageStoryBoard = UIStoryboard(name: "MyPageStoryBoard", bundle: nil)
-        let popVC = myPageStoryBoard.instantiateViewController(withIdentifier: "DatePickerPoPUp") as! DatePickerPopUpVC
+        let datePickerPopUpVC = myPageStoryBoard.instantiateViewController(withIdentifier: "DatePickerPoPUp") as! DatePickerPopUpVC
         
-        popVC.activityCategory = ActivityCategory.AddActivityVC
+        if button.tag == 0 {
+            datePickerPopUpVC.defaultDate = startDateLabel.text!
+        } else {
+            datePickerPopUpVC.defaultDate = endDateLabel.text!
+        }
+        
+        datePickerPopUpVC.activityCategory = ActivityCategory.AddActivityVC
             
-        self.addChild(popVC)
-        popVC.view.frame = self.view.frame
-        self.view.addSubview(popVC.view)
+        self.addChild(datePickerPopUpVC)
+        datePickerPopUpVC.view.frame = self.view.frame
+        self.view.addSubview(datePickerPopUpVC.view)
+        datePickerPopUpVC.didMove(toParent: self)
         
-        popVC.didMove(toParent: self)
-        
-        let sendData = popVC
-        sendData.buttonTag = button.tag
-        
-        if startDateLabel != nil {
-            sendData.startDateString = startDateLabel.text!
-        }
-        
-        if endDateLabel != nil {
-            sendData.endDateString = endDateLabel.text!
-            print("endDateLabel전송: \(sendData.endDateString)")
-        }
+        datePickerPopUpVC.buttonTag = button.tag
+    
     }
     
     private func stringConverted(with: String) -> String {

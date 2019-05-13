@@ -64,7 +64,7 @@ class SignUpCompleteVC: UIViewController {
     
     @IBOutlet var preferenceButtons: [UIButton]!
     
-    @IBOutlet weak var startButton: UIButton!
+    @IBOutlet weak var startButton: GradientButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -118,10 +118,15 @@ class SignUpCompleteVC: UIViewController {
         
         if selectedValues.contains(true) {
             startButton.isUserInteractionEnabled = true
-            startButton.setImage(UIImage(named: "btSaveMypageActive"), for: .normal)
+            
+            startButton.topColor = #colorLiteral(red: 0.2078431373, green: 0.9176470588, blue: 0.8901960784, alpha: 1)
+            startButton.bottomColor = #colorLiteral(red: 0.6588235294, green: 0.2784313725, blue: 1, alpha: 1)
+            
         } else {
             startButton.isUserInteractionEnabled = false
-            startButton.setImage(UIImage(named: "btSaveMypageUnactive"), for: .normal)
+            
+            startButton.topColor = .lightGray
+            startButton.bottomColor = .white
         }
         
     }

@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="ActivityCell" id="KGk-i7-Jjw" customClass="ActivityCell" customModule="SsgSag" customModuleProvider="target">
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="ActivityCell" id="KGk-i7-Jjw" customClass="ActivityCell" customModule="슥삭" customModuleProvider="target">
             <rect key="frame" x="0.0" y="0.0" width="365" height="183"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
@@ -23,7 +23,7 @@
                         <rect key="frame" x="12" y="6" width="341" height="171"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="6Dr-83-Gxc">
-                                <rect key="frame" x="18" y="44" width="126" height="19.5"/>
+                                <rect key="frame" x="18" y="43" width="126" height="19.5"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2018.01" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="h8F-cf-uvI" userLabel="dateLabel1">
                                         <rect key="frame" x="0.0" y="0.0" width="55.5" height="19.5"/>
@@ -39,11 +39,25 @@
                                     </label>
                                 </subviews>
                             </stackView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AWz-Mt-hNL">
+                                <rect key="frame" x="305" y="16" width="22" height="22"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="22" id="Hx8-Bz-Gzp"/>
+                                    <constraint firstAttribute="height" constant="22" id="Qvr-c4-HNS"/>
+                                </constraints>
+                                <state key="normal" title="Button" image="icXClose"/>
+                                <connections>
+                                    <action selector="deleteActivity:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="yJM-71-PdF"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="AWz-Mt-hNL" secondAttribute="trailing" constant="14" id="14j-Ye-PSm"/>
+                        </constraints>
                     </view>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="IT 동아리 SOPT 23기" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pm1-1f-1yX" userLabel="activityName">
-                        <rect key="frame" x="30" y="22" width="323" height="23"/>
+                        <rect key="frame" x="30" y="22" width="273" height="22"/>
                         <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="19"/>
                         <color key="textColor" red="0.2274509804" green="0.3411764706" blue="0.8980392157" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <nil key="highlightedColor"/>
@@ -61,7 +75,8 @@
                 <color key="backgroundColor" red="0.94901960780000005" green="0.95294117649999999" blue="0.96078431369999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                 <constraints>
                     <constraint firstAttribute="bottom" secondItem="2pX-17-pTJ" secondAttribute="bottom" constant="20" id="1bk-3W-FQl"/>
-                    <constraint firstItem="pm1-1f-1yX" firstAttribute="trailing" secondItem="9Qv-EL-7SN" secondAttribute="trailing" id="4Tz-EE-SMa"/>
+                    <constraint firstItem="AWz-Mt-hNL" firstAttribute="width" secondItem="pm1-1f-1yX" secondAttribute="height" multiplier="1:1" id="2Sz-aS-7qk"/>
+                    <constraint firstItem="pm1-1f-1yX" firstAttribute="trailing" secondItem="9Qv-EL-7SN" secondAttribute="trailing" constant="-50" id="4Tz-EE-SMa"/>
                     <constraint firstItem="2pX-17-pTJ" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="30" id="8t9-Ej-pLD"/>
                     <constraint firstItem="2pX-17-pTJ" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="82" id="CHp-dv-RSt"/>
                     <constraint firstAttribute="trailing" secondItem="2pX-17-pTJ" secondAttribute="trailing" constant="30" id="Cxa-UC-ZvI"/>
@@ -70,6 +85,7 @@
                     <constraint firstItem="6Dr-83-Gxc" firstAttribute="leading" secondItem="pm1-1f-1yX" secondAttribute="leading" id="NN1-9V-jCv"/>
                     <constraint firstItem="2pX-17-pTJ" firstAttribute="leading" secondItem="pm1-1f-1yX" secondAttribute="leading" id="WZf-hP-R9j"/>
                     <constraint firstItem="6Dr-83-Gxc" firstAttribute="top" secondItem="pm1-1f-1yX" secondAttribute="bottom" constant="5" id="Zan-SH-VRe"/>
+                    <constraint firstItem="AWz-Mt-hNL" firstAttribute="top" secondItem="pm1-1f-1yX" secondAttribute="top" id="jGn-rl-3GS"/>
                     <constraint firstItem="pm1-1f-1yX" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="22" id="stW-AI-k1J"/>
                 </constraints>
             </tableViewCellContentView>
@@ -89,4 +105,7 @@
             <point key="canvasLocation" x="138.40000000000001" y="112.89355322338831"/>
         </tableViewCell>
     </objects>
+    <resources>
+        <image name="icXClose" width="24" height="24"/>
+    </resources>
 </document>

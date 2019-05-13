@@ -10,6 +10,7 @@ import UIKit
 class DatePickerPopUpVC: UIViewController {
     
     @IBOutlet weak var backView: UIView!
+    
     @IBOutlet weak var datePicker: UIDatePicker!
     
     let dateFormatter: DateFormatter = {
@@ -17,6 +18,8 @@ class DatePickerPopUpVC: UIViewController {
         formatter.dateFormat = "yyyy년 MM월 dd일"
         return formatter
     }()
+    
+    var defaultDate: String = ""
     
     var dateString: String = ""
     var buttonTag: Int = 0
@@ -26,31 +29,30 @@ class DatePickerPopUpVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        print("한번호출")
+        
         backView.makeRounded(cornerRadius: 5)
         
-        if let startDate: Date = self.dateFormatter.date(from: startDateString) {
-            datePicker.minimumDate = startDate
-        }
-        
-        //FIXME: - endDate보다 시작날짜
-        print(endDateString)
-        if let endDate: Date = self.dateFormatter.date(from: endDateString) {
-            datePicker.maximumDate = endDate
-        }
+        setDatePickerStartDate()
+    }
+    
+    private func setDatePickerStartDate() {
+        datePicker.date = DateCaculate.stringToDateWithBasicFormatterWithKorea(using: defaultDate)
     }
     
     @IBAction func didDatePickerValueChanged(_ sender: UIDatePicker) {
-        let date: Date = self.datePicker.date
-        dateString = self.dateFormatter.string(from: date)
+        
+        dateString = self.dateFormatter.string(from: datePicker.date)
+        
         if let startDate: Date = self.dateFormatter.date(from: startDateString) {
-            isStartDateBeforeEndDate(startDate: startDate, endDate: date)
-            isEndDateAfterStartDate(startDate: startDate, endDate: date)
+            isStartDateBeforeEndDate(startDate: startDate, endDate: datePicker.date)
+            isEndDateAfterStartDate(startDate: startDate, endDate: datePicker.date)
         }
+        
         if let endDate: Date = self.dateFormatter.date(from: endDateString) {
-            isStartDateBeforeEndDate(startDate: date, endDate: endDate)
-            isEndDateAfterStartDate(startDate: date, endDate: endDate)
+            isStartDateBeforeEndDate(startDate: datePicker.date, endDate: endDate)
+            isEndDateAfterStartDate(startDate: datePicker.date, endDate: endDate)
         }
+        
     }
     
     @IBAction func touchUpCancelButton(_ sender: UIButton) {
@@ -64,6 +66,7 @@ class DatePickerPopUpVC: UIViewController {
         }
         
         switch activityCategory {
+            
         case .AddActivityVC:
             
             let previousVC = self.parent as! AddActivityVC
@@ -72,7 +75,6 @@ class DatePickerPopUpVC: UIViewController {
                 previousVC.startDateLabel.text = dateString
             } else {
                 previousVC.endDateLabel.text = dateString
-                print("끝날짜 \(dateString)")
             }
             
         case .AddVC:
@@ -87,14 +89,11 @@ class DatePickerPopUpVC: UIViewController {
             
         }
         
-        print(buttonTag)
-        print("끝날짜 선택")
         self.view.removeFromSuperview()
     }
     
     func isStartDateBeforeEndDate(startDate: Date, endDate: Date) {
         if startDate > endDate {
-            print("dkdk")
             datePicker.minimumDate = startDate
         }
     }
@@ -103,6 +102,7 @@ class DatePickerPopUpVC: UIViewController {
         if endDate < startDate {
             datePicker.maximumDate = endDate
         }
+        
         print(startDate)
         print(endDate)
     }

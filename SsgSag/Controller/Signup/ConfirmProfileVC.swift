@@ -11,8 +11,11 @@ import UIKit
 class ConfirmProfileVC: UIViewController, UITextFieldDelegate, UIGestureRecognizerDelegate {
     
     private var name: String = ""
+    
     private var nickName: String = ""
+    
     private var password: String = ""
+    
     private var gender: String = ""
     
     @IBOutlet weak var titleLabel: UILabel!
@@ -39,11 +42,13 @@ class ConfirmProfileVC: UIViewController, UITextFieldDelegate, UIGestureRecogniz
         iniGestureRecognizer()
         
         let backButton = UIBarButtonItem(image: UIImage(named: "icArrowBack"),
-            style: .plain,
-            target: self,
-            action: #selector(self.back))
+                                        style: .plain,
+                                        target: self,
+                                        action: #selector(self.back))
+        
         navigationItem.leftBarButtonItem = backButton
         navigationItem.leftBarButtonItem?.tintColor = .black
+        
         navigationController?.interactivePopGestureRecognizer?.delegate = self
         
         setNavigationBar(color: .white)
@@ -142,6 +147,7 @@ class ConfirmProfileVC: UIViewController, UITextFieldDelegate, UIGestureRecogniz
             femaleButton.isSelected = true
             femaleButton.setImage(UIImage(named: "btFemaleActive"), for: .normal)
         }
+        
         checkInformation(self)
     }
     

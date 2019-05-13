@@ -12,17 +12,27 @@ import SearchTextField
 class SchoolInfoVC: UIViewController, UITextFieldDelegate {
     
     var name: String = ""
+    
     var birth: String = ""
+    
     var nickName: String = ""
+    
     var gender: String = ""
 
     @IBOutlet weak var titleLabel: UILabel!
+    
     @IBOutlet weak var titleImage: UIImageView!
+    
     @IBOutlet weak var schoolField: SearchTextField!
+    
     @IBOutlet weak var majorField: SearchTextField!
+    
     @IBOutlet weak var gradeField: UITextField!
+    
     @IBOutlet weak var numberField: UITextField!
-    @IBOutlet weak var nextButton: UIButton!
+    
+    @IBOutlet weak var nextButton: GradientButton!
+    
     @IBOutlet weak var stackViewConstraint: NSLayoutConstraint!
     
 
@@ -114,10 +124,15 @@ class SchoolInfoVC: UIViewController, UITextFieldDelegate {
     @objc func checkInformation(_ sender: Any) {
         if (schoolField.hasText && majorField.hasText && gradeField.hasText && numberField.hasText) {
             nextButton.isUserInteractionEnabled = true
-            nextButton.setImage(UIImage(named: "btNextActive"), for: .normal)
+            
+            nextButton.topColor = #colorLiteral(red: 0.2078431373, green: 0.9176470588, blue: 0.8901960784, alpha: 1)
+            nextButton.bottomColor = #colorLiteral(red: 0.6588235294, green: 0.2784313725, blue: 1, alpha: 1)
+            
         } else {
             nextButton.isUserInteractionEnabled = false
-            nextButton.setImage(UIImage(named: "btNextUnactive"), for: .normal)
+            
+            nextButton.topColor = .lightGray
+            nextButton.bottomColor = .white
         }
     }
     

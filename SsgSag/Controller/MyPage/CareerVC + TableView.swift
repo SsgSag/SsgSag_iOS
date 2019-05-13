@@ -68,17 +68,15 @@ extension CareerVC: UITableViewDelegate, UITableViewDataSource {
         
         if tableView == activityTableView {
             let cell = tableView.dequeueReusableCell(withIdentifier: "ActivityCell", for: indexPath) as! ActivityCell
+            
+            cell.activityDelegate = self
+            
             let activity: careerData = self.activityList[indexPath.row]
-            cell.titleLabel.text = activity.careerName
-            cell.dateLabel1.text = activity.careerDate1
             
-            guard let date2 = activity.careerDate2 else {
-                return cell
-            }
             
-            cell.dateLabel2.text = "~ " + date2
-            cell.detailLabel.text = activity.careerContent
+            cell.activityInfo = activity
             cell.selectionStyle = .none
+            
             return cell
             
         } else if tableView == prizeTableView {
@@ -107,11 +105,13 @@ extension CareerVC: UITableViewDelegate, UITableViewDataSource {
         switch tableView {
             
         case activityTableView:
+            
             let activityVC = storyboard?.instantiateViewController(withIdentifier: "AddActivityVC") as! AddActivityVC
+            
             let activity: careerData = self.activityList[indexPath.row]
-            //TODO: - 날짜 수정
-            activityVC.titleString = activity.careerName
-            activityVC.contentTextString = activity.careerContent
+            
+            activityVC.activityData = activity
+                    
             present(activityVC, animated: true)
             
         case prizeTableView:
@@ -124,7 +124,9 @@ extension CareerVC: UITableViewDelegate, UITableViewDataSource {
             
             present(prizeVC, animated: true)
         case certificationTableView:
+            
             let certiVC = storyboard?.instantiateViewController(withIdentifier: "AddCertificationVC") as! AddCertificationVC
+            
             let certification: careerData = certificationList[indexPath.row]
             
             certiVC.titleString = certification.careerName
@@ -132,9 +134,36 @@ extension CareerVC: UITableViewDelegate, UITableViewDataSource {
             certiVC.contentString = certification.careerContent
             
             present(certiVC, animated: true)
-            
         default:
             print("tableview가 없습니다.")
         }
+        
     }
 }
+
+extension CareerVC: activityDelegate {
+    func deleteSuccess() {
+        let alert = UIAlertController(title: "데이터가 삭제 되었습니다.", message: "", preferredStyle: .alert)
+        let okAction = UIAlertAction(title: "확인", style: .default) { (action) in
+            self.activityTableView.reloadData()
+        }
+        alert.addAction(okAction)
+        present(alert, animated: true)
+    }
+}
+
+/*
+extension UIStoryboard {
+    static var main: UIStoryboard {
+        return UIStoryboard(name: "Main", bundle: Bundle.main)
+    }
+    
+    static var ItemView: UIStoryboard {
+        return UIStoryboard(name: "ItemView", bundle: Bundle.main)
+    }
+    
+    static var chatView: UIStoryboard {
+        return UIStoryboard(name: "Chatting", bundle: Bundle.main)
+    }
+}
+*/
