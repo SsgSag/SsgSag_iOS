@@ -440,8 +440,4 @@ enum likedOrDisLiked: Int {
     case disliked = 0
 }
 
-protocol PosterService: class {
-    func requestPoster(completionHandler: @escaping (DataResponse<[Posters]>) -> Void )
-    func requestPosterLiked(of poster: Posters,
-                            type likedCategory: likedOrDisLiked)
-}
+

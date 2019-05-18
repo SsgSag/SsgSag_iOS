@@ -8,6 +8,10 @@
 
 import UIKit
 
+protocol ActivityService: class {
+    func requestDeleteActivity(contentIdx: Int, completionHandler: @escaping ((DataResponse<Activity>) -> Void))
+}
+
 class ActivityServiceImp: ActivityService {
     func requestDeleteActivity(contentIdx: Int, completionHandler: @escaping ((DataResponse<Activity>) -> Void)) {
         

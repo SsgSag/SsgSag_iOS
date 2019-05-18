@@ -8,6 +8,10 @@
 
 import Foundation
 
+protocol TapbarService: class {
+    func requestAllTodoList(completionHandler: @escaping (DataResponse<[Posters]>) -> Void)
+}
+
 class TapbarServiceImp: TapbarService {
     func requestAllTodoList(completionHandler: @escaping (DataResponse<[Posters]>) -> Void) {
         

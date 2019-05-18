@@ -12,6 +12,19 @@
 
 import Foundation
 
+struct Subscribe: Codable {
+    let status: Int?
+    let message: String?
+    let data: [SubscribeInterests]?
+}
+
+struct SubscribeInterests: Codable {
+    let interestIdx: Int?
+    let interestName: String?
+    let interestUrl: String?
+    let userIdx: Int?
+}
+
 struct Interests: Codable {
     let status: Int?
     let message: String?

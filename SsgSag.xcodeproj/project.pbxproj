@@ -44,6 +44,12 @@
 		84646C3622894AAD005D3F1C /* ServiceInfoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84646C3522894AAD005D3F1C /* ServiceInfoTableViewCell.swift */; };
 		84646C38228965E5005D3F1C /* AppInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84646C37228965E5005D3F1C /* AppInfoViewController.swift */; };
 		84646C3A228976A3005D3F1C /* InterestBoardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84646C39228976A3005D3F1C /* InterestBoardViewController.swift */; };
+		84646C3D2289A57A005D3F1C /* InterestBoardTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84646C3B2289A57A005D3F1C /* InterestBoardTableViewCell.swift */; };
+		84646C3E2289A57A005D3F1C /* InterestBoardTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84646C3C2289A57A005D3F1C /* InterestBoardTableViewCell.xib */; };
+		846E621F228FC90F0083E3CD /* splash_190514.json in Resources */ = {isa = PBXBuildFile; fileRef = 846E621E228FC90F0083E3CD /* splash_190514.json */; };
+		846E6223228FCF320083E3CD /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 846E6222228FCF320083E3CD /* Launch Screen.storyboard */; };
+		846E6225228FDA140083E3CD /* InterestServiceImp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846E6224228FDA140083E3CD /* InterestServiceImp.swift */; };
+		846E622722901DE90083E3CD /* BasicNetworkModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846E622622901DE90083E3CD /* BasicNetworkModel.swift */; };
 		84836ABF222E515200922A78 /* UserNetworkModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84836ABE222E515200922A78 /* UserNetworkModel.swift */; };
 		8486D260226DEC5D00D7A0C7 /* ApplySuccessViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8486D25F226DEC5D00D7A0C7 /* ApplySuccessViewController.swift */; };
 		8486D262226DF38E00D7A0C7 /* ApplySuccess.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8486D261226DF38E00D7A0C7 /* ApplySuccess.storyboard */; };
@@ -178,6 +184,12 @@
 		84646C3522894AAD005D3F1C /* ServiceInfoTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceInfoTableViewCell.swift; sourceTree = "<group>"; };
 		84646C37228965E5005D3F1C /* AppInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppInfoViewController.swift; sourceTree = "<group>"; };
 		84646C39228976A3005D3F1C /* InterestBoardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterestBoardViewController.swift; sourceTree = "<group>"; };
+		84646C3B2289A57A005D3F1C /* InterestBoardTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterestBoardTableViewCell.swift; sourceTree = "<group>"; };
+		84646C3C2289A57A005D3F1C /* InterestBoardTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = InterestBoardTableViewCell.xib; sourceTree = "<group>"; };
+		846E621E228FC90F0083E3CD /* splash_190514.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = splash_190514.json; sourceTree = "<group>"; };
+		846E6222228FCF320083E3CD /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
+		846E6224228FDA140083E3CD /* InterestServiceImp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterestServiceImp.swift; sourceTree = "<group>"; };
+		846E622622901DE90083E3CD /* BasicNetworkModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasicNetworkModel.swift; sourceTree = "<group>"; };
 		84836ABE222E515200922A78 /* UserNetworkModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserNetworkModel.swift; sourceTree = "<group>"; };
 		8486D25F226DEC5D00D7A0C7 /* ApplySuccessViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplySuccessViewController.swift; sourceTree = "<group>"; };
 		8486D261226DF38E00D7A0C7 /* ApplySuccess.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = ApplySuccess.storyboard; sourceTree = "<group>"; };
@@ -385,6 +397,7 @@
 				84617611225F7157005E6173 /* Swipe */,
 				84617610225F7120005E6173 /* Calendar */,
 				84836AC0222E5F4A00922A78 /* MyPage */,
+				846E622622901DE90083E3CD /* BasicNetworkModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -612,6 +625,7 @@
 				843813102270153900C9E47B /* MypageServiceImp.swift */,
 				840DDD3F227EAC4000D9D515 /* TapbarServiceImp.swift */,
 				84D09D0722883421008EEA7C /* ActivityServiceImp.swift */,
+				846E6224228FDA140083E3CD /* InterestServiceImp.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -631,6 +645,8 @@
 				FA7F4CB921DFC7E700D8643A /* CustomCareerCell.swift */,
 				FA23A93D21DF6FCF003DB5F9 /* myPageTableViewCell.swift */,
 				84B4268921E9063600B44F71 /* bt_save_round.json */,
+				84646C3B2289A57A005D3F1C /* InterestBoardTableViewCell.swift */,
+				84646C3C2289A57A005D3F1C /* InterestBoardTableViewCell.xib */,
 			);
 			path = MyPage;
 			sourceTree = "<group>";
@@ -686,7 +702,9 @@
 			isa = PBXGroup;
 			children = (
 				FA3A8FD621DF3C3B0075A510 /* Splash.storyboard */,
+				846E621E228FC90F0083E3CD /* splash_190514.json */,
 				FAF0DF0221E95B5A003F341F /* splash.json */,
+				846E6222228FCF320083E3CD /* Launch Screen.storyboard */,
 			);
 			path = Splash;
 			sourceTree = "<group>";
@@ -821,13 +839,16 @@
 				845928A521D09CE0001DF6CC /* Assets.xcassets in Resources */,
 				FAFB87DE2215ABBF002CDED9 /* majorList.json in Resources */,
 				84264BA621DF0FF300849E6B /* Calendar.storyboard in Resources */,
+				846E621F228FC90F0083E3CD /* splash_190514.json in Resources */,
 				845928CC21D09D09001DF6CC /* SwipeStoryBoard.storyboard in Resources */,
 				FA524BF121D64E2400675289 /* SignupStoryBoard.storyboard in Resources */,
 				FA7F4CC021DFCAF200D8643A /* ActivityCell.xib in Resources */,
 				84B4268A21E9063600B44F71 /* bt_save_round.json in Resources */,
+				846E6223228FCF320083E3CD /* Launch Screen.storyboard in Resources */,
 				FAF0DF0321E95B5A003F341F /* splash.json in Resources */,
 				FA61FE1321E1D48D00A28947 /* .gitignore in Resources */,
 				8486D262226DF38E00D7A0C7 /* ApplySuccess.storyboard in Resources */,
+				84646C3E2289A57A005D3F1C /* InterestBoardTableViewCell.xib in Resources */,
 				84D09D0622880C3D008EEA7C /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -928,6 +949,7 @@
 				FA5A87F421E7D51D008C2C41 /* Career.swift in Sources */,
 				84836ABF222E515200922A78 /* UserNetworkModel.swift in Sources */,
 				8486D260226DEC5D00D7A0C7 /* ApplySuccessViewController.swift in Sources */,
+				846E6225228FDA140083E3CD /* InterestServiceImp.swift in Sources */,
 				8406BB7D220E9EE80065B180 /* Event.swift in Sources */,
 				FA23A93F21DF6FCF003DB5F9 /* myPageTableViewCell.swift in Sources */,
 				845928E121D20068001DF6CC /* LoginVC.swift in Sources */,
@@ -958,6 +980,7 @@
 				FA3A344421E72F5200668908 /* SchoolInfoVC.swift in Sources */,
 				84B1B250226A364100077DF9 /* DataResponse.swift in Sources */,
 				FAF6DEE4222EAAEF001C70CC /* Interests.swift in Sources */,
+				84646C3D2289A57A005D3F1C /* InterestBoardTableViewCell.swift in Sources */,
 				8486D268226E199100D7A0C7 /* PosterFavorite.swift in Sources */,
 				840FEDC7220759E200581A3B /* CalenderVC + TableView.swift in Sources */,
 				FA3A342221E5D64300668908 /* UserInfoVC.swift in Sources */,
@@ -965,6 +988,7 @@
 				84A45D15225FA1E800C60287 /* Router.swift in Sources */,
 				84646C38228965E5005D3F1C /* AppInfoViewController.swift in Sources */,
 				84646C3122894792005D3F1C /* PushAlarmViewController.swift in Sources */,
+				846E622722901DE90083E3CD /* BasicNetworkModel.swift in Sources */,
 				FAD323DB21E36FA6000C4FBA /* AddCertificationVC.swift in Sources */,
 				FA3A344221E7285C00668908 /* ConfirmProfileVC.swift in Sources */,
 				84C30E272276D417008F1165 /* GradientView.swift in Sources */,

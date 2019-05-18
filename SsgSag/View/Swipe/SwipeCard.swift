@@ -169,3 +169,5 @@ class SwipeCard: UIView {
     }
     
 }
+
+

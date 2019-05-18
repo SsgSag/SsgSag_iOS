@@ -88,6 +88,4 @@ protocol activityDelegate: class {
     func deleteSuccess()
 }
 
-protocol ActivityService: class {
-    func requestDeleteActivity(contentIdx: Int, completionHandler: @escaping ((DataResponse<Activity>) -> Void))
-}
+

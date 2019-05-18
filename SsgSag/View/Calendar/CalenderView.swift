@@ -207,6 +207,7 @@ class CalenderView: UIView, MonthViewDelegate {
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
 }
 
 // MARK: - Delegate

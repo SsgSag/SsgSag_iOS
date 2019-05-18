@@ -86,8 +86,6 @@ class TapbarVC: UITabBarController {
     }
 }
 
-protocol TapbarService: class {
-    func requestAllTodoList(completionHandler: @escaping (DataResponse<[Posters]>) -> Void)
-}
+
 
 

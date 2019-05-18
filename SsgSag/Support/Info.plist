@@ -65,7 +65,7 @@
 		<string>remote-notification</string>
 	</array>
 	<key>UILaunchStoryboardName</key>
-	<string>Splash</string>
+	<string>Launch Screen</string>
 	<key>UIMainStoryboardFile</key>
 	<string>LoginStoryBoard</string>
 	<key>UIRequiredDeviceCapabilities</key>
