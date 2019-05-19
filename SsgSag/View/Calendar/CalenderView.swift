@@ -71,16 +71,11 @@ class CalenderView: UIView, MonthViewDelegate {
     
     static func getPosterUsingUserDefaults() -> [Posters] {
         
-        guard let posterData = UserDefaults.standard.object(forKey: "poster") as? Data else {
-            return []
-        }
-        
-        guard let posterInfo = try? PropertyListDecoder().decode([Posters].self, from: posterData) else {
-            return []
-        }
+        let posterInfo = StoreAndFetchPoster.getPoster
         
         return posterInfo
     }
+    
     
     static func isDuplicatePosterTuple(_ posterTuples:[Posters], input: Posters) -> Bool {
         
@@ -89,7 +84,6 @@ class CalenderView: UIView, MonthViewDelegate {
             if poster.posterName! == input.posterName! {
                 return true
             }
-            
         }
         
         return false
@@ -213,6 +207,7 @@ class CalenderView: UIView, MonthViewDelegate {
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
 }
 
 // MARK: - Delegate

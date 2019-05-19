@@ -18,8 +18,6 @@ class CalendarDetailVC: UIViewController {
     
     @IBOutlet weak var shareButton: UIBarButtonItem!
     
-    @IBOutlet weak var categoryColorView: UIView!
-    
     @IBOutlet weak var categoryLabel: UILabel!
     
     @IBOutlet weak var nameLabel: UILabel!
@@ -27,10 +25,6 @@ class CalendarDetailVC: UIViewController {
     @IBOutlet weak var hashTagLabel: UILabel!
     
     @IBOutlet weak var titlePeriodLabel: UILabel!
-    
-    @IBOutlet weak var recruitPeriodLabel: UILabel!
-    
-    @IBOutlet weak var actionPeriodLabel: UILabel!
     
     @IBOutlet var outLineLabel: UILabel!
     
@@ -45,23 +39,28 @@ class CalendarDetailVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        setPosterContent()
+        
+    }
+    
+    private func setPosterContent() {
         if let photoURL = Poster?.photoUrl {
             if let url = URL(string: photoURL){
                 PosterImage.load(url: url)
             }
         }
-
+        
         if let poster = Poster {
             
             if let category : PosterCategory = PosterCategory(rawValue: poster.categoryIdx!) {
                 categoryLabel.text = category.categoryString()
                 categoryLabel.textColor = category.categoryColors()
-                categoryColorView.backgroundColor =  category.categoryColors()
+                titlePeriodLabel.textColor = category.categoryColors()
+                
+                titlePeriodLabel.text = poster.keyword
             }
             
             nameLabel.text = poster.posterName
-            recruitPeriodLabel.text = poster.documentDate
-            actionPeriodLabel.text = poster.period
             outLineLabel.text = poster.outline
             targetLabel.text = poster.target
             benefitLabel.text = poster.benefit
@@ -69,17 +68,13 @@ class CalendarDetailVC: UIViewController {
             if let posterInterest = poster.posterInterest {
                 
                 var hashTagString = ""
-                    for hashInterest in posterInterest {
-                        if let hashTagsHashInterest = hashTags[hashInterest] {
-                            hashTagString = hashTagString + "#" + hashTagsHashInterest + " "
-                        }
+                for hashInterest in posterInterest {
+                    if let hashTagsHashInterest = hashTags[hashInterest] {
+                        hashTagString = hashTagString + "#" + hashTagsHashInterest + " "
                     }
+                }
                 hashTagLabel.text = hashTagString
             }
-        }
-        
-        if let period = recruitPeriodLabel.text {
-            titlePeriodLabel.text = "기간 | " +  period
         }
     }
     
@@ -87,26 +82,55 @@ class CalendarDetailVC: UIViewController {
         share(sender:view)
     }
     
+    
+    @IBAction func moveToWebsite(_ sender: Any) {
+        
+        guard let websiteURL = Poster?.posterWebSite else {
+            return
+        }
+        
+        guard let url = URL(string: websiteURL) else {
+            return
+        }
+        
+        UIApplication.shared.open(url)
+    }
+    
     @objc func share(sender:UIView){
         UIGraphicsBeginImageContext(view.frame.size)
         view.layer.render(in: UIGraphicsGetCurrentContext()!)
-        let image = UIGraphicsGetImageFromCurrentImageContext()
-        UIGraphicsEndImageContext()
         
-        let textToShare = "Check out my app"
+        var objectsToshare: [Any] = []
         
-        if let myWebsite = URL(string: "http://itunes.apple.com") {//Enter link to your app here
-            let objectsToShare = [textToShare, myWebsite, image ?? #imageLiteral(resourceName: "app-logo")] as [Any]
-            let activityVC = UIActivityViewController(activityItems: objectsToShare, applicationActivities: nil)
-            
-            //Excluded Activities
-            activityVC.excludedActivityTypes = [UIActivity.ActivityType.airDrop, UIActivity.ActivityType.addToReadingList, UIActivity.ActivityType.postToFacebook, UIActivity.ActivityType.mail
-            ]
-            //
-            
-            activityVC.popoverPresentationController?.sourceView = sender
-            self.present(activityVC, animated: true, completion: nil)
+        guard let posterName = Poster?.posterName else {return}
+        
+        objectsToshare.append(posterName)
+        
+        guard let posterImage = PosterImage.image else {
+            addObjects(with: objectsToshare, sender: sender)
+            return
         }
+        
+        objectsToshare.append(posterImage)
+        
+        guard let posterWebSiteURL = Poster?.posterWebSite else {
+            addObjects(with: objectsToshare, sender: sender)
+            return
+        }
+        
+        objectsToshare.append(posterWebSiteURL)
+        
+        addObjects(with: objectsToshare, sender: sender)
+        
+    }
+    
+    private func addObjects(with objectsToshare: [Any], sender: UIView) {
+        let activityVC = UIActivityViewController(activityItems: objectsToshare, applicationActivities: nil)
+        
+        activityVC.excludedActivityTypes = [UIActivity.ActivityType.airDrop, UIActivity.ActivityType.addToReadingList ]
+        
+        activityVC.popoverPresentationController?.sourceView = sender
+        self.present(activityVC, animated: true, completion: nil)
     }
     
     @IBAction func backButton(_ sender: UIBarButtonItem) {

@@ -8,9 +8,20 @@
 
 import Foundation
 
+protocol CalendarService: class {
+    func requestFavorite(_ favorite: favoriteState, _ posterIdx: Int,completionHandler: @escaping (DataResponse<PosterFavorite>) -> Void)
+    
+    func requestDelete(_ posterIdx: Int, completionHandler: @escaping (DataResponse<PosterFavorite>) -> Void )
+    
+    func reqeustComplete(_ posterIdx: Int, completionHandler: @escaping (DataResponse<PosterFavorite>) -> Void)
+    
+    func requestEachPoster(_ posterIdx: Int, completionHandler: @escaping (DataResponse<networkPostersData>) -> Void)
+}
+
 class CalendarServiceImp: CalendarService {
     
-    func requestEachPoster(_ posterIdx: Int, completionHandler: @escaping (DataResponse<networkPostersData>) -> Void) {
+    func requestEachPoster(_ posterIdx: Int, completionHandler: @escaping
+        (DataResponse<networkPostersData>) -> Void) {
         
         guard let url = UserAPI.sharedInstance.getURL(RequestURL.posterDetail(posterIdx: posterIdx).getRequestURL()) else {return}
         
@@ -29,30 +40,6 @@ class CalendarServiceImp: CalendarService {
             } catch {
                 print("EachPoster Parsing Error")
             }
-        }
-    }
-    
-    func requestAllTodoList(completionHandler: @escaping (DataResponse<AllTodoList>) -> Void) {
-        guard let url = UserAPI.sharedInstance.getURL(RequestURL.allTodoList.getRequestURL()) else {return}
-        
-        guard let key = UserDefaults.standard.object(forKey: "SsgSagToken") as? String else { return }
-        
-        var request = URLRequest(url: url)
-        request.setValue(key, forHTTPHeaderField: "Authorization")
-        request.httpMethod = "GET"
-        
-        NetworkManager.shared.getData(with: request) { (data, error, response) in
-            guard let data = data else { return }
-            
-            do {
-                let response = try JSONDecoder().decode(AllTodoList.self, from: data)
-                
-                completionHandler(DataResponse.success(response))
-                
-            } catch {
-                print("AllTodoList Parsing Error")
-            }
-            
         }
         
     }
@@ -133,31 +120,5 @@ class CalendarServiceImp: CalendarService {
             
         }
     }
-}
-
-/*
-//0 카톡 로그인, 1은 네이버 로그인(업데이트 예정)
-let json: [String: Any] = [ "accessToken": accessToken,
-                            "loginType" : login ]
-
-let jsonData = try? JSONSerialization.data(withJSONObject: json)
-
-guard let url = UserAPI.sharedInstance.getURL(RequestURL.snsLogin.getRequestURL()) else {return}
-
-var request = URLRequest(url: url)
-request.httpMethod = "POST"
-request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-request.httpBody = jsonData
-
-NetworkManager.shared.getData(with: request) { (data, error, res) in
-    guard let data = data else { return }
     
-    do {
-        let tokenResponse = try JSONDecoder().decode(TokenResponse.self, from: data)
-        
-        completionHandler(DataResponse.success(tokenResponse))
-    } catch {
-        print("LoginService Parsing Error")
-    }
 }
-*/

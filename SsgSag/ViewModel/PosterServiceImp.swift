@@ -8,6 +8,12 @@
 
 import Foundation
 
+protocol PosterService: class {
+    func requestPoster(completionHandler: @escaping (DataResponse<[Posters]>) -> Void )
+    func requestPosterLiked(of poster: Posters,
+                            type likedCategory: likedOrDisLiked)
+}
+
 class PosterServiceImp: PosterService {
     
     func requestPosterLiked(of poster: Posters, type likedCategory: likedOrDisLiked ) {
@@ -94,6 +100,6 @@ class PosterServiceImp: PosterService {
             }
         }
     }
-
+    
 }
 

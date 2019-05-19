@@ -8,6 +8,11 @@
 
 import Foundation
 
+protocol LoginService: class {
+    func requestLogin(send data:[String:Any] , completionHandler: @escaping (DataResponse<LoginStruct>) -> Void)
+    func requestSnsLogin(using accessToken: String, type login: Int, completionHandler: @escaping (DataResponse<TokenResponse>) -> Void)
+}
+
 class LoginServiceImp: LoginService {
     
     private(set) var isFetchStatusCode = false
@@ -38,8 +43,8 @@ class LoginServiceImp: LoginService {
             } catch {
                 print("LoginService Parsing Error")
             }
+            
         }
-        
     }
     
     func requestLogin(send data: [String : Any], completionHandler: @escaping (DataResponse<LoginStruct>) -> Void) {

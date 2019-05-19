@@ -8,9 +8,60 @@
 
 import Foundation
 
+protocol myPageService: class {
+    
+    func requestSelectedState(completionHandler: @escaping ((DataResponse<Interests>) -> Void))
+    
+    func requestStoreSelectedField(_ selectedJson: [String: Any] ,
+                                   completionHandler: @escaping ((DataResponse<ReInterest>) -> Void))
+    
+    func requestStoreAddActivity(_ jsonData: [String: Any],
+                                 completionHandler: @escaping ((DataResponse<Activity>) -> Void))
+    
+    func reqeuestStoreJobsState(_ selectedJson: [String: Any] ,
+                                completionHandler: @escaping ((DataResponse<ReInterest>) -> Void))
+    
+}
+
 class MyPageServiceImp: myPageService {
-    func requestStoreAddActivity(_ jsonData: [String : Any], completionHandler: @escaping (((DataResponse<Activity>) -> Void))) {
+    
+    func reqeuestStoreJobsState(_ selectedJson: [String : Any],
+                                completionHandler: @escaping ((DataResponse<ReInterest>) -> Void)) {
+        
+        guard let url = UserAPI.sharedInstance.getURL(RequestURL.registerInterestJobs.getRequestURL()) else {
+            return
+        }
+        
+        guard let token = UserDefaults.standard.object(forKey: "SsgSagToken") as? String else {
+            return
+        }
+        
+        let json = try? JSONSerialization.data(withJSONObject: selectedJson)
+        
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.addValue(token, forHTTPHeaderField: "Authorization")
+        request.httpBody = json
+        
+        NetworkManager.shared.getData(with: request) { (data, error, response) in
+            guard let data = data else {return}
+            
+            do {
+                let responseData = try JSONDecoder().decode(ReInterest.self, from: data)
+                
+                completionHandler(DataResponse.success(responseData))
+            } catch {
+                print("ReInterest Parsing Error")
+            }
+        }
+    }
+    
+    func requestStoreAddActivity(_ jsonData: [String : Any],
+                                 completionHandler: @escaping (((DataResponse<Activity>) -> Void))) {
+        
         guard let url = UserAPI.sharedInstance.getURL(RequestURL.careerActivity.getRequestURL()) else {return}
+        
         
         guard let token = UserDefaults.standard.object(forKey: "SsgSagToken") as? String else {
             return
@@ -20,20 +71,22 @@ class MyPageServiceImp: myPageService {
         
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
-        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
         request.addValue(token, forHTTPHeaderField: "Authorization")
         request.httpBody = json
         
         NetworkManager.shared.getData(with: request) { (data, error, res) in
             
             guard let data = data else {return}
+            
             do {
                 let responsData = try JSONDecoder().decode(Activity.self, from: data)
+                
                 completionHandler(DataResponse.success(responsData))
             } catch {
                 completionHandler(DataResponse.failed(ReadError.JsonError))
             }
-            
+
         }
     }
 
@@ -70,7 +123,7 @@ class MyPageServiceImp: myPageService {
     func requestSelectedState(completionHandler: @escaping ((DataResponse<Interests>) -> Void)) {
         
         guard let url = UserAPI.sharedInstance.getURL(RequestURL.interestingField.getRequestURL()) else {
-            return
+            return print("123123")
         }
         
         guard let token = UserDefaults.standard.object(forKey: "SsgSagToken") as? String else {
@@ -83,6 +136,7 @@ class MyPageServiceImp: myPageService {
         request.addValue(token, forHTTPHeaderField: "Authorization")
         
         NetworkManager.shared.getData(with: request) { (data, error, res) in
+            
             guard let data = data else {
                 return
             }
@@ -95,6 +149,7 @@ class MyPageServiceImp: myPageService {
             } catch  {
                 print("Interests Json Parsing Error")
             }
+            
         }
     }
 }

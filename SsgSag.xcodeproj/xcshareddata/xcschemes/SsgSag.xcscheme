@@ -32,9 +32,9 @@
             skipped = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "849278D4227425F3009EAD91"
-               BuildableName = "&#x1109;&#x1173;&#x11a8;&#x1109;&#x1161;&#x11a8;Tests.xctest"
-               BlueprintName = "&#xc2a5;&#xc0ad;Tests"
+               BlueprintIdentifier = "841AA5E9227F423400C41574"
+               BuildableName = "PosterServiceTest.xctest"
+               BlueprintName = "PosterServiceTest"
                ReferencedContainer = "container:SsgSag.xcodeproj">
             </BuildableReference>
          </TestableReference>
@@ -45,6 +45,46 @@
                BlueprintIdentifier = "849278E222742672009EAD91"
                BuildableName = "SsgsagTests.xctest"
                BlueprintName = "SsgsagTests"
+               ReferencedContainer = "container:SsgSag.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "845928B821D09CE0001DF6CC"
+               BuildableName = "SsgSagUITests.xctest"
+               BlueprintName = "SsgSagUITests"
+               ReferencedContainer = "container:SsgSag.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "84F3C6DE227F478C0028A2F0"
+               BuildableName = "&#x1109;&#x1173;&#x11a8;&#x1109;&#x1161;&#x11a8;Tests.xctest"
+               BlueprintName = "&#xc2a5;&#xc0ad;Tests"
+               ReferencedContainer = "container:SsgSag.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "84F3C6EC227F47B10028A2F0"
+               BuildableName = "ServiceTests.xctest"
+               BlueprintName = "ServiceTests"
+               ReferencedContainer = "container:SsgSag.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "84F3C6FD227F49560028A2F0"
+               BuildableName = "SsgSagTests.xctest"
+               BlueprintName = "SsgSagTests"
                ReferencedContainer = "container:SsgSag.xcodeproj">
             </BuildableReference>
          </TestableReference>

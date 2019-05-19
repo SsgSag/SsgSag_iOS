@@ -10,10 +10,26 @@ import Foundation
 
 struct DateCaculate {
     
+    static func stringToDateWithBasicFormatterWithKorea(using stringDate: String) -> Date {
+        let dateFormatter = DateFormatter.basicDateFormatterWithKorea
+        
+        guard let date = dateFormatter.date(from: stringDate) else {return .init()}
+        
+        return date
+    }
+    
+    static func stringToDateWithBasicFormatter(using stringDate: String) -> Date {
+        let dateFormatter = DateFormatter.basicDateFormatter
+        
+        guard let date = dateFormatter.date(from: stringDate) else {return .init()}
+        
+        return date
+    }
+    
     static func getDateOfStringDay(_ year: Int, _ month: Int, day: Int) -> Date? {
         let dateFormatter = DateFormatter.genericDateFormatter
         
-        var cellDateString = "\(year)-\(month)-\(day) 00:00:00"
+        let cellDateString = "\(year)-\(month)-\(day) 00:00:00"
         
         return dateFormatter.date(from: cellDateString)
     }

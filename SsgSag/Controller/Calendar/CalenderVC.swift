@@ -78,8 +78,6 @@ class CalenderVC: UIViewController {
         
         calendarServiceImp = CalendarServiceImp()
         
-        getPostersAndStore()
-        
         setupContentView()
         
         setupGesture()
@@ -129,39 +127,7 @@ class CalenderVC: UIViewController {
     
     var posterIdx: [Int] = []
     
-    private func syncDataAtFirst() {
-        
-        calendarServiceImp?.requestAllTodoList { (dataResponse) in
-            
-            guard let todoList = dataResponse.value?.data else { return }
-            
-            UserDefaults.standard.object(forKey: "poster")
-            for todo in todoList {
-                guard let todoPosterIdx = todo.posterIdx else {return}
-                
-                self.posterIdx.append(todoPosterIdx)
-            }
-            
-        }
-    }
-    
     var tempDetailPosters: [Posters]?
-    
-    /// start only at first time
-    private func getPostersAndStore() {
-        
-        guard let _ = UserDefaults.standard.object(forKey: "start") as? Bool else {
-            
-            let start = true
-            
-            UserDefaults.standard.setValue(start, forKey: "start")
-            
-            syncDataAtFirst()
-            
-            return
-        }
-        
-    }
     
     private func setNotificationObserver() {
         NotificationCenter.default.addObserver(self, selector: #selector(addUserDefaults), name: NSNotification.Name("addUserDefaults"), object: nil)
@@ -199,6 +165,7 @@ class CalenderVC: UIViewController {
                 
                 todoTableData.append(poster)
             }
+            
         }
         
         todoTableView.reloadData()
@@ -316,15 +283,7 @@ class CalenderVC: UIViewController {
     
     private func setPosters(){
         
-        guard let poster = UserDefaults.standard.object(forKey: "poster") as? Data else{
-            return
-        }
-        
-        guard let storedPosters = try? PropertyListDecoder().decode([Posters].self, from: poster) else {
-            return
-        }
-        
-        posters = storedPosters
+        posters = StoreAndFetchPoster.getPoster
         
         posters.sort{$0.posterEndDate! < $1.posterEndDate!}
         
@@ -405,7 +364,6 @@ class CalenderVC: UIViewController {
         
         let dateFormatter = DateFormatter.genericDateFormatter
         
-        
         // 오늘일 경우 투두리스트의 모든 데이터를 보여준다.
         if currentSelectedDateYear == todayYear &&
             currentSelectedDateMonth == todayMonth &&
@@ -434,6 +392,7 @@ class CalenderVC: UIViewController {
                     
                     todoTableData.append(poster)
                 }
+                
             }
         }
         

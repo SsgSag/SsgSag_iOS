@@ -11,15 +11,8 @@ target 'SsgSag' do
   pod 'lottie-ios'
   pod 'naveridlogin-sdk-ios'
   pod 'SearchTextField'
-
-  target 'SsgSagTests' do
-    inherit! :search_paths
-    # Pods for testing
-  end
-
-  target 'SsgSagUITests' do
-    inherit! :search_paths
-    # Pods for testing
-  end
+  pod 'Firebase/Core'
+  pod 'Firebase/Messaging'
+  pod 'Firebase/Analytics'
 
 end

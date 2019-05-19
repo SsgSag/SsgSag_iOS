@@ -15,7 +15,7 @@
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
-	<string>1.0.4</string>
+	<string>1.0.6</string>
 	<key>CFBundleURLTypes</key>
 	<array>
 		<dict>
@@ -38,7 +38,7 @@
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
-	<string>2</string>
+	<string>1</string>
 	<key>KAKAO_APP_KEY</key>
 	<string>ed0a3c51db01fecdca098dde710f2753</string>
 	<key>LSApplicationCategoryType</key>
@@ -60,8 +60,12 @@
 	</dict>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>프로필사진을 등록하기 위해서 사진첩 접근 권한이 필요합니다.</string>
+	<key>UIBackgroundModes</key>
+	<array>
+		<string>remote-notification</string>
+	</array>
 	<key>UILaunchStoryboardName</key>
-	<string>Splash</string>
+	<string>Launch Screen</string>
 	<key>UIMainStoryboardFile</key>
 	<string>LoginStoryBoard</string>
 	<key>UIRequiredDeviceCapabilities</key>

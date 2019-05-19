@@ -66,8 +66,15 @@ class SwipeVC: UIViewController {
     }
 
     private func setView() {
+        
+        swipeCardView.layer.cornerRadius = 4
+        swipeCardView.layer.masksToBounds = true
+        
         self.view.backgroundColor = UIColor(displayP3Red: 242/255, green: 243/255, blue: 245/255, alpha: 1.0)
+        
         self.view.bringSubviewToFront(swipeCardView)
+        
+        
     }
     
     private func setButtonTarget() {
@@ -373,7 +380,7 @@ extension SwipeVC : SwipeCardDelegate {
         
         likedPoster.append(self.posters[currentIndex-1])
         
-        UserDefaults.standard.setValue(try? PropertyListEncoder().encode(likedPoster), forKey: "poster")
+        StoreAndFetchPoster.storePoster(posters: likedPoster)
         
         guard let likedCategory = likedOrDisLiked(rawValue: 1) else { return }
         
@@ -389,7 +396,7 @@ extension SwipeVC : SwipeCardDelegate {
             likedPoster.append(self.posters[currentIndex-1])
         }
         
-        UserDefaults.standard.setValue(try? PropertyListEncoder().encode(likedPoster), forKey: "poster")
+        StoreAndFetchPoster.storePoster(posters: likedPoster)
         
         guard let likedCategory = likedOrDisLiked(rawValue: 1) else { return }
         
@@ -433,8 +440,4 @@ enum likedOrDisLiked: Int {
     case disliked = 0
 }
 
-protocol PosterService: class {
-    func requestPoster(completionHandler: @escaping (DataResponse<[Posters]>) -> Void )
-    func requestPosterLiked(of poster: Posters,
-                            type likedCategory: likedOrDisLiked)
-}
+

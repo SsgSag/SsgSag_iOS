@@ -1,148 +1,6 @@
 
 class TodoTableViewCell: UITableViewCell {
     
-    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-        super.init(style: style, reuseIdentifier: reuseIdentifier)
-        
-        self.backgroundColor = UIColor.clear
-        
-        favorite.addTarget(self, action: #selector(addFavorite), for: .touchUpInside)
-        
-        setupCell()
-    }
-    
-    override func layoutIfNeeded() {
-        super.layoutIfNeeded()
-        
-        favorite.layer.cornerRadius = favorite.bounds.size.width / 2
-        favorite.layer.borderWidth = 1
-        favorite.layer.masksToBounds = true
-    }
-    
-    override func awakeFromNib() {
-        super.awakeFromNib()
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    static private let weekDaySymbol = ["토", "일", "월", "화", "수", "목", "금"]
-    
-    private func setFavoriteColor(with category: PosterCategory, posterIdx: Int) {
-        
-        guard let isFavorite = UserDefaults.standard.object(forKey: "favorite\(posterIdx)") as? Int else {
-            
-            let favoriteState: favoriteState = .notFavorite
-            
-            favoriteState.setColor(category,
-                                   favorite: favorite,
-                                   dayLefted: dayLefted,
-                                   favoriteIntervalDay: favoriteIntervalDay)
-        
-            return
-        }
-        
-        guard let favoriteState = favoriteState(rawValue: isFavorite) else {return}
-        
-        favoriteState.setColor(category,
-                               favorite: favorite,
-                               dayLefted: dayLefted,
-                               favoriteIntervalDay: favoriteIntervalDay)
-    }
-    
-    private func setComplted(posterIdx: Int) {
-        guard let isComplted = UserDefaults.standard.object(forKey: "completed\(posterIdx)") as? Int else {
-            
-            let completeState: applyCompleted = .notCompleted
-            
-            completeState.setComplete(posterIdx: posterIdx, complete: complete, favorite: favorite, favoriteIntervalDay:favoriteIntervalDay )
-            
-            return
-        }
-        
-        guard let complteState = applyCompleted(rawValue: isComplted) else {return}
-        
-        complteState.setComplete(posterIdx: posterIdx, complete: complete, favorite: favorite, favoriteIntervalDay:favoriteIntervalDay )
-        
-    }
-    
-    // StartDate는 없을 수도 있고 EndDate는 무조건 존재한다.
-    var poster: Posters? {
-        didSet {
-            guard let poster = poster else { return }
-            
-            let dateFormatter = DateFormatter.genericDateFormatter
-            
-            guard let posterEndDateString = poster.posterEndDate else { return }
-            
-            guard let posterEndDate = dateFormatter.date(from: posterEndDateString) else { return }
-            
-            let todoDataEndMonth = Calendar.current.component(.month, from: posterEndDate)
-            
-            let todoDataEndDay = Calendar.current.component(.day, from: posterEndDate)
-            
-            let todoDateEndWeekDay = Calendar.current.component(.weekday, from: posterEndDate)
-            
-            let todoDateEndHour = Calendar.current.component(.hour, from: posterEndDate)
-            
-            let todoDateEndminute = Calendar.current.component(.minute, from: posterEndDate)
-            
-            guard let posterCagegoryIdx = poster.categoryIdx else { return }
-            
-            guard let posterName = poster.posterName else { return }
-            
-            guard let posterIdx = poster.posterIdx else {return}
-            
-            contentLabel.text = "\(posterName)"
-            
-            if let category = PosterCategory(rawValue: posterCagegoryIdx) {
-                categoryLabel.text = category.categoryString()
-                categoryLabel.textColor = category.categoryColors()
-                
-                setFavoriteColor(with: category, posterIdx: posterIdx)
-                setComplted(posterIdx: posterIdx)
-            }
-            
-            if Date() < posterEndDate {
-                newImage.isHidden = true
-                newImage.image = #imageLiteral(resourceName: "icTaskTimeout")
-                
-                leftedDay.isHidden = false
-                
-                let dayInterval = Calendar.current.dateComponents([.day],
-                                                                  from: Date(),
-                                                                  to: posterEndDate)
-                
-                guard let interval = dayInterval.day else { return  }
-                
-                //favorite.setTitle("\(interval)일", for: .normal)
-                dayLefted.text = "\(interval)일"
-            } else {
-                newImage.isHidden = false
-                leftedDay.isHidden = true
-            }
-            
-            dateLabel.font = UIFont.systemFont(ofSize: 13.0, weight: .light)
-            leftedDay.font = UIFont.systemFont(ofSize: 34.0, weight: .medium)
-
-            let weekDaySymbol = TodoTableViewCell.weekDaySymbol[todoDateEndWeekDay-1]
-            
-            guard let posterStartDateString = poster.posterStartDate else {
-                dateLabel.text = "\(todoDataEndMonth).\(todoDataEndDay)(\(weekDaySymbol)) \(todoDateEndHour):\(todoDateEndminute)"
-                return
-            }
-
-            guard let posterStartDate = dateFormatter.date(from: posterStartDateString) else { return }
-            
-            let todoDataStartMonth = Calendar.current.component(.month, from: posterStartDate)
-            
-            let todoDataStartDay = Calendar.current.component(.day, from: posterStartDate)
-            
-            dateLabel.text = "\(todoDataStartMonth).\(todoDataStartDay)(\(weekDaySymbol)) ~ \(todoDataEndMonth).\(todoDataEndDay)(\(weekDaySymbol)) \(todoDateEndHour):\(todoDateEndminute)  "
-        }
-    }
-    
     let complete: UIImageView = {
         let imageView = UIImageView()
         imageView.image = #imageLiteral(resourceName: "icTaskComplete")
@@ -234,8 +92,160 @@ class TodoTableViewCell: UITableViewCell {
         return im
     }()
     
-    @objc func addFavorite() {
+    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
+        
+        self.backgroundColor = UIColor.clear
+        
+        favorite.addTarget(self, action: #selector(addFavorite), for: .touchUpInside)
+        
+        setupCell()
+    }
     
+    override func layoutIfNeeded() {
+        super.layoutIfNeeded()
+        
+        favorite.layer.cornerRadius = favorite.bounds.size.width / 2
+        favorite.layer.borderWidth = 1
+        favorite.layer.masksToBounds = true
+    }
+    
+    override func awakeFromNib() {
+        super.awakeFromNib()
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    static private let weekDaySymbol = ["일", "월", "화", "수", "목", "금","토"]
+    
+    private func setFavoriteColor(with category: PosterCategory, posterIdx: Int) {
+        
+        guard let isFavorite = UserDefaults.standard.object(forKey: "favorite\(posterIdx)") as? Int else {
+            
+            let favoriteState: favoriteState = .notFavorite
+            
+            favoriteState.setColor(category,
+                                   favorite: favorite,
+                                   dayLefted: dayLefted,
+                                   favoriteIntervalDay: favoriteIntervalDay)
+            
+            return
+        }
+        
+        guard let favoriteState = favoriteState(rawValue: isFavorite) else {return}
+        
+        favoriteState.setColor(category,
+                               favorite: favorite,
+                               dayLefted: dayLefted,
+                               favoriteIntervalDay: favoriteIntervalDay)
+    }
+    
+    private func setComplted(posterIdx: Int) {
+        guard let isComplted = UserDefaults.standard.object(forKey: "completed\(posterIdx)") as? Int else {
+            
+            let completeState: applyCompleted = .notCompleted
+            
+            completeState.setComplete(posterIdx: posterIdx, complete: complete, favorite: favorite, favoriteIntervalDay:favoriteIntervalDay )
+            
+            return
+        }
+        
+        guard let complteState = applyCompleted(rawValue: isComplted) else {return}
+        
+        complteState.setComplete(posterIdx: posterIdx, complete: complete, favorite: favorite, favoriteIntervalDay:favoriteIntervalDay )
+        
+    }
+    
+    // StartDate는 없을 수도 있고 EndDate는 무조건 존재한다.
+    var poster: Posters? {
+        didSet {
+            guard let poster = poster else { return }
+            
+            let dateFormatter = DateFormatter.genericDateFormatter
+            
+            guard let posterEndDateString = poster.posterEndDate else { return }
+            
+            guard let posterEndDate = dateFormatter.date(from: posterEndDateString) else { return }
+            
+            let todoDataEndMonth = Calendar.current.component(.month, from: posterEndDate)
+            
+            let todoDataEndDay = Calendar.current.component(.day, from: posterEndDate)
+            
+            let todoDateEndWeekDay = Calendar.current.component(.weekday, from: posterEndDate)
+            
+            let todoDateEndHour = Calendar.current.component(.hour, from: posterEndDate)
+            
+            let todoDateEndminute = Calendar.current.component(.minute, from: posterEndDate)
+            
+            guard let posterCagegoryIdx = poster.categoryIdx else { return }
+            
+            guard let posterName = poster.posterName else { return }
+            
+            guard let posterIdx = poster.posterIdx else {return}
+            
+            contentLabel.text = "\(posterName)"
+            
+            if let category = PosterCategory(rawValue: posterCagegoryIdx) {
+                categoryLabel.text = category.categoryString()
+                categoryLabel.textColor = category.categoryColors()
+                
+                setFavoriteColor(with: category, posterIdx: posterIdx)
+                setComplted(posterIdx: posterIdx)
+            }
+            
+            
+            
+            dayLefted.text = getLeftedDay(using: posterEndDate)
+            
+            dateLabel.font = UIFont.systemFont(ofSize: 13.0, weight: .light)
+            leftedDay.font = UIFont.systemFont(ofSize: 34.0, weight: .medium)
+            
+            let weekDaySymbol = TodoTableViewCell.weekDaySymbol[todoDateEndWeekDay-1]
+            
+            guard let posterStartDateString = poster.posterStartDate else {
+                dateLabel.text = "\(todoDataEndMonth).\(todoDataEndDay)(\(weekDaySymbol)) \(todoDateEndHour):\(todoDateEndminute)"
+                return
+            }
+            
+            guard let posterStartDate = dateFormatter.date(from: posterStartDateString) else { return }
+            
+            let todoDataStartMonth = Calendar.current.component(.month, from: posterStartDate)
+            
+            let todoDataStartDay = Calendar.current.component(.day, from: posterStartDate)
+            
+            dateLabel.text = "\(todoDataStartMonth).\(todoDataStartDay)(\(weekDaySymbol)) ~ \(todoDataEndMonth).\(todoDataEndDay)(\(weekDaySymbol)) \(todoDateEndHour-9):\(todoDateEndminute)  "
+        }
+    }
+    
+    private func getLeftedDay(using endDate: Date) -> String {
+        
+        var dayInterval = Calendar.current.dateComponents([.day, .year, .month],
+                                                          from: Date(),
+                                                          to: endDate)
+        
+        
+        guard let interval = dayInterval.day else { return ""}
+        
+        if Date() > endDate {
+            if interval == 0 {
+                return "\(interval-1)일"
+            } else if interval < 0 {
+                return "\(interval-1)일"
+            }
+        }
+        
+        if Date() < endDate {
+            return "\(interval)일"
+        }
+        
+        return ""
+    }
+    
+    
+    @objc func addFavorite() {
+        
         guard let posterIdx = poster?.posterIdx else {return}
         
         guard let posterCagegoryIdx = poster?.categoryIdx else { return }
@@ -263,7 +273,7 @@ class TodoTableViewCell: UITableViewCell {
                                   dayLefted: dayLefted,
                                   favoriteIntervalDay: favoriteIntervalDay,
                                   posterIdx: posterIdx)
-    
+        
     }
     
     func setupCell(){
@@ -357,7 +367,7 @@ enum applyCompleted:Int {
 }
 
 enum favoriteState: Int {
-
+    
     case favorite = 1
     case notFavorite = 0
     
@@ -426,17 +436,8 @@ enum favoriteState: Int {
     }
 }
 
-protocol CalendarService: class {
-    func requestFavorite(_ favorite: favoriteState, _ posterIdx: Int,completionHandler: @escaping (DataResponse<PosterFavorite>) -> Void)
-    
-    func requestDelete(_ posterIdx: Int, completionHandler: @escaping (DataResponse<PosterFavorite>) -> Void)
-    
-    func reqeustComplete(_ posterIdx: Int, completionHandler: @escaping (DataResponse<PosterFavorite>) -> Void)
-    
-    func requestAllTodoList(completionHandler: @escaping (DataResponse<AllTodoList>) -> Void)
-    
-    func requestEachPoster(_ posterIdx: Int, completionHandler: @escaping (DataResponse<networkPostersData>) -> Void)
-}
+
+
 
 
 

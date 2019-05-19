@@ -64,7 +64,7 @@ class SignUpCompleteVC: UIViewController {
     
     @IBOutlet var preferenceButtons: [UIButton]!
     
-    @IBOutlet weak var startButton: UIButton!
+    @IBOutlet weak var startButton: GradientButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -118,10 +118,15 @@ class SignUpCompleteVC: UIViewController {
         
         if selectedValues.contains(true) {
             startButton.isUserInteractionEnabled = true
-            startButton.setImage(UIImage(named: "btSaveMypageActive"), for: .normal)
+            
+            startButton.topColor = #colorLiteral(red: 0.2078431373, green: 0.9176470588, blue: 0.8901960784, alpha: 1)
+            startButton.bottomColor = #colorLiteral(red: 0.6588235294, green: 0.2784313725, blue: 1, alpha: 1)
+            
         } else {
             startButton.isUserInteractionEnabled = false
-            startButton.setImage(UIImage(named: "btSaveMypageUnactive"), for: .normal)
+            
+            startButton.topColor = .lightGray
+            startButton.bottomColor = .white
         }
         
     }
@@ -264,6 +269,7 @@ class SignUpCompleteVC: UIViewController {
                 "userInterest" : sendPreferenceValues,
                 "userGrade" : grade
             ]
+            
         } else { //자체로그인일 때는
             
             let UserInfoVC = self.navigationController?.viewControllers[0] as! UserInfoVC
@@ -311,13 +317,13 @@ class SignUpCompleteVC: UIViewController {
                 
                 switch httpStatus {
                 case .sucess:
-                    //바로 로그인 되도록 수정해야한다.
                     self.autoLogin(sendType: sendType, sendToken: sendToken)
                 case .databaseError:
                     self.simpleAlert(title: "데이터베이스 에러", message: "서버 오류")
                 case .doNotMatch:
                     self.simpleAlert(title: "잘못된 형식이 포함되었습니다.", message: "회원가입 정보를 정확히 다시 기입해주세요.")
                 }
+                
                 
             } catch {
                 print("Json Parsing Error")

@@ -10,21 +10,24 @@ import Lottie
 
 class SplashVC: UIViewController {
     
-    @IBOutlet weak var splashView: UIView!
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let splashAnimation = LOTAnimationView(name: "splash")
-        splashView.addSubview(splashAnimation)
+        view.backgroundColor = .red
         
-        splashAnimation.translatesAutoresizingMaskIntoConstraints = false
-        splashAnimation.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
-        splashAnimation.rightAnchor.constraint(equalTo: view.rightAnchor).isActive = true
-        splashAnimation.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
-        splashAnimation.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
+//        let splashAnimation = LOTAnimationView(name: "splash_190514")
+//
+//        view.addSubview(splashAnimation)
+//
+//        splashAnimation.translatesAutoresizingMaskIntoConstraints = false
+//
+//        splashAnimation.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
+//        splashAnimation.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
+//        splashAnimation.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
+//        splashAnimation.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
+//
+//        splashAnimation.play()
         
-        splashAnimation.play()
     }
 }
 

@@ -27,8 +27,13 @@ class ZoomPosterImageVC: UIViewController, UIScrollViewDelegate {
         dismiss(animated: true, completion: nil)
     }
     
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .lightContent
+    }
+    
     //스크롤뷰가 줌해줄 뷰가 무엇인가유
     func viewForZooming(in scrollView: UIScrollView) -> UIView? {
         return imageView
     }
+    
 }

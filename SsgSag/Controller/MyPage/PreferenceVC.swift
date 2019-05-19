@@ -14,6 +14,10 @@ class PreferenceVC: UIViewController {
     
     @IBOutlet weak var saveButton: UIButton!
     
+    private var selectedValue: [Bool] = []
+    
+    private var myPageService: myPageService?
+    
     @IBAction func touchUpBackButton(_ sender: Any) {
         dismiss(animated: true, completion: nil)
     }
@@ -56,9 +60,7 @@ class PreferenceVC: UIViewController {
         "btPreferenceTechActive"
     ]
     
-    private var selectedValue: [Bool] = []
     
-    private var myPageService: myPageService?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -125,6 +127,7 @@ class PreferenceVC: UIViewController {
     }
     
     func setUpFirstStatus(interests: [Int]?) {
+        
         guard let interests = interests else {
             saveButton.isUserInteractionEnabled = true
             return
@@ -138,6 +141,7 @@ class PreferenceVC: UIViewController {
             
             preferenceButtons[interest].isSelected = true
         }
+        
     }
     func setUpPreferenceButtons() {
         
@@ -173,21 +177,8 @@ class PreferenceVC: UIViewController {
         }
         
         saveButton.setImage(UIImage(named: "btSaveMypageActive"), for: .normal)
-        
-//        if selectedValue.contains(true) {
-//            saveButton.setImage(UIImage(named: "btSaveMypageActive"), for: .normal)
-//        } else {
-//            saveButton.setImage(UIImage(named: "btSaveMypageUnactive"), for: .normal)
-//        }
-
     }
 }
 
-protocol myPageService: class {
-    func requestSelectedState(completionHandler: @escaping ((DataResponse<Interests>) -> Void))
-    func requestStoreSelectedField(_ selectedJson: [String: Any] ,
-                                   completionHandler: @escaping ((DataResponse<ReInterest>) -> Void))
-    func requestStoreAddActivity(_ jsonData: [String: Any],
-                                 completionHandler: @escaping ((DataResponse<Activity>) -> Void))
-}
+
 

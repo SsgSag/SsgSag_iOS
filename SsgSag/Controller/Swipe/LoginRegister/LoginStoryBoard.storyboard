@@ -331,7 +331,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="background" width="375" height="667"/>
+        <image name="background" width="375" height="812"/>
         <image name="btLoginKakao" width="287" height="48"/>
         <image name="btLoginNaver" width="287" height="48"/>
         <image name="checkboxRoundActive" width="20" height="20"/>

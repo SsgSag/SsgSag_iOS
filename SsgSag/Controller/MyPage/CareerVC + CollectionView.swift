@@ -89,7 +89,6 @@ extension CareerVC : UICollectionViewDelegate, UICollectionViewDataSource, UICol
         }
     }
     
-   
     
 }
 
