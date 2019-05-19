@@ -8,6 +8,7 @@
 
 import UIKit
 import SearchTextField
+import NaverThirdPartyLogin
 
 class SchoolInfoVC: UIViewController, UITextFieldDelegate {
     
@@ -18,6 +19,8 @@ class SchoolInfoVC: UIViewController, UITextFieldDelegate {
     var nickName: String = ""
     
     var gender: String = ""
+    
+    private var signupService: SignupService?
 
     @IBOutlet weak var titleLabel: UILabel!
     
@@ -35,9 +38,10 @@ class SchoolInfoVC: UIViewController, UITextFieldDelegate {
     
     @IBOutlet weak var stackViewConstraint: NSLayoutConstraint!
     
-
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        signupService = SignupServiceImp()
 
         nextButton.isUserInteractionEnabled = false
         
@@ -74,32 +78,23 @@ class SchoolInfoVC: UIViewController, UITextFieldDelegate {
     
     @IBAction func touchUpNextButton(_ sender: Any) {
         
-        let storyboard = UIStoryboard(name: StoryBoardName.signup, bundle: nil)
-        guard let SignUpCompleteVC = storyboard.instantiateViewController(withIdentifier: "SignUpCompleteVC") as? SignUpCompleteVC else {return}
+        postData()
         
-        SignUpCompleteVC.name = name
-        SignUpCompleteVC.birth = birth
-        SignUpCompleteVC.gender = gender
-        SignUpCompleteVC.nickName = nickName
-        SignUpCompleteVC.school = schoolField.text ?? ""
-        SignUpCompleteVC.major = majorField.text ?? ""
-        SignUpCompleteVC.grade = Int(gradeField.text ?? "") ?? 999
-        SignUpCompleteVC.number = numberField.text ?? ""
+//        let storyboard = UIStoryboard(name: StoryBoardName.signup, bundle: nil)
+//        guard let SignUpCompleteVC = storyboard.instantiateViewController(withIdentifier: "SignUpCompleteVC") as? SignUpCompleteVC else {return}
+//
+//        SignUpCompleteVC.name = name
+//        SignUpCompleteVC.birth = birth
+//        SignUpCompleteVC.gender = gender
+//        SignUpCompleteVC.nickName = nickName
+//        SignUpCompleteVC.school = schoolField.text ?? ""
+//        SignUpCompleteVC.major = majorField.text ?? ""
+//        SignUpCompleteVC.grade = Int(gradeField.text ?? "") ?? 999
+//        SignUpCompleteVC.number = numberField.text ?? ""
+//
+//        self.navigationController?.pushViewController(SignUpCompleteVC, animated: true)
         
-        self.navigationController?.pushViewController(SignUpCompleteVC, animated: true)
     }
-    
-//    override func viewWillAppear(_ animated: Bool) {
-//        super.viewWillAppear(animated)
-//        registerForKeyboardNotifications()
-//    }
-//
-//    override func viewWillDisappear(_ animated: Bool) {
-//        super.viewWillDisappear(animated)
-//        unregisterForKeyboardNotifications()
-//    }
-//
-
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         checkInformation(self)
@@ -111,7 +106,6 @@ class SchoolInfoVC: UIViewController, UITextFieldDelegate {
     }
     
     func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
-        print("textfieldshouldBeginEditing")
         checkInformation(self)
         return true
     }
@@ -137,20 +131,14 @@ class SchoolInfoVC: UIViewController, UITextFieldDelegate {
     }
     
     private func textViewDidEndEditing(_ textView: UITextView) {
-        print("textViewEndEditing")
         checkInformation(self)
     }
     
     fileprivate func configureSimpleSearchTextField() {
-        // Start visible even without user's interaction as soon as created - Default: false
-        //        schoolField.startVisibleWithoutInteraction = true
         schoolField.startVisible = true
-      
-        // Set data source
+    
         let universities = localUniversities()
         schoolField.filterStrings(universities)
-        
-        
     }
     
      fileprivate func configureSimpleMajorSearchTextField() {
@@ -198,69 +186,205 @@ class SchoolInfoVC: UIViewController, UITextFieldDelegate {
         }
         return []
     }
+    
+    func postData() {
+        
+        var sendToken: String = ""
+        var sendType: Int = 0
+        
+        setSendTokenAndSendType(sendToken: &sendToken, sendType: &sendType)
+        
+        var sendData: [String: Any] = [:]
+        
+        //자체 로그인 아닐 시에는
+        if sendType != 10 {
+            
+            sendData = [
+                "userName" : name,
+                "userNickname" : nickName,
+                "signupType" : sendType, //0은 카카오톡, 1은 네이버
+                "accessToken" : sendToken,
+                "userUniv" : schoolField.text ?? "",
+                "userMajor" : majorField.text ?? "",
+                "userStudentNum" : numberField.text ?? "",
+                "userGender" : gender,
+                "userBirth" : birth,
+                "userPushAllow" : 1,
+                "userInfoAllow" : 1,
+                "userInterest" : [0,1,2,3,4,5,6,7,8,9,10,11],
+                "userGrade" : Int(gradeField.text ?? "") ?? 999
+            ]
+        } else { //자체로그인일 때는
+            
+            let UserInfoVC = self.navigationController?.viewControllers[0] as! UserInfoVC
+            
+            sendData = [
+                "userEmail" : "\(UserInfoVC.emailTextField.text!)", //유저 아이디 //추가
+                "userId" : "\(UserInfoVC.passwordTextField.text!)", //유저 비밀번호 //추가
+                "userName" : name,
+                "userNickname" : nickName,
+                "signupType" : sendType, //0은 카카오톡, 1은 네이버
+                "userUniv" : schoolField.text ?? "",
+                "userMajor" : majorField.text ?? "",
+                "userStudentNum" : numberField.text ?? "",
+                "userGender" : gender,
+                "userBirth" : birth,
+                "userPushAllow" : 1,
+                "userInfoAllow" : 1,
+                "userInterest" : [0,1,2,3,4,5,6,7,8,9,10,11],
+                "userGrade" : Int(gradeField.text ?? "") ?? 999
+            ]
+        }
+        
+        do {
+            let userInfo = try JSONSerialization.data(withJSONObject: sendData)
+            
+            signupService?.requestSingup(userInfo){ (responseData) in
+                guard let data = responseData.value else {return}
+                
+                guard let status = data.status else {return}
+                
+                guard let httpStatus = SingupHttpStatusCode(rawValue: status) else {return}
+                
+                switch httpStatus {
+                case .success:
+                    self.autoLogin(sendType: sendType, sendToken: sendToken)
+                case .failure:
+                    guard let message = data.message else {return}
+                    self.handlingFailureError(message)
+                case .databaseError:
+                    self.simpleAlert(title: "데이터베이스 에러", message: "서버 오류")
+                }
+            }
+        } catch {
+            
+        }
+    }
+    
+    private func handlingFailureError(_ message: String) {
+        
+        if message == "토큰이 잘못되었습니다" {
+            self.simpleAlert(title: "잘못된 토큰입니다.", message: "")
+        } else if message == "이미 회원가입 되어있습니다" {
+            self.simpleAlert(title: "이미 회원가입 되어있습니다.", message: "")
+        } else if message == "회원정보가 형식과 일치하지 않습니다" {
+            self.simpleAlert(title: "회원정보가 형식과 일치하지 않습니다", message: "")
+        }
+        
+    }
+    
+    private func setSendTokenAndSendType(sendToken:inout String, sendType:inout Int) {
+        
+        if KOSession.shared()?.token != nil {
+            guard let sendKakaoToken = KOSession.shared()?.token.accessToken else {
+                return
+            }
+            
+            sendToken = sendKakaoToken
+            sendType = 0
+        } else {
+            guard let loginConn = NaverThirdPartyLoginConnection.getSharedInstance() else {
+                sendType = 10
+                
+                return
+            }
+            guard let accessToken = loginConn.accessToken else {
+                sendType = 10
+                return
+            }
+            
+            sendToken = accessToken
+            sendType = 1
+        }
+    }
+    
+    private func autoLogin(sendType: Int, sendToken: String) {
+        
+        var urlString:URL?
+        
+        var sendData: [String: Any] = [:]
+        
+        //자체로그인
+        if sendType == 10 {
+            urlString = UserAPI.sharedInstance.getURL("/login2")
+            
+            let UserInfoVC = self.navigationController?.viewControllers[0] as! UserInfoVC
+            
+            sendData = [
+                "userEmail": "\(UserInfoVC.emailTextField.text!)",
+                "userId" : "\(UserInfoVC.passwordTextField.text!)",
+                "loginType" : sendType //10은 자체 로그인
+            ]
+        } else {
+            
+            urlString = UserAPI.sharedInstance.getURL("/login")
+            
+            sendData = [
+                "accessToken": sendToken,
+                "loginType" : sendType //10은 자체 로그인
+            ]
+        }
+        
+        guard let url = urlString else {return }
+        
+        let jsonData = try? JSONSerialization.data(withJSONObject: sendData)
+        
+        var request = URLRequest(url: url)
+        request.httpMethod = "POST"
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.httpBody = jsonData
+        
+        NetworkManager.shared.getData(with: request) { (data, err, res) in
+            guard let data = data else {
+                return
+            }
+            
+            do {
+                let login = try JSONDecoder().decode(LoginStruct.self, from: data)
+                
+                guard let statusCode = login.status else {return}
+                
+                guard let httpStatusCode = HttpStatusCode(rawValue: statusCode) else {return}
+                
+                DispatchQueue.main.async {
+                    switch httpStatusCode {
+                    case .sucess:
+                        
+                        if let storeToken = login.data?.token {
+                            UserDefaults.standard.set(storeToken,
+                                                      forKey: LoginVC.ssgSagToken)
+                        }
+                        
+                        self.present(TapbarVC(), animated: true, completion: nil)
+                    case .failure:
+                        self.simpleAlert(title: "로그인 실패", message: "")
+                    default:
+                        break
+                    }
+                }
+            } catch {
+                print("LoginStruct Parsing Error")
+            }
+        }
+    }
+    
 }
 
-extension SchoolInfoVC : UIGestureRecognizerDelegate {
+
+enum SingupHttpStatusCode:Int  {
+    case success = 201
+    case failure = 400
+    case databaseError = 600
     
-//    func iniGestureRecognizer() {
-//        let tap = UITapGestureRecognizer(target: self, action: #selector(handleTabMainView(_:)))
-//        tap.delegate = self
-//        view.addGestureRecognizer(tap)
-//    }
-//    
-//    @objc func handleTabMainView(_ sender: UITapGestureRecognizer){
-//        self.schoolField.resignFirstResponder()
-//        self.gradeField.resignFirstResponder()
-//        self.majorField.resignFirstResponder()
-//        self.numberField.resignFirstResponder()
-//    }
-//    
-//    private func gestureRecog(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
-//        if (touch.view?.isDescendant(of: schoolField))! || (touch.view?.isDescendant(of: gradeField))! || (touch.view?.isDescendant(of: majorField))! || (touch.view?.isDescendant(of: numberField))!{
-//            return false
-//        }
-//        return true
-//    }
-//    
-//    @objc func keyboardWillShow(_ notification: NSNotification) {
-//        guard let duration = notification.userInfo?[UIResponder.keyboardAnimationDurationUserInfoKey] as? Double else {return}
-//        guard let curve = notification.userInfo?[UIResponder.keyboardAnimationCurveUserInfoKey] as? UInt else {return}
-//        UIView.animate(withDuration: duration, delay: 0.0, options: .init(rawValue: curve), animations: { [unowned self] in
-////            print("현재 constraint: \(self.stackViewConstraint.constant)")
-////            self.stackViewConstraint.constant = 10
-////            self.titleImage.isHidden = true
-//            self.titleLabel.isHidden = true
-//            //            let alpha: CGFloat = 0.5
-//            //            self.titleImage.alpha(alpha)
-//            //            self.titleImage.opa
-//            
-//        })
-////        stackViewConstraint.constant = 120
-//        self.view.layoutIfNeeded()
-//        
-//    }
-//    
-//    @objc func keyboardWillHide(_ notification: NSNotification) {
-//        guard let duration = notification.userInfo?[UIResponder.keyboardAnimationDurationUserInfoKey] as? Double else {return}
-//        guard let curve = notification.userInfo?[UIResponder.keyboardAnimationCurveUserInfoKey] as? UInt else {return}
-//        UIView.animate(withDuration: duration, delay: 0.0, options: .init(rawValue: curve), animations: {
-////            self.stackViewConstraint.constant = 289
-////            print(" constraint: \(self.stackViewConstraint.constant)")
-//            self.titleLabel.isHidden = false
-////            self.titleImage.isHidden = false
-//            
-//        })
-////        stackViewConstraint.constant = 289
-//        self.view.layoutIfNeeded()
-//    }
-//    
-//    func registerForKeyboardNotifications() {
-//        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(_:)), name: UIResponder.keyboardWillShowNotification, object: nil)
-//        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(_:)), name: UIResponder.keyboardWillHideNotification, object: nil)
-//    }
-//    
-//    func unregisterForKeyboardNotifications() {
-//        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
-//        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
-//    }
+    func findSpecificErrorType(message: String) -> String {
+        switch self {
+        case .failure:
+            return message
+        default:
+            return "Success Or DatabaseError Type"
+        }
+    }
+    
 }
+
+

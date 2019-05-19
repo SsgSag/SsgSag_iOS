@@ -170,7 +170,6 @@ class SignUpCompleteVC: UIViewController {
             sendToken = accessToken
             sendType = 1
         }
-        
     }
     
     private func autoLogin(sendType: Int, sendToken: String) {
@@ -254,6 +253,7 @@ class SignUpCompleteVC: UIViewController {
         
         //자체 로그인 아닐 시에는
         if sendType != 10 {
+            
             sendData = [
                 "userName" : name,
                 "userNickname" : nickName,
@@ -290,6 +290,7 @@ class SignUpCompleteVC: UIViewController {
                 "userInterest" : sendPreferenceValues,
                 "userGrade" : grade
             ]
+            
         }
         
         let jsonData = try? JSONSerialization.data(withJSONObject: sendData)
