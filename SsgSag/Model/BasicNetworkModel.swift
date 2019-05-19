@@ -13,3 +13,9 @@ struct BasicNetworkModel: Codable {
     let message: String?
     let data: JSONNull?
 }
+
+struct UpdateNetworkModel: Codable {
+    let status: Int?
+    let message: String?
+    let data: Int?
+}

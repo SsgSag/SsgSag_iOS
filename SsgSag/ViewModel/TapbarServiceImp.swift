@@ -10,9 +10,31 @@ import Foundation
 
 protocol TapbarService: class {
     func requestAllTodoList(completionHandler: @escaping (DataResponse<[Posters]>) -> Void)
+    
+    func requestIsInUpdateServer(completionHandler: @escaping (DataResponse<UpdateNetworkModel>) -> Void)
 }
 
 class TapbarServiceImp: TapbarService {
+    
+    func requestIsInUpdateServer(completionHandler: @escaping (DataResponse<UpdateNetworkModel>) -> Void) {
+        guard let url = UserAPI.sharedInstance.getURL(RequestURL.isUpdate.getRequestURL()) else {return}
+        
+        var request = URLRequest(url: url)
+        request.httpMethod = "GET"
+        
+        NetworkManager.shared.getData(with: request) { (data, error, response) in
+            guard let data = data else { return }
+            
+            do {
+                let dataFromNetwork = try JSONDecoder().decode(UpdateNetworkModel.self, from: data)
+                
+                completionHandler(DataResponse.success(dataFromNetwork))
+            } catch {
+                print("requestIsInUpdateServer Parsing Error")
+            }
+        }
+    }
+    
     func requestAllTodoList(completionHandler: @escaping (DataResponse<[Posters]>) -> Void) {
         
         guard let url = UserAPI.sharedInstance.getURL(RequestURL.allTodoList.getRequestURL()) else {return}
@@ -36,7 +58,7 @@ class TapbarServiceImp: TapbarService {
             } catch {
                 print("AllTodoList Parsing Error")
             }
-            
         }
     }
+    
 }

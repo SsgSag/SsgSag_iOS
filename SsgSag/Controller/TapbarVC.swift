@@ -26,6 +26,8 @@ class TapbarVC: UITabBarController {
         
         tapbarServiceImp = TapbarServiceImp()
         
+        isServerAvaliable()
+        
         let firstViewController = swipeStoryBoard.instantiateViewController(withIdentifier: "Swipe")
         firstViewController.tabBarItem = UITabBarItem(title: "", image: UIImage(named: "icMain"), selectedImage: UIImage(named: "icMainActive"))
         
@@ -46,6 +48,16 @@ class TapbarVC: UITabBarController {
         self.selectedIndex = 1
         
         getPostersAndStore()
+    }
+    
+    private func isServerAvaliable() {
+        tapbarServiceImp?.requestIsInUpdateServer{ (dataResponse) in
+            guard let data = dataResponse.value?.data else {return}
+            
+            if data == 1 {
+                self.simplerAlert(title: "서버 업데이트 중입니다.")
+            }
+        }
     }
     
     /// start only at first time
@@ -71,6 +83,7 @@ class TapbarVC: UITabBarController {
         
             StoreAndFetchPoster.storePoster(posters: todoList)
         }
+        
     }
     
     override func viewWillLayoutSubviews() {
