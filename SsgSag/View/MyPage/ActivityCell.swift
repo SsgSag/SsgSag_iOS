@@ -34,7 +34,7 @@ class ActivityCell: UITableViewCell {
         }
     }
     
-    var activityDelegate: activityDelegate?
+    weak var activityDelegate: activityDelegate?
     
     override func awakeFromNib() {
         super.awakeFromNib()

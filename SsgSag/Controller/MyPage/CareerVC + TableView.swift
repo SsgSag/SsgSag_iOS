@@ -139,8 +139,18 @@ extension CareerVC: UITableViewDelegate, UITableViewDataSource {
 extension CareerVC: activityDelegate {
     func deleteSuccess() {
         let alert = UIAlertController(title: "데이터가 삭제 되었습니다.", message: "", preferredStyle: .alert)
-        let okAction = UIAlertAction(title: "확인", style: .default) { (action) in
-            self.activityTableView.reloadData()
+        let okAction = UIAlertAction(title: "확인", style: .default) { [weak self] (action) in
+            
+            self?.getData(careerType: 0)
+            self?.getData(careerType: 1)
+            self?.getData(careerType: 2)
+            
+            DispatchQueue.main.async { [weak self] in
+                self?.activityTableView.reloadData()
+                self?.prizeTableView.reloadData()
+                self?.certificationTableView.reloadData()
+            }
+            
         }
         
         alert.addAction(okAction)
