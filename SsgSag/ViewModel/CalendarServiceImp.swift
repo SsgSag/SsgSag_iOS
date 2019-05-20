@@ -117,8 +117,6 @@ class CalendarServiceImp: CalendarService {
             } catch {
                 print("PosterFavorite Parsing Error")
             }
-            
         }
     }
-    
 }

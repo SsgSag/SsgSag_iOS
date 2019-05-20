@@ -16,6 +16,10 @@ class CalenderVC: UIViewController {
     
     var calendarServiceImp: CalendarService?
     
+    var posterIdx: [Int] = []
+    
+    var tempDetailPosters: [Posters]?
+    
     let calenderView: CalenderView = {
         let v = CalenderView(theme: MyTheme.light)
         v.translatesAutoresizingMaskIntoConstraints=false
@@ -124,10 +128,6 @@ class CalenderVC: UIViewController {
         
         self.present(navigationVC, animated: true, completion: nil)
     }
-    
-    var posterIdx: [Int] = []
-    
-    var tempDetailPosters: [Posters]?
     
     private func setNotificationObserver() {
         NotificationCenter.default.addObserver(self, selector: #selector(addUserDefaults), name: NSNotification.Name(NotificationName.addUserDefaults), object: nil)

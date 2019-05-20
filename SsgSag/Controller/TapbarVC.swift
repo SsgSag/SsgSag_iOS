@@ -57,11 +57,11 @@ class TapbarVC: UITabBarController {
     /// start only at first time
     private func getPostersAndStore() {
         
-        guard let _ = UserDefaults.standard.object(forKey: "start") as? Bool else {
+        guard let _ = UserDefaults.standard.object(forKey: UserDefaultsName.syncWithLocalData) as? Bool else {
             
             let start = true
             
-            UserDefaults.standard.setValue(start, forKey: "start")
+            UserDefaults.standard.setValue(start, forKey: UserDefaultsName.syncWithLocalData)
             
             syncDataAtFirst()
             

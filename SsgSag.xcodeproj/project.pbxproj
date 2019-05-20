@@ -55,6 +55,7 @@
 		846E622D22928B1A0083E3CD /* ViewControllerIdentifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846E622C22928B1A0083E3CD /* ViewControllerIdentifier.swift */; };
 		846E622F22928F800083E3CD /* TokenName.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846E622E22928F800083E3CD /* TokenName.swift */; };
 		846E6231229291880083E3CD /* NotificationName.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846E6230229291880083E3CD /* NotificationName.swift */; };
+		846E6233229294300083E3CD /* UserDefaultsName.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846E6232229294300083E3CD /* UserDefaultsName.swift */; };
 		84836ABF222E515200922A78 /* UserNetworkModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84836ABE222E515200922A78 /* UserNetworkModel.swift */; };
 		8486D260226DEC5D00D7A0C7 /* ApplySuccessViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8486D25F226DEC5D00D7A0C7 /* ApplySuccessViewController.swift */; };
 		8486D262226DF38E00D7A0C7 /* ApplySuccess.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8486D261226DF38E00D7A0C7 /* ApplySuccess.storyboard */; };
@@ -200,6 +201,7 @@
 		846E622C22928B1A0083E3CD /* ViewControllerIdentifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ViewControllerIdentifier.swift; path = SsgSag/ViewModel/ViewControllerIdentifier.swift; sourceTree = SOURCE_ROOT; };
 		846E622E22928F800083E3CD /* TokenName.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = TokenName.swift; path = SsgSag/ViewModel/TokenName.swift; sourceTree = SOURCE_ROOT; };
 		846E6230229291880083E3CD /* NotificationName.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = NotificationName.swift; path = SsgSag/ViewModel/NotificationName.swift; sourceTree = SOURCE_ROOT; };
+		846E6232229294300083E3CD /* UserDefaultsName.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = UserDefaultsName.swift; path = SsgSag/ViewModel/UserDefaultsName.swift; sourceTree = SOURCE_ROOT; };
 		84836ABE222E515200922A78 /* UserNetworkModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserNetworkModel.swift; sourceTree = "<group>"; };
 		8486D25F226DEC5D00D7A0C7 /* ApplySuccessViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplySuccessViewController.swift; sourceTree = "<group>"; };
 		8486D261226DF38E00D7A0C7 /* ApplySuccess.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = ApplySuccess.storyboard; sourceTree = "<group>"; };
@@ -423,6 +425,7 @@
 				846E622C22928B1A0083E3CD /* ViewControllerIdentifier.swift */,
 				846E622E22928F800083E3CD /* TokenName.swift */,
 				846E6230229291880083E3CD /* NotificationName.swift */,
+				846E6232229294300083E3CD /* UserDefaultsName.swift */,
 			);
 			path = Helper;
 			sourceTree = "<group>";
@@ -1001,6 +1004,7 @@
 				84646C3D2289A57A005D3F1C /* InterestBoardTableViewCell.swift in Sources */,
 				8486D268226E199100D7A0C7 /* PosterFavorite.swift in Sources */,
 				840FEDC7220759E200581A3B /* CalenderVC + TableView.swift in Sources */,
+				846E6233229294300083E3CD /* UserDefaultsName.swift in Sources */,
 				FA3A342221E5D64300668908 /* UserInfoVC.swift in Sources */,
 				846E6229229137F40083E3CD /* SignupServiceImp.swift in Sources */,
 				FAA238792203296500C6DB13 /* NonActivityCell.swift in Sources */,

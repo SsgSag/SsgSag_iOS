@@ -15,6 +15,8 @@ struct StoryBoardName {
     static let login = "LoginStoryBoard"
     static let apply = "ApplySuccess"
     static let calendar = "Calendar"
+    static let detailText = "DetailNewText"
+    static let detailImage = "DetailImage"
 }
 
 /*

@@ -410,7 +410,7 @@ extension SwipeVC : SwipeCardDelegate {
         
         loadCardValuesAfterRemoveObject()
         
-        guard let posterData = UserDefaults.standard.object(forKey: "poster") as? Data else {
+        guard let posterData = UserDefaults.standard.object(forKey: UserDefaultsName.poster) as? Data else {
             addUserDefaultsWhenNoData()
             return
         }

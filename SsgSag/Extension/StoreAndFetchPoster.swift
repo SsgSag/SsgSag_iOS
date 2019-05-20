@@ -11,12 +11,12 @@ import UIKit
 struct StoreAndFetchPoster {
     
     static func storePoster(posters: [Posters]) {
-        UserDefaults.standard.setValue(try? PropertyListEncoder().encode(posters), forKey: "poster")
+        UserDefaults.standard.setValue(try? PropertyListEncoder().encode(posters), forKey: UserDefaultsName.poster)
     }
     
     static var getPoster: [Posters] {
         
-        guard let poster = UserDefaults.standard.object(forKey: "poster") as? Data else{ return
+        guard let poster = UserDefaults.standard.object(forKey: UserDefaultsName.poster) as? Data else{ return
             []
         }
         

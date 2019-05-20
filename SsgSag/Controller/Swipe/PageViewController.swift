@@ -13,21 +13,14 @@ class PageViewController: UIPageViewController {
     
     private var segmentOrder: segmentOrder = .first
     
-    //original: DetailText
-    static private let detailTextVCStoryboardId = "DetailNewText"
-    
-    static private let detailImageVCStoryboardId = "DetailImage"
-    
-    static private let swipeStoryboardId = "SwipeStoryBoard"
-    
     // MARK: UIPageViewControllerDataSource
     lazy var orderedViewControllers: [UIViewController] = {
-        let swipeStoryboard = UIStoryboard(name: PageViewController.swipeStoryboardId,
+        let swipeStoryboard = UIStoryboard(name: StoryBoardName.swipe,
                                            bundle: nil)
         
-        let detailTextVC = swipeStoryboard.instantiateViewController(withIdentifier: PageViewController.detailTextVCStoryboardId)
+        let detailTextVC = swipeStoryboard.instantiateViewController(withIdentifier: StoryBoardName.detailText)
         
-        let detailImageVC = swipeStoryboard.instantiateViewController(withIdentifier: PageViewController.detailImageVCStoryboardId)
+        let detailImageVC = swipeStoryboard.instantiateViewController(withIdentifier: StoryBoardName.detailImage)
         
         return [ detailTextVC, detailImageVC ]
     }()

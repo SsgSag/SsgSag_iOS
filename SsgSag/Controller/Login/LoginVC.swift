@@ -37,11 +37,11 @@ class LoginVC: UIViewController, UITextFieldDelegate {
     
     private func setAutoLoginButton() {
         
-        guard let isAuto = UserDefaults.standard.object(forKey: "isAutoLogin") as? Bool else {
+        guard let isAuto = UserDefaults.standard.object(forKey: UserDefaultsName.isAutoLogin) as? Bool else {
             
             autoLoginButton.setImage(UIImage(named: "checkboxRoundActive"), for: .normal)
             
-            UserDefaults.standard.setValue(true, forKey: "isAutoLogin")
+            UserDefaults.standard.setValue(true, forKey: UserDefaultsName.isAutoLogin)
             
             return
         }
@@ -74,10 +74,10 @@ class LoginVC: UIViewController, UITextFieldDelegate {
         
         if autoLoginButtonImage == UIImage(named: "checkboxRoundActive") {
             autoLoginButton.setImage(UIImage(named:"checkboxRound"), for: .normal)
-            UserDefaults.standard.set(false, forKey: "isAutoLogin")
+            UserDefaults.standard.set(false, forKey: UserDefaultsName.isAutoLogin)
         } else {
             autoLoginButton.setImage(UIImage(named: "checkboxRoundActive"), for: .normal)
-            UserDefaults.standard.set(true, forKey: "isAutoLogin")
+            UserDefaults.standard.set(true, forKey: UserDefaultsName.isAutoLogin)
         }
     }
     

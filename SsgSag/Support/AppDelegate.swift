@@ -77,7 +77,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, MessagingDelegate ,UNUser
     }
 
     private func setWindowRootViewController() {
-        if let isAutoLogin = UserDefaults.standard.object(forKey: "isAutoLogin") as? Bool {
+        if let isAutoLogin = UserDefaults.standard.object(forKey: UserDefaultsName.isAutoLogin) as? Bool {
             if isAutoLogin {
                 if isTokenExist() {
                     window?.rootViewController = TapbarVC()
