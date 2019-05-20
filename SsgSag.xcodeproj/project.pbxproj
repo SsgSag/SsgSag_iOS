@@ -38,6 +38,7 @@
 		845928E721D3877D001DF6CC /* DetailTextSwipeCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845928E621D3877D001DF6CC /* DetailTextSwipeCard.swift */; };
 		845F12C722672A3200DFF42E /* DateFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845F12C622672A3200DFF42E /* DateFormatter.swift */; };
 		84604F232205A0ED00212A00 /* todoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84604F222205A0ED00212A00 /* todoCell.swift */; };
+		8463566E22930E210060ED91 /* CareerServiceImp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8463566D22930E210060ED91 /* CareerServiceImp.swift */; };
 		84646C2F22894782005D3F1C /* NotificationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84646C2E22894782005D3F1C /* NotificationViewController.swift */; };
 		84646C3122894792005D3F1C /* PushAlarmViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84646C3022894792005D3F1C /* PushAlarmViewController.swift */; };
 		84646C33228947A7005D3F1C /* ServiceInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84646C32228947A7005D3F1C /* ServiceInfoViewController.swift */; };
@@ -184,6 +185,7 @@
 		845928E621D3877D001DF6CC /* DetailTextSwipeCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailTextSwipeCard.swift; sourceTree = "<group>"; };
 		845F12C622672A3200DFF42E /* DateFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFormatter.swift; sourceTree = "<group>"; };
 		84604F222205A0ED00212A00 /* todoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = todoCell.swift; sourceTree = "<group>"; };
+		8463566D22930E210060ED91 /* CareerServiceImp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CareerServiceImp.swift; sourceTree = "<group>"; };
 		84646C2E22894782005D3F1C /* NotificationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationViewController.swift; sourceTree = "<group>"; };
 		84646C3022894792005D3F1C /* PushAlarmViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushAlarmViewController.swift; sourceTree = "<group>"; };
 		84646C32228947A7005D3F1C /* ServiceInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceInfoViewController.swift; sourceTree = "<group>"; };
@@ -279,7 +281,7 @@
 		FA851DE821D3DBBC002065D0 /* SwipeCard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwipeCard.swift; sourceTree = "<group>"; };
 		FA851DEC21D5FDB0002065D0 /* SwipeModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwipeModel.swift; sourceTree = "<group>"; };
 		FAA2386621FF32B400C6DB13 /* ZoomPosterImageVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZoomPosterImageVC.swift; sourceTree = "<group>"; };
-		FAA2386E2202F34A00C6DB13 /* CareerVC + TableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CareerVC + TableView.swift"; sourceTree = "<group>"; };
+		FAA2386E2202F34A00C6DB13 /* CareerVC + TableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CareerVC + TableView.swift"; sourceTree = "<group>"; wrapsLines = 1; };
 		FAA238702202F37C00C6DB13 /* CareerVC + CollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CareerVC + CollectionView.swift"; sourceTree = "<group>"; };
 		FAA238782203296500C6DB13 /* NonActivityCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NonActivityCell.swift; sourceTree = "<group>"; };
 		FAD25C122212CD78004B45E2 /* LoginPopUpVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginPopUpVC.swift; sourceTree = "<group>"; };
@@ -644,6 +646,7 @@
 				84D09D0722883421008EEA7C /* ActivityServiceImp.swift */,
 				846E6224228FDA140083E3CD /* InterestServiceImp.swift */,
 				846E6228229137F40083E3CD /* SignupServiceImp.swift */,
+				8463566D22930E210060ED91 /* CareerServiceImp.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -1034,6 +1037,7 @@
 				8486D266226E18E800D7A0C7 /* CalendarServiceImp.swift in Sources */,
 				84A45D09225F9B8B00C60287 /* HTTPMethod.swift in Sources */,
 				840DDD40227EAC4000D9D515 /* TapbarServiceImp.swift in Sources */,
+				8463566E22930E210060ED91 /* CareerServiceImp.swift in Sources */,
 				FA61FE1121E0E4A200A28947 /* PreferenceVC.swift in Sources */,
 				843813112270153900C9E47B /* MypageServiceImp.swift in Sources */,
 				840FEDC122074F6F00581A3B /* DayCollectionViewCell.swift in Sources */,

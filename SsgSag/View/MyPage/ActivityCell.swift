@@ -18,38 +18,31 @@ class ActivityCell: UITableViewCell {
     
     @IBOutlet weak var detailLabel: UILabel!
     
-    private var activityServiceImp: ActivityService?
+    private var activityServiceImp: ActivityService? = ActivityServiceImp()
     
-    var activityInfo: careerData?
+    var activityInfo: careerData? {
+        didSet {
+            guard let activity = activityInfo else {return}
+            
+            titleLabel.text = activity.careerName
+            dateLabel1.text = activity.careerDate1
+            
+            guard let carrerDate2 = activity.careerDate2 else { return }
+            
+            dateLabel2.text = "~ " + carrerDate2
+            detailLabel.text = activity.careerContent
+        }
+    }
     
     var activityDelegate: activityDelegate?
     
     override func awakeFromNib() {
         super.awakeFromNib()
         
-        activityServiceImp = ActivityServiceImp()
-        
-        setActivityCell()
-    }
-    
-    private func setActivityCell() {
-        guard let activityInfo = self.activityInfo else {return}
-        
-        titleLabel.text = activityInfo.careerName
-        dateLabel1.text = activityInfo.careerDate1
-        
-        guard let carrerDate2 = activityInfo.careerDate2 else { return }
-        
-        dateLabel2.text = "~ " + carrerDate2
-        detailLabel.text = activityInfo.careerContent
-        
-        setNeedsLayout()
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-        
-        // Configure the view for the selected state
     }
     
     @IBAction func deleteActivity(_ sender: Any) {
@@ -70,18 +63,8 @@ class ActivityCell: UITableViewCell {
                 print("데이터베이스 에러 Status 코드 다른")
             }
         }
-        
-        print("Delete")
     }
     
-//    private func simpleAlert(title: String, message: String) {
-//
-//        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
-//        let okAction = UIAlertAction(title: "확인",style: .default)
-//        alert.addAction(okAction)
-//
-//        present(alert, animated: true)
-//    }
 }
 
 protocol activityDelegate: class {

@@ -64,36 +64,31 @@ extension CareerVC: UITableViewDelegate, UITableViewDataSource {
         }
     }
     
+    // FIXME: - 이력의 각 테이블뷰 수정!
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         if tableView == activityTableView {
             let cell = tableView.dequeueReusableCell(withIdentifier: "ActivityCell", for: indexPath) as! ActivityCell
             
             cell.activityDelegate = self
-            
-            let activity: careerData = self.activityList[indexPath.row]
-            
-            
-            cell.activityInfo = activity
             cell.selectionStyle = .none
             
+            cell.activityInfo = self.activityList[indexPath.row]
+
             return cell
             
         } else if tableView == prizeTableView {
+            
             let cell = tableView.dequeueReusableCell(withIdentifier: "PrizeCell", for: indexPath) as! NonActivityCell
-            let prize: careerData = self.prizeList[indexPath.row]
-            cell.titleLabel.text = prize.careerName
-            cell.dateLabel1.text = prize.careerDate1
-            cell.detailLabel.text = prize.careerContent
+            
+            cell.careerInfo = prizeList[indexPath.row]
             cell.selectionStyle = .none
             
             return cell
         } else {
             let cell = tableView.dequeueReusableCell(withIdentifier: "CertificationCell", for: indexPath) as! NonActivityCell
-            let certification: careerData = self.certificationList[indexPath.row]
-            cell.titleLabel.text = certification.careerName
-            cell.dateLabel1.text = certification.careerDate1
-            cell.detailLabel.text = certification.careerContent
+            
+            cell.careerInfo = certificationList[indexPath.row]
             cell.selectionStyle = .none
             
             return cell
@@ -109,13 +104,13 @@ extension CareerVC: UITableViewDelegate, UITableViewDataSource {
             let activityVC = storyboard?.instantiateViewController(withIdentifier: ViewControllerIdentifier.addActivityViewController) as! AddActivityVC
             
             let activity: careerData = self.activityList[indexPath.row]
-            
             activityVC.activityData = activity
                     
             present(activityVC, animated: true)
             
         case prizeTableView:
             let prizeVC = storyboard?.instantiateViewController(withIdentifier: ViewControllerIdentifier.addViewController) as! AddVC
+            
             let prize: careerData = self.prizeList[indexPath.row]
             
             prizeVC.titleString = prize.careerName
@@ -147,6 +142,7 @@ extension CareerVC: activityDelegate {
         let okAction = UIAlertAction(title: "확인", style: .default) { (action) in
             self.activityTableView.reloadData()
         }
+        
         alert.addAction(okAction)
         present(alert, animated: true)
     }

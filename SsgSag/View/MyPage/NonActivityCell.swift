@@ -14,11 +14,20 @@ class NonActivityCell: UITableViewCell {
     @IBOutlet weak var dateLabel1: UILabel!
     @IBOutlet weak var detailLabel: UILabel!
     
+    var careerInfo: careerData? {
+        didSet {
+            guard let career = self.careerInfo else {return}
+            
+            titleLabel.text = career.careerName
+            dateLabel1.text = career.careerDate1
+            detailLabel.text = career.careerContent
+        }
+    }
+    
     override func awakeFromNib() {
         super.awakeFromNib()
     }
     
-
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 

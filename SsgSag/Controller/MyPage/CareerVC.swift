@@ -22,6 +22,8 @@ class CareerVC: UIViewController {
     
     private var latestContentOffsetX: CGFloat = 0
     
+    var careerServiceImp = CareerServiceImp()
+    
     var customTabBarCollectionView: UICollectionView = {
         let collectionViewLayout = UICollectionViewFlowLayout()
         collectionViewLayout.scrollDirection = .horizontal
@@ -76,7 +78,6 @@ class CareerVC: UIViewController {
     private func setupTablViewRegister() {
         
         let activityNib = UINib(nibName: "ActivityCell", bundle: nil)
-        
         activityTableView.register(activityNib, forCellReuseIdentifier: "ActivityCell")
         
         let prizeNib = UINib(nibName: "PrizeCell", bundle: nil)
@@ -251,8 +252,10 @@ class CareerVC: UIViewController {
     func setUpTableView() {
         activityTableView.delegate = self
         activityTableView.dataSource = self
+        
         prizeTableView.delegate = self
         prizeTableView.dataSource = self
+        
         certificationTableView.delegate = self
         certificationTableView.dataSource = self
         
@@ -263,6 +266,7 @@ class CareerVC: UIViewController {
         activityTableView.backgroundColor = UIColor.rgb(red: 242, green: 243, blue: 245)
         prizeTableView.backgroundColor = UIColor.rgb(red: 242, green: 243, blue: 245)
         certificationTableView.backgroundColor = UIColor.rgb(red: 242, green: 243, blue: 245)
+        
         activityTableView.separatorColor = UIColor.rgb(red: 242, green: 243, blue: 245)
         prizeTableView.separatorColor = UIColor.rgb(red: 242, green: 243, blue: 245)
         certificationTableView.separatorColor = UIColor.rgb(red: 242, green: 243, blue: 245)
@@ -291,52 +295,31 @@ class CareerVC: UIViewController {
     }
     
     func getData(careerType: Int) {
-        let json: [String: Any] = ["careerType" : careerType]
         
-        let jsonData = try? JSONSerialization.data(withJSONObject: json)
-        
-        guard let url = UserAPI.sharedInstance.getURL("/career/\(careerType)") else {return}
-        
-        guard let token = UserDefaults.standard.object(forKey: TokenName.token) as? String else {
-            return
-        }
-        
-        var request = URLRequest(url: url)
-        request.httpMethod = "GET"
-        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.addValue(token, forHTTPHeaderField: "Authorization")
-        request.httpBody = jsonData
-
-        NetworkManager.shared.getData(with: request) { (data, error, res) in
-            guard let data = data else {
-                return
-            }
-            do {
-                let apiResponse = try JSONDecoder().decode(Career.self, from: data)
+        careerServiceImp.requestCareer(careerType: careerType) { dataResponse in
+            guard let careerData = dataResponse.value else {return}
+            
+            DispatchQueue.main.async { [weak self] in
                 
                 if careerType == 0 {
                     
-                    self.activityList = apiResponse.data
-                    
-                    DispatchQueue.main.async {
-                        self.activityTableView.reloadData()
-                    }
+                    self?.activityList = careerData.data
+                    self?.activityTableView.reloadData()
                     
                 } else if careerType == 1 {
-                    self.prizeList = apiResponse.data
-                    DispatchQueue.main.async {
-                        self.prizeTableView.reloadData()
-                    }
+                    
+                    self?.prizeList = careerData.data
+                    self?.prizeTableView.reloadData()
                     
                 } else if careerType == 2 {
-                    self.certificationList = apiResponse.data
-                    DispatchQueue.main.async {
-                        self.certificationTableView.reloadData()
-                    }
+                    
+                    self?.certificationList = careerData.data
+                    self?.certificationTableView.reloadData()
+                    
                 }
-            } catch (let err) {
-                print(err.localizedDescription)
+                
             }
+            
         }
     }
     
