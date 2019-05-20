@@ -70,7 +70,7 @@ extension CareerVC : UICollectionViewDelegate, UICollectionViewDataSource, UICol
     }
     
     @objc func addActivityPresentAction() {
-        if let activityVC = storyboard?.instantiateViewController(withIdentifier: "AddActivityVC")
+        if let activityVC = storyboard?.instantiateViewController(withIdentifier: ViewControllerIdentifier.addActivityViewController)
         {
             
             present(activityVC, animated: true)
@@ -78,13 +78,13 @@ extension CareerVC : UICollectionViewDelegate, UICollectionViewDataSource, UICol
     }
     
     @objc func addPresentAction() {
-        if let addVC = storyboard?.instantiateViewController(withIdentifier: "AddVC") {
+        if let addVC = storyboard?.instantiateViewController(withIdentifier: ViewControllerIdentifier.addViewController) {
             present(addVC, animated: true)
         }
     }
     
     @objc func addCertificationPresentAction() {
-        if let certifiVC = storyboard?.instantiateViewController(withIdentifier: "AddCertificationVC") {
+        if let certifiVC = storyboard?.instantiateViewController(withIdentifier: ViewControllerIdentifier.addCertificationViewController) {
             present(certifiVC, animated: true, completion: nil)
         }
     }

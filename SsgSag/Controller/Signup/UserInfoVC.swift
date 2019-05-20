@@ -94,7 +94,7 @@ class UserInfoVC: UIViewController, UITextFieldDelegate {
                             
                             let storyboard = UIStoryboard(name: StoryBoardName.signup, bundle: nil)
                             
-                            let SchoolInfoVC = storyboard.instantiateViewController(withIdentifier: "SignupFirst") as! ConfirmProfileVC
+                            let SchoolInfoVC = storyboard.instantiateViewController(withIdentifier: ViewControllerIdentifier.singupFirstViewController) as! ConfirmProfileVC
                             
                             self.navigationController?.pushViewController(SchoolInfoVC, animated: true)
                             

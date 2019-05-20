@@ -106,7 +106,7 @@ extension CareerVC: UITableViewDelegate, UITableViewDataSource {
             
         case activityTableView:
             
-            let activityVC = storyboard?.instantiateViewController(withIdentifier: "AddActivityVC") as! AddActivityVC
+            let activityVC = storyboard?.instantiateViewController(withIdentifier: ViewControllerIdentifier.addActivityViewController) as! AddActivityVC
             
             let activity: careerData = self.activityList[indexPath.row]
             
@@ -115,7 +115,7 @@ extension CareerVC: UITableViewDelegate, UITableViewDataSource {
             present(activityVC, animated: true)
             
         case prizeTableView:
-            let prizeVC = storyboard?.instantiateViewController(withIdentifier: "AddVC") as! AddVC
+            let prizeVC = storyboard?.instantiateViewController(withIdentifier: ViewControllerIdentifier.addViewController) as! AddVC
             let prize: careerData = self.prizeList[indexPath.row]
             
             prizeVC.titleString = prize.careerName
@@ -125,7 +125,7 @@ extension CareerVC: UITableViewDelegate, UITableViewDataSource {
             present(prizeVC, animated: true)
         case certificationTableView:
             
-            let certiVC = storyboard?.instantiateViewController(withIdentifier: "AddCertificationVC") as! AddCertificationVC
+            let certiVC = storyboard?.instantiateViewController(withIdentifier: ViewControllerIdentifier.addCertificationViewController) as! AddCertificationVC
             
             let certification: careerData = certificationList[indexPath.row]
             

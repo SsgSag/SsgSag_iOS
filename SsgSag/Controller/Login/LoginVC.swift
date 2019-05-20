@@ -117,14 +117,14 @@ class LoginVC: UIViewController, UITextFieldDelegate {
     
     @IBAction func ssgSagSignUp(_ sender: Any) {
         let storyboard = UIStoryboard(name: StoryBoardName.signup, bundle: nil)
-        let UserInfoVC = storyboard.instantiateViewController(withIdentifier: "UserInfoVC")
+        let UserInfoVC = storyboard.instantiateViewController(withIdentifier:ViewControllerIdentifier.userInfoViewContrller)
         let signupNavigator = UINavigationController(rootViewController: UserInfoVC)
         self.present(signupNavigator, animated: true, completion: nil)
     }
     
     func popUpSocialLogin(button: UIButton) {
         let myPageStoryBoard = UIStoryboard(name: StoryBoardName.login, bundle: nil)
-        let popVC = myPageStoryBoard.instantiateViewController(withIdentifier: "LoginPopUp")
+        let popVC = myPageStoryBoard.instantiateViewController(withIdentifier: ViewControllerIdentifier.loginPopUpViewController)
         self.addChild(popVC)
         
         popVC.view.frame = self.view.frame

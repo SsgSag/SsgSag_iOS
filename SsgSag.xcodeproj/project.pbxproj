@@ -52,6 +52,7 @@
 		846E622722901DE90083E3CD /* BasicNetworkModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846E622622901DE90083E3CD /* BasicNetworkModel.swift */; };
 		846E6229229137F40083E3CD /* SignupServiceImp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846E6228229137F40083E3CD /* SignupServiceImp.swift */; };
 		846E622B229288000083E3CD /* StoryBoardName.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846E622A229288000083E3CD /* StoryBoardName.swift */; };
+		846E622D22928B1A0083E3CD /* ViewControllerIdentifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846E622C22928B1A0083E3CD /* ViewControllerIdentifier.swift */; };
 		84836ABF222E515200922A78 /* UserNetworkModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84836ABE222E515200922A78 /* UserNetworkModel.swift */; };
 		8486D260226DEC5D00D7A0C7 /* ApplySuccessViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8486D25F226DEC5D00D7A0C7 /* ApplySuccessViewController.swift */; };
 		8486D262226DF38E00D7A0C7 /* ApplySuccess.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8486D261226DF38E00D7A0C7 /* ApplySuccess.storyboard */; };
@@ -194,6 +195,7 @@
 		846E622622901DE90083E3CD /* BasicNetworkModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasicNetworkModel.swift; sourceTree = "<group>"; };
 		846E6228229137F40083E3CD /* SignupServiceImp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupServiceImp.swift; sourceTree = "<group>"; };
 		846E622A229288000083E3CD /* StoryBoardName.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = StoryBoardName.swift; path = SsgSag/ViewModel/StoryBoardName.swift; sourceTree = SOURCE_ROOT; };
+		846E622C22928B1A0083E3CD /* ViewControllerIdentifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ViewControllerIdentifier.swift; path = SsgSag/ViewModel/ViewControllerIdentifier.swift; sourceTree = SOURCE_ROOT; };
 		84836ABE222E515200922A78 /* UserNetworkModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserNetworkModel.swift; sourceTree = "<group>"; };
 		8486D25F226DEC5D00D7A0C7 /* ApplySuccessViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplySuccessViewController.swift; sourceTree = "<group>"; };
 		8486D261226DF38E00D7A0C7 /* ApplySuccess.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = ApplySuccess.storyboard; sourceTree = "<group>"; };
@@ -414,6 +416,7 @@
 				84C30E2C22781FF0008F1165 /* DateCaculate.swift */,
 				84F1670D2280296E00071075 /* StoreAndFetchPoster.swift */,
 				846E622A229288000083E3CD /* StoryBoardName.swift */,
+				846E622C22928B1A0083E3CD /* ViewControllerIdentifier.swift */,
 			);
 			path = Helper;
 			sourceTree = "<group>";
@@ -972,6 +975,7 @@
 				84A45D11225FA03800C60287 /* JSONParameterEncoder.swift in Sources */,
 				84C77E4F22759AAF00DEE2D8 /* ZoomPosterVC.swift in Sources */,
 				84D09D0822883421008EEA7C /* ActivityServiceImp.swift in Sources */,
+				846E622D22928B1A0083E3CD /* ViewControllerIdentifier.swift in Sources */,
 				840FEDC52207569D00581A3B /* CalendarView + extension.swift in Sources */,
 				845928DA21D09F30001DF6CC /* CalenderView.swift in Sources */,
 				FAA238712202F37C00C6DB13 /* CareerVC + CollectionView.swift in Sources */,

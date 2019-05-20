@@ -258,7 +258,7 @@ class SwipeVC: UIViewController {
             
             let storyboard = UIStoryboard(name: StoryBoardName.swipe, bundle: nil)
             
-            guard let pageVC = storyboard.instantiateViewController(withIdentifier: "PageViewController") as? PageViewController else {
+            guard let pageVC = storyboard.instantiateViewController(withIdentifier: ViewControllerIdentifier.pageViewContrller) as? PageViewController else {
                 return
             }
             
@@ -297,7 +297,7 @@ class SwipeVC: UIViewController {
         
         for (i, _ ) in currentLoadedCardsArray.enumerated() {
             
-            guard let pageVC = storyboard.instantiateViewController(withIdentifier: "PageViewController") as? PageViewController else {
+            guard let pageVC = storyboard.instantiateViewController(withIdentifier: ViewControllerIdentifier.pageViewContrller) as? PageViewController else {
                 return
             }
             
@@ -357,7 +357,7 @@ extension SwipeVC: movoToDetailPoster {
     func pressButton() {
         let storyboard = UIStoryboard(name: StoryBoardName.swipe, bundle: nil)
 
-        guard let zoomPosterVC = storyboard.instantiateViewController(withIdentifier: "ZoomPosterVC") as? ZoomPosterVC else {return}
+        guard let zoomPosterVC = storyboard.instantiateViewController(withIdentifier: ViewControllerIdentifier.zoomPosterViewController) as? ZoomPosterVC else {return}
         
         zoomPosterVC.urlString = self.posters[lastCardIndex-1].photoUrl
 

@@ -8,8 +8,6 @@
 
 import UIKit
 
-
-
 class TapbarVC: UITabBarController {
     
     var tapbarServiceImp: TapbarService?
@@ -24,10 +22,10 @@ class TapbarVC: UITabBarController {
         
         isServerAvaliable()
         
-        let firstViewController = swipeStoryBoard.instantiateViewController(withIdentifier: "Swipe")
+        let firstViewController = swipeStoryBoard.instantiateViewController(withIdentifier: ViewControllerIdentifier.swipe)
         firstViewController.tabBarItem = UITabBarItem(title: "", image: UIImage(named: "icMain"), selectedImage: UIImage(named: "icMainActive"))
         
-        let secondViewController = mypageStoryBoard.instantiateViewController(withIdentifier: "MyPageVC")
+        let secondViewController = mypageStoryBoard.instantiateViewController(withIdentifier: ViewControllerIdentifier.mypageViewController)
         secondViewController.tabBarItem = UITabBarItem(title: "", image: UIImage(named: "icUser"), selectedImage: UIImage(named: "icUserActive"))
         
         let thirdViewController = CalenderVC()

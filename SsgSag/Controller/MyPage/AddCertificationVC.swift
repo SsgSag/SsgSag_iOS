@@ -146,7 +146,7 @@ class AddCertificationVC: UIViewController, UITextFieldDelegate, UITextViewDeleg
     func popUpDatePicker(button: UIButton, activityCategory: ActivityCategory) {
         
         let myPageStoryBoard = UIStoryboard(name: StoryBoardName.mypage, bundle: nil)
-        let popVC = myPageStoryBoard.instantiateViewController(withIdentifier: "DatePickerPoPUp") as! DatePickerPopUpVC
+        let popVC = myPageStoryBoard.instantiateViewController(withIdentifier: ViewControllerIdentifier.datePickerPopUpViewController) as! DatePickerPopUpVC
         
         popVC.activityCategory = activityCategory
         
