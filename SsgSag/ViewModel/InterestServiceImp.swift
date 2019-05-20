@@ -24,7 +24,7 @@ class InterestServiceManager: InterestService {
         
         guard let url = UserAPI.sharedInstance.getURL(RequestURL.subscribeAddOrDelete(interestIdx: interedIdx).getRequestURL()) else {return}
         
-        guard let key = UserDefaults.standard.object(forKey: "SsgSagToken") as? String else { return }
+        guard let key = UserDefaults.standard.object(forKey: TokenName.token) as? String else { return }
         
         var request = URLRequest(url: url)
         request.httpMethod = "DELETE"
@@ -48,7 +48,7 @@ class InterestServiceManager: InterestService {
                                      completionHandler: @escaping (DataResponse<BasicNetworkModel>) -> Void) {
         guard let url = UserAPI.sharedInstance.getURL(RequestURL.subscribeAddOrDelete(interestIdx: interedIdx).getRequestURL()) else {return}
         
-        guard let key = UserDefaults.standard.object(forKey: "SsgSagToken") as? String else { return }
+        guard let key = UserDefaults.standard.object(forKey: TokenName.token) as? String else { return }
         
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
@@ -71,7 +71,7 @@ class InterestServiceManager: InterestService {
     func requestInterestSubscribe(completionHandler: @escaping (DataResponse<Subscribe>) -> Void) {
         guard let url = UserAPI.sharedInstance.getURL(RequestURL.subscribeInterest.getRequestURL()) else {return}
         
-        guard let key = UserDefaults.standard.object(forKey: "SsgSagToken") as? String else { return }
+        guard let key = UserDefaults.standard.object(forKey: TokenName.token) as? String else { return }
         
         var request = URLRequest(url: url)
         request.httpMethod = "GET"

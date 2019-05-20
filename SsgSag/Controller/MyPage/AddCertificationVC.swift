@@ -79,7 +79,7 @@ class AddCertificationVC: UIViewController, UITextFieldDelegate, UITextViewDeleg
         var request = URLRequest(url: url)
         request.httpMethod = "GET"
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-        let token = UserDefaults.standard.object(forKey: "SsgSagToken") as! String
+        let token = UserDefaults.standard.object(forKey: TokenName.token) as! String
         request.addValue(token, forHTTPHeaderField: "Authorization")
         request.httpBody = jsonData
         
@@ -104,7 +104,7 @@ class AddCertificationVC: UIViewController, UITextFieldDelegate, UITextViewDeleg
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-        let token = UserDefaults.standard.object(forKey: "SsgSagToken") as! String
+        let token = UserDefaults.standard.object(forKey: TokenName.token) as! String
         request.addValue(token, forHTTPHeaderField: "Authorization")
         
         // insert json data to the request

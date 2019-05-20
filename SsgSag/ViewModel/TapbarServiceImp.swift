@@ -39,7 +39,7 @@ class TapbarServiceImp: TapbarService {
         
         guard let url = UserAPI.sharedInstance.getURL(RequestURL.allTodoList.getRequestURL()) else {return}
         
-        guard let key = UserDefaults.standard.object(forKey: "SsgSagToken") as? String else { return }
+        guard let key = UserDefaults.standard.object(forKey: TokenName.token) as? String else { return }
         
         var request = URLRequest(url: url)
         request.setValue(key, forHTTPHeaderField: "Authorization")

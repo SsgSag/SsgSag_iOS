@@ -47,7 +47,7 @@ class CalendarServiceImp: CalendarService {
     func reqeustComplete(_ posterIdx: Int, completionHandler: @escaping (DataResponse<PosterFavorite>) -> Void) {
         guard let url = UserAPI.sharedInstance.getURL(RequestURL.completeApply(posterIdx: posterIdx).getRequestURL()) else {return}
         
-        guard let key = UserDefaults.standard.object(forKey: "SsgSagToken") as? String else { return }
+        guard let key = UserDefaults.standard.object(forKey: TokenName.token) as? String else { return }
         
         var request = URLRequest(url: url)
         request.setValue(key, forHTTPHeaderField: "Authorization")
@@ -70,7 +70,7 @@ class CalendarServiceImp: CalendarService {
     func requestDelete(_ posterIdx: Int, completionHandler: @escaping (DataResponse<PosterFavorite>) -> Void) {
         guard let url = UserAPI.sharedInstance.getURL(RequestURL.deletePoster(posterIdx: posterIdx).getRequestURL()) else {return}
         
-        guard let key = UserDefaults.standard.object(forKey: "SsgSagToken") as? String else { return }
+        guard let key = UserDefaults.standard.object(forKey: TokenName.token) as? String else { return }
         
         var request = URLRequest(url: url)
         request.setValue(key, forHTTPHeaderField: "Authorization")
@@ -95,7 +95,7 @@ class CalendarServiceImp: CalendarService {
         
         guard let url = UserAPI.sharedInstance.getURL(RequestURL.favorite(posterIdx: posterIdx).getRequestURL()) else {return}
         
-        guard let key = UserDefaults.standard.object(forKey: "SsgSagToken") as? String else { return }
+        guard let key = UserDefaults.standard.object(forKey: TokenName.token) as? String else { return }
         
         var request = URLRequest(url: url)
         request.setValue(key, forHTTPHeaderField: "Authorization")

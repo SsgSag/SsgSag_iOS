@@ -336,7 +336,7 @@ class SchoolInfoVC: UIViewController, UITextFieldDelegate {
                         
                         if let storeToken = login.data?.token {
                             UserDefaults.standard.set(storeToken,
-                                                      forKey: LoginVC.ssgSagToken)
+                                                      forKey: TokenName.token)
                         }
                         
                         self.present(TapbarVC(), animated: true, completion: nil)

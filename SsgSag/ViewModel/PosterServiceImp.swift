@@ -24,7 +24,7 @@ class PosterServiceImp: PosterService {
         
         guard let url = UserAPI.sharedInstance.getURL(RequestURL.posterLiked(posterIdx: posterIdx, likeType: like).getRequestURL()) else {return}
         
-        guard let key = UserDefaults.standard.object(forKey: "SsgSagToken") as? String else { return }
+        guard let key = UserDefaults.standard.object(forKey: TokenName.token) as? String else { return }
         
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
@@ -78,7 +78,7 @@ class PosterServiceImp: PosterService {
         
         guard let url = UserAPI.sharedInstance.getURL(RequestURL.initPoster.getRequestURL()) else {return}
     
-        guard let tokenKey = UserDefaults.standard.object(forKey: "SsgSagToken") as? String else {
+        guard let tokenKey = UserDefaults.standard.object(forKey: TokenName.token) as? String else {
             return
         }
         

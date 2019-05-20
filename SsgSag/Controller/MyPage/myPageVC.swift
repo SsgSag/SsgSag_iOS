@@ -157,7 +157,7 @@ class myPageVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
             return
         }
         
-        guard let key = UserDefaults.standard.object(forKey: "SsgSagToken") as? String else {
+        guard let key = UserDefaults.standard.object(forKey: TokenName.token) as? String else {
             return
         }
     
@@ -184,7 +184,7 @@ class myPageVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
     private func getData() {
         guard let url = UserAPI.sharedInstance.getURL("/user") else {return}
         
-        guard let key = UserDefaults.standard.object(forKey: "SsgSagToken") as? String else {
+        guard let key = UserDefaults.standard.object(forKey: TokenName.token) as? String else {
             return
         }
         

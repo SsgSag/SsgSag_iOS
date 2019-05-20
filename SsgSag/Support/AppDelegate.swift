@@ -101,7 +101,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, MessagingDelegate ,UNUser
     }
     
     private func isTokenExist() -> Bool {
-        if let _ = UserDefaults.standard.object(forKey: "SsgSagToken") {
+        if let _ = UserDefaults.standard.object(forKey: TokenName.token) {
             return true
         } else {
             return false
@@ -110,10 +110,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, MessagingDelegate ,UNUser
     
     private func naverLogin() {
         let instance = NaverThirdPartyLoginConnection.getSharedInstance()
-        instance?.isInAppOauthEnable = true // --- 1
-        instance?.isNaverAppOauthEnable = true // --- 2
-        instance?.isOnlyPortraitSupportedInIphone() // --- 3
-        // --- 4
+        instance?.isInAppOauthEnable = true
+        instance?.isNaverAppOauthEnable = true
+        instance?.isOnlyPortraitSupportedInIphone()
         instance?.serviceUrlScheme = kServiceAppUrlScheme
         instance?.consumerKey = kConsumerKey
         instance?.consumerSecret = kConsumerSecret
@@ -122,7 +121,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, MessagingDelegate ,UNUser
     }
     
     fileprivate func hasToken() -> Bool {
-         if UserDefaults.standard.object(forKey: "SsgSagToken") != nil {
+         if UserDefaults.standard.object(forKey: TokenName.token) != nil {
             return true
          } else {
             return false

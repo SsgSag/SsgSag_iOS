@@ -32,7 +32,7 @@ class MyPageServiceImp: myPageService {
             return
         }
         
-        guard let token = UserDefaults.standard.object(forKey: "SsgSagToken") as? String else {
+        guard let token = UserDefaults.standard.object(forKey: TokenName.token) as? String else {
             return
         }
         
@@ -63,7 +63,7 @@ class MyPageServiceImp: myPageService {
         guard let url = UserAPI.sharedInstance.getURL(RequestURL.careerActivity.getRequestURL()) else {return}
         
         
-        guard let token = UserDefaults.standard.object(forKey: "SsgSagToken") as? String else {
+        guard let token = UserDefaults.standard.object(forKey: TokenName.token) as? String else {
             return
         }
         
@@ -96,7 +96,7 @@ class MyPageServiceImp: myPageService {
         
         guard let url = UserAPI.sharedInstance.getURL(RequestURL.reIntersting.getRequestURL()) else {return}
         
-        guard let token = UserDefaults.standard.object(forKey: "SsgSagToken") as? String else {return}
+        guard let token = UserDefaults.standard.object(forKey: TokenName.token) as? String else {return}
         
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
@@ -126,7 +126,7 @@ class MyPageServiceImp: myPageService {
             return print("123123")
         }
         
-        guard let token = UserDefaults.standard.object(forKey: "SsgSagToken") as? String else {
+        guard let token = UserDefaults.standard.object(forKey: TokenName.token) as? String else {
             return
         }
         

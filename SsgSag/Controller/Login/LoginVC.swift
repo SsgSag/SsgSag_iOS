@@ -17,8 +17,6 @@ class LoginVC: UIViewController, UITextFieldDelegate {
     
     @IBOutlet weak var autoLoginButton: UIButton!
     
-    static let ssgSagToken = "SsgSagToken"
-    
     private let isAutoLogin = "isAutoLogin"
     
     var loginServiceImp:LoginService!
@@ -102,7 +100,7 @@ class LoginVC: UIViewController, UITextFieldDelegate {
                 case .sucess:
                     if let storeToken = dataResponse.value?.data?.token {
                         UserDefaults.standard.set(storeToken,
-                                                  forKey: LoginVC.ssgSagToken)
+                                                  forKey: TokenName.token)
                     }
                     self.present(TapbarVC(), animated: true, completion: nil)
                 case .failure:

@@ -137,7 +137,7 @@ class AddActivityVC: UIViewController, UITextViewDelegate, UITextFieldDelegate {
         var request = URLRequest(url: url)
         request.httpMethod = "GET"
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-        let token = UserDefaults.standard.object(forKey: "SsgSagToken") as! String
+        let token = UserDefaults.standard.object(forKey: TokenName.token) as! String
         request.addValue(token, forHTTPHeaderField: "Authorization")
         request.httpBody = jsonData
         

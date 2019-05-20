@@ -297,7 +297,7 @@ class CareerVC: UIViewController {
         
         guard let url = UserAPI.sharedInstance.getURL("/career/\(careerType)") else {return}
         
-        guard let token = UserDefaults.standard.object(forKey: "SsgSagToken") as? String else {
+        guard let token = UserDefaults.standard.object(forKey: TokenName.token) as? String else {
             return
         }
         

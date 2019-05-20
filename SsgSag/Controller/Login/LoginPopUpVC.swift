@@ -58,7 +58,7 @@ class LoginPopUpVC: UIViewController, NaverThirdPartyLoginConnectionDelegate {
                     self?.snsLoginServiceImp?.requestSnsLogin(using: kakaoSession.token.accessToken, type: 0) { (dataResponse) in
                         
                         if let storeToken = dataResponse.value?.data?.token {
-                            UserDefaults.standard.set(storeToken, forKey: "SsgSagToken")
+                            UserDefaults.standard.set(storeToken, forKey: TokenName.token)
                         }
                         
                         guard let statusCode = dataResponse.value?.status else {return}
@@ -138,7 +138,7 @@ class LoginPopUpVC: UIViewController, NaverThirdPartyLoginConnectionDelegate {
         snsLoginServiceImp?.requestSnsLogin(using: accessToken, type: 1) { (dataResponse) in
             
             if let storeToken = dataResponse.value?.data?.token {
-                UserDefaults.standard.set(storeToken, forKey: "SsgSagToken")
+                UserDefaults.standard.set(storeToken, forKey: TokenName.token)
             }
             
             guard let statusCode = dataResponse.value?.status else {return}
