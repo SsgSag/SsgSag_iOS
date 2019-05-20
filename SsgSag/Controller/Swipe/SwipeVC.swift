@@ -29,14 +29,12 @@ class SwipeVC: UIViewController {
     
     private var countTotalCardIndex = 0
     
-    private var posterServiceImp: PosterService!
+    private var posterServiceImp: PosterService! = PosterServiceImp()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         //resetDefaults()
-        
-        posterServiceImp = PosterServiceImp()
         
         initPoster()
         

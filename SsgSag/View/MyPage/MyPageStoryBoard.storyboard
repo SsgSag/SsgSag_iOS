@@ -629,14 +629,14 @@
                                                         <subviews>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="H6r-Ix-ZCO" userLabel="ArtButton">
                                                                 <rect key="frame" x="0.0" y="0.0" width="162" height="162"/>
-                                                                <state key="normal" image="btJobStudyUnactive"/>
+                                                                <state key="normal" image="btJobSocietyPassive"/>
                                                                 <connections>
                                                                     <action selector="touchUpJobButtons:" destination="cnl-e1-rb8" eventType="touchUpInside" id="4RJ-Wj-wLF"/>
                                                                 </connections>
                                                             </button>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WHk-2T-dNJ" userLabel="SpecialityButton">
                                                                 <rect key="frame" x="174" y="0.0" width="162" height="162"/>
-                                                                <state key="normal" image="btJobSpecialityUnactive"/>
+                                                                <state key="normal" image="btJobEtcPassive"/>
                                                                 <connections>
                                                                     <action selector="touchUpJobButtons:" destination="cnl-e1-rb8" eventType="touchUpInside" id="y8B-k4-11O"/>
                                                                 </connections>
@@ -1715,14 +1715,15 @@
         <image name="btJobArtUnactive" width="162" height="162"/>
         <image name="btJobConstructUnactive" width="162" height="162"/>
         <image name="btJobDesignUnactive" width="162" height="162"/>
+        <image name="btJobEtcPassive" width="162" height="162"/>
         <image name="btJobIndustryUnactive" width="162" height="162"/>
         <image name="btJobLiteratureUnactive" width="162" height="162"/>
         <image name="btJobManagementUnactive" width="162" height="162"/>
         <image name="btJobMedicalUnactive" width="162" height="162"/>
         <image name="btJobSalesUnactive" width="162" height="162"/>
         <image name="btJobServiceUnactive" width="162" height="162"/>
+        <image name="btJobSocietyPassive" width="162" height="162"/>
         <image name="btJobSpecialityUnactive" width="162" height="162"/>
-        <image name="btJobStudyUnactive" width="162" height="162"/>
         <image name="btJobTechUnactive" width="162" height="162"/>
         <image name="btJobTradeUnactive" width="162" height="162"/>
         <image name="btPreferenceArtUnactive" width="162" height="162"/>

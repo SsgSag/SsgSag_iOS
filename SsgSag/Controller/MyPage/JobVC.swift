@@ -10,33 +10,53 @@ import UIKit
 
 class JobVC: UIViewController {
     
-    static let syncInterestNum = 101
-    
-    let unActiveButtonImages: [String] = [
-        "btJobManagementUnactive", "btJobMarketingUnactive", "btJobTechUnactive", "btJobDesignUnactive", "btJobTradeUnactive", "btJobSalesUnactive", "btJobServiceUnactive", "btJobStudyUnactive",
-        "btJobIndustryUnactive", "btJobLiteratureUnactive", "btJobConstructUnactive", "btJobMedicalUnactive",
-        "btJobArtUnactive", "btJobSpecialityUnactive"
-        
-    ]
-    
-    let activeButtonImages: [String] = [
-        "btJobManagementActive", "btJobMarketingActive", "btJobTechActive", "btJobDesignActive", "btJobTradeActive", "btJobSalesActive", "btJobServiceActive",
-        "btJobStudyActive", "btJobIndustryActive", "btJobLiteratureActive", "btJobConstructActive", "btJobMedicalActive", "btJobArtActive", "btJobSpecialityActive"
-    ]
-    
-    private var storedJobs: [Int] = []
-    
-    var selectedValue: [Bool] = []
-    
-    private var myPageService: myPageService?
-    
-    private var isOn: isSwitchOn?
-    
     @IBOutlet var jobButtons: [UIButton]!
     
     @IBOutlet weak var saveButton: GradientButton!
     
     @IBOutlet weak var jobSwitch: UISwitch!
+    
+    static let syncInterestNum = 101
+    
+    let unActiveButtonImages: [String] = [ "btJobManagementUnactive",
+                                           "btJobSpecialityUnactive",
+                                           "btJobTechUnactive",
+                                           "btJobSalesUnactive",
+                                           "btJobDesignUnactive",
+                                           "btJobArtUnactive",
+                                           "btJobServiceUnactive",
+                                           "btJobLiteratureUnactive",
+                                           "btJobIndustryUnactive",
+                                           "btJobMedicalUnactive",
+                                           "btJobConstructUnactive",
+                                           "btJobTradeUnactive",
+                                           "btJobSocietyPassive",
+                                           "btJobEtcPassive"
+                                         ]
+    
+    let activeButtonImages: [String] = [ "btJobManagement",
+                                         "btJobSpeciality",
+                                         "btJobTech",
+                                         "btJobSales",
+                                         "btJobDesign",
+                                         "btJobMedia",
+                                         "btJobService",
+                                         "btJobEdu",
+                                         "btJobIndustry",
+                                         "btJobMedical",
+                                         "btJobConstruct",
+                                         "btJobTrade",
+                                         "btJobSociety",
+                                         "btJobEtc"
+                                        ]
+    
+    private var storedJobs: [Int] = []
+    
+    var selectedValue: [Bool] = []
+    
+    private var myPageService: myPageService? = MyPageServiceImp()
+    
+    private var isOn: isSwitchOn?
     
     override func viewWillAppear(_ animated: Bool) {
         getStoredJobInfo()
@@ -46,8 +66,6 @@ class JobVC: UIViewController {
         super.viewDidLoad()
         
         setJobTag()
-        
-        myPageService = MyPageServiceImp()
         
         setSaveButtonColor()
     }
