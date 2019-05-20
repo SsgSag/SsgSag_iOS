@@ -120,11 +120,11 @@ class DayCollectionViewCell: UICollectionViewCell {
         layer.cornerRadius = 5
         layer.masksToBounds = true
         
-        NotificationCenter.default.addObserver(self, selector: #selector(changeToUp), name: NSNotification.Name("didselectItem"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(changeToUp), name: NSNotification.Name(NotificationName.didselectItem), object: nil)
         
-        NotificationCenter.default.addObserver(self, selector: #selector(changeToUp), name: NSNotification.Name("changeToUp"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(changeToUp), name: NSNotification.Name(NotificationName.changeToUp), object: nil)
         
-        NotificationCenter.default.addObserver(self, selector: #selector(changeToDown), name: NSNotification.Name("changeToDown"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(changeToDown), name: NSNotification.Name(NotificationName.changeToDown), object: nil)
         
         setupViews()
     }

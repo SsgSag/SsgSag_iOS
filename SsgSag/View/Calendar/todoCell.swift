@@ -336,7 +336,7 @@ class TodoTableViewCell: UITableViewCell {
         separatorView.topAnchor.constraint(equalTo: borderView.topAnchor, constant: 5).isActive = true
         separatorView.bottomAnchor.constraint(equalTo: borderView.bottomAnchor, constant: -5).isActive = true
         
-        NotificationCenter.default.addObserver(self, selector: #selector(todoListButtonAction), name: NSNotification.Name("todoListButtonAction"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(todoListButtonAction), name: NSNotification.Name(NotificationName.todoListButtonAction), object: nil)
     }
     
     @objc func todoListButtonAction() {

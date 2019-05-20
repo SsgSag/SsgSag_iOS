@@ -116,7 +116,7 @@ extension ApplySuccessViewController: UITableViewDelegate, UITableViewDataSource
             
             StoreAndFetchPoster.storePoster(posters: posterInfo)
             
-            NotificationCenter.default.post(name: NSNotification.Name("deleteUserDefaults"), object: nil)
+            NotificationCenter.default.post(name: NSNotification.Name(NotificationName.deleteUserDefaults), object: nil)
         
             self.posters = self.getPostersData()
             

@@ -54,6 +54,7 @@
 		846E622B229288000083E3CD /* StoryBoardName.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846E622A229288000083E3CD /* StoryBoardName.swift */; };
 		846E622D22928B1A0083E3CD /* ViewControllerIdentifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846E622C22928B1A0083E3CD /* ViewControllerIdentifier.swift */; };
 		846E622F22928F800083E3CD /* TokenName.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846E622E22928F800083E3CD /* TokenName.swift */; };
+		846E6231229291880083E3CD /* NotificationName.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846E6230229291880083E3CD /* NotificationName.swift */; };
 		84836ABF222E515200922A78 /* UserNetworkModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84836ABE222E515200922A78 /* UserNetworkModel.swift */; };
 		8486D260226DEC5D00D7A0C7 /* ApplySuccessViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8486D25F226DEC5D00D7A0C7 /* ApplySuccessViewController.swift */; };
 		8486D262226DF38E00D7A0C7 /* ApplySuccess.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8486D261226DF38E00D7A0C7 /* ApplySuccess.storyboard */; };
@@ -198,6 +199,7 @@
 		846E622A229288000083E3CD /* StoryBoardName.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = StoryBoardName.swift; path = SsgSag/ViewModel/StoryBoardName.swift; sourceTree = SOURCE_ROOT; };
 		846E622C22928B1A0083E3CD /* ViewControllerIdentifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ViewControllerIdentifier.swift; path = SsgSag/ViewModel/ViewControllerIdentifier.swift; sourceTree = SOURCE_ROOT; };
 		846E622E22928F800083E3CD /* TokenName.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = TokenName.swift; path = SsgSag/ViewModel/TokenName.swift; sourceTree = SOURCE_ROOT; };
+		846E6230229291880083E3CD /* NotificationName.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = NotificationName.swift; path = SsgSag/ViewModel/NotificationName.swift; sourceTree = SOURCE_ROOT; };
 		84836ABE222E515200922A78 /* UserNetworkModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserNetworkModel.swift; sourceTree = "<group>"; };
 		8486D25F226DEC5D00D7A0C7 /* ApplySuccessViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplySuccessViewController.swift; sourceTree = "<group>"; };
 		8486D261226DF38E00D7A0C7 /* ApplySuccess.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = ApplySuccess.storyboard; sourceTree = "<group>"; };
@@ -420,6 +422,7 @@
 				846E622A229288000083E3CD /* StoryBoardName.swift */,
 				846E622C22928B1A0083E3CD /* ViewControllerIdentifier.swift */,
 				846E622E22928F800083E3CD /* TokenName.swift */,
+				846E6230229291880083E3CD /* NotificationName.swift */,
 			);
 			path = Helper;
 			sourceTree = "<group>";
@@ -1038,6 +1041,7 @@
 				FA7F4CBB21DFC7E700D8643A /* CustomCareerCell.swift in Sources */,
 				84604F232205A0ED00212A00 /* todoCell.swift in Sources */,
 				845928D921D09F30001DF6CC /* CalenderVC.swift in Sources */,
+				846E6231229291880083E3CD /* NotificationName.swift in Sources */,
 				FA3A8FDB21DF3F410075A510 /* SplashVC.swift in Sources */,
 				845928E521D38771001DF6CC /* DetailImageSwipeCard.swift in Sources */,
 				84BA694D21DB74BD00BA8CB8 /* TapbarVC.swift in Sources */,

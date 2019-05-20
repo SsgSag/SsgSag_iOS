@@ -43,11 +43,11 @@ class CalenderView: UIView, MonthViewDelegate {
         
         initMonthAndCalendarCollectionView()
         
-        NotificationCenter.default.addObserver(self, selector: #selector(todoListButtonAction), name: NSNotification.Name("todoListButtonAction"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(todoListButtonAction), name: NSNotification.Name(NotificationName.todoListButtonAction), object: nil)
         
-        NotificationCenter.default.addObserver(self, selector: #selector(changeUserDefaultsAndReloadData), name: NSNotification.Name("addUserDefaults"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(changeUserDefaultsAndReloadData), name: NSNotification.Name(NotificationName.addUserDefaults), object: nil)
         
-        NotificationCenter.default.addObserver(self, selector: #selector(changeUserDefaultsAndReloadData), name: NSNotification.Name(rawValue: "deleteUserDefaults"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(changeUserDefaultsAndReloadData), name: NSNotification.Name(rawValue: NotificationName.deleteUserDefaults), object: nil)
     }
     
     convenience init(theme: MyTheme) {
@@ -420,7 +420,7 @@ extension CalenderView: UICollectionViewDelegate, UICollectionViewDataSource {
         lastSelectedIndexPath = indexPath
         
         let userInfo = [ "currentCellDateTime" : currentCellDateTime ]
-        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "didselectItem"), object: nil, userInfo: userInfo as [AnyHashable : Any])
+        NotificationCenter.default.post(name: NSNotification.Name(rawValue: NotificationName.didselectItem), object: nil, userInfo: userInfo as [AnyHashable : Any])
         
     }
     

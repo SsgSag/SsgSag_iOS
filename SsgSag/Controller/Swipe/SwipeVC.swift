@@ -386,7 +386,7 @@ extension SwipeVC : SwipeCardDelegate {
         
         posterServiceImp?.requestPosterLiked(of: self.posters[currentIndex-1], type: likedCategory)
         
-        NotificationCenter.default.post(name: NSNotification.Name("addUserDefaults"), object: nil)
+        NotificationCenter.default.post(name: NSNotification.Name(NotificationName.addUserDefaults), object: nil)
     }
     
     private func addUserDefautlsWhenDataIsExist(_ posterInfo: [Posters]) {
@@ -402,7 +402,7 @@ extension SwipeVC : SwipeCardDelegate {
         
         posterServiceImp?.requestPosterLiked(of: self.posters[currentIndex-1], type: likedCategory)
         
-        NotificationCenter.default.post(name: NSNotification.Name("addUserDefaults"), object: nil)
+        NotificationCenter.default.post(name: NSNotification.Name(NotificationName.addUserDefaults), object: nil)
     }
     
     //카드 오른쪽으로 갔을때

@@ -130,11 +130,11 @@ class CalenderVC: UIViewController {
     var tempDetailPosters: [Posters]?
     
     private func setNotificationObserver() {
-        NotificationCenter.default.addObserver(self, selector: #selector(addUserDefaults), name: NSNotification.Name("addUserDefaults"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(addUserDefaults), name: NSNotification.Name(NotificationName.addUserDefaults), object: nil)
     
-        NotificationCenter.default.addObserver(self, selector: #selector(sortSpecificDayOftodoList), name: NSNotification.Name(rawValue: "didselectItem"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(sortSpecificDayOftodoList), name: NSNotification.Name(rawValue: NotificationName.didselectItem), object: nil)
     
-        NotificationCenter.default.addObserver(self, selector: #selector(deleteUserDefaults), name: NSNotification.Name(rawValue: "deleteUserDefaults"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(deleteUserDefaults), name: NSNotification.Name(rawValue: NotificationName.deleteUserDefaults), object: nil)
     }
     
     @objc func deleteUserDefaults() {
@@ -322,7 +322,7 @@ class CalenderVC: UIViewController {
         
         setTodoListData(today)
         
-        NotificationCenter.default.post(name: NSNotification.Name("todoListButtonAction"), object: nil)
+        NotificationCenter.default.post(name: NSNotification.Name(NotificationName.todoListButtonAction), object: nil)
         
         todoList.text = "투두리스트"
         
@@ -413,7 +413,7 @@ class CalenderVC: UIViewController {
         
         setCalendarVCWhenTODOShow()
         
-        NotificationCenter.default.post(name: NSNotification.Name("changeToUp"), object: nil)
+        NotificationCenter.default.post(name: NSNotification.Name(NotificationName.changeToUp), object: nil)
         
         if daySelectedStatus == .notSelected {
             
@@ -512,7 +512,7 @@ class CalenderVC: UIViewController {
     }
     
     func setCalendarVCWhenTODOHide() {
-        NotificationCenter.default.post(name: NSNotification.Name("changeToDown"), object: nil)
+        NotificationCenter.default.post(name: NSNotification.Name(NotificationName.changeToDown), object: nil)
         
         for subview in view.subviews {
             if subview == todoTableView || subview == todoSeparatorBar {

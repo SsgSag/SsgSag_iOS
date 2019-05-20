@@ -49,4 +49,5 @@ enum PosterCategory: Int {
             return UIColor.rgb(red: 255, green: 160, blue: 160)
         }
     }
+    
 }
