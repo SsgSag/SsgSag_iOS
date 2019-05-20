@@ -82,19 +82,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate, MessagingDelegate ,UNUser
                 if isTokenExist() {
                     window?.rootViewController = TapbarVC()
                 } else {
-                    let loginStoryBoard = UIStoryboard(name: "LoginStoryBoard", bundle: nil)
+                    let loginStoryBoard = UIStoryboard(name: StoryBoardName.login, bundle: nil)
                     let loginVC = loginStoryBoard.instantiateViewController(withIdentifier: "Login")
                     
                     window?.rootViewController = loginVC
                 }
             } else {
-                let loginStoryBoard = UIStoryboard(name: "LoginStoryBoard", bundle: nil)
+                let loginStoryBoard = UIStoryboard(name: StoryBoardName.login, bundle: nil)
                 let loginVC = loginStoryBoard.instantiateViewController(withIdentifier: "Login")
                 
                 window?.rootViewController = loginVC
             }
         } else {
-            let loginStoryBoard = UIStoryboard(name: "LoginStoryBoard", bundle: nil)
+            let loginStoryBoard = UIStoryboard(name: StoryBoardName.login, bundle: nil)
             let loginVC = loginStoryBoard.instantiateViewController(withIdentifier: "Login")
             window?.rootViewController = loginVC
         }
@@ -133,7 +133,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, MessagingDelegate ,UNUser
     }
     
     fileprivate func setupEntryController() {
-        let loginStoryBoard = UIStoryboard(name: "LoginStoryBoard", bundle: nil)
+        let loginStoryBoard = UIStoryboard(name: StoryBoardName.login, bundle: nil)
         
         let navigationController = loginStoryBoard.instantiateViewController(withIdentifier: "LoginNavigator") as! UINavigationController
         let navigationController2 = loginStoryBoard.instantiateViewController(withIdentifier: "LoginNavigator") as! UINavigationController

@@ -18,7 +18,7 @@ class myPageVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
     @IBOutlet weak var profileImageView: UIImageView!
     
     @IBOutlet weak var schoolLabel: UILabel!
-    
+
     @IBOutlet weak var majorLabel: UILabel!
     
     static private let myImage: String = "myImage"

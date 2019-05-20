@@ -77,23 +77,7 @@ class SchoolInfoVC: UIViewController, UITextFieldDelegate {
    
     
     @IBAction func touchUpNextButton(_ sender: Any) {
-        
         postData()
-        
-//        let storyboard = UIStoryboard(name: StoryBoardName.signup, bundle: nil)
-//        guard let SignUpCompleteVC = storyboard.instantiateViewController(withIdentifier: "SignUpCompleteVC") as? SignUpCompleteVC else {return}
-//
-//        SignUpCompleteVC.name = name
-//        SignUpCompleteVC.birth = birth
-//        SignUpCompleteVC.gender = gender
-//        SignUpCompleteVC.nickName = nickName
-//        SignUpCompleteVC.school = schoolField.text ?? ""
-//        SignUpCompleteVC.major = majorField.text ?? ""
-//        SignUpCompleteVC.grade = Int(gradeField.text ?? "") ?? 999
-//        SignUpCompleteVC.number = numberField.text ?? ""
-//
-//        self.navigationController?.pushViewController(SignUpCompleteVC, animated: true)
-        
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {

@@ -256,7 +256,7 @@ class SwipeVC: UIViewController {
     private func setPageVCAndAddToSubViewAfterRemove() {
         if currentLoadedCardsArray.count > 1 {
             
-            let storyboard = UIStoryboard(name: "SwipeStoryBoard", bundle: nil)
+            let storyboard = UIStoryboard(name: StoryBoardName.swipe, bundle: nil)
             
             guard let pageVC = storyboard.instantiateViewController(withIdentifier: "PageViewController") as? PageViewController else {
                 return
@@ -293,7 +293,7 @@ class SwipeVC: UIViewController {
     //처음에만 0, 1로 로드한다.
     private func setPageVCAndAddToSubView() {
         
-        let storyboard = UIStoryboard(name: "SwipeStoryBoard", bundle: nil)
+        let storyboard = UIStoryboard(name: StoryBoardName.swipe, bundle: nil)
         
         for (i, _ ) in currentLoadedCardsArray.enumerated() {
             
@@ -355,7 +355,7 @@ class SwipeVC: UIViewController {
 
 extension SwipeVC: movoToDetailPoster {
     func pressButton() {
-        let storyboard = UIStoryboard(name: "SwipeStoryBoard", bundle: nil)
+        let storyboard = UIStoryboard(name: StoryBoardName.swipe, bundle: nil)
 
         guard let zoomPosterVC = storyboard.instantiateViewController(withIdentifier: "ZoomPosterVC") as? ZoomPosterVC else {return}
         

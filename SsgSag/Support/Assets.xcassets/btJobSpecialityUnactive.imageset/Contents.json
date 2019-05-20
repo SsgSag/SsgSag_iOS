@@ -1,19 +1,19 @@
 {
   "images" : [
     {
-      "idiom" : "universal",
       "scale" : "1x",
-      "filename" : "btJobSpecialityUnactive.png"
+      "filename" : "btJobSpecialityUnactive.png",
+      "idiom" : "universal"
     },
     {
-      "idiom" : "universal",
       "scale" : "2x",
-      "filename" : "btJobSpecialityUnactive@2x.png"
+      "filename" : "btJobSpecialityUnactive@2x.png",
+      "idiom" : "universal"
     },
     {
-      "idiom" : "universal",
       "scale" : "3x",
-      "filename" : "btJobSpecialityUnactive@3x.png"
+      "filename" : "btJobSpecialityUnactive@3x.png",
+      "idiom" : "universal"
     }
   ],
   "info" : {

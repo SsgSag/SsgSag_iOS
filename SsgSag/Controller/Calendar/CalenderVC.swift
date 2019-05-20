@@ -119,7 +119,7 @@ class CalenderVC: UIViewController {
     }
     
     @objc private func moveToApplySuccessVC() {
-        let storyBoard = UIStoryboard(name: "ApplySuccess", bundle: nil)
+        let storyBoard = UIStoryboard(name: StoryBoardName.apply, bundle: nil)
         let navigationVC = storyBoard.instantiateViewController(withIdentifier: "applySucess") as! UINavigationController
         
         self.present(navigationVC, animated: true, completion: nil)
@@ -404,7 +404,7 @@ class CalenderVC: UIViewController {
     }
     
     @objc func addPassiveDate() {
-        let storyboard = UIStoryboard(name: "Calendar", bundle: nil)
+        let storyboard = UIStoryboard(name: StoryBoardName.calendar, bundle: nil)
         let nav = storyboard.instantiateViewController(withIdentifier: "AddPassiveDateNV")
         present(nav, animated: true, completion: nil)
     }

@@ -522,7 +522,7 @@
                                                             </button>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ugJ-ob-EyW" userLabel="MarketingButton">
                                                                 <rect key="frame" x="174" y="0.0" width="162" height="162"/>
-                                                                <state key="normal" image="btJobMarketingUnactive"/>
+                                                                <state key="normal" image="btJobSpecialityUnactive"/>
                                                                 <connections>
                                                                     <action selector="touchUpJobButtons:" destination="cnl-e1-rb8" eventType="touchUpInside" id="ADa-my-5ET"/>
                                                                 </connections>
@@ -541,7 +541,7 @@
                                                             </button>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iYk-vq-O7R" userLabel="DesignButton">
                                                                 <rect key="frame" x="174" y="0.0" width="162" height="162"/>
-                                                                <state key="normal" image="btJobDesignUnactive"/>
+                                                                <state key="normal" image="btJobSalesUnactive"/>
                                                                 <connections>
                                                                     <action selector="touchUpJobButtons:" destination="cnl-e1-rb8" eventType="touchUpInside" id="1G5-C5-zqG"/>
                                                                 </connections>
@@ -553,14 +553,14 @@
                                                         <subviews>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BBz-5u-Ruo" userLabel="TradeButton">
                                                                 <rect key="frame" x="0.0" y="0.0" width="162" height="162"/>
-                                                                <state key="normal" image="btJobTradeUnactive"/>
+                                                                <state key="normal" image="btJobDesignUnactive"/>
                                                                 <connections>
                                                                     <action selector="touchUpJobButtons:" destination="cnl-e1-rb8" eventType="touchUpInside" id="Onv-xU-v8e"/>
                                                                 </connections>
                                                             </button>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="o3d-LC-8z6" userLabel="SalesButton">
                                                                 <rect key="frame" x="174" y="0.0" width="162" height="162"/>
-                                                                <state key="normal" image="btJobSalesUnactive"/>
+                                                                <state key="normal" image="btJobArtUnactive"/>
                                                                 <connections>
                                                                     <action selector="touchUpJobButtons:" destination="cnl-e1-rb8" eventType="touchUpInside" id="JSH-fc-oHl"/>
                                                                 </connections>
@@ -579,7 +579,7 @@
                                                             </button>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7Oy-9f-tfb" userLabel="StudyButton">
                                                                 <rect key="frame" x="174" y="0.0" width="162" height="162"/>
-                                                                <state key="normal" image="btJobStudyUnactive"/>
+                                                                <state key="normal" image="btJobLiteratureUnactive"/>
                                                                 <connections>
                                                                     <action selector="touchUpJobButtons:" destination="cnl-e1-rb8" eventType="touchUpInside" id="y8f-5T-LT1"/>
                                                                 </connections>
@@ -598,7 +598,7 @@
                                                             </button>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Hqw-eK-n57" userLabel="LiteratureButton">
                                                                 <rect key="frame" x="174" y="0.0" width="162" height="162"/>
-                                                                <state key="normal" image="btJobLiteratureUnactive"/>
+                                                                <state key="normal" image="btJobMedicalUnactive"/>
                                                                 <connections>
                                                                     <action selector="touchUpJobButtons:" destination="cnl-e1-rb8" eventType="touchUpInside" id="6Bi-xc-WRa"/>
                                                                 </connections>
@@ -617,7 +617,7 @@
                                                             </button>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="G7a-e2-Mc2" userLabel="MedicalButton">
                                                                 <rect key="frame" x="174" y="0.0" width="162" height="162"/>
-                                                                <state key="normal" image="btJobMedicalUnactive"/>
+                                                                <state key="normal" image="btJobTradeUnactive"/>
                                                                 <connections>
                                                                     <action selector="touchUpJobButtons:" destination="cnl-e1-rb8" eventType="touchUpInside" id="Exc-U5-OeP"/>
                                                                 </connections>
@@ -629,7 +629,7 @@
                                                         <subviews>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="H6r-Ix-ZCO" userLabel="ArtButton">
                                                                 <rect key="frame" x="0.0" y="0.0" width="162" height="162"/>
-                                                                <state key="normal" image="btJobArtUnactive"/>
+                                                                <state key="normal" image="btJobStudyUnactive"/>
                                                                 <connections>
                                                                     <action selector="touchUpJobButtons:" destination="cnl-e1-rb8" eventType="touchUpInside" id="4RJ-Wj-wLF"/>
                                                                 </connections>
@@ -752,7 +752,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="W1S-eq-fDV" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3348" y="2016"/>
+            <point key="canvasLocation" x="2830" y="1941"/>
         </scene>
         <!--Preference-->
         <scene sceneID="1uQ-gR-vGC">
@@ -1152,7 +1152,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="sPZ-ON-3S6" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4372" y="1726"/>
+            <point key="canvasLocation" x="4574" y="1650"/>
         </scene>
         <!--Add ActivityVC-->
         <scene sceneID="AOx-f6-E6w">
@@ -1718,7 +1718,6 @@
         <image name="btJobIndustryUnactive" width="162" height="162"/>
         <image name="btJobLiteratureUnactive" width="162" height="162"/>
         <image name="btJobManagementUnactive" width="162" height="162"/>
-        <image name="btJobMarketingUnactive" width="162" height="162"/>
         <image name="btJobMedicalUnactive" width="162" height="162"/>
         <image name="btJobSalesUnactive" width="162" height="162"/>
         <image name="btJobServiceUnactive" width="162" height="162"/>

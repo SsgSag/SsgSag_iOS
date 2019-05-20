@@ -31,7 +31,7 @@ extension CalenderVC: UITableViewDelegate,UITableViewDataSource {
     //MARK: UITableviewDelegate
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        let storyBoard = UIStoryboard(name: "Calendar", bundle: nil)
+        let storyBoard = UIStoryboard(name: StoryBoardName.calendar, bundle: nil)
         let CalendarDetailVC = storyBoard.instantiateViewController(withIdentifier: "DetailPoster") as! CalendarDetailVC
     
         let posterInfo = StoreAndFetchPoster.getPoster

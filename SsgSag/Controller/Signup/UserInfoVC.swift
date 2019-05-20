@@ -92,7 +92,7 @@ class UserInfoVC: UIViewController, UITextFieldDelegate {
                         
                         if isDuplicated {
                             
-                            let storyboard = UIStoryboard(name: "SignupStoryBoard", bundle: nil)
+                            let storyboard = UIStoryboard(name: StoryBoardName.signup, bundle: nil)
                             
                             let SchoolInfoVC = storyboard.instantiateViewController(withIdentifier: "SignupFirst") as! ConfirmProfileVC
                             

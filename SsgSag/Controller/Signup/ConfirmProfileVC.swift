@@ -77,7 +77,7 @@ class ConfirmProfileVC: UIViewController, UITextFieldDelegate, UIGestureRecogniz
     
     //FIXME: - present..하지 마시오,,,,,
     @objc func back(){
-        let storyboard = UIStoryboard(name: "LoginStoryBoard", bundle: nil)
+        let storyboard = UIStoryboard(name: StoryBoardName.login, bundle: nil)
         let loginVC = storyboard.instantiateViewController(withIdentifier: "Login")
         present(loginVC, animated: false, completion: nil)
     }
@@ -103,7 +103,7 @@ class ConfirmProfileVC: UIViewController, UITextFieldDelegate, UIGestureRecogniz
     
     @IBAction func touchUpNextButton(_ sender: Any) {
         if birthField.text?.count == 6 {
-            let storyboard = UIStoryboard(name: "SignupStoryBoard", bundle: nil)
+            let storyboard = UIStoryboard(name: StoryBoardName.signup, bundle: nil)
             let SchoolInfoVC = storyboard.instantiateViewController(withIdentifier: "SchoolInfoVC") as! SchoolInfoVC
             
             SchoolInfoVC.name = nameField.text ?? ""

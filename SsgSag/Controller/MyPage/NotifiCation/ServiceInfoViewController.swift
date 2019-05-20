@@ -72,7 +72,7 @@ extension ServiceInfoViewController: UITableViewDelegate, UITableViewDataSource 
         
         guard let notiCase = NotificationInfo(rawValue: indexPath.row) else {return}
         
-        let storyboard = UIStoryboard(name: "MyPageStoryBoard", bundle: nil)
+        let storyboard = UIStoryboard(name: StoryBoardName.mypage, bundle: nil)
         
         switch notiCase {
         case .notification:

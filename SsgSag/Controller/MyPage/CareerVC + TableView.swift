@@ -152,18 +152,4 @@ extension CareerVC: activityDelegate {
     }
 }
 
-/*
-extension UIStoryboard {
-    static var main: UIStoryboard {
-        return UIStoryboard(name: "Main", bundle: Bundle.main)
-    }
-    
-    static var ItemView: UIStoryboard {
-        return UIStoryboard(name: "ItemView", bundle: Bundle.main)
-    }
-    
-    static var chatView: UIStoryboard {
-        return UIStoryboard(name: "Chatting", bundle: Bundle.main)
-    }
-}
-*/
+
