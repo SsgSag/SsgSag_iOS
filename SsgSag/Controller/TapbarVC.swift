@@ -10,36 +10,27 @@ import UIKit
 
 class TapbarVC: UITabBarController {
     
-    var tapbarServiceImp: TapbarService?
+    private var tapbarServiceImp: TapbarService? = TapbarServiceImp()
+    
+    struct CreateViewController {
+        
+        static let swipeStoryBoard = UIStoryboard(name: StoryBoardName.swipe, bundle: nil)
+        
+        static let mypageStoryBoard = UIStoryboard(name: StoryBoardName.mypage, bundle: nil)
+        
+        static let swipeViewController = swipeStoryBoard.instantiateViewController(withIdentifier: ViewControllerIdentifier.swipe)
+        
+        static let mypageViewController = mypageStoryBoard.instantiateViewController(withIdentifier: ViewControllerIdentifier.mypageViewController)
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let swipeStoryBoard = UIStoryboard(name: StoryBoardName.swipe, bundle: nil)
-        let mypageStoryBoard = UIStoryboard(name: StoryBoardName.mypage, bundle: nil)
-        
-        tapbarServiceImp = TapbarServiceImp()
-        
         isServerAvaliable()
         
-        let firstViewController = swipeStoryBoard.instantiateViewController(withIdentifier: ViewControllerIdentifier.swipe)
-        firstViewController.tabBarItem = UITabBarItem(title: "", image: UIImage(named: "icMain"), selectedImage: UIImage(named: "icMainActive"))
+        setTabBarViewControllers()
         
-        let secondViewController = mypageStoryBoard.instantiateViewController(withIdentifier: ViewControllerIdentifier.mypageViewController)
-        secondViewController.tabBarItem = UITabBarItem(title: "", image: UIImage(named: "icUser"), selectedImage: UIImage(named: "icUserActive"))
-        
-        let thirdViewController = CalenderVC()
-        thirdViewController.tabBarItem = UITabBarItem(title: "", image: UIImage(named: "icCal"), selectedImage: UIImage(named: "icCalActive"))
-        
-        let tabBarList = [secondViewController, firstViewController, thirdViewController]
-        
-        self.viewControllers = tabBarList
-        
-        self.tabBar.barTintColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
-        self.tabBar.layer.borderColor = UIColor.clear.cgColor
-        self.tabBar.barStyle = .black
-        
-        self.selectedIndex = 1
+        setTabBarStyle()
         
         getPostersAndStore()
     }
@@ -52,6 +43,35 @@ class TapbarVC: UITabBarController {
                 self.simplerAlert(title: "서버 업데이트 중입니다.")
             }
         }
+    }
+    
+    private func setTabBarViewControllers() {
+        let swipeViewController = CreateViewController.swipeViewController
+        swipeViewController.tabBarItem = UITabBarItem(title: "",
+                                                      image: UIImage(named: "icMain"),
+                                                      selectedImage: UIImage(named: "icMainActive"))
+        
+        let mypageViewController = CreateViewController.mypageViewController
+        mypageViewController.tabBarItem = UITabBarItem(title: "",
+                                                       image: UIImage(named: "icUser"),
+                                                       selectedImage: UIImage(named: "icUserActive"))
+        
+        let calendarViewController = CalenderVC()
+        calendarViewController.tabBarItem = UITabBarItem(title: "",
+                                                         image: UIImage(named: "icCal"),
+                                                         selectedImage: UIImage(named: "icCalActive"))
+        
+        let tabBarList = [mypageViewController, swipeViewController, calendarViewController]
+        
+        self.viewControllers = tabBarList
+    }
+    
+    private func setTabBarStyle() {
+        self.tabBar.barTintColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
+        self.tabBar.layer.borderColor = UIColor.clear.cgColor
+        self.tabBar.barStyle = .black
+        
+        self.selectedIndex = 1
     }
     
     /// start only at first time

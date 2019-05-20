@@ -49,6 +49,8 @@ class LoginServiceImp: LoginService {
     
     func requestLogin(send data: [String : Any], completionHandler: @escaping (DataResponse<LoginStruct>) -> Void) {
         
+        
+        
         let jsonData = try? JSONSerialization.data(withJSONObject: data)
         
         guard let url = UserAPI.sharedInstance.getURL(RequestURL.login.getRequestURL()) else {return}
@@ -70,8 +72,5 @@ class LoginServiceImp: LoginService {
             }
         }
     }
-    
-    
-    
     
 }
