@@ -28,7 +28,6 @@ enum RequestURL {
     case signUp
     case isUpdate
     
-    
     func getRequestURL() -> String {
         switch self {
         case .posterLiked(posterIdx: let posterIdx, likeType: let like):

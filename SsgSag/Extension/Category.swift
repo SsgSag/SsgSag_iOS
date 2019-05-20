@@ -36,17 +36,17 @@ enum PosterCategory: Int {
     func categoryColors() -> UIColor {
         switch self {
         case .contest:
-            return UIColor.rgb(red: 97, green: 118, blue: 221)
+            return #colorLiteral(red: 0.2039215686, green: 0.4274509804, blue: 0.9529411765, alpha: 1)
         case .activity:
-            return UIColor.rgb(red: 184, green: 122, blue: 242)
+            return #colorLiteral(red: 0.9960784314, green: 0.4274509804, blue: 0.4274509804, alpha: 1)
         case .club:
-            return UIColor.rgb(red: 254, green: 109, blue: 109)
+            return #colorLiteral(red: 0.968627451, green: 0.7137254902, blue: 0.1921568627, alpha: 1)
         case .school:
-            return UIColor.rgb(red: 7, green: 166, blue: 255)
+            return #colorLiteral(red: 0.3803921569, green: 0.3803921569, blue: 0.3803921569, alpha: 1)
         case .career:
-            return UIColor.rgb(red: 208, green: 175, blue: 240)
+            return #colorLiteral(red: 0.3725490196, green: 0.1490196078, blue: 0.8039215686, alpha: 1)
         case .others:
-            return UIColor.rgb(red: 255, green: 160, blue: 160)
+            return #colorLiteral(red: 0.768627451, green: 0.768627451, blue: 0.768627451, alpha: 1)
         }
     }
     
