@@ -290,7 +290,7 @@
                                 </connections>
                             </button>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="40" translatesAutoresizingMaskIntoConstraints="NO" id="hay-RC-Z1l" userLabel="학교정보">
-                                <rect key="frame" x="20" y="242" width="335" height="255.66666666666663"/>
+                                <rect key="frame" x="20" y="201" width="335" height="255.66666666666663"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="NzX-SK-z9D">
                                         <rect key="frame" x="0.0" y="0.0" width="335" height="42.666666666666664"/>
@@ -302,7 +302,7 @@
                                                 <textInputTraits key="textInputTraits" returnKeyType="next"/>
                                             </textField>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TDr-ON-YS0">
-                                                <rect key="frame" x="0.0" y="41.666666666666686" width="335" height="1"/>
+                                                <rect key="frame" x="0.0" y="41.666666666666657" width="335" height="1"/>
                                                 <color key="backgroundColor" red="0.87843137250000003" green="0.87843137250000003" blue="0.87843137250000003" alpha="1" colorSpace="calibratedRGB"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="1" id="m9n-vo-tbw"/>
@@ -381,7 +381,7 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="hay-RC-Z1l" firstAttribute="centerY" secondItem="r1C-NK-h1t" secondAttribute="centerY" multiplier="0.9" id="04N-vb-H7K"/>
+                            <constraint firstItem="hay-RC-Z1l" firstAttribute="centerY" secondItem="r1C-NK-h1t" secondAttribute="centerY" multiplier="0.8" id="04N-vb-H7K"/>
                             <constraint firstItem="KIh-pl-kUk" firstAttribute="top" secondItem="wHb-AN-zLn" secondAttribute="bottom" constant="40" id="45s-Je-si6"/>
                             <constraint firstItem="hay-RC-Z1l" firstAttribute="leading" secondItem="r1C-NK-h1t" secondAttribute="leading" constant="20" id="80F-VQ-GCN"/>
                             <constraint firstItem="r1C-NK-h1t" firstAttribute="trailing" secondItem="hay-RC-Z1l" secondAttribute="trailing" constant="20" id="9bN-8X-XZS"/>
@@ -698,7 +698,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="aRd-Dq-t4x" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="eiE-vd-Brb" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="5592.8000000000002" y="198.80059970014995"/>
+            <point key="canvasLocation" x="3615" y="194"/>
         </scene>
         <!--Sign Up CompleteVC-->
         <scene sceneID="DBu-AB-l0U">
@@ -950,7 +950,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="uuq-rE-kDR" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="jUn-fX-9PF" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="3172" y="281.5270935960591"/>
+            <point key="canvasLocation" x="2863" y="180"/>
         </scene>
         <!--User InfoVC-->
         <scene sceneID="Mxc-4g-kB8">
@@ -1000,7 +1000,7 @@
                                         </subviews>
                                     </stackView>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="qy0-ob-Cvw">
-                                        <rect key="frame" x="0.0" y="73" width="335" height="29.666666666666671"/>
+                                        <rect key="frame" x="0.0" y="74" width="335" height="29.666666666666671"/>
                                         <subviews>
                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="비밀번호" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="KSi-uq-uCH" userLabel="비밀번호">
                                                 <rect key="frame" x="0.0" y="0.0" width="335" height="20.666666666666668"/>

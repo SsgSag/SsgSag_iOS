@@ -82,20 +82,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate, MessagingDelegate ,UNUser
                 if isTokenExist() {
                     window?.rootViewController = TapbarVC()
                 } else {
-                    let loginStoryBoard = UIStoryboard(name: "LoginStoryBoard", bundle: nil)
-                    let loginVC = loginStoryBoard.instantiateViewController(withIdentifier: "Login")
+                    let loginStoryBoard = UIStoryboard(name: StoryBoardName.login, bundle: nil)
+                    let loginVC = loginStoryBoard.instantiateViewController(withIdentifier: ViewControllerIdentifier.loginViewController)
                     
                     window?.rootViewController = loginVC
                 }
             } else {
-                let loginStoryBoard = UIStoryboard(name: "LoginStoryBoard", bundle: nil)
-                let loginVC = loginStoryBoard.instantiateViewController(withIdentifier: "Login")
+                let loginStoryBoard = UIStoryboard(name: StoryBoardName.login, bundle: nil)
+                let loginVC = loginStoryBoard.instantiateViewController(withIdentifier: ViewControllerIdentifier.loginViewController)
                 
                 window?.rootViewController = loginVC
             }
         } else {
-            let loginStoryBoard = UIStoryboard(name: "LoginStoryBoard", bundle: nil)
-            let loginVC = loginStoryBoard.instantiateViewController(withIdentifier: "Login")
+            let loginStoryBoard = UIStoryboard(name: StoryBoardName.login, bundle: nil)
+            let loginVC = loginStoryBoard.instantiateViewController(withIdentifier: ViewControllerIdentifier.loginViewController)
             window?.rootViewController = loginVC
         }
     }
@@ -119,9 +119,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, MessagingDelegate ,UNUser
         instance?.consumerSecret = kConsumerSecret
         instance?.appName = kServiceAppName
         
-        
-        
-        
     }
     
     fileprivate func hasToken() -> Bool {
@@ -133,12 +130,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate, MessagingDelegate ,UNUser
     }
     
     fileprivate func setupEntryController() {
-        let loginStoryBoard = UIStoryboard(name: "LoginStoryBoard", bundle: nil)
+        let loginStoryBoard = UIStoryboard(name: StoryBoardName.login, bundle: nil)
         
-        let navigationController = loginStoryBoard.instantiateViewController(withIdentifier: "LoginNavigator") as! UINavigationController
-        let navigationController2 = loginStoryBoard.instantiateViewController(withIdentifier: "LoginNavigator") as! UINavigationController
+        let navigationController = loginStoryBoard.instantiateViewController(withIdentifier: ViewControllerIdentifier.loginNavigtaionController) as! UINavigationController
+        let navigationController2 = loginStoryBoard.instantiateViewController(withIdentifier: ViewControllerIdentifier.loginNavigtaionController) as! UINavigationController
         let mainVC = TapbarVC() as UIViewController
-        let loginVC = loginStoryBoard.instantiateViewController(withIdentifier: "Login") as UIViewController
+        let loginVC = loginStoryBoard.instantiateViewController(withIdentifier: ViewControllerIdentifier.loginViewController) as UIViewController
     
         navigationController2.pushViewController(mainVC, animated: true)
         self.mainViewController = navigationController2

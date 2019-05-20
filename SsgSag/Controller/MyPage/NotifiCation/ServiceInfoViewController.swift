@@ -72,12 +72,12 @@ extension ServiceInfoViewController: UITableViewDelegate, UITableViewDataSource 
         
         guard let notiCase = NotificationInfo(rawValue: indexPath.row) else {return}
         
-        let storyboard = UIStoryboard(name: "MyPageStoryBoard", bundle: nil)
+        let storyboard = UIStoryboard(name: StoryBoardName.mypage, bundle: nil)
         
         switch notiCase {
         case .notification:
             
-            guard let appInfoVC = storyboard.instantiateViewController(withIdentifier: "AppInfoViewController") as? AppInfoViewController else {return}
+            guard let appInfoVC = storyboard.instantiateViewController(withIdentifier: ViewControllerIdentifier.appInfoViewController) as? AppInfoViewController else {return}
             
             self.navigationController?.pushViewController(appInfoVC, animated: true)
             

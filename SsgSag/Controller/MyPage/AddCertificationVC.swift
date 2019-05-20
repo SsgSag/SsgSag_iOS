@@ -29,6 +29,7 @@ class AddCertificationVC: UIViewController, UITextFieldDelegate, UITextViewDeleg
         let month = components.month!
         let day = components.day!
         let currentDateString: String = "\(year)년 \(month)월 \(day)일"
+        
         yearTextField.placeholder = currentDateString
         contentTextView.applyBorderTextView()
         
@@ -144,8 +145,8 @@ class AddCertificationVC: UIViewController, UITextFieldDelegate, UITextViewDeleg
     
     func popUpDatePicker(button: UIButton, activityCategory: ActivityCategory) {
         
-        let myPageStoryBoard = UIStoryboard(name: "MyPageStoryBoard", bundle: nil)
-        let popVC = myPageStoryBoard.instantiateViewController(withIdentifier: "DatePickerPoPUp") as! DatePickerPopUpVC
+        let myPageStoryBoard = UIStoryboard(name: StoryBoardName.mypage, bundle: nil)
+        let popVC = myPageStoryBoard.instantiateViewController(withIdentifier: ViewControllerIdentifier.datePickerPopUpViewController) as! DatePickerPopUpVC
         
         popVC.activityCategory = activityCategory
         

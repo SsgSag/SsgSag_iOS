@@ -25,11 +25,14 @@ enum RequestURL {
     case deleteAcitivity(careerIdx: Int)
     case subscribeInterest
     case subscribeAddOrDelete(interestIdx: Int)
+    case signUp
+    case isUpdate
+    
     
     func getRequestURL() -> String {
         switch self {
         case .posterLiked(posterIdx: let posterIdx, likeType: let like):
-            return "/poster/like?posterIdx=\(posterIdx)&like=\(like)"
+            return "UserAPI/poster/like?posterIdx=\(posterIdx)&like=\(like)"
         case .initPoster:
             return "/poster/show"
         case .login:
@@ -60,6 +63,10 @@ enum RequestURL {
             return "/user/subscribe"
         case .subscribeAddOrDelete(let interestIdx):
             return "/user/subscribe/\(interestIdx)"
+        case .signUp:
+            return "/user"
+        case .isUpdate:
+            return "/update"
         }
     }
     

@@ -8,12 +8,6 @@
 
 import UIKit
 
-struct StoryBoardName {
-    static let swipe = "SwipeStoryBoard"
-    static let mypage = "MyPageStoryBoard"
-    static let signup = "SignupStoryBoard"
-}
-
 class TapbarVC: UITabBarController {
     
     var tapbarServiceImp: TapbarService?
@@ -26,10 +20,12 @@ class TapbarVC: UITabBarController {
         
         tapbarServiceImp = TapbarServiceImp()
         
-        let firstViewController = swipeStoryBoard.instantiateViewController(withIdentifier: "Swipe")
+        isServerAvaliable()
+        
+        let firstViewController = swipeStoryBoard.instantiateViewController(withIdentifier: ViewControllerIdentifier.swipe)
         firstViewController.tabBarItem = UITabBarItem(title: "", image: UIImage(named: "icMain"), selectedImage: UIImage(named: "icMainActive"))
         
-        let secondViewController = mypageStoryBoard.instantiateViewController(withIdentifier: "MyPageVC")
+        let secondViewController = mypageStoryBoard.instantiateViewController(withIdentifier: ViewControllerIdentifier.mypageViewController)
         secondViewController.tabBarItem = UITabBarItem(title: "", image: UIImage(named: "icUser"), selectedImage: UIImage(named: "icUserActive"))
         
         let thirdViewController = CalenderVC()
@@ -46,6 +42,16 @@ class TapbarVC: UITabBarController {
         self.selectedIndex = 1
         
         getPostersAndStore()
+    }
+    
+    private func isServerAvaliable() {
+        tapbarServiceImp?.requestIsInUpdateServer{ (dataResponse) in
+            guard let data = dataResponse.value?.data else {return}
+            
+            if data == 1 {
+                self.simplerAlert(title: "서버 업데이트 중입니다.")
+            }
+        }
     }
     
     /// start only at first time
@@ -71,6 +77,7 @@ class TapbarVC: UITabBarController {
         
             StoreAndFetchPoster.storePoster(posters: todoList)
         }
+        
     }
     
     override func viewWillLayoutSubviews() {

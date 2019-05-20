@@ -102,8 +102,8 @@ class AddVC: UIViewController, UITextFieldDelegate, UITextViewDelegate {
     
     func popUpDatePicker(button: UIButton, activityCategory: ActivityCategory) {
         
-        let myPageStoryBoard = UIStoryboard(name: "MyPageStoryBoard", bundle: nil)
-        let popVC = myPageStoryBoard.instantiateViewController(withIdentifier: "DatePickerPoPUp") as! DatePickerPopUpVC
+        let myPageStoryBoard = UIStoryboard(name: StoryBoardName.mypage, bundle: nil)
+        let popVC = myPageStoryBoard.instantiateViewController(withIdentifier: ViewControllerIdentifier.datePickerPopUpViewController) as! DatePickerPopUpVC
         
         popVC.activityCategory = activityCategory
         

@@ -169,8 +169,8 @@ class AddActivityVC: UIViewController, UITextViewDelegate, UITextFieldDelegate {
     }
     
     func popUpDatePicker(button: UIButton) {
-        let myPageStoryBoard = UIStoryboard(name: "MyPageStoryBoard", bundle: nil)
-        let datePickerPopUpVC = myPageStoryBoard.instantiateViewController(withIdentifier: "DatePickerPoPUp") as! DatePickerPopUpVC
+        let myPageStoryBoard = UIStoryboard(name: StoryBoardName.mypage, bundle: nil)
+        let datePickerPopUpVC = myPageStoryBoard.instantiateViewController(withIdentifier: ViewControllerIdentifier.datePickerPopUpViewController) as! DatePickerPopUpVC
         
         if button.tag == 0 {
             datePickerPopUpVC.defaultDate = startDateLabel.text!

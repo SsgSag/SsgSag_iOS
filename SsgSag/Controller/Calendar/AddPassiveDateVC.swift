@@ -139,8 +139,8 @@ class AddPassiveDateVC: UIViewController, UITextFieldDelegate, UITextViewDelegat
     }
     
     func popUpDatePicker(button: UIButton) {
-        let myPageStoryBoard = UIStoryboard(name: "Calendar", bundle: nil)
-        let popVC = myPageStoryBoard.instantiateViewController(withIdentifier: "DatePickerPoPUp")
+        let myPageStoryBoard = UIStoryboard(name: StoryBoardName.calendar, bundle: nil)
+        let popVC = myPageStoryBoard.instantiateViewController(withIdentifier: ViewControllerIdentifier.datePickerPopUpViewController)
         self.addChild(popVC)
         popVC.view.frame = self.view.frame
         self.view.addSubview(popVC.view)
