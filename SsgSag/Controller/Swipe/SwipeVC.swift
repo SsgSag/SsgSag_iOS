@@ -178,6 +178,8 @@ class SwipeVC: UIViewController {
                     return
                 }
                 
+                print(photoURL)
+                
                 let newCard = createSwipeCard(at: index, value: photoURL)
                 currentLoadedCardsArray.append(newCard)
                 lastCardIndex = index

@@ -32,7 +32,7 @@ enum RequestURL {
     func getRequestURL() -> String {
         switch self {
         case .posterLiked(posterIdx: let posterIdx, likeType: let like):
-            return "UserAPI/poster/like?posterIdx=\(posterIdx)&like=\(like)"
+            return "/poster/like?posterIdx=\(posterIdx)&like=\(like)"
         case .initPoster:
             return "/poster/show"
         case .login:

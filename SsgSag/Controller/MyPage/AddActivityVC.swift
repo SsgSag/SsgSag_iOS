@@ -41,8 +41,7 @@ class AddActivityVC: UIViewController, UITextViewDelegate, UITextFieldDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        myPageServiceImp = MyPageServiceImp()
-        
+        setService()
         
         titleTextField.delegate = self
         contentTextView.delegate = self
@@ -62,6 +61,10 @@ class AddActivityVC: UIViewController, UITextViewDelegate, UITextFieldDelegate {
         if let content = contentTextString {
             contentTextView.text = content
         }
+    }
+    
+    func setService(_ myPageServiceImp: myPageService = MyPageServiceImp()) {
+        self.myPageServiceImp = myPageServiceImp
     }
     
     private func setStartEndDate() {

@@ -10,7 +10,7 @@ import UIKit
 
 class TapbarVC: UITabBarController {
     
-    private var tapbarServiceImp: TapbarService? = TapbarServiceImp()
+    private var tapbarServiceImp: TapbarService?
     
     struct CreateViewController {
         
@@ -26,6 +26,8 @@ class TapbarVC: UITabBarController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        setService()
+        
         isServerAvaliable()
         
         setTabBarViewControllers()
@@ -33,6 +35,10 @@ class TapbarVC: UITabBarController {
         setTabBarStyle()
         
         getPostersAndStore()
+    }
+    
+    func setService(_ tapbarServiceImp: TapbarService = TapbarServiceImp()) {
+        self.tapbarServiceImp = tapbarServiceImp
     }
     
     private func isServerAvaliable() {
