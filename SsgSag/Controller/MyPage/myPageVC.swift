@@ -55,15 +55,13 @@ class myPageVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
         
         switch photoAuthorizationStatus {
         case .authorized:
-            print("사진첩 접근 허가")
             self.present(self.imagePicker, animated: true, completion: nil)
-            
-        case .denied:
+        case .denied, .restricted:
+            rePermission()
             print("사진첩 접근 불허 ")
-            
         case .notDetermined:
             print("접근 아직 응답하지 않음")
-            PHPhotoLibrary.requestAuthorization( { (status) in
+            PHPhotoLibrary.requestAuthorization { status in
                 switch status {
                 case .authorized:
                     print("사용자가 허용")
@@ -71,15 +69,35 @@ class myPageVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
                 case .denied:
                     print("사용자가 불허")
                 default:
-                    print("asdkljaskld")
+                    break
                 }
-            })
-        case .restricted:
-            print("접근 제한")
-        default:
-            print("dsad")
+            }
+        }
+    }
+    
+    private func rePermission() {
+        let alertController = UIAlertController (title: "카메라 권한 설정", message: "세팅 하시겠습니까?", preferredStyle: .alert)
+        
+        let settingsAction = UIAlertAction(title: "세팅", style: .default) { (_) -> Void in
+            
+            guard let settingsUrl = URL(string: UIApplication.openSettingsURLString) else {
+                return
+            }
+            
+            if UIApplication.shared.canOpenURL(settingsUrl) {
+                UIApplication.shared.open(settingsUrl){ success in
+                    print("Settings opened: \(success)") // Prints true
+                }
+            }
+            
         }
         
+        alertController.addAction(settingsAction)
+        
+        let cancelAction = UIAlertAction(title: "취소", style: .default, handler: nil)
+        alertController.addAction(cancelAction)
+        
+        present(alertController, animated: true, completion: nil)
     }
     
     // MARK: - Save Image API
@@ -99,9 +117,7 @@ class myPageVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
             } catch let removeError {
                 print("couldn't remove file at path", removeError)
             }
-            
         }
-        
         do {
             try data.write(to: fileURL)
         } catch let error {

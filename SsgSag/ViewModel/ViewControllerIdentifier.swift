@@ -28,4 +28,5 @@ enum ViewControllerIdentifier {
     static let pageViewContrller = "PageViewController"
     static let zoomPosterViewController = "ZoomPosterVC"
     static let loginNavigtaionController = "LoginNavigator"
+    static let termsOfServiceViewController = "TermsOfServiceViewController"
 }

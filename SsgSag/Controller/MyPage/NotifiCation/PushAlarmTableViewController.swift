@@ -12,21 +12,21 @@ import UserNotifications
 import Firebase
 
 class PushAlarmTableViewController: UITableViewController, MessagingDelegate, UNUserNotificationCenterDelegate {
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         tableView.allowsSelection = false
         tableView.separatorStyle = .none
     }
-
+    
     // MARK: - Table view data source
-
+    
     override func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
         return 1
     }
-
+    
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
         return 2
@@ -38,30 +38,29 @@ class PushAlarmTableViewController: UITableViewController, MessagingDelegate, UN
     
     @IBAction func arriveCard(_ sender: Any) {
         
-            let alertController = UIAlertController (title: "푸시 알림 설정", message: "세팅 하시겠습니까?", preferredStyle: .alert)
+        let alertController = UIAlertController (title: "푸시 알림 설정", message: "세팅 하시겠습니까?", preferredStyle: .alert)
+        
+        let settingsAction = UIAlertAction(title: "세팅", style: .default) { [weak self] (_) -> Void in
             
-            let settingsAction = UIAlertAction(title: "세팅", style: .default) { [weak self] (_) -> Void in
-                
-                guard let settingsUrl = URL(string: UIApplication.openSettingsURLString) else {
-                    return
-                }
-                
-                self?.setFirebaseRemoteInstanceIDtoken()
-                
-                if UIApplication.shared.canOpenURL(settingsUrl) {
-                    UIApplication.shared.open(settingsUrl){ success in
-                        print("Settings opened: \(success)") // Prints true
-                    }
-                }
-                
+            guard let settingsUrl = URL(string: UIApplication.openSettingsURLString) else {
+                return
             }
-        
-            alertController.addAction(settingsAction)
-        
-            let cancelAction = UIAlertAction(title: "취소", style: .default, handler: nil)
-            alertController.addAction(cancelAction)
             
-            present(alertController, animated: true, completion: nil)
+            self?.setFirebaseRemoteInstanceIDtoken()
+            
+            if UIApplication.shared.canOpenURL(settingsUrl) {
+                UIApplication.shared.open(settingsUrl){ success in
+                    print("Settings opened: \(success)") // Prints true
+                }
+            }
+        }
+        
+        alertController.addAction(settingsAction)
+        
+        let cancelAction = UIAlertAction(title: "취소", style: .default, handler: nil)
+        alertController.addAction(cancelAction)
+        
+        present(alertController, animated: true, completion: nil)
     }
     
     private func setFirebaseRemoteInstanceIDtoken() {

@@ -80,20 +80,21 @@ extension ServiceInfoViewController: UITableViewDelegate, UITableViewDataSource 
             guard let appInfoVC = storyboard.instantiateViewController(withIdentifier: ViewControllerIdentifier.appInfoViewController) as? AppInfoViewController else {return}
             
             self.navigationController?.pushViewController(appInfoVC, animated: true)
+        case .termsOfService:
             
-        case .pushAlarm:
-            break
-        case .serviceInfo:
+            guard let termsOfServiceViewController = storyboard.instantiateViewController(withIdentifier: ViewControllerIdentifier.termsOfServiceViewController) as? TermsOfServiceViewController else {return}
+            
+            self.navigationController?.pushViewController(termsOfServiceViewController, animated: true)
+        case .privateProtect, .openSourceLicense:
             break
         }
-        
-        
     }
     
 }
 
 enum NotificationInfo: Int {
     case notification = 0
-    case pushAlarm = 1
-    case serviceInfo = 2
+    case termsOfService = 1
+    case privateProtect = 2
+    case openSourceLicense = 3
 }

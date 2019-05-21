@@ -291,7 +291,7 @@
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
-                        <segue destination="4VN-7F-FPN" kind="relationship" relationship="rootViewController" id="ddZ-mA-oLL"/>
+                        <segue destination="Jfz-ZF-KRo" kind="relationship" relationship="rootViewController" id="ppG-6F-8ks"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zg1-W9-O5p" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -299,26 +299,180 @@
             <point key="canvasLocation" x="5557" y="298"/>
         </scene>
         <!--공지사항-->
-        <scene sceneID="Yll-wc-HiO">
+        <scene sceneID="X0p-wR-q3D">
             <objects>
-                <viewController id="4VN-7F-FPN" customClass="NotificationViewController" customModule="슥삭" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="C6d-Hw-JoK">
+                <tableViewController id="Jfz-ZF-KRo" customClass="NotificationInfoTableViewController" customModule="슥삭" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="kbt-TH-KSq">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="372.33333333333331"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <viewLayoutGuide key="safeArea" id="5vA-bk-mCc"/>
-                    </view>
-                    <navigationItem key="navigationItem" title="공지사항" id="xY5-C5-Myn">
-                        <barButtonItem key="leftBarButtonItem" image="icArrowBack" id="3GL-J3-skn">
+                        <sections>
+                            <tableViewSection id="6xb-c7-Qha">
+                                <cells>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" rowHeight="97" id="fvT-pB-mDH">
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="97"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="fvT-pB-mDH" id="NaN-bH-buF">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="96.666666666666671"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="슥삭 베타버전 출시!" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wAV-ne-AJ3">
+                                                    <rect key="frame" x="24" y="37" width="132" height="23"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="23" id="7W1-cG-Fc6"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="alertNewPost" translatesAutoresizingMaskIntoConstraints="NO" id="IWv-Zl-vEk">
+                                                    <rect key="frame" x="157" y="37" width="23" height="23"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="23" id="HKd-YU-og5"/>
+                                                        <constraint firstAttribute="height" constant="23" id="Vwp-oS-vA2"/>
+                                                    </constraints>
+                                                </imageView>
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icHeaderArrowNextMypage" translatesAutoresizingMaskIntoConstraints="NO" id="0sq-x0-Zmw">
+                                                    <rect key="frame" x="331" y="36.333333333333336" width="24" height="24"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="24" id="fRD-sm-DSA"/>
+                                                        <constraint firstAttribute="height" constant="24" id="rH4-wN-AfS"/>
+                                                    </constraints>
+                                                </imageView>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="IWv-Zl-vEk" firstAttribute="centerY" secondItem="wAV-ne-AJ3" secondAttribute="centerY" id="5em-Tb-FY3"/>
+                                                <constraint firstItem="wAV-ne-AJ3" firstAttribute="centerY" secondItem="NaN-bH-buF" secondAttribute="centerY" id="GID-Mu-PML"/>
+                                                <constraint firstItem="IWv-Zl-vEk" firstAttribute="leading" secondItem="wAV-ne-AJ3" secondAttribute="trailing" constant="1" id="RlF-Ya-Fmx"/>
+                                                <constraint firstItem="wAV-ne-AJ3" firstAttribute="leading" secondItem="NaN-bH-buF" secondAttribute="leading" constant="24" id="e63-3R-25G"/>
+                                                <constraint firstItem="0sq-x0-Zmw" firstAttribute="centerY" secondItem="NaN-bH-buF" secondAttribute="centerY" id="mLf-rO-rIv"/>
+                                                <constraint firstAttribute="trailing" secondItem="0sq-x0-Zmw" secondAttribute="trailing" constant="20" id="vMF-D6-MvD"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" rowHeight="97" id="7Ev-93-O5H">
+                                        <rect key="frame" x="0.0" y="97" width="375" height="97"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="7Ev-93-O5H" id="jsC-ee-bSb">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="96.666666666666671"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="akF-Tn-MK1">
+                                                    <rect key="frame" x="407" y="61" width="42" height="44"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                </imageView>
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icHeaderArrowNextMypage" translatesAutoresizingMaskIntoConstraints="NO" id="Vex-3y-gsk">
+                                                    <rect key="frame" x="331" y="36.333333333333336" width="24" height="24"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="24" id="EfY-t0-X67"/>
+                                                        <constraint firstAttribute="width" constant="24" id="Hvi-z9-7WW"/>
+                                                    </constraints>
+                                                </imageView>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="공지사항" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Luf-pD-SAl">
+                                                    <rect key="frame" x="24" y="37" width="59" height="23"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="23" id="yxX-Pu-4Mb"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="Vex-3y-gsk" firstAttribute="centerY" secondItem="jsC-ee-bSb" secondAttribute="centerY" id="Mvh-ZT-rez"/>
+                                                <constraint firstItem="Luf-pD-SAl" firstAttribute="leading" secondItem="jsC-ee-bSb" secondAttribute="leading" constant="24" id="dnZ-Hg-Tpi"/>
+                                                <constraint firstItem="Luf-pD-SAl" firstAttribute="centerY" secondItem="jsC-ee-bSb" secondAttribute="centerY" id="mVX-bL-MSD"/>
+                                                <constraint firstAttribute="trailing" secondItem="Vex-3y-gsk" secondAttribute="trailing" constant="20" id="mkg-9S-gug"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </cells>
+                            </tableViewSection>
+                        </sections>
+                        <connections>
+                            <outlet property="dataSource" destination="Jfz-ZF-KRo" id="CXS-Rg-xnL"/>
+                            <outlet property="delegate" destination="Jfz-ZF-KRo" id="WhE-fI-sk0"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="공지사항" id="JEF-dS-0Kt">
+                        <barButtonItem key="leftBarButtonItem" title="Item" image="icArrowBack" id="fr5-Gn-tfk">
                             <connections>
-                                <action selector="dissMiss:" destination="4VN-7F-FPN" id="ei2-1h-QG1"/>
+                                <action selector="dissmissNotification:" destination="Jfz-ZF-KRo" id="n9T-Mu-w4o"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="bk6-3G-wzn" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="DXP-if-loP" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="6377" y="298"/>
+            <point key="canvasLocation" x="6407.1999999999998" y="297.04433497536945"/>
+        </scene>
+        <!--Terms Of Service View Controller-->
+        <scene sceneID="4BF-Nc-ccu">
+            <objects>
+                <viewController storyboardIdentifier="TermsOfServiceViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="paN-6S-gzC" customClass="TermsOfServiceViewController" customModule="슥삭" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="djz-Jk-thR">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="brO-g6-qda">
+                                <rect key="frame" x="0.0" y="44" width="375" height="734"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9HE-uM-e9y">
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="834"/>
+                                        <subviews>
+                                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" editable="NO" textAlignment="natural" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0nK-FT-A1T">
+                                                <rect key="frame" x="8" y="8" width="359" height="818"/>
+                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <mutableString key="text">제 1 장 총 칙
+
+제 1 조 (용어의 정의)
+이 약관에서 사용되는 용어의 정의는 아래와 같습니다.
+가. “회원번호”라 함은 조이시티 앱 이용 시, 서비스를 위하여 게임이용자에게 조이시티에서 부여하는 고유 번호입니다.
+나. “바로시작”이라 함은 별도의 로그인 과정 없이 앱을 다운로드 받은 후, 바로 게임을 이용 할 수 있는 수단을 지칭합니다.
+동일한 기기로 각 게임을 ‘바로시작’으로 이용할 경우, 회원번호는 동일하게 부여됩니다.
+단, 기기가 다른 상태에서 ‘바로시작’을 이용할 경우 회원번호가 달라집니다.
+다. “인증수단”이란 ‘바로시작’이외 ‘계정 로그인’ 내 Nest, Facebook 등 다른 매체에 소유하고 있는 본인 정보를 인증할 수 있는 수단을 지칭합니다. 해당 인증 수단을 통해 게임을 바로 이용할 수 있으며, 게임 이용 시 회원번호가 바로 부여됩니다.
+하나의 동일한 회원번호로 조이시티 앱에서 제공하는 다른 게임을 이용하고자 하는 경우, 조이시티 앱에서 인증절차(계정 연동)을 진행 한 이후, 다른 게임에 로그인 시 동일한 인증수단(연동한 계정)을 통해 로그인 해야 합니다.
+라. 게임이용자는 인증 수단을 통해 인증 수단 내, 동일한 조이시티 앱을 사용하는 이용자 정보를 추가로 활용할 수 있습니다.
+마. “게임 이용자”란 조이시티 앱을 다운로드 받아 이용하는 고객을 지칭합니다. 특별한 사유가 없는 한 조이시티 앱이 설치된 휴대폰,스마트폰 또는 태블릿 PC 등의 단말기 명의자를 게임 이용자로 간주합니다.
+바. ‘서비스’라 함은 휴대형 단말기를 통해 무선인터넷에 연결해 네트워크 게임 이용, 아이템 또는 게임 머니 구매 등을 할 수 있도록 조이시티가 제공하는 서비스를 말합니다.
+사. “오픈 마켓”이란 이용자가 조이시티 앱을 무료로 다운로드 받을 수 있도록 조이시티와 이용자간의 거래를 중개하는 공간, 어플리케이션, 웹 사이트 등을 지칭합니다. “오픈 마켓 사업자”란 오픈 마켓을 운영하는 사업자[(티스토어(Tstore)-에스케이플래닛(주)/ 앱스토어(Appstore)-애플(Apple Inc.)/ 플레이스토어(Play Store)-구글(Google Inc.) 등]를 말합니다.</mutableString>
+                                                <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                            </textView>
+                                        </subviews>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstAttribute="bottomMargin" secondItem="0nK-FT-A1T" secondAttribute="bottom" id="Fax-Eo-ZBh"/>
+                                            <constraint firstItem="0nK-FT-A1T" firstAttribute="leading" secondItem="9HE-uM-e9y" secondAttribute="leadingMargin" id="FnM-Ti-HCv"/>
+                                            <constraint firstItem="0nK-FT-A1T" firstAttribute="top" secondItem="9HE-uM-e9y" secondAttribute="topMargin" id="Iuf-Zp-YpK"/>
+                                            <constraint firstAttribute="trailingMargin" secondItem="0nK-FT-A1T" secondAttribute="trailing" id="e9m-RI-f2X"/>
+                                        </constraints>
+                                    </view>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="9HE-uM-e9y" firstAttribute="width" secondItem="brO-g6-qda" secondAttribute="width" id="Y06-8K-l0J"/>
+                                    <constraint firstAttribute="bottom" secondItem="9HE-uM-e9y" secondAttribute="bottom" id="kFI-Rd-BVK"/>
+                                    <constraint firstItem="9HE-uM-e9y" firstAttribute="leading" secondItem="brO-g6-qda" secondAttribute="leading" id="pxE-lI-SrN"/>
+                                    <constraint firstItem="9HE-uM-e9y" firstAttribute="top" secondItem="brO-g6-qda" secondAttribute="top" id="rWg-nJ-WrS"/>
+                                    <constraint firstAttribute="trailing" secondItem="9HE-uM-e9y" secondAttribute="trailing" id="zDk-O4-kdH"/>
+                                </constraints>
+                            </scrollView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="brO-g6-qda" firstAttribute="leading" secondItem="iND-vC-2na" secondAttribute="leading" id="7S6-1t-B64"/>
+                            <constraint firstItem="brO-g6-qda" firstAttribute="trailing" secondItem="iND-vC-2na" secondAttribute="trailing" id="OKE-Oj-Pih"/>
+                            <constraint firstItem="brO-g6-qda" firstAttribute="top" secondItem="iND-vC-2na" secondAttribute="top" id="gla-nt-Hqv"/>
+                            <constraint firstItem="iND-vC-2na" firstAttribute="bottom" secondItem="brO-g6-qda" secondAttribute="bottom" id="kvm-wm-tcH"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="iND-vC-2na"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Lxo-1i-cl0" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="7671.1999999999998" y="495.81280788177344"/>
         </scene>
         <!--App Info View Controller-->
         <scene sceneID="17S-zP-Joy">
@@ -367,7 +521,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="NIs-RP-LpV" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="7110" y="-253"/>
+            <point key="canvasLocation" x="7658" y="-270"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="JWd-bF-dPb">
@@ -1828,6 +1982,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="alertNewPost" width="23" height="23"/>
         <image name="btCamera" width="40" height="40"/>
         <image name="btFormSave" width="130" height="44"/>
         <image name="btJobArtUnactive" width="162" height="162"/>
@@ -1859,6 +2014,7 @@
         <image name="icArrowBack" width="24" height="24"/>
         <image name="icArrowGradation" width="44" height="50"/>
         <image name="icArrowNextMypage" width="24" height="24"/>
+        <image name="icHeaderArrowNextMypage" width="24" height="24"/>
         <image name="icXClose" width="24" height="24"/>
         <image name="imgDefaultProfile" width="120" height="120"/>
         <image name="imgLogoAppinfo" width="120" height="120"/>
