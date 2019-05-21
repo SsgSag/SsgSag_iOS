@@ -43,6 +43,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, MessagingDelegate ,UNUser
         } else {
             let settings: UIUserNotificationSettings =
                 UIUserNotificationSettings(types: [.alert, .badge, .sound], categories: nil)
+            
             application.registerUserNotificationSettings(settings)
         }
         

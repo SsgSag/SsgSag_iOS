@@ -367,7 +367,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="NIs-RP-LpV" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="7113" y="-129"/>
+            <point key="canvasLocation" x="7110" y="-253"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="JWd-bF-dPb">
@@ -378,34 +378,12 @@
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
-                        <segue destination="GDN-fw-h1h" kind="relationship" relationship="rootViewController" id="ynr-EU-ydy"/>
+                        <segue destination="Zs9-o4-lnC" kind="relationship" relationship="rootViewController" id="lcT-1p-PNa"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="eyN-NE-qN7" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="5557" y="721"/>
-        </scene>
-        <!--푸시 알림 설정-->
-        <scene sceneID="k6V-ho-M0i">
-            <objects>
-                <viewController id="GDN-fw-h1h" customClass="PushAlarmViewController" customModule="슥삭" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="TcE-ox-aqR">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="372.33333333333331"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <viewLayoutGuide key="safeArea" id="FiM-q3-Vfx"/>
-                    </view>
-                    <navigationItem key="navigationItem" title="푸시 알림 설정" id="IWd-K9-sgp">
-                        <barButtonItem key="leftBarButtonItem" image="icArrowBack" id="Fd8-cV-idg">
-                            <connections>
-                                <action selector="dissMiss:" destination="GDN-fw-h1h" id="GsG-NH-jbg"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="a1N-8n-gIP" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="6377" y="721"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="UQn-Gb-v2f">
@@ -444,6 +422,146 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="95q-Rx-8zK" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="6377" y="1149"/>
+        </scene>
+        <!--푸시 알림 설정-->
+        <scene sceneID="fjc-2u-1yB">
+            <objects>
+                <tableViewController id="Zs9-o4-lnC" customClass="PushAlarmTableViewController" customModule="슥삭" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="bPA-e1-FlW">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="372.33333333333331"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <sections>
+                            <tableViewSection id="ybI-5o-GOW">
+                                <cells>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" rowHeight="97" id="2Pp-WF-68U">
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="97"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="2Pp-WF-68U" id="lTA-WW-Rad">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="96.666666666666671"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="카드 도착 알림" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CTf-1P-nnJ">
+                                                    <rect key="frame" x="24" y="24" width="98" height="28"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="28" id="X4l-HN-bEu"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="매일 소식카드가 도착하면 알려드려요" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LME-sB-WbD">
+                                                    <rect key="frame" x="24" y="54" width="205.33333333333334" height="19"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="19" id="6jt-Rn-OcU"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Ebv-vr-B65">
+                                                    <rect key="frame" x="300" y="38.333333333333336" width="37" height="20"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="35" id="aVB-Z8-LGk"/>
+                                                        <constraint firstAttribute="height" constant="20" id="mcM-Qg-ayq"/>
+                                                    </constraints>
+                                                    <color key="onTintColor" red="0.25882352941176467" green="0.36862745098039218" blue="0.89803921568627454" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <color key="thumbTintColor" red="0.3529411764705882" green="0.47058823529411764" blue="0.98039215686274506" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="color" keyPath="borderColorV">
+                                                            <color key="value" red="0.25882352939999997" green="0.36862745099999999" blue="0.8980392157" alpha="1" colorSpace="calibratedRGB"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                        <userDefinedRuntimeAttribute type="number" keyPath="borderWidthV">
+                                                            <real key="value" value="0.0"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                    </userDefinedRuntimeAttributes>
+                                                    <connections>
+                                                        <action selector="arriveCard:" destination="Zs9-o4-lnC" eventType="valueChanged" id="kX0-lc-mB6"/>
+                                                    </connections>
+                                                </switch>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="CTf-1P-nnJ" firstAttribute="leading" secondItem="LME-sB-WbD" secondAttribute="leading" id="8k9-a9-vzd"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="Ebv-vr-B65" secondAttribute="trailing" constant="24" id="HWf-aL-vTd"/>
+                                                <constraint firstItem="LME-sB-WbD" firstAttribute="leading" secondItem="lTA-WW-Rad" secondAttribute="leading" constant="24" id="adt-by-9l5"/>
+                                                <constraint firstItem="LME-sB-WbD" firstAttribute="top" secondItem="CTf-1P-nnJ" secondAttribute="bottom" constant="2" id="bST-6y-c9E"/>
+                                                <constraint firstItem="CTf-1P-nnJ" firstAttribute="top" secondItem="lTA-WW-Rad" secondAttribute="firstBaseline" constant="24" id="iyC-s8-Dbz"/>
+                                                <constraint firstItem="Ebv-vr-B65" firstAttribute="centerY" secondItem="lTA-WW-Rad" secondAttribute="centerY" id="oiH-Wz-LbS"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" rowHeight="97" id="kwo-ZS-4Fg">
+                                        <rect key="frame" x="0.0" y="97" width="375" height="97"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="kwo-ZS-4Fg" id="KAb-eh-jdN">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="96.666666666666671"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="투두리스트 알림" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="h86-gb-CSg">
+                                                    <rect key="frame" x="24" y="24" width="108" height="28"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="28" id="tTN-eL-NaU"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="지원 마감 24시간 전, 잊지 않게 알려드려요" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="701-sb-gfY">
+                                                    <rect key="frame" x="23.999999999999986" y="54" width="237.66666666666663" height="16"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="16" id="CVd-WD-J3k"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Cjl-Yx-Scy">
+                                                    <rect key="frame" x="300" y="38.333333333333336" width="37" height="20"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="35" id="MRb-s5-vSG"/>
+                                                        <constraint firstAttribute="height" constant="20" id="kc7-l9-wFF"/>
+                                                    </constraints>
+                                                    <color key="onTintColor" red="0.25882352939999997" green="0.36862745099999999" blue="0.8980392157" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <color key="thumbTintColor" red="0.35294117650000001" green="0.47058823529999999" blue="0.98039215690000003" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="number" keyPath="borderWidthV">
+                                                            <real key="value" value="0.0"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                    </userDefinedRuntimeAttributes>
+                                                    <connections>
+                                                        <action selector="alarmTodoList:" destination="Zs9-o4-lnC" eventType="valueChanged" id="szO-pI-nnH"/>
+                                                    </connections>
+                                                </switch>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="Cjl-Yx-Scy" firstAttribute="centerY" secondItem="KAb-eh-jdN" secondAttribute="centerY" id="CEI-0a-u9f"/>
+                                                <constraint firstItem="h86-gb-CSg" firstAttribute="leading" secondItem="701-sb-gfY" secondAttribute="leading" id="Mot-ks-EqA"/>
+                                                <constraint firstItem="701-sb-gfY" firstAttribute="top" secondItem="h86-gb-CSg" secondAttribute="bottom" constant="2" id="Peu-2I-FWO"/>
+                                                <constraint firstItem="701-sb-gfY" firstAttribute="leading" secondItem="KAb-eh-jdN" secondAttribute="leading" constant="24" id="eK0-tJ-Loi"/>
+                                                <constraint firstItem="h86-gb-CSg" firstAttribute="top" secondItem="KAb-eh-jdN" secondAttribute="firstBaseline" constant="24" id="g8O-k1-MQP"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="Cjl-Yx-Scy" secondAttribute="trailing" constant="24" id="yEP-fz-bVv"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </cells>
+                            </tableViewSection>
+                        </sections>
+                        <connections>
+                            <outlet property="dataSource" destination="Zs9-o4-lnC" id="yMr-8A-5om"/>
+                            <outlet property="delegate" destination="Zs9-o4-lnC" id="wPg-4y-ZUf"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="푸시 알림 설정" id="BkS-fi-5kF">
+                        <barButtonItem key="leftBarButtonItem" title="Item" image="icArrowBack" id="RRK-Ds-1gE">
+                            <connections>
+                                <action selector="dissMissPushAlarm:" destination="Zs9-o4-lnC" id="ctZ-4j-qhz"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="xI7-4Y-lnb" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="6377" y="727"/>
         </scene>
         <!--구직여부-->
         <scene sceneID="RtO-2j-Vli">

@@ -40,8 +40,10 @@
 		84604F232205A0ED00212A00 /* todoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84604F222205A0ED00212A00 /* todoCell.swift */; };
 		8463566E22930E210060ED91 /* CareerServiceImp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8463566D22930E210060ED91 /* CareerServiceImp.swift */; };
 		8463567022931E980060ED91 /* GradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8463566F22931E980060ED91 /* GradientView.swift */; };
+		846356742293D2020060ED91 /* PushAlarmSettingTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846356722293D2020060ED91 /* PushAlarmSettingTableViewCell.swift */; };
+		846356752293D2020060ED91 /* PushAlarmSettingTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 846356732293D2020060ED91 /* PushAlarmSettingTableViewCell.xib */; };
+		846356772293D67B0060ED91 /* PushAlarmTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846356762293D67B0060ED91 /* PushAlarmTableViewController.swift */; };
 		84646C2F22894782005D3F1C /* NotificationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84646C2E22894782005D3F1C /* NotificationViewController.swift */; };
-		84646C3122894792005D3F1C /* PushAlarmViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84646C3022894792005D3F1C /* PushAlarmViewController.swift */; };
 		84646C33228947A7005D3F1C /* ServiceInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84646C32228947A7005D3F1C /* ServiceInfoViewController.swift */; };
 		84646C3622894AAD005D3F1C /* ServiceInfoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84646C3522894AAD005D3F1C /* ServiceInfoTableViewCell.swift */; };
 		84646C38228965E5005D3F1C /* AppInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84646C37228965E5005D3F1C /* AppInfoViewController.swift */; };
@@ -187,8 +189,10 @@
 		84604F222205A0ED00212A00 /* todoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = todoCell.swift; sourceTree = "<group>"; };
 		8463566D22930E210060ED91 /* CareerServiceImp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CareerServiceImp.swift; sourceTree = "<group>"; };
 		8463566F22931E980060ED91 /* GradientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientView.swift; sourceTree = "<group>"; };
+		846356722293D2020060ED91 /* PushAlarmSettingTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushAlarmSettingTableViewCell.swift; sourceTree = "<group>"; };
+		846356732293D2020060ED91 /* PushAlarmSettingTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PushAlarmSettingTableViewCell.xib; sourceTree = "<group>"; };
+		846356762293D67B0060ED91 /* PushAlarmTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushAlarmTableViewController.swift; sourceTree = "<group>"; };
 		84646C2E22894782005D3F1C /* NotificationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationViewController.swift; sourceTree = "<group>"; };
-		84646C3022894792005D3F1C /* PushAlarmViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushAlarmViewController.swift; sourceTree = "<group>"; };
 		84646C32228947A7005D3F1C /* ServiceInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceInfoViewController.swift; sourceTree = "<group>"; };
 		84646C3522894AAD005D3F1C /* ServiceInfoTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceInfoTableViewCell.swift; sourceTree = "<group>"; };
 		84646C37228965E5005D3F1C /* AppInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppInfoViewController.swift; sourceTree = "<group>"; };
@@ -583,9 +587,9 @@
 			isa = PBXGroup;
 			children = (
 				84646C2E22894782005D3F1C /* NotificationViewController.swift */,
-				84646C3022894792005D3F1C /* PushAlarmViewController.swift */,
 				84646C32228947A7005D3F1C /* ServiceInfoViewController.swift */,
 				84646C37228965E5005D3F1C /* AppInfoViewController.swift */,
+				846356762293D67B0060ED91 /* PushAlarmTableViewController.swift */,
 			);
 			path = NotifiCation;
 			sourceTree = "<group>";
@@ -594,6 +598,8 @@
 			isa = PBXGroup;
 			children = (
 				84646C3522894AAD005D3F1C /* ServiceInfoTableViewCell.swift */,
+				846356722293D2020060ED91 /* PushAlarmSettingTableViewCell.swift */,
+				846356732293D2020060ED91 /* PushAlarmSettingTableViewCell.xib */,
 			);
 			path = Notification;
 			sourceTree = "<group>";
@@ -856,6 +862,7 @@
 				FAFB87D822159F83002CDED9 /* univList.json in Resources */,
 				FA5A882321E908DF008C2C41 /* Intro.storyboard in Resources */,
 				FA7F4CC421DFCB1300D8643A /* PrizeCell.xib in Resources */,
+				846356752293D2020060ED91 /* PushAlarmSettingTableViewCell.xib in Resources */,
 				84B4268C21E9091D00B44F71 /* main_empty_hifive.json in Resources */,
 				845928A521D09CE0001DF6CC /* Assets.xcassets in Resources */,
 				FAFB87DE2215ABBF002CDED9 /* majorList.json in Resources */,
@@ -958,6 +965,7 @@
 				FAFB87D222145ABE002CDED9 /* NetworkManager.swift in Sources */,
 				842C619D21DD1807001BA6D8 /* posterData.swift in Sources */,
 				FA851DED21D5FDB0002065D0 /* SwipeModel.swift in Sources */,
+				846356742293D2020060ED91 /* PushAlarmSettingTableViewCell.swift in Sources */,
 				84C30E29227808FB008F1165 /* PosterDetailResponse.swift in Sources */,
 				846E622B229288000083E3CD /* StoryBoardName.swift in Sources */,
 				FA4FF272221D51D500C3D21A /* CalendarDetailPopUpVC.swift in Sources */,
@@ -1014,7 +1022,6 @@
 				FAA238792203296500C6DB13 /* NonActivityCell.swift in Sources */,
 				84A45D15225FA1E800C60287 /* Router.swift in Sources */,
 				84646C38228965E5005D3F1C /* AppInfoViewController.swift in Sources */,
-				84646C3122894792005D3F1C /* PushAlarmViewController.swift in Sources */,
 				846E622722901DE90083E3CD /* BasicNetworkModel.swift in Sources */,
 				FAD323DB21E36FA6000C4FBA /* AddCertificationVC.swift in Sources */,
 				FA3A344221E7285C00668908 /* ConfirmProfileVC.swift in Sources */,
@@ -1049,6 +1056,7 @@
 				FA7F4CBB21DFC7E700D8643A /* CustomCareerCell.swift in Sources */,
 				84604F232205A0ED00212A00 /* todoCell.swift in Sources */,
 				845928D921D09F30001DF6CC /* CalenderVC.swift in Sources */,
+				846356772293D67B0060ED91 /* PushAlarmTableViewController.swift in Sources */,
 				846E6231229291880083E3CD /* NotificationName.swift in Sources */,
 				FA3A8FDB21DF3F410075A510 /* SplashVC.swift in Sources */,
 				845928E521D38771001DF6CC /* DetailImageSwipeCard.swift in Sources */,

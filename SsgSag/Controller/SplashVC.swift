@@ -27,7 +27,6 @@ class SplashVC: UIViewController {
 //        splashAnimation.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
 //
 //        splashAnimation.play()
-        
     }
 }
 
