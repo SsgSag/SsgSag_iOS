@@ -29,7 +29,7 @@ class CalenderVC: UIViewController {
     let applySuccess: UIButton = {
         let button = UIButton()
         button.addTarget(self, action: #selector(moveToApplySuccessVC), for: .touchUpInside)
-        button.setImage(#imageLiteral(resourceName: "icCategorySchoolActive"), for: .normal)
+        button.setImage(#imageLiteral(resourceName: "btCheckApplied"), for: .normal)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
@@ -80,7 +80,7 @@ class CalenderVC: UIViewController {
         
         self.view.backgroundColor = Style.bgColor
         
-        calendarServiceImp = CalendarServiceImp()
+        setService()
         
         setupContentView()
         
@@ -91,8 +91,6 @@ class CalenderVC: UIViewController {
         setPosters()
         
         setTodoTableView()
-        
-        //UserDefaults.standard.removeObject(forKey: "start")
         
         calendarViewBottomAnchor?.priority = UILayoutPriority(750)
     }
@@ -127,6 +125,10 @@ class CalenderVC: UIViewController {
         let navigationVC = storyBoard.instantiateViewController(withIdentifier: ViewControllerIdentifier.applySuccessViewController) as! UINavigationController
         
         self.present(navigationVC, animated: true, completion: nil)
+    }
+    
+    func setService(_ calendarService: CalendarService = CalendarServiceImp()) {
+        self.calendarServiceImp = calendarService
     }
     
     private func setNotificationObserver() {

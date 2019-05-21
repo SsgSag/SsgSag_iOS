@@ -29,12 +29,14 @@ class SwipeVC: UIViewController {
     
     private var countTotalCardIndex = 0
     
-    private var posterServiceImp: PosterService! = PosterServiceImp()
+    private var posterServiceImp: PosterService!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         //resetDefaults()
+        
+        setService()
         
         initPoster()
         
@@ -49,6 +51,10 @@ class SwipeVC: UIViewController {
         setEmptyPosterAnimation()
         
         UIView.appearance().isExclusiveTouch = true
+    }
+    
+    func setService(_ posterServiceImp: PosterService = PosterServiceImp()) {
+        self.posterServiceImp = posterServiceImp
     }
     
     private func hideStatusBar() {

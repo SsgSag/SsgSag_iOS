@@ -34,9 +34,15 @@ class InterestBoardViewController: UIViewController {
         
         tableView.register(UINib.InterestBoardNIB, forCellReuseIdentifier: InterestBoardViewController.cellId)
         
-        interestManager = InterestServiceManager()
+        //interestManager = InterestServiceManager()
+        
+        setService()
         
         requestSubscribeStatus()
+    }
+    
+    func setService(_ interestManager: InterestService = InterestServiceManager()) {
+        self.interestManager = interestManager
     }
     
     @IBAction func dissMiss(_ sender: Any) {

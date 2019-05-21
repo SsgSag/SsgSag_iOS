@@ -24,11 +24,15 @@ class LoginVC: UIViewController, UITextFieldDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        loginServiceImp = LoginServiceImp()
+        setService()
         
         setAutoLoginButton()
         
         setEmailAndPasswordTextField()
+    }
+    
+    func setService(_ loginService: LoginService = LoginServiceImp() ){
+        self.loginServiceImp = loginService
     }
 
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
