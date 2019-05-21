@@ -24,7 +24,7 @@ class SwipeCard: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    //카드 setup
+    // MARK: - Setup ImageView
     func setupView(at value:String) {
         //layer.cornerRadius = 20
         layer.shadowRadius = 4
@@ -44,8 +44,12 @@ class SwipeCard: UIView {
         let imageURL = URL(string: value)
         overLayImage = UIImageView(frame:bounds)
         overLayImage.alpha = 0
-        overLayImage.load(url: imageURL!)
-        addSubview(overLayImage)
+        
+        DispatchQueue.main.async { [weak self] in
+            self?.overLayImage.load(url: imageURL!)
+            self?.addSubview(self?.overLayImage ?? .init())
+        }
+        
     }
     
     //여기서 컨트롤 할 수 있어야 카드의 움직임을 제한할 수 있습니다.
