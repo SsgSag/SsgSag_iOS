@@ -13,7 +13,7 @@ class TermsOfServiceViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.navigationItem.title = "이용 약관"
+        self.navigationItem.title = "개인정보 보호정책"
     }
-
+    
 }

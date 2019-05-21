@@ -80,12 +80,20 @@ extension ServiceInfoViewController: UITableViewDelegate, UITableViewDataSource 
             guard let appInfoVC = storyboard.instantiateViewController(withIdentifier: ViewControllerIdentifier.appInfoViewController) as? AppInfoViewController else {return}
             
             self.navigationController?.pushViewController(appInfoVC, animated: true)
-        case .termsOfService:
+        
+        // FIXME: - privateProtect와 termnsOfService의 이름이 바뀌었습니다.
+        case .privateProtect:
             
             guard let termsOfServiceViewController = storyboard.instantiateViewController(withIdentifier: ViewControllerIdentifier.termsOfServiceViewController) as? TermsOfServiceViewController else {return}
             
             self.navigationController?.pushViewController(termsOfServiceViewController, animated: true)
-        case .privateProtect, .openSourceLicense:
+        case .termsOfService:
+    
+            guard let privateProtectViewController = storyboard.instantiateViewController(withIdentifier: ViewControllerIdentifier.privateProtectViewController) as? PrivateProtectViewController else {return}
+            
+            self.navigationController?.pushViewController(privateProtectViewController, animated: true)
+            break
+        case .openSourceLicense:
             break
         }
     }

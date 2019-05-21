@@ -44,6 +44,7 @@
 		846356792293EAA10060ED91 /* NotificationInfoTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846356782293EAA10060ED91 /* NotificationInfoTableViewController.swift */; };
 		8463567B2293EF030060ED91 /* TermsOfServiceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8463567A2293EF030060ED91 /* TermsOfServiceViewController.swift */; };
 		8463567D229418300060ED91 /* ImageNetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8463567C229418300060ED91 /* ImageNetworkManager.swift */; };
+		8463567F22941E020060ED91 /* PrivateProtectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8463567E22941E020060ED91 /* PrivateProtectViewController.swift */; };
 		84646C33228947A7005D3F1C /* ServiceInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84646C32228947A7005D3F1C /* ServiceInfoViewController.swift */; };
 		84646C3622894AAD005D3F1C /* ServiceInfoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84646C3522894AAD005D3F1C /* ServiceInfoTableViewCell.swift */; };
 		84646C38228965E5005D3F1C /* AppInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84646C37228965E5005D3F1C /* AppInfoViewController.swift */; };
@@ -193,6 +194,7 @@
 		846356782293EAA10060ED91 /* NotificationInfoTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationInfoTableViewController.swift; sourceTree = "<group>"; };
 		8463567A2293EF030060ED91 /* TermsOfServiceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TermsOfServiceViewController.swift; sourceTree = "<group>"; };
 		8463567C229418300060ED91 /* ImageNetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageNetworkManager.swift; sourceTree = "<group>"; };
+		8463567E22941E020060ED91 /* PrivateProtectViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivateProtectViewController.swift; sourceTree = "<group>"; };
 		84646C32228947A7005D3F1C /* ServiceInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceInfoViewController.swift; sourceTree = "<group>"; };
 		84646C3522894AAD005D3F1C /* ServiceInfoTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceInfoTableViewCell.swift; sourceTree = "<group>"; };
 		84646C37228965E5005D3F1C /* AppInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppInfoViewController.swift; sourceTree = "<group>"; };
@@ -592,6 +594,7 @@
 				846356762293D67B0060ED91 /* PushAlarmTableViewController.swift */,
 				846356782293EAA10060ED91 /* NotificationInfoTableViewController.swift */,
 				8463567A2293EF030060ED91 /* TermsOfServiceViewController.swift */,
+				8463567E22941E020060ED91 /* PrivateProtectViewController.swift */,
 			);
 			path = NotifiCation;
 			sourceTree = "<group>";
@@ -1036,6 +1039,7 @@
 				845F12C722672A3200DFF42E /* DateFormatter.swift in Sources */,
 				842C619E21DD1807001BA6D8 /* networkData.swift in Sources */,
 				846356792293EAA10060ED91 /* NotificationInfoTableViewController.swift in Sources */,
+				8463567F22941E020060ED91 /* PrivateProtectViewController.swift in Sources */,
 				FA3A342021E5127700668908 /* UserAPI.swift in Sources */,
 				8486D26A226E912E00D7A0C7 /* AllTodoList.swift in Sources */,
 				84646C3622894AAD005D3F1C /* ServiceInfoTableViewCell.swift in Sources */,
