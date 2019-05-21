@@ -43,6 +43,7 @@
 		846356772293D67B0060ED91 /* PushAlarmTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846356762293D67B0060ED91 /* PushAlarmTableViewController.swift */; };
 		846356792293EAA10060ED91 /* NotificationInfoTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846356782293EAA10060ED91 /* NotificationInfoTableViewController.swift */; };
 		8463567B2293EF030060ED91 /* TermsOfServiceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8463567A2293EF030060ED91 /* TermsOfServiceViewController.swift */; };
+		8463567D229418300060ED91 /* ImageNetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8463567C229418300060ED91 /* ImageNetworkManager.swift */; };
 		84646C33228947A7005D3F1C /* ServiceInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84646C32228947A7005D3F1C /* ServiceInfoViewController.swift */; };
 		84646C3622894AAD005D3F1C /* ServiceInfoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84646C3522894AAD005D3F1C /* ServiceInfoTableViewCell.swift */; };
 		84646C38228965E5005D3F1C /* AppInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84646C37228965E5005D3F1C /* AppInfoViewController.swift */; };
@@ -191,6 +192,7 @@
 		846356762293D67B0060ED91 /* PushAlarmTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushAlarmTableViewController.swift; sourceTree = "<group>"; };
 		846356782293EAA10060ED91 /* NotificationInfoTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationInfoTableViewController.swift; sourceTree = "<group>"; };
 		8463567A2293EF030060ED91 /* TermsOfServiceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TermsOfServiceViewController.swift; sourceTree = "<group>"; };
+		8463567C229418300060ED91 /* ImageNetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageNetworkManager.swift; sourceTree = "<group>"; };
 		84646C32228947A7005D3F1C /* ServiceInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceInfoViewController.swift; sourceTree = "<group>"; };
 		84646C3522894AAD005D3F1C /* ServiceInfoTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceInfoTableViewCell.swift; sourceTree = "<group>"; };
 		84646C37228965E5005D3F1C /* AppInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppInfoViewController.swift; sourceTree = "<group>"; };
@@ -446,6 +448,7 @@
 				FA3A341F21E5127700668908 /* UserAPI.swift */,
 				84A45D06225F9B3100C60287 /* EndPointType.swift */,
 				84A45D08225F9B8B00C60287 /* HTTPMethod.swift */,
+				8463567C229418300060ED91 /* ImageNetworkManager.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -1007,6 +1010,7 @@
 				FAD25C132212CD78004B45E2 /* LoginPopUpVC.swift in Sources */,
 				FA3A344421E72F5200668908 /* SchoolInfoVC.swift in Sources */,
 				84B1B250226A364100077DF9 /* DataResponse.swift in Sources */,
+				8463567D229418300060ED91 /* ImageNetworkManager.swift in Sources */,
 				FAF6DEE4222EAAEF001C70CC /* Interests.swift in Sources */,
 				84646C3D2289A57A005D3F1C /* InterestBoardTableViewCell.swift in Sources */,
 				8486D268226E199100D7A0C7 /* PosterFavorite.swift in Sources */,

@@ -46,10 +46,11 @@ class SwipeCard: UIView {
         overLayImage.alpha = 0
         
         DispatchQueue.main.async { [weak self] in
-            self?.overLayImage.load(url: imageURL!)
-            self?.addSubview(self?.overLayImage ?? .init())
+            ImageNetworkManager.shared.getImageByCache(imageURL: imageURL!) { image, error in
+                self?.overLayImage.image = image
+                self?.addSubview(self?.overLayImage ?? .init())
+            }
         }
-        
     }
     
     //여기서 컨트롤 할 수 있어야 카드의 움직임을 제한할 수 있습니다.

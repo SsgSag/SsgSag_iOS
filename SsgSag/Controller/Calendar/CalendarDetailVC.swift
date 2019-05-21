@@ -46,7 +46,11 @@ class CalendarDetailVC: UIViewController {
     private func setPosterContent() {
         if let photoURL = Poster?.photoUrl {
             if let url = URL(string: photoURL){
-                PosterImage.load(url: url)
+                ImageNetworkManager.shared.getImageByCache(imageURL: url) { image, error in
+                    DispatchQueue.main.async { [weak self] in
+                        self?.PosterImage.image = image
+                    }
+                }
             }
         }
         

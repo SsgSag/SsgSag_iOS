@@ -26,11 +26,12 @@ class ZoomPosterVC: UIViewController, UIScrollViewDelegate {
         
         guard let posterURL = URL(string: posterURLString) else { return }
         
-        imageView.load(url: posterURL)
-
+        ImageNetworkManager.shared.getImageByCache(imageURL: posterURL) { image, error in
+            DispatchQueue.main.async { [weak self] in
+                self?.imageView.image = image
+            }
+        }
     }
-    
-    
     
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .lightContent

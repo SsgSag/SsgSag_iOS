@@ -48,7 +48,11 @@ class DetailImageSwipeCardVC: UIViewController {
             
             guard let posterURL = URL(string: posterURLString) else { return }
             
-            detailImageVIew.load(url: posterURL)
+            ImageNetworkManager.shared.getImageByCache(imageURL: posterURL) { image, error in
+                DispatchQueue.main.async { [weak self] in
+                    self?.detailImageVIew.image = image
+                }
+            }
         }
     }
     
