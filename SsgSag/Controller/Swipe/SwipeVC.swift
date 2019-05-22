@@ -1,7 +1,3 @@
-let  MAX_BUFFER_SIZE = 20;
-let  SEPERATOR_DISTANCE = 8;
-let  TOPYAXIS = 75;
-
 import UIKit
 import Lottie
 

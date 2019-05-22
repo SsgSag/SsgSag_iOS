@@ -34,7 +34,7 @@ class LoginVC: UIViewController, UITextFieldDelegate {
     func setService(_ loginService: LoginService = LoginServiceImp() ){
         self.loginServiceImp = loginService
     }
-
+    
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         view.endEditing(true)
     }
@@ -49,7 +49,7 @@ class LoginVC: UIViewController, UITextFieldDelegate {
             
             return
         }
-    
+        
         if isAuto {
             autoLoginButton.setImage(UIImage(named: "checkboxRoundActive"), for: .normal)
         } else {
@@ -94,7 +94,7 @@ class LoginVC: UIViewController, UITextFieldDelegate {
         ]
         
         loginServiceImp.requestLogin(send: sendData) { (dataResponse) in
-
+            
             guard let statusCode = dataResponse.value?.status else {return}
             
             guard let httpStatusCode = HttpStatusCode(rawValue: statusCode) else {return}

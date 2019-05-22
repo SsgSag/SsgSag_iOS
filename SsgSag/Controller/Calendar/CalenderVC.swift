@@ -133,9 +133,9 @@ class CalenderVC: UIViewController {
     
     private func setNotificationObserver() {
         NotificationCenter.default.addObserver(self, selector: #selector(addUserDefaults), name: NSNotification.Name(NotificationName.addUserDefaults), object: nil)
-    
+        
         NotificationCenter.default.addObserver(self, selector: #selector(sortSpecificDayOftodoList), name: NSNotification.Name(rawValue: NotificationName.didselectItem), object: nil)
-    
+        
         NotificationCenter.default.addObserver(self, selector: #selector(deleteUserDefaults), name: NSNotification.Name(rawValue: NotificationName.deleteUserDefaults), object: nil)
     }
     
@@ -374,7 +374,7 @@ class CalenderVC: UIViewController {
             todoTableData = CalenderView.getPosterUsingUserDefaults()
             currentDateString = "\(currentSelectedDateMonth)월 \(currentSelectedDateDay)일 투두리스트"
         } else {
-        
+            
             for poster in CalenderView.getPosterUsingUserDefaults() {
                 
                 guard let posterEndDateString = poster.posterEndDate else { return }
@@ -445,7 +445,7 @@ class CalenderVC: UIViewController {
                     todoTableData.append(poster)
                 }
             }
-        
+            
             self.todoTableView.reloadData()
         }
         
@@ -510,7 +510,7 @@ class CalenderVC: UIViewController {
         UIView.animate(withDuration: 0.1) {
             self.view.layoutIfNeeded()
         }
-
+        
     }
     
     func setCalendarVCWhenTODOHide() {
@@ -521,7 +521,7 @@ class CalenderVC: UIViewController {
                 subview.removeFromSuperview()
             }
         }
-    
+        
         calenderView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -20).isActive = true
         
         

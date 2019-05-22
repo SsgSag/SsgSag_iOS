@@ -155,9 +155,11 @@ class myPageVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
         } else if let originalImage: UIImage = info[.originalImage] as? UIImage {
             selectedImage = originalImage
             self.profileImageView.image = selectedImage!
-            //uploadImage(selectedImage)
+            
             picker.dismiss(animated: true, completion: nil)
         }
+        
+        uploadImage(selectedImage)
     }
     
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
@@ -177,22 +179,20 @@ class myPageVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
             return
         }
     
-        let _ = generateBoundaryString()
+        let boundary = generateBoundaryString()
         
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
+        request.addValue("multipart/form-data; boundary=\(boundary)", forHTTPHeaderField: "Content-Type")
         request.addValue(key, forHTTPHeaderField: "Authorization")
-    
+        
         NetworkManager.shared.getData(with: request) { (data, error, res) in
             
             guard let data = data else {
                 return
             }
             
-            DispatchQueue.main.async { [weak self] in
-                self?.profileImageView.image = sendImage
-            }
-            print(data.description)
+            print("성공적으로 되고 있는 건가?")
         }
     }
     

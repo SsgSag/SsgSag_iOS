@@ -9,8 +9,10 @@
 import UIKit
 
 class CalendarDetailVC: UIViewController {
-
+    
     var Poster: Posters?
+    
+    static let downloadLink = "https://itunes.apple.com/kr/app/%EC%8A%A5%EC%82%AD/id1457422029?mt=8"
     
     @IBOutlet var PosterImage: UIImageView!
     
@@ -31,10 +33,21 @@ class CalendarDetailVC: UIViewController {
     @IBOutlet var benefitLabel: UILabel!
     
     @IBOutlet var targetLabel: UILabel!
-  
+    
     @IBOutlet weak var seeDetailButton: UIButton!
     
-    let hashTags: [Int: String] = [0: "기획/아이디어", 1:"금융/경제", 2:"디자인", 3:"문학/글쓰기", 4:"문화/예술", 5:"브랜딩/마케팅", 6:"봉사/사회활동", 7:"사진/영상", 8:"창업/스타트업", 9:"체육/건강", 10:"학술/교양", 11:"IT/기술"]
+    let hashTags: [Int: String] = [0: "기획/아이디어",
+                                   1:"금융/경제",
+                                   2:"디자인",
+                                   3:"문학/글쓰기",
+                                   4:"문화/예술",
+                                   5:"브랜딩/마케팅",
+                                   6:"봉사/사회활동",
+                                   7:"사진/영상",
+                                   8:"창업/스타트업",
+                                   9:"체육/건강",
+                                   10:"학술/교양",
+                                   11:"IT/기술"]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -100,11 +113,16 @@ class CalendarDetailVC: UIViewController {
         UIApplication.shared.open(url)
     }
     
+    // MARK: - 공유 버튼
     @objc func share(sender:UIView){
         UIGraphicsBeginImageContext(view.frame.size)
         view.layer.render(in: UIGraphicsGetCurrentContext()!)
         
         var objectsToshare: [Any] = []
+        
+        objectsToshare.append("다운로드 링크")
+        
+        objectsToshare.append(CalendarDetailVC.downloadLink)
         
         guard let posterName = Poster?.posterName else {return}
         

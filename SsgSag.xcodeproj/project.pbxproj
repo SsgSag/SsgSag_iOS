@@ -409,15 +409,11 @@
 		84617606225F6EBF005E6173 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				840DDD3D227EA85500D9D515 /* AllTodo.swift */,
-				842C619A21DD1807001BA6D8 /* posterData.swift */,
-				842C619B21DD1807001BA6D8 /* networkData.swift */,
-				842C619C21DD1807001BA6D8 /* Posters.swift */,
-				84C30E28227808FB008F1165 /* PosterDetailResponse.swift */,
+				846E622622901DE90083E3CD /* BasicNetworkModel.swift */,
+				84B23B42229558B000BAE2CD /* Poster */,
 				84617611225F7157005E6173 /* Swipe */,
 				84617610225F7120005E6173 /* Calendar */,
 				84836AC0222E5F4A00922A78 /* MyPage */,
-				846E622622901DE90083E3CD /* BasicNetworkModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -458,6 +454,7 @@
 		8461760A225F6EFD005E6173 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				845928DE21D20034001DF6CC /* LoginRegister */,
 				FA524BEF21D64DFD00675289 /* Signup */,
 				FA5A882121E9084F008C2C41 /* Intro */,
 				FAF0DF0121E95B31003F341F /* Splash */,
@@ -471,8 +468,8 @@
 		8461760B225F6F04005E6173 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				84BA694C21DB74BD00BA8CB8 /* TapbarVC.swift */,
-				FA3A8FDA21DF3F410075A510 /* SplashVC.swift */,
+				84B23B412295586B00BAE2CD /* Splash */,
+				84B23B402295586300BAE2CD /* Tapbar */,
 				84617613225F74C3005E6173 /* Login */,
 				8461760E225F70B2005E6173 /* Calendar */,
 				8461760D225F705B005E6173 /* MyPage */,
@@ -496,18 +493,8 @@
 		8461760D225F705B005E6173 /* MyPage */ = {
 			isa = PBXGroup;
 			children = (
+				84B23B3F2295584C00BAE2CD /* Career */,
 				84646C2D228946C4005D3F1C /* NotifiCation */,
-				FA7F4CD121E0A0A000D8643A /* AddActivityVC.swift */,
-				FA7F4CD321E0A0BB00D8643A /* AddVC.swift */,
-				FAD323DA21E36FA6000C4FBA /* AddCertificationVC.swift */,
-				84BA694821DB394800BA8CB8 /* myPageVC.swift */,
-				FA7F4CB721DFB0C100D8643A /* CareerVC.swift */,
-				FAA2386E2202F34A00C6DB13 /* CareerVC + TableView.swift */,
-				FAA238702202F37C00C6DB13 /* CareerVC + CollectionView.swift */,
-				FA61FE1821E204F300A28947 /* DatePickerPopUpVC.swift */,
-				FA61FE1021E0E4A200A28947 /* PreferenceVC.swift */,
-				FA61FE0E21E0E3D300A28947 /* JobVC.swift */,
-				84646C39228976A3005D3F1C /* InterestBoardViewController.swift */,
 			);
 			path = MyPage;
 			sourceTree = "<group>";
@@ -660,6 +647,52 @@
 			path = ViewModel;
 			sourceTree = "<group>";
 		};
+		84B23B3F2295584C00BAE2CD /* Career */ = {
+			isa = PBXGroup;
+			children = (
+				FA7F4CD121E0A0A000D8643A /* AddActivityVC.swift */,
+				FA7F4CD321E0A0BB00D8643A /* AddVC.swift */,
+				FAD323DA21E36FA6000C4FBA /* AddCertificationVC.swift */,
+				84BA694821DB394800BA8CB8 /* myPageVC.swift */,
+				FA7F4CB721DFB0C100D8643A /* CareerVC.swift */,
+				FAA2386E2202F34A00C6DB13 /* CareerVC + TableView.swift */,
+				FAA238702202F37C00C6DB13 /* CareerVC + CollectionView.swift */,
+				FA61FE1821E204F300A28947 /* DatePickerPopUpVC.swift */,
+				FA61FE1021E0E4A200A28947 /* PreferenceVC.swift */,
+				FA61FE0E21E0E3D300A28947 /* JobVC.swift */,
+				84646C39228976A3005D3F1C /* InterestBoardViewController.swift */,
+			);
+			path = Career;
+			sourceTree = "<group>";
+		};
+		84B23B402295586300BAE2CD /* Tapbar */ = {
+			isa = PBXGroup;
+			children = (
+				84BA694C21DB74BD00BA8CB8 /* TapbarVC.swift */,
+			);
+			path = Tapbar;
+			sourceTree = "<group>";
+		};
+		84B23B412295586B00BAE2CD /* Splash */ = {
+			isa = PBXGroup;
+			children = (
+				FA3A8FDA21DF3F410075A510 /* SplashVC.swift */,
+			);
+			path = Splash;
+			sourceTree = "<group>";
+		};
+		84B23B42229558B000BAE2CD /* Poster */ = {
+			isa = PBXGroup;
+			children = (
+				840DDD3D227EA85500D9D515 /* AllTodo.swift */,
+				842C619A21DD1807001BA6D8 /* posterData.swift */,
+				842C619B21DD1807001BA6D8 /* networkData.swift */,
+				842C619C21DD1807001BA6D8 /* Posters.swift */,
+				84C30E28227808FB008F1165 /* PosterDetailResponse.swift */,
+			);
+			path = Poster;
+			sourceTree = "<group>";
+		};
 		84BA694721DB391D00BA8CB8 /* MyPage */ = {
 			isa = PBXGroup;
 			children = (
@@ -708,7 +741,6 @@
 				845928E621D3877D001DF6CC /* DetailTextSwipeCard.swift */,
 				84C30E2A22780D50008F1165 /* DetailNewTextSwipeCard.swift */,
 				84C77E4E22759AAF00DEE2D8 /* ZoomPosterVC.swift */,
-				845928DE21D20034001DF6CC /* LoginRegister */,
 			);
 			path = Swipe;
 			sourceTree = "<group>";

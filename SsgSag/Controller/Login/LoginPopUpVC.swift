@@ -31,8 +31,8 @@ class LoginPopUpVC: UIViewController, NaverThirdPartyLoginConnectionDelegate {
     @IBAction func naverLogin(_ sender: Any) {
         
         self.simplerAlert(title: "준비중입니다.")
-//        loginInstance?.delegate = self
-//        loginInstance?.requestThirdPartyLogin()
+        //        loginInstance?.delegate = self
+        //        loginInstance?.requestThirdPartyLogin()
         
     }
     
@@ -92,7 +92,7 @@ class LoginPopUpVC: UIViewController, NaverThirdPartyLoginConnectionDelegate {
     @IBAction func touchUpCancelButton(_ sender: UIButton) {
         self.view.removeFromSuperview()
     }
-
+    
     //MARK: - Naver Login
     // ---- 3
     func oauth20ConnectionDidOpenInAppBrowser(forOAuth request: URLRequest!) {

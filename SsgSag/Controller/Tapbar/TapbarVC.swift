@@ -22,7 +22,7 @@ class TapbarVC: UITabBarController {
         
         static let mypageViewController = mypageStoryBoard.instantiateViewController(withIdentifier: ViewControllerIdentifier.mypageViewController)
     }
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -100,7 +100,7 @@ class TapbarVC: UITabBarController {
         tapbarServiceImp?.requestAllTodoList { (dataResponse) in
             
             guard let todoList = dataResponse.value else { return }
-        
+            
             StoreAndFetchPoster.storePoster(posters: todoList)
         }
         
@@ -108,7 +108,7 @@ class TapbarVC: UITabBarController {
     
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
-    
+        
         var tabFrame:CGRect = self.tabBar.frame
         tabFrame.origin.y = self.view.safeAreaInsets.top - 8
         let barHeight: CGFloat = 56

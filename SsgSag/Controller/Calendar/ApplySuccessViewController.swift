@@ -79,7 +79,7 @@ extension ApplySuccessViewController: UITableViewDelegate, UITableViewDataSource
     
     func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
         
-        let deleteAction = UITableViewRowAction(style: .default, title: "삭제", handler: { (action, indexPath) in
+        let deleteAction = UITableViewRowAction(style: .default, title: "삭제" ) { action, indexPath in
         
             var posterInfo = CalenderView.getPosterUsingUserDefaults()
             
@@ -121,7 +121,7 @@ extension ApplySuccessViewController: UITableViewDelegate, UITableViewDataSource
             self.posters = self.getPostersData()
             
             tableView.reloadData()
-        })
+        }
         
         deleteAction.backgroundColor = UIColor.rgb(red: 249, green: 106, blue: 106)
         
