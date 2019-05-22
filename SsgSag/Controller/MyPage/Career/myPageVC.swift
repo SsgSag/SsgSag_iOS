@@ -136,13 +136,14 @@ class myPageVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
             let imageUrl = URL(fileURLWithPath: dirPath).appendingPathComponent(fileName)
             let image = UIImage(contentsOfFile: imageUrl.path)
             return image
-            
         }
+        
         return nil
     }
     
     
-    @objc func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+    @objc func imagePickerController(_ picker: UIImagePickerController,
+                                     didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         
         var selectedImage: UIImage?
         
@@ -171,9 +172,9 @@ class myPageVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
         
         guard let url = UserAPI.sharedInstance.getURL("/user/photo") else {return}
         
-        guard let sendImage = selecteImage else {
-            return
-        }
+        guard let sendImage = selecteImage else { return }
+        
+        guard let sendData = sendImage.jpegData(compressionQuality: 1) else {return}
         
         guard let key = UserDefaults.standard.object(forKey: TokenName.token) as? String else {
             return
@@ -185,6 +186,11 @@ class myPageVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
         request.httpMethod = "POST"
         request.addValue("multipart/form-data; boundary=\(boundary)", forHTTPHeaderField: "Content-Type")
         request.addValue(key, forHTTPHeaderField: "Authorization")
+        request.httpBody = createBody(parameters: [:],
+                                      boundary: boundary,
+                                      data: sendData,
+                                      mimeType: "image/jpeg",
+                                      filename: "profile")
         
         NetworkManager.shared.getData(with: request) { (data, error, res) in
             
@@ -192,7 +198,15 @@ class myPageVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
                 return
             }
             
-            print("성공적으로 되고 있는 건가?")
+            do {
+                let status = try JSONDecoder().decode(BasicNetworkModel.self, from: data)
+                
+                //500번 서버 내부 에러 발생 하고 있음
+                print("Message!! \(status.message)")
+                
+            } catch {
+                print("upload data parsing error")
+            }
         }
     }
     
@@ -238,6 +252,30 @@ class myPageVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
     private func generateBoundaryString() -> String {
         return "Boundary-\(UUID().uuidString)"
     }
-
+    
+    private func createBody(parameters: [String: String],
+                    boundary: String,
+                    data: Data,
+                    mimeType: String,
+                    filename: String) -> Data {
+        let body = NSMutableData()
+        
+        let boundaryPrefix = "--\(boundary)\r\n"
+        
+        for (key, value) in parameters {
+            body.appendString(boundaryPrefix)
+            body.appendString("Content-Disposition: form-data; name=\"\(key)\"\r\n\r\n")
+            body.appendString("\(value)\r\n")
+        }
+        
+        body.appendString(boundaryPrefix)
+        body.appendString("Content-Disposition: form-data; name=\"file\"; filename=\"\(filename)\"\r\n")
+        body.appendString("Content-Type: \(mimeType)\r\n\r\n")
+        body.append(data)
+        body.appendString("\r\n")
+        body.appendString("--".appending(boundary.appending("--")))
+        
+        return body as Data
+    }
 }
 
