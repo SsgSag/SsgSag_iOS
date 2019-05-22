@@ -92,6 +92,8 @@ class TodoTableViewCell: UITableViewCell {
         return im
     }()
     
+    var todoCellDelegate: todoCellDelegate?
+    
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
@@ -246,6 +248,8 @@ class TodoTableViewCell: UITableViewCell {
     
     @objc func addFavorite() {
         
+        todoCellDelegate?.changeOrderOfTodoList()
+        
         guard let posterIdx = poster?.posterIdx else {return}
         
         guard let posterCagegoryIdx = poster?.categoryIdx else { return }
@@ -273,7 +277,6 @@ class TodoTableViewCell: UITableViewCell {
                                   dayLefted: dayLefted,
                                   favoriteIntervalDay: favoriteIntervalDay,
                                   posterIdx: posterIdx)
-        
     }
     
     func setupCell(){
@@ -434,6 +437,10 @@ enum favoriteState: Int {
             dayLefted.textColor = .white
         }
     }
+}
+
+protocol todoCellDelegate {
+    func changeOrderOfTodoList()
 }
 
 

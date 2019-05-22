@@ -22,6 +22,8 @@ extension CalenderVC: UITableViewDelegate,UITableViewDataSource {
             return .init()
         }
         
+        todoTableViewCell.todoCellDelegate = self
+        
         todoTableViewCell.poster = todoTableData[indexPath.row]
         
         return todoTableViewCell
@@ -41,10 +43,7 @@ extension CalenderVC: UITableViewDelegate,UITableViewDataSource {
             }
         }
         
-        
-        
         present(CalendarDetailVC, animated: true, completion: nil)
-        
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -135,3 +134,11 @@ extension CalenderVC: UITableViewDelegate,UITableViewDataSource {
     }
 }
 
+extension CalenderVC: todoCellDelegate {
+    
+    func changeOrderOfTodoList() {
+        sortOrderUsingFavorite(&todoTableData)
+        todoTableView.reloadData()
+    }
+    
+}

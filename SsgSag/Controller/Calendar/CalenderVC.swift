@@ -309,9 +309,7 @@ class CalenderVC: UIViewController {
             if interval > 0  {
                 todoTableData.append(poster)
             }
-            
         }
-        
     }
     
     @objc func todoListButtonAction() {
@@ -394,15 +392,39 @@ class CalenderVC: UIViewController {
                     
                     todoTableData.append(poster)
                 }
-                
             }
         }
+        
+        sortOrderUsingFavorite(&todoTableData)
         
         todoList.text = currentDateString
         todoSeparatorBar.bringSubviewToFront(todoList)
         
         todoTableView.reloadData()
         calenderView.calendarCollectionView.reloadData()
+    }
+    
+    func sortOrderUsingFavorite(_ todoList: inout [Posters]) {
+        var notFavorite: [Posters] = []
+        var favorite: [Posters] = []
+        
+        for todo in todoList {
+            
+            guard let posterIdx = todo.posterIdx else {return}
+            
+            guard let isFavorite = UserDefaults.standard.object(forKey: "favorite\(posterIdx)") as? Int else {
+                notFavorite.append(todo)
+                continue
+            }
+            
+            if isFavorite == 0 {
+                notFavorite.append(todo)
+            } else {
+                favorite.append(todo)
+            }
+        }
+        
+        todoList = favorite + notFavorite
     }
     
     @objc func addPassiveDate() {
@@ -548,3 +570,5 @@ class CalenderVC: UIViewController {
         calenderView.monthView.leftPanGestureAction()
     }
 }
+
+
