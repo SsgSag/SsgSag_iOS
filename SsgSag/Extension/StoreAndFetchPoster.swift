@@ -10,9 +10,9 @@ import UIKit
 
 class StoreAndFetchPoster {
     
-    public static let shared = StoreAndFetchPoster()
-    
     var isChanged: Bool = false
+    
+    public static let shared = StoreAndFetchPoster()
     
     private var data: Data?
     
@@ -36,10 +36,12 @@ class StoreAndFetchPoster {
         self.posters = storedPosters
     }
     
-    // FIXME: 변화될 상황에 대해서만 isChanged를 바꾸어 주면된다.
+    /// 어떠한 상황에 userdefaults가 바뀌었다면 새로 유저디폴츠에서 꺼내고 아니라면 기존에 로드된 데이터를 사용한다.
     func getPostersAfterAllChangedConfirm() -> [Posters] {
         if isChanged {
+            
             isChanged = false
+            
             guard let poster = UserDefaults.standard.object(forKey: UserDefaultsName.poster) as? Data else{ return
                 []
             }
