@@ -71,7 +71,7 @@ class CalenderView: UIView, MonthViewDelegate {
     
     static func getPosterUsingUserDefaults() -> [Posters] {
         
-        let posterInfo = StoreAndFetchPoster.getPoster
+        let posterInfo = StoreAndFetchPoster.shared.getPostersAfterAllChangedConfirm()
         
         return posterInfo
     }

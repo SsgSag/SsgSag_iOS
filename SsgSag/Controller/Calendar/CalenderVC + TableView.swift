@@ -35,7 +35,7 @@ extension CalenderVC: UITableViewDelegate,UITableViewDataSource {
         let storyBoard = UIStoryboard(name: StoryBoardName.calendar, bundle: nil)
         let CalendarDetailVC = storyBoard.instantiateViewController(withIdentifier: ViewControllerIdentifier.detailPosterViewController) as! CalendarDetailVC
         
-        let posterInfo = StoreAndFetchPoster.getPoster
+        let posterInfo = StoreAndFetchPoster.shared.getPostersAfterAllChangedConfirm()
         for poster in posterInfo {
             guard let posterName = todoTableData[indexPath.row].posterName else { return }
             if posterName == poster.posterName! {
@@ -87,7 +87,7 @@ extension CalenderVC: UITableViewDelegate,UITableViewDataSource {
         let deleteAction = UITableViewRowAction(style: .default, title: "삭제", handler: { (action, indexPath) in
             
             //유저 디폴츠에서 꺼낸
-            let posterInfo = StoreAndFetchPoster.getPoster
+            let posterInfo = StoreAndFetchPoster.shared.getPostersAfterAllChangedConfirm()
             
             var userDefaultsData = posterInfo
             
@@ -119,8 +119,8 @@ extension CalenderVC: UITableViewDelegate,UITableViewDataSource {
                     
                 }
             }
-            
-            StoreAndFetchPoster.storePoster(posters: userDefaultsData)
+        
+            StoreAndFetchPoster.shared.storePoster(posters: userDefaultsData)
             
             NotificationCenter.default.post(name: NSNotification.Name(NotificationName.deleteUserDefaults), object: nil)
             

@@ -381,7 +381,7 @@ extension SwipeVC : SwipeCardDelegate {
         
         likedPoster.append(self.posters[currentIndex-1])
         
-        StoreAndFetchPoster.storePoster(posters: likedPoster)
+        StoreAndFetchPoster.shared.storePoster(posters: likedPoster)
         
         guard let likedCategory = likedOrDisLiked(rawValue: 1) else { return }
         
@@ -397,7 +397,7 @@ extension SwipeVC : SwipeCardDelegate {
             likedPoster.append(self.posters[currentIndex-1])
         }
         
-        StoreAndFetchPoster.storePoster(posters: likedPoster)
+        StoreAndFetchPoster.shared.storePoster(posters: likedPoster)
         
         guard let likedCategory = likedOrDisLiked(rawValue: 1) else { return }
         

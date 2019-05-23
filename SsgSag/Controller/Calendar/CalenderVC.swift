@@ -281,7 +281,7 @@ class CalenderVC: UIViewController {
     
     private func setPosters(){
         
-        posters = StoreAndFetchPoster.getPoster
+        posters = StoreAndFetchPoster.shared.getPostersAfterAllChangedConfirm()
         
         posters.sort{$0.posterEndDate! < $1.posterEndDate!}
         

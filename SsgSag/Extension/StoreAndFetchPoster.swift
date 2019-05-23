@@ -14,9 +14,9 @@ class StoreAndFetchPoster {
     
     var isChanged: Bool = false
     
-    var data: Data?
+    private var data: Data?
     
-    var posters: [Posters]?
+    private var posters: [Posters]?
 
     private init() {
         
@@ -36,6 +36,7 @@ class StoreAndFetchPoster {
         self.posters = storedPosters
     }
     
+    // FIXME: 변화될 상황에 대해서만 isChanged를 바꾸어 주면된다.
     func getPostersAfterAllChangedConfirm() -> [Posters] {
         if isChanged {
             isChanged = false
@@ -57,9 +58,10 @@ class StoreAndFetchPoster {
     }
 
     func storePoster(posters: [Posters]) {
+        isChanged = true
         UserDefaults.standard.setValue(try? PropertyListEncoder().encode(posters), forKey: UserDefaultsName.poster)
     }
-
+    
 }
 
 //enum StoreAndFetchPoster {
