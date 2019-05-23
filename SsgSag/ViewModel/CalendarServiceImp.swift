@@ -90,8 +90,9 @@ class CalendarServiceImp: CalendarService {
         }
     }
     
-    
-    func requestFavorite(_ favorite: favoriteState, _ posterIdx: Int, completionHandler: @escaping (DataResponse<PosterFavorite>) -> Void) {
+    func requestFavorite(_ favorite: favoriteState,
+                         _ posterIdx: Int,
+                         completionHandler: @escaping (DataResponse<PosterFavorite>) -> Void) {
         
         guard let url = UserAPI.sharedInstance.getURL(RequestURL.favorite(posterIdx: posterIdx).getRequestURL()) else {return}
         

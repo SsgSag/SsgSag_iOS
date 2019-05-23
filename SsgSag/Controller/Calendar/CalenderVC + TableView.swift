@@ -139,6 +139,7 @@ extension CalenderVC: todoCellDelegate {
     func changeOrderOfTodoList() {
         sortOrderUsingFavorite(&todoTableData)
         todoTableView.reloadData()
+        self.todoTableView.layoutIfNeeded()
     }
     
 }

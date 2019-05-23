@@ -248,8 +248,6 @@ class TodoTableViewCell: UITableViewCell {
     
     @objc func addFavorite() {
         
-        todoCellDelegate?.changeOrderOfTodoList()
-        
         guard let posterIdx = poster?.posterIdx else {return}
         
         guard let posterCagegoryIdx = poster?.categoryIdx else { return }
@@ -261,15 +259,20 @@ class TodoTableViewCell: UITableViewCell {
             
             let favoriteState: favoriteState = .notFavorite
             
-            favoriteState.changeColor(category, favorite: favorite,
+            favoriteState.changeColor(category,
+                                      favorite: favorite,
                                       dayLefted: dayLefted,
                                       favoriteIntervalDay: favoriteIntervalDay,
                                       posterIdx: posterIdx)
             
             UserDefaults.standard.setValue(1, forKey: "favorite\(posterIdx)")
             
+            todoCellDelegate?.changeOrderOfTodoList()
+            
             return
         }
+        
+        
         
         guard let favoriteState = favoriteState(rawValue: isFavorite) else {return}
         
@@ -277,6 +280,8 @@ class TodoTableViewCell: UITableViewCell {
                                   dayLefted: dayLefted,
                                   favoriteIntervalDay: favoriteIntervalDay,
                                   posterIdx: posterIdx)
+        
+        todoCellDelegate?.changeOrderOfTodoList()
     }
     
     func setupCell(){
@@ -394,17 +399,23 @@ enum favoriteState: Int {
         }
     }
     
-    func changeColor(_ category: PosterCategory, favorite: UIButton, dayLefted: UILabel ,favoriteIntervalDay: UILabel, posterIdx: Int) {
+    func changeColor(_ category: PosterCategory,
+                     favorite: UIButton,
+                     dayLefted: UILabel,
+                     favoriteIntervalDay: UILabel,
+                     posterIdx: Int) {
         
         let calendarServiceImp = CalendarServiceImp()
+        
         calendarServiceImp.requestFavorite(self, posterIdx) { (dataResponse) in
+            
             guard let statusCode = dataResponse.value?.status else {return}
             
             guard let httpStatus = HttpStatusCode(rawValue: statusCode) else {return}
             
             switch httpStatus {
             case .favoriteSuccess:
-                print("성공적으로 즐겨찾기를 등록하였습니다")
+                print("기록 저장 성공")
             case .dataBaseError:
                 print("Favorite Database Error")
             case .serverError:
@@ -412,7 +423,6 @@ enum favoriteState: Int {
             default:
                 break
             }
-            
         }
         
         switch self {
@@ -436,6 +446,7 @@ enum favoriteState: Int {
             favoriteIntervalDay.textColor = .white
             dayLefted.textColor = .white
         }
+        
     }
 }
 

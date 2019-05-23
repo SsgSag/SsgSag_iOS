@@ -405,6 +405,7 @@ class CalenderVC: UIViewController {
     }
     
     func sortOrderUsingFavorite(_ todoList: inout [Posters]) {
+        
         var notFavorite: [Posters] = []
         var favorite: [Posters] = []
         
