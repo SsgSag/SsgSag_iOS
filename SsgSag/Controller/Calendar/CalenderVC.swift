@@ -16,10 +16,6 @@ class CalenderVC: UIViewController {
     
     var calendarServiceImp: CalendarService?
     
-    var posterIdx: [Int] = []
-    
-    var tempDetailPosters: [Posters]?
-    
     let calenderView: CalenderView = {
         let v = CalenderView(theme: MyTheme.light)
         v.translatesAutoresizingMaskIntoConstraints=false
@@ -530,10 +526,7 @@ class CalenderVC: UIViewController {
         todoTableView.delegate = self
         todoTableView.register(TodoTableViewCell.self, forCellReuseIdentifier: "todoCell")
         
-        UIView.animate(withDuration: 0.1) {
-            self.view.layoutIfNeeded()
-        }
-        
+        //self.view.layoutIfNeeded()
     }
     
     func setCalendarVCWhenTODOHide() {
@@ -545,12 +538,9 @@ class CalenderVC: UIViewController {
             }
         }
         
-        calenderView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -20).isActive = true
-        
-        
-        UIView.animate(withDuration: 0.1) {
-            self.view.layoutIfNeeded()
-        }
+        calenderView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -10).isActive = true
+    
+        view.layoutIfNeeded()
     }
     
     @objc func hideTodoTable(){

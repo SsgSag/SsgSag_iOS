@@ -165,24 +165,23 @@ class SwipeVC: UIViewController {
     }
     
     private func loadCard() {
-        
-        for (index,value) in posters.enumerated() {
-            
+        for (index,poster) in posters.enumerated() {
             if index < SwipeVC.numberOfTopCards {
-                
-                guard let photoURL = value.photoUrl else {
+                guard let photoURL = poster.photoUrl else {
                     return
                 }
                 
-                print(photoURL)
+                guard let categoryIdx = poster.categoryIdx else {
+                    return
+                }
+                
+                //if categoryIdx ==
                 
                 let newCard = createSwipeCard(at: index, value: photoURL)
                 currentLoadedCardsArray.append(newCard)
                 lastCardIndex = index
             }
-            
         }
-        
     }
     
     private func setSwipeCardSubview() {

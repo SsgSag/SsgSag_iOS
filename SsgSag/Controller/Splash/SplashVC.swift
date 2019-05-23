@@ -9,11 +9,13 @@ import UIKit
 import Lottie
 
 class SplashVC: UIViewController {
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         view.backgroundColor = .red
+        
         
 //        let splashAnimation = LOTAnimationView(name: "splash_190514")
 //
