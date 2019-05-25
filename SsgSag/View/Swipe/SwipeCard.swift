@@ -142,7 +142,7 @@ class SwipeCard: UIView {
         imageViewStatus.alpha = 0.5
         overLayImage.alpha = 1.0
         
-        UIView.animate(withDuration: 0.5, animations: {() -> Void in
+        UIView.animate(withDuration: 0.45, animations: {() -> Void in
             self.center = finishPoint
             self.transform = CGAffineTransform(rotationAngle: 1)
             self.imageViewStatus.alpha = 1.0
@@ -150,10 +150,10 @@ class SwipeCard: UIView {
             self.layoutIfNeeded()
         }, completion: {(_ complete: Bool) -> Void in
             self.removeFromSuperview()
+            
+            self.isLiked = true
+            self.delegate?.cardGoesRight(card: self)
         })
-        
-        isLiked = true
-        delegate?.cardGoesRight(card: self)
     }
     
     /// Left Dislike Button
@@ -163,7 +163,7 @@ class SwipeCard: UIView {
         imageViewStatus.alpha = 0.5
         overLayImage.alpha = 1.0
         
-        UIView.animate(withDuration: 0.15, animations: {() -> Void in
+        UIView.animate(withDuration: 0.45, animations: {() -> Void in
             self.center = finishPoint
             self.transform = CGAffineTransform(rotationAngle: -1)
             self.imageViewStatus.alpha = 1.0
@@ -171,12 +171,11 @@ class SwipeCard: UIView {
             self.layoutIfNeeded()
         }, completion: {(_ complete: Bool) -> Void in
             self.removeFromSuperview()
+            
+            self.isLiked = false
+            self.delegate?.cardGoesLeft(card: self)
         })
-        
-        isLiked = false
-        delegate?.cardGoesLeft(card: self)
     }
-    
 }
 
 
