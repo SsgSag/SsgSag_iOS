@@ -113,10 +113,9 @@ class SwipeCard: UIView {
         
         UIView.animate(withDuration: 0.15, animations: {
             self.center = finishPoint
+            self.layoutIfNeeded()
         }, completion: {(_) in
-            DispatchQueue.main.async {
-                self.removeFromSuperview()
-            }
+            self.removeFromSuperview()
         })
         isLiked = true
         delegate?.cardGoesRight(card: self)
@@ -125,8 +124,9 @@ class SwipeCard: UIView {
     //왼쪽 스와이프
     func leftAction() {
         let finishPoint = CGPoint(x: -frame.size.width*2, y: 2 * yCenter + originalPoint.y)
-        UIView.animate(withDuration: 0.15, animations: {
+        UIView.animate(withDuration: 0.5, animations: {
             self.center = finishPoint
+            self.layoutIfNeeded()
         }, completion: {(_) in
             self.removeFromSuperview()
         })
@@ -136,26 +136,28 @@ class SwipeCard: UIView {
     
     /// Right Like Button
     func rightClickAction() {
-        overLayImage.image = UIImage(named: "imgMainSwipeO")
+        overLayImage.image = #imageLiteral(resourceName: "imgMainSwipeO")
         let finishPoint = CGPoint(x: center.x + frame.size.width * 2, y: center.y)
         imageViewStatus.alpha = 0.5
         overLayImage.alpha = 1.0
         
-        UIView.animate(withDuration: 0.15, animations: {() -> Void in
+        UIView.animate(withDuration: 0.5, animations: {() -> Void in
             self.center = finishPoint
             self.transform = CGAffineTransform(rotationAngle: 1)
             self.imageViewStatus.alpha = 1.0
             self.overLayImage.alpha = 1.0
+            self.layoutIfNeeded()
         }, completion: {(_ complete: Bool) -> Void in
             self.removeFromSuperview()
         })
+        
         isLiked = true
         delegate?.cardGoesRight(card: self)
     }
     
     /// Left Dislike Button
     func leftClickAction() {
-        overLayImage.image = UIImage(named: "imgMainSwipeX")
+        overLayImage.image = #imageLiteral(resourceName: "imgMainSwipeX")
         let finishPoint = CGPoint(x: center.x - frame.size.width * 2, y: center.y)
         imageViewStatus.alpha = 0.5
         overLayImage.alpha = 1.0
@@ -165,6 +167,7 @@ class SwipeCard: UIView {
             self.transform = CGAffineTransform(rotationAngle: -1)
             self.imageViewStatus.alpha = 1.0
             self.overLayImage.alpha = 1.0
+            self.layoutIfNeeded()
         }, completion: {(_ complete: Bool) -> Void in
             self.removeFromSuperview()
         })

@@ -40,8 +40,6 @@ class SwipeVC: UIViewController {
         
         setView()
         
-        setButtonTarget()
-        
         hideStatusBar()
         
         setEmptyPosterAnimation()
@@ -73,18 +71,6 @@ class SwipeVC: UIViewController {
         self.view.backgroundColor = UIColor(displayP3Red: 242/255, green: 243/255, blue: 245/255, alpha: 1.0)
         
         self.view.bringSubviewToFront(swipeCardView)
-        
-        
-    }
-    
-    private func setButtonTarget() {
-        likedButton.addTarget(self, action: #selector(touchDownLiked(_:)), for: .touchDown)
-        
-        likedButton.addTarget(self, action: #selector(touchUpLiked(_:)), for: .touchUpInside)
-        
-        dislikedButton.addTarget(self, action: #selector(touchDownDisLiked(_:)), for: .touchDown)
-        
-        dislikedButton.addTarget(self, action: #selector(touchUpDisLiked(_:)), for: .touchUpInside)
     }
     
     private func setEmptyPosterAnimation() {
@@ -112,32 +98,6 @@ class SwipeVC: UIViewController {
         dictionary.keys.forEach { key in
             defaults.removeObject(forKey: key)
         }
-    }
-    
-    @objc func touchDownLiked(_ sender: UIButton) {
-        UIView.animate(withDuration: 0.1, delay: 0, usingSpringWithDamping: 0.5, initialSpringVelocity: 0.5, options: .curveEaseInOut, animations: {
-            self.likedButton.transform = CGAffineTransform(scaleX: 1.3, y: 1.3)
-            self.view.layoutIfNeeded()
-        })
-    }
-    
-    @objc func touchUpLiked(_ sender: UIButton) {
-        UIView.animate(withDuration: 0.2, delay: 0, options: .curveEaseInOut, animations: {
-            self.likedButton.transform = .identity
-        })
-    }
-    
-    @objc func touchDownDisLiked(_ sender: UIButton) {
-        UIView.animate(withDuration: 0.1, delay: 0, usingSpringWithDamping: 0.5, initialSpringVelocity: 0.5, options: .curveEaseInOut, animations: {
-            self.dislikedButton.transform = CGAffineTransform(scaleX: 1.3, y: 1.3)
-            self.view.layoutIfNeeded()
-        })
-    }
-    
-    @objc func touchUpDisLiked(_ sender: UIButton) {
-        UIView.animate(withDuration: 0.2, delay: 0, options: .curveEaseInOut, animations: {
-            self.dislikedButton.transform = .identity
-        })
     }
     
     //FIXME: - CategoryIdx가 3이거나 5일때 예외를 만든다.
@@ -193,13 +153,11 @@ class SwipeVC: UIViewController {
                 swipeCardView.addSubview(currentLoadedCardsArray[i])
             }
         }
-        
     }
     
     
     //카드를 로드한다.
     func loadCardAndSetPageVC() {
-        
         if posters.count > 0 {
             
             loadCard()
@@ -208,7 +166,6 @@ class SwipeVC: UIViewController {
             
             setPageVCAndAddToSubView()
         }
-        
     }
     
     private func addNewCard() {
@@ -227,6 +184,7 @@ class SwipeVC: UIViewController {
     }
     
     private func loadCardValuesAfterRemoveObject() {
+        
         currentLoadedCardsArray.remove(at: 0)
         
         countTotalCardIndex -= 1
@@ -369,6 +327,7 @@ extension SwipeVC: movoToDetailPoster {
 extension SwipeVC : SwipeCardDelegate {
     //카드가 왼쪽으로 갔을때
     func cardGoesLeft(card: SwipeCard) {
+        
         loadCardValuesAfterRemoveObject()
         
         guard let disLikedCategory = likedOrDisLiked(rawValue: 0) else { return }
