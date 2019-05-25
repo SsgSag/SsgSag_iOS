@@ -28,6 +28,9 @@ class PageViewController: UIPageViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        orderedViewControllers[0].view.frame = view.frame
+        orderedViewControllers[1].view.frame = view.frame
+        
         view.addSubview(orderedViewControllers[0].view)
         view.addSubview(orderedViewControllers[1].view)
         

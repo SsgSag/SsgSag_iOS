@@ -203,9 +203,9 @@ class SwipeVC: UIViewController {
     
     //SwipeCard 생성
     private func createSwipeCard(at index: Int , value :String) -> SwipeCard {
-        let card = SwipeCard(frame: CGRect(x: 0, y: 0,
-                                           width: swipeCardView.frame.size.width,
-                                           height: swipeCardView.frame.size.height),
+        let card = SwipeCard(frame: CGRect(x: 15, y: 0,
+                                           width: swipeCardView.frame.size.width - 30 ,
+                                           height: swipeCardView.frame.size.height ),
                              value : value)
         card.delegate = self
         
@@ -230,8 +230,13 @@ class SwipeVC: UIViewController {
             guard let detailTextSwipeCard = pageVC.orderedViewControllers[0] as? DetailNewTextSwipeCard else {
                 return
             }
-        
-            pageVC.view.frame = self.currentLoadedCardsArray[1].frame
+            
+            let pageVCx: CGFloat = 0
+            let pageVCy: CGFloat = 0
+            let pageVCWidth: CGFloat = self.currentLoadedCardsArray[1].frame.width
+            let pageVCHeight: CGFloat = self.currentLoadedCardsArray[1].frame.height
+            
+            pageVC.view.frame = CGRect(x: pageVCx, y: pageVCy, width: pageVCWidth, height: pageVCHeight)
             
             if posters.count > lastCardIndex {
                 
@@ -241,8 +246,8 @@ class SwipeVC: UIViewController {
             
                 self.addChild(pageVC)
                 
-                self.currentLoadedCardsArray[1].insertSubview(pageVC.view, at: 0)
-                
+                self.currentLoadedCardsArray[1].insertSubview(pageVC.view,
+                                                              at: 0)
                 pageVC.didMove(toParent: self)
             }
             
@@ -270,14 +275,19 @@ class SwipeVC: UIViewController {
             
             detailImageSwipeCardVC.delegate = self
             
-            pageVC.view.frame = self.currentLoadedCardsArray[i].frame
+            let pageVCx: CGFloat = 0
+            let pageVCy: CGFloat = 0
+            let pageVCWidth: CGFloat = self.currentLoadedCardsArray[i].frame.width
+            let pageVCHeight: CGFloat = self.currentLoadedCardsArray[i].frame.height
+            
+            pageVC.view.frame = CGRect(x: pageVCx, y: pageVCy, width: pageVCWidth, height: pageVCHeight)
             
             setDetailSwipeCardAndSwipeCardVC(of: detailTextSwipeCard,
                                              of: detailImageSwipeCardVC,
                                              by: posters[i])
             
             self.addChild(pageVC)
-            self.currentLoadedCardsArray[i].insertSubview(pageVC.view, at: 0)
+            self.currentLoadedCardsArray[i].addSubview(pageVC.view)
             pageVC.didMove(toParent: self)
         }
         

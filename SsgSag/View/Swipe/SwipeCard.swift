@@ -17,6 +17,7 @@ class SwipeCard: UIView {
     
     public init(frame: CGRect, value: String) {
         super.init(frame: frame)
+        self.backgroundColor = .white
         setupView(at: value)
     }
     
