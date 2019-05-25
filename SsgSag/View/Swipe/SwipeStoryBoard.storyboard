@@ -60,10 +60,12 @@
                                     <action selector="LikeButtonAction:" destination="x1e-70-Zh0" eventType="touchUpInside" id="kWC-MG-Mmg"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="i0x-aS-fLi">
-                                <rect key="frame" x="17" y="786" width="52" height="30"/>
-                                <color key="backgroundColor" red="0.37135294120000001" green="1" blue="0.3196109385" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <state key="normal" title="되돌리기"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="i0x-aS-fLi">
+                                <rect key="frame" x="33.5" y="798" width="48" height="48"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="i0x-aS-fLi" secondAttribute="height" multiplier="1:1" id="TuN-tg-cyX"/>
+                                </constraints>
+                                <state key="normal" image="undoSelected"/>
                                 <connections>
                                     <action selector="cardBackAction:" destination="x1e-70-Zh0" eventType="touchUpInside" id="zrA-bt-OXu"/>
                                 </connections>
@@ -73,15 +75,16 @@
                             <constraint firstItem="c7o-gI-BTJ" firstAttribute="width" secondItem="Dc2-OV-lNp" secondAttribute="width" multiplier="0.175" id="8Po-CM-xwh"/>
                             <constraint firstItem="bGY-hH-jJl" firstAttribute="leading" secondItem="c7o-gI-BTJ" secondAttribute="trailing" constant="19" id="9S0-C2-jjQ"/>
                             <constraint firstItem="bGY-hH-jJl" firstAttribute="centerY" secondItem="c7o-gI-BTJ" secondAttribute="centerY" constant="1" id="AC7-hm-vHz"/>
+                            <constraint firstItem="c7o-gI-BTJ" firstAttribute="leading" secondItem="i0x-aS-fLi" secondAttribute="trailing" constant="11" id="Dqz-LO-eAW"/>
                             <constraint firstItem="Qa3-PX-6kd" firstAttribute="top" secondItem="Dc2-OV-lNp" secondAttribute="top" constant="50" id="Dyj-Cn-AYw"/>
                             <constraint firstItem="owb-dH-Fs8" firstAttribute="leading" secondItem="bGY-hH-jJl" secondAttribute="trailing" constant="19" id="GsS-tv-OIG"/>
+                            <constraint firstItem="i0x-aS-fLi" firstAttribute="height" secondItem="c7o-gI-BTJ" secondAttribute="height" multiplier="2:3" id="HHe-sa-DNg"/>
                             <constraint firstItem="c7o-gI-BTJ" firstAttribute="top" secondItem="Qa3-PX-6kd" secondAttribute="bottom" constant="10" id="Lth-Ze-W0I"/>
                             <constraint firstItem="Qa3-PX-6kd" firstAttribute="leading" secondItem="Dc2-OV-lNp" secondAttribute="leading" id="MRY-wS-wrg"/>
+                            <constraint firstItem="i0x-aS-fLi" firstAttribute="centerY" secondItem="c7o-gI-BTJ" secondAttribute="centerY" id="Ouk-D4-kzc"/>
                             <constraint firstItem="c7o-gI-BTJ" firstAttribute="bottom" secondItem="YSG-iM-g4A" secondAttribute="bottom" multiplier="0.93" constant="25" id="TIH-bA-ndB"/>
                             <constraint firstItem="Dc2-OV-lNp" firstAttribute="trailing" secondItem="Qa3-PX-6kd" secondAttribute="trailing" id="aaF-0s-3QQ"/>
-                            <constraint firstItem="i0x-aS-fLi" firstAttribute="top" secondItem="c7o-gI-BTJ" secondAttribute="top" id="aiy-oe-qyz"/>
                             <constraint firstItem="bGY-hH-jJl" firstAttribute="centerX" secondItem="Dc2-OV-lNp" secondAttribute="centerX" id="bT5-ng-IjM"/>
-                            <constraint firstItem="i0x-aS-fLi" firstAttribute="leading" secondItem="Dc2-OV-lNp" secondAttribute="leading" constant="17" id="mXV-HU-HlI"/>
                             <constraint firstItem="owb-dH-Fs8" firstAttribute="width" secondItem="c7o-gI-BTJ" secondAttribute="width" id="rIB-Lj-qjS"/>
                             <constraint firstItem="owb-dH-Fs8" firstAttribute="centerY" secondItem="c7o-gI-BTJ" secondAttribute="centerY" id="ygg-75-Ufm"/>
                         </constraints>
@@ -737,5 +740,6 @@
         <image name="icCardProcessPaper" width="42" height="42"/>
         <image name="line" width="228" height="3"/>
         <image name="noButton_Selected" width="100" height="100"/>
+        <image name="undoSelected" width="50" height="50"/>
     </resources>
 </document>

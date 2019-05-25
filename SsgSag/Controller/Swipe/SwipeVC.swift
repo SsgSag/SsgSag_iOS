@@ -29,6 +29,8 @@ class SwipeVC: UIViewController {
     
     private var lastDeletedSwipeCard: SwipeCard?
     
+    private var isOkayToUndo: Bool = false
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -312,34 +314,20 @@ class SwipeVC: UIViewController {
     @IBAction func LikeButtonAction(_ sender: Any) {
         let card = currentLoadedCardsArray.first
         card?.rightClickAction()
+        
     }
     
     @IBAction func cardBackAction(_ sender: Any) {
         guard let card = lastDeletedSwipeCard else {return}
         
-        swipeCardView.addSubview(card)
-        card.makeUndoAction()
-        currentLoadedCardsArray.insert(card, at: 0)
-        
-//        currentIndex =  currentIndex - 1
-//        if currentLoadedCardsArray.count == MAX_BUFFER_SIZE {
-//
-//            let lastCard = currentLoadedCardsArray.last
-//            lastCard?.rollBackCard()
-//            currentLoadedCardsArray.removeLast()
-//        }
-        
-//        let undoCard = allCardsArray[currentIndex]
-//        undoCard.layer.removeAllAnimations()
-//        viewTinderBackGround.addSubview(undoCard)
-//        undoCard.makeUndoAction()
-//        currentLoadedCardsArray.insert(undoCard, at: 0)
-//        animateCardAfterSwiping()
-//        if currentIndex == 0 {
-//            UIView.animate(withDuration: 0.5) {
-//                self.buttonUndo.alpha = 0
-//            }
-//        }
+        if isOkayToUndo {
+            isOkayToUndo = false
+            swipeCardView.addSubview(card)
+            countTotalCardIndex += 1
+            self.countLabel.text = "\(self.countTotalCardIndex)"
+            card.makeUndoAction()
+            currentLoadedCardsArray.insert(card, at: 0)
+        }
         
     }
     
@@ -369,11 +357,32 @@ extension SwipeVC : SwipeCardDelegate {
     //카드가 왼쪽으로 갔을때
     func cardGoesLeft(card: SwipeCard) {
         
+        isOkayToUndo = true
+        
         loadCardValuesAfterRemoveObject()
         
         guard let disLikedCategory = likedOrDisLiked(rawValue: 0) else { return }
         
         posterServiceImp?.requestPosterLiked(of: self.posters[currentIndex-1], type: disLikedCategory)
+    }
+    
+    //카드 오른쪽으로 갔을때
+    func cardGoesRight(card: SwipeCard) {
+        
+        isOkayToUndo = true
+        
+        loadCardValuesAfterRemoveObject()
+        
+        guard let posterData = UserDefaults.standard.object(forKey: UserDefaultsName.poster) as? Data else {
+            addUserDefaultsWhenNoData()
+            return
+        }
+        
+        guard let posterInfo = try? PropertyListDecoder().decode([Posters].self, from: posterData) else {
+            return
+        }
+        
+        addUserDefautlsWhenDataIsExist(posterInfo)
     }
     
     private func addUserDefaultsWhenNoData() {
@@ -406,22 +415,6 @@ extension SwipeVC : SwipeCardDelegate {
         NotificationCenter.default.post(name: NSNotification.Name(NotificationName.addUserDefaults), object: nil)
     }
     
-    //카드 오른쪽으로 갔을때
-    func cardGoesRight(card: SwipeCard) {
-        
-        loadCardValuesAfterRemoveObject()
-        
-        guard let posterData = UserDefaults.standard.object(forKey: UserDefaultsName.poster) as? Data else {
-            addUserDefaultsWhenNoData()
-            return
-        }
-        
-        guard let posterInfo = try? PropertyListDecoder().decode([Posters].self, from: posterData) else {
-            return
-        }
-        
-        addUserDefautlsWhenDataIsExist(posterInfo)
-    }
 }
 
 struct PosterFavoriteForNetwork: Codable {
