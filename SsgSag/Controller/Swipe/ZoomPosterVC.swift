@@ -10,7 +10,7 @@ import UIKit
 
 class ZoomPosterVC: UIViewController, UIScrollViewDelegate {
     
-    internal var poster: UIImage = #imageLiteral(resourceName: "1")
+    internal var poster: UIImage?
     
     var urlString: String?
     

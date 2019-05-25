@@ -39,7 +39,7 @@
                                     <action selector="disLikeButtonAction:" destination="x1e-70-Zh0" eventType="touchUpInside" id="vce-sm-d1F"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bGY-hH-jJl">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bGY-hH-jJl">
                                 <rect key="frame" x="184" y="800" width="46" height="46"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
@@ -60,6 +60,14 @@
                                     <action selector="LikeButtonAction:" destination="x1e-70-Zh0" eventType="touchUpInside" id="kWC-MG-Mmg"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="i0x-aS-fLi">
+                                <rect key="frame" x="17" y="786" width="52" height="30"/>
+                                <color key="backgroundColor" red="0.37135294120000001" green="1" blue="0.3196109385" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <state key="normal" title="되돌리기"/>
+                                <connections>
+                                    <action selector="cardBackAction:" destination="x1e-70-Zh0" eventType="touchUpInside" id="zrA-bt-OXu"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <constraints>
                             <constraint firstItem="c7o-gI-BTJ" firstAttribute="width" secondItem="Dc2-OV-lNp" secondAttribute="width" multiplier="0.175" id="8Po-CM-xwh"/>
@@ -71,7 +79,9 @@
                             <constraint firstItem="Qa3-PX-6kd" firstAttribute="leading" secondItem="Dc2-OV-lNp" secondAttribute="leading" id="MRY-wS-wrg"/>
                             <constraint firstItem="c7o-gI-BTJ" firstAttribute="bottom" secondItem="YSG-iM-g4A" secondAttribute="bottom" multiplier="0.93" constant="25" id="TIH-bA-ndB"/>
                             <constraint firstItem="Dc2-OV-lNp" firstAttribute="trailing" secondItem="Qa3-PX-6kd" secondAttribute="trailing" id="aaF-0s-3QQ"/>
+                            <constraint firstItem="i0x-aS-fLi" firstAttribute="top" secondItem="c7o-gI-BTJ" secondAttribute="top" id="aiy-oe-qyz"/>
                             <constraint firstItem="bGY-hH-jJl" firstAttribute="centerX" secondItem="Dc2-OV-lNp" secondAttribute="centerX" id="bT5-ng-IjM"/>
+                            <constraint firstItem="i0x-aS-fLi" firstAttribute="leading" secondItem="Dc2-OV-lNp" secondAttribute="leading" constant="17" id="mXV-HU-HlI"/>
                             <constraint firstItem="owb-dH-Fs8" firstAttribute="width" secondItem="c7o-gI-BTJ" secondAttribute="width" id="rIB-Lj-qjS"/>
                             <constraint firstItem="owb-dH-Fs8" firstAttribute="centerY" secondItem="c7o-gI-BTJ" secondAttribute="centerY" id="ygg-75-Ufm"/>
                         </constraints>
@@ -108,7 +118,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="JOe-gp-Owl" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1927" y="72"/>
+            <point key="canvasLocation" x="1926.0869565217392" y="71.651785714285708"/>
         </scene>
         <!--Page View Controller-->
         <scene sceneID="9ih-8V-PWC">

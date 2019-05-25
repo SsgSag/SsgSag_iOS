@@ -147,7 +147,6 @@ class SwipeCard: UIView {
             self.transform = CGAffineTransform(rotationAngle: 1)
             self.imageViewStatus.alpha = 1.0
             self.overLayImage.alpha = 1.0
-            self.layoutIfNeeded()
         }, completion: {(_ complete: Bool) -> Void in
             self.removeFromSuperview()
             
@@ -168,7 +167,6 @@ class SwipeCard: UIView {
             self.transform = CGAffineTransform(rotationAngle: -1)
             self.imageViewStatus.alpha = 1.0
             self.overLayImage.alpha = 1.0
-            self.layoutIfNeeded()
         }, completion: {(_ complete: Bool) -> Void in
             self.removeFromSuperview()
             
@@ -176,6 +174,31 @@ class SwipeCard: UIView {
             self.delegate?.cardGoesLeft(card: self)
         })
     }
+    
+    func makeUndoAction() {
+        
+//        imageViewStatus.image = isLiked ? #imageLiteral(resourceName: "btn_like_pressed") : #imageLiteral(resourceName: "btn_skip_pressed")
+//        overLayImage.image = isLiked ? #imageLiteral(resourceName: "overlay_like") : #imageLiteral(resourceName: "overlay_skip")
+        
+        imageViewStatus.alpha = 1.0
+        overLayImage.alpha = 1.0
+        UIView.animate(withDuration: 0.45, animations: {() -> Void in
+            self.center = self.originalPoint
+            self.transform = CGAffineTransform(rotationAngle: 0)
+            self.imageViewStatus.alpha = 0
+            self.overLayImage.alpha = 0
+        })
+        
+        print("WATCHOUT UNDO ACTION")
+    }
+    
+    func rollBackCard(){
+        
+        UIView.animate(withDuration: 0.5) {
+            self.removeFromSuperview()
+        }
+    }
+    
 }
 
 

@@ -63,33 +63,5 @@ class StoreAndFetchPoster {
         isChanged = true
         UserDefaults.standard.setValue(try? PropertyListEncoder().encode(posters), forKey: UserDefaultsName.poster)
     }
-    
 }
 
-//enum StoreAndFetchPoster {
-//
-//    static var tempPosters: [Posters] {
-//        return
-//    }
-//
-//    static func storePoster(posters: [Posters]) {
-//        UserDefaults.standard.setValue(try? PropertyListEncoder().encode(posters), forKey: UserDefaultsName.poster)
-//    }
-//
-//    static var getPoster: [Posters] {
-//
-//        guard let poster = UserDefaults.standard.object(forKey: UserDefaultsName.poster) as? Data else{ return
-//            []
-//        }
-//
-//        guard let storedPosters = try? PropertyListDecoder().decode([Posters].self, from: poster) else {
-//            return []
-//        }
-//
-//        return storedPosters
-//    }
-//
-//    static var getPosterWhenUserDefaultsIsNotChange: [Posters] {
-//        self.getPoster
-//    }
-//}

@@ -165,8 +165,7 @@ class CalendarDetailVC: UIViewController {
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         guard let nextVC: ZoomPosterImageVC = segue.destination as? ZoomPosterImageVC else {return}
-        //FIXME: - 기본 이미지
-        nextVC.poster = PosterImage.image ?? #imageLiteral(resourceName: "1")
+        nextVC.poster = PosterImage.image
     }
     
     func popUpDetailInfo(button: UIButton) {

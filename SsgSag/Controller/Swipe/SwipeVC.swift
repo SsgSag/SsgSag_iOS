@@ -27,6 +27,8 @@ class SwipeVC: UIViewController {
     
     private var posterServiceImp: PosterService!
     
+    private var lastDeletedSwipeCard: SwipeCard?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -185,7 +187,7 @@ class SwipeVC: UIViewController {
     
     private func loadCardValuesAfterRemoveObject() {
         
-        currentLoadedCardsArray.remove(at: 0)
+        lastDeletedSwipeCard = currentLoadedCardsArray.remove(at: 0)
         
         countTotalCardIndex -= 1
         self.countLabel.text = "\(self.countTotalCardIndex)"
@@ -310,6 +312,35 @@ class SwipeVC: UIViewController {
     @IBAction func LikeButtonAction(_ sender: Any) {
         let card = currentLoadedCardsArray.first
         card?.rightClickAction()
+    }
+    
+    @IBAction func cardBackAction(_ sender: Any) {
+        guard let card = lastDeletedSwipeCard else {return}
+        
+        swipeCardView.addSubview(card)
+        card.makeUndoAction()
+        currentLoadedCardsArray.insert(card, at: 0)
+        
+//        currentIndex =  currentIndex - 1
+//        if currentLoadedCardsArray.count == MAX_BUFFER_SIZE {
+//
+//            let lastCard = currentLoadedCardsArray.last
+//            lastCard?.rollBackCard()
+//            currentLoadedCardsArray.removeLast()
+//        }
+        
+//        let undoCard = allCardsArray[currentIndex]
+//        undoCard.layer.removeAllAnimations()
+//        viewTinderBackGround.addSubview(undoCard)
+//        undoCard.makeUndoAction()
+//        currentLoadedCardsArray.insert(undoCard, at: 0)
+//        animateCardAfterSwiping()
+//        if currentIndex == 0 {
+//            UIView.animate(withDuration: 0.5) {
+//                self.buttonUndo.alpha = 0
+//            }
+//        }
+        
     }
     
     func isDuplicated(in posters:[Posters], checkValue: Posters) -> Bool {
