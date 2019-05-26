@@ -1174,14 +1174,14 @@
                                                         <subviews>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="w94-UA-uf0" userLabel="ManagementButton">
                                                                 <rect key="frame" x="0.0" y="0.0" width="162" height="162"/>
-                                                                <state key="normal" image="btJobManagementUnactive"/>
+                                                                <state key="normal" image="btCompanyBigPassive"/>
                                                                 <connections>
                                                                     <action selector="touchUpJobButtons:" destination="cnl-e1-rb8" eventType="touchUpInside" id="g74-E5-qkO"/>
                                                                 </connections>
                                                             </button>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bEF-x6-85A" userLabel="MarketingButton">
                                                                 <rect key="frame" x="174" y="0.0" width="162" height="162"/>
-                                                                <state key="normal" image="btJobSpecialityUnactive"/>
+                                                                <state key="normal" image="btCompanyMidPassive"/>
                                                                 <connections>
                                                                     <action selector="touchUpJobButtons:" destination="cnl-e1-rb8" eventType="touchUpInside" id="n6I-fb-O0G"/>
                                                                 </connections>
@@ -1193,14 +1193,14 @@
                                                         <subviews>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rMb-eN-efy" userLabel="TechButton">
                                                                 <rect key="frame" x="0.0" y="0.0" width="162" height="162"/>
-                                                                <state key="normal" image="btJobTechUnactive"/>
+                                                                <state key="normal" image="btCompanySmallPassive"/>
                                                                 <connections>
                                                                     <action selector="touchUpJobButtons:" destination="cnl-e1-rb8" eventType="touchUpInside" id="5fT-BL-2td"/>
                                                                 </connections>
                                                             </button>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3HB-Sa-jie" userLabel="DesignButton">
                                                                 <rect key="frame" x="174" y="0.0" width="162" height="162"/>
-                                                                <state key="normal" image="btJobSalesUnactive"/>
+                                                                <state key="normal" image="btCompanyForeignPassive"/>
                                                                 <connections>
                                                                     <action selector="touchUpJobButtons:" destination="cnl-e1-rb8" eventType="touchUpInside" id="8aa-AN-scE"/>
                                                                 </connections>
@@ -1212,7 +1212,7 @@
                                                         <subviews>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xBj-QC-clq" userLabel="TradeButton">
                                                                 <rect key="frame" x="0.0" y="0.0" width="162" height="162"/>
-                                                                <state key="normal" image="btJobDesignUnactive"/>
+                                                                <state key="normal" image="btCompanyPublicPassive"/>
                                                                 <connections>
                                                                     <action selector="touchUpJobButtons:" destination="cnl-e1-rb8" eventType="touchUpInside" id="6vK-eV-VW4"/>
                                                                 </connections>
@@ -1278,10 +1278,10 @@
                                         </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7r3-0C-KKl" userLabel="secondStatus">
-                                        <rect key="frame" x="375" y="0.0" width="375" height="2"/>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <rect key="frame" x="1125" y="0.0" width="375" height="2"/>
+                                        <color key="backgroundColor" red="0.36862745098039218" green="0.48627450980392156" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     </view>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nlq-zw-S2M">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nlq-zw-S2M" userLabel="기업형태2">
                                         <rect key="frame" x="1125" y="2" width="375" height="30"/>
                                         <state key="normal" title="기업형태"/>
                                     </button>
@@ -1306,7 +1306,7 @@
                                     <constraint firstItem="7r3-0C-KKl" firstAttribute="width" secondItem="Rr5-mo-xGa" secondAttribute="width" id="gRM-Ld-4pw"/>
                                     <constraint firstItem="cEo-zl-sxg" firstAttribute="width" secondItem="bw2-gW-i9p" secondAttribute="width" multiplier="1:2" id="gyL-43-FBC"/>
                                     <constraint firstItem="cEo-zl-sxg" firstAttribute="leading" secondItem="GWF-5V-hYb" secondAttribute="leading" id="gzO-pm-V9a"/>
-                                    <constraint firstItem="7r3-0C-KKl" firstAttribute="leading" secondItem="Rr5-mo-xGa" secondAttribute="trailing" id="kKc-9K-lYL"/>
+                                    <constraint firstItem="7r3-0C-KKl" firstAttribute="leading" secondItem="nlq-zw-S2M" secondAttribute="leading" id="kKc-9K-lYL"/>
                                     <constraint firstAttribute="trailing" secondItem="bw2-gW-i9p" secondAttribute="trailing" id="kOm-Pa-eCp"/>
                                     <constraint firstItem="9NE-zK-DsQ" firstAttribute="height" secondItem="G9Q-rn-isf" secondAttribute="height" id="pPI-5q-Ng3"/>
                                     <constraint firstItem="G9Q-rn-isf" firstAttribute="top" secondItem="GWF-5V-hYb" secondAttribute="top" constant="2" id="quO-uB-sTc"/>
@@ -1389,7 +1389,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="W1S-eq-fDV" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2831" y="1966"/>
+            <point key="canvasLocation" x="2531" y="2823"/>
         </scene>
         <!--Preference-->
         <scene sceneID="1uQ-gR-vGC">
@@ -2538,6 +2538,11 @@
     <resources>
         <image name="alertNewPost" width="23" height="23"/>
         <image name="btCamera" width="40" height="40"/>
+        <image name="btCompanyBigPassive" width="162" height="162"/>
+        <image name="btCompanyForeignPassive" width="162" height="162"/>
+        <image name="btCompanyMidPassive" width="162" height="162"/>
+        <image name="btCompanyPublicPassive" width="162" height="162"/>
+        <image name="btCompanySmallPassive" width="162" height="162"/>
         <image name="btFormSave" width="130" height="44"/>
         <image name="btJobArtUnactive" width="162" height="162"/>
         <image name="btJobConstructUnactive" width="162" height="162"/>

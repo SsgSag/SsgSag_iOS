@@ -31,6 +31,8 @@ class JobVC: UIViewController {
     
     private var viewStatus: ViewStatus = .first
     
+    private var isNowMovingStatus = false
+    
     let unActiveButtonImages: [String] = [ "btJobManagementUnactive",
                                            "btJobSpecialityUnactive",
                                            "btJobTechUnactive",
@@ -63,6 +65,8 @@ class JobVC: UIViewController {
                                          "btJobEtc"
                                         ]
     
+    
+    
     private var storedJobs: [Int] = []
     
     var selectedValue: [Bool] = []
@@ -70,14 +74,14 @@ class JobVC: UIViewController {
     private var myPageService: myPageService? = MyPageServiceImp()
     
     override func viewWillAppear(_ animated: Bool) {
+        setScrollView()
+        
         getStoredJobInfo()
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        setScrollView()
-        
+
         setStatusColor()
         
         setJobTag()
@@ -85,6 +89,8 @@ class JobVC: UIViewController {
         setSaveButtonColor()
         
         chnageIsUserInteraction()
+        
+        setScrollView()
     }
     
     private func setStatusColor() {
@@ -92,6 +98,7 @@ class JobVC: UIViewController {
     }
     
     private func setScrollView() {
+        scrollView.contentSize.width = UIScreen.main.bounds.width * 2
         scrollView.delegate = self
     }
     
@@ -246,33 +253,50 @@ class JobVC: UIViewController {
     }
     
     @IBAction func moveFirstView(_ sender: Any) {
+        // FIXME: - 왜 setScrollView가 들어가야만 하는지 이유을 모르겠습니다
+        setScrollView()
         viewStatus = .first
+        isNowMovingStatus = true
         scrollView.setContentOffset(CGPoint(x: 0, y: 0), animated: true)
     }
     
     @IBAction func moveSecondView(_ sender: Any) {
+        setScrollView()
         viewStatus = .second
-        scrollView.setContentOffset(CGPoint(x: UIScreen.main.bounds.width , y: 0), animated: true)
+        isNowMovingStatus = true
         
+        scrollView.setContentOffset(CGPoint(x: UIScreen.main.bounds.width , y: 0), animated: true)
     }
-    
 }
 
 extension JobVC: UIScrollViewDelegate {
+    
+//    func scrollViewWillEndDragging(_ scrollView: UIScrollView,
+//                                   withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
+//        //오른쪽으로감
+//        if velocity.x > 0 && scrollView.contentOffset.x > UIScreen.main.bounds.width / 2 {
+//            scrollView.setContentOffset(CGPoint(x: UIScreen.main.bounds.width , y: 0), animated: true)
+//        } else if velocity.x < 0 && scrollView.contentOffset.x < UIScreen.main.bounds.width / 2 {
+//            scrollView.setContentOffset(CGPoint(x: 0, y: 0), animated: true)
+//        }
+//    }
+    
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         
-        if viewStatus == .first {
-            if scrollView.contentOffset.x > 0 || scrollView.contentOffset.x < 0 {
-                scrollView.contentOffset.x = 0
-            }
-            
-        } else {
-            if scrollView.contentOffset.x > UIScreen.main.bounds.width ||
-                scrollView.contentOffset.x < UIScreen.main.bounds.width {
-                scrollView.contentOffset.x = UIScreen.main.bounds.width
+        if !isNowMovingStatus {
+            if scrollView.contentOffset.x != 0 && viewStatus == .first {
+                scrollView.setContentOffset(CGPoint(x:0,
+                                                    y:scrollView.contentOffset.y), animated: false)
+            } else if scrollView.contentOffset.x != UIScreen.main.bounds.width && viewStatus == .second {
+                scrollView.setContentOffset(CGPoint(x:UIScreen.main.bounds.width,
+                                                    y:scrollView.contentOffset.y), animated: false)
             }
         }
-        
     }
+
+    func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+        isNowMovingStatus = false
+    }
+    
 }
 
