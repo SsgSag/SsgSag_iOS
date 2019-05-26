@@ -11,7 +11,7 @@ class DayCollectionViewCell: UICollectionViewCell {
     
     private lazy var lineHeight = self.frame.height * 0.12
     
-    static private let fontSize:CGFloat = 7
+    static private let fontSize: CGFloat = 7
     
     private lazy var lineWidth = self.frame.width
     
@@ -431,7 +431,6 @@ class DayCollectionViewCell: UICollectionViewCell {
                     dotAndLineView4.backgroundColor =  category.categoryColors()
                 }
                 
-                
                 NSLayoutConstraint.deactivate([
                     dotAndLineView1TopAnchor,
                     dotAndLineView1WidthAnchor,
@@ -717,7 +716,6 @@ class DayCollectionViewCell: UICollectionViewCell {
             case 0:
                 break
             case 1:
-                
                 dotAndLineView1.text = " \(events[0].title)"
                 
                 NSLayoutConstraint.deactivate([

@@ -14,9 +14,22 @@ class JobVC: UIViewController {
     
     @IBOutlet weak var saveButton: GradientButton!
     
-    @IBOutlet weak var jobSwitch: UISwitch!
-    
     static let syncInterestNum = 101
+    
+    @IBOutlet weak var scrollView: UIScrollView!
+    
+    @IBOutlet weak var contentViewOfScrollView: UIView!
+    
+    @IBOutlet weak var firstStatusView: UIView!
+    
+    @IBOutlet weak var secondStatusView: UIView!
+    
+    enum ViewStatus {
+        case first
+        case second
+    }
+    
+    private var viewStatus: ViewStatus = .first
     
     let unActiveButtonImages: [String] = [ "btJobManagementUnactive",
                                            "btJobSpecialityUnactive",
@@ -56,8 +69,6 @@ class JobVC: UIViewController {
     
     private var myPageService: myPageService? = MyPageServiceImp()
     
-    private var isOn: isSwitchOn?
-    
     override func viewWillAppear(_ animated: Bool) {
         getStoredJobInfo()
     }
@@ -65,9 +76,23 @@ class JobVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        setScrollView()
+        
+        setStatusColor()
+        
         setJobTag()
         
         setSaveButtonColor()
+        
+        chnageIsUserInteraction()
+    }
+    
+    private func setStatusColor() {
+        firstStatusView.backgroundColor = #colorLiteral(red: 0.368627451, green: 0.4862745098, blue: 1, alpha: 1)
+    }
+    
+    private func setScrollView() {
+        scrollView.delegate = self
     }
     
     private func setSaveButtonColor() {
@@ -106,10 +131,6 @@ class JobVC: UIViewController {
             
             guard let selected =  jobs.interests else {return}
             
-            guard let swicthOnOff = jobs.isSeeker else {return}
-            
-            guard let swithStatus = isSwitchOn(rawValue: swicthOnOff) else {return}
-            
             self?.storedJobs =  selected.filter{$0 >= 100}
             
             let syncButton = self?.storedJobs.map{$0 - JobVC.syncInterestNum}
@@ -120,30 +141,11 @@ class JobVC: UIViewController {
             
             DispatchQueue.main.async { [weak self] in
                 self?.setJobButtonsUsingNetwork()
-                self?.setSwitchOnOff(switchStatus: swithStatus)
             }
         }
-        
     }
     
-    private func setSwitchOnOff(switchStatus: isSwitchOn) {
-        switch switchStatus {
-        case .on:
-            jobSwitch.setOn(true, animated: false)
-        
-            for jobButton in jobButtons {
-                jobButton.isUserInteractionEnabled = true
-            }
-        case .off:
-            jobSwitch.setOn(false, animated: false)
-            
-            for jobButton in jobButtons {
-                jobButton.isUserInteractionEnabled = false
-            }
-            
-        }
-        
-    }
+    
     
     private func setSelectedStatus(using sync: [Int]) {
         for selected in jobButtons{
@@ -186,26 +188,13 @@ class JobVC: UIViewController {
             }
         }
         
-        var isSeeker = 0
-        
-        if jobSwitch.isOn {
-            isSeeker = 1
-        } else {
-            isSeeker = 0
-        }
-        
+        let isSeeker = 1
         var json: [String:Any] = [:]
-        
-        if isSeeker == 1 {
-            json = [
-                "isSeeker" : isSeeker, //on 했을 때
-                "userInterest" : sendJsonArray
-            ]
-        } else {
-            json = [
-                "isSeeker" : isSeeker
-            ]
-        }
+    
+        json = [
+            "isSeeker" : isSeeker, //on 했을 때
+            "userInterest" : sendJsonArray
+        ]
         
         myPageService?.reqeuestStoreJobsState(json) { dataResponse in
             guard let response = dataResponse.value else {return}
@@ -229,31 +218,9 @@ class JobVC: UIViewController {
     }
     
     private func chnageIsUserInteraction() {
-        
-        if jobSwitch.isOn {
-            for jobButton in jobButtons {
-                jobButton.isUserInteractionEnabled = true
-            }
-        } else {
-            for jobButton in jobButtons {
-                jobButton.isUserInteractionEnabled = false
-            }
+        for jobButton in jobButtons {
+            jobButton.isUserInteractionEnabled = true
         }
-        
-    }
-    
-    @IBAction func tapSwitch(_ sender: Any) {
-        
-        if jobSwitch.isOn {
-            jobSwitch.setOn(false, animated: true)
-        } else {
-            jobSwitch.setOn(true, animated: true)
-        }
-        
-        DispatchQueue.main.async { [weak self] in
-            self?.chnageIsUserInteraction()
-        }
-        
     }
 
     func myButtonTapped(myButton: UIButton, tag: Int) {
@@ -278,11 +245,34 @@ class JobVC: UIViewController {
         present(alert, animated: true, completion: nil)
     }
     
+    @IBAction func moveFirstView(_ sender: Any) {
+        viewStatus = .first
+        scrollView.setContentOffset(CGPoint(x: 0, y: 0), animated: true)
+    }
+    
+    @IBAction func moveSecondView(_ sender: Any) {
+        viewStatus = .second
+        scrollView.setContentOffset(CGPoint(x: UIScreen.main.bounds.width , y: 0), animated: true)
+        
+    }
+    
 }
 
-fileprivate enum isSwitchOn:Int {
-    case on = 1
-    case off = 0
+extension JobVC: UIScrollViewDelegate {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        
+        if viewStatus == .first {
+            if scrollView.contentOffset.x > 0 || scrollView.contentOffset.x < 0 {
+                scrollView.contentOffset.x = 0
+            }
+            
+        } else {
+            if scrollView.contentOffset.x > UIScreen.main.bounds.width ||
+                scrollView.contentOffset.x < UIScreen.main.bounds.width {
+                scrollView.contentOffset.x = UIScreen.main.bounds.width
+            }
+        }
+        
+    }
 }
-
 
