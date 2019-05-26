@@ -34,8 +34,6 @@ class SwipeVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        //resetDefaults()
-        
         setService()
         
         initPoster()
@@ -64,7 +62,7 @@ class SwipeVC: UIViewController {
         countLabel.layer.cornerRadius = 10
         countLabel.layer.masksToBounds = true
         
-        countLabel.text = "\(countTotalCardIndex)"
+        setCountLabelText()
     }
 
     private func setView() {
@@ -96,14 +94,6 @@ class SwipeVC: UIViewController {
         simplerAlert(title: "저장되었습니다")
     }
     
-    func resetDefaults() {
-        let defaults = UserDefaults.standard
-        let dictionary = defaults.dictionaryRepresentation()
-        dictionary.keys.forEach { key in
-            defaults.removeObject(forKey: key)
-        }
-    }
-    
     //FIXME: - CategoryIdx가 3이거나 5일때 예외를 만든다.
     private func initPoster() {
 
@@ -116,9 +106,8 @@ class SwipeVC: UIViewController {
             
             DispatchQueue.main.async {
                 self.loadCardAndSetPageVC()
-                self.countLabel.text = "\(self.countTotalCardIndex)"
+                self.setCountLabelText()
             }
-            
         }
     }
     
@@ -189,13 +178,10 @@ class SwipeVC: UIViewController {
     
     private func loadCardValuesAfterRemoveObject() {
         
+        setCountValue(addOrUndo: .add)
+        
         lastDeletedSwipeCard = currentLoadedCardsArray.remove(at: 0)
-        
-        countTotalCardIndex -= 1
-        self.countLabel.text = "\(self.countTotalCardIndex)"
-        
-        currentIndex += 1
-        lastCardIndex += 1
+        setCountLabelText()
         
         //등호가 올바른 것인지 확인 바람
         addNewCard()
@@ -322,13 +308,45 @@ class SwipeVC: UIViewController {
         
         if isOkayToUndo {
             isOkayToUndo = false
+            setCountValue(addOrUndo: .undo)
+            
+            setCountLabelText()
             swipeCardView.addSubview(card)
-            countTotalCardIndex += 1
-            self.countLabel.text = "\(self.countTotalCardIndex)"
+            
             card.makeUndoAction()
             currentLoadedCardsArray.insert(card, at: 0)
+            
+            // TODO: - [카드 되돌리기] 좋아요 -> 되돌리기 -> 싫어요 할경우 유저디폴츠 리셋
+            
+            /*
+            guard let posterData = UserDefaults.standard.object(forKey: UserDefaultsName.poster) as? Data else {
+                addUserDefaultsWhenNoData()
+                return
+            }
+            
+            guard let posterInfo = try? PropertyListDecoder().decode([Posters].self, from: posterData) else {
+                return
+            }
+            
+            addUserDefautlsWhenDataIsExist(posterInfo)
+             */
         }
-        
+    }
+    
+    private func setCountLabelText() {
+        self.countLabel.text = "\(self.countTotalCardIndex)"
+    }
+    
+    private func setCountValue(addOrUndo: AddOrUndo) {
+        if addOrUndo == .add {
+            countTotalCardIndex -= 1
+            currentIndex += 1
+            lastCardIndex += 1
+        } else {
+            countTotalCardIndex += 1
+            currentIndex -= 1
+            lastCardIndex -= 1
+        }
     }
     
     func isDuplicated(in posters:[Posters], checkValue: Posters) -> Bool {
@@ -432,6 +450,11 @@ protocol SwipeCardDelegate: NSObjectProtocol {
 enum likedOrDisLiked: Int {
     case liked = 1
     case disliked = 0
+}
+
+enum AddOrUndo {
+    case add
+    case undo
 }
 
 
