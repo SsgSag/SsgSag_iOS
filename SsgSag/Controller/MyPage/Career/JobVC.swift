@@ -24,6 +24,8 @@ class JobVC: UIViewController {
     
     @IBOutlet weak var secondStatusView: UIView!
     
+    @IBOutlet weak var bigbutton: UIButton!
+    
     enum ViewStatus {
         case first
         case second
@@ -91,6 +93,13 @@ class JobVC: UIViewController {
         chnageIsUserInteraction()
         
         setScrollView()
+        
+        bigbutton.addTarget(self, action: #selector(printbig)
+            , for:  .touchUpInside)
+    }
+    
+    @objc private func printbig() {
+        print("1231241234")
     }
     
     private func setStatusColor() {
@@ -98,7 +107,7 @@ class JobVC: UIViewController {
     }
     
     private func setScrollView() {
-        scrollView.contentSize.width = UIScreen.main.bounds.width * 2
+        //scrollView.contentSize.width = UIScreen.main.bounds.width * 2
         scrollView.delegate = self
     }
     
@@ -152,8 +161,7 @@ class JobVC: UIViewController {
         }
     }
     
-    
-    
+
     private func setSelectedStatus(using sync: [Int]) {
         for selected in jobButtons{
             for synced in sync {
@@ -184,6 +192,12 @@ class JobVC: UIViewController {
         print(sender.tag)
         myButtonTapped(myButton: sender, tag: sender.tag)
     }
+    
+    
+    @IBAction func asdg(_ sender: UIButton) {
+        print("qqqqqq")
+    }
+    
     
     @IBAction func touchUpSaveButton(_ sender: Any) {
         
@@ -254,14 +268,14 @@ class JobVC: UIViewController {
     
     @IBAction func moveFirstView(_ sender: Any) {
         // FIXME: - 왜 setScrollView가 들어가야만 하는지 이유을 모르겠습니다
-        setScrollView()
+        //setScrollView()
         viewStatus = .first
         isNowMovingStatus = true
         scrollView.setContentOffset(CGPoint(x: 0, y: 0), animated: true)
     }
     
     @IBAction func moveSecondView(_ sender: Any) {
-        setScrollView()
+        //setScrollView()
         viewStatus = .second
         isNowMovingStatus = true
         
