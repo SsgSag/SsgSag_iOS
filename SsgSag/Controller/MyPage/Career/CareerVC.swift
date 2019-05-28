@@ -165,6 +165,7 @@ class CareerVC: UIViewController {
     }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        
         if scrollView.contentOffset.x != latestContentOffsetX {
             if scrollView == scrollView {
                 if  scrollView.isDragging  {
@@ -178,6 +179,7 @@ class CareerVC: UIViewController {
 
 
     func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
+        
         if scrollView.contentOffset.x != latestContentOffsetX {
             if scrollView == scrollView {
                 let itemAt = Int(targetContentOffset.pointee.x / self.view.frame.width)

@@ -12,28 +12,25 @@ class JobVC: UIViewController {
     
     @IBOutlet var jobButtons: [UIButton]!
     
-    @IBOutlet weak var saveButton: GradientButton!
+    @IBOutlet var companysButtons: [UIButton]!
     
-    static let syncInterestNum = 101
+    @IBOutlet weak var saveButton: GradientButton!
     
     @IBOutlet weak var scrollView: UIScrollView!
     
     @IBOutlet weak var contentViewOfScrollView: UIView!
+
+    private var viewStatus: ViewStatus = .first
     
-    @IBOutlet weak var firstStatusView: UIView!
-    
-    @IBOutlet weak var secondStatusView: UIView!
-    
-    @IBOutlet weak var bigbutton: UIButton!
+    private var isNowMovingStatus = false
     
     enum ViewStatus {
         case first
         case second
     }
     
-    private var viewStatus: ViewStatus = .first
     
-    private var isNowMovingStatus = false
+    static let syncInterestNum = 101
     
     let unActiveButtonImages: [String] = [ "btJobManagementUnactive",
                                            "btJobSpecialityUnactive",
@@ -68,8 +65,9 @@ class JobVC: UIViewController {
                                         ]
     
     
-    
     private var storedJobs: [Int] = []
+    
+    private var storedCompanys: [Int] = []
     
     var selectedValue: [Bool] = []
     
@@ -83,32 +81,27 @@ class JobVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        setStatusColor()
         
         setJobTag()
         
         setSaveButtonColor()
         
+        setCompanysButton()
+        
         chnageIsUserInteraction()
         
         setScrollView()
-        
-        bigbutton.addTarget(self, action: #selector(printbig)
-            , for:  .touchUpInside)
     }
-    
-    @objc private func printbig() {
-        print("1231241234")
-    }
-    
-    private func setStatusColor() {
-        firstStatusView.backgroundColor = #colorLiteral(red: 0.368627451, green: 0.4862745098, blue: 1, alpha: 1)
-    }
-    
+
     private func setScrollView() {
         //scrollView.contentSize.width = UIScreen.main.bounds.width * 2
         scrollView.delegate = self
+    }
+    
+    private func setCompanysButton() {
+        companysButtons.forEach { button in
+            button.isSelected = false
+        }
     }
     
     private func setSaveButtonColor() {
@@ -147,7 +140,11 @@ class JobVC: UIViewController {
             
             guard let selected =  jobs.interests else {return}
             
-            self?.storedJobs =  selected.filter{$0 >= 100}
+            self?.storedJobs =  selected.filter{$0 >= 100 && $0 < 10000}
+            
+            let companyTags = selected.filter{$0 >= 10000}
+            
+            self?.setSelectedCompanysButton(using: companyTags)
             
             let syncButton = self?.storedJobs.map{$0 - JobVC.syncInterestNum}
             
@@ -157,6 +154,16 @@ class JobVC: UIViewController {
             
             DispatchQueue.main.async { [weak self] in
                 self?.setJobButtonsUsingNetwork()
+            }
+        }
+    }
+    
+    private func setSelectedCompanysButton(using tags: [Int]) {
+        for selectedCompanyButton in companysButtons {
+            for tag in tags {
+                if tag == selectedCompanyButton.tag {
+                    selectedCompanyButton.isSelected = true
+                }
             }
         }
     }
@@ -182,6 +189,18 @@ class JobVC: UIViewController {
             }
         }
         
+        for companysButton in companysButtons {
+            guard let companysTag = Companys(rawValue: companysButton.tag) else {return}
+            if companysButton.isSelected {
+                
+                companysButton.setImage(UIImage(named: companysTag.resultCompanyActiveImagesString()),
+                                        for: .normal)
+            } else {
+                companysButton.setImage(UIImage(named: companysTag.resultCompanyUnActiveImagesString()),
+                                        for: .normal)
+            }
+        }
+        
     }
     
     @IBAction func touchUpBackButton(_ sender: Any) {
@@ -189,23 +208,22 @@ class JobVC: UIViewController {
     }
     
     @IBAction func touchUpJobButtons(_ sender: UIButton) {
-        print(sender.tag)
         myButtonTapped(myButton: sender, tag: sender.tag)
     }
-    
-    
-    @IBAction func asdg(_ sender: UIButton) {
-        print("qqqqqq")
-    }
-    
     
     @IBAction func touchUpSaveButton(_ sender: Any) {
         
         var sendJsonArray: [Int] = []
         
-        for selected in jobButtons {
-            if selected.isSelected {
-                sendJsonArray.append(selected.tag + JobVC.syncInterestNum)
+        for selectedCompanyButton in jobButtons {
+            if selectedCompanyButton.isSelected {
+                sendJsonArray.append(selectedCompanyButton.tag + JobVC.syncInterestNum)
+            }
+        }
+        
+        for selectedCompanyButton in companysButtons {
+            if selectedCompanyButton.isSelected {
+                sendJsonArray.append(selectedCompanyButton.tag)
             }
         }
         
@@ -245,15 +263,30 @@ class JobVC: UIViewController {
     }
 
     func myButtonTapped(myButton: UIButton, tag: Int) {
-        if myButton.isSelected {
-            myButton.isSelected = false
-            selectedValue[myButton.tag] = false
-            myButton.setImage(UIImage(named: unActiveButtonImages[tag]), for: .normal)
-        } else {
-            myButton.isSelected = true
-            selectedValue[myButton.tag] = true
-            myButton.setImage(UIImage(named: activeButtonImages[tag]), for: .normal)
+        //직무분야
+        if tag < 10000 {
+            if myButton.isSelected {
+                myButton.isSelected = false
+                selectedValue[myButton.tag] = false
+                myButton.setImage(UIImage(named: unActiveButtonImages[tag]), for: .normal)
+            } else {
+                myButton.isSelected = true
+                selectedValue[myButton.tag] = true
+                myButton.setImage(UIImage(named: activeButtonImages[tag]), for: .normal)
+            }
+        } else { //기업형태
+            guard let companyType = Companys(rawValue: tag) else {return}
+            
+            if myButton.isSelected {
+                myButton.isSelected = false
+                myButton.setImage(UIImage(named: companyType.resultCompanyUnActiveImagesString()), for: .normal)
+            } else {
+                myButton.isSelected = true
+                myButton.setImage(UIImage(named: companyType.resultCompanyActiveImagesString()), for: .normal)
+            }
+            
         }
+        
     }
     
     private func successAlarm(title: String) {
@@ -271,7 +304,11 @@ class JobVC: UIViewController {
         //setScrollView()
         viewStatus = .first
         isNowMovingStatus = true
-        scrollView.setContentOffset(CGPoint(x: 0, y: 0), animated: true)
+        
+        setContentOffsetValueX(by: 0) {
+            self.isNowMovingStatus = false
+        }
+        
     }
     
     @IBAction func moveSecondView(_ sender: Any) {
@@ -279,38 +316,74 @@ class JobVC: UIViewController {
         viewStatus = .second
         isNowMovingStatus = true
         
-        scrollView.setContentOffset(CGPoint(x: UIScreen.main.bounds.width , y: 0), animated: true)
+        setContentOffsetValueX(by: UIScreen.main.bounds.width) {
+            self.isNowMovingStatus = false
+        }
+
+    }
+    
+    private func setContentOffsetValueX(by x: CGFloat,
+                                        completion: @escaping () -> Void) {
+        
+        scrollView.setContentOffset(CGPoint(x: x, y: 0), animated: true)
+        
+        completion()
     }
 }
 
 extension JobVC: UIScrollViewDelegate {
     
-//    func scrollViewWillEndDragging(_ scrollView: UIScrollView,
-//                                   withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
-//        //오른쪽으로감
-//        if velocity.x > 0 && scrollView.contentOffset.x > UIScreen.main.bounds.width / 2 {
-//            scrollView.setContentOffset(CGPoint(x: UIScreen.main.bounds.width , y: 0), animated: true)
-//        } else if velocity.x < 0 && scrollView.contentOffset.x < UIScreen.main.bounds.width / 2 {
-//            scrollView.setContentOffset(CGPoint(x: 0, y: 0), animated: true)
-//        }
-//    }
-    
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         
-        if !isNowMovingStatus {
-            if scrollView.contentOffset.x != 0 && viewStatus == .first {
-                scrollView.setContentOffset(CGPoint(x:0,
-                                                    y:scrollView.contentOffset.y), animated: false)
-            } else if scrollView.contentOffset.x != UIScreen.main.bounds.width && viewStatus == .second {
-                scrollView.setContentOffset(CGPoint(x:UIScreen.main.bounds.width,
-                                                    y:scrollView.contentOffset.y), animated: false)
-            }
+        if viewStatus == .first && scrollView.contentOffset.x != 0{
+            scrollView.contentOffset.x = 0
+        } else if viewStatus == .second {
+            scrollView.contentOffset.x = UIScreen.main.bounds.width
         }
-    }
-
-    func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
-        isNowMovingStatus = false
     }
     
 }
 
+fileprivate enum Companys: Int {
+    case big = 10000
+    case mid = 20000
+    case small = 30000
+    case startup = 40000
+    case publicCompany = 50000
+    case foreign = 60000
+    
+    func resultCompanyUnActiveImagesString() -> String {
+        switch self {
+        case .big:
+            return "btCompanyBigPassive"
+        case .mid:
+            return "btCompanyMidPassive"
+        case .small:
+            return "btCompanySmallPassive"
+        case .startup:
+            return "btCompanyStartupPassive"
+        case .publicCompany:
+            return "btCompanyPublicPassive"
+        case .foreign:
+            return "btCompanyForeignPassive"
+        }
+    }
+    
+    func resultCompanyActiveImagesString() -> String {
+        switch self {
+        case .big:
+            return "btCompanyBig"
+        case .mid:
+            return "btCompanyMid"
+        case .small:
+            return "btCompanySmall"
+        case .startup:
+            return "btCompanyStartup"
+        case .publicCompany:
+            return "btCompanyPublic"
+        case .foreign:
+            return "btCompanyForeign"
+        }
+    }
+    
+}
