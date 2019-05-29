@@ -223,13 +223,17 @@ class CalenderVC: UIViewController {
         
         todoTableView.dataSource = self
         todoTableView.delegate = self
-        
         todoTableView.register(TodoTableViewCell.self, forCellReuseIdentifier: "todoCell")
-        
         todoTableView.separatorStyle = .none
+        
         separatorLine.backgroundColor = UIColor.rgb(red: 228, green: 228, blue: 228)
         
-        todoList.text = "투두리스트"
+        let currentSelectedDateMonth = Calendar.current.component(.month, from: Date())
+        
+        let currentSelectedDateDay = Calendar.current.component(.day, from: Date())
+        
+        todoList.text = "\(currentSelectedDateMonth)월 \(currentSelectedDateDay)일 투두리스트"
+        
     }
     
     func setupGesture() {
@@ -259,9 +263,9 @@ class CalenderVC: UIViewController {
         
         let dateFormatter = DateFormatter.genericDateFormatter
         
-        for posterFromUserDefault in CalenderView.getPosterUsingUserDefaults() {
+        for poster in CalenderView.getPosterUsingUserDefaults() {
             
-            guard let posterEndDateString = posterFromUserDefault.posterEndDate else { return }
+            guard let posterEndDateString = poster.posterEndDate else { return }
             
             guard let posterEndDate = dateFormatter.date(from: posterEndDateString) else { return }
             
@@ -272,11 +276,12 @@ class CalenderVC: UIViewController {
             guard let interval = dayInterval.day else {return}
             
             if interval > 0  {
-                todoTableData.append(posterFromUserDefault)
+                todoTableData.append(poster)
             }
             
         }
         
+        sortOrderUsingFavorite(&todoTableData)
     }
     
     private func setPosters(){
@@ -324,6 +329,7 @@ class CalenderVC: UIViewController {
         
         todoTableView.reloadData()
     }
+
     
     /// day did selected
     ///

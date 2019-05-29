@@ -35,7 +35,6 @@ class CalenderView: UIView, MonthViewDelegate {
     
     static private let leapDays = 29
     
-    
     // MARK: - init func
     override init(frame: CGRect) {
         super.init(frame: frame)

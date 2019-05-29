@@ -125,7 +125,8 @@ class SwipeVC: UIViewController {
                     return
                 }
                 
-                guard let categoryIdx = poster.categoryIdx else {
+                //categoryIdx
+                guard let _ = poster.categoryIdx else {
                     return
                 }
                 
