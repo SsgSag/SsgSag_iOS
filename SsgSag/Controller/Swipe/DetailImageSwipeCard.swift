@@ -26,7 +26,7 @@ class DetailImageSwipeCardVC: UIViewController {
     
     var imageHeight: CGFloat = 0.0
     
-    var delegate: movoToDetailPoster!
+    weak var delegate: movoToDetailPoster?
     
     var poster: Posters? {
         didSet {
@@ -48,10 +48,8 @@ class DetailImageSwipeCardVC: UIViewController {
             
             guard let posterURL = URL(string: posterURLString) else { return }
             
-            ImageNetworkManager.shared.getImageByCache(imageURL: posterURL) { image, error in
-                DispatchQueue.main.async { [weak self] in
-                    self?.detailImageVIew.image = image
-                }
+            ImageNetworkManager.shared.getImageByCache(imageURL: posterURL) { [weak self] image, error in
+                self?.detailImageVIew.image = image
             }
         }
     }
@@ -132,10 +130,11 @@ class DetailImageSwipeCardVC: UIViewController {
     }()
     
     @objc private func moveToZoomPosterVC() {
-        delegate.pressButton()
+        delegate?.pressButton()
     }
+    
 }
 
-protocol movoToDetailPoster {
+protocol movoToDetailPoster: class {
     func pressButton()
 }

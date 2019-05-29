@@ -44,14 +44,14 @@ public class ImageNetworkManager {
             DispatchQueue.main.async {
                 completionHandler(image, nil)
             }
-            
         }.resume()
     }
     
     public func getImageByCache(imageURL: URL, completionHandler: @escaping (UIImage?, Error?) -> Void) {
         if let image = cache.object(forKey: imageURL.absoluteString as NSString) {
-            completionHandler(image, nil)
-            return
+            DispatchQueue.main.async {
+                completionHandler(image, nil)
+            }
         } else {
             downloadImage(imageURL: imageURL, completionHandler: completionHandler)
         }

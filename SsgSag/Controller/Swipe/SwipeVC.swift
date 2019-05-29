@@ -108,6 +108,7 @@ class SwipeVC: UIViewController {
                 self.loadCardAndSetPageVC()
                 self.setCountLabelText()
             }
+            
         }
     }
     
@@ -359,6 +360,7 @@ class SwipeVC: UIViewController {
     }
 }
 
+// MARK: - zoom poster image
 extension SwipeVC: movoToDetailPoster {
     func pressButton() {
         let storyboard = UIStoryboard(name: StoryBoardName.swipe, bundle: nil)

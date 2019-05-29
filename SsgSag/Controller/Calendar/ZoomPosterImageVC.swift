@@ -36,4 +36,6 @@ class ZoomPosterImageVC: UIViewController, UIScrollViewDelegate {
         return imageView
     }
     
+    
+    
 }

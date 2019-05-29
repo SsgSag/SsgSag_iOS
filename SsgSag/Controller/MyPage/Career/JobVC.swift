@@ -29,7 +29,6 @@ class JobVC: UIViewController {
         case second
     }
     
-    
     static let syncInterestNum = 101
     
     let unActiveButtonImages: [String] = [ "btJobManagementUnactive",
@@ -94,7 +93,6 @@ class JobVC: UIViewController {
     }
 
     private func setScrollView() {
-        //scrollView.contentSize.width = UIScreen.main.bounds.width * 2
         scrollView.delegate = self
     }
     
@@ -109,7 +107,6 @@ class JobVC: UIViewController {
         
         saveButton.bottomColor = UIColor(displayP3Red: 168 / 255, green: 71 / 255, blue: 255 / 255, alpha: 1.0)
     }
-
 
     private func setJobTag() {
         var count = 0
@@ -131,7 +128,7 @@ class JobVC: UIViewController {
     }
     
     private func getStoredJobInfo() {
-        
+        // FIXME: - companyTags의 값이 제대로 나오지 않습니다.
         myPageService?.requestSelectedState{ [weak self] (dataResponse) in
             
             guard let response = dataResponse.value else {return}
@@ -155,6 +152,7 @@ class JobVC: UIViewController {
             DispatchQueue.main.async { [weak self] in
                 self?.setJobButtonsUsingNetwork()
             }
+
         }
     }
     

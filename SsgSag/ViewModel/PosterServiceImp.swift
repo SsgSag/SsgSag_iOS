@@ -31,7 +31,7 @@ class PosterServiceImp: PosterService {
         request.httpMethod = "POST"
         request.addValue(key, forHTTPHeaderField: "Authorization")
         
-        NetworkManager.shared.getData(with: request) { (data, error, response) in
+        NetworkManager.shared.getData(with: request) { [weak self] data, error, response  in
             guard let data = data else { return }
             
             do {
@@ -42,7 +42,7 @@ class PosterServiceImp: PosterService {
                 guard let httpStatusCode = HttpStatusCode(rawValue: statusCode) else { return }
                 
                 do {
-                    try self.likedErrorHandling(httpStatusCode, likedCategory: likedCategory)
+                    try self?.likedErrorHandling(httpStatusCode, likedCategory: likedCategory)
                 } catch HttpStatusCode.dataBaseError {
                     print("likedPosterNetworkData dataBaseError")
                 } catch HttpStatusCode.serverError {

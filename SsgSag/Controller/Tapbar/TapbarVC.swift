@@ -42,11 +42,11 @@ class TapbarVC: UITabBarController {
     }
     
     private func isServerAvaliable() {
-        tapbarServiceImp?.requestIsInUpdateServer{ (dataResponse) in
+        tapbarServiceImp?.requestIsInUpdateServer{ [weak self] dataResponse in
             guard let data = dataResponse.value?.data else {return}
             
             if data == 1 {
-                self.simplerAlert(title: "서버 업데이트 중입니다.")
+                self?.simplerAlert(title: "서버 업데이트 중입니다.")
             }
         }
     }

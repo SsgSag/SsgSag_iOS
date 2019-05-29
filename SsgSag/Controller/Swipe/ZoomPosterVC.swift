@@ -26,11 +26,10 @@ class ZoomPosterVC: UIViewController, UIScrollViewDelegate {
         
         guard let posterURL = URL(string: posterURLString) else { return }
         
-        ImageNetworkManager.shared.getImageByCache(imageURL: posterURL) { image, error in
-            DispatchQueue.main.async { [weak self] in
-                self?.imageView.image = image
-            }
+        ImageNetworkManager.shared.getImageByCache(imageURL: posterURL) { [weak self] image, error in
+            self?.imageView.image = image
         }
+        
     }
     
     override var preferredStatusBarStyle: UIStatusBarStyle {
@@ -44,5 +43,6 @@ class ZoomPosterVC: UIViewController, UIScrollViewDelegate {
     @IBAction func backToPresenting(_ sender: Any) {
         dismiss(animated: true, completion: nil)
     }
+    
     
 }
