@@ -102,7 +102,6 @@ class TapbarVC: UITabBarController {
             guard let todoList = dataResponse.value else { return }
             
             StoreAndFetchPoster.shared.storePoster(posters: todoList)
-//            StoreAndFetchPoster.storePoster(posters: todoList)
         }
         
     }
