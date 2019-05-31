@@ -99,14 +99,7 @@ class AddPassiveDateVC: UIViewController, UITextFieldDelegate, UITextViewDelegat
             selectedValues[myButton.tag] = true
             myButton.setImage(UIImage(named: activeButtonImages[tag]), for: .normal)
         }
-//
-//        if selectedValues.contains(true) {
-//
-//            startButton.setImage(UIImage(named: "btSaveMypageActive"), for: .normal)
-//        } else {
-//            startButton.isUserInteractionEnabled = false
-//            startButton.setImage(UIImage(named: "btSaveMypageUnactive"), for: .normal)
-//        }
+
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
