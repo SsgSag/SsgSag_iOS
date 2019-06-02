@@ -94,6 +94,7 @@ class JobVC: UIViewController {
 
     private func setScrollView() {
         scrollView.delegate = self
+        scrollView.contentSize.width = self.view.bounds.width * 2
     }
     
     private func setCompanysButton() {

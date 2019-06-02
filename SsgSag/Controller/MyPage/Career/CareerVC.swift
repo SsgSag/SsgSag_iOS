@@ -11,9 +11,9 @@ import UIKit
 class CareerVC: UIViewController {
     
     let activityTableView: UITableView = UITableView(frame: CGRect.zero, style: .grouped)
-    
     let prizeTableView: UITableView = UITableView(frame: CGRect.zero, style: .grouped)
     let certificationTableView: UITableView = UITableView(frame: CGRect.zero, style: .grouped)
+    
     var indicatorViewLeadingConstraint: NSLayoutConstraint!
     
     lazy var activityList: [careerData] = []

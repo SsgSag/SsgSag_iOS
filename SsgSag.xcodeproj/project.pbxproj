@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		203A3F6260CB2DCADDDD7022 /* Pods_SsgSag.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E43CB28ACDEE342412E92267 /* Pods_SsgSag.framework */; };
 		8406BB7D220E9EE80065B180 /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8406BB7C220E9EE80065B180 /* Event.swift */; };
+		840AFF8822A2622C00EA12E6 /* UIDevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 840AFF8722A2622C00EA12E6 /* UIDevice.swift */; };
 		840DDD3E227EA85500D9D515 /* AllTodo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 840DDD3D227EA85500D9D515 /* AllTodo.swift */; };
 		840DDD40227EAC4000D9D515 /* TapbarServiceImp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 840DDD3F227EAC4000D9D515 /* TapbarServiceImp.swift */; };
 		840FEDC122074F6F00581A3B /* DayCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 840FEDC022074F6F00581A3B /* DayCollectionViewCell.swift */; };
@@ -157,6 +158,7 @@
 		3DCBB39D00582EB5378B93D9 /* Pods-SsgSag.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SsgSag.debug.xcconfig"; path = "Target Support Files/Pods-SsgSag/Pods-SsgSag.debug.xcconfig"; sourceTree = "<group>"; };
 		79CF1D630B2315598FD05788 /* Pods_SsgSagTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SsgSagTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8406BB7C220E9EE80065B180 /* Event.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Event.swift; sourceTree = "<group>"; };
+		840AFF8722A2622C00EA12E6 /* UIDevice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIDevice.swift; sourceTree = "<group>"; };
 		840DDD3D227EA85500D9D515 /* AllTodo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllTodo.swift; sourceTree = "<group>"; };
 		840DDD3F227EAC4000D9D515 /* TapbarServiceImp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TapbarServiceImp.swift; sourceTree = "<group>"; };
 		840FEDC022074F6F00581A3B /* DayCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -431,6 +433,7 @@
 				846E6230229291880083E3CD /* NotificationName.swift */,
 				846E6232229294300083E3CD /* UserDefaultsName.swift */,
 				8463566F22931E980060ED91 /* GradientView.swift */,
+				840AFF8722A2622C00EA12E6 /* UIDevice.swift */,
 			);
 			path = Helper;
 			sourceTree = "<group>";
@@ -1006,6 +1009,7 @@
 				84B1B254226A385A00077DF9 /* PosterServiceImp.swift in Sources */,
 				8463567B2293EF030060ED91 /* TermsOfServiceViewController.swift in Sources */,
 				845928DC21D09F30001DF6CC /* MonthView.swift in Sources */,
+				840AFF8822A2622C00EA12E6 /* UIDevice.swift in Sources */,
 				84A45D0B225F9BC100C60287 /* HTTPTask.swift in Sources */,
 				8459289D21D09CDD001DF6CC /* SwipeVC.swift in Sources */,
 				84646C3A228976A3005D3F1C /* InterestBoardViewController.swift in Sources */,
