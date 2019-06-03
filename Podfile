@@ -14,5 +14,6 @@ target 'SsgSag' do
   pod 'Firebase/Core'
   pod 'Firebase/Messaging'
   pod 'Firebase/Analytics'
+  pod 'AdBrixRemastered'
 
 end

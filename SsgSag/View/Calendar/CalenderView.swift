@@ -17,7 +17,7 @@ class CalenderView: UIView, MonthViewDelegate {
     
     private var firstWeekDayOfMonth = 0   //(Sunday-Saturday 1-7) 일:1,월:2 ~ 금:6,토:7
     
-    private var numberOfCurrentMonthDays = 0
+    static var numberOfCurrentMonthDays = 0
     
     private var eventDictionary: [Int:[event]] = [:]
     
@@ -215,12 +215,12 @@ extension CalenderView: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         
         if numOfDaysInMonth[currentMonth-1] + firstWeekDayOfMonth - 1 > 35 {
-            numberOfCurrentMonthDays = 42
+            CalenderView.numberOfCurrentMonthDays = 42
         }else {
-            numberOfCurrentMonthDays = 35
+            CalenderView.numberOfCurrentMonthDays = 35
         }
         
-        return numberOfCurrentMonthDays
+        return CalenderView.numberOfCurrentMonthDays
     }
     
     private func setbeforeMonthAndYear(beforeMonthIndex:inout Int, beforeYear: inout Int) {
@@ -443,7 +443,10 @@ extension CalenderView: UICollectionViewDelegate, UICollectionViewDataSource {
         }
 
     }
-    
+}
+
+struct CollectionViewHeightAndWidhtValue {
+    static var collletionViewHeight: CGFloat = 0
 }
 
 //MARK:- CollectionView Layout
@@ -452,13 +455,15 @@ extension CalenderView: UICollectionViewDelegateFlowLayout {
         
         let width = collectionView.frame.width / 7.1
         
-        var height = collectionView.frame.height / 7.1
+        var height:CGFloat = 0
         
-        if numberOfCurrentMonthDays == 35 {
+        if CalenderView.numberOfCurrentMonthDays == 35 {
             height = collectionView.frame.height / 5.1
         } else {
             height = collectionView.frame.height / 6.1
         }
+        
+        CollectionViewHeightAndWidhtValue.collletionViewHeight = height
         
         return CGSize(width: width, height: height)
     }

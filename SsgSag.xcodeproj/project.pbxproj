@@ -24,6 +24,7 @@
 		842C619E21DD1807001BA6D8 /* networkData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842C619B21DD1807001BA6D8 /* networkData.swift */; };
 		842C619F21DD1807001BA6D8 /* Posters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842C619C21DD1807001BA6D8 /* Posters.swift */; };
 		843813112270153900C9E47B /* MypageServiceImp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 843813102270153900C9E47B /* MypageServiceImp.swift */; };
+		844C29BE22A3EA9E00B92895 /* iAd.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 844C29BD22A3EA9E00B92895 /* iAd.framework */; };
 		8459289B21D09CDD001DF6CC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8459289A21D09CDD001DF6CC /* AppDelegate.swift */; };
 		8459289D21D09CDD001DF6CC /* SwipeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8459289C21D09CDD001DF6CC /* SwipeVC.swift */; };
 		845928A321D09CDD001DF6CC /* SsgSag.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 845928A121D09CDD001DF6CC /* SsgSag.xcdatamodeld */; };
@@ -173,6 +174,7 @@
 		842C619B21DD1807001BA6D8 /* networkData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = networkData.swift; sourceTree = "<group>"; };
 		842C619C21DD1807001BA6D8 /* Posters.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Posters.swift; sourceTree = "<group>"; };
 		843813102270153900C9E47B /* MypageServiceImp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MypageServiceImp.swift; sourceTree = "<group>"; };
+		844C29BD22A3EA9E00B92895 /* iAd.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = iAd.framework; path = System/Library/Frameworks/iAd.framework; sourceTree = SDKROOT; };
 		8459289721D09CDD001DF6CC /* 슥삭.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "슥삭.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		8459289A21D09CDD001DF6CC /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		8459289C21D09CDD001DF6CC /* SwipeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwipeVC.swift; sourceTree = "<group>"; };
@@ -306,6 +308,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				844C29BE22A3EA9E00B92895 /* iAd.framework in Frameworks */,
 				84A8AF2E22006FEB00CE72F8 /* KakaoOpenSDK.framework in Frameworks */,
 				203A3F6260CB2DCADDDD7022 /* Pods_SsgSag.framework in Frameworks */,
 			);
@@ -331,6 +334,7 @@
 		2E04BB9F31A495430F45317D /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				844C29BD22A3EA9E00B92895 /* iAd.framework */,
 				84A8AF2D22006FEB00CE72F8 /* KakaoOpenSDK.framework */,
 				E43CB28ACDEE342412E92267 /* Pods_SsgSag.framework */,
 				79CF1D630B2315598FD05788 /* Pods_SsgSagTests.framework */,
@@ -944,6 +948,7 @@
 			);
 			inputPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-SsgSag/Pods-SsgSag-frameworks.sh",
+				"${PODS_ROOT}/AdBrixRemastered/AdBrixRM.framework",
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
 				"${BUILT_PRODUCTS_DIR}/GoogleUtilities/GoogleUtilities.framework",
 				"${BUILT_PRODUCTS_DIR}/Protobuf/Protobuf.framework",
@@ -956,6 +961,7 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AdBrixRM.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleUtilities.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Protobuf.framework",

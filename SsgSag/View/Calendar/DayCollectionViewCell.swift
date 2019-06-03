@@ -11,7 +11,8 @@ class DayCollectionViewCell: UICollectionViewCell {
     
     static private let fontSize: CGFloat = 7
     
-    private lazy var lineHeight = self.bounds.height * 0.12
+    // MARK: - static 한 변수를 쓰지 않고 사용하면 lineHeight 값이 불규칙적으로 값이 다른 이유는???
+    private let lineHeight = CollectionViewHeightAndWidhtValue.collletionViewHeight * 0.28
     
     private lazy var lineWidth = self.frame.width
     
@@ -23,11 +24,11 @@ class DayCollectionViewCell: UICollectionViewCell {
     
     private lazy var secondLineHeight = lineHeight + 5
     
-    private lazy var thirdLineHeight = lineHeight*2 + 6
+    private lazy var thirdLineHeight = lineHeight * 2 + 6
     
-    private lazy var fourthLineHeight = lineHeight*3 + 7
+    private lazy var fourthLineHeight = lineHeight * 3 + 7
     
-    private lazy var fifthLineHeight = lineHeight*4 + 8
+    private lazy var fifthLineHeight = lineHeight * 4 + 8
     
     //일
     let lbl: UILabel = {

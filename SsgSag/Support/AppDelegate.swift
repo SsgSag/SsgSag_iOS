@@ -11,6 +11,8 @@ import NaverThirdPartyLogin
 import Firebase
 import FirebaseMessaging
 import UserNotifications
+import AdBrixRM
+import AdSupport
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate, MessagingDelegate ,UNUserNotificationCenterDelegate{
@@ -60,10 +62,23 @@ class AppDelegate: UIResponder, UIApplicationDelegate, MessagingDelegate ,UNUser
         window = UIWindow(frame: UIScreen.main.bounds)
     
         setWindowRootViewController()
+        
+        adBrixDefaultSetting()
 
         window?.makeKeyAndVisible()
         
         return true
+    }
+    
+    private func adBrixDefaultSetting() {
+        let adBrix = AdBrixRM.getInstance
+        
+        if ((NSClassFromString("ASIdentifierManager")) != nil) {
+            let ifa :UUID = ASIdentifierManager.shared().advertisingIdentifier;
+            
+            // IDFA 를 AdBrix SDK에 전달
+            adBrix.setAppleAdvertisingIdentifier(ifa.uuidString)
+        }
     }
     
     func application(_ application: UIApplication, open url: URL, sourceApplication: String?, annotation: Any) -> Bool {

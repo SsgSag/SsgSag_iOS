@@ -1,4 +1,5 @@
 PODS:
+  - AdBrixRemastered (1.3.4)
   - Alamofire (4.8.1)
   - Firebase/Analytics (5.20.2):
     - Firebase/Core
@@ -70,6 +71,7 @@ PODS:
   - SearchTextField (1.2.2)
 
 DEPENDENCIES:
+  - AdBrixRemastered
   - Alamofire
   - Firebase/Analytics
   - Firebase/Core
@@ -80,6 +82,7 @@ DEPENDENCIES:
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
+    - AdBrixRemastered
     - Alamofire
     - Firebase
     - FirebaseAnalytics
@@ -96,6 +99,7 @@ SPEC REPOS:
     - SearchTextField
 
 SPEC CHECKSUMS:
+  AdBrixRemastered: 72828d7c1dd458b8fc8e676fd2b487c6745a8910
   Alamofire: 16ce2c353fb72865124ddae8a57c5942388f4f11
   Firebase: 0c8cf33f266410c61ab3e2265cfa412200351d9c
   FirebaseAnalytics: ece1aa57a4f43c64d53a648b5a5e05151aae947b
@@ -111,6 +115,6 @@ SPEC CHECKSUMS:
   Protobuf: 7a877b7f3e5964e3fce995e2eb323dbc6831bb5a
   SearchTextField: a0992739d4b05dcbb40fb3a5cc6526bd991bdd23
 
-PODFILE CHECKSUM: d93a4b240fc51683c63ebdbafba4531bde71ea95
+PODFILE CHECKSUM: 2074eca8ab3c27ea36923e06ce5eff8112298c66
 
-COCOAPODS: 1.6.0.beta.2
+COCOAPODS: 1.6.2
