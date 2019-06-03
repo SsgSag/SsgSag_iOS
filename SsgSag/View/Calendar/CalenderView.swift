@@ -445,6 +445,7 @@ extension CalenderView: UICollectionViewDelegate, UICollectionViewDataSource {
     }
 }
 
+// MARK: - Using Type Properties for specific value in daycollectoinviewcell
 struct CollectionViewHeightAndWidhtValue {
     static var collletionViewHeight: CGFloat = 0
 }
@@ -477,6 +478,7 @@ extension CalenderView: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
         return 0.0
     }
+    
 }
 
 

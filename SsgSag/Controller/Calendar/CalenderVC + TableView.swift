@@ -1,4 +1,4 @@
-var sharedTableViewHeight: CGFloat = 0
+var sharedTableViewHeight: CGFloat = 89
 
 extension CalenderVC: UITableViewDelegate,UITableViewDataSource {
     //MARK: UITableViewDataSource
@@ -47,8 +47,7 @@ extension CalenderVC: UITableViewDelegate,UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        sharedTableViewHeight = tableView.frame.height / 3
-        return tableView.frame.height / 3
+        return sharedTableViewHeight
     }
     
     func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {

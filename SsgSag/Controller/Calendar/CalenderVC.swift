@@ -180,7 +180,7 @@ class CalenderVC: UIViewController {
         todoSeparatorBar.addSubview(tabToDownButtonView)
         todoSeparatorBar.addSubview(todoList)
         todoSeparatorBar.addSubview(separatorLine)
-        todoSeparatorBar.addSubview(applySuccess)
+        //todoSeparatorBar.addSubview(applySuccess)
         
         view.addSubview(calenderView)
         
@@ -196,7 +196,7 @@ class CalenderVC: UIViewController {
             todoSeparatorBar.bottomAnchor.constraint(equalTo: todoTableView.topAnchor),
             todoSeparatorBar.leftAnchor.constraint(equalTo: view.leftAnchor),
             todoSeparatorBar.rightAnchor.constraint(equalTo: view.rightAnchor),
-            todoSeparatorBar.heightAnchor.constraint(equalToConstant: 45),
+            todoSeparatorBar.heightAnchor.constraint(equalToConstant: 48),
             
             todoList.leadingAnchor.constraint(equalTo: todoSeparatorBar.leadingAnchor, constant: 18),
             todoList.bottomAnchor.constraint(equalTo: todoSeparatorBar.bottomAnchor),
@@ -205,10 +205,10 @@ class CalenderVC: UIViewController {
             tabToDownButtonView.centerYAnchor.constraint(equalTo: todoSeparatorBar.centerYAnchor),
             tabToDownButtonView.leadingAnchor.constraint(equalTo: todoList.trailingAnchor, constant: 13),
             
-            applySuccess.centerYAnchor.constraint(equalTo: todoSeparatorBar.centerYAnchor),
-            applySuccess.heightAnchor.constraint(equalTo: todoSeparatorBar.heightAnchor, multiplier: 0.8),
-            applySuccess.widthAnchor.constraint(equalTo: applySuccess.heightAnchor),
-            applySuccess.trailingAnchor.constraint(equalTo: todoSeparatorBar.trailingAnchor, constant: -24),
+//            applySuccess.centerYAnchor.constraint(equalTo: todoSeparatorBar.centerYAnchor),
+//            applySuccess.heightAnchor.constraint(equalTo: todoSeparatorBar.heightAnchor, multiplier: 0.8),
+//            applySuccess.widthAnchor.constraint(equalTo: applySuccess.heightAnchor),
+//            applySuccess.trailingAnchor.constraint(equalTo: todoSeparatorBar.trailingAnchor, constant: -24),
             
             separatorLine.bottomAnchor.constraint(equalTo: todoSeparatorBar.topAnchor),
             separatorLine.leftAnchor.constraint(equalTo: todoSeparatorBar.leftAnchor),

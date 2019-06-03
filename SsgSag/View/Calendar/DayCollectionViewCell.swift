@@ -396,7 +396,7 @@ class DayCollectionViewCell: UICollectionViewCell {
                 dotAndLineView1TopAnchor.constant = 4
                 dotAndLineView1WidthAnchor.constant = dotWidth
                 dotAndLineView1HeightAnchor.constant = dotWidth
-                dotAndLineView1CenterXAnchor = NSLayoutConstraint(item: dotAndLineView1, attribute: .centerX, relatedBy: .equal, toItem: self, attribute: .centerX, multiplier: 0.5, constant: 0)
+                dotAndLineView1CenterXAnchor = NSLayoutConstraint(item: dotAndLineView1, attribute: .centerX, relatedBy: .equal, toItem: self, attribute: .centerX, multiplier: 0.6, constant: 0)
                 
                 dotAndLineView2TopAnchor.constant = 4
                 dotAndLineView2WidthAnchor.constant = dotWidth
@@ -406,7 +406,7 @@ class DayCollectionViewCell: UICollectionViewCell {
                 dotAndLineView3TopAnchor.constant = 4
                 dotAndLineView3WidthAnchor.constant = dotWidth
                 dotAndLineView3HeightAnchor.constant = dotWidth
-                dotAndLineView3CenterXAnchor = NSLayoutConstraint(item: dotAndLineView3, attribute: .centerX, relatedBy: .equal, toItem: self, attribute: .centerX, multiplier: 1.5, constant: 0)
+                dotAndLineView3CenterXAnchor = NSLayoutConstraint(item: dotAndLineView3, attribute: .centerX, relatedBy: .equal, toItem: self, attribute: .centerX, multiplier: 1.4, constant: 0)
                 
                 NSLayoutConstraint.activate([
                     dotAndLineView1TopAnchor,

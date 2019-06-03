@@ -312,68 +312,31 @@ class TodoTableViewCell: UITableViewCell {
         //MARK: 남음
         favorite.addSubview(favoriteIntervalDay)
         favoriteIntervalDay.centerXAnchor.constraint(equalTo: favorite.centerXAnchor).isActive = true
-        switch UIDevice.current.screenType {
-        case .iPhoneXSMax:
-            favoriteIntervalDay.font = UIFont.systemFont(ofSize: 16, weight: .regular)
-            favoriteIntervalDay.bottomAnchor.constraint(equalTo: favorite.bottomAnchor, constant: -8).isActive = true
-        default:
-            favoriteIntervalDay.bottomAnchor.constraint(equalTo: favorite.bottomAnchor, constant: -8).isActive = true
-        }
-        
+        favoriteIntervalDay.bottomAnchor.constraint(equalTo: favorite.bottomAnchor, constant: -8).isActive = true
         
         //MARK: 16일
         favorite.addSubview(dayLefted)
         dayLefted.centerXAnchor.constraint(equalTo: favorite.centerXAnchor).isActive = true
-        
-        switch UIDevice.current.screenType {
-        case .iPhoneXSMax:
-            dayLefted.font = UIFont.systemFont(ofSize: 25, weight: .medium)
-            dayLefted.bottomAnchor.constraint(equalTo: favoriteIntervalDay.topAnchor, constant: -1).isActive = true
-        default:
-            dayLefted.bottomAnchor.constraint(equalTo: favoriteIntervalDay.topAnchor, constant: 1).isActive = true
-        }
-        
-        
+        dayLefted.bottomAnchor.constraint(equalTo: favoriteIntervalDay.topAnchor, constant: 1).isActive = true
+    
         //MARK: 카테고리명(공모전, 채용..)
         borderView.addSubview(categoryLabel)
         categoryLabel.leadingAnchor.constraint(equalTo: favorite.trailingAnchor, constant: 18).isActive = true
-        
-        switch UIDevice.current.screenType {
-        case .iPhoneXSMax:
-            categoryLabel.font = UIFont.systemFont(ofSize: 15.0, weight: .bold)
-            categoryLabel.topAnchor.constraint(equalTo: borderView.topAnchor, constant: 16).isActive = true
-        default:
-            categoryLabel.topAnchor.constraint(equalTo: borderView.topAnchor, constant: 13).isActive = true
-        }
+        categoryLabel.topAnchor.constraint(equalTo: borderView.topAnchor, constant: 13).isActive = true
+    
         
         //MARK: 제목
         borderView.addSubview(contentLabel)
         
         contentLabel.leadingAnchor.constraint(equalTo: categoryLabel.leadingAnchor).isActive = true
         contentLabel.trailingAnchor.constraint(equalTo: borderView.trailingAnchor, constant: -25).isActive = true
-        
-        switch UIDevice.current.screenType {
-        case .iPhoneXSMax:
-            contentLabel.topAnchor.constraint(equalTo: categoryLabel.bottomAnchor ,constant: 5).isActive
-                = true
-            contentLabel.font = UIFont.systemFont(ofSize: 19, weight: .medium)
-        default:
-            contentLabel.topAnchor.constraint(equalTo: categoryLabel.bottomAnchor ,constant: 3).isActive
-                = true
-        }
-        
-        
+        contentLabel.topAnchor.constraint(equalTo: categoryLabel.bottomAnchor ,constant: 3).isActive
+            = true
+    
         //MARK: 날짜
         borderView.addSubview(dateLabel)
         dateLabel.leadingAnchor.constraint(equalTo: categoryLabel.leadingAnchor).isActive = true
-        
-        switch UIDevice.current.screenType {
-        case .iPhoneXSMax:
-            dateLabel.topAnchor.constraint(equalTo: contentLabel.bottomAnchor, constant: 6).isActive = true
-            dateLabel.font = UIFont.systemFont(ofSize: 18, weight: .light)
-        default:
-            dateLabel.topAnchor.constraint(equalTo: contentLabel.bottomAnchor, constant: 3).isActive = true
-        }
+        dateLabel.topAnchor.constraint(equalTo: contentLabel.bottomAnchor, constant: 3).isActive = true
         
         NotificationCenter.default.addObserver(self, selector: #selector(todoListButtonAction), name: NSNotification.Name(NotificationName.todoListButtonAction), object: nil)
     }

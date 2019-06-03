@@ -94,7 +94,6 @@ class JobVC: UIViewController {
 
     private func setScrollView() {
         scrollView.delegate = self
-        scrollView.contentSize.width = self.view.bounds.width * 2
     }
     
     private func setCompanysButton() {
@@ -339,6 +338,7 @@ extension JobVC: UIScrollViewDelegate {
         } else if viewStatus == .second {
             scrollView.contentOffset.x = UIScreen.main.bounds.width
         }
+        
     }
     
 }
