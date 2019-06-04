@@ -91,11 +91,11 @@ class AddPassiveDateVC: UIViewController, UITextFieldDelegate, UITextViewDelegat
     
     func myButtonTapped(myButton: UIButton, tag: Int) {
         if myButton.isSelected {
-            myButton.isSelected = false;
+            myButton.isSelected = false
             selectedValues[myButton.tag] = false
             myButton.setImage(UIImage(named: unActiveButtonImages[tag]), for: .normal)
         } else {
-            myButton.isSelected = true;
+            myButton.isSelected = true
             selectedValues[myButton.tag] = true
             myButton.setImage(UIImage(named: activeButtonImages[tag]), for: .normal)
         }
@@ -141,6 +141,7 @@ class AddPassiveDateVC: UIViewController, UITextFieldDelegate, UITextViewDelegat
         popVC.didMove(toParent: self)
         let sendData = popVC as! DatePickerPopUpVC
         sendData.buttonTag = button.tag
+        
         if startDateLabel != nil {
             sendData.startDateString = startDateLabel.text!
         }
@@ -148,7 +149,6 @@ class AddPassiveDateVC: UIViewController, UITextFieldDelegate, UITextViewDelegat
             sendData.endDateString = endDateLabel.text!
             print("endDateLabel전송: \(sendData.endDateString)")
         }
-        
     }
     
 }
