@@ -15,7 +15,6 @@
 		840FEDC122074F6F00581A3B /* DayCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 840FEDC022074F6F00581A3B /* DayCollectionViewCell.swift */; };
 		840FEDC32207500E00581A3B /* CalendarColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 840FEDC22207500E00581A3B /* CalendarColor.swift */; };
 		840FEDC52207569D00581A3B /* CalendarView + extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 840FEDC42207569D00581A3B /* CalendarView + extension.swift */; };
-		840FEDC7220759E200581A3B /* CalenderVC + TableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 840FEDC6220759E200581A3B /* CalenderVC + TableView.swift */; };
 		84264BA621DF0FF300849E6B /* Calendar.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 84264BA521DF0FF300849E6B /* Calendar.storyboard */; };
 		84264BA821DF106C00849E6B /* CalendarDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84264BA721DF106C00849E6B /* CalendarDetailVC.swift */; };
 		84264BAA21DF109200849E6B /* AddPassiveDateVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84264BA921DF109200849E6B /* AddPassiveDateVC.swift */; };
@@ -165,7 +164,6 @@
 		840FEDC022074F6F00581A3B /* DayCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayCollectionViewCell.swift; sourceTree = "<group>"; };
 		840FEDC22207500E00581A3B /* CalendarColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarColor.swift; sourceTree = "<group>"; };
 		840FEDC42207569D00581A3B /* CalendarView + extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "CalendarView + extension.swift"; path = "../Controller/Calendar/CalendarView + extension.swift"; sourceTree = "<group>"; };
-		840FEDC6220759E200581A3B /* CalenderVC + TableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CalenderVC + TableView.swift"; sourceTree = "<group>"; };
 		84264BA521DF0FF300849E6B /* Calendar.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Calendar.storyboard; sourceTree = "<group>"; };
 		84264BA721DF106C00849E6B /* CalendarDetailVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarDetailVC.swift; sourceTree = "<group>"; };
 		84264BA921DF109200849E6B /* AddPassiveDateVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPassiveDateVC.swift; sourceTree = "<group>"; };
@@ -510,7 +508,6 @@
 			isa = PBXGroup;
 			children = (
 				845928D521D09F2F001DF6CC /* CalenderVC.swift */,
-				840FEDC6220759E200581A3B /* CalenderVC + TableView.swift */,
 				84264BA721DF106C00849E6B /* CalendarDetailVC.swift */,
 				FA4FF271221D51D500C3D21A /* CalendarDetailPopUpVC.swift */,
 				FAA2386621FF32B400C6DB13 /* ZoomPosterImageVC.swift */,
@@ -1059,7 +1056,6 @@
 				FAF6DEE4222EAAEF001C70CC /* Interests.swift in Sources */,
 				84646C3D2289A57A005D3F1C /* InterestBoardTableViewCell.swift in Sources */,
 				8486D268226E199100D7A0C7 /* PosterFavorite.swift in Sources */,
-				840FEDC7220759E200581A3B /* CalenderVC + TableView.swift in Sources */,
 				846E6233229294300083E3CD /* UserDefaultsName.swift in Sources */,
 				FA3A342221E5D64300668908 /* UserInfoVC.swift in Sources */,
 				846E6229229137F40083E3CD /* SignupServiceImp.swift in Sources */,

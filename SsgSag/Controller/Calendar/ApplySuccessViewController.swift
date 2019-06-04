@@ -12,7 +12,7 @@ class ApplySuccessViewController: UIViewController {
     
     private func getPostersData() -> [Posters]{
         
-        let userDefaultsPoster = CalenderView.getPosterUsingUserDefaults()
+        let userDefaultsPoster = StoreAndFetchPoster.shared.getPostersAfterAllChangedConfirm()
         
         var resultPoster: [Posters] = []
         
@@ -70,7 +70,7 @@ extension ApplySuccessViewController: UITableViewDelegate, UITableViewDataSource
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         
-        return sharedTableViewHeight
+        return CalenderVC.sharedTableViewHeight
     }
     
     func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
@@ -81,7 +81,7 @@ extension ApplySuccessViewController: UITableViewDelegate, UITableViewDataSource
         
         let deleteAction = UITableViewRowAction(style: .default, title: "삭제" ) { action, indexPath in
         
-            var posterInfo = CalenderView.getPosterUsingUserDefaults()
+            var posterInfo = StoreAndFetchPoster.shared.getPostersAfterAllChangedConfirm()
             
             guard let posterIdx = self.posters[indexPath.row].posterIdx else {return}
             

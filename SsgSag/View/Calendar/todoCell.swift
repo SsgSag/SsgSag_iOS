@@ -337,15 +337,8 @@ class TodoTableViewCell: UITableViewCell {
         borderView.addSubview(dateLabel)
         dateLabel.leadingAnchor.constraint(equalTo: categoryLabel.leadingAnchor).isActive = true
         dateLabel.topAnchor.constraint(equalTo: contentLabel.bottomAnchor, constant: 3).isActive = true
-        
-        NotificationCenter.default.addObserver(self, selector: #selector(todoListButtonAction), name: NSNotification.Name(NotificationName.todoListButtonAction), object: nil)
     }
-    
-    @objc func todoListButtonAction() {
-        leftedDay.isHidden = false
-        newImage.isHidden = true
-    }
-    
+
 }
 
 enum applyCompleted:Int {

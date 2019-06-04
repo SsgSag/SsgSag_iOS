@@ -8,9 +8,8 @@
 
 import UIKit
 
-//
 protocol MonthViewDelegate: class {
-    func didChangeMonth(monthIndex: Int, year: Int) // 월이 바뀔때 일어날일
+    func didChangeMonth(monthIndex: Int, year: Int)
 }
 
 //2018년 12월
@@ -27,15 +26,6 @@ class MonthView: UIView {
         currentMonthIndex = Calendar.current.component(.month, from: Date()) - 1
         currentYear = Calendar.current.component(.year, from: Date())
         setupViews()
-    
-        btnLeft.isEnabled=true
-        btnRight.isEnabled=true
-    }
-    
-    
-    @objc func moveNextMonth() {
-        monthName.text="\(currentYear) \(monthsArr[currentMonthIndex])"
-        delegate?.didChangeMonth(monthIndex: currentMonthIndex, year: currentYear)
     }
     
     func leftPanGestureAction() {
@@ -62,44 +52,12 @@ class MonthView: UIView {
         delegate?.didChangeMonth(monthIndex: currentMonthIndex, year: currentYear)
     }
     
-    @objc func btnLeftRightAction(sender: UIButton) {
-        if sender == btnRight { //다음달
-            currentMonthIndex += 1
-            if currentMonthIndex > 11 {
-                currentMonthIndex = 0
-                currentYear += 1
-            }
-        } else { //이전달
-            currentMonthIndex -= 1
-            if currentMonthIndex < 0 {
-                currentMonthIndex = 11
-                currentYear -= 1
-            }
-        }
-        
-        monthName.text="\(currentYear) \(monthsArr[currentMonthIndex])"
-        
-        delegate?.didChangeMonth(monthIndex: currentMonthIndex, year: currentYear)
-    }
-    
     func setupViews() {
         self.addSubview(monthName)
         
         monthName.topAnchor.constraint(equalTo: topAnchor).isActive = true
         monthName.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 12).isActive = true
-        //monthName.centerXAnchor.constraint(equalTo: centerXAnchor).isActive=true
-        
         monthName.text="\(currentYear) \(monthsArr[currentMonthIndex])"
-        
-//        self.addSubview(btnRight)
-//        btnRight.topAnchor.constraint(equalTo: topAnchor).isActive=true
-//        btnRight.rightAnchor.constraint(equalTo: rightAnchor).isActive=true
-//
-//        self.addSubview(btnLeft)
-//        btnLeft.topAnchor.constraint(equalTo: topAnchor).isActive=true
-//        btnLeft.leftAnchor.constraint(equalTo: leftAnchor).isActive=true
-
-
     }
     
     //월
@@ -111,28 +69,6 @@ class MonthView: UIView {
         lbl.font=UIFont.boldSystemFont(ofSize: 25)
         lbl.translatesAutoresizingMaskIntoConstraints=false
         return lbl
-    }()
-    
-    let btnRight: UIButton = {
-        let btn=UIButton()
-        //btn.setTitle(">", for: .normal)
-        btn.setImage(UIImage(named: "icCalArrowRight"), for: .normal)
-        //btn.setTitleColor(Style.monthViewBtnRightColor, for: .normal)
-        btn.imageView?.image = UIImage(named: "<#T##String#>")
-        btn.translatesAutoresizingMaskIntoConstraints=false
-        btn.addTarget(self, action: #selector(btnLeftRightAction(sender:)), for: .touchUpInside)
-        return btn
-    }()
-    
-    let btnLeft: UIButton = {
-        let btn=UIButton()
-        //btn.setTitle("<", for: .normal)
-        btn.setImage(UIImage(named: "icCalArrowLeft"), for: .normal)
-        //btn.setTitleColor(Style.monthViewBtnLeftColor, for: .normal)
-        btn.translatesAutoresizingMaskIntoConstraints=false
-        btn.addTarget(self, action: #selector(btnLeftRightAction(sender:)), for: .touchUpInside)
-        btn.setTitleColor(UIColor.lightGray, for: .disabled)
-        return btn
     }()
     
     required init?(coder aDecoder: NSCoder) {

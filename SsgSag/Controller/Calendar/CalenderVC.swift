@@ -2,27 +2,29 @@ import UIKit
 
 class CalenderVC: UIViewController {
     
-    var todoStatus: todoTableStatus = .todoShow
+    private var todoStatus: todoTableStatus = .todoShow
     
-    var daySelectedStatus: daySelectState = .notSelected
+    private var daySelectedStatus: daySelectState = .notSelected
     
-    var todoTableData:[Posters] = []
+    private var todoTableData:[Posters] = []
     
-    var posters:[Posters] = []
+    private var posters:[Posters] = []
     
-    var eventDictionary: [Int:[event]] = [:]
+    private var eventDictionary: [Int:[event]] = [:]
     
-    var calendarViewBottomAnchor: NSLayoutConstraint?
+    private var calendarViewBottomAnchor: NSLayoutConstraint?
     
-    var calendarServiceImp: CalendarService?
+    private var calendarServiceImp: CalendarService?
     
-    let calenderView: CalenderView = {
-        let v = CalenderView(theme: MyTheme.light)
-        v.translatesAutoresizingMaskIntoConstraints=false
-        return v
+    static let sharedTableViewHeight: CGFloat = 89
+    
+    private let calenderView: CalenderView = {
+        let calenderView = CalenderView()
+        calenderView.translatesAutoresizingMaskIntoConstraints = false
+        return calenderView
     }()
     
-    let applySuccess: UIButton = {
+    private let applySuccess: UIButton = {
         let button = UIButton()
         button.addTarget(self, action: #selector(moveToApplySuccessVC), for: .touchUpInside)
         button.setImage(#imageLiteral(resourceName: "btCheckApplied"), for: .normal)
@@ -30,28 +32,28 @@ class CalenderVC: UIViewController {
         return button
     }()
     
-    let todoSeparatorBar: UIView = {
+    private let todoSeparatorBar: UIView = {
         let todoView = UIView()
         todoView.backgroundColor = UIColor.rgb(red: 228, green: 228, blue: 228)
         todoView.translatesAutoresizingMaskIntoConstraints = false
         return todoView
     }()
     
-    let todoTableView: UITableView = {
+    private let todoTableView: UITableView = {
         let tableView = UITableView()
         tableView.showsVerticalScrollIndicator = false
         tableView.translatesAutoresizingMaskIntoConstraints = false
         return tableView
     }()
     
-    let tabToDownButtonView: UIImageView = {
+    private let tabToDownButtonView: UIImageView = {
         let downView = UIImageView()
         downView.translatesAutoresizingMaskIntoConstraints = false
         downView.image = UIImage(named: "icListTabDown")
         return downView
     }()
     
-    let todoList: UILabel = {
+    private let todoList: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints  = false
         label.text = "투두리스트"
@@ -59,7 +61,7 @@ class CalenderVC: UIViewController {
         return label
     }()
     
-    let separatorLine: UIView = {
+    private let separatorLine: UIView = {
         let separ = UIView()
         separ.translatesAutoresizingMaskIntoConstraints = false
         return separ
@@ -91,9 +93,15 @@ class CalenderVC: UIViewController {
         calendarViewBottomAnchor?.priority = UILayoutPriority(750)
     }
     
+    
+    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(true)
         
+        setTodoColor()
+    }
+    
+    private func setTodoColor() {
         let color1 = UIColor.rgb(red: 251, green: 251, blue: 251)
         let color2 = UIColor.rgb(red: 249, green: 249, blue: 249)
         let _ = UIColor.rgb(red: 246, green: 246, blue: 246)
@@ -101,19 +109,6 @@ class CalenderVC: UIViewController {
         todoSeparatorBar.setGradientBackGround(colorOne: color1, colorTwo: color2, frame: todoSeparatorBar.bounds)
         
         todoTableView.backgroundColor = UIColor(displayP3Red: 246/255, green: 246/255, blue: 246/255, alpha: 1.0)
-    }
-    
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-    }
-    
-    override func viewWillLayoutSubviews() {
-        super.viewWillLayoutSubviews()
-        
-        applySuccess.layer.cornerRadius = applySuccess.bounds.size.width / 2
-        applySuccess.layer.masksToBounds = true
-        
-        calenderView.calendarCollectionView.collectionViewLayout.invalidateLayout()
     }
     
     @objc private func moveToApplySuccessVC() {
@@ -136,7 +131,7 @@ class CalenderVC: UIViewController {
     }
     
     @objc func deleteUserDefaults() {
-        todoTableData = CalenderView.getPosterUsingUserDefaults()
+        todoTableData = StoreAndFetchPoster.shared.getPostersAfterAllChangedConfirm()
         
         todoTableView.reloadData()
     }
@@ -146,7 +141,7 @@ class CalenderVC: UIViewController {
         
         let dateFormatter = DateFormatter.genericDateFormatter
         
-        for poster in CalenderView.getPosterUsingUserDefaults() {
+        for poster in StoreAndFetchPoster.shared.getPostersAfterAllChangedConfirm() {
             
             guard let posterEndDateString = poster.posterEndDate else { return }
             
@@ -180,7 +175,6 @@ class CalenderVC: UIViewController {
         todoSeparatorBar.addSubview(tabToDownButtonView)
         todoSeparatorBar.addSubview(todoList)
         todoSeparatorBar.addSubview(separatorLine)
-        //todoSeparatorBar.addSubview(applySuccess)
         
         view.addSubview(calenderView)
         
@@ -204,11 +198,6 @@ class CalenderVC: UIViewController {
             
             tabToDownButtonView.centerYAnchor.constraint(equalTo: todoSeparatorBar.centerYAnchor),
             tabToDownButtonView.leadingAnchor.constraint(equalTo: todoList.trailingAnchor, constant: 13),
-            
-//            applySuccess.centerYAnchor.constraint(equalTo: todoSeparatorBar.centerYAnchor),
-//            applySuccess.heightAnchor.constraint(equalTo: todoSeparatorBar.heightAnchor, multiplier: 0.8),
-//            applySuccess.widthAnchor.constraint(equalTo: applySuccess.heightAnchor),
-//            applySuccess.trailingAnchor.constraint(equalTo: todoSeparatorBar.trailingAnchor, constant: -24),
             
             separatorLine.bottomAnchor.constraint(equalTo: todoSeparatorBar.topAnchor),
             separatorLine.leftAnchor.constraint(equalTo: todoSeparatorBar.leftAnchor),
@@ -263,7 +252,7 @@ class CalenderVC: UIViewController {
         
         let dateFormatter = DateFormatter.genericDateFormatter
         
-        for poster in CalenderView.getPosterUsingUserDefaults() {
+        for poster in StoreAndFetchPoster.shared.getPostersAfterAllChangedConfirm() {
             
             guard let posterEndDateString = poster.posterEndDate else { return }
             
@@ -296,7 +285,7 @@ class CalenderVC: UIViewController {
         
         let dateFormatter = DateFormatter.genericDateFormatter
         
-        for poster in CalenderView.getPosterUsingUserDefaults() {
+        for poster in StoreAndFetchPoster.shared.getPostersAfterAllChangedConfirm() {
             
             guard let posterEndDateString = poster.posterEndDate else { return }
             
@@ -312,24 +301,6 @@ class CalenderVC: UIViewController {
             }
         }
     }
-    
-    @objc func todoListButtonAction() {
-        
-        daySelectedStatus = .notSelected
-        
-        todoTableData = []
-        
-        let today = Date()
-        
-        setTodoListData(today)
-        
-        NotificationCenter.default.post(name: NSNotification.Name(NotificationName.todoListButtonAction), object: nil)
-        
-        todoList.text = "투두리스트"
-        
-        todoTableView.reloadData()
-    }
-
     
     /// day did selected
     ///
@@ -371,11 +342,11 @@ class CalenderVC: UIViewController {
             currentSelectedDateMonth == todayMonth &&
             currentSelectedDateDay == todayDay {
             
-            todoTableData = CalenderView.getPosterUsingUserDefaults()
+            todoTableData = StoreAndFetchPoster.shared.getPostersAfterAllChangedConfirm()
             currentDateString = "\(currentSelectedDateMonth)월 \(currentSelectedDateDay)일 투두리스트"
         } else {
             
-            for poster in CalenderView.getPosterUsingUserDefaults() {
+            for poster in StoreAndFetchPoster.shared.getPostersAfterAllChangedConfirm() {
                 
                 guard let posterEndDateString = poster.posterEndDate else { return }
                 
@@ -470,15 +441,10 @@ class CalenderVC: UIViewController {
                     todoTableData.append(poster)
                 }
             }
-            
             self.todoTableView.reloadData()
         }
-        
         todoStatus = .todoShow
-        
         calenderView.calendarCollectionView.reloadData()
-        //calenderView.calendarCollectionView.layoutIfNeeded()
-        
     }
     
     func setCalendarVCWhenTODOShow() {
@@ -513,7 +479,7 @@ class CalenderVC: UIViewController {
             todoSeparatorBar.bottomAnchor.constraint(equalTo: todoTableView.topAnchor),
             todoSeparatorBar.leftAnchor.constraint(equalTo: view.leftAnchor),
             todoSeparatorBar.rightAnchor.constraint(equalTo: view.rightAnchor),
-            todoSeparatorBar.heightAnchor.constraint(equalToConstant: 45),
+            todoSeparatorBar.heightAnchor.constraint(equalToConstant: 48),
             
             separatorLine.bottomAnchor.constraint(equalTo: todoSeparatorBar.topAnchor),
             separatorLine.leftAnchor.constraint(equalTo: todoSeparatorBar.leftAnchor),
@@ -531,8 +497,6 @@ class CalenderVC: UIViewController {
         todoTableView.dataSource = self
         todoTableView.delegate = self
         todoTableView.register(TodoTableViewCell.self, forCellReuseIdentifier: "todoCell")
-        
-        //self.view.layoutIfNeeded()
     }
     
     func setCalendarVCWhenTODOHide() {
@@ -545,7 +509,7 @@ class CalenderVC: UIViewController {
         }
         
         calenderView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -10).isActive = true
-    
+        
         view.layoutIfNeeded()
     }
     
@@ -567,5 +531,151 @@ class CalenderVC: UIViewController {
         calenderView.monthView.leftPanGestureAction()
     }
 }
+
+// MARK: - TableViewDelegate
+
+extension CalenderVC: UITableViewDelegate,UITableViewDataSource {
+    //MARK: UITableViewDataSource
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return self.todoTableData.count
+    }
+    
+    func tableView(_ tableView: UITableView, titleForDeleteConfirmationButtonForRowAt indexPath: IndexPath) -> String? {
+        return "지우기"
+    }
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        
+        if editingStyle == .insert {
+            
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let todoTableViewCell = tableView.dequeueReusableCell(withIdentifier: "todoCell") as? TodoTableViewCell else {
+            return .init()
+        }
+        
+        todoTableViewCell.todoCellDelegate = self
+        
+        todoTableViewCell.poster = todoTableData[indexPath.row]
+        
+        return todoTableViewCell
+    }
+    
+    //MARK: UITableviewDelegate
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        let storyBoard = UIStoryboard(name: StoryBoardName.calendar, bundle: nil)
+        let CalendarDetailVC = storyBoard.instantiateViewController(withIdentifier: ViewControllerIdentifier.detailPosterViewController) as! CalendarDetailVC
+        
+        let posterInfo = StoreAndFetchPoster.shared.getPostersAfterAllChangedConfirm()
+        for poster in posterInfo {
+            guard let posterName = todoTableData[indexPath.row].posterName else { return }
+            if posterName == poster.posterName! {
+                CalendarDetailVC.Poster = poster
+            }
+        }
+        
+        present(CalendarDetailVC, animated: true, completion: nil)
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return CalenderVC.sharedTableViewHeight
+    }
+    
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        return true
+    }
+    
+    func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
+        
+        let editAction = UITableViewRowAction(style: .default, title: "완료") { action, indexPath in
+            
+            guard let posterIdx = self.todoTableData[indexPath.row].posterIdx else {return}
+            
+            UserDefaults.standard.setValue(1, forKey: "completed\(posterIdx)")
+            
+            let posterComplete = CalendarServiceImp()
+            posterComplete.reqeustComplete(posterIdx) { (dataResponse) in
+                
+                guard let statusCode = dataResponse.value?.status else {return}
+                
+                guard let httpStatusCode = HttpStatusCode(rawValue: statusCode) else {return}
+                
+                switch httpStatusCode {
+                case .favoriteSuccess:
+                    print("CompleteApplyPoster isSuccessfull")
+                case .serverError:
+                    print("CompleteApplyPoster serverError")
+                case .dataBaseError:
+                    print("CompleteApplyPoster dataBaseError")
+                default:
+                    break
+                }
+            }
+            tableView.reloadData()
+        }
+        
+        let deleteAction = UITableViewRowAction(style: .default, title: "삭제", handler: { (action, indexPath) in
+            
+            //유저 디폴츠에서 꺼낸
+            let posterInfo = StoreAndFetchPoster.shared.getPostersAfterAllChangedConfirm()
+            
+            var userDefaultsData = posterInfo
+            
+            for index in 0...posterInfo.count-1 {
+                //유저디폴츠에서 꺼낸 poster과 todoTableData의 이름이 같다면
+                if posterInfo[index].posterName! == self.todoTableData[indexPath.row].posterName! {
+                    
+                    userDefaultsData.remove(at: index)
+                    
+                    let posterDelete = CalendarServiceImp()
+                    guard let posterIdx = self.todoTableData[indexPath.row].posterIdx else {return}
+                    posterDelete.requestDelete(posterIdx) { (dataResponse) in
+                        
+                        guard let statusCode = dataResponse.value?.status else {return}
+                        
+                        guard let httpStatusCode = HttpStatusCode(rawValue: statusCode) else {return}
+                        
+                        switch httpStatusCode {
+                        case .favoriteSuccess:
+                            print("DeletePoster isSuccessfull")
+                        case .serverError:
+                            print("DeletePoster serverError")
+                        case .dataBaseError:
+                            print("DeletePoster dataBaseError")
+                        default:
+                            break
+                        }
+                    }
+                    
+                }
+            }
+            
+            StoreAndFetchPoster.shared.storePoster(posters: userDefaultsData)
+            
+            NotificationCenter.default.post(name: NSNotification.Name(NotificationName.deleteUserDefaults), object: nil)
+            
+            
+        })
+        
+        editAction.backgroundColor = UIColor.rgb(red: 49, green: 137, blue: 240)
+        deleteAction.backgroundColor = UIColor.rgb(red: 249, green: 106, blue: 106)
+        
+        return [deleteAction, editAction]
+    }
+}
+
+extension CalenderVC: todoCellDelegate {
+    
+    func changeOrderOfTodoList() {
+        sortOrderUsingFavorite(&todoTableData)
+        todoTableView.reloadData()
+        self.todoTableView.layoutIfNeeded()
+    }
+    
+}
+
 
 

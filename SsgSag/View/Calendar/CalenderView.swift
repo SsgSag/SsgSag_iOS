@@ -35,24 +35,60 @@ class CalenderView: UIView, MonthViewDelegate {
     
     static private let leapDays = 29
     
-    // MARK: - init func
+    enum CollectionViewCellSize {
+        static let width: CGFloat = 7.1
+        static let height: CGFloat = 5.1
+        static let manyCellHeight: CGFloat = 6.1
+    }
+    
+    let monthView: MonthView = {
+        let v = MonthView()
+        v.translatesAutoresizingMaskIntoConstraints=false
+        return v
+    }()
+    
+    let weekdaysView: WeekdaysView = {
+        let v = WeekdaysView()
+        v.translatesAutoresizingMaskIntoConstraints=false
+        return v
+    }()
+    
+    let calendarCollectionView: UICollectionView = {
+        let layout = UICollectionViewFlowLayout()
+        layout.sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+        
+        let calendarCollectionView = UICollectionView(frame: CGRect.zero, collectionViewLayout: layout)
+        calendarCollectionView.showsHorizontalScrollIndicator = false
+        calendarCollectionView.showsVerticalScrollIndicator = false
+        calendarCollectionView.isScrollEnabled = false
+        calendarCollectionView.translatesAutoresizingMaskIntoConstraints=false
+        calendarCollectionView.backgroundColor=UIColor.clear
+        calendarCollectionView.allowsMultipleSelection = false
+        
+        return calendarCollectionView
+    }()
+    
+    // MARK: - init
     override init(frame: CGRect) {
         super.init(frame: frame)
+        
         setCalenderViewColor()
         
         initMonthAndCalendarCollectionView()
         
-        NotificationCenter.default.addObserver(self, selector: #selector(todoListButtonAction), name: NSNotification.Name(NotificationName.todoListButtonAction), object: nil)
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(changeUserDefaultsAndReloadData),
+                                               name: NSNotification.Name(NotificationName.addUserDefaults),
+                                               object: nil)
         
-        NotificationCenter.default.addObserver(self, selector: #selector(changeUserDefaultsAndReloadData), name: NSNotification.Name(NotificationName.addUserDefaults), object: nil)
-        
-        NotificationCenter.default.addObserver(self, selector: #selector(changeUserDefaultsAndReloadData), name: NSNotification.Name(rawValue: NotificationName.deleteUserDefaults), object: nil)
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(changeUserDefaultsAndReloadData),
+                                               name: NSNotification.Name(NotificationName.deleteUserDefaults),
+                                               object: nil)
     }
     
-    convenience init(theme: MyTheme) {
-        self.init()
-        Style.themeLight()
-        initMonthAndCalendarCollectionView()
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
     
     // MARK: - Notification func
@@ -61,38 +97,11 @@ class CalenderView: UIView, MonthViewDelegate {
         self.calendarCollectionView.reloadData()
     }
     
-    @objc func todoListButtonAction() { //투두리스트를 표현하자
-        todoButtonTapped = true
-        if let index = lastSelectedIndexPath {
-            calendarCollectionView.reloadItems(at: [index])
-        }
-    }
-    
-    static func getPosterUsingUserDefaults() -> [Posters] {
-        
-        let posterInfo = StoreAndFetchPoster.shared.getPostersAfterAllChangedConfirm()
-        
-        return posterInfo
-    }
-    
-    
-    static func isDuplicatePosterTuple(_ posterTuples:[Posters], input: Posters) -> Bool {
-        
-        for poster in posterTuples {
-            
-            if poster.posterName! == input.posterName! {
-                return true
-            }
-        }
-        
-        return false
-    }
-    
     private func setCalenderViewColor() {
         
+        Style.themeLight()
+        
         monthView.monthName.textColor = .black
-        monthView.btnRight.setTitleColor(Style.monthViewBtnRightColor, for: .normal)
-        monthView.btnLeft.setTitleColor(Style.monthViewBtnLeftColor, for: .normal)
         
         for day in 0..<7 {
             (weekdaysView.myStackView.subviews[day] as! UILabel).textColor = .black
@@ -100,27 +109,38 @@ class CalenderView: UIView, MonthViewDelegate {
                 (weekdaysView.myStackView.subviews[day] as! UILabel).textColor = .red
             }
         }
-        
     }
     
     func initMonthAndCalendarCollectionView() {
         
+        setNumberOfDaysInMonthByLeap()
+        
+        setDayValue()
+        
+        setupViews()
+        
+        setCalendarCollectionViewCell()
+    }
+    
+    private func setDayValue() {
+        firstWeekDayOfMonth = getFirstWeekDay()
+        
+        presentMonthIndex = currentMonth
+        presentYear = currentYear
+    }
+    
+    private func setNumberOfDaysInMonthByLeap() {
         currentMonth = Calendar.current.component(.month, from: Date())
         currentYear = Calendar.current.component(.year, from: Date())
         currentDay = Calendar.current.component(.day, from: Date())
-        
-        firstWeekDayOfMonth = getFirstWeekDay()
         
         //윤년 계산 4년에 한번씩 2월은 29일
         if currentMonth == CalenderView.leapMonth && currentYear % CalenderView.leapYear == 0 {
             numOfDaysInMonth[currentMonth-1] = CalenderView.leapDays
         }
-        
-        presentMonthIndex = currentMonth
-        presentYear = currentYear
-        
-        setupViews()
-        
+    }
+    
+    private func setCalendarCollectionViewCell() {
         calendarCollectionView.delegate = self
         calendarCollectionView.dataSource = self
         
@@ -133,6 +153,7 @@ class CalenderView: UIView, MonthViewDelegate {
     }
     
     func didChangeMonth(monthIndex: Int, year: Int) {
+        
         currentMonth = monthIndex + 1 //월+1
         currentYear = year
         
@@ -146,7 +167,6 @@ class CalenderView: UIView, MonthViewDelegate {
         firstWeekDayOfMonth = getFirstWeekDay()
         
         self.calendarCollectionView.reloadData()
-        monthView.btnLeft.isEnabled = true
     }
     
     func setupViews() {
@@ -176,37 +196,6 @@ class CalenderView: UIView, MonthViewDelegate {
         calendarCollectionViewBottonAnchor.isActive = true
     }
     
-    let monthView: MonthView = {
-        let v = MonthView()
-        v.translatesAutoresizingMaskIntoConstraints=false
-        return v
-    }()
-    
-    let weekdaysView: WeekdaysView = {
-        let v = WeekdaysView()
-        v.translatesAutoresizingMaskIntoConstraints=false
-        return v
-    }()
-    
-    let calendarCollectionView: UICollectionView = {
-        let layout = UICollectionViewFlowLayout()
-        layout.sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
-        
-        let myCollectionView = UICollectionView(frame: CGRect.zero, collectionViewLayout: layout)
-        myCollectionView.showsHorizontalScrollIndicator = false
-        myCollectionView.showsVerticalScrollIndicator = false
-        myCollectionView.isScrollEnabled = false
-        myCollectionView.translatesAutoresizingMaskIntoConstraints=false
-        myCollectionView.backgroundColor=UIColor.clear
-        myCollectionView.allowsMultipleSelection = false
-        
-        return myCollectionView
-    }()
-    
-    required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
 }
 
 // MARK: - Delegate
@@ -216,7 +205,7 @@ extension CalenderView: UICollectionViewDelegate, UICollectionViewDataSource {
         
         if numOfDaysInMonth[currentMonth-1] + firstWeekDayOfMonth - 1 > 35 {
             CalenderView.numberOfCurrentMonthDays = 42
-        }else {
+        } else {
             CalenderView.numberOfCurrentMonthDays = 35
         }
         
@@ -332,7 +321,7 @@ extension CalenderView: UICollectionViewDelegate, UICollectionViewDataSource {
         
         eventDictionary[indexPath.row] = []
         
-        for poster in CalenderView.getPosterUsingUserDefaults() {
+        for poster in StoreAndFetchPoster.shared.getPostersAfterAllChangedConfirm() {
             
             if currentCellDateTime != nil {
                 
@@ -454,14 +443,14 @@ struct CollectionViewHeightAndWidhtValue {
 extension CalenderView: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         
-        let width = collectionView.frame.width / 7.1
+        let width = collectionView.frame.width / CollectionViewCellSize.width
         
         var height:CGFloat = 0
         
         if CalenderView.numberOfCurrentMonthDays == 35 {
-            height = collectionView.frame.height / 5.1
+            height = collectionView.frame.height / CollectionViewCellSize.height
         } else {
-            height = collectionView.frame.height / 6.1
+            height = collectionView.frame.height / CollectionViewCellSize.manyCellHeight
         }
         
         CollectionViewHeightAndWidhtValue.collletionViewHeight = height
