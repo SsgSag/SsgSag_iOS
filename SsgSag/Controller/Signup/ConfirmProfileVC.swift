@@ -82,6 +82,12 @@ class ConfirmProfileVC: UIViewController, UITextFieldDelegate, UIGestureRecogniz
         present(loginVC, animated: false, completion: nil)
     }
     
+    @IBAction func privatePolicyInfomation(_ sender: Any) {
+        let storyboard = UIStoryboard(name: StoryBoardName.signup, bundle: nil)
+        let termsOfServiceViewController = storyboard.instantiateViewController(withIdentifier: ViewControllerIdentifier.termsOfServiceViewController)
+        self.navigationController?.pushViewController(termsOfServiceViewController, animated: true)
+    }
+    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
     }
