@@ -92,9 +92,7 @@ class CalenderVC: UIViewController {
         
         calendarViewBottomAnchor?.priority = UILayoutPriority(750)
     }
-    
-    
-    
+
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(true)
         
@@ -250,13 +248,11 @@ class CalenderVC: UIViewController {
     
     private func setTodoTableView() {
         
-        let dateFormatter = DateFormatter.genericDateFormatter
-        
         for poster in StoreAndFetchPoster.shared.getPostersAfterAllChangedConfirm() {
             
             guard let posterEndDateString = poster.posterEndDate else { return }
             
-            guard let posterEndDate = dateFormatter.date(from: posterEndDateString) else { return }
+            guard let posterEndDate = DateFormatter.genericDateFormatter.date(from: posterEndDateString) else { return }
             
             let dayInterval = Calendar.current.dateComponents([.day],
                                                               from: Date(),
@@ -533,9 +529,7 @@ class CalenderVC: UIViewController {
 }
 
 // MARK: - TableViewDelegate
-
 extension CalenderVC: UITableViewDelegate,UITableViewDataSource {
-    //MARK: UITableViewDataSource
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return self.todoTableData.count
     }
@@ -563,7 +557,6 @@ extension CalenderVC: UITableViewDelegate,UITableViewDataSource {
         return todoTableViewCell
     }
     
-    //MARK: UITableviewDelegate
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         let storyBoard = UIStoryboard(name: StoryBoardName.calendar, bundle: nil)
@@ -618,14 +611,12 @@ extension CalenderVC: UITableViewDelegate,UITableViewDataSource {
         }
         
         let deleteAction = UITableViewRowAction(style: .default, title: "삭제", handler: { (action, indexPath) in
-            
-            //유저 디폴츠에서 꺼낸
+        
             let posterInfo = StoreAndFetchPoster.shared.getPostersAfterAllChangedConfirm()
             
             var userDefaultsData = posterInfo
             
             for index in 0...posterInfo.count-1 {
-                //유저디폴츠에서 꺼낸 poster과 todoTableData의 이름이 같다면
                 if posterInfo[index].posterName! == self.todoTableData[indexPath.row].posterName! {
                     
                     userDefaultsData.remove(at: index)
@@ -656,8 +647,6 @@ extension CalenderVC: UITableViewDelegate,UITableViewDataSource {
             StoreAndFetchPoster.shared.storePoster(posters: userDefaultsData)
             
             NotificationCenter.default.post(name: NSNotification.Name(NotificationName.deleteUserDefaults), object: nil)
-            
-            
         })
         
         editAction.backgroundColor = UIColor.rgb(red: 49, green: 137, blue: 240)

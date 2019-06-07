@@ -103,9 +103,6 @@ import UIKit
     
 }
 
-
-import UIKit
-
 @IBDesignable class GradientView: UIView {
     
     private var gradientLayer: CAGradientLayer!

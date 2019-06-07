@@ -13,11 +13,11 @@ class SwipeVC: UIViewController {
     
     @IBOutlet private weak var likedButton: UIButton!
     
-    private var currentLoadedCardsArray = [SwipeCard]()
+    lazy private var posters:[Posters] = []
     
     private static let numberOfTopCards = 2
     
-    lazy private var posters:[Posters] = []
+    private var currentLoadedCardsArray = [SwipeCard]()
     
     private var lastCardIndex:Int = 0
     

@@ -290,7 +290,6 @@ class SignUpCompleteVC: UIViewController {
                 "userInterest" : sendPreferenceValues,
                 "userGrade" : grade
             ]
-            
         }
         
         let jsonData = try? JSONSerialization.data(withJSONObject: sendData)
@@ -324,8 +323,6 @@ class SignUpCompleteVC: UIViewController {
                 case .doNotMatch:
                     self.simpleAlert(title: "잘못된 형식이 포함되었습니다.", message: "회원가입 정보를 정확히 다시 기입해주세요.")
                 }
-                
-                
             } catch {
                 print("Json Parsing Error")
             }

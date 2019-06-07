@@ -210,13 +210,13 @@ class SchoolInfoVC: UIViewController, UITextFieldDelegate {
                 "signupType" : sendType, //0은 카카오톡, 1은 네이버
                 "userUniv" : schoolField.text ?? "",
                 "userMajor" : majorField.text ?? "",
-                "userStudentNum" : numberField.text ?? "",
+                "userStudentNum" : numberField.text ?? "2019",
                 "userGender" : gender,
                 "userBirth" : birth,
                 "userPushAllow" : 1,
                 "userInfoAllow" : 1,
                 "userInterest" : [0,1,2,3,4,5,6,7,8,9,10,11],
-                "userGrade" : Int(gradeField.text ?? "") ?? 999
+                "userGrade" : Int(gradeField.text ?? "") ?? 1
             ]
         }
         
