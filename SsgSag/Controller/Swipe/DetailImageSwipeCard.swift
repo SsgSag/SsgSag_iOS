@@ -10,11 +10,11 @@ import UIKit
 
 class DetailImageSwipeCardVC: UIViewController {
     
-    @IBOutlet var detailImageVIew: UIImageView!
+    @IBOutlet weak var detailImageVIew: UIImageView!
     
-    @IBOutlet var name: UILabel!
+    @IBOutlet weak var name: UILabel!
     
-    @IBOutlet var hashTag: UILabel!
+    @IBOutlet weak var hashTag: UILabel!
     
     @IBOutlet weak var category: UILabel!
     
@@ -133,6 +133,9 @@ class DetailImageSwipeCardVC: UIViewController {
         delegate?.pressButton()
     }
     
+    deinit {
+        print("DetailImageSwipeCard deinit")
+    }
 }
 
 protocol movoToDetailPoster: class {

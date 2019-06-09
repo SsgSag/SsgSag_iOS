@@ -71,8 +71,8 @@ class AddActivityVC: UIViewController, UITextViewDelegate, UITextFieldDelegate {
         
         guard let data = self.activityData else {return}
         
-        let startDate = DateCaculate.stringToDateWithBasicFormatter(using: data.careerDate1)
-        let endDate = DateCaculate.stringToDateWithBasicFormatter(using: data.careerDate2 ?? "")
+        let startDate:Date = DateCaculate.stringToDateWithBasicFormatter(using: data.careerDate1)
+        let endDate:Date = DateCaculate.stringToDateWithBasicFormatter(using: data.careerDate2 ?? "")
         
         var startDateString = ""
         var endDateString = ""
@@ -281,6 +281,7 @@ class AddActivityVC: UIViewController, UITextViewDelegate, UITextFieldDelegate {
                     self.simplerAlertwhenSave(title: "저장되었습니다")
                     
                     let parentVC = self.presentingViewController as! CareerVC
+                    parentVC.setService(CareerServiceImp())
                     parentVC.getData(careerType: 0)
                     parentVC.activityTableView.reloadData()
                     

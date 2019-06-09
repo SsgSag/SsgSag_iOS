@@ -143,14 +143,11 @@ class CalendarDetailVC: UIViewController {
         objectsToshare.append(posterWebSiteURL)
         
         addObjects(with: objectsToshare, sender: sender)
-        
     }
     
     private func addObjects(with objectsToshare: [Any], sender: UIView) {
         let activityVC = UIActivityViewController(activityItems: objectsToshare, applicationActivities: nil)
-        
-        activityVC.excludedActivityTypes = [UIActivity.ActivityType.airDrop, UIActivity.ActivityType.addToReadingList ]
-        
+        activityVC.excludedActivityTypes = [UIActivity.ActivityType.airDrop, UIActivity.ActivityType.addToReadingList]
         activityVC.popoverPresentationController?.sourceView = sender
         self.present(activityVC, animated: true, completion: nil)
     }

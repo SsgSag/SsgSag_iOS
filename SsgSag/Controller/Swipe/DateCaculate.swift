@@ -61,7 +61,7 @@ struct DateCaculate {
         
         guard let posterStartDate = dateFormatter.date(from: startDateString) else {return "X ~ \(posterEndDate)"}
         
-        
+
         let startDate = Calendar.current.dateComponents([.month, .day], from: posterStartDate)
         
         let endDate = Calendar.current.dateComponents([.month, .day], from: posterEndDate)

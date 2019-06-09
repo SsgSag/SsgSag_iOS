@@ -249,6 +249,11 @@ class DetailNewTextSwipeCard: UIViewController {
         
         setSegmentViews()
     }
+    
+    deinit {
+        print("DetailNewTextSwipe deinit")
+    }
+    
 }
 
 

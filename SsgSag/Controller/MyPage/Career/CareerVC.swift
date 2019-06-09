@@ -22,7 +22,7 @@ class CareerVC: UIViewController {
     
     private var latestContentOffsetX: CGFloat = 0
     
-    var careerServiceImp = CareerServiceImp()
+    var careerServiceImp: CareerService!
     
     var customTabBarCollectionView: UICollectionView = {
         let collectionViewLayout = UICollectionViewFlowLayout()
@@ -50,6 +50,8 @@ class CareerVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        setService()
+        
         setupScrollView()
         
         setUpTableView()
@@ -61,6 +63,10 @@ class CareerVC: UIViewController {
         setupTablViewRegister()
         
         setupActivityDelegate()
+    }
+    
+    func setService(_ service:CareerService = CareerServiceImp()) {
+        self.careerServiceImp = service
     }
     
     private func setupActivityDelegate() {

@@ -52,7 +52,7 @@ class StoreAndFetchPoster {
             
             self.posters = storedPosters
             
-            return storedPosters
+            return posters ?? []
         } else {
             guard let result = self.posters else { return [] }
             return result

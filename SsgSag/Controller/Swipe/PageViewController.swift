@@ -49,6 +49,16 @@ class PageViewController: UIPageViewController {
         return true
     }
     
+    override func removeFromParent() {
+        super.removeFromParent()
+        print("removedFrom Parent")
+    }
+    
+    deinit {
+        print("deinit pageVC Parent")
+    }
+    
+    
     @objc func tapOn(_ sender: UITapGestureRecognizer) {
         self.view.layer.backgroundColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
         view.backgroundColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)

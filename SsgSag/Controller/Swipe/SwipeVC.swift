@@ -31,6 +31,8 @@ class SwipeVC: UIViewController {
     
     private var isOkayToUndo: Bool = false
     
+    let swipeStoryboard = UIStoryboard(name: StoryBoardName.swipe, bundle: nil)
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -182,7 +184,12 @@ class SwipeVC: UIViewController {
         
         setCountValue(addOrUndo: .add)
         
-        lastDeletedSwipeCard = currentLoadedCardsArray.remove(at: 0)
+//        self.currentLoadedCardsArray[0]
+//        self.addChild(<#T##childController: UIViewController##UIViewController#>)
+        
+        // MARK: - 이것을 하지 않으면 detailimage, detailtext 컨트롤러가 메모리에서 삭제되지 않는다.
+        self.children.first?.removeFromParent()
+        currentLoadedCardsArray.remove(at: 0)
         setCountLabelText()
         
         //등호가 올바른 것인지 확인 바람
@@ -204,12 +211,11 @@ class SwipeVC: UIViewController {
         return card
     }
     
+    // FIXME: - DetailImage에서 메모리 오류를 발견했습니다.
     private func setPageVCAndAddToSubViewAfterRemove() {
         if currentLoadedCardsArray.count > 1 {
             
-            let storyboard = UIStoryboard(name: StoryBoardName.swipe, bundle: nil)
-            
-            guard let pageVC = storyboard.instantiateViewController(withIdentifier: ViewControllerIdentifier.pageViewContrller) as? PageViewController else {
+            guard let pageVC = swipeStoryboard.instantiateViewController(withIdentifier: ViewControllerIdentifier.pageViewContrller) as? PageViewController else {
                 return
             }
             
@@ -235,7 +241,7 @@ class SwipeVC: UIViewController {
                 detailTextSwipeCard.poster = posters[lastCardIndex]
                 
                 detailImageSwipeCardVC.poster = posters[lastCardIndex]
-            
+        
                 self.addChild(pageVC)
                 
                 self.currentLoadedCardsArray[1].insertSubview(pageVC.view,
@@ -249,11 +255,9 @@ class SwipeVC: UIViewController {
     //처음에만 0, 1로 로드한다.
     private func setPageVCAndAddToSubView() {
         
-        let storyboard = UIStoryboard(name: StoryBoardName.swipe, bundle: nil)
-        
         for (i, _ ) in currentLoadedCardsArray.enumerated() {
             
-            guard let pageVC = storyboard.instantiateViewController(withIdentifier: ViewControllerIdentifier.pageViewContrller) as? PageViewController else {
+            guard let pageVC = swipeStoryboard.instantiateViewController(withIdentifier: ViewControllerIdentifier.pageViewContrller) as? PageViewController else {
                 return
             }
             
@@ -306,6 +310,7 @@ class SwipeVC: UIViewController {
     }
     
     @IBAction func cardBackAction(_ sender: Any) {
+        /*
         guard let card = lastDeletedSwipeCard else {return}
         
         if isOkayToUndo {
@@ -333,6 +338,7 @@ class SwipeVC: UIViewController {
             addUserDefautlsWhenDataIsExist(posterInfo)
              */
         }
+         */
     }
     
     private func setCountLabelText() {
@@ -364,9 +370,8 @@ class SwipeVC: UIViewController {
 // MARK: - zoom poster image
 extension SwipeVC: movoToDetailPoster {
     func pressButton() {
-        let storyboard = UIStoryboard(name: StoryBoardName.swipe, bundle: nil)
 
-        guard let zoomPosterVC = storyboard.instantiateViewController(withIdentifier: ViewControllerIdentifier.zoomPosterViewController) as? ZoomPosterVC else {return}
+        guard let zoomPosterVC = swipeStoryboard.instantiateViewController(withIdentifier: ViewControllerIdentifier.zoomPosterViewController) as? ZoomPosterVC else {return}
         
         zoomPosterVC.urlString = self.posters[lastCardIndex-1].photoUrl
 
