@@ -21,7 +21,7 @@ class SchoolInfoVC: UIViewController, UITextFieldDelegate {
     var gender: String = ""
     
     private var signupService: SignupService?
-
+    
     @IBOutlet weak var titleLabel: UILabel!
     
     @IBOutlet weak var titleImage: UIImageView!
@@ -42,7 +42,7 @@ class SchoolInfoVC: UIViewController, UITextFieldDelegate {
         super.viewDidLoad()
         
         signupService = SignupServiceImp()
-
+        
         nextButton.isUserInteractionEnabled = false
         
         self.navigationItem.setHidesBackButton(true, animated: true)
@@ -74,7 +74,7 @@ class SchoolInfoVC: UIViewController, UITextFieldDelegate {
         }
         return true
     }
-   
+    
     
     @IBAction func touchUpNextButton(_ sender: Any) {
         postData()
@@ -120,55 +120,68 @@ class SchoolInfoVC: UIViewController, UITextFieldDelegate {
     
     fileprivate func configureSimpleSearchTextField() {
         schoolField.startVisible = true
-    
+        
         let universities = localUniversities()
         schoolField.filterStrings(universities)
     }
     
-     fileprivate func configureSimpleMajorSearchTextField() {
-          majorField.startVisible = true
+    fileprivate func configureSimpleMajorSearchTextField() {
+        majorField.startVisible = true
         let majors = localMajors()
         majorField.filterStrings(majors)
     }
     
     fileprivate func localUniversities() -> [String] {
-        if let path = Bundle.main.path(forResource: "univList", ofType: "json") {
-            do {
-                let jsonData = try Data(contentsOf: URL(fileURLWithPath: path), options: .dataReadingMapped)
-                let jsonResult = try JSONSerialization.jsonObject(with: jsonData, options: .allowFragments) as! [[String:String]]
-                
-                var universityNames = [String]()
-                for university in jsonResult {
-                    universityNames.append("\(university["schoolName"]!)(\(university["campusName"]!))")
-                }
-                
-                return universityNames
-            } catch {
-                print("Error parsing jSON: \(error)")
-                return []
-            }
+        
+        guard let path = Bundle.main.path(forResource: "univList", ofType: "json") else {
+            return []
         }
-        return []
+        
+        do {
+            let jsonData = try Data(contentsOf: URL(fileURLWithPath: path), options: .dataReadingMapped)
+            guard let jsonResult = try JSONSerialization.jsonObject(with: jsonData, options: .allowFragments) as? [[String:String]] else { return [] }
+            
+            var resultMajorNames: [String] = []
+            for university in jsonResult {
+                resultMajorNames.append("\(university["schoolName"]!)(\(university["campusName"]!))")
+            }
+            
+            return resultMajorNames
+        } catch {
+            print("Error parsing jSON: \(error)")
+            return []
+        }
+        
     }
     
+    //facilname으로하고 중복된거를 거른다. 
     fileprivate func localMajors() -> [String] {
-        if let path = Bundle.main.path(forResource: "majorList", ofType: "json") {
-            do {
-                let jsonData = try Data(contentsOf: URL(fileURLWithPath: path), options: .dataReadingMapped)
-                let jsonResult = try JSONSerialization.jsonObject(with: jsonData, options: .allowFragments) as! [[String:String]]
-                
-                var majorClass = [String]()
-                for major in jsonResult {
-                    majorClass.append(major["mClass"]!)
-                }
-                
-                return majorClass
-            } catch {
-                print("Error parsing jSON: \(error)")
-                return []
-            }
+        
+        guard let path = Bundle.main.path(forResource: "majorList", ofType: "json") else {
+            return []
         }
-        return []
+        
+        do {
+            let jsonData = try Data(contentsOf: URL(fileURLWithPath: path), options: .dataReadingMapped)
+            guard let jsonResult = try JSONSerialization.jsonObject(with: jsonData, options: .allowFragments) as? [[String:String]] else { return [] }
+            
+            var resultFacilNames: [String] = []
+            
+            for major in jsonResult {
+                let facilName = major["facilName"]!.components(separatedBy: ",")
+                for facil in facilName {
+                    // FIXME: - 올바른지 체크
+                    //if !resultFacilNames.contains(facil) {
+                        resultFacilNames.append(facil)
+                    //}
+                }
+            }
+            return resultFacilNames
+        } catch {
+            print("Error parsing jSON: \(error)")
+            return []
+        }
+        
     }
     
     func postData() {
@@ -233,6 +246,7 @@ class SchoolInfoVC: UIViewController, UITextFieldDelegate {
                 switch httpStatus {
                 case .success:
                     self.autoLogin(sendType: sendType, sendToken: sendToken)
+                
                 case .failure:
                     guard let message = data.message else {return}
                     self.handlingFailureError(message)
