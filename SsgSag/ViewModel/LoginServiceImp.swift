@@ -26,7 +26,7 @@ class LoginServiceImp: LoginService {
         
         let jsonData = try? JSONSerialization.data(withJSONObject: json)
         
-        guard let url = UserAPI.sharedInstance.getURL(RequestURL.snsLogin.getRequestURL()) else {return}
+        guard let url = UserAPI.sharedInstance.getURL(RequestURL.snsLogin.getRequestURL) else {return}
         
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
@@ -53,7 +53,7 @@ class LoginServiceImp: LoginService {
         
         let jsonData = try? JSONSerialization.data(withJSONObject: data)
         
-        guard let url = UserAPI.sharedInstance.getURL(RequestURL.login.getRequestURL()) else {return}
+        guard let url = UserAPI.sharedInstance.getURL(RequestURL.login.getRequestURL) else {return}
         
         var request = URLRequest(url: url)
         request.httpMethod = "POST"

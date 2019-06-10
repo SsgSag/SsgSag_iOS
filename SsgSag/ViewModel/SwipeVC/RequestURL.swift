@@ -29,7 +29,7 @@ enum RequestURL {
     case isUpdate
     case career(careerType: Int)
     
-    func getRequestURL() -> String {
+    var getRequestURL: String {
         switch self {
         case .posterLiked(posterIdx: let posterIdx, likeType: let like):
             return "/poster/like?posterIdx=\(posterIdx)&like=\(like)"

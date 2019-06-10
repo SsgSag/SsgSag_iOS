@@ -15,7 +15,7 @@ protocol ActivityService: class {
 class ActivityServiceImp: ActivityService {
     func requestDeleteActivity(contentIdx: Int, completionHandler: @escaping ((DataResponse<Activity>) -> Void)) {
         
-        guard let url = UserAPI.sharedInstance.getURL(RequestURL.deleteAcitivity(careerIdx: contentIdx).getRequestURL()) else {return}
+        guard let url = UserAPI.sharedInstance.getURL(RequestURL.deleteAcitivity(careerIdx: contentIdx).getRequestURL) else {return}
         
         guard let key = UserDefaults.standard.object(forKey: TokenName.token) as? String else { return }
         

@@ -15,7 +15,7 @@ protocol CareerService {
 class CareerServiceImp: CareerService {
     
     func requestCareer(careerType: Int, completionHandler: @escaping (DataResponse<Career>) -> Void) {
-        guard let url = UserAPI.sharedInstance.getURL(RequestURL.career(careerType: careerType).getRequestURL()) else {return}
+        guard let url = UserAPI.sharedInstance.getURL(RequestURL.career(careerType: careerType).getRequestURL) else {return}
         
         guard let key = UserDefaults.standard.object(forKey: TokenName.token) as? String else { return }
         

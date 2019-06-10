@@ -28,7 +28,7 @@ class MyPageServiceImp: myPageService {
     func reqeuestStoreJobsState(_ selectedJson: [String : Any],
                                 completionHandler: @escaping ((DataResponse<ReInterest>) -> Void)) {
         
-        guard let url = UserAPI.sharedInstance.getURL(RequestURL.registerInterestJobs.getRequestURL()) else {
+        guard let url = UserAPI.sharedInstance.getURL(RequestURL.registerInterestJobs.getRequestURL) else {
             return
         }
         
@@ -60,7 +60,7 @@ class MyPageServiceImp: myPageService {
     func requestStoreAddActivity(_ jsonData: [String : Any],
                                  completionHandler: @escaping (((DataResponse<Activity>) -> Void))) {
         
-        guard let url = UserAPI.sharedInstance.getURL(RequestURL.careerActivity.getRequestURL()) else {return}
+        guard let url = UserAPI.sharedInstance.getURL(RequestURL.careerActivity.getRequestURL) else {return}
         
         
         guard let token = UserDefaults.standard.object(forKey: TokenName.token) as? String else {
@@ -94,7 +94,7 @@ class MyPageServiceImp: myPageService {
         
         let jsonData = try? JSONSerialization.data(withJSONObject: selectedJson)
         
-        guard let url = UserAPI.sharedInstance.getURL(RequestURL.reIntersting.getRequestURL()) else {return}
+        guard let url = UserAPI.sharedInstance.getURL(RequestURL.reIntersting.getRequestURL) else {return}
         
         guard let token = UserDefaults.standard.object(forKey: TokenName.token) as? String else {return}
         
@@ -122,7 +122,7 @@ class MyPageServiceImp: myPageService {
     
     func requestSelectedState(completionHandler: @escaping ((DataResponse<Interests>) -> Void)) {
         
-        guard let url = UserAPI.sharedInstance.getURL(RequestURL.interestingField.getRequestURL()) else {
+        guard let url = UserAPI.sharedInstance.getURL(RequestURL.interestingField.getRequestURL) else {
             return print("123123")
         }
         

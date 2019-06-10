@@ -23,7 +23,7 @@ class InterestServiceManager: InterestService {
     func requestInterestSubscribeDelete(_ interedIdx: Int,
                                         completionHandler: @escaping (DataResponse<BasicNetworkModel>) -> Void) {
         
-        guard let url = UserAPI.sharedInstance.getURL(RequestURL.subscribeAddOrDelete(interestIdx: interedIdx).getRequestURL()) else {return}
+        guard let url = UserAPI.sharedInstance.getURL(RequestURL.subscribeAddOrDelete(interestIdx: interedIdx).getRequestURL) else {return}
         
         guard let key = UserDefaults.standard.object(forKey: TokenName.token) as? String else { return }
         
@@ -47,7 +47,7 @@ class InterestServiceManager: InterestService {
     
     func requestInterestSubscribeAdd(_ interedIdx: Int,
                                      completionHandler: @escaping (DataResponse<BasicNetworkModel>) -> Void) {
-        guard let url = UserAPI.sharedInstance.getURL(RequestURL.subscribeAddOrDelete(interestIdx: interedIdx).getRequestURL()) else {return}
+        guard let url = UserAPI.sharedInstance.getURL(RequestURL.subscribeAddOrDelete(interestIdx: interedIdx).getRequestURL) else {return}
         
         guard let key = UserDefaults.standard.object(forKey: TokenName.token) as? String else { return }
         
@@ -70,7 +70,7 @@ class InterestServiceManager: InterestService {
     }
     
     func requestInterestSubscribe(completionHandler: @escaping (DataResponse<Subscribe>) -> Void) {
-        guard let url = UserAPI.sharedInstance.getURL(RequestURL.subscribeInterest.getRequestURL()) else {return}
+        guard let url = UserAPI.sharedInstance.getURL(RequestURL.subscribeInterest.getRequestURL) else {return}
         
         guard let key = UserDefaults.standard.object(forKey: TokenName.token) as? String else { return }
         

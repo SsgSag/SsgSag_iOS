@@ -17,7 +17,7 @@ protocol TapbarService: class {
 class TapbarServiceImp: TapbarService {
     
     func requestIsInUpdateServer(completionHandler: @escaping (DataResponse<UpdateNetworkModel>) -> Void) {
-        guard let url = UserAPI.sharedInstance.getURL(RequestURL.isUpdate.getRequestURL()) else {return}
+        guard let url = UserAPI.sharedInstance.getURL(RequestURL.isUpdate.getRequestURL) else {return}
         
         var request = URLRequest(url: url)
         request.httpMethod = "GET"
@@ -37,7 +37,7 @@ class TapbarServiceImp: TapbarService {
     
     func requestAllTodoList(completionHandler: @escaping (DataResponse<[Posters]>) -> Void) {
         
-        guard let url = UserAPI.sharedInstance.getURL(RequestURL.allTodoList.getRequestURL()) else {return}
+        guard let url = UserAPI.sharedInstance.getURL(RequestURL.allTodoList.getRequestURL) else {return}
         
         guard let key = UserDefaults.standard.object(forKey: TokenName.token) as? String else { return }
         

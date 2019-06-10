@@ -15,7 +15,7 @@ protocol SignupService: class {
 class SignupServiceImp: SignupService {
     
     func requestSingup(_ userInfo: Data, completionHandler: @escaping (DataResponse<BasicNetworkModel>) -> Void) {
-        guard let url = UserAPI.sharedInstance.getURL(RequestURL.signUp.getRequestURL()) else {return}
+        guard let url = UserAPI.sharedInstance.getURL(RequestURL.signUp.getRequestURL) else {return}
         
         var request = URLRequest(url: url)
         request.httpMethod = "POST"

@@ -23,7 +23,7 @@ class CalendarServiceImp: CalendarService {
     func requestEachPoster(_ posterIdx: Int, completionHandler: @escaping
         (DataResponse<networkPostersData>) -> Void) {
         
-        guard let url = UserAPI.sharedInstance.getURL(RequestURL.posterDetail(posterIdx: posterIdx).getRequestURL()) else {return}
+        guard let url = UserAPI.sharedInstance.getURL(RequestURL.posterDetail(posterIdx: posterIdx).getRequestURL) else {return}
         
         var request = URLRequest(url: url)
         request.httpMethod = "GET"
@@ -45,7 +45,7 @@ class CalendarServiceImp: CalendarService {
     }
     
     func reqeustComplete(_ posterIdx: Int, completionHandler: @escaping (DataResponse<PosterFavorite>) -> Void) {
-        guard let url = UserAPI.sharedInstance.getURL(RequestURL.completeApply(posterIdx: posterIdx).getRequestURL()) else {return}
+        guard let url = UserAPI.sharedInstance.getURL(RequestURL.completeApply(posterIdx: posterIdx).getRequestURL) else {return}
         
         guard let key = UserDefaults.standard.object(forKey: TokenName.token) as? String else { return }
         
@@ -68,7 +68,7 @@ class CalendarServiceImp: CalendarService {
     }
     
     func requestDelete(_ posterIdx: Int, completionHandler: @escaping (DataResponse<PosterFavorite>) -> Void) {
-        guard let url = UserAPI.sharedInstance.getURL(RequestURL.deletePoster(posterIdx: posterIdx).getRequestURL()) else {return}
+        guard let url = UserAPI.sharedInstance.getURL(RequestURL.deletePoster(posterIdx: posterIdx).getRequestURL) else {return}
         
         guard let key = UserDefaults.standard.object(forKey: TokenName.token) as? String else { return }
         
@@ -94,7 +94,7 @@ class CalendarServiceImp: CalendarService {
                          _ posterIdx: Int,
                          completionHandler: @escaping (DataResponse<PosterFavorite>) -> Void) {
         
-        guard let url = UserAPI.sharedInstance.getURL(RequestURL.favorite(posterIdx: posterIdx).getRequestURL()) else {return}
+        guard let url = UserAPI.sharedInstance.getURL(RequestURL.favorite(posterIdx: posterIdx).getRequestURL) else {return}
         
         guard let key = UserDefaults.standard.object(forKey: TokenName.token) as? String else { return }
         

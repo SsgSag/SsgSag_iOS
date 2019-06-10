@@ -23,7 +23,7 @@ class PosterServiceImp: PosterService {
         
         guard let posterIdx = poster.posterIdx else { return }
         
-        guard let url = UserAPI.sharedInstance.getURL(RequestURL.posterLiked(posterIdx: posterIdx, likeType: like).getRequestURL()) else {return}
+        guard let url = UserAPI.sharedInstance.getURL(RequestURL.posterLiked(posterIdx: posterIdx, likeType: like).getRequestURL) else {return}
         
         guard let key = UserDefaults.standard.object(forKey: TokenName.token) as? String else { return }
         
@@ -77,7 +77,7 @@ class PosterServiceImp: PosterService {
     
     func requestPoster(completionHandler: @escaping (DataResponse<[Posters]>) -> Void) {
         
-        guard let url = UserAPI.sharedInstance.getURL(RequestURL.initPoster.getRequestURL()) else {return}
+        guard let url = UserAPI.sharedInstance.getURL(RequestURL.initPoster.getRequestURL) else {return}
     
         guard let tokenKey = UserDefaults.standard.object(forKey: TokenName.token) as? String else {
             return

@@ -38,30 +38,13 @@ class StoreAndFetchPoster {
     
     /// 어떠한 상황에 userdefaults가 바뀌었다면 새로 유저디폴츠에서 꺼내고 아니라면 기존에 로드된 데이터를 사용한다.
     func getPostersAfterAllChangedConfirm() -> [Posters] {
-        if isChanged {
-            
-            isChanged = false
-            
-            guard let poster = UserDefaults.standard.object(forKey: UserDefaultsName.poster) as? Data else{ return
-                []
-            }
-            
-            guard let storedPosters = try? PropertyListDecoder().decode([Posters].self, from: poster) else {
-                return []
-            }
-            
-            self.posters = storedPosters
-            
-            return posters ?? []
-        } else {
-            guard let result = self.posters else { return [] }
-            return result
-        }
+        guard let resultPoster = self.posters else {return [] }
+        return resultPoster
     }
 
     func storePoster(posters: [Posters]) {
-        isChanged = true
         UserDefaults.standard.setValue(try? PropertyListEncoder().encode(posters), forKey: UserDefaultsName.poster)
+        self.posters = posters
     }
 }
 
