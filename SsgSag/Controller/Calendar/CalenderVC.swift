@@ -21,8 +21,6 @@ class CalenderVC: UIViewController {
     var monthHeaderView: VAMonthHeaderView = {
         let monthHeaderView = VAMonthHeaderView(frame: CGRect.init())
         let appereance = VAMonthHeaderViewAppearance(
-                previousButtonImage: #imageLiteral(resourceName: "icArrowNextSmall"),
-                nextButtonImage: #imageLiteral(resourceName: "icHeaderArrowNextMypage"),
                 dateFormat: "LLLL"
             )
         monthHeaderView.appearance = appereance

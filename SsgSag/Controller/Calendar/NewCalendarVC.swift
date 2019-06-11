@@ -13,8 +13,6 @@ class NewCalendarVC: UIViewController {
     @IBOutlet weak var monthHeaderView: VAMonthHeaderView! {
         didSet {
             let appereance = VAMonthHeaderViewAppearance(
-                previousButtonImage: #imageLiteral(resourceName: "icArrowNextSmall"),
-                nextButtonImage: #imageLiteral(resourceName: "icHeaderArrowBack"),
                 dateFormat: "LLLL"
             )
             monthHeaderView.delegate = self
@@ -50,8 +48,10 @@ class NewCalendarVC: UIViewController {
         calendarView.monthViewAppearanceDelegate = self
         calendarView.calendarDelegate = self
         calendarView.scrollDirection = .horizontal
+        
         view.addSubview(calendarView)
     }
+
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
@@ -61,10 +61,19 @@ class NewCalendarVC: UIViewController {
                 x: 0,
                 y: weekDaysView.frame.maxY,
                 width: view.frame.width,
-                height: view.frame.height * 0.6
+                height: view.frame.height * 0.8
             )
             calendarView.setup()
         }
+        
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        self.tabBarController?.tabBar.isHidden = true
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        self.tabBarController?.tabBar.isHidden = false
     }
 }
 
