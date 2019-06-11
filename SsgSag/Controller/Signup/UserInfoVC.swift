@@ -251,11 +251,13 @@ extension UserInfoVC: UIGestureRecognizerDelegate {
     @objc func keyboardWillHide(_ notification: NSNotification) {
         guard let duration = notification.userInfo?[UIResponder.keyboardAnimationDurationUserInfoKey] as? Double else {return}
         guard let curve = notification.userInfo?[UIResponder.keyboardAnimationCurveUserInfoKey] as? UInt else {return}
+        
         UIView.animate(withDuration: duration, delay: 0.3, options: .init(rawValue: curve), animations: {
             
             self.stackViewConstraint.constant = 299
             self.titleLabel.isHidden = false
             self.titleImgae.isHidden = false
+            
         })
         
         stackViewConstraint.constant = 299

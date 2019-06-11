@@ -12,12 +12,11 @@ protocol MonthViewDelegate: class {
     func didChangeMonth(monthIndex: Int, year: Int)
 }
 
-//2018년 12월
 class MonthView: UIView {
     var monthsArr = ["1월", "2월", "3월", "4월", "5월", "6월", "7월", "8월", "9월", "10월", "11월", "12월"]
     var currentMonthIndex = 0
     var currentYear: Int = 0
-    var delegate: MonthViewDelegate?
+    var monthDelegate: MonthViewDelegate?
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -38,7 +37,7 @@ class MonthView: UIView {
         
         monthName.text="\(currentYear) \(monthsArr[currentMonthIndex])"
         
-        delegate?.didChangeMonth(monthIndex: currentMonthIndex, year: currentYear)
+        monthDelegate?.didChangeMonth(monthIndex: currentMonthIndex, year: currentYear)
     }
     
     func rightPanGestureAction() {
@@ -49,7 +48,7 @@ class MonthView: UIView {
         }
         
         monthName.text="\(currentYear) \(monthsArr[currentMonthIndex])"
-        delegate?.didChangeMonth(monthIndex: currentMonthIndex, year: currentYear)
+        monthDelegate?.didChangeMonth(monthIndex: currentMonthIndex, year: currentYear)
     }
     
     func setupViews() {

@@ -32,7 +32,6 @@ class AddActivityVC: UIViewController, UITextViewDelegate, UITextFieldDelegate {
             
             self.titleString = data.careerName
             self.contentTextString = data.careerContent
-        
         }
     }
     

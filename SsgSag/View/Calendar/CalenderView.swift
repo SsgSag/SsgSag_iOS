@@ -176,7 +176,7 @@ class CalenderView: UIView, MonthViewDelegate {
         monthView.leftAnchor.constraint(equalTo: leftAnchor, constant: 12).isActive=true
         monthView.rightAnchor.constraint(equalTo: rightAnchor, constant: -12).isActive=true
         monthView.heightAnchor.constraint(equalToConstant: 28).isActive=true
-        monthView.delegate = self
+        monthView.monthDelegate = self
         
         //월화수목금토
         addSubview(weekdaysView)
