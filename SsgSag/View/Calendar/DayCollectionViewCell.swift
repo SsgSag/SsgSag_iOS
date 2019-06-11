@@ -7,20 +7,13 @@ enum todoTableStatus: Int {
 //날짜 하나에 해당하는 셀
 class DayCollectionViewCell: UICollectionViewCell {
     
-    private lazy var dotWidth = self.frame.width * 0.11
-    
     static private let fontSize: CGFloat = 7
     
-    // MARK: - static 한 변수를 쓰지 않고 사용하면 lineHeight 값이 불규칙적으로 값이 다른 이유는???
-    private let lineHeight = CollectionViewHeightAndWidhtValue.collletionViewHeight * 0.28
+    private lazy var dotWidth = self.frame.width * 0.11
     
     private lazy var lineWidth = self.frame.width
     
-    private var todoStatus: todoTableStatus = .todoShow
-    
     private lazy var cellWidth = self.frame.width * 0.1
-    
-    private let firstLineHeight:CGFloat = 4
     
     private lazy var secondLineHeight = lineHeight + 5
     
@@ -29,6 +22,13 @@ class DayCollectionViewCell: UICollectionViewCell {
     private lazy var fourthLineHeight = lineHeight * 3 + 7
     
     private lazy var fifthLineHeight = lineHeight * 4 + 8
+    
+    private var todoStatus: todoTableStatus = .todoShow
+    
+    private let firstLineHeight:CGFloat = 4
+    
+    // MARK: - static 한 변수를 쓰지 않고 사용하면 lineHeight 값이 불규칙적으로 값이 다른 이유는???
+    private let lineHeight = CollectionViewHeightAndWidhtValue.collletionViewHeight * 0.28
     
     //일
     let lbl: UILabel = {

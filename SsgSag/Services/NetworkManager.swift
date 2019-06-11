@@ -8,6 +8,7 @@ class NetworkManager {
     
     private init(_ configuration: URLSessionConfiguration) {
         configuration.urlCache = nil
+        //여기서 customize한 세션을 설정할 수 있다.
         self.session = URLSession(configuration: configuration)
     }
     
@@ -31,6 +32,7 @@ class NetworkManager {
             DispatchQueue.main.async {
                 completionHandler(data, nil, response)
             }
+            
         }.resume()
         
     }

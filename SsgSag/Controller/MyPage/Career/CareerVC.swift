@@ -194,22 +194,28 @@ class CareerVC: UIViewController {
                 case 0:
                     let cell = customTabBarCollectionView.cellForItem(at: index) as? CustomCareerCell
                     cell?.label.textColor = .black
+                    
                     let cell1 = customTabBarCollectionView.cellForItem(at: IndexPath(item: 1, section: 0)) as? CustomCareerCell
                     cell1?.label.textColor = .lightGray
+                    
                     let cell2 = customTabBarCollectionView.cellForItem(at: IndexPath(item: 2, section: 0)) as? CustomCareerCell
                     cell2?.label.textColor = .lightGray
                 case 1:
                     let cell = customTabBarCollectionView.cellForItem(at: index) as? CustomCareerCell
                     cell?.label.textColor = .black
+                    
                     let cell1 = customTabBarCollectionView.cellForItem(at: IndexPath(item: 0, section: 0)) as? CustomCareerCell
                     cell1?.label.textColor = .lightGray
+                    
                     let cell2 = customTabBarCollectionView.cellForItem(at: IndexPath(item: 2, section: 0)) as? CustomCareerCell
                     cell2?.label.textColor = .lightGray
                 case 2:
                     let cell = customTabBarCollectionView.cellForItem(at: index) as? CustomCareerCell
                     cell?.label.textColor = .black
+                    
                     let cell1 = customTabBarCollectionView.cellForItem(at: IndexPath(item: 0, section: 0)) as? CustomCareerCell
                     cell1?.label.textColor = .lightGray
+                    
                     let cell2 = customTabBarCollectionView.cellForItem(at: IndexPath(item: 1, section: 0)) as? CustomCareerCell
                     cell2?.label.textColor = .lightGray
                 default: break
