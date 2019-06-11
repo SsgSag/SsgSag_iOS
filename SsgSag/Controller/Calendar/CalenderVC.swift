@@ -18,10 +18,40 @@ class CalenderVC: UIViewController {
     
     static let sharedTableViewHeight: CGFloat = 89
     
-    private let calenderView: CalenderView = {
-        let calenderView = CalenderView()
-        calenderView.translatesAutoresizingMaskIntoConstraints = false
-        return calenderView
+    var monthHeaderView: VAMonthHeaderView = {
+        let monthHeaderView = VAMonthHeaderView(frame: CGRect.init())
+        let appereance = VAMonthHeaderViewAppearance(
+                previousButtonImage: #imageLiteral(resourceName: "icArrowNextSmall"),
+                nextButtonImage: #imageLiteral(resourceName: "icHeaderArrowNextMypage"),
+                dateFormat: "LLLL"
+            )
+        monthHeaderView.appearance = appereance
+        return monthHeaderView
+    }()
+    
+    var weekDaysView: VAWeekDaysView =  {
+        let defaultCalendar: Calendar = {
+            var calendar = Calendar.current
+            calendar.firstWeekday = 1
+            calendar.timeZone = TimeZone(secondsFromGMT: 0)!
+            return calendar
+        }()
+        
+        let weekDaysView = VAWeekDaysView(frame: CGRect.init())
+        let appereance = VAWeekDaysViewAppearance(symbolsType: .veryShort, calendar: defaultCalendar)
+        weekDaysView.appearance = appereance
+        return weekDaysView
+        
+    }()
+    
+    private lazy var calenderView: VACalendarView = {
+        let calendarView = VACalendarView()
+        calendarView.translatesAutoresizingMaskIntoConstraints = false
+        calendarView.showDaysOut = true
+        calendarView.selectionStyle = .single
+        calendarView.monthDelegate = monthHeaderView
+        calendarView.scrollDirection = .horizontal
+        return calendarView
     }()
     
     private let applySuccess: UIButton = {
@@ -90,7 +120,10 @@ class CalenderVC: UIViewController {
         
         setTodoTableView()
         
-        calendarViewBottomAnchor?.priority = UILayoutPriority(750)
+        monthHeaderView.delegate = self
+        calenderView.dayViewAppearanceDelegate = self
+        calenderView.monthViewAppearanceDelegate = self
+        calenderView.calendarDelegate = self
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -175,6 +208,7 @@ class CalenderVC: UIViewController {
         todoSeparatorBar.addSubview(separatorLine)
         
         view.addSubview(calenderView)
+        calenderView.setup()
         
         let todoTableViewHeightAnchor = todoTableView.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.4)
         todoTableViewHeightAnchor.priority = UILayoutPriority(750)
@@ -234,12 +268,15 @@ class CalenderVC: UIViewController {
         
         let movePreviousMonth = UISwipeGestureRecognizer(target: self,
                                                          action: #selector(movePreviousMonthBySwipe))
+        
         let moveNextMonth = UISwipeGestureRecognizer(target: self, action: #selector(moveNextMonthBySwipe))
         
-        calenderView.gestureRecognizers = [movePreviousMonth, moveNextMonth, todoTableShow, todoTableSwipeHide]
+        
+        calenderView.gestureRecognizers = [todoTableShow, todoTableSwipeHide]
         
         movePreviousMonth.direction = .left
         moveNextMonth.direction = .right
+        
         todoTableShow.direction = .up
         todoTableSwipeHide.direction = .down
         
@@ -370,7 +407,7 @@ class CalenderVC: UIViewController {
         todoSeparatorBar.bringSubviewToFront(todoList)
         
         todoTableView.reloadData()
-        calenderView.calendarCollectionView.reloadData()
+        //calenderView.calendarCollectionView.reloadData()
     }
     
     func sortOrderUsingFavorite(_ todoList: inout [Posters]) {
@@ -440,7 +477,7 @@ class CalenderVC: UIViewController {
             self.todoTableView.reloadData()
         }
         todoStatus = .todoShow
-        calenderView.calendarCollectionView.reloadData()
+        //calenderView.calendarCollectionView.reloadData()
     }
     
     func setCalendarVCWhenTODOShow() {
@@ -514,18 +551,19 @@ class CalenderVC: UIViewController {
         
         todoStatus = .todoNotShow
         
-        calenderView.calendarCollectionView.reloadData()
+        //calenderView.calendarCollectionView.reloadData()
     }
     
     @objc func moveNextMonthBySwipe() {
         hideTodoTable()
-        calenderView.monthView.rightPanGestureAction()
+        //calenderView.monthView.rightPanGestureAction()
     }
     
     @objc func movePreviousMonthBySwipe() {
         hideTodoTable()
-        calenderView.monthView.leftPanGestureAction()
+        //calenderView.monthView.leftPanGestureAction()
     }
+    
 }
 
 // MARK: - TableViewDelegate
@@ -666,5 +704,88 @@ extension CalenderVC: todoCellDelegate {
     
 }
 
+extension CalenderVC: VAMonthHeaderViewDelegate {
+    
+    func didTapNextMonth() {
+        calenderView.nextMonth()
+    }
+    
+    func didTapPreviousMonth() {
+        calenderView.previousMonth()
+    }
+    
+}
+
+extension CalenderVC: VAMonthViewAppearanceDelegate {
+    
+    func leftInset() -> CGFloat {
+        return 10.0
+    }
+    
+    func rightInset() -> CGFloat {
+        return 10.0
+    }
+    
+    func verticalMonthTitleFont() -> UIFont {
+        return UIFont.systemFont(ofSize: 16, weight: .semibold)
+    }
+    
+    func verticalMonthTitleColor() -> UIColor {
+        return .black
+    }
+    
+    func verticalCurrentMonthTitleColor() -> UIColor {
+        return .red
+    }
+    
+}
+
+extension CalenderVC: VADayViewAppearanceDelegate {
+    
+    func textColor(for state: VADayState) -> UIColor {
+        switch state {
+        case .out:
+            return UIColor(red: 214 / 255, green: 214 / 255, blue: 219 / 255, alpha: 1.0)
+        case .selected:
+            return .white
+        case .unavailable:
+            return .lightGray
+        default:
+            return .black
+        }
+    }
+    
+    func textBackgroundColor(for state: VADayState) -> UIColor {
+        switch state {
+        case .selected:
+            return .gray
+        default:
+            return .clear
+        }
+    }
+    
+    func shape() -> VADayShape {
+        return .circle
+    }
+    
+    func dotBottomVerticalOffset(for state: VADayState) -> CGFloat {
+        switch state {
+        case .selected:
+            return 2
+        default:
+            return -7
+        }
+    }
+    
+}
+
+extension CalenderVC: VACalendarViewDelegate {
+    
+    func selectedDates(_ dates: [Date]) {
+        calenderView.startDate = dates.last ?? Date()
+        print(dates)
+    }
+    
+}
 
 

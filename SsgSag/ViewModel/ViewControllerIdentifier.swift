@@ -9,6 +9,7 @@
 import Foundation
 
 enum ViewControllerIdentifier {
+    static let newCalendarViewController = "newCalendarViewController"
     static let swipe = "Swipe"
     static let mypageViewController = "MyPageVC"
     static let userInfoViewContrller = "UserInfoVC"

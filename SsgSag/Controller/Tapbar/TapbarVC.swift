@@ -18,9 +18,13 @@ class TapbarVC: UITabBarController {
         
         static let mypageStoryBoard = UIStoryboard(name: StoryBoardName.mypage, bundle: nil)
         
+        static let newCalendarStoryboard = UIStoryboard(name: StoryBoardName.newCalendar, bundle: nil)
+        
         static let swipeViewController = swipeStoryBoard.instantiateViewController(withIdentifier: ViewControllerIdentifier.swipe)
         
         static let mypageViewController = mypageStoryBoard.instantiateViewController(withIdentifier: ViewControllerIdentifier.mypageViewController)
+        
+        static let newCalendarViewController = newCalendarStoryboard.instantiateViewController(withIdentifier: ViewControllerIdentifier.newCalendarViewController)
     }
     
     override func viewDidLoad() {
@@ -62,7 +66,7 @@ class TapbarVC: UITabBarController {
                                                        image: UIImage(named: "icUser"),
                                                        selectedImage: UIImage(named: "icUserActive"))
         
-        let calendarViewController = CalenderVC()
+        let calendarViewController = CreateViewController.newCalendarViewController
         calendarViewController.tabBarItem = UITabBarItem(title: "",
                                                          image: UIImage(named: "icCal"),
                                                          selectedImage: UIImage(named: "icCalActive"))

@@ -17,6 +17,7 @@ struct StoryBoardName {
     static let calendar = "Calendar"
     static let detailText = "DetailNewText"
     static let detailImage = "DetailImage"
+    static let newCalendar = "newCalendarStoryboard"
 }
 
 /*
