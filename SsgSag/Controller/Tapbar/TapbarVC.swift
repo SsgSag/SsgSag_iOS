@@ -113,13 +113,14 @@ class TapbarVC: UITabBarController {
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
         
-        var tabFrame: CGRect = self.tabBar.frame
-        tabFrame.origin.y = self.view.safeAreaInsets.top
-        let barHeight: CGFloat = 48
-        tabFrame.size.height = barHeight
-        self.tabBar.frame = tabFrame
+//        var tabFrame: CGRect = self.tabBar.frame
+//        tabFrame.origin.y = self.view.safeAreaInsets.top
+//        let barHeight: CGFloat = 48
+//        tabFrame.size.height = barHeight
+//        self.tabBar.frame = tabFrame
         
         UIView.appearance().isExclusiveTouch = true
+        
     }
 }
 

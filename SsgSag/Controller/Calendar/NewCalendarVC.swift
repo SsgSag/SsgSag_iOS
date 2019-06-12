@@ -15,6 +15,7 @@ class NewCalendarVC: UIViewController {
             let appereance = VAMonthHeaderViewAppearance(
                 dateFormat: "LLLL"
             )
+            
             monthHeaderView.delegate = self
             monthHeaderView.appearance = appereance
         }
@@ -27,18 +28,22 @@ class NewCalendarVC: UIViewController {
         }
     }
     
-    let defaultCalendar: Calendar = {
+    var calendarView: VACalendarView!
+    
+    private let defaultCalendar: Calendar = {
         var calendar = Calendar.current
         calendar.firstWeekday = 1
         calendar.timeZone = TimeZone(secondsFromGMT: 0)!
         return calendar
     }()
-    
-    var calendarView: VACalendarView!
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        setCalendar()
+    }
+    
+    private func setCalendar() {
         let calendar = VACalendar(calendar: defaultCalendar)
         calendarView = VACalendarView(frame: .zero, calendar: calendar)
         calendarView.showDaysOut = true
@@ -48,11 +53,9 @@ class NewCalendarVC: UIViewController {
         calendarView.monthViewAppearanceDelegate = self
         calendarView.calendarDelegate = self
         calendarView.scrollDirection = .horizontal
-        
         view.addSubview(calendarView)
     }
 
-    
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         
@@ -61,19 +64,10 @@ class NewCalendarVC: UIViewController {
                 x: 0,
                 y: weekDaysView.frame.maxY,
                 width: view.frame.width,
-                height: view.frame.height * 0.8
+                height: view.frame.height * 0.97
             )
             calendarView.setup()
         }
-        
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        self.tabBarController?.tabBar.isHidden = true
-    }
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        self.tabBarController?.tabBar.isHidden = false
     }
 }
 
@@ -123,15 +117,17 @@ extension NewCalendarVC: VADayViewAppearanceDelegate {
             return .white
         case .unavailable:
             return .lightGray
+        case .sunDay:
+            return #colorLiteral(red: 1, green: 0.1647058824, blue: 0.2588235294, alpha: 1)
         default:
-            return .black
+            return #colorLiteral(red: 0.4, green: 0.4, blue: 0.4, alpha: 1)
         }
     }
     
     func textBackgroundColor(for state: VADayState) -> UIColor {
         switch state {
         case .selected:
-            return .gray
+            return #colorLiteral(red: 0.3450980392, green: 0.7921568627, blue: 0.4117647059, alpha: 1)
         default:
             return .clear
         }
