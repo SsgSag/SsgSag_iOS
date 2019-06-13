@@ -19,7 +19,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="p9b-tv-ABd" customClass="VAMonthHeaderView" customModule="슥삭" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="44" width="414" height="40"/>
+                                <rect key="frame" x="40" y="44" width="374" height="40"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="AYL-GX-Ef0"/>
@@ -36,7 +36,7 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="vLE-vE-5Ar" firstAttribute="trailing" secondItem="2ef-K5-QKG" secondAttribute="trailing" id="1xD-eZ-XcJ"/>
-                            <constraint firstItem="p9b-tv-ABd" firstAttribute="leading" secondItem="2ef-K5-QKG" secondAttribute="leading" id="6MI-gm-CKg"/>
+                            <constraint firstItem="p9b-tv-ABd" firstAttribute="leading" secondItem="2ef-K5-QKG" secondAttribute="leading" constant="40" id="6MI-gm-CKg"/>
                             <constraint firstItem="vLE-vE-5Ar" firstAttribute="leading" secondItem="2ef-K5-QKG" secondAttribute="leading" id="7W8-my-xoS"/>
                             <constraint firstItem="p9b-tv-ABd" firstAttribute="trailing" secondItem="2ef-K5-QKG" secondAttribute="trailing" id="IHq-lh-ocC"/>
                             <constraint firstItem="vLE-vE-5Ar" firstAttribute="top" secondItem="p9b-tv-ABd" secondAttribute="bottom" id="V98-W6-xhQ"/>

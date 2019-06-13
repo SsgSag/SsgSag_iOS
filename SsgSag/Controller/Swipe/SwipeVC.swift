@@ -1,5 +1,4 @@
 import UIKit
-import Lottie
 
 class SwipeVC: UIViewController {
     
@@ -46,8 +45,6 @@ class SwipeVC: UIViewController {
         
         hideStatusBar()
         
-        setEmptyPosterAnimation()
-        
         UIView.appearance().isExclusiveTouch = true
     }
     
@@ -78,20 +75,6 @@ class SwipeVC: UIViewController {
     }
     
     private func setEmptyPosterAnimation() {
-        
-        let animation = LOTAnimationView(name: "main_empty_hifive")
-        
-        view.addSubview(animation)
-        view.sendSubviewToBack(animation)
-        
-        animation.translatesAutoresizingMaskIntoConstraints = false
-        animation.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        animation.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
-        animation.widthAnchor.constraint(equalToConstant: 350).isActive = true
-        animation.heightAnchor.constraint(equalToConstant: 350).isActive = true
-        
-        animation.loopAnimation = true
-        animation.play()
         
         simplerAlert(title: "저장되었습니다")
     }

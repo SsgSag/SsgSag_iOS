@@ -63,10 +63,20 @@ class NewCalendarVC: UIViewController {
                 x: 0,
                 y: weekDaysView.frame.maxY,
                 width: view.frame.width,
-                height: view.frame.height * 0.97
+                height: view.frame.height * 0.95
             )
+            
             calendarView.setup()
         }
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        weekDaysView.appearance = VAWeekDaysViewAppearance(symbolsType: .veryShort, calendar: defaultCalendar)
+        calendarView.setupMonths()
+        calendarView.drawVisibleMonth(with: calendarView.contentOffset)
+        
     }
 }
 
@@ -116,8 +126,6 @@ extension NewCalendarVC: VADayViewAppearanceDelegate {
             return .white
         case .unavailable:
             return .lightGray
-//        case .sunDay:
-//            return #colorLiteral(red: 1, green: 0.1647058824, blue: 0.2588235294, alpha: 1)
         default:
             return #colorLiteral(red: 0.4, green: 0.4, blue: 0.4, alpha: 1)
         }
@@ -128,7 +136,7 @@ extension NewCalendarVC: VADayViewAppearanceDelegate {
         case .selected:
             return #colorLiteral(red: 0.3450980392, green: 0.7921568627, blue: 0.4117647059, alpha: 1)
         default:
-            return .clear
+            return .white
         }
     }
     
@@ -151,7 +159,6 @@ extension NewCalendarVC: VACalendarViewDelegate {
     
     func selectedDates(_ dates: [Date]) {
         calendarView.startDate = dates.last ?? Date()
-        print(dates)
     }
     
 }
