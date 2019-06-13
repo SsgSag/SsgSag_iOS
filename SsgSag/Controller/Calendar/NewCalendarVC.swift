@@ -15,7 +15,6 @@ class NewCalendarVC: UIViewController {
             let appereance = VAMonthHeaderViewAppearance(
                 dateFormat: "LLLL"
             )
-            
             monthHeaderView.delegate = self
             monthHeaderView.appearance = appereance
         }
@@ -86,15 +85,15 @@ extension NewCalendarVC: VAMonthHeaderViewDelegate {
 extension NewCalendarVC: VAMonthViewAppearanceDelegate {
     
     func leftInset() -> CGFloat {
-        return 10.0
+        return 10
     }
     
     func rightInset() -> CGFloat {
-        return 10.0
+        return 10
     }
     
     func verticalMonthTitleFont() -> UIFont {
-        return UIFont.systemFont(ofSize: 16, weight: .semibold)
+        return UIFont.systemFont(ofSize: 15, weight: .semibold)
     }
     
     func verticalMonthTitleColor() -> UIColor {
@@ -117,8 +116,8 @@ extension NewCalendarVC: VADayViewAppearanceDelegate {
             return .white
         case .unavailable:
             return .lightGray
-        case .sunDay:
-            return #colorLiteral(red: 1, green: 0.1647058824, blue: 0.2588235294, alpha: 1)
+//        case .sunDay:
+//            return #colorLiteral(red: 1, green: 0.1647058824, blue: 0.2588235294, alpha: 1)
         default:
             return #colorLiteral(red: 0.4, green: 0.4, blue: 0.4, alpha: 1)
         }

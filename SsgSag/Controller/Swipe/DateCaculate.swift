@@ -9,7 +9,19 @@
 import Foundation
 
 struct DateCaculate {
+    
+    static func isSameDate(_ firstDate: Date , _ secondDate: Date) -> Bool {
+        let firstDateComponents = Calendar.current.dateComponents([.year, .month, .day], from: firstDate)
+        let secondDateComponents = Calendar.current.dateComponents([.year, .month, .day], from: secondDate)
         
+        if firstDateComponents.year! == secondDateComponents.year! &&
+            firstDateComponents.month! == secondDateComponents.month! &&
+            firstDateComponents.day! == secondDateComponents.day! {
+            return true
+        }
+        return false
+    }
+    
     static func stringToDateWithBasicFormatterWithKorea(using stringDate: String) -> Date {
         let dateFormatter = DateFormatter.basicDateFormatterWithKorea
         
@@ -20,6 +32,14 @@ struct DateCaculate {
     
     static func stringToDateWithBasicFormatter(using stringDate: String) -> Date {
         let dateFormatter = DateFormatter.basicDateFormatter
+        
+        guard let date = dateFormatter.date(from: stringDate) else {return .init()}
+        
+        return date
+    }
+    
+    static func stringToDateWithGenericFormatter(using stringDate: String) -> Date {
+        let dateFormatter = DateFormatter.genericDateFormatter
         
         guard let date = dateFormatter.date(from: stringDate) else {return .init()}
         
