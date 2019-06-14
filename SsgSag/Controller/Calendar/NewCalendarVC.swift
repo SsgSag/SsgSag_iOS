@@ -59,11 +59,12 @@ class NewCalendarVC: UIViewController {
         super.viewDidLayoutSubviews()
         
         if calendarView.frame == .zero {
+            let tabbarHeight = self.tabBarController?.tabBar.frame.height
             calendarView.frame = CGRect(
                 x: 0,
                 y: weekDaysView.frame.maxY,
                 width: view.frame.width,
-                height: view.frame.height * 0.95
+                height: view.frame.height - (tabbarHeight ?? 10)
             )
             
             calendarView.setup()
@@ -76,6 +77,10 @@ class NewCalendarVC: UIViewController {
         weekDaysView.appearance = VAWeekDaysViewAppearance(symbolsType: .veryShort, calendar: defaultCalendar)
         calendarView.setupMonths()
         calendarView.drawVisibleMonth(with: calendarView.contentOffset)
+        
+    }
+    
+    private func openSelctedDateTodoList(_ date: Date) {
         
     }
 }
@@ -157,8 +162,10 @@ extension NewCalendarVC: VADayViewAppearanceDelegate {
 
 extension NewCalendarVC: VACalendarViewDelegate {
     
-    func selectedDates(_ dates: [Date]) {
-        calendarView.startDate = dates.last ?? Date()
+    func selectedDate(_ date: Date) {
+        calendarView.startDate = date
+        
+        openSelctedDateTodoList(date)
     }
     
 }
