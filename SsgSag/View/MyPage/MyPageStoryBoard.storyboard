@@ -995,7 +995,7 @@
                                                 </subviews>
                                             </stackView>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" alignment="top" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="lZV-St-gfk" userLabel="타이틀">
-                                                <rect key="frame" x="1103" y="70" width="200" height="60.666666666666657"/>
+                                                <rect key="frame" x="957" y="70" width="200" height="60.666666666666657"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="관심있는 기업의 형태를" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kyR-xO-nPb">
                                                         <rect key="frame" x="0.0" y="0.0" width="200" height="26.333333333333332"/>
@@ -1017,20 +1017,20 @@
                                                 </subviews>
                                             </stackView>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="MHv-iL-RUh" userLabel="관심분야">
-                                                <rect key="frame" x="353" y="180.66666666666669" width="44" height="226"/>
+                                                <rect key="frame" x="207" y="180.66666666666674" width="336" height="1206"/>
                                                 <subviews>
                                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="EsG-H6-IbI" userLabel="경영사무">
-                                                        <rect key="frame" x="0.0" y="0.0" width="44" height="22"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="336" height="162"/>
                                                         <subviews>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Okf-EN-yhD" userLabel="ManagementButton">
-                                                                <rect key="frame" x="0.0" y="0.0" width="16" height="22"/>
+                                                                <rect key="frame" x="0.0" y="0.0" width="162" height="162"/>
                                                                 <state key="normal" image="btJobManagementUnactive"/>
                                                                 <connections>
                                                                     <action selector="touchUpJobButtons:" destination="cnl-e1-rb8" eventType="touchUpInside" id="gli-il-XoJ"/>
                                                                 </connections>
                                                             </button>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ugJ-ob-EyW" userLabel="MarketingButton">
-                                                                <rect key="frame" x="28" y="0.0" width="16" height="22"/>
+                                                                <rect key="frame" x="174" y="0.0" width="162" height="162"/>
                                                                 <state key="normal" image="btJobSpecialityUnactive"/>
                                                                 <connections>
                                                                     <action selector="touchUpJobButtons:" destination="cnl-e1-rb8" eventType="touchUpInside" id="ADa-my-5ET"/>
@@ -1039,17 +1039,17 @@
                                                         </subviews>
                                                     </stackView>
                                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="xBE-Cf-elk">
-                                                        <rect key="frame" x="0.0" y="34" width="44" height="22"/>
+                                                        <rect key="frame" x="0.0" y="174" width="336" height="162"/>
                                                         <subviews>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cNK-Zt-Afe" userLabel="TechButton">
-                                                                <rect key="frame" x="0.0" y="0.0" width="16" height="22"/>
+                                                                <rect key="frame" x="0.0" y="0.0" width="162" height="162"/>
                                                                 <state key="normal" image="btJobTechUnactive"/>
                                                                 <connections>
                                                                     <action selector="touchUpJobButtons:" destination="cnl-e1-rb8" eventType="touchUpInside" id="1mu-T2-BBg"/>
                                                                 </connections>
                                                             </button>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iYk-vq-O7R" userLabel="DesignButton">
-                                                                <rect key="frame" x="28" y="0.0" width="16" height="22"/>
+                                                                <rect key="frame" x="174" y="0.0" width="162" height="162"/>
                                                                 <state key="normal" image="btJobSalesUnactive"/>
                                                                 <connections>
                                                                     <action selector="touchUpJobButtons:" destination="cnl-e1-rb8" eventType="touchUpInside" id="1G5-C5-zqG"/>
@@ -1058,17 +1058,17 @@
                                                         </subviews>
                                                     </stackView>
                                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="jw6-vG-NgO">
-                                                        <rect key="frame" x="0.0" y="68" width="44" height="22"/>
+                                                        <rect key="frame" x="0.0" y="347.99999999999994" width="336" height="162"/>
                                                         <subviews>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BBz-5u-Ruo" userLabel="TradeButton">
-                                                                <rect key="frame" x="0.0" y="0.0" width="16" height="22"/>
+                                                                <rect key="frame" x="0.0" y="0.0" width="162" height="162"/>
                                                                 <state key="normal" image="btJobDesignUnactive"/>
                                                                 <connections>
                                                                     <action selector="touchUpJobButtons:" destination="cnl-e1-rb8" eventType="touchUpInside" id="Onv-xU-v8e"/>
                                                                 </connections>
                                                             </button>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="o3d-LC-8z6" userLabel="SalesButton">
-                                                                <rect key="frame" x="28" y="0.0" width="16" height="22"/>
+                                                                <rect key="frame" x="174" y="0.0" width="162" height="162"/>
                                                                 <state key="normal" image="btJobArtUnactive"/>
                                                                 <connections>
                                                                     <action selector="touchUpJobButtons:" destination="cnl-e1-rb8" eventType="touchUpInside" id="JSH-fc-oHl"/>
@@ -1077,17 +1077,17 @@
                                                         </subviews>
                                                     </stackView>
                                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="1Id-gu-9KX">
-                                                        <rect key="frame" x="0.0" y="102" width="44" height="22"/>
+                                                        <rect key="frame" x="0.0" y="522" width="336" height="162"/>
                                                         <subviews>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="S9x-mz-XFQ" userLabel="ServiceButton">
-                                                                <rect key="frame" x="0.0" y="0.0" width="16" height="22"/>
+                                                                <rect key="frame" x="0.0" y="0.0" width="162" height="162"/>
                                                                 <state key="normal" image="btJobServiceUnactive"/>
                                                                 <connections>
                                                                     <action selector="touchUpJobButtons:" destination="cnl-e1-rb8" eventType="touchUpInside" id="Qwg-JG-kWN"/>
                                                                 </connections>
                                                             </button>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7Oy-9f-tfb" userLabel="StudyButton">
-                                                                <rect key="frame" x="28" y="0.0" width="16" height="22"/>
+                                                                <rect key="frame" x="174" y="0.0" width="162" height="162"/>
                                                                 <state key="normal" image="btJobLiteratureUnactive"/>
                                                                 <connections>
                                                                     <action selector="touchUpJobButtons:" destination="cnl-e1-rb8" eventType="touchUpInside" id="y8f-5T-LT1"/>
@@ -1096,17 +1096,17 @@
                                                         </subviews>
                                                     </stackView>
                                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="TdB-eh-PWH">
-                                                        <rect key="frame" x="0.0" y="136" width="44" height="22"/>
+                                                        <rect key="frame" x="0.0" y="696" width="336" height="162"/>
                                                         <subviews>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="V8E-En-riE" userLabel="IndustryButton">
-                                                                <rect key="frame" x="0.0" y="0.0" width="16" height="22"/>
+                                                                <rect key="frame" x="0.0" y="0.0" width="162" height="162"/>
                                                                 <state key="normal" image="btJobIndustryUnactive"/>
                                                                 <connections>
                                                                     <action selector="touchUpJobButtons:" destination="cnl-e1-rb8" eventType="touchUpInside" id="FsQ-k9-gVP"/>
                                                                 </connections>
                                                             </button>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Hqw-eK-n57" userLabel="LiteratureButton">
-                                                                <rect key="frame" x="28" y="0.0" width="16" height="22"/>
+                                                                <rect key="frame" x="174" y="0.0" width="162" height="162"/>
                                                                 <state key="normal" image="btJobMedicalUnactive"/>
                                                                 <connections>
                                                                     <action selector="touchUpJobButtons:" destination="cnl-e1-rb8" eventType="touchUpInside" id="6Bi-xc-WRa"/>
@@ -1115,17 +1115,17 @@
                                                         </subviews>
                                                     </stackView>
                                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="RcI-Dg-Ez0">
-                                                        <rect key="frame" x="0.0" y="170" width="44" height="22"/>
+                                                        <rect key="frame" x="0.0" y="870" width="336" height="162"/>
                                                         <subviews>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EVH-gu-kfm" userLabel="ConstructButton">
-                                                                <rect key="frame" x="0.0" y="0.0" width="16" height="22"/>
+                                                                <rect key="frame" x="0.0" y="0.0" width="162" height="162"/>
                                                                 <state key="normal" image="btJobConstructUnactive"/>
                                                                 <connections>
                                                                     <action selector="touchUpJobButtons:" destination="cnl-e1-rb8" eventType="touchUpInside" id="H8N-Qp-SEr"/>
                                                                 </connections>
                                                             </button>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="G7a-e2-Mc2" userLabel="MedicalButton">
-                                                                <rect key="frame" x="28" y="0.0" width="16" height="22"/>
+                                                                <rect key="frame" x="174" y="0.0" width="162" height="162"/>
                                                                 <state key="normal" image="btJobTradeUnactive"/>
                                                                 <connections>
                                                                     <action selector="touchUpJobButtons:" destination="cnl-e1-rb8" eventType="touchUpInside" id="Exc-U5-OeP"/>
@@ -1134,17 +1134,17 @@
                                                         </subviews>
                                                     </stackView>
                                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="Cjk-hI-IiJ">
-                                                        <rect key="frame" x="0.0" y="204" width="44" height="22"/>
+                                                        <rect key="frame" x="0.0" y="1044" width="336" height="162"/>
                                                         <subviews>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="H6r-Ix-ZCO" userLabel="ArtButton">
-                                                                <rect key="frame" x="0.0" y="0.0" width="16" height="22"/>
+                                                                <rect key="frame" x="0.0" y="0.0" width="162" height="162"/>
                                                                 <state key="normal" image="btJobSocietyPassive"/>
                                                                 <connections>
                                                                     <action selector="touchUpJobButtons:" destination="cnl-e1-rb8" eventType="touchUpInside" id="4RJ-Wj-wLF"/>
                                                                 </connections>
                                                             </button>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WHk-2T-dNJ" userLabel="SpecialityButton">
-                                                                <rect key="frame" x="28" y="0.0" width="16" height="22"/>
+                                                                <rect key="frame" x="174" y="0.0" width="162" height="162"/>
                                                                 <state key="normal" image="btJobEtcPassive"/>
                                                                 <connections>
                                                                     <action selector="touchUpJobButtons:" destination="cnl-e1-rb8" eventType="touchUpInside" id="y8B-k4-11O"/>
@@ -1161,26 +1161,26 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="(복수 선택)" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FH6-ES-izO">
-                                                <rect key="frame" x="3909" y="77" width="72.333333333333485" height="81"/>
+                                                <rect key="frame" x="3471" y="77" width="72.333333333333485" height="81"/>
                                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="16"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="9mC-Ap-yKS" userLabel="직무분야">
-                                                <rect key="frame" x="1103" y="180.66666666666669" width="44" height="90"/>
+                                                <rect key="frame" x="957" y="180.66666666666669" width="336" height="510.00000000000006"/>
                                                 <subviews>
                                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="H1t-Jb-Usf" userLabel="경영사무">
-                                                        <rect key="frame" x="0.0" y="0.0" width="44" height="22"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="336" height="162"/>
                                                         <subviews>
                                                             <button opaque="NO" tag="10000" contentMode="scaleToFill" selected="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="w94-UA-uf0" userLabel="ManagementButton">
-                                                                <rect key="frame" x="0.0" y="0.0" width="16" height="22"/>
+                                                                <rect key="frame" x="0.0" y="0.0" width="162" height="162"/>
                                                                 <state key="normal" image="btCompanyBigPassive"/>
                                                                 <connections>
                                                                     <action selector="touchUpJobButtons:" destination="cnl-e1-rb8" eventType="touchUpInside" id="mTq-nm-70l"/>
                                                                 </connections>
                                                             </button>
                                                             <button opaque="NO" tag="20000" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bEF-x6-85A" userLabel="MarketingButton">
-                                                                <rect key="frame" x="28" y="0.0" width="16" height="22"/>
+                                                                <rect key="frame" x="174" y="0.0" width="162" height="162"/>
                                                                 <state key="normal" image="btCompanyMidPassive"/>
                                                                 <connections>
                                                                     <action selector="touchUpJobButtons:" destination="cnl-e1-rb8" eventType="touchUpInside" id="ZBZ-Sd-Yvf"/>
@@ -1189,17 +1189,17 @@
                                                         </subviews>
                                                     </stackView>
                                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="WLf-Jj-Ri0">
-                                                        <rect key="frame" x="0.0" y="34" width="44" height="22"/>
+                                                        <rect key="frame" x="0.0" y="174" width="336" height="162"/>
                                                         <subviews>
                                                             <button opaque="NO" tag="30000" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rMb-eN-efy" userLabel="TechButton">
-                                                                <rect key="frame" x="0.0" y="0.0" width="16" height="22"/>
+                                                                <rect key="frame" x="0.0" y="0.0" width="162" height="162"/>
                                                                 <state key="normal" image="btCompanySmallPassive"/>
                                                                 <connections>
                                                                     <action selector="touchUpJobButtons:" destination="cnl-e1-rb8" eventType="touchUpInside" id="lE6-Ph-1eP"/>
                                                                 </connections>
                                                             </button>
                                                             <button opaque="NO" tag="60000" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3HB-Sa-jie" userLabel="DesignButton">
-                                                                <rect key="frame" x="28" y="0.0" width="16" height="22"/>
+                                                                <rect key="frame" x="174" y="0.0" width="162" height="162"/>
                                                                 <state key="normal" image="btCompanyForeignPassive"/>
                                                                 <connections>
                                                                     <action selector="touchUpJobButtons:" destination="cnl-e1-rb8" eventType="touchUpInside" id="yZJ-aZ-UMF"/>
@@ -1208,17 +1208,17 @@
                                                         </subviews>
                                                     </stackView>
                                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="B1y-Dt-GmS">
-                                                        <rect key="frame" x="0.0" y="68" width="44" height="22"/>
+                                                        <rect key="frame" x="0.0" y="347.99999999999994" width="336" height="162"/>
                                                         <subviews>
                                                             <button opaque="NO" tag="50000" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xBj-QC-clq" userLabel="TradeButton">
-                                                                <rect key="frame" x="0.0" y="0.0" width="16" height="22"/>
+                                                                <rect key="frame" x="0.0" y="0.0" width="162" height="162"/>
                                                                 <state key="normal" image="btCompanyPublicPassive"/>
                                                                 <connections>
                                                                     <action selector="touchUpJobButtons:" destination="cnl-e1-rb8" eventType="touchUpInside" id="JyB-9N-Irf"/>
                                                                 </connections>
                                                             </button>
                                                             <button opaque="NO" tag="40000" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1Gi-32-bO6" userLabel="SalesButton">
-                                                                <rect key="frame" x="28" y="0.0" width="16" height="22"/>
+                                                                <rect key="frame" x="174" y="0.0" width="162" height="162"/>
                                                                 <state key="normal" image="btJobArtUnactive"/>
                                                                 <connections>
                                                                     <action selector="touchUpJobButtons:" destination="cnl-e1-rb8" eventType="touchUpInside" id="RDh-LS-Lcd"/>

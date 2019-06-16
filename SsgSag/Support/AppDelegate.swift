@@ -30,6 +30,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, MessagingDelegate ,UNUser
         
         FirebaseApp.configure()
         
+        adBrixDefaultSetting()
+        
         Messaging.messaging().delegate = self
         
         UNUserNotificationCenter.current().delegate = self
@@ -62,8 +64,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, MessagingDelegate ,UNUser
         window = UIWindow(frame: UIScreen.main.bounds)
     
         setWindowRootViewController()
-        
-        adBrixDefaultSetting()
 
         window?.makeKeyAndVisible()
         
@@ -83,6 +83,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, MessagingDelegate ,UNUser
             // IDFA 를 AdBrix SDK에 전달
             adBrix.setAppleAdvertisingIdentifier(ifa.uuidString)
         }
+        
     }
     
     func application(_ application: UIApplication, open url: URL, sourceApplication: String?, annotation: Any) -> Bool {

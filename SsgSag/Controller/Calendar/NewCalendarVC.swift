@@ -10,6 +10,8 @@ import UIKit
 
 class NewCalendarVC: UIViewController {
     
+    
+    
     @IBOutlet weak var monthHeaderView: VAMonthHeaderView! {
         didSet {
             let appereance = VAMonthHeaderViewAppearance(
@@ -38,7 +40,7 @@ class NewCalendarVC: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         setCalendar()
     }
     
@@ -59,7 +61,9 @@ class NewCalendarVC: UIViewController {
         super.viewDidLayoutSubviews()
         
         if calendarView.frame == .zero {
+            
             let tabbarHeight = self.tabBarController?.tabBar.frame.height
+            
             calendarView.frame = CGRect(
                 x: 0,
                 y: weekDaysView.frame.maxY,
@@ -69,20 +73,31 @@ class NewCalendarVC: UIViewController {
             
             calendarView.setup()
         }
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        
-        weekDaysView.appearance = VAWeekDaysViewAppearance(symbolsType: .veryShort, calendar: defaultCalendar)
+        //weekDaysView.appearance = VAWeekDaysViewAppearance(symbolsType: .veryShort, calendar: defaultCalendar)
         calendarView.setupMonths()
         calendarView.drawVisibleMonth(with: calendarView.contentOffset)
         
+        super.viewWillAppear(animated)
     }
     
     private func openSelctedDateTodoList(_ date: Date) {
+        print("openSelected \(date)")
         
+        let storyboard = UIStoryboard(name: StoryBoardName.newCalendar, bundle: nil)
+        guard let selectedTodoViewController = storyboard.instantiateViewController(withIdentifier: ViewControllerIdentifier.selectedTodoViewController) as? SelectedTodoViewController else {return}
+        
+        self.addChild(selectedTodoViewController)
+        selectedTodoViewController.view.frame = self.view.frame
+        self.view.addSubview(selectedTodoViewController.view)
+        selectedTodoViewController.didMove(toParent: self)
+        
+        self.tabBarController?.tabBar.isHidden = true
     }
+    
 }
 
 extension NewCalendarVC: VAMonthHeaderViewDelegate {
@@ -165,7 +180,14 @@ extension NewCalendarVC: VACalendarViewDelegate {
     func selectedDate(_ date: Date) {
         calendarView.startDate = date
         
-        openSelctedDateTodoList(date)
+       openSelctedDateTodoList(date)
+    }
+    
+}
+
+extension NewCalendarVC: StoreAndFetchPosterDelegate {
+    func changePosterInfomation() {
+        print("storeAndFetchChangeDelegate")
     }
     
 }

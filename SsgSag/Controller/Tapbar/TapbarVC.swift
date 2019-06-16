@@ -24,7 +24,7 @@ class TapbarVC: UITabBarController {
         
         static let mypageViewController = mypageStoryBoard.instantiateViewController(withIdentifier: ViewControllerIdentifier.mypageViewController)
         
-        static let newCalendarViewController = newCalendarStoryboard.instantiateViewController(withIdentifier: ViewControllerIdentifier.newCalendarViewController)
+        static let newCalendarViewController = newCalendarStoryboard.instantiateViewController(withIdentifier: ViewControllerIdentifier.newCalendarViewController) as! NewCalendarVC
     }
     
     override func viewDidLoad() {
@@ -67,6 +67,7 @@ class TapbarVC: UITabBarController {
                                                        selectedImage: UIImage(named: "icUserActive"))
         
         let calendarViewController = CreateViewController.newCalendarViewController
+        StoreAndFetchPoster.shared.delegate = calendarViewController
         calendarViewController.tabBarItem = UITabBarItem(title: "",
                                                          image: UIImage(named: "icCal"),
                                                          selectedImage: UIImage(named: "icCalActive"))

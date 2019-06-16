@@ -98,6 +98,7 @@
 		84B4268A21E9063600B44F71 /* bt_save_round.json in Resources */ = {isa = PBXBuildFile; fileRef = 84B4268921E9063600B44F71 /* bt_save_round.json */; };
 		84B4268C21E9091D00B44F71 /* main_empty_hifive.json in Resources */ = {isa = PBXBuildFile; fileRef = 84B4268B21E9091C00B44F71 /* main_empty_hifive.json */; };
 		84B8630422B3509400E4B0C1 /* ClientKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B8630322B3509400E4B0C1 /* ClientKey.swift */; };
+		84B8630622B3708A00E4B0C1 /* SelectedTodoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B8630522B3708A00E4B0C1 /* SelectedTodoViewController.swift */; };
 		84BA694921DB394800BA8CB8 /* myPageVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84BA694821DB394800BA8CB8 /* myPageVC.swift */; };
 		84BA694B21DB395400BA8CB8 /* MyPageStoryBoard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 84BA694A21DB395400BA8CB8 /* MyPageStoryBoard.storyboard */; };
 		84BA694D21DB74BD00BA8CB8 /* TapbarVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84BA694C21DB74BD00BA8CB8 /* TapbarVC.swift */; };
@@ -266,6 +267,7 @@
 		84B4268921E9063600B44F71 /* bt_save_round.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = bt_save_round.json; sourceTree = "<group>"; };
 		84B4268B21E9091C00B44F71 /* main_empty_hifive.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = main_empty_hifive.json; sourceTree = "<group>"; };
 		84B8630322B3509400E4B0C1 /* ClientKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClientKey.swift; sourceTree = "<group>"; };
+		84B8630522B3708A00E4B0C1 /* SelectedTodoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectedTodoViewController.swift; sourceTree = "<group>"; };
 		84BA694821DB394800BA8CB8 /* myPageVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = myPageVC.swift; sourceTree = "<group>"; };
 		84BA694A21DB395400BA8CB8 /* MyPageStoryBoard.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = MyPageStoryBoard.storyboard; sourceTree = "<group>"; };
 		84BA694C21DB74BD00BA8CB8 /* TapbarVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TapbarVC.swift; sourceTree = "<group>"; };
@@ -547,6 +549,7 @@
 				84264BA921DF109200849E6B /* AddPassiveDateVC.swift */,
 				8486D25F226DEC5D00D7A0C7 /* ApplySuccessViewController.swift */,
 				8496818F22AFDF66004A4A63 /* NewCalendarVC.swift */,
+				84B8630522B3708A00E4B0C1 /* SelectedTodoViewController.swift */,
 			);
 			path = Calendar;
 			sourceTree = "<group>";
@@ -1122,6 +1125,7 @@
 				FA3A342221E5D64300668908 /* UserInfoVC.swift in Sources */,
 				846E6229229137F40083E3CD /* SignupServiceImp.swift in Sources */,
 				FAA238792203296500C6DB13 /* NonActivityCell.swift in Sources */,
+				84B8630622B3708A00E4B0C1 /* SelectedTodoViewController.swift in Sources */,
 				84A45D15225FA1E800C60287 /* Router.swift in Sources */,
 				84646C38228965E5005D3F1C /* AppInfoViewController.swift in Sources */,
 				8496818622AFD3FE004A4A63 /* VAFormatters.swift in Sources */,
