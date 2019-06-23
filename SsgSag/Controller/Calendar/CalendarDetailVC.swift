@@ -53,7 +53,6 @@ class CalendarDetailVC: UIViewController {
         super.viewDidLoad()
         
         setPosterContent()
-        
     }
     
     private func setPosterContent() {

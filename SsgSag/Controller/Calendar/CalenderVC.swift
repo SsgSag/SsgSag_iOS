@@ -599,6 +599,7 @@ extension CalenderVC: UITableViewDelegate,UITableViewDataSource {
         let CalendarDetailVC = storyBoard.instantiateViewController(withIdentifier: ViewControllerIdentifier.detailPosterViewController) as! CalendarDetailVC
         
         let posterInfo = StoreAndFetchPoster.shared.getPostersAfterAllChangedConfirm()
+        
         for poster in posterInfo {
             guard let posterName = todoTableData[indexPath.row].posterName else { return }
             if posterName == poster.posterName! {

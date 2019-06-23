@@ -116,6 +116,7 @@ class SelectedTodoViewController: UIViewController {
                 if DateCaculate.isSameDate(fifthDate, endDate) {
                     fifthDayPosters.append(poster)
                 }
+                
             }
             
         }
@@ -364,18 +365,84 @@ extension SelectedTodoViewController: UITableViewDelegate, UITableViewDataSource
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        if tableView == secondTableView {
-            return 120
-        } else {
-            return 100
-        }
+        return 100
     }
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        print("didselct")
+        
+        let storyBoard = UIStoryboard(name: StoryBoardName.calendar, bundle: nil)
+        let CalendarDetailVC = storyBoard.instantiateViewController(withIdentifier: ViewControllerIdentifier.detailPosterViewController) as! CalendarDetailVC
+        
+        if tableView == thirdTableView {
+            CalendarDetailVC.Poster = thirdDayPosters[indexPath.row]
+        } else if tableView == firstTableView {
+            CalendarDetailVC.Poster = firstDayPosters[indexPath.row]
+        } else if tableView == secondTableView {
+            CalendarDetailVC.Poster = secondDayPosters[indexPath.row]
+        } else if tableView == fourthTableView {
+            CalendarDetailVC.Poster = fourthDayPosters[indexPath.row]
+        } else if tableView == fifthTableView {
+            CalendarDetailVC.Poster = fifthDayPosters[indexPath.row]
+        }
+        
+        present(CalendarDetailVC, animated: true, completion: nil)
     }
     
-    header
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        
+        let dateLabel = UILabel()
+        dateLabel.translatesAutoresizingMaskIntoConstraints = false
+        
+        let viewRect = CGRect(x: 0, y: 0, width: tableView.frame.width, height: 70)
+        let view = UIView(frame: viewRect)
+        view.backgroundColor = .white
+        
+        view.addSubview(dateLabel)
+        dateLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 24).isActive = true
+        dateLabel.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
+        dateLabel.heightAnchor.constraint(equalToConstant: 24).isActive = true
+        
+        guard let date = currentDate else {return .init()}
+        
+        let firstDate = date.changeDaysBy(days: -2)
+        
+        let secondDate = date.changeDaysBy(days: -1)
+        
+        let fourthDate = date.changeDaysBy(days: 1)
+        
+        let fifthDate = date.changeDaysBy(days: 2)
+        
+        var tempText = ""
+        if tableView == thirdTableView {
+            let component = Calendar.current.dateComponents([.month, .day, .weekday], from: date)
+            guard let weekDay = WeekDays(rawValue: component.weekday!) else {return .init()}
+            tempText = "\(component.month!)월 \(component.day!)일 \(weekDay.koreanWeekdays)요일"
+        } else if tableView == firstTableView {
+            let component = Calendar.current.dateComponents([.month, .day, .weekday], from: firstDate)
+            guard let weekDay = WeekDays(rawValue: component.weekday!) else {return .init()}
+            tempText = "\(component.month!)월 \(component.day!)일 \(weekDay.koreanWeekdays)요일"
+        } else if tableView == secondTableView {
+            let component = Calendar.current.dateComponents([.month, .day, .weekday], from: secondDate)
+            guard let weekDay = WeekDays(rawValue: component.weekday!) else {return .init()}
+            tempText = "\(component.month!)월 \(component.day!)일 \(weekDay.koreanWeekdays)요일"
+        } else if tableView == fourthTableView {
+            let component = Calendar.current.dateComponents([.month, .day, .weekday], from: fourthDate)
+            guard let weekDay = WeekDays(rawValue: component.weekday!) else {return .init()}
+            tempText = "\(component.month!)월 \(component.day!)일 \(weekDay.koreanWeekdays)요일"
+        } else if tableView == fifthTableView {
+            let component = Calendar.current.dateComponents([.month, .day, .weekday], from: fifthDate)
+            guard let weekDay = WeekDays(rawValue: component.weekday!) else {return .init()}
+            tempText = "\(component.month!)월 \(component.day!)일 \(weekDay.koreanWeekdays)요일"
+        }
+        
+        dateLabel.text = tempText
+        
+        return view
+    }
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 70
+    }
     
 }
 
@@ -386,7 +453,7 @@ extension SelectedTodoViewController: UIScrollViewDelegate {
         
         if scrollView.contentOffset.x < -80 {
             setDefaultScrollViewAndReloadTableView(using: -3)
-        } else if scrollView.contentOffset.x > self.view.frame.width * 4 + 100 {
+        } else if scrollView.contentOffset.x > self.view.frame.width * 4 + 80 {
             setDefaultScrollViewAndReloadTableView(using: 3)
         }
         
@@ -409,5 +476,34 @@ extension SelectedTodoViewController: UIGestureRecognizerDelegate {
 extension Date {
     func changeDaysBy(days : Int) -> Date {
         return Calendar.current.date(byAdding: .day, value: days, to: self)!
+    }
+}
+
+fileprivate enum WeekDays: Int {
+    case monday = 2
+    case tuesday = 3
+    case wednesday = 4
+    case thurday = 5
+    case friday = 6
+    case saturday = 7
+    case sunday = 1
+    
+    var koreanWeekdays: String {
+        switch self {
+        case .monday:
+            return "월"
+        case .tuesday:
+            return "화"
+        case .wednesday:
+            return "수"
+        case .thurday:
+            return "목"
+        case .friday:
+            return "금"
+        case .saturday:
+            return "토"
+        case .sunday:
+            return "일"
+        }
     }
 }
