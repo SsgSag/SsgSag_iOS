@@ -9,21 +9,22 @@
 import UIKit
 
 class NewCalendarVC: UIViewController {
-    
-    
-    
+
     @IBOutlet weak var monthHeaderView: VAMonthHeaderView! {
         didSet {
             let appereance = VAMonthHeaderViewAppearance(
                 dateFormat: "LLLL"
             )
+            
             monthHeaderView.delegate = self
             monthHeaderView.appearance = appereance
+            
         }
     }
     
     @IBOutlet weak var weekDaysView: VAWeekDaysView! {
         didSet {
+            
             let appereance = VAWeekDaysViewAppearance(symbolsType: .veryShort, calendar: defaultCalendar)
             weekDaysView.appearance = appereance
         }
@@ -85,12 +86,12 @@ class NewCalendarVC: UIViewController {
     }
     
     private func openSelctedDateTodoList(_ date: Date) {
-        print("openSelected \(date)")
         
         let storyboard = UIStoryboard(name: StoryBoardName.newCalendar, bundle: nil)
         guard let selectedTodoViewController = storyboard.instantiateViewController(withIdentifier: ViewControllerIdentifier.selectedTodoViewController) as? SelectedTodoViewController else {return}
         
         self.addChild(selectedTodoViewController)
+        selectedTodoViewController.currentDate = date
         selectedTodoViewController.view.frame = self.view.frame
         self.view.addSubview(selectedTodoViewController.view)
         selectedTodoViewController.didMove(toParent: self)
@@ -178,7 +179,7 @@ extension NewCalendarVC: VADayViewAppearanceDelegate {
 extension NewCalendarVC: VACalendarViewDelegate {
     
     func selectedDate(_ date: Date) {
-        calendarView.startDate = date
+       calendarView.startDate = date
         
        openSelctedDateTodoList(date)
     }

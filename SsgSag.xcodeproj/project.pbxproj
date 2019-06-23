@@ -99,6 +99,8 @@
 		84B4268C21E9091D00B44F71 /* main_empty_hifive.json in Resources */ = {isa = PBXBuildFile; fileRef = 84B4268B21E9091C00B44F71 /* main_empty_hifive.json */; };
 		84B8630422B3509400E4B0C1 /* ClientKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B8630322B3509400E4B0C1 /* ClientKey.swift */; };
 		84B8630622B3708A00E4B0C1 /* SelectedTodoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B8630522B3708A00E4B0C1 /* SelectedTodoViewController.swift */; };
+		84B8630922B64F7900E4B0C1 /* DetailTodoListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B8630722B64F7900E4B0C1 /* DetailTodoListTableViewCell.swift */; };
+		84B8630A22B64F7900E4B0C1 /* DetailTodoListTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84B8630822B64F7900E4B0C1 /* DetailTodoListTableViewCell.xib */; };
 		84BA694921DB394800BA8CB8 /* myPageVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84BA694821DB394800BA8CB8 /* myPageVC.swift */; };
 		84BA694B21DB395400BA8CB8 /* MyPageStoryBoard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 84BA694A21DB395400BA8CB8 /* MyPageStoryBoard.storyboard */; };
 		84BA694D21DB74BD00BA8CB8 /* TapbarVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84BA694C21DB74BD00BA8CB8 /* TapbarVC.swift */; };
@@ -268,6 +270,8 @@
 		84B4268B21E9091C00B44F71 /* main_empty_hifive.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = main_empty_hifive.json; sourceTree = "<group>"; };
 		84B8630322B3509400E4B0C1 /* ClientKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClientKey.swift; sourceTree = "<group>"; };
 		84B8630522B3708A00E4B0C1 /* SelectedTodoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectedTodoViewController.swift; sourceTree = "<group>"; };
+		84B8630722B64F7900E4B0C1 /* DetailTodoListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailTodoListTableViewCell.swift; sourceTree = "<group>"; };
+		84B8630822B64F7900E4B0C1 /* DetailTodoListTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DetailTodoListTableViewCell.xib; sourceTree = "<group>"; };
 		84BA694821DB394800BA8CB8 /* myPageVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = myPageVC.swift; sourceTree = "<group>"; };
 		84BA694A21DB395400BA8CB8 /* MyPageStoryBoard.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = MyPageStoryBoard.storyboard; sourceTree = "<group>"; };
 		84BA694C21DB74BD00BA8CB8 /* TapbarVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TapbarVC.swift; sourceTree = "<group>"; };
@@ -773,6 +777,8 @@
 				8496817B22AFD3FE004A4A63 /* VAWeekDaysView.swift */,
 				8496817522AFD3FE004A4A63 /* VAWeekView.swift */,
 				8496818D22AFDDD1004A4A63 /* newCalendarStoryboard.storyboard */,
+				84B8630722B64F7900E4B0C1 /* DetailTodoListTableViewCell.swift */,
+				84B8630822B64F7900E4B0C1 /* DetailTodoListTableViewCell.xib */,
 			);
 			path = NewCalendar;
 			sourceTree = "<group>";
@@ -956,6 +962,7 @@
 				84BA694B21DB395400BA8CB8 /* MyPageStoryBoard.storyboard in Resources */,
 				84E19CE421DCC9F4006F72EC /* LoginStoryBoard.storyboard in Resources */,
 				FA7F4CBC21DFC7E700D8643A /* CustomCareerCell.xib in Resources */,
+				84B8630A22B64F7900E4B0C1 /* DetailTodoListTableViewCell.xib in Resources */,
 				FA3A8FD721DF3C3B0075A510 /* Splash.storyboard in Resources */,
 				FA7F4CC821DFCC7E00D8643A /* CertificationCell.xib in Resources */,
 				FAFB87D822159F83002CDED9 /* univList.json in Resources */,
@@ -1107,6 +1114,7 @@
 				FAA238712202F37C00C6DB13 /* CareerVC + CollectionView.swift in Sources */,
 				FA61FE1921E204F300A28947 /* DatePickerPopUpVC.swift in Sources */,
 				84646C33228947A7005D3F1C /* ServiceInfoViewController.swift in Sources */,
+				84B8630922B64F7900E4B0C1 /* DetailTodoListTableViewCell.swift in Sources */,
 				8496818722AFD3FE004A4A63 /* VACalendar.swift in Sources */,
 				84A45D0F225F9E0000C60287 /* URLParameterEncoder.swift in Sources */,
 				845928E721D3877D001DF6CC /* DetailTextSwipeCard.swift in Sources */,
