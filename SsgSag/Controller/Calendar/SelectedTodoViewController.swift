@@ -81,6 +81,8 @@ class SelectedTodoViewController: UIViewController {
     
     private var fifthDayPosters: [Posters] = []
     
+    private var currentWindowDate: Date?
+    
     var currentDate: Date? {
         didSet {
             guard let date = currentDate else {return}
@@ -126,6 +128,8 @@ class SelectedTodoViewController: UIViewController {
         super.viewDidLoad()
         
         guard let date = currentDate else {return}
+        
+        currentWindowDate = date
         
         addTapGesture()
         
@@ -456,7 +460,6 @@ extension SelectedTodoViewController: UIScrollViewDelegate {
         } else if scrollView.contentOffset.x > self.view.frame.width * 4 + 80 {
             setDefaultScrollViewAndReloadTableView(using: 3)
         }
-        
     }
     
 }

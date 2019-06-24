@@ -55,6 +55,10 @@ class CalendarDetailVC: UIViewController {
         setPosterContent()
     }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        self.tabBarController?.tabBar.isHidden = true
+    }
+    
     private func setPosterContent() {
         if let photoURL = Poster?.photoUrl {
             if let url = URL(string: photoURL){

@@ -1,4 +1,5 @@
 import UIKit
+import Lottie
 
 class SwipeVC: UIViewController {
     
@@ -18,7 +19,7 @@ class SwipeVC: UIViewController {
     
     private var currentLoadedCardsArray = [SwipeCard]()
     
-    private var lastCardIndex:Int = 0
+    private var lastCardIndex: Int = 0
     
     private var currentIndex = 0
     
@@ -45,6 +46,8 @@ class SwipeVC: UIViewController {
         
         hideStatusBar()
         
+        setEmptyPosterAnimation()
+        
         UIView.appearance().isExclusiveTouch = true
     }
     
@@ -53,13 +56,10 @@ class SwipeVC: UIViewController {
     }
     
     private func hideStatusBar() {
-        self.view.addSubview(overLapView)
+        //self.view.addSubview(overLapView)
     }
     
     private func setCountLabel() {
-        
-        countLabel.layer.cornerRadius = 10
-        countLabel.layer.masksToBounds = true
         
         setCountLabelText()
     }
@@ -71,10 +71,24 @@ class SwipeVC: UIViewController {
         
         self.view.backgroundColor = UIColor(displayP3Red: 242/255, green: 243/255, blue: 245/255, alpha: 1.0)
         
-        self.view.bringSubviewToFront(swipeCardView)
+        //self.view.bringSubviewToFront(swipeCardView)
     }
     
     private func setEmptyPosterAnimation() {
+        
+        let animation = LOTAnimationView(name: "main_empty_hifive")
+        
+        view.addSubview(animation)
+        view.sendSubviewToBack(animation)
+        
+        animation.translatesAutoresizingMaskIntoConstraints = false
+        animation.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        animation.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
+        animation.widthAnchor.constraint(equalToConstant: 350).isActive = true
+        animation.heightAnchor.constraint(equalToConstant: 350).isActive = true
+        
+        animation.loopAnimation = true
+        animation.play()
         
         simplerAlert(title: "저장되었습니다")
     }
@@ -185,9 +199,9 @@ class SwipeVC: UIViewController {
     
     //SwipeCard 생성
     private func createSwipeCard(at index: Int , value :String) -> SwipeCard {
-        let card = SwipeCard(frame: CGRect(x: 15, y: 0,
-                                           width: swipeCardView.frame.size.width - 30 ,
-                                           height: swipeCardView.frame.size.height ),
+        let card = SwipeCard(frame: CGRect(x: 20, y: (swipeCardView.frame.size.height - swipeCardView.frame.size.height * 0.9) / 2,
+                                           width: swipeCardView.frame.size.width - 40 ,
+                                           height: swipeCardView.frame.size.height * 0.9 ),
                              value : value)
         card.delegate = self
         
@@ -319,13 +333,21 @@ class SwipeVC: UIViewController {
             }
             
             addUserDefautlsWhenDataIsExist(posterInfo)
-             */
+             */3
         }
          */
+        
     }
     
     private func setCountLabelText() {
-        self.countLabel.text = "\(self.countTotalCardIndex)"
+        
+        if let tabItems = tabBarController?.tabBar.items {
+            // In this case we want to modify the badge number of the third tab:
+            let tabItem = tabItems[1]
+            tabItem.badgeValue = "\(self.countTotalCardIndex)"
+        }
+        
+        //self.countLabel.text = "\(self.countTotalCardIndex)"
     }
     
     private func setCountValue(addOrUndo: AddOrUndo) {

@@ -19,74 +19,15 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Qa3-PX-6kd" userLabel="SwipeView">
-                                <rect key="frame" x="0.0" y="94" width="414" height="682"/>
+                                <rect key="frame" x="0.0" y="44" width="414" height="818"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="htM-pe-WyM">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="36"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                            </view>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="c7o-gI-BTJ" userLabel="disLikeButton">
-                                <rect key="frame" x="92.5" y="786" width="72.5" height="72.5"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" secondItem="c7o-gI-BTJ" secondAttribute="height" multiplier="1:1" id="buw-rr-EWy"/>
-                                </constraints>
-                                <inset key="contentEdgeInsets" minX="0.0" minY="-1" maxX="0.0" maxY="0.0"/>
-                                <state key="normal" image="btX"/>
-                                <state key="selected" image="noButton_Selected"/>
-                                <connections>
-                                    <action selector="disLikeButtonAction:" destination="x1e-70-Zh0" eventType="touchUpInside" id="vce-sm-d1F"/>
-                                </connections>
-                            </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bGY-hH-jJl">
-                                <rect key="frame" x="184" y="800" width="46" height="46"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="46" id="4SR-aT-xFC"/>
-                                    <constraint firstAttribute="width" secondItem="bGY-hH-jJl" secondAttribute="height" multiplier="1:1" id="Tq4-kL-oMc"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="owb-dH-Fs8" userLabel="likeButton">
-                                <rect key="frame" x="249" y="786" width="72.5" height="72.5"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" secondItem="owb-dH-Fs8" secondAttribute="height" multiplier="66:66" id="7hp-av-upi"/>
-                                </constraints>
-                                <state key="normal" image="btO"/>
-                                <connections>
-                                    <action selector="LikeButtonAction:" destination="x1e-70-Zh0" eventType="touchUpInside" id="kWC-MG-Mmg"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="i0x-aS-fLi">
-                                <rect key="frame" x="33.5" y="798" width="48" height="48"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" secondItem="i0x-aS-fLi" secondAttribute="height" multiplier="1:1" id="TuN-tg-cyX"/>
-                                </constraints>
-                                <state key="normal" image="undoSelected"/>
-                                <connections>
-                                    <action selector="cardBackAction:" destination="x1e-70-Zh0" eventType="touchUpInside" id="zrA-bt-OXu"/>
-                                </connections>
-                            </button>
                         </subviews>
                         <constraints>
-                            <constraint firstItem="c7o-gI-BTJ" firstAttribute="width" secondItem="Dc2-OV-lNp" secondAttribute="width" multiplier="0.175" id="8Po-CM-xwh"/>
-                            <constraint firstItem="bGY-hH-jJl" firstAttribute="leading" secondItem="c7o-gI-BTJ" secondAttribute="trailing" constant="19" id="9S0-C2-jjQ"/>
-                            <constraint firstItem="bGY-hH-jJl" firstAttribute="centerY" secondItem="c7o-gI-BTJ" secondAttribute="centerY" constant="1" id="AC7-hm-vHz"/>
-                            <constraint firstItem="c7o-gI-BTJ" firstAttribute="leading" secondItem="i0x-aS-fLi" secondAttribute="trailing" constant="11" id="Dqz-LO-eAW"/>
-                            <constraint firstItem="Qa3-PX-6kd" firstAttribute="top" secondItem="Dc2-OV-lNp" secondAttribute="top" constant="50" id="Dyj-Cn-AYw"/>
-                            <constraint firstItem="owb-dH-Fs8" firstAttribute="leading" secondItem="bGY-hH-jJl" secondAttribute="trailing" constant="19" id="GsS-tv-OIG"/>
-                            <constraint firstItem="i0x-aS-fLi" firstAttribute="height" secondItem="c7o-gI-BTJ" secondAttribute="height" multiplier="2:3" id="HHe-sa-DNg"/>
-                            <constraint firstItem="c7o-gI-BTJ" firstAttribute="top" secondItem="Qa3-PX-6kd" secondAttribute="bottom" constant="10" id="Lth-Ze-W0I"/>
+                            <constraint firstItem="Qa3-PX-6kd" firstAttribute="top" secondItem="Dc2-OV-lNp" secondAttribute="top" id="Dyj-Cn-AYw"/>
                             <constraint firstItem="Qa3-PX-6kd" firstAttribute="leading" secondItem="Dc2-OV-lNp" secondAttribute="leading" id="MRY-wS-wrg"/>
-                            <constraint firstItem="i0x-aS-fLi" firstAttribute="centerY" secondItem="c7o-gI-BTJ" secondAttribute="centerY" id="Ouk-D4-kzc"/>
-                            <constraint firstItem="c7o-gI-BTJ" firstAttribute="bottom" secondItem="YSG-iM-g4A" secondAttribute="bottom" multiplier="0.93" constant="25" id="TIH-bA-ndB"/>
                             <constraint firstItem="Dc2-OV-lNp" firstAttribute="trailing" secondItem="Qa3-PX-6kd" secondAttribute="trailing" id="aaF-0s-3QQ"/>
-                            <constraint firstItem="bGY-hH-jJl" firstAttribute="centerX" secondItem="Dc2-OV-lNp" secondAttribute="centerX" id="bT5-ng-IjM"/>
-                            <constraint firstItem="owb-dH-Fs8" firstAttribute="width" secondItem="c7o-gI-BTJ" secondAttribute="width" id="rIB-Lj-qjS"/>
-                            <constraint firstItem="owb-dH-Fs8" firstAttribute="centerY" secondItem="c7o-gI-BTJ" secondAttribute="centerY" id="ygg-75-Ufm"/>
+                            <constraint firstItem="Dc2-OV-lNp" firstAttribute="bottom" secondItem="Qa3-PX-6kd" secondAttribute="bottom" id="wTf-nu-KS3"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="Dc2-OV-lNp"/>
                         <userDefinedRuntimeAttributes>
@@ -112,10 +53,6 @@
                     </view>
                     <tabBarItem key="tabBarItem" title="Item" id="vDx-Zo-taY"/>
                     <connections>
-                        <outlet property="countLabel" destination="bGY-hH-jJl" id="wOn-Hg-tqY"/>
-                        <outlet property="dislikedButton" destination="c7o-gI-BTJ" id="oXf-nB-vVX"/>
-                        <outlet property="likedButton" destination="owb-dH-Fs8" id="rH3-uO-2Uh"/>
-                        <outlet property="overLapView" destination="htM-pe-WyM" id="ezO-m3-SkL"/>
                         <outlet property="swipeCardView" destination="Qa3-PX-6kd" id="NGx-8c-UcE"/>
                     </connections>
                 </viewController>
@@ -731,15 +668,11 @@
         </scene>
     </scenes>
     <resources>
-        <image name="btO" width="66" height="66"/>
-        <image name="btX" width="66" height="66"/>
         <image name="group7" width="19" height="19"/>
         <image name="icCardProcessBell" width="42" height="42"/>
         <image name="icCardProcessFinal" width="42" height="42"/>
         <image name="icCardProcessInterview" width="42" height="42"/>
         <image name="icCardProcessPaper" width="42" height="42"/>
         <image name="line" width="228" height="3"/>
-        <image name="noButton_Selected" width="100" height="100"/>
-        <image name="undoSelected" width="50" height="50"/>
     </resources>
 </document>
