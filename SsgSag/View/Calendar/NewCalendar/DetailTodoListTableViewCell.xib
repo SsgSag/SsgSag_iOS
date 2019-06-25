@@ -29,20 +29,47 @@
                                 </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Kdq-s2-Rgq">
-                                <rect key="frame" x="85.5" y="49.5" width="302.5" height="0.0"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <rect key="frame" x="85.5" y="44" width="302.5" height="11"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="11" id="Snx-fc-p3y"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="d5j-NH-js7" userLabel="Poster Category">
+                                <rect key="frame" x="85.5" y="19" width="302.5" height="15"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="15" id="M41-bx-x5b"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="11"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1CY-oo-dsS" userLabel="Poster Date">
+                                <rect key="frame" x="85.5" y="65" width="302.5" height="11"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="11" id="aTA-4N-0Ug"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="11"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
+                            <constraint firstItem="d5j-NH-js7" firstAttribute="width" secondItem="Kdq-s2-Rgq" secondAttribute="width" id="6uk-UY-4M2"/>
+                            <constraint firstItem="Kdq-s2-Rgq" firstAttribute="top" secondItem="d5j-NH-js7" secondAttribute="bottom" constant="10" id="78s-h6-PBR"/>
                             <constraint firstItem="E7D-ZZ-2ES" firstAttribute="leading" secondItem="5cU-2h-DLw" secondAttribute="leading" constant="10" id="CFj-o5-xHa"/>
+                            <constraint firstItem="1CY-oo-dsS" firstAttribute="leading" secondItem="d5j-NH-js7" secondAttribute="leading" id="GoF-hn-Dhf"/>
+                            <constraint firstItem="1CY-oo-dsS" firstAttribute="width" secondItem="d5j-NH-js7" secondAttribute="width" id="KBZ-3O-wwl"/>
                             <constraint firstAttribute="trailing" secondItem="Kdq-s2-Rgq" secondAttribute="trailing" constant="10" id="NCh-nR-8wN"/>
                             <constraint firstItem="E7D-ZZ-2ES" firstAttribute="top" secondItem="5cU-2h-DLw" secondAttribute="top" constant="5" id="NiG-26-lba"/>
                             <constraint firstItem="Kdq-s2-Rgq" firstAttribute="leading" secondItem="E7D-ZZ-2ES" secondAttribute="trailing" constant="10" id="V2U-cJ-YFJ"/>
                             <constraint firstItem="Kdq-s2-Rgq" firstAttribute="centerY" secondItem="5cU-2h-DLw" secondAttribute="centerY" id="WmN-rI-Aej"/>
+                            <constraint firstItem="d5j-NH-js7" firstAttribute="leading" secondItem="Kdq-s2-Rgq" secondAttribute="leading" id="hYc-sJ-1r3"/>
                             <constraint firstAttribute="bottom" secondItem="E7D-ZZ-2ES" secondAttribute="bottom" constant="5" id="kU1-RS-zLY"/>
+                            <constraint firstItem="1CY-oo-dsS" firstAttribute="top" secondItem="Kdq-s2-Rgq" secondAttribute="bottom" constant="10" id="riX-3w-GZa"/>
                         </constraints>
                         <userDefinedRuntimeAttributes>
                             <userDefinedRuntimeAttribute type="color" keyPath="borderColorV">
@@ -66,6 +93,8 @@
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
+                <outlet property="posterCategory" destination="d5j-NH-js7" id="hAi-q5-70M"/>
+                <outlet property="posterDate" destination="1CY-oo-dsS" id="l9M-H4-Ibx"/>
                 <outlet property="posterImageView" destination="E7D-ZZ-2ES" id="XUe-X1-Zue"/>
                 <outlet property="posterName" destination="Kdq-s2-Rgq" id="Mhu-UN-k5I"/>
             </connections>

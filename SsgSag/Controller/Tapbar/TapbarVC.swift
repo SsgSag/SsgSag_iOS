@@ -25,6 +25,7 @@ class TapbarVC: UITabBarController {
         static let mypageViewController = mypageStoryBoard.instantiateViewController(withIdentifier: ViewControllerIdentifier.mypageViewController)
         
         static let newCalendarViewController = newCalendarStoryboard.instantiateViewController(withIdentifier: ViewControllerIdentifier.newCalendarViewController) as! NewCalendarVC
+        
     }
     
     override func viewDidLoad() {

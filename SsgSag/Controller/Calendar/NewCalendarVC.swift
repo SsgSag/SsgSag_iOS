@@ -90,6 +90,8 @@ class NewCalendarVC: UIViewController {
         let storyboard = UIStoryboard(name: StoryBoardName.newCalendar, bundle: nil)
         guard let selectedTodoViewController = storyboard.instantiateViewController(withIdentifier: ViewControllerIdentifier.selectedTodoViewController) as? SelectedTodoViewController else {return}
         
+        selectedTodoViewController.delegate = calendarView
+        
         self.addChild(selectedTodoViewController)
         selectedTodoViewController.currentDate = date
         selectedTodoViewController.view.frame = self.view.frame
@@ -191,5 +193,11 @@ extension NewCalendarVC: StoreAndFetchPosterDelegate {
         print("storeAndFetchChangeDelegate")
     }
     
+}
+
+extension NewCalendarVC: selectedTodoDelegate {
+    func changeCurrentWindowDate(_ currentDate: Date) {
+        print("NewCalendarVC \(currentDate)")
+    }
 }
 

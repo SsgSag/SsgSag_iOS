@@ -8,13 +8,22 @@
 
 import UIKit
 
+protocol selectedTodoDelegate: class {
+    func changeCurrentWindowDate(_ currentDate: Date)
+}
+
 class SelectedTodoViewController: UIViewController {
-    
-    @IBOutlet weak var scrollView: UIScrollView!
     
     static let tableViewCellReuseIdentifier = "DetailTodoListTableViewCell"
     
-    private let testNUmber = ["1", "2", "3","1", "2", "3","1", "2", "3","1", "2", "3","1", "2", "3"]
+    var delegate: selectedTodoDelegate?
+    
+    private let scrollView: UIScrollView = {
+        let scrollView = UIScrollView()
+        scrollView.showsHorizontalScrollIndicator = false
+        scrollView.translatesAutoresizingMaskIntoConstraints = false
+        return scrollView
+    }()
     
     private let firstTableView: UITableView = {
         let label = UITableView()
@@ -37,7 +46,7 @@ class SelectedTodoViewController: UIViewController {
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
-    
+
     private let thirdTableView: UITableView = {
         let label = UITableView()
         label.backgroundColor = .black
@@ -118,9 +127,7 @@ class SelectedTodoViewController: UIViewController {
                 if DateCaculate.isSameDate(fifthDate, endDate) {
                     fifthDayPosters.append(poster)
                 }
-                
             }
-            
         }
     }
     
@@ -129,32 +136,40 @@ class SelectedTodoViewController: UIViewController {
         
         guard let date = currentDate else {return}
         
+        view.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.5)
+        
         currentWindowDate = date
         
         addTapGesture()
         
         setDelegate()
         
-        setCurrentContentOffset(with: date)
-        
         setScrollView()
+        
+        setCurrentContentOffset(with: date)
         
         addTableView()
     }
     
     private func setScrollView() {
+        view.addSubview(scrollView)
+        scrollView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        scrollView.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
+        scrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
+        scrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
+        scrollView.heightAnchor.constraint(equalTo: view.heightAnchor).isActive = true
+        
         scrollView.delegate = self
         scrollView.isPagingEnabled = true
         scrollView.alwaysBounceHorizontal = true
-        
-        scrollView.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.5)
     }
     
     private func setCurrentContentOffset(with selectedDate: Date) {
         
         let numberOfCurrentMonthDays = getCurrentMonthsDay(selectedDate)
         
-        scrollView.contentSize = CGSize(width: self.view.frame.width * numberOfCurrentMonthDays, height: self.view.frame.height)
+        scrollView.contentSize = CGSize(width: self.view.frame.width * numberOfCurrentMonthDays,
+                                        height: self.view.frame.height)
         
         scrollView.setContentOffset(CGPoint(x: self.view.frame.width * 2, y: 0), animated: false)
     }
@@ -200,6 +215,7 @@ class SelectedTodoViewController: UIViewController {
     }
     
     private func addTableView() {
+        
         scrollView.addSubview(firstTableView)
         scrollView.addSubview(secondTableView)
         scrollView.addSubview(thirdTableView)
@@ -241,6 +257,10 @@ class SelectedTodoViewController: UIViewController {
     @objc private func dismissDisView() {
         self.view.removeFromSuperview()
         self.removeFromParent()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        self.tabBarController?.tabBar.isHidden = true
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -334,6 +354,18 @@ extension SelectedTodoViewController: UITableViewDelegate, UITableViewDataSource
             }
             
             tableViewCell.poster = thirdDayPosters[indexPath.row]
+            
+            if thirdDayPosters[indexPath.row].photoUrl == tableViewCell.poster?.photoUrl {
+                guard let imageURL = thirdDayPosters[indexPath.row].photoUrl else {return tableViewCell}
+                guard let url = URL(string: imageURL) else {return tableViewCell}
+                
+                ImageNetworkManager.shared.getImageByCache(imageURL: url){ (image, error) in
+                    if error == nil {
+                        tableViewCell.posterImageView.image = image
+                    }
+                }
+            }
+            
             return tableViewCell
         } else if tableView == firstTableView {
             guard let tableViewCell = tableView.dequeueReusableCell(withIdentifier: SelectedTodoViewController.tableViewCellReuseIdentifier) as? DetailTodoListTableViewCell else {
@@ -341,6 +373,18 @@ extension SelectedTodoViewController: UITableViewDelegate, UITableViewDataSource
             }
             
             tableViewCell.poster = firstDayPosters[indexPath.row]
+            
+            if firstDayPosters[indexPath.row].photoUrl == tableViewCell.poster?.photoUrl {
+                guard let imageURL = firstDayPosters[indexPath.row].photoUrl else {return tableViewCell}
+                guard let url = URL(string: imageURL) else {return tableViewCell}
+                
+                ImageNetworkManager.shared.getImageByCache(imageURL: url){ (image, error) in
+                    if error == nil {
+                        tableViewCell.posterImageView.image = image
+                    }
+                }
+            }
+            
             return tableViewCell
         } else if tableView == secondTableView {
             guard let tableViewCell = tableView.dequeueReusableCell(withIdentifier: SelectedTodoViewController.tableViewCellReuseIdentifier) as? DetailTodoListTableViewCell else {
@@ -348,6 +392,18 @@ extension SelectedTodoViewController: UITableViewDelegate, UITableViewDataSource
             }
             
             tableViewCell.poster = secondDayPosters[indexPath.row]
+            
+            if secondDayPosters[indexPath.row].photoUrl == tableViewCell.poster?.photoUrl {
+                guard let imageURL = secondDayPosters[indexPath.row].photoUrl else {return tableViewCell}
+                guard let url = URL(string: imageURL) else {return tableViewCell}
+                
+                ImageNetworkManager.shared.getImageByCache(imageURL: url){ (image, error) in
+                    if error == nil {
+                        tableViewCell.posterImageView.image = image
+                    }
+                }
+            }
+            
             return tableViewCell
         } else if tableView == fourthTableView {
             guard let tableViewCell = tableView.dequeueReusableCell(withIdentifier: SelectedTodoViewController.tableViewCellReuseIdentifier) as? DetailTodoListTableViewCell else {
@@ -355,6 +411,18 @@ extension SelectedTodoViewController: UITableViewDelegate, UITableViewDataSource
             }
             
             tableViewCell.poster = fourthDayPosters[indexPath.row]
+            
+            if fourthDayPosters[indexPath.row].photoUrl == tableViewCell.poster?.photoUrl {
+                guard let imageURL = fourthDayPosters[indexPath.row].photoUrl else {return tableViewCell}
+                guard let url = URL(string: imageURL) else {return tableViewCell}
+                
+                ImageNetworkManager.shared.getImageByCache(imageURL: url){ (image, error) in
+                    if error == nil {
+                        tableViewCell.posterImageView.image = image
+                    }
+                }
+            }
+            
             return tableViewCell
         } else if tableView == fifthTableView {
             guard let tableViewCell = tableView.dequeueReusableCell(withIdentifier: SelectedTodoViewController.tableViewCellReuseIdentifier) as? DetailTodoListTableViewCell else {
@@ -362,6 +430,18 @@ extension SelectedTodoViewController: UITableViewDelegate, UITableViewDataSource
             }
             
             tableViewCell.poster = fifthDayPosters[indexPath.row]
+            
+            if fifthDayPosters[indexPath.row].photoUrl == tableViewCell.poster?.photoUrl {
+                guard let imageURL = fifthDayPosters[indexPath.row].photoUrl else {return tableViewCell}
+                guard let url = URL(string: imageURL) else {return tableViewCell}
+                
+                ImageNetworkManager.shared.getImageByCache(imageURL: url){ (image, error) in
+                    if error == nil {
+                        tableViewCell.posterImageView.image = image
+                    }
+                }
+            }
+            
             return tableViewCell
         }
         
@@ -451,27 +531,44 @@ extension SelectedTodoViewController: UITableViewDelegate, UITableViewDataSource
 }
 
 extension SelectedTodoViewController: UIScrollViewDelegate {
-    
+
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        print(scrollView.contentOffset.x)
-        
         if scrollView.contentOffset.x < -80 {
             setDefaultScrollViewAndReloadTableView(using: -3)
         } else if scrollView.contentOffset.x > self.view.frame.width * 4 + 80 {
             setDefaultScrollViewAndReloadTableView(using: 3)
         }
+        
+        guard let date = currentDate else {return}
+        
+        let firstDate = date.changeDaysBy(days: -2)
+        
+        let secondDate = date.changeDaysBy(days: -1)
+        
+        let fourthDate = date.changeDaysBy(days: 1)
+        
+        let fifthDate = date.changeDaysBy(days: 2)
+        
+        if scrollView.contentOffset.x == 0 {
+            delegate?.changeCurrentWindowDate(firstDate)
+        } else if scrollView.contentOffset.x == self.view.frame.width {
+            delegate?.changeCurrentWindowDate(secondDate)
+        } else if scrollView.contentOffset.x == self.view.frame.width * 2 {
+            delegate?.changeCurrentWindowDate(date)
+        } else if scrollView.contentOffset.x == self.view.frame.width * 3 {
+            delegate?.changeCurrentWindowDate(fourthDate)
+        } else if scrollView.contentOffset.x == self.view.frame.width * 4 {
+            delegate?.changeCurrentWindowDate(fifthDate)
+        }
     }
-    
 }
 
 extension SelectedTodoViewController: UIGestureRecognizerDelegate {
     func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
-        
         if touch.view != self.scrollView
         {
             return false
         }
-        
         return true
     }
 }
@@ -482,7 +579,7 @@ extension Date {
     }
 }
 
-fileprivate enum WeekDays: Int {
+enum WeekDays: Int {
     case monday = 2
     case tuesday = 3
     case wednesday = 4
@@ -509,4 +606,5 @@ fileprivate enum WeekDays: Int {
             return "일"
         }
     }
+    
 }

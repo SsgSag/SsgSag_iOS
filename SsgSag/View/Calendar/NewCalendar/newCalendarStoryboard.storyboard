@@ -60,28 +60,13 @@
                     <view key="view" contentMode="scaleToFill" id="Yg2-xk-UMZ">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VvU-Iu-Ux4">
-                                <rect key="frame" x="0.0" y="5" width="414" height="896"/>
-                            </scrollView>
-                        </subviews>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                        <constraints>
-                            <constraint firstItem="VvU-Iu-Ux4" firstAttribute="centerY" secondItem="e09-2Q-a5p" secondAttribute="centerY" id="8WL-7O-61X"/>
-                            <constraint firstItem="VvU-Iu-Ux4" firstAttribute="height" secondItem="Yg2-xk-UMZ" secondAttribute="height" id="GUg-ma-Jci"/>
-                            <constraint firstItem="VvU-Iu-Ux4" firstAttribute="trailing" secondItem="e09-2Q-a5p" secondAttribute="trailing" id="UiW-DT-4tf"/>
-                            <constraint firstItem="VvU-Iu-Ux4" firstAttribute="leading" secondItem="e09-2Q-a5p" secondAttribute="leading" id="sjE-gL-4lq"/>
-                            <constraint firstItem="VvU-Iu-Ux4" firstAttribute="centerX" secondItem="e09-2Q-a5p" secondAttribute="centerX" id="wIH-PQ-IXe"/>
-                        </constraints>
                         <viewLayoutGuide key="safeArea" id="e09-2Q-a5p"/>
                     </view>
-                    <connections>
-                        <outlet property="scrollView" destination="VvU-Iu-Ux4" id="2Ik-7A-EQP"/>
-                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="djV-Xs-8Nz" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="536" y="92"/>
+            <point key="canvasLocation" x="348" y="125"/>
         </scene>
     </scenes>
 </document>
