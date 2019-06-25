@@ -15,10 +15,8 @@ class NewCalendarVC: UIViewController {
             let appereance = VAMonthHeaderViewAppearance(
                 dateFormat: "LLLL"
             )
-            
             monthHeaderView.delegate = self
             monthHeaderView.appearance = appereance
-            
         }
     }
     
@@ -144,7 +142,7 @@ extension NewCalendarVC: VADayViewAppearanceDelegate {
     func textColor(for state: VADayState) -> UIColor {
         switch state {
         case .out:
-            return UIColor(red: 214 / 255, green: 214 / 255, blue: 219 / 255, alpha: 1.0)
+            return #colorLiteral(red: 0.8392156863, green: 0.8392156863, blue: 0.8588235294, alpha: 1)
         case .selected:
             return .white
         case .unavailable:
@@ -182,7 +180,6 @@ extension NewCalendarVC: VACalendarViewDelegate {
     
     func selectedDate(_ date: Date) {
        calendarView.startDate = date
-        
        openSelctedDateTodoList(date)
     }
     
@@ -193,11 +190,5 @@ extension NewCalendarVC: StoreAndFetchPosterDelegate {
         print("storeAndFetchChangeDelegate")
     }
     
-}
-
-extension NewCalendarVC: selectedTodoDelegate {
-    func changeCurrentWindowDate(_ currentDate: Date) {
-        print("NewCalendarVC \(currentDate)")
-    }
 }
 

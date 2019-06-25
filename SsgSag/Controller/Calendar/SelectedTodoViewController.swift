@@ -331,7 +331,6 @@ class SelectedTodoViewController: UIViewController {
 extension SelectedTodoViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        
         if tableView == firstTableView {
             return firstDayPosters.count
         } else if tableView == secondTableView {
@@ -343,7 +342,6 @@ extension SelectedTodoViewController: UITableViewDelegate, UITableViewDataSource
         } else {
             return fifthDayPosters.count
         }
-        
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
