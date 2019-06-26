@@ -50,4 +50,17 @@ enum PosterCategory: Int {
         }
     }
     
+    var calendarFilterNumber: Int {
+        switch self {
+        case .contest:
+            return 2
+        case .activity:
+            return 3
+        case .club:
+            return 4
+        default:
+            return -1
+        }
+    }
+    
 }

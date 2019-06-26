@@ -604,5 +604,4 @@ enum WeekDays: Int {
             return "일"
         }
     }
-    
 }
