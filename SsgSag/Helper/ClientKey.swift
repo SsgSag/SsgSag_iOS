@@ -15,10 +15,9 @@ enum ClientKey {
     var getClienyKey: String {
         switch self {
         case .adBrixAppKey:
-            return "StRs1sK4R0qZrnXER8pBmw"
+            return "UBVFGgtRykabVMFEdAlL0w"
         case .adBrixSecretKey:
-            return "ZUTLqhtDYU2KKd2MUiwOkw"
+            return "cMxXoU7sl06k2KZeHMbxdA"
         }
     }
-    
 }

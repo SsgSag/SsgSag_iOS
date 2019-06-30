@@ -108,7 +108,6 @@ class NewCalendarVC: UIViewController {
         //weekDaysView.appearance = VAWeekDaysViewAppearance(symbolsType: .veryShort, calendar: defaultCalendar)
         calendarView.setupMonths()
         calendarView.drawVisibleMonth(with: calendarView.contentOffset)
-        
         super.viewWillAppear(animated)
     }
     
@@ -135,6 +134,7 @@ class NewCalendarVC: UIViewController {
                                                    options: options,
                                                    attributes: [NSAttributedString.Key.font: font],
                                                    context: nil)
+        
     }
     
 }
