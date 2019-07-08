@@ -7,13 +7,13 @@
 //
 import UIKit
 import Lottie
-
-class SplashVC: UIViewController {
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        view.backgroundColor = .red
-    }
-}
+//
+//class SplashVC: UIViewController {
+//
+//    override func viewDidLoad() {
+//        super.viewDidLoad()
+//
+//        view.backgroundColor = .red
+//    }
+//}
 

@@ -13,37 +13,43 @@ class TapbarVC: UITabBarController {
     private var tapbarServiceImp: TapbarService?
     
     struct CreateViewController {
+        static let mypageStoryBoard = UIStoryboard(name: StoryBoardName.mypage, bundle: nil)
         
         static let swipeStoryBoard = UIStoryboard(name: StoryBoardName.swipe, bundle: nil)
         
-        static let mypageStoryBoard = UIStoryboard(name: StoryBoardName.mypage, bundle: nil)
+        static let mypageViewController = mypageStoryBoard.instantiateViewController(withIdentifier: ViewControllerIdentifier.mypageViewController)
         
         static let swipeViewController = swipeStoryBoard.instantiateViewController(withIdentifier: ViewControllerIdentifier.swipe)
-        
-        static let mypageViewController = mypageStoryBoard.instantiateViewController(withIdentifier: ViewControllerIdentifier.mypageViewController)
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        setupLayout()
+        
         setService()
         
         isServerAvaliable()
         
-        setTabBarViewControllers()
+        setTabBarViewController()
         
         setTabBarStyle()
         
         getPostersAndStore()
     }
     
-    func setService(_ tapbarServiceImp: TapbarService = TapbarServiceImp()) {
+    private func setupLayout() {
+        tabBar.frame.size.height = 48
+    }
+    
+    private func setService(_ tapbarServiceImp: TapbarService = TapbarServiceImp()) {
         self.tapbarServiceImp = tapbarServiceImp
     }
     
+    // 서버가 유효한지 확인하는 메소드
     private func isServerAvaliable() {
         tapbarServiceImp?.requestIsInUpdateServer{ [weak self] dataResponse in
-            guard let data = dataResponse.value?.data else {return}
+            guard let data = dataResponse.value?.data else { return }
             
             if data == 1 {
                 self?.simplerAlert(title: "서버 업데이트 중입니다.")
@@ -51,7 +57,7 @@ class TapbarVC: UITabBarController {
         }
     }
     
-    private func setTabBarViewControllers() {
+    private func setTabBarViewController() {
         let swipeViewController = CreateViewController.swipeViewController
         swipeViewController.tabBarItem = UITabBarItem(title: "",
                                                       image: UIImage(named: "icMain"),
@@ -96,7 +102,7 @@ class TapbarVC: UITabBarController {
     }
     
     private func syncDataAtFirst() {
-        
+        // 모든 Todolist를 가져오는듯
         tapbarServiceImp?.requestAllTodoList { (dataResponse) in
             
             guard let todoList = dataResponse.value else { return }
@@ -108,12 +114,6 @@ class TapbarVC: UITabBarController {
     
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
-        
-        var tabFrame: CGRect = self.tabBar.frame
-        tabFrame.origin.y = self.view.safeAreaInsets.top
-        let barHeight: CGFloat = 48
-        tabFrame.size.height = barHeight
-        self.tabBar.frame = tabFrame
         
         UIView.appearance().isExclusiveTouch = true
     }

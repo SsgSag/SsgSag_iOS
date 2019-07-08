@@ -202,7 +202,7 @@ class CalenderVC: UIViewController {
             separatorLine.rightAnchor.constraint(equalTo: todoSeparatorBar.rightAnchor),
             separatorLine.heightAnchor.constraint(equalToConstant: 1),
             
-            calenderView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 50),
+            calenderView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             calenderView.leftAnchor.constraint(equalTo: view.leftAnchor),
             calenderView.rightAnchor.constraint(equalTo: view.rightAnchor),
             calenderView.bottomAnchor.constraint(equalTo: todoSeparatorBar.topAnchor)
@@ -482,7 +482,7 @@ class CalenderVC: UIViewController {
             separatorLine.rightAnchor.constraint(equalTo: todoSeparatorBar.rightAnchor),
             separatorLine.heightAnchor.constraint(equalToConstant: 1),
             
-            calenderView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 50),
+            calenderView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             calenderView.leftAnchor.constraint(equalTo: view.leftAnchor),
             calenderView.rightAnchor.constraint(equalTo: view.rightAnchor),
             calendarViewBottomAnchor ?? .init(),
@@ -504,7 +504,8 @@ class CalenderVC: UIViewController {
             }
         }
         
-        calenderView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -10).isActive = true
+        // view.safeAreaLayoutGuide 사용 시 todoList 가리면 캘린더 잘림
+        calenderView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -48).isActive = true
         
         view.layoutIfNeeded()
     }

@@ -184,7 +184,7 @@
 		845928D621D09F2F001DF6CC /* CalenderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalenderView.swift; sourceTree = "<group>"; };
 		845928D721D09F2F001DF6CC /* WeekdaysView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WeekdaysView.swift; sourceTree = "<group>"; };
 		845928D821D09F2F001DF6CC /* MonthView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MonthView.swift; sourceTree = "<group>"; };
-		845928E021D20068001DF6CC /* LoginVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = LoginVC.swift; path = /Users/admin/Desktop/SsgSag/SsgSag/Controller/Login/LoginVC.swift; sourceTree = "<absolute>"; };
+		845928E021D20068001DF6CC /* LoginVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = LoginVC.swift; path = /Users/hyeju/Documents/SsgSag_IOS/SsgSag/Controller/Login/LoginVC.swift; sourceTree = "<absolute>"; };
 		845928E221D35F09001DF6CC /* PageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageViewController.swift; sourceTree = "<group>"; };
 		845928E421D38771001DF6CC /* DetailImageSwipeCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailImageSwipeCard.swift; sourceTree = "<group>"; };
 		845928E621D3877D001DF6CC /* DetailTextSwipeCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailTextSwipeCard.swift; sourceTree = "<group>"; };
