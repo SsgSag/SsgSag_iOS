@@ -8,7 +8,7 @@
 
 import UIKit
 
-
+// 로그인 시작화면
 class LoginVC: UIViewController, UITextFieldDelegate {
     
     @IBOutlet weak var emailTextField: UITextField!
