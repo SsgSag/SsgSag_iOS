@@ -111,11 +111,11 @@ class SwipeVC: UIViewController {
         }
     }
     
-    //캘린더 이동
-    @IBAction func moveToCalendar(_ sender: Any) {
-        let calendarVC = CalenderVC()
-        present(calendarVC, animated: true, completion: nil)
-    }
+//    //캘린더 이동
+//    @IBAction func moveToCalendar(_ sender: Any) {
+//        let calendarVC = CalenderVC()
+//        present(calendarVC, animated: true, completion: nil)
+//    }
     
     private func loadCard() {
         for (index,poster) in posters.enumerated() {

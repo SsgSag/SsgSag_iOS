@@ -17,12 +17,13 @@ class VAWeekView: UIView {
     weak var dayViewAppearanceDelegate: VADayViewAppearanceDelegate? {
         return (superview as? VAMonthView)?.dayViewAppearanceDelegate
     }
+    
     weak var delegate: VAWeekViewDelegate?
     
     private let showDaysOut: Bool
     private lazy var dayWidth = self.frame.width / 7
     private let week: VAWeek
-    private var dayViews = [VADayView]()
+    var dayViews = [VADayView]()
     
     init(week: VAWeek, showDaysOut: Bool) {
         self.week = week
@@ -40,6 +41,7 @@ class VAWeekView: UIView {
         dayViews = []
         
         var x: CGFloat = 0
+        
         week.days.enumerated().forEach { index, day in
             let dayView = VADayView(day: day)
             dayView.frame = CGRect(x: x, y: 0, width: dayWidth, height: frame.height)
@@ -52,6 +54,7 @@ class VAWeekView: UIView {
                 dayView.setupDay()
             }
         }
+        
     }
     
     func contains(date: Date) -> Bool {

@@ -17,7 +17,7 @@ class NewCalendarVC: UIViewController {
     @IBOutlet weak var monthHeaderView: VAMonthHeaderView! {
         didSet {
             let appereance = VAMonthHeaderViewAppearance(
-                dateFormat: "LLLL"
+                dateFormat: "yyyy년 LLLL"
             )
             monthHeaderView.delegate = self
             monthHeaderView.appearance = appereance
@@ -38,6 +38,8 @@ class NewCalendarVC: UIViewController {
     
     var categorySelectedDelegate: CategorySelectedDelegate?
     
+    private var calendarServiceImp: CalendarService?
+    
     private var multipleSelectedIndex: [Int] = []
     
     private let defaultCalendar: Calendar = {
@@ -53,6 +55,8 @@ class NewCalendarVC: UIViewController {
         super.viewDidLoad()
         
         setCalendar()
+        
+        requestData()
         
         setCategoryCollection()
     }
@@ -81,6 +85,21 @@ class NewCalendarVC: UIViewController {
         calendarView.calendarDelegate = self
         calendarView.scrollDirection = .horizontal
         view.addSubview(calendarView)
+    }
+    
+    func requestData(_ calendarService: CalendarService = CalendarServiceImp()) {
+        
+        self.calendarServiceImp = calendarService
+        
+        calendarServiceImp?.requestMonthTodoList(year: "2019", month: "07") { dataResponse in
+            switch dataResponse {
+            case .success(let monthTodoData):
+                print(monthTodoData)
+            case .failed(let error):
+                assertionFailure(error.localizedDescription)
+                return
+            }
+        }
     }
 
     override func viewDidLayoutSubviews() {

@@ -19,7 +19,6 @@ public protocol VADayViewAppearanceDelegate: class {
     @objc optional func dotBottomVerticalOffset(for state: VADayState) -> CGFloat
     @objc optional func shape() -> VADayShape
     // percent of the selected area to be painted
-    @objc optional func selectedArea() -> CGFloat
 }
 
 protocol VADayViewDelegate: class {
@@ -29,11 +28,14 @@ protocol VADayViewDelegate: class {
 class VADayView: UIView {
     
     var day: VADay
+    
     weak var delegate: VADayViewDelegate?
     
     weak var dayViewAppearanceDelegate: VADayViewAppearanceDelegate? {
         return (superview as? VAWeekView)?.dayViewAppearanceDelegate
     }
+    
+    var stackViewHeightAnchor: NSLayoutConstraint?
     
     private var dotStackView: UIStackView {
         let stack = UIStackView()
@@ -43,10 +45,34 @@ class VADayView: UIView {
         return stack
     }
     
+    private var lineStackView: UIStackView = {
+        let stack = UIStackView()
+        stack.alignment = .fill
+        stack.distribution = .fillEqually
+        stack.axis = .vertical
+        stack.spacing = 1.0
+        stack.translatesAutoresizingMaskIntoConstraints = false
+        return stack
+    }()
+    
+    private let separateView: UIView = {
+        let separateView = UIView()
+        separateView.translatesAutoresizingMaskIntoConstraints = false
+        separateView.backgroundColor = #colorLiteral(red: 0.9333333333, green: 0.9333333333, blue: 0.9333333333, alpha: 1)
+        return separateView
+    }()
+    
     private let dotSpacing: CGFloat = 5
     private let dotSize: CGFloat = 5
     private var supplementaryViews = [UIView]()
-    private let dateLabel = UILabel()
+    
+    private let dateLabel: UILabel = {
+        let dateLabel = UILabel()
+        dateLabel.font = UIFont.systemFont(ofSize: 14)
+        dateLabel.textAlignment = .center
+        dateLabel.translatesAutoresizingMaskIntoConstraints = false
+        return dateLabel
+    }()
     
     init(day: VADay) {
         self.day = day
@@ -56,9 +82,9 @@ class VADayView: UIView {
             self?.setState(state)
         }
         
-        self.day.supplementariesDidUpdate = { [weak self] in
-            self?.updateSupplementaryViews()
-        }
+        self.day.supplementariesDidUpdate = { }
+        
+        drawSeparateView()
         
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(didTapSelect))
         addGestureRecognizer(tapGesture)
@@ -68,24 +94,109 @@ class VADayView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func setupDay() {
-        let shortestSide: CGFloat = (frame.width < frame.height ? frame.width : frame.height)
-        let side: CGFloat = shortestSide * (dayViewAppearanceDelegate?.selectedArea?() ?? 0.8)
+    private func drawSeparateView() {
+        addSubview(separateView)
+        separateView.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -2).isActive = true
+        separateView.heightAnchor.constraint(equalToConstant: 2).isActive = true
+        separateView.leadingAnchor.constraint(equalTo: self.leadingAnchor).isActive = true
+        separateView.trailingAnchor.constraint(equalTo: self.trailingAnchor).isActive = true
+    }
+    
+    var count:CGFloat = 0
+    
+    private func drawEvent(_ state: VADay) {
+        for poster in StoreAndFetchPoster.shared.getPostersAfterAllChangedConfirm() {
+            
+            let posterDate = DateCaculate.stringToDateWithGenericFormatter(using: poster.posterEndDate ?? .init())
+            
+            let category = PosterCategory(rawValue: poster.categoryIdx!)
+            
+            if DateCaculate.isSameDate(self.day.date, posterDate) {
+                if count < 5 {
+                    
+                    let lineView = VALineView(color: category?.categoryColors() ?? .clear,
+                                              text: poster.posterName!)
+                    if state.state == .out {
+                        lineView.backgroundColor = .lightGray
+                    }
+                    lineStackView.addArrangedSubview(lineView)
+                    count += 1
+                }
+            }
+        }
         
-        dateLabel.font = dayViewAppearanceDelegate?.font?(for: day.state) ?? dateLabel.font
+        addSubview(lineStackView)
+        lineStackView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -1).isActive = true
+        lineStackView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 1).isActive = true
+        lineStackView.topAnchor.constraint(equalTo: self.dateLabel.bottomAnchor, constant: 2).isActive = true
+        stackViewHeightAnchor = lineStackView.heightAnchor.constraint(equalToConstant: count * self.frame.height * 0.115)
+        
+        stackViewHeightAnchor?.isActive = true
+    }
+    
+    func setupDay() {
+        
         dateLabel.text = VAFormatters.dayFormatter.string(from: day.date)
-        dateLabel.textAlignment = .center
-        dateLabel.frame = CGRect(
-            x: 0,
-            y: 0,
-            width: side,
-            height: side
-        )
-        dateLabel.center = CGPoint(x: frame.width / 2, y: frame.height / 2)
-
-        setState(day.state)
+        
         addSubview(dateLabel)
-        updateSupplementaryViews()
+        dateLabel.centerXAnchor.constraint(equalTo: self.centerXAnchor).isActive = true
+        dateLabel.widthAnchor.constraint(equalTo: self.widthAnchor, multiplier: 0.6).isActive = true
+        dateLabel.heightAnchor.constraint(equalTo: dateLabel.widthAnchor).isActive = true
+        dateLabel.topAnchor.constraint(equalTo: self.topAnchor).isActive = true
+        
+        setState(day.state)
+        drawEvent(day)
+    }
+    
+    func drawEventWithSelectedIndex(_ selectedIndex: [Int] ) {
+        
+        for i in lineStackView.subviews {
+            i.removeFromSuperview()
+        }
+        
+        count = 0
+        
+        for poster in StoreAndFetchPoster.shared.getPostersAfterAllChangedConfirm() {
+            
+            let posterDate = DateCaculate.stringToDateWithGenericFormatter(using: poster.posterEndDate ?? .init())
+            
+            let category = PosterCategory(rawValue: poster.categoryIdx!)
+            
+            if selectedIndex.contains(0) {
+                if DateCaculate.isSameDate(self.day.date, posterDate) {
+                    if count < 5 {
+                        
+                        let lineView = VALineView(color: category?.categoryColors() ?? .clear,
+                                                  text: poster.posterName!)
+                        if day.state == .out {
+                            lineView.backgroundColor = .lightGray
+                        }
+                        
+                        lineStackView.addArrangedSubview(lineView)
+                        
+                        count += 1
+                    }
+                }
+            } else if selectedIndex.contains(category?.calendarFilterNumber ?? 0) {
+                if DateCaculate.isSameDate(self.day.date, posterDate) {
+                    if count < 5 {
+                        
+                        let lineView = VALineView(color: category?.categoryColors() ?? .clear,
+                                                  text: poster.posterName!)
+                        if day.state == .out {
+                            lineView.backgroundColor = .lightGray
+                        }
+                        
+                        lineStackView.addArrangedSubview(lineView)
+                        
+                        count += 1
+                    }
+                }
+            }
+            
+        }
+        
+        stackViewHeightAnchor?.constant = count * self.frame.height * 0.115
     }
     
     @objc
@@ -98,39 +209,24 @@ class VADayView: UIView {
         backgroundColor = dayViewAppearanceDelegate?.backgroundColor?(for: state) ?? backgroundColor
         layer.borderColor = dayViewAppearanceDelegate?.borderColor?(for: state).cgColor ?? layer.borderColor
         layer.borderWidth = dayViewAppearanceDelegate?.borderWidth?(for: state) ?? dateLabel.layer.borderWidth
+        
+        let component = Calendar.current.dateComponents([.weekday], from: day.date)
+        
         dateLabel.textColor = dayViewAppearanceDelegate?.textColor?(for: state) ?? dateLabel.textColor
         dateLabel.backgroundColor = dayViewAppearanceDelegate?.textBackgroundColor?(for: state) ?? dateLabel.backgroundColor
         
-        if dayViewAppearanceDelegate?.shape?() == .circle && state == .selected {
-            dateLabel.clipsToBounds = true
-            dateLabel.layer.cornerRadius = dateLabel.frame.height / 2
+        if component.weekday! == 1 && state == .available{
+            dateLabel.textColor = #colorLiteral(red: 1, green: 0.1647058824, blue: 0.2588235294, alpha: 1)
         }
         
-        updateSupplementaryViews()
-    }
-    
-    private func updateSupplementaryViews() {
-        removeAllSupplementaries()
-        
-        day.supplementaries.forEach { supplementary in
-            switch supplementary {
-            case .bottomDots(let colors):
-                let stack = dotStackView
-
-                colors.forEach { color in
-                    let dotView = VADotView(size: dotSize, color: color)
-                    stack.addArrangedSubview(dotView)
-                }
-                let spaceOffset = CGFloat(colors.count - 1) * dotSpacing
-                let stackWidth = CGFloat(colors.count) * dotSpacing + spaceOffset
-                
-                let verticalOffset = dayViewAppearanceDelegate?.dotBottomVerticalOffset?(for: day.state) ?? 2
-                stack.frame = CGRect(x: 0, y: dateLabel.frame.maxY + verticalOffset, width: stackWidth, height: dotSize)
-                stack.center.x = dateLabel.center.x
-                addSubview(stack)
-                supplementaryViews.append(stack)
-            }
+        if component.weekday! == 7 && state == .available {
+            dateLabel.textColor = #colorLiteral(red: 0.2784313725, green: 0.4862745098, blue: 1, alpha: 1)
         }
+        
+        dateLabel.layer.borderColor = UIColor.white.cgColor
+        dateLabel.layer.borderWidth = 0
+        dateLabel.clipsToBounds = true
+        dateLabel.layer.cornerRadius = self.frame.width * 0.3
     }
     
     private func removeAllSupplementaries() {

@@ -20,7 +20,7 @@ class VAWeek {
         self.date = date
         self.calendar = calendar
     }
-
+    
     func days(for dates: [Date]) -> [VADay] {
         return dates.flatMap { date in days.filter { $0.dateInDay(date) && $0.isSelectable }}
     }

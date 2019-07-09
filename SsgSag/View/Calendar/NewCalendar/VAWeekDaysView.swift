@@ -28,8 +28,8 @@ public struct VAWeekDaysViewAppearance {
         symbolsType: VAWeekDaysSymbolsType = .veryShort,
         weekDayTextColor: UIColor = .black,
         weekDayTextFont: UIFont = UIFont.systemFont(ofSize: 15),
-        leftInset: CGFloat = 10.0,
-        rightInset: CGFloat = 10.0,
+        leftInset: CGFloat = 8,
+        rightInset: CGFloat = 8,
         separatorBackgroundColor: UIColor = .lightGray,
         calendar: Calendar = Calendar.current) {
         self.symbolsType = symbolsType
@@ -74,7 +74,7 @@ public class VAWeekDaysView: UIView {
         
         dayLabels.enumerated().forEach { index, label in
             let x = index == 0 ? appearance.leftInset : dayLabels[index - 1].frame.maxX
-
+            
             label.frame = CGRect(
                 x: x,
                 y: 0,

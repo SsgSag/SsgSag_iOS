@@ -17,6 +17,8 @@ enum RequestURL {
     case deletePoster(posterIdx: Int)
     case completeApply(posterIdx: Int)
     case allTodoList
+    case monthTodoList(year: String, month: String)
+    case dayTodoList(year: String, month: String, day: String)
     case posterDetail(posterIdx: Int)
     case interestingField
     case reIntersting
@@ -47,6 +49,10 @@ enum RequestURL {
             return "/todo/complete/\(posterIdx)"
         case .allTodoList:
             return "/todo?year=0000&month=00&day=00"
+        case .monthTodoList(year: let year, month: let month):
+            return "/todo?year=\(year)&month=\(month)&day=00"
+        case .dayTodoList(year: let year, month: let month, day: let day):
+            return "/todo?year=\(year)&month=\(month)&day=\(day)"
         case .posterDetail(posterIdx: let posterIdx):
             return "/poster/\(posterIdx)"
         case .interestingField:

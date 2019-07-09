@@ -71,6 +71,7 @@ class VAMonth {
                 guard let dayInWeek = calendar.date(byAdding: .day, value: +index, to: weekDay) else { continue }
                 let dayState = state(for: dayInWeek)
                 let day = VADay(date: dayInWeek, state: dayState, calendar: calendar)
+                
                 days.append(day)
             }
             let week = VAWeek(days: days, date: weekDay, calendar: calendar)
@@ -81,6 +82,7 @@ class VAMonth {
         return weeks
     }
     
+    
     private func state(for date: Date) -> VADayState {
         if !calendar.isDate(date, equalTo: lastMonthDay, toGranularity: .month) {
             return .out
@@ -90,5 +92,12 @@ class VAMonth {
             return .available
         }
     }
+    
+    //    else {
+    //    if date.weekday == 1 {
+    //    return .sunDay
+    //    } else {
+    //    return .available
+    //    }
     
 }

@@ -10,22 +10,16 @@ public struct VAMonthHeaderViewAppearance {
     let monthFont: UIFont
     let monthTextColor: UIColor
     let monthTextWidth: CGFloat
-    let previousButtonImage: UIImage
-    let nextButtonImage: UIImage
     let dateFormat: String
     
     public init(
         monthFont: UIFont = UIFont.systemFont(ofSize: 21),
         monthTextColor: UIColor = UIColor.black,
         monthTextWidth: CGFloat = 150,
-        previousButtonImage: UIImage = UIImage(),
-        nextButtonImage: UIImage = UIImage(),
         dateFormat: String = "MMMM") {
         self.monthFont = monthFont
         self.monthTextColor = monthTextColor
         self.monthTextWidth = monthTextWidth
-        self.previousButtonImage = previousButtonImage
-        self.nextButtonImage = nextButtonImage
         self.dateFormat = dateFormat
     }
     
@@ -46,6 +40,13 @@ public class VAMonthHeaderView: UIView {
         let formatter = DateFormatter()
         
         formatter.dateFormat = appearance.dateFormat
+        return formatter
+    }()
+    
+    private lazy var formatterWithYearAndMonth: DateFormatter = {
+        let formatter = DateFormatter()
+        
+        formatter.dateFormat = "YYYY년 MM월"
         return formatter
     }()
     
@@ -70,7 +71,6 @@ public class VAMonthHeaderView: UIView {
         
         let buttonWidth: CGFloat = 50.0
         monthLabel.frame = CGRect(x: 0, y: 0, width: appearance.monthTextWidth, height: frame.height)
-        monthLabel.center.x = center.x
         previousButton.frame = CGRect(x: monthLabel.frame.minX - buttonWidth, y: 0, width: buttonWidth, height: frame.height)
         nextButton.frame = CGRect(x: monthLabel.frame.maxX, y: 0, width: buttonWidth, height: frame.height)
     }
@@ -83,15 +83,7 @@ public class VAMonthHeaderView: UIView {
         monthLabel.textAlignment = .center
         monthLabel.textColor = appearance.monthTextColor
         
-        previousButton.setImage(appearance.previousButtonImage, for: .normal)
-        previousButton.addTarget(self, action: #selector(didTapPrevious(_:)), for: .touchUpInside)
-        
-        nextButton.setImage(appearance.nextButtonImage, for: .normal)
-        nextButton.addTarget(self, action: #selector(didTapNext(_:)), for: .touchUpInside)
-        
         addSubview(monthLabel)
-        addSubview(previousButton)
-        addSubview(nextButton)
         
         layoutSubviews()
     }
@@ -111,7 +103,7 @@ public class VAMonthHeaderView: UIView {
 extension VAMonthHeaderView: VACalendarMonthDelegate {
     
     public func monthDidChange(_ currentMonth: Date) {
-        monthLabel.text = formatter.string(from: currentMonth)
+        monthLabel.text = formatterWithYearAndMonth.string(from: currentMonth)
     }
     
 }

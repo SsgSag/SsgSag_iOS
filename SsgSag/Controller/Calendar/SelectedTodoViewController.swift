@@ -92,6 +92,10 @@ class SelectedTodoViewController: UIViewController {
     
     private var currentWindowDate: Date?
     
+    private var calendarServiceImp: CalendarService?
+    
+    private let calendar = Calendar.current
+    
     var currentDate: Date? {
         didSet {
             guard let date = currentDate else {return}
@@ -140,6 +144,8 @@ class SelectedTodoViewController: UIViewController {
         
         currentWindowDate = date
         
+        requestData()
+        
         addTapGesture()
         
         setDelegate()
@@ -149,6 +155,27 @@ class SelectedTodoViewController: UIViewController {
         setCurrentContentOffset(with: date)
         
         addTableView()
+    }
+    
+    private func requestData(_ calendarService: CalendarService = CalendarServiceImp()) {
+        
+        self.calendarServiceImp = calendarService
+        
+        guard let date = currentDate else { return }
+        
+        let year = String(calendar.component(.year, from: date))
+        let month = String(calendar.component(.month, from: date))
+        let day = String(calendar.component(.day, from: date))
+        
+        calendarServiceImp?.requestDayTodoList(year: year, month: month, day: day) { dataResponse in
+            switch dataResponse {
+            case .success(let dayTodoData):
+                print(dayTodoData)
+            case .failed(let error):
+                assertionFailure(error.localizedDescription)
+                return
+            }
+        }
     }
     
     private func setScrollView() {

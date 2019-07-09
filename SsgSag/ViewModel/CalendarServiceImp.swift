@@ -9,6 +9,10 @@
 import Foundation
 
 protocol CalendarService: class {
+    func requestMonthTodoList(year: String, month: String, completionHandler: @escaping (DataResponse<[MonthTodoData]>) -> Void)
+    
+    func requestDayTodoList(year: String, month: String, day: String, completionHandler: @escaping (DataResponse<[DayTodoData]>) -> Void)
+    
     func requestFavorite(_ favorite: favoriteState, _ posterIdx: Int,completionHandler: @escaping (DataResponse<PosterFavorite>) -> Void)
     
     func requestDelete(_ posterIdx: Int, completionHandler: @escaping (DataResponse<PosterFavorite>) -> Void )
@@ -19,6 +23,63 @@ protocol CalendarService: class {
 }
 
 class CalendarServiceImp: CalendarService {
+    
+    func requestMonthTodoList(year: String,
+                              month: String,
+                              completionHandler: @escaping (DataResponse<[MonthTodoData]>) -> Void) {
+        
+        guard let url = UserAPI.sharedInstance.getURL(RequestURL.monthTodoList(year: year, month: month).getRequestURL) else {return}
+        
+        guard let key = UserDefaults.standard.object(forKey: TokenName.token) as? String else { return }
+        
+        var request = URLRequest(url: url)
+        request.setValue(key, forHTTPHeaderField: "Authorization")
+        request.httpMethod = "GET"
+        
+        NetworkManager.shared.getData(with: request) { (data, error, response) in
+            guard let data = data else { return }
+            
+            do {
+                let response = try JSONDecoder().decode(MonthTodoList.self, from: data)
+
+                let posterData = response.data
+
+                completionHandler(DataResponse.success(posterData))
+
+            } catch {
+                print("AllTodoList Parsing Error")
+            }
+        }
+    }
+    
+    func requestDayTodoList(year: String,
+                            month: String,
+                            day: String,
+                            completionHandler: @escaping (DataResponse<[DayTodoData]>) -> Void) {
+        
+        guard let url = UserAPI.sharedInstance.getURL(RequestURL.dayTodoList(year: year, month: month, day: day).getRequestURL) else {return}
+        
+        guard let key = UserDefaults.standard.object(forKey: TokenName.token) as? String else { return }
+        
+        var request = URLRequest(url: url)
+        request.setValue(key, forHTTPHeaderField: "Authorization")
+        request.httpMethod = "GET"
+        
+        NetworkManager.shared.getData(with: request) { (data, error, response) in
+            guard let data = data else { return }
+            
+            do {
+                let response = try JSONDecoder().decode(DayTodoList.self, from: data)
+
+                let posterData = response.data
+
+                completionHandler(DataResponse.success(posterData))
+
+            } catch {
+                print("AllTodoList Parsing Error")
+            }
+        }
+    }
     
     func requestEachPoster(_ posterIdx: Int, completionHandler: @escaping
         (DataResponse<networkPostersData>) -> Void) {

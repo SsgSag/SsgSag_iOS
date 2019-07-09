@@ -42,7 +42,7 @@ class VADay {
     var stateChanged: ((VADayState) -> Void)?
     var supplementariesDidUpdate: (() -> Void)?
     let calendar: Calendar
-
+    
     var reverseSelectionState: VADayState {
         return state == .available ? .selected : .available
     }

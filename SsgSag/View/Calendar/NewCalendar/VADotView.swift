@@ -24,3 +24,27 @@ class VADotView: UIView {
     }
     
 }
+
+class VALineView: UILabel {
+    
+    init(color: UIColor, text: String) {
+        let frame = CGRect(x: 0, y: 0, width: 20, height: 5)
+        super.init(frame: frame)
+        
+        self.text = " \(text)"
+        self.font = UIFont.systemFont(ofSize: 9)
+        self.translatesAutoresizingMaskIntoConstraints = false
+        
+        numberOfLines = 1
+        textColor = .white
+        lineBreakMode = .byWordWrapping
+        
+        layer.cornerRadius = 2
+        clipsToBounds = true
+        backgroundColor = color
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+}

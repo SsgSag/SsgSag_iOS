@@ -43,8 +43,9 @@ public class VACalendar {
             selectedDays = [day]
         }
         
-        let startDate = startDate ?? calendar.date(byAdding: .year, value: -1, to: Date())!
-        let endDate = endDate ?? calendar.date(byAdding: .year, value: 1, to: Date())!
+        // MARK: - Add more date using value
+        let startDate = calendar.date(byAdding: .year, value: -3, to: Date())!
+        let endDate = calendar.date(byAdding: .year, value: 3, to: Date())!
         months = generateMonths(from: startDate, endDate: endDate)
     }
     
@@ -110,12 +111,13 @@ public class VACalendar {
         repeat {
             let date = startDate
             let month = VAMonth(month: date, calendar: calendar)
-            month.selectedDays = selectedDays.filter { calendar.isDate($0.date, equalTo: startDate, toGranularity: .month) }
+            month.selectedDays = selectedDays.filter { calendar.isDate($0.date,
+                                                                       equalTo: startDate,
+                                                                       toGranularity: .month) }
             months.append(month)
             startDate = calendar.date(byAdding: .month, value: 1, to: date)!
         } while !calendar.isDate(startDate, inSameDayAs: endDate)
         
         return months
     }
-    
 }
