@@ -42,8 +42,16 @@ class CalenderVC: UIViewController {
         
     }()
     
+    let defaultCalendar: Calendar = {
+        var calendar = Calendar.current
+        calendar.firstWeekday = 1
+        calendar.timeZone = TimeZone(secondsFromGMT: 0)!
+        return calendar
+    }()
+    
     private lazy var calenderView: VACalendarView = {
-        let calendarView = VACalendarView()
+        let calendar = VACalendar(calendar: defaultCalendar)
+        let calendarView = VACalendarView(frame: .zero, calendar: calendar)
         calendarView.translatesAutoresizingMaskIntoConstraints = false
         calendarView.showDaysOut = true
         calendarView.selectionStyle = .single

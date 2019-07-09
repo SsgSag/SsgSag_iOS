@@ -165,7 +165,7 @@ public class VACalendarView: UIScrollView {
         }
     }
     
-    private func setupMonths() {
+    func setupMonths() {
         monthViews = calendar.months.map {
             VAMonthView(month: $0, showDaysOut: showDaysOut, weekHeight: weekHeight, viewType: viewType)
         }
@@ -226,7 +226,7 @@ public class VACalendarView: UIScrollView {
         }
     }
     
-    private func drawVisibleMonth(with offset: CGPoint) {
+    func drawVisibleMonth(with offset: CGPoint) {
         switch scrollDirection {
         case .horizontal:
             let first: ((offset: Int, element: VAMonthView)) -> Bool = { $0.element.frame.midX >= offset.x }
@@ -295,3 +295,9 @@ extension VACalendarView: VAMonthViewDelegate {
     }
     
 }
+
+//extension VACalendarView: selectedTodoDelegate {
+//    func changeCurrentWindowDate(_ currentDate: Date) {
+//        
+//    }
+//}

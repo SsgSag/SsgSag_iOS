@@ -9,7 +9,7 @@
 import UIKit
 
 protocol CategorySelectedDelegate: class {
-    func categorySelectedDelgate(_ multipleSelected: [Int])
+    func categorySelectedDelegate(_ multipleSelected: [Int])
 }
 
 class NewCalendarVC: UIViewController {
@@ -70,7 +70,7 @@ class NewCalendarVC: UIViewController {
     private func setCalendar() {
         let calendar = VACalendar(calendar: defaultCalendar)
         calendarView = VACalendarView(frame: .zero, calendar: calendar)
-                
+        
         categorySelectedDelegate = calendarView
         
         calendarView.showDaysOut = true
@@ -264,7 +264,7 @@ extension NewCalendarVC: UICollectionViewDelegate , UICollectionViewDataSource ,
         
         multipleSelectedIndex.append(indexPath.item)
         
-        categorySelectedDelegate?.categorySelectedDelgate(multipleSelectedIndex)
+        categorySelectedDelegate?.categorySelectedDelegate(multipleSelectedIndex)
         
         if cell.isSelected == true {
             cell.categoryLabel.backgroundColor = #colorLiteral(red: 0.3098039216, green: 0.3098039216, blue: 0.3098039216, alpha: 0.05)
@@ -281,7 +281,7 @@ extension NewCalendarVC: UICollectionViewDelegate , UICollectionViewDataSource ,
             multipleSelectedIndex.remove(at: index)
         }
         
-        categorySelectedDelegate?.categorySelectedDelgate(multipleSelectedIndex)
+        categorySelectedDelegate?.categorySelectedDelegate(multipleSelectedIndex)
         
         cell.categoryLabel.backgroundColor = .clear
         cell.categoryLabel.textColor = .black
