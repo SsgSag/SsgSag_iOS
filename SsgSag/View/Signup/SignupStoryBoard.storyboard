@@ -104,7 +104,7 @@
                                 <rect key="frame" x="20" y="370.66666666666669" width="335" height="50"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" spacing="3" translatesAutoresizingMaskIntoConstraints="NO" id="kAV-ok-pxn" userLabel="서비스이용약관">
-                                        <rect key="frame" x="-12.333333333333343" y="15" width="360" height="20"/>
+                                        <rect key="frame" x="21.666666666666657" y="15" width="292" height="20"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GHl-td-mNV">
                                                 <rect key="frame" x="0.0" y="0.0" width="20" height="20"/>
@@ -117,7 +117,7 @@
                                                 </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8fZ-U1-Out">
-                                                <rect key="frame" x="23" y="0.0" width="337" height="20"/>
+                                                <rect key="frame" x="23" y="0.0" width="269" height="20"/>
                                                 <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="13"/>
                                                 <state key="normal" title="서비스 이용약관 및 개인정보 취급방침에 동의합니다.">
                                                     <color key="titleColor" red="0.61960784310000006" green="0.61960784310000006" blue="0.61960784310000006" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
@@ -305,6 +305,10 @@
                                                 <nil key="textColor"/>
                                                 <fontDescription key="fontDescription" type="system" weight="medium" pointSize="18"/>
                                                 <textInputTraits key="textInputTraits" returnKeyType="next"/>
+                                                <connections>
+                                                    <action selector="editingDidBeginMajorField:" destination="xEW-PO-qx4" eventType="editingDidBegin" id="TDh-7y-QOv"/>
+                                                    <action selector="touchUpMajorField:" destination="xEW-PO-qx4" eventType="touchUpInside" id="3LX-MF-LPa"/>
+                                                </connections>
                                             </textField>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TQw-6R-p0C">
                                                 <rect key="frame" x="0.0" y="30" width="335" height="1"/>
@@ -1311,7 +1315,7 @@
         <image name="btSignupPlus" width="24" height="24"/>
         <image name="btStart" width="375" height="80"/>
         <image name="btStartUnactiveIphone8" width="375" height="48"/>
-        <image name="icArrowBack" width="24" height="24"/>
+        <image name="icArrowBack" width="48" height="48"/>
         <image name="imgSignupUserdata" width="234" height="114"/>
         <image name="line" width="228" height="3"/>
         <image name="progressbar1" width="375" height="4"/>

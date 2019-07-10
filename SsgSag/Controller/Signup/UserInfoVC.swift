@@ -209,6 +209,7 @@ class UserInfoVC: UIViewController, UITextFieldDelegate {
         nextButton.topColor = #colorLiteral(red: 0.2078431373, green: 0.9176470588, blue: 0.8901960784, alpha: 1)
         nextButton.bottomColor = #colorLiteral(red: 0.6588235294, green: 0.2784313725, blue: 1, alpha: 1)
         
+        navigationController?.pushViewController(ConfirmProfileVC(), animated: true)
     }
 }
 

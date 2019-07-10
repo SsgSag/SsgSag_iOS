@@ -22,8 +22,8 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qyX-SC-PiP">
                                 <rect key="frame" x="0.0" y="64" width="375" height="714"/>
                                 <subviews>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="imgDefaultProfile" translatesAutoresizingMaskIntoConstraints="NO" id="OAG-nj-2fG">
-                                        <rect key="frame" x="8" y="55" width="135" height="132"/>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="imgDefaultProfile" translatesAutoresizingMaskIntoConstraints="NO" id="OAG-nj-2fG">
+                                        <rect key="frame" x="16" y="52" width="135" height="135"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="135" id="Ckt-tx-E2j"/>
                                             <constraint firstAttribute="width" secondItem="OAG-nj-2fG" secondAttribute="height" multiplier="45:45" id="JiE-Yc-F71"/>
@@ -115,6 +115,13 @@
                                             </label>
                                         </subviews>
                                     </stackView>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pgr-RL-FWu">
+                                        <rect key="frame" x="276" y="106" width="36" height="30"/>
+                                        <state key="normal" title="logout"/>
+                                        <connections>
+                                            <action selector="touchUpLogoutButton:" destination="xxg-7e-42k" eventType="touchUpInside" id="3Rb-1f-reR"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
@@ -122,18 +129,22 @@
                                     <constraint firstItem="RQy-mT-qfP" firstAttribute="top" secondItem="u4M-Qk-hne" secondAttribute="bottom" constant="20" id="2He-k1-HUS"/>
                                     <constraint firstItem="LgH-1O-3Y3" firstAttribute="top" secondItem="ojx-1I-pPr" secondAttribute="bottom" constant="8" symbolic="YES" id="2sa-k8-UbU"/>
                                     <constraint firstItem="ojx-1I-pPr" firstAttribute="top" secondItem="qyX-SC-PiP" secondAttribute="top" constant="200" id="8P4-p0-AM7"/>
+                                    <constraint firstItem="pgr-RL-FWu" firstAttribute="leading" secondItem="OAG-nj-2fG" secondAttribute="trailing" constant="125" id="Cq1-9g-abj"/>
                                     <constraint firstItem="OAG-nj-2fG" firstAttribute="leading" secondItem="qyX-SC-PiP" secondAttribute="leading" constant="16" id="Imi-9E-yb3"/>
                                     <constraint firstItem="RQy-mT-qfP" firstAttribute="leading" secondItem="qyX-SC-PiP" secondAttribute="leading" id="JFn-Lz-S6n"/>
                                     <constraint firstItem="Rlt-AG-Owc" firstAttribute="leading" secondItem="qyX-SC-PiP" secondAttribute="leading" id="Ns9-qz-IpJ"/>
                                     <constraint firstItem="RQy-mT-qfP" firstAttribute="width" secondItem="qyX-SC-PiP" secondAttribute="width" id="PKh-Ap-LSw"/>
                                     <constraint firstItem="cON-Tp-SAp" firstAttribute="leading" secondItem="ojx-1I-pPr" secondAttribute="trailing" constant="9" id="RLl-5t-b4i"/>
+                                    <constraint firstItem="u4M-Qk-hne" firstAttribute="top" secondItem="pgr-RL-FWu" secondAttribute="bottom" constant="151.66999999999999" id="STh-bM-mSC"/>
                                     <constraint firstAttribute="trailing" secondItem="RQy-mT-qfP" secondAttribute="trailing" id="VLo-Au-cKw"/>
                                     <constraint firstItem="ojx-1I-pPr" firstAttribute="leading" secondItem="LgH-1O-3Y3" secondAttribute="leading" id="aJs-bu-GiV"/>
                                     <constraint firstItem="ojx-1I-pPr" firstAttribute="top" secondItem="OAG-nj-2fG" secondAttribute="bottom" constant="13" id="aUx-uM-Y0B"/>
                                     <constraint firstItem="u4M-Qk-hne" firstAttribute="leading" secondItem="qyX-SC-PiP" secondAttribute="leading" id="gSi-6J-69k"/>
                                     <constraint firstItem="Rlt-AG-Owc" firstAttribute="top" secondItem="RQy-mT-qfP" secondAttribute="bottom" id="gcn-RA-kPf"/>
                                     <constraint firstAttribute="trailing" secondItem="Rlt-AG-Owc" secondAttribute="trailing" id="jQM-r5-bDS"/>
+                                    <constraint firstAttribute="trailing" secondItem="pgr-RL-FWu" secondAttribute="trailing" constant="63" id="joj-cA-i1t"/>
                                     <constraint firstAttribute="trailing" secondItem="u4M-Qk-hne" secondAttribute="trailing" id="jqn-fZ-CeS"/>
+                                    <constraint firstItem="pgr-RL-FWu" firstAttribute="top" secondItem="qyX-SC-PiP" secondAttribute="top" constant="106" id="juf-uo-0rU"/>
                                     <constraint firstItem="u4M-Qk-hne" firstAttribute="top" secondItem="LgH-1O-3Y3" secondAttribute="bottom" constant="38" id="n8D-nZ-6Gf"/>
                                     <constraint firstItem="cON-Tp-SAp" firstAttribute="top" secondItem="qyX-SC-PiP" secondAttribute="top" constant="208" id="r18-Y7-sbR"/>
                                     <constraint firstItem="ojx-1I-pPr" firstAttribute="leading" secondItem="qyX-SC-PiP" secondAttribute="leading" constant="30" id="shv-cq-qbH"/>
@@ -2607,7 +2618,7 @@
         <image name="btPreferenceSocietyUnactive" width="162" height="162"/>
         <image name="btPreferenceStartupUnactive" width="162" height="162"/>
         <image name="btPreferenceTechUnactive" width="162" height="162"/>
-        <image name="icArrowBack" width="24" height="24"/>
+        <image name="icArrowBack" width="48" height="48"/>
         <image name="icArrowGradation" width="44" height="50"/>
         <image name="icArrowNextMypage" width="24" height="24"/>
         <image name="icHeaderArrowNextMypage" width="24" height="24"/>

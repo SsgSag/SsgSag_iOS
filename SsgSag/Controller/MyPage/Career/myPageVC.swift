@@ -75,6 +75,28 @@ class myPageVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
         }
     }
     
+    @IBAction func touchUpLogoutButton(_ sender: Any) {
+        UserDefaults.standard.removeObject(forKey: TokenName.token)
+        
+        guard let window = UIApplication.shared.keyWindow else {
+            return
+        }
+        
+        let mainStoryboard: UIStoryboard = UIStoryboard(name: "LoginStoryBoard", bundle: nil)
+        let viewController = mainStoryboard.instantiateViewController(withIdentifier: "Login") as! LoginVC
+        
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        appDelegate.window?.rootViewController = viewController
+        
+        viewController.view.layoutIfNeeded()
+        
+        UIView.transition(with: window, duration: 0.5, options: .transitionFlipFromLeft, animations: {
+            window.rootViewController = viewController
+        }, completion: { completed in
+            // maybe do something here
+        })
+    }
+    
     private func rePermission() {
         let alertController = UIAlertController (title: "카메라 권한 설정", message: "세팅 하시겠습니까?", preferredStyle: .alert)
         

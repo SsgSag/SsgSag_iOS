@@ -118,6 +118,8 @@
 		84FB4FE4226B7F7D00D9F2F9 /* LoginServiceImp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84FB4FE3226B7F7D00D9F2F9 /* LoginServiceImp.swift */; };
 		D166AC5D22D46D4100ED82DD /* MonthTodoList.swift in Sources */ = {isa = PBXBuildFile; fileRef = D166AC5C22D46D4100ED82DD /* MonthTodoList.swift */; };
 		D166AC5F22D4726000ED82DD /* DayTodoList.swift in Sources */ = {isa = PBXBuildFile; fileRef = D166AC5E22D4726000ED82DD /* DayTodoList.swift */; };
+		D166AC6122D5E01000ED82DD /* 2019univAndMajor.json in Resources */ = {isa = PBXBuildFile; fileRef = D166AC6022D5E00F00ED82DD /* 2019univAndMajor.json */; };
+		D166AC6322D5E96100ED82DD /* UnivAndMajor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D166AC6222D5E96100ED82DD /* UnivAndMajor.swift */; };
 		FA23A93F21DF6FCF003DB5F9 /* myPageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA23A93D21DF6FCF003DB5F9 /* myPageTableViewCell.swift */; };
 		FA3A342021E5127700668908 /* UserAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA3A341F21E5127700668908 /* UserAPI.swift */; };
 		FA3A342221E5D64300668908 /* UserInfoVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA3A342121E5D64300668908 /* UserInfoVC.swift */; };
@@ -298,6 +300,8 @@
 		CD027F324040744246DC41C1 /* Pods-SsgSagTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SsgSagTests.debug.xcconfig"; path = "Target Support Files/Pods-SsgSagTests/Pods-SsgSagTests.debug.xcconfig"; sourceTree = "<group>"; };
 		D166AC5C22D46D4100ED82DD /* MonthTodoList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthTodoList.swift; sourceTree = "<group>"; };
 		D166AC5E22D4726000ED82DD /* DayTodoList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayTodoList.swift; sourceTree = "<group>"; };
+		D166AC6022D5E00F00ED82DD /* 2019univAndMajor.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = 2019univAndMajor.json; sourceTree = "<group>"; };
+		D166AC6222D5E96100ED82DD /* UnivAndMajor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnivAndMajor.swift; sourceTree = "<group>"; };
 		D40B4484F25DECA11CB327D8 /* Pods-SsgSagUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SsgSagUITests.debug.xcconfig"; path = "Target Support Files/Pods-SsgSagUITests/Pods-SsgSagUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		E015768EBB87E5CEEF53138B /* Pods-SsgSag.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SsgSag.release.xcconfig"; path = "Target Support Files/Pods-SsgSag/Pods-SsgSag.release.xcconfig"; sourceTree = "<group>"; };
 		E3C1F7A7EF024A1619F0DFCB /* Pods_SsgSagUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SsgSagUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -462,6 +466,7 @@
 				84617611225F7157005E6173 /* Swipe */,
 				84617610225F7120005E6173 /* Calendar */,
 				84836AC0222E5F4A00922A78 /* MyPage */,
+				D166AC6222D5E96100ED82DD /* UnivAndMajor.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -795,6 +800,7 @@
 		FA524BEF21D64DFD00675289 /* Signup */ = {
 			isa = PBXGroup;
 			children = (
+				D166AC6022D5E00F00ED82DD /* 2019univAndMajor.json */,
 				FA524BF021D64E2400675289 /* SignupStoryBoard.storyboard */,
 				FAFB87DD2215ABBF002CDED9 /* majorList.json */,
 				FAFB87D622159F83002CDED9 /* univList.json */,
@@ -992,6 +998,7 @@
 				8486D262226DF38E00D7A0C7 /* ApplySuccess.storyboard in Resources */,
 				84646C3E2289A57A005D3F1C /* InterestBoardTableViewCell.xib in Resources */,
 				84D09D0622880C3D008EEA7C /* GoogleService-Info.plist in Resources */,
+				D166AC6122D5E01000ED82DD /* 2019univAndMajor.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1125,6 +1132,7 @@
 				FAA238712202F37C00C6DB13 /* CareerVC + CollectionView.swift in Sources */,
 				FA61FE1921E204F300A28947 /* DatePickerPopUpVC.swift in Sources */,
 				84646C33228947A7005D3F1C /* ServiceInfoViewController.swift in Sources */,
+				D166AC6322D5E96100ED82DD /* UnivAndMajor.swift in Sources */,
 				84B8630922B64F7900E4B0C1 /* DetailTodoListTableViewCell.swift in Sources */,
 				8496818722AFD3FE004A4A63 /* VACalendar.swift in Sources */,
 				84A45D0F225F9E0000C60287 /* URLParameterEncoder.swift in Sources */,
