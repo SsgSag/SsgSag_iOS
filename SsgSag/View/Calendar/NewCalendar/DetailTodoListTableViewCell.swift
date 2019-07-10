@@ -10,24 +10,21 @@ import UIKit
 
 class DetailTodoListTableViewCell: UITableViewCell {
     
-    var poster: Posters? {
+    var poster: DayTodoData? {
         didSet {
             guard let posterInfo = poster else {return}
             posterName.text = posterInfo.posterName
             
-            guard let category = posterInfo.categoryIdx else {return}
-            guard let posterCate = PosterCategory(rawValue: category) else {return}
+            guard let posterCate = PosterCategory(rawValue: posterInfo.categoryIdx) else {return}
             
             posterCategory.text = posterCate.categoryString()
             posterCategory.textColor = posterCate.categoryColors()
             
-            guard let date = posterInfo.posterEndDate else {return}
-            let endDate = DateCaculate.stringToDateWithGenericFormatter(using: date)
+            let endDate = DateCaculate.stringToDateWithGenericFormatter(using: posterInfo.posterEndDate)
             let component = Calendar.current.dateComponents([.month, .day, .weekday], from: endDate)
             guard let weekDay = WeekDays(rawValue: component.weekday!) else {return}
             
-            guard let startDate = posterInfo.posterStartDate else {return}
-            let startDateFormString = DateCaculate.stringToDateWithGenericFormatter(using: startDate)
+            let startDateFormString = DateCaculate.stringToDateWithGenericFormatter(using: posterInfo.posterStartDate)
             let startComponent = Calendar.current.dateComponents([.month, .day, .weekday], from: startDateFormString)
             guard let startWeekDay = WeekDays(rawValue: startComponent.weekday!) else {return}
             

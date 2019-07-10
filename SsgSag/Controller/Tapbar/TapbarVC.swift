@@ -104,13 +104,13 @@ class TapbarVC: UITabBarController {
     }
     
     private func syncDataAtFirst() {
-        
-        tapbarServiceImp?.requestAllTodoList { (dataResponse) in
-            
-            guard let todoList = dataResponse.value else { return }
-            
-            StoreAndFetchPoster.shared.storePoster(posters: todoList)
-        }
+//        
+//        tapbarServiceImp?.requestAllTodoList { (dataResponse) in
+//            
+//            guard let todoList = dataResponse.value else { return }
+//            
+//            StoreAndFetchPoster.shared.storePoster(posters: todoList)
+//        }
     }
     
 }

@@ -17,6 +17,7 @@ class SelectedTodoViewController: UIViewController {
     static let tableViewCellReuseIdentifier = "DetailTodoListTableViewCell"
     
     var delegate: selectedTodoDelegate?
+    var indexPath: IndexPath?
     
     private let scrollView: UIScrollView = {
         let scrollView = UIScrollView()
@@ -80,15 +81,15 @@ class SelectedTodoViewController: UIViewController {
         return label
     }()
     
-    private var firstDayPosters: [Posters] = []
+    private var firstDayPosters: [DayTodoData] = []
     
-    private var secondDayPosters: [Posters] = []
+    private var secondDayPosters: [DayTodoData] = []
     
-    private var thirdDayPosters: [Posters] = []
+    private var thirdDayPosters: [DayTodoData] = []
     
-    private var fourthDayPosters: [Posters] = []
+    private var fourthDayPosters: [DayTodoData] = []
     
-    private var fifthDayPosters: [Posters] = []
+    private var fifthDayPosters: [DayTodoData] = []
     
     private var currentWindowDate: Date?
     
@@ -108,9 +109,8 @@ class SelectedTodoViewController: UIViewController {
             
             let fifthDate = date.changeDaysBy(days: 2)
             
-            for poster in StoreAndFetchPoster.shared.getPostersAfterAllChangedConfirm() {
-                guard let endDateString = poster.posterEndDate else {return}
-                let endDate = DateCaculate.stringToDateWithGenericFormatter(using: endDateString)
+            for poster in TodoData.shared.getDayTodoDatasAfterAllChangedConfirm() {
+                let endDate = DateCaculate.stringToDateWithGenericFormatter(using: poster.posterEndDate)
                 
                 if DateCaculate.isSameDate(firstDate, endDate) {
                     firstDayPosters.append(poster)
@@ -167,10 +167,13 @@ class SelectedTodoViewController: UIViewController {
         let month = String(calendar.component(.month, from: date))
         let day = String(calendar.component(.day, from: date))
         
-        calendarServiceImp?.requestDayTodoList(year: year, month: month, day: day) { dataResponse in
+        calendarServiceImp?.requestDayTodoList(year: year, month: month, day: day) { [weak self] dataResponse in
             switch dataResponse {
             case .success(let dayTodoData):
-                print(dayTodoData)
+                TodoData.shared.storeDayTodoData(dayTodoData)
+                DispatchQueue.main.async {
+                    self?.setDefaultScrollViewAndReloadTableView(using: 0)
+                }
             case .failed(let error):
                 assertionFailure(error.localizedDescription)
                 return
@@ -320,9 +323,8 @@ class SelectedTodoViewController: UIViewController {
         
         let fifthDate = date.changeDaysBy(days: 2)
         
-        for poster in StoreAndFetchPoster.shared.getPostersAfterAllChangedConfirm() {
-            guard let endDateString = poster.posterEndDate else {return}
-            let endDate = DateCaculate.stringToDateWithGenericFormatter(using: endDateString)
+        for poster in TodoData.shared.getDayTodoDatasAfterAllChangedConfirm() {
+            let endDate = DateCaculate.stringToDateWithGenericFormatter(using: poster.posterEndDate)
             
             if DateCaculate.isSameDate(firstDate, endDate) {
                 firstDayPosters.append(poster)
@@ -350,7 +352,6 @@ class SelectedTodoViewController: UIViewController {
         thirdTableView.reloadData()
         fourthTableView.reloadData()
         fifthTableView.reloadData()
-        
     }
     
 }
@@ -381,7 +382,7 @@ extension SelectedTodoViewController: UITableViewDelegate, UITableViewDataSource
             tableViewCell.poster = thirdDayPosters[indexPath.row]
             
             if thirdDayPosters[indexPath.row].photoUrl == tableViewCell.poster?.photoUrl {
-                guard let imageURL = thirdDayPosters[indexPath.row].photoUrl else {return tableViewCell}
+                let imageURL = thirdDayPosters[indexPath.row].photoUrl
                 guard let url = URL(string: imageURL) else {return tableViewCell}
                 
                 ImageNetworkManager.shared.getImageByCache(imageURL: url){ (image, error) in
@@ -400,7 +401,7 @@ extension SelectedTodoViewController: UITableViewDelegate, UITableViewDataSource
             tableViewCell.poster = firstDayPosters[indexPath.row]
             
             if firstDayPosters[indexPath.row].photoUrl == tableViewCell.poster?.photoUrl {
-                guard let imageURL = firstDayPosters[indexPath.row].photoUrl else {return tableViewCell}
+                let imageURL = firstDayPosters[indexPath.row].photoUrl
                 guard let url = URL(string: imageURL) else {return tableViewCell}
                 
                 ImageNetworkManager.shared.getImageByCache(imageURL: url){ (image, error) in
@@ -419,7 +420,7 @@ extension SelectedTodoViewController: UITableViewDelegate, UITableViewDataSource
             tableViewCell.poster = secondDayPosters[indexPath.row]
             
             if secondDayPosters[indexPath.row].photoUrl == tableViewCell.poster?.photoUrl {
-                guard let imageURL = secondDayPosters[indexPath.row].photoUrl else {return tableViewCell}
+                let imageURL = secondDayPosters[indexPath.row].photoUrl
                 guard let url = URL(string: imageURL) else {return tableViewCell}
                 
                 ImageNetworkManager.shared.getImageByCache(imageURL: url){ (image, error) in
@@ -438,7 +439,7 @@ extension SelectedTodoViewController: UITableViewDelegate, UITableViewDataSource
             tableViewCell.poster = fourthDayPosters[indexPath.row]
             
             if fourthDayPosters[indexPath.row].photoUrl == tableViewCell.poster?.photoUrl {
-                guard let imageURL = fourthDayPosters[indexPath.row].photoUrl else {return tableViewCell}
+                let imageURL = fourthDayPosters[indexPath.row].photoUrl
                 guard let url = URL(string: imageURL) else {return tableViewCell}
                 
                 ImageNetworkManager.shared.getImageByCache(imageURL: url){ (image, error) in
@@ -457,7 +458,7 @@ extension SelectedTodoViewController: UITableViewDelegate, UITableViewDataSource
             tableViewCell.poster = fifthDayPosters[indexPath.row]
             
             if fifthDayPosters[indexPath.row].photoUrl == tableViewCell.poster?.photoUrl {
-                guard let imageURL = fifthDayPosters[indexPath.row].photoUrl else {return tableViewCell}
+                let imageURL = fifthDayPosters[indexPath.row].photoUrl
                 guard let url = URL(string: imageURL) else {return tableViewCell}
                 
                 ImageNetworkManager.shared.getImageByCache(imageURL: url){ (image, error) in
@@ -481,19 +482,19 @@ extension SelectedTodoViewController: UITableViewDelegate, UITableViewDataSource
         
         let storyBoard = UIStoryboard(name: StoryBoardName.calendar, bundle: nil)
         let CalendarDetailVC = storyBoard.instantiateViewController(withIdentifier: ViewControllerIdentifier.detailPosterViewController) as! CalendarDetailVC
-        
-        if tableView == thirdTableView {
-            CalendarDetailVC.Poster = thirdDayPosters[indexPath.row]
-        } else if tableView == firstTableView {
-            CalendarDetailVC.Poster = firstDayPosters[indexPath.row]
-        } else if tableView == secondTableView {
-            CalendarDetailVC.Poster = secondDayPosters[indexPath.row]
-        } else if tableView == fourthTableView {
-            CalendarDetailVC.Poster = fourthDayPosters[indexPath.row]
-        } else if tableView == fifthTableView {
-            CalendarDetailVC.Poster = fifthDayPosters[indexPath.row]
-        }
-        
+//
+//        if tableView == thirdTableView {
+//            CalendarDetailVC.Poster = thirdDayPosters[indexPath.row]
+//        } else if tableView == firstTableView {
+//            CalendarDetailVC.Poster = firstDayPosters[indexPath.row]
+//        } else if tableView == secondTableView {
+//            CalendarDetailVC.Poster = secondDayPosters[indexPath.row]
+//        } else if tableView == fourthTableView {
+//            CalendarDetailVC.Poster = fourthDayPosters[indexPath.row]
+//        } else if tableView == fifthTableView {
+//            CalendarDetailVC.Poster = fifthDayPosters[indexPath.row]
+//        }
+//
         present(CalendarDetailVC, animated: true, completion: nil)
     }
     
@@ -564,7 +565,7 @@ extension SelectedTodoViewController: UIScrollViewDelegate {
             setDefaultScrollViewAndReloadTableView(using: 3)
         }
         
-        guard let date = currentDate else {return}
+        guard let date = currentDate else { return }
         
         let firstDate = date.changeDaysBy(days: -2)
         

@@ -102,20 +102,20 @@ class VADayView: UIView {
         separateView.trailingAnchor.constraint(equalTo: self.trailingAnchor).isActive = true
     }
     
-    var count:CGFloat = 0
+    var count: CGFloat = 0
     
     private func drawEvent(_ state: VADay) {
-        for poster in StoreAndFetchPoster.shared.getPostersAfterAllChangedConfirm() {
+        for todo in TodoData.shared.getMonthTodoDatasAfterAllChangedConfirm() {
             
-            let posterDate = DateCaculate.stringToDateWithGenericFormatter(using: poster.posterEndDate ?? .init())
+            let monthTodoDate = DateCaculate.stringToDateWithGenericFormatter(using: todo.posterEndDate)
             
-            let category = PosterCategory(rawValue: poster.categoryIdx!)
+            let category = PosterCategory(rawValue: todo.categoryIdx)
             
-            if DateCaculate.isSameDate(self.day.date, posterDate) {
+            if DateCaculate.isSameDate(self.day.date, monthTodoDate) {
                 if count < 5 {
                     
                     let lineView = VALineView(color: category?.categoryColors() ?? .clear,
-                                              text: poster.posterName!)
+                                              text: todo.posterName)
                     if state.state == .out {
                         lineView.backgroundColor = .lightGray
                     }

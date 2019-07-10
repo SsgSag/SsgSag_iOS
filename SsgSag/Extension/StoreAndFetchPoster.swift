@@ -58,3 +58,43 @@ class StoreAndFetchPoster {
     
 }
 
+class TodoData {
+    
+    public static let shared = TodoData()
+    
+    private var monthTodoDatas: [MonthTodoData]?
+    private var dayTodoDatas: [DayTodoData]?
+    
+    private init() {
+        
+        guard let _ = UserDefaults.standard.object(forKey: UserDefaultsName.poster) as? Data else {
+            return
+        }
+        
+        self.monthTodoDatas = nil
+    }
+    
+    func getMonthTodoDatasAfterAllChangedConfirm() -> [MonthTodoData] {
+        guard let result = self.monthTodoDatas else { return [] }
+        return result
+    }
+    
+    func getDayTodoDatasAfterAllChangedConfirm() -> [DayTodoData] {
+        guard let result = self.dayTodoDatas else { return [] }
+        return result
+    }
+    
+    func storeMonthTodoData(_ monthTodoDatas: [MonthTodoData]) {
+//        delegate?.changePosterInfomation()
+        UserDefaults.standard.setValue(try? PropertyListEncoder().encode(monthTodoDatas), forKey: UserDefaultsName.poster)
+
+        self.monthTodoDatas = monthTodoDatas
+    }
+    
+    func storeDayTodoData(_ dayTodoDatas: [DayTodoData]) {
+        //        delegate?.changePosterInfomation()
+        UserDefaults.standard.setValue(try? PropertyListEncoder().encode(dayTodoDatas), forKey: UserDefaultsName.poster)
+        
+        self.dayTodoDatas = dayTodoDatas
+    }
+}

@@ -47,7 +47,7 @@ class CalendarServiceImp: CalendarService {
                 completionHandler(DataResponse.success(posterData))
 
             } catch {
-                print("AllTodoList Parsing Error")
+                print("monthTodoList Parsing Error")
             }
         }
     }
@@ -76,7 +76,7 @@ class CalendarServiceImp: CalendarService {
                 completionHandler(DataResponse.success(posterData))
 
             } catch {
-                print("AllTodoList Parsing Error")
+                print("DayTodoList Parsing Error")
             }
         }
     }

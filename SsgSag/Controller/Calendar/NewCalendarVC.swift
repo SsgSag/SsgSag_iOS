@@ -13,11 +13,11 @@ protocol CategorySelectedDelegate: class {
 }
 
 class NewCalendarVC: UIViewController {
-
+    
     @IBOutlet weak var monthHeaderView: VAMonthHeaderView! {
         didSet {
             let appereance = VAMonthHeaderViewAppearance(
-                dateFormat: "yyyy년 LLLL"
+                dateFormat: "LLLL"
             )
             monthHeaderView.delegate = self
             monthHeaderView.appearance = appereance
@@ -50,25 +50,23 @@ class NewCalendarVC: UIViewController {
     }()
     
     private let category = ["전체", "즐겨찾기", "공모전", "대외활동", "동아리", "인턴", "교육강연", "기타"]
-
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        //weekDaysView.appearance = VAWeekDaysViewAppearance(symbolsType: .veryShort, calendar: defaultCalendar)
+        requestData()
+        calendarView.setupMonths()
+        calendarView.drawVisibleMonth(with: calendarView.contentOffset)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         setCalendar()
         
-        requestData()
+//        requestData()
         
         setCategoryCollection()
-    }
-    
-    private func setCategoryCollection() {
-        categoryCollection.delegate = self
-        categoryCollection.dataSource = self
-        
-        categoryCollection.showsHorizontalScrollIndicator = false
-        categoryCollection.alwaysBounceHorizontal = true
-        
-        categoryCollection.allowsMultipleSelection = true
     }
     
     private func setCalendar() {
@@ -87,19 +85,39 @@ class NewCalendarVC: UIViewController {
         view.addSubview(calendarView)
     }
     
-    func requestData(_ calendarService: CalendarService = CalendarServiceImp()) {
+    private func requestData(_ calendarService: CalendarService = CalendarServiceImp()) {
         
         self.calendarServiceImp = calendarService
         
-        calendarServiceImp?.requestMonthTodoList(year: "2019", month: "07") { dataResponse in
+        let calendar = Calendar.current
+        let year = String(calendar.component(.year, from: calendarView.startDate))
+        var month = String(calendar.component(.month, from: calendarView.startDate))
+       
+        if month.count < 2 {
+            month = "0" + month
+        }
+        
+        calendarServiceImp?.requestMonthTodoList(year: year,
+                                                 month: month) { [weak self] dataResponse in
             switch dataResponse {
             case .success(let monthTodoData):
-                print(monthTodoData)
+                TodoData.shared.storeMonthTodoData(monthTodoData)
+                self?.calendarView.setup()
             case .failed(let error):
                 assertionFailure(error.localizedDescription)
                 return
             }
         }
+    }
+    
+    private func setCategoryCollection() {
+        categoryCollection.delegate = self
+        categoryCollection.dataSource = self
+        
+        categoryCollection.showsHorizontalScrollIndicator = false
+        categoryCollection.alwaysBounceHorizontal = true
+        
+        categoryCollection.allowsMultipleSelection = true
     }
 
     override func viewDidLayoutSubviews() {
@@ -121,13 +139,6 @@ class NewCalendarVC: UIViewController {
             calendarView.setup()
         }
         
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        //weekDaysView.appearance = VAWeekDaysViewAppearance(symbolsType: .veryShort, calendar: defaultCalendar)
-        calendarView.setupMonths()
-        calendarView.drawVisibleMonth(with: calendarView.contentOffset)
-        super.viewWillAppear(animated)
     }
     
     private func openSelctedDateTodoList(_ date: Date) {
