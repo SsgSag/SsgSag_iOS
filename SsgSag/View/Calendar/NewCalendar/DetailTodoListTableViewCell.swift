@@ -24,7 +24,7 @@ class DetailTodoListTableViewCell: UITableViewCell {
             let component = Calendar.current.dateComponents([.month, .day, .weekday], from: endDate)
             guard let weekDay = WeekDays(rawValue: component.weekday!) else {return}
             
-            let startDateFormString = DateCaculate.stringToDateWithGenericFormatter(using: posterInfo.posterStartDate)
+            let startDateFormString = DateCaculate.stringToDateWithGenericFormatter(using: posterInfo.posterStartDate ?? "")
             let startComponent = Calendar.current.dateComponents([.month, .day, .weekday], from: startDateFormString)
             guard let startWeekDay = WeekDays(rawValue: startComponent.weekday!) else {return}
             

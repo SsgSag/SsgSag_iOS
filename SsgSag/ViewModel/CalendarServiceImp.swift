@@ -46,8 +46,10 @@ class CalendarServiceImp: CalendarService {
 
                 completionHandler(DataResponse.success(posterData))
 
-            } catch {
+            } catch let error {
+                print(error)
                 print("monthTodoList Parsing Error")
+                assertionFailure()
             }
         }
     }
@@ -75,8 +77,10 @@ class CalendarServiceImp: CalendarService {
 
                 completionHandler(DataResponse.success(posterData))
 
-            } catch {
+            } catch let error {
+                print(error)
                 print("DayTodoList Parsing Error")
+                assertionFailure()
             }
         }
     }

@@ -66,8 +66,8 @@ class TapbarVC: UITabBarController {
         
         let mypageViewController = CreateViewController.mypageViewController
         mypageViewController.tabBarItem = UITabBarItem(title: "",
-                                                       image: UIImage(named: "icUser"),
-                                                       selectedImage: UIImage(named: "icUserActive"))
+                                                       image: UIImage(named: "ic_feedPassive@tabBar"),
+                                                       selectedImage: UIImage(named: "ic_feed@tabBar"))
         
         let calendarViewController = CreateViewController.newCalendarViewController
         StoreAndFetchPoster.shared.delegate = calendarViewController

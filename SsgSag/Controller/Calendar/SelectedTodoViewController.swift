@@ -382,7 +382,7 @@ extension SelectedTodoViewController: UITableViewDelegate, UITableViewDataSource
             tableViewCell.poster = thirdDayPosters[indexPath.row]
             
             if thirdDayPosters[indexPath.row].photoUrl == tableViewCell.poster?.photoUrl {
-                let imageURL = thirdDayPosters[indexPath.row].photoUrl
+                let imageURL = thirdDayPosters[indexPath.row].photoUrl ?? ""
                 guard let url = URL(string: imageURL) else {return tableViewCell}
                 
                 ImageNetworkManager.shared.getImageByCache(imageURL: url){ (image, error) in
@@ -401,7 +401,7 @@ extension SelectedTodoViewController: UITableViewDelegate, UITableViewDataSource
             tableViewCell.poster = firstDayPosters[indexPath.row]
             
             if firstDayPosters[indexPath.row].photoUrl == tableViewCell.poster?.photoUrl {
-                let imageURL = firstDayPosters[indexPath.row].photoUrl
+                let imageURL = firstDayPosters[indexPath.row].photoUrl ?? ""
                 guard let url = URL(string: imageURL) else {return tableViewCell}
                 
                 ImageNetworkManager.shared.getImageByCache(imageURL: url){ (image, error) in
@@ -420,7 +420,7 @@ extension SelectedTodoViewController: UITableViewDelegate, UITableViewDataSource
             tableViewCell.poster = secondDayPosters[indexPath.row]
             
             if secondDayPosters[indexPath.row].photoUrl == tableViewCell.poster?.photoUrl {
-                let imageURL = secondDayPosters[indexPath.row].photoUrl
+                let imageURL = secondDayPosters[indexPath.row].photoUrl ?? ""
                 guard let url = URL(string: imageURL) else {return tableViewCell}
                 
                 ImageNetworkManager.shared.getImageByCache(imageURL: url){ (image, error) in
@@ -439,7 +439,7 @@ extension SelectedTodoViewController: UITableViewDelegate, UITableViewDataSource
             tableViewCell.poster = fourthDayPosters[indexPath.row]
             
             if fourthDayPosters[indexPath.row].photoUrl == tableViewCell.poster?.photoUrl {
-                let imageURL = fourthDayPosters[indexPath.row].photoUrl
+                let imageURL = fourthDayPosters[indexPath.row].photoUrl ?? ""
                 guard let url = URL(string: imageURL) else {return tableViewCell}
                 
                 ImageNetworkManager.shared.getImageByCache(imageURL: url){ (image, error) in
@@ -458,7 +458,7 @@ extension SelectedTodoViewController: UITableViewDelegate, UITableViewDataSource
             tableViewCell.poster = fifthDayPosters[indexPath.row]
             
             if fifthDayPosters[indexPath.row].photoUrl == tableViewCell.poster?.photoUrl {
-                let imageURL = fifthDayPosters[indexPath.row].photoUrl
+                let imageURL = fifthDayPosters[indexPath.row].photoUrl ?? ""
                 guard let url = URL(string: imageURL) else {return tableViewCell}
                 
                 ImageNetworkManager.shared.getImageByCache(imageURL: url){ (image, error) in

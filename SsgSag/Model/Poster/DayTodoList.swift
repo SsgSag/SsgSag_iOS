@@ -18,9 +18,10 @@ struct DayTodoList: Codable {
 // MARK: - DayTodoData
 struct DayTodoData: Codable {
     let posterIdx, categoryIdx, isCompleted, isEnded: Int
-    let posterName, outline, posterStartDate, posterEndDate: String
+    let posterName, outline, posterEndDate: String
+    let posterStartDate: String?
     let documentDate: String
     let isFavorite: Int
-    let photoUrl: String
+    let photoUrl: String?
     let dday: Int
 }

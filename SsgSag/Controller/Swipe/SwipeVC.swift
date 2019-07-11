@@ -96,18 +96,19 @@ class SwipeVC: UIViewController {
     //FIXME: - CategoryIdx가 3이거나 5일때 예외를 만든다.
     private func initPoster() {
 
-        posterServiceImp?.requestPoster { (response) in
-            
-            guard response.isSuccess, let posters = response.value else { return }
-            
-            self.posters = posters
-            self.countTotalCardIndex = self.posters.count
-            
-            DispatchQueue.main.async {
-                self.loadCardAndSetPageVC()
-                self.setCountLabelText()
+        posterServiceImp?.requestPoster { [weak self] response in
+            switch response {
+            case .failed:
+                return
+            case .success(let posters):
+                self?.posters = posters
+                self?.countTotalCardIndex = self?.posters.count ?? 0
+                
+                DispatchQueue.main.async {
+                    self?.loadCardAndSetPageVC()
+                    self?.setCountLabelText()
+                }
             }
-            
         }
     }
     
