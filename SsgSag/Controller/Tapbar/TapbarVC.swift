@@ -16,13 +16,13 @@ class TapbarVC: UITabBarController {
         
         static let swipeStoryBoard = UIStoryboard(name: StoryBoardName.swipe, bundle: nil)
         
-        static let mypageStoryBoard = UIStoryboard(name: StoryBoardName.mypage, bundle: nil)
+        static let feedStoryBoard = UIStoryboard(name: StoryBoardName.feed, bundle: nil)
         
         static let newCalendarStoryboard = UIStoryboard(name: StoryBoardName.newCalendar, bundle: nil)
         
         static let swipeViewController = swipeStoryBoard.instantiateViewController(withIdentifier: ViewControllerIdentifier.swipe)
         
-        static let mypageViewController = mypageStoryBoard.instantiateViewController(withIdentifier: ViewControllerIdentifier.mypageViewController)
+        static let feedViewController = feedStoryBoard.instantiateViewController(withIdentifier: "feedNavigationVC")
         
         static let newCalendarViewController = newCalendarStoryboard.instantiateViewController(withIdentifier: ViewControllerIdentifier.newCalendarViewController) as! NewCalendarVC
         
@@ -64,7 +64,7 @@ class TapbarVC: UITabBarController {
                                                       image: UIImage(named: "icMain"),
                                                       selectedImage: UIImage(named: "icMainActive"))
         
-        let mypageViewController = CreateViewController.mypageViewController
+        let mypageViewController = CreateViewController.feedViewController
         mypageViewController.tabBarItem = UITabBarItem(title: "",
                                                        image: UIImage(named: "ic_feedPassive@tabBar"),
                                                        selectedImage: UIImage(named: "ic_feed@tabBar"))

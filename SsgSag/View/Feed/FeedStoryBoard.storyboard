@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="tQd-VL-6ro">
+    <device id="retina6_1" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--FeedVC-->
+        <scene sceneID="8p2-AW-wbA">
+            <objects>
+                <viewController storyboardIdentifier="FeedVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="Yih-C1-clG" customClass="FeedVC" customModule="슥삭" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Mhk-Pg-b7R">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4dd-73-ach">
+                                <rect key="frame" x="0.0" y="44" width="414" height="48"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tUb-Nf-Jux">
+                                        <rect key="frame" x="16" y="0.0" width="48" height="48"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" secondItem="tUb-Nf-Jux" secondAttribute="height" multiplier="1:1" id="fNn-fC-9YD"/>
+                                        </constraints>
+                                        <state key="normal" image="ic_mypage"/>
+                                    </button>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vi9-d3-xJt" customClass="MenuBar" customModule="슥삭" customModuleProvider="target">
+                                        <rect key="frame" x="74" y="0.0" width="340" height="48"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="48" id="0mt-1x-klX"/>
+                                        </constraints>
+                                    </view>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="vi9-d3-xJt" secondAttribute="trailing" id="6Mr-8c-2dY"/>
+                                    <constraint firstItem="tUb-Nf-Jux" firstAttribute="top" secondItem="4dd-73-ach" secondAttribute="top" id="CZp-pM-UQq"/>
+                                    <constraint firstItem="vi9-d3-xJt" firstAttribute="leading" secondItem="tUb-Nf-Jux" secondAttribute="trailing" constant="10" id="M6j-ak-mb8"/>
+                                    <constraint firstAttribute="bottom" secondItem="tUb-Nf-Jux" secondAttribute="bottom" id="U0c-KD-Kdt"/>
+                                    <constraint firstAttribute="bottom" secondItem="vi9-d3-xJt" secondAttribute="bottom" id="Xo5-1c-Ndp"/>
+                                    <constraint firstItem="tUb-Nf-Jux" firstAttribute="leading" secondItem="4dd-73-ach" secondAttribute="leading" constant="16" id="cFS-XQ-Djc"/>
+                                    <constraint firstItem="vi9-d3-xJt" firstAttribute="top" secondItem="4dd-73-ach" secondAttribute="top" id="q3v-hz-4Hr"/>
+                                    <constraint firstAttribute="height" constant="48" id="vUM-Sx-GfG"/>
+                                </constraints>
+                            </view>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="Btc-a5-EuC">
+                                <rect key="frame" x="0.0" y="92" width="414" height="770"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="bfV-ep-uHG">
+                                    <size key="itemSize" width="414" height="175"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                                <cells/>
+                                <connections>
+                                    <outlet property="dataSource" destination="Yih-C1-clG" id="PbE-7v-pJ3"/>
+                                    <outlet property="delegate" destination="Yih-C1-clG" id="2M4-gI-4G4"/>
+                                </connections>
+                            </collectionView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="4dd-73-ach" firstAttribute="leading" secondItem="3iC-89-Vd9" secondAttribute="leading" id="5mT-Ey-ZV9"/>
+                            <constraint firstItem="Btc-a5-EuC" firstAttribute="top" secondItem="4dd-73-ach" secondAttribute="bottom" id="FLe-BK-Bre"/>
+                            <constraint firstItem="Btc-a5-EuC" firstAttribute="leading" secondItem="3iC-89-Vd9" secondAttribute="leading" id="MwT-co-ybG"/>
+                            <constraint firstItem="3iC-89-Vd9" firstAttribute="bottom" secondItem="Btc-a5-EuC" secondAttribute="bottom" id="SXI-yw-vpv"/>
+                            <constraint firstItem="3iC-89-Vd9" firstAttribute="trailing" secondItem="Btc-a5-EuC" secondAttribute="trailing" id="Vqg-Ia-EBI"/>
+                            <constraint firstItem="4dd-73-ach" firstAttribute="top" secondItem="3iC-89-Vd9" secondAttribute="top" id="zQi-eE-p9n"/>
+                            <constraint firstItem="3iC-89-Vd9" firstAttribute="trailing" secondItem="4dd-73-ach" secondAttribute="trailing" id="zWO-lW-nfd"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="3iC-89-Vd9"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="c3b-Ci-bX9">
+                        <nil key="title"/>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="menuBar" destination="vi9-d3-xJt" id="szP-3A-Taz"/>
+                        <outlet property="newsCollectionView" destination="Btc-a5-EuC" id="roh-8n-F76"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="WZT-G2-z3g" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="871.01449275362324" y="109.82142857142857"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="jKB-TV-996">
+            <objects>
+                <navigationController storyboardIdentifier="feedNavigationVC" automaticallyAdjustsScrollViewInsets="NO" useStoryboardIdentifierAsRestorationIdentifier="YES" navigationBarHidden="YES" id="tQd-VL-6ro" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" translucent="NO" id="tIP-OT-1IJ">
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="barTintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadiusV">
+                                <real key="value" value="0.0"/>
+                            </userDefinedRuntimeAttribute>
+                        </userDefinedRuntimeAttributes>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="Yih-C1-clG" kind="relationship" relationship="rootViewController" id="nNk-yr-gU0"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="7dU-qe-Ccw" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-39.130434782608695" y="109.82142857142857"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="ic_mypage" width="48" height="48"/>
+    </resources>
+</document>

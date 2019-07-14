@@ -12,6 +12,7 @@ enum ViewControllerIdentifier {
     static let newCalendarViewController = "newCalendarViewController"
     static let swipe = "Swipe"
     static let mypageViewController = "MyPageVC"
+    static let feedViewController = "FeedVC"
 //    static let userInfoViewContrller = "UserInfoVC"
     static let confirmProfileVC = "SignupFirst"
     static let loginPopUpViewController = "LoginPopUp"

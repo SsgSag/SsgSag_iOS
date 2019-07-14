@@ -120,6 +120,13 @@
 		D166AC5F22D4726000ED82DD /* DayTodoList.swift in Sources */ = {isa = PBXBuildFile; fileRef = D166AC5E22D4726000ED82DD /* DayTodoList.swift */; };
 		D166AC6122D5E01000ED82DD /* 2019univAndMajor.json in Resources */ = {isa = PBXBuildFile; fileRef = D166AC6022D5E00F00ED82DD /* 2019univAndMajor.json */; };
 		D166AC6322D5E96100ED82DD /* UnivAndMajor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D166AC6222D5E96100ED82DD /* UnivAndMajor.swift */; };
+		D166AC6622D733CC00ED82DD /* FeedVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D166AC6522D733CC00ED82DD /* FeedVC.swift */; };
+		D166AC6922D733F900ED82DD /* FeedStoryBoard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D166AC6822D733F900ED82DD /* FeedStoryBoard.storyboard */; };
+		D166AC7022D73CD700ED82DD /* NewsCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D166AC6E22D73CD700ED82DD /* NewsCollectionViewCell.swift */; };
+		D166AC7122D73CD700ED82DD /* NewsCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D166AC6F22D73CD700ED82DD /* NewsCollectionViewCell.xib */; };
+		D166AC7522D76DFC00ED82DD /* MenuBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = D166AC7422D76DFC00ED82DD /* MenuBar.swift */; };
+		D1E81E6D22DB181E004DAA00 /* FeedPageCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1E81E6C22DB181E004DAA00 /* FeedPageCollectionViewCell.swift */; };
+		D1E81E6F22DB270B004DAA00 /* MenuCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1E81E6E22DB270B004DAA00 /* MenuCollectionViewCell.swift */; };
 		FA23A93F21DF6FCF003DB5F9 /* myPageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA23A93D21DF6FCF003DB5F9 /* myPageTableViewCell.swift */; };
 		FA3A342021E5127700668908 /* UserAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA3A341F21E5127700668908 /* UserAPI.swift */; };
 		FA3A342221E5D64300668908 /* UserInfoVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA3A342121E5D64300668908 /* UserInfoVC.swift */; };
@@ -302,6 +309,13 @@
 		D166AC5E22D4726000ED82DD /* DayTodoList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayTodoList.swift; sourceTree = "<group>"; };
 		D166AC6022D5E00F00ED82DD /* 2019univAndMajor.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = 2019univAndMajor.json; sourceTree = "<group>"; };
 		D166AC6222D5E96100ED82DD /* UnivAndMajor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnivAndMajor.swift; sourceTree = "<group>"; };
+		D166AC6522D733CC00ED82DD /* FeedVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedVC.swift; sourceTree = "<group>"; };
+		D166AC6822D733F900ED82DD /* FeedStoryBoard.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = FeedStoryBoard.storyboard; sourceTree = "<group>"; };
+		D166AC6E22D73CD700ED82DD /* NewsCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsCollectionViewCell.swift; sourceTree = "<group>"; };
+		D166AC6F22D73CD700ED82DD /* NewsCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NewsCollectionViewCell.xib; sourceTree = "<group>"; };
+		D166AC7422D76DFC00ED82DD /* MenuBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuBar.swift; sourceTree = "<group>"; };
+		D1E81E6C22DB181E004DAA00 /* FeedPageCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedPageCollectionViewCell.swift; sourceTree = "<group>"; };
+		D1E81E6E22DB270B004DAA00 /* MenuCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuCollectionViewCell.swift; sourceTree = "<group>"; };
 		D40B4484F25DECA11CB327D8 /* Pods-SsgSagUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SsgSagUITests.debug.xcconfig"; path = "Target Support Files/Pods-SsgSagUITests/Pods-SsgSagUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		E015768EBB87E5CEEF53138B /* Pods-SsgSag.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SsgSag.release.xcconfig"; path = "Target Support Files/Pods-SsgSag/Pods-SsgSag.release.xcconfig"; sourceTree = "<group>"; };
 		E3C1F7A7EF024A1619F0DFCB /* Pods_SsgSagUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SsgSagUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -509,6 +523,7 @@
 		8461760A225F6EFD005E6173 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				D166AC6722D733E800ED82DD /* Feed */,
 				845928DE21D20034001DF6CC /* LoginRegister */,
 				FA524BEF21D64DFD00675289 /* Signup */,
 				FA5A882121E9084F008C2C41 /* Intro */,
@@ -523,6 +538,7 @@
 		8461760B225F6F04005E6173 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				D166AC6422D7338B00ED82DD /* Feed */,
 				84B23B412295586B00BAE2CD /* Splash */,
 				84B23B402295586300BAE2CD /* Tapbar */,
 				84617613225F74C3005E6173 /* Login */,
@@ -797,6 +813,27 @@
 			path = NewCalendar;
 			sourceTree = "<group>";
 		};
+		D166AC6422D7338B00ED82DD /* Feed */ = {
+			isa = PBXGroup;
+			children = (
+				D166AC6522D733CC00ED82DD /* FeedVC.swift */,
+			);
+			path = Feed;
+			sourceTree = "<group>";
+		};
+		D166AC6722D733E800ED82DD /* Feed */ = {
+			isa = PBXGroup;
+			children = (
+				D166AC6822D733F900ED82DD /* FeedStoryBoard.storyboard */,
+				D166AC6E22D73CD700ED82DD /* NewsCollectionViewCell.swift */,
+				D166AC6F22D73CD700ED82DD /* NewsCollectionViewCell.xib */,
+				D166AC7422D76DFC00ED82DD /* MenuBar.swift */,
+				D1E81E6C22DB181E004DAA00 /* FeedPageCollectionViewCell.swift */,
+				D1E81E6E22DB270B004DAA00 /* MenuCollectionViewCell.swift */,
+			);
+			path = Feed;
+			sourceTree = "<group>";
+		};
 		FA524BEF21D64DFD00675289 /* Signup */ = {
 			isa = PBXGroup;
 			children = (
@@ -980,6 +1017,7 @@
 				84B8630A22B64F7900E4B0C1 /* DetailTodoListTableViewCell.xib in Resources */,
 				FA3A8FD721DF3C3B0075A510 /* Splash.storyboard in Resources */,
 				FA7F4CC821DFCC7E00D8643A /* CertificationCell.xib in Resources */,
+				D166AC7122D73CD700ED82DD /* NewsCollectionViewCell.xib in Resources */,
 				FAFB87D822159F83002CDED9 /* univList.json in Resources */,
 				FA5A882321E908DF008C2C41 /* Intro.storyboard in Resources */,
 				FA7F4CC421DFCB1300D8643A /* PrizeCell.xib in Resources */,
@@ -997,6 +1035,7 @@
 				FA61FE1321E1D48D00A28947 /* .gitignore in Resources */,
 				8486D262226DF38E00D7A0C7 /* ApplySuccess.storyboard in Resources */,
 				84646C3E2289A57A005D3F1C /* InterestBoardTableViewCell.xib in Resources */,
+				D166AC6922D733F900ED82DD /* FeedStoryBoard.storyboard in Resources */,
 				84D09D0622880C3D008EEA7C /* GoogleService-Info.plist in Resources */,
 				D166AC6122D5E01000ED82DD /* 2019univAndMajor.json in Resources */,
 			);
@@ -1124,6 +1163,7 @@
 				84C77E4F22759AAF00DEE2D8 /* ZoomPosterVC.swift in Sources */,
 				84D09D0822883421008EEA7C /* ActivityServiceImp.swift in Sources */,
 				8496818822AFD3FE004A4A63 /* VAWeekDaysView.swift in Sources */,
+				D1E81E6D22DB181E004DAA00 /* FeedPageCollectionViewCell.swift in Sources */,
 				D166AC5D22D46D4100ED82DD /* MonthTodoList.swift in Sources */,
 				846E622D22928B1A0083E3CD /* ViewControllerIdentifier.swift in Sources */,
 				840FEDC52207569D00581A3B /* CalendarView + extension.swift in Sources */,
@@ -1134,6 +1174,7 @@
 				84646C33228947A7005D3F1C /* ServiceInfoViewController.swift in Sources */,
 				D166AC6322D5E96100ED82DD /* UnivAndMajor.swift in Sources */,
 				84B8630922B64F7900E4B0C1 /* DetailTodoListTableViewCell.swift in Sources */,
+				D1E81E6F22DB270B004DAA00 /* MenuCollectionViewCell.swift in Sources */,
 				8496818722AFD3FE004A4A63 /* VACalendar.swift in Sources */,
 				84A45D0F225F9E0000C60287 /* URLParameterEncoder.swift in Sources */,
 				845928E721D3877D001DF6CC /* DetailTextSwipeCard.swift in Sources */,
@@ -1152,6 +1193,7 @@
 				FA3A342221E5D64300668908 /* UserInfoVC.swift in Sources */,
 				846E6229229137F40083E3CD /* SignupServiceImp.swift in Sources */,
 				FAA238792203296500C6DB13 /* NonActivityCell.swift in Sources */,
+				D166AC7522D76DFC00ED82DD /* MenuBar.swift in Sources */,
 				84B8630622B3708A00E4B0C1 /* SelectedTodoViewController.swift in Sources */,
 				84A45D15225FA1E800C60287 /* Router.swift in Sources */,
 				84646C38228965E5005D3F1C /* AppInfoViewController.swift in Sources */,
@@ -1188,6 +1230,7 @@
 				843813112270153900C9E47B /* MypageServiceImp.swift in Sources */,
 				840FEDC122074F6F00581A3B /* DayCollectionViewCell.swift in Sources */,
 				8496818522AFD3FE004A4A63 /* VADay.swift in Sources */,
+				D166AC6622D733CC00ED82DD /* FeedVC.swift in Sources */,
 				8496818322AFD3FE004A4A63 /* VAMonthView.swift in Sources */,
 				84F1670E2280296E00071075 /* StoreAndFetchPoster.swift in Sources */,
 				84A45D0D225F9C8400C60287 /* ParameterEncoding.swift in Sources */,
@@ -1207,6 +1250,7 @@
 				8496818122AFD3FE004A4A63 /* VADayView.swift in Sources */,
 				8496818022AFD3FE004A4A63 /* VACalendarMonthDelegate.swift in Sources */,
 				8496819022AFDF66004A4A63 /* NewCalendarVC.swift in Sources */,
+				D166AC7022D73CD700ED82DD /* NewsCollectionViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

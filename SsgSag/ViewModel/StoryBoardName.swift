@@ -11,6 +11,7 @@ import Foundation
 struct StoryBoardName {
     static let swipe = "SwipeStoryBoard"
     static let mypage = "MyPageStoryBoard"
+    static let feed = "FeedStoryBoard"
     static let signup = "SignupStoryBoard"
     static let login = "LoginStoryBoard"
     static let apply = "ApplySuccess"
