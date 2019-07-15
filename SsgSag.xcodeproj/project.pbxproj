@@ -118,7 +118,6 @@
 		84FB4FE4226B7F7D00D9F2F9 /* LoginServiceImp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84FB4FE3226B7F7D00D9F2F9 /* LoginServiceImp.swift */; };
 		D166AC5D22D46D4100ED82DD /* MonthTodoList.swift in Sources */ = {isa = PBXBuildFile; fileRef = D166AC5C22D46D4100ED82DD /* MonthTodoList.swift */; };
 		D166AC5F22D4726000ED82DD /* DayTodoList.swift in Sources */ = {isa = PBXBuildFile; fileRef = D166AC5E22D4726000ED82DD /* DayTodoList.swift */; };
-		D166AC6122D5E01000ED82DD /* 2019univAndMajor.json in Resources */ = {isa = PBXBuildFile; fileRef = D166AC6022D5E00F00ED82DD /* 2019univAndMajor.json */; };
 		D166AC6322D5E96100ED82DD /* UnivAndMajor.swift in Sources */ = {isa = PBXBuildFile; fileRef = D166AC6222D5E96100ED82DD /* UnivAndMajor.swift */; };
 		D166AC6622D733CC00ED82DD /* FeedVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D166AC6522D733CC00ED82DD /* FeedVC.swift */; };
 		D166AC6922D733F900ED82DD /* FeedStoryBoard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D166AC6822D733F900ED82DD /* FeedStoryBoard.storyboard */; };
@@ -127,6 +126,7 @@
 		D166AC7522D76DFC00ED82DD /* MenuBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = D166AC7422D76DFC00ED82DD /* MenuBar.swift */; };
 		D1E81E6D22DB181E004DAA00 /* FeedPageCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1E81E6C22DB181E004DAA00 /* FeedPageCollectionViewCell.swift */; };
 		D1E81E6F22DB270B004DAA00 /* MenuCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1E81E6E22DB270B004DAA00 /* MenuCollectionViewCell.swift */; };
+		D1E81E7122DC7F84004DAA00 /* majorListByUniv.json in Resources */ = {isa = PBXBuildFile; fileRef = D1E81E7022DC7F84004DAA00 /* majorListByUniv.json */; };
 		FA23A93F21DF6FCF003DB5F9 /* myPageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA23A93D21DF6FCF003DB5F9 /* myPageTableViewCell.swift */; };
 		FA3A342021E5127700668908 /* UserAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA3A341F21E5127700668908 /* UserAPI.swift */; };
 		FA3A342221E5D64300668908 /* UserInfoVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA3A342121E5D64300668908 /* UserInfoVC.swift */; };
@@ -164,8 +164,6 @@
 		FAF0DF0321E95B5A003F341F /* splash.json in Resources */ = {isa = PBXBuildFile; fileRef = FAF0DF0221E95B5A003F341F /* splash.json */; };
 		FAF6DEE4222EAAEF001C70CC /* Interests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAF6DEE3222EAAEE001C70CC /* Interests.swift */; };
 		FAFB87D222145ABE002CDED9 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAFB87D122145ABE002CDED9 /* NetworkManager.swift */; };
-		FAFB87D822159F83002CDED9 /* univList.json in Resources */ = {isa = PBXBuildFile; fileRef = FAFB87D622159F83002CDED9 /* univList.json */; };
-		FAFB87DE2215ABBF002CDED9 /* majorList.json in Resources */ = {isa = PBXBuildFile; fileRef = FAFB87DD2215ABBF002CDED9 /* majorList.json */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -307,7 +305,6 @@
 		CD027F324040744246DC41C1 /* Pods-SsgSagTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SsgSagTests.debug.xcconfig"; path = "Target Support Files/Pods-SsgSagTests/Pods-SsgSagTests.debug.xcconfig"; sourceTree = "<group>"; };
 		D166AC5C22D46D4100ED82DD /* MonthTodoList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthTodoList.swift; sourceTree = "<group>"; };
 		D166AC5E22D4726000ED82DD /* DayTodoList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayTodoList.swift; sourceTree = "<group>"; };
-		D166AC6022D5E00F00ED82DD /* 2019univAndMajor.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = 2019univAndMajor.json; sourceTree = "<group>"; };
 		D166AC6222D5E96100ED82DD /* UnivAndMajor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnivAndMajor.swift; sourceTree = "<group>"; };
 		D166AC6522D733CC00ED82DD /* FeedVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedVC.swift; sourceTree = "<group>"; };
 		D166AC6822D733F900ED82DD /* FeedStoryBoard.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = FeedStoryBoard.storyboard; sourceTree = "<group>"; };
@@ -316,6 +313,7 @@
 		D166AC7422D76DFC00ED82DD /* MenuBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuBar.swift; sourceTree = "<group>"; };
 		D1E81E6C22DB181E004DAA00 /* FeedPageCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedPageCollectionViewCell.swift; sourceTree = "<group>"; };
 		D1E81E6E22DB270B004DAA00 /* MenuCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuCollectionViewCell.swift; sourceTree = "<group>"; };
+		D1E81E7022DC7F84004DAA00 /* majorListByUniv.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = majorListByUniv.json; sourceTree = "<group>"; };
 		D40B4484F25DECA11CB327D8 /* Pods-SsgSagUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SsgSagUITests.debug.xcconfig"; path = "Target Support Files/Pods-SsgSagUITests/Pods-SsgSagUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		E015768EBB87E5CEEF53138B /* Pods-SsgSag.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SsgSag.release.xcconfig"; path = "Target Support Files/Pods-SsgSag/Pods-SsgSag.release.xcconfig"; sourceTree = "<group>"; };
 		E3C1F7A7EF024A1619F0DFCB /* Pods_SsgSagUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SsgSagUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -359,8 +357,6 @@
 		FAF0DF0221E95B5A003F341F /* splash.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = splash.json; sourceTree = "<group>"; };
 		FAF6DEE3222EAAEE001C70CC /* Interests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Interests.swift; sourceTree = "<group>"; };
 		FAFB87D122145ABE002CDED9 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
-		FAFB87D622159F83002CDED9 /* univList.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = univList.json; sourceTree = "<group>"; };
-		FAFB87DD2215ABBF002CDED9 /* majorList.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = majorList.json; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -837,10 +833,8 @@
 		FA524BEF21D64DFD00675289 /* Signup */ = {
 			isa = PBXGroup;
 			children = (
-				D166AC6022D5E00F00ED82DD /* 2019univAndMajor.json */,
+				D1E81E7022DC7F84004DAA00 /* majorListByUniv.json */,
 				FA524BF021D64E2400675289 /* SignupStoryBoard.storyboard */,
-				FAFB87DD2215ABBF002CDED9 /* majorList.json */,
-				FAFB87D622159F83002CDED9 /* univList.json */,
 			);
 			path = Signup;
 			sourceTree = "<group>";
@@ -1018,12 +1012,11 @@
 				FA3A8FD721DF3C3B0075A510 /* Splash.storyboard in Resources */,
 				FA7F4CC821DFCC7E00D8643A /* CertificationCell.xib in Resources */,
 				D166AC7122D73CD700ED82DD /* NewsCollectionViewCell.xib in Resources */,
-				FAFB87D822159F83002CDED9 /* univList.json in Resources */,
+				D1E81E7122DC7F84004DAA00 /* majorListByUniv.json in Resources */,
 				FA5A882321E908DF008C2C41 /* Intro.storyboard in Resources */,
 				FA7F4CC421DFCB1300D8643A /* PrizeCell.xib in Resources */,
 				84B4268C21E9091D00B44F71 /* main_empty_hifive.json in Resources */,
 				845928A521D09CE0001DF6CC /* Assets.xcassets in Resources */,
-				FAFB87DE2215ABBF002CDED9 /* majorList.json in Resources */,
 				84264BA621DF0FF300849E6B /* Calendar.storyboard in Resources */,
 				846E621F228FC90F0083E3CD /* splash_190514.json in Resources */,
 				845928CC21D09D09001DF6CC /* SwipeStoryBoard.storyboard in Resources */,
@@ -1037,7 +1030,6 @@
 				84646C3E2289A57A005D3F1C /* InterestBoardTableViewCell.xib in Resources */,
 				D166AC6922D733F900ED82DD /* FeedStoryBoard.storyboard in Resources */,
 				84D09D0622880C3D008EEA7C /* GoogleService-Info.plist in Resources */,
-				D166AC6122D5E01000ED82DD /* 2019univAndMajor.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

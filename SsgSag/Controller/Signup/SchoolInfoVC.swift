@@ -135,7 +135,7 @@ class SchoolInfoVC: UIViewController, UITextFieldDelegate {
     
     fileprivate func localUniversities() -> [String] {
         
-        guard let path = Bundle.main.path(forResource: "2019univAndMajor", ofType: "json") else {
+        guard let path = Bundle.main.path(forResource: "majorListByUniv", ofType: "json") else {
             return []
         }
         
@@ -148,7 +148,7 @@ class SchoolInfoVC: UIViewController, UITextFieldDelegate {
             var resultUnivNames: [String] = []
             
             for university in jsonResult {
-                let univName = "\(university["학교명"]!)(\(university["본분교명"]!))"
+                let univName = "\(university["학교명"]!)"
                 if !resultUnivNames.contains(univName) {
                     resultUnivNames.append(univName)
                 }
@@ -165,17 +165,17 @@ class SchoolInfoVC: UIViewController, UITextFieldDelegate {
     fileprivate func localMajors() -> [String] {
         let univName = schoolField.text
         
-        var resultFacilNames: [String] = []
-        
         for university in jsonResult {
-            if univName == "\(university["학교명"]!)(\(university["본분교명"]!))" {
-                let majorName = "\(university["학부·과(전공)명"]!)"
-                if !resultFacilNames.contains(majorName) {
-                    resultFacilNames.append(majorName)
+            if univName == "\(university["학교명"]!)" {
+                guard let majors = university["학부·과(전공)명"] as? [String] else {
+                    return []
                 }
+                
+                return majors
             }
         }
-        return resultFacilNames
+        
+        return []
     }
     
     func postData() {
