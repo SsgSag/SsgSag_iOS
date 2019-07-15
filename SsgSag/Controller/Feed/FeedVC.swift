@@ -18,10 +18,7 @@ class FeedVC: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-//        let height: CGFloat = 48
-//        let bounds = navigationController!.navigationBar.bounds
-//        navigationController?.navigationBar.frame = CGRect(x: 0, y: 0, width: bounds.width, height: bounds.height + height)
-//        navigationController?.navigationBar.shadowImage = UIImage()
+        
         navigationController?.navigationBar.isHidden = true
         
         menuBar.menuCollectionView.scrollToItem(at: IndexPath(item: 0, section: 0), at: .left, animated: false)
@@ -32,6 +29,15 @@ class FeedVC: UIViewController {
         
         setupMenuBar()
         setupCollectionView()
+    }
+    
+    @IBAction func touchUpMyPageButton(_ sender: UIButton) {
+        let myPageStoryboard = UIStoryboard(name: StoryBoardName.mypage, bundle: nil)
+        
+        let myPageViewController
+            = myPageStoryboard.instantiateViewController(withIdentifier: ViewControllerIdentifier.mypageViewController)
+        
+        present(myPageViewController, animated: true)
     }
     
     private func setupMenuBar() {

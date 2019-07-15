@@ -9,10 +9,6 @@ class SwipeVC: UIViewController {
     
     @IBOutlet private var overLapView: UIView!
     
-    @IBOutlet private weak var dislikedButton: UIButton!
-    
-    @IBOutlet private weak var likedButton: UIButton!
-    
     lazy private var posters:[Posters] = []
     
     private static let numberOfTopCards = 2
@@ -32,6 +28,16 @@ class SwipeVC: UIViewController {
     private var isOkayToUndo: Bool = false
     
     let swipeStoryboard = UIStoryboard(name: StoryBoardName.swipe, bundle: nil)
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        let height: CGFloat = 48
+        let bounds = navigationController!.navigationBar.bounds
+        navigationController?.navigationBar.frame = CGRect(x: 0, y: 0, width: bounds.width, height: bounds.height + height)
+        navigationController?.navigationBar.shadowImage = UIImage()
+        addColorToShadow()
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -110,6 +116,13 @@ class SwipeVC: UIViewController {
                 }
             }
         }
+    }
+    
+    func addColorToShadow() {
+        
+        self.navigationController?.navigationBar.clipsToBounds = false
+        self.navigationController?.navigationBar.shadowImage = UIColor(red: 98/255, green: 106/255, blue: 255/255, alpha: 1.0).image(CGSize(width: self.view.frame.width, height: 3))
+        
     }
     
 //    //캘린더 이동
@@ -199,10 +212,11 @@ class SwipeVC: UIViewController {
     }
     
     //SwipeCard 생성
-    private func createSwipeCard(at index: Int , value :String) -> SwipeCard {
-        let card = SwipeCard(frame: CGRect(x: 20, y: (swipeCardView.frame.size.height - swipeCardView.frame.size.height * 0.9) / 2,
-                                           width: swipeCardView.frame.size.width - 40 ,
-                                           height: swipeCardView.frame.size.height * 0.9 ),
+    private func createSwipeCard(at index: Int , value: String) -> SwipeCard {
+        let card = SwipeCard(frame: CGRect(x: 15,
+                                           y: (swipeCardView.frame.size.height - swipeCardView.frame.size.height * 0.95) / 2,
+                                           width: swipeCardView.frame.size.width - 30,
+                                           height: swipeCardView.frame.size.height * 0.95),
                              value : value)
         card.delegate = self
         
@@ -288,23 +302,21 @@ class SwipeVC: UIViewController {
     }
     
     /// show 'detailTextSwipeCard' and 'detailImageSwipeCard'
-    private func setDetailSwipeCardAndSwipeCardVC(of detailTextSwipeCard:DetailNewTextSwipeCard,
-                                                  of detailImageSwipeCardVC:DetailImageSwipeCardVC,
-                                                  by posters:Posters ) {
+    private func setDetailSwipeCardAndSwipeCardVC(of detailTextSwipeCard: DetailNewTextSwipeCard,
+                                                  of detailImageSwipeCardVC: DetailImageSwipeCardVC,
+                                                  by posters:Posters) {
     
         detailTextSwipeCard.poster = posters
         detailImageSwipeCardVC.poster = posters
     }
     
-    @IBAction func disLikeButtonAction(_ sender: Any) {
-        let card = currentLoadedCardsArray.first
-        card?.leftClickAction()
-    }
-    
-    @IBAction func LikeButtonAction(_ sender: Any) {
-        let card = currentLoadedCardsArray.first
-        card?.rightClickAction()
+    @IBAction func touchUpMyPageButton(_ sender: UIBarButtonItem) {
+        let myPageStoryboard = UIStoryboard(name: StoryBoardName.mypage, bundle: nil)
         
+        let myPageViewController
+            = myPageStoryboard.instantiateViewController(withIdentifier: ViewControllerIdentifier.mypageViewController)
+        
+        present(myPageViewController, animated: true)
     }
     
     @IBAction func cardBackAction(_ sender: Any) {
@@ -472,3 +484,12 @@ enum AddOrUndo {
 }
 
 
+
+extension UIColor {
+    func image(_ size: CGSize = CGSize(width: 1, height: 1)) -> UIImage {
+        return UIGraphicsImageRenderer(size: size).image { rendererContext in
+            self.setFill()
+            rendererContext.fill(CGRect(x: 0, y: 0, width: size.width, height: size.height))
+        }
+    }
+}

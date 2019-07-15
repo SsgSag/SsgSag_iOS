@@ -20,7 +20,7 @@ class TapbarVC: UITabBarController {
         
         static let newCalendarStoryboard = UIStoryboard(name: StoryBoardName.newCalendar, bundle: nil)
         
-        static let swipeViewController = swipeStoryBoard.instantiateViewController(withIdentifier: ViewControllerIdentifier.swipe)
+        static let swipeViewController = swipeStoryBoard.instantiateViewController(withIdentifier: "swipeNavigationVC")
         
         static let feedViewController = feedStoryBoard.instantiateViewController(withIdentifier: "feedNavigationVC")
         
