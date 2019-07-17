@@ -65,6 +65,8 @@ class TodoData {
     private var monthTodoDatas: [MonthTodoData]?
     private var dayTodoDatas: [DayTodoData]?
     
+    weak var delegate: StoreAndFetchPosterDelegate?
+    
     private init() {
         
         guard let _ = UserDefaults.standard.object(forKey: UserDefaultsName.poster) as? Data else {

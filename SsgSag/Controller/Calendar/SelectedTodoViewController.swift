@@ -110,7 +110,7 @@ class SelectedTodoViewController: UIViewController {
             let fifthDate = date.changeDaysBy(days: 2)
             
             for poster in TodoData.shared.getDayTodoDatasAfterAllChangedConfirm() {
-                let endDate = DateCaculate.stringToDateWithGenericFormatter(using: poster.posterEndDate)
+                let endDate = DateCaculate.stringToDateWithGenericFormatter(using: poster.posterEndDate!)
                 
                 if DateCaculate.isSameDate(firstDate, endDate) {
                     firstDayPosters.append(poster)
@@ -133,6 +133,16 @@ class SelectedTodoViewController: UIViewController {
                 }
             }
         }
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        self.tabBarController?.tabBar.isHidden = true
+        self.navigationController?.navigationBar.isHidden = true
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        self.tabBarController?.tabBar.isHidden = false
+        self.navigationController?.navigationBar.isHidden = false
     }
     
     override func viewDidLoad() {
@@ -289,14 +299,6 @@ class SelectedTodoViewController: UIViewController {
         self.removeFromParent()
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        self.tabBarController?.tabBar.isHidden = true
-    }
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        self.tabBarController?.tabBar.isHidden = false
-    }
-    
     deinit {
         print("SelectedTodoViewController is deleted")
     }
@@ -324,7 +326,7 @@ class SelectedTodoViewController: UIViewController {
         let fifthDate = date.changeDaysBy(days: 2)
         
         for poster in TodoData.shared.getDayTodoDatasAfterAllChangedConfirm() {
-            let endDate = DateCaculate.stringToDateWithGenericFormatter(using: poster.posterEndDate)
+            let endDate = DateCaculate.stringToDateWithGenericFormatter(using: poster.posterEndDate!)
             
             if DateCaculate.isSameDate(firstDate, endDate) {
                 firstDayPosters.append(poster)
@@ -482,20 +484,20 @@ extension SelectedTodoViewController: UITableViewDelegate, UITableViewDataSource
         
         let storyBoard = UIStoryboard(name: StoryBoardName.calendar, bundle: nil)
         let CalendarDetailVC = storyBoard.instantiateViewController(withIdentifier: ViewControllerIdentifier.detailPosterViewController) as! CalendarDetailVC
-//
-//        if tableView == thirdTableView {
-//            CalendarDetailVC.Poster = thirdDayPosters[indexPath.row]
-//        } else if tableView == firstTableView {
-//            CalendarDetailVC.Poster = firstDayPosters[indexPath.row]
-//        } else if tableView == secondTableView {
-//            CalendarDetailVC.Poster = secondDayPosters[indexPath.row]
-//        } else if tableView == fourthTableView {
-//            CalendarDetailVC.Poster = fourthDayPosters[indexPath.row]
-//        } else if tableView == fifthTableView {
-//            CalendarDetailVC.Poster = fifthDayPosters[indexPath.row]
-//        }
-//
-        present(CalendarDetailVC, animated: true, completion: nil)
+
+        if tableView == thirdTableView {
+            CalendarDetailVC.Poster = thirdDayPosters[indexPath.row]
+        } else if tableView == firstTableView {
+            CalendarDetailVC.Poster = firstDayPosters[indexPath.row]
+        } else if tableView == secondTableView {
+            CalendarDetailVC.Poster = secondDayPosters[indexPath.row]
+        } else if tableView == fourthTableView {
+            CalendarDetailVC.Poster = fourthDayPosters[indexPath.row]
+        } else if tableView == fifthTableView {
+            CalendarDetailVC.Poster = fifthDayPosters[indexPath.row]
+        }
+
+        navigationController?.pushViewController(CalendarDetailVC, animated: true)
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {

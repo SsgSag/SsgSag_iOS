@@ -611,7 +611,7 @@ extension CalenderVC: UITableViewDelegate,UITableViewDataSource {
         for poster in posterInfo {
             guard let posterName = todoTableData[indexPath.row].posterName else { return }
             if posterName == poster.posterName! {
-                CalendarDetailVC.Poster = poster
+//                CalendarDetailVC.Poster = poster
             }
         }
         

@@ -18,32 +18,28 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="p9b-tv-ABd" customClass="VAMonthHeaderView" customModule="슥삭" customModuleProvider="target">
-                                <rect key="frame" x="40" y="44" width="374" height="33"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="33" id="AYL-GX-Ef0"/>
-                                </constraints>
-                            </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vLE-vE-5Ar" customClass="VAWeekDaysView" customModule="슥삭" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="97" width="414" height="30"/>
+                                <rect key="frame" x="0.0" y="123" width="414" height="30"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="rSM-02-FLA"/>
                                 </constraints>
                             </view>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="pH2-YY-86Q">
-                                <rect key="frame" x="0.0" y="77" width="414" height="20"/>
+                                <rect key="frame" x="0.0" y="88" width="414" height="35"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="35" id="rrB-EI-z5e"/>
+                                </constraints>
                                 <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="d7Y-LG-pBm">
                                     <size key="itemSize" width="50" height="20"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                     <size key="footerReferenceSize" width="0.0" height="0.0"/>
-                                    <inset key="sectionInset" minX="24" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                    <inset key="sectionInset" minX="15" minY="0.0" maxX="15" maxY="0.0"/>
                                 </collectionViewFlowLayout>
                                 <cells>
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="categoryCell" id="vCF-ZG-QJR" customClass="CateogoryCollectionViewCell" customModule="슥삭" customModuleProvider="target">
-                                        <rect key="frame" x="24" y="0.0" width="50" height="20"/>
+                                        <rect key="frame" x="15" y="7.5" width="50" height="20"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
                                             <rect key="frame" x="0.0" y="0.0" width="50" height="20"/>
@@ -68,6 +64,11 @@
                                             <constraint firstItem="Wau-ha-MQx" firstAttribute="top" secondItem="vCF-ZG-QJR" secondAttribute="top" id="Ktd-WZ-nxL"/>
                                             <constraint firstItem="Wau-ha-MQx" firstAttribute="leading" secondItem="vCF-ZG-QJR" secondAttribute="leading" id="n3B-hv-Wcn"/>
                                         </constraints>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadiusV">
+                                                <real key="value" value="5"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
                                         <connections>
                                             <outlet property="categoryLabel" destination="Wau-ha-MQx" id="b54-uA-Hzk"/>
                                         </connections>
@@ -78,18 +79,29 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="vLE-vE-5Ar" firstAttribute="trailing" secondItem="2ef-K5-QKG" secondAttribute="trailing" id="1xD-eZ-XcJ"/>
-                            <constraint firstItem="p9b-tv-ABd" firstAttribute="leading" secondItem="2ef-K5-QKG" secondAttribute="leading" constant="40" id="6MI-gm-CKg"/>
                             <constraint firstItem="vLE-vE-5Ar" firstAttribute="leading" secondItem="2ef-K5-QKG" secondAttribute="leading" id="7W8-my-xoS"/>
                             <constraint firstItem="pH2-YY-86Q" firstAttribute="leading" secondItem="2ef-K5-QKG" secondAttribute="leading" id="DOl-Is-8Mt"/>
-                            <constraint firstItem="p9b-tv-ABd" firstAttribute="trailing" secondItem="2ef-K5-QKG" secondAttribute="trailing" id="IHq-lh-ocC"/>
-                            <constraint firstItem="vLE-vE-5Ar" firstAttribute="top" secondItem="p9b-tv-ABd" secondAttribute="bottom" constant="20" id="V98-W6-xhQ"/>
-                            <constraint firstItem="pH2-YY-86Q" firstAttribute="top" secondItem="p9b-tv-ABd" secondAttribute="bottom" id="Y61-Hp-IXQ"/>
-                            <constraint firstItem="p9b-tv-ABd" firstAttribute="top" secondItem="2ef-K5-QKG" secondAttribute="top" id="goE-5e-5SA"/>
                             <constraint firstItem="2ef-K5-QKG" firstAttribute="trailing" secondItem="pH2-YY-86Q" secondAttribute="trailing" id="qN7-A5-fMV"/>
+                            <constraint firstItem="pH2-YY-86Q" firstAttribute="top" secondItem="2ef-K5-QKG" secondAttribute="top" id="waS-hS-sNP"/>
                             <constraint firstItem="pH2-YY-86Q" firstAttribute="bottom" secondItem="vLE-vE-5Ar" secondAttribute="top" id="wqb-sq-AyN"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="2ef-K5-QKG"/>
                     </view>
+                    <navigationItem key="navigationItem" id="6PG-xm-bMJ">
+                        <nil key="title"/>
+                        <barButtonItem key="leftBarButtonItem" image="ic_mypage" id="r3m-mp-CER"/>
+                        <view key="titleView" contentMode="scaleToFill" ambiguous="YES" id="p9b-tv-ABd" customClass="VAMonthHeaderView" customModule="슥삭" customModuleProvider="target">
+                            <rect key="frame" x="207" y="22" width="0.0" height="0.0"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="33" id="AYL-GX-Ef0"/>
+                            </constraints>
+                        </view>
+                        <barButtonItem key="rightBarButtonItem" title="캘린더공유" id="1Vu-al-imD">
+                            <color key="tintColor" red="0.38431372549019605" green="0.41568627450980389" blue="1" alpha="0.84705882352941175" colorSpace="calibratedRGB"/>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="categoryCollection" destination="pH2-YY-86Q" id="Qfx-B8-e1y"/>
                         <outlet property="monthHeaderView" destination="p9b-tv-ABd" id="Glu-iV-W61"/>
@@ -98,7 +110,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="uAn-On-IXK" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-636.23188405797111" y="124.55357142857142"/>
+            <point key="canvasLocation" x="273.91304347826087" y="124.55357142857142"/>
         </scene>
         <!--Selected Todo View Controller-->
         <scene sceneID="qzv-b5-m6A">
@@ -113,7 +125,29 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="djV-Xs-8Nz" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="348" y="125"/>
+            <point key="canvasLocation" x="1257.9710144927537" y="124.55357142857142"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="8yJ-98-7wT">
+            <objects>
+                <navigationController storyboardIdentifier="calendarNavigationVC" automaticallyAdjustsScrollViewInsets="NO" useStoryboardIdentifierAsRestorationIdentifier="YES" id="Vqx-4M-NYa" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="ff8-By-yk6">
+                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="barTintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="B71-YN-EqE" kind="relationship" relationship="rootViewController" id="GqN-mU-KeK"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="kNa-IP-55c" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-636.23188405797111" y="124.55357142857142"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="ic_mypage" width="48" height="48"/>
+    </resources>
 </document>

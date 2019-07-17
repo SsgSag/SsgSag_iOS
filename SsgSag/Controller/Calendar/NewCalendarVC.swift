@@ -53,6 +53,13 @@ class NewCalendarVC: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
+        let height: CGFloat = 48
+        let bounds = navigationController!.navigationBar.bounds
+        navigationController?.navigationBar.frame = CGRect(x: 0, y: 0, width: bounds.width, height: bounds.height + height)
+        navigationController?.navigationBar.shadowImage = UIImage()
+        
+        TodoData.shared.delegate = self
         //weekDaysView.appearance = VAWeekDaysViewAppearance(symbolsType: .veryShort, calendar: defaultCalendar)
         requestData()
         calendarView.setupMonths()
@@ -153,8 +160,6 @@ class NewCalendarVC: UIViewController {
         selectedTodoViewController.view.frame = self.view.frame
         self.view.addSubview(selectedTodoViewController.view)
         selectedTodoViewController.didMove(toParent: self)
-        
-        self.tabBarController?.tabBar.isHidden = true
     }
     
     func estimatedFrame(text: String, font: UIFont) -> CGRect {
@@ -260,25 +265,30 @@ extension NewCalendarVC: StoreAndFetchPosterDelegate {
 }
 
 extension NewCalendarVC: UICollectionViewDelegate , UICollectionViewDataSource , UICollectionViewDelegateFlowLayout {
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    func collectionView(_ collectionView: UICollectionView,
+                        numberOfItemsInSection section: Int) -> Int {
         return category.count
     }
     
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "categoryCell", for: indexPath) as! CateogoryCollectionViewCell
+    func collectionView(_ collectionView: UICollectionView,
+                        cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "categoryCell",
+                                                      for: indexPath) as! CateogoryCollectionViewCell
         cell.categoryLabel.text = category[indexPath.item]
         return cell
     }
     
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+    func collectionView(_ collectionView: UICollectionView,
+                        layout collectionViewLayout: UICollectionViewLayout,
+                        sizeForItemAt indexPath: IndexPath) -> CGSize {
         
         let collectionViewCellWidth = self.estimatedFrame(text: category[indexPath.item],
                                                           font: UIFont.systemFont(ofSize: 14)).width
-        return CGSize(width: collectionViewCellWidth + 5, height: collectionView.frame.height)
+        return CGSize(width: collectionViewCellWidth + 8, height: 21)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
-        return 5
+        return 8
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
@@ -290,14 +300,15 @@ extension NewCalendarVC: UICollectionViewDelegate , UICollectionViewDataSource ,
         
         guard let category = CategoryState(rawValue: indexPath.item) else {return}
         
-        guard let cell = collectionView.cellForItem(at: indexPath) as? CateogoryCollectionViewCell else {return}
+        guard let cell
+            = collectionView.cellForItem(at: indexPath) as? CateogoryCollectionViewCell else { return }
         
         multipleSelectedIndex.append(indexPath.item)
         
         categorySelectedDelegate?.categorySelectedDelegate(multipleSelectedIndex)
         
         if cell.isSelected == true {
-            cell.categoryLabel.backgroundColor = #colorLiteral(red: 0.3098039216, green: 0.3098039216, blue: 0.3098039216, alpha: 0.05)
+            cell.categoryLabel.backgroundColor = category.categoryTextColor.withAlphaComponent(0.05)
             cell.categoryLabel.textColor = category.categoryTextColor
         }
         

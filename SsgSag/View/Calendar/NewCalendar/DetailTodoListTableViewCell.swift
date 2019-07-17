@@ -15,12 +15,14 @@ class DetailTodoListTableViewCell: UITableViewCell {
             guard let posterInfo = poster else {return}
             posterName.text = posterInfo.posterName
             
-            guard let posterCate = PosterCategory(rawValue: posterInfo.categoryIdx) else {return}
+            guard let categoryIdx = posterInfo.categoryIdx,
+                let posterCate = PosterCategory(rawValue: categoryIdx),
+                let posterEndDate = posterInfo.posterEndDate else { return }
             
             posterCategory.text = posterCate.categoryString()
             posterCategory.textColor = posterCate.categoryColors()
             
-            let endDate = DateCaculate.stringToDateWithGenericFormatter(using: posterInfo.posterEndDate)
+            let endDate = DateCaculate.stringToDateWithGenericFormatter(using: posterEndDate)
             let component = Calendar.current.dateComponents([.month, .day, .weekday], from: endDate)
             guard let weekDay = WeekDays(rawValue: component.weekday!) else {return}
             

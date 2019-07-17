@@ -73,7 +73,7 @@ class CalendarServiceImp: CalendarService {
             do {
                 let response = try JSONDecoder().decode(DayTodoList.self, from: data)
 
-                let posterData = response.data
+                guard let posterData = response.data else { return }
 
                 completionHandler(DataResponse.success(posterData))
 

@@ -11,4 +11,8 @@ import UIKit
 class CateogoryCollectionViewCell: UICollectionViewCell {
     
     @IBOutlet weak var categoryLabel: UILabel!
+    
+    override func awakeFromNib() {
+        
+    }
 }

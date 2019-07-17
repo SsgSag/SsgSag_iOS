@@ -24,7 +24,7 @@ class TapbarVC: UITabBarController {
         
         static let feedViewController = feedStoryBoard.instantiateViewController(withIdentifier: "feedNavigationVC")
         
-        static let newCalendarViewController = newCalendarStoryboard.instantiateViewController(withIdentifier: ViewControllerIdentifier.newCalendarViewController) as! NewCalendarVC
+        static let newCalendarViewController = newCalendarStoryboard.instantiateViewController(withIdentifier: "calendarNavigationVC")
         
     }
     
@@ -70,7 +70,6 @@ class TapbarVC: UITabBarController {
                                                        selectedImage: UIImage(named: "ic_feed@tabBar"))
         
         let calendarViewController = CreateViewController.newCalendarViewController
-        StoreAndFetchPoster.shared.delegate = calendarViewController
         calendarViewController.tabBarItem = UITabBarItem(title: "",
                                                          image: UIImage(named: "icCal"),
                                                          selectedImage: UIImage(named: "icCalActive"))

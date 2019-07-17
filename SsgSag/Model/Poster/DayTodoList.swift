@@ -10,18 +10,18 @@ import Foundation
 
 // MARK: - DayTodoList
 struct DayTodoList: Codable {
-    let status: Int
-    let message: String
-    let data: [DayTodoData]
+    let status: Int?
+    let message: String?
+    let data: [DayTodoData]?
 }
 
 // MARK: - DayTodoData
 struct DayTodoData: Codable {
-    let posterIdx, categoryIdx, isCompleted, isEnded: Int
-    let posterName, outline, posterEndDate: String
+    let posterIdx, categoryIdx, isCompleted, isEnded: Int?
+    let posterName, outline, posterEndDate: String?
     let posterStartDate: String?
-    let documentDate: String
-    let isFavorite: Int
+    let documentDate: String?
+    let isFavorite: Int?
     let photoUrl: String?
-    let dday: Int
+    let dday: Int?
 }
