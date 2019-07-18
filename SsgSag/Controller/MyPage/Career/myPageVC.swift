@@ -49,6 +49,13 @@ class myPageVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
         }
     }
     
+    @IBAction func touchUpCancelButton(_ sender: UIButton) {
+        dismiss(animated: true)
+    }
+    
+    @IBAction func touchUpSettingButton(_ sender: UIButton) {
+    }
+    
     @IBAction func touchUpCameraButton(_ sender: UIButton) {
         
         let photoAuthorizationStatus = PHPhotoLibrary.authorizationStatus()

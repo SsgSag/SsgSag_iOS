@@ -19,9 +19,11 @@ struct PosterDetail: Codable {
 struct DataClass: Codable {
     let posterIdx, categoryIdx: Int?
     let photoUrl: String?
+    let photoUrl2: String?
     let posterName, posterRegDate, posterEndDate: String?
     let posterStartDate: String?
     let posterWebSite: String?
+    let posterWebSite2: String?
     let outline, target, benefit: String?
     let period: String?
     let documentDate: String?
@@ -32,6 +34,26 @@ struct DataClass: Codable {
     let keyword: String?
     let partnerPhone, partnerEmail, chargerName: String?
     let favoriteNum, likeNum: Int?
-    let analytics: String?
     let dday: Int?
+    let analytics: Analytics?
+    let commentList: [CommentList]?
+}
+
+// MARK: - Analytics
+struct Analytics: Codable {
+    let majorCategory: [String]?
+    let majorCategoryRate: [Int]?
+    let grade: [String]?
+    let gradeRate: [Int]?
+    let gender: [String]?
+    let genderRate: [Int]?
+}
+
+// MARK: - CommentList
+struct CommentList: Codable {
+    let commentIdx, userIdx: Int?
+    let userNickname: String?
+    let userProfileUrl: String?
+    let commentContent, commentRegDate: String?
+    let likeNum, isLike, isMine: Int?
 }

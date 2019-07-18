@@ -403,7 +403,7 @@
             </objects>
             <point key="canvasLocation" x="357.60000000000002" y="91.304347826086968"/>
         </scene>
-        <!--상세정보-->
+        <!--Calendar DetailVC-->
         <scene sceneID="69l-A6-o4J">
             <objects>
                 <viewController storyboardIdentifier="DetailPoster" id="EcQ-cM-pTz" customClass="CalendarDetailVC" customModule="슥삭" customModuleProvider="target" sceneMemberID="viewController">
@@ -926,13 +926,6 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="RlF-I7-ocu"/>
                     </view>
-                    <navigationItem key="navigationItem" title="상세정보" id="WyN-0n-zK1">
-                        <barButtonItem key="leftBarButtonItem" image="ic_ArrowBack" id="R8j-Uh-12m">
-                            <connections>
-                                <action selector="touchUpBackButton:" destination="EcQ-cM-pTz" id="obC-e1-OG5"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <size key="freeformSize" width="375" height="1500"/>
                     <connections>
@@ -1165,7 +1158,6 @@
         <image name="group7" width="19" height="19"/>
         <image name="icArrowGradation" width="44" height="50"/>
         <image name="icXClose" width="24" height="24"/>
-        <image name="ic_ArrowBack" width="48" height="48"/>
         <image name="ic_analytics" width="18" height="18"/>
         <image name="ic_calendar" width="15" height="15"/>
         <image name="ic_cancelWhite" width="48" height="48"/>

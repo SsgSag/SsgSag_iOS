@@ -59,6 +59,9 @@ class NewCalendarVC: UIViewController {
         navigationController?.navigationBar.frame = CGRect(x: 0, y: 0, width: bounds.width, height: bounds.height + height)
         navigationController?.navigationBar.shadowImage = UIImage()
         
+        self.tabBarController?.tabBar.isHidden = false
+        self.navigationController?.navigationBar.isHidden = false
+        
         TodoData.shared.delegate = self
         //weekDaysView.appearance = VAWeekDaysViewAppearance(symbolsType: .veryShort, calendar: defaultCalendar)
         requestData()
@@ -155,11 +158,14 @@ class NewCalendarVC: UIViewController {
         
         selectedTodoViewController.delegate = calendarView
         
-        self.addChild(selectedTodoViewController)
+//        self.addChild(selectedTodoViewController)
         selectedTodoViewController.currentDate = date
-        selectedTodoViewController.view.frame = self.view.frame
-        self.view.addSubview(selectedTodoViewController.view)
-        selectedTodoViewController.didMove(toParent: self)
+        
+        present(
+            UINavigationController(rootViewController: selectedTodoViewController), animated: true)
+//        selectedTodoViewController.view.frame = self.view.frame
+//        self.view.addSubview(selectedTodoViewController.view)
+//        selectedTodoViewController.didMove(toParent: self)
     }
     
     func estimatedFrame(text: String, font: UIFont) -> CGRect {

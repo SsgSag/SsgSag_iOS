@@ -141,8 +141,8 @@ class SelectedTodoViewController: UIViewController {
     }
     
     override func viewWillDisappear(_ animated: Bool) {
-        self.tabBarController?.tabBar.isHidden = false
-        self.navigationController?.navigationBar.isHidden = false
+//        self.tabBarController?.tabBar.isHidden = false
+//        self.navigationController?.navigationBar.isHidden = false
     }
     
     override func viewDidLoad() {
@@ -295,8 +295,7 @@ class SelectedTodoViewController: UIViewController {
     }
     
     @objc private func dismissDisView() {
-        self.view.removeFromSuperview()
-        self.removeFromParent()
+        dismiss(animated: true)
     }
     
     deinit {
@@ -482,22 +481,27 @@ extension SelectedTodoViewController: UITableViewDelegate, UITableViewDataSource
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        let storyBoard = UIStoryboard(name: StoryBoardName.calendar, bundle: nil)
-        let CalendarDetailVC = storyBoard.instantiateViewController(withIdentifier: ViewControllerIdentifier.detailPosterViewController) as! CalendarDetailVC
-
+//        let storyBoard = UIStoryboard(name: StoryBoardName.calendar, bundle: nil)
+//        let CalendarDetailVC = storyBoard.instantiateViewController(withIdentifier: ViewControllerIdentifier.detailPosterViewController) as! CalendarDetailVC
+//
+        
+        let detailInfoVC = DetailInfoViewController()
+        
         if tableView == thirdTableView {
-            CalendarDetailVC.Poster = thirdDayPosters[indexPath.row]
+            detailInfoVC.posterIdx = thirdDayPosters[indexPath.row].posterIdx
         } else if tableView == firstTableView {
-            CalendarDetailVC.Poster = firstDayPosters[indexPath.row]
+            detailInfoVC.posterIdx = firstDayPosters[indexPath.row].posterIdx
         } else if tableView == secondTableView {
-            CalendarDetailVC.Poster = secondDayPosters[indexPath.row]
+            detailInfoVC.posterIdx = secondDayPosters[indexPath.row].posterIdx
         } else if tableView == fourthTableView {
-            CalendarDetailVC.Poster = fourthDayPosters[indexPath.row]
+            detailInfoVC.posterIdx = fourthDayPosters[indexPath.row].posterIdx
         } else if tableView == fifthTableView {
-            CalendarDetailVC.Poster = fifthDayPosters[indexPath.row]
+            detailInfoVC.posterIdx = fifthDayPosters[indexPath.row].posterIdx
         }
-
-        navigationController?.pushViewController(CalendarDetailVC, animated: true)
+//
+//        navigationController?.pushViewController(CalendarDetailVC, animated: true)
+        
+        navigationController?.pushViewController(detailInfoVC, animated: true)
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {

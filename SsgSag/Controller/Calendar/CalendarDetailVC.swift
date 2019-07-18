@@ -20,7 +20,7 @@ class CalendarDetailVC: UIViewController {
     
     @IBOutlet weak var seeMoreHeightConstraint: NSLayoutConstraint!
     
-    @IBOutlet var PosterImage: UIImageView!
+    @IBOutlet weak var PosterImage: UIImageView!
     
     @IBOutlet weak var scrollView: UIScrollView!
     
@@ -69,15 +69,21 @@ class CalendarDetailVC: UIViewController {
                                    10:"학술/교양",
                                    11:"IT/기술"]
     
+    lazy var backbutton = UIBarButtonItem(image: UIImage(named: "ic_ArrowBack"),
+                                          style: .plain,
+                                          target: self,
+                                          action: #selector(touchUpBackButton))
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        tabBarController?.tabBar.isHidden = true
+        navigationController?.navigationBar.isHidden = false
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
     
+        navigationItem.backBarButtonItem = backbutton
         seeMoreHeightConstraint.isActive = false
         seeMoreHeightConstraint = seeMoreView.heightAnchor.constraint(equalToConstant: 0)
         seeMoreHeightConstraint.isActive = true
@@ -86,10 +92,6 @@ class CalendarDetailVC: UIViewController {
         hashTagTextView.textContainer.lineFragmentPadding = 0
         hashTagTextView.textContainerInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
         setPosterContent()
-    }
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        self.tabBarController?.tabBar.isHidden = true
     }
     
     private func setPosterContent(_ posterService: PosterService = PosterServiceImp()) {
@@ -248,8 +250,8 @@ class CalendarDetailVC: UIViewController {
         view.layoutIfNeeded()
     }
     
-    @IBAction func touchUpBackButton(_ sender: UIBarButtonItem) {
-        navigationController?.popViewController(animated: true)
+    @objc func touchUpBackButton() {
+        dismiss(animated: true)
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
