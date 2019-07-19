@@ -136,7 +136,7 @@ class AddActivityVC: UIViewController, UITextViewDelegate, UITextFieldDelegate {
         
         //let json: [String: Any] = ["careerType" : careerType]
         let jsonData = try? JSONSerialization.data(withJSONObject: json)
-        let url = URL(string: "http://52.78.86.179:8080/career/\(careerType)")!
+        let url = URL(string: "http://52.78.86.179:8081/career/\(careerType)")!
         var request = URLRequest(url: url)
         request.httpMethod = "GET"
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")

@@ -10,9 +10,15 @@ import UIKit
 
 class AnalysticsCollectionViewCell: UICollectionViewCell {
 
+    @IBOutlet weak var analyticsStackView: UIStackView!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
+    }
+    
+    func configure() {
+        analyticsStackView.subviews[0]
     }
 
 }

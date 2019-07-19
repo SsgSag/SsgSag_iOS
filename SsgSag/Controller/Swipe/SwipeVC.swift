@@ -9,7 +9,7 @@ class SwipeVC: UIViewController {
     
     @IBOutlet private var overLapView: UIView!
     
-    lazy private var posters:[Posters] = []
+    lazy private var posters: [Posters] = []
     
     private static let numberOfTopCards = 2
     
@@ -80,7 +80,6 @@ class SwipeVC: UIViewController {
     }
     
     private func setEmptyPosterAnimation() {
-        
         let animation = LOTAnimationView(name: "main_empty_hifive")
         
         view.addSubview(animation)
@@ -120,7 +119,12 @@ class SwipeVC: UIViewController {
     func addColorToShadow() {
         
         self.navigationController?.navigationBar.clipsToBounds = false
-        self.navigationController?.navigationBar.shadowImage = UIColor(red: 98/255, green: 106/255, blue: 255/255, alpha: 1.0).image(CGSize(width: self.view.frame.width, height: 3))
+        self.navigationController?.navigationBar.shadowImage
+            = UIColor(red: 98/255,
+                      green: 106/255,
+                      blue: 255/255,
+                      alpha: 1.0)
+                .image(CGSize(width: self.view.frame.width, height: 3))
         
     }
     

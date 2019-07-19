@@ -36,7 +36,7 @@ enum RequestURL {
         case .posterLiked(posterIdx: let posterIdx, likeType: let like):
             return "/poster/like?posterIdx=\(posterIdx)&like=\(like)"
         case .initPoster:
-            return "/poster/show"
+            return "/poster"
         case .login:
             return "/login2"
         case .snsLogin:

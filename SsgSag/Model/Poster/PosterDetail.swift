@@ -41,7 +41,7 @@ struct DataClass: Codable {
 
 // MARK: - Analytics
 struct Analytics: Codable {
-    let majorCategory: [String]?
+    let majorCategory: [String?]?
     let majorCategoryRate: [Int]?
     let grade: [String]?
     let gradeRate: [Int]?

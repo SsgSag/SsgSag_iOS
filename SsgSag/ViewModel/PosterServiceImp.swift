@@ -80,14 +80,13 @@ class PosterServiceImp: PosterService {
     
     func requestPoster(completionHandler: @escaping (DataResponse<[Posters]>) -> Void) {
         
-        guard let url = UserAPI.sharedInstance.getURL(RequestURL.initPoster.getRequestURL) else {return}
+        guard let url = UserAPI.sharedInstance.getURL(RequestURL.initPoster.getRequestURL) else { return }
     
-        guard let tokenKey = UserDefaults.standard.object(forKey: TokenName.token) as? String else {
-            return
-        }
+        
+        guard let key = UserDefaults.standard.object(forKey: TokenName.token) as? String else { return }
         
         var request = URLRequest(url: url)
-        request.addValue(tokenKey, forHTTPHeaderField: "Authorization")
+        request.addValue(key, forHTTPHeaderField: "Authorization")
         
         NetworkManager.shared.getData(with: request) { (data, err, res) in
             guard let data = data else { return }
@@ -113,6 +112,7 @@ class PosterServiceImp: PosterService {
         
         var request = URLRequest(url: url)
         request.setValue(key, forHTTPHeaderField: "Authorization")
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         request.httpMethod = "GET"
         
         NetworkManager.shared.getData(with: request) { (data, error, response) in
