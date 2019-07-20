@@ -213,7 +213,7 @@ class UserInfoVC: UIViewController, UITextFieldDelegate {
     }
 }
 
-extension UserInfoVC : UIGestureRecognizerDelegate {
+extension UserInfoVC: UIGestureRecognizerDelegate {
     
     func iniGestureRecognizer() {
         let tap = UITapGestureRecognizer(target: self, action: #selector(handleTabMainView(_:)))

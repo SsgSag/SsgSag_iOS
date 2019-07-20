@@ -242,7 +242,7 @@ class SchoolInfoVC: UIViewController, UITextFieldDelegate {
                     self.autoLogin(sendType: sendType, sendToken: sendToken)
                 
                 case .failure:
-                    guard let message = data.message else {return}
+                    guard let message = data.message else { return }
                     self.handlingFailureError(message)
                 case .databaseError:
                     self.simpleAlert(title: "데이터베이스 에러", message: "서버 오류")

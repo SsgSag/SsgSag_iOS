@@ -51,7 +51,7 @@
                                                 <rect key="frame" x="0.0" y="0.0" width="335" height="22"/>
                                                 <nil key="textColor"/>
                                                 <fontDescription key="fontDescription" type="system" weight="medium" pointSize="18"/>
-                                                <textInputTraits key="textInputTraits" autocorrectionType="no" returnKeyType="next"/>
+                                                <textInputTraits key="textInputTraits" autocorrectionType="no" returnKeyType="next" enablesReturnKeyAutomatically="YES"/>
                                             </textField>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rv9-xn-4ee">
                                                 <rect key="frame" x="0.0" y="30" width="335" height="1"/>
@@ -69,7 +69,7 @@
                                                 <rect key="frame" x="0.0" y="0.0" width="335" height="22"/>
                                                 <nil key="textColor"/>
                                                 <fontDescription key="fontDescription" type="system" weight="medium" pointSize="18"/>
-                                                <textInputTraits key="textInputTraits" autocorrectionType="no" keyboardType="numbersAndPunctuation" returnKeyType="next"/>
+                                                <textInputTraits key="textInputTraits" autocorrectionType="no" keyboardType="numbersAndPunctuation" returnKeyType="next" enablesReturnKeyAutomatically="YES"/>
                                             </textField>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OhO-Ak-EJB">
                                                 <rect key="frame" x="0.0" y="30" width="335" height="1"/>
@@ -87,7 +87,7 @@
                                                 <rect key="frame" x="0.0" y="0.0" width="335" height="22"/>
                                                 <nil key="textColor"/>
                                                 <fontDescription key="fontDescription" type="system" weight="medium" pointSize="18"/>
-                                                <textInputTraits key="textInputTraits" autocorrectionType="no"/>
+                                                <textInputTraits key="textInputTraits" autocorrectionType="no" enablesReturnKeyAutomatically="YES"/>
                                             </textField>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cIS-ln-Gwv">
                                                 <rect key="frame" x="0.0" y="30.000000000000028" width="335" height="1"/>

@@ -10,13 +10,11 @@ import UIKit
 
 class ConfirmProfileVC: UIViewController, UITextFieldDelegate, UIGestureRecognizerDelegate {
     
-    private var name: String = ""
+    private var gender = ""
     
-    private var nickName: String = ""
+    private var isEnglish = false
     
-    private var password: String = ""
-    
-    private var gender: String = ""
+    private var isKorean = false
     
     @IBOutlet weak var titleLabel: UILabel!
     
@@ -34,22 +32,24 @@ class ConfirmProfileVC: UIViewController, UITextFieldDelegate, UIGestureRecogniz
     
     @IBOutlet weak var nextButton: GradientButton!
     
+    override func viewWillAppear(_ animated: Bool) {
+        let backButton = UIBarButtonItem(image: UIImage(named: "ic_ArrowBack"),
+                                         style: .plain,
+                                         target: self,
+                                         action: #selector(self.back))
+        
+        navigationItem.leftBarButtonItem = backButton
+        navigationItem.leftBarButtonItem?.tintColor = .black
+        
+        navigationController?.interactivePopGestureRecognizer?.delegate = self
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         nextButton.isUserInteractionEnabled = false
         
         iniGestureRecognizer()
-        
-        let backButton = UIBarButtonItem(image: UIImage(named: "icArrowBack"),
-                                        style: .plain,
-                                        target: self,
-                                        action: #selector(self.back))
-        
-        navigationItem.leftBarButtonItem = backButton
-        navigationItem.leftBarButtonItem?.tintColor = .black
-        
-        navigationController?.interactivePopGestureRecognizer?.delegate = self
         
         setNavigationBar(color: .white)
         
@@ -75,21 +75,18 @@ class ConfirmProfileVC: UIViewController, UITextFieldDelegate, UIGestureRecogniz
         birthField.resignFirstResponder()
     }
     
-    //FIXME: - present..하지 마시오,,,,,
     @objc func back(){
-        let storyboard = UIStoryboard(name: StoryBoardName.login, bundle: nil)
-        let loginVC = storyboard.instantiateViewController(withIdentifier: ViewControllerIdentifier.loginViewController)
-        present(loginVC, animated: false, completion: nil)
+        dismiss(animated: true)
+//        let storyboard = UIStoryboard(name: StoryBoardName.login, bundle: nil)
+//        let loginVC = storyboard.instantiateViewController(withIdentifier: ViewControllerIdentifier.loginViewController)
+//        present(loginVC, animated: false, completion: nil)
     }
     
+    // 이용약관 표시
     @IBAction func privatePolicyInfomation(_ sender: Any) {
         let storyboard = UIStoryboard(name: StoryBoardName.signup, bundle: nil)
         let termsOfServiceViewController = storyboard.instantiateViewController(withIdentifier: ViewControllerIdentifier.termsOfServiceViewController)
         self.navigationController?.pushViewController(termsOfServiceViewController, animated: true)
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
@@ -108,21 +105,86 @@ class ConfirmProfileVC: UIViewController, UITextFieldDelegate, UIGestureRecogniz
     }
     
     @IBAction func touchUpNextButton(_ sender: Any) {
-        if birthField.text?.count == 6 {
-            let storyboard = UIStoryboard(name: StoryBoardName.signup, bundle: nil)
-            let SchoolInfoVC = storyboard.instantiateViewController(withIdentifier: ViewControllerIdentifier.schoolInfoViewController) as! SchoolInfoVC
-            
-            SchoolInfoVC.name = nameField.text ?? ""
-            SchoolInfoVC.birth = birthField.text ?? ""
-            SchoolInfoVC.nickName = nickNameField.text ?? ""
-            SchoolInfoVC.gender = gender
-            
-            self.navigationController?.pushViewController(SchoolInfoVC, animated: true)
+        let name = nameField.text ?? ""
+        
+        if name.count < 11, name.count > 0 {
+            name.forEach {
+                if $0 >= "가" && $0 <= "힣" {
+                    isKorean = true
+                } else {
+                    isKorean = false
+                }
+            }
+            name.forEach {
+                if ($0 >= "a" && $0 <= "z") || ($0 >= "A" && $0 <= "Z") {
+                    isEnglish = true
+                } else {
+                    isEnglish = false
+                }
+            }
+                
+            if isEnglish && isKorean {
+                // alert
+                simpleAlert(title: "잘못된 형식입니다", message: "이름은 영문자 또는 한글만 입력할 수 있습니다. (혼용X)")
+                nameField.text = ""
+                isEnglish = false
+                isKorean = false
+                return
+            }
+        } else {
+            // alert
+            simpleAlert(title: "잘못된 형식입니다", message: "이름은 영문자 또는 한글만 입력할 수 있습니다. (혼용X)")
+            nameField.text = ""
+            isEnglish = false
+            isKorean = false
+            return
+        }
+        
+        let birth = birthField.text ?? ""
+        
+        if birth.count == 6 {
+            birth.forEach {
+                if !($0 >= "0" && $0 <= "9") {
+                    // alert
+                    simpleAlert(title: "잘못된 형식입니다", message: "생년월일(주민번호 앞자리) 형식이 잘못되었습니다.")
+                    birthField.text = ""
+                    return
+                }
+            }
+        } else {
+            simpleAlert(title: "잘못된 형식입니다", message: "생년월일(주민번호 앞자리) 형식이 잘못되었습니다.")
+            birthField.text = ""
+            return
+        }
+        
+        let nickName = nickNameField.text ?? ""
+        
+        if nickName.count < 11, nickName.count > 0 {
+            name.forEach {
+                if !(($0 >= "가" && $0 <= "힣") || ($0 >= "a" && $0 <= "z") || ($0 >= "A" && $0 <= "Z") || ($0 >= "0" && $0 <= "9")) {
+                    // alert
+                    simpleAlert(title: "잘못된 형식입니다", message: "닉네임은 1~10자 영문자, 한글, 숫자 조합으로 입력해주세요")
+                    nickNameField.text = ""
+                    return
+                }
+            }
             
         } else {
-            simpleAlert(title: "잘못된 형식입니다", message: "생년월일은 주민번호앞자리 \n닉네임은 영한혼용하지 말아주세요.")
-            birthField.text = ""
+            // alert
+            simpleAlert(title: "잘못된 형식입니다", message: "닉네임은 1~10자 영문자, 한글, 숫자 조합으로 입력해주세요")
+            nickNameField.text = ""
+            return
         }
+        
+        let storyboard = UIStoryboard(name: StoryBoardName.signup, bundle: nil)
+        let SchoolInfoVC = storyboard.instantiateViewController(withIdentifier: ViewControllerIdentifier.schoolInfoViewController) as! SchoolInfoVC
+        
+        SchoolInfoVC.name = nameField.text ?? ""
+        SchoolInfoVC.birth = birthField.text ?? ""
+        SchoolInfoVC.nickName = nickNameField.text ?? ""
+        SchoolInfoVC.gender = gender
+        
+        self.navigationController?.pushViewController(SchoolInfoVC, animated: true)
     }
     
     @IBAction func touchUpMaleButton(_ sender: UIButton) {
