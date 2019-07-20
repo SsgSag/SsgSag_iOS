@@ -21,17 +21,15 @@ class NetworkManager {
         session.dataTask(with: with) { (data, response, error) in
             
             if error != nil {
-                
-                //print("network error")
+                print("network error")
+                return
             }
             
             guard let data = data else {
                 return
             }
             
-            DispatchQueue.main.async {
-                completionHandler(data, nil, response)
-            }
+            completionHandler(data, nil, response)
             
         }.resume()
         

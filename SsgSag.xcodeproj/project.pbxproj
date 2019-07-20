@@ -142,6 +142,7 @@
 		D166AC7122D73CD700ED82DD /* NewsCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D166AC6F22D73CD700ED82DD /* NewsCollectionViewCell.xib */; };
 		D166AC7522D76DFC00ED82DD /* MenuBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = D166AC7422D76DFC00ED82DD /* MenuBar.swift */; };
 		D1CF960622DDC0B70069C75F /* PosterDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1CF960522DDC0B70069C75F /* PosterDetail.swift */; };
+		D1E2C22022E306C90044E6A1 /* EmailValidate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1E2C21F22E306C90044E6A1 /* EmailValidate.swift */; };
 		D1E517AF22E023890001EAA5 /* DetailInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1E517AE22E023890001EAA5 /* DetailInfoViewController.swift */; };
 		D1E517B622E0282B0001EAA5 /* PosterHeaderCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1E517B422E0282B0001EAA5 /* PosterHeaderCollectionReusableView.swift */; };
 		D1E517B722E0282B0001EAA5 /* PosterHeaderCollectionReusableView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D1E517B522E0282B0001EAA5 /* PosterHeaderCollectionReusableView.xib */; };
@@ -351,6 +352,7 @@
 		D166AC6F22D73CD700ED82DD /* NewsCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NewsCollectionViewCell.xib; sourceTree = "<group>"; };
 		D166AC7422D76DFC00ED82DD /* MenuBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuBar.swift; sourceTree = "<group>"; };
 		D1CF960522DDC0B70069C75F /* PosterDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PosterDetail.swift; sourceTree = "<group>"; };
+		D1E2C21F22E306C90044E6A1 /* EmailValidate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailValidate.swift; sourceTree = "<group>"; };
 		D1E517AE22E023890001EAA5 /* DetailInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailInfoViewController.swift; sourceTree = "<group>"; };
 		D1E517B422E0282B0001EAA5 /* PosterHeaderCollectionReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PosterHeaderCollectionReusableView.swift; sourceTree = "<group>"; };
 		D1E517B522E0282B0001EAA5 /* PosterHeaderCollectionReusableView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PosterHeaderCollectionReusableView.xib; sourceTree = "<group>"; };
@@ -515,6 +517,7 @@
 		84617606225F6EBF005E6173 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				D1E2C21E22E306940044E6A1 /* SignUp */,
 				846E622622901DE90083E3CD /* BasicNetworkModel.swift */,
 				84B23B42229558B000BAE2CD /* Poster */,
 				84617611225F7157005E6173 /* Swipe */,
@@ -896,6 +899,14 @@
 			path = Feed;
 			sourceTree = "<group>";
 		};
+		D1E2C21E22E306940044E6A1 /* SignUp */ = {
+			isa = PBXGroup;
+			children = (
+				D1E2C21F22E306C90044E6A1 /* EmailValidate.swift */,
+			);
+			path = SignUp;
+			sourceTree = "<group>";
+		};
 		FA524BEF21D64DFD00675289 /* Signup */ = {
 			isa = PBXGroup;
 			children = (
@@ -1260,6 +1271,7 @@
 				8463567D229418300060ED91 /* ImageNetworkManager.swift in Sources */,
 				FAF6DEE4222EAAEF001C70CC /* Interests.swift in Sources */,
 				84646C3D2289A57A005D3F1C /* InterestBoardTableViewCell.swift in Sources */,
+				D1E2C22022E306C90044E6A1 /* EmailValidate.swift in Sources */,
 				8486D268226E199100D7A0C7 /* PosterFavorite.swift in Sources */,
 				846E6233229294300083E3CD /* UserDefaultsName.swift in Sources */,
 				FA3A342221E5D64300668908 /* UserInfoVC.swift in Sources */,

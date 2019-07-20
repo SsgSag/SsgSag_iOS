@@ -70,7 +70,7 @@ class LoginPopUpVC: UIViewController, NaverThirdPartyLoginConnectionDelegate {
                             case 404:
                                 let storyboard = UIStoryboard(name: StoryBoardName.signup, bundle: nil)
                                 
-                                let signupVC = storyboard.instantiateViewController(withIdentifier: ViewControllerIdentifier.singupFirstViewController)
+                                let signupVC = storyboard.instantiateViewController(withIdentifier: ViewControllerIdentifier.confirmProfileViewController)
                                 
                                 let signupNavigator = UINavigationController(rootViewController: signupVC)
                                 
@@ -150,7 +150,7 @@ class LoginPopUpVC: UIViewController, NaverThirdPartyLoginConnectionDelegate {
                 case 404:
                     let storyboard = UIStoryboard(name: StoryBoardName.signup, bundle: nil)
                     
-                    let signupVC = storyboard.instantiateViewController(withIdentifier: ViewControllerIdentifier.singupFirstViewController)
+                    let signupVC = storyboard.instantiateViewController(withIdentifier: ViewControllerIdentifier.confirmProfileViewController)
                     
                     let signupNavigator = UINavigationController(rootViewController: signupVC)
                     

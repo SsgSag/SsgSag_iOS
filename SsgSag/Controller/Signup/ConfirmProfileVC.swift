@@ -8,13 +8,9 @@
 
 import UIKit
 
-class ConfirmProfileVC: UIViewController, UITextFieldDelegate, UIGestureRecognizerDelegate {
+class ConfirmProfileVC: UIViewController {
     
     private var gender = ""
-    
-    private var isEnglish = false
-    
-    private var isKorean = false
     
     @IBOutlet weak var titleLabel: UILabel!
     
@@ -33,235 +29,57 @@ class ConfirmProfileVC: UIViewController, UITextFieldDelegate, UIGestureRecogniz
     @IBOutlet weak var nextButton: GradientButton!
     
     override func viewWillAppear(_ animated: Bool) {
-        let backButton = UIBarButtonItem(image: UIImage(named: "ic_ArrowBack"),
-                                         style: .plain,
-                                         target: self,
-                                         action: #selector(self.back))
+        super.viewWillAppear(animated)
         
-        navigationItem.leftBarButtonItem = backButton
-        navigationItem.leftBarButtonItem?.tintColor = .black
-        
+        setNavigationBar(color: .white)
         navigationController?.interactivePopGestureRecognizer?.delegate = self
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        nextButton.isUserInteractionEnabled = false
-        
         iniGestureRecognizer()
-        
-        setNavigationBar(color: .white)
-        
-        nameField.delegate = self
-        birthField.delegate = self
-        nickNameField.delegate = self
-        nickNameField.returnKeyType = .done
-        
-        nameField.tag = 1
-        birthField.tag = 2
-        nickNameField.tag = 3
+        setupDelegate()
     }
     
     private func iniGestureRecognizer() {
-        let tap = UITapGestureRecognizer(target: self, action: #selector(handleTabMainView(_:)))
+        let tap = UITapGestureRecognizer(target: self,
+                                         action: #selector(handleTabMainView(_:)))
         tap.delegate = self
         view.addGestureRecognizer(tap)
     }
     
-    @objc func handleTabMainView(_ sender: UITapGestureRecognizer){
+    private func setupDelegate() {
+        nameField.delegate = self
+        birthField.delegate = self
+        nickNameField.delegate = self
+    }
+    
+    @objc private func handleTabMainView(_ sender: UITapGestureRecognizer) {
         nameField.resignFirstResponder()
         nickNameField.resignFirstResponder()
         birthField.resignFirstResponder()
     }
     
-    @objc func back(){
-        dismiss(animated: true)
-//        let storyboard = UIStoryboard(name: StoryBoardName.login, bundle: nil)
-//        let loginVC = storyboard.instantiateViewController(withIdentifier: ViewControllerIdentifier.loginViewController)
-//        present(loginVC, animated: false, completion: nil)
-    }
-    
-    // 이용약관 표시
-    @IBAction func privatePolicyInfomation(_ sender: Any) {
-        let storyboard = UIStoryboard(name: StoryBoardName.signup, bundle: nil)
-        let termsOfServiceViewController = storyboard.instantiateViewController(withIdentifier: ViewControllerIdentifier.termsOfServiceViewController)
-        self.navigationController?.pushViewController(termsOfServiceViewController, animated: true)
-    }
-    
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-
-        let nextTag = textField.tag + 1
-        
-        if let nextResponder = self.view.viewWithTag(nextTag){
-            
-            nextResponder.becomeFirstResponder()
-            
-        } else {
-            textField.resignFirstResponder()
-        }
-
-        return true
-    }
-    
-    @IBAction func touchUpNextButton(_ sender: Any) {
-        let name = nameField.text ?? ""
-        
-        if name.count < 11, name.count > 0 {
-            name.forEach {
-                if $0 >= "가" && $0 <= "힣" {
-                    isKorean = true
-                } else {
-                    isKorean = false
-                }
-            }
-            name.forEach {
-                if ($0 >= "a" && $0 <= "z") || ($0 >= "A" && $0 <= "Z") {
-                    isEnglish = true
-                } else {
-                    isEnglish = false
-                }
-            }
+    @objc func checkInformation() {
+        guard nameField.hasText
+            && birthField.hasText
+            && nickNameField.hasText
+            && checkBoxButton.isSelected else {
                 
-            if isEnglish && isKorean {
-                // alert
-                simpleAlert(title: "잘못된 형식입니다", message: "이름은 영문자 또는 한글만 입력할 수 있습니다. (혼용X)")
-                nameField.text = ""
-                isEnglish = false
-                isKorean = false
+                nextButton.isUserInteractionEnabled = false
+                
+                nextButton.topColor = .lightGray
+                nextButton.bottomColor = .lightGray
+                
                 return
-            }
-        } else {
-            // alert
-            simpleAlert(title: "잘못된 형식입니다", message: "이름은 영문자 또는 한글만 입력할 수 있습니다. (혼용X)")
-            nameField.text = ""
-            isEnglish = false
-            isKorean = false
-            return
-        }
-        
-        let birth = birthField.text ?? ""
-        
-        if birth.count == 6 {
-            birth.forEach {
-                if !($0 >= "0" && $0 <= "9") {
-                    // alert
-                    simpleAlert(title: "잘못된 형식입니다", message: "생년월일(주민번호 앞자리) 형식이 잘못되었습니다.")
-                    birthField.text = ""
-                    return
-                }
-            }
-        } else {
-            simpleAlert(title: "잘못된 형식입니다", message: "생년월일(주민번호 앞자리) 형식이 잘못되었습니다.")
-            birthField.text = ""
-            return
-        }
-        
-        let nickName = nickNameField.text ?? ""
-        
-        if nickName.count < 11, nickName.count > 0 {
-            name.forEach {
-                if !(($0 >= "가" && $0 <= "힣") || ($0 >= "a" && $0 <= "z") || ($0 >= "A" && $0 <= "Z") || ($0 >= "0" && $0 <= "9")) {
-                    // alert
-                    simpleAlert(title: "잘못된 형식입니다", message: "닉네임은 1~10자 영문자, 한글, 숫자 조합으로 입력해주세요")
-                    nickNameField.text = ""
-                    return
-                }
-            }
-            
-        } else {
-            // alert
-            simpleAlert(title: "잘못된 형식입니다", message: "닉네임은 1~10자 영문자, 한글, 숫자 조합으로 입력해주세요")
-            nickNameField.text = ""
-            return
-        }
-        
-        let storyboard = UIStoryboard(name: StoryBoardName.signup, bundle: nil)
-        let SchoolInfoVC = storyboard.instantiateViewController(withIdentifier: ViewControllerIdentifier.schoolInfoViewController) as! SchoolInfoVC
-        
-        SchoolInfoVC.name = nameField.text ?? ""
-        SchoolInfoVC.birth = birthField.text ?? ""
-        SchoolInfoVC.nickName = nickNameField.text ?? ""
-        SchoolInfoVC.gender = gender
-        
-        self.navigationController?.pushViewController(SchoolInfoVC, animated: true)
-    }
-    
-    @IBAction func touchUpMaleButton(_ sender: UIButton) {
-        femaleButton.isSelected = false
-        femaleButton.setImage(UIImage(named: "btFemaleUnactive"), for: .normal)
-        if maleButton.isSelected {
-            self.gender = ""
-            maleButton.isSelected = false
-            maleButton.setImage(UIImage(named: "btMaleUnactive"), for: .normal)
-        } else {
-            self.gender = "male"
-            maleButton.isSelected = true
-            maleButton.setImage(UIImage(named: "btMaleActive"), for: .normal)
-        }
-        checkInformation(self)
-    }
-    
-    @IBAction func touchUpFemalButton(_ sender: UIButton) {
-        maleButton.isSelected = false
-        maleButton.setImage(UIImage(named: "btMaleUnactive"), for: .normal)
-        
-        if femaleButton.isSelected {
-            self.gender = ""
-            femaleButton.isSelected = false
-            femaleButton.setImage(UIImage(named: "btFemaleUnactive"), for: .normal)
-        } else {
-            self.gender = "female"
-            femaleButton.isSelected = true
-            femaleButton.setImage(UIImage(named: "btFemaleActive"), for: .normal)
-        }
-        
-        checkInformation(self)
-    }
-    
-    @IBAction func touchUpCheckBoxButton(_ sender: UIButton) {
-        if sender.isSelected {
-            sender.isSelected = false
-            sender.setImage(UIImage(named: "btCheckUnactive"), for: .normal)
-        } else {
-            sender.isSelected = true
-            sender.setImage(UIImage(named: "btCheckActive"), for: .normal)
-        }
-        checkInformation(self)
-    }
-    
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        checkInformation(self)
-    }
-    
-    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
-        self.view.endEditing(true)
-        return true
-    }
-    
-    func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
-        print("textfieldshouldBeginEditing")
-        checkInformation(self)
-        return true
-    }
-    
-     @objc func checkInformation(_ sender: Any) {
-        
-        guard nameField.hasText && birthField.hasText && nickNameField.hasText && checkBoxButton.isSelected else {
-            
-            nextButton.isUserInteractionEnabled = false
-            
-            nextButton.topColor = .lightGray
-            nextButton.bottomColor = .white
-            
-            return
         }
         
         guard maleButton.isSelected || femaleButton.isSelected else {
             nextButton.isUserInteractionEnabled = false
             
             nextButton.topColor = .lightGray
-            nextButton.bottomColor = .white
+            nextButton.bottomColor = .lightGray
             
             return
         }
@@ -272,5 +90,177 @@ class ConfirmProfileVC: UIViewController, UITextFieldDelegate, UIGestureRecogniz
         nextButton.bottomColor = #colorLiteral(red: 0.6588235294, green: 0.2784313725, blue: 1, alpha: 1)
         
     }
+    
+    // 이용약관 표시
+    @IBAction private func privatePolicyInfomation(_ sender: Any) {
+        let storyboard = UIStoryboard(name: StoryBoardName.signup,
+                                      bundle: nil)
+        let termsOfServiceViewController
+            = storyboard.instantiateViewController(withIdentifier: ViewControllerIdentifier.termsOfServiceViewController)
+        
+        navigationController?.pushViewController(termsOfServiceViewController,
+                                                 animated: true)
+    }
+    
+    private func isValidateName(name: String?) -> Bool {
+        guard name != nil else { return false }
+        
+        let englishRegEx = "^[a-zA-Z]{1,10}$"
+        let koreanRegEx = "^[가-힣]{1,10}$"
+        
+        let englishPred = NSPredicate(format: "SELF MATCHES %@", englishRegEx)
+        let koreanPred = NSPredicate(format: "SELF MATCHES %@", koreanRegEx)
+        
+        return englishPred.evaluate(with: name) || koreanPred.evaluate(with: name)
+    }
+    
+    private func isValidateBirth(birth: String?) -> Bool {
+        guard birth != nil else { return false }
+        
+        let regEx = "^(?:[0-9]{2}(?:0[1-9]|1[0-2])(?:0[1-9]|[1,2][0-9]|3[0,1]))$"
+        
+        let pred = NSPredicate(format: "SELF MATCHES %@", regEx)
+        
+        return pred.evaluate(with: birth)
+    }
+    
+    private func isValidateNickName(nickName: String?) -> Bool {
+        guard nickName != nil else { return false }
+        
+        let regEx = "^[a-zA-Z가-힣0-9]{1,10}$"
+        
+        let pred = NSPredicate(format: "SELF MATCHES %@", regEx)
+        
+        return pred.evaluate(with: nickName)
+    }
+    
+    @IBAction func touchUpNextButton(_ sender: Any) {
+        
+        guard isValidateName(name: nameField.text) else {
+            simpleAlert(title: "잘못된 형식입니다",
+                        message: "이름은 영문자 또는 한글만 입력할 수 있습니다. (혼용X)")
+            nameField.text = ""
+            
+            nextButton.isUserInteractionEnabled = false
+            
+            nextButton.topColor = .lightGray
+            nextButton.bottomColor = .lightGray
+            return
+        }
+        
+        guard isValidateBirth(birth: birthField.text) else {
+            simpleAlert(title: "잘못된 형식입니다",
+                        message: "생년월일(주민번호 앞자리) 형식이 잘못되었습니다.")
+            birthField.text = ""
+            
+            nextButton.isUserInteractionEnabled = false
+            
+            nextButton.topColor = .lightGray
+            nextButton.bottomColor = .lightGray
+            return
+        }
+        
+        guard isValidateNickName(nickName: nickNameField.text) else {
+            simpleAlert(title: "잘못된 형식입니다",
+                        message: "닉네임은 1~10자 영문자, 한글, 숫자 조합으로 입력해주세요")
+            nickNameField.text = ""
+            
+            nextButton.isUserInteractionEnabled = false
+            
+            nextButton.topColor = .lightGray
+            nextButton.bottomColor = .lightGray
+            return
+        }
+        
+        let storyboard = UIStoryboard(name: StoryBoardName.signup, bundle: nil)
+        let SchoolInfoVC
+            = storyboard.instantiateViewController(withIdentifier: ViewControllerIdentifier.schoolInfoViewController)
+                as! SchoolInfoVC
+        
+        SchoolInfoVC.name = nameField.text ?? ""
+        SchoolInfoVC.birth = birthField.text ?? ""
+        SchoolInfoVC.nickName = nickNameField.text ?? ""
+        SchoolInfoVC.gender = gender
+        
+        navigationController?.pushViewController(SchoolInfoVC, animated: true)
+    }
+    
+    @IBAction func touchUpMaleButton(_ sender: UIButton) {
+        femaleButton.isSelected = false
+        femaleButton.setImage(UIImage(named: "btFemaleUnactive"), for: .normal)
+        if maleButton.isSelected {
+            gender = ""
+            maleButton.isSelected = false
+            maleButton.setImage(UIImage(named: "btMaleUnactive"), for: .normal)
+        } else {
+            gender = "male"
+            maleButton.isSelected = true
+            maleButton.setImage(UIImage(named: "btMaleActive"), for: .normal)
+        }
+        checkInformation()
+    }
+    
+    @IBAction func touchUpFemaleButton(_ sender: UIButton) {
+        maleButton.isSelected = false
+        maleButton.setImage(UIImage(named: "btMaleUnactive"),
+                            for: .normal)
+        
+        if femaleButton.isSelected {
+            gender = ""
+            femaleButton.isSelected = false
+            femaleButton.setImage(UIImage(named: "btFemaleUnactive"),
+                                  for: .normal)
+        } else {
+            gender = "female"
+            femaleButton.isSelected = true
+            femaleButton.setImage(UIImage(named: "btFemaleActive"),
+                                  for: .normal)
+        }
+        
+        checkInformation()
+    }
+    
+    @IBAction func touchUpCheckBoxButton(_ sender: UIButton) {
+        if sender.isSelected {
+            sender.isSelected = false
+            sender.setImage(UIImage(named: "btCheckUnactive"), for: .normal)
+        } else {
+            sender.isSelected = true
+            sender.setImage(UIImage(named: "btCheckActive"), for: .normal)
+        }
+        checkInformation()
+    }
+    
+//    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+//        checkInformation(self)
+//    }
 }
 
+extension ConfirmProfileVC: UITextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        
+        let nextTag = textField.tag + 1
+        
+        if let nextResponder = self.view.viewWithTag(nextTag) {
+            
+            nextResponder.becomeFirstResponder()
+            
+        } else {
+            textField.resignFirstResponder()
+        }
+        
+        return true
+    }
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        checkInformation()
+    }
+}
+
+extension ConfirmProfileVC: UIGestureRecognizerDelegate {
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer,
+                           shouldReceive touch: UITouch) -> Bool {
+        self.view.endEditing(true)
+        return true
+    }
+}

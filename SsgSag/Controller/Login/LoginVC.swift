@@ -119,8 +119,8 @@ class LoginVC: UIViewController, UITextFieldDelegate {
     
     @IBAction func ssgSagSignUp(_ sender: Any) {
         let storyboard = UIStoryboard(name: StoryBoardName.signup, bundle: nil)
-        let ConfirmProfileVC = storyboard.instantiateViewController(withIdentifier: ViewControllerIdentifier.confirmProfileVC)
-        let signupNavigator = UINavigationController(rootViewController: ConfirmProfileVC)
+        let userInfoVC = storyboard.instantiateViewController(withIdentifier: ViewControllerIdentifier.userInfoViewContrller)
+        let signupNavigator = UINavigationController(rootViewController: userInfoVC)
         self.present(signupNavigator, animated: true, completion: nil)
     }
     

@@ -16,7 +16,7 @@ enum ViewControllerIdentifier {
     static let userInfoViewContrller = "UserInfoVC"
     static let confirmProfileVC = "SignupFirst"
     static let loginPopUpViewController = "LoginPopUp"
-    static let singupFirstViewController = "SignupFirst"
+    static let confirmProfileViewController = "ConfirmProfileVC"
     static let applySuccessViewController = "applySucess"
     static let addPassiveDataNavigationController = "AddPassiveDateNV"
     static let detailPosterViewController = "DetailPoster"
