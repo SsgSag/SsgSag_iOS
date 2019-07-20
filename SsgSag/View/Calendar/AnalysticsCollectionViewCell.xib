@@ -47,40 +47,40 @@
                         </constraints>
                     </view>
                     <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" spacingType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="wSn-3z-w03">
-                        <rect key="frame" x="40" y="47" width="329" height="120"/>
+                        <rect key="frame" x="40" y="73" width="329" height="68"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fpb-zi-ZzS" customClass="PieChartView" customModule="슥삭" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="0.0" width="68" height="120"/>
+                                <rect key="frame" x="0.0" y="0.0" width="68" height="68"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
+                                    <constraint firstAttribute="height" constant="68" id="C8J-pD-yvD"/>
                                     <constraint firstAttribute="width" constant="68" id="eLM-qJ-4r7"/>
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Q0c-gd-aSB" customClass="PieChartView" customModule="슥삭" customModuleProvider="target">
-                                <rect key="frame" x="130.5" y="0.0" width="68" height="120"/>
+                                <rect key="frame" x="130.5" y="0.0" width="68" height="68"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
+                                    <constraint firstAttribute="height" constant="68" id="TMH-yJ-tzx"/>
                                     <constraint firstAttribute="width" constant="68" id="wKY-CK-mXB"/>
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="G14-KH-NaY" customClass="PieChartView" customModule="슥삭" customModuleProvider="target">
-                                <rect key="frame" x="261" y="0.0" width="68" height="120"/>
+                                <rect key="frame" x="261" y="0.0" width="68" height="68"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
+                                    <constraint firstAttribute="height" constant="68" id="5jp-Tz-o3d"/>
                                     <constraint firstAttribute="width" constant="68" id="lZg-OA-3Eg"/>
                                 </constraints>
                             </view>
                         </subviews>
-                        <constraints>
-                            <constraint firstAttribute="height" constant="120" id="oTP-cz-sJG"/>
-                        </constraints>
                     </stackView>
                 </subviews>
             </view>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
                 <constraint firstAttribute="trailing" secondItem="yYA-4L-fWP" secondAttribute="trailing" constant="37" id="0fw-SE-i0W"/>
-                <constraint firstItem="wSn-3z-w03" firstAttribute="top" secondItem="rcM-VK-U3C" secondAttribute="bottom" constant="14" id="2bw-Kt-9Es"/>
+                <constraint firstItem="wSn-3z-w03" firstAttribute="top" secondItem="rcM-VK-U3C" secondAttribute="bottom" constant="40" id="2bw-Kt-9Es"/>
                 <constraint firstAttribute="bottom" secondItem="5Ic-Mq-rYt" secondAttribute="bottom" id="47S-PS-ten"/>
                 <constraint firstAttribute="trailing" secondItem="5Ic-Mq-rYt" secondAttribute="trailing" id="7f6-RF-Fsa"/>
                 <constraint firstItem="rcM-VK-U3C" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="22" id="O25-9h-9ni"/>
@@ -95,9 +95,6 @@
             </constraints>
             <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
             <size key="customSize" width="409" height="209"/>
-            <connections>
-                <outlet property="analyticsStackView" destination="wSn-3z-w03" id="Ae2-aT-qWW"/>
-            </connections>
             <point key="canvasLocation" x="23.913043478260871" y="102.79017857142857"/>
         </collectionViewCell>
     </objects>
