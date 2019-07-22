@@ -141,6 +141,12 @@
 		D166AC7022D73CD700ED82DD /* NewsCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D166AC6E22D73CD700ED82DD /* NewsCollectionViewCell.swift */; };
 		D166AC7122D73CD700ED82DD /* NewsCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D166AC6F22D73CD700ED82DD /* NewsCollectionViewCell.xib */; };
 		D166AC7522D76DFC00ED82DD /* MenuBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = D166AC7422D76DFC00ED82DD /* MenuBar.swift */; };
+		D1CD5DDE22E5B3B90033FCB3 /* myPageMenuTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1CD5DDC22E5B3B90033FCB3 /* myPageMenuTableViewCell.swift */; };
+		D1CD5DDF22E5B3B90033FCB3 /* myPageMenuTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D1CD5DDD22E5B3B90033FCB3 /* myPageMenuTableViewCell.xib */; };
+		D1CD5DE122E5BBDB0033FCB3 /* NoticeServiceImp.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1CD5DE022E5BBDB0033FCB3 /* NoticeServiceImp.swift */; };
+		D1CD5DE322E5BC610033FCB3 /* Notice.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1CD5DE222E5BC610033FCB3 /* Notice.swift */; };
+		D1CD5DE522E5C7D20033FCB3 /* PostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1CD5DE422E5C7D20033FCB3 /* PostViewController.swift */; };
+		D1CD5DE722E5CE240033FCB3 /* PostTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1CD5DE622E5CE240033FCB3 /* PostTableViewCell.swift */; };
 		D1CF960622DDC0B70069C75F /* PosterDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1CF960522DDC0B70069C75F /* PosterDetail.swift */; };
 		D1E2C22022E306C90044E6A1 /* EmailValidate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1E2C21F22E306C90044E6A1 /* EmailValidate.swift */; };
 		D1E517AF22E023890001EAA5 /* DetailInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1E517AE22E023890001EAA5 /* DetailInfoViewController.swift */; };
@@ -352,6 +358,12 @@
 		D166AC6E22D73CD700ED82DD /* NewsCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsCollectionViewCell.swift; sourceTree = "<group>"; };
 		D166AC6F22D73CD700ED82DD /* NewsCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NewsCollectionViewCell.xib; sourceTree = "<group>"; };
 		D166AC7422D76DFC00ED82DD /* MenuBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuBar.swift; sourceTree = "<group>"; };
+		D1CD5DDC22E5B3B90033FCB3 /* myPageMenuTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = myPageMenuTableViewCell.swift; sourceTree = "<group>"; };
+		D1CD5DDD22E5B3B90033FCB3 /* myPageMenuTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = myPageMenuTableViewCell.xib; sourceTree = "<group>"; };
+		D1CD5DE022E5BBDB0033FCB3 /* NoticeServiceImp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoticeServiceImp.swift; sourceTree = "<group>"; };
+		D1CD5DE222E5BC610033FCB3 /* Notice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notice.swift; sourceTree = "<group>"; };
+		D1CD5DE422E5C7D20033FCB3 /* PostViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostViewController.swift; sourceTree = "<group>"; };
+		D1CD5DE622E5CE240033FCB3 /* PostTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostTableViewCell.swift; sourceTree = "<group>"; };
 		D1CF960522DDC0B70069C75F /* PosterDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PosterDetail.swift; sourceTree = "<group>"; };
 		D1E2C21F22E306C90044E6A1 /* EmailValidate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailValidate.swift; sourceTree = "<group>"; };
 		D1E517AE22E023890001EAA5 /* DetailInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailInfoViewController.swift; sourceTree = "<group>"; };
@@ -525,6 +537,7 @@
 				84617611225F7157005E6173 /* Swipe */,
 				84617610225F7120005E6173 /* Calendar */,
 				84836AC0222E5F4A00922A78 /* MyPage */,
+				D1CD5DE222E5BC610033FCB3 /* Notice.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -721,6 +734,7 @@
 				846356782293EAA10060ED91 /* NotificationInfoTableViewController.swift */,
 				8463567A2293EF030060ED91 /* TermsOfServiceViewController.swift */,
 				8463567E22941E020060ED91 /* PrivateProtectViewController.swift */,
+				D1CD5DE422E5C7D20033FCB3 /* PostViewController.swift */,
 			);
 			path = NotifiCation;
 			sourceTree = "<group>";
@@ -782,6 +796,7 @@
 				846E6224228FDA140083E3CD /* InterestServiceImp.swift */,
 				846E6228229137F40083E3CD /* SignupServiceImp.swift */,
 				8463566D22930E210060ED91 /* CareerServiceImp.swift */,
+				D1CD5DE022E5BBDB0033FCB3 /* NoticeServiceImp.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -852,6 +867,9 @@
 				84B4268921E9063600B44F71 /* bt_save_round.json */,
 				84646C3B2289A57A005D3F1C /* InterestBoardTableViewCell.swift */,
 				84646C3C2289A57A005D3F1C /* InterestBoardTableViewCell.xib */,
+				D1CD5DDC22E5B3B90033FCB3 /* myPageMenuTableViewCell.swift */,
+				D1CD5DDD22E5B3B90033FCB3 /* myPageMenuTableViewCell.xib */,
+				D1CD5DE622E5CE240033FCB3 /* PostTableViewCell.swift */,
 			);
 			path = MyPage;
 			sourceTree = "<group>";
@@ -1110,6 +1128,7 @@
 				84B4268A21E9063600B44F71 /* bt_save_round.json in Resources */,
 				D1E517B722E0282B0001EAA5 /* PosterHeaderCollectionReusableView.xib in Resources */,
 				D11080B622E0942A00F345A8 /* PosterFooterCollectionReusableView.xib in Resources */,
+				D1CD5DDF22E5B3B90033FCB3 /* myPageMenuTableViewCell.xib in Resources */,
 				D11080B222E0917F00F345A8 /* CommentWriteCollectionViewCell.xib in Resources */,
 				846E6223228FCF320083E3CD /* Launch Screen.storyboard in Resources */,
 				D110809A22E044E600F345A8 /* DetailInfoCollectionViewCell.xib in Resources */,
@@ -1246,6 +1265,7 @@
 				84FB4FE1226B7CAA00D9F2F9 /* RequestURL.swift in Sources */,
 				845928A321D09CDD001DF6CC /* SsgSag.xcdatamodeld in Sources */,
 				84A45D13225FA0E400C60287 /* NetworkRouter.swift in Sources */,
+				D1CD5DE322E5BC610033FCB3 /* Notice.swift in Sources */,
 				FA851DE921D3DBBC002065D0 /* SwipeCard.swift in Sources */,
 				84A45D11225FA03800C60287 /* JSONParameterEncoder.swift in Sources */,
 				84C77E4F22759AAF00DEE2D8 /* ZoomPosterVC.swift in Sources */,
@@ -1320,8 +1340,11 @@
 				8486D266226E18E800D7A0C7 /* CalendarServiceImp.swift in Sources */,
 				84A45D09225F9B8B00C60287 /* HTTPMethod.swift in Sources */,
 				840DDD40227EAC4000D9D515 /* TapbarServiceImp.swift in Sources */,
+				D1CD5DE522E5C7D20033FCB3 /* PostViewController.swift in Sources */,
+				D1CD5DE722E5CE240033FCB3 /* PostTableViewCell.swift in Sources */,
 				8463566E22930E210060ED91 /* CareerServiceImp.swift in Sources */,
 				FA61FE1121E0E4A200A28947 /* PreferenceVC.swift in Sources */,
+				D1CD5DDE22E5B3B90033FCB3 /* myPageMenuTableViewCell.swift in Sources */,
 				843813112270153900C9E47B /* MypageServiceImp.swift in Sources */,
 				840FEDC122074F6F00581A3B /* DayCollectionViewCell.swift in Sources */,
 				8496818522AFD3FE004A4A63 /* VADay.swift in Sources */,
@@ -1347,6 +1370,7 @@
 				845928E521D38771001DF6CC /* DetailImageSwipeCard.swift in Sources */,
 				84BA694D21DB74BD00BA8CB8 /* TapbarVC.swift in Sources */,
 				8496818122AFD3FE004A4A63 /* VADayView.swift in Sources */,
+				D1CD5DE122E5BBDB0033FCB3 /* NoticeServiceImp.swift in Sources */,
 				8496818022AFD3FE004A4A63 /* VACalendarMonthDelegate.swift in Sources */,
 				8496819022AFDF66004A4A63 /* NewCalendarVC.swift in Sources */,
 				D166AC7022D73CD700ED82DD /* NewsCollectionViewCell.swift in Sources */,

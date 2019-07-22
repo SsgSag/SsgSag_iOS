@@ -81,9 +81,13 @@
                                         <color key="textColor" red="0.60784313729999995" green="0.60784313729999995" blue="0.60784313729999995" alpha="0.84999999999999998" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="zhV-bu-NPb">
+                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="zhV-bu-NPb">
                                         <rect key="frame" x="0.0" y="354.66666666666674" width="375" height="359.33333333333326"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <connections>
+                                            <outlet property="dataSource" destination="xxg-7e-42k" id="jBL-Wm-Z8p"/>
+                                            <outlet property="delegate" destination="xxg-7e-42k" id="Ds0-w9-umo"/>
+                                        </connections>
                                     </tableView>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -123,9 +127,10 @@
                     </view>
                     <navigationItem key="navigationItem" id="DFY-gX-KSc"/>
                     <connections>
-                        <outlet property="idLabel" destination="cON-Tp-SAp" id="s4B-6M-HC0"/>
+                        <outlet property="idLabel" destination="ojx-1I-pPr" id="efD-nT-FNO"/>
                         <outlet property="majorLabel" destination="x3B-1a-HAT" id="hc3-G3-GdG"/>
-                        <outlet property="nameLabel" destination="ojx-1I-pPr" id="JTC-Gd-2Su"/>
+                        <outlet property="myPageTableView" destination="zhV-bu-NPb" id="PN2-ql-40k"/>
+                        <outlet property="nameLabel" destination="cON-Tp-SAp" id="S2G-Rf-0H4"/>
                         <outlet property="profileImageView" destination="OAG-nj-2fG" id="aAv-ee-Bhu"/>
                         <outlet property="schoolLabel" destination="Dsn-Qk-bp2" id="K3I-Eh-whE"/>
                     </connections>
@@ -257,7 +262,7 @@
         <!--Navigation Controller-->
         <scene sceneID="dSz-fF-crV">
             <objects>
-                <navigationController id="ePu-zF-6Vz" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="noticeNavigationVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="ePu-zF-6Vz" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="1WU-VS-LX7">
                         <rect key="frame" x="0.0" y="44" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -274,100 +279,18 @@
         <scene sceneID="X0p-wR-q3D">
             <objects>
                 <tableViewController id="Jfz-ZF-KRo" customClass="NotificationInfoTableViewController" customModule="슥삭" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="kbt-TH-KSq">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="plain" separatorStyle="default" rowHeight="60" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="kbt-TH-KSq">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <sections>
-                            <tableViewSection id="6xb-c7-Qha">
-                                <cells>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" rowHeight="97" id="fvT-pB-mDH">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="97"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="fvT-pB-mDH" id="NaN-bH-buF">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="96.666666666666671"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="슥삭 1.1.1 버전 출시!" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wAV-ne-AJ3">
-                                                    <rect key="frame" x="24" y="37" width="136.33333333333334" height="23"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="height" constant="23" id="7W1-cG-Fc6"/>
-                                                    </constraints>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <nil key="textColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="alertNewPost" translatesAutoresizingMaskIntoConstraints="NO" id="IWv-Zl-vEk">
-                                                    <rect key="frame" x="161.33333333333334" y="37" width="23" height="23"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="width" constant="23" id="HKd-YU-og5"/>
-                                                        <constraint firstAttribute="height" constant="23" id="Vwp-oS-vA2"/>
-                                                    </constraints>
-                                                </imageView>
-                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icHeaderArrowNextMypage" translatesAutoresizingMaskIntoConstraints="NO" id="0sq-x0-Zmw">
-                                                    <rect key="frame" x="331" y="36.333333333333336" width="24" height="24"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="width" constant="24" id="fRD-sm-DSA"/>
-                                                        <constraint firstAttribute="height" constant="24" id="rH4-wN-AfS"/>
-                                                    </constraints>
-                                                </imageView>
-                                            </subviews>
-                                            <constraints>
-                                                <constraint firstItem="IWv-Zl-vEk" firstAttribute="centerY" secondItem="wAV-ne-AJ3" secondAttribute="centerY" id="5em-Tb-FY3"/>
-                                                <constraint firstItem="wAV-ne-AJ3" firstAttribute="centerY" secondItem="NaN-bH-buF" secondAttribute="centerY" id="GID-Mu-PML"/>
-                                                <constraint firstItem="IWv-Zl-vEk" firstAttribute="leading" secondItem="wAV-ne-AJ3" secondAttribute="trailing" constant="1" id="RlF-Ya-Fmx"/>
-                                                <constraint firstItem="wAV-ne-AJ3" firstAttribute="leading" secondItem="NaN-bH-buF" secondAttribute="leading" constant="24" id="e63-3R-25G"/>
-                                                <constraint firstItem="0sq-x0-Zmw" firstAttribute="centerY" secondItem="NaN-bH-buF" secondAttribute="centerY" id="mLf-rO-rIv"/>
-                                                <constraint firstAttribute="trailing" secondItem="0sq-x0-Zmw" secondAttribute="trailing" constant="20" id="vMF-D6-MvD"/>
-                                            </constraints>
-                                        </tableViewCellContentView>
-                                    </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" rowHeight="97" id="7Ev-93-O5H">
-                                        <rect key="frame" x="0.0" y="97" width="375" height="97"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="7Ev-93-O5H" id="jsC-ee-bSb">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="96.666666666666671"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="akF-Tn-MK1">
-                                                    <rect key="frame" x="407" y="61" width="42" height="44"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                </imageView>
-                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icHeaderArrowNextMypage" translatesAutoresizingMaskIntoConstraints="NO" id="Vex-3y-gsk">
-                                                    <rect key="frame" x="331" y="36.333333333333336" width="24" height="24"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="height" constant="24" id="EfY-t0-X67"/>
-                                                        <constraint firstAttribute="width" constant="24" id="Hvi-z9-7WW"/>
-                                                    </constraints>
-                                                </imageView>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="공지사항" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Luf-pD-SAl">
-                                                    <rect key="frame" x="24" y="37" width="59" height="23"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="height" constant="23" id="yxX-Pu-4Mb"/>
-                                                    </constraints>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <nil key="textColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                            </subviews>
-                                            <constraints>
-                                                <constraint firstItem="Vex-3y-gsk" firstAttribute="centerY" secondItem="jsC-ee-bSb" secondAttribute="centerY" id="Mvh-ZT-rez"/>
-                                                <constraint firstItem="Luf-pD-SAl" firstAttribute="leading" secondItem="jsC-ee-bSb" secondAttribute="leading" constant="24" id="dnZ-Hg-Tpi"/>
-                                                <constraint firstItem="Luf-pD-SAl" firstAttribute="centerY" secondItem="jsC-ee-bSb" secondAttribute="centerY" id="mVX-bL-MSD"/>
-                                                <constraint firstAttribute="trailing" secondItem="Vex-3y-gsk" secondAttribute="trailing" constant="20" id="mkg-9S-gug"/>
-                                            </constraints>
-                                        </tableViewCellContentView>
-                                    </tableViewCell>
-                                </cells>
-                            </tableViewSection>
-                        </sections>
+                        <sections/>
                         <connections>
                             <outlet property="dataSource" destination="Jfz-ZF-KRo" id="CXS-Rg-xnL"/>
                             <outlet property="delegate" destination="Jfz-ZF-KRo" id="WhE-fI-sk0"/>
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="공지사항" id="JEF-dS-0Kt">
-                        <barButtonItem key="leftBarButtonItem" title="Item" image="icArrowBack" id="fr5-Gn-tfk">
+                        <barButtonItem key="leftBarButtonItem" image="ic_ArrowBack" id="fr5-Gn-tfk">
                             <connections>
                                 <action selector="dissmissNotification:" destination="Jfz-ZF-KRo" id="n9T-Mu-w4o"/>
                             </connections>
@@ -2545,7 +2468,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="alertNewPost" width="23" height="23"/>
         <image name="btCompanyBigPassive" width="162" height="162"/>
         <image name="btCompanyForeignPassive" width="162" height="162"/>
         <image name="btCompanyMidPassive" width="162" height="162"/>
@@ -2581,8 +2503,8 @@
         <image name="icArrowBack" width="48" height="48"/>
         <image name="icArrowGradation" width="44" height="50"/>
         <image name="icArrowNextMypage" width="24" height="24"/>
-        <image name="icHeaderArrowNextMypage" width="24" height="24"/>
         <image name="icXClose" width="24" height="24"/>
+        <image name="ic_ArrowBack" width="48" height="48"/>
         <image name="ic_cancel" width="48" height="48"/>
         <image name="ic_settings" width="48" height="48"/>
         <image name="imgDefaultProfile" width="120" height="120"/>

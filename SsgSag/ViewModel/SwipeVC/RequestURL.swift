@@ -30,6 +30,7 @@ enum RequestURL {
     case signUp
     case isUpdate
     case career(careerType: Int)
+    case notice
     
     var getRequestURL: String {
         switch self {
@@ -75,6 +76,8 @@ enum RequestURL {
             return "/update"
         case .career(careerType: let careerType):
             return "/career/\(careerType)"
+        case .notice:
+            return "/notice"
         }
     }
     
