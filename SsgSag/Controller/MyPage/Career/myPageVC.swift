@@ -31,16 +31,17 @@ class myPageVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
         return picker
     }()
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        getData()
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         loadImage()
 
         profileImageView.applyRadius(radius: profileImageView.frame.height / 2)
-    }
-
-    override func viewWillAppear(_ animated: Bool) {
-        getData()
     }
     
     private func loadImage() {
@@ -84,6 +85,8 @@ class myPageVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
     
     @IBAction func touchUpLogoutButton(_ sender: Any) {
         UserDefaults.standard.removeObject(forKey: TokenName.token)
+        
+        KOSession.shared()?.logoutAndClose(completionHandler: nil)
         
         guard let window = UIApplication.shared.keyWindow else {
             return
@@ -252,11 +255,10 @@ class myPageVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
         request.addValue(key, forHTTPHeaderField: "Authorization")
         
-        NetworkManager.shared.getData(with: request) { (data, error, res) in
+        NetworkManager.shared.getData(with: request) { [weak self] (data, error, res) in
             if error != nil {
                 print(error.debugDescription)
             }
-            
             
             guard let data = data else {
                 return
@@ -265,11 +267,11 @@ class myPageVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
             do {
                 let apiResponse = try JSONDecoder().decode(UserNetworkModel.self, from: data)
                 
-                DispatchQueue.main.async { [weak self] in
-                    self?.nameLabel.text = apiResponse.data.userName
-                    self?.idLabel.text = apiResponse.data.userNickname
-                    self?.majorLabel.text = apiResponse.data.userMajor
-                    self?.schoolLabel.text = apiResponse.data.userUniv
+                DispatchQueue.main.async {
+                    self?.nameLabel.text = apiResponse.data?.userName
+                    self?.idLabel.text = apiResponse.data?.userNickname
+                    self?.majorLabel.text = apiResponse.data?.userMajor
+                    self?.schoolLabel.text = apiResponse.data?.userUniv
                 }
                 
             } catch (let err) {

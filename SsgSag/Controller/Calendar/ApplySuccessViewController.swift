@@ -10,7 +10,7 @@ import UIKit
 
 class ApplySuccessViewController: UIViewController {
     
-    private func getPostersData() -> [Posters]{
+    private func getPostersData() -> [Posters] {
         
         let userDefaultsPoster = StoreAndFetchPoster.shared.getPostersAfterAllChangedConfirm()
         
@@ -79,21 +79,21 @@ extension ApplySuccessViewController: UITableViewDelegate, UITableViewDataSource
     
     func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
         
-        let deleteAction = UITableViewRowAction(style: .default, title: "삭제" ) { action, indexPath in
+        let deleteAction = UITableViewRowAction(style: .default, title: "삭제") { [weak self] action, indexPath in
         
             var posterInfo = StoreAndFetchPoster.shared.getPostersAfterAllChangedConfirm()
             
-            guard let posterIdx = self.posters[indexPath.row].posterIdx else {return}
+            guard let posterIdx = self?.posters[indexPath.row].posterIdx else {return}
             
             for index in 0..<posterInfo.count-1 {
                 
                 guard let posterInfoPosterIdx = posterInfo[index].posterIdx else { return }
                 
                 if posterIdx == posterInfoPosterIdx {
-                        posterInfo.remove(at: index)
+                    posterInfo.remove(at: index)
                     
                     let posterDelete = CalendarServiceImp()
-                    posterDelete.requestDelete(posterIdx) { (dataResponse) in
+                    posterDelete.requestDelete(posterIdx) { [weak self] (dataResponse) in
                         
                         guard let statusCode = dataResponse.value?.status else {return}
                         
@@ -118,9 +118,11 @@ extension ApplySuccessViewController: UITableViewDelegate, UITableViewDataSource
             
             NotificationCenter.default.post(name: NSNotification.Name(NotificationName.deleteUserDefaults), object: nil)
         
-            self.posters = self.getPostersData()
+            self?.posters = self?.getPostersData() ?? []
             
-            tableView.reloadData()
+            DispatchQueue.main.async {
+                tableView.reloadData()
+            }
         }
         
         deleteAction.backgroundColor = UIColor.rgb(red: 249, green: 106, blue: 106)

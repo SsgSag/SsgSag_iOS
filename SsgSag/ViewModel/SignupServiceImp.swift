@@ -13,7 +13,7 @@ protocol SignupService: class {
                              completionHandler: @escaping (DataResponse<HttpStatusCode>, Bool) -> Void)
     
     func requestSingup(_ userInfo: Data,
-                       completionHandler: @escaping (DataResponse<BasicNetworkModel>) -> Void)
+                       completionHandler: @escaping (DataResponse<Signup>) -> Void)
 }
 
 class SignupServiceImp: SignupService {
@@ -52,25 +52,26 @@ class SignupServiceImp: SignupService {
     }
     
     func requestSingup(_ userInfo: Data,
-                       completionHandler: @escaping (DataResponse<BasicNetworkModel>) -> Void) {
+                       completionHandler: @escaping (DataResponse<Signup>) -> Void) {
         guard let url = UserAPI.sharedInstance.getURL(RequestURL.signUp.getRequestURL) else {return}
         
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
-        request.httpBody = userInfo
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         
-        NetworkManager.shared.getData(with: request) { (data, error, response) in
-            guard let data = data else {return}
+        NetworkManager.shared.updateData(with: request,
+                                         data: userInfo) { (data, error, response) in
+            guard let data = data else {
+                return
+            }
             
             do {
-                let dataByNetwork = try JSONDecoder().decode(BasicNetworkModel.self, from: data)
+                let dataByNetwork = try JSONDecoder().decode(Signup.self, from: data)
                 
                 completionHandler(DataResponse.success(dataByNetwork))
             } catch {
                 print("requestSingup Json Parsing")
             }
-            
         }
     }
     

@@ -93,25 +93,28 @@ class LoginVC: UIViewController, UITextFieldDelegate {
             "loginType" : 10 //10은 자체 로그인
         ]
         
-        loginServiceImp.requestLogin(send: sendData) { (dataResponse) in
+        loginServiceImp.requestLogin(send: sendData) { [weak self] (dataResponse) in
             
             guard let statusCode = dataResponse.value?.status else {return}
             
             guard let httpStatusCode = HttpStatusCode(rawValue: statusCode) else {return}
             
-            DispatchQueue.main.async {
-                switch httpStatusCode {
-                case .sucess:
-                    if let storeToken = dataResponse.value?.data?.token {
-                        UserDefaults.standard.set(storeToken,
-                                                  forKey: TokenName.token)
-                    }
-                    self.present(TapbarVC(), animated: true, completion: nil)
-                case .failure:
-                    self.simpleAlert(title: "로그인 실패", message: "")
-                default:
-                    break
+            switch httpStatusCode {
+            case .sucess:
+                if let storeToken = dataResponse.value?.data?.token {
+                    UserDefaults.standard.set(storeToken,
+                                              forKey: TokenName.token)
                 }
+                
+                DispatchQueue.main.async {
+                    self?.present(TapbarVC(), animated: true, completion: nil)
+                }
+            case .failure:
+                DispatchQueue.main.async {
+                    self?.simpleAlert(title: "로그인 실패", message: "")
+                }
+            default:
+                break
             }
         }
         

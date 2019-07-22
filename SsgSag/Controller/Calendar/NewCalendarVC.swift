@@ -112,7 +112,9 @@ class NewCalendarVC: UIViewController {
             switch dataResponse {
             case .success(let monthTodoData):
                 TodoData.shared.storeMonthTodoData(monthTodoData)
-                self?.calendarView.setup()
+                DispatchQueue.main.async {
+                    self?.calendarView.setup()
+                }
             case .failed(let error):
                 assertionFailure(error.localizedDescription)
                 return

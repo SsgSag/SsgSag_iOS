@@ -118,7 +118,6 @@ class CalendarDetailVC: UIViewController {
                     }
                     
                     DispatchQueue.main.async {
-                        
                         guard let categoryIdx = detailData.categoryIdx else { return }
                         
                         if let category = PosterCategory(rawValue: categoryIdx) {

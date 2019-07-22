@@ -629,9 +629,9 @@ extension CalenderVC: UITableViewDelegate,UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
         
-        let editAction = UITableViewRowAction(style: .default, title: "완료") { action, indexPath in
+        let editAction = UITableViewRowAction(style: .default, title: "완료") { [weak self] action, indexPath in
             
-            guard let posterIdx = self.todoTableData[indexPath.row].posterIdx else {return}
+            guard let posterIdx = self?.todoTableData[indexPath.row].posterIdx else {return}
             
             UserDefaults.standard.setValue(1, forKey: "completed\(posterIdx)")
             
@@ -653,22 +653,24 @@ extension CalenderVC: UITableViewDelegate,UITableViewDataSource {
                     break
                 }
             }
-            tableView.reloadData()
+            DispatchQueue.main.async {
+                tableView.reloadData()
+            }
         }
         
-        let deleteAction = UITableViewRowAction(style: .default, title: "삭제", handler: { (action, indexPath) in
+        let deleteAction = UITableViewRowAction(style: .default, title: "삭제", handler: { [weak self] (action, indexPath) in
         
             let posterInfo = StoreAndFetchPoster.shared.getPostersAfterAllChangedConfirm()
             
             var userDefaultsData = posterInfo
             
             for index in 0...posterInfo.count-1 {
-                if posterInfo[index].posterName! == self.todoTableData[indexPath.row].posterName! {
+                if posterInfo[index].posterName! == self?.todoTableData[indexPath.row].posterName! {
                     
                     userDefaultsData.remove(at: index)
                     
                     let posterDelete = CalendarServiceImp()
-                    guard let posterIdx = self.todoTableData[indexPath.row].posterIdx else {return}
+                    guard let posterIdx = self?.todoTableData[indexPath.row].posterIdx else {return}
                     posterDelete.requestDelete(posterIdx) { (dataResponse) in
                         
                         guard let statusCode = dataResponse.value?.status else {return}

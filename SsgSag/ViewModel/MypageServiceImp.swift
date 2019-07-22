@@ -152,6 +152,38 @@ class MyPageServiceImp: myPageService {
             
         }
     }
+    
+    func requestUserInformation(completionHandler: @escaping (DataResponse<UserNetworkModel>) -> Void) {
+        guard let url = UserAPI.sharedInstance.getURL(RequestURL.signUp.getRequestURL) else {
+            return
+        }
+        
+        guard let token = UserDefaults.standard.object(forKey: TokenName.token) as? String else {
+            return
+        }
+        
+        var request = URLRequest(url: url)
+        request.httpMethod = "GET"
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.addValue(token, forHTTPHeaderField: "Authorization")
+        
+        NetworkManager.shared.getData(with: request) { (data, error, res) in
+            
+            guard let data = data else {
+                return
+            }
+            
+            do {
+                let apiResponse = try JSONDecoder().decode(UserNetworkModel.self, from: data)
+                
+                completionHandler(DataResponse.success(apiResponse))
+                
+            } catch  {
+                print("Interests Json Parsing Error")
+            }
+            
+        }
+    }
 }
 
 

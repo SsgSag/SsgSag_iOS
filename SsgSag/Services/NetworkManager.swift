@@ -35,4 +35,21 @@ class NetworkManager {
         
     }
     
+    func updateData(with: URLRequest, data: Data, completionHandler: @escaping (Data?, Error?, URLResponse?) -> Void) {
+        session.uploadTask(with: with, from: data) { (data, response, error) in
+            
+            if error != nil {
+                print("network error")
+                return
+            }
+            
+            guard let data = data else {
+                return
+            }
+            
+            completionHandler(data, nil, response)
+            
+            }.resume()
+        
+    }
 }

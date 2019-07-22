@@ -135,7 +135,7 @@ class LoginPopUpVC: UIViewController, NaverThirdPartyLoginConnectionDelegate {
         let authorization = "\(tokenType) \(accessToken)"
         print(authorization)
         
-        snsLoginServiceImp?.requestSnsLogin(using: accessToken, type: 1) { (dataResponse) in
+        snsLoginServiceImp?.requestSnsLogin(using: accessToken, type: 1) { [weak self] (dataResponse) in
             
             if let storeToken = dataResponse.value?.data?.token {
                 UserDefaults.standard.set(storeToken, forKey: TokenName.token)
@@ -146,7 +146,7 @@ class LoginPopUpVC: UIViewController, NaverThirdPartyLoginConnectionDelegate {
             DispatchQueue.main.async {
                 switch statusCode {
                 case 200:
-                    self.present(TapbarVC(), animated: true, completion: nil)
+                    self?.present(TapbarVC(), animated: true, completion: nil)
                 case 404:
                     let storyboard = UIStoryboard(name: StoryBoardName.signup, bundle: nil)
                     
@@ -154,7 +154,7 @@ class LoginPopUpVC: UIViewController, NaverThirdPartyLoginConnectionDelegate {
                     
                     let signupNavigator = UINavigationController(rootViewController: signupVC)
                     
-                    self.present(signupNavigator, animated: true, completion: nil)
+                    self?.present(signupNavigator, animated: true, completion: nil)
                 default:
                     break
                 }
