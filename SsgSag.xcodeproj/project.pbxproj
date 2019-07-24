@@ -147,6 +147,7 @@
 		D1CD5DE322E5BC610033FCB3 /* Notice.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1CD5DE222E5BC610033FCB3 /* Notice.swift */; };
 		D1CD5DE522E5C7D20033FCB3 /* PostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1CD5DE422E5C7D20033FCB3 /* PostViewController.swift */; };
 		D1CD5DE722E5CE240033FCB3 /* PostTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1CD5DE622E5CE240033FCB3 /* PostTableViewCell.swift */; };
+		D1CD5DE922E5E6BA0033FCB3 /* AccountSettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1CD5DE822E5E6BA0033FCB3 /* AccountSettingViewController.swift */; };
 		D1CF960622DDC0B70069C75F /* PosterDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1CF960522DDC0B70069C75F /* PosterDetail.swift */; };
 		D1E2C22022E306C90044E6A1 /* EmailValidate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1E2C21F22E306C90044E6A1 /* EmailValidate.swift */; };
 		D1E517AF22E023890001EAA5 /* DetailInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1E517AE22E023890001EAA5 /* DetailInfoViewController.swift */; };
@@ -157,6 +158,13 @@
 		D1E81E6F22DB270B004DAA00 /* MenuCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1E81E6E22DB270B004DAA00 /* MenuCollectionViewCell.swift */; };
 		D1E81E7122DC7F84004DAA00 /* majorListByUniv.json in Resources */ = {isa = PBXBuildFile; fileRef = D1E81E7022DC7F84004DAA00 /* majorListByUniv.json */; };
 		D1E9B3D522E594D8007CB6D2 /* SignUp.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1E9B3D422E594D8007CB6D2 /* SignUp.swift */; };
+		D1FB05A722E6C917001425CF /* SettingTextFieldCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1FB05A522E6C917001425CF /* SettingTextFieldCollectionViewCell.swift */; };
+		D1FB05A822E6C917001425CF /* SettingTextFieldCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D1FB05A622E6C917001425CF /* SettingTextFieldCollectionViewCell.xib */; };
+		D1FB05AB22E6D68D001425CF /* SettingProfileImageCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1FB05A922E6D68D001425CF /* SettingProfileImageCollectionReusableView.swift */; };
+		D1FB05AC22E6D68D001425CF /* SettingProfileImageCollectionReusableView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D1FB05AA22E6D68D001425CF /* SettingProfileImageCollectionReusableView.xib */; };
+		D1FB05AE22E6DC2F001425CF /* AccountSettingViewController + UICollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1FB05AD22E6DC2F001425CF /* AccountSettingViewController + UICollectionView.swift */; };
+		D1FB05B522E6E3AE001425CF /* SettingMenuCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1FB05B322E6E3AE001425CF /* SettingMenuCollectionViewCell.swift */; };
+		D1FB05B622E6E3AE001425CF /* SettingMenuCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D1FB05B422E6E3AE001425CF /* SettingMenuCollectionViewCell.xib */; };
 		FA23A93F21DF6FCF003DB5F9 /* myPageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA23A93D21DF6FCF003DB5F9 /* myPageTableViewCell.swift */; };
 		FA3A342021E5127700668908 /* UserAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA3A341F21E5127700668908 /* UserAPI.swift */; };
 		FA3A342221E5D64300668908 /* UserInfoVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA3A342121E5D64300668908 /* UserInfoVC.swift */; };
@@ -364,6 +372,7 @@
 		D1CD5DE222E5BC610033FCB3 /* Notice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notice.swift; sourceTree = "<group>"; };
 		D1CD5DE422E5C7D20033FCB3 /* PostViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostViewController.swift; sourceTree = "<group>"; };
 		D1CD5DE622E5CE240033FCB3 /* PostTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostTableViewCell.swift; sourceTree = "<group>"; };
+		D1CD5DE822E5E6BA0033FCB3 /* AccountSettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountSettingViewController.swift; sourceTree = "<group>"; };
 		D1CF960522DDC0B70069C75F /* PosterDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PosterDetail.swift; sourceTree = "<group>"; };
 		D1E2C21F22E306C90044E6A1 /* EmailValidate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailValidate.swift; sourceTree = "<group>"; };
 		D1E517AE22E023890001EAA5 /* DetailInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailInfoViewController.swift; sourceTree = "<group>"; };
@@ -374,6 +383,13 @@
 		D1E81E6E22DB270B004DAA00 /* MenuCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuCollectionViewCell.swift; sourceTree = "<group>"; };
 		D1E81E7022DC7F84004DAA00 /* majorListByUniv.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = majorListByUniv.json; sourceTree = "<group>"; };
 		D1E9B3D422E594D8007CB6D2 /* SignUp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUp.swift; sourceTree = "<group>"; };
+		D1FB05A522E6C917001425CF /* SettingTextFieldCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingTextFieldCollectionViewCell.swift; sourceTree = "<group>"; };
+		D1FB05A622E6C917001425CF /* SettingTextFieldCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SettingTextFieldCollectionViewCell.xib; sourceTree = "<group>"; };
+		D1FB05A922E6D68D001425CF /* SettingProfileImageCollectionReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingProfileImageCollectionReusableView.swift; sourceTree = "<group>"; };
+		D1FB05AA22E6D68D001425CF /* SettingProfileImageCollectionReusableView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SettingProfileImageCollectionReusableView.xib; sourceTree = "<group>"; };
+		D1FB05AD22E6DC2F001425CF /* AccountSettingViewController + UICollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AccountSettingViewController + UICollectionView.swift"; sourceTree = "<group>"; };
+		D1FB05B322E6E3AE001425CF /* SettingMenuCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingMenuCollectionViewCell.swift; sourceTree = "<group>"; };
+		D1FB05B422E6E3AE001425CF /* SettingMenuCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SettingMenuCollectionViewCell.xib; sourceTree = "<group>"; };
 		D40B4484F25DECA11CB327D8 /* Pods-SsgSagUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SsgSagUITests.debug.xcconfig"; path = "Target Support Files/Pods-SsgSagUITests/Pods-SsgSagUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		E015768EBB87E5CEEF53138B /* Pods-SsgSag.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SsgSag.release.xcconfig"; path = "Target Support Files/Pods-SsgSag/Pods-SsgSag.release.xcconfig"; sourceTree = "<group>"; };
 		E3C1F7A7EF024A1619F0DFCB /* Pods_SsgSagUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SsgSagUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -623,6 +639,8 @@
 			children = (
 				84B23B3F2295584C00BAE2CD /* Career */,
 				84646C2D228946C4005D3F1C /* NotifiCation */,
+				D1CD5DE822E5E6BA0033FCB3 /* AccountSettingViewController.swift */,
+				D1FB05AD22E6DC2F001425CF /* AccountSettingViewController + UICollectionView.swift */,
 			);
 			path = MyPage;
 			sourceTree = "<group>";
@@ -870,6 +888,12 @@
 				D1CD5DDC22E5B3B90033FCB3 /* myPageMenuTableViewCell.swift */,
 				D1CD5DDD22E5B3B90033FCB3 /* myPageMenuTableViewCell.xib */,
 				D1CD5DE622E5CE240033FCB3 /* PostTableViewCell.swift */,
+				D1FB05A522E6C917001425CF /* SettingTextFieldCollectionViewCell.swift */,
+				D1FB05A622E6C917001425CF /* SettingTextFieldCollectionViewCell.xib */,
+				D1FB05A922E6D68D001425CF /* SettingProfileImageCollectionReusableView.swift */,
+				D1FB05AA22E6D68D001425CF /* SettingProfileImageCollectionReusableView.xib */,
+				D1FB05B322E6E3AE001425CF /* SettingMenuCollectionViewCell.swift */,
+				D1FB05B422E6E3AE001425CF /* SettingMenuCollectionViewCell.xib */,
 			);
 			path = MyPage;
 			sourceTree = "<group>";
@@ -1106,11 +1130,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				8496818E22AFDDD1004A4A63 /* newCalendarStoryboard.storyboard in Resources */,
+				D1FB05B622E6E3AE001425CF /* SettingMenuCollectionViewCell.xib in Resources */,
 				84BA694B21DB395400BA8CB8 /* MyPageStoryBoard.storyboard in Resources */,
 				84E19CE421DCC9F4006F72EC /* LoginStoryBoard.storyboard in Resources */,
 				FA7F4CBC21DFC7E700D8643A /* CustomCareerCell.xib in Resources */,
 				84B8630A22B64F7900E4B0C1 /* DetailTodoListTableViewCell.xib in Resources */,
 				FA3A8FD721DF3C3B0075A510 /* Splash.storyboard in Resources */,
+				D1FB05A822E6C917001425CF /* SettingTextFieldCollectionViewCell.xib in Resources */,
 				D11080AA22E07FF000F345A8 /* AnalysticsCollectionViewCell.xib in Resources */,
 				FA7F4CC821DFCC7E00D8643A /* CertificationCell.xib in Resources */,
 				D166AC7122D73CD700ED82DD /* NewsCollectionViewCell.xib in Resources */,
@@ -1140,6 +1166,7 @@
 				D166AC6922D733F900ED82DD /* FeedStoryBoard.storyboard in Resources */,
 				D11080AE22E0820300F345A8 /* CommentCollectionViewCell.xib in Resources */,
 				D11080A222E052C000F345A8 /* SeeMoreCollectionViewCell.xib in Resources */,
+				D1FB05AC22E6D68D001425CF /* SettingProfileImageCollectionReusableView.xib in Resources */,
 				84D09D0622880C3D008EEA7C /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1269,6 +1296,7 @@
 				FA851DE921D3DBBC002065D0 /* SwipeCard.swift in Sources */,
 				84A45D11225FA03800C60287 /* JSONParameterEncoder.swift in Sources */,
 				84C77E4F22759AAF00DEE2D8 /* ZoomPosterVC.swift in Sources */,
+				D1FB05AB22E6D68D001425CF /* SettingProfileImageCollectionReusableView.swift in Sources */,
 				84D09D0822883421008EEA7C /* ActivityServiceImp.swift in Sources */,
 				8496818822AFD3FE004A4A63 /* VAWeekDaysView.swift in Sources */,
 				D1E81E6D22DB181E004DAA00 /* FeedPageCollectionViewCell.swift in Sources */,
@@ -1293,11 +1321,13 @@
 				84B1B24E2269DFC600077DF9 /* CalendarForNetwork.swift in Sources */,
 				FAD25C132212CD78004B45E2 /* LoginPopUpVC.swift in Sources */,
 				FA3A344421E72F5200668908 /* SchoolInfoVC.swift in Sources */,
+				D1CD5DE922E5E6BA0033FCB3 /* AccountSettingViewController.swift in Sources */,
 				84B1B250226A364100077DF9 /* DataResponse.swift in Sources */,
 				8463567D229418300060ED91 /* ImageNetworkManager.swift in Sources */,
 				FAF6DEE4222EAAEF001C70CC /* Interests.swift in Sources */,
 				84646C3D2289A57A005D3F1C /* InterestBoardTableViewCell.swift in Sources */,
 				D1E2C22022E306C90044E6A1 /* EmailValidate.swift in Sources */,
+				D1FB05AE22E6DC2F001425CF /* AccountSettingViewController + UICollectionView.swift in Sources */,
 				8486D268226E199100D7A0C7 /* PosterFavorite.swift in Sources */,
 				846E6233229294300083E3CD /* UserDefaultsName.swift in Sources */,
 				FA3A342221E5D64300668908 /* UserInfoVC.swift in Sources */,
@@ -1308,6 +1338,8 @@
 				84A45D15225FA1E800C60287 /* Router.swift in Sources */,
 				84646C38228965E5005D3F1C /* AppInfoViewController.swift in Sources */,
 				8496818622AFD3FE004A4A63 /* VAFormatters.swift in Sources */,
+				D1FB05B522E6E3AE001425CF /* SettingMenuCollectionViewCell.swift in Sources */,
+				D1FB05A722E6C917001425CF /* SettingTextFieldCollectionViewCell.swift in Sources */,
 				846E622722901DE90083E3CD /* BasicNetworkModel.swift in Sources */,
 				FAD323DB21E36FA6000C4FBA /* AddCertificationVC.swift in Sources */,
 				D11080B822E09F6E00F345A8 /* DetailInfoButtonsView.swift in Sources */,

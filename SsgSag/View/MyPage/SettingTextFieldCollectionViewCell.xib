@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="gTV-IL-0wX" customClass="SettingTextFieldCollectionViewCell" customModule="슥삭" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="139"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                <rect key="frame" x="0.0" y="0.0" width="375" height="139"/>
+                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <subviews>
+                    <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="T2L-uE-PZM">
+                        <rect key="frame" x="20" y="9" width="289" height="201"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uXh-pn-Zf2">
+                                <rect key="frame" x="0.0" y="0.0" width="339" height="19"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="19" id="hKq-CP-T4Q"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                <color key="textColor" white="0.0" alpha="0.40000000000000002" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="Tq8-Xc-SbX">
+                                <rect key="frame" x="0.0" y="19" width="339" height="40"/>
+                                <subviews>
+                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="SbD-ls-pRM">
+                                        <rect key="frame" x="0.0" y="0.0" width="279" height="40"/>
+                                        <nil key="textColor"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                    </textField>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MCT-wz-72T">
+                                        <rect key="frame" x="289" y="0.0" width="50" height="40"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="50" id="pQP-sh-ARO"/>
+                                        </constraints>
+                                        <inset key="contentEdgeInsets" minX="12" minY="3" maxX="12" maxY="3"/>
+                                        <state key="normal" title="변경">
+                                            <color key="titleColor" red="0.38431372549019605" green="0.41568627450980389" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="touchUpChangeButton:" destination="gTV-IL-0wX" eventType="touchUpInside" id="5wc-oj-yWq"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="uQb-fK-tBh"/>
+                                </constraints>
+                            </stackView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fdo-vp-7RW">
+                                <rect key="frame" x="0.0" y="59" width="339" height="1"/>
+                                <color key="backgroundColor" red="0.8784313725490196" green="0.8784313725490196" blue="0.8784313725490196" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="1" id="WOi-mq-qOv"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                    </stackView>
+                </subviews>
+            </view>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <constraints>
+                <constraint firstItem="T2L-uE-PZM" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="18" id="KGH-YF-YVU"/>
+                <constraint firstAttribute="trailing" secondItem="T2L-uE-PZM" secondAttribute="trailing" constant="18" id="dWN-tN-qJP"/>
+                <constraint firstItem="T2L-uE-PZM" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" constant="15" id="mJ7-TM-b9F"/>
+            </constraints>
+            <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
+            <size key="customSize" width="375" height="139"/>
+            <connections>
+                <outlet property="changeButton" destination="MCT-wz-72T" id="JsK-1U-m3u"/>
+                <outlet property="settingTextField" destination="SbD-ls-pRM" id="UD2-bt-9rr"/>
+                <outlet property="settingTitleLabel" destination="uXh-pn-Zf2" id="yEq-Ec-vnd"/>
+            </connections>
+            <point key="canvasLocation" x="-42.753623188405797" y="85.379464285714278"/>
+        </collectionViewCell>
+    </objects>
+</document>

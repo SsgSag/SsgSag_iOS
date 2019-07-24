@@ -64,6 +64,7 @@ class myPageVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
     }
     
     @IBAction func touchUpSettingButton(_ sender: UIButton) {
+        present(UINavigationController(rootViewController: AccountSettingViewController()), animated: true)
     }
     
     @IBAction func touchUpCameraButton(_ sender: UIButton) {
