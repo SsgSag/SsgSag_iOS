@@ -21,6 +21,8 @@ class AccountSettingViewController: UIViewController {
     
     var selectedImage: UIImage?
     
+    var currentTextField: UITextField?
+    
     private lazy var profileImagePicker: UIImagePickerController = {
         let imagePicker = UIImagePickerController()
         imagePicker.sourceType = .photoLibrary
@@ -72,13 +74,8 @@ class AccountSettingViewController: UIViewController {
     }
     
     private func setupLayout() {
-        let tapGesture = UITapGestureRecognizer(target: self,
-                                                action: nil)
-        tapGesture.delegate = self
-        
         view.backgroundColor = .white
         
-        view.addGestureRecognizer(tapGesture)
         view.addSubview(settingCollectionView)
         
         settingCollectionView.topAnchor.constraint(
@@ -89,7 +86,6 @@ class AccountSettingViewController: UIViewController {
             equalTo: view.safeAreaLayoutGuide.trailingAnchor).isActive = true
         settingCollectionView.bottomAnchor.constraint(
             equalTo: view.bottomAnchor).isActive = true
-        
     }
 
     private func setupCollectionView() {
@@ -190,14 +186,6 @@ extension AccountSettingViewController: UIImagePickerControllerDelegate, UINavig
     }
 }
 
-extension AccountSettingViewController: UIGestureRecognizerDelegate {
-    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer,
-                           shouldReceive touch: UITouch) -> Bool {
-        view.endEditing(true)
-        return true
-    }
-}
-
 extension AccountSettingViewController: ShowImagePickerDelegate {
     func imagePickerShouldLoad() {
         // TODO: imagePicker 띄울것
@@ -226,5 +214,16 @@ extension AccountSettingViewController: ShowImagePickerDelegate {
                 }
             }
         }
+    }
+}
+
+extension AccountSettingViewController: UITextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
+    }
+    
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        currentTextField = textField
     }
 }

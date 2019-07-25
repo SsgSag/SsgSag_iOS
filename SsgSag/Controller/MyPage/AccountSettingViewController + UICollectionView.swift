@@ -78,6 +78,7 @@ extension AccountSettingViewController: UICollectionViewDataSource {
                                placeholder: "\(settingTitles[indexPath.row])을/를 입력해주세요")
             }
             
+            cell.settingTextField.delegate = self
             
             return cell
         } else {
@@ -91,6 +92,34 @@ extension AccountSettingViewController: UICollectionViewDataSource {
             cell.configure(row: indexPath.row)
             
             return cell
+        }
+    }
+    
+    func collectionView(_ collectionView: UICollectionView,
+                        didSelectItemAt indexPath: IndexPath) {
+        
+        view.endEditing(true)
+        currentTextField?.resignFirstResponder()
+        
+        // 서비스 정보
+        if indexPath == IndexPath(item: 0, section: 1) {
+            navigationController?.pushViewController(ServiceInfoViewController(),
+                                                     animated: true)
+        } else if indexPath == IndexPath(item: 1, section: 1) {
+            // 로그아웃
+            let storyboard = UIStoryboard(name: "MyPageStoryBoard",
+                                          bundle: nil)
+            
+            guard let logoutVC
+                = storyboard.instantiateViewController(withIdentifier: ViewControllerIdentifier.logoutViewController)
+                    as? LogoutViewController else {
+                        return
+            }
+            
+            navigationController?.pushViewController(logoutVC,
+                                                     animated: true)
+        } else if indexPath == IndexPath(item: 2, section: 1) {
+            // 회원 탈퇴
         }
     }
 }

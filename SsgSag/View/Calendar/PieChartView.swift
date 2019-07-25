@@ -17,7 +17,6 @@ class PieChartView: UIView {
         label.adjustsFontSizeToFitWidth = true
         label.textAlignment = .center
         label.textColor = #colorLiteral(red: 0.3137254902, green: 0.3137254902, blue: 0.3137254902, alpha: 1)
-        label.text = "label"
         return label
     }()
     
@@ -33,7 +32,6 @@ class PieChartView: UIView {
         label.font = UIFont.systemFont(ofSize: 12)
         label.textAlignment = .center
         label.textColor = .white
-        label.text = "label"
         return label
     }()
     
@@ -43,7 +41,6 @@ class PieChartView: UIView {
         label.font = UIFont.systemFont(ofSize: 8)
         label.textAlignment = .center
         label.textColor = #colorLiteral(red: 0.4705882353, green: 0.4705882353, blue: 0.4705882353, alpha: 1)
-        label.text = "label"
         return label
     }()
     
@@ -53,53 +50,11 @@ class PieChartView: UIView {
         label.font = UIFont.systemFont(ofSize: 8)
         label.textAlignment = .center
         label.textColor = #colorLiteral(red: 0.4705882353, green: 0.4705882353, blue: 0.4705882353, alpha: 1)
-        label.text = "label"
         return label
     }()
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        
-        let center = CGPoint(x: frame.width / 2, y: frame.height / 2)
-        let array: [CGFloat] = [40, 30 + 40, 20 + 30 + 40, 10 + 20 + 30 + 40]
-        
-        var color: [UIColor] = [#colorLiteral(red: 0.4603668451, green: 0.5182471275, blue: 1, alpha: 1), #colorLiteral(red: 0.4603668451, green: 0.5182471275, blue: 1, alpha: 0.7), #colorLiteral(red: 0.4603668451, green: 0.5182471275, blue: 1, alpha: 0.5), #colorLiteral(red: 0.4603668451, green: 0.5182471275, blue: 1, alpha: 0.3)]
-        
-        let animation = CABasicAnimation(keyPath: "strokeEnd")
-        
-        animation.toValue = 1
-        animation.duration = 2
-        animation.fillMode = .forwards
-        animation.isRemovedOnCompletion = false
-        
-        for i in 0..<array.count {
-            let shapeLayer = CAShapeLayer()
-            let path = UIBezierPath(arcCenter: center,
-                                    radius: frame.width / 4,
-                                    startAngle: 0,
-                                    endAngle: array[i] * (.pi / 180) * (360 / 100),
-                                    clockwise: true)
-            
-            shapeLayer.path = path.cgPath
-            shapeLayer.strokeColor = color[i].cgColor
-            shapeLayer.fillColor = UIColor.clear.cgColor
-            shapeLayer.lineWidth = frame.width / 2
-            
-            shapeLayer.strokeEnd = 0
-            
-            layer.addSublayer(shapeLayer)
-            
-            let animation = CABasicAnimation(keyPath: "strokeEnd")
-            
-            animation.toValue = 1
-            animation.duration = CFTimeInterval(1.5 * array[i] / 100)
-            animation.fillMode = .forwards
-            animation.isRemovedOnCompletion = false
-            
-            shapeLayer.add(animation, forKey: "urSoBasic")
-        }
-        
-        setupLayout()
     }
     
     private func setupLayout() {
@@ -129,7 +84,7 @@ class PieChartView: UIView {
         firstPersentLabel.centerXAnchor.constraint(
             equalTo: chartView.centerXAnchor).isActive = true
         firstPersentLabel.centerYAnchor.constraint(
-            equalTo: chartView.centerYAnchor).isActive = true
+            equalTo: chartView.centerYAnchor, constant: -3).isActive = true
         firstPersentLabel.leadingAnchor.constraint(
             equalTo: leadingAnchor).isActive = true
         firstPersentLabel.trailingAnchor.constraint(
@@ -151,15 +106,15 @@ class PieChartView: UIView {
             equalTo: trailingAnchor).isActive = true
     }
     
-    func configureAnalyticsWith(analyticsData: Analytics?, rates: [Int]?) {
-        guard let rates = rates else { return }
-        
+    func configureAnalyticsWith(strings: [String?], rates: [Int?]) {
         var sumRates: [Int] = []
+        
+        let rates = rates.compactMap { $0 }
         
         for index in 0..<rates.count {
             var rate = 0
             
-            for i in 0..<index {
+            for i in 0...index {
                 rate += rates[i]
             }
             
@@ -167,13 +122,33 @@ class PieChartView: UIView {
         }
         
         drawAnalytics(rates: sumRates)
+        setupChartLabels(strings: strings, rates: rates)
+        setupLayout()
     }
     
-    private func drawAnalytics(rates: [Int]) {
-        let center = CGPoint(x: frame.width / 2, y: frame.height / 2)
-        let array: [CGFloat] = [40, 30 + 40, 20 + 30 + 40, 10 + 20 + 30 + 40]
+    private func setupChartLabels(strings: [String?], rates: [Int]) {
+        firstMajorLabel.text = strings[0]
         
-        var color: [UIColor] = [#colorLiteral(red: 0.4603668451, green: 0.5182471275, blue: 1, alpha: 1), #colorLiteral(red: 0.4603668451, green: 0.5182471275, blue: 1, alpha: 0.7), #colorLiteral(red: 0.4603668451, green: 0.5182471275, blue: 1, alpha: 0.5), #colorLiteral(red: 0.4603668451, green: 0.5182471275, blue: 1, alpha: 0.3)]
+        firstPersentLabel.text = "\(rates[0])%"
+        
+        guard let string1 = strings[1] else {
+            return
+        }
+        
+        secondMajorAndPersentLabel.text = string1 + " \(rates[1])%"
+        
+        guard strings.count > 2, let string2 = strings[2] else {
+            return
+        }
+        
+        thirdMajorAndPersentLabel.text = string2 + " \(rates[2])%"
+        
+    }
+ 
+    private func drawAnalytics(rates: [Int]) {
+        let center = CGPoint(x: frame.width / 2, y: frame.height / 2 + 23)
+        
+        var color: [UIColor] = [#colorLiteral(red: 0.4603668451, green: 0.5182471275, blue: 1, alpha: 1), #colorLiteral(red: 0.4603668451, green: 0.5182471275, blue: 1, alpha: 0.65), #colorLiteral(red: 0.4603668451, green: 0.5182471275, blue: 1, alpha: 0.5), #colorLiteral(red: 0.4603668451, green: 0.5182471275, blue: 1, alpha: 0.3)]
 
         let animation = CABasicAnimation(keyPath: "strokeEnd")
         
@@ -182,12 +157,12 @@ class PieChartView: UIView {
         animation.fillMode = .forwards
         animation.isRemovedOnCompletion = false
     
-        for i in 0..<array.count {
+        for i in 0..<rates.count {
             let shapeLayer = CAShapeLayer()
             let path = UIBezierPath(arcCenter: center,
                                     radius: frame.width / 4,
                                     startAngle: 0,
-                                    endAngle: array[i] * (.pi / 180) * (360 / 100),
+                                    endAngle: CGFloat(rates[i]) * (.pi / 180) * (360 / 100),
                                     clockwise: true)
             
             shapeLayer.path = path.cgPath
@@ -202,7 +177,7 @@ class PieChartView: UIView {
             let animation = CABasicAnimation(keyPath: "strokeEnd")
             
             animation.toValue = 1
-            animation.duration = CFTimeInterval(1.5 * array[i] / 100)
+            animation.duration = CFTimeInterval(1.5 * Double(rates[i]) / 100)
             animation.fillMode = .forwards
             animation.isRemovedOnCompletion = false
             

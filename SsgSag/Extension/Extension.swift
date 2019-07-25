@@ -334,3 +334,10 @@ extension NSMutableData {
         append(data!)
     }
 }
+
+extension UINavigationBar {
+    func addColorToShadow(color: UIColor, size: CGSize) {
+        self.clipsToBounds = false
+        self.shadowImage = color.image(size)
+    }
+}

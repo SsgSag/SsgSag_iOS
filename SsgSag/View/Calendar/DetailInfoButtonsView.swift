@@ -8,8 +8,14 @@
 
 import UIKit
 
+protocol WebsiteDelegate: class {
+    func moveToWebsite()
+}
+
 class DetailInfoButtonsView: UIView {
 
+    var delegate: WebsiteDelegate?
+    
     let likeButton: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
@@ -17,11 +23,14 @@ class DetailInfoButtonsView: UIView {
         return button
     }()
     
-    let moveToWebSiteButton: UIButton = {
+    lazy var moveToWebSiteButton: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setTitle("웹사이트", for: .normal)
         button.titleLabel?.font = UIFont.systemFont(ofSize: 14)
+        button.addTarget(self,
+                         action: #selector(touchUpWebSiteButton),
+                         for: .touchUpInside)
         return button
     }()
     
@@ -66,6 +75,10 @@ class DetailInfoButtonsView: UIView {
         buttonStackView.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
         buttonStackView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 12).isActive = true
         buttonStackView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -12).isActive = true
+    }
+    
+    @objc private func touchUpWebSiteButton() {
+        delegate?.moveToWebsite()
     }
     
     required init?(coder aDecoder: NSCoder) {

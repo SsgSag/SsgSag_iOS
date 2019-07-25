@@ -10,23 +10,25 @@ import UIKit
 
 class PrivateProtectViewController: UIViewController {
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
+    private lazy var backButton = UIBarButtonItem(image: UIImage(named: "ic_ArrowBack"),
+                                                  style: .plain,
+                                                  target: self,
+                                                  action: #selector(touchUpBackButton))
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         
-        self.navigationItem.title = "이용약관"
-
-        // Do any additional setup after loading the view.
+        navigationController?.navigationBar.barTintColor = .white
+        navigationItem.title = "이용약관"
+        navigationItem.leftBarButtonItem = backButton
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    override func viewDidLoad() {
+        super.viewDidLoad()
     }
-    */
+    
+    @objc private func touchUpBackButton() {
+        navigationController?.popViewController(animated: true)
+    }
 
 }

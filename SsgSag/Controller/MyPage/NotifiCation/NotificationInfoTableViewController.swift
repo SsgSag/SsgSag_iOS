@@ -47,6 +47,7 @@ class NotificationInfoTableViewController: UITableViewController {
     }
     
     private func setupTableView() {
+        tableView.tableFooterView = UIView()
         tableView.register(ServiceInfoTableViewCell.self, forCellReuseIdentifier: "noticeCell")
     }
     

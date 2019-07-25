@@ -12,13 +12,12 @@ class SettingTextFieldCollectionViewCell: UICollectionViewCell {
     
     @IBOutlet private weak var settingTitleLabel: UILabel!
     
-    @IBOutlet private weak var settingTextField: UITextField!
+    @IBOutlet weak var settingTextField: UITextField!
     
     @IBOutlet weak var changeButton: UIButton!
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
     }
 
     @IBAction func touchUpChangeButton(_ sender: UIButton) {

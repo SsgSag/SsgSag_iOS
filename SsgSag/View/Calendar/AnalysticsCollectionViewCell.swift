@@ -9,16 +9,58 @@
 import UIKit
 
 class AnalysticsCollectionViewCell: UICollectionViewCell {
-
-    @IBOutlet weak var analyticsStackView: UIStackView!
+    @IBOutlet weak var majorChartView: PieChartView!
+    
+    @IBOutlet weak var gradeChartView: PieChartView!
+    
+    @IBOutlet weak var genderChartView: PieChartView!
+    
+    @IBOutlet weak var interestedLabel: UILabel!
     
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
     }
     
-    func configure() {
-        analyticsStackView.subviews[0]
+    func configure(analyticsData: Analytics?) {
+        setupInterestedLabel(major: analyticsData?.majorCategory?[0],
+                             grade: analyticsData?.grade?[0],
+                             gender: analyticsData?.gender?[0])
+        
+        guard let majorCategorys = analyticsData?.majorCategory,
+            let majorRates = analyticsData?.majorCategoryRate else {
+            return
+        }
+
+        majorChartView.configureAnalyticsWith(strings: majorCategorys,
+                                              rates: majorRates)
+        
+        
+        guard let gradeCategorys = analyticsData?.grade,
+            let gradeRates = analyticsData?.gradeRate else {
+                return
+        }
+        
+        gradeChartView.configureAnalyticsWith(strings: gradeCategorys,
+                                              rates: gradeRates)
+
+        guard let genderCategorys = analyticsData?.gender,
+            let genderRates = analyticsData?.genderRate else {
+                return
+        }
+        
+        genderChartView.configureAnalyticsWith(strings: genderCategorys,
+                                               rates: genderRates)
+    }
+    
+    private func setupInterestedLabel(major: String?, grade: String?, gender: String?) {
+        guard let major = major,
+            let grade = grade,
+            let gender = gender else {
+            return
+        }
+        
+        interestedLabel.text = "\(major) \(grade) \(gender)가 관심이 많아요"
     }
 
 }

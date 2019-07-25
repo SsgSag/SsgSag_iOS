@@ -1,14 +1,14 @@
 //
-//  TermsOfServiceViewController.swift
+//  OSLViewController.swift
 //  SsgSag
 //
-//  Created by admin on 21/05/2019.
+//  Created by 이혜주 on 25/07/2019.
 //  Copyright © 2019 wndzlf. All rights reserved.
 //
 
 import UIKit
 
-class TermsOfServiceViewController: UIViewController {
+class OSLViewController: UIViewController {
 
     private lazy var backButton = UIBarButtonItem(image: UIImage(named: "ic_ArrowBack"),
                                                   style: .plain,
@@ -19,16 +19,17 @@ class TermsOfServiceViewController: UIViewController {
         super.viewWillAppear(animated)
         
         navigationController?.navigationBar.barTintColor = .white
-        navigationItem.title = "개인정보 보호정책"
+        navigationItem.title = "OSL"
         navigationItem.leftBarButtonItem = backButton
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        view.backgroundColor = .white
     }
     
     @objc private func touchUpBackButton() {
         navigationController?.popViewController(animated: true)
     }
-
 }

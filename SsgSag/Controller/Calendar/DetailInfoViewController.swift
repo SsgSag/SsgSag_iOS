@@ -45,7 +45,6 @@ class DetailInfoViewController: UIViewController {
                                         style: .plain,
                                         target: self,
                                         action: nil)
-        
         barButton.tintColor = #colorLiteral(red: 0.4603668451, green: 0.5182471275, blue: 1, alpha: 1)
         return barButton
     }()
@@ -110,6 +109,8 @@ class DetailInfoViewController: UIViewController {
     
     private func setupLayout() {
         view.backgroundColor = .white
+        buttonsView.delegate = self
+        
         view.addSubview(infoCollectionView)
         infoCollectionView.addSubview(buttonsView)
         infoCollectionView.addSubview(safeAreaView)
@@ -209,7 +210,6 @@ class DetailInfoViewController: UIViewController {
     @objc private func touchUpBackButton() {
         navigationController?.popViewController(animated: true)
     }
-    
 }
 
 extension DetailInfoViewController: UICollectionViewDelegate {
@@ -292,6 +292,8 @@ extension DetailInfoViewController: UICollectionViewDataSource {
                                                      for: indexPath) as? AnalysticsCollectionViewCell else {
                                                         return .init()
             }
+            
+            cell.configure(analyticsData: posterDetailData?.analytics)
             
             return cell
         case 8 + (posterDetailData?.commentList?.count ?? 0) - 1:
@@ -418,8 +420,22 @@ extension DetailInfoViewController: UICollectionViewDelegateFlowLayout {
         case 8 + (posterDetailData?.commentList?.count ?? 0) - 1:
             return CGSize(width: view.frame.width, height: 46)
         default:
-            return CGSize(width: view.frame.width, height: 200)
+            return CGSize(width: view.frame.width, height: 70)
         }
 
+    }
+}
+
+extension DetailInfoViewController: WebsiteDelegate {
+    func moveToWebsite() {
+        guard let websiteURL = posterDetailData?.posterWebSite else {
+            return
+        }
+        
+        guard let url = URL(string: websiteURL) else {
+            return
+        }
+        
+        UIApplication.shared.open(url)
     }
 }

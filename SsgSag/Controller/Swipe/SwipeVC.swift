@@ -35,7 +35,10 @@ class SwipeVC: UIViewController {
         let height: CGFloat = 48
         let bounds = navigationController!.navigationBar.bounds
         navigationController?.navigationBar.frame = CGRect(x: 0, y: 0, width: bounds.width, height: bounds.height + height)
-        addColorToShadow()
+        
+        let shadowSize = CGSize(width: self.view.frame.width, height: 3)
+        navigationController?.navigationBar.addColorToShadow(color: #colorLiteral(red: 0.3843137255, green: 0.4156862745, blue: 1, alpha: 1),
+                                                             size: shadowSize)
     }
     
     override func viewDidLoad() {
@@ -114,18 +117,6 @@ class SwipeVC: UIViewController {
                 }
             }
         }
-    }
-    
-    func addColorToShadow() {
-        
-        self.navigationController?.navigationBar.clipsToBounds = false
-        self.navigationController?.navigationBar.shadowImage
-            = UIColor(red: 98/255,
-                      green: 106/255,
-                      blue: 255/255,
-                      alpha: 1.0)
-                .image(CGSize(width: self.view.frame.width, height: 3))
-        
     }
     
 //    //캘린더 이동

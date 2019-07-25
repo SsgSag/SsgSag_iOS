@@ -19,8 +19,15 @@
                 <rect key="frame" x="0.0" y="0.0" width="408" height="45"/>
                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 <subviews>
-                    <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" distribution="fillProportionally" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="TO3-Kc-CDa">
-                        <rect key="frame" x="14" y="7" width="406" height="70"/>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IAC-rT-19a">
+                        <rect key="frame" x="0.0" y="0.0" width="408" height="1"/>
+                        <color key="backgroundColor" red="0.93333333333333335" green="0.93333333333333335" blue="0.93333333333333335" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="1" id="ELp-Tr-qGf"/>
+                        </constraints>
+                    </view>
+                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="TO3-Kc-CDa">
+                        <rect key="frame" x="33" y="12.5" width="357" height="30"/>
                         <subviews>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="댓글을 입력해주세요" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="nwO-7G-qX9">
                                 <rect key="frame" x="0.0" y="0.0" width="277" height="30"/>
@@ -55,7 +62,10 @@
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
                 <constraint firstItem="TO3-Kc-CDa" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="33" id="7DL-tk-Ly3"/>
+                <constraint firstAttribute="trailing" secondItem="IAC-rT-19a" secondAttribute="trailing" id="Mz6-Np-rgl"/>
                 <constraint firstAttribute="trailing" secondItem="TO3-Kc-CDa" secondAttribute="trailing" constant="18" id="Rqt-Pl-rQ3"/>
+                <constraint firstItem="IAC-rT-19a" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="itR-CS-HVE"/>
+                <constraint firstItem="IAC-rT-19a" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="rAB-TS-h5t"/>
                 <constraint firstItem="TO3-Kc-CDa" firstAttribute="centerY" secondItem="ZTg-uK-7eu" secondAttribute="centerY" id="ypP-Ou-c4d"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>

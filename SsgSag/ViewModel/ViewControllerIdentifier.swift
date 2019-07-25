@@ -35,4 +35,5 @@ enum ViewControllerIdentifier {
     static let privateProtectViewController = "PrivateProtectViewController"
     static let selectedTodoViewController = "SelectedTodoViewController"
     static let signUpCompleteViewController = "SignUpCompleteVC"
+    static let logoutViewController = "LogoutVC"
 }

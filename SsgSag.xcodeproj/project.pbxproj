@@ -130,10 +130,11 @@
 		D11080AE22E0820300F345A8 /* CommentCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D11080AC22E0820300F345A8 /* CommentCollectionViewCell.xib */; };
 		D11080B122E0917F00F345A8 /* CommentWriteCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D11080AF22E0917F00F345A8 /* CommentWriteCollectionViewCell.swift */; };
 		D11080B222E0917F00F345A8 /* CommentWriteCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D11080B022E0917F00F345A8 /* CommentWriteCollectionViewCell.xib */; };
-		D11080B522E0942A00F345A8 /* PosterFooterCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D11080B322E0942A00F345A8 /* PosterFooterCollectionReusableView.swift */; };
-		D11080B622E0942A00F345A8 /* PosterFooterCollectionReusableView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D11080B422E0942A00F345A8 /* PosterFooterCollectionReusableView.xib */; };
 		D11080B822E09F6E00F345A8 /* DetailInfoButtonsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D11080B722E09F6E00F345A8 /* DetailInfoButtonsView.swift */; };
 		D11F9E9E22E0C622000210B0 /* PieChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D11F9E9D22E0C622000210B0 /* PieChartView.swift */; };
+		D13F378522E9BD490004875C /* OSLViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D13F378422E9BD490004875C /* OSLViewController.swift */; };
+		D13F378722E9BEEF0004875C /* LogoutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D13F378622E9BEEF0004875C /* LogoutViewController.swift */; };
+		D13F378922E9C3250004875C /* MembershipCancelViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D13F378822E9C3250004875C /* MembershipCancelViewController.swift */; };
 		D166AC5D22D46D4100ED82DD /* MonthTodoList.swift in Sources */ = {isa = PBXBuildFile; fileRef = D166AC5C22D46D4100ED82DD /* MonthTodoList.swift */; };
 		D166AC5F22D4726000ED82DD /* DayTodoList.swift in Sources */ = {isa = PBXBuildFile; fileRef = D166AC5E22D4726000ED82DD /* DayTodoList.swift */; };
 		D166AC6622D733CC00ED82DD /* FeedVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D166AC6522D733CC00ED82DD /* FeedVC.swift */; };
@@ -355,10 +356,11 @@
 		D11080AC22E0820300F345A8 /* CommentCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CommentCollectionViewCell.xib; sourceTree = "<group>"; };
 		D11080AF22E0917F00F345A8 /* CommentWriteCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentWriteCollectionViewCell.swift; sourceTree = "<group>"; };
 		D11080B022E0917F00F345A8 /* CommentWriteCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CommentWriteCollectionViewCell.xib; sourceTree = "<group>"; };
-		D11080B322E0942A00F345A8 /* PosterFooterCollectionReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PosterFooterCollectionReusableView.swift; sourceTree = "<group>"; };
-		D11080B422E0942A00F345A8 /* PosterFooterCollectionReusableView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PosterFooterCollectionReusableView.xib; sourceTree = "<group>"; };
 		D11080B722E09F6E00F345A8 /* DetailInfoButtonsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailInfoButtonsView.swift; sourceTree = "<group>"; };
 		D11F9E9D22E0C622000210B0 /* PieChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PieChartView.swift; sourceTree = "<group>"; };
+		D13F378422E9BD490004875C /* OSLViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OSLViewController.swift; sourceTree = "<group>"; };
+		D13F378622E9BEEF0004875C /* LogoutViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogoutViewController.swift; sourceTree = "<group>"; };
+		D13F378822E9C3250004875C /* MembershipCancelViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MembershipCancelViewController.swift; sourceTree = "<group>"; };
 		D166AC5C22D46D4100ED82DD /* MonthTodoList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthTodoList.swift; sourceTree = "<group>"; };
 		D166AC5E22D4726000ED82DD /* DayTodoList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayTodoList.swift; sourceTree = "<group>"; };
 		D166AC6522D733CC00ED82DD /* FeedVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedVC.swift; sourceTree = "<group>"; };
@@ -641,6 +643,8 @@
 				84646C2D228946C4005D3F1C /* NotifiCation */,
 				D1CD5DE822E5E6BA0033FCB3 /* AccountSettingViewController.swift */,
 				D1FB05AD22E6DC2F001425CF /* AccountSettingViewController + UICollectionView.swift */,
+				D13F378622E9BEEF0004875C /* LogoutViewController.swift */,
+				D13F378822E9C3250004875C /* MembershipCancelViewController.swift */,
 			);
 			path = MyPage;
 			sourceTree = "<group>";
@@ -690,8 +694,6 @@
 				D11080AC22E0820300F345A8 /* CommentCollectionViewCell.xib */,
 				D11080AF22E0917F00F345A8 /* CommentWriteCollectionViewCell.swift */,
 				D11080B022E0917F00F345A8 /* CommentWriteCollectionViewCell.xib */,
-				D11080B322E0942A00F345A8 /* PosterFooterCollectionReusableView.swift */,
-				D11080B422E0942A00F345A8 /* PosterFooterCollectionReusableView.xib */,
 				D11080B722E09F6E00F345A8 /* DetailInfoButtonsView.swift */,
 				D11F9E9D22E0C622000210B0 /* PieChartView.swift */,
 			);
@@ -753,6 +755,7 @@
 				8463567A2293EF030060ED91 /* TermsOfServiceViewController.swift */,
 				8463567E22941E020060ED91 /* PrivateProtectViewController.swift */,
 				D1CD5DE422E5C7D20033FCB3 /* PostViewController.swift */,
+				D13F378422E9BD490004875C /* OSLViewController.swift */,
 			);
 			path = NotifiCation;
 			sourceTree = "<group>";
@@ -1153,7 +1156,6 @@
 				FA7F4CC021DFCAF200D8643A /* ActivityCell.xib in Resources */,
 				84B4268A21E9063600B44F71 /* bt_save_round.json in Resources */,
 				D1E517B722E0282B0001EAA5 /* PosterHeaderCollectionReusableView.xib in Resources */,
-				D11080B622E0942A00F345A8 /* PosterFooterCollectionReusableView.xib in Resources */,
 				D1CD5DDF22E5B3B90033FCB3 /* myPageMenuTableViewCell.xib in Resources */,
 				D11080B222E0917F00F345A8 /* CommentWriteCollectionViewCell.xib in Resources */,
 				846E6223228FCF320083E3CD /* Launch Screen.storyboard in Resources */,
@@ -1254,10 +1256,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				84FB4FE4226B7F7D00D9F2F9 /* LoginServiceImp.swift in Sources */,
-				D11080B522E0942A00F345A8 /* PosterFooterCollectionReusableView.swift in Sources */,
 				FAFB87D222145ABE002CDED9 /* NetworkManager.swift in Sources */,
 				842C619D21DD1807001BA6D8 /* posterData.swift in Sources */,
 				D11F9E9E22E0C622000210B0 /* PieChartView.swift in Sources */,
+				D13F378722E9BEEF0004875C /* LogoutViewController.swift in Sources */,
 				D110809922E044E600F345A8 /* DetailInfoCollectionViewCell.swift in Sources */,
 				FA851DED21D5FDB0002065D0 /* SwipeModel.swift in Sources */,
 				84C30E29227808FB008F1165 /* PosterDetailResponse.swift in Sources */,
@@ -1361,6 +1363,7 @@
 				846356792293EAA10060ED91 /* NotificationInfoTableViewController.swift in Sources */,
 				8463567F22941E020060ED91 /* PrivateProtectViewController.swift in Sources */,
 				D11080A122E052C000F345A8 /* SeeMoreCollectionViewCell.swift in Sources */,
+				D13F378522E9BD490004875C /* OSLViewController.swift in Sources */,
 				D1E9B3D522E594D8007CB6D2 /* SignUp.swift in Sources */,
 				FA3A342021E5127700668908 /* UserAPI.swift in Sources */,
 				8486D26A226E912E00D7A0C7 /* AllTodoList.swift in Sources */,
@@ -1375,6 +1378,7 @@
 				D1CD5DE522E5C7D20033FCB3 /* PostViewController.swift in Sources */,
 				D1CD5DE722E5CE240033FCB3 /* PostTableViewCell.swift in Sources */,
 				8463566E22930E210060ED91 /* CareerServiceImp.swift in Sources */,
+				D13F378922E9C3250004875C /* MembershipCancelViewController.swift in Sources */,
 				FA61FE1121E0E4A200A28947 /* PreferenceVC.swift in Sources */,
 				D1CD5DDE22E5B3B90033FCB3 /* myPageMenuTableViewCell.swift in Sources */,
 				843813112270153900C9E47B /* MypageServiceImp.swift in Sources */,
