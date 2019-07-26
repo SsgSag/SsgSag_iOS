@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Lottie
 
 class OSLViewController: UIViewController {
 
@@ -27,6 +28,19 @@ class OSLViewController: UIViewController {
         super.viewDidLoad()
         
         view.backgroundColor = .white
+        let animation = LOTAnimationView(name: "main_empty_hifive")
+        
+        view.addSubview(animation)
+        view.sendSubviewToBack(animation)
+        
+        animation.translatesAutoresizingMaskIntoConstraints = false
+        animation.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        animation.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
+        animation.widthAnchor.constraint(equalToConstant: 350).isActive = true
+        animation.heightAnchor.constraint(equalToConstant: 350).isActive = true
+        
+        animation.loopAnimation = true
+        animation.play()
     }
     
     @objc private func touchUpBackButton() {

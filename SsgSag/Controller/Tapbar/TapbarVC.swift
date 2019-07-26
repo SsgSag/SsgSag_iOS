@@ -42,8 +42,6 @@ class TapbarVC: UITabBarController {
         
         setTabBarStyle()
         
-        getPostersAndStore()
-        
         UIView.appearance().isExclusiveTouch = true
     }
     
@@ -93,31 +91,6 @@ class TapbarVC: UITabBarController {
         self.tabBar.barStyle = .black
         
         self.selectedIndex = 1
-    }
-    
-    /// start only at first time
-    private func getPostersAndStore() {
-        
-        guard let _ = UserDefaults.standard.object(forKey: UserDefaultsName.syncWithLocalData) as? Bool else {
-            
-            let start = true
-            
-            UserDefaults.standard.setValue(start, forKey: UserDefaultsName.syncWithLocalData)
-            
-            syncDataAtFirst()
-            
-            return
-        }
-    }
-    
-    private func syncDataAtFirst() {
-//        
-//        tapbarServiceImp?.requestAllTodoList { (dataResponse) in
-//            
-//            guard let todoList = dataResponse.value else { return }
-//            
-//            StoreAndFetchPoster.shared.storePoster(posters: todoList)
-//        }
     }
     
 }

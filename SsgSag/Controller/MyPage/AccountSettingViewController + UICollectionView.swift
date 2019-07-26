@@ -111,8 +111,9 @@ extension AccountSettingViewController: UICollectionViewDataSource {
                                           bundle: nil)
             
             guard let logoutVC
-                = storyboard.instantiateViewController(withIdentifier: ViewControllerIdentifier.logoutViewController)
-                    as? LogoutViewController else {
+                = storyboard.instantiateViewController(
+                    withIdentifier: ViewControllerIdentifier.logoutViewController
+                    ) as? LogoutViewController else {
                         return
             }
             
@@ -120,6 +121,18 @@ extension AccountSettingViewController: UICollectionViewDataSource {
                                                      animated: true)
         } else if indexPath == IndexPath(item: 2, section: 1) {
             // 회원 탈퇴
+            let storyboard = UIStoryboard(name: "MyPageStoryBoard",
+                                          bundle: nil)
+            
+            guard let membershipCancelVC
+                = storyboard.instantiateViewController(
+                    withIdentifier: ViewControllerIdentifier.membershipCancelViewController
+                    ) as? MembershipCancelViewController else {
+                        return
+            }
+            
+            navigationController?.pushViewController(membershipCancelVC,
+                                                     animated: true)
         }
     }
 }

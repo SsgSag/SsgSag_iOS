@@ -82,7 +82,6 @@ class PosterServiceImp: PosterService {
         
         guard let url = UserAPI.sharedInstance.getURL(RequestURL.initPoster.getRequestURL) else { return }
     
-        
         guard let key = UserDefaults.standard.object(forKey: TokenName.token) as? String else { return }
         
         var request = URLRequest(url: url)

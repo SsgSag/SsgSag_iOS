@@ -18,11 +18,13 @@ class PageViewController: UIPageViewController {
         let swipeStoryboard = UIStoryboard(name: StoryBoardName.swipe,
                                            bundle: nil)
         
-        let detailTextVC = swipeStoryboard.instantiateViewController(withIdentifier: StoryBoardName.detailText)
+        let detailTextVC
+            = swipeStoryboard.instantiateViewController(withIdentifier: StoryBoardName.detailText)
         
-        let detailImageVC = swipeStoryboard.instantiateViewController(withIdentifier: StoryBoardName.detailImage)
+        let detailImageVC
+            = swipeStoryboard.instantiateViewController(withIdentifier: StoryBoardName.detailImage)
         
-        return [ detailTextVC, detailImageVC ]
+        return [detailTextVC, detailImageVC]
     }()
     
     override func viewDidLoad() {
@@ -57,7 +59,6 @@ class PageViewController: UIPageViewController {
     deinit {
         print("deinit pageVC Parent")
     }
-    
     
     @objc func tapOn(_ sender: UITapGestureRecognizer) {
         self.view.layer.backgroundColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)

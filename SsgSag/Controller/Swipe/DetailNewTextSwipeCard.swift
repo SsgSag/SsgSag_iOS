@@ -179,6 +179,16 @@ class DetailNewTextSwipeCard: UIViewController {
         }
     }
     
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        setTextProperty()
+        
+        addSubviews()
+        
+        setSegmentViews()
+    }
+    
     private func setTextProperty() {
         
 //        circle.layer.cornerRadius = 59 / 2
@@ -260,16 +270,6 @@ class DetailNewTextSwipeCard: UIViewController {
     
         segmentView.layer.cornerRadius = 3
         segmentSecondView.layer.cornerRadius = 3
-    }
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        setTextProperty()
-        
-        addSubviews()
-        
-        setSegmentViews()
     }
     
     deinit {

@@ -10,21 +10,83 @@ import UIKit
 
 class MembershipCancelViewController: UIViewController {
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+    private var myPageServiceImp: MyPageService?
+    
+    private lazy var backButton = UIBarButtonItem(image: UIImage(named: "ic_ArrowBack"),
+                                                  style: .plain,
+                                                  target: self,
+                                                  action: #selector(touchUpCancelButton(_:)))
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        navigationController?.navigationBar.barTintColor = .white
+        navigationItem.title = "회원탈퇴"
+        navigationItem.leftBarButtonItem = backButton
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    override func viewDidLoad() {
+        super.viewDidLoad()
     }
-    */
-
+    
+    private func requestMembershipCancel(_ myPageService: MyPageService = MyPageServiceImp()) {
+        myPageServiceImp = myPageService
+        
+        myPageServiceImp?.requestMembershipCancel() { [weak self] response in
+            switch response {
+            case .success(let status):
+                DispatchQueue.main.async {
+                    switch status {
+                    case .processingSuccess:
+                        self?.simpleAlertwithHandler(title: "",
+                                                     message: "회원 탈퇴가 완료되었습니다.") { _ in
+                            self?.moveToLoginViewController()
+                        }
+                    case .authorizationFailure:
+                        self?.simplerAlert(title: "인가 실패")
+                    case .failure:
+                        self?.simplerAlert(title: "회원을 찾을 수 없습니다.")
+                    case .authenticationFailure:
+                        self?.simplerAlert(title: "인증 실패")
+                    case .dataBaseError:
+                        self?.simplerAlert(title: "데이터베이스 에러")
+                    case .serverError:
+                        self?.simplerAlert(title: "서버 에러")
+                    default:
+                        return
+                    }
+                }
+            case .failed(let error):
+                print(error)
+                return
+            }
+        }
+    }
+    
+    private func moveToLoginViewController() {
+        
+        guard let window = UIApplication.shared.keyWindow else {
+            return
+        }
+        
+        let mainStoryboard: UIStoryboard = UIStoryboard(name: "LoginStoryBoard", bundle: nil)
+        let viewController = mainStoryboard.instantiateViewController(withIdentifier: "Login") as! LoginVC
+        
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        appDelegate.window?.rootViewController = viewController
+        
+        viewController.view.layoutIfNeeded()
+        
+        UIView.transition(with: window, duration: 0.5, options: .transitionFlipFromLeft, animations: {
+            window.rootViewController = viewController
+        }, completion: nil)
+    }
+    
+    @IBAction func touchUpMembershipCancelButton(_ sender: UIButton) {
+        requestMembershipCancel()
+    }
+    
+    @IBAction func touchUpCancelButton(_ sender: Any) {
+        navigationController?.popViewController(animated: true)
+    }
 }

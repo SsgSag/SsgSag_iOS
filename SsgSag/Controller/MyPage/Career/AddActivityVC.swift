@@ -35,7 +35,7 @@ class AddActivityVC: UIViewController, UITextViewDelegate, UITextFieldDelegate {
         }
     }
     
-    private var myPageServiceImp : myPageService?
+    private var myPageServiceImp : MyPageService?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -62,7 +62,7 @@ class AddActivityVC: UIViewController, UITextViewDelegate, UITextFieldDelegate {
         }
     }
     
-    func setService(_ myPageServiceImp: myPageService = MyPageServiceImp()) {
+    func setService(_ myPageServiceImp: MyPageService = MyPageServiceImp()) {
         self.myPageServiceImp = myPageServiceImp
     }
     

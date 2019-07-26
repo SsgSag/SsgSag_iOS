@@ -160,11 +160,25 @@ class CalenderVC: UIViewController {
     }
     
     private func setNotificationObserver() {
-        NotificationCenter.default.addObserver(self, selector: #selector(addUserDefaults), name: NSNotification.Name(NotificationName.addUserDefaults), object: nil)
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(addUserDefaults),
+            name: NSNotification.Name(NotificationName.addUserDefaults),
+            object: nil
+        )
         
-        NotificationCenter.default.addObserver(self, selector: #selector(sortSpecificDayOftodoList), name: NSNotification.Name(rawValue: NotificationName.didselectItem), object: nil)
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(sortSpecificDayOftodoList),
+            name: NSNotification.Name(rawValue: NotificationName.didselectItem),
+            object: nil
+        )
         
-        NotificationCenter.default.addObserver(self, selector: #selector(deleteUserDefaults), name: NSNotification.Name(rawValue: NotificationName.deleteUserDefaults), object: nil)
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(deleteUserDefaults),
+            name: NSNotification.Name(rawValue: NotificationName.deleteUserDefaults),
+            object: nil)
     }
     
     @objc func deleteUserDefaults() {
@@ -643,7 +657,7 @@ extension CalenderVC: UITableViewDelegate,UITableViewDataSource {
                 guard let httpStatusCode = HttpStatusCode(rawValue: statusCode) else {return}
                 
                 switch httpStatusCode {
-                case .favoriteSuccess:
+                case .processingSuccess:
                     print("CompleteApplyPoster isSuccessfull")
                 case .serverError:
                     print("CompleteApplyPoster serverError")
@@ -678,7 +692,7 @@ extension CalenderVC: UITableViewDelegate,UITableViewDataSource {
                         guard let httpStatusCode = HttpStatusCode(rawValue: statusCode) else {return}
                         
                         switch httpStatusCode {
-                        case .favoriteSuccess:
+                        case .processingSuccess:
                             print("DeletePoster isSuccessfull")
                         case .serverError:
                             print("DeletePoster serverError")

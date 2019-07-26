@@ -249,7 +249,6 @@
         <!--Navigation Controller-->
         <scene sceneID="dSz-fF-crV">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="zg1-W9-O5p" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <navigationController storyboardIdentifier="noticeNavigationVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="ePu-zF-6Vz" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="1WU-VS-LX7">
                         <rect key="frame" x="0.0" y="44" width="375" height="44"/>
@@ -259,6 +258,7 @@
                         <segue destination="Jfz-ZF-KRo" kind="relationship" relationship="rootViewController" id="ppG-6F-8ks"/>
                     </connections>
                 </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="zg1-W9-O5p" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="5557" y="298"/>
         </scene>
@@ -358,6 +358,81 @@
             </objects>
             <point key="canvasLocation" x="7502" y="483"/>
         </scene>
+        <!--Membership Cancel View Controller-->
+        <scene sceneID="EjW-ia-bId">
+            <objects>
+                <viewController storyboardIdentifier="membershipCancelVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="ncd-lN-LZF" customClass="MembershipCancelViewController" customModule="슥삭" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="5IG-BN-bDw">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="6" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hZY-tA-Cqi">
+                                <rect key="frame" x="10" y="358.33333333333331" width="355" height="95.666666666666686"/>
+                                <string key="text">회원 탈퇴시 
+‘슥삭’의 맞춤 정보 제공 서비스를
+제공 받을 수 없습니다.
+
+그래도 탈퇴하시겠어요?</string>
+                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8xJ-Dz-DFa">
+                                <rect key="frame" x="0.0" y="721" width="375" height="1"/>
+                                <color key="backgroundColor" red="0.90196078430000004" green="0.90196078430000004" blue="0.90196078430000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="1" id="esG-38-g0T"/>
+                                </constraints>
+                            </view>
+                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="eGT-lE-VBG">
+                                <rect key="frame" x="0.0" y="722" width="375" height="56"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hiz-JJ-h3E">
+                                        <rect key="frame" x="0.0" y="0.0" width="187.66666666666666" height="56"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <state key="normal" title="회원탈퇴">
+                                            <color key="titleColor" red="0.51372549019607838" green="0.51372549019607838" blue="0.51372549019607838" alpha="1" colorSpace="calibratedRGB"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="touchUpMembershipCancelButton:" destination="ncd-lN-LZF" eventType="touchUpInside" id="8O4-hf-atx"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vKG-vB-Tb1">
+                                        <rect key="frame" x="187.66666666666663" y="0.0" width="187.33333333333337" height="56"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <state key="normal" title="취소">
+                                            <color key="titleColor" red="0.38431372549019605" green="0.41568627450980389" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="touchUpCancelButton:" destination="ncd-lN-LZF" eventType="touchUpInside" id="gRb-2s-C35"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="56" id="Lz9-ZX-NMn"/>
+                                </constraints>
+                            </stackView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="h4R-Ns-Tn2" firstAttribute="trailing" secondItem="hZY-tA-Cqi" secondAttribute="trailing" constant="10" id="0hc-s7-zAl"/>
+                            <constraint firstItem="hZY-tA-Cqi" firstAttribute="centerX" secondItem="5IG-BN-bDw" secondAttribute="centerX" id="13M-9w-QdZ"/>
+                            <constraint firstAttribute="trailing" secondItem="8xJ-Dz-DFa" secondAttribute="trailing" id="5f8-8q-cf0"/>
+                            <constraint firstItem="eGT-lE-VBG" firstAttribute="leading" secondItem="5IG-BN-bDw" secondAttribute="leading" id="J2r-ks-X8k"/>
+                            <constraint firstItem="hZY-tA-Cqi" firstAttribute="centerY" secondItem="5IG-BN-bDw" secondAttribute="centerY" id="Yp1-54-KLG"/>
+                            <constraint firstItem="h4R-Ns-Tn2" firstAttribute="trailing" secondItem="eGT-lE-VBG" secondAttribute="trailing" id="aF8-5G-br7"/>
+                            <constraint firstItem="8xJ-Dz-DFa" firstAttribute="leading" secondItem="5IG-BN-bDw" secondAttribute="leading" id="fAh-D7-b5L"/>
+                            <constraint firstItem="hZY-tA-Cqi" firstAttribute="leading" secondItem="h4R-Ns-Tn2" secondAttribute="leading" constant="10" id="lR6-rO-ZOH"/>
+                            <constraint firstItem="eGT-lE-VBG" firstAttribute="top" secondItem="8xJ-Dz-DFa" secondAttribute="bottom" id="obS-Zm-j8k"/>
+                            <constraint firstItem="h4R-Ns-Tn2" firstAttribute="bottom" secondItem="eGT-lE-VBG" secondAttribute="bottom" id="wXR-7U-9BB"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="h4R-Ns-Tn2"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="2zf-8a-NOe" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="8250" y="483"/>
+        </scene>
         <!--Private Protect View Controller-->
         <scene sceneID="4BF-Nc-ccu">
             <objects>
@@ -375,7 +450,7 @@
                                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" textAlignment="natural" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0nK-FT-A1T">
                                                 <rect key="frame" x="8" y="8" width="359" height="10594"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                <mutableString key="text">제1장 총칙
+                                                <string key="text">제1장 총칙
 
 제1조(목적)
 이 약관은 &lt;슥삭&gt; (이하 ‘회사’)이 어플리케이션으로 제공하는 모바일 서비스(이하 "서비스"라고 한다)의 이용과 관련하여 회사와 이용자와의 권리, 의무 및 책임사항 등을 규정함을 목적으로 합니다.
@@ -609,7 +684,7 @@
 ④ "회사"는 "이용자" 상호간 또는 "이용자"와 제3자 간에 "콘텐츠"를 매개로 하여 발생한 분쟁 등에 대하여 책임을 지지 않습니다.
 
 제33조(분쟁의 해결)
-"회사"는 분쟁이 발생하였을 경우에 "이용자"가 제기하는 정당한 의견이나 불만을 반영하여 적절하고 신속한 조치를 취합니다. 다만, 신속한 처리가 곤란한 경우에 "회사"는 "이용자"에게 그 사유와 처리일정을 통보합니다.</mutableString>
+"회사"는 분쟁이 발생하였을 경우에 "이용자"가 제기하는 정당한 의견이나 불만을 반영하여 적절하고 신속한 조치를 취합니다. 다만, 신속한 처리가 곤란한 경우에 "회사"는 "이용자"에게 그 사유와 처리일정을 통보합니다.</string>
                                                 <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
@@ -1813,7 +1888,7 @@
                                                 </subviews>
                                             </stackView>
                                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icArrowGradation" translatesAutoresizingMaskIntoConstraints="NO" id="evL-3t-iVu">
-                                                <rect key="frame" x="170.33333333333331" y="173.33333333333331" width="16" height="16"/>
+                                                <rect key="frame" x="156.33333333333331" y="173.33333333333331" width="44" height="50"/>
                                             </imageView>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="4i3-85-sfJ" userLabel="종료일">
                                                 <rect key="frame" x="200.33333333333331" y="173.33333333333331" width="140" height="49"/>
@@ -1897,7 +1972,7 @@
                                         </constraints>
                                     </view>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="use-wv-0gS">
-                                        <rect key="frame" x="179.66666666666666" y="638.66666666666663" width="16" height="22"/>
+                                        <rect key="frame" x="122.66666666666669" y="638.66666666666663" width="130" height="44"/>
                                         <state key="normal" image="btFormSave"/>
                                         <connections>
                                             <action selector="touchUpSaveButton:" destination="F2a-8a-TlB" eventType="touchUpInside" id="E3w-W3-vN1"/>

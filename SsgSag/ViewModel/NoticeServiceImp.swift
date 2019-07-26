@@ -17,12 +17,8 @@ class NoticeServiceImp: NoticeService {
         
         guard let url = UserAPI.sharedInstance.getURL(RequestURL.notice.getRequestURL) else {return}
         
-//        guard let key = UserDefaults.standard.object(forKey: TokenName.token) as? String else { return }
-        
         var request = URLRequest(url: url)
         request.httpMethod = "GET"
-//        request.addValue(key, forHTTPHeaderField: "Authorization")
-//        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         
         NetworkManager.shared.getData(with: request) { (data, error, response) in
             guard let data = data else { return }
@@ -34,7 +30,7 @@ class NoticeServiceImp: NoticeService {
                 
                 completionHandler(DataResponse.success(noticeList))
             } catch {
-                print("AcitivityDelete Json Parsing")
+                print("notice Json Parsing")
             }
         }
     }

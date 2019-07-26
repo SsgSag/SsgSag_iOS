@@ -9,20 +9,25 @@
 import Foundation
 
 protocol LoginService: class {
-    func requestLogin(send data:[String:Any] , completionHandler: @escaping (DataResponse<LoginStruct>) -> Void)
-    func requestSnsLogin(using accessToken: String, type login: Int, completionHandler: @escaping (DataResponse<TokenResponse>) -> Void)
+    func requestLogin(send data:[String:Any],
+                      completionHandler: @escaping (DataResponse<LoginStruct>) -> Void)
+    
+    func requestSnsLogin(using accessToken: String,
+                         type login: Int,
+                         completionHandler: @escaping (DataResponse<TokenResponse>) -> Void)
 }
 
 class LoginServiceImp: LoginService {
     
     private(set) var isFetchStatusCode = false
     
-    func requestSnsLogin(using accessToken: String, type login: Int,
+    func requestSnsLogin(using accessToken: String,
+                         type login: Int,
                          completionHandler: @escaping ((DataResponse<TokenResponse>) -> Void)) {
         
         //0 카톡 로그인, 1은 네이버 로그인(업데이트 예정)
-        let json: [String: Any] = [ "accessToken": accessToken,
-                                    "loginType" : login ]
+        let json: [String: Any] = ["accessToken": accessToken,
+                                   "loginType" : login]
         
         let jsonData = try? JSONSerialization.data(withJSONObject: json)
         
@@ -49,11 +54,12 @@ class LoginServiceImp: LoginService {
     
     func requestLogin(send data: [String : Any], completionHandler: @escaping (DataResponse<LoginStruct>) -> Void) {
         
-        
-        
         let jsonData = try? JSONSerialization.data(withJSONObject: data)
         
-        guard let url = UserAPI.sharedInstance.getURL(RequestURL.login.getRequestURL) else {return}
+        guard let url
+            = UserAPI.sharedInstance.getURL(RequestURL.login.getRequestURL) else {
+                return
+        }
         
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
@@ -62,11 +68,11 @@ class LoginServiceImp: LoginService {
         
         NetworkManager.shared.getData(with: request) { (data, err, res) in
             guard let data = data else { return }
+            
             do {
                 let login = try JSONDecoder().decode(LoginStruct.self, from: data)
                 
                 completionHandler(DataResponse.success(login))
-                
             } catch {
                 print("LoginStruct Parsing Error")
             }

@@ -100,7 +100,7 @@ extension ApplySuccessViewController: UITableViewDelegate, UITableViewDataSource
                         guard let httpStatusCode = HttpStatusCode(rawValue: statusCode) else {return}
                         
                         switch httpStatusCode {
-                        case .favoriteSuccess:
+                        case .processingSuccess:
                             print("DeletePoster isSuccessfull")
                         case .serverError:
                             print("DeletePoster serverError")

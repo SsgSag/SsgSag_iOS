@@ -16,7 +16,7 @@ class myPageMenuTableViewCell: UITableViewCell {
     
     private let menuTitleString: [String] = ["나의 이력", "게시판 설정", "공지사항", "문의하기"]
     
-    private let menuImageString: [String] = ["나의 이력", "게시판 설정", "공지사항", "문의하기"]
+    private let menuImageString: [String] = ["ic_jobSetting", "ic_boardSetting", "ic_noticeSetting", "ic_inquirySetting"]
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -25,7 +25,7 @@ class myPageMenuTableViewCell: UITableViewCell {
     
     func configure(row: Int) {
         menuTitleLabel.text = menuTitleString[row]
-//        menuImageView.image = UIImage(named: menuImageString[row])
+        menuImageView.image = UIImage(named: menuImageString[row])
     }
     
 }

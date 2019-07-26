@@ -70,7 +70,7 @@ class JobVC: UIViewController {
     
     var selectedValue: [Bool] = []
     
-    private var myPageService: myPageService? = MyPageServiceImp()
+    private var myPageService: MyPageService? = MyPageServiceImp()
     
     override func viewWillAppear(_ animated: Bool) {
         setScrollView()

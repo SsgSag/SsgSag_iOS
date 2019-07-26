@@ -27,7 +27,7 @@ class SwipeCard: UIView {
     }
     
     // MARK: - Setup ImageView
-    func setupView(at value: String) {
+    private func setupView(at value: String) {
         layer.cornerRadius = 10
         layer.shadowRadius = 4
         layer.shadowOpacity = 0.4
@@ -42,19 +42,18 @@ class SwipeCard: UIView {
         isUserInteractionEnabled = true
         originalPoint = center
         
-        let panGestureRecognizer = UIPanGestureRecognizer(target: self,
-                                                          action: #selector(self.beingDragged))
+        let panGestureRecognizer
+            = UIPanGestureRecognizer(target: self,
+                                     action: #selector(self.beingDragged))
         addGestureRecognizer(panGestureRecognizer)
         
-        let imageURL = URL(string: value)
-        overLayImage = UIImageView(frame:bounds)
+        guard let imageURL = URL(string: value) else { return }
+        overLayImage = UIImageView(frame: bounds)
         overLayImage.alpha = 0
         
-        DispatchQueue.main.async { [weak self] in
-            ImageNetworkManager.shared.getImageByCache(imageURL: imageURL!) { image, error in
-                self?.overLayImage.image = image
-                self?.addSubview(self?.overLayImage ?? .init())
-            }
+        ImageNetworkManager.shared.getImageByCache(imageURL: imageURL) { [weak self] image, error in
+            self?.overLayImage.image = image
+            self?.addSubview(self?.overLayImage ?? .init())
         }
     }
     
@@ -119,8 +118,8 @@ class SwipeCard: UIView {
         UIView.animate(withDuration: 0.15, animations: {
             self.center = finishPoint
             self.layoutIfNeeded()
-        }, completion: {(_) in
-            self.removeFromSuperview()
+        }, completion: { [weak self] _ in
+            self?.removeFromSuperview()
         })
         
         isLiked = true
@@ -134,8 +133,8 @@ class SwipeCard: UIView {
         UIView.animate(withDuration: 0.5, animations: {
             self.center = finishPoint
             self.layoutIfNeeded()
-        }, completion: {(_) in
-            self.removeFromSuperview()
+        }, completion: { [weak self] _ in
+            self?.removeFromSuperview()
         })
         
         isLiked = false

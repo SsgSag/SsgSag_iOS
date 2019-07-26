@@ -16,7 +16,7 @@ class PreferenceVC: UIViewController {
     
     private var selectedValue: [Bool] = []
     
-    private var myPageService: myPageService?
+    private var myPageService: MyPageService?
     
     @IBAction func touchUpBackButton(_ sender: Any) {
         dismiss(animated: true, completion: nil)

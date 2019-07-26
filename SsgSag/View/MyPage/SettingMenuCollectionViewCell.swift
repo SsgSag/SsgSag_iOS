@@ -15,15 +15,14 @@ class SettingMenuCollectionViewCell: UICollectionViewCell {
     
     private let menuTitleString: [String] = ["서비스 정보", "로그아웃", "회원탈퇴"]
     
-    private let menuImageString: [String] = ["서비스 정보", "로그아웃", "회원탈퇴"]
+    private let menuImageString: [String] = ["ic_serviceInfo", "ic_logOut", "ic_membershipOut"]
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
     }
     
     func configure(row: Int) {
         menuTitleLabel.text = menuTitleString[row]
-        //        menuImageView.image = UIImage(named: menuImageString[row])
+        menuImageView.image = UIImage(named: menuImageString[row])
     }
 }

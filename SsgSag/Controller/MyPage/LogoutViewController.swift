@@ -13,7 +13,7 @@ class LogoutViewController: UIViewController {
     private lazy var backButton = UIBarButtonItem(image: UIImage(named: "ic_ArrowBack"),
                                                   style: .plain,
                                                   target: self,
-                                                  action: #selector(touchUpBackButton))
+                                                  action: #selector(touchUpCancelButton(_:)))
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -25,10 +25,6 @@ class LogoutViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-    }
-    
-    @objc private func touchUpBackButton() {
-        navigationController?.popViewController(animated: true)
     }
     
     @IBAction func touchUpOkButton(_ sender: UIButton) {
@@ -53,7 +49,7 @@ class LogoutViewController: UIViewController {
         }, completion: nil)
     }
     
-    @IBAction func touchUpCancelButton(_ sender: UIButton) {
+    @IBAction func touchUpCancelButton(_ sender: Any) {
         navigationController?.popViewController(animated: true)
     }
 }

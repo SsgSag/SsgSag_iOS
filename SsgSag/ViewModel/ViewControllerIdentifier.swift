@@ -36,4 +36,5 @@ enum ViewControllerIdentifier {
     static let selectedTodoViewController = "SelectedTodoViewController"
     static let signUpCompleteViewController = "SignUpCompleteVC"
     static let logoutViewController = "LogoutVC"
+    static let membershipCancelViewController = "membershipCancelVC"
 }

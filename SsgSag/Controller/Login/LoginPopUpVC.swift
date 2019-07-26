@@ -45,26 +45,32 @@ class LoginPopUpVC: UIViewController, NaverThirdPartyLoginConnectionDelegate {
             return
         }
         
-        if kakaoSession.isOpen() {//세션이 열려있는지 확인
+        if kakaoSession.isOpen() {//세션이 인증되어있는지 확인
             kakaoSession.close()
         }
         
         kakaoSession.open { [weak self] (error) in
-            if error == nil {
-                if kakaoSession.isOpen() {
-                    
-                    //self.postData(accessToken: kakaoSession.token.accessToken, loginType: 0)
-                    
-                    self?.snsLoginServiceImp?.requestSnsLogin(using: kakaoSession.token.accessToken, type: 0) { (dataResponse) in
-                        
-                        if let storeToken = dataResponse.value?.data?.token {
+            guard error == nil else {
+                print(error?.localizedDescription)
+                return
+            }
+            
+            if kakaoSession.isOpen() {
+                
+                //self.postData(accessToken: kakaoSession.token.accessToken, loginType: 0)
+                
+                self?.snsLoginServiceImp?.requestSnsLogin(
+                    using: kakaoSession.token.accessToken,
+                    type: 0
+                ) { (dataResponse) in
+                    switch dataResponse {
+                    case .success(let response):
+                        if let storeToken = response.data?.token {
                             UserDefaults.standard.set(storeToken, forKey: TokenName.token)
                         }
                         
-                        guard let statusCode = dataResponse.value?.status else {return}
-                        
                         DispatchQueue.main.async {
-                            switch statusCode {
+                            switch response.status {
                             case 200:
                                 self?.present(TapbarVC(), animated: true, completion: nil)
                             case 404:
@@ -79,12 +85,13 @@ class LoginPopUpVC: UIViewController, NaverThirdPartyLoginConnectionDelegate {
                                 break
                             }
                         }
+                    case .failed(let error):
+                        print(error)
+                        return
                     }
-                } else {
-                    print("fail")
                 }
             } else {
-                print(error!)
+                print("fail")
             }
         }
     }
