@@ -45,7 +45,8 @@ class AddPassiveDateVC: UIViewController, UITextFieldDelegate, UITextViewDelegat
         titleField.delegate = self
         memoTextView.delegate = self
         memoTextView.applyBorderTextView()
-        if( memoTextView.text == "") { textViewDidEndEditing(memoTextView)
+        if( memoTextView.text == "") {
+            textViewDidEndEditing(memoTextView)
         }
         
     }

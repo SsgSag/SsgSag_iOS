@@ -104,7 +104,7 @@ extension UIViewController {
         dismiss(animated: true, completion: nil)
     }
     
-    //네비게이션 바 투명하게 하는 함수
+    // navigationBar 컬러 설정하는 메소드
     func setNavigationBar(color: UIColor) {
         let bar: UINavigationBar! = self.navigationController?.navigationBar
         
@@ -113,6 +113,7 @@ extension UIViewController {
         bar.backgroundColor = color
     }
     
+    // navigationbar 투명하게 하는 메소드
     func setNavigationBar() {
         let bar: UINavigationBar! = self.navigationController?.navigationBar
         
@@ -331,5 +332,12 @@ extension NSMutableData {
     func appendString(_ string: String) {
         let data = string.data(using: String.Encoding.utf8, allowLossyConversion: false)
         append(data!)
+    }
+}
+
+extension UINavigationBar {
+    func addColorToShadow(color: UIColor, size: CGSize) {
+        self.clipsToBounds = false
+        self.shadowImage = color.image(size)
     }
 }

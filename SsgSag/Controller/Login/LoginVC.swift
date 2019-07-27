@@ -40,22 +40,7 @@ class LoginVC: UIViewController, UITextFieldDelegate {
     }
     
     private func setAutoLoginButton() {
-        
-        guard let isAuto = UserDefaults.standard.object(forKey: UserDefaultsName.isAutoLogin) as? Bool else {
-            
-            autoLoginButton.setImage(UIImage(named: "checkboxRoundActive"), for: .normal)
-            
-            UserDefaults.standard.setValue(true, forKey: UserDefaultsName.isAutoLogin)
-            
-            return
-        }
-        
-        if isAuto {
-            autoLoginButton.setImage(UIImage(named: "checkboxRoundActive"), for: .normal)
-        } else {
-            autoLoginButton.setImage(UIImage(named: "checkboxRound"), for: .normal)
-        }
-        
+        UserDefaults.standard.setValue(true, forKey: UserDefaultsName.isAutoLogin)
     }
     
     private func setEmailAndPasswordTextField() {
@@ -71,7 +56,6 @@ class LoginVC: UIViewController, UITextFieldDelegate {
     }
     
     @IBAction func touchUpAutoLoginButton(_ sender: UIButton) {
-        
         guard let autoLoginButtonImage = autoLoginButton.imageView?.image else {
             return
         }
@@ -93,25 +77,34 @@ class LoginVC: UIViewController, UITextFieldDelegate {
             "loginType" : 10 //10은 자체 로그인
         ]
         
-        loginServiceImp.requestLogin(send: sendData) { (dataResponse) in
-            
-            guard let statusCode = dataResponse.value?.status else {return}
-            
-            guard let httpStatusCode = HttpStatusCode(rawValue: statusCode) else {return}
-            
-            DispatchQueue.main.async {
+        loginServiceImp.requestLogin(send: sendData) { [weak self] (dataResponse) in
+            switch dataResponse {
+            case .success(let loginData):
+                guard let status = loginData.status,
+                    let httpStatusCode = HttpStatusCode(rawValue: status) else {
+                        return
+                }
+                
                 switch httpStatusCode {
                 case .sucess:
-                    if let storeToken = dataResponse.value?.data?.token {
+                    if let storeToken = loginData.data?.token {
                         UserDefaults.standard.set(storeToken,
                                                   forKey: TokenName.token)
                     }
-                    self.present(TapbarVC(), animated: true, completion: nil)
+                    
+                    DispatchQueue.main.async {
+                        self?.present(TapbarVC(), animated: true, completion: nil)
+                    }
                 case .failure:
-                    self.simpleAlert(title: "로그인 실패", message: "")
+                    DispatchQueue.main.async {
+                        self?.simplerAlert(title: "로그인 실패")
+                    }
                 default:
                     break
                 }
+            case .failed(let error):
+                print(error)
+                return
             }
         }
         
@@ -119,8 +112,8 @@ class LoginVC: UIViewController, UITextFieldDelegate {
     
     @IBAction func ssgSagSignUp(_ sender: Any) {
         let storyboard = UIStoryboard(name: StoryBoardName.signup, bundle: nil)
-        let UserInfoVC = storyboard.instantiateViewController(withIdentifier:ViewControllerIdentifier.userInfoViewContrller)
-        let signupNavigator = UINavigationController(rootViewController: UserInfoVC)
+        let userInfoVC = storyboard.instantiateViewController(withIdentifier: ViewControllerIdentifier.userInfoViewContrller)
+        let signupNavigator = UINavigationController(rootViewController: userInfoVC)
         self.present(signupNavigator, animated: true, completion: nil)
     }
     
@@ -149,13 +142,17 @@ enum HttpStatusCode: Int, Error {
     
     case sucess = 200
     case secondSucess = 201
-    case favoriteSuccess = 204
+    case processingSuccess = 204
+    case authenticationFailure = 401
+    case authorizationFailure = 403
     case failure = 404
     case dataBaseError = 600
     case serverError = 500
     
     func throwError() throws {
         switch self {
+        case .authorizationFailure:
+            throw HttpStatusCode.authorizationFailure
         case .failure:
             throw HttpStatusCode.failure
         case .dataBaseError:

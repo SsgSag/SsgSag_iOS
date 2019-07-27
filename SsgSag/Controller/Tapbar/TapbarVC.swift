@@ -17,9 +17,16 @@ class TapbarVC: UITabBarController {
         
         static let swipeStoryBoard = UIStoryboard(name: StoryBoardName.swipe, bundle: nil)
         
-        static let mypageViewController = mypageStoryBoard.instantiateViewController(withIdentifier: ViewControllerIdentifier.mypageViewController)
+        static let feedStoryBoard = UIStoryboard(name: StoryBoardName.feed, bundle: nil)
         
-        static let swipeViewController = swipeStoryBoard.instantiateViewController(withIdentifier: ViewControllerIdentifier.swipe)
+        static let newCalendarStoryboard = UIStoryboard(name: StoryBoardName.newCalendar, bundle: nil)
+        
+        static let swipeViewController = swipeStoryBoard.instantiateViewController(withIdentifier: "swipeNavigationVC")
+        
+        static let feedViewController = feedStoryBoard.instantiateViewController(withIdentifier: "feedNavigationVC")
+        
+        static let newCalendarViewController = newCalendarStoryboard.instantiateViewController(withIdentifier: "calendarNavigationVC")
+        
     }
     
     override func viewDidLoad() {
@@ -35,7 +42,7 @@ class TapbarVC: UITabBarController {
         
         setTabBarStyle()
         
-        getPostersAndStore()
+        UIView.appearance().isExclusiveTouch = true
     }
     
     private func setupLayout() {
@@ -63,12 +70,12 @@ class TapbarVC: UITabBarController {
                                                       image: UIImage(named: "icMain"),
                                                       selectedImage: UIImage(named: "icMainActive"))
         
-        let mypageViewController = CreateViewController.mypageViewController
+        let mypageViewController = CreateViewController.feedViewController
         mypageViewController.tabBarItem = UITabBarItem(title: "",
-                                                       image: UIImage(named: "icUser"),
-                                                       selectedImage: UIImage(named: "icUserActive"))
+                                                       image: UIImage(named: "ic_feedPassive@tabBar"),
+                                                       selectedImage: UIImage(named: "ic_feed@tabBar"))
         
-        let calendarViewController = CalenderVC()
+        let calendarViewController = CreateViewController.newCalendarViewController
         calendarViewController.tabBarItem = UITabBarItem(title: "",
                                                          image: UIImage(named: "icCal"),
                                                          selectedImage: UIImage(named: "icCalActive"))
@@ -86,37 +93,6 @@ class TapbarVC: UITabBarController {
         self.selectedIndex = 1
     }
     
-    /// start only at first time
-    private func getPostersAndStore() {
-        
-        guard let _ = UserDefaults.standard.object(forKey: UserDefaultsName.syncWithLocalData) as? Bool else {
-            
-            let start = true
-            
-            UserDefaults.standard.setValue(start, forKey: UserDefaultsName.syncWithLocalData)
-            
-            syncDataAtFirst()
-            
-            return
-        }
-    }
-    
-    private func syncDataAtFirst() {
-        // 모든 Todolist를 가져오는듯
-        tapbarServiceImp?.requestAllTodoList { (dataResponse) in
-            
-            guard let todoList = dataResponse.value else { return }
-            
-            StoreAndFetchPoster.shared.storePoster(posters: todoList)
-        }
-        
-    }
-    
-    override func viewWillLayoutSubviews() {
-        super.viewWillLayoutSubviews()
-        
-        UIView.appearance().isExclusiveTouch = true
-    }
 }
 
 

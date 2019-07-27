@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="109" id="KGk-i7-Jjw" customClass="DetailTodoListTableViewCell" customModule="슥삭" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="418" height="109"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="418" height="108.5"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5cU-2h-DLw" userLabel="borderView">
+                        <rect key="frame" x="10" y="5" width="398" height="98.5"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="E7D-ZZ-2ES">
+                                <rect key="frame" x="10" y="5" width="65.5" height="88.5"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="E7D-ZZ-2ES" secondAttribute="height" multiplier="20:27" id="o70-ca-Mo5"/>
+                                </constraints>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Kdq-s2-Rgq">
+                                <rect key="frame" x="85.5" y="44" width="302.5" height="11"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="11" id="Snx-fc-p3y"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="d5j-NH-js7" userLabel="Poster Category">
+                                <rect key="frame" x="85.5" y="19" width="302.5" height="15"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="15" id="M41-bx-x5b"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="11"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1CY-oo-dsS" userLabel="Poster Date">
+                                <rect key="frame" x="85.5" y="65" width="302.5" height="11"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="11" id="aTA-4N-0Ug"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="11"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="d5j-NH-js7" firstAttribute="width" secondItem="Kdq-s2-Rgq" secondAttribute="width" id="6uk-UY-4M2"/>
+                            <constraint firstItem="Kdq-s2-Rgq" firstAttribute="top" secondItem="d5j-NH-js7" secondAttribute="bottom" constant="10" id="78s-h6-PBR"/>
+                            <constraint firstItem="E7D-ZZ-2ES" firstAttribute="leading" secondItem="5cU-2h-DLw" secondAttribute="leading" constant="10" id="CFj-o5-xHa"/>
+                            <constraint firstItem="1CY-oo-dsS" firstAttribute="leading" secondItem="d5j-NH-js7" secondAttribute="leading" id="GoF-hn-Dhf"/>
+                            <constraint firstItem="1CY-oo-dsS" firstAttribute="width" secondItem="d5j-NH-js7" secondAttribute="width" id="KBZ-3O-wwl"/>
+                            <constraint firstAttribute="trailing" secondItem="Kdq-s2-Rgq" secondAttribute="trailing" constant="10" id="NCh-nR-8wN"/>
+                            <constraint firstItem="E7D-ZZ-2ES" firstAttribute="top" secondItem="5cU-2h-DLw" secondAttribute="top" constant="5" id="NiG-26-lba"/>
+                            <constraint firstItem="Kdq-s2-Rgq" firstAttribute="leading" secondItem="E7D-ZZ-2ES" secondAttribute="trailing" constant="10" id="V2U-cJ-YFJ"/>
+                            <constraint firstItem="Kdq-s2-Rgq" firstAttribute="centerY" secondItem="5cU-2h-DLw" secondAttribute="centerY" id="WmN-rI-Aej"/>
+                            <constraint firstItem="d5j-NH-js7" firstAttribute="leading" secondItem="Kdq-s2-Rgq" secondAttribute="leading" id="hYc-sJ-1r3"/>
+                            <constraint firstAttribute="bottom" secondItem="E7D-ZZ-2ES" secondAttribute="bottom" constant="5" id="kU1-RS-zLY"/>
+                            <constraint firstItem="1CY-oo-dsS" firstAttribute="top" secondItem="Kdq-s2-Rgq" secondAttribute="bottom" constant="10" id="riX-3w-GZa"/>
+                        </constraints>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="color" keyPath="borderColorV">
+                                <color key="value" red="0.95294117647058818" green="0.95686274509803915" blue="0.96078431372549022" alpha="1" colorSpace="calibratedRGB"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="number" keyPath="borderWidthV">
+                                <real key="value" value="1"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadiusV">
+                                <real key="value" value="2"/>
+                            </userDefinedRuntimeAttribute>
+                        </userDefinedRuntimeAttributes>
+                    </view>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="5cU-2h-DLw" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="5" id="6nM-nP-V9X"/>
+                    <constraint firstAttribute="trailing" secondItem="5cU-2h-DLw" secondAttribute="trailing" constant="10" id="7bh-5w-DEY"/>
+                    <constraint firstItem="5cU-2h-DLw" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="XTG-xW-zfO"/>
+                    <constraint firstAttribute="bottom" secondItem="5cU-2h-DLw" secondAttribute="bottom" constant="5" id="pi5-hc-TXf"/>
+                </constraints>
+            </tableViewCellContentView>
+            <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <connections>
+                <outlet property="posterCategory" destination="d5j-NH-js7" id="hAi-q5-70M"/>
+                <outlet property="posterDate" destination="1CY-oo-dsS" id="l9M-H4-Ibx"/>
+                <outlet property="posterImageView" destination="E7D-ZZ-2ES" id="XUe-X1-Zue"/>
+                <outlet property="posterName" destination="Kdq-s2-Rgq" id="Mhu-UN-k5I"/>
+            </connections>
+            <point key="canvasLocation" x="208.69565217391306" y="134.26339285714286"/>
+        </tableViewCell>
+    </objects>
+</document>

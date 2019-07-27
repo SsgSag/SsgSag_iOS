@@ -10,6 +10,7 @@ class SwipeCard: UIView {
     private var yCenter: CGFloat = 0.0
     private var originalPoint = CGPoint.zero
     private var imageViewStatus = UIImageView()
+    // 카드 위에 나타나는 슥 또는 삭 이미지
     private var overLayImage = UIImageView()
     private var isLiked = false
     
@@ -26,12 +27,14 @@ class SwipeCard: UIView {
     }
     
     // MARK: - Setup ImageView
-    func setupView(at value:String) {
-        //layer.cornerRadius = 20
+    private func setupView(at value: String) {
+        layer.cornerRadius = 10
         layer.shadowRadius = 4
         layer.shadowOpacity = 0.4
         layer.shadowOffset = CGSize(width: 0.5, height: 3)
         layer.shadowColor = UIColor.darkGray.cgColor
+        layer.borderColor = #colorLiteral(red: 0.9215686275, green: 0.9294117647, blue: 0.937254902, alpha: 1)
+        layer.borderWidth = 1
         clipsToBounds = true
         layer.masksToBounds = true
         
@@ -39,18 +42,18 @@ class SwipeCard: UIView {
         isUserInteractionEnabled = true
         originalPoint = center
         
-        let panGestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(self.beingDragged))
+        let panGestureRecognizer
+            = UIPanGestureRecognizer(target: self,
+                                     action: #selector(self.beingDragged))
         addGestureRecognizer(panGestureRecognizer)
         
-        let imageURL = URL(string: value)
-        overLayImage = UIImageView(frame:bounds)
+        guard let imageURL = URL(string: value) else { return }
+        overLayImage = UIImageView(frame: bounds)
         overLayImage.alpha = 0
         
-        DispatchQueue.main.async { [weak self] in
-            ImageNetworkManager.shared.getImageByCache(imageURL: imageURL!) { image, error in
-                self?.overLayImage.image = image
-                self?.addSubview(self?.overLayImage ?? .init())
-            }
+        ImageNetworkManager.shared.getImageByCache(imageURL: imageURL) { [weak self] image, error in
+            self?.overLayImage.image = image
+            self?.addSubview(self?.overLayImage ?? .init())
         }
     }
     
@@ -65,7 +68,7 @@ class SwipeCard: UIView {
             originalPoint = self.center
         case .changed:
             let rotationStrength = min( xCenter / UIScreen.main.bounds.size.width, 1)
-            let rotationAngel = .pi/8*rotationStrength
+            let rotationAngel = .pi / 8 * rotationStrength
             let scale = max(1 - abs(rotationStrength) / SCALE_STRENGTH, SCALE_RANGE)
             center = CGPoint(x: originalPoint.x + xCenter, y: originalPoint.y + yCenter)
             
@@ -108,29 +111,32 @@ class SwipeCard: UIView {
         }
     }
     
-    //오른쪽 스와이프 , 좋아요
+    // 오른쪽 스와이프, 좋아요
     func rightAction() {
         let finishPoint = CGPoint(x: frame.size.width * 2, y: 2 * yCenter + originalPoint.y)
         
         UIView.animate(withDuration: 0.15, animations: {
             self.center = finishPoint
             self.layoutIfNeeded()
-        }, completion: {(_) in
-            self.removeFromSuperview()
+        }, completion: { [weak self] _ in
+            self?.removeFromSuperview()
         })
+        
         isLiked = true
         delegate?.cardGoesRight(card: self)
     }
     
     //왼쪽 스와이프
     func leftAction() {
-        let finishPoint = CGPoint(x: -frame.size.width*2, y: 2 * yCenter + originalPoint.y)
+        let finishPoint = CGPoint(x: -frame.size.width * 2, y: 2 * yCenter + originalPoint.y)
+        
         UIView.animate(withDuration: 0.5, animations: {
             self.center = finishPoint
             self.layoutIfNeeded()
-        }, completion: {(_) in
-            self.removeFromSuperview()
+        }, completion: { [weak self] _ in
+            self?.removeFromSuperview()
         })
+        
         isLiked = false
         delegate?.cardGoesLeft(card: self)
     }

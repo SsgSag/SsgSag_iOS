@@ -9,15 +9,18 @@
 import Foundation
 
 protocol PosterService: class {
-    func requestPoster(completionHandler: @escaping (DataResponse<[Posters]>) -> Void )
+    func requestPoster(completionHandler: @escaping (DataResponse<[Posters]>) -> Void)
     
     func requestPosterLiked(of poster: Posters,
                             type likedCategory: likedOrDisLiked)
+    
+    func requestPosterDetail(posterIdx: Int,
+                             completionHandler: @escaping (DataResponse<DataClass>) -> Void)
 }
 
 class PosterServiceImp: PosterService {
     
-    func requestPosterLiked(of poster: Posters, type likedCategory: likedOrDisLiked ) {
+    func requestPosterLiked(of poster: Posters, type likedCategory: likedOrDisLiked) {
         
         let like = likedCategory.rawValue
         
@@ -77,14 +80,12 @@ class PosterServiceImp: PosterService {
     
     func requestPoster(completionHandler: @escaping (DataResponse<[Posters]>) -> Void) {
         
-        guard let url = UserAPI.sharedInstance.getURL(RequestURL.initPoster.getRequestURL) else {return}
+        guard let url = UserAPI.sharedInstance.getURL(RequestURL.initPoster.getRequestURL) else { return }
     
-        guard let tokenKey = UserDefaults.standard.object(forKey: TokenName.token) as? String else {
-            return
-        }
+        guard let key = UserDefaults.standard.object(forKey: TokenName.token) as? String else { return }
         
         var request = URLRequest(url: url)
-        request.addValue(tokenKey, forHTTPHeaderField: "Authorization")
+        request.addValue(key, forHTTPHeaderField: "Authorization")
         
         NetworkManager.shared.getData(with: request) { (data, err, res) in
             guard let data = data else { return }
@@ -102,5 +103,33 @@ class PosterServiceImp: PosterService {
         }
     }
     
+    func requestPosterDetail(posterIdx: Int,
+                             completionHandler: @escaping (DataResponse<DataClass>) -> Void) {
+        guard let url = UserAPI.sharedInstance.getURL(RequestURL.posterDetail(posterIdx: posterIdx).getRequestURL) else { return }
+        
+        guard let key = UserDefaults.standard.object(forKey: TokenName.token) as? String else { return }
+        
+        var request = URLRequest(url: url)
+        request.setValue(key, forHTTPHeaderField: "Authorization")
+        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.httpMethod = "GET"
+        
+        NetworkManager.shared.getData(with: request) { (data, error, response) in
+            guard let data = data else { return }
+            
+            do {
+                let response = try JSONDecoder().decode(PosterDetail.self, from: data)
+                
+                guard let posterData = response.data else { return }
+                
+                completionHandler(DataResponse.success(posterData))
+                
+            } catch let error {
+                print(error)
+                print("posterDetail Parsing Error")
+                assertionFailure()
+            }
+        }
+    }
 }
 

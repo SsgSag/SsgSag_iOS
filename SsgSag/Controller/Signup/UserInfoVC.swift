@@ -8,7 +8,7 @@
 
 import UIKit
 
-class UserInfoVC: UIViewController, UITextFieldDelegate {
+class UserInfoVC: UIViewController {
     
     @IBOutlet weak var emailTextField: UITextField!
     
@@ -28,12 +28,26 @@ class UserInfoVC: UIViewController, UITextFieldDelegate {
     
     @IBOutlet weak var titleImgae: UIImageView!
     
+    private var signUpServiceImp: SignupService?
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        registerForKeyboardNotifications()
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        unregisterForKeyboardNotifications()
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        nextButton.isUserInteractionEnabled = false
-        
         passwordCheckTextField.returnKeyType = .done
+        
+        setupService()
         
         iniGestureRecognizer()
         
@@ -46,12 +60,40 @@ class UserInfoVC: UIViewController, UITextFieldDelegate {
         self.titleImgae.isHidden = false
     }
     
+    private func setupService(_ signUpService: SignupService = SignupServiceImp()) {
+        self.signUpServiceImp = signUpService
+    }
+    
+    private func iniGestureRecognizer() {
+        let tap = UITapGestureRecognizer(target: self,
+                                         action: #selector(handleTabMainView(_:)))
+        tap.delegate = self
+        view.addGestureRecognizer(tap)
+    }
+    
+    private func registerForKeyboardNotifications() {
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(keyboardWillShow(_:)),
+                                               name: UIResponder.keyboardWillShowNotification,
+                                               object: nil)
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(keyboardWillHide(_:)),
+                                               name: UIResponder.keyboardWillHideNotification,
+                                               object: nil)
+    }
+    
+    private func unregisterForKeyboardNotifications() {
+        NotificationCenter.default.removeObserver(self,
+                                                  name: UIResponder.keyboardWillShowNotification,
+                                                  object: nil)
+        NotificationCenter.default.removeObserver(self,
+                                                  name: UIResponder.keyboardWillHideNotification,
+                                                  object: nil)
+    }
+    
     private func setDelegate() {
-        
         emailTextField.delegate = self
-        
         passwordTextField.delegate = self
-        
         passwordCheckTextField.delegate = self
     }
     
@@ -61,221 +103,225 @@ class UserInfoVC: UIViewController, UITextFieldDelegate {
         passwordCheckTextField.tag = 3
     }
     
+    // validate an email for the right format
+    private func isValidEmail(email: String?) -> Bool {
+        
+        guard email != nil else {
+            return false
+        }
+        
+        let regEx = """
+        ^[0-9a-zA-Z][0-9a-zA-Z\\_\\-\\.\\+]+[0-9a-zA-Z]@[0-9a-zA-Z][0-9a-zA-Z\\_\\-]*[0-9a-zA-Z](\\.[a-zA-Z]{2,6}){1,2}$
+        """
+        
+        let pred = NSPredicate(format: "SELF MATCHES %@", regEx)
+        
+        return pred.evaluate(with: email)
+    }
+    
+    private func isValidatePassword(password: String?) -> Bool {
+        guard password != nil else {
+            return false
+        }
+        
+        let regEx = "^[a-zA-Z0-9!@#$%^&*]{8,20}$"
+        
+        let pred = NSPredicate(format: "SELF MATCHES %@", regEx)
+        
+        return pred.evaluate(with: password)
+    }
+    
+    @IBAction func touchUpBackButton(_ sender: UIBarButtonItem) {
+        dismiss(animated: true)
+    }
     
     @IBAction func confirmEmail(_ sender: Any) {
-        //여기서 중복 확인을 하자.
+        guard checkInformation() else { return }
         
-        guard let userEmailString = emailTextField.text else { return }
+        guard let userEmailString = emailTextField.text else {
+            return
+        }
         
-        let signupType:Int = 10 //자체 로그인은 10
+        let urlString = "/user/validateEmail?userEmail=\(userEmailString)"
         
-        guard let url = UserAPI.sharedInstance.getURL("/user/validate?userEmail=\(userEmailString)&signupType=\(signupType)") else {return}
-        
-        var request = URLRequest(url: url)
-        request.httpMethod = "GET"
-        
-        NetworkManager.shared.getData(with: request) { (data, error, response) in
-            guard let data = data else {return}
-            
-            do {
-                let isDuplicateNetworkModel = try JSONDecoder().decode(EmailDuplicate.self, from: data)
-                
-                guard let httpStatusCode = isDuplicateNetworkModel.status else {return}
-                
-                guard let status = HttpStatusCode(rawValue: httpStatusCode) else {return}
-                
+        signUpServiceImp?.requestValidateEmail(urlString: urlString) { [weak self] dataResponse, isValidate in
+            switch dataResponse {
+            case .success(let status):
                 switch status {
                 case .sucess:
-                    guard let isDuplicated = isDuplicateNetworkModel.data else {return}
-                    
-                    DispatchQueue.main.async {
-                        
-                        if isDuplicated {
-                            
-                            let storyboard = UIStoryboard(name: StoryBoardName.signup, bundle: nil)
-                            
-                            let SchoolInfoVC = storyboard.instantiateViewController(withIdentifier: ViewControllerIdentifier.singupFirstViewController) as! ConfirmProfileVC
-                            
-                            self.navigationController?.pushViewController(SchoolInfoVC, animated: true)
-                            
-                        } else {
-                            self.simplerAlert(title: "중복되는 이메일이 존재합니다.")
+                    if isValidate {
+                        let storyboard = UIStoryboard(name: StoryBoardName.signup,
+                                                      bundle: nil)
+
+                        let ConfirmProfileVC
+                            = storyboard.instantiateViewController(withIdentifier: ViewControllerIdentifier.confirmProfileViewController)
+                                as! ConfirmProfileVC
+
+                        DispatchQueue.main.async {
+                            self?.navigationController?.pushViewController(ConfirmProfileVC,
+                                                                           animated: true)
                         }
                         
+                    } else {
+                        DispatchQueue.main.async {
+                            self?.simplerAlert(title: "중복되는 이메일이 존재합니다.")
+                        }
                     }
                 case .dataBaseError, .serverError:
-                    self.simplerAlert(title: "서버 내부 에러")
+                    DispatchQueue.main.async {
+                        self?.simplerAlert(title: "서버 내부 에러")
+                    }
                 default:
-                    break
+                    return
                 }
-            } catch {
-                print("Email Duplicate Parsing Error")
+            case .failed(let error):
+                assertionFailure(error.localizedDescription)
+                return
             }
         }
     }
     
+    @objc func handleTabMainView(_ sender: UITapGestureRecognizer) {
+        emailTextField.resignFirstResponder()
+        passwordTextField.resignFirstResponder()
+        passwordCheckTextField.resignFirstResponder()
+    }
+    
+    @objc func keyboardWillShow(_ notification: NSNotification) {
+        guard let duration
+            = notification.userInfo?[UIResponder.keyboardAnimationDurationUserInfoKey]
+                as? Double,
+            let curve
+            = notification.userInfo?[UIResponder.keyboardAnimationCurveUserInfoKey]
+                as? UInt else {
+                    return
+        }
+        
+        UIView.animate(withDuration: duration,
+                       delay: 0.3,
+                       options: .init(rawValue: curve),
+                       animations: { [weak self] in
+                        self?.stackViewConstraint.constant = 120
+                        self?.titleImgae.isHidden = true
+                        self?.titleLabel.isHidden = true
+        })
+        
+        stackViewConstraint.constant = 120
+        view.layoutIfNeeded()
+    }
+    
+    @objc func keyboardWillHide(_ notification: NSNotification) {
+        guard let duration
+            = notification.userInfo?[UIResponder.keyboardAnimationDurationUserInfoKey]
+                as? Double,
+            let curve
+            = notification.userInfo?[UIResponder.keyboardAnimationCurveUserInfoKey]
+                as? UInt else {
+                    return
+        }
+        
+        UIView.animate(withDuration: duration,
+                       delay: 0.3,
+                       options: .init(rawValue: curve),
+                       animations: { [weak self] in
+                        self?.stackViewConstraint.constant = 299
+                        self?.titleLabel.isHidden = false
+                        self?.titleImgae.isHidden = false
+        })
+        
+        stackViewConstraint.constant = 299
+        view.layoutIfNeeded()
+    }
+    
+    func checkInformation() -> Bool{
+        
+        guard emailTextField.hasText
+            && passwordTextField.hasText
+            && passwordCheckTextField.hasText else {
+            
+            simplerAlert(title: "기입되지 않은 사항이 있습니다.")
+            nextButton.isUserInteractionEnabled = false
+                
+            nextButton.topColor = .lightGray
+            nextButton.bottomColor = .lightGray
+            return false
+        }
+        
+        guard isValidEmail(email: emailTextField.text) else {
+            simplerAlert(title: "이메일 형식이 아닙니다.")
+            emailTextField.text = ""
+            
+            nextButton.isUserInteractionEnabled = false
+            
+            nextButton.topColor = .lightGray
+            nextButton.bottomColor = .lightGray
+            return false
+        }
+        
+        guard isValidatePassword(password: passwordTextField.text) else {
+            simplerAlert(title: "비밀번호 형식이 잘못되었습니다.\n(영문자, 숫자, 특수문자(!@#$%^&*)를 사용한 8~20자)")
+            
+            passwordTextField.text = ""
+            passwordCheckTextField.text = ""
+            
+            nextButton.isUserInteractionEnabled = false
+            
+            nextButton.topColor = .lightGray
+            nextButton.bottomColor = .lightGray
+            return false
+        }
+        
+        guard passwordTextField.text == passwordCheckTextField.text else {
+            
+            self.simplerAlert(title: "두개의 패스워드가 다릅니다.")
+            passwordTextField.text = ""
+            passwordCheckTextField.text = ""
+            
+            nextButton.isUserInteractionEnabled = false
+            
+            nextButton.topColor = .lightGray
+            nextButton.bottomColor = .lightGray
+            
+            return false
+        }
+        
+        return true
+    }
+}
+
+extension UserInfoVC: UIGestureRecognizerDelegate {
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer,
+                           shouldReceive touch: UITouch) -> Bool {
+        self.view.endEditing(true)
+        return true
+    }
+}
+
+extension UserInfoVC: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         let nextTag = textField.tag + 1
         
-        if let nextResponder = self.view.viewWithTag(nextTag){
-            
+        if let nextResponder = self.view.viewWithTag(nextTag) {
             nextResponder.becomeFirstResponder()
             
         } else {
-            
             textField.resignFirstResponder()
         }
         
         return true
     }
     
-    
-    @IBAction func touchUpBackButton(_ sender: UIBarButtonItem) {
-        self.dismiss(animated: true, completion: nil)
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        registerForKeyboardNotifications()
-    }
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        unregisterForKeyboardNotifications()
-    }
-    
-    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
-        self.view.endEditing(true)
-        return true
-    }
-    
     func textFieldDidEndEditing(_ textField: UITextField) {
-        if textField.tag == 3 {
-            checkInformation(self)
-        }
-    }
-    
-    // validate an email for the right format
-    private func isValidEmail(email:String?) -> Bool {
-        
-        guard email != nil else { return false }
-        
-        let regEx = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}"
-        
-        let pred = NSPredicate(format:"SELF MATCHES %@", regEx)
-        
-        return pred.evaluate(with: email)
-    }
-    
-    @objc func checkInformation(_ sender: Any) {
-        
-        guard isValidEmail(email: emailTextField.text) else {
-            self.simplerAlert(title: "이메일 형식이 아닙니다.")
-            emailTextField.text = ""
-            passwordTextField.text = ""
-            passwordCheckTextField.text = ""
-            
-            nextButton.topColor = .lightGray
-            nextButton.bottomColor = .white
-            return
-        }
-        
-        guard emailTextField.hasText && passwordTextField.hasText && passwordCheckTextField.hasText else {
-            
-            nextButton.isUserInteractionEnabled = false
-            self.simplerAlert(title: "기입되지 않은 사항이 있습니다.")
-            
-            nextButton.topColor = .lightGray
-            nextButton.bottomColor = .white
-            return
-        }
-        
-        guard passwordTextField.text == passwordCheckTextField.text else {
-            
-            nextButton.isUserInteractionEnabled = false
-            
-            self.simplerAlert(title: "두개의 패스워드가 다릅니다.")
-            passwordTextField.text = ""
-            passwordCheckTextField.text = ""
-            
-            nextButton.topColor = .lightGray
-            nextButton.bottomColor = .white
-            
-            return
+        guard emailTextField.hasText
+            && passwordTextField.hasText
+            && passwordCheckTextField.hasText else {
+                return
         }
         
         nextButton.isUserInteractionEnabled = true
         
         nextButton.topColor = #colorLiteral(red: 0.2078431373, green: 0.9176470588, blue: 0.8901960784, alpha: 1)
         nextButton.bottomColor = #colorLiteral(red: 0.6588235294, green: 0.2784313725, blue: 1, alpha: 1)
-        
     }
 }
 
-extension UserInfoVC : UIGestureRecognizerDelegate {
-    
-    func iniGestureRecognizer() {
-        let tap = UITapGestureRecognizer(target: self, action: #selector(handleTabMainView(_:)))
-        tap.delegate = self
-        view.addGestureRecognizer(tap)
-    }
-    
-    @objc func handleTabMainView(_ sender: UITapGestureRecognizer){
-        self.emailTextField.resignFirstResponder()
-        self.passwordTextField.resignFirstResponder()
-        self.passwordCheckTextField.resignFirstResponder()
-    }
-    
-    private func gestureRecog(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
-        if (touch.view?.isDescendant(of: emailTextField))! || (touch.view?.isDescendant(of: passwordTextField))! || (touch.view?.isDescendant(of: passwordCheckTextField))! {
-            return false
-        }
-        return true
-    }
-    
-    @objc func keyboardWillShow(_ notification: NSNotification) {
-        guard let duration = notification.userInfo?[UIResponder.keyboardAnimationDurationUserInfoKey] as? Double else {return}
-        guard let curve = notification.userInfo?[UIResponder.keyboardAnimationCurveUserInfoKey] as? UInt else {return}
-        
-        UIView.animate(withDuration: duration, delay: 0.3, options: .init(rawValue: curve), animations: { [unowned self] in
-            self.stackViewConstraint.constant = 120
-            self.titleImgae.isHidden = true
-            self.titleLabel.isHidden = true
-        })
-        
-        stackViewConstraint.constant = 120
-        self.view.layoutIfNeeded()
-    }
-    
-    @objc func keyboardWillHide(_ notification: NSNotification) {
-        guard let duration = notification.userInfo?[UIResponder.keyboardAnimationDurationUserInfoKey] as? Double else {return}
-        guard let curve = notification.userInfo?[UIResponder.keyboardAnimationCurveUserInfoKey] as? UInt else {return}
-        
-        UIView.animate(withDuration: duration, delay: 0.3, options: .init(rawValue: curve), animations: {
-            
-            self.stackViewConstraint.constant = 299
-            self.titleLabel.isHidden = false
-            self.titleImgae.isHidden = false
-            
-        })
-        
-        stackViewConstraint.constant = 299
-        self.view.layoutIfNeeded()
-    }
-    
-    func registerForKeyboardNotifications() {
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(_:)), name: UIResponder.keyboardWillShowNotification, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(_:)), name: UIResponder.keyboardWillHideNotification, object: nil)
-    }
-    
-    func unregisterForKeyboardNotifications() {
-        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
-        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
-    }
-}
-
-struct EmailDuplicate: Codable {
-    let status: Int?
-    let message: String?
-    let data: Bool?
-}

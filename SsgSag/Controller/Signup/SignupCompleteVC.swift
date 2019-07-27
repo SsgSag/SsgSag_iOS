@@ -72,7 +72,7 @@ class SignUpCompleteVC: UIViewController {
         startButton.isUserInteractionEnabled = false
         
         self.navigationItem.setHidesBackButton(true, animated: true)
-        setBackBtn( color: .black)
+        setBackBtn(color: .black)
         setNavigationBar(color: .white)
     }
     
@@ -223,7 +223,6 @@ class SignUpCompleteVC: UIViewController {
                 DispatchQueue.main.async {
                     switch httpStatusCode {
                     case .sucess:
-                        
                         if let storeToken = login.data?.token {
                             UserDefaults.standard.set(storeToken,
                                                       forKey: TokenName.token)

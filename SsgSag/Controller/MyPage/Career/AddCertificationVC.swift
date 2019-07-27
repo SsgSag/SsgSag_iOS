@@ -75,7 +75,7 @@ class AddCertificationVC: UIViewController, UITextFieldDelegate, UITextViewDeleg
         
         //let json: [String: Any] = ["careerType" : careerType]
         let jsonData = try? JSONSerialization.data(withJSONObject: json)
-        let url = URL(string: "http://52.78.86.179:8080/career/\(careerType)")!
+        let url = URL(string: "http://52.78.86.179:8081/career/\(careerType)")!
         var request = URLRequest(url: url)
         request.httpMethod = "GET"
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
@@ -100,7 +100,7 @@ class AddCertificationVC: UIViewController, UITextFieldDelegate, UITextViewDeleg
         let jsonData = try? JSONSerialization.data(withJSONObject: json)
         
         // create post request
-        let url = URL(string: "http://52.78.86.179:8080/career")!
+        let url = URL(string: "http://52.78.86.179:8081/career")!
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")

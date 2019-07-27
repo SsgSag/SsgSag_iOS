@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionReusableView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="U6b-Vx-4bR" customClass="PosterHeaderCollectionReusableView" customModule="슥삭" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="451" height="373"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <subviews>
+                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="mJf-cC-chr">
+                    <rect key="frame" x="22" y="10" width="150.5" height="211"/>
+                    <constraints>
+                        <constraint firstAttribute="width" secondItem="mJf-cC-chr" secondAttribute="height" multiplier="134:188" id="3GB-EL-h46"/>
+                    </constraints>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadiusV">
+                            <real key="value" value="8"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
+                </imageView>
+                <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="8jz-t3-hIJ">
+                    <rect key="frame" x="22" y="234" width="150.5" height="22"/>
+                    <subviews>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dvP-bI-JZ2">
+                            <rect key="frame" x="0.0" y="0.0" width="61" height="22"/>
+                            <inset key="imageEdgeInsets" minX="-15" minY="0.0" maxX="0.0" maxY="0.0"/>
+                            <state key="normal" title="0" image="ic_favorite">
+                                <color key="titleColor" red="0.46666666666666667" green="0.46666666666666667" blue="0.46666666666666667" alpha="1" colorSpace="calibratedRGB"/>
+                            </state>
+                        </button>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WoG-Uy-W16">
+                            <rect key="frame" x="73" y="0.0" width="77.5" height="22"/>
+                            <inset key="imageEdgeInsets" minX="-15" minY="0.0" maxX="0.0" maxY="0.0"/>
+                            <state key="normal" title="0" image="ic_calendar">
+                                <color key="titleColor" red="0.46666666666666667" green="0.46666666666666667" blue="0.46666666666666667" alpha="1" colorSpace="calibratedRGB"/>
+                            </state>
+                        </button>
+                    </subviews>
+                </stackView>
+                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="6" translatesAutoresizingMaskIntoConstraints="NO" id="40s-88-CXL">
+                    <rect key="frame" x="186.5" y="10" width="242.5" height="211"/>
+                    <subviews>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cSX-wg-Vdx">
+                            <rect key="frame" x="0.0" y="0.0" width="58" height="21"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="21" id="A2N-Zx-5iH"/>
+                            </constraints>
+                            <inset key="contentEdgeInsets" minX="6" minY="2" maxX="6" maxY="2"/>
+                            <state key="normal" title="Button"/>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="number" keyPath="cornerRadiusV">
+                                    <real key="value" value="6"/>
+                                </userDefinedRuntimeAttribute>
+                            </userDefinedRuntimeAttributes>
+                        </button>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GVw-I1-Vcq">
+                            <rect key="frame" x="0.0" y="27" width="242.5" height="50"/>
+                            <constraints>
+                                <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="50" id="T34-pa-wvc"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" type="system" weight="medium" pointSize="20"/>
+                            <color key="textColor" red="0.30980392156862746" green="0.30980392156862746" blue="0.30980392156862746" alpha="1" colorSpace="calibratedRGB"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eNd-Y8-LMb">
+                            <rect key="frame" x="0.0" y="83" width="242.5" height="21"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="21" id="2kl-hL-YcJ"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" type="system" weight="medium" pointSize="13"/>
+                            <color key="textColor" red="0.46666666666666667" green="0.46666666666666667" blue="0.46666666666666667" alpha="1" colorSpace="calibratedRGB"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="0OH-09-czS">
+                            <rect key="frame" x="0.0" y="110" width="242.5" height="101"/>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
+                            <color key="textColor" red="0.38431372549999998" green="0.41568627450000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                            <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                        </textView>
+                    </subviews>
+                    <constraints>
+                        <constraint firstItem="0OH-09-czS" firstAttribute="width" secondItem="40s-88-CXL" secondAttribute="width" id="8SX-Ob-vDz"/>
+                        <constraint firstItem="GVw-I1-Vcq" firstAttribute="width" secondItem="40s-88-CXL" secondAttribute="width" id="pj7-FR-zFU"/>
+                        <constraint firstItem="eNd-Y8-LMb" firstAttribute="width" secondItem="40s-88-CXL" secondAttribute="width" id="sEs-i7-HZo"/>
+                    </constraints>
+                </stackView>
+            </subviews>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <constraints>
+                <constraint firstItem="8jz-t3-hIJ" firstAttribute="top" secondItem="mJf-cC-chr" secondAttribute="bottom" constant="13" id="0cM-w3-des"/>
+                <constraint firstItem="8jz-t3-hIJ" firstAttribute="trailing" secondItem="mJf-cC-chr" secondAttribute="trailing" id="2aj-RQ-TYw"/>
+                <constraint firstItem="40s-88-CXL" firstAttribute="bottom" secondItem="mJf-cC-chr" secondAttribute="bottom" id="7Jc-cf-dsW"/>
+                <constraint firstItem="mJf-cC-chr" firstAttribute="leading" secondItem="VXr-Tz-HHm" secondAttribute="leading" constant="22" id="DDH-jr-LHu"/>
+                <constraint firstItem="8jz-t3-hIJ" firstAttribute="leading" secondItem="mJf-cC-chr" secondAttribute="leading" id="EQb-KA-Lti"/>
+                <constraint firstItem="40s-88-CXL" firstAttribute="top" secondItem="mJf-cC-chr" secondAttribute="top" id="IrI-h8-1Fo"/>
+                <constraint firstItem="40s-88-CXL" firstAttribute="leading" secondItem="mJf-cC-chr" secondAttribute="trailing" constant="14" id="O19-OS-2Es"/>
+                <constraint firstItem="mJf-cC-chr" firstAttribute="top" secondItem="U6b-Vx-4bR" secondAttribute="top" constant="10" id="kp0-6K-lJR"/>
+                <constraint firstItem="mJf-cC-chr" firstAttribute="width" secondItem="U6b-Vx-4bR" secondAttribute="width" multiplier="1:3" id="rkB-Ee-bdg"/>
+                <constraint firstItem="VXr-Tz-HHm" firstAttribute="trailing" secondItem="40s-88-CXL" secondAttribute="trailing" constant="22" id="xAf-Ns-1Cu"/>
+            </constraints>
+            <viewLayoutGuide key="safeArea" id="VXr-Tz-HHm"/>
+            <connections>
+                <outlet property="categoryButton" destination="cSX-wg-Vdx" id="idc-Pn-vVR"/>
+                <outlet property="favoriteButton" destination="dvP-bI-JZ2" id="maG-uT-KVI"/>
+                <outlet property="hashTagTextView" destination="0OH-09-czS" id="5n2-aZ-aHf"/>
+                <outlet property="likeButton" destination="WoG-Uy-W16" id="eRs-B2-Q7P"/>
+                <outlet property="periodLabel" destination="eNd-Y8-LMb" id="Sc1-84-9ou"/>
+                <outlet property="posterImageView" destination="mJf-cC-chr" id="4Gy-dF-xy1"/>
+                <outlet property="posterTitleLabel" destination="GVw-I1-Vcq" id="k2s-oA-27c"/>
+            </connections>
+            <point key="canvasLocation" x="232.60869565217394" y="102.79017857142857"/>
+        </collectionReusableView>
+    </objects>
+    <resources>
+        <image name="ic_calendar" width="15" height="15"/>
+        <image name="ic_favorite" width="15" height="15"/>
+    </resources>
+</document>

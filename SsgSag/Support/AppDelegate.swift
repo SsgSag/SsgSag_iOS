@@ -30,6 +30,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, MessagingDelegate ,UNUser
         
         FirebaseApp.configure()
         
+        adBrixDefaultSetting()
+        
         Messaging.messaging().delegate = self
         
         UNUserNotificationCenter.current().delegate = self
@@ -62,24 +64,27 @@ class AppDelegate: UIResponder, UIApplicationDelegate, MessagingDelegate ,UNUser
         window = UIWindow(frame: UIScreen.main.bounds)
     
         setWindowRootViewController()
-        
-//        adBrixDefaultSetting()
 
         window?.makeKeyAndVisible()
         
         return true
     }
     
-//    private func adBrixDefaultSetting() {
-//        let adBrix = AdBrixRM.getInstance
-//
-//        if ((NSClassFromString("ASIdentifierManager")) != nil) {
-//            let ifa :UUID = ASIdentifierManager.shared().advertisingIdentifier;
-//
-//            // IDFA 를 AdBrix SDK에 전달
-//            adBrix.setAppleAdvertisingIdentifier(ifa.uuidString)
-//        }
-//    }
+    private func adBrixDefaultSetting() {
+        // AdBrixRm 인스턴스 생성
+        let adBrix = AdBrixRM.getInstance
+        
+        adBrix.initAdBrix(appKey: ClientKey.adBrixAppKey.getClienyKey,
+                          secretKey: ClientKey.adBrixSecretKey.getClienyKey)
+        
+        if ((NSClassFromString("ASIdentifierManager")) != nil) {
+            let ifa :UUID = ASIdentifierManager.shared().advertisingIdentifier;
+            
+            // IDFA 를 AdBrix SDK에 전달
+            adBrix.setAppleAdvertisingIdentifier(ifa.uuidString)
+        }
+        
+    }
     
     func application(_ application: UIApplication, open url: URL, sourceApplication: String?, annotation: Any) -> Bool {
         if KOSession.handleOpen(url) {

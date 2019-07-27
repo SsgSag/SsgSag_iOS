@@ -17,6 +17,8 @@ enum RequestURL {
     case deletePoster(posterIdx: Int)
     case completeApply(posterIdx: Int)
     case allTodoList
+    case monthTodoList(year: String, month: String)
+    case dayTodoList(year: String, month: String, day: String)
     case posterDetail(posterIdx: Int)
     case interestingField
     case reIntersting
@@ -28,13 +30,14 @@ enum RequestURL {
     case signUp
     case isUpdate
     case career(careerType: Int)
+    case notice
     
     var getRequestURL: String {
         switch self {
         case .posterLiked(posterIdx: let posterIdx, likeType: let like):
             return "/poster/like?posterIdx=\(posterIdx)&like=\(like)"
         case .initPoster:
-            return "/poster/show"
+            return "/poster"
         case .login:
             return "/login2"
         case .snsLogin:
@@ -47,6 +50,10 @@ enum RequestURL {
             return "/todo/complete/\(posterIdx)"
         case .allTodoList:
             return "/todo?year=0000&month=00&day=00"
+        case .monthTodoList(year: let year, month: let month):
+            return "/todo?year=\(year)&month=\(month)&day=00"
+        case .dayTodoList(year: let year, month: let month, day: let day):
+            return "/todo?year=\(year)&month=\(month)&day=\(day)"
         case .posterDetail(posterIdx: let posterIdx):
             return "/poster/\(posterIdx)"
         case .interestingField:
@@ -69,6 +76,8 @@ enum RequestURL {
             return "/update"
         case .career(careerType: let careerType):
             return "/career/\(careerType)"
+        case .notice:
+            return "/notice"
         }
     }
     

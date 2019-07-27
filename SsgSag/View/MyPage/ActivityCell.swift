@@ -55,7 +55,7 @@ class ActivityCell: UITableViewCell {
             guard let httpStatusCode = HttpStatusCode(rawValue: status) else {return}
             
             switch httpStatusCode {
-            case .favoriteSuccess:
+            case .processingSuccess:
                 self.activityDelegate?.deleteSuccess()
             case .dataBaseError, .serverError:
                 print("데이터베이스 에러")

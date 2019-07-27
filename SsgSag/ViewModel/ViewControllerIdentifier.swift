@@ -9,11 +9,14 @@
 import Foundation
 
 enum ViewControllerIdentifier {
+    static let newCalendarViewController = "newCalendarViewController"
     static let swipe = "Swipe"
     static let mypageViewController = "MyPageVC"
+    static let feedViewController = "FeedVC"
     static let userInfoViewContrller = "UserInfoVC"
+    static let confirmProfileVC = "SignupFirst"
     static let loginPopUpViewController = "LoginPopUp"
-    static let singupFirstViewController = "SignupFirst"
+    static let confirmProfileViewController = "ConfirmProfileVC"
     static let applySuccessViewController = "applySucess"
     static let addPassiveDataNavigationController = "AddPassiveDateNV"
     static let detailPosterViewController = "DetailPoster"
@@ -30,4 +33,8 @@ enum ViewControllerIdentifier {
     static let loginNavigtaionController = "LoginNavigator"
     static let termsOfServiceViewController = "TermsOfServiceViewController"
     static let privateProtectViewController = "PrivateProtectViewController"
+    static let selectedTodoViewController = "SelectedTodoViewController"
+    static let signUpCompleteViewController = "SignUpCompleteVC"
+    static let logoutViewController = "LogoutVC"
+    static let membershipCancelViewController = "membershipCancelVC"
 }

@@ -21,6 +21,8 @@ class myPageVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
 
     @IBOutlet weak var majorLabel: UILabel!
     
+    @IBOutlet weak var myPageTableView: UITableView!
+    
     static private let myImage: String = "myImage"
     
     lazy var imagePicker: UIImagePickerController = {
@@ -31,22 +33,38 @@ class myPageVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
         return picker
     }()
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        getData()
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         loadImage()
+        setupTableView()
 
         profileImageView.applyRadius(radius: profileImageView.frame.height / 2)
     }
-
-    override func viewWillAppear(_ animated: Bool) {
-        getData()
+    
+    private func setupTableView() {
+        let myPageMenuNib = UINib(nibName: "myPageMenuTableViewCell", bundle: nil)
+        
+        myPageTableView.register(myPageMenuNib, forCellReuseIdentifier: "menuTableViewCell")
     }
     
     private func loadImage() {
         if let loadedImage = loadImageFromDiskWith(fileName: myPageVC.myImage) {
             profileImageView.image = loadedImage
         }
+    }
+    
+    @IBAction func touchUpCancelButton(_ sender: UIButton) {
+        dismiss(animated: true)
+    }
+    
+    @IBAction func touchUpSettingButton(_ sender: UIButton) {
+        present(UINavigationController(rootViewController: AccountSettingViewController()), animated: true)
     }
     
     @IBAction func touchUpCameraButton(_ sender: UIButton) {
@@ -223,11 +241,10 @@ class myPageVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
         request.addValue(key, forHTTPHeaderField: "Authorization")
         
-        NetworkManager.shared.getData(with: request) { (data, error, res) in
+        NetworkManager.shared.getData(with: request) { [weak self] (data, error, res) in
             if error != nil {
                 print(error.debugDescription)
             }
-            
             
             guard let data = data else {
                 return
@@ -236,11 +253,11 @@ class myPageVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
             do {
                 let apiResponse = try JSONDecoder().decode(UserNetworkModel.self, from: data)
                 
-                DispatchQueue.main.async { [weak self] in
-                    self?.nameLabel.text = apiResponse.data.userName
-                    self?.idLabel.text = apiResponse.data.userNickname
-                    self?.majorLabel.text = apiResponse.data.userMajor
-                    self?.schoolLabel.text = apiResponse.data.userUniv
+                DispatchQueue.main.async {
+                    self?.nameLabel.text = apiResponse.data?.userName
+                    self?.idLabel.text = apiResponse.data?.userNickname
+                    self?.majorLabel.text = apiResponse.data?.userMajor
+                    self?.schoolLabel.text = apiResponse.data?.userUniv
                 }
                 
             } catch (let err) {
@@ -254,10 +271,10 @@ class myPageVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
     }
     
     private func createBody(parameters: [String: String],
-                    boundary: String,
-                    data: Data,
-                    mimeType: String,
-                    filename: String) -> Data {
+                            boundary: String,
+                            data: Data,
+                            mimeType: String,
+                            filename: String) -> Data {
         let body = NSMutableData()
         
         let boundaryPrefix = "--\(boundary)\r\n"
@@ -279,3 +296,48 @@ class myPageVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
     }
 }
 
+extension myPageVC: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 50
+    }
+}
+
+extension myPageVC: UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 4
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let cell
+            = tableView.dequeueReusableCell(withIdentifier: "menuTableViewCell",
+                                            for: indexPath) as? myPageMenuTableViewCell else {
+            return .init()
+        }
+        
+        cell.configure(row: indexPath.row)
+        cell.selectionStyle = .none
+        
+        return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        switch indexPath.row {
+        case 0:
+            // 나의 이력
+            return
+        case 1:
+            // 게시판 설정
+            return
+        case 2:
+            // 공지사항
+            let storyboard = UIStoryboard(name: StoryBoardName.mypage, bundle: nil)
+            let noticeNavigationVC = storyboard.instantiateViewController(withIdentifier: "noticeNavigationVC")
+            present(noticeNavigationVC, animated: true)
+        case 3:
+            // 문의하기
+            return
+        default:
+            return
+        }
+    }
+}

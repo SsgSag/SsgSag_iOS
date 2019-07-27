@@ -8,6 +8,10 @@
 
 import UIKit
 
+protocol StoreAndFetchPosterDelegate:class {
+    func changePosterInfomation()
+}
+
 class StoreAndFetchPoster {
     
     var isChanged: Bool = false
@@ -17,6 +21,8 @@ class StoreAndFetchPoster {
     private var data: Data?
     
     private var posters: [Posters]?
+    
+    weak var delegate: StoreAndFetchPosterDelegate?
 
     private init() {
         
@@ -31,9 +37,10 @@ class StoreAndFetchPoster {
             self.posters = nil
             return
         }
-        
+    
         self.data = datas
         self.posters = storedPosters
+        
     }
     
     /// 어떠한 상황에 userdefaults가 바뀌었다면 새로 유저디폴츠에서 꺼내고 아니라면 기존에 로드된 데이터를 사용한다.
@@ -43,8 +50,53 @@ class StoreAndFetchPoster {
     }
 
     func storePoster(posters: [Posters]) {
+        delegate?.changePosterInfomation()
         UserDefaults.standard.setValue(try? PropertyListEncoder().encode(posters), forKey: UserDefaultsName.poster)
+        
         self.posters = posters
     }
+    
 }
 
+class TodoData {
+    
+    public static let shared = TodoData()
+    
+    private var monthTodoDatas: [MonthTodoData]?
+    private var dayTodoDatas: [DayTodoData]?
+    
+    weak var delegate: StoreAndFetchPosterDelegate?
+    
+    private init() {
+        
+        guard let _ = UserDefaults.standard.object(forKey: UserDefaultsName.poster) as? Data else {
+            return
+        }
+        
+        self.monthTodoDatas = nil
+    }
+    
+    func getMonthTodoDatasAfterAllChangedConfirm() -> [MonthTodoData] {
+        guard let result = self.monthTodoDatas else { return [] }
+        return result
+    }
+    
+    func getDayTodoDatasAfterAllChangedConfirm() -> [DayTodoData] {
+        guard let result = self.dayTodoDatas else { return [] }
+        return result
+    }
+    
+    func storeMonthTodoData(_ monthTodoDatas: [MonthTodoData]) {
+//        delegate?.changePosterInfomation()
+        UserDefaults.standard.setValue(try? PropertyListEncoder().encode(monthTodoDatas), forKey: UserDefaultsName.poster)
+
+        self.monthTodoDatas = monthTodoDatas
+    }
+    
+    func storeDayTodoData(_ dayTodoDatas: [DayTodoData]) {
+        //        delegate?.changePosterInfomation()
+        UserDefaults.standard.setValue(try? PropertyListEncoder().encode(dayTodoDatas), forKey: UserDefaultsName.poster)
+        
+        self.dayTodoDatas = dayTodoDatas
+    }
+}

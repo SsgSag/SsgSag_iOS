@@ -401,7 +401,7 @@ enum favoriteState: Int {
             guard let httpStatus = HttpStatusCode(rawValue: statusCode) else {return}
             
             switch httpStatus {
-            case .favoriteSuccess:
+            case .processingSuccess:
                 print("기록 저장 성공")
             case .dataBaseError:
                 print("Favorite Database Error")

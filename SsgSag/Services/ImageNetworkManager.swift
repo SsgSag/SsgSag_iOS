@@ -23,7 +23,6 @@ public class ImageNetworkManager {
         self.init(.default)
     }
     
-    
     // FIXME: - like 할시에만 cache에 넣는 정책을 사용하자.
     private func downloadImage(imageURL: URL, completionHandler: @escaping (UIImage?, Error?) -> Void) {
         

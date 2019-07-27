@@ -9,58 +9,25 @@
 import UIKit
 
 class CalendarDetailPopUpVC: UIViewController {
+    
+    @IBOutlet weak var titleLabel: UILabel!
 
-    @IBOutlet weak var backView: UIView!
-    
-    @IBOutlet weak var websiteButton: UIButton!
-    
-    @IBOutlet weak var detailTextView: UITextView!
-    
-    var websiteURL: String?
-    
-    var posterDetailText: String?
-    
     override func viewDidLoad() {
         super.viewDidLoad()
-        backView.applyRadius(radius: 4)
         
+        setupLayout()
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(true)
-
-        if let posterDetail = posterDetailText {
-            detailTextView.text = posterDetail
-        }
-        
-    }
-    
-    @IBAction func touchUpWebsite(sender: UIButton) {
-        
-        guard let websiteURL = websiteURL else {
-            return
-        }
-        
-        guard let url = URL(string: websiteURL) else {
-            return 
-        }
-        
-        UIApplication.shared.open(url)
-        
+    private func setupLayout() {
+        titleLabel.layer.shadowColor = UIColor.black.cgColor
+        titleLabel.layer.shadowRadius = 4.0
+        titleLabel.layer.shadowOpacity = 4.0
+        titleLabel.layer.shadowOffset = CGSize(width: 3, height: 3)
+        titleLabel.layer.masksToBounds = false
     }
     
     @IBAction func touchUpCancelButton(_ sender: UIButton) {
-        self.view.removeFromSuperview()
+        dismiss(animated: true)
     }
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }

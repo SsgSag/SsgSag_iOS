@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="Stack View standard spacing" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="gTV-IL-0wX" customClass="AnalysticsCollectionViewCell" customModule="슥삭" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="409" height="209"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                <rect key="frame" x="0.0" y="0.0" width="409" height="209"/>
+                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <subviews>
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_analytics" translatesAutoresizingMaskIntoConstraints="NO" id="rcM-VK-U3C">
+                        <rect key="frame" x="22" y="15" width="18" height="18"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="18" id="75d-pL-Qla"/>
+                            <constraint firstAttribute="width" constant="18" id="yMl-oC-OLS"/>
+                        </constraints>
+                    </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="슥삭 애널리틱스" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="69i-Vb-DLc">
+                        <rect key="frame" x="42" y="16" width="82.5" height="16"/>
+                        <fontDescription key="fontDescription" type="system" weight="medium" pointSize="13"/>
+                        <color key="textColor" red="0.46666666666666667" green="0.49803921568627452" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="6" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="yYA-4L-fWP">
+                        <rect key="frame" x="384" y="24" width="0.0" height="0.0"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                        <color key="textColor" red="0.31372549019607843" green="0.31372549019607843" blue="0.31372549019607843" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5Ic-Mq-rYt">
+                        <rect key="frame" x="0.0" y="208" width="409" height="1"/>
+                        <color key="backgroundColor" red="0.93333333333333335" green="0.93333333333333335" blue="0.93333333333333335" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="1" id="b5y-Ne-lle"/>
+                        </constraints>
+                    </view>
+                    <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" spacingType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="wSn-3z-w03">
+                        <rect key="frame" x="40" y="53" width="329" height="68"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fpb-zi-ZzS" customClass="PieChartView" customModule="슥삭" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="0.0" width="68" height="68"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="68" id="C8J-pD-yvD"/>
+                                    <constraint firstAttribute="width" constant="68" id="eLM-qJ-4r7"/>
+                                </constraints>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Q0c-gd-aSB" customClass="PieChartView" customModule="슥삭" customModuleProvider="target">
+                                <rect key="frame" x="130.5" y="0.0" width="68" height="68"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="68" id="TMH-yJ-tzx"/>
+                                    <constraint firstAttribute="width" constant="68" id="wKY-CK-mXB"/>
+                                </constraints>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="G14-KH-NaY" customClass="PieChartView" customModule="슥삭" customModuleProvider="target">
+                                <rect key="frame" x="261" y="0.0" width="68" height="68"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="68" id="5jp-Tz-o3d"/>
+                                    <constraint firstAttribute="width" constant="68" id="lZg-OA-3Eg"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                    </stackView>
+                </subviews>
+            </view>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <constraints>
+                <constraint firstAttribute="trailing" secondItem="yYA-4L-fWP" secondAttribute="trailing" constant="25" id="0fw-SE-i0W"/>
+                <constraint firstItem="wSn-3z-w03" firstAttribute="top" secondItem="rcM-VK-U3C" secondAttribute="bottom" constant="20" id="2bw-Kt-9Es"/>
+                <constraint firstAttribute="bottom" secondItem="5Ic-Mq-rYt" secondAttribute="bottom" id="47S-PS-ten"/>
+                <constraint firstAttribute="trailing" secondItem="5Ic-Mq-rYt" secondAttribute="trailing" id="7f6-RF-Fsa"/>
+                <constraint firstItem="yYA-4L-fWP" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="69i-Vb-DLc" secondAttribute="trailing" constant="20" id="8lj-yR-GPw"/>
+                <constraint firstItem="rcM-VK-U3C" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="22" id="O25-9h-9ni"/>
+                <constraint firstItem="69i-Vb-DLc" firstAttribute="leading" secondItem="rcM-VK-U3C" secondAttribute="trailing" constant="2" id="OLe-c9-ndQ"/>
+                <constraint firstItem="wSn-3z-w03" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="40" id="Pfc-QH-aTJ"/>
+                <constraint firstAttribute="trailing" secondItem="wSn-3z-w03" secondAttribute="trailing" constant="40" id="ZB0-fa-whK"/>
+                <constraint firstItem="69i-Vb-DLc" firstAttribute="centerY" secondItem="rcM-VK-U3C" secondAttribute="centerY" id="gYx-sh-wbs"/>
+                <constraint firstItem="yYA-4L-fWP" firstAttribute="centerY" secondItem="69i-Vb-DLc" secondAttribute="centerY" id="jwb-Fh-yUg"/>
+                <constraint firstItem="wSn-3z-w03" firstAttribute="centerX" secondItem="ZTg-uK-7eu" secondAttribute="centerX" id="ojg-p6-jQR"/>
+                <constraint firstItem="5Ic-Mq-rYt" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="orG-Ye-yPO"/>
+                <constraint firstItem="rcM-VK-U3C" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" constant="15" id="sw8-lu-0gA"/>
+            </constraints>
+            <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
+            <size key="customSize" width="409" height="209"/>
+            <connections>
+                <outlet property="genderChartView" destination="G14-KH-NaY" id="8U3-Mr-NHY"/>
+                <outlet property="gradeChartView" destination="Q0c-gd-aSB" id="j7V-SH-cWn"/>
+                <outlet property="interestedLabel" destination="yYA-4L-fWP" id="2ua-fu-Gd7"/>
+                <outlet property="majorChartView" destination="fpb-zi-ZzS" id="jqc-OU-CHi"/>
+            </connections>
+            <point key="canvasLocation" x="23.913043478260871" y="102.79017857142857"/>
+        </collectionViewCell>
+    </objects>
+    <resources>
+        <image name="ic_analytics" width="18" height="18"/>
+    </resources>
+</document>
