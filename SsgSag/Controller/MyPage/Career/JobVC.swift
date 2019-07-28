@@ -70,7 +70,8 @@ class JobVC: UIViewController {
     
     var selectedValue: [Bool] = []
     
-    private var myPageService: MyPageService? = MyPageServiceImp()
+    private let myPageService: MyPageService
+        = DependencyContainer.shared.getDependency(key: .myPageService)
     
     override func viewWillAppear(_ animated: Bool) {
         setScrollView()
@@ -129,7 +130,7 @@ class JobVC: UIViewController {
     
     private func getStoredJobInfo() {
         // FIXME: - companyTags의 값이 제대로 나오지 않습니다.
-        myPageService?.requestSelectedState{ [weak self] (dataResponse) in
+        myPageService.requestSelectedState{ [weak self] (dataResponse) in
             
             guard let response = dataResponse.value else {return}
             
@@ -233,7 +234,7 @@ class JobVC: UIViewController {
             "userInterest" : sendJsonArray
         ]
         
-        myPageService?.reqeuestStoreJobsState(json) { dataResponse in
+        myPageService.reqeuestStoreJobsState(json) { dataResponse in
             guard let response = dataResponse.value else {return}
             
             guard let statusCode = response.status else {return}

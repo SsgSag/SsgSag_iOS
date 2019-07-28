@@ -18,12 +18,10 @@ class LoginPopUpVC: UIViewController, NaverThirdPartyLoginConnectionDelegate {
     
     let loginInstance = NaverThirdPartyLoginConnection.getSharedInstance()
     
-    private var snsLoginServiceImp: LoginService?
+    private let loginServiceImp: LoginService = DependencyContainer.shared.getDependency(key: .loginService)
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        snsLoginServiceImp = LoginServiceImp()
         
         backView.makeRounded(cornerRadius: 4)
     }
@@ -59,7 +57,7 @@ class LoginPopUpVC: UIViewController, NaverThirdPartyLoginConnectionDelegate {
                 
                 //self.postData(accessToken: kakaoSession.token.accessToken, loginType: 0)
                 
-                self?.snsLoginServiceImp?.requestSnsLogin(
+                self?.loginServiceImp.requestSnsLogin(
                     using: kakaoSession.token.accessToken,
                     type: 0
                 ) { (dataResponse) in
@@ -142,7 +140,7 @@ class LoginPopUpVC: UIViewController, NaverThirdPartyLoginConnectionDelegate {
         let authorization = "\(tokenType) \(accessToken)"
         print(authorization)
         
-        snsLoginServiceImp?.requestSnsLogin(using: accessToken, type: 1) { [weak self] (dataResponse) in
+        loginServiceImp.requestSnsLogin(using: accessToken, type: 1) { [weak self] (dataResponse) in
             
             if let storeToken = dataResponse.value?.data?.token {
                 UserDefaults.standard.set(storeToken, forKey: TokenName.token)

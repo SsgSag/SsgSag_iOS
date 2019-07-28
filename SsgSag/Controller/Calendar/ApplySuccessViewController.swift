@@ -10,6 +10,9 @@ import UIKit
 
 class ApplySuccessViewController: UIViewController {
     
+    private let calendarServiceImp: CalendarService
+        = DependencyContainer.shared.getDependency(key: .calendarService)
+    
     private func getPostersData() -> [Posters] {
         
         let userDefaultsPoster = StoreAndFetchPoster.shared.getPostersAfterAllChangedConfirm()
@@ -92,8 +95,7 @@ extension ApplySuccessViewController: UITableViewDelegate, UITableViewDataSource
                 if posterIdx == posterInfoPosterIdx {
                     posterInfo.remove(at: index)
                     
-                    let posterDelete = CalendarServiceImp()
-                    posterDelete.requestDelete(posterIdx) { [weak self] (dataResponse) in
+                    self?.calendarServiceImp.requestDelete(posterIdx) { [weak self] (dataResponse) in
                         
                         guard let statusCode = dataResponse.value?.status else {return}
                         

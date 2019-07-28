@@ -35,12 +35,11 @@ class AddActivityVC: UIViewController, UITextViewDelegate, UITextFieldDelegate {
         }
     }
     
-    private var myPageServiceImp : MyPageService?
+    private let myPageServiceImp : MyPageService
+        = DependencyContainer.shared.getDependency(key: .myPageService)
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        setService()
         
         titleTextField.delegate = self
         contentTextView.delegate = self
@@ -60,10 +59,6 @@ class AddActivityVC: UIViewController, UITextViewDelegate, UITextFieldDelegate {
         if let content = contentTextString {
             contentTextView.text = content
         }
-    }
-    
-    func setService(_ myPageServiceImp: MyPageService = MyPageServiceImp()) {
-        self.myPageServiceImp = myPageServiceImp
     }
     
     private func setStartEndDate() {
@@ -254,7 +249,7 @@ class AddActivityVC: UIViewController, UITextViewDelegate, UITextFieldDelegate {
             "careerDate2" : sendEndData
         ]
         
-        myPageServiceImp?.requestStoreAddActivity(json){ (dataResponse) in
+        myPageServiceImp.requestStoreAddActivity(json) { (dataResponse) in
             
             if !dataResponse.isSuccess {
                 guard let readError = dataResponse.error as? ReadError else {return}
@@ -280,7 +275,6 @@ class AddActivityVC: UIViewController, UITextViewDelegate, UITextFieldDelegate {
                     self.simplerAlertwhenSave(title: "저장되었습니다")
                     
                     let parentVC = self.presentingViewController as! CareerVC
-                    parentVC.setService(CareerServiceImp())
                     parentVC.getData(careerType: 0)
                     parentVC.activityTableView.reloadData()
                     

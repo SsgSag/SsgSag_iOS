@@ -154,7 +154,6 @@ class AddVC: UIViewController, UITextFieldDelegate, UITextViewDelegate {
                             //저장되었습니다 확인을 누르고 나서 parentVC.getData()를 하면 좋을것 같습니다.
                             self.simplerAlertwhenSave(title: "저장되었습니다")
                             let parentVC = self.presentingViewController as! CareerVC
-                            parentVC.setService(CareerServiceImp())
                             
                             parentVC.getData(careerType: 1)
                         }

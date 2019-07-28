@@ -1,0 +1,16 @@
+//
+//  CareerServiceProtocol.swift
+//  SsgSag
+//
+//  Created by 이혜주 on 28/07/2019.
+//  Copyright © 2019 wndzlf. All rights reserved.
+//
+
+import Foundation
+
+protocol CareerService {
+    func requestCareer(
+        careerType:Int,
+        completionHandler: @escaping (DataResponse<Career>) -> Void
+    )
+}

@@ -341,7 +341,7 @@ class TodoTableViewCell: UITableViewCell {
 
 }
 
-enum applyCompleted:Int {
+enum applyCompleted: Int {
     case completed = 1
     case notCompleted = 0
     
@@ -392,7 +392,8 @@ enum favoriteState: Int {
                      favoriteIntervalDay: UILabel,
                      posterIdx: Int) {
         
-        let calendarServiceImp = CalendarServiceImp()
+        let calendarServiceImp: CalendarService
+            = DependencyContainer.shared.getDependency(key: .calendarService)
         
         calendarServiceImp.requestFavorite(self, posterIdx) { (dataResponse) in
             

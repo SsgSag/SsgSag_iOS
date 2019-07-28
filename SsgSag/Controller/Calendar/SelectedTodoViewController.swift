@@ -82,18 +82,15 @@ class SelectedTodoViewController: UIViewController {
     }()
     
     private var firstDayPosters: [DayTodoData] = []
-    
     private var secondDayPosters: [DayTodoData] = []
-    
     private var thirdDayPosters: [DayTodoData] = []
-    
     private var fourthDayPosters: [DayTodoData] = []
-    
     private var fifthDayPosters: [DayTodoData] = []
     
     private var currentWindowDate: Date?
     
-    private var calendarServiceImp: CalendarService?
+    private let calendarServiceImp: CalendarService
+        = DependencyContainer.shared.getDependency(key: .calendarService)
     
     private let calendar = Calendar.current
     
@@ -167,17 +164,14 @@ class SelectedTodoViewController: UIViewController {
         addTableView()
     }
     
-    private func requestData(_ calendarService: CalendarService = CalendarServiceImp()) {
-        
-        self.calendarServiceImp = calendarService
-        
+    private func requestData() {
         guard let date = currentDate else { return }
         
         let year = String(calendar.component(.year, from: date))
         let month = String(calendar.component(.month, from: date))
         let day = String(calendar.component(.day, from: date))
         
-        calendarServiceImp?.requestDayTodoList(year: year, month: month, day: day) { [weak self] dataResponse in
+        calendarServiceImp.requestDayTodoList(year: year, month: month, day: day) { [weak self] dataResponse in
             switch dataResponse {
             case .success(let dayTodoData):
                 TodoData.shared.storeDayTodoData(dayTodoData)

@@ -8,18 +8,18 @@
 
 import Foundation
 
-protocol LoginService: class {
-    func requestLogin(send data:[String:Any],
-                      completionHandler: @escaping (DataResponse<LoginStruct>) -> Void)
-    
-    func requestSnsLogin(using accessToken: String,
-                         type login: Int,
-                         completionHandler: @escaping (DataResponse<TokenResponse>) -> Void)
-}
-
 class LoginServiceImp: LoginService {
     
+    let requestMaker: RequestMakerProtocol
+    let network: Network
+    
     private(set) var isFetchStatusCode = false
+    
+    init(requestMaker: RequestMakerProtocol,
+         network: Network) {
+        self.requestMaker = requestMaker
+        self.network = network
+    }
     
     func requestSnsLogin(using accessToken: String,
                          type login: Int,
@@ -31,52 +31,64 @@ class LoginServiceImp: LoginService {
         
         let jsonData = try? JSONSerialization.data(withJSONObject: json)
         
-        guard let url = UserAPI.sharedInstance.getURL(RequestURL.snsLogin.getRequestURL) else {return}
+        guard let url
+            = UserAPI.sharedInstance.getURL(RequestURL.snsLogin.getRequestURL),
+            let request = requestMaker.makeRequest(url: url,
+                                                   method: .post,
+                                                   header: ["Content-Type": "application/json"],
+                                                   body: jsonData) else {
+            return
+        }
         
-        var request = URLRequest(url: url)
-        request.httpMethod = "POST"
-        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.httpBody = jsonData
-        
-        NetworkManager.shared.getData(with: request) { (data, error, res) in
-            guard let data = data else { return }
-            
-            do {
-                let tokenResponse = try JSONDecoder().decode(TokenResponse.self, from: data)
-                
-                completionHandler(DataResponse.success(tokenResponse))
-            } catch {
-                print("LoginService Parsing Error")
+        network.dispatch(request: request) { result in
+            switch result {
+            case .success(let data):
+                do {
+                    let tokenResponse
+                        = try JSONDecoder().decode(TokenResponse.self,
+                                                   from: data)
+                    
+                    completionHandler(DataResponse.success(tokenResponse))
+                } catch let error {
+                    completionHandler(.failed(error))
+                    return
+                }
+            case .failure(let error):
+                completionHandler(.failed(error))
+                return
             }
-            
         }
     }
     
-    func requestLogin(send data: [String : Any], completionHandler: @escaping (DataResponse<LoginStruct>) -> Void) {
+    func requestLogin(send data: [String : Any],
+                      completionHandler: @escaping (DataResponse<LoginStruct>) -> Void) {
         
         let jsonData = try? JSONSerialization.data(withJSONObject: data)
         
         guard let url
-            = UserAPI.sharedInstance.getURL(RequestURL.login.getRequestURL) else {
+            = UserAPI.sharedInstance.getURL(RequestURL.login.getRequestURL),
+            let request = requestMaker.makeRequest(url: url,
+                                                   method: .post,
+                                                   header: ["Content-Type": "application/json"],
+                                                   body: jsonData) else {
                 return
         }
         
-        var request = URLRequest(url: url)
-        request.httpMethod = "POST"
-        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.httpBody = jsonData
-        
-        NetworkManager.shared.getData(with: request) { (data, err, res) in
-            guard let data = data else { return }
-            
-            do {
-                let login = try JSONDecoder().decode(LoginStruct.self, from: data)
-                
-                completionHandler(DataResponse.success(login))
-            } catch {
-                print("LoginStruct Parsing Error")
+        network.dispatch(request: request) { result in
+            switch result {
+            case .success(let data):
+                do {
+                    let login = try JSONDecoder().decode(LoginStruct.self, from: data)
+                    
+                    completionHandler(DataResponse.success(login))
+                } catch let error {
+                    completionHandler(.failed(error))
+                    return
+                }
+            case .failure(let error):
+                completionHandler(.failed(error))
+                return
             }
         }
     }
-    
 }

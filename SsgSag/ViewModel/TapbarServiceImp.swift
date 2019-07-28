@@ -8,55 +8,44 @@
 
 import Foundation
 
-protocol TapbarService: class {
-    func requestAllTodoList(completionHandler: @escaping (DataResponse<[Posters]>) -> Void)
+class TabbarServiceImp: TabbarService {
     
-    func requestIsInUpdateServer(completionHandler: @escaping (DataResponse<UpdateNetworkModel>) -> Void)
-}
-
-class TapbarServiceImp: TapbarService {
+    let requestMaker: RequestMakerProtocol
+    let network: Network
     
-    func requestIsInUpdateServer(completionHandler: @escaping (DataResponse<UpdateNetworkModel>) -> Void) {
-        guard let url = UserAPI.sharedInstance.getURL(RequestURL.isUpdate.getRequestURL) else {return}
-        
-        var request = URLRequest(url: url)
-        request.httpMethod = "GET"
-        
-        NetworkManager.shared.getData(with: request) { (data, error, response) in
-            guard let data = data else { return }
-            
-            do {
-                let dataFromNetwork = try JSONDecoder().decode(UpdateNetworkModel.self, from: data)
-                
-                completionHandler(DataResponse.success(dataFromNetwork))
-            } catch {
-                print("requestIsInUpdateServer Parsing Error")
-            }
-        }
+    init(requestMaker: RequestMakerProtocol,
+         network: Network) {
+        self.requestMaker = requestMaker
+        self.network = network
     }
     
-    func requestAllTodoList(completionHandler: @escaping (DataResponse<[Posters]>) -> Void) {
+    func requestIsInUpdateServer(completionHandler: @escaping (DataResponse<UpdateNetworkModel>) -> Void) {
+        guard let url
+            = UserAPI.sharedInstance.getURL(RequestURL.isUpdate.getRequestURL),
+            let request
+            = requestMaker.makeRequest(url: url,
+                                       method: .get,
+                                       header: nil,
+                                       body: nil) else {
+            return
+        }
         
-        guard let url = UserAPI.sharedInstance.getURL(RequestURL.allTodoList.getRequestURL) else {return}
-        
-        guard let key = UserDefaults.standard.object(forKey: TokenName.token) as? String else { return }
-        
-        var request = URLRequest(url: url)
-        request.setValue(key, forHTTPHeaderField: "Authorization")
-        request.httpMethod = "GET"
-        
-        NetworkManager.shared.getData(with: request) { (data, error, response) in
-            guard let data = data else { return }
-            
-            do {
-                let response = try JSONDecoder().decode(AllTodo.self, from: data)
-                
-                guard let posters = response.data else {return}
-                
-                completionHandler(DataResponse.success(posters))
-                
-            } catch {
-                print("AllTodoList Parsing Error")
+        network.dispatch(request: request) { result in
+            switch result {
+            case .success(let data):
+                do {
+                    let decodedData
+                        = try JSONDecoder().decode(UpdateNetworkModel.self,
+                                                   from: data)
+                    
+                    completionHandler(.success(decodedData))
+                } catch let error {
+                    completionHandler(.failed(error))
+                    return
+                }
+            case .failure(let error):
+                completionHandler(.failed(error))
+                return
             }
         }
     }

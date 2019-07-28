@@ -14,7 +14,8 @@ class CalenderVC: UIViewController {
     
     private var calendarViewBottomAnchor: NSLayoutConstraint?
     
-    private var calendarServiceImp: CalendarService?
+    private let calendarServiceImp: CalendarService
+        = DependencyContainer.shared.getDependency(key: .calendarService)
     
     static let sharedTableViewHeight: CGFloat = 89
     
@@ -114,8 +115,6 @@ class CalenderVC: UIViewController {
         
         self.view.backgroundColor = Style.bgColor
         
-        setService()
-        
         setupContentView()
         
         setupGesture()
@@ -153,10 +152,6 @@ class CalenderVC: UIViewController {
         let navigationVC = storyBoard.instantiateViewController(withIdentifier: ViewControllerIdentifier.applySuccessViewController) as! UINavigationController
         
         self.present(navigationVC, animated: true, completion: nil)
-    }
-    
-    func setService(_ calendarService: CalendarService = CalendarServiceImp()) {
-        self.calendarServiceImp = calendarService
     }
     
     private func setNotificationObserver() {
@@ -649,8 +644,7 @@ extension CalenderVC: UITableViewDelegate,UITableViewDataSource {
             
             UserDefaults.standard.setValue(1, forKey: "completed\(posterIdx)")
             
-            let posterComplete = CalendarServiceImp()
-            posterComplete.reqeustComplete(posterIdx) { (dataResponse) in
+            self?.calendarServiceImp.reqeustComplete(posterIdx) { (dataResponse) in
                 
                 guard let statusCode = dataResponse.value?.status else {return}
                 
@@ -683,9 +677,8 @@ extension CalenderVC: UITableViewDelegate,UITableViewDataSource {
                     
                     userDefaultsData.remove(at: index)
                     
-                    let posterDelete = CalendarServiceImp()
                     guard let posterIdx = self?.todoTableData[indexPath.row].posterIdx else {return}
-                    posterDelete.requestDelete(posterIdx) { (dataResponse) in
+                    self?.calendarServiceImp.requestDelete(posterIdx) { (dataResponse) in
                         
                         guard let statusCode = dataResponse.value?.status else {return}
                         

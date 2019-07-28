@@ -25,7 +25,8 @@ class SchoolInfoVC: UIViewController {
     
     var jsonResult: [[String: Any]] = [[:]]
     
-    private var signupService: SignupService?
+    private let signupService: SignupService
+        = DependencyContainer.shared.getDependency(key: .signUpService)
     
     lazy var tapGesture = UITapGestureRecognizer(target: self,
                                                  action: nil)
@@ -54,8 +55,6 @@ class SchoolInfoVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        signupService = SignupServiceImp()
         
         setupDelegate()
         setupLayout()
@@ -207,7 +206,7 @@ class SchoolInfoVC: UIViewController {
         do {
             let userInfo = try JSONSerialization.data(withJSONObject: sendData)
             
-            signupService?.requestSingup(userInfo){ [weak self] (responseData) in
+            signupService.requestSingup(userInfo){ [weak self] (responseData) in
                 guard let response = responseData.value,
                     let status = response.status,
                     let httpStatus = SingupHttpStatusCode(rawValue: status) else {

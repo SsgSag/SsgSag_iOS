@@ -28,7 +28,8 @@ class UserInfoVC: UIViewController {
     
     @IBOutlet weak var titleImgae: UIImageView!
     
-    private var signUpServiceImp: SignupService?
+    private let signUpServiceImp: SignupService
+        = DependencyContainer.shared.getDependency(key: .signUpService)
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -47,8 +48,6 @@ class UserInfoVC: UIViewController {
         
         passwordCheckTextField.returnKeyType = .done
         
-        setupService()
-        
         iniGestureRecognizer()
         
         setDelegate()
@@ -58,10 +57,6 @@ class UserInfoVC: UIViewController {
         self.titleLabel.isHidden = false
         
         self.titleImgae.isHidden = false
-    }
-    
-    private func setupService(_ signUpService: SignupService = SignupServiceImp()) {
-        self.signUpServiceImp = signUpService
     }
     
     private func iniGestureRecognizer() {
@@ -144,7 +139,7 @@ class UserInfoVC: UIViewController {
         
         let urlString = "/user/validateEmail?userEmail=\(userEmailString)"
         
-        signUpServiceImp?.requestValidateEmail(urlString: urlString) { [weak self] dataResponse, isValidate in
+        signUpServiceImp.requestValidateEmail(urlString: urlString) { [weak self] dataResponse, isValidate in
             switch dataResponse {
             case .success(let status):
                 switch status {

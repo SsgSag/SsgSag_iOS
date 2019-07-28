@@ -16,7 +16,8 @@ class InterestBoardViewController: UIViewController {
     
     private var interestInfo: [SubscribeInterests] = []
     
-    private var interestManager: InterestService?
+    private let interestService: InterestService
+        = DependencyContainer.shared.getDependency(key: .interestService)
     
     static private let numberOfRows = 3
     
@@ -34,15 +35,7 @@ class InterestBoardViewController: UIViewController {
         
         tableView.register(UINib.InterestBoardNIB, forCellReuseIdentifier: InterestBoardViewController.cellId)
         
-        //interestManager = InterestServiceManager()
-        
-        setService()
-        
         requestSubscribeStatus()
-    }
-    
-    func setService(_ interestManager: InterestService = InterestServiceManager()) {
-        self.interestManager = interestManager
     }
     
     @IBAction func dissMiss(_ sender: Any) {
@@ -50,7 +43,7 @@ class InterestBoardViewController: UIViewController {
     }
     
     private func requestSubscribeStatus() {
-        interestManager?.requestInterestSubscribe{ (dataResponse) in
+        interestService.requestInterestSubscribe{ (dataResponse) in
             guard let data = dataResponse.value else {return}
         
             guard let interests = data.data else {return}
@@ -102,7 +95,7 @@ extension InterestBoardViewController: InterestFollowDelegate {
         
         //구독 안된 상태
         if userIdx == 0 {
-            interestManager?.requestInterestSubscribeAdd(interestIdx) { dataResponse in
+            interestService.requestInterestSubscribeAdd(interestIdx) { dataResponse in
                 guard let data = dataResponse.value else {return}
                 
                 guard let status = data.status else {return}
@@ -120,7 +113,7 @@ extension InterestBoardViewController: InterestFollowDelegate {
                 }
             }
         } else {
-            interestManager?.requestInterestSubscribeDelete(interestIdx) { dataResponse in
+            interestService.requestInterestSubscribeDelete(interestIdx) { dataResponse in
                 
                 guard let data = dataResponse.value else {return}
                 

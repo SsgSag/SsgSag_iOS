@@ -38,7 +38,8 @@ class NewCalendarVC: UIViewController {
     
     var categorySelectedDelegate: CategorySelectedDelegate?
     
-    private var calendarServiceImp: CalendarService?
+    private let calendarServiceImp: CalendarService
+        = DependencyContainer.shared.getDependency(key: .calendarService)
     
     private var multipleSelectedIndex: [Int] = []
     
@@ -95,10 +96,7 @@ class NewCalendarVC: UIViewController {
         view.addSubview(calendarView)
     }
     
-    private func requestData(_ calendarService: CalendarService = CalendarServiceImp()) {
-        
-        self.calendarServiceImp = calendarService
-        
+    private func requestData() {
         let calendar = Calendar.current
         let year = String(calendar.component(.year, from: calendarView.startDate))
         var month = String(calendar.component(.month, from: calendarView.startDate))
@@ -107,7 +105,7 @@ class NewCalendarVC: UIViewController {
             month = "0" + month
         }
         
-        calendarServiceImp?.requestMonthTodoList(year: year,
+        calendarServiceImp.requestMonthTodoList(year: year,
                                                  month: month) { [weak self] dataResponse in
             switch dataResponse {
             case .success(let monthTodoData):

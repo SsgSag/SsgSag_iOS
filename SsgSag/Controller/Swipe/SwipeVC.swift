@@ -21,7 +21,7 @@ class SwipeVC: UIViewController {
     
     private var countTotalCardIndex = 0
     
-    private var posterServiceImp: PosterService!
+    private var posterServiceImp: PosterService = DependencyContainer.shared.getDependency(key: .posterService)
     
     private var lastDeletedSwipeCard: SwipeCard?
     
@@ -45,19 +45,13 @@ class SwipeVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        setService()
-        
         initPoster()
+        
+        setCountLabelText()
         
         setView()
         
-        setEmptyPosterAnimation()
-        
         UIView.appearance().isExclusiveTouch = true
-    }
-    
-    func setService(_ posterServiceImp: PosterService = PosterServiceImp()) {
-        self.posterServiceImp = posterServiceImp
     }
 
     private func setView() {
@@ -71,8 +65,7 @@ class SwipeVC: UIViewController {
         let animation = LOTAnimationView(name: "main_empty_hifive")
         
         view.addSubview(animation)
-        view.sendSubviewToBack(animation)
-        
+
         animation.translatesAutoresizingMaskIntoConstraints = false
         animation.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         animation.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
@@ -86,7 +79,7 @@ class SwipeVC: UIViewController {
     //FIXME: - CategoryIdx가 3이거나 5일때 예외를 만든다.
     private func initPoster() {
 
-        posterServiceImp?.requestPoster { [weak self] response in
+        posterServiceImp.requestPoster { [weak self] response in
             switch response {
             case .success(let posters):
                 self?.posters = posters
@@ -144,6 +137,8 @@ class SwipeVC: UIViewController {
             setSwipeCardSubview()
             
             setPageVCAndAddToSubView()
+        } else {
+            setEmptyPosterAnimation()
         }
     }
     
@@ -235,6 +230,8 @@ class SwipeVC: UIViewController {
                                                               at: 0)
                 pageVC.didMove(toParent: self)
             }
+        } else if currentLoadedCardsArray.count == 0 {
+            setEmptyPosterAnimation()
         }
     }
     
@@ -389,7 +386,7 @@ extension SwipeVC : SwipeCardDelegate {
         
         guard let disLikedCategory = likedOrDisLiked(rawValue: 0) else { return }
         
-        posterServiceImp?.requestPosterLiked(of: self.posters[currentIndex-1], type: disLikedCategory)
+        posterServiceImp.requestPosterLiked(of: self.posters[currentIndex-1], type: disLikedCategory)
     }
     
     //카드 오른쪽으로 갔을때
@@ -399,7 +396,6 @@ extension SwipeVC : SwipeCardDelegate {
         
         loadCardValuesAfterRemoveObject()
         
-        // poster 데이터가 유저디폴트에 존재하지 않으면 whenNODATA() 실해
         guard let posterData = UserDefaults.standard.object(forKey: UserDefaultsName.poster) as? Data else {
             addUserDefaultsWhenNoData()
             return
@@ -421,7 +417,7 @@ extension SwipeVC : SwipeCardDelegate {
         
         guard let likedCategory = likedOrDisLiked(rawValue: 1) else { return }
         
-        posterServiceImp?.requestPosterLiked(of: self.posters[currentIndex-1], type: likedCategory)
+        posterServiceImp.requestPosterLiked(of: self.posters[currentIndex-1], type: likedCategory)
         
         NotificationCenter.default.post(name: NSNotification.Name(NotificationName.addUserDefaults), object: nil)
     }
@@ -437,7 +433,7 @@ extension SwipeVC : SwipeCardDelegate {
         
         guard let likedCategory = likedOrDisLiked(rawValue: 1) else { return }
         
-        posterServiceImp?.requestPosterLiked(of: self.posters[currentIndex-1], type: likedCategory)
+        posterServiceImp.requestPosterLiked(of: self.posters[currentIndex-1], type: likedCategory)
         
         NotificationCenter.default.post(name: NSNotification.Name(NotificationName.addUserDefaults), object: nil)
     }

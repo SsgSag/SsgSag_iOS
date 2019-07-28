@@ -65,8 +65,6 @@ class PreferenceVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        myPageService = MyPageServiceImp()
-        
         setUpPreferenceButtons()
         
         saveButton.isUserInteractionEnabled = true

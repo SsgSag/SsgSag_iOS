@@ -10,7 +10,8 @@ import UIKit
 
 class TapbarVC: UITabBarController {
     
-    private var tapbarServiceImp: TapbarService?
+    private let tapbarServiceImp: TabbarService
+        = DependencyContainer.shared.getDependency(key: .tabbarService)
     
     struct CreateViewController {
         static let mypageStoryBoard = UIStoryboard(name: StoryBoardName.mypage, bundle: nil)
@@ -26,15 +27,12 @@ class TapbarVC: UITabBarController {
         static let feedViewController = feedStoryBoard.instantiateViewController(withIdentifier: "feedNavigationVC")
         
         static let newCalendarViewController = newCalendarStoryboard.instantiateViewController(withIdentifier: "calendarNavigationVC")
-        
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         setupLayout()
-        
-        setService()
         
         isServerAvaliable()
         
@@ -48,14 +46,10 @@ class TapbarVC: UITabBarController {
     private func setupLayout() {
         tabBar.frame.size.height = 48
     }
-    
-    private func setService(_ tapbarServiceImp: TapbarService = TapbarServiceImp()) {
-        self.tapbarServiceImp = tapbarServiceImp
-    }
-    
+
     // 서버가 유효한지 확인하는 메소드
     private func isServerAvaliable() {
-        tapbarServiceImp?.requestIsInUpdateServer{ [weak self] dataResponse in
+        tapbarServiceImp.requestIsInUpdateServer{ [weak self] dataResponse in
             guard let data = dataResponse.value?.data else { return }
             
             if data == 1 {

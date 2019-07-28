@@ -8,11 +8,15 @@
 
 import Foundation
 
-protocol CareerService {
-    func requestCareer(careerType:Int, completionHandler: @escaping (DataResponse<Career>) -> Void)
-}
-
 class CareerServiceImp: CareerService {
+    let requestMaker: RequestMakerProtocol
+    let network: Network
+    
+    init(requestMaker: RequestMakerProtocol,
+         network: Network) {
+        self.requestMaker = requestMaker
+        self.network = network
+    }
     
     func requestCareer(careerType: Int, completionHandler: @escaping (DataResponse<Career>) -> Void) {
         guard let url = UserAPI.sharedInstance.getURL(RequestURL.career(careerType: careerType).getRequestURL) else {return}

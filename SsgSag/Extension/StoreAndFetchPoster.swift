@@ -8,7 +8,7 @@
 
 import UIKit
 
-protocol StoreAndFetchPosterDelegate:class {
+protocol StoreAndFetchPosterDelegate: class {
     func changePosterInfomation()
 }
 

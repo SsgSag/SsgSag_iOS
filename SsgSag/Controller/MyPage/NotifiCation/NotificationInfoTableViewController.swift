@@ -10,7 +10,8 @@ import UIKit
 
 class NotificationInfoTableViewController: UITableViewController {
 
-    private var noticeServiceImp: NoticeService?
+    private let noticeServiceImp: NoticeService
+        = DependencyContainer.shared.getDependency(key: .noticeService)
     
     private var noticeList: [NoticeData] = []
     
@@ -27,11 +28,9 @@ class NotificationInfoTableViewController: UITableViewController {
         setupTableView()
     }
     
-    private func requestNoticeData(_ noticeService: NoticeService = NoticeServiceImp()) {
+    private func requestNoticeData() {
         
-        self.noticeServiceImp = noticeService
-        
-        noticeServiceImp?.requestNotice { [weak self] response in
+        noticeServiceImp.requestNotice { [weak self] response in
             switch response {
             case .success(let noticeList):
                 self?.noticeList = noticeList

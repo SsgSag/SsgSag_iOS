@@ -10,7 +10,8 @@ import UIKit
 
 class MembershipCancelViewController: UIViewController {
 
-    private var myPageServiceImp: MyPageService?
+    private let myPageServiceImp: MyPageService
+        = DependencyContainer.shared.getDependency(key: .myPageService)
     
     private lazy var backButton = UIBarButtonItem(image: UIImage(named: "ic_ArrowBack"),
                                                   style: .plain,
@@ -29,10 +30,9 @@ class MembershipCancelViewController: UIViewController {
         super.viewDidLoad()
     }
     
-    private func requestMembershipCancel(_ myPageService: MyPageService = MyPageServiceImp()) {
-        myPageServiceImp = myPageService
+    private func requestMembershipCancel() {
         
-        myPageServiceImp?.requestMembershipCancel() { [weak self] response in
+        myPageServiceImp.requestMembershipCancel() { [weak self] response in
             switch response {
             case .success(let status):
                 DispatchQueue.main.async {

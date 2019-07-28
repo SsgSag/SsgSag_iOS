@@ -8,90 +8,118 @@
 
 import Foundation
 
-
-protocol InterestService: class {
-    func requestInterestSubscribe(completionHandler: @escaping (DataResponse<Subscribe>) -> Void)
+class InterestServiceImp: InterestService {
+    let requestMaker: RequestMakerProtocol
+    let network: Network
     
-    func requestInterestSubscribeDelete(_ interedIdx: Int,
-                                        completionHandler: @escaping (DataResponse<BasicNetworkModel>) -> Void)
+    init(requestMaker: RequestMakerProtocol,
+         network: Network) {
+        self.requestMaker = requestMaker
+        self.network = network
+    }
     
-    func requestInterestSubscribeAdd(_ interedIdx: Int,
-                                     completionHandler: @escaping (DataResponse<BasicNetworkModel>) -> Void)
-}
-
-class InterestServiceManager: InterestService {
     func requestInterestSubscribeDelete(_ interedIdx: Int,
                                         completionHandler: @escaping (DataResponse<BasicNetworkModel>) -> Void) {
         
-        guard let url = UserAPI.sharedInstance.getURL(RequestURL.subscribeAddOrDelete(interestIdx: interedIdx).getRequestURL) else {return}
+        guard let token
+            = UserDefaults.standard.object(forKey: TokenName.token) as? String,
+            let url
+            = UserAPI.sharedInstance.getURL(RequestURL.subscribeAddOrDelete(interestIdx: interedIdx).getRequestURL),
+            let request
+            = requestMaker.makeRequest(url: url,
+                                       method: .delete,
+                                       header: ["Authorization": token,
+                                                "Content-Type": "application/json"],
+                                       body: nil) else {
+            return
+        }
         
-        guard let key = UserDefaults.standard.object(forKey: TokenName.token) as? String else { return }
-        
-        var request = URLRequest(url: url)
-        request.httpMethod = "DELETE"
-        request.addValue(key, forHTTPHeaderField: "Authorization")
-        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-        
-        NetworkManager.shared.getData(with: request) { (data, error, response) in
-            guard let data = data else {return}
-            
-            do {
-                let dataByNetwork = try JSONDecoder().decode(BasicNetworkModel.self, from: data)
-                
-                completionHandler(DataResponse.success(dataByNetwork))
-            } catch {
-                print("requestInterestSubscribeDelete Json Parsing")
+        network.dispatch(request: request) { result in
+            switch result {
+            case .success(let data):
+                do {
+                    let decodedData
+                        = try JSONDecoder().decode(BasicNetworkModel.self,
+                                                   from: data)
+                    
+                    completionHandler(.success(decodedData))
+                } catch let error {
+                    completionHandler(.failed(error))
+                    return
+                }
+            case .failure(let error):
+                completionHandler(.failed(error))
+                return
             }
         }
     }
     
     func requestInterestSubscribeAdd(_ interedIdx: Int,
                                      completionHandler: @escaping (DataResponse<BasicNetworkModel>) -> Void) {
-        guard let url = UserAPI.sharedInstance.getURL(RequestURL.subscribeAddOrDelete(interestIdx: interedIdx).getRequestURL) else {return}
+        guard let token
+            = UserDefaults.standard.object(forKey: TokenName.token) as? String,
+            let url
+            = UserAPI.sharedInstance.getURL(RequestURL.subscribeAddOrDelete(interestIdx: interedIdx).getRequestURL),
+            let request = requestMaker.makeRequest(url: url,
+                                                   method: .post,
+                                                   header: ["Authorization": token,
+                                                            "Content-Type": "application/json"],
+                                                   body: nil) else {
+            return
+        }
         
-        guard let key = UserDefaults.standard.object(forKey: TokenName.token) as? String else { return }
-        
-        var request = URLRequest(url: url)
-        request.httpMethod = "POST"
-        request.addValue(key, forHTTPHeaderField: "Authorization")
-        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-        
-        NetworkManager.shared.getData(with: request) { (data, error, response) in
-            guard let data = data else {return}
-            
-            do {
-                let dataByNetwork = try JSONDecoder().decode(BasicNetworkModel.self, from: data)
-                
-                completionHandler(DataResponse.success(dataByNetwork))
-            } catch {
-                print("requestInterestSubscribeAdd Json Parsing")
+        network.dispatch(request: request) { result in
+            switch result {
+            case .success(let data):
+                do {
+                    let decodedData
+                        = try JSONDecoder().decode(BasicNetworkModel.self,
+                                                   from: data)
+                    
+                    completionHandler(.success(decodedData))
+                } catch let error {
+                    completionHandler(.failed(error))
+                    return
+                }
+            case .failure(let error):
+                completionHandler(.failed(error))
+                return
             }
         }
     }
     
     func requestInterestSubscribe(completionHandler: @escaping (DataResponse<Subscribe>) -> Void) {
-        guard let url = UserAPI.sharedInstance.getURL(RequestURL.subscribeInterest.getRequestURL) else {return}
         
-        guard let key = UserDefaults.standard.object(forKey: TokenName.token) as? String else { return }
-        
-        var request = URLRequest(url: url)
-        request.httpMethod = "GET"
-        request.addValue(key, forHTTPHeaderField: "Authorization")
-        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-        
-        NetworkManager.shared.getData(with: request) { (data, error, response) in
-            guard let data = data else {return}
-            
-            do {
-                let dataByNetwork = try JSONDecoder().decode(Subscribe.self, from: data)
-                
-                completionHandler(DataResponse.success(dataByNetwork))
-            } catch {
-                print("InterestServiceManager Json Parsing")
-            }
+        guard let token
+            = UserDefaults.standard.object(forKey: TokenName.token) as? String,
+            let url
+            = UserAPI.sharedInstance.getURL(RequestURL.subscribeInterest.getRequestURL),
+            let request
+            = requestMaker.makeRequest(url: url,
+                                       method: .get,
+                                       header: ["Authorization": token,
+                                                "Content-Type": "application/json"],
+                                       body: nil) else {
+            return
         }
         
+        network.dispatch(request: request) { result in
+            switch result {
+            case .success(let data):
+                do {
+                    let decodeData
+                        = try JSONDecoder().decode(Subscribe.self,
+                                                   from: data)
+                    
+                    completionHandler(.success(decodeData))
+                } catch let error {
+                    completionHandler(.failed(error))
+                    return
+                }
+            case .failure(let error):
+                completionHandler(.failed(error))
+                return
+            }
+        }
     }
-    
-    
 }

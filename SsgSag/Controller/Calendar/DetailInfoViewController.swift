@@ -10,7 +10,7 @@ import UIKit
 
 class DetailInfoViewController: UIViewController {
 
-    private var posterServiceImp: PosterService?
+    private var posterServiceImp: PosterService = DependencyContainer.shared.getDependency(key: .posterService)
     var posterIdx: Int?
     var posterDetailData: DataClass?
     var isFolding: Bool = false
@@ -87,12 +87,10 @@ class DetailInfoViewController: UIViewController {
         navigationItem.rightBarButtonItem = shareBarButton
     }
     
-    private func requestDatas(_ posterService: PosterService = PosterServiceImp()) {
-        posterServiceImp = posterService
-        
+    private func requestDatas() {
         guard let posterIdx = posterIdx else { return }
         
-        posterServiceImp?.requestPosterDetail(posterIdx: posterIdx) { [weak self] response in
+        posterServiceImp.requestPosterDetail(posterIdx: posterIdx) { [weak self] response in
             switch response {
             case .success(let detailData):
                 self?.posterDetailData = detailData

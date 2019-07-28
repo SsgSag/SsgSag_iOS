@@ -125,7 +125,6 @@ class AddCertificationVC: UIViewController, UITextFieldDelegate, UITextViewDeleg
                         DispatchQueue.main.async {
                             self.simplerAlertwhenSave(title: "저장되었습니다")
                             let parentVC = self.presentingViewController as! CareerVC
-                            parentVC.setService(CareerServiceImp())
                             parentVC.getData(careerType: 2)
                             parentVC.certificationTableView.reloadData()
                         }

@@ -19,20 +19,15 @@ class LoginVC: UIViewController, UITextFieldDelegate {
     
     private let isAutoLogin = "isAutoLogin"
     
-    var loginServiceImp:LoginService!
+    private let loginServiceImp: LoginService
+        = DependencyContainer.shared.getDependency(key: .loginService)
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        setService()
-        
         setAutoLoginButton()
         
         setEmailAndPasswordTextField()
-    }
-    
-    func setService(_ loginService: LoginService = LoginServiceImp() ){
-        self.loginServiceImp = loginService
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
