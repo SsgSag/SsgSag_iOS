@@ -18,6 +18,7 @@ class SelectedTodoViewController: UIViewController {
     
     var delegate: selectedTodoDelegate?
     var indexPath: IndexPath?
+    private var dayTodoData: [DayTodoData]?
     
     private let scrollView: UIScrollView = {
         let scrollView = UIScrollView()
@@ -96,7 +97,10 @@ class SelectedTodoViewController: UIViewController {
     
     var currentDate: Date? {
         didSet {
-            guard let date = currentDate else {return}
+            guard let date = currentDate,
+                let dayTodoData = dayTodoData else {
+                return
+            }
             
             let firstDate = date.changeDaysBy(days: -2)
             
@@ -106,27 +110,27 @@ class SelectedTodoViewController: UIViewController {
             
             let fifthDate = date.changeDaysBy(days: 2)
             
-            for poster in TodoData.shared.getDayTodoDatasAfterAllChangedConfirm() {
-                let endDate = DateCaculate.stringToDateWithGenericFormatter(using: poster.posterEndDate!)
+            for todo in dayTodoData {
+                let endDate = DateCaculate.stringToDateWithGenericFormatter(using: todo.posterEndDate!)
                 
                 if DateCaculate.isSameDate(firstDate, endDate) {
-                    firstDayPosters.append(poster)
+                    firstDayPosters.append(todo)
                 }
                 
                 if DateCaculate.isSameDate(secondDate, endDate) {
-                    secondDayPosters.append(poster)
+                    secondDayPosters.append(todo)
                 }
                 
                 if DateCaculate.isSameDate(date, endDate) {
-                    thirdDayPosters.append(poster)
+                    thirdDayPosters.append(todo)
                 }
                 
                 if DateCaculate.isSameDate(fourthDate, endDate) {
-                    fourthDayPosters.append(poster)
+                    fourthDayPosters.append(todo)
                 }
                 
                 if DateCaculate.isSameDate(fifthDate, endDate) {
-                    fifthDayPosters.append(poster)
+                    fifthDayPosters.append(todo)
                 }
             }
         }
@@ -135,11 +139,6 @@ class SelectedTodoViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         self.tabBarController?.tabBar.isHidden = true
         self.navigationController?.navigationBar.isHidden = true
-    }
-    
-    override func viewWillDisappear(_ animated: Bool) {
-//        self.tabBarController?.tabBar.isHidden = false
-//        self.navigationController?.navigationBar.isHidden = false
     }
     
     override func viewDidLoad() {
@@ -174,7 +173,7 @@ class SelectedTodoViewController: UIViewController {
         calendarServiceImp.requestDayTodoList(year: year, month: month, day: day) { [weak self] dataResponse in
             switch dataResponse {
             case .success(let dayTodoData):
-                TodoData.shared.storeDayTodoData(dayTodoData)
+                self?.dayTodoData = dayTodoData
                 DispatchQueue.main.async {
                     self?.setDefaultScrollViewAndReloadTableView(using: 0)
                 }
@@ -302,7 +301,8 @@ class SelectedTodoViewController: UIViewController {
         
         currentDate = currentDate?.changeDaysBy(days: by)
         
-        guard let date = currentDate else {return}
+        guard let date = currentDate,
+            let dayTodoData = dayTodoData else {return}
         
         firstDayPosters = []
         secondDayPosters = []
@@ -318,27 +318,27 @@ class SelectedTodoViewController: UIViewController {
         
         let fifthDate = date.changeDaysBy(days: 2)
         
-        for poster in TodoData.shared.getDayTodoDatasAfterAllChangedConfirm() {
-            let endDate = DateCaculate.stringToDateWithGenericFormatter(using: poster.posterEndDate!)
+        for todo in dayTodoData {
+            let endDate = DateCaculate.stringToDateWithGenericFormatter(using: todo.posterEndDate!)
             
             if DateCaculate.isSameDate(firstDate, endDate) {
-                firstDayPosters.append(poster)
+                firstDayPosters.append(todo)
             }
             
             if DateCaculate.isSameDate(secondDate, endDate) {
-                secondDayPosters.append(poster)
+                secondDayPosters.append(todo)
             }
             
             if DateCaculate.isSameDate(date, endDate) {
-                thirdDayPosters.append(poster)
+                thirdDayPosters.append(todo)
             }
             
             if DateCaculate.isSameDate(fourthDate, endDate) {
-                fourthDayPosters.append(poster)
+                fourthDayPosters.append(todo)
             }
             
             if DateCaculate.isSameDate(fifthDate, endDate) {
-                fifthDayPosters.append(poster)
+                fifthDayPosters.append(todo)
             }
         }
         

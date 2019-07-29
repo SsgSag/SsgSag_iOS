@@ -43,7 +43,7 @@ class CalenderView: UIView, MonthViewDelegate {
     
     let monthView: MonthView = {
         let v = MonthView()
-        v.translatesAutoresizingMaskIntoConstraints=false
+        v.translatesAutoresizingMaskIntoConstraints = false
         return v
     }()
     
@@ -245,7 +245,8 @@ extension CalenderView: UICollectionViewDelegate, UICollectionViewDataSource {
         }
     }
     
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+    func collectionView(_ collectionView: UICollectionView,
+                        cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Cell", for: indexPath) as? DayCollectionViewCell else {
             return .init()
@@ -321,33 +322,33 @@ extension CalenderView: UICollectionViewDelegate, UICollectionViewDataSource {
         
         eventDictionary[indexPath.row] = []
         
-        for poster in StoreAndFetchPoster.shared.getPostersAfterAllChangedConfirm() {
-            
-            if currentCellDateTime != nil {
-                
-                guard let posterEndDateString = poster.posterEndDate else { return .init() }
-                
-                guard let posterEndDate = dateFormatter.date(from: posterEndDateString) else {return .init()}
-                
-                guard let posterName = poster.posterName else { return .init()}
-                
-                guard let posterCategortIdx = poster.categoryIdx else { return .init()}
-                
-                let currentPosterYear = Calendar.current.component(.year, from: posterEndDate)
-                let currentPosterMonth = Calendar.current.component(.month, from: posterEndDate)
-                let currentPosterDay = Calendar.current.component(.day, from: posterEndDate)
-    
-                if (cellYear == currentPosterYear) &&
-                    (cellMonth == currentPosterMonth) &&
-                    (cellDay == currentPosterDay) {
-                    
-                    eventDictionary[indexPath.row]?.append(event(eventDate: posterEndDate,
-                                                                 title: posterName,
-                                                                 categoryIdx: posterCategortIdx)
-                                                                    )
-                }
-            }
-        }
+//        for poster in StoreAndFetchPoster.shared.getPostersAfterAllChangedConfirm() {
+//
+//            if currentCellDateTime != nil {
+//
+//                guard let posterEndDateString = poster.posterEndDate else { return .init() }
+//
+//                guard let posterEndDate = dateFormatter.date(from: posterEndDateString) else {return .init()}
+//
+//                guard let posterName = poster.posterName else { return .init()}
+//
+//                guard let posterCategortIdx = poster.categoryIdx else { return .init()}
+//
+//                let currentPosterYear = Calendar.current.component(.year, from: posterEndDate)
+//                let currentPosterMonth = Calendar.current.component(.month, from: posterEndDate)
+//                let currentPosterDay = Calendar.current.component(.day, from: posterEndDate)
+//
+//                if (cellYear == currentPosterYear) &&
+//                    (cellMonth == currentPosterMonth) &&
+//                    (cellDay == currentPosterDay) {
+//
+//                    eventDictionary[indexPath.row]?.append(event(eventDate: posterEndDate,
+//                                                                 title: posterName,
+//                                                                 categoryIdx: posterCategortIdx)
+//                                                                    )
+//                }
+//            }
+//        }
         
         cell.drawDotAndLineView(indexPath, eventDictionary: eventDictionary)
         

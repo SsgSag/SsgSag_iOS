@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SwiftKeychainWrapper
 
 class ActivityServiceImp: ActivityService {
     
@@ -23,7 +24,7 @@ class ActivityServiceImp: ActivityService {
                                completionHandler: @escaping ((DataResponse<Activity>) -> Void)) {
         
         guard let token
-            = UserDefaults.standard.object(forKey: TokenName.token) as? String,
+            = KeychainWrapper.standard.string(forKey: TokenName.token),
             let url
             = UserAPI.sharedInstance.getURL(RequestURL.deleteAcitivity(careerIdx: contentIdx).getRequestURL),
             let request

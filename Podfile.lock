@@ -69,6 +69,7 @@ PODS:
   - naveridlogin-sdk-ios (4.0.10)
   - Protobuf (3.7.0)
   - SearchTextField (1.2.2)
+  - SwiftKeychainWrapper (3.4.0)
 
 DEPENDENCIES:
   - AdBrixRemastered
@@ -79,6 +80,7 @@ DEPENDENCIES:
   - lottie-ios
   - naveridlogin-sdk-ios
   - SearchTextField
+  - SwiftKeychainWrapper
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
@@ -97,6 +99,7 @@ SPEC REPOS:
     - naveridlogin-sdk-ios
     - Protobuf
     - SearchTextField
+    - SwiftKeychainWrapper
 
 SPEC CHECKSUMS:
   AdBrixRemastered: 72828d7c1dd458b8fc8e676fd2b487c6745a8910
@@ -114,7 +117,8 @@ SPEC CHECKSUMS:
   naveridlogin-sdk-ios: b5a31343e7f98bab1a5a37b1bc0af3354ad59d11
   Protobuf: 7a877b7f3e5964e3fce995e2eb323dbc6831bb5a
   SearchTextField: a0992739d4b05dcbb40fb3a5cc6526bd991bdd23
+  SwiftKeychainWrapper: 6fc49fbf7d4a6b0772917acb0e53a1639f6078d6
 
-PODFILE CHECKSUM: 2074eca8ab3c27ea36923e06ce5eff8112298c66
+PODFILE CHECKSUM: 225f226901f8f14623dfe52e027fad7f6c7942c9
 
 COCOAPODS: 1.6.2

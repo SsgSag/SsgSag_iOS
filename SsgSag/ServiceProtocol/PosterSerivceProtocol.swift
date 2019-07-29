@@ -15,7 +15,8 @@ protocol PosterService: class {
     
     func requestPosterLiked(
         of poster: Posters,
-        type likedCategory: likedOrDisLiked
+        type likedCategory: likedOrDisLiked,
+        completionHandler: @escaping (DataResponse<HttpStatusCode>) -> Void
     )
     
     func requestPosterDetail(

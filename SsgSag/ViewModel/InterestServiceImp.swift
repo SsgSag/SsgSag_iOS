@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import SwiftKeychainWrapper
 
 class InterestServiceImp: InterestService {
     let requestMaker: RequestMakerProtocol
@@ -22,7 +23,7 @@ class InterestServiceImp: InterestService {
                                         completionHandler: @escaping (DataResponse<BasicNetworkModel>) -> Void) {
         
         guard let token
-            = UserDefaults.standard.object(forKey: TokenName.token) as? String,
+            = KeychainWrapper.standard.string(forKey: TokenName.token),
             let url
             = UserAPI.sharedInstance.getURL(RequestURL.subscribeAddOrDelete(interestIdx: interedIdx).getRequestURL),
             let request
@@ -57,7 +58,7 @@ class InterestServiceImp: InterestService {
     func requestInterestSubscribeAdd(_ interedIdx: Int,
                                      completionHandler: @escaping (DataResponse<BasicNetworkModel>) -> Void) {
         guard let token
-            = UserDefaults.standard.object(forKey: TokenName.token) as? String,
+            = KeychainWrapper.standard.string(forKey: TokenName.token),
             let url
             = UserAPI.sharedInstance.getURL(RequestURL.subscribeAddOrDelete(interestIdx: interedIdx).getRequestURL),
             let request = requestMaker.makeRequest(url: url,
@@ -91,7 +92,7 @@ class InterestServiceImp: InterestService {
     func requestInterestSubscribe(completionHandler: @escaping (DataResponse<Subscribe>) -> Void) {
         
         guard let token
-            = UserDefaults.standard.object(forKey: TokenName.token) as? String,
+            = KeychainWrapper.standard.string(forKey: TokenName.token),
             let url
             = UserAPI.sharedInstance.getURL(RequestURL.subscribeInterest.getRequestURL),
             let request

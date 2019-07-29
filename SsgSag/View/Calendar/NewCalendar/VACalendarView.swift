@@ -47,6 +47,10 @@ public class VACalendarView: UIScrollView {
     private var calculatedWeekHeight: CGFloat = 100
     private let calendar: VACalendar
     var monthViews = [VAMonthView]()
+    var monthTodoData: [MonthTodoData] = []
+    
+    private let calendarService: CalendarService
+        = DependencyContainer.shared.getDependency(key: .calendarService)
     
     private var numberOfWeek: MaxNumberOfWeekType?
     
@@ -126,7 +130,6 @@ public class VACalendarView: UIScrollView {
         scrollToStartDate()
     }
     
-    
     public func nextMonth() {
         switch scrollDirection {
         case .horizontal:
@@ -134,6 +137,7 @@ public class VACalendarView: UIScrollView {
             guard x < contentSize.width else { return }
             
             setContentOffset(CGPoint(x: x, y: 0), animated: false)
+
             drawVisibleMonth(with: contentOffset)
         case .vertical: break
         }
@@ -282,7 +286,25 @@ public class VACalendarView: UIScrollView {
             monthViews.enumerated().forEach { index, month in
                 if index == currentIndex || index + 1 == currentIndex || index - 1 == currentIndex {
                     month.delegate = self
-                    month.setupWeeksView(with: viewType)
+                    
+                    let componentYear = Calendar.current.component(.year, from: month.month.date)
+                    let componentMonth = Calendar.current.component(.month, from: month.month.date)
+                    
+                    self.calendarService.requestMonthTodoList(year: String(componentYear),
+                                                              month: String(componentMonth)) { [weak self] result in
+                        switch result {
+                        case .success(let monthTodoData):
+                            self?.monthTodoData = monthTodoData
+                            
+                            DispatchQueue.main.async {
+                                month.setupWeeksView(with: (self?.viewType)!, monthTodoData: monthTodoData)
+                            }
+                        case .failed(let error):
+                            print(error)
+                            return
+                        }
+                    }
+                    
                 } else {
                     month.clean()
                 }
@@ -295,7 +317,7 @@ public class VACalendarView: UIScrollView {
             monthViews.enumerated().forEach { index, month in
                 if index >= currentIndex - 1 && index <= currentIndex + 1 {
                     month.delegate = self
-                    month.setupWeeksView(with: viewType)
+                    month.setupWeeksView(with: viewType, monthTodoData: monthTodoData)
                 } else {
                     month.clean()
                 }
@@ -314,15 +336,15 @@ public class VACalendarView: UIScrollView {
 extension VACalendarView: UIScrollViewDelegate {
     
     public func scrollViewDidScroll(_ scrollView: UIScrollView) {
-        let frameWidth:CGFloat = self.frame.width
+        let frameWidth: CGFloat = self.frame.width
         
         // FIXME: - 달력 스와이프시 속도 증가 시킬 수 있습니다.
-        DispatchQueue.main.async {
-            UIView.animate(withDuration: 0.1, animations: {
-                var contentOffsetX = scrollView.contentOffset.x
+        UIView.animate(withDuration: 0.1, animations: {
+            var contentOffsetX = scrollView.contentOffset.x
                 
-                if contentOffsetX.truncatingRemainder(dividingBy: frameWidth) == 0.0  {
+            if contentOffsetX.truncatingRemainder(dividingBy: frameWidth) == 0.0 {
                     
+                DispatchQueue.main.async {
                     guard let monthView = self.getMonthView(with: scrollView.contentOffset) else { return }
                     
                     self.getNumberOfWeeksDays(scrollView.contentOffset)
@@ -331,8 +353,8 @@ extension VACalendarView: UIScrollViewDelegate {
                     
                     self.drawVisibleMonth(with: scrollView.contentOffset)
                 }
-            })
-        }
+            }
+        })
     }
     
 }
@@ -399,7 +421,7 @@ extension VACalendarView: CategorySelectedDelegate {
         for monthView in self.monthViews {
             for weekView in monthView.weekViews {
                 for dayView in weekView.dayViews {
-                    dayView.drawEventWithSelectedIndex(multipleSelected)
+                    dayView.drawEventWithSelectedIndex(multipleSelected, monthTodos: monthTodoData)
                 }
             }
         }

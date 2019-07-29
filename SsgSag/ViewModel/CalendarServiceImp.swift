@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import SwiftKeychainWrapper
 
 class CalendarServiceImp: CalendarService {
     
@@ -23,9 +24,9 @@ class CalendarServiceImp: CalendarService {
                               month: String,
                               completionHandler: @escaping (DataResponse<[MonthTodoData]>) -> Void) {
         
-        guard let token = UserDefaults.standard.object(forKey: TokenName.token) as? String else { return }
-        
-        guard let url
+        guard let token
+            = KeychainWrapper.standard.string(forKey: TokenName.token),
+            let url
             = UserAPI.sharedInstance.getURL(RequestURL.monthTodoList(year: year,
                                                                      month: month).getRequestURL),
             let request
@@ -42,7 +43,12 @@ class CalendarServiceImp: CalendarService {
                 do {
                     let response = try JSONDecoder().decode(MonthTodoList.self, from: data)
                     
-                    let posterData = response.data
+                    guard let posterData = response.data else {
+                        completionHandler(.failed(NSError(domain: "data is nil",
+                                                          code: 0,
+                                                          userInfo: nil)))
+                        return
+                    }
                     
                     completionHandler(.success(posterData))
                 } catch let error {
@@ -61,9 +67,9 @@ class CalendarServiceImp: CalendarService {
                             day: String,
                             completionHandler: @escaping (DataResponse<[DayTodoData]>) -> Void) {
         
-        guard let token = UserDefaults.standard.object(forKey: TokenName.token) as? String else { return }
-        
-        guard let url
+        guard let token
+            = KeychainWrapper.standard.string(forKey: TokenName.token),
+            let url
             = UserAPI.sharedInstance.getURL(RequestURL.dayTodoList(year: year,
                                                                    month: month,
                                                                    day: day).getRequestURL),
@@ -128,9 +134,10 @@ class CalendarServiceImp: CalendarService {
     }
     
     func reqeustComplete(_ posterIdx: Int, completionHandler: @escaping (DataResponse<PosterFavorite>) -> Void) {
-        guard let token = UserDefaults.standard.object(forKey: TokenName.token) as? String else { return }
         
-        guard let url
+        guard let token
+            = KeychainWrapper.standard.string(forKey: TokenName.token),
+            let url
             = UserAPI.sharedInstance.getURL(RequestURL.completeApply(posterIdx: posterIdx).getRequestURL),
             let request
             = requestMaker.makeRequest(url: url,
@@ -160,12 +167,10 @@ class CalendarServiceImp: CalendarService {
     
     func requestDelete(_ posterIdx: Int,
                        completionHandler: @escaping (DataResponse<PosterFavorite>) -> Void) {
-        guard let token
-            = UserDefaults.standard.object(forKey: TokenName.token) as? String else {
-                return
-        }
         
-        guard let url
+        guard let token
+            = KeychainWrapper.standard.string(forKey: TokenName.token),
+            let url
             = UserAPI.sharedInstance.getURL(RequestURL.deletePoster(posterIdx: posterIdx).getRequestURL),
             let request
             = requestMaker.makeRequest(url: url,
@@ -196,14 +201,12 @@ class CalendarServiceImp: CalendarService {
     func requestFavorite(_ favorite: favoriteState,
                          _ posterIdx: Int,
                          completionHandler: @escaping (DataResponse<PosterFavorite>) -> Void) {
-        guard let token
-            = UserDefaults.standard.object(forKey: TokenName.token) as? String else {
-                return
-        }
         
         let httpMethod: HTTPMethod = favorite == .favorite ? .delete : .post
         
-        guard let url
+        guard let token
+            = KeychainWrapper.standard.string(forKey: TokenName.token),
+            let url
             = UserAPI.sharedInstance.getURL(RequestURL.favorite(posterIdx: posterIdx).getRequestURL),
             let request
             = requestMaker.makeRequest(url: url,

@@ -119,32 +119,6 @@ class AddActivityVC: UIViewController, UITextViewDelegate, UITextFieldDelegate {
         return true
     }
     
-    func getData(careerType: Int) {
-        
-        let json: [String:Any] = [
-            "careerType" : careerType,
-            "careerName" : "자격증",
-            "careerContent" : "자격증 내용",
-            "careerDate1" : "2019-01"
-        ]
-        
-        //let json: [String: Any] = ["careerType" : careerType]
-        let jsonData = try? JSONSerialization.data(withJSONObject: json)
-        let url = URL(string: "http://52.78.86.179:8081/career/\(careerType)")!
-        var request = URLRequest(url: url)
-        request.httpMethod = "GET"
-        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-        let token = UserDefaults.standard.object(forKey: TokenName.token) as! String
-        request.addValue(token, forHTTPHeaderField: "Authorization")
-        request.httpBody = jsonData
-        
-        NetworkManager.shared.getData(with: request) { (data, error, res) in
-            //            guard let data = data else {
-            //                return
-            //            }
-        }
-    }
-    
     func dismissKeyboard() {
         contentTextView.resignFirstResponder()
     }

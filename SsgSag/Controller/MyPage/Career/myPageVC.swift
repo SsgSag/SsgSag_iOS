@@ -8,6 +8,7 @@
 
 import UIKit
 import Photos
+import SwiftKeychainWrapper
 
 class myPageVC: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
 
@@ -194,16 +195,14 @@ class myPageVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
         
         guard let sendData = sendImage.jpegData(compressionQuality: 1) else {return}
         
-        guard let key = UserDefaults.standard.object(forKey: TokenName.token) as? String else {
-            return
-        }
+        guard let token = KeychainWrapper.standard.string(forKey: TokenName.token) else { return }
     
         let boundary = generateBoundaryString()
         
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
         request.addValue("multipart/form-data; boundary=\(boundary)", forHTTPHeaderField: "Content-Type")
-        request.addValue(key, forHTTPHeaderField: "Authorization")
+        request.addValue(token, forHTTPHeaderField: "Authorization")
         request.httpBody = createBody(parameters: [:],
                                       boundary: boundary,
                                       data: sendData,
@@ -232,14 +231,12 @@ class myPageVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
     private func getData() {
         guard let url = UserAPI.sharedInstance.getURL("/user") else {return}
         
-        guard let key = UserDefaults.standard.object(forKey: TokenName.token) as? String else {
-            return
-        }
+        guard let token = KeychainWrapper.standard.string(forKey: TokenName.token) else { return }
         
         var request = URLRequest(url: url)
         request.httpMethod = "GET"
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.addValue(key, forHTTPHeaderField: "Authorization")
+        request.addValue(token, forHTTPHeaderField: "Authorization")
         
         NetworkManager.shared.getData(with: request) { [weak self] (data, error, res) in
             if error != nil {

@@ -8,6 +8,7 @@
 
 import UIKit
 import Lottie
+import SwiftKeychainWrapper
 
 class AddCertificationVC: UIViewController, UITextFieldDelegate, UITextViewDelegate {
 
@@ -19,6 +20,9 @@ class AddCertificationVC: UIViewController, UITextFieldDelegate, UITextViewDeleg
     var titleString: String?
     var yearString: String?
     var contentString: String?
+    
+    private let careerService: CareerService
+        = DependencyContainer.shared.getDependency(key: .careerService)
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -73,13 +77,14 @@ class AddCertificationVC: UIViewController, UITextFieldDelegate, UITextViewDeleg
             "careerDate1" : "2019-01"
         ]
         
+        guard let token = KeychainWrapper.standard.string(forKey: TokenName.token) else { return }
+        
         //let json: [String: Any] = ["careerType" : careerType]
         let jsonData = try? JSONSerialization.data(withJSONObject: json)
         let url = URL(string: "http://52.78.86.179:8081/career/\(careerType)")!
         var request = URLRequest(url: url)
         request.httpMethod = "GET"
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-        let token = UserDefaults.standard.object(forKey: TokenName.token) as! String
         request.addValue(token, forHTTPHeaderField: "Authorization")
         request.httpBody = jsonData
         
@@ -99,12 +104,13 @@ class AddCertificationVC: UIViewController, UITextFieldDelegate, UITextViewDeleg
         
         let jsonData = try? JSONSerialization.data(withJSONObject: json)
         
+        guard let token = KeychainWrapper.standard.string(forKey: TokenName.token) else { return }
+        
         // create post request
         let url = URL(string: "http://52.78.86.179:8081/career")!
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-        let token = UserDefaults.standard.object(forKey: TokenName.token) as! String
         request.addValue(token, forHTTPHeaderField: "Authorization")
         
         // insert json data to the request

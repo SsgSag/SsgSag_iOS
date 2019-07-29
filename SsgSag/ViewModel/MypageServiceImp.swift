@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import SwiftKeychainWrapper
 
 class MyPageServiceImp: MyPageService {
     
@@ -25,11 +26,8 @@ class MyPageServiceImp: MyPageService {
         let json = try? JSONSerialization.data(withJSONObject: selectedJson)
         
         guard let token
-            = UserDefaults.standard.object(forKey: TokenName.token) as? String else {
-            return
-        }
-        
-        guard let url
+            = KeychainWrapper.standard.string(forKey: TokenName.token),
+            let url
             = UserAPI.sharedInstance.getURL(RequestURL.registerInterestJobs.getRequestURL),
             let request
             = requestMaker.makeRequest(url: url,
@@ -66,11 +64,8 @@ class MyPageServiceImp: MyPageService {
         let json = try? JSONSerialization.data(withJSONObject: jsonData)
         
         guard let token
-            = UserDefaults.standard.object(forKey: TokenName.token) as? String else {
-            return
-        }
-        
-        guard let url
+            = KeychainWrapper.standard.string(forKey: TokenName.token),
+            let url
             = UserAPI.sharedInstance.getURL(RequestURL.careerActivity.getRequestURL),
             let request = requestMaker.makeRequest(url: url,
                                                    method: .post,
@@ -106,11 +101,8 @@ class MyPageServiceImp: MyPageService {
         let jsonData = try? JSONSerialization.data(withJSONObject: selectedJson)
         
         guard let token
-            = UserDefaults.standard.object(forKey: TokenName.token) as? String else {
-            return
-        }
-        
-        guard let url
+            = KeychainWrapper.standard.string(forKey: TokenName.token),
+            let url
             = UserAPI.sharedInstance.getURL(RequestURL.reIntersting.getRequestURL),
             let request
             = requestMaker.makeRequest(url: url,
@@ -144,11 +136,8 @@ class MyPageServiceImp: MyPageService {
     func requestSelectedState(completionHandler: @escaping ((DataResponse<Interests>) -> Void)) {
         
         guard let token
-            = UserDefaults.standard.object(forKey: TokenName.token) as? String else {
-            return
-        }
-        
-        guard let url
+            = KeychainWrapper.standard.string(forKey: TokenName.token),
+            let url
             = UserAPI.sharedInstance.getURL(RequestURL.interestingField.getRequestURL),
             let request
             = requestMaker.makeRequest(url: url,
@@ -181,12 +170,10 @@ class MyPageServiceImp: MyPageService {
     }
     
     func requestUserInformation(completionHandler: @escaping (DataResponse<UserNetworkModel>) -> Void) {
-        guard let token
-            = UserDefaults.standard.object(forKey: TokenName.token) as? String else {
-                return
-        }
         
-        guard let url
+        guard let token
+            = KeychainWrapper.standard.string(forKey: TokenName.token),
+            let url
             = UserAPI.sharedInstance.getURL(RequestURL.signUp.getRequestURL),
             let request
             = requestMaker.makeRequest(url: url,
@@ -221,7 +208,7 @@ class MyPageServiceImp: MyPageService {
     // 회원탈퇴
     func requestMembershipCancel(completionHandler: @escaping (DataResponse<HttpStatusCode>) -> Void) {
         guard let token
-            = UserDefaults.standard.object(forKey: TokenName.token) as? String,
+            = KeychainWrapper.standard.string(forKey: TokenName.token),
             let url
             = UserAPI.sharedInstance.getURL(RequestURL.signUp.getRequestURL),
             let request

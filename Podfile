@@ -15,5 +15,6 @@ target 'SsgSag' do
   pod 'Firebase/Messaging'
   pod 'Firebase/Analytics'
   pod 'AdBrixRemastered'
+  pod 'SwiftKeychainWrapper'
 
 end

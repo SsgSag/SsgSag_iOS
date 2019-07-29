@@ -305,24 +305,24 @@ class CareerVC: UIViewController {
     
     func getData(careerType: Int) {
         
-        careerServiceImp.requestCareer(careerType: careerType) { dataResponse in
-            guard let careerData = dataResponse.value else {return}
+        careerServiceImp.requestCareerWith(careerType: careerType) { dataResponse in
+            guard let careerData = dataResponse.value?.data else {return}
             
             DispatchQueue.main.async { [weak self] in
                 
                 if careerType == 0 {
                     
-                    self?.activityList = careerData.data
+                    self?.activityList = careerData
                     self?.activityTableView.reloadData()
                     
                 } else if careerType == 1 {
                     
-                    self?.prizeList = careerData.data
+                    self?.prizeList = careerData
                     self?.prizeTableView.reloadData()
                     
                 } else if careerType == 2 {
                     
-                    self?.certificationList = careerData.data
+                    self?.certificationList = careerData
                     self?.certificationTableView.reloadData()
                     
                 }

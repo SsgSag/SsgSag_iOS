@@ -3,7 +3,7 @@ import Foundation
 struct Career: Codable {
     let status: Int
     let message: String
-    let data: [careerData]
+    let data: [careerData]?
 }
 
 struct careerData: Codable {

@@ -9,6 +9,7 @@
 import UIKit
 import SearchTextField
 import NaverThirdPartyLogin
+import SwiftKeychainWrapper
 
 class SchoolInfoVC: UIViewController {
     
@@ -217,8 +218,8 @@ class SchoolInfoVC: UIViewController {
                 case .success:
                     // 토큰 저장
                     if let storeToken = response.data?.token {
-                        UserDefaults.standard.set(storeToken,
-                                                  forKey: TokenName.token)
+                        KeychainWrapper.standard.set(storeToken,
+                                                     forKey: TokenName.token)
                     }
                     
                     DispatchQueue.main.async {

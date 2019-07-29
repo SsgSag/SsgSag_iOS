@@ -9,8 +9,13 @@
 import Foundation
 
 protocol CareerService {
-    func requestCareer(
-        careerType:Int,
+    func requestCareerWith(
+        careerType: Int,
         completionHandler: @escaping (DataResponse<Career>) -> Void
+    )
+    
+    func requestCareerWith(
+        body: [String: Any],
+        completionHandler: @escaping (DataResponse<HttpStatusCode>) -> Void
     )
 }

@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SwiftKeychainWrapper
 
 // 로그인 시작화면
 class LoginVC: UIViewController, UITextFieldDelegate {
@@ -83,8 +84,8 @@ class LoginVC: UIViewController, UITextFieldDelegate {
                 switch httpStatusCode {
                 case .sucess:
                     if let storeToken = loginData.data?.token {
-                        UserDefaults.standard.set(storeToken,
-                                                  forKey: TokenName.token)
+                        KeychainWrapper.standard.set(storeToken,
+                                                     forKey: TokenName.token)
                     }
                     
                     DispatchQueue.main.async {

@@ -113,7 +113,6 @@
 		84D09D0822883421008EEA7C /* ActivityServiceImp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D09D0722883421008EEA7C /* ActivityServiceImp.swift */; };
 		84E19CE421DCC9F4006F72EC /* LoginStoryBoard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 84E19CE321DCC9F4006F72EC /* LoginStoryBoard.storyboard */; };
 		84F1670C228011C000071075 /* StringToDate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84F1670B228011C000071075 /* StringToDate.swift */; };
-		84F1670E2280296E00071075 /* StoreAndFetchPoster.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84F1670D2280296E00071075 /* StoreAndFetchPoster.swift */; };
 		84FB4FE1226B7CAA00D9F2F9 /* RequestURL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84FB4FE0226B7CAA00D9F2F9 /* RequestURL.swift */; };
 		84FB4FE4226B7F7D00D9F2F9 /* LoginServiceImp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84FB4FE3226B7F7D00D9F2F9 /* LoginServiceImp.swift */; };
 		D110809522E042D900F345A8 /* DetailImageCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D110809322E042D900F345A8 /* DetailImageCollectionViewCell.swift */; };
@@ -350,7 +349,6 @@
 		84D20B072282C5850026C1ED /* 슥삭.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "슥삭.entitlements"; sourceTree = "<group>"; };
 		84E19CE321DCC9F4006F72EC /* LoginStoryBoard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LoginStoryBoard.storyboard; sourceTree = "<group>"; };
 		84F1670B228011C000071075 /* StringToDate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringToDate.swift; sourceTree = "<group>"; };
-		84F1670D2280296E00071075 /* StoreAndFetchPoster.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = StoreAndFetchPoster.swift; path = SsgSag/Extension/StoreAndFetchPoster.swift; sourceTree = SOURCE_ROOT; };
 		84F3C6ED227F47B10028A2F0 /* ServiceTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ServiceTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		84F3C6FE227F49560028A2F0 /* SsgSagTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SsgSagTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		84FB4FE0226B7CAA00D9F2F9 /* RequestURL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = RequestURL.swift; path = SsgSag/ViewModel/SwipeVC/RequestURL.swift; sourceTree = SOURCE_ROOT; };
@@ -601,7 +599,6 @@
 				84B1B24F226A364100077DF9 /* DataResponse.swift */,
 				84FB4FE0226B7CAA00D9F2F9 /* RequestURL.swift */,
 				84C30E2C22781FF0008F1165 /* DateCaculate.swift */,
-				84F1670D2280296E00071075 /* StoreAndFetchPoster.swift */,
 				846E622A229288000083E3CD /* StoryBoardName.swift */,
 				846E622C22928B1A0083E3CD /* ViewControllerIdentifier.swift */,
 				846E622E22928F800083E3CD /* TokenName.swift */,
@@ -1292,6 +1289,7 @@
 				"${BUILT_PRODUCTS_DIR}/GoogleUtilities/GoogleUtilities.framework",
 				"${BUILT_PRODUCTS_DIR}/Protobuf/Protobuf.framework",
 				"${BUILT_PRODUCTS_DIR}/SearchTextField/SearchTextField.framework",
+				"${BUILT_PRODUCTS_DIR}/SwiftKeychainWrapper/SwiftKeychainWrapper.framework",
 				"${BUILT_PRODUCTS_DIR}/lottie-ios/Lottie.framework",
 				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
 				"${PODS_ROOT}/naveridlogin-sdk-ios/NaverThirdPartyLogin.framework",
@@ -1305,6 +1303,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleUtilities.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Protobuf.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SearchTextField.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftKeychainWrapper.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Lottie.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/NaverThirdPartyLogin.framework",
@@ -1488,7 +1487,6 @@
 				8496818522AFD3FE004A4A63 /* VADay.swift in Sources */,
 				D166AC6622D733CC00ED82DD /* FeedVC.swift in Sources */,
 				8496818322AFD3FE004A4A63 /* VAMonthView.swift in Sources */,
-				84F1670E2280296E00071075 /* StoreAndFetchPoster.swift in Sources */,
 				D11080A922E07FF000F345A8 /* AnalysticsCollectionViewCell.swift in Sources */,
 				84A45D0D225F9C8400C60287 /* ParameterEncoding.swift in Sources */,
 				845928E321D35F09001DF6CC /* PageViewController.swift in Sources */,

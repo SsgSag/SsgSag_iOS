@@ -63,7 +63,6 @@ class NewCalendarVC: UIViewController {
         self.tabBarController?.tabBar.isHidden = false
         self.navigationController?.navigationBar.isHidden = false
         
-        TodoData.shared.delegate = self
         //weekDaysView.appearance = VAWeekDaysViewAppearance(symbolsType: .veryShort, calendar: defaultCalendar)
         requestData()
         calendarView.setupMonths()
@@ -104,20 +103,21 @@ class NewCalendarVC: UIViewController {
         if month.count < 2 {
             month = "0" + month
         }
-        
-        calendarServiceImp.requestMonthTodoList(year: year,
-                                                 month: month) { [weak self] dataResponse in
-            switch dataResponse {
-            case .success(let monthTodoData):
-                TodoData.shared.storeMonthTodoData(monthTodoData)
-                DispatchQueue.main.async {
-                    self?.calendarView.setup()
-                }
-            case .failed(let error):
-                assertionFailure(error.localizedDescription)
-                return
-            }
-        }
+//
+//        calendarServiceImp.requestMonthTodoList(year: year,
+//                                                 month: month) { [weak self] dataResponse in
+//            switch dataResponse {
+//            case .success(let monthTodoData):
+//                self?.monthTodoData = monthTodoData
+//                DispatchQueue.main.async {
+//                    self?.calendarView.monthTodoData = monthTodoData
+//                    self?.calendarView.setup()
+//                }
+//            case .failed(let error):
+//                assertionFailure(error.localizedDescription)
+//                return
+//            }
+//        }
     }
     
     private func setCategoryCollection() {
@@ -262,12 +262,6 @@ extension NewCalendarVC: VACalendarViewDelegate {
        openSelctedDateTodoList(date)
     }
     
-}
-
-extension NewCalendarVC: StoreAndFetchPosterDelegate {
-    func changePosterInfomation() {
-        print("storeAndFetchChangeDelegate")
-    }
 }
 
 extension NewCalendarVC: UICollectionViewDelegate , UICollectionViewDataSource , UICollectionViewDelegateFlowLayout {

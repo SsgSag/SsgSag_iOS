@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SwiftKeychainWrapper
 
 class LogoutViewController: UIViewController {
 
@@ -29,7 +30,7 @@ class LogoutViewController: UIViewController {
     
     @IBAction func touchUpOkButton(_ sender: UIButton) {
         // token 삭제
-        UserDefaults.standard.removeObject(forKey: TokenName.token)
+        KeychainWrapper.standard.removeObject(forKey: TokenName.token)
         KOSession.shared()?.logoutAndClose(completionHandler: nil)
         
         guard let window = UIApplication.shared.keyWindow else {

@@ -21,7 +21,8 @@ class SwipeVC: UIViewController {
     
     private var countTotalCardIndex = 0
     
-    private var posterServiceImp: PosterService = DependencyContainer.shared.getDependency(key: .posterService)
+    private var posterServiceImp: PosterService
+        = DependencyContainer.shared.getDependency(key: .posterService)
     
     private var lastDeletedSwipeCard: SwipeCard?
     
@@ -386,7 +387,25 @@ extension SwipeVC : SwipeCardDelegate {
         
         guard let disLikedCategory = likedOrDisLiked(rawValue: 0) else { return }
         
-        posterServiceImp.requestPosterLiked(of: self.posters[currentIndex-1], type: disLikedCategory)
+        posterServiceImp.requestPosterLiked(of: self.posters[currentIndex-1],
+                                            type: disLikedCategory) { [weak self] result in
+            switch result {
+            case .success(let status):
+                switch status {
+                case .sucess:
+                    print("성공")
+                case .dataBaseError:
+                    self?.simplerAlert(title: "데이터베이스 에러")
+                case .serverError:
+                    self?.simplerAlert(title: "서버 에러")
+                default:
+                    print("슥/삭 실패")
+                }
+            case .failed(let error):
+                print(error)
+                return
+            }
+        }
     }
     
     //카드 오른쪽으로 갔을때
@@ -396,28 +415,40 @@ extension SwipeVC : SwipeCardDelegate {
         
         loadCardValuesAfterRemoveObject()
         
-        guard let posterData = UserDefaults.standard.object(forKey: UserDefaultsName.poster) as? Data else {
+        guard posters.count > 0 else {
             addUserDefaultsWhenNoData()
             return
         }
         
-        guard let posterInfo = try? PropertyListDecoder().decode([Posters].self, from: posterData) else {
-            return
-        }
-        
-        addUserDefautlsWhenDataIsExist(posterInfo)
+        addUserDefautlsWhenDataIsExist(posters)
     }
     
     private func addUserDefaultsWhenNoData() {
         var likedPoster: [Posters] = []
         
-        likedPoster.append(self.posters[currentIndex-1])
-        
-        StoreAndFetchPoster.shared.storePoster(posters: likedPoster)
+        likedPoster.append(self.posters[currentIndex - 1])
         
         guard let likedCategory = likedOrDisLiked(rawValue: 1) else { return }
         
-        posterServiceImp.requestPosterLiked(of: self.posters[currentIndex-1], type: likedCategory)
+        posterServiceImp.requestPosterLiked(of: self.posters[currentIndex - 1],
+                                            type: likedCategory) { [weak self] result in
+            switch result {
+            case .success(let status):
+                switch status {
+                case .sucess:
+                    print("성공")
+                case .dataBaseError:
+                    self?.simplerAlert(title: "데이터베이스 에러")
+                case .serverError:
+                    self?.simplerAlert(title: "서버 에러")
+                default:
+                    print("슥/삭 실패")
+                }
+            case .failed(let error):
+                print(error)
+                return
+            }
+        }
         
         NotificationCenter.default.post(name: NSNotification.Name(NotificationName.addUserDefaults), object: nil)
     }
@@ -425,15 +456,31 @@ extension SwipeVC : SwipeCardDelegate {
     private func addUserDefautlsWhenDataIsExist(_ posterInfo: [Posters]) {
         var likedPoster = posterInfo
         
-        if isDuplicated(in: likedPoster, checkValue: posters[currentIndex-1]) == false {
-            likedPoster.append(self.posters[currentIndex-1])
+        if isDuplicated(in: likedPoster, checkValue: posters[currentIndex - 1]) == false {
+            likedPoster.append(self.posters[currentIndex - 1])
         }
-        
-        StoreAndFetchPoster.shared.storePoster(posters: likedPoster)
         
         guard let likedCategory = likedOrDisLiked(rawValue: 1) else { return }
         
-        posterServiceImp.requestPosterLiked(of: self.posters[currentIndex-1], type: likedCategory)
+        posterServiceImp.requestPosterLiked(of: self.posters[currentIndex - 1],
+                                            type: likedCategory) { [weak self] result in
+            switch result {
+            case .success(let status):
+                switch status {
+                case .sucess:
+                    print("성공")
+                case .dataBaseError:
+                    self?.simplerAlert(title: "데이터베이스 에러")
+                case .serverError:
+                    self?.simplerAlert(title: "서버 에러")
+                default:
+                    print("슥/삭 실패")
+                }
+            case .failed(let error):
+                print(error)
+                return
+            }
+        }
         
         NotificationCenter.default.post(name: NSNotification.Name(NotificationName.addUserDefaults), object: nil)
     }

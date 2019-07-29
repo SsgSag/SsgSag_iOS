@@ -13,6 +13,7 @@ import FirebaseMessaging
 import UserNotifications
 import AdBrixRM
 import AdSupport
+import SwiftKeychainWrapper
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate, MessagingDelegate ,UNUserNotificationCenterDelegate{
@@ -122,7 +123,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, MessagingDelegate ,UNUser
     }
     
     private func isTokenExist() -> Bool {
-        if let _ = UserDefaults.standard.object(forKey: TokenName.token) {
+        if KeychainWrapper.standard.string(forKey: TokenName.token) != nil {
             return true
         } else {
             return false
@@ -142,7 +143,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, MessagingDelegate ,UNUser
     }
     
     fileprivate func hasToken() -> Bool {
-         if UserDefaults.standard.object(forKey: TokenName.token) != nil {
+         if KeychainWrapper.standard.string(forKey: TokenName.token) != nil {
             return true
          } else {
             return false

@@ -104,18 +104,24 @@ class VADayView: UIView {
     
     var count: CGFloat = 0
     
-    private func drawEvent(_ state: VADay) {
-        for todo in TodoData.shared.getMonthTodoDatasAfterAllChangedConfirm() {
+    private func drawEvent(_ state: VADay, monthTodoData: [MonthTodoData]) {
+        for todo in monthTodoData {
             
-            let monthTodoDate = DateCaculate.stringToDateWithGenericFormatter(using: todo.posterEndDate)
+            guard let posterEndDate = todo.posterEndDate,
+                let categoryIdx = todo.categoryIdx,
+                let posterName = todo.posterName else {
+                return
+            }
             
-            let category = PosterCategory(rawValue: todo.categoryIdx)
+            let monthTodoDate = DateCaculate.stringToDateWithGenericFormatter(using: posterEndDate)
+            
+            let category = PosterCategory(rawValue: categoryIdx)
             
             if DateCaculate.isSameDate(self.day.date, monthTodoDate) {
                 if count < 5 {
                     
                     let lineView = VALineView(color: category?.categoryColors() ?? .clear,
-                                              text: todo.posterName)
+                                              text: posterName)
                     if state.state == .out {
                         lineView.backgroundColor = .lightGray
                     }
@@ -134,7 +140,7 @@ class VADayView: UIView {
         stackViewHeightAnchor?.isActive = true
     }
     
-    func setupDay() {
+    func setupDay(monthTodoData: [MonthTodoData]) {
         
         dateLabel.text = VAFormatters.dayFormatter.string(from: day.date)
         
@@ -145,10 +151,10 @@ class VADayView: UIView {
         dateLabel.topAnchor.constraint(equalTo: self.topAnchor).isActive = true
         
         setState(day.state)
-        drawEvent(day)
+        drawEvent(day, monthTodoData: monthTodoData)
     }
     
-    func drawEventWithSelectedIndex(_ selectedIndex: [Int] ) {
+    func drawEventWithSelectedIndex(_ selectedIndex: [Int], monthTodos: [MonthTodoData]) {
         
         for i in lineStackView.subviews {
             i.removeFromSuperview()
@@ -156,11 +162,13 @@ class VADayView: UIView {
         
         count = 0
         
-        for poster in StoreAndFetchPoster.shared.getPostersAfterAllChangedConfirm() {
+        for poster in monthTodos {
             
             let posterDate = DateCaculate.stringToDateWithGenericFormatter(using: poster.posterEndDate ?? .init())
             
-            let category = PosterCategory(rawValue: poster.categoryIdx!)
+            guard let categoryIdx = poster.categoryIdx else { return }
+            
+            let category = PosterCategory(rawValue: categoryIdx)
             
             if selectedIndex.contains(0) {
                 if DateCaculate.isSameDate(self.day.date, posterDate) {

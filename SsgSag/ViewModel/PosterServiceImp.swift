@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import SwiftKeychainWrapper
 
 class PosterServiceImp: PosterService {
     
@@ -20,15 +21,16 @@ class PosterServiceImp: PosterService {
     }
     
     func requestPosterLiked(of poster: Posters,
-                            type likedCategory: likedOrDisLiked) {
+                            type likedCategory: likedOrDisLiked,
+                            completionHandler: @escaping (DataResponse<HttpStatusCode>) -> Void) {
         
         let like = likedCategory.rawValue
         
         guard let posterIdx = poster.posterIdx else { return }
         
-        guard let token = UserDefaults.standard.object(forKey: TokenName.token) as? String else { return }
-        
-        guard let url
+        guard let token
+            = KeychainWrapper.standard.string(forKey: TokenName.token),
+            let url
             = UserAPI.sharedInstance.getURL(RequestURL.posterLiked(posterIdx: posterIdx,
                                                                    likeType: like).getRequestURL),
             let request = requestMaker.makeRequest(url: url,
@@ -42,54 +44,34 @@ class PosterServiceImp: PosterService {
             switch result {
             case .success(let data):
                 do {
-                    let likedPosterNetworkData = try JSONDecoder().decode(PosterFavoriteForNetwork.self, from: data)
+                    let decodedData
+                        = try JSONDecoder().decode(PosterFavoriteForNetwork.self,
+                                                   from: data)
                     
-                    guard let statusCode = likedPosterNetworkData.status else { return }
-                    
-                    guard let httpStatusCode = HttpStatusCode(rawValue: statusCode) else { return }
-                    
-                    do {
-                        try self?.likedErrorHandling(httpStatusCode, likedCategory: likedCategory)
-                    } catch HttpStatusCode.dataBaseError {
-                        print("likedPosterNetworkData dataBaseError")
-                    } catch HttpStatusCode.serverError {
-                        print("likedPosterNetworkData serverError")
+                    guard let statusCode = decodedData.status,
+                        let httpStatusCode = HttpStatusCode(rawValue: statusCode) else {
+                            return
                     }
                     
-                } catch {
-                    print("likedPosterNetworkData parsing Error")
+                    completionHandler(.success(httpStatusCode))
+                    
+                } catch let error {
+                    completionHandler(.failed(error))
                     return
                 }
             case .failure(let error):
-                print(error)
+                completionHandler(.failed(error))
                 return
             }
         }
         
     }
     
-    func likedErrorHandling(_ httpStatusCode: HttpStatusCode,
-                            likedCategory: likedOrDisLiked) throws {
-        switch httpStatusCode {
-        case .sucess:
-            if likedCategory == .liked {
-                print("posterFavorite liked is Send to Server")
-            } else if likedCategory == .disliked {
-                print("posterFavorite Disliked is Send to Server")
-            }
-        case .dataBaseError, .serverError:
-            try httpStatusCode.throwError()
-        default:
-            break
-        }
-    }
-    
     func requestPoster(completionHandler: @escaping (DataResponse<[Posters]>) -> Void) {
         
         guard let token
-            = UserDefaults.standard.object(forKey: TokenName.token) as? String else { return }
-        
-        guard let url
+            = KeychainWrapper.standard.string(forKey: TokenName.token),
+            let url
             = UserAPI.sharedInstance.getURL(RequestURL.initPoster.getRequestURL),
             let request = requestMaker.makeRequest(url: url,
                                                    method: .get,
@@ -121,10 +103,10 @@ class PosterServiceImp: PosterService {
     
     func requestPosterDetail(posterIdx: Int,
                              completionHandler: @escaping (DataResponse<DataClass>) -> Void) {
-        guard let token
-            = UserDefaults.standard.object(forKey: TokenName.token) as? String else { return }
         
-        guard let url
+        guard let token
+            = KeychainWrapper.standard.string(forKey: TokenName.token),
+            let url
             = UserAPI.sharedInstance.getURL(RequestURL.posterDetail(posterIdx: posterIdx).getRequestURL),
             let request
             = requestMaker.makeRequest(url: url,
