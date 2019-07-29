@@ -91,6 +91,7 @@
 - [Lottie-iOS](https://github.com/airbnb/lottie-ios)
 - [Alamofire](https://github.com/Alamofire/Alamofire)
 - [SearchTextField](https://github.com/apasccon/SearchTextField)
+- [SwiftKeychainWrapper](https://github.com/jrendel/SwiftKeychainWrapper)
 
 
 
