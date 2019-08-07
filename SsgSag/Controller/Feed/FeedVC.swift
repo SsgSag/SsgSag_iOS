@@ -12,22 +12,19 @@ class FeedVC: UIViewController {
     
     @IBOutlet weak var newsCollectionView: UICollectionView!
     
-    @IBOutlet weak var menuBar: MenuBar!
-    
     var selectedMenuIndex: Int = 0
     
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         
         navigationController?.navigationBar.isHidden = true
         
-        menuBar.menuCollectionView.scrollToItem(at: IndexPath(item: 0, section: 0), at: .left, animated: false)
+//        menuBar.menuCollectionView.scrollToItem(at: IndexPath(item: 0, section: 0), at: .left, animated: false)
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        setupMenuBar()
         setupCollectionView()
     }
     
@@ -38,10 +35,6 @@ class FeedVC: UIViewController {
             = myPageStoryboard.instantiateViewController(withIdentifier: ViewControllerIdentifier.mypageViewController)
         
         present(myPageViewController, animated: true)
-    }
-    
-    private func setupMenuBar() {
-        menuBar.feedVC = self
     }
 
     private func setupCollectionView() {
@@ -64,6 +57,7 @@ class FeedVC: UIViewController {
         let indexPath = IndexPath(item: menuIndex, section: 0)
         newsCollectionView.scrollToItem(at: indexPath, at: .left, animated: true)
     }
+
 }
 
 extension FeedVC: UICollectionViewDelegate {
@@ -71,8 +65,9 @@ extension FeedVC: UICollectionViewDelegate {
 }
 
 extension FeedVC: UICollectionViewDataSource {
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 2
+    func collectionView(_ collectionView: UICollectionView,
+                        numberOfItemsInSection section: Int) -> Int {
+        return 1
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -82,6 +77,8 @@ extension FeedVC: UICollectionViewDataSource {
                                                      for: indexPath) as? FeedPageCollectionViewCell else {
                                                         return .init()
             }
+            
+            cell.delegate = self
             
             return cell
         } else {
@@ -109,6 +106,16 @@ extension FeedVC: MenuBarDelegate {
     }
 }
 
+extension FeedVC: FeedTouchDelegate {
+    func touchUpFeedCell(title: String, urlString: String) {
+        let articleVC = ArticleViewController()
+        articleVC.articleTitle = title
+        articleVC.articleUrlString = urlString
+        navigationController?.pushViewController(articleVC,
+                                                 animated: true)
+    }
+}
+
 extension FeedVC {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
 //        print(scrollView.contentOffset.x / 2 - 48)
@@ -116,11 +123,11 @@ extension FeedVC {
     }
     
     func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
-        let index = targetContentOffset.pointee.x / view.frame.width
-        
-        let indexPath = IndexPath(item: Int(index), section: 0)
-        menuBar.menuCollectionView.selectItem(at: indexPath,
-                                              animated: true,
-                                              scrollPosition: .left)
+//        let index = targetContentOffset.pointee.x / view.frame.width
+//
+//        let indexPath = IndexPath(item: Int(index), section: 0)
+//        menuBar.menuCollectionView.selectItem(at: indexPath,
+//                                              animated: true,
+//                                              scrollPosition: .left)
     }
 }

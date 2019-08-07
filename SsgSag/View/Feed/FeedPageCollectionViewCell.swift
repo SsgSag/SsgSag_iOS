@@ -8,12 +8,17 @@
 
 import UIKit
 
+protocol FeedTouchDelegate: class {
+    func touchUpFeedCell(title: String, urlString: String)
+}
+
 class FeedPageCollectionViewCell: UICollectionViewCell {
     
     private let feedServiceImp: FeedService
         = DependencyContainer.shared.getDependency(key: .feedService)
     
     var feedDatas: [FeedData] = []
+    weak var delegate: FeedTouchDelegate?
     
     lazy var feedCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
@@ -111,6 +116,17 @@ extension FeedPageCollectionViewCell: UICollectionViewDataSource {
         
         
         return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView,
+                        didSelectItemAt indexPath: IndexPath) {
+        guard let title = feedDatas[indexPath.item].feedName,
+            let urlString = feedDatas[indexPath.item].feedUrl else {
+            return
+        }
+        
+        delegate?.touchUpFeedCell(title: title,
+                                  urlString: urlString)
     }
 }
 

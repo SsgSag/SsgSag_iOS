@@ -115,6 +115,7 @@
 		84F1670C228011C000071075 /* StringToDate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84F1670B228011C000071075 /* StringToDate.swift */; };
 		84FB4FE1226B7CAA00D9F2F9 /* RequestURL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84FB4FE0226B7CAA00D9F2F9 /* RequestURL.swift */; };
 		84FB4FE4226B7F7D00D9F2F9 /* LoginServiceImp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84FB4FE3226B7F7D00D9F2F9 /* LoginServiceImp.swift */; };
+		D103D8A822FA9BD20092FE93 /* ArticleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D103D8A722FA9BD20092FE93 /* ArticleViewController.swift */; };
 		D10B6E1822F41BFE007B9BEA /* FeedServiceImp.swift in Sources */ = {isa = PBXBuildFile; fileRef = D10B6E1722F41BFE007B9BEA /* FeedServiceImp.swift */; };
 		D10B6E1A22F41C10007B9BEA /* FeedServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = D10B6E1922F41C10007B9BEA /* FeedServiceProtocol.swift */; };
 		D10B6E1C22F41C80007B9BEA /* Feed.swift in Sources */ = {isa = PBXBuildFile; fileRef = D10B6E1B22F41C80007B9BEA /* Feed.swift */; };
@@ -369,6 +370,7 @@
 		9B27C6ED22C090AFAB7FDA36 /* Pods-SsgSagUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SsgSagUITests.release.xcconfig"; path = "Target Support Files/Pods-SsgSagUITests/Pods-SsgSagUITests.release.xcconfig"; sourceTree = "<group>"; };
 		B33EC5E4A80E545EF03F7987 /* Pods-SsgSagTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SsgSagTests.release.xcconfig"; path = "Target Support Files/Pods-SsgSagTests/Pods-SsgSagTests.release.xcconfig"; sourceTree = "<group>"; };
 		CD027F324040744246DC41C1 /* Pods-SsgSagTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SsgSagTests.debug.xcconfig"; path = "Target Support Files/Pods-SsgSagTests/Pods-SsgSagTests.debug.xcconfig"; sourceTree = "<group>"; };
+		D103D8A722FA9BD20092FE93 /* ArticleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleViewController.swift; sourceTree = "<group>"; };
 		D10B6E1722F41BFE007B9BEA /* FeedServiceImp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedServiceImp.swift; sourceTree = "<group>"; };
 		D10B6E1922F41C10007B9BEA /* FeedServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedServiceProtocol.swift; sourceTree = "<group>"; };
 		D10B6E1B22F41C80007B9BEA /* Feed.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Feed.swift; sourceTree = "<group>"; };
@@ -1049,6 +1051,7 @@
 			isa = PBXGroup;
 			children = (
 				D166AC6522D733CC00ED82DD /* FeedVC.swift */,
+				D103D8A722FA9BD20092FE93 /* ArticleViewController.swift */,
 			);
 			path = Feed;
 			sourceTree = "<group>";
@@ -1406,6 +1409,7 @@
 				D1E517B922E02BDC0001EAA5 /* TempCollectionReusableView.swift in Sources */,
 				840AFF8822A2622C00EA12E6 /* UIDevice.swift in Sources */,
 				84A45D0B225F9BC100C60287 /* HTTPTask.swift in Sources */,
+				D103D8A822FA9BD20092FE93 /* ArticleViewController.swift in Sources */,
 				8459289D21D09CDD001DF6CC /* SwipeVC.swift in Sources */,
 				84646C3A228976A3005D3F1C /* InterestBoardViewController.swift in Sources */,
 				D1564F0022EC102400BDA7F6 /* RequestMakerProtocol.swift in Sources */,

@@ -154,6 +154,14 @@ class LoginVC: UIViewController, UITextFieldDelegate {
         return true
     }
     
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        self.stackViewCenterXConstraint.constant = 0
+        
+        UIView.animate(withDuration: 0.3) {
+            self.view.layoutIfNeeded()
+        }
+    }
+    
 }
 
 class FormTextField: UITextField {
