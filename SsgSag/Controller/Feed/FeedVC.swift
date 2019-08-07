@@ -52,7 +52,10 @@ class FeedVC: UIViewController {
         }
         
         newsCollectionView.register(FeedPageCollectionViewCell.self,
-                                    forCellWithReuseIdentifier: "cellId")
+                                    forCellWithReuseIdentifier: "feedCell")
+        
+        newsCollectionView.register(BoardCollectionViewCell.self,
+                                    forCellWithReuseIdentifier: "boardCell")
         
         newsCollectionView.isPagingEnabled = true
     }
@@ -73,13 +76,24 @@ extension FeedVC: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell
-            = collectionView.dequeueReusableCell(withReuseIdentifier: "cellId",
-                                                 for: indexPath) as? FeedPageCollectionViewCell else {
-                                                    return .init()
+        if indexPath.row == 0 {
+            guard let cell
+                = collectionView.dequeueReusableCell(withReuseIdentifier: "feedCell",
+                                                     for: indexPath) as? FeedPageCollectionViewCell else {
+                                                        return .init()
+            }
+            
+            return cell
+        } else {
+            guard let cell
+                = collectionView.dequeueReusableCell(withReuseIdentifier: "boardCell",
+                                                     for: indexPath) as? BoardCollectionViewCell else {
+                                                        return .init()
+            }
+            
+            return cell
         }
         
-        return cell
     }
 }
 

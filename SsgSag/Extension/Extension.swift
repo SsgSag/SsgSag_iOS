@@ -91,6 +91,13 @@ extension UIViewController {
         present(alert, animated: true, completion: nil)
     }
     
+    func simpleAlertwithOKButton(title: String, message: String, okHandler : ((UIAlertAction) -> Void)?){
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        let okAction = UIAlertAction(title: "확인",style: .default, handler: okHandler)
+        alert.addAction(okAction)
+        present(alert, animated: true, completion: nil)
+    }
+    
     func simplerAlertwhenSave(title: String) {
         let alert = UIAlertController(title: title, message: nil, preferredStyle: .alert)
         let action = UIAlertAction(title: "확인", style: .default, handler: dismissView)
@@ -135,9 +142,9 @@ extension UIViewController {
     
     
     //커스텀 백버튼 설정
-    func setBackBtn(color : UIColor){
+    func setBackBtn(color: UIColor) {
         
-        let backButton = UIBarButtonItem(image: UIImage(named: "icArrowBack"), //백버튼 이미지 파일 이름에 맞게 변경해주세요.
+        let backButton = UIBarButtonItem(image: UIImage(named: "ic_ArrowBack"), //백버튼 이미지 파일 이름에 맞게 변경해주세요.
             style: .plain,
             target: self,
             action: #selector(self.pop))
@@ -339,5 +346,22 @@ extension UINavigationBar {
     func addColorToShadow(color: UIColor, size: CGSize) {
         self.clipsToBounds = false
         self.shadowImage = color.image(size)
+    }
+}
+
+extension Date {
+    
+    func getDaysInMonth() -> Int {
+        let calendar = Calendar.current
+        
+        let dateComponents = DateComponents(year: calendar.component(.year, from: self),
+                                            month: calendar.component(.month, from: self))
+        
+        guard let date = calendar.date(from: dateComponents),
+            let range = calendar.range(of: .day, in: .month, for: date) else { return 0 }
+        
+        let numDays = range.count
+        
+        return numDays
     }
 }

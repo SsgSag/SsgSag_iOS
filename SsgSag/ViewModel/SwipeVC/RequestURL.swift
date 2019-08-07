@@ -31,6 +31,8 @@ enum RequestURL {
     case isUpdate
     case career(careerType: Int)
     case notice
+    case tempPassword
+    case feed
     
     var getRequestURL: String {
         switch self {
@@ -72,12 +74,16 @@ enum RequestURL {
             return "/user/subscribe/\(interestIdx)"
         case .signUp:
             return "/user"
+        case .tempPassword:
+            return "/user/tempPassword"
         case .isUpdate:
             return "/update"
         case .career(careerType: let careerType):
             return "/career/\(careerType)"
         case .notice:
             return "/notice"
+        case .feed:
+            return "/feed"
         }
     }
     

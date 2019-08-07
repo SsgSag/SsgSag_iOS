@@ -118,7 +118,7 @@ class VADayView: UIView {
             let category = PosterCategory(rawValue: categoryIdx)
             
             if DateCaculate.isSameDate(self.day.date, monthTodoDate) {
-                if count < 5 {
+                if count < 4 {
                     
                     let lineView = VALineView(color: category?.categoryColors() ?? .clear,
                                               text: posterName)
@@ -172,7 +172,7 @@ class VADayView: UIView {
             
             if selectedIndex.contains(0) {
                 if DateCaculate.isSameDate(self.day.date, posterDate) {
-                    if count < 5 {
+                    if count < 4 {
                         
                         let lineView = VALineView(color: category?.categoryColors() ?? .clear,
                                                   text: poster.posterName!)
@@ -187,7 +187,7 @@ class VADayView: UIView {
                 }
             } else if selectedIndex.contains(category?.calendarFilterNumber ?? 0) {
                 if DateCaculate.isSameDate(self.day.date, posterDate) {
-                    if count < 5 {
+                    if count < 4 {
                         
                         let lineView = VALineView(color: category?.categoryColors() ?? .clear,
                                                   text: poster.posterName!)

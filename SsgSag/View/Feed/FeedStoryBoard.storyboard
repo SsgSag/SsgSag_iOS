@@ -19,10 +19,10 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4dd-73-ach">
-                                <rect key="frame" x="0.0" y="44" width="414" height="48"/>
+                                <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tUb-Nf-Jux">
-                                        <rect key="frame" x="16" y="0.0" width="48" height="48"/>
+                                        <rect key="frame" x="16" y="0.0" width="44" height="44"/>
                                         <constraints>
                                             <constraint firstAttribute="width" secondItem="tUb-Nf-Jux" secondAttribute="height" multiplier="1:1" id="fNn-fC-9YD"/>
                                         </constraints>
@@ -32,10 +32,10 @@
                                         </connections>
                                     </button>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vi9-d3-xJt" customClass="MenuBar" customModule="슥삭" customModuleProvider="target">
-                                        <rect key="frame" x="74" y="0.0" width="340" height="48"/>
+                                        <rect key="frame" x="70" y="0.0" width="344" height="44"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="48" id="0mt-1x-klX"/>
+                                            <constraint firstAttribute="height" constant="44" id="0mt-1x-klX"/>
                                         </constraints>
                                     </view>
                                 </subviews>
@@ -48,11 +48,11 @@
                                     <constraint firstAttribute="bottom" secondItem="vi9-d3-xJt" secondAttribute="bottom" id="Xo5-1c-Ndp"/>
                                     <constraint firstItem="tUb-Nf-Jux" firstAttribute="leading" secondItem="4dd-73-ach" secondAttribute="leading" constant="16" id="cFS-XQ-Djc"/>
                                     <constraint firstItem="vi9-d3-xJt" firstAttribute="top" secondItem="4dd-73-ach" secondAttribute="top" id="q3v-hz-4Hr"/>
-                                    <constraint firstAttribute="height" constant="48" id="vUM-Sx-GfG"/>
+                                    <constraint firstAttribute="height" constant="44" id="vUM-Sx-GfG"/>
                                 </constraints>
                             </view>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="Btc-a5-EuC">
-                                <rect key="frame" x="0.0" y="92" width="414" height="770"/>
+                                <rect key="frame" x="0.0" y="88" width="414" height="774"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="bfV-ep-uHG">
                                     <size key="itemSize" width="414" height="175"/>

@@ -71,7 +71,7 @@ class LoginServiceImp: LoginService {
                                                    method: .post,
                                                    header: ["Content-Type": "application/json"],
                                                    body: jsonData) else {
-                return
+            return
         }
         
         network.dispatch(request: request) { result in
@@ -81,6 +81,49 @@ class LoginServiceImp: LoginService {
                     let login = try JSONDecoder().decode(LoginStruct.self, from: data)
                     
                     completionHandler(DataResponse.success(login))
+                } catch let error {
+                    completionHandler(.failed(error))
+                    return
+                }
+            case .failure(let error):
+                completionHandler(.failed(error))
+                return
+            }
+        }
+    }
+    
+    func requestTempPassword(email: String,
+                             completionHandler: @escaping (DataResponse<HttpStatusCode>) -> Void) {
+        var urlComponent = URLComponents(string: UserAPI.sharedInstance.getBaseString())
+        urlComponent?.path = RequestURL.tempPassword.getRequestURL
+        urlComponent?.queryItems = [URLQueryItem(name: "userEmail", value: email)]
+
+        guard let url = urlComponent?.url,
+            let request = requestMaker.makeRequest(url: url,
+                                                   method: .post,
+                                                   header: nil,
+                                                   body: nil) else {
+            completionHandler(.failed(NSError(domain: "request Error",
+                                              code: 0,
+                                              userInfo: nil)))
+            return
+        }
+        
+        network.dispatch(request: request) { result in
+            switch result {
+            case .success(let data):
+                do {
+                    let decodedData = try JSONDecoder().decode(TempPassword.self, from: data)
+                    
+                    guard let status = decodedData.status,
+                        let httpStatusCode = HttpStatusCode(rawValue: status) else {
+                        completionHandler(.failed(NSError(domain: "status Error",
+                                                          code: 0,
+                                                          userInfo: nil)))
+                        return
+                    }
+                    
+                    completionHandler(DataResponse.success(httpStatusCode))
                 } catch let error {
                     completionHandler(.failed(error))
                     return

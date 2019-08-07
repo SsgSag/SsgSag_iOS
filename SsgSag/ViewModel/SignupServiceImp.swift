@@ -65,7 +65,7 @@ class SignupServiceImp: SignupService {
             = requestMaker.makeRequest(url: url,
                                        method: .post,
                                        header: ["Content-Type": "application/json"],
-                                       body: nil) else {
+                                       body: userInfo) else {
             return
         }
         

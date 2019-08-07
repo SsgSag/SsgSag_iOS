@@ -25,6 +25,26 @@ class InterestBoardViewController: UIViewController {
     
     static private let rowHeight:CGFloat = 74
     
+    lazy var backButton = UIBarButtonItem(image: UIImage(named: "ic_ArrowBack"),
+                                          style: .plain,
+                                          target: self,
+                                          action: #selector(touchUpBackButton))
+    
+    lazy var doneButton = UIBarButtonItem(title: "완료",
+                                          style: .plain,
+                                          target: self,
+                                          action: #selector(touchUpBackButton))
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        doneButton.tintColor = #colorLiteral(red: 0.4603668451, green: 0.5182471275, blue: 1, alpha: 1)
+        
+        setNavigationBar(color: .white)
+        navigationItem.leftBarButtonItem = backButton
+        navigationItem.rightBarButtonItem = doneButton
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -40,6 +60,10 @@ class InterestBoardViewController: UIViewController {
     
     @IBAction func dissMiss(_ sender: Any) {
         self.dismiss(animated: true, completion: nil)
+    }
+    
+    @objc private func touchUpBackButton() {
+        dismiss(animated: true)
     }
     
     private func requestSubscribeStatus() {
@@ -61,7 +85,7 @@ class InterestBoardViewController: UIViewController {
 extension InterestBoardViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.interestInfo.count
+        return interestInfo.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

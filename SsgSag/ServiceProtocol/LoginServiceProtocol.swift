@@ -19,4 +19,9 @@ protocol LoginService: class {
         type login: Int,
         completionHandler: @escaping (DataResponse<TokenResponse>) -> Void
     )
+    
+    func requestTempPassword(
+        email: String,
+        completionHandler: @escaping (DataResponse<HttpStatusCode>) -> Void
+    )
 }

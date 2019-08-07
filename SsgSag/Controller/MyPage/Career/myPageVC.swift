@@ -318,20 +318,25 @@ extension myPageVC: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let storyboard = UIStoryboard(name: StoryBoardName.mypage, bundle: nil)
+        
         switch indexPath.row {
         case 0:
             // 나의 이력
             return
         case 1:
             // 게시판 설정
+            let interestNavigationVC = storyboard.instantiateViewController(withIdentifier: "interestNavigationVC")
+            present(interestNavigationVC, animated: true)
             return
         case 2:
             // 공지사항
-            let storyboard = UIStoryboard(name: StoryBoardName.mypage, bundle: nil)
             let noticeNavigationVC = storyboard.instantiateViewController(withIdentifier: "noticeNavigationVC")
             present(noticeNavigationVC, animated: true)
         case 3:
             // 문의하기
+            let inquireNavigationVC = storyboard.instantiateViewController(withIdentifier: "inquireNavigationVC")
+            present(inquireNavigationVC, animated: true)
             return
         default:
             return

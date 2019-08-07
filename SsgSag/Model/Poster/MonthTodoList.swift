@@ -21,13 +21,7 @@ struct MonthTodoData: Codable {
     let posterName, outline, posterEndDate: String?
     let posterStartDate: String?
     let documentDate: String?
-    let isFavorite, dday: Int?
+    let isFavorite: Int?
+    let photoUrl: String?
+    let dday: Int?
 }
-
-//    let posterIdx, categoryIdx, isCompleted, isEnded: Int
-//    let posterName, outline, posterStartDate, posterEndDate: String
-//    let documentDate: String
-//    let isFavorite: Int
-//    let photoUrl: String
-//    let dday: Int
-//}

@@ -40,13 +40,15 @@ class LogoutViewController: UIViewController {
         let mainStoryboard: UIStoryboard = UIStoryboard(name: "LoginStoryBoard", bundle: nil)
         let viewController = mainStoryboard.instantiateViewController(withIdentifier: "Login") as! LoginVC
         
-        let appDelegate = UIApplication.shared.delegate as! AppDelegate
-        appDelegate.window?.rootViewController = viewController
+        let rootNavigationController = UINavigationController(rootViewController: viewController)
         
-        viewController.view.layoutIfNeeded()
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        appDelegate.window?.rootViewController = rootNavigationController
+        
+        rootNavigationController.view.layoutIfNeeded()
         
         UIView.transition(with: window, duration: 0.5, options: .transitionFlipFromLeft, animations: {
-            window.rootViewController = viewController
+            window.rootViewController = rootNavigationController
         }, completion: nil)
     }
     

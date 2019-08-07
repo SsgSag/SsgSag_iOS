@@ -84,6 +84,7 @@ import UIKit
         self.layer.shadowOffset = CGSize(width: shadowX, height: shadowY)
         self.layer.shadowRadius = shadowBlur
         self.layer.shadowOpacity = 1
+        self.setTitle(self.titleLabel?.text, for: .normal)
         
     }
     

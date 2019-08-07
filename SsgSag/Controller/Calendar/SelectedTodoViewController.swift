@@ -18,75 +18,71 @@ class SelectedTodoViewController: UIViewController {
     
     var delegate: selectedTodoDelegate?
     var indexPath: IndexPath?
-    private var dayTodoData: [DayTodoData]?
+    private var monthTodoData: [MonthTodoData]?
     
     private let scrollView: UIScrollView = {
         let scrollView = UIScrollView()
+        scrollView.backgroundColor = .black
         scrollView.showsHorizontalScrollIndicator = false
         scrollView.translatesAutoresizingMaskIntoConstraints = false
         return scrollView
     }()
     
     private let firstTableView: UITableView = {
-        let label = UITableView()
-        label.backgroundColor = .red
-        label.showsVerticalScrollIndicator = false
-        label.layer.cornerRadius = 5
-        label.layer.masksToBounds = true
-        label.separatorStyle = .none
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
+        let tableView = UITableView()
+        tableView.showsVerticalScrollIndicator = false
+        tableView.layer.cornerRadius = 5
+        tableView.layer.masksToBounds = true
+        tableView.separatorStyle = .none
+        tableView.translatesAutoresizingMaskIntoConstraints = false
+        return tableView
     }()
     
     private let secondTableView: UITableView = {
-        let label = UITableView()
-        label.backgroundColor = .blue
-        label.layer.cornerRadius = 5
-        label.layer.masksToBounds = true
-        label.showsVerticalScrollIndicator = false
-        label.separatorStyle = .none
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
+        let tableView = UITableView()
+        tableView.layer.cornerRadius = 5
+        tableView.layer.masksToBounds = true
+        tableView.showsVerticalScrollIndicator = false
+        tableView.separatorStyle = .none
+        tableView.translatesAutoresizingMaskIntoConstraints = false
+        return tableView
     }()
 
     private let thirdTableView: UITableView = {
-        let label = UITableView()
-        label.backgroundColor = .black
-        label.layer.cornerRadius = 5
-        label.layer.masksToBounds = true
-        label.showsVerticalScrollIndicator = false
-        label.separatorStyle = .none
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
+        let tableView = UITableView()
+        tableView.layer.cornerRadius = 5
+        tableView.layer.masksToBounds = true
+        tableView.showsVerticalScrollIndicator = false
+        tableView.separatorStyle = .none
+        tableView.translatesAutoresizingMaskIntoConstraints = false
+        return tableView
     }()
     
     private let fourthTableView: UITableView = {
-        let label = UITableView()
-        label.backgroundColor = .black
-        label.layer.cornerRadius = 5
-        label.layer.masksToBounds = true
-        label.showsVerticalScrollIndicator = false
-        label.separatorStyle = .none
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
+        let tableView = UITableView()
+        tableView.layer.cornerRadius = 5
+        tableView.layer.masksToBounds = true
+        tableView.showsVerticalScrollIndicator = false
+        tableView.separatorStyle = .none
+        tableView.translatesAutoresizingMaskIntoConstraints = false
+        return tableView
     }()
     
     private let fifthTableView: UITableView = {
-        let label = UITableView()
-        label.backgroundColor = .black
-        label.layer.cornerRadius = 5
-        label.layer.masksToBounds = true
-        label.showsVerticalScrollIndicator = false
-        label.separatorStyle = .none
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
+        let tableView = UITableView()
+        tableView.layer.cornerRadius = 5
+        tableView.layer.masksToBounds = true
+        tableView.showsVerticalScrollIndicator = false
+        tableView.separatorStyle = .none
+        tableView.translatesAutoresizingMaskIntoConstraints = false
+        return tableView
     }()
     
-    private var firstDayPosters: [DayTodoData] = []
-    private var secondDayPosters: [DayTodoData] = []
-    private var thirdDayPosters: [DayTodoData] = []
-    private var fourthDayPosters: [DayTodoData] = []
-    private var fifthDayPosters: [DayTodoData] = []
+    private var firstDayPosters: [MonthTodoData] = []
+    private var secondDayPosters: [MonthTodoData] = []
+    private var thirdDayPosters: [MonthTodoData] = []
+    private var fourthDayPosters: [MonthTodoData] = []
+    private var fifthDayPosters: [MonthTodoData] = []
     
     private var currentWindowDate: Date?
     
@@ -98,7 +94,7 @@ class SelectedTodoViewController: UIViewController {
     var currentDate: Date? {
         didSet {
             guard let date = currentDate,
-                let dayTodoData = dayTodoData else {
+                let monthTodoData = monthTodoData else {
                 return
             }
             
@@ -110,7 +106,7 @@ class SelectedTodoViewController: UIViewController {
             
             let fifthDate = date.changeDaysBy(days: 2)
             
-            for todo in dayTodoData {
+            for todo in monthTodoData {
                 let endDate = DateCaculate.stringToDateWithGenericFormatter(using: todo.posterEndDate!)
                 
                 if DateCaculate.isSameDate(firstDate, endDate) {
@@ -146,7 +142,7 @@ class SelectedTodoViewController: UIViewController {
         
         guard let date = currentDate else {return}
         
-        view.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.5)
+//        view.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.5)
         
         currentWindowDate = date
         
@@ -168,12 +164,12 @@ class SelectedTodoViewController: UIViewController {
         
         let year = String(calendar.component(.year, from: date))
         let month = String(calendar.component(.month, from: date))
-        let day = String(calendar.component(.day, from: date))
         
-        calendarServiceImp.requestDayTodoList(year: year, month: month, day: day) { [weak self] dataResponse in
+        calendarServiceImp.requestMonthTodoList(year: year,
+                                              month: month) { [weak self] dataResponse in
             switch dataResponse {
-            case .success(let dayTodoData):
-                self?.dayTodoData = dayTodoData
+            case .success(let monthTodoData):
+                self?.monthTodoData = monthTodoData
                 DispatchQueue.main.async {
                     self?.setDefaultScrollViewAndReloadTableView(using: 0)
                 }
@@ -186,11 +182,16 @@ class SelectedTodoViewController: UIViewController {
     
     private func setScrollView() {
         view.addSubview(scrollView)
-        scrollView.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        scrollView.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
-        scrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
-        scrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
-        scrollView.heightAnchor.constraint(equalTo: view.heightAnchor).isActive = true
+        scrollView.centerXAnchor.constraint(
+            equalTo: view.centerXAnchor).isActive = true
+        scrollView.centerYAnchor.constraint(
+            equalTo: view.centerYAnchor).isActive = true
+        scrollView.leadingAnchor.constraint(
+            equalTo: view.leadingAnchor).isActive = true
+        scrollView.trailingAnchor.constraint(
+            equalTo: view.trailingAnchor).isActive = true
+        scrollView.heightAnchor.constraint(
+            equalTo: view.heightAnchor).isActive = true
         
         scrollView.delegate = self
         scrollView.isPagingEnabled = true
@@ -255,30 +256,64 @@ class SelectedTodoViewController: UIViewController {
         scrollView.addSubview(fourthTableView)
         scrollView.addSubview(fifthTableView)
         
-        firstTableView.centerXAnchor.constraint(equalTo: scrollView.centerXAnchor).isActive = true
-        firstTableView.centerYAnchor.constraint(equalTo: scrollView.centerYAnchor).isActive = true
-        firstTableView.widthAnchor.constraint(equalTo: scrollView.widthAnchor, multiplier: 0.88).isActive = true
-        firstTableView.heightAnchor.constraint(equalTo: self.scrollView.heightAnchor, multiplier: 0.8).isActive = true
+        firstTableView.centerXAnchor.constraint(
+            equalTo: scrollView.centerXAnchor).isActive = true
+        firstTableView.centerYAnchor.constraint(
+            equalTo: scrollView.centerYAnchor).isActive = true
+        firstTableView.widthAnchor.constraint(
+            equalTo: scrollView.widthAnchor,
+            multiplier: 0.88).isActive = true
+        firstTableView.heightAnchor.constraint(
+            equalTo: self.scrollView.heightAnchor,
+            multiplier: 0.8).isActive = true
         
-        secondTableView.centerXAnchor.constraint(equalTo: firstTableView.centerXAnchor, constant: self.view.frame.width).isActive = true
-        secondTableView.centerYAnchor.constraint(equalTo: scrollView.centerYAnchor).isActive = true
-        secondTableView.widthAnchor.constraint(equalTo: scrollView.widthAnchor, multiplier: 0.88).isActive = true
-        secondTableView.heightAnchor.constraint(equalTo: self.scrollView.heightAnchor, multiplier: 0.8).isActive = true
+        secondTableView.centerXAnchor.constraint(
+            equalTo: firstTableView.centerXAnchor,
+            constant: self.view.frame.width).isActive = true
+        secondTableView.centerYAnchor.constraint(
+            equalTo: scrollView.centerYAnchor).isActive = true
+        secondTableView.widthAnchor.constraint(
+            equalTo: scrollView.widthAnchor,
+            multiplier: 0.88).isActive = true
+        secondTableView.heightAnchor.constraint(
+            equalTo: self.scrollView.heightAnchor,
+            multiplier: 0.8).isActive = true
         
-        thirdTableView.centerXAnchor.constraint(equalTo: secondTableView.centerXAnchor, constant: self.view.frame.width).isActive = true
-        thirdTableView.centerYAnchor.constraint(equalTo: scrollView.centerYAnchor).isActive = true
-        thirdTableView.widthAnchor.constraint(equalTo: scrollView.widthAnchor, multiplier: 0.88).isActive = true
-        thirdTableView.heightAnchor.constraint(equalTo: self.scrollView.heightAnchor, multiplier: 0.8).isActive = true
+        thirdTableView.centerXAnchor.constraint(
+            equalTo: secondTableView.centerXAnchor,
+            constant: self.view.frame.width).isActive = true
+        thirdTableView.centerYAnchor.constraint(
+            equalTo: scrollView.centerYAnchor).isActive = true
+        thirdTableView.widthAnchor.constraint(
+            equalTo: scrollView.widthAnchor,
+            multiplier: 0.88).isActive = true
+        thirdTableView.heightAnchor.constraint(
+            equalTo: self.scrollView.heightAnchor,
+            multiplier: 0.8).isActive = true
         
-        fourthTableView.centerXAnchor.constraint(equalTo: thirdTableView.centerXAnchor, constant: self.view.frame.width).isActive = true
-        fourthTableView.centerYAnchor.constraint(equalTo: scrollView.centerYAnchor).isActive = true
-        fourthTableView.widthAnchor.constraint(equalTo: scrollView.widthAnchor, multiplier: 0.88).isActive = true
-        fourthTableView.heightAnchor.constraint(equalTo: self.scrollView.heightAnchor, multiplier: 0.8).isActive = true
+        fourthTableView.centerXAnchor.constraint(
+            equalTo: thirdTableView.centerXAnchor,
+            constant: self.view.frame.width).isActive = true
+        fourthTableView.centerYAnchor.constraint(
+            equalTo: scrollView.centerYAnchor).isActive = true
+        fourthTableView.widthAnchor.constraint(
+            equalTo: scrollView.widthAnchor,
+            multiplier: 0.88).isActive = true
+        fourthTableView.heightAnchor.constraint(
+            equalTo: self.scrollView.heightAnchor,
+            multiplier: 0.8).isActive = true
         
-        fifthTableView.centerXAnchor.constraint(equalTo: fourthTableView.centerXAnchor, constant: self.view.frame.width).isActive = true
-        fifthTableView.centerYAnchor.constraint(equalTo: scrollView.centerYAnchor).isActive = true
-        fifthTableView.widthAnchor.constraint(equalTo: scrollView.widthAnchor, multiplier: 0.88).isActive = true
-        fifthTableView.heightAnchor.constraint(equalTo: self.scrollView.heightAnchor, multiplier: 0.8).isActive = true
+        fifthTableView.centerXAnchor.constraint(
+            equalTo: fourthTableView.centerXAnchor,
+            constant: self.view.frame.width).isActive = true
+        fifthTableView.centerYAnchor.constraint(
+            equalTo: scrollView.centerYAnchor).isActive = true
+        fifthTableView.widthAnchor.constraint(
+            equalTo: scrollView.widthAnchor,
+            multiplier: 0.88).isActive = true
+        fifthTableView.heightAnchor.constraint(
+            equalTo: self.scrollView.heightAnchor,
+            multiplier: 0.8).isActive = true
     }
     
     private func addTapGesture() {
@@ -302,7 +337,7 @@ class SelectedTodoViewController: UIViewController {
         currentDate = currentDate?.changeDaysBy(days: by)
         
         guard let date = currentDate,
-            let dayTodoData = dayTodoData else {return}
+            let monthTodoData = monthTodoData else {return}
         
         firstDayPosters = []
         secondDayPosters = []
@@ -318,7 +353,7 @@ class SelectedTodoViewController: UIViewController {
         
         let fifthDate = date.changeDaysBy(days: 2)
         
-        for todo in dayTodoData {
+        for todo in monthTodoData {
             let endDate = DateCaculate.stringToDateWithGenericFormatter(using: todo.posterEndDate!)
             
             if DateCaculate.isSameDate(firstDate, endDate) {
@@ -374,6 +409,7 @@ extension SelectedTodoViewController: UITableViewDelegate, UITableViewDataSource
                 return .init()
             }
             
+            tableViewCell.selectionStyle = .none
             tableViewCell.poster = thirdDayPosters[indexPath.row]
             
             if thirdDayPosters[indexPath.row].photoUrl == tableViewCell.poster?.photoUrl {
@@ -393,6 +429,7 @@ extension SelectedTodoViewController: UITableViewDelegate, UITableViewDataSource
                 return .init()
             }
             
+            tableViewCell.selectionStyle = .none
             tableViewCell.poster = firstDayPosters[indexPath.row]
             
             if firstDayPosters[indexPath.row].photoUrl == tableViewCell.poster?.photoUrl {
@@ -412,6 +449,7 @@ extension SelectedTodoViewController: UITableViewDelegate, UITableViewDataSource
                 return .init()
             }
             
+            tableViewCell.selectionStyle = .none
             tableViewCell.poster = secondDayPosters[indexPath.row]
             
             if secondDayPosters[indexPath.row].photoUrl == tableViewCell.poster?.photoUrl {
@@ -431,6 +469,7 @@ extension SelectedTodoViewController: UITableViewDelegate, UITableViewDataSource
                 return .init()
             }
             
+            tableViewCell.selectionStyle = .none
             tableViewCell.poster = fourthDayPosters[indexPath.row]
             
             if fourthDayPosters[indexPath.row].photoUrl == tableViewCell.poster?.photoUrl {
@@ -450,6 +489,7 @@ extension SelectedTodoViewController: UITableViewDelegate, UITableViewDataSource
                 return .init()
             }
             
+            tableViewCell.selectionStyle = .none
             tableViewCell.poster = fifthDayPosters[indexPath.row]
             
             if fifthDayPosters[indexPath.row].photoUrl == tableViewCell.poster?.photoUrl {

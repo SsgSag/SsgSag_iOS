@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="01J-lp-oVM">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" launchScreen="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -17,27 +17,7 @@
                     <view key="view" contentMode="scaleToFill" id="Ze5-6b-2t3">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="background" translatesAutoresizingMaskIntoConstraints="NO" id="ZMP-Zv-zEG">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
-                            </imageView>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="imgLogoSplash" translatesAutoresizingMaskIntoConstraints="NO" id="Kcx-6r-48y">
-                                <rect key="frame" x="135" y="325" width="144" height="67"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="144" id="4IK-Ht-8xZ"/>
-                                    <constraint firstAttribute="height" constant="67" id="Fyd-LN-oxG"/>
-                                </constraints>
-                            </imageView>
-                        </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        <constraints>
-                            <constraint firstItem="ZMP-Zv-zEG" firstAttribute="top" secondItem="Ze5-6b-2t3" secondAttribute="top" id="5Pr-bT-2Ky"/>
-                            <constraint firstItem="ZMP-Zv-zEG" firstAttribute="trailing" secondItem="Ze5-6b-2t3" secondAttribute="trailing" id="FyU-Id-FBW"/>
-                            <constraint firstItem="ZMP-Zv-zEG" firstAttribute="leading" secondItem="Ze5-6b-2t3" secondAttribute="leading" id="MpW-Jy-7W0"/>
-                            <constraint firstItem="Kcx-6r-48y" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="XZM-lV-QdB"/>
-                            <constraint firstItem="Kcx-6r-48y" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" multiplier="0.8" id="bVI-z1-AoE"/>
-                            <constraint firstAttribute="bottom" secondItem="ZMP-Zv-zEG" secondAttribute="bottom" id="ehu-dA-MPI"/>
-                        </constraints>
                         <viewLayoutGuide key="safeArea" id="Bcu-3y-fUS"/>
                     </view>
                 </viewController>
@@ -46,8 +26,4 @@
             <point key="canvasLocation" x="52.173913043478265" y="375"/>
         </scene>
     </scenes>
-    <resources>
-        <image name="background" width="375" height="812"/>
-        <image name="imgLogoSplash" width="114" height="67"/>
-    </resources>
 </document>

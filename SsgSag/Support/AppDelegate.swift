@@ -105,20 +105,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate, MessagingDelegate ,UNUser
                     window?.rootViewController = TapbarVC()
                 } else {
                     let loginStoryBoard = UIStoryboard(name: StoryBoardName.login, bundle: nil)
-                    let loginVC = loginStoryBoard.instantiateViewController(withIdentifier: ViewControllerIdentifier.loginViewController)
+                    let loginVC = loginStoryBoard.instantiateViewController(withIdentifier: "splashVC")
                     
-                    window?.rootViewController = loginVC
+                    window?.rootViewController = UINavigationController(rootViewController: loginVC)
                 }
             } else {
                 let loginStoryBoard = UIStoryboard(name: StoryBoardName.login, bundle: nil)
-                let loginVC = loginStoryBoard.instantiateViewController(withIdentifier: ViewControllerIdentifier.loginViewController)
+                let loginVC = loginStoryBoard.instantiateViewController(withIdentifier: "splashVC")
                 
-                window?.rootViewController = loginVC
+                window?.rootViewController = UINavigationController(rootViewController: loginVC)
             }
         } else {
             let loginStoryBoard = UIStoryboard(name: StoryBoardName.login, bundle: nil)
-            let loginVC = loginStoryBoard.instantiateViewController(withIdentifier: ViewControllerIdentifier.loginViewController)
-            window?.rootViewController = loginVC
+            let loginVC = loginStoryBoard.instantiateViewController(withIdentifier: "splashVC")
+            window?.rootViewController = UINavigationController(rootViewController: loginVC)
         }
     }
     

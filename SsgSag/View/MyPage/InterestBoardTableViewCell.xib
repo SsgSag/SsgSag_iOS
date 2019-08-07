@@ -21,92 +21,86 @@
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Htn-P0-Obu">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="63.5"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="3" translatesAutoresizingMaskIntoConstraints="NO" id="68O-Na-dGk">
+                                <rect key="frame" x="17" y="11.5" width="207" height="41"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OWd-lG-pYo">
+                                        <rect key="frame" x="0.0" y="0.0" width="46" height="20"/>
+                                        <fontDescription key="fontDescription" type="system" weight="medium" pointSize="13"/>
+                                        <inset key="contentEdgeInsets" minX="6" minY="2" maxX="6" maxY="2"/>
+                                        <state key="normal" title="공모전"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadiusV">
+                                                <real key="value" value="5"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                    </button>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="#서포터즈#체험단" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9HN-nH-htu">
+                                        <rect key="frame" x="0.0" y="23" width="88" height="18"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="18" id="txK-Bg-pG5"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                        <color key="textColor" red="0.6705882352941176" green="0.6705882352941176" blue="0.6705882352941176" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                            </stackView>
+                            <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Z1W-B5-R8b">
+                                <rect key="frame" x="234" y="17" width="69" height="30"/>
+                                <color key="backgroundColor" red="0.38431372549999998" green="0.41568627450000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="Eqx-4A-AE7"/>
+                                    <constraint firstAttribute="width" constant="69" id="gq7-cg-iNL"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="13"/>
+                                <state key="normal" title="팔로우">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="topColor">
+                                        <color key="value" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="bottomColor">
+                                        <color key="value" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="5"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="layer.maskToBounds" value="YES"/>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadiusV">
+                                        <real key="value" value="15"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                        <real key="value" value="15"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="followOrUnFollow:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="WtH-dk-UwW"/>
+                                </connections>
+                            </button>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                    </view>
-                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6Wk-ZB-k1x">
-                        <rect key="frame" x="21" y="24" width="16" height="16"/>
-                        <color key="backgroundColor" red="0.38039215686274508" green="0.46274509803921571" blue="0.8666666666666667" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
-                            <constraint firstAttribute="height" constant="16" id="3SQ-Oo-Mij"/>
-                            <constraint firstAttribute="width" constant="16" id="hnt-Rx-A0G"/>
+                            <constraint firstItem="68O-Na-dGk" firstAttribute="centerY" secondItem="Htn-P0-Obu" secondAttribute="centerY" id="Rje-bD-B2X"/>
+                            <constraint firstItem="68O-Na-dGk" firstAttribute="leading" secondItem="Htn-P0-Obu" secondAttribute="leading" constant="17" id="U2K-ka-vpp"/>
+                            <constraint firstItem="Z1W-B5-R8b" firstAttribute="leading" secondItem="68O-Na-dGk" secondAttribute="trailing" constant="10" id="YXb-54-3at"/>
+                            <constraint firstItem="Z1W-B5-R8b" firstAttribute="centerY" secondItem="Htn-P0-Obu" secondAttribute="centerY" id="jaw-xT-qsp"/>
+                            <constraint firstAttribute="trailing" secondItem="Z1W-B5-R8b" secondAttribute="trailing" constant="17" id="yV3-6G-wM7"/>
                         </constraints>
                     </view>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="공모전" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CGM-1x-2ws">
-                        <rect key="frame" x="52" y="10" width="45" height="24"/>
-                        <constraints>
-                            <constraint firstAttribute="height" constant="24" id="0CY-3p-pdK"/>
-                        </constraints>
-                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                        <nil key="textColor"/>
-                        <nil key="highlightedColor"/>
-                    </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="#서포터즈#체험단" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9HN-nH-htu">
-                        <rect key="frame" x="52" y="35" width="124" height="18"/>
-                        <constraints>
-                            <constraint firstAttribute="height" constant="18" id="txK-Bg-pG5"/>
-                        </constraints>
-                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                        <nil key="textColor"/>
-                        <nil key="highlightedColor"/>
-                    </label>
-                    <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Z1W-B5-R8b" customClass="GradientButton" customModule="슥삭" customModuleProvider="target">
-                        <rect key="frame" x="223.5" y="11" width="80.5" height="42"/>
-                        <constraints>
-                            <constraint firstAttribute="height" constant="42" id="UuW-u6-ST5"/>
-                            <constraint firstAttribute="width" constant="80.200000000000003" id="gq7-cg-iNL"/>
-                        </constraints>
-                        <state key="normal" title="Button"/>
-                        <userDefinedRuntimeAttributes>
-                            <userDefinedRuntimeAttribute type="color" keyPath="topColor">
-                                <color key="value" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                            </userDefinedRuntimeAttribute>
-                            <userDefinedRuntimeAttribute type="color" keyPath="bottomColor">
-                                <color key="value" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                            </userDefinedRuntimeAttribute>
-                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                <integer key="value" value="5"/>
-                            </userDefinedRuntimeAttribute>
-                            <userDefinedRuntimeAttribute type="boolean" keyPath="layer.maskToBounds" value="YES"/>
-                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadiusV">
-                                <real key="value" value="0.0"/>
-                            </userDefinedRuntimeAttribute>
-                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                <real key="value" value="15"/>
-                            </userDefinedRuntimeAttribute>
-                        </userDefinedRuntimeAttributes>
-                        <connections>
-                            <action selector="followOrUnFollow:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="WtH-dk-UwW"/>
-                        </connections>
-                    </button>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="팔로우" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9Vr-VA-Gcy">
-                        <rect key="frame" x="241" y="21.5" width="45" height="21"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <nil key="highlightedColor"/>
-                    </label>
                 </subviews>
                 <constraints>
-                    <constraint firstItem="9Vr-VA-Gcy" firstAttribute="centerY" secondItem="Z1W-B5-R8b" secondAttribute="centerY" id="5TE-Oh-u7R"/>
-                    <constraint firstItem="9HN-nH-htu" firstAttribute="top" secondItem="CGM-1x-2ws" secondAttribute="bottom" constant="1" id="66I-Tm-5bv"/>
-                    <constraint firstItem="9Vr-VA-Gcy" firstAttribute="centerX" secondItem="Z1W-B5-R8b" secondAttribute="centerX" id="89K-gM-HEr"/>
                     <constraint firstItem="Htn-P0-Obu" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="8f5-xd-qwi"/>
-                    <constraint firstItem="CGM-1x-2ws" firstAttribute="leading" secondItem="6Wk-ZB-k1x" secondAttribute="trailing" constant="15" id="9sA-EZ-FhM"/>
-                    <constraint firstItem="CGM-1x-2ws" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="10" id="EIr-O5-9bS"/>
                     <constraint firstAttribute="bottom" secondItem="Htn-P0-Obu" secondAttribute="bottom" id="Khm-Lc-wBl"/>
-                    <constraint firstAttribute="trailing" secondItem="Z1W-B5-R8b" secondAttribute="trailing" constant="16.199999999999999" id="KzI-4p-QuY"/>
-                    <constraint firstItem="6Wk-ZB-k1x" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="P7V-sy-H94"/>
-                    <constraint firstItem="6Wk-ZB-k1x" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="21" id="Yhl-td-KCd"/>
                     <constraint firstItem="Htn-P0-Obu" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="bzR-7f-jqN"/>
-                    <constraint firstItem="9HN-nH-htu" firstAttribute="leading" secondItem="CGM-1x-2ws" secondAttribute="leading" id="d7M-09-Zjz"/>
                     <constraint firstAttribute="trailing" secondItem="Htn-P0-Obu" secondAttribute="trailing" id="oDu-pa-QDW"/>
-                    <constraint firstItem="Z1W-B5-R8b" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="qcz-wL-SrV"/>
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
-                <outlet property="category" destination="CGM-1x-2ws" id="eor-Nj-MmY"/>
-                <outlet property="categoryColor" destination="6Wk-ZB-k1x" id="wQQ-oM-ORj"/>
-                <outlet property="followLabel" destination="9Vr-VA-Gcy" id="XrY-7t-GLP"/>
+                <outlet property="categoryButton" destination="OWd-lG-pYo" id="KZu-Bg-ETc"/>
                 <outlet property="fullView" destination="Htn-P0-Obu" id="8Y0-3a-Wlf"/>
                 <outlet property="hashTag" destination="9HN-nH-htu" id="CMN-2e-bsE"/>
                 <outlet property="selectFollow" destination="Z1W-B5-R8b" id="qjw-BY-Pq0"/>
