@@ -46,7 +46,19 @@ class CareerVC: UIViewController {
         return view
     }()
     
+    private lazy var backButton = UIBarButtonItem(image: UIImage(named: "ic_ArrowBack"),
+                                                  style: .plain,
+                                                  target: self,
+                                                  action: #selector(touchUpBackButton))
+    
     @IBOutlet weak var scrollView: UIScrollView!
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        setNavigationBar(color: .white)
+        navigationItem.leftBarButtonItem = backButton
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -62,6 +74,10 @@ class CareerVC: UIViewController {
         setupTablViewRegister()
         
         setupActivityDelegate()
+    }
+    
+    @objc private func touchUpBackButton() {
+        dismiss(animated: true)
     }
     
     private func setupActivityDelegate() {
@@ -100,35 +116,8 @@ class CareerVC: UIViewController {
         customTabBarCollectionView.isScrollEnabled = false
     }
     
-    @objc func dismissModal(){
-        self.dismiss(animated: true, completion: nil)
-    }
-    
     func setUpCustomTabBar(){
         setUpCollectionView()
-        
-        let navigationBar = UINavigationBar()
-        navigationBar.translatesAutoresizingMaskIntoConstraints = false
-        self.view.addSubview(navigationBar)
-        
-        navigationBar.leadingAnchor.constraint(equalTo: self.view.leadingAnchor).isActive = true
-        navigationBar.trailingAnchor.constraint(equalTo: self.view.trailingAnchor).isActive = true
-        navigationBar.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor).isActive = true
-        
-        scrollView.translatesAutoresizingMaskIntoConstraints = false
-        scrollView.topAnchor.constraint(equalTo: navigationBar.bottomAnchor, constant: 60).isActive = true
-        
-        let backButton = UIBarButtonItem(image: UIImage(named: "icArrowBack"),
-                                         style: .plain,
-                                         target: self,
-                                         action: #selector(self.dismissModal))
-        
-        let items = UINavigationItem()
-        items.leftBarButtonItem = backButton
-        items.title = "이력"
-        backButton.tintColor = .black
-        navigationBar.items?.append(items)
-        navigationBar.barTintColor = .white
         
         self.navigationItem.leftBarButtonItem?.tintColor = .black
         self.navigationItem.title = "이력"
@@ -136,8 +125,11 @@ class CareerVC: UIViewController {
         self.view.addSubview(customTabBar)
         customTabBar.leadingAnchor.constraint(equalTo: self.view.leadingAnchor).isActive = true
         customTabBar.trailingAnchor.constraint(equalTo: self.view.trailingAnchor).isActive = true
-        customTabBar.topAnchor.constraint(equalTo: navigationBar.bottomAnchor).isActive = true
+        customTabBar.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
         customTabBar.heightAnchor.constraint(equalToConstant: 50).isActive = true
+        
+        scrollView.translatesAutoresizingMaskIntoConstraints = false
+        scrollView.topAnchor.constraint(equalTo: customTabBar.bottomAnchor).isActive = true
         
         customTabBar.addSubview(customTabBarCollectionView)
         customTabBarCollectionView.leadingAnchor.constraint(equalTo: customTabBar.leadingAnchor).isActive = true
@@ -231,7 +223,6 @@ class CareerVC: UIViewController {
         prizeTableView.translatesAutoresizingMaskIntoConstraints = false
         certificationTableView.translatesAutoresizingMaskIntoConstraints = false
         
-        
         NSLayoutConstraint.activate([
             activityTableView.centerYAnchor.constraint(equalTo: scrollView.centerYAnchor),
             prizeTableView.centerYAnchor.constraint(equalTo: scrollView.centerYAnchor),
@@ -305,10 +296,10 @@ class CareerVC: UIViewController {
     
     func getData(careerType: Int) {
         
-        careerServiceImp.requestCareerWith(careerType: careerType) { dataResponse in
+        careerServiceImp.requestCareerWith(careerType: careerType) { [weak self] dataResponse in
             guard let careerData = dataResponse.value?.data else {return}
             
-            DispatchQueue.main.async { [weak self] in
+            DispatchQueue.main.async {
                 
                 if careerType == 0 {
                     
@@ -332,4 +323,10 @@ class CareerVC: UIViewController {
         }
     }
     
+}
+
+extension CareerVC: UpdateDelegate {
+    func updateCareer(type: Int) {
+        getData(careerType: type)
+    }
 }

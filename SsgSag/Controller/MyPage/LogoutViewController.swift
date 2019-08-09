@@ -38,7 +38,7 @@ class LogoutViewController: UIViewController {
         }
         
         let mainStoryboard: UIStoryboard = UIStoryboard(name: "LoginStoryBoard", bundle: nil)
-        let viewController = mainStoryboard.instantiateViewController(withIdentifier: "Login") as! LoginVC
+        let viewController = mainStoryboard.instantiateViewController(withIdentifier: "splashVC") as! SplashViewController
         
         let rootNavigationController = UINavigationController(rootViewController: viewController)
         

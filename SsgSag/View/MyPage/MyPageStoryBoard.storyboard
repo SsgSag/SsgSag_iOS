@@ -1105,7 +1105,7 @@
         <!--Navigation Controller-->
         <scene sceneID="JWd-bF-dPb">
             <objects>
-                <navigationController id="UfB-2S-lC0" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="pushAlarmNavigationVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="UfB-2S-lC0" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="VYD-Mf-gxG">
                         <rect key="frame" x="0.0" y="44" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -1116,7 +1116,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="eyN-NE-qN7" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5557" y="721"/>
+            <point key="canvasLocation" x="6532" y="1040.3940886699509"/>
         </scene>
         <!--푸시 알림 설정-->
         <scene sceneID="fjc-2u-1yB">
@@ -1136,8 +1136,8 @@
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="96.666666666666671"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="카드 도착 알림" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CTf-1P-nnJ">
-                                                    <rect key="frame" x="24" y="24" width="98" height="28"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="오늘의 카드 알림" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CTf-1P-nnJ">
+                                                    <rect key="frame" x="24" y="24" width="112" height="28"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="28" id="X4l-HN-bEu"/>
                                                     </constraints>
@@ -1161,7 +1161,7 @@
                                                         <constraint firstAttribute="height" constant="20" id="mcM-Qg-ayq"/>
                                                     </constraints>
                                                     <color key="onTintColor" red="0.25882352941176467" green="0.36862745098039218" blue="0.89803921568627454" alpha="1" colorSpace="calibratedRGB"/>
-                                                    <color key="thumbTintColor" red="0.3529411764705882" green="0.47058823529411764" blue="0.98039215686274506" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <color key="thumbTintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <userDefinedRuntimeAttributes>
                                                         <userDefinedRuntimeAttribute type="color" keyPath="borderColorV">
                                                             <color key="value" red="0.25882352939999997" green="0.36862745099999999" blue="0.8980392157" alpha="1" colorSpace="calibratedRGB"/>
@@ -1192,8 +1192,8 @@
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="96.666666666666671"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="투두리스트 알림" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="h86-gb-CSg">
-                                                    <rect key="frame" x="24" y="24" width="108" height="28"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="즐겨찾기 일정 마감 알림" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="h86-gb-CSg">
+                                                    <rect key="frame" x="24" y="24" width="160.33333333333334" height="28"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="28" id="tTN-eL-NaU"/>
                                                     </constraints>
@@ -1201,8 +1201,8 @@
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="지원 마감 24시간 전, 잊지 않게 알려드려요" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="701-sb-gfY">
-                                                    <rect key="frame" x="23.999999999999986" y="54" width="237.66666666666663" height="16"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="지원 마감 하루 전, 잊지 않게 알려드려요" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="701-sb-gfY">
+                                                    <rect key="frame" x="23.999999999999986" y="54" width="220.66666666666663" height="16"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="16" id="CVd-WD-J3k"/>
                                                     </constraints>
@@ -1217,7 +1217,7 @@
                                                         <constraint firstAttribute="height" constant="20" id="kc7-l9-wFF"/>
                                                     </constraints>
                                                     <color key="onTintColor" red="0.25882352939999997" green="0.36862745099999999" blue="0.8980392157" alpha="1" colorSpace="calibratedRGB"/>
-                                                    <color key="thumbTintColor" red="0.35294117650000001" green="0.47058823529999999" blue="0.98039215690000003" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <color key="thumbTintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <userDefinedRuntimeAttributes>
                                                         <userDefinedRuntimeAttribute type="number" keyPath="borderWidthV">
                                                             <real key="value" value="0.0"/>
@@ -1256,7 +1256,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xI7-4Y-lnb" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="6377" y="727"/>
+            <point key="canvasLocation" x="7348" y="1039.6551724137933"/>
         </scene>
         <!--구직여부-->
         <scene sceneID="RtO-2j-Vli">
@@ -2038,25 +2038,25 @@
         <!--게시판 설정-->
         <scene sceneID="7u5-nI-Ipu">
             <objects>
-                <viewController id="fEl-wq-UkL" customClass="InterestBoardViewController" customModule="슥삭" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="InterestBoardVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="fEl-wq-UkL" customClass="InterestBoardViewController" customModule="슥삭" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="C87-p5-rf5">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="관심 있는 게시판을 팔로우하여 " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="j77-o2-blb">
-                                <rect key="frame" x="66" y="129" width="243" height="24"/>
+                                <rect key="frame" x="66" y="85" width="243" height="24"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="필요한 정보를 받아보세요." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gGc-Wt-c9h">
-                                <rect key="frame" x="85.333333333333329" y="155" width="204.66666666666669" height="24"/>
+                                <rect key="frame" x="85.333333333333329" y="111" width="204.66666666666669" height="24"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" restorationIdentifier="cellId" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="OI5-Pa-uba">
-                                <rect key="frame" x="0.0" y="210" width="375" height="568"/>
+                                <rect key="frame" x="0.0" y="166" width="375" height="612"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </tableView>
                         </subviews>
@@ -2082,26 +2082,10 @@
             </objects>
             <point key="canvasLocation" x="6342" y="-1114"/>
         </scene>
-        <!--Navigation Controller-->
-        <scene sceneID="5UG-XM-jCg">
-            <objects>
-                <navigationController storyboardIdentifier="interestNavigationVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="fA2-AY-Nhq" sceneMemberID="viewController">
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="410-yR-Nh8">
-                        <rect key="frame" x="0.0" y="44" width="375" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <connections>
-                        <segue destination="fEl-wq-UkL" kind="relationship" relationship="rootViewController" id="yHe-Fq-il1"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Y35-SN-QyF" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="5502" y="-1114"/>
-        </scene>
         <!--이력-->
         <scene sceneID="H19-Ba-ugb">
             <objects>
-                <viewController id="irf-eB-z6L" customClass="CareerVC" customModule="슥삭" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="careerVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="irf-eB-z6L" customClass="CareerVC" customModule="슥삭" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="b5g-IK-pcL">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -2140,7 +2124,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="sPZ-ON-3S6" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4420" y="1600"/>
+            <point key="canvasLocation" x="5362.3999999999996" y="1599.7536945812808"/>
         </scene>
         <!--Add ActivityVC-->
         <scene sceneID="AOx-f6-E6w">
@@ -2337,7 +2321,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="s4U-Fz-pr1" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5300" y="1725"/>
+            <point key="canvasLocation" x="6242.3999999999996" y="1724.6305418719212"/>
         </scene>
         <!--AddVC-->
         <scene sceneID="P0I-AS-jHU">
@@ -2481,7 +2465,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bmK-ww-rvv" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5959" y="1726"/>
+            <point key="canvasLocation" x="6900" y="1725.3694581280788"/>
         </scene>
         <!--DatePickerPopUp-->
         <scene sceneID="kN9-gy-Lxn">
@@ -2694,7 +2678,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9GI-Xx-Y7H" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="6617" y="1725"/>
+            <point key="canvasLocation" x="7559.1999999999998" y="1724.6305418719212"/>
         </scene>
         <!--Terms Of Service View Controller-->
         <scene sceneID="Fto-vG-gln">
@@ -2902,6 +2886,24 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="f4q-NP-xIF" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="5502" y="-433"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="wXJ-O3-lq6">
+            <objects>
+                <navigationController storyboardIdentifier="careerNavigationVC" automaticallyAdjustsScrollViewInsets="NO" useStoryboardIdentifierAsRestorationIdentifier="YES" id="1eU-Ol-smO" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="qP8-8o-pQl">
+                        <rect key="frame" x="0.0" y="44" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="irf-eB-z6L" kind="relationship" relationship="rootViewController" id="rge-Jz-2NP"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="euL-Es-v1f" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4420" y="1599.7536945812808"/>
         </scene>
     </scenes>
     <resources>

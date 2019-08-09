@@ -63,7 +63,7 @@ class SplashViewController: UIViewController {
                 self?.loginServiceImp.requestSnsLogin(
                     using: kakaoSession.token.accessToken,
                     type: 0
-                ) { (dataResponse) in
+                ) { [weak self] (dataResponse) in
                     switch dataResponse {
                     case .success(let response):
                         if let storeToken = response.data?.token {
@@ -77,7 +77,7 @@ class SplashViewController: UIViewController {
                             case 404:
                                 let storyboard = UIStoryboard(name: StoryBoardName.signup, bundle: nil)
                                 
-                                let signupVC = storyboard.instantiateViewController(withIdentifier: ViewControllerIdentifier.confirmProfileViewController)
+                                let signupVC = storyboard.instantiateViewController(withIdentifier: ViewControllerIdentifier.userInfoViewContrller)
                                 
                                 let signupNavigator = UINavigationController(rootViewController: signupVC)
                                 

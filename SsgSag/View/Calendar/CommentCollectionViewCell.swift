@@ -8,6 +8,11 @@
 
 import UIKit
 
+protocol CommentDelegate: class {
+    func touchUpCommentLikeButton(index: Int, like: Int)
+    func presentAlertController(index: Int)
+}
+
 class CommentCollectionViewCell: UICollectionViewCell {
 
     @IBOutlet weak var profileImageView: UIImageView!
@@ -20,28 +25,55 @@ class CommentCollectionViewCell: UICollectionViewCell {
     
     @IBOutlet weak var likeNumberLabel: UILabel!
     
-    @IBOutlet weak var commentNumberLabel: UILabel!
+    @IBOutlet weak var likeButton: UIButton!
+    
+    weak var delegate: CommentDelegate?
+    
+    var comment: CommentList? {
+        didSet {
+            guard let comment = comment else {
+                return
+            }
+            
+            setupCellData(comment)
+            
+            if comment.isLike == 0 {
+                likeButton.setImage(UIImage(named: "ic_likePassive"), for: .normal)
+            } else {
+                likeButton.setImage(UIImage(named: "ic_like"), for: .normal)
+            }
+        }
+    }
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
     }
     
     @IBAction func touchUpLikeButton(_ sender: UIButton) {
+        guard let index = comment?.commentIdx else {
+            return
+        }
+        
         if sender.imageView?.image == UIImage(named: "ic_like") {
             // TODO: 좋아요수 줄일것
             sender.setImage(UIImage(named: "ic_likePassive"), for: .normal)
+            delegate?.touchUpCommentLikeButton(index: index, like: 0)
         } else {
             // TODO: 좋아요수 증가시킬것
             sender.setImage(UIImage(named: "ic_like"), for: .normal)
+            delegate?.touchUpCommentLikeButton(index: index, like: 1)
         }
     }
     
     @IBAction func touchUpEtcButton(_ sender: UIButton) {
         //TODO: alert 띄울것
+        guard let index = comment?.commentIdx else {
+            return
+        }
+        delegate?.presentAlertController(index: index)
     }
     
-    func configure(comment: CommentList) {
+    private func setupCellData(_ comment: CommentList) {
         if let photoURL = comment.userProfileUrl {
             if let url = URL(string: photoURL){
                 ImageNetworkManager.shared.getImageByCache(imageURL: url) { [weak self] image, error in
@@ -56,6 +88,13 @@ class CommentCollectionViewCell: UICollectionViewCell {
         dateLabel.text = comment.commentRegDate
         commentLabel.text = comment.commentContent
         likeNumberLabel.text = "좋아요 " + String(comment.likeNum ?? 0) + "개"
-        // TODO: 대댓 개수
+    }
+    
+    override func prepareForReuse() {
+        profileImageView.image = #imageLiteral(resourceName: "ic_userAnonymous")
+        nameLabel.text = ""
+        dateLabel.text = ""
+        commentLabel.text = ""
+        likeNumberLabel.text = ""
     }
 }

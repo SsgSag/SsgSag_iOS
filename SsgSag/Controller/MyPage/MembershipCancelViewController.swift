@@ -70,7 +70,7 @@ class MembershipCancelViewController: UIViewController {
         }
         
         let mainStoryboard: UIStoryboard = UIStoryboard(name: "LoginStoryBoard", bundle: nil)
-        let viewController = mainStoryboard.instantiateViewController(withIdentifier: "Login") as! LoginVC
+        let viewController = mainStoryboard.instantiateViewController(withIdentifier: "splashVC") as! SplashViewController
         
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         appDelegate.window?.rootViewController = viewController

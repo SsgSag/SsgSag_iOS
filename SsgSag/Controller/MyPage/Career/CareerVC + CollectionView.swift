@@ -68,23 +68,28 @@ extension CareerVC : UICollectionViewDelegate, UICollectionViewDataSource, UICol
     }
     
     @objc func addActivityPresentAction() {
-        if let activityVC = storyboard?.instantiateViewController(withIdentifier: ViewControllerIdentifier.addActivityViewController)
-        {
-            
-            present(activityVC, animated: true)
+        guard let activityVC = storyboard?.instantiateViewController(withIdentifier: ViewControllerIdentifier.addActivityViewController) as? AddActivityVC else {
+            return
         }
+        activityVC.delegate = self
+        present(activityVC, animated: true)
     }
     
     @objc func addPresentAction() {
-        if let addVC = storyboard?.instantiateViewController(withIdentifier: ViewControllerIdentifier.addViewController) {
-            present(addVC, animated: true)
+        guard let addVC = storyboard?.instantiateViewController(withIdentifier: ViewControllerIdentifier.addViewController) as? AddVC else {
+            return
         }
+        addVC.delegate = self
+        present(addVC, animated: true)
     }
     
     @objc func addCertificationPresentAction() {
-        if let certifiVC = storyboard?.instantiateViewController(withIdentifier: ViewControllerIdentifier.addCertificationViewController) {
-            present(certifiVC, animated: true, completion: nil)
+        guard let certifiVC = storyboard?.instantiateViewController(withIdentifier: ViewControllerIdentifier.addCertificationViewController) as? AddCertificationVC else {
+            return
         }
+        
+        certifiVC.delegate = self
+        present(certifiVC, animated: true)
     }
     
     

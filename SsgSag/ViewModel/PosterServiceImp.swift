@@ -40,7 +40,7 @@ class PosterServiceImp: PosterService {
             return
         }
         
-        network.dispatch(request: request) { [weak self] result in
+        network.dispatch(request: request) { result in
             switch result {
             case .success(let data):
                 do {
@@ -137,5 +137,46 @@ class PosterServiceImp: PosterService {
             }
         }
     }
+    
+    func requestPosterFavorite(index: Int,
+                               method: HTTPMethod,
+                               completionHandler: @escaping (DataResponse<HttpStatusCode>) -> Void) {
+        guard let token
+            = KeychainWrapper.standard.string(forKey: TokenName.token),
+            let url
+            = UserAPI.sharedInstance.getURL(RequestURL.favorite(posterIdx: index).getRequestURL),
+            let request
+            = requestMaker.makeRequest(url: url,
+                                       method: method,
+                                       header: ["Authorization": token],
+                                       body: nil) else {
+                                        return
+        }
+        
+        network.dispatch(request: request) { result in
+            switch result {
+            case .success(let data):
+                do {
+                    let decodedData = try JSONDecoder().decode(PosterDetail.self,
+                                                               from: data)
+                    
+                    guard let statusCode = decodedData.status,
+                        let httpStatusCode = HttpStatusCode(rawValue: statusCode) else {
+                            return
+                    }
+                    
+                    completionHandler(.success(httpStatusCode))
+                    
+                } catch let error {
+                    completionHandler(.failed(error))
+                    return
+                }
+            case .failure(let error):
+                completionHandler(.failed(error))
+                return
+            }
+        }
+    }
+    
 }
 

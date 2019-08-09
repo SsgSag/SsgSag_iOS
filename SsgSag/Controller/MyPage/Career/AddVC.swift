@@ -22,12 +22,16 @@ class AddVC: UIViewController, UITextFieldDelegate, UITextViewDelegate {
     @IBOutlet weak var saveButton: UIButton!
     @IBOutlet weak var dateButton: UIButton!
     
+    weak var delegate: UpdateDelegate?
+    var isNewActivity: Bool = true
+    
     var titleString: String?
     var yearString: String?
     var contentString: String?
+    var index: Int = 0
     
-    private let careerService: CareerService
-        = DependencyContainer.shared.getDependency(key: .careerService)
+    private let myPageService: MyPageService
+        = DependencyContainer.shared.getDependency(key: .myPageService)
     
     override func viewDidLoad() {
         
@@ -95,47 +99,99 @@ class AddVC: UIViewController, UITextFieldDelegate, UITextViewDelegate {
     
     func postData() {
         
-        let json: [String: Any] = [
-            "careerType" : 1,
-            "careerName" : titleTextField.text ?? "",
-            "careerContent" : contentTextView.text ?? "",
-            "careerDate1" : dateButton.titleLabel?.text ?? "" //일까지 줘도 상관없음 ex)"2019-01-12"
-        ]
-        
-        careerService.requestCareerWith(body: json) { [weak self] result in
-            switch result {
-            case .success(let career):
-                switch career {
-                case .secondSucess:
-                    DispatchQueue.main.async {
-                        
-                        //저장되었습니다 확인을 누르고 나서 parentVC.getData()를 하면 좋을것 같습니다.
-                        self?.simplerAlertwhenSave(title: "저장되었습니다")
-                        let parentVC = self?.presentingViewController as! CareerVC
-                        
-                        parentVC.getData(careerType: 1)
-                    }
-                case .dataBaseError:
-                    DispatchQueue.main.async {
-                        self?.simplerAlert(title: "데이터베이스 에러\n저장에 실패했습니다")
-                        return
-                    }
-                case .serverError:
-                    DispatchQueue.main.async {
-                        self?.simplerAlert(title: "서버 에러\n저장에 실패했습니다")
-                        return
-                    }
-                default:
+        if isNewActivity {
+            
+            let json: [String: Any] = [
+                "careerType" : 1,
+                "careerName" : titleTextField.text ?? "",
+                "careerContent" : contentTextView.text ?? "",
+                "careerDate1" : dateButton.titleLabel?.text ?? "" //일까지 줘도 상관없음 ex)"2019-01-12"
+            ]
+            
+            myPageService.requestStoreAddActivity(json) { [weak self] dataResponse in
+                
+                if !dataResponse.isSuccess {
+                    guard let readError = dataResponse.error as? ReadError else {return}
+                    print(readError.printErrorType())
+                    
                     DispatchQueue.main.async {
                         self?.simplerAlert(title: "저장에 실패했습니다")
-                        return
                     }
                 }
-            case .failed(let error):
-                print(error)
-                return
+                
+                guard let statusCode = dataResponse.value?.status else {return}
+                
+                guard let httpStatus = HttpStatusCode(rawValue: statusCode) else {return}
+                
+                DispatchQueue.main.async {
+                    switch httpStatus {
+                    case .secondSucess:
+                        let animation = LOTAnimationView(name: "bt_save_round")
+                        self?.saveButton.addSubview(animation)
+                        
+                        animation.play()
+                        
+                        self?.simplerAlertwhenSave(title: "저장되었습니다")
+                        
+                        self?.delegate?.updateCareer(type: 1)
+                        
+                    case .serverError, .dataBaseError:
+                        DispatchQueue.main.async {
+                            self?.simplerAlert(title: "저장에 실패했습니다")
+                        }
+                    default:
+                        break
+                    }
+                }
             }
             
+        } else {
+            
+            let json: [String: Any] = [
+                "careerIdx": index,
+                "careerType" : 1,
+                "careerName" : titleTextField.text ?? "",
+                "careerContent" : contentTextView.text ?? "",
+                "careerDate1" : dateButton.titleLabel?.text ?? "" //일까지 줘도 상관없음 ex)"2019-01-12"
+            ]
+            
+            myPageService.requestEditActivity(json) { [weak self] (dataResponse) in
+                
+                if !dataResponse.isSuccess {
+                    guard let readError = dataResponse.error as? ReadError else {return}
+                    print(readError.printErrorType())
+                    
+                    DispatchQueue.main.async {
+                        self?.simplerAlert(title: "수정에 실패했습니다")
+                    }
+                }
+                
+                guard let statusCode = dataResponse.value?.status else {return}
+                
+                guard let httpStatus = HttpStatusCode(rawValue: statusCode) else {return}
+                
+                DispatchQueue.main.async {
+                    switch httpStatus {
+                    case .processingSuccess:
+                        let animation = LOTAnimationView(name: "bt_save_round")
+                        self?.saveButton.addSubview(animation)
+                        
+                        animation.play()
+                        
+                        self?.simplerAlertwhenSave(title: "수정되었습니다")
+                        
+                        self?.delegate?.updateCareer(type: 1)
+                        
+                    case .serverError, .dataBaseError:
+                        DispatchQueue.main.async {
+                            self?.simplerAlert(title: "수정에 실패했습니다")
+                        }
+                    default:
+                        break
+                    }
+                }
+                
+            }
         }
     }
 }

@@ -33,6 +33,10 @@ enum RequestURL {
     case notice
     case tempPassword
     case feed
+    case comment
+    case commentLike(index: Int, like: Int)
+    case commentDelete(index: Int)
+    case commentReport(index: Int)
     
     var getRequestURL: String {
         switch self {
@@ -84,6 +88,14 @@ enum RequestURL {
             return "/notice"
         case .feed:
             return "/feed"
+        case .comment:
+            return "/comment"
+        case .commentLike(let index, let like):
+            return "/comment/like/\(index)/\(like)"
+        case .commentDelete(let index):
+            return "/comment/\(index)"
+        case .commentReport(let index):
+            return "/comment/caution/\(index)"
         }
     }
     

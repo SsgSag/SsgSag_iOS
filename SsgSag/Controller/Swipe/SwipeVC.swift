@@ -31,13 +31,6 @@ class SwipeVC: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        let height: CGFloat = 48
-        let bounds = navigationController!.navigationBar.bounds
-        navigationController?.navigationBar.frame = CGRect(x: 0,
-                                                           y: 0,
-                                                           width: bounds.width,
-                                                           height: bounds.height + height)
-        
         let shadowSize = CGSize(width: self.view.frame.width, height: 3)
         navigationController?.navigationBar.addColorToShadow(color: #colorLiteral(red: 0.3843137255, green: 0.4156862745, blue: 1, alpha: 1),
                                                              size: shadowSize)
@@ -56,10 +49,7 @@ class SwipeVC: UIViewController {
     }
 
     private func setView() {
-        view.backgroundColor = UIColor(displayP3Red: 242/255,
-                                       green: 243/255,
-                                       blue: 245/255,
-                                       alpha: 1.0)
+        view.backgroundColor = .white
     }
     
     private func setEmptyPosterAnimation() {
@@ -299,6 +289,13 @@ class SwipeVC: UIViewController {
             = myPageStoryboard.instantiateViewController(withIdentifier: ViewControllerIdentifier.mypageViewController)
         
         present(myPageViewController, animated: true)
+    }
+    
+    @IBAction func touchUpBoardSettingButton(_ sender: UIBarButtonItem) {
+        let storyboard = UIStoryboard(name: StoryBoardName.mypage,
+                                      bundle: nil)
+        let interestVC = storyboard.instantiateViewController(withIdentifier: "InterestBoardVC")
+        navigationController?.pushViewController(interestVC, animated: true)
     }
     
     @IBAction func cardBackAction(_ sender: Any) {

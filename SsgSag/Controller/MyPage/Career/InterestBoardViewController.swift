@@ -23,7 +23,7 @@ class InterestBoardViewController: UIViewController {
     
     static private let cellId = "interestBoardcellId"
     
-    static private let rowHeight:CGFloat = 74
+    static private let rowHeight: CGFloat = 74
     
     lazy var backButton = UIBarButtonItem(image: UIImage(named: "ic_ArrowBack"),
                                           style: .plain,
@@ -58,12 +58,8 @@ class InterestBoardViewController: UIViewController {
         requestSubscribeStatus()
     }
     
-    @IBAction func dissMiss(_ sender: Any) {
-        self.dismiss(animated: true, completion: nil)
-    }
-    
     @objc private func touchUpBackButton() {
-        dismiss(animated: true)
+        navigationController?.popViewController(animated: true)
     }
     
     private func requestSubscribeStatus() {

@@ -9,6 +9,10 @@
 import UIKit
 import Lottie
 
+protocol UpdateDelegate: class {
+    func updateCareer(type: Int)
+}
+
 class AddActivityVC: UIViewController, UITextViewDelegate, UITextFieldDelegate {
     
     @IBOutlet weak var activityNavigationBar: UINavigationBar!
@@ -23,6 +27,9 @@ class AddActivityVC: UIViewController, UITextViewDelegate, UITextFieldDelegate {
     
     @IBOutlet weak var saveButton: UIButton!
 
+    weak var delegate: UpdateDelegate?
+    var isNewActivity: Bool = true
+    
     private var titleString : String?
     private var contentTextString: String?
     
@@ -215,54 +222,111 @@ class AddActivityVC: UIViewController, UITextViewDelegate, UITextFieldDelegate {
         
         let sendEndData = stringConverted(with: endData)
         
-        let json: [String: Any] = [
-            "careerType" : 0,
-            "careerName" : titleTextField.text ?? "",
-            "careerContent" : contentTextView.text ?? "",
-            "careerDate1" : sendStartData,
-            "careerDate2" : sendEndData
-        ]
+        let content =
+            contentTextView.text == "동아리, 서포터즈, 봉사활동 등 본인이 했던 대외활동에 대한 구체적인 내용을 작성해보세요!"
+                ? "" : contentTextView.text ?? ""
         
-        myPageServiceImp.requestStoreAddActivity(json) { (dataResponse) in
+        if isNewActivity {
             
-            if !dataResponse.isSuccess {
-                guard let readError = dataResponse.error as? ReadError else {return}
-                print(readError.printErrorType())
+            let json: [String: Any] = [
+                "careerType": 0,
+                "careerName": titleTextField.text ?? "",
+                "careerContent": content,
+                "careerDate1": sendStartData,
+                "careerDate2": sendEndData
+            ]
+            
+            myPageServiceImp.requestStoreAddActivity(json) { [weak self] (dataResponse) in
+                
+                if !dataResponse.isSuccess {
+                    guard let readError = dataResponse.error as? ReadError else {return}
+                    print(readError.printErrorType())
+                    
+                    DispatchQueue.main.async {
+                        self?.simplerAlert(title: "저장에 실패했습니다")
+                    }
+                }
+                
+                guard let statusCode = dataResponse.value?.status else {return}
+                
+                guard let httpStatus = HttpStatusCode(rawValue: statusCode) else {return}
                 
                 DispatchQueue.main.async {
-                    self.simplerAlert(title: "저장에 실패했습니다")
-                }
-            }
-    
-            guard let statusCode =  dataResponse.value?.status else {return}
-            
-            guard let httpStatus = HttpStatusCode(rawValue: statusCode) else {return}
-            
-            DispatchQueue.main.async {
-                switch httpStatus {
-                case .secondSucess:
-                    let animation = LOTAnimationView(name: "bt_save_round")
-                    self.saveButton.addSubview(animation)
-                    
-                    animation.play()
-                    
-                    self.simplerAlertwhenSave(title: "저장되었습니다")
-                    
-                    let parentVC = self.presentingViewController as! CareerVC
-                    parentVC.getData(careerType: 0)
-                    parentVC.activityTableView.reloadData()
-                    
-                case .serverError, .dataBaseError:
-                    DispatchQueue.main.async {
-                        self.simplerAlert(title: "저장에 실패했습니다")
+                    switch httpStatus {
+                    case .secondSucess:
+                        let animation = LOTAnimationView(name: "bt_save_round")
+                        self?.saveButton.addSubview(animation)
+                        
+                        animation.play()
+                        
+                        self?.simplerAlertwhenSave(title: "저장되었습니다")
+                        
+                        self?.delegate?.updateCareer(type: 0)
+                        
+                    case .serverError, .dataBaseError:
+                        DispatchQueue.main.async {
+                            self?.simplerAlert(title: "저장에 실패했습니다")
+                        }
+                    default:
+                        break
                     }
-                default:
-                    break
                 }
+                
+            }
+        } else {
+            guard let idx = activityData?.careerIdx else {
+                return
             }
             
+            let json: [String: Any] = [
+                "careerIdx" : idx,
+                "careerType": 0,
+                "careerName": titleTextField.text ?? "",
+                "careerContent": content,
+                "careerDate1": sendStartData,
+                "careerDate2": sendEndData
+            ]
+            
+            myPageServiceImp.requestEditActivity(json) { [weak self] (dataResponse) in
+                
+                if !dataResponse.isSuccess {
+                    guard let readError = dataResponse.error as? ReadError else {return}
+                    print(readError.printErrorType())
+                    
+                    DispatchQueue.main.async {
+                        self?.simplerAlert(title: "수정에 실패했습니다")
+                    }
+                }
+                
+                guard let statusCode = dataResponse.value?.status else {return}
+                
+                guard let httpStatus = HttpStatusCode(rawValue: statusCode) else {return}
+                
+                DispatchQueue.main.async {
+                    switch httpStatus {
+                    case .processingSuccess:
+                        let animation = LOTAnimationView(name: "bt_save_round")
+                        self?.saveButton.addSubview(animation)
+                        
+                        animation.play()
+                        
+                        self?.simplerAlertwhenSave(title: "수정되었습니다")
+                        
+                        self?.delegate?.updateCareer(type: 0)
+                        
+                    case .serverError, .dataBaseError:
+                        DispatchQueue.main.async {
+                            self?.simplerAlert(title: "수정에 실패했습니다")
+                        }
+                    default:
+                        break
+                    }
+                }
+                
+            }
         }
     }
+    
 }
 
 enum JSONSerializationError: Error

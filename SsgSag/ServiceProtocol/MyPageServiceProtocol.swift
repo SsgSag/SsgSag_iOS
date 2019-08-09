@@ -29,6 +29,11 @@ protocol MyPageService: class {
         completionHandler: @escaping ((DataResponse<ReInterest>) -> Void)
     )
     
+    func requestEditActivity(
+        _ jsonData: [String: Any],
+        completionHandler: @escaping ((DataResponse<Activity>) -> Void)
+    )
+    
     func requestUserInformation(
         completionHandler: @escaping (DataResponse<UserNetworkModel>) -> Void
     )

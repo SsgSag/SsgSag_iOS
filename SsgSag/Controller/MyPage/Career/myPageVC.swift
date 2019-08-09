@@ -323,12 +323,12 @@ extension myPageVC: UITableViewDataSource {
         switch indexPath.row {
         case 0:
             // 나의 이력
-            return
+            let pushNavigationVC = storyboard.instantiateViewController(withIdentifier: "careerNavigationVC")
+            present(pushNavigationVC, animated: true)
         case 1:
-            // 게시판 설정
-            let interestNavigationVC = storyboard.instantiateViewController(withIdentifier: "interestNavigationVC")
-            present(interestNavigationVC, animated: true)
-            return
+            // 알림 설정
+            let pushNavigationVC = storyboard.instantiateViewController(withIdentifier: "pushAlarmNavigationVC")
+            present(pushNavigationVC, animated: true)
         case 2:
             // 공지사항
             let noticeNavigationVC = storyboard.instantiateViewController(withIdentifier: "noticeNavigationVC")
@@ -337,7 +337,6 @@ extension myPageVC: UITableViewDataSource {
             // 문의하기
             let inquireNavigationVC = storyboard.instantiateViewController(withIdentifier: "inquireNavigationVC")
             present(inquireNavigationVC, animated: true)
-            return
         default:
             return
         }

@@ -46,6 +46,9 @@ class DependencyContainer {
         
         let feedService: FeedService = FeedServiceImp(requestMaker: RequestMaker(),
                                                       network: NetworkImp())
+        
+        let commentService: CommentService = CommentServiceImp(requestMaker: RequestMaker(),
+                                                               network: NetworkImp())
         do {
             try dependencyPool.register(key: .calendarService,
                                         dependency: calendarService)
@@ -69,6 +72,8 @@ class DependencyContainer {
                                         dependency: noticeService)
             try dependencyPool.register(key: .feedService,
                                         dependency: feedService)
+            try dependencyPool.register(key: .commentService,
+                                        dependency: commentService)
         } catch {
             fatalError("register Fail")
         }
@@ -102,4 +107,5 @@ enum DependencyKey {
     case careerService
     case noticeService
     case feedService
+    case commentService
 }

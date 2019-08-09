@@ -23,4 +23,10 @@ protocol PosterService: class {
         posterIdx: Int,
         completionHandler: @escaping (DataResponse<DataClass>) -> Void
     )
+    
+    func requestPosterFavorite(
+        index: Int,
+        method: HTTPMethod,
+        completionHandler: @escaping (DataResponse<HttpStatusCode>) -> Void
+    )
 }

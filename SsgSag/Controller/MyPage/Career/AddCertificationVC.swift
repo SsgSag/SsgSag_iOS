@@ -20,9 +20,13 @@ class AddCertificationVC: UIViewController, UITextFieldDelegate, UITextViewDeleg
     var titleString: String?
     var yearString: String?
     var contentString: String?
+    var index: Int = 0
     
-    private let careerService: CareerService
-        = DependencyContainer.shared.getDependency(key: .careerService)
+    weak var delegate: UpdateDelegate?
+    var isNewActivity: Bool = true
+    
+    private let myPageService: MyPageService
+        = DependencyContainer.shared.getDependency(key: .myPageService)
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -36,6 +40,8 @@ class AddCertificationVC: UIViewController, UITextFieldDelegate, UITextViewDeleg
         
         yearTextField.placeholder = currentDateString
         contentTextView.applyBorderTextView()
+        
+        titleTextField.placeholder = "자격증 입력"
         
         titleTextField.delegate = self
         yearTextField.delegate = self
@@ -95,56 +101,98 @@ class AddCertificationVC: UIViewController, UITextFieldDelegate, UITextViewDeleg
     
     func postData() {
         
-        let json: [String: Any] = [
-            "careerType" : 2,
-            "careerName" : titleTextField.text ?? "",
-            "careerContent" : contentTextView.text ?? "",
-            "careerDate1" : yearTextField.text ?? "" //일까지 줘도 상관없음 ex)"2019-01-12"
-        ]
-        
-        let jsonData = try? JSONSerialization.data(withJSONObject: json)
-        
-        guard let token = KeychainWrapper.standard.string(forKey: TokenName.token) else { return }
-        
-        // create post request
-        let url = URL(string: "http://52.78.86.179:8081/career")!
-        var request = URLRequest(url: url)
-        request.httpMethod = "POST"
-        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.addValue(token, forHTTPHeaderField: "Authorization")
-        
-        // insert json data to the request
-        request.httpBody = jsonData
-        
-        NetworkManager.shared.getData(with: request) { (data, error, res) in
-            guard let data = data else {
-                print(error?.localizedDescription ?? "No data")
-                return
-            }
-            let responseJSON = try? JSONSerialization.jsonObject(with: data, options: [])
+        if isNewActivity {
             
-            if let responseJSON = responseJSON as? [String: Any] {
-                if let statusCode = responseJSON["status"] {
-                    let status = statusCode as! Int
-                    if status == 201 {
-                        print("이력추가 성공")
-                        DispatchQueue.main.async {
-                            self.simplerAlertwhenSave(title: "저장되었습니다")
-                            let parentVC = self.presentingViewController as! CareerVC
-                            parentVC.getData(careerType: 2)
-                            parentVC.certificationTableView.reloadData()
-                        }
-                    } else  {
-                        print("이력추가 실패")
-                        DispatchQueue.main.async {
-                            self.simplerAlert(title: "저장에 실패했습니다")
-                        }
-                    }
-                } else {
+            let json: [String: Any] = [
+                "careerType" : 2,
+                "careerName" : titleTextField.text ?? "",
+                "careerContent" : contentTextView.text ?? "",
+                "careerDate1" : yearTextField.text ?? "" //일까지 줘도 상관없음 ex)"2019-01-12"
+            ]
+            
+            myPageService.requestStoreAddActivity(json) { [weak self] dataResponse in
+                
+                if !dataResponse.isSuccess {
+                    guard let readError = dataResponse.error as? ReadError else {return}
+                    print(readError.printErrorType())
+                    
                     DispatchQueue.main.async {
-                        self.simplerAlert(title: "저장에 실패했습니다")
+                        self?.simplerAlert(title: "저장에 실패했습니다")
                     }
                 }
+                
+                guard let statusCode = dataResponse.value?.status else {return}
+                
+                guard let httpStatus = HttpStatusCode(rawValue: statusCode) else {return}
+                
+                DispatchQueue.main.async {
+                    switch httpStatus {
+                    case .secondSucess:
+                        let animation = LOTAnimationView(name: "bt_save_round")
+                        self?.saveButton.addSubview(animation)
+                        
+                        animation.play()
+                        
+                        self?.simplerAlertwhenSave(title: "저장되었습니다")
+                        
+                        self?.delegate?.updateCareer(type: 2)
+                        
+                    case .serverError, .dataBaseError:
+                        DispatchQueue.main.async {
+                            self?.simplerAlert(title: "저장에 실패했습니다")
+                        }
+                    default:
+                        break
+                    }
+                }
+            }
+            
+        } else {
+            
+            let json: [String: Any] = [
+                "careerIdx": index,
+                "careerType" : 2,
+                "careerName" : titleTextField.text ?? "",
+                "careerContent" : contentTextView.text ?? "",
+                "careerDate1" : yearTextField.text ?? "" //일까지 줘도 상관없음 ex)"2019-01-12"
+            ]
+            
+            myPageService.requestEditActivity(json) { [weak self] (dataResponse) in
+                
+                if !dataResponse.isSuccess {
+                    guard let readError = dataResponse.error as? ReadError else {return}
+                    print(readError.printErrorType())
+                    
+                    DispatchQueue.main.async {
+                        self?.simplerAlert(title: "수정에 실패했습니다")
+                    }
+                }
+                
+                guard let statusCode = dataResponse.value?.status else {return}
+                
+                guard let httpStatus = HttpStatusCode(rawValue: statusCode) else {return}
+                
+                DispatchQueue.main.async {
+                    switch httpStatus {
+                    case .processingSuccess:
+                        let animation = LOTAnimationView(name: "bt_save_round")
+                        self?.saveButton.addSubview(animation)
+                        
+                        animation.play()
+                        
+                        self?.simplerAlertwhenSave(title: "수정되었습니다")
+                        
+                        self?.delegate?.updateCareer(type: 2)
+                        
+                    case .serverError, .dataBaseError:
+                        DispatchQueue.main.async {
+                            self?.simplerAlert(title: "수정에 실패했습니다")
+                        }
+                    default:
+                        break
+                    }
+                }
+                
             }
         }
     }

@@ -8,16 +8,44 @@
 
 import UIKit
 
+protocol CommentWriteDelegate: class {
+    func touchUpTextField()
+    func returnTextField()
+    func commentRegister(text: String)
+}
+
 class CommentWriteCollectionViewCell: UICollectionViewCell {
     // TODO: textField 선택시 textField가 키보드 위로 이동하는 로직 추가
     @IBOutlet weak var commentWriteTextField: UITextField!
     
+    weak var delegate: CommentWriteDelegate?
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
+        commentWriteTextField.delegate = self
     }
 
     @IBAction func touchUpRegisterButton(_ sender: UIButton) {
         //TODO: 댓글 등록 및 재로드 로직 추가
+        if commentWriteTextField.text == "" {
+            return
+        }
+        
+        delegate?.commentRegister(text: commentWriteTextField.text ?? "")
+        commentWriteTextField.text = ""
+    }
+}
+
+extension CommentWriteCollectionViewCell: UITextFieldDelegate {
+    func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
+        delegate?.touchUpTextField()
+        return true
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        delegate?.returnTextField()
+        return true
     }
 }

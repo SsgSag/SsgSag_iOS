@@ -20,8 +20,6 @@ class CustomCareerCell: UICollectionViewCell {
         return label
     }()
     
-    
-    
     override func awakeFromNib() {
         super.awakeFromNib()
         

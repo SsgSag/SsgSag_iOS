@@ -101,32 +101,48 @@ extension CareerVC: UITableViewDelegate, UITableViewDataSource {
             
         case activityTableView:
             
-            let activityVC = storyboard?.instantiateViewController(withIdentifier: ViewControllerIdentifier.addActivityViewController) as! AddActivityVC
+            guard let activityVC = storyboard?.instantiateViewController(withIdentifier: ViewControllerIdentifier.addActivityViewController) as? AddActivityVC else {
+                return
+            }
             
             let activity: careerData = self.activityList[indexPath.row]
             activityVC.activityData = activity
+            activityVC.isNewActivity = false
+            activityVC.delegate = self
                     
             present(activityVC, animated: true)
             
         case prizeTableView:
-            let prizeVC = storyboard?.instantiateViewController(withIdentifier: ViewControllerIdentifier.addViewController) as! AddVC
+            
+            guard let prizeVC = storyboard?.instantiateViewController(withIdentifier: ViewControllerIdentifier.addViewController) as? AddVC else {
+                return
+            }
             
             let prize: careerData = self.prizeList[indexPath.row]
             
             prizeVC.titleString = prize.careerName
             prizeVC.yearString = prize.careerDate1
             prizeVC.contentString = prize.careerContent
+            prizeVC.isNewActivity = false
+            prizeVC.index = prize.careerIdx
+            prizeVC.delegate = self
             
             present(prizeVC, animated: true)
         case certificationTableView:
             
-            let certiVC = storyboard?.instantiateViewController(withIdentifier: ViewControllerIdentifier.addCertificationViewController) as! AddCertificationVC
+            guard let certiVC = storyboard?.instantiateViewController(withIdentifier: ViewControllerIdentifier.addCertificationViewController) as? AddCertificationVC else {
+                return
+            }
             
             let certification: careerData = certificationList[indexPath.row]
             
             certiVC.titleString = certification.careerName
             certiVC.yearString = certification.careerDate1
             certiVC.contentString = certification.careerContent
+            
+            certiVC.isNewActivity = false
+            certiVC.index = certification.careerIdx
+            certiVC.delegate = self
             
             present(certiVC, animated: true)
         default:
