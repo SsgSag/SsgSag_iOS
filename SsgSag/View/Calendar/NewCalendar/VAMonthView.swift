@@ -76,7 +76,7 @@ class VAMonthView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func setupWeeksView(with type: VACalendarViewType) {
+    func setupWeeksView(with type: VACalendarViewType, monthTodoData: [MonthTodoData]) {
         guard isDrawn == false else { return }
     
         self.viewType = type
@@ -94,7 +94,7 @@ class VAMonthView: UIView {
             self.addSubview(weekView)
         }
         
-        draw()
+        draw(monthTodoData: monthTodoData)
     }
     
     func clean() {
@@ -107,7 +107,7 @@ class VAMonthView: UIView {
         return weekViews.first(where: { $0.contains(date: date) })
     }
 
-    private func draw() {
+    private func draw(monthTodoData: [MonthTodoData]) {
         let leftInset = monthViewAppearanceDelegate?.leftInset?() ?? 0
         let rightInset = monthViewAppearanceDelegate?.rightInset?() ?? 0
         let initialOffsetY = self.monthLabel?.frame.maxY ?? 0
@@ -138,7 +138,7 @@ class VAMonthView: UIView {
                 )
                 x = week.frame.maxX + (leftInset + rightInset)
             }
-            week.setupDays()
+            week.setupDays(monthTodoData: monthTodoData)
         }
     }
     

@@ -21,7 +21,8 @@ class SwipeVC: UIViewController {
     
     private var countTotalCardIndex = 0
     
-    private var posterServiceImp: PosterService!
+    private var posterServiceImp: PosterService
+        = DependencyContainer.shared.getDependency(key: .posterService)
     
     private var lastDeletedSwipeCard: SwipeCard?
     
@@ -29,13 +30,6 @@ class SwipeVC: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
-        let height: CGFloat = 48
-        let bounds = navigationController!.navigationBar.bounds
-        navigationController?.navigationBar.frame = CGRect(x: 0,
-                                                           y: 0,
-                                                           width: bounds.width,
-                                                           height: bounds.height + height)
         
         let shadowSize = CGSize(width: self.view.frame.width, height: 3)
         navigationController?.navigationBar.addColorToShadow(color: #colorLiteral(red: 0.3843137255, green: 0.4156862745, blue: 1, alpha: 1),
@@ -45,34 +39,24 @@ class SwipeVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        setService()
-        
         initPoster()
+        
+        setCountLabelText()
         
         setView()
         
-        setEmptyPosterAnimation()
-        
         UIView.appearance().isExclusiveTouch = true
-    }
-    
-    func setService(_ posterServiceImp: PosterService = PosterServiceImp()) {
-        self.posterServiceImp = posterServiceImp
     }
 
     private func setView() {
-        view.backgroundColor = UIColor(displayP3Red: 242/255,
-                                       green: 243/255,
-                                       blue: 245/255,
-                                       alpha: 1.0)
+        view.backgroundColor = .white
     }
     
     private func setEmptyPosterAnimation() {
         let animation = LOTAnimationView(name: "main_empty_hifive")
         
         view.addSubview(animation)
-        view.sendSubviewToBack(animation)
-        
+
         animation.translatesAutoresizingMaskIntoConstraints = false
         animation.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         animation.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
@@ -86,7 +70,7 @@ class SwipeVC: UIViewController {
     //FIXME: - CategoryIdx가 3이거나 5일때 예외를 만든다.
     private func initPoster() {
 
-        posterServiceImp?.requestPoster { [weak self] response in
+        posterServiceImp.requestPoster { [weak self] response in
             switch response {
             case .success(let posters):
                 self?.posters = posters
@@ -144,6 +128,8 @@ class SwipeVC: UIViewController {
             setSwipeCardSubview()
             
             setPageVCAndAddToSubView()
+        } else {
+            setEmptyPosterAnimation()
         }
     }
     
@@ -235,6 +221,8 @@ class SwipeVC: UIViewController {
                                                               at: 0)
                 pageVC.didMove(toParent: self)
             }
+        } else if currentLoadedCardsArray.count == 0 {
+            setEmptyPosterAnimation()
         }
     }
     
@@ -301,6 +289,13 @@ class SwipeVC: UIViewController {
             = myPageStoryboard.instantiateViewController(withIdentifier: ViewControllerIdentifier.mypageViewController)
         
         present(myPageViewController, animated: true)
+    }
+    
+    @IBAction func touchUpBoardSettingButton(_ sender: UIBarButtonItem) {
+        let storyboard = UIStoryboard(name: StoryBoardName.mypage,
+                                      bundle: nil)
+        let interestVC = storyboard.instantiateViewController(withIdentifier: "InterestBoardVC")
+        navigationController?.pushViewController(interestVC, animated: true)
     }
     
     @IBAction func cardBackAction(_ sender: Any) {
@@ -389,7 +384,25 @@ extension SwipeVC : SwipeCardDelegate {
         
         guard let disLikedCategory = likedOrDisLiked(rawValue: 0) else { return }
         
-        posterServiceImp?.requestPosterLiked(of: self.posters[currentIndex-1], type: disLikedCategory)
+        posterServiceImp.requestPosterLiked(of: self.posters[currentIndex-1],
+                                            type: disLikedCategory) { [weak self] result in
+            switch result {
+            case .success(let status):
+                switch status {
+                case .sucess:
+                    print("성공")
+                case .dataBaseError:
+                    self?.simplerAlert(title: "데이터베이스 에러")
+                case .serverError:
+                    self?.simplerAlert(title: "서버 에러")
+                default:
+                    print("슥/삭 실패")
+                }
+            case .failed(let error):
+                print(error)
+                return
+            }
+        }
     }
     
     //카드 오른쪽으로 갔을때
@@ -399,29 +412,40 @@ extension SwipeVC : SwipeCardDelegate {
         
         loadCardValuesAfterRemoveObject()
         
-        // poster 데이터가 유저디폴트에 존재하지 않으면 whenNODATA() 실해
-        guard let posterData = UserDefaults.standard.object(forKey: UserDefaultsName.poster) as? Data else {
+        guard posters.count > 0 else {
             addUserDefaultsWhenNoData()
             return
         }
         
-        guard let posterInfo = try? PropertyListDecoder().decode([Posters].self, from: posterData) else {
-            return
-        }
-        
-        addUserDefautlsWhenDataIsExist(posterInfo)
+        addUserDefautlsWhenDataIsExist(posters)
     }
     
     private func addUserDefaultsWhenNoData() {
         var likedPoster: [Posters] = []
         
-        likedPoster.append(self.posters[currentIndex-1])
-        
-        StoreAndFetchPoster.shared.storePoster(posters: likedPoster)
+        likedPoster.append(self.posters[currentIndex - 1])
         
         guard let likedCategory = likedOrDisLiked(rawValue: 1) else { return }
         
-        posterServiceImp?.requestPosterLiked(of: self.posters[currentIndex-1], type: likedCategory)
+        posterServiceImp.requestPosterLiked(of: self.posters[currentIndex - 1],
+                                            type: likedCategory) { [weak self] result in
+            switch result {
+            case .success(let status):
+                switch status {
+                case .sucess:
+                    print("성공")
+                case .dataBaseError:
+                    self?.simplerAlert(title: "데이터베이스 에러")
+                case .serverError:
+                    self?.simplerAlert(title: "서버 에러")
+                default:
+                    print("슥/삭 실패")
+                }
+            case .failed(let error):
+                print(error)
+                return
+            }
+        }
         
         NotificationCenter.default.post(name: NSNotification.Name(NotificationName.addUserDefaults), object: nil)
     }
@@ -429,15 +453,31 @@ extension SwipeVC : SwipeCardDelegate {
     private func addUserDefautlsWhenDataIsExist(_ posterInfo: [Posters]) {
         var likedPoster = posterInfo
         
-        if isDuplicated(in: likedPoster, checkValue: posters[currentIndex-1]) == false {
-            likedPoster.append(self.posters[currentIndex-1])
+        if isDuplicated(in: likedPoster, checkValue: posters[currentIndex - 1]) == false {
+            likedPoster.append(self.posters[currentIndex - 1])
         }
-        
-        StoreAndFetchPoster.shared.storePoster(posters: likedPoster)
         
         guard let likedCategory = likedOrDisLiked(rawValue: 1) else { return }
         
-        posterServiceImp?.requestPosterLiked(of: self.posters[currentIndex-1], type: likedCategory)
+        posterServiceImp.requestPosterLiked(of: self.posters[currentIndex - 1],
+                                            type: likedCategory) { [weak self] result in
+            switch result {
+            case .success(let status):
+                switch status {
+                case .sucess:
+                    print("성공")
+                case .dataBaseError:
+                    self?.simplerAlert(title: "데이터베이스 에러")
+                case .serverError:
+                    self?.simplerAlert(title: "서버 에러")
+                default:
+                    print("슥/삭 실패")
+                }
+            case .failed(let error):
+                print(error)
+                return
+            }
+        }
         
         NotificationCenter.default.post(name: NSNotification.Name(NotificationName.addUserDefaults), object: nil)
     }

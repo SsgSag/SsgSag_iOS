@@ -22,9 +22,16 @@ class AddVC: UIViewController, UITextFieldDelegate, UITextViewDelegate {
     @IBOutlet weak var saveButton: UIButton!
     @IBOutlet weak var dateButton: UIButton!
     
+    weak var delegate: UpdateDelegate?
+    var isNewActivity: Bool = true
+    
     var titleString: String?
     var yearString: String?
     var contentString: String?
+    var index: Int = 0
+    
+    private let myPageService: MyPageService
+        = DependencyContainer.shared.getDependency(key: .myPageService)
     
     override func viewDidLoad() {
         
@@ -75,31 +82,6 @@ class AddVC: UIViewController, UITextFieldDelegate, UITextViewDelegate {
         return true
     }
     
-    func getData(careerType: Int) {
-        
-        let json: [String:Any] = [
-            "careerType" : careerType,
-            "careerName" : "자격증",
-            "careerContent" : "자격증 내용",
-            "careerDate1" : "2019-01",
-            "careerDate2" : ""
-        ]
-        
-        let jsonData = try? JSONSerialization.data(withJSONObject: json)
-        let url = URL(string: "http://52.")!
-        var request = URLRequest(url: url)
-        request.httpMethod = "GET"
-        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-        let token = UserDefaults.standard.object(forKey: TokenName.token) as! String
-        request.addValue(token, forHTTPHeaderField: "Authorization")
-        request.httpBody = jsonData
-        
-        
-        NetworkManager.shared.getData(with: request) { (data, err, res) in
-           // guard let data = data else { return }
-        }
-    }
-    
     func popUpDatePicker(button: UIButton, activityCategory: ActivityCategory) {
         
         let myPageStoryBoard = UIStoryboard(name: StoryBoardName.mypage, bundle: nil)
@@ -117,58 +99,98 @@ class AddVC: UIViewController, UITextFieldDelegate, UITextViewDelegate {
     
     func postData() {
         
-        let json: [String: Any] = [
-            "careerType" : 1,
-            "careerName" : titleTextField.text ?? "",
-            "careerContent" : contentTextView.text ?? "",
-            "careerDate1" : dateButton.titleLabel?.text ?? "" //일까지 줘도 상관없음 ex)"2019-01-12"
-        ]
-        
-        let jsonData = try? JSONSerialization.data(withJSONObject: json)
-        
-        // create post request
-        let url = URL(string: "http://52.78.86.179:8081/career")!
-        var request = URLRequest(url: url)
-        request.httpMethod = "POST"
-        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-        let token = UserDefaults.standard.object(forKey: TokenName.token) as! String
-        request.addValue(token, forHTTPHeaderField: "Authorization")
-        
-        // insert json data to the request
-        request.httpBody = jsonData
-        
-        NetworkManager.shared.getData(with: request) { (data, error, res) in
-            guard let data = data else {
-                print(error?.localizedDescription ?? "No data")
-                return
-            }
+        if isNewActivity {
             
-            let responseJSON = try? JSONSerialization.jsonObject(with: data, options: [])
+            let json: [String: Any] = [
+                "careerType" : 1,
+                "careerName" : titleTextField.text ?? "",
+                "careerContent" : contentTextView.text ?? "",
+                "careerDate1" : dateButton.titleLabel?.text ?? "" //일까지 줘도 상관없음 ex)"2019-01-12"
+            ]
             
-            if let responseJSON = responseJSON as? [String: Any] {
-                if let statusCode = responseJSON["status"] {
-                    let status = statusCode as! Int
-                    if status == 201 {
-                        DispatchQueue.main.async {
-                            
-                            //저장되었습니다 확인을 누르고 나서 parentVC.getData()를 하면 좋을것 같습니다.
-                            self.simplerAlertwhenSave(title: "저장되었습니다")
-                            let parentVC = self.presentingViewController as! CareerVC
-                            parentVC.setService(CareerServiceImp())
-                            
-                            parentVC.getData(careerType: 1)
-                        }
-                    } else  {
-                        print("이력추가 실패")
-                        DispatchQueue.main.async {
-                            self.simplerAlert(title: "저장에 실패했습니다")
-                        }
-                    }
-                } else {
+            myPageService.requestStoreAddActivity(json) { [weak self] dataResponse in
+                
+                if !dataResponse.isSuccess {
+                    guard let readError = dataResponse.error as? ReadError else {return}
+                    print(readError.printErrorType())
+                    
                     DispatchQueue.main.async {
-                        self.simplerAlert(title: "저장에 실패했습니다")
+                        self?.simplerAlert(title: "저장에 실패했습니다")
                     }
                 }
+                
+                guard let statusCode = dataResponse.value?.status else {return}
+                
+                guard let httpStatus = HttpStatusCode(rawValue: statusCode) else {return}
+                
+                DispatchQueue.main.async {
+                    switch httpStatus {
+                    case .secondSucess:
+                        let animation = LOTAnimationView(name: "bt_save_round")
+                        self?.saveButton.addSubview(animation)
+                        
+                        animation.play()
+                        
+                        self?.simplerAlertwhenSave(title: "저장되었습니다")
+                        
+                        self?.delegate?.updateCareer(type: 1)
+                        
+                    case .serverError, .dataBaseError:
+                        DispatchQueue.main.async {
+                            self?.simplerAlert(title: "저장에 실패했습니다")
+                        }
+                    default:
+                        break
+                    }
+                }
+            }
+            
+        } else {
+            
+            let json: [String: Any] = [
+                "careerIdx": index,
+                "careerType" : 1,
+                "careerName" : titleTextField.text ?? "",
+                "careerContent" : contentTextView.text ?? "",
+                "careerDate1" : dateButton.titleLabel?.text ?? "" //일까지 줘도 상관없음 ex)"2019-01-12"
+            ]
+            
+            myPageService.requestEditActivity(json) { [weak self] (dataResponse) in
+                
+                if !dataResponse.isSuccess {
+                    guard let readError = dataResponse.error as? ReadError else {return}
+                    print(readError.printErrorType())
+                    
+                    DispatchQueue.main.async {
+                        self?.simplerAlert(title: "수정에 실패했습니다")
+                    }
+                }
+                
+                guard let statusCode = dataResponse.value?.status else {return}
+                
+                guard let httpStatus = HttpStatusCode(rawValue: statusCode) else {return}
+                
+                DispatchQueue.main.async {
+                    switch httpStatus {
+                    case .processingSuccess:
+                        let animation = LOTAnimationView(name: "bt_save_round")
+                        self?.saveButton.addSubview(animation)
+                        
+                        animation.play()
+                        
+                        self?.simplerAlertwhenSave(title: "수정되었습니다")
+                        
+                        self?.delegate?.updateCareer(type: 1)
+                        
+                    case .serverError, .dataBaseError:
+                        DispatchQueue.main.async {
+                            self?.simplerAlert(title: "수정에 실패했습니다")
+                        }
+                    default:
+                        break
+                    }
+                }
+                
             }
         }
     }

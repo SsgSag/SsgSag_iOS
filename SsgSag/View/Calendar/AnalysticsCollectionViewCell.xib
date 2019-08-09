@@ -33,12 +33,6 @@
                         <color key="textColor" red="0.46666666666666667" green="0.49803921568627452" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="6" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="yYA-4L-fWP">
-                        <rect key="frame" x="384" y="24" width="0.0" height="0.0"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                        <color key="textColor" red="0.31372549019607843" green="0.31372549019607843" blue="0.31372549019607843" alpha="1" colorSpace="calibratedRGB"/>
-                        <nil key="highlightedColor"/>
-                    </label>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5Ic-Mq-rYt">
                         <rect key="frame" x="0.0" y="208" width="409" height="1"/>
                         <color key="backgroundColor" red="0.93333333333333335" green="0.93333333333333335" blue="0.93333333333333335" alpha="1" colorSpace="calibratedRGB"/>
@@ -47,7 +41,7 @@
                         </constraints>
                     </view>
                     <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" spacingType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="wSn-3z-w03">
-                        <rect key="frame" x="40" y="53" width="329" height="68"/>
+                        <rect key="frame" x="40" y="81" width="329" height="68"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fpb-zi-ZzS" customClass="PieChartView" customModule="슥삭" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="68" height="68"/>
@@ -75,24 +69,31 @@
                             </view>
                         </subviews>
                     </stackView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="6" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="yYA-4L-fWP">
+                        <rect key="frame" x="31" y="55" width="347" height="0.0"/>
+                        <fontDescription key="fontDescription" type="system" weight="medium" pointSize="13"/>
+                        <color key="textColor" red="0.31372549019607843" green="0.31372549019607843" blue="0.31372549019607843" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
                 </subviews>
             </view>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
-                <constraint firstAttribute="trailing" secondItem="yYA-4L-fWP" secondAttribute="trailing" constant="25" id="0fw-SE-i0W"/>
-                <constraint firstItem="wSn-3z-w03" firstAttribute="top" secondItem="rcM-VK-U3C" secondAttribute="bottom" constant="20" id="2bw-Kt-9Es"/>
+                <constraint firstAttribute="trailing" secondItem="yYA-4L-fWP" secondAttribute="trailing" constant="31" id="3Ix-hh-9ZY"/>
                 <constraint firstAttribute="bottom" secondItem="5Ic-Mq-rYt" secondAttribute="bottom" id="47S-PS-ten"/>
                 <constraint firstAttribute="trailing" secondItem="5Ic-Mq-rYt" secondAttribute="trailing" id="7f6-RF-Fsa"/>
-                <constraint firstItem="yYA-4L-fWP" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="69i-Vb-DLc" secondAttribute="trailing" constant="20" id="8lj-yR-GPw"/>
                 <constraint firstItem="rcM-VK-U3C" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="22" id="O25-9h-9ni"/>
                 <constraint firstItem="69i-Vb-DLc" firstAttribute="leading" secondItem="rcM-VK-U3C" secondAttribute="trailing" constant="2" id="OLe-c9-ndQ"/>
                 <constraint firstItem="wSn-3z-w03" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="40" id="Pfc-QH-aTJ"/>
                 <constraint firstAttribute="trailing" secondItem="wSn-3z-w03" secondAttribute="trailing" constant="40" id="ZB0-fa-whK"/>
+                <constraint firstItem="wSn-3z-w03" firstAttribute="top" secondItem="yYA-4L-fWP" secondAttribute="bottom" constant="26" id="ebd-ai-Gvq"/>
                 <constraint firstItem="69i-Vb-DLc" firstAttribute="centerY" secondItem="rcM-VK-U3C" secondAttribute="centerY" id="gYx-sh-wbs"/>
-                <constraint firstItem="yYA-4L-fWP" firstAttribute="centerY" secondItem="69i-Vb-DLc" secondAttribute="centerY" id="jwb-Fh-yUg"/>
+                <constraint firstItem="yYA-4L-fWP" firstAttribute="centerX" secondItem="gTV-IL-0wX" secondAttribute="centerX" id="hX2-MD-NB8"/>
+                <constraint firstItem="yYA-4L-fWP" firstAttribute="top" secondItem="69i-Vb-DLc" secondAttribute="bottom" constant="23" id="oSL-vB-Zoe"/>
                 <constraint firstItem="wSn-3z-w03" firstAttribute="centerX" secondItem="ZTg-uK-7eu" secondAttribute="centerX" id="ojg-p6-jQR"/>
                 <constraint firstItem="5Ic-Mq-rYt" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="orG-Ye-yPO"/>
                 <constraint firstItem="rcM-VK-U3C" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" constant="15" id="sw8-lu-0gA"/>
+                <constraint firstItem="yYA-4L-fWP" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="31" id="wru-uC-Pcr"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
             <size key="customSize" width="409" height="209"/>

@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SwiftKeychainWrapper
 
 class LogoutViewController: UIViewController {
 
@@ -29,7 +30,7 @@ class LogoutViewController: UIViewController {
     
     @IBAction func touchUpOkButton(_ sender: UIButton) {
         // token 삭제
-        UserDefaults.standard.removeObject(forKey: TokenName.token)
+        KeychainWrapper.standard.removeObject(forKey: TokenName.token)
         KOSession.shared()?.logoutAndClose(completionHandler: nil)
         
         guard let window = UIApplication.shared.keyWindow else {
@@ -37,15 +38,17 @@ class LogoutViewController: UIViewController {
         }
         
         let mainStoryboard: UIStoryboard = UIStoryboard(name: "LoginStoryBoard", bundle: nil)
-        let viewController = mainStoryboard.instantiateViewController(withIdentifier: "Login") as! LoginVC
+        let viewController = mainStoryboard.instantiateViewController(withIdentifier: "splashVC") as! SplashViewController
+        
+        let rootNavigationController = UINavigationController(rootViewController: viewController)
         
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
-        appDelegate.window?.rootViewController = viewController
+        appDelegate.window?.rootViewController = rootNavigationController
         
-        viewController.view.layoutIfNeeded()
+        rootNavigationController.view.layoutIfNeeded()
         
         UIView.transition(with: window, duration: 0.5, options: .transitionFlipFromLeft, animations: {
-            window.rootViewController = viewController
+            window.rootViewController = rootNavigationController
         }, completion: nil)
     }
     

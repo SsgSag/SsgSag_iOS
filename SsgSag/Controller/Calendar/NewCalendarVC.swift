@@ -38,7 +38,8 @@ class NewCalendarVC: UIViewController {
     
     var categorySelectedDelegate: CategorySelectedDelegate?
     
-    private var calendarServiceImp: CalendarService?
+    private let calendarServiceImp: CalendarService
+        = DependencyContainer.shared.getDependency(key: .calendarService)
     
     private var multipleSelectedIndex: [Int] = []
     
@@ -62,9 +63,6 @@ class NewCalendarVC: UIViewController {
         self.tabBarController?.tabBar.isHidden = false
         self.navigationController?.navigationBar.isHidden = false
         
-        TodoData.shared.delegate = self
-        //weekDaysView.appearance = VAWeekDaysViewAppearance(symbolsType: .veryShort, calendar: defaultCalendar)
-        requestData()
         calendarView.setupMonths()
         calendarView.drawVisibleMonth(with: calendarView.contentOffset)
     }
@@ -73,8 +71,6 @@ class NewCalendarVC: UIViewController {
         super.viewDidLoad()
         
         setCalendar()
-        
-//        requestData()
         
         setCategoryCollection()
     }
@@ -93,33 +89,6 @@ class NewCalendarVC: UIViewController {
         calendarView.calendarDelegate = self
         calendarView.scrollDirection = .horizontal
         view.addSubview(calendarView)
-    }
-    
-    private func requestData(_ calendarService: CalendarService = CalendarServiceImp()) {
-        
-        self.calendarServiceImp = calendarService
-        
-        let calendar = Calendar.current
-        let year = String(calendar.component(.year, from: calendarView.startDate))
-        var month = String(calendar.component(.month, from: calendarView.startDate))
-       
-        if month.count < 2 {
-            month = "0" + month
-        }
-        
-        calendarServiceImp?.requestMonthTodoList(year: year,
-                                                 month: month) { [weak self] dataResponse in
-            switch dataResponse {
-            case .success(let monthTodoData):
-                TodoData.shared.storeMonthTodoData(monthTodoData)
-                DispatchQueue.main.async {
-                    self?.calendarView.setup()
-                }
-            case .failed(let error):
-                assertionFailure(error.localizedDescription)
-                return
-            }
-        }
     }
     
     private func setCategoryCollection() {
@@ -156,18 +125,25 @@ class NewCalendarVC: UIViewController {
     private func openSelctedDateTodoList(_ date: Date) {
         
         let storyboard = UIStoryboard(name: StoryBoardName.newCalendar, bundle: nil)
-        guard let selectedTodoViewController = storyboard.instantiateViewController(withIdentifier: ViewControllerIdentifier.selectedTodoViewController) as? SelectedTodoViewController else {return}
+//        guard let selectedTodoViewController = storyboard.instantiateViewController(withIdentifier: ViewControllerIdentifier.selectedTodoViewController) as? SelectedTodoViewController else {return}
+//
+//        let selectedTodoViewController = SelectedTodoViewController()
+//
+//        selectedTodoViewController.delegate = calendarView
+//        selectedTodoViewController.currentDate = date
+//        selectedTodoViewController.modalPresentationStyle = .overCurrentContext
+//
+//        present(UINavigationController(rootViewController: selectedTodoViewController),
+//                animated: true)
         
-        selectedTodoViewController.delegate = calendarView
+        let dayTodoVC = DayTodoViewController()
+        dayTodoVC.modalPresentationStyle = .overCurrentContext
+        dayTodoVC.currentDate = date
+        let navigationVC = UINavigationController(rootViewController: dayTodoVC)
+        navigationVC.modalPresentationStyle = .overCurrentContext
         
-//        self.addChild(selectedTodoViewController)
-        selectedTodoViewController.currentDate = date
-        
-        present(
-            UINavigationController(rootViewController: selectedTodoViewController), animated: true)
-//        selectedTodoViewController.view.frame = self.view.frame
-//        self.view.addSubview(selectedTodoViewController.view)
-//        selectedTodoViewController.didMove(toParent: self)
+        tabBarController?.tabBar.isHidden = true
+        present(navigationVC, animated: false)
     }
     
     func estimatedFrame(text: String, font: UIFont) -> CGRect {
@@ -178,6 +154,15 @@ class NewCalendarVC: UIViewController {
                                                    attributes: [NSAttributedString.Key.font: font],
                                                    context: nil)
         
+    }
+    
+    @IBAction func touchUpMyPageButton(_ sender: UIBarButtonItem) {
+        let myPageStoryboard = UIStoryboard(name: StoryBoardName.mypage, bundle: nil)
+        
+        let myPageViewController
+            = myPageStoryboard.instantiateViewController(withIdentifier: ViewControllerIdentifier.mypageViewController)
+        
+        present(myPageViewController, animated: true)
     }
     
 }
@@ -264,12 +249,6 @@ extension NewCalendarVC: VACalendarViewDelegate {
        openSelctedDateTodoList(date)
     }
     
-}
-
-extension NewCalendarVC: StoreAndFetchPosterDelegate {
-    func changePosterInfomation() {
-        print("storeAndFetchChangeDelegate")
-    }
 }
 
 extension NewCalendarVC: UICollectionViewDelegate , UICollectionViewDataSource , UICollectionViewDelegateFlowLayout {

@@ -18,7 +18,8 @@ class ActivityCell: UITableViewCell {
     
     @IBOutlet weak var detailLabel: UILabel!
     
-    private var activityServiceImp: ActivityService? = ActivityServiceImp()
+    private let activityServiceImp: ActivityService
+        = DependencyContainer.shared.getDependency(key: .activityService)
     
     var activityInfo: careerData? {
         didSet {
@@ -49,7 +50,7 @@ class ActivityCell: UITableViewCell {
         
         guard let activityInfo = self.activityInfo else {return}
         
-        activityServiceImp?.requestDeleteActivity(contentIdx: activityInfo.careerIdx) { (dataResponse) in
+        activityServiceImp.requestDeleteActivity(contentIdx: activityInfo.careerIdx) { (dataResponse) in
             guard let status = dataResponse.value?.status else {return}
             
             guard let httpStatusCode = HttpStatusCode(rawValue: status) else {return}

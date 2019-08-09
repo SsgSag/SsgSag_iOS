@@ -10,8 +10,8 @@ import Foundation
 
 // MARK: - PosterDetail
 struct PosterDetail: Codable {
-    let status: Int
-    let message: String
+    let status: Int?
+    let message: String?
     let data: DataClass?
 }
 
@@ -37,6 +37,7 @@ struct DataClass: Codable {
     let dday: Int?
     let analytics: Analytics?
     let commentList: [CommentList]?
+    let isFavorite: Int?
 }
 
 // MARK: - Analytics

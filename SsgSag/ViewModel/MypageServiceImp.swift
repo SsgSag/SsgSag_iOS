@@ -7,55 +7,53 @@
 //
 
 import Foundation
-
-protocol MyPageService: class {
-    
-    func requestSelectedState(completionHandler: @escaping ((DataResponse<Interests>) -> Void))
-    
-    func requestStoreSelectedField(_ selectedJson: [String: Any] ,
-                                   completionHandler: @escaping ((DataResponse<ReInterest>) -> Void))
-    
-    func requestStoreAddActivity(_ jsonData: [String: Any],
-                                 completionHandler: @escaping ((DataResponse<Activity>) -> Void))
-    
-    func reqeuestStoreJobsState(_ selectedJson: [String: Any] ,
-                                completionHandler: @escaping ((DataResponse<ReInterest>) -> Void))
-    
-    func requestUserInformation(completionHandler: @escaping (DataResponse<UserNetworkModel>) -> Void)
-    
-    func requestMembershipCancel(completionHandler: @escaping (DataResponse<HttpStatusCode>) -> Void)
-}
+import SwiftKeychainWrapper
 
 class MyPageServiceImp: MyPageService {
+    
+    let requestMaker: RequestMakerProtocol
+    let network: Network
+    
+    init(requestMaker: RequestMakerProtocol,
+         network: Network) {
+        self.requestMaker = requestMaker
+        self.network = network
+    }
     
     func reqeuestStoreJobsState(_ selectedJson: [String : Any],
                                 completionHandler: @escaping ((DataResponse<ReInterest>) -> Void)) {
         
-        guard let url = UserAPI.sharedInstance.getURL(RequestURL.registerInterestJobs.getRequestURL) else {
-            return
-        }
-        
-        guard let token = UserDefaults.standard.object(forKey: TokenName.token) as? String else {
-            return
-        }
-        
         let json = try? JSONSerialization.data(withJSONObject: selectedJson)
         
-        var request = URLRequest(url: url)
-        request.httpMethod = "POST"
-        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.addValue(token, forHTTPHeaderField: "Authorization")
-        request.httpBody = json
+        guard let token
+            = KeychainWrapper.standard.string(forKey: TokenName.token),
+            let url
+            = UserAPI.sharedInstance.getURL(RequestURL.registerInterestJobs.getRequestURL),
+            let request
+            = requestMaker.makeRequest(url: url,
+                                       method: .post,
+                                       header: ["Authorization": token,
+                                                "Content-Type": "application/json"],
+                                       body: json) else {
+            return
+        }
         
-        NetworkManager.shared.getData(with: request) { (data, error, response) in
-            guard let data = data else {return}
-            
-            do {
-                let responseData = try JSONDecoder().decode(ReInterest.self, from: data)
-                
-                completionHandler(DataResponse.success(responseData))
-            } catch {
-                print("ReInterest Parsing Error")
+        network.dispatch(request: request) { result in
+            switch result {
+            case .success(let data):
+                do {
+                    let decodedData
+                        = try JSONDecoder().decode(ReInterest.self,
+                                                   from: data)
+                    
+                    completionHandler(.success(decodedData))
+                } catch let error {
+                    completionHandler(.failed(error))
+                    return
+                }
+            case .failure(let error):
+                completionHandler(.failed(error))
+                return
             }
         }
     }
@@ -63,33 +61,37 @@ class MyPageServiceImp: MyPageService {
     func requestStoreAddActivity(_ jsonData: [String : Any],
                                  completionHandler: @escaping (((DataResponse<Activity>) -> Void))) {
         
-        guard let url = UserAPI.sharedInstance.getURL(RequestURL.careerActivity.getRequestURL) else {return}
+        let json = try? JSONSerialization.data(withJSONObject: jsonData)
         
-        
-        guard let token = UserDefaults.standard.object(forKey: TokenName.token) as? String else {
+        guard let token
+            = KeychainWrapper.standard.string(forKey: TokenName.token),
+            let url
+            = UserAPI.sharedInstance.getURL(RequestURL.careerActivity.getRequestURL),
+            let request = requestMaker.makeRequest(url: url,
+                                                   method: .post,
+                                                   header: ["Authorization": token,
+                                                            "Content-Type": "application/json"],
+                                                   body: json) else {
             return
         }
         
-        let json = try? JSONSerialization.data(withJSONObject: jsonData)
-        
-        var request = URLRequest(url: url)
-        request.httpMethod = "POST"
-        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.addValue(token, forHTTPHeaderField: "Authorization")
-        request.httpBody = json
-        
-        NetworkManager.shared.getData(with: request) { (data, error, res) in
-            
-            guard let data = data else {return}
-            
-            do {
-                let responsData = try JSONDecoder().decode(Activity.self, from: data)
-                
-                completionHandler(DataResponse.success(responsData))
-            } catch {
-                completionHandler(DataResponse.failed(ReadError.JsonError))
+        network.dispatch(request: request) { result in
+            switch result {
+            case .success(let data):
+                do {
+                    let decodedData
+                        = try JSONDecoder().decode(Activity.self,
+                                                   from: data)
+                    
+                    completionHandler(.success(decodedData))
+                } catch let error {
+                    completionHandler(.failed(error))
+                    return
+                }
+            case .failure(let error):
+                completionHandler(.failed(error))
+                return
             }
-
         }
     }
 
@@ -98,124 +100,183 @@ class MyPageServiceImp: MyPageService {
         
         let jsonData = try? JSONSerialization.data(withJSONObject: selectedJson)
         
-        guard let url = UserAPI.sharedInstance.getURL(RequestURL.reIntersting.getRequestURL) else {return}
+        guard let token
+            = KeychainWrapper.standard.string(forKey: TokenName.token),
+            let url
+            = UserAPI.sharedInstance.getURL(RequestURL.reIntersting.getRequestURL),
+            let request
+            = requestMaker.makeRequest(url: url,
+                                       method: .post,
+                                       header: ["Authorization": token,
+                                                "Content-Type": "application/json"],
+                                       body: jsonData) else {
+            return
+        }
         
-        guard let token = UserDefaults.standard.object(forKey: TokenName.token) as? String else {return}
-        
-        var request = URLRequest(url: url)
-        request.httpMethod = "POST"
-        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.addValue(token, forHTTPHeaderField: "Authorization")
-        request.httpBody = jsonData
-        
-        NetworkManager.shared.getData(with: request) { (data, error, res) in
-            
-            guard let data = data else {
+        network.dispatch(request: request) { result in
+            switch result {
+            case .success(let data):
+                do {
+                    let decodedData
+                        = try JSONDecoder().decode(ReInterest.self,
+                                                   from: data)
+                    
+                    completionHandler(.success(decodedData))
+                } catch let error {
+                    completionHandler(.failed(error))
+                    return
+                }
+            case .failure(let error):
+                completionHandler(.failed(error))
                 return
             }
-            
-            do {
-                let apiRespoonse = try JSONDecoder().decode(ReInterest.self, from: data)
-                
-                completionHandler(DataResponse.success(apiRespoonse))
-            } catch {
-                completionHandler(DataResponse.failed(ReadError.JsonError))
+        }
+    }
+    
+    func requestEditActivity(_ jsonData: [String : Any],
+                             completionHandler: @escaping ((DataResponse<Activity>) -> Void)) {
+        let json = try? JSONSerialization.data(withJSONObject: jsonData)
+        
+        guard let token
+            = KeychainWrapper.standard.string(forKey: TokenName.token),
+            let url
+            = UserAPI.sharedInstance.getURL(RequestURL.careerActivity.getRequestURL),
+            let request = requestMaker.makeRequest(url: url,
+                                                   method: .put,
+                                                   header: ["Authorization": token,
+                                                            "Content-Type": "application/json"],
+                                                   body: json) else {
+                                                    return
+        }
+        
+        network.dispatch(request: request) { result in
+            switch result {
+            case .success(let data):
+                do {
+                    let decodedData
+                        = try JSONDecoder().decode(Activity.self,
+                                                   from: data)
+                    
+                    completionHandler(.success(decodedData))
+                } catch let error {
+                    completionHandler(.failed(error))
+                    return
+                }
+            case .failure(let error):
+                completionHandler(.failed(error))
+                return
             }
         }
     }
     
     func requestSelectedState(completionHandler: @escaping ((DataResponse<Interests>) -> Void)) {
         
-        guard let url = UserAPI.sharedInstance.getURL(RequestURL.interestingField.getRequestURL) else {
-            return print("123123")
-        }
-        
-        guard let token = UserDefaults.standard.object(forKey: TokenName.token) as? String else {
+        guard let token
+            = KeychainWrapper.standard.string(forKey: TokenName.token),
+            let url
+            = UserAPI.sharedInstance.getURL(RequestURL.interestingField.getRequestURL),
+            let request
+            = requestMaker.makeRequest(url: url,
+                                       method: .get,
+                                       header: ["Authorization": token,
+                                                "Content-Type": "application/json"],
+                                       body: nil) else {
             return
         }
         
-        var request = URLRequest(url: url)
-        request.httpMethod = "GET"
-        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.addValue(token, forHTTPHeaderField: "Authorization")
-        
-        NetworkManager.shared.getData(with: request) { (data, error, res) in
-            
-            guard let data = data else {
+        network.dispatch(request: request) { result in
+            switch result {
+            case .success(let data):
+                do {
+                    let decodedData
+                        = try JSONDecoder().decode(Interests.self,
+                                                   from: data)
+                    
+                    completionHandler(.success(decodedData))
+                    
+                } catch let error {
+                    completionHandler(.failed(error))
+                    return
+                }
+            case .failure(let error):
+                completionHandler(.failed(error))
                 return
             }
-            
-            do {
-                let apiResponse = try JSONDecoder().decode(Interests.self, from: data)
-                
-                completionHandler(DataResponse.success(apiResponse))
-                
-            } catch  {
-                print("Interests Json Parsing Error")
-            }
-            
         }
     }
     
     func requestUserInformation(completionHandler: @escaping (DataResponse<UserNetworkModel>) -> Void) {
-        guard let url = UserAPI.sharedInstance.getURL(RequestURL.signUp.getRequestURL) else {
+        
+        guard let token
+            = KeychainWrapper.standard.string(forKey: TokenName.token),
+            let url
+            = UserAPI.sharedInstance.getURL(RequestURL.signUp.getRequestURL),
+            let request
+            = requestMaker.makeRequest(url: url,
+                                       method: .get,
+                                       header: ["Authorization": token,
+                                                "Content-Type": "application/json"],
+                                       body: nil) else {
             return
         }
         
-        guard let token = UserDefaults.standard.object(forKey: TokenName.token) as? String else {
-            return
-        }
-        
-        var request = URLRequest(url: url)
-        request.httpMethod = "GET"
-        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.addValue(token, forHTTPHeaderField: "Authorization")
-        
-        NetworkManager.shared.getData(with: request) { (data, error, res) in
-            
-            guard let data = data else {
+        network.dispatch(request: request) { result in
+            switch result {
+            case .success(let data):
+                do {
+                    let decodedData
+                        = try JSONDecoder().decode(UserNetworkModel.self,
+                                                   from: data)
+                    
+                    completionHandler(.success(decodedData))
+                    
+                } catch let error {
+                    completionHandler(.failed(error))
+                    return
+                }
+            case .failure(let error):
+                completionHandler(.failed(error))
                 return
             }
-            
-            do {
-                let apiResponse = try JSONDecoder().decode(UserNetworkModel.self, from: data)
-                
-                completionHandler(DataResponse.success(apiResponse))
-                
-            } catch  {
-                print("Interests Json Parsing Error")
-            }
-            
         }
     }
     
     // 회원탈퇴
     func requestMembershipCancel(completionHandler: @escaping (DataResponse<HttpStatusCode>) -> Void) {
-        guard let url = UserAPI.sharedInstance.getURL(RequestURL.signUp.getRequestURL),
-            let token = UserDefaults.standard.object(forKey: TokenName.token) as? String else {
+        guard let token
+            = KeychainWrapper.standard.string(forKey: TokenName.token),
+            let url
+            = UserAPI.sharedInstance.getURL(RequestURL.signUp.getRequestURL),
+            let request
+            = requestMaker.makeRequest(url: url,
+                                       method: .delete,
+                                       header: ["Authorization": token],
+                                       body: nil) else {
             return
         }
         
-        var request = URLRequest(url: url)
-        request.httpMethod = "DELETE"
-        request.addValue(token, forHTTPHeaderField: "Authorization")
-        
-        NetworkManager.shared.getData(with: request) { (data, error, response) in
-            guard let data = data else {
+        network.dispatch(request: request) { result in
+            switch result {
+            case .success(let data):
+                do {
+                    let decodedData
+                        = try JSONDecoder().decode(UserNetworkModel.self,
+                                                   from: data)
+                    
+                    guard let status = decodedData.status,
+                        let httpStatusCode = HttpStatusCode(rawValue: status) else {
+                            return
+                    }
+                    
+                    completionHandler(.success(httpStatusCode))
+                } catch let error {
+                    completionHandler(.failed(error))
+                    return
+                }
+            case .failure(let error):
+                completionHandler(.failed(error))
                 return
             }
-            
-            do {
-                let response = try JSONDecoder().decode(UserNetworkModel.self, from: data)
-                
-                guard let status = response.status,
-                    let httpStatusCode = HttpStatusCode(rawValue: status) else { return }
-                
-                completionHandler(DataResponse.success(httpStatusCode))
-            } catch {
-                print("membershipCancel Json Parsing Error")
-            }
-            
         }
     }
 }

@@ -14,9 +14,9 @@ class myPageMenuTableViewCell: UITableViewCell {
     
     @IBOutlet weak var menuTitleLabel: UILabel!
     
-    private let menuTitleString: [String] = ["나의 이력", "게시판 설정", "공지사항", "문의하기"]
+    private let menuTitleString: [String] = ["나의 이력", "알림 설정", "공지사항", "문의하기"]
     
-    private let menuImageString: [String] = ["ic_jobSetting", "ic_boardSetting", "ic_noticeSetting", "ic_inquirySetting"]
+    private let menuImageString: [String] = ["ic_jobSetting", "ic_alarm", "ic_noticeSetting", "ic_inquirySetting"]
     
     override func awakeFromNib() {
         super.awakeFromNib()

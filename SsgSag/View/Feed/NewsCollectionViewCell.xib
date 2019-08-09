@@ -19,48 +19,52 @@
                 <rect key="frame" x="0.0" y="0.0" width="310" height="244"/>
                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 <subviews>
-                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Xeb-IW-89h">
-                        <rect key="frame" x="19" y="19" width="272" height="119"/>
-                        <color key="backgroundColor" red="0.38431372549999998" green="0.41568627450000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                    <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" axis="vertical" spacing="6" translatesAutoresizingMaskIntoConstraints="NO" id="5fJ-ce-r2h">
+                        <rect key="frame" x="19" y="19" width="337" height="168"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Xeb-IW-89h">
+                                <rect key="frame" x="0.0" y="0.0" width="337" height="119"/>
+                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="119" id="WZG-Ig-db3"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadiusV">
+                                        <real key="value" value="5"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="날벌레는 왜 떼를 지어날고있을까?" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sue-GK-Tzy">
+                                <rect key="frame" x="0.0" y="125" width="337" height="26.5"/>
+                                <fontDescription key="fontDescription" name="NotoSansChakma-Regular" family="Noto Sans Chakma" pointSize="18"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KTD-q9-3iX">
+                                <rect key="frame" x="0.0" y="157.5" width="337" height="10.5"/>
+                                <fontDescription key="fontDescription" name="NotoSansChakma-Regular" family="Noto Sans Chakma" pointSize="12"/>
+                                <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
                         <constraints>
-                            <constraint firstAttribute="height" constant="119" id="WZG-Ig-db3"/>
+                            <constraint firstAttribute="height" constant="168" id="FV9-Ys-m0s"/>
+                            <constraint firstAttribute="width" secondItem="5fJ-ce-r2h" secondAttribute="height" multiplier="337:168" id="Sm4-X9-7jL"/>
                         </constraints>
-                        <userDefinedRuntimeAttributes>
-                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadiusV">
-                                <real key="value" value="5"/>
-                            </userDefinedRuntimeAttribute>
-                        </userDefinedRuntimeAttributes>
-                    </imageView>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="날벌레는 왜 떼를 지어날고있을까?" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sue-GK-Tzy">
-                        <rect key="frame" x="21" y="143" width="268" height="26.5"/>
-                        <fontDescription key="fontDescription" name="NotoSansChakma-Regular" family="Noto Sans Chakma" pointSize="18"/>
-                        <nil key="textColor"/>
-                        <nil key="highlightedColor"/>
-                    </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KTD-q9-3iX">
-                        <rect key="frame" x="21" y="169.5" width="268" height="18"/>
-                        <fontDescription key="fontDescription" name="NotoSansChakma-Regular" family="Noto Sans Chakma" pointSize="12"/>
-                        <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <nil key="highlightedColor"/>
-                    </label>
+                    </stackView>
                 </subviews>
             </view>
             <constraints>
-                <constraint firstItem="Xeb-IW-89h" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" constant="19" id="EtK-16-chh"/>
-                <constraint firstAttribute="trailing" secondItem="Xeb-IW-89h" secondAttribute="trailing" constant="19" id="GYL-zz-6a2"/>
-                <constraint firstItem="KTD-q9-3iX" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="21" id="ILY-Za-iV8"/>
-                <constraint firstItem="KTD-q9-3iX" firstAttribute="top" secondItem="sue-GK-Tzy" secondAttribute="bottom" id="IYH-hz-ZlK"/>
-                <constraint firstAttribute="trailing" secondItem="KTD-q9-3iX" secondAttribute="trailing" constant="21" id="ZAg-eC-2PS"/>
-                <constraint firstItem="sue-GK-Tzy" firstAttribute="top" secondItem="Xeb-IW-89h" secondAttribute="bottom" constant="5" id="Ztu-Z5-Wof"/>
-                <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="KTD-q9-3iX" secondAttribute="bottom" constant="10" id="c7k-2o-HHp"/>
-                <constraint firstAttribute="trailing" secondItem="sue-GK-Tzy" secondAttribute="trailing" constant="21" id="gQd-yb-h59"/>
-                <constraint firstItem="sue-GK-Tzy" firstAttribute="top" secondItem="Xeb-IW-89h" secondAttribute="bottom" constant="5" id="hlH-In-y4h"/>
-                <constraint firstItem="sue-GK-Tzy" firstAttribute="centerX" secondItem="gTV-IL-0wX" secondAttribute="centerX" id="jbT-22-ZB8"/>
-                <constraint firstItem="sue-GK-Tzy" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="21" id="qkc-4k-kuo"/>
-                <constraint firstItem="Xeb-IW-89h" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="19" id="ucD-Om-PfM"/>
+                <constraint firstItem="5fJ-ce-r2h" firstAttribute="centerY" secondItem="gTV-IL-0wX" secondAttribute="centerY" id="0Em-HM-1Kl"/>
+                <constraint firstItem="5fJ-ce-r2h" firstAttribute="centerX" secondItem="gTV-IL-0wX" secondAttribute="centerX" id="NeY-TP-fre"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
             <size key="customSize" width="310" height="244"/>
+            <connections>
+                <outlet property="fromLabel" destination="KTD-q9-3iX" id="kSl-tl-tjz"/>
+                <outlet property="newsImageView" destination="Xeb-IW-89h" id="2Rf-mA-0US"/>
+                <outlet property="newsTitleLabel" destination="sue-GK-Tzy" id="0jh-Em-KDw"/>
+            </connections>
             <point key="canvasLocation" x="326.08695652173918" y="165.40178571428569"/>
         </collectionViewCell>
     </objects>

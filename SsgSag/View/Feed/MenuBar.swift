@@ -97,7 +97,7 @@ extension MenuBar: UICollectionViewDelegate {
 extension MenuBar: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView,
                         numberOfItemsInSection section: Int) -> Int {
-        return 2
+        return 1
     }
     
     func collectionView(_ collectionView: UICollectionView,

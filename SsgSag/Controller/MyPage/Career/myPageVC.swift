@@ -8,6 +8,7 @@
 
 import UIKit
 import Photos
+import SwiftKeychainWrapper
 
 class myPageVC: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
 
@@ -194,16 +195,14 @@ class myPageVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
         
         guard let sendData = sendImage.jpegData(compressionQuality: 1) else {return}
         
-        guard let key = UserDefaults.standard.object(forKey: TokenName.token) as? String else {
-            return
-        }
+        guard let token = KeychainWrapper.standard.string(forKey: TokenName.token) else { return }
     
         let boundary = generateBoundaryString()
         
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
         request.addValue("multipart/form-data; boundary=\(boundary)", forHTTPHeaderField: "Content-Type")
-        request.addValue(key, forHTTPHeaderField: "Authorization")
+        request.addValue(token, forHTTPHeaderField: "Authorization")
         request.httpBody = createBody(parameters: [:],
                                       boundary: boundary,
                                       data: sendData,
@@ -232,14 +231,12 @@ class myPageVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
     private func getData() {
         guard let url = UserAPI.sharedInstance.getURL("/user") else {return}
         
-        guard let key = UserDefaults.standard.object(forKey: TokenName.token) as? String else {
-            return
-        }
+        guard let token = KeychainWrapper.standard.string(forKey: TokenName.token) else { return }
         
         var request = URLRequest(url: url)
         request.httpMethod = "GET"
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.addValue(key, forHTTPHeaderField: "Authorization")
+        request.addValue(token, forHTTPHeaderField: "Authorization")
         
         NetworkManager.shared.getData(with: request) { [weak self] (data, error, res) in
             if error != nil {
@@ -321,21 +318,25 @@ extension myPageVC: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let storyboard = UIStoryboard(name: StoryBoardName.mypage, bundle: nil)
+        
         switch indexPath.row {
         case 0:
             // 나의 이력
-            return
+            let pushNavigationVC = storyboard.instantiateViewController(withIdentifier: "careerNavigationVC")
+            present(pushNavigationVC, animated: true)
         case 1:
-            // 게시판 설정
-            return
+            // 알림 설정
+            let pushNavigationVC = storyboard.instantiateViewController(withIdentifier: "pushAlarmNavigationVC")
+            present(pushNavigationVC, animated: true)
         case 2:
             // 공지사항
-            let storyboard = UIStoryboard(name: StoryBoardName.mypage, bundle: nil)
             let noticeNavigationVC = storyboard.instantiateViewController(withIdentifier: "noticeNavigationVC")
             present(noticeNavigationVC, animated: true)
         case 3:
             // 문의하기
-            return
+            let inquireNavigationVC = storyboard.instantiateViewController(withIdentifier: "inquireNavigationVC")
+            present(inquireNavigationVC, animated: true)
         default:
             return
         }

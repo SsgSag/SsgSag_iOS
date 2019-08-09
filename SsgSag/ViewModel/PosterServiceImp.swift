@@ -7,129 +7,176 @@
 //
 
 import Foundation
-
-protocol PosterService: class {
-    func requestPoster(completionHandler: @escaping (DataResponse<[Posters]>) -> Void)
-    
-    func requestPosterLiked(of poster: Posters,
-                            type likedCategory: likedOrDisLiked)
-    
-    func requestPosterDetail(posterIdx: Int,
-                             completionHandler: @escaping (DataResponse<DataClass>) -> Void)
-}
+import SwiftKeychainWrapper
 
 class PosterServiceImp: PosterService {
     
-    func requestPosterLiked(of poster: Posters, type likedCategory: likedOrDisLiked) {
+    let requestMaker: RequestMakerProtocol
+    let network: Network
+    
+    init(requestMaker: RequestMakerProtocol,
+         network: Network) {
+        self.requestMaker = requestMaker
+        self.network = network
+    }
+    
+    func requestPosterLiked(of poster: Posters,
+                            type likedCategory: likedOrDisLiked,
+                            completionHandler: @escaping (DataResponse<HttpStatusCode>) -> Void) {
         
         let like = likedCategory.rawValue
         
         guard let posterIdx = poster.posterIdx else { return }
         
-        guard let url = UserAPI.sharedInstance.getURL(RequestURL.posterLiked(posterIdx: posterIdx, likeType: like).getRequestURL) else {return}
+        guard let token
+            = KeychainWrapper.standard.string(forKey: TokenName.token),
+            let url
+            = UserAPI.sharedInstance.getURL(RequestURL.posterLiked(posterIdx: posterIdx,
+                                                                   likeType: like).getRequestURL),
+            let request = requestMaker.makeRequest(url: url,
+                                                   method: .post,
+                                                   header: ["Authorization": token],
+                                                   body: nil) else {
+            return
+        }
         
-        guard let key = UserDefaults.standard.object(forKey: TokenName.token) as? String else { return }
-        
-        var request = URLRequest(url: url)
-        request.httpMethod = "POST"
-        request.addValue(key, forHTTPHeaderField: "Authorization")
-        
-        NetworkManager.shared.getData(with: request) { [weak self] data, error, response  in
-            guard let data = data else { return }
-            
-            do {
-                let likedPosterNetworkData = try JSONDecoder().decode(PosterFavoriteForNetwork.self, from: data)
-                
-                guard let statusCode = likedPosterNetworkData.status else { return }
-                
-                guard let httpStatusCode = HttpStatusCode(rawValue: statusCode) else { return }
-                
+        network.dispatch(request: request) { result in
+            switch result {
+            case .success(let data):
                 do {
-                    try self?.likedErrorHandling(httpStatusCode, likedCategory: likedCategory)
-                } catch HttpStatusCode.dataBaseError {
-                    print("likedPosterNetworkData dataBaseError")
-                } catch HttpStatusCode.serverError {
-                    print("likedPosterNetworkData serverError")
+                    let decodedData
+                        = try JSONDecoder().decode(PosterFavoriteForNetwork.self,
+                                                   from: data)
+                    
+                    guard let statusCode = decodedData.status,
+                        let httpStatusCode = HttpStatusCode(rawValue: statusCode) else {
+                            return
+                    }
+                    
+                    completionHandler(.success(httpStatusCode))
+                    
+                } catch let error {
+                    completionHandler(.failed(error))
+                    return
                 }
-                
-            } catch {
-                print("likedPosterNetworkData parsing Error")
+            case .failure(let error):
+                completionHandler(.failed(error))
+                return
             }
         }
-        
-    }
-    
-    func likedErrorHandling(_ httpStatusCode: HttpStatusCode, likedCategory: likedOrDisLiked) throws {
-        switch httpStatusCode {
-        case .sucess:
-            if likedCategory == .liked {
-                print("posterFavorite liked is Send to Server")
-            } else if likedCategory == .disliked {
-                print("posterFavorite Disliked is Send to Server")
-            }
-        case .dataBaseError, .serverError:
-            try httpStatusCode.throwError()
-        default:
-            break
-        }
-    }
-
-    init() {
         
     }
     
     func requestPoster(completionHandler: @escaping (DataResponse<[Posters]>) -> Void) {
         
-        guard let url = UserAPI.sharedInstance.getURL(RequestURL.initPoster.getRequestURL) else { return }
-    
-        guard let key = UserDefaults.standard.object(forKey: TokenName.token) as? String else { return }
+        guard let token
+            = KeychainWrapper.standard.string(forKey: TokenName.token),
+            let url
+            = UserAPI.sharedInstance.getURL(RequestURL.initPoster.getRequestURL),
+            let request = requestMaker.makeRequest(url: url,
+                                                   method: .get,
+                                                   header: ["Authorization": token],
+                                                   body: nil) else {
+            return
+        }
         
-        var request = URLRequest(url: url)
-        request.addValue(key, forHTTPHeaderField: "Authorization")
-        
-        NetworkManager.shared.getData(with: request) { (data, err, res) in
-            guard let data = data else { return }
-            
-            do {
-                let order = try JSONDecoder().decode(networkData.self, from: data)
-                
-                guard let posters = order.data?.posters else { return }
-                
-                completionHandler(DataResponse.success(posters))
-            
-            } catch {
-                print("getPosterData JSON Parising Error")
+        network.dispatch(request: request) { result in
+            switch result {
+            case .success(let data):
+                do {
+                    let order = try JSONDecoder().decode(networkData.self, from: data)
+                    
+                    guard let posters = order.data?.posters else { return }
+                    
+                    completionHandler(.success(posters))
+                    
+                } catch let error {
+                    completionHandler(.failed(error))
+                    return
+                }
+            case .failure(let error):
+                completionHandler(.failed(error))
+                return
             }
         }
     }
     
     func requestPosterDetail(posterIdx: Int,
                              completionHandler: @escaping (DataResponse<DataClass>) -> Void) {
-        guard let url = UserAPI.sharedInstance.getURL(RequestURL.posterDetail(posterIdx: posterIdx).getRequestURL) else { return }
         
-        guard let key = UserDefaults.standard.object(forKey: TokenName.token) as? String else { return }
+        guard let token
+            = KeychainWrapper.standard.string(forKey: TokenName.token),
+            let url
+            = UserAPI.sharedInstance.getURL(RequestURL.posterDetail(posterIdx: posterIdx).getRequestURL),
+            let request
+            = requestMaker.makeRequest(url: url,
+                                       method: .get,
+                                       header: ["Authorization": token,
+                                                "Content-Type": "application/json"],
+                                       body: nil) else {
+            return
+        }
         
-        var request = URLRequest(url: url)
-        request.setValue(key, forHTTPHeaderField: "Authorization")
-        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.httpMethod = "GET"
-        
-        NetworkManager.shared.getData(with: request) { (data, error, response) in
-            guard let data = data else { return }
-            
-            do {
-                let response = try JSONDecoder().decode(PosterDetail.self, from: data)
-                
-                guard let posterData = response.data else { return }
-                
-                completionHandler(DataResponse.success(posterData))
-                
-            } catch let error {
-                print(error)
-                print("posterDetail Parsing Error")
-                assertionFailure()
+        network.dispatch(request: request) { result in
+            switch result {
+            case .success(let data):
+                do {
+                    let response = try JSONDecoder().decode(PosterDetail.self, from: data)
+                    
+                    guard let posterData = response.data else { return }
+                    
+                    completionHandler(.success(posterData))
+                    
+                } catch let error {
+                    completionHandler(.failed(error))
+                    return
+                }
+            case .failure(let error):
+                completionHandler(.failed(error))
+                return
             }
         }
     }
+    
+    func requestPosterFavorite(index: Int,
+                               method: HTTPMethod,
+                               completionHandler: @escaping (DataResponse<HttpStatusCode>) -> Void) {
+        guard let token
+            = KeychainWrapper.standard.string(forKey: TokenName.token),
+            let url
+            = UserAPI.sharedInstance.getURL(RequestURL.favorite(posterIdx: index).getRequestURL),
+            let request
+            = requestMaker.makeRequest(url: url,
+                                       method: method,
+                                       header: ["Authorization": token],
+                                       body: nil) else {
+                                        return
+        }
+        
+        network.dispatch(request: request) { result in
+            switch result {
+            case .success(let data):
+                do {
+                    let decodedData = try JSONDecoder().decode(PosterDetail.self,
+                                                               from: data)
+                    
+                    guard let statusCode = decodedData.status,
+                        let httpStatusCode = HttpStatusCode(rawValue: statusCode) else {
+                            return
+                    }
+                    
+                    completionHandler(.success(httpStatusCode))
+                    
+                } catch let error {
+                    completionHandler(.failed(error))
+                    return
+                }
+            case .failure(let error):
+                completionHandler(.failed(error))
+                return
+            }
+        }
+    }
+    
 }
 

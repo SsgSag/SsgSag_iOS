@@ -10,7 +10,7 @@ import UIKit
 
 class DetailTodoListTableViewCell: UITableViewCell {
     
-    var poster: DayTodoData? {
+    var poster: MonthTodoData? {
         didSet {
             guard let posterInfo = poster else {return}
             posterName.text = posterInfo.posterName
@@ -19,8 +19,10 @@ class DetailTodoListTableViewCell: UITableViewCell {
                 let posterCate = PosterCategory(rawValue: categoryIdx),
                 let posterEndDate = posterInfo.posterEndDate else { return }
             
-            posterCategory.text = posterCate.categoryString()
-            posterCategory.textColor = posterCate.categoryColors()
+            categoryButton.setTitle(posterCate.categoryString(), for: .normal)
+            categoryButton.setTitleColor(posterCate.categoryColors(), for: .normal)
+            
+            categoryButton.backgroundColor = posterCate.categoryColors().withAlphaComponent(0.05)
             
             let endDate = DateCaculate.stringToDateWithGenericFormatter(using: posterEndDate)
             let component = Calendar.current.dateComponents([.month, .day, .weekday], from: endDate)
@@ -39,7 +41,7 @@ class DetailTodoListTableViewCell: UITableViewCell {
     
     @IBOutlet weak var posterName: UILabel!
     
-    @IBOutlet weak var posterCategory: UILabel!
+    @IBOutlet weak var categoryButton: UIButton!
     
     @IBOutlet weak var posterDate: UILabel!
     
@@ -59,4 +61,11 @@ class DetailTodoListTableViewCell: UITableViewCell {
         self.posterName.text = ""
     }
     
+    @IBAction func touchUpFavoriteButton(_ sender: UIButton) {
+        if sender.imageView?.image == UIImage(named: "ic_favorite") {
+            sender.setImage(UIImage(named: "ic_favoritePassive"), for: .normal)
+        } else {
+            sender.setImage(UIImage(named: "ic_favorite"), for: .normal)
+        }
+    }
 }

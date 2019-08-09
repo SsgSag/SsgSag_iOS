@@ -12,15 +12,11 @@ class InterestBoardTableViewCell: UITableViewCell {
     
     @IBOutlet weak var fullView: UIView!
     
-    @IBOutlet weak var categoryColor: UIView!
-    
-    @IBOutlet weak var category: UILabel!
+    @IBOutlet weak var categoryButton: UIButton!
     
     @IBOutlet weak var hashTag: UILabel!
     
-    @IBOutlet weak var selectFollow: GradientButton!
-    
-    @IBOutlet weak var followLabel: UILabel!
+    @IBOutlet weak var selectFollow: UIButton!
     
     var indexPath: IndexPath!
     
@@ -28,7 +24,6 @@ class InterestBoardTableViewCell: UITableViewCell {
     
     var interestInfo: SubscribeInterests? {
         didSet {
-            
             guard let interestInfo = self.interestInfo else {return}
             
             guard let interestName = interestInfo.interestName else {return}
@@ -37,7 +32,7 @@ class InterestBoardTableViewCell: UITableViewCell {
         
             guard let interestType = InterestType(rawValue: interestName) else {return}
             
-            category.text = interestName
+            categoryButton.setTitle(interestName, for: .normal)
             
             hashTag.text = interestType.hashTagString()
             
@@ -50,25 +45,20 @@ class InterestBoardTableViewCell: UITableViewCell {
     }
     
     private func changeAllColorToUnFollow() {
-        categoryColor.backgroundColor = .lightGray
-        followLabel.text = "언팔로우"
+        selectFollow.setTitle("언팔로우", for: .normal)
+        selectFollow.backgroundColor = .lightGray
         
-        category.textColor = .lightGray
-        hashTag.textColor = .lightGray
-        
-        selectFollow.topColor = .lightGray
-        selectFollow.bottomColor = .lightGray
+        categoryButton.setTitleColor(.lightGray, for: .normal)
+        categoryButton.backgroundColor = #colorLiteral(red: 0.6666666667, green: 0.6666666667, blue: 0.6666666667, alpha: 0.08)
     }
     
     private func changeAllColorToFollow() {
-        categoryColor.backgroundColor = #colorLiteral(red: 0.3803921569, green: 0.462745098, blue: 0.8666666667, alpha: 1)
-        followLabel.text = "팔로우"
+        selectFollow.setTitle("팔로우", for: .normal)
+        selectFollow.backgroundColor = #colorLiteral(red: 0.4603668451, green: 0.5182471275, blue: 1, alpha: 1)
         
-        category.textColor = .black
-        hashTag.textColor = .black
+        categoryButton.setTitleColor(#colorLiteral(red: 0.4603668451, green: 0.5182471275, blue: 1, alpha: 1), for: .normal)
+        categoryButton.backgroundColor = #colorLiteral(red: 0.4603668451, green: 0.5182471275, blue: 1, alpha: 0.08)
         
-        selectFollow.topColor = #colorLiteral(red: 0.2078431373, green: 0.9176470588, blue: 0.8901960784, alpha: 1)
-        selectFollow.bottomColor = #colorLiteral(red: 0.6588235294, green: 0.2784313725, blue: 1, alpha: 1)
     }
     
     
@@ -83,17 +73,11 @@ class InterestBoardTableViewCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
-        
-        categoryColor.layer.cornerRadius = categoryColor.bounds.width / 2
-        categoryColor.layer.masksToBounds = true
         
         contentView.layer.borderWidth = 1
         contentView.layer.cornerRadius = 3
         contentView.layer.borderColor = #colorLiteral(red: 0.9215686275, green: 0.9294117647, blue: 0.937254902, alpha: 1).cgColor
         
-        selectFollow.topColor = #colorLiteral(red: 0.2078431373, green: 0.9176470588, blue: 0.8901960784, alpha: 1)
-        selectFollow.bottomColor = #colorLiteral(red: 0.6588235294, green: 0.2784313725, blue: 1, alpha: 1)
     }
     
     override func layoutSubviews() {

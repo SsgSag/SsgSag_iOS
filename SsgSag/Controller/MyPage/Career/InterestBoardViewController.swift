@@ -16,13 +16,34 @@ class InterestBoardViewController: UIViewController {
     
     private var interestInfo: [SubscribeInterests] = []
     
-    private var interestManager: InterestService?
+    private let interestService: InterestService
+        = DependencyContainer.shared.getDependency(key: .interestService)
     
     static private let numberOfRows = 3
     
     static private let cellId = "interestBoardcellId"
     
-    static private let rowHeight:CGFloat = 74
+    static private let rowHeight: CGFloat = 74
+    
+    lazy var backButton = UIBarButtonItem(image: UIImage(named: "ic_ArrowBack"),
+                                          style: .plain,
+                                          target: self,
+                                          action: #selector(touchUpBackButton))
+    
+    lazy var doneButton = UIBarButtonItem(title: "완료",
+                                          style: .plain,
+                                          target: self,
+                                          action: #selector(touchUpBackButton))
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        doneButton.tintColor = #colorLiteral(red: 0.4603668451, green: 0.5182471275, blue: 1, alpha: 1)
+        
+        setNavigationBar(color: .white)
+        navigationItem.leftBarButtonItem = backButton
+        navigationItem.rightBarButtonItem = doneButton
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,23 +55,15 @@ class InterestBoardViewController: UIViewController {
         
         tableView.register(UINib.InterestBoardNIB, forCellReuseIdentifier: InterestBoardViewController.cellId)
         
-        //interestManager = InterestServiceManager()
-        
-        setService()
-        
         requestSubscribeStatus()
     }
     
-    func setService(_ interestManager: InterestService = InterestServiceManager()) {
-        self.interestManager = interestManager
-    }
-    
-    @IBAction func dissMiss(_ sender: Any) {
-        self.dismiss(animated: true, completion: nil)
+    @objc private func touchUpBackButton() {
+        navigationController?.popViewController(animated: true)
     }
     
     private func requestSubscribeStatus() {
-        interestManager?.requestInterestSubscribe{ (dataResponse) in
+        interestService.requestInterestSubscribe{ (dataResponse) in
             guard let data = dataResponse.value else {return}
         
             guard let interests = data.data else {return}
@@ -68,7 +81,7 @@ class InterestBoardViewController: UIViewController {
 extension InterestBoardViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return self.interestInfo.count
+        return interestInfo.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -102,7 +115,7 @@ extension InterestBoardViewController: InterestFollowDelegate {
         
         //구독 안된 상태
         if userIdx == 0 {
-            interestManager?.requestInterestSubscribeAdd(interestIdx) { dataResponse in
+            interestService.requestInterestSubscribeAdd(interestIdx) { dataResponse in
                 guard let data = dataResponse.value else {return}
                 
                 guard let status = data.status else {return}
@@ -120,7 +133,7 @@ extension InterestBoardViewController: InterestFollowDelegate {
                 }
             }
         } else {
-            interestManager?.requestInterestSubscribeDelete(interestIdx) { dataResponse in
+            interestService.requestInterestSubscribeDelete(interestIdx) { dataResponse in
                 
                 guard let data = dataResponse.value else {return}
                 

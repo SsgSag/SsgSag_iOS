@@ -8,29 +8,11 @@
 
 import UIKit
 
+// 지원완료 화면
 class ApplySuccessViewController: UIViewController {
     
-    private func getPostersData() -> [Posters] {
-        
-        let userDefaultsPoster = StoreAndFetchPoster.shared.getPostersAfterAllChangedConfirm()
-        
-        var resultPoster: [Posters] = []
-        
-        for poster in userDefaultsPoster {
-            
-            guard let posterIdx = poster.posterIdx else { return resultPoster }
-            
-            if let completePoster = UserDefaults.standard.object(forKey: "completed\(posterIdx)") as? Int {
-                guard let completeState = applyCompleted(rawValue: completePoster) else { return resultPoster}
-                
-                if completeState == .completed {
-                    resultPoster.append(poster)
-                }
-            }
-        }
-        
-        return resultPoster
-    }
+    private let calendarServiceImp: CalendarService
+        = DependencyContainer.shared.getDependency(key: .calendarService)
     
     var posters: [Posters] = []
     
@@ -43,7 +25,8 @@ class ApplySuccessViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        posters = getPostersData()
+        // 임시
+//        posters = getPostersData()
         
         tableView.delegate = self
         tableView.dataSource = self
@@ -51,6 +34,28 @@ class ApplySuccessViewController: UIViewController {
         tableView.backgroundColor = UIColor(displayP3Red: 246/255, green: 246/255, blue: 246/255, alpha: 1.0)
         tableView.separatorStyle = .none
     }
+    // 임시
+//    private func getPostersData() -> [Posters] {
+//
+//        let userDefaultsPoster = StoreAndFetchPoster.shared.getPostersAfterAllChangedConfirm()
+//
+//        var resultPoster: [Posters] = []
+//
+//        for poster in userDefaultsPoster {
+//
+//            guard let posterIdx = poster.posterIdx else { return resultPoster }
+//
+//            if let completePoster = UserDefaults.standard.object(forKey: "completed\(posterIdx)") as? Int {
+//                guard let completeState = applyCompleted(rawValue: completePoster) else { return resultPoster}
+//
+//                if completeState == .completed {
+//                    resultPoster.append(poster)
+//                }
+//            }
+//        }
+//
+//        return resultPoster
+//    }
 }
 
 extension ApplySuccessViewController: UITableViewDelegate, UITableViewDataSource {
@@ -70,7 +75,7 @@ extension ApplySuccessViewController: UITableViewDelegate, UITableViewDataSource
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         
-        return CalenderVC.sharedTableViewHeight
+        return 89
     }
     
     func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
@@ -80,49 +85,49 @@ extension ApplySuccessViewController: UITableViewDelegate, UITableViewDataSource
     func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
         
         let deleteAction = UITableViewRowAction(style: .default, title: "삭제") { [weak self] action, indexPath in
-        
-            var posterInfo = StoreAndFetchPoster.shared.getPostersAfterAllChangedConfirm()
-            
-            guard let posterIdx = self?.posters[indexPath.row].posterIdx else {return}
-            
-            for index in 0..<posterInfo.count-1 {
-                
-                guard let posterInfoPosterIdx = posterInfo[index].posterIdx else { return }
-                
-                if posterIdx == posterInfoPosterIdx {
-                    posterInfo.remove(at: index)
-                    
-                    let posterDelete = CalendarServiceImp()
-                    posterDelete.requestDelete(posterIdx) { [weak self] (dataResponse) in
-                        
-                        guard let statusCode = dataResponse.value?.status else {return}
-                        
-                        guard let httpStatusCode = HttpStatusCode(rawValue: statusCode) else {return}
-                        
-                        switch httpStatusCode {
-                        case .processingSuccess:
-                            print("DeletePoster isSuccessfull")
-                        case .serverError:
-                            print("DeletePoster serverError")
-                        case .dataBaseError:
-                            print("DeletePoster dataBaseError")
-                        default:
-                            break
-                        }
-                    }
-                    
-                }
-            }
-            
-            StoreAndFetchPoster.shared.storePoster(posters: posterInfo)
-            
-            NotificationCenter.default.post(name: NSNotification.Name(NotificationName.deleteUserDefaults), object: nil)
-        
-            self?.posters = self?.getPostersData() ?? []
-            
-            DispatchQueue.main.async {
-                tableView.reloadData()
-            }
+            // 임시
+//
+//            var posterInfo = StoreAndFetchPoster.shared.getPostersAfterAllChangedConfirm()
+//
+//            guard let posterIdx = self?.posters[indexPath.row].posterIdx else {return}
+//
+//            for index in 0..<posterInfo.count-1 {
+//
+//                guard let posterInfoPosterIdx = posterInfo[index].posterIdx else { return }
+//
+//                if posterIdx == posterInfoPosterIdx {
+//                    posterInfo.remove(at: index)
+//
+//                    self?.calendarServiceImp.requestDelete(posterIdx) { [weak self] (dataResponse) in
+//
+//                        guard let statusCode = dataResponse.value?.status else {return}
+//
+//                        guard let httpStatusCode = HttpStatusCode(rawValue: statusCode) else {return}
+//
+//                        switch httpStatusCode {
+//                        case .processingSuccess:
+//                            print("DeletePoster isSuccessfull")
+//                        case .serverError:
+//                            print("DeletePoster serverError")
+//                        case .dataBaseError:
+//                            print("DeletePoster dataBaseError")
+//                        default:
+//                            break
+//                        }
+//                    }
+//
+//                }
+//            }
+//
+//            StoreAndFetchPoster.shared.storePoster(posters: posterInfo)
+//
+//            NotificationCenter.default.post(name: NSNotification.Name(NotificationName.deleteUserDefaults), object: nil)
+//
+//            self?.posters = self?.getPostersData() ?? []
+//
+//            DispatchQueue.main.async {
+//                tableView.reloadData()
+//            }
         }
         
         deleteAction.backgroundColor = UIColor.rgb(red: 249, green: 106, blue: 106)

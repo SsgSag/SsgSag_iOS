@@ -9,6 +9,7 @@
 
 import UIKit
 import NaverThirdPartyLogin
+import SwiftKeychainWrapper
 
 class SignUpCompleteVC: UIViewController {
     
@@ -224,8 +225,8 @@ class SignUpCompleteVC: UIViewController {
                     switch httpStatusCode {
                     case .sucess:
                         if let storeToken = login.data?.token {
-                            UserDefaults.standard.set(storeToken,
-                                                      forKey: TokenName.token)
+                            KeychainWrapper.standard.set(storeToken,
+                                                         forKey: TokenName.token)
                         }
                         
                         self.present(TapbarVC(), animated: true, completion: nil)
@@ -242,7 +243,6 @@ class SignUpCompleteVC: UIViewController {
     }
     
     func postData() {
-        
         var sendToken: String = ""
         var sendType: Int = 0
         

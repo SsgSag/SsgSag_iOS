@@ -9,21 +9,53 @@
 import UIKit
 
 protocol WebsiteDelegate: class {
-    func moveToWebsite()
+    func moveToWebsite(isApply: Bool)
 }
 
 class DetailInfoButtonsView: UIView {
 
-    var delegate: WebsiteDelegate?
+    private let posterService: PosterService
+        = DependencyContainer.shared.getDependency(key: .posterService)
     
-    let likeButton: UIButton = {
+    var delegate: WebsiteDelegate?
+    var posterIndex: Int?
+    var isExistApplyURL: Bool? {
+        didSet {
+            guard let isExist = self.isExistApplyURL else {
+                return
+            }
+            
+            if isExist {
+                applyButton.isUserInteractionEnabled = true
+                applyButton.alpha = 1
+            } else {
+                applyButton.isUserInteractionEnabled = false
+                applyButton.alpha = 0.2
+            }
+        }
+    }
+    var isLike: Int? {
+        didSet {
+            if isLike == 1 {
+                likeButton.setImage(UIImage(named: "ic_favoriteWhiteBox"),
+                                    for: .normal)
+            } else {
+                likeButton.setImage(UIImage(named: "ic_favoriteWhiteBoxPassive"),
+                                    for: .normal)
+            }
+        }
+    }
+    
+    private lazy var likeButton: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.setImage(UIImage(named: "ic_favoriteWhiteBoxPassive"), for: .normal)
+        button.addTarget(self,
+                         action: #selector(touchUpLikeButton),
+                         for: .touchUpInside)
         return button
     }()
     
-    lazy var moveToWebSiteButton: UIButton = {
+    private lazy var moveToWebSiteButton: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setTitle("웹사이트", for: .normal)
@@ -34,16 +66,19 @@ class DetailInfoButtonsView: UIView {
         return button
     }()
     
-    let applyButton: UIButton = {
+    private let applyButton: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setTitle("바로지원", for: .normal)
         button.titleLabel?.font = UIFont.systemFont(ofSize: 14)
-        button.alpha = 0.2
+        button.addTarget(self,
+                         action: #selector(touchUpApplyButton),
+                         for: .touchUpInside)
+        button.setTitleColor(.white, for: .normal)
         return button
     }()
     
-    let buttonStackView: UIStackView = {
+    private let buttonStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .horizontal
@@ -78,7 +113,52 @@ class DetailInfoButtonsView: UIView {
     }
     
     @objc private func touchUpWebSiteButton() {
-        delegate?.moveToWebsite()
+        delegate?.moveToWebsite(isApply: false)
+    }
+    
+    @objc private func touchUpApplyButton() {
+        delegate?.moveToWebsite(isApply: true)
+    }
+    
+    @objc private func touchUpLikeButton(_ sender: UIButton) {
+        
+        let method: HTTPMethod = isLike == 1 ? .delete : .post
+        
+        guard let index = posterIndex else {
+            return
+        }
+        
+        posterService.requestPosterFavorite(index: index,
+                                            method: method) { [weak self] result in
+            switch result {
+            case .success(let status):
+                switch status {
+                case .processingSuccess:
+                    DispatchQueue.main.async {
+                        
+                        if sender.imageView?.image == UIImage(named: "ic_favoriteWhiteBoxPassive") {
+                            sender.setImage(UIImage(named: "ic_favoriteWhiteBox"),
+                                            for: .normal)
+                            self?.isLike = 1
+                        } else {
+                            sender.setImage(UIImage(named: "ic_favoriteWhiteBoxPassive"),
+                                            for: .normal)
+                            self?.isLike = 0
+                        }
+                    }
+                case .dataBaseError:
+                    print("DB 에러")
+                    return
+                case .serverError:
+                    print("server 에러")
+                default:
+                    return
+                }
+            case .failed(let error):
+                print(error)
+                return
+            }
+        }
     }
     
     required init?(coder aDecoder: NSCoder) {

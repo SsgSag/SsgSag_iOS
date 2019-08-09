@@ -57,7 +57,11 @@
                                 <action selector="touchUpMyPageButton:" destination="x1e-70-Zh0" id="VAK-IO-a93"/>
                             </connections>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" image="ic_alarm" id="78q-va-JjN"/>
+                        <barButtonItem key="rightBarButtonItem" image="bulletin" id="78q-va-JjN">
+                            <connections>
+                                <action selector="touchUpBoardSettingButton:" destination="x1e-70-Zh0" id="Rlr-ca-gZI"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="swipeCardView" destination="Qa3-PX-6kd" id="NGx-8c-UcE"/>
@@ -591,13 +595,13 @@
         </scene>
     </scenes>
     <resources>
+        <image name="bulletin" width="48" height="48"/>
         <image name="group7" width="19" height="19"/>
         <image name="icCardProcessBell" width="42" height="42"/>
         <image name="icCardProcessFinal" width="42" height="42"/>
         <image name="icCardProcessInterview" width="42" height="42"/>
         <image name="icCardProcessPaper" width="42" height="42"/>
         <image name="ic_BoxDday" width="86" height="37"/>
-        <image name="ic_alarm" width="48" height="48"/>
         <image name="ic_mypage" width="48" height="48"/>
         <image name="line" width="228" height="3"/>
     </resources>

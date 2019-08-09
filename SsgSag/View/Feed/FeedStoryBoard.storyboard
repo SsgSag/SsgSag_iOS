@@ -15,14 +15,14 @@
             <objects>
                 <viewController storyboardIdentifier="FeedVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="Yih-C1-clG" customClass="FeedVC" customModule="슥삭" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Mhk-Pg-b7R">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="808"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4dd-73-ach">
-                                <rect key="frame" x="0.0" y="44" width="414" height="48"/>
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tUb-Nf-Jux">
-                                        <rect key="frame" x="16" y="0.0" width="48" height="48"/>
+                                        <rect key="frame" x="16" y="0.0" width="44" height="44"/>
                                         <constraints>
                                             <constraint firstAttribute="width" secondItem="tUb-Nf-Jux" secondAttribute="height" multiplier="1:1" id="fNn-fC-9YD"/>
                                         </constraints>
@@ -31,28 +31,42 @@
                                             <action selector="touchUpMyPageButton:" destination="Yih-C1-clG" eventType="touchUpInside" id="cpY-sQ-F3W"/>
                                         </connections>
                                     </button>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vi9-d3-xJt" customClass="MenuBar" customModule="슥삭" customModuleProvider="target">
-                                        <rect key="frame" x="74" y="0.0" width="340" height="48"/>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="-3" translatesAutoresizingMaskIntoConstraints="NO" id="uR2-i2-ZN4">
+                                        <rect key="frame" x="158.5" y="0.0" width="97" height="44"/>
+                                        <subviews>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="H12-qv-6Dr">
+                                                <rect key="frame" x="3" y="0.0" width="91" height="44"/>
+                                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="16"/>
+                                                <state key="normal" title="슥삭 추천뉴스">
+                                                    <color key="titleColor" red="0.38431372549999998" green="0.41568627450000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                </state>
+                                            </button>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jaO-T2-FoD">
+                                                <rect key="frame" x="0.0" y="41" width="97" height="3"/>
+                                                <color key="backgroundColor" red="0.38431372549999998" green="0.41568627450000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="3" id="BnM-AS-tKH"/>
+                                                </constraints>
+                                            </view>
+                                        </subviews>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="48" id="0mt-1x-klX"/>
+                                            <constraint firstItem="jaO-T2-FoD" firstAttribute="width" secondItem="H12-qv-6Dr" secondAttribute="width" constant="6" id="kIC-uK-rqp"/>
                                         </constraints>
-                                    </view>
+                                    </stackView>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
-                                    <constraint firstAttribute="trailing" secondItem="vi9-d3-xJt" secondAttribute="trailing" id="6Mr-8c-2dY"/>
                                     <constraint firstItem="tUb-Nf-Jux" firstAttribute="top" secondItem="4dd-73-ach" secondAttribute="top" id="CZp-pM-UQq"/>
-                                    <constraint firstItem="vi9-d3-xJt" firstAttribute="leading" secondItem="tUb-Nf-Jux" secondAttribute="trailing" constant="10" id="M6j-ak-mb8"/>
+                                    <constraint firstItem="uR2-i2-ZN4" firstAttribute="centerY" secondItem="4dd-73-ach" secondAttribute="centerY" id="Jch-Rs-I4z"/>
+                                    <constraint firstItem="uR2-i2-ZN4" firstAttribute="centerX" secondItem="4dd-73-ach" secondAttribute="centerX" id="SBe-fb-eqS"/>
                                     <constraint firstAttribute="bottom" secondItem="tUb-Nf-Jux" secondAttribute="bottom" id="U0c-KD-Kdt"/>
-                                    <constraint firstAttribute="bottom" secondItem="vi9-d3-xJt" secondAttribute="bottom" id="Xo5-1c-Ndp"/>
+                                    <constraint firstItem="uR2-i2-ZN4" firstAttribute="height" secondItem="4dd-73-ach" secondAttribute="height" id="WD5-Ij-ODK"/>
                                     <constraint firstItem="tUb-Nf-Jux" firstAttribute="leading" secondItem="4dd-73-ach" secondAttribute="leading" constant="16" id="cFS-XQ-Djc"/>
-                                    <constraint firstItem="vi9-d3-xJt" firstAttribute="top" secondItem="4dd-73-ach" secondAttribute="top" id="q3v-hz-4Hr"/>
-                                    <constraint firstAttribute="height" constant="48" id="vUM-Sx-GfG"/>
+                                    <constraint firstAttribute="height" constant="44" id="vUM-Sx-GfG"/>
                                 </constraints>
                             </view>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="Btc-a5-EuC">
-                                <rect key="frame" x="0.0" y="92" width="414" height="770"/>
+                                <rect key="frame" x="0.0" y="44" width="414" height="730"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="bfV-ep-uHG">
                                     <size key="itemSize" width="414" height="175"/>
@@ -83,7 +97,6 @@
                         <nil key="title"/>
                     </navigationItem>
                     <connections>
-                        <outlet property="menuBar" destination="vi9-d3-xJt" id="szP-3A-Taz"/>
                         <outlet property="newsCollectionView" destination="Btc-a5-EuC" id="roh-8n-F76"/>
                     </connections>
                 </viewController>
@@ -94,9 +107,10 @@
         <!--Navigation Controller-->
         <scene sceneID="jKB-TV-996">
             <objects>
-                <navigationController storyboardIdentifier="feedNavigationVC" automaticallyAdjustsScrollViewInsets="NO" useStoryboardIdentifierAsRestorationIdentifier="YES" navigationBarHidden="YES" id="tQd-VL-6ro" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="feedNavigationVC" automaticallyAdjustsScrollViewInsets="NO" useStoryboardIdentifierAsRestorationIdentifier="YES" id="tQd-VL-6ro" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" translucent="NO" id="tIP-OT-1IJ">
+                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="barTintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <userDefinedRuntimeAttributes>

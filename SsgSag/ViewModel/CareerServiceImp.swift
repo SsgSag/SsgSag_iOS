@@ -7,33 +7,96 @@
 //
 
 import Foundation
-
-protocol CareerService {
-    func requestCareer(careerType:Int, completionHandler: @escaping (DataResponse<Career>) -> Void)
-}
+import SwiftKeychainWrapper
 
 class CareerServiceImp: CareerService {
+    let requestMaker: RequestMakerProtocol
+    let network: Network
     
-    func requestCareer(careerType: Int, completionHandler: @escaping (DataResponse<Career>) -> Void) {
-        guard let url = UserAPI.sharedInstance.getURL(RequestURL.career(careerType: careerType).getRequestURL) else {return}
+    init(requestMaker: RequestMakerProtocol,
+         network: Network) {
+        self.requestMaker = requestMaker
+        self.network = network
+    }
+    
+    func requestCareerWith(careerType: Int,
+                           completionHandler: @escaping (DataResponse<Career>) -> Void) {
+        guard let token
+            = KeychainWrapper.standard.string(forKey: TokenName.token),
+            let url
+            = UserAPI.sharedInstance.getURL(RequestURL.career(careerType: careerType).getRequestURL),
+            let request
+            = requestMaker.makeRequest(url: url,
+                                       method: .get,
+                                       header: ["Authorization": token,
+                                                "Content-Type": "application/json"],
+                                       body: nil) else {
+            return
+        }
         
-        guard let key = UserDefaults.standard.object(forKey: TokenName.token) as? String else { return }
+        network.dispatch(request: request) { result in
+            switch result {
+            case .success(let data):
+                do {
+                    let decodedData
+                        = try JSONDecoder().decode(Career.self,
+                                                   from: data)
+                    
+                    completionHandler(.success(decodedData))
+                } catch let error {
+                    completionHandler(.failed(error))
+                    return
+                }
+            case .failure(let error):
+                completionHandler(.failed(error))
+                return
+            }
+        }
+    }
+    
+    func requestCareerWith(body: [String: Any],
+                           completionHandler: @escaping (DataResponse<HttpStatusCode>) -> Void) {
         
-        var request = URLRequest(url: url)
-        request.httpMethod = "GET"
-        request.addValue(key, forHTTPHeaderField: "Authorization")
-        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        let jsonData = try? JSONSerialization.data(withJSONObject: body)
         
-        NetworkManager.shared.getData(with: request) { (data, error, res) in
-            guard let data = data else {return}
-            
-            do {
-                let networkData = try JSONDecoder().decode(Career.self, from: data)
-                
-                completionHandler(DataResponse.success(networkData))
-                
-            } catch {
-                print("requestCareer Json Parsing Error")
+        // create post request
+        guard let token
+            = KeychainWrapper.standard.string(forKey: TokenName.token),
+            let url
+            = UserAPI.sharedInstance.getURL(RequestURL.careerActivity.getRequestURL),
+            let request
+            = requestMaker.makeRequest(url: url,
+                                       method: .post,
+                                       header: ["Authorization": token,
+                                                "Content-Type": "application/json"],
+                                       body: jsonData) else {
+            return
+        }
+        
+        network.dispatch(request: request) { result in
+            switch result {
+            case .success(let data):
+                do {
+                    let decodedData
+                        = try JSONDecoder().decode(Career.self,
+                                                   from: data)
+                    
+                    guard let httpStatusCode
+                        = HttpStatusCode(rawValue: decodedData.status) else {
+                            completionHandler(.failed(NSError(domain: "status error",
+                                                              code: 0,
+                                                              userInfo: nil)))
+                            return
+                    }
+                    
+                    completionHandler(.success(httpStatusCode))
+                } catch let error {
+                    completionHandler(.failed(error))
+                    return
+                }
+            case .failure(let error):
+                completionHandler(.failed(error))
+                return
             }
         }
     }

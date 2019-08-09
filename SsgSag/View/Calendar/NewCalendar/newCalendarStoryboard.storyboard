@@ -89,8 +89,12 @@
                     </view>
                     <navigationItem key="navigationItem" id="6PG-xm-bMJ">
                         <nil key="title"/>
-                        <barButtonItem key="leftBarButtonItem" image="ic_mypage" id="r3m-mp-CER"/>
-                        <view key="titleView" contentMode="scaleToFill" ambiguous="YES" id="p9b-tv-ABd" customClass="VAMonthHeaderView" customModule="슥삭" customModuleProvider="target">
+                        <barButtonItem key="leftBarButtonItem" image="ic_mypage" id="r3m-mp-CER">
+                            <connections>
+                                <action selector="touchUpMyPageButton:" destination="B71-YN-EqE" id="KXb-VJ-NRX"/>
+                            </connections>
+                        </barButtonItem>
+                        <view key="titleView" contentMode="scaleToFill" id="p9b-tv-ABd" customClass="VAMonthHeaderView" customModule="슥삭" customModuleProvider="target">
                             <rect key="frame" x="207" y="22" width="0.0" height="0.0"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -113,19 +117,19 @@
             <point key="canvasLocation" x="273.91304347826087" y="124.55357142857142"/>
         </scene>
         <!--Selected Todo View Controller-->
-        <scene sceneID="qzv-b5-m6A">
+        <scene sceneID="LVD-vj-3gq">
             <objects>
-                <viewController storyboardIdentifier="SelectedTodoViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="ZgH-D3-LbN" customClass="SelectedTodoViewController" customModule="슥삭" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="Yg2-xk-UMZ">
+                <viewController storyboardIdentifier="SelectedTodoViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="Htc-5H-n0X" customClass="SelectedTodoViewController" customModule="슥삭" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="95D-8V-D55">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                        <viewLayoutGuide key="safeArea" id="e09-2Q-a5p"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="TyC-HG-qon"/>
                     </view>
                 </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="djV-Xs-8Nz" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="SLV-ex-tqM" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1257.9710144927537" y="124.55357142857142"/>
+            <point key="canvasLocation" x="1164" y="125"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="8yJ-98-7wT">

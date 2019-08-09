@@ -20,19 +20,17 @@ class UserInfoVC: UIViewController {
     
     @IBOutlet weak var stackViewConstraint: NSLayoutConstraint!
     
-    @IBOutlet weak var constraint2: NSLayoutConstraint!
+    @IBOutlet weak var isInvaliedEmailLabel: UILabel!
     
-    @IBOutlet weak var constraint3: NSLayoutConstraint!
+    @IBOutlet weak var isnotEqualPWLabel: UILabel!
     
-    @IBOutlet weak var titleLabel: UILabel!
-    
-    @IBOutlet weak var titleImgae: UIImageView!
-    
-    private var signUpServiceImp: SignupService?
+    private let signUpServiceImp: SignupService
+        = DependencyContainer.shared.getDependency(key: .signUpService)
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
+        setNavigationBar(color: .white)
         registerForKeyboardNotifications()
     }
     
@@ -47,21 +45,11 @@ class UserInfoVC: UIViewController {
         
         passwordCheckTextField.returnKeyType = .done
         
-        setupService()
-        
         iniGestureRecognizer()
         
         setDelegate()
         
         setViewWithTag()
-        
-        self.titleLabel.isHidden = false
-        
-        self.titleImgae.isHidden = false
-    }
-    
-    private func setupService(_ signUpService: SignupService = SignupServiceImp()) {
-        self.signUpServiceImp = signUpService
     }
     
     private func iniGestureRecognizer() {
@@ -131,40 +119,33 @@ class UserInfoVC: UIViewController {
         return pred.evaluate(with: password)
     }
     
-    @IBAction func touchUpBackButton(_ sender: UIBarButtonItem) {
-        dismiss(animated: true)
-    }
-    
-    @IBAction func confirmEmail(_ sender: Any) {
-        guard checkInformation() else { return }
+    @IBAction func touchUpValidButton(_ sender: UIButton) {
+        guard isValidEmail(email: emailTextField.text) else {
+            isInvaliedEmailLabel.textColor = #colorLiteral(red: 1, green: 0.3490196078, blue: 0.3490196078, alpha: 1)
+            isInvaliedEmailLabel.text = "이메일 형식이 아닙니다"
+            return
+        }
         
         guard let userEmailString = emailTextField.text else {
             return
         }
         
         let urlString = "/user/validateEmail?userEmail=\(userEmailString)"
-        
-        signUpServiceImp?.requestValidateEmail(urlString: urlString) { [weak self] dataResponse, isValidate in
+    
+        signUpServiceImp.requestValidateEmail(urlString: urlString) { [weak self] dataResponse, isValidate in
             switch dataResponse {
             case .success(let status):
                 switch status {
                 case .sucess:
                     if isValidate {
-                        let storyboard = UIStoryboard(name: StoryBoardName.signup,
-                                                      bundle: nil)
-
-                        let ConfirmProfileVC
-                            = storyboard.instantiateViewController(withIdentifier: ViewControllerIdentifier.confirmProfileViewController)
-                                as! ConfirmProfileVC
-
                         DispatchQueue.main.async {
-                            self?.navigationController?.pushViewController(ConfirmProfileVC,
-                                                                           animated: true)
+                            self?.isInvaliedEmailLabel.textColor = #colorLiteral(red: 0.4603668451, green: 0.5182471275, blue: 1, alpha: 1)
+                            self?.isInvaliedEmailLabel.text = "사용가능한 이메일입니다"
                         }
-                        
                     } else {
                         DispatchQueue.main.async {
-                            self?.simplerAlert(title: "중복되는 이메일이 존재합니다.")
+                            self?.isInvaliedEmailLabel.textColor = #colorLiteral(red: 1, green: 0.3490196078, blue: 0.3490196078, alpha: 1)
+                            self?.isInvaliedEmailLabel.text = "이미 존재하는 이메일입니다"
                         }
                     }
                 case .dataBaseError, .serverError:
@@ -179,6 +160,24 @@ class UserInfoVC: UIViewController {
                 return
             }
         }
+    }
+    
+    @IBAction func touchUpBackButton(_ sender: UIBarButtonItem) {
+        dismiss(animated: true)
+    }
+    
+    @IBAction func confirmEmail(_ sender: Any) {
+        guard checkInformation() else { return }
+        
+        let storyboard = UIStoryboard(name: StoryBoardName.signup,
+                                      bundle: nil)
+        
+        let ConfirmProfileVC
+            = storyboard.instantiateViewController(withIdentifier: ViewControllerIdentifier.confirmProfileViewController)
+                as! ConfirmProfileVC
+        
+        navigationController?.pushViewController(ConfirmProfileVC,
+                                                 animated: true)
     }
     
     @objc func handleTabMainView(_ sender: UITapGestureRecognizer) {
@@ -201,12 +200,10 @@ class UserInfoVC: UIViewController {
                        delay: 0.3,
                        options: .init(rawValue: curve),
                        animations: { [weak self] in
-                        self?.stackViewConstraint.constant = 120
-                        self?.titleImgae.isHidden = true
-                        self?.titleLabel.isHidden = true
+                        guard let height = self?.view.frame.height else { return }
+                        self?.stackViewConstraint.constant = -(height / 10)
         })
         
-        stackViewConstraint.constant = 120
         view.layoutIfNeeded()
     }
     
@@ -224,16 +221,13 @@ class UserInfoVC: UIViewController {
                        delay: 0.3,
                        options: .init(rawValue: curve),
                        animations: { [weak self] in
-                        self?.stackViewConstraint.constant = 299
-                        self?.titleLabel.isHidden = false
-                        self?.titleImgae.isHidden = false
+                        self?.stackViewConstraint.constant = 0
         })
         
-        stackViewConstraint.constant = 299
         view.layoutIfNeeded()
     }
     
-    func checkInformation() -> Bool{
+    func checkInformation() -> Bool {
         
         guard emailTextField.hasText
             && passwordTextField.hasText
@@ -242,17 +236,6 @@ class UserInfoVC: UIViewController {
             simplerAlert(title: "기입되지 않은 사항이 있습니다.")
             nextButton.isUserInteractionEnabled = false
                 
-            nextButton.topColor = .lightGray
-            nextButton.bottomColor = .lightGray
-            return false
-        }
-        
-        guard isValidEmail(email: emailTextField.text) else {
-            simplerAlert(title: "이메일 형식이 아닙니다.")
-            emailTextField.text = ""
-            
-            nextButton.isUserInteractionEnabled = false
-            
             nextButton.topColor = .lightGray
             nextButton.bottomColor = .lightGray
             return false
@@ -312,10 +295,22 @@ extension UserInfoVC: UITextFieldDelegate {
     }
     
     func textFieldDidEndEditing(_ textField: UITextField) {
+        
+        guard passwordTextField.text == passwordCheckTextField.text else {
+            isnotEqualPWLabel.isHidden = false
+            return
+        }
+        
+        isnotEqualPWLabel.isHidden = true
+        
         guard emailTextField.hasText
             && passwordTextField.hasText
             && passwordCheckTextField.hasText else {
                 return
+        }
+        
+        guard isInvaliedEmailLabel.text == "사용가능한 이메일입니다" else {
+            return
         }
         
         nextButton.isUserInteractionEnabled = true

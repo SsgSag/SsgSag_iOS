@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Photos
 
 class ConfirmProfileVC: UIViewController {
     
@@ -28,11 +29,33 @@ class ConfirmProfileVC: UIViewController {
     
     @IBOutlet weak var nextButton: GradientButton!
     
+    @IBOutlet weak var profileImageView: UIImageView!
+    
+    @IBOutlet weak var cameraButton: UIButton!
+    
+    @IBOutlet weak var profileImageViewHeightConstraint: NSLayoutConstraint!
+    
+    var selectedImage: UIImage?
+    
+    lazy var backbutton = UIBarButtonItem(image: UIImage(named: "ic_ArrowBack"),
+                                          style: .plain,
+                                          target: self,
+                                          action: #selector(touchUpBackButton))
+    
+    private lazy var profileImagePicker: UIImagePickerController = {
+        let imagePicker = UIImagePickerController()
+        imagePicker.sourceType = .photoLibrary
+        imagePicker.delegate = self
+        imagePicker.allowsEditing = true
+        return imagePicker
+    }()
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
         setNavigationBar(color: .white)
         navigationController?.interactivePopGestureRecognizer?.delegate = self
+        navigationItem.leftBarButtonItem = backbutton
     }
     
     override func viewDidLoad() {
@@ -91,6 +114,10 @@ class ConfirmProfileVC: UIViewController {
         
     }
     
+    @objc func touchUpBackButton() {
+        navigationController?.popViewController(animated: true)
+    }
+    
     // 이용약관 표시
     @IBAction private func privatePolicyInfomation(_ sender: Any) {
         let storyboard = UIStoryboard(name: StoryBoardName.signup,
@@ -132,6 +159,64 @@ class ConfirmProfileVC: UIViewController {
         let pred = NSPredicate(format: "SELF MATCHES %@", regEx)
         
         return pred.evaluate(with: nickName)
+    }
+    
+    private func rePermission() {
+        let alertController = UIAlertController (title: "카메라 권한 설정",
+                                                 message: "세팅 하시겠습니까?",
+                                                 preferredStyle: .alert)
+        
+        let settingsAction = UIAlertAction(title: "세팅",
+                                           style: .default) { (_) -> Void in
+                                            
+                                            guard let settingsUrl = URL(string: UIApplication.openSettingsURLString) else {
+                                                return
+                                            }
+                                            
+                                            if UIApplication.shared.canOpenURL(settingsUrl) {
+                                                UIApplication.shared.open(settingsUrl){ success in
+                                                    print("Settings opened: \(success)") // Prints true
+                                                }
+                                            }
+                                            
+        }
+        
+        alertController.addAction(settingsAction)
+        
+        let cancelAction = UIAlertAction(title: "취소",
+                                         style: .default,
+                                         handler: nil)
+        alertController.addAction(cancelAction)
+        
+        present(alertController, animated: true)
+    }
+    
+    @IBAction func touchUpProfileImageButton(_ sender: UIButton) {
+        
+        let photoAuthorizationStatus = PHPhotoLibrary.authorizationStatus()
+        
+        switch photoAuthorizationStatus {
+        case .authorized:
+            present(profileImagePicker,
+                    animated: true)
+        case .denied, .restricted:
+            rePermission()
+            print("사진첩 접근 불허")
+        case .notDetermined:
+            print("접근 아직 응답하지 않음")
+            PHPhotoLibrary.requestAuthorization { [weak self] status in
+                switch status {
+                case .authorized:
+                    print("사용자가 허용")
+                    self?.present(self!.profileImagePicker,
+                                  animated: true)
+                case .denied:
+                    print("사용자가 불허")
+                default:
+                    break
+                }
+            }
+        }
     }
     
     @IBAction func touchUpNextButton(_ sender: Any) {
@@ -230,10 +315,6 @@ class ConfirmProfileVC: UIViewController {
         }
         checkInformation()
     }
-    
-//    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-//        checkInformation(self)
-//    }
 }
 
 extension ConfirmProfileVC: UITextFieldDelegate {
@@ -255,12 +336,52 @@ extension ConfirmProfileVC: UITextFieldDelegate {
     func textFieldDidEndEditing(_ textField: UITextField) {
         checkInformation()
     }
+    
+    func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        profileImageViewHeightConstraint.constant = 0
+        cameraButton.isHidden = true
+        
+        UIView.animate(withDuration: 0.3) {
+            self.view.layoutIfNeeded()
+        }
+        return true
+    }
 }
 
 extension ConfirmProfileVC: UIGestureRecognizerDelegate {
     func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer,
                            shouldReceive touch: UITouch) -> Bool {
+        profileImageViewHeightConstraint.constant = 120
+        cameraButton.isHidden = false
+        
+        UIView.animate(withDuration: 0.3) {
+            self.view.layoutIfNeeded()
+        }
+        
         self.view.endEditing(true)
         return true
+    }
+}
+
+extension ConfirmProfileVC: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    
+    @objc func imagePickerController(_ picker: UIImagePickerController,
+                                     didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        
+        if let editedImage: UIImage = info[.editedImage] as? UIImage {
+            profileImageView.image = editedImage
+            picker.dismiss(animated: true, completion: nil)
+            
+        } else if let originalImage: UIImage = info[.originalImage] as? UIImage {
+            profileImageView.image = originalImage
+            picker.dismiss(animated: true, completion: nil)
+        }
+        
+        // 이미지 업로드 할것
+    }
+    
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        self.dismiss(animated: true, completion: nil)
     }
 }

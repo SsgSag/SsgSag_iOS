@@ -52,7 +52,7 @@ class CalendarDetailVC: UIViewController {
     
     @IBOutlet weak var seeMoreLabel: UILabel!
     
-    private var posterServiceImp: PosterService?
+    private var posterServiceImp: PosterService = DependencyContainer.shared.getDependency(key: .posterService)
     
     private var isFolding: Bool = true
 
@@ -94,15 +94,13 @@ class CalendarDetailVC: UIViewController {
         setPosterContent()
     }
     
-    private func setPosterContent(_ posterService: PosterService = PosterServiceImp()) {
+    private func setPosterContent() {
         
         if let poster = Poster {
             
-            self.posterServiceImp = posterService
-            
             guard let posterIdx = poster.posterIdx else { return }
             
-            posterServiceImp?.requestPosterDetail(posterIdx: posterIdx) { [weak self] dataResponse in
+            posterServiceImp.requestPosterDetail(posterIdx: posterIdx) { [weak self] dataResponse in
                 switch dataResponse {
                 case .success(let detailData):
                     self?.posterDetail = detailData

@@ -37,7 +37,7 @@ class VAWeekView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func setupDays() {
+    func setupDays(monthTodoData: [MonthTodoData]) {
         dayViews = []
         
         var x: CGFloat = 0
@@ -51,7 +51,7 @@ class VAWeekView: UIView {
             
             if showDaysOut || (!showDaysOut && dayView.day.state != .out) {
                 addSubview(dayView)
-                dayView.setupDay()
+                dayView.setupDay(monthTodoData: monthTodoData)
             }
         }
         

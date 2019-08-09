@@ -9,6 +9,7 @@
 import UIKit
 import SearchTextField
 import NaverThirdPartyLogin
+import SwiftKeychainWrapper
 
 class SchoolInfoVC: UIViewController {
     
@@ -25,14 +26,35 @@ class SchoolInfoVC: UIViewController {
     
     var jsonResult: [[String: Any]] = [[:]]
     
-    private var signupService: SignupService?
+    private let signupService: SignupService
+        = DependencyContainer.shared.getDependency(key: .signUpService)
     
     lazy var tapGesture = UITapGestureRecognizer(target: self,
                                                  action: nil)
     
-    @IBOutlet weak var titleLabel: UILabel!
+    lazy var backbutton = UIBarButtonItem(image: UIImage(named: "ic_ArrowBack"),
+                                          style: .plain,
+                                          target: self,
+                                          action: #selector(touchUpBackButton))
     
-    @IBOutlet weak var titleImage: UIImageView!
+    lazy var gradeDoneButton = UIBarButtonItem(title: "Done",
+                                               style: .plain,
+                                               target: self,
+                                               action: #selector(touchUpGradeDoneButton))
+    
+    lazy var admissionDoneButton = UIBarButtonItem(title: "Done",
+                                                   style: .plain,
+                                                   target: self,
+                                                   action: #selector(touchUpAdmissionDoneButton))
+    
+    lazy var gradePickerView = UIPickerView()
+    let gradePickOption = ["1", "2", "3", "4", "5"]
+    var optionRow = 0
+    
+    lazy var admissionPickerView = UIPickerView()
+    var admissionPickOption: [String] = []
+    
+    @IBOutlet weak var titleLabel: UILabel!
     
     @IBOutlet weak var schoolField: SearchTextField!
     
@@ -44,24 +66,33 @@ class SchoolInfoVC: UIViewController {
     
     @IBOutlet weak var nextButton: GradientButton!
     
-    @IBOutlet weak var stackViewConstraint: NSLayoutConstraint!
+    @IBOutlet weak var imageViewHeightConstraint: NSLayoutConstraint!
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
         setNavigationBar(color: .white)
+        navigationItem.leftBarButtonItem = backbutton
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        signupService = SignupServiceImp()
-        
+        setupAdmissionOption()
         setupDelegate()
         setupLayout()
         
         configureSimpleSearchTextField()
         configureSimpleMajorSearchTextField()
+    }
+    
+    private func setupAdmissionOption() {
+        let currentDate = Date()
+        let year = Calendar.current.component(.year, from: currentDate)
+        
+        for admissionYear in (1990...year).reversed() {
+            admissionPickOption.append(String(admissionYear))
+        }
     }
     
     private func setupDelegate() {
@@ -70,10 +101,48 @@ class SchoolInfoVC: UIViewController {
         gradeField.delegate = self
         numberField.delegate = self
         tapGesture.delegate = self
+        gradePickerView.delegate = self
+        gradePickerView.dataSource = self
+        admissionPickerView.delegate = self
+        admissionPickerView.dataSource = self
     }
     
     private func setupLayout() {
+        
+        let gradeToolBar = UIToolbar()
+        gradeToolBar.barStyle = .default
+        gradeToolBar.isTranslucent = true
+        gradeToolBar.tintColor = UIColor(red: 92/255, green: 216/255, blue: 255/255, alpha: 1)
+        gradeToolBar.sizeToFit()
+        gradeToolBar.isUserInteractionEnabled = true
+        gradeToolBar.setItems([gradeDoneButton], animated: false)
+        gradeDoneButton.tintColor = #colorLiteral(red: 0.4603668451, green: 0.5182471275, blue: 1, alpha: 1)
+        
+        let admissionToolBar = UIToolbar()
+        admissionToolBar.barStyle = .default
+        admissionToolBar.isTranslucent = true
+        admissionToolBar.tintColor = UIColor(red: 92/255, green: 216/255, blue: 255/255, alpha: 1)
+        admissionToolBar.sizeToFit()
+        admissionToolBar.isUserInteractionEnabled = true
+        admissionToolBar.setItems([admissionDoneButton], animated: false)
+        admissionDoneButton.tintColor = #colorLiteral(red: 0.4603668451, green: 0.5182471275, blue: 1, alpha: 1)
+    
+        gradeField.inputView = gradePickerView
+        gradeField.inputAccessoryView = gradeToolBar
+        numberField.inputView = admissionPickerView
+        numberField.inputAccessoryView = admissionToolBar
+        
         view.addGestureRecognizer(tapGesture)
+    }
+    
+    @objc func touchUpGradeDoneButton() {
+        gradeField.text = gradePickOption[optionRow]
+        view.endEditing(true)
+    }
+    
+    @objc func touchUpAdmissionDoneButton() {
+        numberField.text = admissionPickOption[optionRow]
+        view.endEditing(true)
     }
     
     private func checkInformation(_ sender: Any) {
@@ -207,7 +276,7 @@ class SchoolInfoVC: UIViewController {
         do {
             let userInfo = try JSONSerialization.data(withJSONObject: sendData)
             
-            signupService?.requestSingup(userInfo){ [weak self] (responseData) in
+            signupService.requestSingup(userInfo) { [weak self] (responseData) in
                 guard let response = responseData.value,
                     let status = response.status,
                     let httpStatus = SingupHttpStatusCode(rawValue: status) else {
@@ -218,8 +287,8 @@ class SchoolInfoVC: UIViewController {
                 case .success:
                     // 토큰 저장
                     if let storeToken = response.data?.token {
-                        UserDefaults.standard.set(storeToken,
-                                                  forKey: TokenName.token)
+                        KeychainWrapper.standard.set(storeToken,
+                                                     forKey: TokenName.token)
                     }
                     
                     DispatchQueue.main.async {
@@ -337,6 +406,10 @@ class SchoolInfoVC: UIViewController {
 //        }
 //    }
     
+    @objc func touchUpBackButton() {
+        navigationController?.popViewController(animated: true)
+    }
+    
     @IBAction func editingDidBeginMajorField(_ sender: Any) {
         configureSimpleMajorSearchTextField()
     }
@@ -349,6 +422,13 @@ class SchoolInfoVC: UIViewController {
 
 extension SchoolInfoVC: UIGestureRecognizerDelegate {
     func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
+        
+        imageViewHeightConstraint.constant = 114
+        
+        UIView.animate(withDuration: 0.3) {
+            self.view.layoutIfNeeded()
+        }
+        
         self.view.endEditing(true)
         return true
     }
@@ -366,8 +446,46 @@ extension SchoolInfoVC: UITextFieldDelegate {
         return true
     }
     
+    func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
+        imageViewHeightConstraint.constant = 0
+        
+        UIView.animate(withDuration: 0.3) {
+            self.view.layoutIfNeeded()
+        }
+        return true
+    }
+    
     func textFieldDidEndEditing(_ textField: UITextField) {
         checkInformation(self)
+    }
+}
+
+extension SchoolInfoVC: UIPickerViewDelegate, UIPickerViewDataSource {
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return 1
+    }
+    
+    func pickerView(_ pickerView: UIPickerView,
+                    numberOfRowsInComponent component: Int) -> Int {
+        if pickerView == gradePickerView {
+            return gradePickOption.count
+        }
+        return admissionPickOption.count
+    }
+    
+    func pickerView(_ pickerView: UIPickerView,
+                    titleForRow row: Int,
+                    forComponent component: Int) -> String? {
+        if pickerView == gradePickerView {
+            return gradePickOption[row]
+        }
+        return admissionPickOption[row]
+    }
+    
+    func pickerView(_ pickerView: UIPickerView,
+                    didSelectRow row: Int,
+                    inComponent component: Int) {
+        optionRow = row
     }
 }
 

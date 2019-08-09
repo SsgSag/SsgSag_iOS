@@ -31,14 +31,14 @@
                     <rect key="frame" x="22" y="234" width="150.5" height="22"/>
                     <subviews>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dvP-bI-JZ2">
-                            <rect key="frame" x="0.0" y="0.0" width="61" height="22"/>
+                            <rect key="frame" x="0.0" y="0.0" width="70" height="22"/>
                             <inset key="imageEdgeInsets" minX="-15" minY="0.0" maxX="0.0" maxY="0.0"/>
                             <state key="normal" title="0" image="ic_favorite">
                                 <color key="titleColor" red="0.46666666666666667" green="0.46666666666666667" blue="0.46666666666666667" alpha="1" colorSpace="calibratedRGB"/>
                             </state>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WoG-Uy-W16">
-                            <rect key="frame" x="73" y="0.0" width="77.5" height="22"/>
+                            <rect key="frame" x="82" y="0.0" width="68.5" height="22"/>
                             <inset key="imageEdgeInsets" minX="-15" minY="0.0" maxX="0.0" maxY="0.0"/>
                             <state key="normal" title="0" image="ic_calendar">
                                 <color key="titleColor" red="0.46666666666666667" green="0.46666666666666667" blue="0.46666666666666667" alpha="1" colorSpace="calibratedRGB"/>
@@ -95,16 +95,26 @@
                         <constraint firstItem="eNd-Y8-LMb" firstAttribute="width" secondItem="40s-88-CXL" secondAttribute="width" id="sEs-i7-HZo"/>
                     </constraints>
                 </stackView>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yKF-U8-9Tj">
+                    <rect key="frame" x="0.0" y="372" width="451" height="1"/>
+                    <color key="backgroundColor" red="0.88627450980392153" green="0.88627450980392153" blue="0.88627450980392153" alpha="1" colorSpace="calibratedRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="1" id="ZZB-NZ-DZt"/>
+                    </constraints>
+                </view>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
                 <constraint firstItem="8jz-t3-hIJ" firstAttribute="top" secondItem="mJf-cC-chr" secondAttribute="bottom" constant="13" id="0cM-w3-des"/>
                 <constraint firstItem="8jz-t3-hIJ" firstAttribute="trailing" secondItem="mJf-cC-chr" secondAttribute="trailing" id="2aj-RQ-TYw"/>
                 <constraint firstItem="40s-88-CXL" firstAttribute="bottom" secondItem="mJf-cC-chr" secondAttribute="bottom" id="7Jc-cf-dsW"/>
+                <constraint firstItem="yKF-U8-9Tj" firstAttribute="leading" secondItem="VXr-Tz-HHm" secondAttribute="leading" id="AaX-Jt-u9O"/>
                 <constraint firstItem="mJf-cC-chr" firstAttribute="leading" secondItem="VXr-Tz-HHm" secondAttribute="leading" constant="22" id="DDH-jr-LHu"/>
                 <constraint firstItem="8jz-t3-hIJ" firstAttribute="leading" secondItem="mJf-cC-chr" secondAttribute="leading" id="EQb-KA-Lti"/>
+                <constraint firstAttribute="bottom" secondItem="yKF-U8-9Tj" secondAttribute="bottom" id="FhN-Ma-t1j"/>
                 <constraint firstItem="40s-88-CXL" firstAttribute="top" secondItem="mJf-cC-chr" secondAttribute="top" id="IrI-h8-1Fo"/>
                 <constraint firstItem="40s-88-CXL" firstAttribute="leading" secondItem="mJf-cC-chr" secondAttribute="trailing" constant="14" id="O19-OS-2Es"/>
+                <constraint firstItem="VXr-Tz-HHm" firstAttribute="trailing" secondItem="yKF-U8-9Tj" secondAttribute="trailing" id="XSw-vV-D5a"/>
                 <constraint firstItem="mJf-cC-chr" firstAttribute="top" secondItem="U6b-Vx-4bR" secondAttribute="top" constant="10" id="kp0-6K-lJR"/>
                 <constraint firstItem="mJf-cC-chr" firstAttribute="width" secondItem="U6b-Vx-4bR" secondAttribute="width" multiplier="1:3" id="rkB-Ee-bdg"/>
                 <constraint firstItem="VXr-Tz-HHm" firstAttribute="trailing" secondItem="40s-88-CXL" secondAttribute="trailing" constant="22" id="xAf-Ns-1Cu"/>
@@ -124,6 +134,6 @@
     </objects>
     <resources>
         <image name="ic_calendar" width="15" height="15"/>
-        <image name="ic_favorite" width="15" height="15"/>
+        <image name="ic_favorite" width="22" height="18"/>
     </resources>
 </document>

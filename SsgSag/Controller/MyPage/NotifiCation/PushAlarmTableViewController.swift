@@ -13,6 +13,18 @@ import Firebase
 
 class PushAlarmTableViewController: UITableViewController, MessagingDelegate, UNUserNotificationCenterDelegate {
     
+    private lazy var backButton = UIBarButtonItem(image: UIImage(named: "ic_ArrowBack"),
+                                                  style: .plain,
+                                                  target: self,
+                                                  action: #selector(touchUpBackButton))
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        setNavigationBar(color: .white)
+        navigationItem.leftBarButtonItem = backButton
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -20,6 +32,10 @@ class PushAlarmTableViewController: UITableViewController, MessagingDelegate, UN
         tableView.separatorStyle = .none
     }
     
+    @objc private func touchUpBackButton() {
+        dismiss(animated: true)
+    }
+
     // MARK: - Table view data source
     
     override func numberOfSections(in tableView: UITableView) -> Int {

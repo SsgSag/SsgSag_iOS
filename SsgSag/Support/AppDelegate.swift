@@ -13,6 +13,7 @@ import FirebaseMessaging
 import UserNotifications
 import AdBrixRM
 import AdSupport
+import SwiftKeychainWrapper
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate, MessagingDelegate ,UNUserNotificationCenterDelegate{
@@ -104,25 +105,25 @@ class AppDelegate: UIResponder, UIApplicationDelegate, MessagingDelegate ,UNUser
                     window?.rootViewController = TapbarVC()
                 } else {
                     let loginStoryBoard = UIStoryboard(name: StoryBoardName.login, bundle: nil)
-                    let loginVC = loginStoryBoard.instantiateViewController(withIdentifier: ViewControllerIdentifier.loginViewController)
+                    let loginVC = loginStoryBoard.instantiateViewController(withIdentifier: "splashVC")
                     
-                    window?.rootViewController = loginVC
+                    window?.rootViewController = UINavigationController(rootViewController: loginVC)
                 }
             } else {
                 let loginStoryBoard = UIStoryboard(name: StoryBoardName.login, bundle: nil)
-                let loginVC = loginStoryBoard.instantiateViewController(withIdentifier: ViewControllerIdentifier.loginViewController)
+                let loginVC = loginStoryBoard.instantiateViewController(withIdentifier: "splashVC")
                 
-                window?.rootViewController = loginVC
+                window?.rootViewController = UINavigationController(rootViewController: loginVC)
             }
         } else {
             let loginStoryBoard = UIStoryboard(name: StoryBoardName.login, bundle: nil)
-            let loginVC = loginStoryBoard.instantiateViewController(withIdentifier: ViewControllerIdentifier.loginViewController)
-            window?.rootViewController = loginVC
+            let loginVC = loginStoryBoard.instantiateViewController(withIdentifier: "splashVC")
+            window?.rootViewController = UINavigationController(rootViewController: loginVC)
         }
     }
     
     private func isTokenExist() -> Bool {
-        if let _ = UserDefaults.standard.object(forKey: TokenName.token) {
+        if KeychainWrapper.standard.string(forKey: TokenName.token) != nil {
             return true
         } else {
             return false
@@ -142,7 +143,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, MessagingDelegate ,UNUser
     }
     
     fileprivate func hasToken() -> Bool {
-         if UserDefaults.standard.object(forKey: TokenName.token) != nil {
+         if KeychainWrapper.standard.string(forKey: TokenName.token) != nil {
             return true
          } else {
             return false
