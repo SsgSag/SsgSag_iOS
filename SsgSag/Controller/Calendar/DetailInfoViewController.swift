@@ -18,7 +18,9 @@ class DetailInfoViewController: UIViewController {
     
     var posterIdx: Int?
     var posterDetailData: DataClass?
-    var isFolding: Bool = false
+    private var isFolding: Bool = false
+    
+    let downloadLink = "https://itunes.apple.com/kr/app/%EC%8A%A5%EC%82%AD/id1457422029?mt=8"
     
     private lazy var infoCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
@@ -53,7 +55,7 @@ class DetailInfoViewController: UIViewController {
         let barButton = UIBarButtonItem(title: "공유",
                                         style: .plain,
                                         target: self,
-                                        action: nil)
+                                        action: #selector(touchUpShareButton))
         barButton.tintColor = #colorLiteral(red: 0.4603668451, green: 0.5182471275, blue: 1, alpha: 1)
         return barButton
     }()
@@ -221,14 +223,38 @@ class DetailInfoViewController: UIViewController {
         navigationController?.popViewController(animated: true)
     }
     
-    private func scrollToBottom(){
+    // MARK: - 공유 버튼
+    @objc func touchUpShareButton(){
+        UIGraphicsBeginImageContext(view.frame.size)
+        view.layer.render(in: UIGraphicsGetCurrentContext()!)
         
-        let indexPath = IndexPath(item: infoCollectionView.numberOfItems(inSection: 0) - 1,
-                                  section: 0)
+        var objectsToshare: [Any] = []
         
-        infoCollectionView.scrollToItem(at: indexPath, at: .bottom, animated: true)
+        objectsToshare.append("슥삭 다운로드 링크")
         
+        objectsToshare.append("\(downloadLink)\n")
+        
+        guard let posterName = posterDetailData?.posterName else {return}
+        
+        objectsToshare.append(posterName)
+        
+        guard let posterWebSiteURL = posterDetailData?.posterWebSite else {
+            addObjects(with: objectsToshare)
+            return
+        }
+        
+        objectsToshare.append(posterWebSiteURL)
+        
+        addObjects(with: objectsToshare)
     }
+    
+    private func addObjects(with objectsToshare: [Any]) {
+        let activityVC = UIActivityViewController(activityItems: objectsToshare, applicationActivities: nil)
+        activityVC.excludedActivityTypes = [UIActivity.ActivityType.airDrop, UIActivity.ActivityType.addToReadingList]
+        activityVC.popoverPresentationController?.sourceView = view
+        self.present(activityVC, animated: true, completion: nil)
+    }
+    
 }
 
 extension DetailInfoViewController: UICollectionViewDelegate {
@@ -509,8 +535,8 @@ extension DetailInfoViewController: CommentWriteDelegate {
                 case .secondSucess:
                     DispatchQueue.main.async {
                         self?.simplerAlert(title: "댓글 등록이 완료되었습니다.")
+                        self?.isFolding = true
                         self?.requestDatas()
-                        self?.scrollToBottom()
                     }
                 case .dataBaseError:
                     DispatchQueue.main.async {
@@ -544,7 +570,7 @@ extension DetailInfoViewController: CommentDelegate {
                     switch status {
                     case .processingSuccess:
                         self?.requestDatas()
-                        self?.scrollToBottom()
+                        self?.isFolding = true
                     case .dataBaseError:
                         self?.simplerAlert(title: "database error")
                         return
@@ -568,10 +594,6 @@ extension DetailInfoViewController: CommentDelegate {
                                                 message: nil,
                                                 preferredStyle: .actionSheet)
         
-        let editAction = UIAlertAction(title: "댓글 수정", style: .default) { [weak self] _ in
-            
-        }
-        
         let deleteAction = UIAlertAction(title: "댓글 삭제", style: .default) { [weak self] _ in
             self?.commentServiceImp.requestCommentDelete(index: index) { [weak self] result in
                 switch result {
@@ -580,6 +602,7 @@ extension DetailInfoViewController: CommentDelegate {
                         switch status {
                         case .processingSuccess:
                             self?.simplerAlert(title: "댓글이 삭제되었습니다")
+                            self?.isFolding = true
                             self?.requestDatas()
                         case .dataBaseError:
                             self?.simplerAlert(title: "database error")
@@ -627,7 +650,6 @@ extension DetailInfoViewController: CommentDelegate {
             alertController.dismiss(animated: true)
         }
         
-        alertController.addAction(editAction)
         alertController.addAction(deleteAction)
         alertController.addAction(reportAction)
         alertController.addAction(cancelAction)

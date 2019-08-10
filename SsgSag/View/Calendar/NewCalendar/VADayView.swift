@@ -170,22 +170,7 @@ class VADayView: UIView {
             
             let category = PosterCategory(rawValue: categoryIdx)
             
-            if selectedIndex.contains(0) {
-                if DateCaculate.isSameDate(self.day.date, posterDate) {
-                    if count < 4 {
-                        
-                        let lineView = VALineView(color: category?.categoryColors() ?? .clear,
-                                                  text: poster.posterName!)
-                        if day.state == .out {
-                            lineView.backgroundColor = .lightGray
-                        }
-                        
-                        lineStackView.addArrangedSubview(lineView)
-                        
-                        count += 1
-                    }
-                }
-            } else if selectedIndex.contains(category?.calendarFilterNumber ?? 0) {
+            if selectedIndex.contains(0) || selectedIndex.contains(category?.rawValue ?? 0) {
                 if DateCaculate.isSameDate(self.day.date, posterDate) {
                     if count < 4 {
                         

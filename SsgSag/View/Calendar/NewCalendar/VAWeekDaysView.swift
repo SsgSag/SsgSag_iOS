@@ -26,8 +26,8 @@ public struct VAWeekDaysViewAppearance {
     
     public init(
         symbolsType: VAWeekDaysSymbolsType = .veryShort,
-        weekDayTextColor: UIColor = .black,
-        weekDayTextFont: UIFont = UIFont.systemFont(ofSize: 15),
+        weekDayTextColor: UIColor = #colorLiteral(red: 0.4666666667, green: 0.4666666667, blue: 0.4666666667, alpha: 1),
+        weekDayTextFont: UIFont = UIFont.systemFont(ofSize: 12),
         leftInset: CGFloat = 8,
         rightInset: CGFloat = 8,
         separatorBackgroundColor: UIColor = .lightGray,

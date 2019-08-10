@@ -30,19 +30,11 @@ class InterestBoardViewController: UIViewController {
                                           target: self,
                                           action: #selector(touchUpBackButton))
     
-    lazy var doneButton = UIBarButtonItem(title: "완료",
-                                          style: .plain,
-                                          target: self,
-                                          action: #selector(touchUpBackButton))
-    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        doneButton.tintColor = #colorLiteral(red: 0.4603668451, green: 0.5182471275, blue: 1, alpha: 1)
-        
         setNavigationBar(color: .white)
         navigationItem.leftBarButtonItem = backButton
-        navigationItem.rightBarButtonItem = doneButton
     }
     
     override func viewDidLoad() {

@@ -53,6 +53,23 @@ class DayTodoViewController: UIViewController {
         pagingCollectionView.prefetchDataSource = self
     }
     
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        
+        if totalTodoDatas.count > 0 {
+            guard let currentDate = currentDate else {
+                return
+            }
+            
+            let day = calendar.component(.day, from: currentDate)
+            
+            pagingCollectionView.scrollToItem(at: IndexPath(item: day - 1,
+                                                            section: 0),
+                                              at: .centeredHorizontally,
+                                              animated: false)
+        }
+    }
+    
     private func setupRequestDate() {
         guard let currentDate = currentDate else { return }
         
@@ -355,10 +372,6 @@ extension DayTodoViewController: UICollectionViewDataSource {
         cell.monthTodoData = totalTodoDatas[indexPath.item][0].todoData
         
         return cell
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        
     }
     
 }

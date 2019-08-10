@@ -28,6 +28,30 @@ class SwipeVC: UIViewController {
     
     private var isOkayToUndo: Bool = false
     
+    private lazy var completeLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.numberOfLines = 2
+        label.font = UIFont.systemFont(ofSize: 20, weight: .medium)
+        label.text = "오늘 [\(self.posters.count)]장의\n카드를 슥삭했어요"
+        label.textColor = #colorLiteral(red: 0.3098039216, green: 0.3098039216, blue: 0.3098039216, alpha: 1)
+        label.textAlignment = .center
+        label.adjustsFontSizeToFitWidth = true
+        return label
+    }()
+    
+    private lazy var moveToCalendarButton: UIButton = {
+        let button = UIButton()
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.setTitle("캘린더 바로가기", for: .normal)
+        button.backgroundColor = #colorLiteral(red: 0.3843137255, green: 0.4156862745, blue: 1, alpha: 1)
+        button.setTitleColor(.white, for: .normal)
+        button.layer.cornerRadius = 24
+        button.titleLabel?.font = UIFont.systemFont(ofSize: 15)
+        button.addTarget(self, action: #selector(touchUpMoveToCalendarButton), for: .touchUpInside)
+        return button
+    }()
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
@@ -55,13 +79,42 @@ class SwipeVC: UIViewController {
     private func setEmptyPosterAnimation() {
         let animation = LOTAnimationView(name: "main_empty_hifive")
         
-        view.addSubview(animation)
+        let completeStackView: UIStackView = {
+            let stackView = UIStackView()
+            stackView.translatesAutoresizingMaskIntoConstraints = false
+            stackView.axis = .vertical
+            stackView.alignment = .center
+            stackView.spacing = 30
+            return stackView
+        }()
+        
+        completeStackView.addArrangedSubview(animation)
+        completeStackView.addArrangedSubview(completeLabel)
+        completeStackView.addArrangedSubview(moveToCalendarButton)
+        view.addSubview(completeStackView)
 
+        completeStackView.centerXAnchor.constraint(
+            equalTo: view.centerXAnchor).isActive = true
+        completeStackView.centerYAnchor.constraint(
+            equalTo: view.centerYAnchor).isActive = true
+        completeStackView.widthAnchor.constraint(
+            equalToConstant: 200).isActive = true
+        
         animation.translatesAutoresizingMaskIntoConstraints = false
-        animation.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        animation.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
-        animation.widthAnchor.constraint(equalToConstant: 350).isActive = true
-        animation.heightAnchor.constraint(equalToConstant: 350).isActive = true
+        animation.widthAnchor.constraint(
+            equalToConstant: 170).isActive = true
+        animation.heightAnchor.constraint(
+            equalToConstant: 170).isActive = true
+
+        completeLabel.widthAnchor.constraint(
+            equalTo: animation.widthAnchor).isActive = true
+        
+        moveToCalendarButton.leadingAnchor.constraint(
+            equalTo: completeStackView.leadingAnchor).isActive = true
+        moveToCalendarButton.trailingAnchor.constraint(
+            equalTo: completeStackView.trailingAnchor).isActive = true
+        moveToCalendarButton.heightAnchor.constraint(
+            equalToConstant: 48).isActive = true
         
         animation.loopAnimation = true
         animation.play()
@@ -87,11 +140,10 @@ class SwipeVC: UIViewController {
         }
     }
     
-//    //캘린더 이동
-//    @IBAction func moveToCalendar(_ sender: Any) {
-//        let calendarVC = CalenderVC()
-//        present(calendarVC, animated: true, completion: nil)
-//    }
+    //캘린더 이동
+    @objc func touchUpMoveToCalendarButton() {
+        tabBarController?.selectedIndex = 2
+    }
     
     private func loadCard() {
         for (index, poster) in posters.enumerated() {
