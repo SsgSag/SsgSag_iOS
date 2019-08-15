@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionReusableView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="U6b-Vx-4bR" customClass="AllAndFavoriteCollectionReusableView" customModule="슥삭" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="155" height="85"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <subviews>
+                <stackView opaque="NO" contentMode="scaleToFill" spacing="14" translatesAutoresizingMaskIntoConstraints="NO" id="Prr-OJ-qwC">
+                    <rect key="frame" x="56.5" y="26.5" width="42" height="32"/>
+                    <subviews>
+                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="ndO-Lk-87o">
+                            <rect key="frame" x="0.0" y="0.0" width="28" height="32"/>
+                            <subviews>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sXI-l5-UGD">
+                                    <rect key="frame" x="0.0" y="0.0" width="28" height="30"/>
+                                    <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="15"/>
+                                    <state key="normal" title="전체">
+                                        <color key="titleColor" red="0.38431372549999998" green="0.41568627450000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    </state>
+                                    <connections>
+                                        <action selector="touchUpAllButton:" destination="U6b-Vx-4bR" eventType="touchUpInside" id="J9c-mu-xVk"/>
+                                    </connections>
+                                </button>
+                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Hst-EQ-Buj">
+                                    <rect key="frame" x="0.0" y="30" width="28" height="2"/>
+                                    <color key="backgroundColor" red="0.38431372549999998" green="0.41568627450000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="2" id="x5N-P6-EJU"/>
+                                    </constraints>
+                                </view>
+                            </subviews>
+                            <constraints>
+                                <constraint firstItem="Hst-EQ-Buj" firstAttribute="width" secondItem="sXI-l5-UGD" secondAttribute="width" id="D5w-Xs-Na7"/>
+                                <constraint firstAttribute="width" constant="28" id="RGs-Hw-8gh"/>
+                            </constraints>
+                        </stackView>
+                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="aQB-3J-q51">
+                            <rect key="frame" x="42" y="0.0" width="0.0" height="32"/>
+                            <subviews>
+                                <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZFq-Pb-vid">
+                                    <rect key="frame" x="0.0" y="0.0" width="63" height="0.0"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                    <state key="normal" title="즐겨찾기">
+                                        <color key="titleColor" red="0.46666666666666667" green="0.46666666666666667" blue="0.46666666666666667" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    </state>
+                                    <connections>
+                                        <action selector="touchUpAllButton:" destination="U6b-Vx-4bR" eventType="touchUpInside" id="dbA-49-aa9"/>
+                                    </connections>
+                                </button>
+                                <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gZu-3T-aia">
+                                    <rect key="frame" x="0.0" y="0.0" width="63" height="2"/>
+                                    <color key="backgroundColor" red="0.38431372549999998" green="0.41568627450000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="2" id="las-bA-6kE"/>
+                                    </constraints>
+                                </view>
+                            </subviews>
+                            <constraints>
+                                <constraint firstItem="gZu-3T-aia" firstAttribute="width" secondItem="ZFq-Pb-vid" secondAttribute="width" id="IKq-um-NLf"/>
+                            </constraints>
+                        </stackView>
+                    </subviews>
+                </stackView>
+            </subviews>
+            <constraints>
+                <constraint firstItem="Prr-OJ-qwC" firstAttribute="centerY" secondItem="U6b-Vx-4bR" secondAttribute="centerY" id="kfA-kK-ocs"/>
+                <constraint firstItem="Prr-OJ-qwC" firstAttribute="centerX" secondItem="U6b-Vx-4bR" secondAttribute="centerX" id="xyL-aP-bpz"/>
+            </constraints>
+            <viewLayoutGuide key="safeArea" id="VXr-Tz-HHm"/>
+            <connections>
+                <outlet property="allButton" destination="sXI-l5-UGD" id="i28-hD-uhL"/>
+                <outlet property="allUnderBarView" destination="Hst-EQ-Buj" id="EGU-Ia-qyI"/>
+                <outlet property="favoriteButton" destination="ZFq-Pb-vid" id="KiX-l8-6el"/>
+                <outlet property="favoriteUnderBarView" destination="gZu-3T-aia" id="CO5-sC-o3a"/>
+            </connections>
+            <point key="canvasLocation" x="163" y="167"/>
+        </collectionReusableView>
+    </objects>
+</document>

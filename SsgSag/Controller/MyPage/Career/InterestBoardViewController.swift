@@ -15,6 +15,7 @@ class InterestBoardViewController: UIViewController {
     typealias info = (String, String, Follow)
     
     private var interestInfo: [SubscribeInterests] = []
+    private var selectedIndex: Int?
     
     private let interestService: InterestService
         = DependencyContainer.shared.getDependency(key: .interestService)
@@ -35,6 +36,7 @@ class InterestBoardViewController: UIViewController {
         
         setNavigationBar(color: .white)
         navigationItem.leftBarButtonItem = backButton
+        tabBarController?.tabBar.isHidden = true
     }
     
     override func viewDidLoad() {
@@ -55,19 +57,72 @@ class InterestBoardViewController: UIViewController {
     }
     
     private func requestSubscribeStatus() {
-        interestService.requestInterestSubscribe{ (dataResponse) in
-            guard let data = dataResponse.value else {return}
-        
-            guard let interests = data.data else {return}
-            
-            DispatchQueue.main.async {
-                self.interestInfo = interests
+        interestService.requestInterestSubscribe { [weak self] result in
+            switch result {
+            case .success(let data):
+                guard let interests = data.data else {return}
                 
-                self.tableView.reloadData()
+                self?.interestInfo = interests
+                
+                DispatchQueue.main.async {
+                    self?.tableView.reloadData()
+                }
+            case .failed(let error):
+                print(error)
+                return
             }
+        
         }
     }
 
+    func requestInterestAdd() {
+        guard let interestIdx = selectedIndex else {
+            return
+        }
+        
+        interestService.requestInterestSubscribeAdd(interestIdx) { dataResponse in
+            guard let data = dataResponse.value else {return}
+            
+            guard let status = data.status else {return}
+            
+            guard let statusCode = HttpStatusCode(rawValue: status) else {return}
+            
+            DispatchQueue.main.async {
+                switch statusCode {
+                case .sucess:
+                    self.simplerAlert(title: "구독 등록을 성공 하였습니다.")
+                    self.requestSubscribeStatus()
+                default:
+                    self.simplerAlert(title: "구독 등록을 실패 하였습니다.")
+                }
+            }
+        }
+    }
+    
+    func requestInterestDelete() {
+        guard let interestIdx = selectedIndex else {
+            return
+        }
+        
+        interestService.requestInterestSubscribeDelete(interestIdx) { dataResponse in
+            
+            guard let data = dataResponse.value else {return}
+            
+            guard let status = data.status else {return}
+            
+            guard let statusCode = HttpStatusCode(rawValue: status) else {return}
+            
+            DispatchQueue.main.async {
+                switch statusCode {
+                case .sucess:
+                    self.simplerAlert(title: "구독 취소를 성공 하였습니다.")
+                    self.requestSubscribeStatus()
+                default:
+                    self.simplerAlert(title: "구독 등록을 실패 하였습니다.")
+                }
+            }
+        }
+    }
 }
 
 extension InterestBoardViewController: UITableViewDelegate, UITableViewDataSource {
@@ -100,53 +155,35 @@ extension InterestBoardViewController: UITableViewDelegate, UITableViewDataSourc
 extension InterestBoardViewController: InterestFollowDelegate {
     
     func interestFollowButton(using interest: SubscribeInterests, indexPath: IndexPath) {
-        
         guard let userIdx = interest.userIdx else {return}
         
-        guard let interestIdx = interest.interestIdx else {return}
+        selectedIndex = interest.interestIdx
         
         //구독 안된 상태
         if userIdx == 0 {
-            interestService.requestInterestSubscribeAdd(interestIdx) { dataResponse in
-                guard let data = dataResponse.value else {return}
-                
-                guard let status = data.status else {return}
-                
-                guard let statusCode = HttpStatusCode(rawValue: status) else {return}
-                
-                DispatchQueue.main.async {
-                    switch statusCode {
-                    case .sucess:
-                        self.simplerAlert(title: "구독 등록을 성공 하였습니다.")
-                        self.requestSubscribeStatus()
-                    default:
-                        self.simplerAlert(title: "구독 등록을 실패 하였습니다.")
-                    }
+            if selectedIndex == 4 {
+                let storyboard = UIStoryboard(name: StoryBoardName.mypage, bundle: nil)
+                guard let internFilterVC = storyboard.instantiateViewController(withIdentifier: "InternFilterVC") as? InternFilterViewController else {
+                    return
                 }
+                internFilterVC.delegate = self
+                self.present(internFilterVC, animated: false)
+            } else {
+                self.requestInterestAdd()
             }
         } else {
-            interestService.requestInterestSubscribeDelete(interestIdx) { dataResponse in
-                
-                guard let data = dataResponse.value else {return}
-                
-                guard let status = data.status else {return}
-                
-                guard let statusCode = HttpStatusCode(rawValue: status) else {return}
-                
-                DispatchQueue.main.async {
-                    switch statusCode {
-                    case .sucess:
-                        self.simplerAlert(title: "구독 취소를 성공 하였습니다.")
-                        self.requestSubscribeStatus()
-                    default:
-                        self.simplerAlert(title: "구독 등록을 실패 하였습니다.")
-                    }
-                }
-            }
-            
+            self.requestInterestDelete()
         }
     }
+    
 }
+
+extension InterestBoardViewController: FilterDelegate {
+    func completeFilterSetting() {
+        requestInterestAdd()
+    }
+}
+
 
 enum Follow {
     case follow

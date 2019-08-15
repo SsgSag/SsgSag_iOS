@@ -421,7 +421,8 @@ extension VACalendarView: CategorySelectedDelegate {
         for monthView in self.monthViews {
             for weekView in monthView.weekViews {
                 for dayView in weekView.dayViews {
-                    dayView.drawEventWithSelectedIndex(multipleSelected, monthTodos: monthTodoData)
+                    dayView.drawEventWithSelectedIndex(multipleSelected,
+                                                       monthTodos: monthTodoData)
                 }
             }
         }

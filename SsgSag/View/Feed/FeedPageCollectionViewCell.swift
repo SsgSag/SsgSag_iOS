@@ -134,6 +134,6 @@ extension FeedPageCollectionViewCell: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
                         sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: frame.width, height: 190)
+        return CGSize(width: frame.width, height: 220)
     }
 }

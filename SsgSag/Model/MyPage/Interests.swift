@@ -33,7 +33,6 @@ struct Interests: Codable {
 
 struct Interest: Codable {
     let interests: [Int]?
-    let isSeeker: Int?
 }
 
 struct ReInterest: Codable {

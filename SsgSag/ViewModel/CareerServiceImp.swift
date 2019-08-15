@@ -28,8 +28,7 @@ class CareerServiceImp: CareerService {
             let request
             = requestMaker.makeRequest(url: url,
                                        method: .get,
-                                       header: ["Authorization": token,
-                                                "Content-Type": "application/json"],
+                                       header: ["Authorization": token],
                                        body: nil) else {
             return
         }

@@ -9,8 +9,6 @@
 import UIKit
 
 protocol CommentWriteDelegate: class {
-    func touchUpTextField()
-    func returnTextField()
     func commentRegister(text: String)
 }
 
@@ -22,8 +20,6 @@ class CommentWriteCollectionViewCell: UICollectionViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
-        commentWriteTextField.delegate = self
     }
 
     @IBAction func touchUpRegisterButton(_ sender: UIButton) {
@@ -34,18 +30,5 @@ class CommentWriteCollectionViewCell: UICollectionViewCell {
         
         delegate?.commentRegister(text: commentWriteTextField.text ?? "")
         commentWriteTextField.text = ""
-    }
-}
-
-extension CommentWriteCollectionViewCell: UITextFieldDelegate {
-    func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
-        delegate?.touchUpTextField()
-        return true
-    }
-    
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        textField.resignFirstResponder()
-        delegate?.returnTextField()
-        return true
     }
 }

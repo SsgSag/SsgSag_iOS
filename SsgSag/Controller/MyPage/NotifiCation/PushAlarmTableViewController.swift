@@ -13,6 +13,9 @@ import Firebase
 
 class PushAlarmTableViewController: UITableViewController, MessagingDelegate, UNUserNotificationCenterDelegate {
     
+    @IBOutlet weak var deadlineSwitch: UISwitch!
+    
+    @IBOutlet weak var todayCardSwitch: UISwitch!
     private lazy var backButton = UIBarButtonItem(image: UIImage(named: "ic_ArrowBack"),
                                                   style: .plain,
                                                   target: self,
@@ -30,6 +33,15 @@ class PushAlarmTableViewController: UITableViewController, MessagingDelegate, UN
         
         tableView.allowsSelection = false
         tableView.separatorStyle = .none
+        
+        deadlineSwitch.tintColor = .lightGray
+        deadlineSwitch.layer.cornerRadius = deadlineSwitch.frame.height / 2
+        deadlineSwitch.backgroundColor = .lightGray
+        
+        todayCardSwitch.tintColor = .lightGray
+        todayCardSwitch.layer.cornerRadius = deadlineSwitch.frame.height / 2
+        todayCardSwitch.backgroundColor = .lightGray
+        
     }
     
     @objc private func touchUpBackButton() {
@@ -52,7 +64,7 @@ class PushAlarmTableViewController: UITableViewController, MessagingDelegate, UN
         self.dismiss(animated: true, completion: nil)
     }
     
-    @IBAction func arriveCard(_ sender: Any) {
+    @IBAction func arriveCard(_ sender: UISwitch) {
         
         let alertController = UIAlertController (title: "푸시 알림 설정", message: "세팅 하시겠습니까?", preferredStyle: .alert)
         
@@ -73,7 +85,10 @@ class PushAlarmTableViewController: UITableViewController, MessagingDelegate, UN
         
         alertController.addAction(settingsAction)
         
-        let cancelAction = UIAlertAction(title: "취소", style: .default, handler: nil)
+        let cancelAction = UIAlertAction(title: "취소", style: .default) { _ in
+            sender.isOn = true
+        }
+        
         alertController.addAction(cancelAction)
         
         present(alertController, animated: true, completion: nil)

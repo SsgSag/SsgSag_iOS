@@ -10,6 +10,7 @@ class SwipeVC: UIViewController {
     @IBOutlet private var overLapView: UIView!
     
     lazy private var posters: [Posters] = []
+    private var numberOfSwipe = 0
     
     private static let numberOfTopCards = 2
     
@@ -33,7 +34,7 @@ class SwipeVC: UIViewController {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.numberOfLines = 2
         label.font = UIFont.systemFont(ofSize: 20, weight: .medium)
-        label.text = "오늘 [\(self.posters.count)]장의\n카드를 슥삭했어요"
+        label.text = "[\(self.posters.count)]장의\n카드를 슥삭했어요"
         label.textColor = #colorLiteral(red: 0.3098039216, green: 0.3098039216, blue: 0.3098039216, alpha: 1)
         label.textAlignment = .center
         label.adjustsFontSizeToFitWidth = true
@@ -58,6 +59,7 @@ class SwipeVC: UIViewController {
         let shadowSize = CGSize(width: self.view.frame.width, height: 3)
         navigationController?.navigationBar.addColorToShadow(color: #colorLiteral(red: 0.3843137255, green: 0.4156862745, blue: 1, alpha: 1),
                                                              size: shadowSize)
+        tabBarController?.tabBar.isHidden = false
     }
     
     override func viewDidLoad() {

@@ -13,16 +13,24 @@ protocol dismissDelegate: class {
 }
 
 protocol PushDelegate: class {
-    func pushViewController(_ controller: UIViewController)
+    func pushViewController(_ controller: UIViewController, _ favoriteButton: UIButton)
+}
+
+protocol ReloadCalendarDelegate: class {
+    func reloadCalendarData()
 }
 
 class TodoListCollectionViewCell: UICollectionViewCell {
     weak var delegate: dismissDelegate?
     weak var pushDelegate: PushDelegate?
+    weak var calendarDelegate: ReloadCalendarDelegate?
     
     @IBOutlet weak var dateLabel: UILabel!
     
     @IBOutlet weak var todoListTableView: UITableView!
+    
+    private let calendarService: CalendarService
+        = DependencyContainer.shared.getDependency(key: .calendarService)
     
     var monthTodoData: [MonthTodoData]? {
         didSet {
@@ -107,11 +115,57 @@ extension TodoListCollectionViewCell: UITableViewDataSource {
     func tableView(_ tableView: UITableView,
                    didSelectRowAt indexPath: IndexPath) {
         
+        guard let cell = tableView.cellForRow(at: indexPath) as? DetailTodoListTableViewCell else {
+            return
+        }
+        
         let detailInfoVC = DetailInfoViewController()
         
         detailInfoVC.posterIdx = monthTodoData?[indexPath.row].posterIdx
 
-        pushDelegate?.pushViewController(detailInfoVC)
+        pushDelegate?.pushViewController(detailInfoVC, cell.favoriteButton)
     }
-    
+//
+//    func tableView(_ tableView: UITableView,
+//                   canEditRowAt indexPath: IndexPath) -> Bool {
+//        return true
+//    }
+//
+//    func tableView(_ tableView: UITableView,
+//                   commit editingStyle: UITableViewCell.EditingStyle,
+//                   forRowAt indexPath: IndexPath) {
+//        if editingStyle == .delete {
+//            monthTodoData?.remove(at: indexPath.row)
+//
+//            guard let posterIdx = monthTodoData?[indexPath.row].posterIdx else {
+//                return
+//            }
+//
+//            calendarService.requestDelete(posterIdx) { [weak self] result in
+//                switch result {
+//                case .success(let status):
+//                    DispatchQueue.main.async {
+//                        switch status {
+//                        case .processingSuccess:
+//                            self?.calendarDelegate?.reloadCalendarData()
+//                            print("완료")
+//                        case .dataBaseError:
+//                            return
+//                        case .serverError:
+//                            return
+//                        default:
+//                            return
+//                        }
+//                    }
+//                case .failed(let error):
+//                    print(error)
+//                    return
+//                }
+//            }
+//
+//            tableView.deleteRows(at: [indexPath],
+//                                 with: .fade)
+//        }
+//    }
+//
 }

@@ -81,6 +81,7 @@ extension CareerVC: UITableViewDelegate, UITableViewDataSource {
             
             let cell = tableView.dequeueReusableCell(withIdentifier: "PrizeCell", for: indexPath) as! NonActivityCell
             
+            cell.activityDelegate = self
             cell.careerInfo = prizeList[indexPath.row]
             cell.selectionStyle = .none
             
@@ -88,6 +89,7 @@ extension CareerVC: UITableViewDelegate, UITableViewDataSource {
         } else {
             let cell = tableView.dequeueReusableCell(withIdentifier: "CertificationCell", for: indexPath) as! NonActivityCell
             
+            cell.activityDelegate = self
             cell.careerInfo = certificationList[indexPath.row]
             cell.selectionStyle = .none
             

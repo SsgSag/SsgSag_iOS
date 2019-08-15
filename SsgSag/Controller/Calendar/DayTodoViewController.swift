@@ -146,7 +146,8 @@ class DayTodoViewController: UIViewController {
         let year = calendar.component(.year, from: date)
         let month = calendar.component(.month, from: date)
         
-        calendarServiceImp.requestMonthTodoList(year: String(year), month: String(month)) { [weak self] dataResponse in
+        calendarServiceImp.requestMonthTodoList(year: String(year),
+                                                month: String(month)) { [weak self] dataResponse in
             guard let self = self else {
                 return
             }
@@ -408,7 +409,18 @@ extension DayTodoViewController: dismissDelegate {
 }
 
 extension DayTodoViewController: PushDelegate {
-    func pushViewController(_ controller: UIViewController) {
+    func pushViewController(_ controller: UIViewController, _ favoriteButton: UIButton) {
+        guard let controller = controller as? DetailInfoViewController else {
+            return
+        }
+        
+        controller.callback = { [weak self] isFavorite in
+            if isFavorite == 1 {
+                favoriteButton.setImage(UIImage(named: "ic_favorite"), for: .normal)
+            } else {
+                favoriteButton.setImage(UIImage(named: "ic_favoritePassive"), for: .normal)
+            }
+        }
         navigationController?.pushViewController(controller, animated: true)
     }
 }

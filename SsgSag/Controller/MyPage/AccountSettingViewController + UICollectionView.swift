@@ -70,15 +70,74 @@ extension AccountSettingViewController: UICollectionViewDataSource {
                         return .init()
             }
             
-            if indexPath.row == 1 {
-                cell.setupUnalterableCell(title: settingTitles[indexPath.row],
-                                          data: "@naver.com")
-            } else {
+            guard let userData = userData else {
+                return cell
+            }
+            
+            switch indexPath.item {
+            case 0:
+                // 닉네임
+                guard let nickName = userData.userNickname else {
+                    return cell
+                }
+                
                 cell.setupCell(title: settingTitles[indexPath.row],
-                               placeholder: "\(settingTitles[indexPath.row])을/를 입력해주세요")
+                               placeholder: "\(settingTitles[indexPath.row])을/를 입력해주세요",
+                               text: nickName)
+                
+            case 1:
+                guard let email = userData.userEmail else {
+                    return cell
+                }
+                
+                cell.setupUnalterableCell(title: settingTitles[indexPath.row],
+                                          data: email)
+            case 2:
+                // 비밀번호
+                cell.setupPasswordCell(title: settingTitles[indexPath.row],
+                                       placeholder: "\(settingTitles[indexPath.row])을/를 입력해주세요",
+                                       text: "**********")
+                
+                cell.delegate = self
+            case 3:
+                // 학교
+                guard let univ = userData.userUniv else {
+                    return cell
+                }
+                
+                cell.setupCell(title: settingTitles[indexPath.row],
+                               placeholder: "\(settingTitles[indexPath.row])을/를 입력해주세요", text: univ)
+            case 4:
+                // 학과
+                guard let major = userData.userMajor else {
+                    return cell
+                }
+                
+                cell.setupCell(title: settingTitles[indexPath.row],
+                               placeholder: "\(settingTitles[indexPath.row])을/를 입력해주세요",
+                               text: major)
+            case 5:
+                // 학년
+                guard let grade = userData.userGrade else {
+                    return cell
+                }
+                
+                cell.setupCell(title: settingTitles[indexPath.row],
+                               placeholder: "\(settingTitles[indexPath.row])을/를 입력해주세요", text: String(grade))
+            case 6:
+                // 입학년도
+                guard let studentNum = userData.userStudentNum else {
+                    return cell
+                }
+                
+                cell.setupCell(title: settingTitles[indexPath.row],
+                               placeholder: "\(settingTitles[indexPath.row])을/를 입력해주세요", text: studentNum)
+            default:
+                break
             }
             
             cell.settingTextField.delegate = self
+            cell.settingTextField.tag = indexPath.item
             
             return cell
         } else {

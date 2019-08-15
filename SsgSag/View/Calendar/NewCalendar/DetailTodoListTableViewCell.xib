@@ -112,6 +112,7 @@
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
                 <outlet property="categoryButton" destination="qxt-SU-3SK" id="Dqj-Bs-7qv"/>
+                <outlet property="favoriteButton" destination="ELH-lF-4sn" id="Q91-IA-26s"/>
                 <outlet property="posterDate" destination="juv-a7-6Ne" id="OZo-4p-UKr"/>
                 <outlet property="posterImageView" destination="E7D-ZZ-2ES" id="XUe-X1-Zue"/>
                 <outlet property="posterName" destination="LBk-xq-G7v" id="vSY-Gz-I5F"/>

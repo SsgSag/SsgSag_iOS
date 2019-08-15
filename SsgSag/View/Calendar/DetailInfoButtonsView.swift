@@ -17,6 +17,7 @@ class DetailInfoButtonsView: UIView {
     private let posterService: PosterService
         = DependencyContainer.shared.getDependency(key: .posterService)
     
+    var callback: (() -> ())?
     var delegate: WebsiteDelegate?
     var posterIndex: Int?
     var isExistApplyURL: Bool? {
@@ -135,7 +136,6 @@ class DetailInfoButtonsView: UIView {
                 switch status {
                 case .processingSuccess:
                     DispatchQueue.main.async {
-                        
                         if sender.imageView?.image == UIImage(named: "ic_favoriteWhiteBoxPassive") {
                             sender.setImage(UIImage(named: "ic_favoriteWhiteBox"),
                                             for: .normal)
@@ -145,6 +145,8 @@ class DetailInfoButtonsView: UIView {
                                             for: .normal)
                             self?.isLike = 0
                         }
+                        
+                        self?.callback?()
                     }
                 case .dataBaseError:
                     print("DB 에러")

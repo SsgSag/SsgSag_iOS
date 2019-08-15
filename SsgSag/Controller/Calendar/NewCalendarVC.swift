@@ -50,7 +50,9 @@ class NewCalendarVC: UIViewController {
         return calendar
     }()
     
-    private let category = ["전체", "즐겨찾기", "공모전", "대외활동", "동아리", "인턴", "교육강연", "기타"]
+    private let category = ["공모전", "대외활동", "동아리", "인턴", "교육강연", "기타"]
+    
+    private let downloadLink = "https://ssgsag.page.link/install"
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -99,6 +101,23 @@ class NewCalendarVC: UIViewController {
         categoryCollection.alwaysBounceHorizontal = true
         
         categoryCollection.allowsMultipleSelection = true
+        
+        // header
+        let allAndFavoriteNib = UINib(nibName: "AllAndFavoriteCollectionReusableView",
+                                      bundle: nil)
+        
+        categoryCollection.register(allAndFavoriteNib,
+                                    forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
+                                    withReuseIdentifier: "allAndFavoriteHeader")
+        
+        categoryCollection.register(TempCollectionReusableView.self,
+                                    forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
+                                    withReuseIdentifier: "tempHeader")
+        
+        //footer
+        categoryCollection.register(TempCollectionReusableView.self,
+                                    forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter,
+                                    withReuseIdentifier: "tempFooter")
     }
 
     override func viewDidLayoutSubviews() {
@@ -186,6 +205,10 @@ class NewCalendarVC: UIViewController {
         }
         
         objectsToshare.append(screenshotImage)
+        
+        objectsToshare.append("슥삭 다운로드 바로가기")
+        
+        objectsToshare.append("\(downloadLink)\n")
         
         addObjects(with: objectsToshare)
     }
@@ -284,10 +307,11 @@ extension NewCalendarVC: VACalendarViewDelegate {
     
 }
 
-extension NewCalendarVC: UICollectionViewDelegate , UICollectionViewDataSource , UICollectionViewDelegateFlowLayout {
+extension NewCalendarVC: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView,
                         numberOfItemsInSection section: Int) -> Int {
-        return category.count
+//        return category.count
+        return 0
     }
     
     func collectionView(_ collectionView: UICollectionView,
@@ -296,21 +320,6 @@ extension NewCalendarVC: UICollectionViewDelegate , UICollectionViewDataSource ,
                                                       for: indexPath) as! CateogoryCollectionViewCell
         cell.categoryLabel.text = category[indexPath.item]
         
-        if indexPath.item == 0 {
-            cell.categoryLabel.font = UIFont.systemFont(ofSize: 15,
-                                                        weight: .semibold)
-            cell.categoryLabel.textColor = #colorLiteral(red: 0.3843137255, green: 0.4156862745, blue: 1, alpha: 1)
-            cell.layer.cornerRadius = 0
-        } else if indexPath.item == 1 {
-            cell.categoryLabel.font = UIFont.systemFont(ofSize: 15,
-                                                        weight: .regular)
-            cell.categoryLabel.textColor = #colorLiteral(red: 0.4666666667, green: 0.4666666667, blue: 0.4666666667, alpha: 1)
-            cell.layer.cornerRadius = 0
-            cell.selectedBarView.isHidden = true
-        } else {
-            cell.selectedBarView.isHidden = true
-        }
-        
         return cell
     }
     
@@ -318,16 +327,10 @@ extension NewCalendarVC: UICollectionViewDelegate , UICollectionViewDataSource ,
                         layout collectionViewLayout: UICollectionViewLayout,
                         sizeForItemAt indexPath: IndexPath) -> CGSize {
         
-        if indexPath.item == 0 || indexPath.item == 1 {
-            let collectionViewCellWidth = self.estimatedFrame(text: category[indexPath.item],
-                                                              font: UIFont.systemFont(ofSize: 16)).width
-            return CGSize(width: collectionViewCellWidth + 3, height: 29)
-        }
-        
         let collectionViewCellWidth = self.estimatedFrame(text: category[indexPath.item],
                                                           font: UIFont.systemFont(ofSize: 12)).width
         
-        return CGSize(width: collectionViewCellWidth + 3, height: 18)
+        return CGSize(width: collectionViewCellWidth + 5, height: 20)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
@@ -351,15 +354,8 @@ extension NewCalendarVC: UICollectionViewDelegate , UICollectionViewDataSource ,
         categorySelectedDelegate?.categorySelectedDelegate(multipleSelectedIndex)
         
         if cell.isSelected == true {
-            if indexPath.item == 0 || indexPath.item == 1 {
-                cell.categoryLabel.textColor = #colorLiteral(red: 0.3843137255, green: 0.4156862745, blue: 1, alpha: 1)
-                cell.categoryLabel.font = UIFont.systemFont(ofSize: 15,
-                                                            weight: .semibold)
-                cell.selectedBarView.isHidden = false
-            } else {
-                cell.categoryLabel.backgroundColor = category.categoryTextColor.withAlphaComponent(0.05)
-                cell.categoryLabel.textColor = category.categoryTextColor
-            }
+            cell.categoryLabel.backgroundColor = category.categoryTextColor.withAlphaComponent(0.05)
+            cell.categoryLabel.textColor = category.categoryTextColor
         }
         
     }
@@ -375,23 +371,47 @@ extension NewCalendarVC: UICollectionViewDelegate , UICollectionViewDataSource ,
         categorySelectedDelegate?.categorySelectedDelegate(multipleSelectedIndex)
         
         cell.categoryLabel.backgroundColor = .clear
-        if indexPath.item == 0 || indexPath.item == 1 {
-            cell.categoryLabel.textColor = #colorLiteral(red: 0.3872452974, green: 0.3872550726, blue: 0.3872497976, alpha: 1)
-            cell.selectedBarView.isHidden = true
-            cell.categoryLabel.font = UIFont.systemFont(ofSize: 15,
-                                                        weight: .regular)
+        cell.categoryLabel.textColor = #colorLiteral(red: 0.8196078431, green: 0.8196078431, blue: 0.8196078431, alpha: 1)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView,
+                        viewForSupplementaryElementOfKind kind: String,
+                        at indexPath: IndexPath) -> UICollectionReusableView {
+        if kind == UICollectionView.elementKindSectionHeader {
+            guard let header
+                = collectionView.dequeueReusableSupplementaryView(ofKind: kind,
+                                                                  withReuseIdentifier: "allAndFavoriteHeader",
+                                                                  for: indexPath)
+                    as? AllAndFavoriteCollectionReusableView else {
+                return collectionView.dequeueReusableSupplementaryView(ofKind: kind,
+                                                                       withReuseIdentifier: "tempHeader",
+                                                                       for: indexPath)
+            }
+            
+            header.delegate = self
+            
+            return header
         } else {
-            cell.categoryLabel.textColor = #colorLiteral(red: 0.8196078431, green: 0.8196078431, blue: 0.8196078431, alpha: 1)
+            return collectionView.dequeueReusableSupplementaryView(ofKind: kind,
+                                                                   withReuseIdentifier: "tempFooter",
+                                                                   for: indexPath)
         }
     }
     
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
+        return CGSize(width: 90, height: collectionView.frame.height - 2)
+    }
+}
+
+extension NewCalendarVC: MenuSelectedDelegate {
+    func selectedMenu(index: Int) {
+        categorySelectedDelegate?.categorySelectedDelegate([index])
+    }
 }
 
 enum CategoryState: Int {
-    case all = 0
-    case favorite = 1
-    case contest
-    case act
+    case contest = 0
+    case act = 1
     case club
     case intern
     case education
@@ -411,8 +431,6 @@ enum CategoryState: Int {
             return #colorLiteral(red: 0.1803921569, green: 0.7411764706, blue: 0.4784313725, alpha: 1)
         case .other:
             return #colorLiteral(red: 0.3098039216, green: 0.3098039216, blue: 0.3098039216, alpha: 1)
-        default:
-            return .white
         }
     }
 }

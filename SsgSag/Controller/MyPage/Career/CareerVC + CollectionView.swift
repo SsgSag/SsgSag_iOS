@@ -21,9 +21,11 @@ extension CareerVC : UICollectionViewDelegate, UICollectionViewDataSource, UICol
         case 0 :
             cell.label.text = "대외활동"
             getData(careerType: 0)
-        case 1 : cell.label.text = "수상내역"
+        case 1 :
+            cell.label.text = "수상내역"
             getData(careerType: 1)
-        case 2 : cell.label.text = "자격증"
+        case 2 :
+            cell.label.text = "자격증"
             getData(careerType: 2)
         default: break
         }

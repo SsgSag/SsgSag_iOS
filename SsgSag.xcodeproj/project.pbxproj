@@ -164,6 +164,10 @@
 		D166AC7522D76DFC00ED82DD /* MenuBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = D166AC7422D76DFC00ED82DD /* MenuBar.swift */; };
 		D17A1C4222ED8A6200939788 /* InterestServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = D17A1C4122ED8A6200939788 /* InterestServiceProtocol.swift */; };
 		D17A1C4422ED8D2F00939788 /* SignUpServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = D17A1C4322ED8D2F00939788 /* SignUpServiceProtocol.swift */; };
+		D1B2F43523013BAA00074448 /* AllAndFavoriteCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1B2F43323013BAA00074448 /* AllAndFavoriteCollectionReusableView.swift */; };
+		D1B2F43623013BAA00074448 /* AllAndFavoriteCollectionReusableView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D1B2F43423013BAA00074448 /* AllAndFavoriteCollectionReusableView.xib */; };
+		D1C7C1FD22FFEF3F001BDB5D /* UserDefaults+.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1C7C1FC22FFEF3F001BDB5D /* UserDefaults+.swift */; };
+		D1C7C1FF22FFFA9A001BDB5D /* ChangePasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1C7C1FE22FFFA9A001BDB5D /* ChangePasswordViewController.swift */; };
 		D1C9151122FD3B6F00189FD2 /* DetailImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1C9151022FD3B6F00189FD2 /* DetailImageViewController.swift */; };
 		D1C9151322FD5D9800189FD2 /* KeyboardService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1C9151222FD5D9800189FD2 /* KeyboardService.swift */; };
 		D1C9151522FD838B00189FD2 /* CommentServiceImp.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1C9151422FD838B00189FD2 /* CommentServiceImp.swift */; };
@@ -176,6 +180,7 @@
 		D1CD5DE722E5CE240033FCB3 /* PostTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1CD5DE622E5CE240033FCB3 /* PostTableViewCell.swift */; };
 		D1CD5DE922E5E6BA0033FCB3 /* AccountSettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1CD5DE822E5E6BA0033FCB3 /* AccountSettingViewController.swift */; };
 		D1CF960622DDC0B70069C75F /* PosterDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1CF960522DDC0B70069C75F /* PosterDetail.swift */; };
+		D1CF9B752302E77B005B6EFA /* InternFilterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1CF9B742302E77B005B6EFA /* InternFilterViewController.swift */; };
 		D1E037CC22F2C25A0081B8A1 /* FindPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1E037CB22F2C25A0081B8A1 /* FindPasswordViewController.swift */; };
 		D1E037CE22F2C8C10081B8A1 /* TempPassword.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1E037CD22F2C8C10081B8A1 /* TempPassword.swift */; };
 		D1E0B02922ED9619003F84D6 /* CareerServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1E0B02822ED9619003F84D6 /* CareerServiceProtocol.swift */; };
@@ -193,6 +198,7 @@
 		D1E81E6F22DB270B004DAA00 /* MenuCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1E81E6E22DB270B004DAA00 /* MenuCollectionViewCell.swift */; };
 		D1E81E7122DC7F84004DAA00 /* majorListByUniv.json in Resources */ = {isa = PBXBuildFile; fileRef = D1E81E7022DC7F84004DAA00 /* majorListByUniv.json */; };
 		D1E9B3D522E594D8007CB6D2 /* SignUp.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1E9B3D422E594D8007CB6D2 /* SignUp.swift */; };
+		D1F3A280230529B3007B72E1 /* MypageTableHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1F3A27F230529B3007B72E1 /* MypageTableHeaderView.swift */; };
 		D1FB05A722E6C917001425CF /* SettingTextFieldCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1FB05A522E6C917001425CF /* SettingTextFieldCollectionViewCell.swift */; };
 		D1FB05A822E6C917001425CF /* SettingTextFieldCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D1FB05A622E6C917001425CF /* SettingTextFieldCollectionViewCell.xib */; };
 		D1FB05AB22E6D68D001425CF /* SettingProfileImageCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1FB05A922E6D68D001425CF /* SettingProfileImageCollectionReusableView.swift */; };
@@ -424,6 +430,10 @@
 		D166AC7422D76DFC00ED82DD /* MenuBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuBar.swift; sourceTree = "<group>"; };
 		D17A1C4122ED8A6200939788 /* InterestServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterestServiceProtocol.swift; sourceTree = "<group>"; };
 		D17A1C4322ED8D2F00939788 /* SignUpServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpServiceProtocol.swift; sourceTree = "<group>"; };
+		D1B2F43323013BAA00074448 /* AllAndFavoriteCollectionReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllAndFavoriteCollectionReusableView.swift; sourceTree = "<group>"; };
+		D1B2F43423013BAA00074448 /* AllAndFavoriteCollectionReusableView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AllAndFavoriteCollectionReusableView.xib; sourceTree = "<group>"; };
+		D1C7C1FC22FFEF3F001BDB5D /* UserDefaults+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserDefaults+.swift"; sourceTree = "<group>"; };
+		D1C7C1FE22FFFA9A001BDB5D /* ChangePasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangePasswordViewController.swift; sourceTree = "<group>"; };
 		D1C9151022FD3B6F00189FD2 /* DetailImageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailImageViewController.swift; sourceTree = "<group>"; };
 		D1C9151222FD5D9800189FD2 /* KeyboardService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardService.swift; sourceTree = "<group>"; };
 		D1C9151422FD838B00189FD2 /* CommentServiceImp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentServiceImp.swift; sourceTree = "<group>"; };
@@ -436,6 +446,7 @@
 		D1CD5DE622E5CE240033FCB3 /* PostTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostTableViewCell.swift; sourceTree = "<group>"; };
 		D1CD5DE822E5E6BA0033FCB3 /* AccountSettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountSettingViewController.swift; sourceTree = "<group>"; };
 		D1CF960522DDC0B70069C75F /* PosterDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PosterDetail.swift; sourceTree = "<group>"; };
+		D1CF9B742302E77B005B6EFA /* InternFilterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InternFilterViewController.swift; sourceTree = "<group>"; };
 		D1E037CB22F2C25A0081B8A1 /* FindPasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindPasswordViewController.swift; sourceTree = "<group>"; };
 		D1E037CD22F2C8C10081B8A1 /* TempPassword.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TempPassword.swift; sourceTree = "<group>"; };
 		D1E0B02822ED9619003F84D6 /* CareerServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CareerServiceProtocol.swift; sourceTree = "<group>"; };
@@ -453,6 +464,7 @@
 		D1E81E6E22DB270B004DAA00 /* MenuCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuCollectionViewCell.swift; sourceTree = "<group>"; };
 		D1E81E7022DC7F84004DAA00 /* majorListByUniv.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = majorListByUniv.json; sourceTree = "<group>"; };
 		D1E9B3D422E594D8007CB6D2 /* SignUp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUp.swift; sourceTree = "<group>"; };
+		D1F3A27F230529B3007B72E1 /* MypageTableHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MypageTableHeaderView.swift; sourceTree = "<group>"; };
 		D1FB05A522E6C917001425CF /* SettingTextFieldCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingTextFieldCollectionViewCell.swift; sourceTree = "<group>"; };
 		D1FB05A622E6C917001425CF /* SettingTextFieldCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SettingTextFieldCollectionViewCell.xib; sourceTree = "<group>"; };
 		D1FB05A922E6D68D001425CF /* SettingProfileImageCollectionReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingProfileImageCollectionReusableView.swift; sourceTree = "<group>"; };
@@ -613,6 +625,7 @@
 				FA806B9922060A8F00EB38D6 /* Category.swift */,
 				845F12C622672A3200DFF42E /* DateFormatter.swift */,
 				84F1670B228011C000071075 /* StringToDate.swift */,
+				D1C7C1FC22FFEF3F001BDB5D /* UserDefaults+.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -717,6 +730,8 @@
 				D1FB05AD22E6DC2F001425CF /* AccountSettingViewController + UICollectionView.swift */,
 				D13F378622E9BEEF0004875C /* LogoutViewController.swift */,
 				D13F378822E9C3250004875C /* MembershipCancelViewController.swift */,
+				D1C7C1FE22FFFA9A001BDB5D /* ChangePasswordViewController.swift */,
+				D1CF9B742302E77B005B6EFA /* InternFilterViewController.swift */,
 			);
 			path = MyPage;
 			sourceTree = "<group>";
@@ -977,6 +992,7 @@
 				D1FB05AA22E6D68D001425CF /* SettingProfileImageCollectionReusableView.xib */,
 				D1FB05B322E6E3AE001425CF /* SettingMenuCollectionViewCell.swift */,
 				D1FB05B422E6E3AE001425CF /* SettingMenuCollectionViewCell.xib */,
+				D1F3A27F230529B3007B72E1 /* MypageTableHeaderView.swift */,
 			);
 			path = MyPage;
 			sourceTree = "<group>";
@@ -1003,6 +1019,8 @@
 				84B8630B22C2562500E4B0C1 /* CateogoryCollectionViewCell.swift */,
 				D1E30D9F22F04D3A0023DF56 /* TodoListCollectionViewCell.swift */,
 				D1E30DA022F04D3A0023DF56 /* TodoListCollectionViewCell.xib */,
+				D1B2F43323013BAA00074448 /* AllAndFavoriteCollectionReusableView.swift */,
+				D1B2F43423013BAA00074448 /* AllAndFavoriteCollectionReusableView.xib */,
 			);
 			path = NewCalendar;
 			sourceTree = "<group>";
@@ -1278,6 +1296,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8496818E22AFDDD1004A4A63 /* newCalendarStoryboard.storyboard in Resources */,
+				D1B2F43623013BAA00074448 /* AllAndFavoriteCollectionReusableView.xib in Resources */,
 				D1FB05B622E6E3AE001425CF /* SettingMenuCollectionViewCell.xib in Resources */,
 				84BA694B21DB395400BA8CB8 /* MyPageStoryBoard.storyboard in Resources */,
 				84E19CE421DCC9F4006F72EC /* LoginStoryBoard.storyboard in Resources */,
@@ -1464,6 +1483,7 @@
 				8496818822AFD3FE004A4A63 /* VAWeekDaysView.swift in Sources */,
 				D1E81E6D22DB181E004DAA00 /* FeedPageCollectionViewCell.swift in Sources */,
 				D166AC5D22D46D4100ED82DD /* MonthTodoList.swift in Sources */,
+				D1CF9B752302E77B005B6EFA /* InternFilterViewController.swift in Sources */,
 				D110809D22E04A9800F345A8 /* ContactInfoCollectionViewCell.swift in Sources */,
 				846E622D22928B1A0083E3CD /* ViewControllerIdentifier.swift in Sources */,
 				840FEDC52207569D00581A3B /* CalendarView + extension.swift in Sources */,
@@ -1511,6 +1531,7 @@
 				D1FB05A722E6C917001425CF /* SettingTextFieldCollectionViewCell.swift in Sources */,
 				846E622722901DE90083E3CD /* BasicNetworkModel.swift in Sources */,
 				FAD323DB21E36FA6000C4FBA /* AddCertificationVC.swift in Sources */,
+				D1B2F43523013BAA00074448 /* AllAndFavoriteCollectionReusableView.swift in Sources */,
 				D11080B822E09F6E00F345A8 /* DetailInfoButtonsView.swift in Sources */,
 				FA3A344221E7285C00668908 /* ConfirmProfileVC.swift in Sources */,
 				D11080AD22E0820300F345A8 /* CommentCollectionViewCell.swift in Sources */,
@@ -1540,6 +1561,7 @@
 				84646C3622894AAD005D3F1C /* ServiceInfoTableViewCell.swift in Sources */,
 				D1E30DA122F04D3A0023DF56 /* TodoListCollectionViewCell.swift in Sources */,
 				D10B6E2522F4268E007B9BEA /* BoardPostCollectionViewCell.swift in Sources */,
+				D1C7C1FD22FFEF3F001BDB5D /* UserDefaults+.swift in Sources */,
 				FAA2386721FF32B400C6DB13 /* ZoomPosterImageVC.swift in Sources */,
 				842C619F21DD1807001BA6D8 /* Posters.swift in Sources */,
 				84B8630422B3509400E4B0C1 /* ClientKey.swift in Sources */,
@@ -1566,6 +1588,7 @@
 				D11080A922E07FF000F345A8 /* AnalysticsCollectionViewCell.swift in Sources */,
 				84A45D0D225F9C8400C60287 /* ParameterEncoding.swift in Sources */,
 				845928E321D35F09001DF6CC /* PageViewController.swift in Sources */,
+				D1F3A280230529B3007B72E1 /* MypageTableHeaderView.swift in Sources */,
 				D1C9151722FD839300189FD2 /* CommentServiceProtocol.swift in Sources */,
 				FAA2386F2202F34A00C6DB13 /* CareerVC + TableView.swift in Sources */,
 				D166AC5F22D4726000ED82DD /* DayTodoList.swift in Sources */,
@@ -1577,6 +1600,7 @@
 				D1E517AF22E023890001EAA5 /* DetailInfoViewController.swift in Sources */,
 				D1C9151522FD838B00189FD2 /* CommentServiceImp.swift in Sources */,
 				845928D921D09F30001DF6CC /* CalenderVC.swift in Sources */,
+				D1C7C1FF22FFFA9A001BDB5D /* ChangePasswordViewController.swift in Sources */,
 				846356772293D67B0060ED91 /* PushAlarmTableViewController.swift in Sources */,
 				D11080B122E0917F00F345A8 /* CommentWriteCollectionViewCell.swift in Sources */,
 				846E6231229291880083E3CD /* NotificationName.swift in Sources */,

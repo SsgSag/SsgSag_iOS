@@ -122,57 +122,89 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="이메일 주소로 임시 비밀번호를 보내드립니다" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CSA-df-XO3">
-                                <rect key="frame" x="18" y="57" width="339" height="16"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                                <color key="textColor" red="0.38431372549999998" green="0.41568627450000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9cG-uV-MeH">
-                                <rect key="frame" x="18" y="79" width="266.5" height="57.5"/>
-                                <string key="text">가입 시 등록했던
-이메일 주소를 입력해주세요.</string>
-                                <fontDescription key="fontDescription" type="system" pointSize="24"/>
-                                <color key="textColor" red="0.18431372549019609" green="0.18431372549019609" blue="0.18431372549019609" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" translatesAutoresizingMaskIntoConstraints="NO" id="70U-NB-17c">
-                                <rect key="frame" x="18" y="265.5" width="339" height="53"/>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XOk-1z-qRR">
+                                <rect key="frame" x="0.0" y="20" width="375" height="599"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="이메일 주소" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zIk-Bs-obq">
-                                        <rect key="frame" x="0.0" y="0.0" width="46.5" height="12"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="10"/>
-                                        <color key="textColor" red="0.38431372549999998" green="0.41568627450000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="예) ssgsag.univ@gmail.com" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="J40-XW-o0g">
-                                        <rect key="frame" x="0.0" y="12" width="339" height="40"/>
-                                        <color key="tintColor" red="0.38431372549999998" green="0.41568627450000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sJU-vX-ccM">
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="599"/>
+                                        <subviews>
+                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="NvZ-1W-UqA">
+                                                <rect key="frame" x="18" y="30" width="266.5" height="78.5"/>
+                                                <subviews>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="이메일 주소로 임시 비밀번호를 보내드립니다" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CSA-df-XO3">
+                                                        <rect key="frame" x="0.0" y="0.0" width="228.5" height="16"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                                        <color key="textColor" red="0.38431372549999998" green="0.41568627450000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9cG-uV-MeH">
+                                                        <rect key="frame" x="0.0" y="21" width="266.5" height="57.5"/>
+                                                        <string key="text">가입 시 등록했던
+이메일 주소를 입력해주세요.</string>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="24"/>
+                                                        <color key="textColor" red="0.18431372549019609" green="0.18431372549019609" blue="0.18431372549019609" alpha="1" colorSpace="calibratedRGB"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                </subviews>
+                                            </stackView>
+                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" translatesAutoresizingMaskIntoConstraints="NO" id="70U-NB-17c">
+                                                <rect key="frame" x="18" y="273" width="339" height="53"/>
+                                                <subviews>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="이메일 주소" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zIk-Bs-obq">
+                                                        <rect key="frame" x="0.0" y="0.0" width="46.5" height="12"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="10"/>
+                                                        <color key="textColor" red="0.38431372549999998" green="0.41568627450000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="예) ssgsag.univ@gmail.com" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="J40-XW-o0g">
+                                                        <rect key="frame" x="0.0" y="12" width="339" height="40"/>
+                                                        <color key="tintColor" red="0.38431372549999998" green="0.41568627450000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="40" id="lbT-5p-bE8"/>
+                                                        </constraints>
+                                                        <nil key="textColor"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                        <textInputTraits key="textInputTraits" keyboardType="emailAddress" returnKeyType="done"/>
+                                                        <connections>
+                                                            <outlet property="delegate" destination="OVK-m7-LAG" id="lND-zy-8m0"/>
+                                                        </connections>
+                                                    </textField>
+                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TH2-Gn-moC">
+                                                        <rect key="frame" x="0.0" y="52" width="339" height="1"/>
+                                                        <color key="backgroundColor" red="0.8784313725490196" green="0.8784313725490196" blue="0.8784313725490196" alpha="1" colorSpace="calibratedRGB"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="1" id="bfl-xs-zpX"/>
+                                                        </constraints>
+                                                    </view>
+                                                </subviews>
+                                                <constraints>
+                                                    <constraint firstAttribute="trailing" secondItem="J40-XW-o0g" secondAttribute="trailing" id="V0Y-KR-g8A"/>
+                                                    <constraint firstAttribute="trailing" secondItem="TH2-Gn-moC" secondAttribute="trailing" id="e0g-fd-6wI"/>
+                                                    <constraint firstItem="TH2-Gn-moC" firstAttribute="leading" secondItem="70U-NB-17c" secondAttribute="leading" id="h78-tP-72R"/>
+                                                    <constraint firstItem="J40-XW-o0g" firstAttribute="leading" secondItem="70U-NB-17c" secondAttribute="leading" id="hZX-0I-Fjk"/>
+                                                </constraints>
+                                            </stackView>
+                                        </subviews>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="40" id="lbT-5p-bE8"/>
-                                        </constraints>
-                                        <nil key="textColor"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits" keyboardType="emailAddress" returnKeyType="done"/>
-                                        <connections>
-                                            <outlet property="delegate" destination="OVK-m7-LAG" id="lND-zy-8m0"/>
-                                        </connections>
-                                    </textField>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TH2-Gn-moC">
-                                        <rect key="frame" x="0.0" y="52" width="339" height="1"/>
-                                        <color key="backgroundColor" red="0.8784313725490196" green="0.8784313725490196" blue="0.8784313725490196" alpha="1" colorSpace="calibratedRGB"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="1" id="bfl-xs-zpX"/>
+                                            <constraint firstItem="70U-NB-17c" firstAttribute="centerX" secondItem="sJU-vX-ccM" secondAttribute="centerX" id="2wN-OV-vWa"/>
+                                            <constraint firstItem="NvZ-1W-UqA" firstAttribute="top" secondItem="sJU-vX-ccM" secondAttribute="top" constant="30" id="CE2-T5-IKl"/>
+                                            <constraint firstItem="70U-NB-17c" firstAttribute="centerY" secondItem="sJU-vX-ccM" secondAttribute="centerY" id="CIG-dJ-RQL"/>
+                                            <constraint firstItem="NvZ-1W-UqA" firstAttribute="leading" secondItem="sJU-vX-ccM" secondAttribute="leading" constant="18" id="VlG-ae-DOl"/>
+                                            <constraint firstItem="70U-NB-17c" firstAttribute="leading" secondItem="sJU-vX-ccM" secondAttribute="leading" constant="18" id="qhj-JF-vHs"/>
+                                            <constraint firstAttribute="trailing" secondItem="70U-NB-17c" secondAttribute="trailing" constant="18" id="udq-Wz-flr"/>
                                         </constraints>
                                     </view>
                                 </subviews>
                                 <constraints>
-                                    <constraint firstAttribute="trailing" secondItem="J40-XW-o0g" secondAttribute="trailing" id="V0Y-KR-g8A"/>
-                                    <constraint firstAttribute="trailing" secondItem="TH2-Gn-moC" secondAttribute="trailing" id="e0g-fd-6wI"/>
-                                    <constraint firstItem="TH2-Gn-moC" firstAttribute="leading" secondItem="70U-NB-17c" secondAttribute="leading" id="h78-tP-72R"/>
-                                    <constraint firstItem="J40-XW-o0g" firstAttribute="leading" secondItem="70U-NB-17c" secondAttribute="leading" id="hZX-0I-Fjk"/>
+                                    <constraint firstItem="sJU-vX-ccM" firstAttribute="leading" secondItem="XOk-1z-qRR" secondAttribute="leading" id="L7W-ws-2dB"/>
+                                    <constraint firstAttribute="bottom" secondItem="sJU-vX-ccM" secondAttribute="bottom" id="Svg-XL-K20"/>
+                                    <constraint firstAttribute="trailing" secondItem="sJU-vX-ccM" secondAttribute="trailing" id="bPb-s1-VuC"/>
+                                    <constraint firstItem="sJU-vX-ccM" firstAttribute="height" secondItem="XOk-1z-qRR" secondAttribute="height" id="ien-2L-dcN"/>
+                                    <constraint firstItem="sJU-vX-ccM" firstAttribute="width" secondItem="XOk-1z-qRR" secondAttribute="width" id="v0L-k3-bM6"/>
+                                    <constraint firstItem="sJU-vX-ccM" firstAttribute="top" secondItem="XOk-1z-qRR" secondAttribute="top" id="xTU-A7-eua"/>
                                 </constraints>
-                            </stackView>
+                            </scrollView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nCs-5M-vYh">
                                 <rect key="frame" x="0.0" y="667" width="375" height="0.0"/>
                                 <color key="backgroundColor" red="0.78823529411764703" green="0.78823529411764703" blue="0.78823529411764703" alpha="1" colorSpace="calibratedRGB"/>
@@ -198,17 +230,13 @@
                             <constraint firstAttribute="bottom" secondItem="nCs-5M-vYh" secondAttribute="bottom" id="2To-B8-HnY"/>
                             <constraint firstItem="65P-o4-hO9" firstAttribute="trailing" secondItem="Pt7-nf-SaH" secondAttribute="trailing" id="32h-8M-NZA"/>
                             <constraint firstItem="65P-o4-hO9" firstAttribute="bottom" secondItem="Pt7-nf-SaH" secondAttribute="bottom" id="3Uw-K5-G9t"/>
-                            <constraint firstItem="65P-o4-hO9" firstAttribute="trailing" secondItem="70U-NB-17c" secondAttribute="trailing" constant="18" id="6mu-Sb-flV"/>
                             <constraint firstItem="Pt7-nf-SaH" firstAttribute="leading" secondItem="65P-o4-hO9" secondAttribute="leading" id="6q8-QY-zna"/>
-                            <constraint firstItem="70U-NB-17c" firstAttribute="top" secondItem="9cG-uV-MeH" secondAttribute="bottom" constant="129" id="BXs-C6-uvp"/>
-                            <constraint firstItem="CSA-df-XO3" firstAttribute="top" secondItem="65P-o4-hO9" secondAttribute="top" constant="37" id="DAa-zE-sF6"/>
-                            <constraint firstItem="70U-NB-17c" firstAttribute="leading" secondItem="65P-o4-hO9" secondAttribute="leading" constant="18" id="GuZ-T6-f6S"/>
                             <constraint firstItem="nCs-5M-vYh" firstAttribute="top" secondItem="Pt7-nf-SaH" secondAttribute="bottom" id="GzW-fB-htH"/>
-                            <constraint firstItem="9cG-uV-MeH" firstAttribute="leading" secondItem="65P-o4-hO9" secondAttribute="leading" constant="18" id="OVD-Jj-jam"/>
-                            <constraint firstItem="65P-o4-hO9" firstAttribute="trailing" secondItem="CSA-df-XO3" secondAttribute="trailing" constant="18" id="TEK-go-aat"/>
+                            <constraint firstItem="XOk-1z-qRR" firstAttribute="leading" secondItem="65P-o4-hO9" secondAttribute="leading" id="JID-zb-n56"/>
+                            <constraint firstItem="XOk-1z-qRR" firstAttribute="top" secondItem="65P-o4-hO9" secondAttribute="top" id="V6C-BI-AuW"/>
                             <constraint firstItem="65P-o4-hO9" firstAttribute="trailing" secondItem="nCs-5M-vYh" secondAttribute="trailing" id="VKd-fB-uNE"/>
-                            <constraint firstItem="9cG-uV-MeH" firstAttribute="top" secondItem="CSA-df-XO3" secondAttribute="bottom" constant="6" id="Wrv-42-TvU"/>
-                            <constraint firstItem="CSA-df-XO3" firstAttribute="leading" secondItem="65P-o4-hO9" secondAttribute="leading" constant="18" id="adb-sH-5fW"/>
+                            <constraint firstItem="65P-o4-hO9" firstAttribute="trailing" secondItem="XOk-1z-qRR" secondAttribute="trailing" id="aZX-R1-jM8"/>
+                            <constraint firstItem="Pt7-nf-SaH" firstAttribute="top" secondItem="XOk-1z-qRR" secondAttribute="bottom" id="fnt-jg-BP8"/>
                             <constraint firstItem="nCs-5M-vYh" firstAttribute="leading" secondItem="65P-o4-hO9" secondAttribute="leading" id="qis-s1-Bx1"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="65P-o4-hO9"/>
@@ -220,7 +248,9 @@
                     <connections>
                         <outlet property="emailTextField" destination="J40-XW-o0g" id="yTS-OT-wIH"/>
                         <outlet property="safeAreaView" destination="nCs-5M-vYh" id="FPt-1s-yZV"/>
+                        <outlet property="scrollView" destination="XOk-1z-qRR" id="grI-US-tjV"/>
                         <outlet property="sendButton" destination="Pt7-nf-SaH" id="PSY-CJ-6jp"/>
+                        <outlet property="textFieldStackView" destination="70U-NB-17c" id="tFi-KJ-4Mt"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="BiT-Hk-UTZ" userLabel="First Responder" sceneMemberID="firstResponder"/>

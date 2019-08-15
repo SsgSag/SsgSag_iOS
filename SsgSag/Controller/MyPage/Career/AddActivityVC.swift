@@ -72,8 +72,8 @@ class AddActivityVC: UIViewController, UITextViewDelegate, UITextFieldDelegate {
         
         guard let data = self.activityData else {return}
         
-        let startDate:Date = DateCaculate.stringToDateWithBasicFormatter(using: data.careerDate1)
-        let endDate:Date = DateCaculate.stringToDateWithBasicFormatter(using: data.careerDate2 ?? "")
+        let startDate: Date = DateCaculate.stringToDateWithBasicFormatter(using: data.careerDate1 ?? "")
+        let endDate: Date = DateCaculate.stringToDateWithBasicFormatter(using: data.careerDate2 ?? "")
         
         var startDateString = ""
         var endDateString = ""
@@ -114,6 +114,11 @@ class AddActivityVC: UIViewController, UITextViewDelegate, UITextFieldDelegate {
     }
     
     @IBAction func touchUpSaveButton(_ sender: Any) {
+        guard titleTextField.hasText else {
+            simplerAlert(title: "활동명을 입력해주세요")
+            return
+        }
+        
         postData()
     }
     

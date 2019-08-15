@@ -16,11 +16,13 @@ class DetailInfoViewController: UIViewController {
     private var commentServiceImp: CommentService
         = DependencyContainer.shared.getDependency(key: .commentService)
     
+    var currentTextField: UITextField?
+    var callback: ((Int) -> ())?
     var posterIdx: Int?
     var posterDetailData: DataClass?
     private var isFolding: Bool = false
     
-    let downloadLink = "https://itunes.apple.com/kr/app/%EC%8A%A5%EC%82%AD/id1457422029?mt=8"
+    let downloadLink = "https://ssgsag.page.link/install"
     
     private lazy var infoCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
@@ -48,6 +50,9 @@ class DetailInfoViewController: UIViewController {
     lazy var buttonsView: DetailInfoButtonsView = {
         let view = DetailInfoButtonsView()
         view.delegate = self
+        view.callback = { [weak self] in
+            self?.requestDatas()
+        }
         return view
     }()
     
@@ -220,6 +225,7 @@ class DetailInfoViewController: UIViewController {
     }
     
     @objc private func touchUpBackButton() {
+        callback?(buttonsView.isLike ?? 0)
         navigationController?.popViewController(animated: true)
     }
     
@@ -255,6 +261,30 @@ class DetailInfoViewController: UIViewController {
         self.present(activityVC, animated: true, completion: nil)
     }
     
+    func changeOffsetYWhenShowKeyboard() {
+        infoCollectionView.contentOffset.y = infoCollectionView.contentOffset.y + 263 - buttonsView.frame.height
+    }
+    
+    func changeOffsetYWhenHideKeyboard() {
+        infoCollectionView.contentOffset.y = infoCollectionView.contentOffset.y - 263 + buttonsView.frame.height
+    }
+    
+    func titleStringByCategory() -> [String] {
+        switch posterDetailData?.categoryIdx {
+        case 0:
+            return ["주제", "지원자격", "시상내역"]
+        case 1:
+            return ["지원자격", "활동내역", "혜택"]
+        case 2:
+            // 인턴
+            return ["모집분야", "지원자격", "근무지역"]
+        case 3:
+            return ["활동분야", "모임시간", "혜택"]
+        default:
+            return ["항목1", "항목2", "항목3"]
+        }
+    }
+    
 }
 
 extension DetailInfoViewController: UICollectionViewDelegate {
@@ -269,6 +299,8 @@ extension DetailInfoViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView,
                         cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let infoTitles = titleStringByCategory()
+        
         switch indexPath.item {
         case 0:
             guard let cell
@@ -285,7 +317,7 @@ extension DetailInfoViewController: UICollectionViewDataSource {
                                                         return .init()
             }
             
-            cell.configure(titleString: "항목",
+            cell.configure(titleString: infoTitles[0],
                            detailString: posterDetailData?.outline ?? "")
             
             return cell
@@ -296,7 +328,7 @@ extension DetailInfoViewController: UICollectionViewDataSource {
                                                         return .init()
             }
             
-            cell.configure(titleString: "항목",
+            cell.configure(titleString: infoTitles[1],
                            detailString: posterDetailData?.target ?? "")
             
             return cell
@@ -307,7 +339,7 @@ extension DetailInfoViewController: UICollectionViewDataSource {
                                                         return .init()
             }
             
-            cell.configure(titleString: "항목",
+            cell.configure(titleString: infoTitles[2],
                            detailString: posterDetailData?.benefit ?? "")
             
             return cell
@@ -349,6 +381,7 @@ extension DetailInfoViewController: UICollectionViewDataSource {
             }
             
             cell.delegate = self
+            cell.commentWriteTextField.delegate = self
             
             return cell
         default:
@@ -407,6 +440,8 @@ extension DetailInfoViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView,
                         didSelectItemAt indexPath: IndexPath) {
+        currentTextField?.resignFirstResponder()
+        
         switch indexPath.item {
         case 0:
             // 상세 이미지
@@ -494,6 +529,23 @@ extension DetailInfoViewController: UICollectionViewDelegateFlowLayout {
     }
 }
 
+extension DetailInfoViewController: UITextFieldDelegate {
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        currentTextField = textField
+    }
+    
+    func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
+        changeOffsetYWhenShowKeyboard()
+        return true
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        changeOffsetYWhenHideKeyboard()
+        return true
+    }
+}
+
 extension DetailInfoViewController: WebsiteDelegate {
     func moveToWebsite(isApply: Bool) {
         if isApply {
@@ -513,15 +565,6 @@ extension DetailInfoViewController: WebsiteDelegate {
 }
 
 extension DetailInfoViewController: CommentWriteDelegate {
-    func touchUpTextField() {
-//        let height = KeyboardService.keyboardHeight()
-        infoCollectionView.contentOffset.y = infoCollectionView.contentOffset.y + 263 - buttonsView.frame.height
-    }
-    
-    func returnTextField() {
-        infoCollectionView.contentOffset.y = infoCollectionView.contentOffset.y - 263 + buttonsView.frame.height
-    }
-    
     func commentRegister(text: String) {
         guard let index = posterIdx else {
             return

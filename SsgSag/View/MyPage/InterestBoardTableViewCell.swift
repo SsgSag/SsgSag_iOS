@@ -26,13 +26,17 @@ class InterestBoardTableViewCell: UITableViewCell {
         didSet {
             guard let interestInfo = self.interestInfo else {return}
             
-            guard let interestName = interestInfo.interestName else {return}
+            guard let interestName = interestInfo.interestName,
+                let userIdx = interestInfo.userIdx,
+                let interestType = InterestType(rawValue: interestName),
+                let colorHexString = interestInfo.interestUrl else {return}
             
-            guard let userIdx = interestInfo.userIdx else {return}
-        
-            guard let interestType = InterestType(rawValue: interestName) else {return}
+            print(colorHexString)
             
             categoryButton.setTitle(interestName, for: .normal)
+            
+            categoryButton.backgroundColor = UIColor(hex: colorHexString)?.withAlphaComponent(0.08)
+            categoryButton.setTitleColor(UIColor(hex: colorHexString), for: .normal)
             
             hashTag.text = interestType.hashTagString()
             
@@ -55,10 +59,6 @@ class InterestBoardTableViewCell: UITableViewCell {
     private func changeAllColorToFollow() {
         selectFollow.setTitle("팔로우", for: .normal)
         selectFollow.backgroundColor = #colorLiteral(red: 0.4603668451, green: 0.5182471275, blue: 1, alpha: 1)
-        
-        categoryButton.setTitleColor(#colorLiteral(red: 0.4603668451, green: 0.5182471275, blue: 1, alpha: 1), for: .normal)
-        categoryButton.backgroundColor = #colorLiteral(red: 0.4603668451, green: 0.5182471275, blue: 1, alpha: 0.08)
-        
     }
     
     
@@ -126,5 +126,29 @@ extension UIView {
         set {
             layer.borderColor = newValue?.cgColor
         }
+    }
+}
+
+extension UIColor {
+    public convenience init?(hex: String) {
+        let r, g, b: CGFloat
+        
+        if hex.hasPrefix("#") {
+            let start = hex.index(hex.startIndex, offsetBy: 1)
+            let hexColor = String(hex[start...])
+            
+            let scanner = Scanner(string: hexColor)
+            var hexNumber: UInt64 = 0
+            
+            if scanner.scanHexInt64(&hexNumber) {
+                r = CGFloat((hexNumber & 0xff0000) >> 16) / 255.0
+                g = CGFloat((hexNumber & 0x00ff00) >> 8) / 255.0
+                b = CGFloat(hexNumber & 0x0000ff) / 255.0
+                
+                self.init(red: r, green: g, blue: b, alpha: 1)
+                return
+            }
+        }
+        return nil
     }
 }

@@ -24,7 +24,7 @@ class myPageVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
     
     @IBOutlet weak var myPageTableView: UITableView!
     
-    static private let myImage: String = "myImage"
+    private var userInfo: UserInfoModel?
     
     lazy var imagePicker: UIImagePickerController = {
         let picker: UIImagePickerController = UIImagePickerController()
@@ -55,7 +55,7 @@ class myPageVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
     }
     
     private func loadImage() {
-        if let loadedImage = loadImageFromDiskWith(fileName: myPageVC.myImage) {
+        if let loadedImage = loadImageFromDiskWith(fileName: "myImage") {
             profileImageView.image = loadedImage
         }
     }
@@ -65,7 +65,15 @@ class myPageVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
     }
     
     @IBAction func touchUpSettingButton(_ sender: UIButton) {
-        present(UINavigationController(rootViewController: AccountSettingViewController()), animated: true)
+        let accountSettingVC = AccountSettingViewController()
+        accountSettingVC.userData = userInfo
+        accountSettingVC.nickName = userInfo?.userNickname
+        accountSettingVC.univ = userInfo?.userUniv
+        accountSettingVC.major = userInfo?.userMajor
+        accountSettingVC.studentNumber = userInfo?.userStudentNum
+        accountSettingVC.grade = userInfo?.userGrade
+        accountSettingVC.delegate = self
+        present(UINavigationController(rootViewController: accountSettingVC), animated: true)
     }
     
     @IBAction func touchUpCameraButton(_ sender: UIButton) {
@@ -119,31 +127,6 @@ class myPageVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
         present(alertController, animated: true, completion: nil)
     }
     
-    // MARK: - Save Image API
-    func saveImage(imageName: String, image: UIImage) {
-        
-        guard let documentsDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first else { return }
-        
-        let fileName = imageName
-        let fileURL = documentsDirectory.appendingPathComponent(fileName)
-        guard let data = image.jpegData(compressionQuality: 1) else { return }
-        
-        //Checks if file exists, removes it if so.
-        if FileManager.default.fileExists(atPath: fileURL.path) {
-            do {
-                try FileManager.default.removeItem(atPath: fileURL.path)
-                print("Removed old image")
-            } catch let removeError {
-                print("couldn't remove file at path", removeError)
-            }
-        }
-        do {
-            try data.write(to: fileURL)
-        } catch let error {
-            print("error saving file with error", error)
-        }
-    }
-    
     func loadImageFromDiskWith(fileName: String) -> UIImage? {
         
         let documentDirectory = FileManager.SearchPathDirectory.documentDirectory
@@ -160,71 +143,8 @@ class myPageVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
         return nil
     }
     
-    
-    @objc func imagePickerController(_ picker: UIImagePickerController,
-                                     didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-        
-        var selectedImage: UIImage?
-        
-        if let editedImage: UIImage = info[.editedImage] as? UIImage {
-            selectedImage = editedImage
-            saveImage(imageName: myPageVC.myImage, image: editedImage)
-            self.profileImageView.image = selectedImage
-            picker.dismiss(animated: true, completion: nil)
-            
-        } else if let originalImage: UIImage = info[.originalImage] as? UIImage {
-            selectedImage = originalImage
-            self.profileImageView.image = selectedImage!
-            
-            picker.dismiss(animated: true, completion: nil)
-        }
-        
-        uploadImage(selectedImage)
-    }
-    
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         self.dismiss(animated: true, completion: nil)
-    }
-    
-    // MARK: - Network
-    private func uploadImage(_ selecteImage: UIImage?) {
-        
-        guard let url = UserAPI.sharedInstance.getURL("/user/photo") else {return}
-        
-        guard let sendImage = selecteImage else { return }
-        
-        guard let sendData = sendImage.jpegData(compressionQuality: 1) else {return}
-        
-        guard let token = KeychainWrapper.standard.string(forKey: TokenName.token) else { return }
-    
-        let boundary = generateBoundaryString()
-        
-        var request = URLRequest(url: url)
-        request.httpMethod = "POST"
-        request.addValue("multipart/form-data; boundary=\(boundary)", forHTTPHeaderField: "Content-Type")
-        request.addValue(token, forHTTPHeaderField: "Authorization")
-        request.httpBody = createBody(parameters: [:],
-                                      boundary: boundary,
-                                      data: sendData,
-                                      mimeType: "image/jpeg",
-                                      filename: "profile")
-        
-        NetworkManager.shared.getData(with: request) { (data, error, res) in
-            
-            guard let data = data else {
-                return
-            }
-            
-            do {
-                let status = try JSONDecoder().decode(BasicNetworkModel.self, from: data)
-                
-                //500번 서버 내부 에러 발생 하고 있음
-                print("Message!! \(status.message)")
-                
-            } catch {
-                print("upload data parsing error")
-            }
-        }
     }
     
     
@@ -250,11 +170,14 @@ class myPageVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
             do {
                 let apiResponse = try JSONDecoder().decode(UserNetworkModel.self, from: data)
                 
+                self?.userInfo = apiResponse.data
+                
                 DispatchQueue.main.async {
                     self?.nameLabel.text = apiResponse.data?.userName
                     self?.idLabel.text = apiResponse.data?.userNickname
                     self?.majorLabel.text = apiResponse.data?.userMajor
                     self?.schoolLabel.text = apiResponse.data?.userUniv
+                    self?.view.layoutIfNeeded()
                 }
                 
             } catch (let err) {
@@ -340,5 +263,11 @@ extension myPageVC: UITableViewDataSource {
         default:
             return
         }
+    }
+}
+
+extension myPageVC: UpdateDataDelegate {
+    func reloadUserData() {
+        getData()
     }
 }

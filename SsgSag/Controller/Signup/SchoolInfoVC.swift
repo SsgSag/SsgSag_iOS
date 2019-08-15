@@ -438,7 +438,7 @@ extension SchoolInfoVC: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         let nextTag = textField.tag + 1
         
-        if let nextResponder =  self.view.viewWithTag(nextTag){
+        if let nextResponder = self.view.viewWithTag(nextTag){
             nextResponder.becomeFirstResponder()
         } else {
             textField.resignFirstResponder()

@@ -8,7 +8,13 @@
 
 import UIKit
 
+protocol PasswordDelegate: class {
+    func changePassword()
+}
+
 class SettingTextFieldCollectionViewCell: UICollectionViewCell {
+    
+    weak var delegate: PasswordDelegate?
     
     @IBOutlet private weak var settingTitleLabel: UILabel!
     
@@ -20,12 +26,24 @@ class SettingTextFieldCollectionViewCell: UICollectionViewCell {
         super.awakeFromNib()
     }
 
+    // 비밀번호 변경 버튼 선택시
     @IBAction func touchUpChangeButton(_ sender: UIButton) {
+        delegate?.changePassword()
     }
     
-    func setupCell(title: String, placeholder: String) {
+    func setupCell(title: String, placeholder: String, text: String) {
         settingTitleLabel.text = title
         settingTextField.placeholder = placeholder
+        settingTextField.text = text
+        changeButton.isHidden = true
+    }
+    
+    func setupPasswordCell(title: String, placeholder: String, text: String) {
+        settingTitleLabel.text = title
+        settingTextField.isUserInteractionEnabled = false
+        settingTextField.placeholder = placeholder
+        settingTextField.text = text
+        settingTextField.textContentType = .password
     }
     
     func setupUnalterableCell(title: String, data: String) {

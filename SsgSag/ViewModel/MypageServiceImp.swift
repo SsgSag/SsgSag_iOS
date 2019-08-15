@@ -95,10 +95,12 @@ class MyPageServiceImp: MyPageService {
         }
     }
 
-    func requestStoreSelectedField(_ selectedJson: [String : Any],
-                                   completionHandler: @escaping ((DataResponse<ReInterest>) -> Void)) {
+    func requestStoreSelectedField(_ selectedIndex: [Int],
+                                   completionHandler: @escaping ((DataResponse<HttpStatusCode>) -> Void)) {
         
-        let jsonData = try? JSONSerialization.data(withJSONObject: selectedJson)
+        let bodyData = ["userInterest" : selectedIndex]
+        
+        let jsonData = try? JSONSerialization.data(withJSONObject: bodyData)
         
         guard let token
             = KeychainWrapper.standard.string(forKey: TokenName.token),
@@ -121,7 +123,12 @@ class MyPageServiceImp: MyPageService {
                         = try JSONDecoder().decode(ReInterest.self,
                                                    from: data)
                     
-                    completionHandler(.success(decodedData))
+                    guard let status = decodedData.status,
+                        let httpStatusCode = HttpStatusCode(rawValue: status) else {
+                            return
+                    }
+                    
+                    completionHandler(.success(httpStatusCode))
                 } catch let error {
                     completionHandler(.failed(error))
                     return
@@ -279,6 +286,138 @@ class MyPageServiceImp: MyPageService {
             }
         }
     }
+    
+    func requestChangePassword(oldPassword: String,
+                               newPassword: String,
+                               completionHandler: @escaping (DataResponse<HttpStatusCode>) -> Void) {
+        
+        let bodyData = ["oldPassword" : oldPassword,
+                        "newPassword" : newPassword]
+        
+        let json = try? JSONSerialization.data(withJSONObject: bodyData)
+        
+        guard let token
+            = KeychainWrapper.standard.string(forKey: TokenName.token),
+            let url
+            = UserAPI.sharedInstance.getURL(RequestURL.changePassword.getRequestURL),
+            let request
+            = requestMaker.makeRequest(url: url,
+                                       method: .put,
+                                       header: ["Authorization": token,
+                                                "Content-Type": "application/json"],
+                                       body: json) else {
+                                        return
+        }
+        
+        network.dispatch(request: request) { result in
+            switch result {
+            case .success(let data):
+                do {
+                    let decodedData
+                        = try JSONDecoder().decode(UserNetworkModel.self,
+                                                   from: data)
+                    
+                    guard let status = decodedData.status,
+                        let httpStatusCode = HttpStatusCode(rawValue: status) else {
+                            return
+                    }
+                    
+                    completionHandler(.success(httpStatusCode))
+                } catch let error {
+                    completionHandler(.failed(error))
+                    return
+                }
+            case .failure(let error):
+                completionHandler(.failed(error))
+                return
+            }
+        }
+    }
+    
+    func requestUpdateUserInfo(bodyData: [String: Any],
+                               completionHandler: @escaping (DataResponse<HttpStatusCode>) -> Void) {
+        let json = try? JSONSerialization.data(withJSONObject: bodyData)
+        
+        guard let token
+            = KeychainWrapper.standard.string(forKey: TokenName.token),
+            let url
+            = UserAPI.sharedInstance.getURL(RequestURL.signUp.getRequestURL),
+            let request
+            = requestMaker.makeRequest(url: url,
+                                       method: .put,
+                                       header: ["Authorization": token,
+                                                "Content-Type": "application/json"],
+                                       body: json) else {
+                                        return
+        }
+        
+        network.dispatch(request: request) { result in
+            switch result {
+            case .success(let data):
+                do {
+                    let decodedData
+                        = try JSONDecoder().decode(UserNetworkModel.self,
+                                                   from: data)
+                    
+                    guard let status = decodedData.status,
+                        let httpStatusCode = HttpStatusCode(rawValue: status) else {
+                            return
+                    }
+                    
+                    completionHandler(.success(httpStatusCode))
+                } catch let error {
+                    completionHandler(.failed(error))
+                    return
+                }
+            case .failure(let error):
+                completionHandler(.failed(error))
+                return
+            }
+        }
+    }
+    
+    func requestUpdateProfile(boundary: String,
+                              bodyData: Data,
+                              completionHandler: @escaping (DataResponse<HttpStatusCode>) -> Void) {
+        
+        guard let token
+            = KeychainWrapper.standard.string(forKey: TokenName.token),
+            let url
+            = UserAPI.sharedInstance.getURL(RequestURL.updatePhoto.getRequestURL),
+            let request
+            = requestMaker.makeRequest(url: url,
+                                       method: .post,
+                                       header: ["Authorization": token,
+                                                "Content-Type": "multipart/form-data; boundary=\(boundary)"],
+                                       body: bodyData) else {
+                                        return
+        }
+        
+        network.dispatch(request: request) { result in
+            switch result {
+            case .success(let data):
+                do {
+                    let decodedData
+                        = try JSONDecoder().decode(UserNetworkModel.self,
+                                                   from: data)
+                    
+                    guard let status = decodedData.status,
+                        let httpStatusCode = HttpStatusCode(rawValue: status) else {
+                            return
+                    }
+                    
+                    completionHandler(.success(httpStatusCode))
+                } catch let error {
+                    completionHandler(.failed(error))
+                    return
+                }
+            case .failure(let error):
+                completionHandler(.failed(error))
+                return
+            }
+        }
+    }
+    
 }
 
 
