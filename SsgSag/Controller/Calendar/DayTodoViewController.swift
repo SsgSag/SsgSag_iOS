@@ -333,6 +333,11 @@ class DayTodoViewController: UIViewController {
         
     }
     
+    private func dismissDayTodoViewController() {
+        presentingViewController?.tabBarController?.tabBar.isHidden = false
+        dismiss(animated: false)
+    }
+    
 }
 
 extension DayTodoViewController: UICollectionViewDelegate {
@@ -403,8 +408,7 @@ extension DayTodoViewController: UICollectionViewDataSourcePrefetching {
 
 extension DayTodoViewController: dismissDelegate {
     func touchUpCancelButton() {
-        presentingViewController?.tabBarController?.tabBar.isHidden = false
-        dismiss(animated: false)
+        dismissDayTodoViewController()
     }
 }
 

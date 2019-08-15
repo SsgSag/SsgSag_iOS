@@ -58,12 +58,14 @@
                             </connections>
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" image="bulletin" id="78q-va-JjN">
+                            <color key="tintColor" red="0.38431372549999998" green="0.41568627450000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                             <connections>
                                 <action selector="touchUpBoardSettingButton:" destination="x1e-70-Zh0" id="Rlr-ca-gZI"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="settingBoardButton" destination="78q-va-JjN" id="sG8-AO-utQ"/>
                         <outlet property="swipeCardView" destination="Qa3-PX-6kd" id="NGx-8c-UcE"/>
                     </connections>
                 </viewController>

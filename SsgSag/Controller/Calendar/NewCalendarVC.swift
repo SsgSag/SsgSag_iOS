@@ -7,12 +7,15 @@
 //
 
 import UIKit
+import SwiftKeychainWrapper
 
 protocol CategorySelectedDelegate: class {
     func categorySelectedDelegate(_ multipleSelected: [Int])
 }
 
 class NewCalendarVC: UIViewController {
+    
+    @IBOutlet weak var shareCalendarButton: UIBarButtonItem!
     
     @IBOutlet weak var monthHeaderView: VAMonthHeaderView! {
         didSet {
@@ -67,6 +70,16 @@ class NewCalendarVC: UIViewController {
         
         calendarView.setupMonths()
         calendarView.drawVisibleMonth(with: calendarView.contentOffset)
+        
+        guard let isTryWithoutLogin = UserDefaults.standard.object(forKey: "isTryWithoutLogin") as? Bool else {
+            return
+        }
+        
+        if isTryWithoutLogin {
+            shareCalendarButton.image = nil
+            shareCalendarButton.title = "나가기"
+            shareCalendarButton.setTitleTextAttributes([NSAttributedString.Key.font: UIFont(name: "Helvetica", size: 15.0)], for: .normal)
+        }
     }
     
     override func viewDidLoad() {
@@ -176,6 +189,34 @@ class NewCalendarVC: UIViewController {
     }
     
     @IBAction func touchUpMyPageButton(_ sender: UIBarButtonItem) {
+        if let isTryWithoutLogin = UserDefaults.standard.object(forKey: "isTryWithoutLogin") as? Bool {
+            if isTryWithoutLogin {
+                simpleAlertwithHandler(title: "마이페이지", message: "로그인 후 이용해주세요") { _ in
+                    
+                    KeychainWrapper.standard.removeObject(forKey: TokenName.token)
+                    
+                    guard let window = UIApplication.shared.keyWindow else {
+                        return
+                    }
+                    
+                    let mainStoryboard: UIStoryboard = UIStoryboard(name: "LoginStoryBoard", bundle: nil)
+                    let viewController = mainStoryboard.instantiateViewController(withIdentifier: "splashVC") as! SplashViewController
+                    
+                    let rootNavigationController = UINavigationController(rootViewController: viewController)
+                    
+                    let appDelegate = UIApplication.shared.delegate as! AppDelegate
+                    appDelegate.window?.rootViewController = rootNavigationController
+                    
+                    rootNavigationController.view.layoutIfNeeded()
+                    
+                    UIView.transition(with: window, duration: 0.5, options: .transitionFlipFromLeft, animations: {
+                        window.rootViewController = rootNavigationController
+                    }, completion: nil)
+                }
+                return
+            }
+        }
+        
         let myPageStoryboard = UIStoryboard(name: StoryBoardName.mypage, bundle: nil)
         
         let myPageViewController
@@ -185,6 +226,29 @@ class NewCalendarVC: UIViewController {
     }
     
     @IBAction func touchUpCalendarShareButton(_ sender: UIBarButtonItem) {
+        if sender.title == "나가기" {
+            KeychainWrapper.standard.removeObject(forKey: TokenName.token)
+            
+            guard let window = UIApplication.shared.keyWindow else {
+                return
+            }
+            
+            let mainStoryboard: UIStoryboard = UIStoryboard(name: "LoginStoryBoard", bundle: nil)
+            let viewController = mainStoryboard.instantiateViewController(withIdentifier: "splashVC") as! SplashViewController
+            
+            let rootNavigationController = UINavigationController(rootViewController: viewController)
+            
+            let appDelegate = UIApplication.shared.delegate as! AppDelegate
+            appDelegate.window?.rootViewController = rootNavigationController
+            
+            rootNavigationController.view.layoutIfNeeded()
+            
+            UIView.transition(with: window, duration: 0.5, options: .transitionFlipFromLeft, animations: {
+                window.rootViewController = rootNavigationController
+            }, completion: nil)
+            return
+        }
+        
         let layer = UIApplication.shared.keyWindow!.layer
         let scale = UIScreen.main.scale
         

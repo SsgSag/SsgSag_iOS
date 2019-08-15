@@ -27,6 +27,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, MessagingDelegate ,UNUser
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
+        initUUID()
+        
         Messaging.messaging().isAutoInitEnabled = true
         
         FirebaseApp.configure()
@@ -69,6 +71,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate, MessagingDelegate ,UNUser
         window?.makeKeyAndVisible()
         
         return true
+    }
+    
+    private func initUUID() {
+        guard let _ = KeychainWrapper.standard.string(forKey: "UUID") else {
+            KeychainWrapper.standard.set(UUID().uuidString, forKey: "UUID")
+            return
+        }
     }
     
     private func adBrixDefaultSetting() {

@@ -98,6 +98,7 @@ class LoginVC: UIViewController, UITextFieldDelegate {
                     let httpStatusCode = HttpStatusCode(rawValue: status) else {
                         return
                 }
+               
                 
                 switch httpStatusCode {
                 case .sucess:
@@ -105,9 +106,10 @@ class LoginVC: UIViewController, UITextFieldDelegate {
                         KeychainWrapper.standard.set(storeToken,
                                                      forKey: TokenName.token)
                     }
-                    
+                    UserDefaults.standard.set(false, forKey: "isTryWithoutLogin")
+                    let tabBar = TapbarVC(nibName: nil, bundle: nil)
                     DispatchQueue.main.async {
-                        self?.present(TapbarVC(), animated: true, completion: nil)
+                        self?.present(tabBar, animated: true, completion: nil)
                     }
                 case .failure:
                     DispatchQueue.main.async {
@@ -145,13 +147,12 @@ class LoginVC: UIViewController, UITextFieldDelegate {
         return true
     }
     
-    func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
+    func textFieldDidBeginEditing(_ textField: UITextField) {
         self.stackViewCenterXConstraint.constant = -(view.frame.height / 6)
         
         UIView.animate(withDuration: 0.3) {
             self.view.layoutIfNeeded()
         }
-        return true
     }
     
     func textFieldDidEndEditing(_ textField: UITextField) {

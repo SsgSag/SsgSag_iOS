@@ -13,22 +13,6 @@ class TapbarVC: UITabBarController {
     private let tapbarServiceImp: TabbarService
         = DependencyContainer.shared.getDependency(key: .tabbarService)
     
-    struct CreateViewController {
-        static let mypageStoryBoard = UIStoryboard(name: StoryBoardName.mypage, bundle: nil)
-        
-        static let swipeStoryBoard = UIStoryboard(name: StoryBoardName.swipe, bundle: nil)
-        
-        static let feedStoryBoard = UIStoryboard(name: StoryBoardName.feed, bundle: nil)
-        
-        static let newCalendarStoryboard = UIStoryboard(name: StoryBoardName.newCalendar, bundle: nil)
-        
-        static let swipeViewController = swipeStoryBoard.instantiateViewController(withIdentifier: "swipeNavigationVC")
-        
-        static let feedViewController = feedStoryBoard.instantiateViewController(withIdentifier: "feedNavigationVC")
-        
-        static let newCalendarViewController = newCalendarStoryboard.instantiateViewController(withIdentifier: "calendarNavigationVC")
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -59,22 +43,34 @@ class TapbarVC: UITabBarController {
     }
     
     private func setTabBarViewController() {
-        let swipeViewController = CreateViewController.swipeViewController
+        
+        let mypageStoryBoard = UIStoryboard(name: StoryBoardName.mypage, bundle: nil)
+        
+        let swipeStoryBoard = UIStoryboard(name: StoryBoardName.swipe, bundle: nil)
+        
+        let feedStoryBoard = UIStoryboard(name: StoryBoardName.feed, bundle: nil)
+        
+        let newCalendarStoryboard = UIStoryboard(name: StoryBoardName.newCalendar, bundle: nil)
+        
+        let swipeViewController = swipeStoryBoard.instantiateViewController(withIdentifier: "swipeNavigationVC")
+        
+        let feedViewController = feedStoryBoard.instantiateViewController(withIdentifier: "feedNavigationVC")
+        
+        let newCalendarViewController = newCalendarStoryboard.instantiateViewController(withIdentifier: "calendarNavigationVC")
+        
         swipeViewController.tabBarItem = UITabBarItem(title: "",
                                                       image: UIImage(named: "icMain"),
                                                       selectedImage: UIImage(named: "icMainActive"))
         
-        let mypageViewController = CreateViewController.feedViewController
-        mypageViewController.tabBarItem = UITabBarItem(title: "",
+        feedViewController.tabBarItem = UITabBarItem(title: "",
                                                        image: UIImage(named: "ic_feedPassive@tabBar"),
                                                        selectedImage: UIImage(named: "ic_feed@tabBar"))
         
-        let calendarViewController = CreateViewController.newCalendarViewController
-        calendarViewController.tabBarItem = UITabBarItem(title: "",
+        newCalendarViewController.tabBarItem = UITabBarItem(title: "",
                                                          image: UIImage(named: "icCal"),
                                                          selectedImage: UIImage(named: "icCalActive"))
         
-        let tabBarList = [mypageViewController, swipeViewController, calendarViewController]
+        let tabBarList = [feedViewController, swipeViewController, newCalendarViewController]
         
         self.viewControllers = tabBarList
     }

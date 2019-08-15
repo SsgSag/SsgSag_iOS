@@ -74,6 +74,15 @@ class DetailInfoViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(handleShowKeyboard),
+                                               name: UIWindow.keyboardWillShowNotification,
+                                               object: nil)
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(handleHideKeyboard),
+                                               name: UIWindow.keyboardWillHideNotification,
+                                               object: nil)
+        
         requestDatas()
         setupLayout()
         setupCollectionView()
@@ -110,11 +119,11 @@ class DetailInfoViewController: UIViewController {
             switch response {
             case .success(let detailData):
                 self?.posterDetailData = detailData
+                self?.buttonsView.posterIndex = posterIdx
+                self?.buttonsView.isLike = detailData.isFavorite
+                self?.buttonsView.isExistApplyURL = detailData.posterWebSite2 != nil ? true : false
                 
                 DispatchQueue.main.async {
-                    self?.buttonsView.posterIndex = posterIdx
-                    self?.buttonsView.isLike = detailData.isFavorite
-                    self?.buttonsView.isExistApplyURL = detailData.posterWebSite2 != nil ? true : false
                     self?.infoCollectionView.reloadData()
                 }
             case .failed(let error):
@@ -254,19 +263,21 @@ class DetailInfoViewController: UIViewController {
         addObjects(with: objectsToshare)
     }
     
+    @objc func handleShowKeyboard(notification: NSNotification) {
+        guard let keyboardFrame = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect else { return }
+        infoCollectionView.setContentOffset(CGPoint(x: 0, y: infoCollectionView.contentOffset.y + keyboardFrame.height - buttonsView.frame.height - safeAreaView.frame.height), animated: true)
+    }
+    
+    @objc func handleHideKeyboard(notification: NSNotification) {
+        guard let keyboardFrame = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect else { return }
+        infoCollectionView.setContentOffset(CGPoint(x: 0, y: infoCollectionView.contentOffset.y - keyboardFrame.height + buttonsView.frame.height + safeAreaView.frame.height), animated: true)
+    }
+    
     private func addObjects(with objectsToshare: [Any]) {
         let activityVC = UIActivityViewController(activityItems: objectsToshare, applicationActivities: nil)
         activityVC.excludedActivityTypes = [UIActivity.ActivityType.airDrop, UIActivity.ActivityType.addToReadingList]
         activityVC.popoverPresentationController?.sourceView = view
         self.present(activityVC, animated: true, completion: nil)
-    }
-    
-    func changeOffsetYWhenShowKeyboard() {
-        infoCollectionView.contentOffset.y = infoCollectionView.contentOffset.y + 263 - buttonsView.frame.height
-    }
-    
-    func changeOffsetYWhenHideKeyboard() {
-        infoCollectionView.contentOffset.y = infoCollectionView.contentOffset.y - 263 + buttonsView.frame.height
     }
     
     func titleStringByCategory() -> [String] {
@@ -534,14 +545,8 @@ extension DetailInfoViewController: UITextFieldDelegate {
         currentTextField = textField
     }
     
-    func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
-        changeOffsetYWhenShowKeyboard()
-        return true
-    }
-    
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
-        changeOffsetYWhenHideKeyboard()
         return true
     }
 }
@@ -577,6 +582,7 @@ extension DetailInfoViewController: CommentWriteDelegate {
                 switch status {
                 case .secondSucess:
                     DispatchQueue.main.async {
+                        self?.currentTextField?.resignFirstResponder()
                         self?.simplerAlert(title: "댓글 등록이 완료되었습니다.")
                         self?.isFolding = true
                         self?.requestDatas()

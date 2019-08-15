@@ -20,7 +20,7 @@ class SchoolInfoVC: UIViewController {
     var nickName: String = ""
     
     var gender: String = ""
-    
+
     private var sendToken: String = ""
     private var sendType: Int = 0
     
@@ -66,7 +66,8 @@ class SchoolInfoVC: UIViewController {
     
     @IBOutlet weak var nextButton: GradientButton!
     
-    @IBOutlet weak var imageViewHeightConstraint: NSLayoutConstraint!
+    @IBOutlet weak var textFieldsStackView: UIStackView!
+    @IBOutlet weak var scrollView: UIScrollView!
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -272,43 +273,39 @@ class SchoolInfoVC: UIViewController {
                 "osType": 1
             ]
         }
-        
-        do {
-            let userInfo = try JSONSerialization.data(withJSONObject: sendData)
             
-            signupService.requestSingup(userInfo) { [weak self] (responseData) in
-                guard let response = responseData.value,
-                    let status = response.status,
-                    let httpStatus = SingupHttpStatusCode(rawValue: status) else {
-                        return
-                }
-                
-                switch httpStatus {
-                case .success:
-                    // 토큰 저장
-                    if let storeToken = response.data?.token {
-                        KeychainWrapper.standard.set(storeToken,
-                                                     forKey: TokenName.token)
-                    }
-                    
-                    DispatchQueue.main.async {
-                        self?.present(TapbarVC(), animated: true)
-                    }
-                    
-//                    self.autoLogin(sendType: sendType, sendToken: sendToken)
-                
-                case .failure:
-                    guard let message = response.message else { return }
-                    
-                    self?.simpleAlert(title: "회원가입 실패",
-                                      message: message)
-                case .databaseError:
-                    self?.simpleAlert(title: "데이터베이스 에러",
-                                      message: "서버 오류")
-                }
+        signupService.requestSingup(sendData) { [weak self] (responseData) in
+            guard let response = responseData.value,
+                let status = response.status,
+                let httpStatus = SingupHttpStatusCode(rawValue: status) else {
+                    return
             }
-        } catch {
             
+            switch httpStatus {
+            case .success:
+                // 토큰 저장
+                if let storeToken = response.data?.token {
+                    KeychainWrapper.standard.set(storeToken,
+                                                 forKey: TokenName.token)
+                }
+                
+                UserDefaults.standard.set(false, forKey: "isTryWithoutLogin")
+                
+                DispatchQueue.main.async {
+                    self?.present(TapbarVC(), animated: true)
+                }
+                
+//                    self.autoLogin(sendType: sendType, sendToken: sendToken)
+            
+            case .failure:
+                guard let message = response.message else { return }
+                
+                self?.simpleAlert(title: "회원가입 실패",
+                                  message: message)
+            case .databaseError:
+                self?.simpleAlert(title: "데이터베이스 에러",
+                                  message: "서버 오류")
+            }
         }
     }
     
@@ -421,14 +418,8 @@ class SchoolInfoVC: UIViewController {
 }
 
 extension SchoolInfoVC: UIGestureRecognizerDelegate {
-    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
-        
-        imageViewHeightConstraint.constant = 114
-        
-        UIView.animate(withDuration: 0.3) {
-            self.view.layoutIfNeeded()
-        }
-        
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer,
+                           shouldReceive touch: UITouch) -> Bool {
         self.view.endEditing(true)
         return true
     }
@@ -446,16 +437,14 @@ extension SchoolInfoVC: UITextFieldDelegate {
         return true
     }
     
-    func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
-        imageViewHeightConstraint.constant = 0
-        
-        UIView.animate(withDuration: 0.3) {
-            self.view.layoutIfNeeded()
-        }
-        return true
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        scrollView.setContentOffset(CGPoint(x: 0, y: 0), animated: true)
+        scrollView.setContentOffset(CGPoint(x: 0, y: textFieldsStackView.frame.origin.y), animated: true)
     }
     
     func textFieldDidEndEditing(_ textField: UITextField) {
+        scrollView.setContentOffset(CGPoint(x: 0, y: 0), animated: true)
+        
         checkInformation(self)
     }
 }

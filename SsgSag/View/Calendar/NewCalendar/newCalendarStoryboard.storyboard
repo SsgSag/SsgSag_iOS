@@ -105,7 +105,7 @@
                                 <action selector="touchUpMyPageButton:" destination="B71-YN-EqE" id="KXb-VJ-NRX"/>
                             </connections>
                         </barButtonItem>
-                        <view key="titleView" contentMode="scaleToFill" id="p9b-tv-ABd" customClass="VAMonthHeaderView" customModule="슥삭" customModuleProvider="target">
+                        <view key="titleView" contentMode="scaleToFill" ambiguous="YES" id="p9b-tv-ABd" customClass="VAMonthHeaderView" customModule="슥삭" customModuleProvider="target">
                             <rect key="frame" x="207" y="22" width="0.0" height="0.0"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -123,6 +123,7 @@
                     <connections>
                         <outlet property="categoryCollection" destination="pH2-YY-86Q" id="Qfx-B8-e1y"/>
                         <outlet property="monthHeaderView" destination="p9b-tv-ABd" id="Glu-iV-W61"/>
+                        <outlet property="shareCalendarButton" destination="1Vu-al-imD" id="23B-tA-pYF"/>
                         <outlet property="weekDaysView" destination="vLE-vE-5Ar" id="8Jt-Zp-wE1"/>
                     </connections>
                 </viewController>

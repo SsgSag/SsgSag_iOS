@@ -3909,6 +3909,110 @@
             </objects>
             <point key="canvasLocation" x="9695.2000000000007" y="-248.27586206896552"/>
         </scene>
+        <!--View Controller-->
+        <scene sceneID="tKV-ag-cEa">
+            <objects>
+                <viewController storyboardIdentifier="OSLVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="2JY-VX-g2i" customClass="OSLViewController" customModule="슥삭" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="QAD-hJ-ffP">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="ORJ-rv-G9m">
+                                <rect key="frame" x="0.0" y="44" width="375" height="734"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <view key="tableFooterView" contentMode="scaleToFill" id="2Yc-H7-GZh">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="240"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <subviews>
+                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Z3Z-8J-TFc" customClass="GradientButton" customModule="슥삭" customModuleProvider="target">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="56"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Open Source License | Ssgsag" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wcA-M2-gay">
+                                                    <rect key="frame" x="22" y="17.666666666666668" width="331" height="21.000000000000004"/>
+                                                    <fontDescription key="fontDescription" type="system" weight="medium" pointSize="18"/>
+                                                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <constraints>
+                                                <constraint firstItem="wcA-M2-gay" firstAttribute="centerY" secondItem="Z3Z-8J-TFc" secondAttribute="centerY" id="QiS-aZ-Ivi"/>
+                                                <constraint firstAttribute="trailing" secondItem="wcA-M2-gay" secondAttribute="trailing" constant="22" id="QzB-g8-UGy"/>
+                                                <constraint firstItem="wcA-M2-gay" firstAttribute="leading" secondItem="Z3Z-8J-TFc" secondAttribute="leading" constant="22" id="flO-fh-dyu"/>
+                                                <constraint firstAttribute="height" constant="56" id="kaq-tH-qs3"/>
+                                            </constraints>
+                                            <userDefinedRuntimeAttributes>
+                                                <userDefinedRuntimeAttribute type="color" keyPath="topColor">
+                                                    <color key="value" red="0.60784313725490191" green="0.25490196078431371" blue="0.98039215686274506" alpha="1" colorSpace="calibratedRGB"/>
+                                                </userDefinedRuntimeAttribute>
+                                                <userDefinedRuntimeAttribute type="color" keyPath="bottomColor">
+                                                    <color key="value" red="0.25490196078431371" green="0.63921568627450975" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                </userDefinedRuntimeAttribute>
+                                            </userDefinedRuntimeAttributes>
+                                        </view>
+                                        <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="WEZ-NG-LFP">
+                                            <rect key="frame" x="18" y="71" width="339" height="154"/>
+                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <mutableString key="text">This application is Copyright - Ssgsag Corp. All rights reserved.
+
+The following sets forth attribution notices for third party
+software that may be contained in this application.
+
+If you have any questions or concerns, please contact us at opensource@ssgsag.com</mutableString>
+                                            <color key="textColor" red="0.60784313725490191" green="0.60784313725490191" blue="0.60784313725490191" alpha="1" colorSpace="calibratedRGB"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                            <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                            <dataDetectorType key="dataDetectorTypes" phoneNumber="YES" link="YES" address="YES" calendarEvent="YES" shipmentTrackingNumber="YES" flightNumber="YES" lookupSuggestion="YES"/>
+                                            <connections>
+                                                <outlet property="delegate" destination="2JY-VX-g2i" id="Tic-Rx-Sam"/>
+                                            </connections>
+                                        </textView>
+                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="s7V-Hi-UQh">
+                                            <rect key="frame" x="0.0" y="239" width="375" height="1"/>
+                                            <color key="backgroundColor" red="0.88235294117647056" green="0.88235294117647056" blue="0.88235294117647056" alpha="1" colorSpace="calibratedRGB"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="1" id="Crd-mh-9RF"/>
+                                            </constraints>
+                                        </view>
+                                    </subviews>
+                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <constraints>
+                                        <constraint firstItem="Z3Z-8J-TFc" firstAttribute="top" secondItem="2Yc-H7-GZh" secondAttribute="top" id="2bs-ms-lGQ"/>
+                                        <constraint firstAttribute="bottom" secondItem="WEZ-NG-LFP" secondAttribute="bottom" constant="15" id="7lX-b0-Wzm"/>
+                                        <constraint firstItem="WEZ-NG-LFP" firstAttribute="leading" secondItem="2Yc-H7-GZh" secondAttribute="leading" constant="18" id="9dl-Fw-2mO"/>
+                                        <constraint firstAttribute="bottom" secondItem="s7V-Hi-UQh" secondAttribute="bottom" id="AK0-Zt-bYg"/>
+                                        <constraint firstItem="Z3Z-8J-TFc" firstAttribute="leading" secondItem="2Yc-H7-GZh" secondAttribute="leading" id="I9Q-nS-YhU"/>
+                                        <constraint firstAttribute="trailing" secondItem="s7V-Hi-UQh" secondAttribute="trailing" id="eZ7-7A-00V"/>
+                                        <constraint firstAttribute="trailing" secondItem="WEZ-NG-LFP" secondAttribute="trailing" constant="18" id="jh8-WY-fxe"/>
+                                        <constraint firstItem="s7V-Hi-UQh" firstAttribute="leading" secondItem="2Yc-H7-GZh" secondAttribute="leading" id="l4g-24-ojU"/>
+                                        <constraint firstAttribute="trailing" secondItem="Z3Z-8J-TFc" secondAttribute="trailing" id="mNB-OZ-qpa"/>
+                                        <constraint firstItem="WEZ-NG-LFP" firstAttribute="top" secondItem="Z3Z-8J-TFc" secondAttribute="bottom" constant="15" id="uSm-il-0u8"/>
+                                    </constraints>
+                                </view>
+                                <connections>
+                                    <outlet property="dataSource" destination="2JY-VX-g2i" id="vqX-pN-eXc"/>
+                                    <outlet property="delegate" destination="2JY-VX-g2i" id="1T0-0M-SVe"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="ORJ-rv-G9m" firstAttribute="top" secondItem="Bw8-t8-B1f" secondAttribute="top" id="FkH-EX-apJ"/>
+                            <constraint firstItem="ORJ-rv-G9m" firstAttribute="leading" secondItem="Bw8-t8-B1f" secondAttribute="leading" id="Fql-gn-VKi"/>
+                            <constraint firstItem="Bw8-t8-B1f" firstAttribute="trailing" secondItem="ORJ-rv-G9m" secondAttribute="trailing" id="djN-8b-N34"/>
+                            <constraint firstItem="Bw8-t8-B1f" firstAttribute="bottom" secondItem="ORJ-rv-G9m" secondAttribute="bottom" id="kgH-dV-g5W"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="Bw8-t8-B1f"/>
+                    </view>
+                    <connections>
+                        <outlet property="OSLTableView" destination="ORJ-rv-G9m" id="gtd-m4-JEJ"/>
+                        <outlet property="headerTextView" destination="WEZ-NG-LFP" id="pGL-Ic-rbI"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Rgi-1J-WtS" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="10528.799999999999" y="-252.70935960591135"/>
+        </scene>
         <!--Navigation Controller-->
         <scene sceneID="YIe-cR-PD4">
             <objects>

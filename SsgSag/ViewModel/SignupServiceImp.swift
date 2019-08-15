@@ -57,15 +57,18 @@ class SignupServiceImp: SignupService {
         }
     }
     
-    func requestSingup(_ userInfo: Data,
+    func requestSingup(_ userInfo: [String: Any],
                        completionHandler: @escaping (DataResponse<Signup>) -> Void) {
+        
+        let jsonData = try? JSONSerialization.data(withJSONObject: userInfo)
+        
         guard let url
             = UserAPI.sharedInstance.getURL(RequestURL.signUp.getRequestURL),
             let request
             = requestMaker.makeRequest(url: url,
                                        method: .post,
                                        header: ["Content-Type": "application/json"],
-                                       body: userInfo) else {
+                                       body: jsonData) else {
             return
         }
         

@@ -15,7 +15,7 @@ protocol SignupService: class {
     )
     
     func requestSingup(
-        _ userInfo: Data,
+        _ userInfo: [String: Any],
         completionHandler: @escaping (DataResponse<Signup>) -> Void
     )
 }

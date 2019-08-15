@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="137" id="KGk-i7-Jjw" customClass="OSLTableViewCell" customModule="슥삭" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="137"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="136.5"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" translatesAutoresizingMaskIntoConstraints="NO" id="kM9-Oe-gcc">
+                        <rect key="frame" x="22" y="10" width="276" height="92"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xCf-Cz-2yA">
+                                <rect key="frame" x="0.0" y="0.0" width="276" height="22"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="22" id="SFd-od-n13"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="15"/>
+                                <color key="textColor" red="0.25098039215686274" green="0.25098039215686274" blue="0.25098039215686274" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" editable="NO" text="Lorem ipsum dolor sit er elit " textAlignment="natural" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="zFX-VR-Z0N">
+                                <rect key="frame" x="0.0" y="22" width="276" height="32"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="20" id="ecX-PD-Nq7"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" weight="light" pointSize="13"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="7" translatesAutoresizingMaskIntoConstraints="NO" id="QQf-d4-Adw">
+                                <rect key="frame" x="0.0" y="54" width="276" height="19"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="19" id="ocH-hL-rMa"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" weight="light" pointSize="13"/>
+                                <color key="textColor" red="0.60784313725490191" green="0.60784313725490191" blue="0.60784313725490191" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="7" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="DaK-9w-6pL">
+                                <rect key="frame" x="0.0" y="73" width="276" height="19"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="19" id="7IE-e2-1G2"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                <color key="textColor" red="0.60784313725490191" green="0.60784313725490191" blue="0.60784313725490191" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="DaK-9w-6pL" secondAttribute="trailing" id="C3S-n1-NiD"/>
+                            <constraint firstAttribute="trailing" secondItem="QQf-d4-Adw" secondAttribute="trailing" id="CFR-Ol-Zpy"/>
+                            <constraint firstItem="QQf-d4-Adw" firstAttribute="leading" secondItem="kM9-Oe-gcc" secondAttribute="leading" id="LUf-7Q-O5e"/>
+                            <constraint firstItem="xCf-Cz-2yA" firstAttribute="leading" secondItem="kM9-Oe-gcc" secondAttribute="leading" id="mCv-EP-CYf"/>
+                            <constraint firstItem="DaK-9w-6pL" firstAttribute="leading" secondItem="kM9-Oe-gcc" secondAttribute="leading" id="n9O-zG-ZmY"/>
+                            <constraint firstAttribute="trailing" secondItem="zFX-VR-Z0N" secondAttribute="trailing" id="puY-5p-uB0"/>
+                            <constraint firstItem="zFX-VR-Z0N" firstAttribute="leading" secondItem="kM9-Oe-gcc" secondAttribute="leading" id="wHg-5b-kid"/>
+                            <constraint firstAttribute="trailing" secondItem="xCf-Cz-2yA" secondAttribute="trailing" id="yFr-0k-Tza"/>
+                        </constraints>
+                    </stackView>
+                </subviews>
+                <constraints>
+                    <constraint firstAttribute="bottom" secondItem="kM9-Oe-gcc" secondAttribute="bottom" constant="10" id="c0t-bL-kgZ"/>
+                    <constraint firstItem="kM9-Oe-gcc" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="10" id="inE-Us-maL"/>
+                    <constraint firstAttribute="trailing" secondItem="kM9-Oe-gcc" secondAttribute="trailing" constant="22" id="nDG-7o-1Sn"/>
+                    <constraint firstItem="kM9-Oe-gcc" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="22" id="xMo-rV-Vwd"/>
+                </constraints>
+            </tableViewCellContentView>
+            <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <connections>
+                <outlet property="copyrightLabel" destination="QQf-d4-Adw" id="L4r-92-Dft"/>
+                <outlet property="licenseLabel" destination="DaK-9w-6pL" id="2TY-hi-eYp"/>
+                <outlet property="linkTextView" destination="zFX-VR-Z0N" id="wDh-Xe-QNT"/>
+                <outlet property="titleLabel" destination="xCf-Cz-2yA" id="EXD-Fm-Jao"/>
+            </connections>
+            <point key="canvasLocation" x="137.68115942028987" y="136.94196428571428"/>
+        </tableViewCell>
+    </objects>
+</document>

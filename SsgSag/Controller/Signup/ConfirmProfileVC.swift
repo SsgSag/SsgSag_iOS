@@ -29,11 +29,11 @@ class ConfirmProfileVC: UIViewController {
     
     @IBOutlet weak var nextButton: GradientButton!
     
+    @IBOutlet weak var textFieldsStackView: UIStackView!
+    @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var profileImageView: UIImageView!
     
     @IBOutlet weak var cameraButton: UIButton!
-    
-    @IBOutlet weak var profileImageViewHeightConstraint: NSLayoutConstraint!
     
     var selectedImage: UIImage?
     
@@ -334,31 +334,20 @@ extension ConfirmProfileVC: UITextFieldDelegate {
     }
     
     func textFieldDidEndEditing(_ textField: UITextField) {
+        scrollView.setContentOffset(CGPoint(x: 0, y: 0), animated: true)
+        
         checkInformation()
     }
     
-    func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
-        textField.resignFirstResponder()
-        profileImageViewHeightConstraint.constant = 0
-        cameraButton.isHidden = true
-        
-        UIView.animate(withDuration: 0.3) {
-            self.view.layoutIfNeeded()
-        }
-        return true
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        scrollView.setContentOffset(CGPoint(x: 0, y: 0), animated: true)
+        scrollView.setContentOffset(CGPoint(x: 0, y: textFieldsStackView.frame.origin.y), animated: true)
     }
 }
 
 extension ConfirmProfileVC: UIGestureRecognizerDelegate {
     func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer,
                            shouldReceive touch: UITouch) -> Bool {
-        profileImageViewHeightConstraint.constant = 120
-        cameraButton.isHidden = false
-        
-        UIView.animate(withDuration: 0.3) {
-            self.view.layoutIfNeeded()
-        }
-        
         self.view.endEditing(true)
         return true
     }

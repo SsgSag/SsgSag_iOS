@@ -14,6 +14,9 @@ class SplashViewController: UIViewController {
     private let loginServiceImp: LoginService
         = DependencyContainer.shared.getDependency(key: .loginService)
     
+    private let signUpService: SignupService
+        = DependencyContainer.shared.getDependency(key: .signUpService)
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.navigationBar.isHidden = true
@@ -26,6 +29,32 @@ class SplashViewController: UIViewController {
     }
     
     @IBAction func touchUpLookAroundButton(_ sender: UIButton) {
+        guard let UUID = KeychainWrapper.standard.string(forKey: "UUID") else {
+            return
+        }
+        
+        let userInfo: [String: Any]
+            = ["UUID" : UUID,
+               "signupType" : 11,
+               "osType" : 1]
+        
+        signUpService.requestSingup(userInfo) { [weak self] result in
+            switch result {
+            case .success(let signUpData):
+                if let storeToken = signUpData.data?.token {
+                    KeychainWrapper.standard.set(storeToken, forKey: TokenName.token)
+                }
+                
+                UserDefaults.standard.set(true, forKey: "isTryWithoutLogin")
+                
+                DispatchQueue.main.async {
+                    self?.present(TapbarVC(), animated: true, completion: nil)
+                }
+            case .failed(let error):
+                print(error)
+                return
+            }
+        }
     }
     
     @IBAction func touchUpSelfLoginButton(_ sender: UIButton) {
@@ -70,6 +99,8 @@ class SplashViewController: UIViewController {
                             KeychainWrapper.standard.set(storeToken, forKey: TokenName.token)
                         }
                         
+                        UserDefaults.standard.set(false, forKey: "isTryWithoutLogin")
+                        
                         DispatchQueue.main.async {
                             switch response.status {
                             case 200:
@@ -96,4 +127,5 @@ class SplashViewController: UIViewController {
             }
         }
     }
+    
 }

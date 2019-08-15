@@ -1,5 +1,6 @@
 import UIKit
 import Lottie
+import SwiftKeychainWrapper
 
 class SwipeVC: UIViewController {
     
@@ -8,6 +9,8 @@ class SwipeVC: UIViewController {
     @IBOutlet private var countLabel: UILabel!
     
     @IBOutlet private var overLapView: UIView!
+    
+    @IBOutlet weak var settingBoardButton: UIBarButtonItem!
     
     lazy private var posters: [Posters] = []
     private var numberOfSwipe = 0
@@ -60,6 +63,16 @@ class SwipeVC: UIViewController {
         navigationController?.navigationBar.addColorToShadow(color: #colorLiteral(red: 0.3843137255, green: 0.4156862745, blue: 1, alpha: 1),
                                                              size: shadowSize)
         tabBarController?.tabBar.isHidden = false
+        
+        guard let isTryWithoutLogin = UserDefaults.standard.object(forKey: "isTryWithoutLogin") as? Bool else {
+            return
+        }
+        
+        if isTryWithoutLogin {
+            settingBoardButton.image = nil
+            settingBoardButton.title = "나가기"
+            settingBoardButton.setTitleTextAttributes([NSAttributedString.Key.font: UIFont(name: "Helvetica", size: 15.0)], for: .normal)
+        }
     }
     
     override func viewDidLoad() {
@@ -337,6 +350,34 @@ class SwipeVC: UIViewController {
     }
     
     @IBAction func touchUpMyPageButton(_ sender: UIBarButtonItem) {
+        if let isTryWithoutLogin = UserDefaults.standard.object(forKey: "isTryWithoutLogin") as? Bool {
+            if isTryWithoutLogin {
+                simpleAlertwithHandler(title: "마이페이지", message: "로그인 후 이용해주세요") { _ in
+                    
+                    KeychainWrapper.standard.removeObject(forKey: TokenName.token)
+                    
+                    guard let window = UIApplication.shared.keyWindow else {
+                        return
+                    }
+                    
+                    let mainStoryboard: UIStoryboard = UIStoryboard(name: "LoginStoryBoard", bundle: nil)
+                    let viewController = mainStoryboard.instantiateViewController(withIdentifier: "splashVC") as! SplashViewController
+                    
+                    let rootNavigationController = UINavigationController(rootViewController: viewController)
+                    
+                    let appDelegate = UIApplication.shared.delegate as! AppDelegate
+                    appDelegate.window?.rootViewController = rootNavigationController
+                    
+                    rootNavigationController.view.layoutIfNeeded()
+                    
+                    UIView.transition(with: window, duration: 0.5, options: .transitionFlipFromLeft, animations: {
+                        window.rootViewController = rootNavigationController
+                    }, completion: nil)
+                }
+                return
+            }
+        }
+        
         let myPageStoryboard = UIStoryboard(name: StoryBoardName.mypage, bundle: nil)
         
         let myPageViewController
@@ -346,6 +387,30 @@ class SwipeVC: UIViewController {
     }
     
     @IBAction func touchUpBoardSettingButton(_ sender: UIBarButtonItem) {
+        if sender.title == "나가기" {
+            
+            KeychainWrapper.standard.removeObject(forKey: TokenName.token)
+            
+            guard let window = UIApplication.shared.keyWindow else {
+                return
+            }
+            
+            let mainStoryboard: UIStoryboard = UIStoryboard(name: "LoginStoryBoard", bundle: nil)
+            let viewController = mainStoryboard.instantiateViewController(withIdentifier: "splashVC") as! SplashViewController
+            
+            let rootNavigationController = UINavigationController(rootViewController: viewController)
+            
+            let appDelegate = UIApplication.shared.delegate as! AppDelegate
+            appDelegate.window?.rootViewController = rootNavigationController
+            
+            rootNavigationController.view.layoutIfNeeded()
+            
+            UIView.transition(with: window, duration: 0.5, options: .transitionFlipFromLeft, animations: {
+                window.rootViewController = rootNavigationController
+            }, completion: nil)
+            return
+        }
+        
         let storyboard = UIStoryboard(name: StoryBoardName.mypage,
                                       bundle: nil)
         let interestVC = storyboard.instantiateViewController(withIdentifier: "InterestBoardVC")
