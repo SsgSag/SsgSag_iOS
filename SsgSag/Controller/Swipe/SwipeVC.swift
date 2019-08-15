@@ -22,6 +22,7 @@ class SwipeVC: UIViewController {
     private var lastCardIndex: Int = 0
     
     private var currentIndex = 0
+    private var ssgsagCount = 0
     
     private var countTotalCardIndex = 0
     
@@ -37,7 +38,7 @@ class SwipeVC: UIViewController {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.numberOfLines = 2
         label.font = UIFont.systemFont(ofSize: 20, weight: .medium)
-        label.text = "[\(self.posters.count)]장의\n카드를 슥삭했어요"
+        label.text = "오늘 [\(self.ssgsagCount)]장의\n카드를 슥삭했어요"
         label.textColor = #colorLiteral(red: 0.3098039216, green: 0.3098039216, blue: 0.3098039216, alpha: 1)
         label.textAlignment = .center
         label.adjustsFontSizeToFitWidth = true
@@ -140,9 +141,14 @@ class SwipeVC: UIViewController {
 
         posterServiceImp.requestPoster { [weak self] response in
             switch response {
-            case .success(let posters):
+            case .success(let posterdata):
+                guard let posters = posterdata.posters,
+                    let numberOfSwipe = posterdata.userCnt else {
+                    return
+                }
                 self?.posters = posters
                 self?.countTotalCardIndex = self?.posters.count ?? 0
+                self?.ssgsagCount = numberOfSwipe
                 
                 DispatchQueue.main.async {
                     self?.loadCardAndSetPageVC()
@@ -496,7 +502,7 @@ extension SwipeVC: movoToDetailPoster {
 extension SwipeVC : SwipeCardDelegate {
     //카드가 왼쪽으로 갔을때
     func cardGoesLeft(card: SwipeCard) {
-        
+        ssgsagCount += 1
         isOkayToUndo = true
         
         loadCardValuesAfterRemoveObject()
@@ -526,7 +532,7 @@ extension SwipeVC : SwipeCardDelegate {
     
     //카드 오른쪽으로 갔을때
     func cardGoesRight(card: SwipeCard) {
-        
+        ssgsagCount += 1
         isOkayToUndo = true
         
         loadCardValuesAfterRemoveObject()
