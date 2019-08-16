@@ -38,6 +38,7 @@ class ArticleViewController: UIViewController {
         navigationController?.hidesBarsOnSwipe = true
         
         navigationItem.title = articleTitle ?? ""
+        tabBarController?.tabBar.isHidden = true
     }
     
     override func viewDidLoad() {

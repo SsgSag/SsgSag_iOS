@@ -18,6 +18,8 @@ class ChangePasswordViewController: UIViewController {
     
     @IBOutlet weak var isEqualPasswordLabel: UILabel!
     
+    @IBOutlet weak var textFieldStackView: UIStackView!
+    @IBOutlet weak var scrollView: UIScrollView!
     private let mypageService: MyPageService
         = DependencyContainer.shared.getDependency(key: .myPageService)
     
@@ -122,6 +124,12 @@ extension ChangePasswordViewController: UITextFieldDelegate {
         } else {
             isEqualPasswordLabel.isHidden = false
         }
+        
+        scrollView.setContentOffset(CGPoint(x: 0, y: 0), animated: true)
+    }
+    
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        scrollView.setContentOffset(CGPoint(x: 0, y: textFieldStackView.frame.origin.y), animated: true)
     }
 }
 

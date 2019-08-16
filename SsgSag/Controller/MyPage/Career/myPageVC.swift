@@ -42,7 +42,6 @@ class myPageVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        loadImage()
         setupTableView()
 
         profileImageView.applyRadius(radius: profileImageView.frame.height / 2)
@@ -52,12 +51,6 @@ class myPageVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
         let myPageMenuNib = UINib(nibName: "myPageMenuTableViewCell", bundle: nil)
         
         myPageTableView.register(myPageMenuNib, forCellReuseIdentifier: "menuTableViewCell")
-    }
-    
-    private func loadImage() {
-        if let loadedImage = loadImageFromDiskWith(fileName: "myImage") {
-            profileImageView.image = loadedImage
-        }
     }
     
     @IBAction func touchUpCancelButton(_ sender: UIButton) {
@@ -72,81 +65,10 @@ class myPageVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
         accountSettingVC.major = userInfo?.userMajor
         accountSettingVC.studentNumber = userInfo?.userStudentNum
         accountSettingVC.grade = userInfo?.userGrade
+        accountSettingVC.selectedImage = profileImageView.image
         accountSettingVC.delegate = self
         present(UINavigationController(rootViewController: accountSettingVC), animated: true)
     }
-    
-    @IBAction func touchUpCameraButton(_ sender: UIButton) {
-        
-        let photoAuthorizationStatus = PHPhotoLibrary.authorizationStatus()
-        
-        switch photoAuthorizationStatus {
-        case .authorized:
-            self.present(self.imagePicker, animated: true, completion: nil)
-        case .denied, .restricted:
-            rePermission()
-            print("사진첩 접근 불허 ")
-        case .notDetermined:
-            print("접근 아직 응답하지 않음")
-            PHPhotoLibrary.requestAuthorization { status in
-                switch status {
-                case .authorized:
-                    print("사용자가 허용")
-                    self.present(self.imagePicker, animated: true, completion: nil)
-                case .denied:
-                    print("사용자가 불허")
-                default:
-                    break
-                }
-            }
-        }
-    }
-    
-    private func rePermission() {
-        let alertController = UIAlertController (title: "카메라 권한 설정", message: "세팅 하시겠습니까?", preferredStyle: .alert)
-        
-        let settingsAction = UIAlertAction(title: "세팅", style: .default) { (_) -> Void in
-            
-            guard let settingsUrl = URL(string: UIApplication.openSettingsURLString) else {
-                return
-            }
-            
-            if UIApplication.shared.canOpenURL(settingsUrl) {
-                UIApplication.shared.open(settingsUrl){ success in
-                    print("Settings opened: \(success)") // Prints true
-                }
-            }
-            
-        }
-        
-        alertController.addAction(settingsAction)
-        
-        let cancelAction = UIAlertAction(title: "취소", style: .default, handler: nil)
-        alertController.addAction(cancelAction)
-        
-        present(alertController, animated: true, completion: nil)
-    }
-    
-    func loadImageFromDiskWith(fileName: String) -> UIImage? {
-        
-        let documentDirectory = FileManager.SearchPathDirectory.documentDirectory
-        
-        let userDomainMask = FileManager.SearchPathDomainMask.userDomainMask
-        let paths = NSSearchPathForDirectoriesInDomains(documentDirectory, userDomainMask, true)
-        
-        if let dirPath = paths.first {
-            let imageUrl = URL(fileURLWithPath: dirPath).appendingPathComponent(fileName)
-            let image = UIImage(contentsOfFile: imageUrl.path)
-            return image
-        }
-        
-        return nil
-    }
-    
-    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
-        self.dismiss(animated: true, completion: nil)
-    }
-    
     
     private func getData() {
         guard let url = UserAPI.sharedInstance.getURL("/user") else {return}
@@ -177,12 +99,29 @@ class myPageVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
                     self?.idLabel.text = apiResponse.data?.userNickname
                     self?.majorLabel.text = apiResponse.data?.userMajor
                     self?.schoolLabel.text = apiResponse.data?.userUniv
+                    self?.requestImage()
                     self?.view.layoutIfNeeded()
                 }
                 
             } catch (let err) {
                 print(err.localizedDescription)
             }
+        }
+    }
+    
+    private func requestImage() {
+        guard let urlString = userInfo?.userProfileUrl,
+            let url = URL(string: urlString) else {
+            return
+        }
+        
+        do {
+            let imageData = try Data(contentsOf: url)
+            
+            profileImageView.image = UIImage(data: imageData, scale: 0.5)
+        } catch let error {
+            print(error)
+            return
         }
     }
     

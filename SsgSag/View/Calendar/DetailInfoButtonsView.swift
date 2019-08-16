@@ -27,22 +27,31 @@ class DetailInfoButtonsView: UIView {
             }
             
             if isExist {
-                applyButton.isUserInteractionEnabled = true
-                applyButton.alpha = 1
+                DispatchQueue.main.async {
+                    self.applyButton.isUserInteractionEnabled = true
+                    self.applyButton.alpha = 1
+                }
             } else {
-                applyButton.isUserInteractionEnabled = false
-                applyButton.alpha = 0.2
+                DispatchQueue.main.async {
+                    self.applyButton.isUserInteractionEnabled = false
+                    self.applyButton.alpha = 0.2
+                }
             }
         }
     }
+    
     var isLike: Int? {
         didSet {
             if isLike == 1 {
-                likeButton.setImage(UIImage(named: "ic_favoriteWhiteBox"),
-                                    for: .normal)
+                DispatchQueue.main.async {
+                    self.likeButton.setImage(UIImage(named: "ic_favoriteWhiteBox"),
+                                             for: .normal)
+                }
             } else {
-                likeButton.setImage(UIImage(named: "ic_favoriteWhiteBoxPassive"),
-                                    for: .normal)
+                DispatchQueue.main.async {
+                    self.likeButton.setImage(UIImage(named: "ic_favoriteWhiteBoxPassive"),
+                                             for: .normal)
+                }
             }
         }
     }

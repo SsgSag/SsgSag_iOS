@@ -66,7 +66,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate, MessagingDelegate ,UNUser
         
         window = UIWindow(frame: UIScreen.main.bounds)
     
-        setWindowRootViewController()
+        let splashStoryBoard = UIStoryboard(name: "Splash", bundle: nil)
+        let splashVC = splashStoryBoard.instantiateViewController(withIdentifier: "splash")
+
+        window?.rootViewController = splashVC
 
         window?.makeKeyAndVisible()
         
@@ -105,38 +108,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, MessagingDelegate ,UNUser
     
     func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
         Messaging.messaging().apnsToken = deviceToken
-    }
-
-    private func setWindowRootViewController() {
-        if let isAutoLogin = UserDefaults.standard.object(forKey: UserDefaultsName.isAutoLogin) as? Bool {
-            if isAutoLogin {
-                if isTokenExist() {
-                    window?.rootViewController = TapbarVC()
-                } else {
-                    let loginStoryBoard = UIStoryboard(name: StoryBoardName.login, bundle: nil)
-                    let loginVC = loginStoryBoard.instantiateViewController(withIdentifier: "splashVC")
-                    
-                    window?.rootViewController = UINavigationController(rootViewController: loginVC)
-                }
-            } else {
-                let loginStoryBoard = UIStoryboard(name: StoryBoardName.login, bundle: nil)
-                let loginVC = loginStoryBoard.instantiateViewController(withIdentifier: "splashVC")
-                
-                window?.rootViewController = UINavigationController(rootViewController: loginVC)
-            }
-        } else {
-            let loginStoryBoard = UIStoryboard(name: StoryBoardName.login, bundle: nil)
-            let loginVC = loginStoryBoard.instantiateViewController(withIdentifier: "splashVC")
-            window?.rootViewController = UINavigationController(rootViewController: loginVC)
-        }
-    }
-    
-    private func isTokenExist() -> Bool {
-        if KeychainWrapper.standard.string(forKey: TokenName.token) != nil {
-            return true
-        } else {
-            return false
-        }
     }
     
     private func naverLogin() {

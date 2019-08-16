@@ -9,7 +9,7 @@
 import UIKit
 
 protocol FilterDelegate: class {
-    func completeFilterSetting()
+    func completeFilterSetting(_ categoryName: String)
 }
 
 class InternFilterViewController: UIViewController {
@@ -22,6 +22,7 @@ class InternFilterViewController: UIViewController {
     private var selectedInterest: [Int] = []
     private var selectedJobNumber = 0
     private var selectedCompanyNumber = 0
+    var categoryName: String?
     
     @IBOutlet weak var jobAllButton: UIButton!
     
@@ -103,7 +104,7 @@ class InternFilterViewController: UIViewController {
                 DispatchQueue.main.async {
                     switch status {
                     case .sucess:
-                        self?.delegate?.completeFilterSetting()
+                        self?.delegate?.completeFilterSetting(self?.categoryName ?? "")
                         self?.dismiss(animated: false)
                     case .dataBaseError:
                         self?.simplerAlert(title: "database error")

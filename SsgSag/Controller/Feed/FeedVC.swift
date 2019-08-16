@@ -19,6 +19,7 @@ class FeedVC: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
+        tabBarController?.tabBar.isHidden = false
         navigationController?.navigationBar.isHidden = true
         
         guard let isTryWithoutLogin = UserDefaults.standard.object(forKey: "isTryWithoutLogin") as? Bool else {

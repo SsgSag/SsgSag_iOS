@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SwiftKeychainWrapper
 
 class DetailInfoViewController: UIViewController {
 
@@ -221,6 +222,10 @@ class DetailInfoViewController: UIViewController {
         
         infoCollectionView.register(commentWriteNib, forCellWithReuseIdentifier: "commentWriteCellID")
         
+        let hideNib = UINib(nibName: "HideAnalyticsCommentsCollectionViewCell", bundle: nil)
+        
+        infoCollectionView.register(hideNib, forCellWithReuseIdentifier: "hideAnalyticsCommentsCell")
+        
     }
 
     func estimatedFrame(text: String, font: UIFont) -> CGRect {
@@ -283,14 +288,32 @@ class DetailInfoViewController: UIViewController {
     func titleStringByCategory() -> [String] {
         switch posterDetailData?.categoryIdx {
         case 0:
+            // 공모전
             return ["주제", "지원자격", "시상내역"]
         case 1:
-            return ["지원자격", "활동내역", "혜택"]
+            // 대외활동
+            return ["지원자격", "활동내용", "활동혜택"]
         case 2:
+            // 동아리(연합)
+            return ["활동분야", "모임시간", "활동혜택"]
+        case 3:
+            // 교내공지
+            return ["활동분야", "모임시간", "혜택"]
+        case 4:
             // 인턴
             return ["모집분야", "지원자격", "근무지역"]
-        case 3:
-            return ["활동분야", "모임시간", "혜택"]
+        case 5:
+            // 기타
+            return ["", "", ""]
+        case 6:
+            // 동아리 (교내)
+            return ["활동분야", "모임시간", "활동혜택"]
+        case 7:
+            // 교육/강연
+            return ["주제", "내용/커리큘럼", "일정/기간"]
+        case 8:
+            // 장학금/지원
+            return ["인원/혜택", "대상 및 조건", "기타사항"]
         default:
             return ["항목1", "항목2", "항목3"]
         }
@@ -305,7 +328,15 @@ extension DetailInfoViewController: UICollectionViewDelegate {
 extension DetailInfoViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView,
                         numberOfItemsInSection section: Int) -> Int {
-        return 8 + (posterDetailData?.commentList?.count ?? 0)
+        guard let isTryWithoutLogin = UserDefaults.standard.object(forKey: "isTryWithoutLogin") as? Bool else {
+            return .init()
+        }
+        
+        if isTryWithoutLogin {
+            return 7
+        } else {
+            return 8 + (posterDetailData?.commentList?.count ?? 0)
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView,
@@ -375,6 +406,43 @@ extension DetailInfoViewController: UICollectionViewDataSource {
             
             return cell
         case 6:
+            
+            guard let isTryWithoutLogin = UserDefaults.standard.object(forKey: "isTryWithoutLogin") as? Bool else {
+                return .init()
+            }
+            
+            if isTryWithoutLogin {
+                guard let cell
+                    = collectionView.dequeueReusableCell(withReuseIdentifier: "hideAnalyticsCommentsCell",
+                                                         for: indexPath) as? HideAnalyticsCommentsCollectionViewCell else {
+                                                            return .init()
+                }
+                
+                cell.callBack = {
+                    KeychainWrapper.standard.removeObject(forKey: TokenName.token)
+                    
+                    guard let window = UIApplication.shared.keyWindow else {
+                        return
+                    }
+                    
+                    let mainStoryboard: UIStoryboard = UIStoryboard(name: "LoginStoryBoard", bundle: nil)
+                    let viewController = mainStoryboard.instantiateViewController(withIdentifier: "splashVC") as! SplashViewController
+                    
+                    let rootNavigationController = UINavigationController(rootViewController: viewController)
+                    
+                    let appDelegate = UIApplication.shared.delegate as! AppDelegate
+                    appDelegate.window?.rootViewController = rootNavigationController
+                    
+                    rootNavigationController.view.layoutIfNeeded()
+                    
+                    UIView.transition(with: window, duration: 0.5, options: .transitionFlipFromLeft, animations: {
+                        window.rootViewController = rootNavigationController
+                    }, completion: nil)
+                }
+                
+                return cell
+            }
+            
             guard let cell
                 = collectionView.dequeueReusableCell(withReuseIdentifier: "analyticsCellID",
                                                      for: indexPath) as? AnalysticsCollectionViewCell else {
@@ -384,6 +452,7 @@ extension DetailInfoViewController: UICollectionViewDataSource {
             cell.configure(analyticsData: posterDetailData?.analytics)
             
             return cell
+            
         case 8 + (posterDetailData?.commentList?.count ?? 0) - 1:
             guard let cell
                 = collectionView.dequeueReusableCell(withReuseIdentifier: "commentWriteCellID",
@@ -423,6 +492,7 @@ extension DetailInfoViewController: UICollectionViewDataSource {
                                                                        for: indexPath)
             }
             
+            header.delegate = self
             header.configure(data: posterDetailData)
             
             if let photoURL = posterDetailData?.photoUrl {
@@ -704,5 +774,17 @@ extension DetailInfoViewController: CommentDelegate {
         alertController.addAction(cancelAction)
         
         present(alertController, animated: true)
+    }
+}
+
+extension DetailInfoViewController: LargeImageDelegate {
+    func presentLargeImage() {
+//        let swipeStoryboard = UIStoryboard(name: StoryBoardName.swipe,
+//                                           bundle: nil)
+//        guard let zoomPosterVC = swipeStoryboard.instantiateViewController(withIdentifier: ViewControllerIdentifier.zoomPosterViewController) as? ZoomPosterVC else {return}
+//        
+//        zoomPosterVC.urlString = posterDetailData?.photoUrl
+//        
+//        self.present(zoomPosterVC, animated: true, completion: nil)
     }
 }

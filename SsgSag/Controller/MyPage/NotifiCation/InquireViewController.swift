@@ -97,7 +97,7 @@ class InquireViewController: UIViewController {
         if MFMailComposeViewController.canSendMail() {
             let mail = MFMailComposeViewController()
             mail.mailComposeDelegate = self
-            mail.setToRecipients(["shane@ssgsag.kr"])
+            mail.setToRecipients(["ssgsag.univ@gmail.com"])
             mail.setMessageBody(contentsTextView.text, isHTML: true)
             
             switch kind {

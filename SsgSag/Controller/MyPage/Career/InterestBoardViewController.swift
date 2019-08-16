@@ -75,7 +75,7 @@ class InterestBoardViewController: UIViewController {
         }
     }
 
-    func requestInterestAdd() {
+    func requestInterestAdd(_ categoryName: String) {
         guard let interestIdx = selectedIndex else {
             return
         }
@@ -90,16 +90,16 @@ class InterestBoardViewController: UIViewController {
             DispatchQueue.main.async {
                 switch statusCode {
                 case .sucess:
-                    self.simplerAlert(title: "구독 등록을 성공 하였습니다.")
+                    self.simplerAlert(title: "\(categoryName) 게시판을\n팔로우하였습니다.")
                     self.requestSubscribeStatus()
                 default:
-                    self.simplerAlert(title: "구독 등록을 실패 하였습니다.")
+                    self.simplerAlert(title: "\(categoryName) 게시판\n팔로우를 실패하였습니다.")
                 }
             }
         }
     }
     
-    func requestInterestDelete() {
+    func requestInterestDelete(_ categoryName: String) {
         guard let interestIdx = selectedIndex else {
             return
         }
@@ -115,10 +115,10 @@ class InterestBoardViewController: UIViewController {
             DispatchQueue.main.async {
                 switch statusCode {
                 case .sucess:
-                    self.simplerAlert(title: "구독 취소를 성공 하였습니다.")
+                    self.simplerAlert(title: "\(categoryName) 게시판\n팔로우를 취소하였습니다.")
                     self.requestSubscribeStatus()
                 default:
-                    self.simplerAlert(title: "구독 등록을 실패 하였습니다.")
+                    self.simplerAlert(title: "\(categoryName) 게시판\n팔로우 취소를 실패하였습니다.")
                 }
             }
         }
@@ -169,18 +169,18 @@ extension InterestBoardViewController: InterestFollowDelegate {
                 internFilterVC.delegate = self
                 self.present(internFilterVC, animated: false)
             } else {
-                self.requestInterestAdd()
+                self.requestInterestAdd(interest.interestName ?? "")
             }
         } else {
-            self.requestInterestDelete()
+            self.requestInterestDelete(interest.interestName ?? "")
         }
     }
     
 }
 
 extension InterestBoardViewController: FilterDelegate {
-    func completeFilterSetting() {
-        requestInterestAdd()
+    func completeFilterSetting(_ categoryName: String) {
+        requestInterestAdd(categoryName)
     }
 }
 

@@ -196,7 +196,7 @@ class SignUpCompleteVC: UIViewController {
             
             sendData = [
                 "accessToken": sendToken,
-                "loginType" : sendType //10은 자체 로그인
+                "loginType" : sendType
             ]
         }
         

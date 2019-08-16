@@ -83,7 +83,16 @@ class AccountSettingViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(handleShowKeyboard),
+                                               name: UIWindow.keyboardWillShowNotification,
+                                               object: nil)
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(handleHideKeyboard),
+                                               name: UIWindow.keyboardWillHideNotification,
+                                               object: nil)
+        
         setupLayout()
         setupCollectionView()
     }
@@ -135,6 +144,21 @@ class AccountSettingViewController: UIViewController {
         settingCollectionView.register(menuNib,
                                        forCellWithReuseIdentifier: "menuCellID")
         
+        let univSettingNib = UINib(nibName: "UnivCollectionViewCell", bundle: nil)
+        
+        settingCollectionView.register(univSettingNib, forCellWithReuseIdentifier: "univSettingCell")
+        
+        let majorSettingNib = UINib(nibName: "MajorCollectionViewCell", bundle: nil)
+        
+        settingCollectionView.register(majorSettingNib, forCellWithReuseIdentifier: "majorSettingCell")
+        
+        let gradeSettingNib = UINib(nibName: "GradeCollectionViewCell", bundle: nil)
+        
+        settingCollectionView.register(gradeSettingNib, forCellWithReuseIdentifier: "gradeSettingCell")
+        
+        let admissionSettingNib = UINib(nibName: "AdmissionCollectionViewCell", bundle: nil)
+        
+        settingCollectionView.register(admissionSettingNib, forCellWithReuseIdentifier: "admissionSettingCell")
     }
     
     private func uploadImage(_ selecteImage: UIImage?) {
@@ -279,15 +303,34 @@ class AccountSettingViewController: UIViewController {
                 return
             }
         }
+    }
+    
+    @objc func handleShowKeyboard(notification: NSNotification) {
         
-//        guard let header
-//            = settingCollectionView.supplementaryView(forElementKind: UICollectionView.elementKindSectionHeader,
-//                                                      at: IndexPath(item: 0, section: 0))
-//                as? SettingProfileImageCollectionReusableView else {
-//            return
-//        }
-//        
-//        uploadImage(header.profileImageView.image)
+        var indexPath = IndexPath()
+        
+        guard let tag = currentTextField?.tag else {
+            return
+        }
+        
+        switch tag {
+        case 0...3:
+            indexPath = IndexPath(item: tag, section: 0)
+        default:
+            indexPath = IndexPath(item: tag - 1, section: 0)
+        }
+        
+        let cell = settingCollectionView.cellForItem(at: indexPath)
+        
+        settingCollectionView.setContentOffset(CGPoint(x: 0,
+                                                       y: (cell?.frame.origin.y ?? 0) - 100),
+                                               animated: true)
+    }
+    
+    @objc func handleHideKeyboard(notification: NSNotification) {
+        settingCollectionView.setContentOffset(CGPoint(x: 0,
+                                                       y: 0),
+                                               animated: true)
     }
     
     private func checkInformation() -> Bool {
@@ -321,31 +364,31 @@ class AccountSettingViewController: UIViewController {
         
         return pred.evaluate(with: nickName)
     }
-    
-    // MARK: - Save Image API
-    private func saveImage(imageName: String, image: UIImage) {
-        
-        guard let documentsDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first else { return }
-        
-        let fileName = imageName
-        let fileURL = documentsDirectory.appendingPathComponent(fileName)
-        guard let data = image.jpegData(compressionQuality: 1) else { return }
-        
-        //Checks if file exists, removes it if so.
-        if FileManager.default.fileExists(atPath: fileURL.path) {
-            do {
-                try FileManager.default.removeItem(atPath: fileURL.path)
-                print("Removed old image")
-            } catch let removeError {
-                print("couldn't remove file at path", removeError)
-            }
-        }
-        do {
-            try data.write(to: fileURL)
-        } catch let error {
-            print("error saving file with error", error)
-        }
-    }
+//
+//    // MARK: - Save Image API
+//    private func saveImage(imageName: String, image: UIImage) {
+//
+//        guard let documentsDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first else { return }
+//
+//        let fileName = imageName
+//        let fileURL = documentsDirectory.appendingPathComponent(fileName)
+//        guard let data = image.jpegData(compressionQuality: 1) else { return }
+//
+//        //Checks if file exists, removes it if so.
+//        if FileManager.default.fileExists(atPath: fileURL.path) {
+//            do {
+//                try FileManager.default.removeItem(atPath: fileURL.path)
+//                print("Removed old image")
+//            } catch let removeError {
+//                print("couldn't remove file at path", removeError)
+//            }
+//        }
+//        do {
+//            try data.write(to: fileURL)
+//        } catch let error {
+//            print("error saving file with error", error)
+//        }
+//    }
 }
 
 extension AccountSettingViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
@@ -356,7 +399,6 @@ extension AccountSettingViewController: UIImagePickerControllerDelegate, UINavig
         
         if let editedImage: UIImage = info[.editedImage] as? UIImage {
             selectedImage = editedImage
-            saveImage(imageName: "myImage", image: editedImage)
             picker.dismiss(animated: true, completion: nil)
             
         } else if let originalImage: UIImage = info[.originalImage] as? UIImage {
@@ -365,8 +407,6 @@ extension AccountSettingViewController: UIImagePickerControllerDelegate, UINavig
         }
         
         settingCollectionView.reloadSections([0])
-        
-        // 이미지 업로드 할것
     }
     
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {

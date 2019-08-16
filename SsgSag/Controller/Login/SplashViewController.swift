@@ -34,22 +34,61 @@ class SplashViewController: UIViewController {
         }
         
         let userInfo: [String: Any]
-            = ["UUID" : UUID,
+            = ["uuid" : UUID,
                "signupType" : 11,
                "osType" : 1]
         
         signUpService.requestSingup(userInfo) { [weak self] result in
             switch result {
             case .success(let signUpData):
-                if let storeToken = signUpData.data?.token {
+                guard let status = signUpData.status,
+                    let statusCode = HttpStatusCode(rawValue: status) else {
+                        return
+                }
+                
+                switch statusCode {
+                case .sucess:
+                    // 로그인 성공
+                    guard let storeToken = signUpData.data?.token else {
+                        return
+                    }
                     KeychainWrapper.standard.set(storeToken, forKey: TokenName.token)
+                    UserDefaults.standard.set(true, forKey: "isTryWithoutLogin")
+                    
+                    DispatchQueue.main.async {
+                        self?.present(TapbarVC(), animated: true, completion: nil)
+                    }
+                case .secondSucess:
+                    // 화원가입 성공
+                    guard let storeToken = signUpData.data?.token else {
+                        return
+                    }
+                    KeychainWrapper.standard.set(storeToken, forKey: TokenName.token)
+                    UserDefaults.standard.set(true, forKey: "isTryWithoutLogin")
+                    
+                    DispatchQueue.main.async {
+                        self?.present(TapbarVC(), animated: true, completion: nil)
+                        return
+                    }
+                case .requestError:
+                    DispatchQueue.main.async {
+                        self?.simplerAlert(title: "요청에 실패하였습니다.")
+                        return
+                    }
+                case .dataBaseError:
+                    DispatchQueue.main.async {
+                        self?.simplerAlert(title: "database error")
+                        return
+                    }
+                case .serverError:
+                    DispatchQueue.main.async {
+                        self?.simplerAlert(title: "server error")
+                        return
+                    }
+                default:
+                    return
                 }
                 
-                UserDefaults.standard.set(true, forKey: "isTryWithoutLogin")
-                
-                DispatchQueue.main.async {
-                    self?.present(TapbarVC(), animated: true, completion: nil)
-                }
             case .failed(let error):
                 print(error)
                 return

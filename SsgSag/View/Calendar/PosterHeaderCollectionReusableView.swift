@@ -8,6 +8,10 @@
 
 import UIKit
 
+protocol LargeImageDelegate: class {
+    func presentLargeImage()
+}
+
 class PosterHeaderCollectionReusableView: UICollectionReusableView {
     
     @IBOutlet weak var posterImageView: UIImageView!
@@ -24,8 +28,15 @@ class PosterHeaderCollectionReusableView: UICollectionReusableView {
     
     @IBOutlet weak var likeButton: UIButton!
     
+    weak var delegate: LargeImageDelegate?
+    
+    private lazy var tapGesture = UITapGestureRecognizer(target: self, action: nil)
+    
     override func awakeFromNib() {
         super.awakeFromNib()
+        
+        tapGesture.delegate = self
+        posterImageView.addGestureRecognizer(tapGesture)
         
         hashTagTextView.textContainer.lineFragmentPadding = 0
         hashTagTextView.textContainerInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
@@ -78,5 +89,13 @@ class PosterHeaderCollectionReusableView: UICollectionReusableView {
 //        benefitLabel.text = detailData.benefit
 //        seeMoreLabel.text = detailData.posterDetail
         
+    }
+}
+
+extension PosterHeaderCollectionReusableView: UIGestureRecognizerDelegate {
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer,
+                           shouldReceive touch: UITouch) -> Bool {
+        delegate?.presentLargeImage()
+        return true
     }
 }

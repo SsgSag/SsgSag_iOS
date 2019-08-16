@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
-    <device id="retina4_7" orientation="portrait">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="1OX-js-NJy">
+    <device id="retina6_1" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
@@ -11,43 +11,19 @@
     </dependencies>
     <scenes>
         <!--SplashVC-->
-        <scene sceneID="GKf-Xk-wZf">
+        <scene sceneID="HxW-Va-TMo">
             <objects>
-                <viewController id="UlI-t2-wiM" customClass="SplashVC" customModule="슥삭" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" userInteractionEnabled="NO" contentMode="scaleToFill" id="BV5-mg-gX1" customClass="GradientView" customModule="슥삭" customModuleProvider="target">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                <viewController storyboardIdentifier="splash" useStoryboardIdentifierAsRestorationIdentifier="YES" id="1OX-js-NJy" customClass="SplashVC" customModule="슥삭" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="r4r-LX-vee">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="imgLogoSplash" translatesAutoresizingMaskIntoConstraints="NO" id="YFv-oT-scF">
-                                <rect key="frame" x="130.5" y="300" width="114" height="67"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="114" id="FVz-my-k0j"/>
-                                    <constraint firstAttribute="height" constant="67" id="o6b-1n-fLC"/>
-                                </constraints>
-                            </imageView>
-                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <constraints>
-                            <constraint firstItem="YFv-oT-scF" firstAttribute="centerY" secondItem="BV5-mg-gX1" secondAttribute="centerY" id="ewO-U1-tA3"/>
-                            <constraint firstItem="YFv-oT-scF" firstAttribute="centerX" secondItem="BV5-mg-gX1" secondAttribute="centerX" id="iHj-nq-qh6"/>
-                        </constraints>
-                        <viewLayoutGuide key="safeArea" id="roY-N2-Q5t"/>
-                        <userDefinedRuntimeAttributes>
-                            <userDefinedRuntimeAttribute type="color" keyPath="topColor">
-                                <color key="value" red="0.23529411764705882" green="0.91764705882352937" blue="0.9882352941176471" alpha="0.84999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
-                            </userDefinedRuntimeAttribute>
-                            <userDefinedRuntimeAttribute type="color" keyPath="bottomColor">
-                                <color key="value" red="0.60784313725490191" green="0.25490196078431371" blue="0.98039215686274506" alpha="0.84999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
-                            </userDefinedRuntimeAttribute>
-                        </userDefinedRuntimeAttributes>
+                        <viewLayoutGuide key="safeArea" id="W2D-Ll-Lsz"/>
                     </view>
                 </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="p6A-eU-PCk" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="cJ0-Vk-axF" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="84" y="125"/>
+            <point key="canvasLocation" x="-9" y="93"/>
         </scene>
     </scenes>
-    <resources>
-        <image name="imgLogoSplash" width="114" height="67"/>
-    </resources>
 </document>
