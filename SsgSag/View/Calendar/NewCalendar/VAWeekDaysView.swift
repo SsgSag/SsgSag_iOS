@@ -27,10 +27,10 @@ public struct VAWeekDaysViewAppearance {
     public init(
         symbolsType: VAWeekDaysSymbolsType = .veryShort,
         weekDayTextColor: UIColor = #colorLiteral(red: 0.4666666667, green: 0.4666666667, blue: 0.4666666667, alpha: 1),
-        weekDayTextFont: UIFont = UIFont.systemFont(ofSize: 12),
+        weekDayTextFont: UIFont = UIFont.systemFont(ofSize: 10),
         leftInset: CGFloat = 8,
         rightInset: CGFloat = 8,
-        separatorBackgroundColor: UIColor = .lightGray,
+        separatorBackgroundColor: UIColor = #colorLiteral(red: 0.9333333333, green: 0.9333333333, blue: 0.9333333333, alpha: 1),
         calendar: Calendar = Calendar.current) {
         self.symbolsType = symbolsType
         self.weekDayTextColor = weekDayTextColor
@@ -83,7 +83,7 @@ public class VAWeekDaysView: UIView {
             )
         }
         
-        let separatorHeight = 1 / UIScreen.main.scale
+        let separatorHeight = CGFloat(1)
         let separatorY = frame.height - separatorHeight
         separatorView.frame = CGRect(
             x: appearance.leftInset,

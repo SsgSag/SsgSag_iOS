@@ -131,6 +131,10 @@ class DetailInfoButtonsView: UIView {
     }
     
     @objc private func touchUpLikeButton(_ sender: UIButton) {
+        guard let isTryWithoutLogin = UserDefaults.standard.object(forKey: "isTryWithoutLogin") as? Bool,
+            isTryWithoutLogin else {
+                return
+        }
         
         let method: HTTPMethod = isLike == 1 ? .delete : .post
         

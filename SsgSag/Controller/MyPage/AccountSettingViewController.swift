@@ -352,6 +352,16 @@ class AccountSettingViewController: UIViewController {
             simplerAlert(title: "학년은 1~5학년 사이로 입력해주세요")
             return false
         }
+        
+        let currentDate = Date()
+        let year = Calendar.current.component(.year, from: currentDate)
+        
+        guard let admissionYear = Int(studentNumber ?? ""),
+            admissionYear >= 1990 && admissionYear <= year else {
+            simplerAlert(title: "입학년도가 잘못되었습니다.")
+            return false
+        }
+        
         return true
     }
     

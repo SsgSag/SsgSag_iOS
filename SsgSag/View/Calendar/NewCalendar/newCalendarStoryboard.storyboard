@@ -100,19 +100,23 @@
                     </view>
                     <navigationItem key="navigationItem" id="6PG-xm-bMJ">
                         <nil key="title"/>
-                        <barButtonItem key="leftBarButtonItem" image="ic_mypage" id="r3m-mp-CER">
-                            <connections>
-                                <action selector="touchUpMyPageButton:" destination="B71-YN-EqE" id="KXb-VJ-NRX"/>
-                            </connections>
-                        </barButtonItem>
-                        <view key="titleView" contentMode="scaleToFill" ambiguous="YES" id="p9b-tv-ABd" customClass="VAMonthHeaderView" customModule="슥삭" customModuleProvider="target">
-                            <rect key="frame" x="207" y="22" width="0.0" height="0.0"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                            <constraints>
-                                <constraint firstAttribute="height" constant="33" id="AYL-GX-Ef0"/>
-                            </constraints>
-                        </view>
+                        <leftBarButtonItems>
+                            <barButtonItem image="ic_mypage" id="r3m-mp-CER">
+                                <connections>
+                                    <action selector="touchUpMyPageButton:" destination="B71-YN-EqE" id="KXb-VJ-NRX"/>
+                                </connections>
+                            </barButtonItem>
+                            <barButtonItem style="plain" id="18R-zK-GKS">
+                                <view key="customView" contentMode="scaleToFill" ambiguous="YES" id="p9b-tv-ABd" customClass="VAMonthHeaderView" customModule="슥삭" customModuleProvider="target">
+                                    <rect key="frame" x="55" y="22" width="0.0" height="0.0"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="33" id="AYL-GX-Ef0"/>
+                                    </constraints>
+                                </view>
+                            </barButtonItem>
+                        </leftBarButtonItems>
                         <barButtonItem key="rightBarButtonItem" title="캘린더공유" id="1Vu-al-imD">
                             <color key="tintColor" red="0.38431372549019605" green="0.41568627450980389" blue="1" alpha="0.84705882352941175" colorSpace="calibratedRGB"/>
                             <connections>
@@ -123,6 +127,7 @@
                     <connections>
                         <outlet property="categoryCollection" destination="pH2-YY-86Q" id="Qfx-B8-e1y"/>
                         <outlet property="monthHeaderView" destination="p9b-tv-ABd" id="Glu-iV-W61"/>
+                        <outlet property="myPageBarButtonItem" destination="r3m-mp-CER" id="IHR-9h-rbB"/>
                         <outlet property="shareCalendarButton" destination="1Vu-al-imD" id="23B-tA-pYF"/>
                         <outlet property="weekDaysView" destination="vLE-vE-5Ar" id="8Jt-Zp-wE1"/>
                     </connections>

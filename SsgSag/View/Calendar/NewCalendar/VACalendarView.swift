@@ -75,7 +75,7 @@ public class VACalendarView: UIScrollView {
     private let numberDaysInWeek = 7
     
     private func getWeekHeight(_ numberOfWeekDays: Int) -> CGFloat {
-        return frame.height / CGFloat(MaxNumberOfWeekType(rawValue: numberOfWeekDays)?.getMultiplier ?? 6)
+        return (frame.height - 44) / CGFloat(MaxNumberOfWeekType(rawValue: numberOfWeekDays)?.getMultiplier ?? 6)
     }
     
     private var weekHeight: CGFloat {

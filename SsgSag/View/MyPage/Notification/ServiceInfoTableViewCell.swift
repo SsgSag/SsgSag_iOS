@@ -37,7 +37,7 @@ class ServiceInfoTableViewCell: UITableViewCell {
     private let showDetail: UIImageView = {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.image = #imageLiteral(resourceName: "icArrowNextMypage")
+        imageView.image = UIImage(named: "ic_smallArrow")
         return imageView
     }()
     

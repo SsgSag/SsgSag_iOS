@@ -18,6 +18,8 @@ class DayTodoViewController: UIViewController {
         collectionView.delegate = self
         collectionView.dataSource = self
         collectionView.backgroundColor = .clear
+        collectionView.showsVerticalScrollIndicator = false
+        collectionView.showsHorizontalScrollIndicator = false
         collectionView.contentInset = UIEdgeInsets(top: 0, left: 25, bottom: 0, right: 25)
         return collectionView
     }()
@@ -27,6 +29,7 @@ class DayTodoViewController: UIViewController {
     private var sortedTodoDatas: [[CalendarData]] = []
     private var totalTodoDatas: [[CalendarData]] = []
     var dataPointer = 0
+    var callback: (()->())?
     
     private let calendar = Calendar.current
     private let calendarServiceImp: CalendarService
@@ -170,7 +173,7 @@ class DayTodoViewController: UIViewController {
                     if right {
                         self.pagingCollectionView.reloadData()
                     } else {
-                        self.reloadDataAndKeepOffset()
+//                        self.reloadDataAndKeepOffset()
                     }
                 }
             case .failed(let error):
@@ -334,6 +337,7 @@ class DayTodoViewController: UIViewController {
     }
     
     private func dismissDayTodoViewController() {
+        callback?()
         presentingViewController?.tabBarController?.tabBar.isHidden = false
         dismiss(animated: false)
     }
@@ -368,8 +372,6 @@ extension DayTodoViewController: UICollectionViewDataSource {
         let dateFormatter = DateFormatter.dateFormatterWithKoreanDay
         let dateString = dateFormatter.string(from: totalTodoDatas[indexPath.item][0].date)
         
-        print(dateString)
-
         cell.delegate = self
         cell.pushDelegate = self
         cell.dateLabel.text = dateString

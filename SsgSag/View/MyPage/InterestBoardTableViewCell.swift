@@ -24,21 +24,17 @@ class InterestBoardTableViewCell: UITableViewCell {
     
     var interestInfo: SubscribeInterests? {
         didSet {
-            guard let interestInfo = self.interestInfo else {return}
+            guard let interestInfo = self.interestInfo else { return }
             
             guard let interestName = interestInfo.interestName,
                 let userIdx = interestInfo.userIdx,
-                let interestType = InterestType(rawValue: interestName),
-                let colorHexString = interestInfo.interestUrl else {return}
-            
-            print(colorHexString)
+                let colorHexString = interestInfo.interestUrl,
+                let detail = interestInfo.interestDetail else { return }
             
             categoryButton.setTitle(interestName, for: .normal)
-            
             categoryButton.backgroundColor = UIColor(hex: colorHexString)?.withAlphaComponent(0.08)
             categoryButton.setTitleColor(UIColor(hex: colorHexString), for: .normal)
-            
-            hashTag.text = interestType.hashTagString()
+            hashTag.text = detail
             
             if isNotSubscribe(userIdx) {
                 changeAllColorToUnFollow()
@@ -83,7 +79,7 @@ class InterestBoardTableViewCell: UITableViewCell {
     override func layoutSubviews() {
         super.layoutSubviews()
         
-        contentView.frame = contentView.frame.inset(by: UIEdgeInsets(top: 5, left: 5, bottom: 5, right: 5))
+        contentView.frame = contentView.frame.inset(by: UIEdgeInsets(top: 5, left: 18, bottom: 5, right: 18))
     }
 
     @IBAction func followOrUnFollow(_ sender: Any) {

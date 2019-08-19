@@ -71,7 +71,6 @@ class InterestBoardViewController: UIViewController {
                 print(error)
                 return
             }
-        
         }
     }
 
@@ -133,7 +132,11 @@ extension InterestBoardViewController: UITableViewDelegate, UITableViewDataSourc
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        guard let interestBoardCell = tableView.dequeueReusableCell(withIdentifier: InterestBoardViewController.cellId) as? InterestBoardTableViewCell else { return .init() }
+        guard let interestBoardCell
+            = tableView.dequeueReusableCell(withIdentifier: InterestBoardViewController.cellId)
+                as? InterestBoardTableViewCell else {
+                    return .init()
+        }
         
         interestBoardCell.selectionStyle = .none
         
@@ -154,7 +157,8 @@ extension InterestBoardViewController: UITableViewDelegate, UITableViewDataSourc
 
 extension InterestBoardViewController: InterestFollowDelegate {
     
-    func interestFollowButton(using interest: SubscribeInterests, indexPath: IndexPath) {
+    func interestFollowButton(using interest: SubscribeInterests,
+                              indexPath: IndexPath) {
         guard let userIdx = interest.userIdx else {return}
         
         selectedIndex = interest.interestIdx

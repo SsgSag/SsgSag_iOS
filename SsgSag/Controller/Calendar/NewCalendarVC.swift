@@ -26,6 +26,7 @@ class NewCalendarVC: UIViewController {
             monthHeaderView.appearance = appereance
         }
     }
+    @IBOutlet weak var myPageBarButtonItem: UIBarButtonItem!
     
     @IBOutlet weak var weekDaysView: VAWeekDaysView! {
         didSet {
@@ -62,10 +63,12 @@ class NewCalendarVC: UIViewController {
         
         let height: CGFloat = 48
         let bounds = navigationController!.navigationBar.bounds
-        navigationController?.navigationBar.frame = CGRect(x: 0, y: 0, width: bounds.width, height: bounds.height + height)
+        navigationController?.navigationBar.frame = CGRect(x: 0,
+                                                           y: 0,
+                                                           width: bounds.width,
+                                                           height: bounds.height + height)
         navigationController?.navigationBar.shadowImage = UIImage()
         
-        self.tabBarController?.tabBar.isHidden = false
         self.navigationController?.navigationBar.isHidden = false
         
         calendarView.setupMonths()
@@ -171,6 +174,14 @@ class NewCalendarVC: UIViewController {
         let dayTodoVC = DayTodoViewController()
         dayTodoVC.modalPresentationStyle = .overCurrentContext
         dayTodoVC.currentDate = date
+        dayTodoVC.callback = { [weak self] in
+            guard let contentOffset = self?.calendarView.contentOffset else {
+                print("no contentOffset data")
+                return
+            }
+            self?.calendarView.setupMonths()
+            self?.calendarView.drawVisibleMonth(with: contentOffset)
+        }
         let navigationVC = UINavigationController(rootViewController: dayTodoVC)
         navigationVC.modalPresentationStyle = .overCurrentContext
         
@@ -328,7 +339,7 @@ extension NewCalendarVC: VADayViewAppearanceDelegate {
     func textColor(for state: VADayState) -> UIColor {
         switch state {
         case .out:
-            return #colorLiteral(red: 0.8392156863, green: 0.8392156863, blue: 0.8588235294, alpha: 1)
+            return .clear
         case .selected:
             return .white
         case .unavailable:
@@ -476,9 +487,10 @@ extension NewCalendarVC: MenuSelectedDelegate {
 enum CategoryState: Int {
     case contest = 0
     case act = 1
+    case recuit
     case club
-    case intern
-    case education
+    case edu
+    case scholar
     case other
     
     var categoryTextColor: UIColor {
@@ -486,12 +498,14 @@ enum CategoryState: Int {
         case .contest:
             return #colorLiteral(red: 0.2039215686, green: 0.4274509804, blue: 0.9529411765, alpha: 1)
         case .act:
+            return #colorLiteral(red: 0.3725490196, green: 0.1490196078, blue: 0.8039215686, alpha: 1)
+        case .recuit:
             return #colorLiteral(red: 0.9960784314, green: 0.4274509804, blue: 0.4274509804, alpha: 1)
         case .club:
             return #colorLiteral(red: 0.968627451, green: 0.7137254902, blue: 0.1921568627, alpha: 1)
-        case .intern:
-            return #colorLiteral(red: 0.3725490196, green: 0.1490196078, blue: 0.8039215686, alpha: 1)
-        case .education:
+        case .edu:
+            return #colorLiteral(red: 0.9921568627, green: 0.5607843137, blue: 0.2980392157, alpha: 1)
+        case .scholar:
             return #colorLiteral(red: 0.1803921569, green: 0.7411764706, blue: 0.4784313725, alpha: 1)
         case .other:
             return #colorLiteral(red: 0.3098039216, green: 0.3098039216, blue: 0.3098039216, alpha: 1)

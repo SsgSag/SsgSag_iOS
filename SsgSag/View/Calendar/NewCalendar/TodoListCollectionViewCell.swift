@@ -40,7 +40,6 @@ class TodoListCollectionViewCell: UICollectionViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
         
         todoListTableView.delegate = self
         todoListTableView.dataSource = self
@@ -50,8 +49,12 @@ class TodoListCollectionViewCell: UICollectionViewCell {
     private func setupTableView() {
         let todoNib = UINib(nibName: "DetailTodoListTableViewCell",
                             bundle: nil)
+        
         todoListTableView.register(todoNib,
                                    forCellReuseIdentifier: "todoCell")
+        
+        let noTodoNib = UINib(nibName: "NoTodoTableViewCell", bundle: nil)
+        todoListTableView.register(noTodoNib, forCellReuseIdentifier: "noTodoCell")
     }
     
     @IBAction func touchUpCancelButton(_ sender: UIButton) {
@@ -68,6 +71,9 @@ class TodoListCollectionViewCell: UICollectionViewCell {
 extension TodoListCollectionViewCell: UITableViewDelegate {
     func tableView(_ tableView: UITableView,
                    heightForRowAt indexPath: IndexPath) -> CGFloat {
+        if monthTodoData?.count == 0 {
+            return tableView.frame.height - 50
+        }
         return 83
     }
 }
@@ -76,11 +82,21 @@ extension TodoListCollectionViewCell: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView,
                    numberOfRowsInSection section: Int) -> Int {
+        if monthTodoData?.count == 0 {
+            return 1
+        }
         return monthTodoData?.count ?? 0
     }
     
     func tableView(_ tableView: UITableView,
                    cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        if monthTodoData?.count == 0 {
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: "noTodoCell", for: indexPath) as? NoTodoTableViewCell else {
+                return .init()
+            }
+            return cell
+        }
+        
         guard let cell
             = tableView.dequeueReusableCell(withIdentifier: "todoCell",
                                             for: indexPath)

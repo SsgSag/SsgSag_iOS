@@ -218,6 +218,8 @@
 		D1FB05AE22E6DC2F001425CF /* AccountSettingViewController + UICollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1FB05AD22E6DC2F001425CF /* AccountSettingViewController + UICollectionView.swift */; };
 		D1FB05B522E6E3AE001425CF /* SettingMenuCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1FB05B322E6E3AE001425CF /* SettingMenuCollectionViewCell.swift */; };
 		D1FB05B622E6E3AE001425CF /* SettingMenuCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D1FB05B422E6E3AE001425CF /* SettingMenuCollectionViewCell.xib */; };
+		D1FDF3DC230AF7550055D293 /* NoTodoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1FDF3DA230AF7550055D293 /* NoTodoTableViewCell.swift */; };
+		D1FDF3DD230AF7550055D293 /* NoTodoTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D1FDF3DB230AF7550055D293 /* NoTodoTableViewCell.xib */; };
 		FA23A93F21DF6FCF003DB5F9 /* myPageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA23A93D21DF6FCF003DB5F9 /* myPageTableViewCell.swift */; };
 		FA3A342021E5127700668908 /* UserAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA3A341F21E5127700668908 /* UserAPI.swift */; };
 		FA3A342221E5D64300668908 /* UserInfoVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA3A342121E5D64300668908 /* UserInfoVC.swift */; };
@@ -494,6 +496,8 @@
 		D1FB05AD22E6DC2F001425CF /* AccountSettingViewController + UICollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AccountSettingViewController + UICollectionView.swift"; sourceTree = "<group>"; };
 		D1FB05B322E6E3AE001425CF /* SettingMenuCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingMenuCollectionViewCell.swift; sourceTree = "<group>"; };
 		D1FB05B422E6E3AE001425CF /* SettingMenuCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SettingMenuCollectionViewCell.xib; sourceTree = "<group>"; };
+		D1FDF3DA230AF7550055D293 /* NoTodoTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoTodoTableViewCell.swift; sourceTree = "<group>"; };
+		D1FDF3DB230AF7550055D293 /* NoTodoTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NoTodoTableViewCell.xib; sourceTree = "<group>"; };
 		D40B4484F25DECA11CB327D8 /* Pods-SsgSagUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SsgSagUITests.debug.xcconfig"; path = "Target Support Files/Pods-SsgSagUITests/Pods-SsgSagUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		E015768EBB87E5CEEF53138B /* Pods-SsgSag.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SsgSag.release.xcconfig"; path = "Target Support Files/Pods-SsgSag/Pods-SsgSag.release.xcconfig"; sourceTree = "<group>"; };
 		E3C1F7A7EF024A1619F0DFCB /* Pods_SsgSagUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SsgSagUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -807,6 +811,8 @@
 				D11F9E9D22E0C622000210B0 /* PieChartView.swift */,
 				D1EAA6232306A1A20063E04A /* HideAnalyticsCommentsCollectionViewCell.swift */,
 				D1EAA6242306A1A20063E04A /* HideAnalyticsCommentsCollectionViewCell.xib */,
+				D1FDF3DA230AF7550055D293 /* NoTodoTableViewCell.swift */,
+				D1FDF3DB230AF7550055D293 /* NoTodoTableViewCell.xib */,
 			);
 			path = Calendar;
 			sourceTree = "<group>";
@@ -1348,6 +1354,7 @@
 				84B4268C21E9091D00B44F71 /* main_empty_hifive.json in Resources */,
 				845928A521D09CE0001DF6CC /* Assets.xcassets in Resources */,
 				84264BA621DF0FF300849E6B /* Calendar.storyboard in Resources */,
+				D1FDF3DD230AF7550055D293 /* NoTodoTableViewCell.xib in Resources */,
 				845928CC21D09D09001DF6CC /* SwipeStoryBoard.storyboard in Resources */,
 				FA524BF121D64E2400675289 /* SignupStoryBoard.storyboard in Resources */,
 				D1EAA6282306BBFC0063E04A /* splash.json in Resources */,
@@ -1498,6 +1505,7 @@
 				D1E037CE22F2C8C10081B8A1 /* TempPassword.swift in Sources */,
 				845928E121D20068001DF6CC /* LoginVC.swift in Sources */,
 				FA61FE0F21E0E3D300A28947 /* JobVC.swift in Sources */,
+				D1FDF3DC230AF7550055D293 /* NoTodoTableViewCell.swift in Sources */,
 				D17A1C4222ED8A6200939788 /* InterestServiceProtocol.swift in Sources */,
 				FA7F4CCA21DFD61300D8643A /* ActivityCell.swift in Sources */,
 				FA7F4CD421E0A0BB00D8643A /* AddVC.swift in Sources */,

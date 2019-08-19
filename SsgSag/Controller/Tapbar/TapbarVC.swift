@@ -13,6 +13,21 @@ class TapbarVC: UITabBarController {
     private let tapbarServiceImp: TabbarService
         = DependencyContainer.shared.getDependency(key: .tabbarService)
     
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        
+        var tabBarFrame = self.tabBar.frame
+        print(UIScreen.main.bounds.height)
+        if UIScreen.main.bounds.height >= 812 {
+            tabBarFrame.size.height = 80
+            tabBarFrame.origin.y = self.view.frame.size.height - 75
+        } else {
+            tabBarFrame.size.height = 50
+            tabBarFrame.origin.y = self.view.frame.size.height - 45
+        }
+        self.tabBar.frame = tabBarFrame
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         

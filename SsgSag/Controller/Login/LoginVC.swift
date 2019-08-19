@@ -113,7 +113,7 @@ class LoginVC: UIViewController, UITextFieldDelegate {
                     }
                 case .failure:
                     DispatchQueue.main.async {
-                        self?.simplerAlert(title: "로그인 실패")
+                        self?.simplerAlert(title: "이메일 또는 비밀번호가\n잘못되었습니다.")
                     }
                 default:
                     break

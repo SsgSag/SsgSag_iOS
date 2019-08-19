@@ -76,14 +76,16 @@ class InternFilterViewController: UIViewController {
         }
         
         if selectedJobNumber == 14 {
-            jobAllButton.setImage(UIImage(named: "ic_selectAll"), for: .normal)
+            jobAllButton.setImage(UIImage(named: "ic_selectAll"),
+                                  for: .normal)
             jobAllButton.setTitleColor(#colorLiteral(red: 0.3843137255, green: 0.4156862745, blue: 1, alpha: 1), for: .normal)
             
             jobAllButton.isSelected = true
         }
         
         if selectedCompanyNumber == 6 {
-            companyAllButton.setImage(UIImage(named: "ic_selectAll"), for: .normal)
+            companyAllButton.setImage(UIImage(named: "ic_selectAll"),
+                                      for: .normal)
             companyAllButton.setTitleColor(#colorLiteral(red: 0.3843137255, green: 0.4156862745, blue: 1, alpha: 1), for: .normal)
             
             companyAllButton.isSelected = true
@@ -96,9 +98,7 @@ class InternFilterViewController: UIViewController {
     }
     
     @IBAction func touchUpCompleteButton(_ sender: Any) {
-        let d: [Int] = [101, 30000]
-        
-        mypageService.requestStoreSelectedField(d) { [weak self] result in
+        mypageService.requestStoreSelectedField(selectedInterest) { [weak self] result in
             switch result {
             case .success(let status):
                 DispatchQueue.main.async {
@@ -162,13 +162,11 @@ class InternFilterViewController: UIViewController {
     
     @IBAction func touchUpFilterButton(_ sender: UIButton) {
         
-        if (sender.tag < 10000 && selectedJobNumber == 1) || (sender.tag >= 10000 && selectedCompanyNumber == 1) {
-            return
-        }
-        
-        sender.isSelected = !sender.isSelected
-        
-        if !sender.isSelected {
+        if sender.isSelected {
+            if selectedJobNumber == 1 || selectedCompanyNumber == 1 {
+                return
+            }
+            
             sender.tag < 10000 ? (selectedJobNumber -= 1) : (selectedCompanyNumber -= 1)
             
             sender.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
@@ -195,6 +193,7 @@ class InternFilterViewController: UIViewController {
             }
         }
         
+        sender.isSelected = !sender.isSelected
         
         if selectedJobNumber == 14 {
             jobAllButton.setImage(UIImage(named: "ic_selectAll"), for: .normal)

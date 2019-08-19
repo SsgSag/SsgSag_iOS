@@ -32,13 +32,27 @@ class ArticleViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
+        
         setNavigationBar(color: .white)
         navigationController?.navigationBar.isHidden = false
         navigationItem.leftBarButtonItem = backbutton
         navigationController?.hidesBarsOnSwipe = true
         
-        navigationItem.title = articleTitle ?? ""
         tabBarController?.tabBar.isHidden = true
+    }
+    
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        let titleLabel = UILabel(frame: CGRect(x: 0, y: 0, width: 10, height: 40))
+        titleLabel.text = articleTitle ?? ""
+        titleLabel.textColor = #colorLiteral(red: 0.3058823529, green: 0.3058823529, blue: 0.3058823529, alpha: 1)
+        titleLabel.font = UIFont.systemFont(ofSize: 18, weight: .semibold)
+        titleLabel.backgroundColor = UIColor.clear
+        titleLabel.textAlignment = .left
+        titleLabel.lineBreakMode = .byWordWrapping
+        titleLabel.adjustsFontSizeToFitWidth = true
+        titleLabel.clipsToBounds = false
+        self.navigationItem.titleView = titleLabel
     }
     
     override func viewDidLoad() {

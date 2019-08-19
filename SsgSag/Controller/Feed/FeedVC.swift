@@ -30,6 +30,7 @@ class FeedVC: UIViewController {
             exitButton.isHidden = true
         }
         
+        newsCollectionView.reloadItems(at: [IndexPath(item: 0, section: 0)])
 //        menuBar.menuCollectionView.scrollToItem(at: IndexPath(item: 0, section: 0), at: .left, animated: false)
     }
     

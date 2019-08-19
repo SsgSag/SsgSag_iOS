@@ -77,6 +77,11 @@ class DetailTodoListTableViewCell: UITableViewCell {
     }
     
     @IBAction func touchUpFavoriteButton(_ sender: UIButton) {
+        guard let isTryWithoutLogin = UserDefaults.standard.object(forKey: "isTryWithoutLogin") as? Bool,
+            isTryWithoutLogin else {
+                return
+        }
+        
         let method: HTTPMethod = poster?.isFavorite == 1 ? .delete : .post
         
         guard let index = poster?.posterIdx else {
@@ -96,7 +101,7 @@ class DetailTodoListTableViewCell: UITableViewCell {
                                             for: .normal)
                             self?.isLike = 1
                         } else {
-                            sender.setImage(UIImage(named: "ic_favorite"),
+                            sender.setImage(UIImage(named: "ic_favoritePassive"),
                                             for: .normal)
                             self?.isLike = 0
                         }

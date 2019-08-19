@@ -38,7 +38,13 @@ class SwipeVC: UIViewController {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.numberOfLines = 2
         label.font = UIFont.systemFont(ofSize: 20, weight: .medium)
-        label.text = "오늘 [\(self.ssgsagCount)]장의\n카드를 슥삭했어요"
+        
+        if self.ssgsagCount == 0 {
+            label.text = "오늘은 추천해드릴 포스터가 없네요.\n캘린더를 확인해볼까요?"
+        } else {
+            label.text = "오늘 [\(self.ssgsagCount)]장의 카드를\n슥삭했어요!"
+        }
+        
         label.textColor = #colorLiteral(red: 0.3098039216, green: 0.3098039216, blue: 0.3098039216, alpha: 1)
         label.textAlignment = .center
         label.adjustsFontSizeToFitWidth = true
@@ -114,7 +120,7 @@ class SwipeVC: UIViewController {
         completeStackView.centerYAnchor.constraint(
             equalTo: view.centerYAnchor).isActive = true
         completeStackView.widthAnchor.constraint(
-            equalToConstant: 200).isActive = true
+            equalToConstant: 202).isActive = true
         
         animation.translatesAutoresizingMaskIntoConstraints = false
         animation.widthAnchor.constraint(
@@ -457,6 +463,13 @@ class SwipeVC: UIViewController {
     }
     
     private func setCountLabelText() {
+        for badgeView in (tabBarController?.tabBar.subviews[2].subviews)! {
+            if NSStringFromClass(badgeView.classForCoder) == "_UIBadgeView" {
+                badgeView.layer.transform = CATransform3DIdentity
+                badgeView.layer.transform = CATransform3DMakeTranslation(-12.0, -5.0, 1.0)
+            }
+        }
+        
         if let tabItems = tabBarController?.tabBar.items {
             let tabItem = tabItems[1]
             tabItem.badgeColor = #colorLiteral(red: 0.3843137255, green: 0.4156862745, blue: 1, alpha: 1)
@@ -493,7 +506,7 @@ extension SwipeVC: movoToDetailPoster {
                                            bundle: nil)
         guard let zoomPosterVC = swipeStoryboard.instantiateViewController(withIdentifier: ViewControllerIdentifier.zoomPosterViewController) as? ZoomPosterVC else {return}
         
-        zoomPosterVC.urlString = self.posters[lastCardIndex-1].photoUrl
+        zoomPosterVC.urlString = self.posters[lastCardIndex].photoUrl
 
         self.present(zoomPosterVC, animated: true, completion: nil)
     }

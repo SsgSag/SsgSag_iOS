@@ -32,7 +32,7 @@
                         <color key="textColor" red="0.46666666666666667" green="0.46666666666666667" blue="0.46666666666666667" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icArrowNextMypage" translatesAutoresizingMaskIntoConstraints="NO" id="Pry-Ns-xII">
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_smallArrow" translatesAutoresizingMaskIntoConstraints="NO" id="Pry-Ns-xII">
                         <rect key="frame" x="268" y="7" width="30" height="30"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="30" id="B1k-tj-ivh"/>
@@ -57,6 +57,6 @@
         </tableViewCell>
     </objects>
     <resources>
-        <image name="icArrowNextMypage" width="24" height="24"/>
+        <image name="ic_smallArrow" width="30" height="30"/>
     </resources>
 </document>

@@ -26,6 +26,22 @@ class DetailImageSwipeCardVC: UIViewController {
     
     weak var delegate: movoToDetailPoster?
     
+    lazy var gradientView: CAGradientLayer = {
+        let gradient = CAGradientLayer()
+        gradient.frame = self.detailImageVIew.bounds
+        gradient.startPoint = CGPoint(x: 0.5, y: 0)
+        gradient.endPoint = CGPoint(x: 0.5, y: 1)
+        gradient.colors = [
+            UIColor(red: 0, green: 0, blue: 0, alpha: 0.05).cgColor,
+            UIColor(red: 0, green: 0, blue: 0, alpha: 0).cgColor,
+            UIColor(red: 0, green: 0, blue: 0, alpha: 0).cgColor,
+            UIColor(red: 0, green: 0, blue: 0, alpha: 0).cgColor,
+            UIColor(red: 0, green: 0, blue: 0, alpha: 0).cgColor,
+            UIColor(red: 0, green: 0, blue: 0, alpha: 0.05).cgColor
+        ]
+        return gradient
+    }()
+    
     private var segmentView: UIView = {
         let view = UIView()
         view.backgroundColor = .white
@@ -72,6 +88,7 @@ class DetailImageSwipeCardVC: UIViewController {
             
             ImageNetworkManager.shared.getImageByCache(imageURL: posterURL) { [weak self] image, error in
                 self?.detailImageVIew.image = image
+                self?.detailImageVIew.layer.addSublayer(self!.gradientView)
             }
         }
     }
@@ -121,6 +138,7 @@ class DetailImageSwipeCardVC: UIViewController {
         
         segmentView.layer.cornerRadius = 3
         segmentSecondView.layer.cornerRadius = 3
+        
     }
     
     @objc private func moveToZoomPosterVC() {

@@ -22,6 +22,8 @@ class InquireViewController: UIViewController {
     
     private var kind: InquireKind = .feedBack
     
+    var callback: (()->())?
+    
     private lazy var backbutton = UIBarButtonItem(image: UIImage(named: "ic_ArrowBack"),
                                                   style: .plain,
                                                   target: self,
@@ -161,8 +163,9 @@ extension InquireViewController: MFMailComposeViewControllerDelegate {
             controller.dismiss(animated: true)
         case .sent:
             controller.simpleAlertwithOKButton(title: "메일 전송 완료",
-                                               message: "여러분의 소중한 의견 감사드립니다.\n - 슥삭 -") { _ in
-                controller.dismiss(animated: true)
+                                               message: "여러분의 소중한 의견 감사드립니다.\n - 슥삭 -") { [weak self] _ in
+                controller.presentingViewController?.dismiss(animated: true)
+                self?.navigationController?.dismiss(animated: true)
             }
         case .failed:
             controller.simplerAlert(title: "메일 전송 실패")

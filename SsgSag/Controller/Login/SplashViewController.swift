@@ -54,6 +54,7 @@ class SplashViewController: UIViewController {
                     }
                     KeychainWrapper.standard.set(storeToken, forKey: TokenName.token)
                     UserDefaults.standard.set(true, forKey: "isTryWithoutLogin")
+                    UserDefaults.standard.setValue(false, forKey: UserDefaultsName.isAutoLogin)
                     
                     DispatchQueue.main.async {
                         self?.present(TapbarVC(), animated: true, completion: nil)

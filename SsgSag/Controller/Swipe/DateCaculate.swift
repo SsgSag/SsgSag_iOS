@@ -55,7 +55,7 @@ struct DateCaculate {
         return dateFormatter.date(from: cellDateString)
     }
     
-    static func dayInterval(using dateString: String) -> Int{
+    static func dayInterval(using dateString: String) -> Int {
         
         let dateFormatter = DateFormatter.genericDateFormatter
         

@@ -52,6 +52,7 @@ class DetailInfoViewController: UIViewController {
         let view = DetailInfoButtonsView()
         view.delegate = self
         view.callback = { [weak self] in
+            self?.isFolding = true
             self?.requestDatas()
         }
         return view
@@ -194,6 +195,8 @@ class DetailInfoViewController: UIViewController {
                                     withReuseIdentifier: "tempFooter")
         
         // cell
+        infoCollectionView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "tempCell")
+        
         let detailImgNib = UINib(nibName: "DetailImageCollectionViewCell", bundle: nil)
         
         infoCollectionView.register(detailImgNib, forCellWithReuseIdentifier: "detailImgCellID")
@@ -251,18 +254,15 @@ class DetailInfoViewController: UIViewController {
         var objectsToshare: [Any] = []
         
         objectsToshare.append("슥삭 다운로드 링크")
-        
         objectsToshare.append("\(downloadLink)\n")
         
-        guard let posterName = posterDetailData?.posterName else {return}
-        
-        objectsToshare.append(posterName)
-        
-        guard let posterWebSiteURL = posterDetailData?.posterWebSite else {
-            addObjects(with: objectsToshare)
-            return
+        guard let posterName = posterDetailData?.posterName,
+            let posterWebSiteURL = posterDetailData?.posterWebSite else {
+                addObjects(with: objectsToshare)
+                return
         }
         
+        objectsToshare.append(posterName)
         objectsToshare.append(posterWebSiteURL)
         
         addObjects(with: objectsToshare)
@@ -283,40 +283,6 @@ class DetailInfoViewController: UIViewController {
         activityVC.excludedActivityTypes = [UIActivity.ActivityType.airDrop, UIActivity.ActivityType.addToReadingList]
         activityVC.popoverPresentationController?.sourceView = view
         self.present(activityVC, animated: true, completion: nil)
-    }
-    
-    func titleStringByCategory() -> [String] {
-        switch posterDetailData?.categoryIdx {
-        case 0:
-            // 공모전
-            return ["주제", "지원자격", "시상내역"]
-        case 1:
-            // 대외활동
-            return ["지원자격", "활동내용", "활동혜택"]
-        case 2:
-            // 동아리(연합)
-            return ["활동분야", "모임시간", "활동혜택"]
-        case 3:
-            // 교내공지
-            return ["활동분야", "모임시간", "혜택"]
-        case 4:
-            // 인턴
-            return ["모집분야", "지원자격", "근무지역"]
-        case 5:
-            // 기타
-            return ["", "", ""]
-        case 6:
-            // 동아리 (교내)
-            return ["활동분야", "모임시간", "활동혜택"]
-        case 7:
-            // 교육/강연
-            return ["주제", "내용/커리큘럼", "일정/기간"]
-        case 8:
-            // 장학금/지원
-            return ["인원/혜택", "대상 및 조건", "기타사항"]
-        default:
-            return ["항목1", "항목2", "항목3"]
-        }
     }
     
 }
@@ -341,7 +307,11 @@ extension DetailInfoViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView,
                         cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let infoTitles = titleStringByCategory()
+        guard let categoryIdx = posterDetailData?.categoryIdx else {
+            return collectionView.dequeueReusableCell(withReuseIdentifier: "tempCell", for: indexPath)
+        }
+        
+        let infoTitles = titleStringByCategory(categoryIdx: categoryIdx)
         
         switch indexPath.item {
         case 0:
@@ -359,8 +329,13 @@ extension DetailInfoViewController: UICollectionViewDataSource {
                                                         return .init()
             }
             
-            cell.configure(titleString: infoTitles[0],
-                           detailString: posterDetailData?.outline ?? "")
+            if posterDetailData?.categoryIdx == 8 {
+                cell.configure(titleString: infoTitles[0],
+                               detailString: posterDetailData?.benefit ?? "")
+            } else {
+                cell.configure(titleString: infoTitles[0],
+                               detailString: posterDetailData?.outline ?? "")
+            }
             
             return cell
         case 2:
@@ -370,9 +345,13 @@ extension DetailInfoViewController: UICollectionViewDataSource {
                                                         return .init()
             }
             
-            cell.configure(titleString: infoTitles[1],
-                           detailString: posterDetailData?.target ?? "")
-            
+            if posterDetailData?.categoryIdx == 2 || posterDetailData?.categoryIdx == 6 {
+                cell.configure(titleString: infoTitles[1],
+                               detailString: posterDetailData?.period ?? "")
+            } else {
+                cell.configure(titleString: infoTitles[1],
+                               detailString: posterDetailData?.target ?? "")
+            }
             return cell
         case 3:
             guard let cell
@@ -381,8 +360,16 @@ extension DetailInfoViewController: UICollectionViewDataSource {
                                                         return .init()
             }
             
-            cell.configure(titleString: infoTitles[2],
-                           detailString: posterDetailData?.benefit ?? "")
+            if posterDetailData?.categoryIdx == 7 {
+                cell.configure(titleString: infoTitles[2],
+                               detailString: posterDetailData?.period ?? "")
+            } else if posterDetailData?.categoryIdx == 8 {
+                cell.configure(titleString: infoTitles[2],
+                               detailString: posterDetailData?.outline ?? "")
+            } else {
+                cell.configure(titleString: infoTitles[2],
+                               detailString: posterDetailData?.benefit ?? "")
+            }
             
             return cell
         case 4:
@@ -534,6 +521,7 @@ extension DetailInfoViewController: UICollectionViewDataSource {
             // 자세히 보기
             let indexPaths = [indexPath]
             collectionView.reloadItems(at: indexPaths)
+            collectionView.scrollToItem(at: indexPath, at: .top, animated: true)
         default:
             return
         }
@@ -779,12 +767,46 @@ extension DetailInfoViewController: CommentDelegate {
 
 extension DetailInfoViewController: LargeImageDelegate {
     func presentLargeImage() {
-//        let swipeStoryboard = UIStoryboard(name: StoryBoardName.swipe,
-//                                           bundle: nil)
-//        guard let zoomPosterVC = swipeStoryboard.instantiateViewController(withIdentifier: ViewControllerIdentifier.zoomPosterViewController) as? ZoomPosterVC else {return}
-//        
-//        zoomPosterVC.urlString = posterDetailData?.photoUrl
-//        
-//        self.present(zoomPosterVC, animated: true, completion: nil)
+        let swipeStoryboard = UIStoryboard(name: StoryBoardName.swipe,
+                                           bundle: nil)
+        guard let zoomPosterVC = swipeStoryboard.instantiateViewController(withIdentifier: ViewControllerIdentifier.zoomPosterViewController) as? ZoomPosterVC else {return}
+        
+        zoomPosterVC.urlString = posterDetailData?.photoUrl
+        
+        self.present(zoomPosterVC, animated: true)
+    }
+}
+
+func titleStringByCategory(categoryIdx: Int) -> [String] {
+    switch categoryIdx {
+    case 0:
+        // 공모전
+        return ["주제", "지원자격", "시상내역"]
+    case 1:
+        // 대외활동
+        return ["지원자격", "활동내용", "혜택"]
+    case 2:
+        // 동아리(연합)
+        return ["활동분야", "모임시간", "활동혜택"]
+    case 3:
+        // 교내공지
+        return ["활동분야", "모임시간", "혜택"]
+    case 4:
+        // 인턴
+        return ["모집분야", "지원자격", "근무조건"]
+    case 5:
+        // 기타
+        return ["", "", ""]
+    case 6:
+        // 동아리 (교내)
+        return ["활동분야", "모임시간", "혜택"]
+    case 7:
+        // 교육/강연
+        return ["주제", "내용/커리큘럼", "일정/기간"]
+    case 8:
+        // 장학금/지원
+        return ["인원/혜택", "대상 및 조건", "기타사항"]
+    default:
+        return ["항목1", "항목2", "항목3"]
     }
 }
