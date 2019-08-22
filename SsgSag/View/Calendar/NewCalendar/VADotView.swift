@@ -47,7 +47,7 @@ class VALineView: UIView {
     
     init(color: UIColor, text: String, isFavorite: Int) {
         
-        let frame = CGRect(x: 0, y: 0, width: 20, height: 5)
+        let frame = CGRect(x: 0, y: 0, width: 20, height: 7)
         super.init(frame: frame)
         
         posterLabel.text = "\(text)"
@@ -59,19 +59,29 @@ class VALineView: UIView {
         addSubview(favoriteImageView)
         addSubview(posterLabel)
         
-        favoriteImageView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 3).isActive = true
-        favoriteImageView.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
-        favoriteImageView.heightAnchor.constraint(equalToConstant: 7).isActive = true
+        favoriteImageView.leadingAnchor.constraint(
+            equalTo: leadingAnchor,
+            constant: 3).isActive = true
+        favoriteImageView.centerYAnchor.constraint(
+            equalTo: centerYAnchor).isActive = true
+        favoriteImageView.heightAnchor.constraint(
+            equalToConstant: 7).isActive = true
         
         if isFavorite == 1 {
-            favoriteImageView.widthAnchor.constraint(equalToConstant: 7).isActive = true
+            favoriteImageView.widthAnchor.constraint(
+                equalToConstant: 7).isActive = true
         } else {
-            favoriteImageView.widthAnchor.constraint(equalToConstant: 0).isActive = true
+            favoriteImageView.widthAnchor.constraint(
+                equalToConstant: 0).isActive = true
         }
         
-        posterLabel.leadingAnchor.constraint(equalTo: favoriteImageView.trailingAnchor, constant: 1).isActive = true
-        posterLabel.trailingAnchor.constraint(equalTo: trailingAnchor).isActive = true
-        posterLabel.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
+        posterLabel.leadingAnchor.constraint(
+            equalTo: favoriteImageView.trailingAnchor,
+            constant: 1).isActive = true
+        posterLabel.trailingAnchor.constraint(
+            equalTo: trailingAnchor).isActive = true
+        posterLabel.centerYAnchor.constraint(
+            equalTo: centerYAnchor).isActive = true
     }
     
     required init?(coder aDecoder: NSCoder) {

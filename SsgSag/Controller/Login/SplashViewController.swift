@@ -52,7 +52,9 @@ class SplashViewController: UIViewController {
                     guard let storeToken = signUpData.data?.token else {
                         return
                     }
+                    
                     KeychainWrapper.standard.set(storeToken, forKey: TokenName.token)
+                    
                     UserDefaults.standard.set(true, forKey: "isTryWithoutLogin")
                     UserDefaults.standard.setValue(false, forKey: UserDefaultsName.isAutoLogin)
                     

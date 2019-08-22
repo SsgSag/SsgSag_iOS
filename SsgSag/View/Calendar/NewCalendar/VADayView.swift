@@ -120,7 +120,6 @@ class VADayView: UIView {
             
             if DateCaculate.isSameDate(self.day.date, monthTodoDate) {
                 if count < 4 {
-                    
                     let lineView = VALineView(color: category?.categoryColors() ?? .clear,
                                               text: posterName,
                                               isFavorite: isFavorite)
@@ -134,10 +133,17 @@ class VADayView: UIView {
         }
         
         addSubview(lineStackView)
-        lineStackView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -1).isActive = true
-        lineStackView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 1).isActive = true
-        lineStackView.topAnchor.constraint(equalTo: self.dateLabel.bottomAnchor, constant: 2).isActive = true
-        stackViewHeightAnchor = lineStackView.heightAnchor.constraint(equalToConstant: count * self.frame.height * 0.115)
+        lineStackView.trailingAnchor.constraint(
+            equalTo: self.trailingAnchor,
+            constant: -3).isActive = true
+        lineStackView.leadingAnchor.constraint(
+            equalTo: self.leadingAnchor,
+            constant: 3).isActive = true
+        lineStackView.topAnchor.constraint(
+            equalTo: self.dateLabel.bottomAnchor,
+            constant: 2).isActive = true
+        stackViewHeightAnchor
+            = lineStackView.heightAnchor.constraint(equalToConstant: count * self.frame.height * 0.115)
         
         stackViewHeightAnchor?.isActive = true
     }

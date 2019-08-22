@@ -78,7 +78,7 @@ class DetailTodoListTableViewCell: UITableViewCell {
     
     @IBAction func touchUpFavoriteButton(_ sender: UIButton) {
         guard let isTryWithoutLogin = UserDefaults.standard.object(forKey: "isTryWithoutLogin") as? Bool,
-            isTryWithoutLogin else {
+            !isTryWithoutLogin else {
                 return
         }
         

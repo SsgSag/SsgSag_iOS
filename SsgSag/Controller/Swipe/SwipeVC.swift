@@ -42,7 +42,7 @@ class SwipeVC: UIViewController {
         if self.ssgsagCount == 0 {
             label.text = "오늘은 추천해드릴 포스터가 없네요.\n캘린더를 확인해볼까요?"
         } else {
-            label.text = "오늘 [\(self.ssgsagCount)]장의 카드를\n슥삭했어요!"
+            label.text = "오늘 \(self.ssgsagCount)장의 카드를\n슥삭했어요!"
         }
         
         label.textColor = #colorLiteral(red: 0.3098039216, green: 0.3098039216, blue: 0.3098039216, alpha: 1)
@@ -78,14 +78,18 @@ class SwipeVC: UIViewController {
         if isTryWithoutLogin {
             settingBoardButton.image = nil
             settingBoardButton.title = "나가기"
-            settingBoardButton.setTitleTextAttributes([NSAttributedString.Key.font: UIFont(name: "Helvetica", size: 15.0)], for: .normal)
+            settingBoardButton.setTitleTextAttributes(
+                [NSAttributedString.Key.font: UIFont(name: "Helvetica",
+                                                     size: 15.0)],
+                for: .normal
+            )
         }
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        initPoster()
+        requestPoster(isFirst: true)
         
         setCountLabelText()
         
@@ -119,31 +123,29 @@ class SwipeVC: UIViewController {
             equalTo: view.centerXAnchor).isActive = true
         completeStackView.centerYAnchor.constraint(
             equalTo: view.centerYAnchor).isActive = true
-        completeStackView.widthAnchor.constraint(
-            equalToConstant: 202).isActive = true
+        completeStackView.leadingAnchor.constraint(
+            equalTo: view.leadingAnchor,
+            constant: 40).isActive = true
+        completeStackView.trailingAnchor.constraint(
+            equalTo: view.trailingAnchor,
+            constant: -40).isActive = true
         
         animation.translatesAutoresizingMaskIntoConstraints = false
         animation.widthAnchor.constraint(
             equalToConstant: 170).isActive = true
         animation.heightAnchor.constraint(
             equalToConstant: 170).isActive = true
-
-        completeLabel.widthAnchor.constraint(
-            equalTo: animation.widthAnchor).isActive = true
         
-        moveToCalendarButton.leadingAnchor.constraint(
-            equalTo: completeStackView.leadingAnchor).isActive = true
-        moveToCalendarButton.trailingAnchor.constraint(
-            equalTo: completeStackView.trailingAnchor).isActive = true
         moveToCalendarButton.heightAnchor.constraint(
             equalToConstant: 48).isActive = true
+        moveToCalendarButton.widthAnchor.constraint(
+            equalToConstant: 202).isActive = true
         
-        animation.loopAnimation = true
         animation.play()
     }
     
     //FIXME: - CategoryIdx가 3이거나 5일때 예외를 만든다.
-    private func initPoster() {
+    private func requestPoster(isFirst: Bool) {
 
         posterServiceImp.requestPoster { [weak self] response in
             switch response {
@@ -157,7 +159,7 @@ class SwipeVC: UIViewController {
                 self?.ssgsagCount = numberOfSwipe
                 
                 DispatchQueue.main.async {
-                    self?.loadCardAndSetPageVC()
+                    self?.loadCardAndSetPageVC(isFirst: isFirst)
                     self?.setCountLabelText()
                 }
             case .failed(let error):
@@ -172,7 +174,11 @@ class SwipeVC: UIViewController {
         tabBarController?.selectedIndex = 2
     }
     
-    private func loadCard() {
+    private func loadCard(isFirst: Bool) {
+        if !isFirst {
+            currentLoadedCardsArray.removeAll()
+        }
+        
         for (index, poster) in posters.enumerated() {
             if index < SwipeVC.numberOfTopCards {
                 guard let photoURL = poster.photoUrl else {
@@ -199,15 +205,22 @@ class SwipeVC: UIViewController {
     
     
     //카드를 로드한다.
-    private func loadCardAndSetPageVC() {
+    private func loadCardAndSetPageVC(isFirst: Bool) {
+        
         if posters.count > 0 {
+            if !isFirst && swipeCardView != nil {
+                swipeCardView.subviews.map({ $0.removeFromSuperview() })
+            }
             
-            loadCard()
+            loadCard(isFirst: isFirst)
             
             setSwipeCardSubview()
             
             setPageVCAndAddToSubView()
         } else {
+            if !isFirst {
+                view.subviews.map({ $0.removeFromSuperview() })
+            }
             setEmptyPosterAnimation()
         }
     }
@@ -425,7 +438,14 @@ class SwipeVC: UIViewController {
         
         let storyboard = UIStoryboard(name: StoryBoardName.mypage,
                                       bundle: nil)
-        let interestVC = storyboard.instantiateViewController(withIdentifier: "InterestBoardVC")
+        guard let interestVC = storyboard.instantiateViewController(withIdentifier: "InterestBoardVC") as? InterestBoardViewController else {
+            return
+        }
+        
+        interestVC.callback = { [weak self] in
+//            self?.requestPoster(isFirst: false)
+        }
+        
         navigationController?.pushViewController(interestVC, animated: true)
     }
     
@@ -463,17 +483,23 @@ class SwipeVC: UIViewController {
     }
     
     private func setCountLabelText() {
+        if let tabItems = tabBarController?.tabBar.items {
+            let tabItem = tabItems[1]
+            
+            guard countTotalCardIndex != 0 else {
+                tabItem.badgeValue = nil
+                return
+            }
+
+            tabItem.badgeColor = #colorLiteral(red: 0.3843137255, green: 0.4156862745, blue: 1, alpha: 1)
+            tabItem.badgeValue = "\(self.countTotalCardIndex)"
+        }
+        
         for badgeView in (tabBarController?.tabBar.subviews[2].subviews)! {
             if NSStringFromClass(badgeView.classForCoder) == "_UIBadgeView" {
                 badgeView.layer.transform = CATransform3DIdentity
                 badgeView.layer.transform = CATransform3DMakeTranslation(-12.0, -5.0, 1.0)
             }
-        }
-        
-        if let tabItems = tabBarController?.tabBar.items {
-            let tabItem = tabItems[1]
-            tabItem.badgeColor = #colorLiteral(red: 0.3843137255, green: 0.4156862745, blue: 1, alpha: 1)
-            tabItem.badgeValue = "\(self.countTotalCardIndex)"
         }
     }
     

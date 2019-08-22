@@ -132,7 +132,7 @@ class DetailInfoButtonsView: UIView {
     
     @objc private func touchUpLikeButton(_ sender: UIButton) {
         guard let isTryWithoutLogin = UserDefaults.standard.object(forKey: "isTryWithoutLogin") as? Bool,
-            isTryWithoutLogin else {
+            !isTryWithoutLogin else {
                 return
         }
         

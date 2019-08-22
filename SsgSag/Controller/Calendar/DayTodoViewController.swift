@@ -78,7 +78,7 @@ class DayTodoViewController: UIViewController {
         
         requestData(right: true, currentDate)
         
-        requestOtherMonth(currentDate: currentDate)
+//        requestOtherMonth(currentDate: currentDate)
     }
     
     private func requestOtherMonth(currentDate: Date) {
@@ -209,6 +209,11 @@ class DayTodoViewController: UIViewController {
             guard let posterEndDate = todoData.posterEndDate else { return }
             let endDate = DateCaculate.stringToDateWithGenericFormatter(using: posterEndDate)
             let day = calendar.component(.day, from: endDate)
+            
+            if endDate < previousDate {
+                sortedTodoDatas[day-1][0].todoData.append(todoData)
+                continue
+            }
             
             if previousDay + 1 < day {
                 for numberOfDays in 1..<day - previousDay {
@@ -363,6 +368,7 @@ extension DayTodoViewController: UICollectionViewDataSource {
             return .init()
         }
         
+        cell.controller = self
         let day = calendar.component(.day, from: totalTodoDatas[indexPath.item][0].date)
         
 //        if day == 1 || day == totalTodoDatas[indexPath.item][0].date.getDaysInMonth() {
@@ -428,5 +434,11 @@ extension DayTodoViewController: PushDelegate {
             }
         }
         navigationController?.pushViewController(controller, animated: true)
+    }
+}
+
+extension DayTodoViewController: ChangeTabbarItemDelegate {
+    func moveToSwipe() {
+        presentingViewController?.tabBarController?.selectedIndex = 1
     }
 }

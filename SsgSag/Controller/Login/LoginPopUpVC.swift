@@ -68,6 +68,7 @@ class LoginPopUpVC: UIViewController, NaverThirdPartyLoginConnectionDelegate {
                         }
                         
                         UserDefaults.standard.set(false, forKey: "isTryWithoutLogin")
+                        
                         DispatchQueue.main.async {
                             switch response.status {
                             case 200:

@@ -15,7 +15,7 @@
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
-	<string>2.0.0</string>
+	<string>2.0.1</string>
 	<key>CFBundleURLTypes</key>
 	<array>
 		<dict>
@@ -46,7 +46,7 @@
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
-	<string>1</string>
+	<string>2</string>
 	<key>KAKAO_APP_KEY</key>
 	<string>ed0a3c51db01fecdca098dde710f2753</string>
 	<key>LSApplicationCategoryType</key>
@@ -54,6 +54,7 @@
 	<key>LSApplicationQueriesSchemes</key>
 	<array>
 		<string>kakaoed0a3c51db01fecdca098dde710f2753</string>
+        <string>kakaokompassauth</string>
 		<string>kakaolink</string>
 		<string>kakaotalk-5.9.7</string>
 		<string>naversearchapp</string>

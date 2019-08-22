@@ -11,6 +11,13 @@ import SwiftKeychainWrapper
 
 class SplashVC: UIViewController {
 
+    private let backgroundImageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        imageView.image = UIImage(named: "bgSplash")
+        return imageView
+    }()
+    
     var nextViewController = UIViewController()
     
     override func viewDidLoad() {
@@ -18,7 +25,17 @@ class SplashVC: UIViewController {
         
         let animation = LOTAnimationView(name: "splash")
         
+        view.addSubview(backgroundImageView)
         view.addSubview(animation)
+        
+        backgroundImageView.topAnchor.constraint(
+            equalTo: view.topAnchor).isActive = true
+        backgroundImageView.leadingAnchor.constraint(
+            equalTo: view.leadingAnchor).isActive = true
+        backgroundImageView.trailingAnchor.constraint(
+            equalTo: view.trailingAnchor).isActive = true
+        backgroundImageView.bottomAnchor.constraint(
+            equalTo: view.bottomAnchor).isActive = true
         
         animation.translatesAutoresizingMaskIntoConstraints = false
         animation.centerYAnchor.constraint(
@@ -34,24 +51,28 @@ class SplashVC: UIViewController {
         animation.bottomAnchor.constraint(
             equalTo: view.bottomAnchor).isActive = true
         
-        if let isAutoLogin = UserDefaults.standard.object(forKey: UserDefaultsName.isAutoLogin) as? Bool {
+        if let isAutoLogin
+            = UserDefaults.standard.object(forKey: UserDefaultsName.isAutoLogin) as? Bool {
             if isAutoLogin {
                 if isTokenExist() {
                     nextViewController = TapbarVC()
                 } else {
-                    let loginStoryBoard = UIStoryboard(name: StoryBoardName.login, bundle: nil)
+                    let loginStoryBoard = UIStoryboard(name: StoryBoardName.login,
+                                                       bundle: nil)
                     let loginVC = loginStoryBoard.instantiateViewController(withIdentifier: "splashVC")
                     
                     nextViewController = UINavigationController(rootViewController: loginVC)
                 }
             } else {
-                let loginStoryBoard = UIStoryboard(name: StoryBoardName.login, bundle: nil)
+                let loginStoryBoard = UIStoryboard(name: StoryBoardName.login,
+                                                   bundle: nil)
                 let loginVC = loginStoryBoard.instantiateViewController(withIdentifier: "splashVC")
                 
                 nextViewController = UINavigationController(rootViewController: loginVC)
             }
         } else {
-            let loginStoryBoard = UIStoryboard(name: StoryBoardName.login, bundle: nil)
+            let loginStoryBoard = UIStoryboard(name: StoryBoardName.login,
+                                               bundle: nil)
             let loginVC = loginStoryBoard.instantiateViewController(withIdentifier: "splashVC")
             nextViewController = UINavigationController(rootViewController: loginVC)
         }

@@ -8,14 +8,20 @@
 
 import UIKit
 
+protocol ChangeTabbarItemDelegate: class {
+    func moveToSwipe()
+}
+
 class NoTodoTableViewCell: UITableViewCell {
     
     @IBOutlet weak var goToSwipeVCButton: UIButton!
     
+    weak var delegate: ChangeTabbarItemDelegate?
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         
-        var attributedString = NSMutableAttributedString(string:"")
+        var attributedString = NSMutableAttributedString(string: "")
         let buttonTitleStr = NSMutableAttributedString(string: "슥삭하러가기 >",
                                                        attributes: [NSAttributedString.Key.underlineStyle : 1])
         attributedString.append(buttonTitleStr)
@@ -29,5 +35,6 @@ class NoTodoTableViewCell: UITableViewCell {
     }
     
     @IBAction func goToSwipeVC(_ sender: UIButton) {
+        delegate?.moveToSwipe()
     }
 }

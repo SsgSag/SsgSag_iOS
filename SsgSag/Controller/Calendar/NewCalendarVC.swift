@@ -174,6 +174,7 @@ class NewCalendarVC: UIViewController {
         let dayTodoVC = DayTodoViewController()
         dayTodoVC.modalPresentationStyle = .overCurrentContext
         dayTodoVC.currentDate = date
+        
         dayTodoVC.callback = { [weak self] in
             guard let contentOffset = self?.calendarView.contentOffset else {
                 print("no contentOffset data")
@@ -182,6 +183,7 @@ class NewCalendarVC: UIViewController {
             self?.calendarView.setupMonths()
             self?.calendarView.drawVisibleMonth(with: contentOffset)
         }
+        
         let navigationVC = UINavigationController(rootViewController: dayTodoVC)
         navigationVC.modalPresentationStyle = .overCurrentContext
         
@@ -313,11 +315,11 @@ extension NewCalendarVC: VAMonthHeaderViewDelegate {
 extension NewCalendarVC: VAMonthViewAppearanceDelegate {
     
     func leftInset() -> CGFloat {
-        return 10
+        return 0
     }
     
     func rightInset() -> CGFloat {
-        return 10
+        return 0
     }
     
     func verticalMonthTitleFont() -> UIFont {

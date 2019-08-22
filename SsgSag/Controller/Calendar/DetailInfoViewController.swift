@@ -22,6 +22,7 @@ class DetailInfoViewController: UIViewController {
     var posterIdx: Int?
     var posterDetailData: DataClass?
     private var isFolding: Bool = false
+    private var columnData: [Column]?
     
     let downloadLink = "https://ssgsag.page.link/install"
     
@@ -53,7 +54,7 @@ class DetailInfoViewController: UIViewController {
         view.delegate = self
         view.callback = { [weak self] in
             self?.isFolding = true
-            self?.requestDatas()
+            self?.requestDatas(section: 0)
         }
         return view
     }()
@@ -114,7 +115,7 @@ class DetailInfoViewController: UIViewController {
         navigationItem.rightBarButtonItem = shareBarButton
     }
     
-    private func requestDatas() {
+    private func requestDatas(section: Int? = nil) {
         guard let posterIdx = posterIdx else { return }
         
         posterServiceImp.requestPosterDetail(posterIdx: posterIdx) { [weak self] response in
@@ -125,8 +126,28 @@ class DetailInfoViewController: UIViewController {
                 self?.buttonsView.isLike = detailData.isFavorite
                 self?.buttonsView.isExistApplyURL = detailData.posterWebSite2 != nil ? true : false
                 
+                if detailData.categoryIdx == 3 || detailData.categoryIdx == 5 {
+                    guard let columnJson = detailData.outline,
+                        let data = columnJson.data(using: .utf8) else {
+                            return
+                    }
+                    
+                    do {
+                        self?.columnData = try JSONDecoder().decode([Column].self,
+                                                                    from: data)
+                    } catch let error {
+                        print(error)
+                        return
+                    }
+                }
+                
                 DispatchQueue.main.async {
-                    self?.infoCollectionView.reloadData()
+                    guard let section = section else {
+                        self?.infoCollectionView.reloadData()
+                        return
+                    }
+                    
+                    self?.infoCollectionView.reloadSections(IndexSet(integer: section))
                 }
             case .failed(let error):
                 assertionFailure(error.localizedDescription)
@@ -292,16 +313,30 @@ extension DetailInfoViewController: UICollectionViewDelegate {
 }
 
 extension DetailInfoViewController: UICollectionViewDataSource {
-    func collectionView(_ collectionView: UICollectionView,
-                        numberOfItemsInSection section: Int) -> Int {
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
+        
         guard let isTryWithoutLogin = UserDefaults.standard.object(forKey: "isTryWithoutLogin") as? Bool else {
             return .init()
         }
         
         if isTryWithoutLogin {
-            return 7
-        } else {
-            return 8 + (posterDetailData?.commentList?.count ?? 0)
+            return 1
+        }
+        
+        return 3
+    }
+    
+    func collectionView(_ collectionView: UICollectionView,
+                        numberOfItemsInSection section: Int) -> Int {
+        switch section {
+        case 0:
+            return 6
+        case 1:
+            return 1
+        case 2:
+            return (posterDetailData?.commentList?.count ?? 0) + 1
+        default:
+            return 0
         }
     }
     
@@ -313,87 +348,112 @@ extension DetailInfoViewController: UICollectionViewDataSource {
         
         let infoTitles = titleStringByCategory(categoryIdx: categoryIdx)
         
-        switch indexPath.item {
+        switch indexPath.section {
         case 0:
-            guard let cell
-                = collectionView.dequeueReusableCell(withReuseIdentifier: "detailImgCellID",
-                                                     for: indexPath) as? DetailImageCollectionViewCell else {
-                                                        return .init()
+            switch indexPath.item {
+            case 0:
+                guard let cell
+                    = collectionView.dequeueReusableCell(withReuseIdentifier: "detailImgCellID",
+                                                         for: indexPath) as? DetailImageCollectionViewCell else {
+                                                            return .init()
+                }
+                
+                return cell
+            case 1:
+                guard let cell
+                    = collectionView.dequeueReusableCell(withReuseIdentifier: "detailInfoCellID",
+                                                         for: indexPath) as? DetailInfoCollectionViewCell else {
+                                                            return .init()
+                }
+                
+                if columnData?.count ?? 3 < 1 {
+                    return cell
+                }
+                
+                if categoryIdx == 3 || categoryIdx == 5 {
+                    cell.configure(titleString: columnData?[0].columnName ?? "",
+                                   detailString: columnData?[0].columnContent ?? "")
+                } else if posterDetailData?.categoryIdx == 8 {
+                    cell.configure(titleString: infoTitles[0],
+                                   detailString: posterDetailData?.benefit ?? "")
+                } else {
+                    cell.configure(titleString: infoTitles[0],
+                                   detailString: posterDetailData?.outline ?? "")
+                }
+                
+                return cell
+            case 2:
+                guard let cell
+                    = collectionView.dequeueReusableCell(withReuseIdentifier: "detailInfoCellID",
+                                                         for: indexPath) as? DetailInfoCollectionViewCell else {
+                                                            return .init()
+                }
+                
+                if columnData?.count ?? 3 < 2 {
+                    return cell
+                }
+                
+                if categoryIdx == 3 || categoryIdx == 5 {
+                    cell.configure(titleString: columnData?[1].columnName ?? "",
+                                   detailString: columnData?[1].columnContent ?? "")
+                } else if posterDetailData?.categoryIdx == 2 || posterDetailData?.categoryIdx == 6 {
+                    cell.configure(titleString: infoTitles[1],
+                                   detailString: posterDetailData?.period ?? "")
+                } else {
+                    cell.configure(titleString: infoTitles[1],
+                                   detailString: posterDetailData?.target ?? "")
+                }
+                return cell
+            case 3:
+                guard let cell
+                    = collectionView.dequeueReusableCell(withReuseIdentifier: "detailInfoCellID",
+                                                         for: indexPath) as? DetailInfoCollectionViewCell else {
+                                                            return .init()
+                }
+                
+                if columnData?.count ?? 3 < 3 {
+                    return cell
+                }
+                
+                if categoryIdx == 3 || categoryIdx == 5 {
+                    cell.configure(titleString: columnData?[2].columnName ?? "",
+                                   detailString: columnData?[2].columnContent ?? "")
+                } else if posterDetailData?.categoryIdx == 7 {
+                    cell.configure(titleString: infoTitles[2],
+                                   detailString: posterDetailData?.period ?? "")
+                } else if posterDetailData?.categoryIdx == 8 {
+                    cell.configure(titleString: infoTitles[2],
+                                   detailString: posterDetailData?.outline ?? "")
+                } else {
+                    cell.configure(titleString: infoTitles[2],
+                                   detailString: posterDetailData?.benefit ?? "")
+                }
+                
+                return cell
+            case 4:
+                guard let cell
+                    = collectionView.dequeueReusableCell(withReuseIdentifier: "contactInfoCellID",
+                                                         for: indexPath) as? ContactInfoCollectionViewCell else {
+                                                            return .init()
+                }
+                
+                cell.configure(phoneNumber: posterDetailData?.partnerPhone ?? "", email: posterDetailData?.partnerEmail ?? "")
+                
+                return cell
+            case 5:
+                guard let cell
+                    = collectionView.dequeueReusableCell(withReuseIdentifier: "seeMoreCellID",
+                                                         for: indexPath) as? SeeMoreCollectionViewCell else {
+                                                            return .init()
+                }
+                
+                cell.configure(contents: posterDetailData?.posterDetail ?? "")
+                
+                return cell
+            default:
+                return .init()
             }
-            
-            return cell
         case 1:
-            guard let cell
-                = collectionView.dequeueReusableCell(withReuseIdentifier: "detailInfoCellID",
-                                                     for: indexPath) as? DetailInfoCollectionViewCell else {
-                                                        return .init()
-            }
-            
-            if posterDetailData?.categoryIdx == 8 {
-                cell.configure(titleString: infoTitles[0],
-                               detailString: posterDetailData?.benefit ?? "")
-            } else {
-                cell.configure(titleString: infoTitles[0],
-                               detailString: posterDetailData?.outline ?? "")
-            }
-            
-            return cell
-        case 2:
-            guard let cell
-                = collectionView.dequeueReusableCell(withReuseIdentifier: "detailInfoCellID",
-                                                     for: indexPath) as? DetailInfoCollectionViewCell else {
-                                                        return .init()
-            }
-            
-            if posterDetailData?.categoryIdx == 2 || posterDetailData?.categoryIdx == 6 {
-                cell.configure(titleString: infoTitles[1],
-                               detailString: posterDetailData?.period ?? "")
-            } else {
-                cell.configure(titleString: infoTitles[1],
-                               detailString: posterDetailData?.target ?? "")
-            }
-            return cell
-        case 3:
-            guard let cell
-                = collectionView.dequeueReusableCell(withReuseIdentifier: "detailInfoCellID",
-                                                     for: indexPath) as? DetailInfoCollectionViewCell else {
-                                                        return .init()
-            }
-            
-            if posterDetailData?.categoryIdx == 7 {
-                cell.configure(titleString: infoTitles[2],
-                               detailString: posterDetailData?.period ?? "")
-            } else if posterDetailData?.categoryIdx == 8 {
-                cell.configure(titleString: infoTitles[2],
-                               detailString: posterDetailData?.outline ?? "")
-            } else {
-                cell.configure(titleString: infoTitles[2],
-                               detailString: posterDetailData?.benefit ?? "")
-            }
-            
-            return cell
-        case 4:
-            guard let cell
-                = collectionView.dequeueReusableCell(withReuseIdentifier: "contactInfoCellID",
-                                                     for: indexPath) as? ContactInfoCollectionViewCell else {
-                                                        return .init()
-            }
-            
-            cell.configure(phoneNumber: posterDetailData?.partnerPhone ?? "", email: posterDetailData?.partnerEmail ?? "")
-            
-            return cell
-        case 5:
-            guard let cell
-                = collectionView.dequeueReusableCell(withReuseIdentifier: "seeMoreCellID",
-                                                     for: indexPath) as? SeeMoreCollectionViewCell else {
-                                                        return .init()
-            }
-            
-            cell.configure(contents: posterDetailData?.posterDetail ?? "")
-            
-            return cell
-        case 6:
-            
             guard let isTryWithoutLogin = UserDefaults.standard.object(forKey: "isTryWithoutLogin") as? Bool else {
                 return .init()
             }
@@ -439,33 +499,35 @@ extension DetailInfoViewController: UICollectionViewDataSource {
             cell.configure(analyticsData: posterDetailData?.analytics)
             
             return cell
-            
-        case 8 + (posterDetailData?.commentList?.count ?? 0) - 1:
-            guard let cell
-                = collectionView.dequeueReusableCell(withReuseIdentifier: "commentWriteCellID",
-                                                     for: indexPath) as? CommentWriteCollectionViewCell else {
-                                                        return .init()
-            }
-            
-            cell.delegate = self
-            cell.commentWriteTextField.delegate = self
-            
-            return cell
         default:
-            guard let cell
-                = collectionView.dequeueReusableCell(withReuseIdentifier: "commentCellID",
-                                                     for: indexPath) as? CommentCollectionViewCell else {
-                                                        return .init()
-            }
-            
-            guard let comment = posterDetailData?.commentList?[indexPath.item - 7] else {
+            switch indexPath.item {
+            case (posterDetailData?.commentList?.count ?? 0):
+                guard let cell
+                    = collectionView.dequeueReusableCell(withReuseIdentifier: "commentWriteCellID",
+                                                         for: indexPath) as? CommentWriteCollectionViewCell else {
+                                                            return .init()
+                }
+                
+                cell.delegate = self
+                cell.commentWriteTextField.delegate = self
+                
+                return cell
+            default:
+                guard let cell
+                    = collectionView.dequeueReusableCell(withReuseIdentifier: "commentCellID",
+                                                         for: indexPath) as? CommentCollectionViewCell else {
+                                                            return .init()
+                }
+
+                guard let comment = posterDetailData?.commentList?[indexPath.item] else {
+                    return cell
+                }
+
+                cell.delegate = self
+                cell.comment = comment
+                
                 return cell
             }
-            
-            cell.delegate = self
-            cell.comment = comment
-            
-            return cell
         }
     }
     
@@ -473,6 +535,11 @@ extension DetailInfoViewController: UICollectionViewDataSource {
                         viewForSupplementaryElementOfKind kind: String,
                         at indexPath: IndexPath) -> UICollectionReusableView {
         if kind == UICollectionView.elementKindSectionHeader {
+            guard indexPath.section == 0 else {
+                return collectionView.dequeueReusableSupplementaryView(ofKind: kind,
+                                                                       withReuseIdentifier: "tempHeader",
+                                                                       for: indexPath)
+            }
             guard let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "posterHeaderID", for: indexPath) as? PosterHeaderCollectionReusableView else {
                 return collectionView.dequeueReusableSupplementaryView(ofKind: kind,
                                                                        withReuseIdentifier: "tempHeader",
@@ -480,7 +547,7 @@ extension DetailInfoViewController: UICollectionViewDataSource {
             }
             
             header.delegate = self
-            header.configure(data: posterDetailData)
+            header.detailData = posterDetailData
             
             if let photoURL = posterDetailData?.photoUrl {
                 if let url = URL(string: photoURL){
@@ -510,18 +577,25 @@ extension DetailInfoViewController: UICollectionViewDataSource {
                         didSelectItemAt indexPath: IndexPath) {
         currentTextField?.resignFirstResponder()
         
-        switch indexPath.item {
+        switch indexPath.section {
         case 0:
-            // 상세 이미지
-            let detailImageView = DetailImageViewController()
-            detailImageView.titleText = posterDetailData?.posterName
-            detailImageView.urlString = posterDetailData?.photoUrl2
-            present(detailImageView, animated: true)
-        case 5:
-            // 자세히 보기
-            let indexPaths = [indexPath]
-            collectionView.reloadItems(at: indexPaths)
-            collectionView.scrollToItem(at: indexPath, at: .top, animated: true)
+            switch indexPath.item {
+            case 0:
+                if indexPath.item == 0 {
+                    // 상세 이미지
+                    let detailImageView = DetailImageViewController()
+                    detailImageView.titleText = posterDetailData?.posterName
+                    detailImageView.urlString = posterDetailData?.photoUrl2
+                    present(detailImageView, animated: true)
+                }
+            case 5:
+                // 자세히 보기
+                let indexPaths = [indexPath]
+                collectionView.reloadItems(at: indexPaths)
+                collectionView.scrollToItem(at: indexPath, at: .top, animated: true)
+            default:
+                return
+            }
         default:
             return
         }
@@ -532,7 +606,12 @@ extension DetailInfoViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
                         referenceSizeForHeaderInSection section: Int) -> CGSize {
-        return CGSize(width: view.frame.width, height: 243)
+        switch section {
+        case 0:
+            return CGSize(width: view.frame.width, height: 243)
+        default:
+            return CGSize(width: view.frame.width, height: 0)
+        }
     }
     
 //    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForFooterInSection section: Int) -> CGSize {
@@ -542,57 +621,76 @@ extension DetailInfoViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
                         sizeForItemAt indexPath: IndexPath) -> CGSize {
-        switch indexPath.item {
+        switch indexPath.section {
         case 0:
-            guard let _ = posterDetailData?.photoUrl2 else {
+            switch indexPath.item {
+            case 0:
+                guard let _ = posterDetailData?.photoUrl2 else {
+                    return CGSize(width: view.frame.width, height: 0)
+                }
+                return CGSize(width: view.frame.width, height: 41)
+            case 1:
+                if columnData?.count ?? 3 < 1 {
+                    return CGSize(width: view.frame.width, height: 0)
+                }
+                let collectionViewCellHeight = estimatedFrame(text: posterDetailData?.outline ?? "",
+                                                              font: UIFont.systemFont(ofSize: 14)).height
+                
+                return CGSize(width: view.frame.width, height: collectionViewCellHeight + 72)
+            case 2:
+                if columnData?.count ?? 3 < 2 {
+                    return CGSize(width: view.frame.width, height: 0)
+                }
+                
+                let collectionViewCellHeight = estimatedFrame(text: posterDetailData?.target ?? "",
+                                                              font: UIFont.systemFont(ofSize: 14)).height
+                
+                return CGSize(width: view.frame.width, height: collectionViewCellHeight + 72)
+            case 3:
+                if columnData?.count ?? 3 < 3 {
+                    return CGSize(width: view.frame.width, height: 0)
+                }
+                
+                let collectionViewCellHeight = estimatedFrame(text: posterDetailData?.benefit ?? "",
+                                                              font: UIFont.systemFont(ofSize: 14)).height
+                
+                return CGSize(width: view.frame.width, height: collectionViewCellHeight + 72)
+            case 4:
+                guard let _ = posterDetailData?.partnerPhone,
+                    let _ = posterDetailData?.partnerEmail else {
+                        return CGSize(width: 0, height: 0)
+                }
+                
+                return CGSize(width: view.frame.width, height: 106)
+            case 5:
+                if isFolding {
+                    isFolding = !isFolding
+                    return CGSize(width: view.frame.width, height: 46)
+                } else {
+                    isFolding = !isFolding
+                    
+                    let collectionViewCellHeight = estimatedFrame(text: posterDetailData?.posterDetail ?? "",
+                                                                  font: UIFont.systemFont(ofSize: 12)).height
+                    
+                    return CGSize(width: view.frame.width, height: collectionViewCellHeight + 50 + 46)
+                }
+            default:
                 return CGSize(width: view.frame.width, height: 0)
             }
-            return CGSize(width: view.frame.width, height: 41)
         case 1:
-            let collectionViewCellHeight = estimatedFrame(text: posterDetailData?.outline ?? "",
-                                                          font: UIFont.systemFont(ofSize: 14)).height
-            
-            return CGSize(width: view.frame.width, height: collectionViewCellHeight + 72)
-        case 2:
-            let collectionViewCellHeight = estimatedFrame(text: posterDetailData?.target ?? "",
-                                                          font: UIFont.systemFont(ofSize: 14)).height
-            
-            return CGSize(width: view.frame.width, height: collectionViewCellHeight + 72)
-        case 3:
-            let collectionViewCellHeight = estimatedFrame(text: posterDetailData?.benefit ?? "",
-                                                          font: UIFont.systemFont(ofSize: 14)).height
-            
-            return CGSize(width: view.frame.width, height: collectionViewCellHeight + 72)
-        case 4:
-            guard let _ = posterDetailData?.partnerPhone,
-                let _ = posterDetailData?.partnerEmail else {
-                return CGSize(width: 0, height: 0)
-            }
-            
-            return CGSize(width: view.frame.width, height: 106)
-        case 5:
-            if isFolding {
-                isFolding = !isFolding
-                return CGSize(width: view.frame.width, height: 46)
-            } else {
-                isFolding = !isFolding
-                
-                let collectionViewCellHeight = estimatedFrame(text: posterDetailData?.posterDetail ?? "",
-                                                              font: UIFont.systemFont(ofSize: 12)).height
-                
-                return CGSize(width: view.frame.width, height: collectionViewCellHeight + 50 + 46)
-            }
-        case 6:
             return CGSize(width: view.frame.width, height: 268)
-        case 8 + (posterDetailData?.commentList?.count ?? 0) - 1:
-            return CGSize(width: view.frame.width, height: 46)
         default:
-            
-//            let collectionViewCellHeight = estimatedFrame(text: posterDetailData?.posterDetail ?? "",
-//                                                          font: UIFont.systemFont(ofSize: 12)).height
-//            
-//            return CGSize(width: view.frame.width, height: collectionViewCellHeight + 50 + 46)
-            return CGSize(width: view.frame.width, height: 65)
+            switch indexPath.item {
+            case (posterDetailData?.commentList?.count ?? 0):
+                return CGSize(width: view.frame.width, height: 46)
+            default:
+                
+                //            let collectionViewCellHeight = estimatedFrame(text: posterDetailData?.posterDetail ?? "",
+                //                                                          font: UIFont.systemFont(ofSize: 12)).height
+                //
+                //            return CGSize(width: view.frame.width, height: collectionViewCellHeight + 50 + 46)
+                return CGSize(width: view.frame.width, height: 65)
+            }
         }
 
     }
@@ -643,7 +741,7 @@ extension DetailInfoViewController: CommentWriteDelegate {
                         self?.currentTextField?.resignFirstResponder()
                         self?.simplerAlert(title: "댓글 등록이 완료되었습니다.")
                         self?.isFolding = true
-                        self?.requestDatas()
+                        self?.requestDatas(section: 2)
                     }
                 case .dataBaseError:
                     DispatchQueue.main.async {
@@ -676,7 +774,7 @@ extension DetailInfoViewController: CommentDelegate {
                 DispatchQueue.main.async {
                     switch status {
                     case .processingSuccess:
-                        self?.requestDatas()
+                        self?.requestDatas(section: 2)
                         self?.isFolding = true
                     case .dataBaseError:
                         self?.simplerAlert(title: "database error")
@@ -710,7 +808,7 @@ extension DetailInfoViewController: CommentDelegate {
                         case .processingSuccess:
                             self?.simplerAlert(title: "댓글이 삭제되었습니다")
                             self?.isFolding = true
-                            self?.requestDatas()
+                            self?.requestDatas(section: 2)
                         case .dataBaseError:
                             self?.simplerAlert(title: "database error")
                             return

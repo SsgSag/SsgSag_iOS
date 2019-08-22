@@ -26,8 +26,9 @@ class TodoListCollectionViewCell: UICollectionViewCell {
     weak var calendarDelegate: ReloadCalendarDelegate?
     
     @IBOutlet weak var dateLabel: UILabel!
-    
     @IBOutlet weak var todoListTableView: UITableView!
+    
+    var controller: ChangeTabbarItemDelegate?
     
     private let calendarService: CalendarService
         = DependencyContainer.shared.getDependency(key: .calendarService)
@@ -94,6 +95,10 @@ extension TodoListCollectionViewCell: UITableViewDataSource {
             guard let cell = tableView.dequeueReusableCell(withIdentifier: "noTodoCell", for: indexPath) as? NoTodoTableViewCell else {
                 return .init()
             }
+            
+            cell.selectionStyle = .none
+            cell.delegate = controller
+            
             return cell
         }
         
@@ -130,6 +135,9 @@ extension TodoListCollectionViewCell: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView,
                    didSelectRowAt indexPath: IndexPath) {
+        if monthTodoData?.count == 0 {
+            return
+        }
         
         guard let cell = tableView.cellForRow(at: indexPath) as? DetailTodoListTableViewCell else {
             return

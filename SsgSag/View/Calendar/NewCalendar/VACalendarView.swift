@@ -380,19 +380,19 @@ extension VACalendarView: VAMonthViewDelegate {
         switch selectionStyle {
         case .single:
             
-            guard day.state == .available  else {
-                
-                if day.state == .selected {
-                    calendar.deselectAll()
-                    calendar.setDaySelectionState(day, state: .selected)
-                    calendarDelegate?.selectedDate?(day.date)
-                }
-                
-                return
-            }
+//            guard day.state == .available  else {
+//                
+//                if day.state == .selected {
+////                    calendar.deselectAll()
+////                    calendar.setDaySelectionState(day, state: .selected)
+//                    calendarDelegate?.selectedDate?(day.date)
+//                }
+//                
+//                return
+//            }
             
-            calendar.deselectAll()
-            calendar.setDaySelectionState(day, state: .selected)
+//            calendar.deselectAll()
+//            calendar.setDaySelectionState(day, state: .selected)
             calendarDelegate?.selectedDate?(day.date)
             
         case .multi:

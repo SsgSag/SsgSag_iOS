@@ -151,16 +151,59 @@ class DetailNewTextSwipeCard: UIViewController {
             
             posterCategory = poster.categoryIdx
         
-            guard let posterEndDate = poster.posterEndDate else {return}
-            
-            let interval = DateCaculate.dayInterval(using: posterEndDate)
-        
-            self.intervalDate.text = DateCaculate.getDifferenceBetweenStartAndEnd(startDate: poster.posterStartDate, endDate: poster.posterEndDate)
+            self.intervalDate.text
+                = DateCaculate.getDifferenceBetweenStartAndEnd(startDate: poster.posterStartDate,
+                                                               endDate: poster.posterEndDate)
             
             guard let title = poster.posterName,
                 let categoryIdx = poster.categoryIdx else { return }
             
             titleLabel.text = title
+            
+            // json String으로 오는 경우
+            if categoryIdx == 3 || categoryIdx == 5 {
+                guard let columnJson = poster.outline,
+                    let data = columnJson.data(using: .utf8) else {
+                    return
+                }
+                
+                do {
+                    let columnData = try JSONDecoder().decode([Column].self, from: data)
+                    
+                    switch columnData.count {
+                    case 1:
+                        subjectButton.setTitle(columnData[0].columnName,
+                                               for: .normal)
+                        
+                        subjectDetailText.text = columnData[0].columnContent
+                    case 2:
+                        subjectButton.setTitle(columnData[0].columnName,
+                                               for: .normal)
+                        benefitButton.setTitle(columnData[1].columnName,
+                                               for: .normal)
+                        
+                        subjectDetailText.text = columnData[0].columnContent
+                        benefitTextField.text = columnData[1].columnContent
+                    case 3:
+                        subjectButton.setTitle(columnData[0].columnName,
+                                               for: .normal)
+                        benefitButton.setTitle(columnData[1].columnName,
+                                               for: .normal)
+                        eligibilityButton.setTitle(columnData[2].columnName,
+                                                   for: .normal)
+                        
+                        subjectDetailText.text = columnData[0].columnContent
+                        benefitTextField.text = columnData[1].columnContent
+                        eligibilityDetailText.text = columnData[2].columnContent
+                    default:
+                        return
+                    }
+                    return
+                } catch let error {
+                    print(error)
+                    return
+                }
+            }
             
             let categoryTitle = titleStringByCategory(categoryIdx: categoryIdx)
             subjectButton.setTitle(categoryTitle[0], for: .normal)
@@ -312,7 +355,6 @@ class DetailNewTextSwipeCard: UIViewController {
             contentView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor),
             contentView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),
             contentView.widthAnchor.constraint(equalTo: scrollView.widthAnchor),
-//            contentView.heightAnchor.constraint(equalToConstant: 1000),
             
             subjectButton.topAnchor.constraint(equalTo: contentView.topAnchor),
             subjectButton.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 22),
@@ -321,21 +363,20 @@ class DetailNewTextSwipeCard: UIViewController {
             subjectDetailText.leadingAnchor.constraint(equalTo: subjectButton.leadingAnchor),
             subjectDetailText.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -22),
             
-            eligibilityButton.topAnchor.constraint(equalTo: subjectDetailText.bottomAnchor, constant: 30),
-            eligibilityButton.leadingAnchor.constraint(equalTo: subjectButton.leadingAnchor),
-            
-            eligibilityDetailText.topAnchor.constraint(equalTo: benefitButton.bottomAnchor, constant: 10),
-            eligibilityDetailText.leadingAnchor.constraint(equalTo: subjectButton.leadingAnchor),
-            eligibilityDetailText.trailingAnchor.constraint(equalTo: subjectDetailText.trailingAnchor),
-            eligibilityDetailText.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
-            
-            benefitButton.topAnchor.constraint(equalTo: benefitTextField.bottomAnchor, constant: 30),
+            benefitButton.topAnchor.constraint(equalTo: subjectDetailText.bottomAnchor, constant: 30),
             benefitButton.leadingAnchor.constraint(equalTo: subjectButton.leadingAnchor),
             
-            benefitTextField.topAnchor.constraint(equalTo: eligibilityButton.bottomAnchor, constant: 10),
+            benefitTextField.topAnchor.constraint(equalTo: benefitButton.bottomAnchor, constant: 10),
             benefitTextField.leadingAnchor.constraint(equalTo: subjectButton.leadingAnchor),
-            benefitTextField.trailingAnchor.constraint(equalTo: subjectDetailText.trailingAnchor)
-//            benefitTextField.bottomAnchor.constraint(greaterThanOrEqualTo: segmentView.bottomAnchor, constant: -10)
+            benefitTextField.trailingAnchor.constraint(equalTo: subjectDetailText.trailingAnchor),
+            
+            eligibilityButton.topAnchor.constraint(equalTo: benefitTextField.bottomAnchor, constant: 30),
+            eligibilityButton.leadingAnchor.constraint(equalTo: subjectButton.leadingAnchor),
+            
+            eligibilityDetailText.topAnchor.constraint(equalTo: eligibilityButton.bottomAnchor, constant: 10),
+            eligibilityDetailText.leadingAnchor.constraint(equalTo: subjectButton.leadingAnchor),
+            eligibilityDetailText.trailingAnchor.constraint(equalTo: subjectDetailText.trailingAnchor),
+            eligibilityDetailText.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -10),
         ])
     
         segmentView.layer.cornerRadius = 3

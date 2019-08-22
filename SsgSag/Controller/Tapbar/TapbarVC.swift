@@ -78,12 +78,12 @@ class TapbarVC: UITabBarController {
                                                       selectedImage: UIImage(named: "icMainActive"))
         
         feedViewController.tabBarItem = UITabBarItem(title: "",
-                                                       image: UIImage(named: "ic_feedPassive@tabBar"),
-                                                       selectedImage: UIImage(named: "ic_feed@tabBar"))
+                                                     image: UIImage(named: "ic_feedPassive@tabBar"),
+                                                     selectedImage: UIImage(named: "ic_feed@tabBar"))
         
         newCalendarViewController.tabBarItem = UITabBarItem(title: "",
-                                                         image: UIImage(named: "icCal"),
-                                                         selectedImage: UIImage(named: "icCalActive"))
+                                                            image: UIImage(named: "ic_calendarPassive"),
+                                                            selectedImage: UIImage(named: "ic_calendarActive"))
         
         let tabBarList = [feedViewController, swipeViewController, newCalendarViewController]
         

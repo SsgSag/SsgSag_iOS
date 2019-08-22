@@ -106,7 +106,9 @@ class LoginVC: UIViewController, UITextFieldDelegate {
                         KeychainWrapper.standard.set(storeToken,
                                                      forKey: TokenName.token)
                     }
+                    
                     UserDefaults.standard.set(false, forKey: "isTryWithoutLogin")
+                    
                     let tabBar = TapbarVC(nibName: nil, bundle: nil)
                     DispatchQueue.main.async {
                         self?.present(tabBar, animated: true, completion: nil)

@@ -28,13 +28,12 @@ class InterestBoardTableViewCell: UITableViewCell {
             
             guard let interestName = interestInfo.interestName,
                 let userIdx = interestInfo.userIdx,
-                let colorHexString = interestInfo.interestUrl,
-                let detail = interestInfo.interestDetail else { return }
+                let colorHexString = interestInfo.interestUrl else { return }
             
             categoryButton.setTitle(interestName, for: .normal)
             categoryButton.backgroundColor = UIColor(hex: colorHexString)?.withAlphaComponent(0.08)
             categoryButton.setTitleColor(UIColor(hex: colorHexString), for: .normal)
-            hashTag.text = detail
+            hashTag.text = interestInfo.interestDetail ?? ""
             
             if isNotSubscribe(userIdx) {
                 changeAllColorToUnFollow()
@@ -45,7 +44,7 @@ class InterestBoardTableViewCell: UITableViewCell {
     }
     
     private func changeAllColorToUnFollow() {
-        selectFollow.setTitle("언팔로우", for: .normal)
+        selectFollow.setTitle("팔로우", for: .normal)
         selectFollow.backgroundColor = .lightGray
         
         categoryButton.setTitleColor(.lightGray, for: .normal)
@@ -53,7 +52,7 @@ class InterestBoardTableViewCell: UITableViewCell {
     }
     
     private func changeAllColorToFollow() {
-        selectFollow.setTitle("팔로우", for: .normal)
+        selectFollow.setTitle("언팔로우", for: .normal)
         selectFollow.backgroundColor = #colorLiteral(red: 0.4603668451, green: 0.5182471275, blue: 1, alpha: 1)
     }
     

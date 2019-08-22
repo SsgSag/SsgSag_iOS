@@ -209,6 +209,7 @@
 		D1EAA6262306A1A20063E04A /* HideAnalyticsCommentsCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D1EAA6242306A1A20063E04A /* HideAnalyticsCommentsCollectionViewCell.xib */; };
 		D1EAA6282306BBFC0063E04A /* splash.json in Resources */ = {isa = PBXBuildFile; fileRef = D1EAA6272306BBFC0063E04A /* splash.json */; };
 		D1EAA62E2306BDC20063E04A /* Splash.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D1EAA62D2306BDC20063E04A /* Splash.storyboard */; };
+		D1F0DA22230D062F00C6FF19 /* Column.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1F0DA21230D062F00C6FF19 /* Column.swift */; };
 		D1F3A283230593CD007B72E1 /* OSLTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1F3A281230593CD007B72E1 /* OSLTableViewCell.swift */; };
 		D1F3A284230593CD007B72E1 /* OSLTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D1F3A282230593CD007B72E1 /* OSLTableViewCell.xib */; };
 		D1FB05A722E6C917001425CF /* SettingTextFieldCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1FB05A522E6C917001425CF /* SettingTextFieldCollectionViewCell.swift */; };
@@ -487,6 +488,7 @@
 		D1EAA6242306A1A20063E04A /* HideAnalyticsCommentsCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HideAnalyticsCommentsCollectionViewCell.xib; sourceTree = "<group>"; };
 		D1EAA6272306BBFC0063E04A /* splash.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = splash.json; sourceTree = "<group>"; };
 		D1EAA62D2306BDC20063E04A /* Splash.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Splash.storyboard; sourceTree = "<group>"; };
+		D1F0DA21230D062F00C6FF19 /* Column.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Column.swift; sourceTree = "<group>"; };
 		D1F3A281230593CD007B72E1 /* OSLTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OSLTableViewCell.swift; sourceTree = "<group>"; };
 		D1F3A282230593CD007B72E1 /* OSLTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = OSLTableViewCell.xib; sourceTree = "<group>"; };
 		D1FB05A522E6C917001425CF /* SettingTextFieldCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingTextFieldCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -833,6 +835,7 @@
 			isa = PBXGroup;
 			children = (
 				FA851DEC21D5FDB0002065D0 /* SwipeModel.swift */,
+				D1F0DA21230D062F00C6FF19 /* Column.swift */,
 			);
 			path = Swipe;
 			sourceTree = "<group>";
@@ -1599,6 +1602,7 @@
 				8496818422AFD3FE004A4A63 /* VAMonth.swift in Sources */,
 				842C619E21DD1807001BA6D8 /* networkData.swift in Sources */,
 				846356792293EAA10060ED91 /* NotificationInfoTableViewController.swift in Sources */,
+				D1F0DA22230D062F00C6FF19 /* Column.swift in Sources */,
 				8463567F22941E020060ED91 /* PrivateProtectViewController.swift in Sources */,
 				D11080A122E052C000F345A8 /* SeeMoreCollectionViewCell.swift in Sources */,
 				D13F378522E9BD490004875C /* OSLViewController.swift in Sources */,
@@ -1828,7 +1832,7 @@
 					"$(PROJECT_DIR)",
 				);
 				INFOPLIST_FILE = "$(SRCROOT)/SsgSag/Support/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 12.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1873,7 +1877,7 @@
 					"$(PROJECT_DIR)",
 				);
 				INFOPLIST_FILE = "$(SRCROOT)/SsgSag/Support/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 12.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

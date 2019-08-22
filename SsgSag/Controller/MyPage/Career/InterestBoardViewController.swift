@@ -16,6 +16,7 @@ class InterestBoardViewController: UIViewController {
     
     private var interestInfo: [SubscribeInterests] = []
     private var selectedIndex: Int?
+    var callback: (()->())?
     
     private let interestService: InterestService
         = DependencyContainer.shared.getDependency(key: .interestService)
@@ -47,13 +48,15 @@ class InterestBoardViewController: UIViewController {
         
         tableView.separatorStyle = .none
         
-        tableView.register(UINib.InterestBoardNIB, forCellReuseIdentifier: InterestBoardViewController.cellId)
+        tableView.register(UINib.InterestBoardNIB,
+                           forCellReuseIdentifier: InterestBoardViewController.cellId)
         
         requestSubscribeStatus()
     }
     
     @objc private func touchUpBackButton() {
         navigationController?.popViewController(animated: true)
+        callback?()
     }
     
     private func requestSubscribeStatus() {
@@ -63,6 +66,7 @@ class InterestBoardViewController: UIViewController {
                 guard let interests = data.data else {return}
                 
                 self?.interestInfo = interests
+                self?.sendEtcToBack()
                 
                 DispatchQueue.main.async {
                     self?.tableView.reloadData()
@@ -74,6 +78,15 @@ class InterestBoardViewController: UIViewController {
         }
     }
 
+    private func sendEtcToBack() {
+        for (index, info) in interestInfo.enumerated() {
+            if info.interestName == "기타" {
+                interestInfo.append(info)
+                interestInfo.remove(at: index)
+            }
+        }
+    }
+    
     func requestInterestAdd(_ categoryName: String) {
         guard let interestIdx = selectedIndex else {
             return
@@ -197,23 +210,6 @@ enum Follow {
 extension UINib {
     static var InterestBoardNIB: UINib {
         return UINib(nibName: "InterestBoardTableViewCell", bundle: nil)
-    }
-}
-
-enum InterestType: String {
-    case competition = "공모전"
-    case activities = "대외활동"
-    case inter = "인턴"
-    
-    func hashTagString() -> String {
-        switch self {
-        case .competition:
-            return "#공모전#경진대회#게시판"
-        case .activities:
-            return "#서포터즈#체험단"
-        case .inter:
-            return "#인턴#채용정보"
-        }
     }
 }
 

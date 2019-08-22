@@ -100,9 +100,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate, MessagingDelegate ,UNUser
     }
     
     func application(_ application: UIApplication, open url: URL, sourceApplication: String?, annotation: Any) -> Bool {
-        if KOSession.handleOpen(url) {
-            return true
+        if KOSession.isKakaoAccountLoginCallback(url) {
+            return KOSession.handleOpen(url)
         }
+        
         return false
     }
     
@@ -188,28 +189,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate, MessagingDelegate ,UNUser
     }
     
     func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any]) -> Bool {
-        //NaverThirdPartyLoginConnection.getSharedInstance()?.application(app, open: url, options: options)
-        
-        var naverSignInResult = false
-        
-        if url.scheme == kServiceAppUrlScheme {
-            if url.host == kCheckResultPage {
-                let loginConn = NaverThirdPartyLoginConnection.getSharedInstance()
-                let resultType = loginConn?.receiveAccessToken(url)
-                
-                if resultType == SUCCESS {
-                    naverSignInResult = true
-                }
-            }
+        if KOSession.isKakaoAccountLoginCallback(url) {
+            return KOSession.handleOpen(url)
         }
         
-        return naverSignInResult
-//
-//        if KOSession.handleOpen(url) {
-//            return true
-//        }
-//
-//        return false
+        return false
     }
     
     func application(_ application: UIApplication, handleOpen url: URL) -> Bool {

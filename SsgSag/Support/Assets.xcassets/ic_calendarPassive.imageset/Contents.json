@@ -2,22 +2,25 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "icCal.png",
+      "filename" : "calendarPassive.png",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
-      "filename" : "icCal@2x.png",
+      "filename" : "calendarPassive@2x.png",
       "scale" : "2x"
     },
     {
       "idiom" : "universal",
-      "filename" : "icCal@3x.png",
+      "filename" : "calendarPassive@3x.png",
       "scale" : "3x"
     }
   ],
   "info" : {
     "version" : 1,
     "author" : "xcode"
+  },
+  "properties" : {
+    "template-rendering-intent" : "original"
   }
 }
