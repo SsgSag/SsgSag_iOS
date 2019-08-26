@@ -20,7 +20,7 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" translatesAutoresizingMaskIntoConstraints="NO" id="kM9-Oe-gcc">
-                        <rect key="frame" x="22" y="10" width="276" height="92"/>
+                        <rect key="frame" x="22" y="10" width="276" height="94"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xCf-Cz-2yA">
                                 <rect key="frame" x="0.0" y="0.0" width="276" height="22"/>
@@ -32,16 +32,16 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" editable="NO" text="Lorem ipsum dolor sit er elit " textAlignment="natural" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="zFX-VR-Z0N">
-                                <rect key="frame" x="0.0" y="22" width="276" height="32"/>
+                                <rect key="frame" x="0.0" y="22" width="276" height="34"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="20" id="ecX-PD-Nq7"/>
+                                    <constraint firstAttribute="height" constant="18" id="ecX-PD-Nq7"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" type="system" weight="light" pointSize="13"/>
+                                <fontDescription key="fontDescription" type="system" weight="light" pointSize="15"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="7" translatesAutoresizingMaskIntoConstraints="NO" id="QQf-d4-Adw">
-                                <rect key="frame" x="0.0" y="54" width="276" height="19"/>
+                                <rect key="frame" x="0.0" y="56" width="276" height="19"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="19" id="ocH-hL-rMa"/>
                                 </constraints>
@@ -50,7 +50,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="7" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="DaK-9w-6pL">
-                                <rect key="frame" x="0.0" y="73" width="276" height="19"/>
+                                <rect key="frame" x="0.0" y="75" width="276" height="19"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="19" id="7IE-e2-1G2"/>
                                 </constraints>

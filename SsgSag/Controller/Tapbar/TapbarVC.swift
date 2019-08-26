@@ -9,10 +9,7 @@
 import UIKit
 
 class TapbarVC: UITabBarController {
-    
-    private let tapbarServiceImp: TabbarService
-        = DependencyContainer.shared.getDependency(key: .tabbarService)
-    
+
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         
@@ -33,8 +30,6 @@ class TapbarVC: UITabBarController {
         
         setupLayout()
         
-        isServerAvaliable()
-        
         setTabBarViewController()
         
         setTabBarStyle()
@@ -45,21 +40,8 @@ class TapbarVC: UITabBarController {
     private func setupLayout() {
         tabBar.frame.size.height = 48
     }
-
-    // 서버가 유효한지 확인하는 메소드
-    private func isServerAvaliable() {
-        tapbarServiceImp.requestIsInUpdateServer{ [weak self] dataResponse in
-            guard let data = dataResponse.value?.data else { return }
-            
-            if data == 1 {
-                self?.simplerAlert(title: "서버 업데이트 중입니다.")
-            }
-        }
-    }
     
     private func setTabBarViewController() {
-        
-        let mypageStoryBoard = UIStoryboard(name: StoryBoardName.mypage, bundle: nil)
         
         let swipeStoryBoard = UIStoryboard(name: StoryBoardName.swipe, bundle: nil)
         

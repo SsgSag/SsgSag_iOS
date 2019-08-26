@@ -16,6 +16,8 @@ class ServiceInfoViewController: UIViewController {
         tableView.register(ServiceInfoTableViewCell.self,
                            forCellReuseIdentifier: ServiceInfoViewController.cellId)
         tableView.tableFooterView = UIView()
+        tableView.cellLayoutMarginsFollowReadableWidth = false
+        tableView.separatorInset.left = 0
         return tableView
     }()
     

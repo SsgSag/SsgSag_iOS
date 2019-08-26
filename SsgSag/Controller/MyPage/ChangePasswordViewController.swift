@@ -119,17 +119,23 @@ class ChangePasswordViewController: UIViewController {
 extension ChangePasswordViewController: UITextFieldDelegate {
     
     func textFieldDidEndEditing(_ textField: UITextField) {
-        if newPasswordTextField.text == checkPasswordTextField.text {
+        if !newPasswordTextField.hasText && !checkPasswordTextField.hasText {
             isEqualPasswordLabel.isHidden = true
         } else {
-            isEqualPasswordLabel.isHidden = false
+            if newPasswordTextField.text != checkPasswordTextField.text {
+                isEqualPasswordLabel.isHidden = false
+            } else {
+                isEqualPasswordLabel.isHidden = true
+            }
         }
         
         scrollView.setContentOffset(CGPoint(x: 0, y: 0), animated: true)
     }
     
     func textFieldDidBeginEditing(_ textField: UITextField) {
-        scrollView.setContentOffset(CGPoint(x: 0, y: textFieldStackView.frame.origin.y), animated: true)
+        scrollView.setContentOffset(CGPoint(x: 0,
+                                            y: textFieldStackView.frame.origin.y),
+                                    animated: true)
     }
 }
 

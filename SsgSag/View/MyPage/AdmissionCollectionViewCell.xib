@@ -48,6 +48,10 @@
                                 </constraints>
                             </view>
                         </subviews>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="9mC-Q0-JKl" secondAttribute="trailing" constant="15" id="7ZS-Nz-D67"/>
+                            <constraint firstItem="9mC-Q0-JKl" firstAttribute="leading" secondItem="eeX-od-p8b" secondAttribute="leading" id="XWg-ih-UcZ"/>
+                        </constraints>
                     </stackView>
                 </subviews>
             </view>

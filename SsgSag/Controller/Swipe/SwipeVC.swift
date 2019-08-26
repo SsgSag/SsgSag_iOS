@@ -532,7 +532,7 @@ extension SwipeVC: movoToDetailPoster {
                                            bundle: nil)
         guard let zoomPosterVC = swipeStoryboard.instantiateViewController(withIdentifier: ViewControllerIdentifier.zoomPosterViewController) as? ZoomPosterVC else {return}
         
-        zoomPosterVC.urlString = self.posters[lastCardIndex].photoUrl
+        zoomPosterVC.urlString = self.posters[currentIndex].photoUrl
 
         self.present(zoomPosterVC, animated: true, completion: nil)
     }

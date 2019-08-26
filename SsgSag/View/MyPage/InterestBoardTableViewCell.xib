@@ -32,7 +32,7 @@
                                         <state key="normal" title="공모전"/>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="number" keyPath="cornerRadiusV">
-                                                <real key="value" value="5"/>
+                                                <real key="value" value="6"/>
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
                                     </button>

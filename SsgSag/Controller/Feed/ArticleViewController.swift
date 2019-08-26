@@ -34,6 +34,9 @@ class ArticleViewController: UIViewController {
         
         
         setNavigationBar(color: .white)
+        
+        navigationController?.navigationBar.titleTextAttributes
+            = [NSAttributedString.Key.foregroundColor : #colorLiteral(red: 0.3098039216, green: 0.3098039216, blue: 0.3098039216, alpha: 1)]
         navigationController?.navigationBar.isHidden = false
         navigationItem.leftBarButtonItem = backbutton
         navigationController?.hidesBarsOnSwipe = true

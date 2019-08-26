@@ -45,18 +45,16 @@ class InterestBoardTableViewCell: UITableViewCell {
     
     private func changeAllColorToUnFollow() {
         selectFollow.setTitle("팔로우", for: .normal)
-        selectFollow.backgroundColor = .lightGray
+        selectFollow.backgroundColor = #colorLiteral(red: 0.4603668451, green: 0.5182471275, blue: 1, alpha: 1)
         
         categoryButton.setTitleColor(.lightGray, for: .normal)
         categoryButton.backgroundColor = #colorLiteral(red: 0.6666666667, green: 0.6666666667, blue: 0.6666666667, alpha: 0.08)
     }
     
     private func changeAllColorToFollow() {
-        selectFollow.setTitle("언팔로우", for: .normal)
-        selectFollow.backgroundColor = #colorLiteral(red: 0.4603668451, green: 0.5182471275, blue: 1, alpha: 1)
+        selectFollow.setTitle("팔로잉", for: .normal)
+        selectFollow.backgroundColor = .lightGray
     }
-    
-    
     
     private func isNotSubscribe(_ userIdx: Int) -> Bool {
         if userIdx == 0 {

@@ -107,8 +107,8 @@
                                 </connections>
                             </barButtonItem>
                             <barButtonItem style="plain" id="18R-zK-GKS">
-                                <view key="customView" contentMode="scaleToFill" ambiguous="YES" id="p9b-tv-ABd" customClass="VAMonthHeaderView" customModule="슥삭" customModuleProvider="target">
-                                    <rect key="frame" x="55" y="22" width="0.0" height="0.0"/>
+                                <view key="customView" contentMode="scaleToFill" id="p9b-tv-ABd" customClass="VAMonthHeaderView" customModule="슥삭" customModuleProvider="target">
+                                    <rect key="frame" x="87" y="22" width="0.0" height="0.0"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <constraints>
@@ -118,7 +118,7 @@
                             </barButtonItem>
                         </leftBarButtonItems>
                         <barButtonItem key="rightBarButtonItem" title="캘린더공유" id="1Vu-al-imD">
-                            <color key="tintColor" red="0.38431372549019605" green="0.41568627450980389" blue="1" alpha="0.84705882352941175" colorSpace="calibratedRGB"/>
+                            <color key="tintColor" red="0.38431372549019605" green="0.41568627450980389" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
                             <connections>
                                 <action selector="touchUpCalendarShareButton:" destination="B71-YN-EqE" id="rjl-Lt-MSx"/>
                             </connections>

@@ -35,7 +35,6 @@ class SettingTextFieldCollectionViewCell: UICollectionViewCell {
         settingTitleLabel.text = title
         settingTextField.placeholder = placeholder
         settingTextField.text = text
-        changeButton.isHidden = true
     }
     
     func setupPasswordCell(title: String, placeholder: String, text: String) {

@@ -30,7 +30,7 @@ class OSLTableViewCell: UITableViewCell {
             linkTextView?.attributedText = attributedString
             linkTextView?.linkTextAttributes
                 = [NSAttributedString.Key.foregroundColor: UIColor.blue,
-                   NSAttributedString.Key.underlineStyle: NSNumber(value: 0)]
+                   NSAttributedString.Key.underlineStyle: NSUnderlineStyle.single.rawValue]
             linkTextView?.dataDetectorTypes = UIDataDetectorTypes.all
             linkTextView?.textContainer.maximumNumberOfLines = 1
         }
@@ -39,6 +39,11 @@ class OSLTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         
+        linkTextView.textContainer.lineFragmentPadding = 0
+        linkTextView.textContainerInset = UIEdgeInsets(top: 0,
+                                                       left: 0,
+                                                       bottom: 0,
+                                                       right: 0)
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {

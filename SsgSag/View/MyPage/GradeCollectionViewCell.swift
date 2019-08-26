@@ -17,6 +17,9 @@ class GradeCollectionViewCell: UICollectionViewCell {
                                                target: self,
                                                action: #selector(touchUpGradeDoneButton))
     
+    private let dropDownImageView
+        = UIImageView(image: UIImage(named: "ic_dropDownColor"))
+    
     lazy var gradePickerView = UIPickerView()
     let gradePickOption = ["1", "2", "3", "4", "5"]
     var optionRow = 0
@@ -40,9 +43,12 @@ class GradeCollectionViewCell: UICollectionViewCell {
         gradeToolBar.isUserInteractionEnabled = true
         gradeToolBar.setItems([gradeDoneButton], animated: false)
         gradeDoneButton.tintColor = #colorLiteral(red: 0.4603668451, green: 0.5182471275, blue: 1, alpha: 1)
-        
+    
         gradeTextField.inputView = gradePickerView
         gradeTextField.inputAccessoryView = gradeToolBar
+        
+        gradeTextField.rightViewMode = .always
+        gradeTextField.rightView = dropDownImageView
     }
     
     @objc func touchUpGradeDoneButton() {

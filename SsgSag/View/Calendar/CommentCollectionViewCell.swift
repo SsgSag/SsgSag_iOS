@@ -84,8 +84,18 @@ class CommentCollectionViewCell: UICollectionViewCell {
             }
         }
         
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+        
+        let commentDateFormatter = DateFormatter.commentDateFormatter
+        
+        guard let commentRegDate = comment.commentRegDate,
+            let date = dateFormatter.date(from: commentRegDate) else {
+            return
+        }
+        
         nameLabel.text = comment.userNickname
-        dateLabel.text = comment.commentRegDate
+        dateLabel.text = commentDateFormatter.string(from: date)
         commentLabel.text = comment.commentContent
         likeNumberLabel.text = "좋아요 " + String(comment.likeNum ?? 0) + "개"
     }

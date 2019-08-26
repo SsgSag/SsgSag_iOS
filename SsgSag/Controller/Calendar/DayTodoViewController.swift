@@ -13,6 +13,7 @@ class DayTodoViewController: UIViewController {
     lazy var pagingCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
+        layout.minimumLineSpacing = 15
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         collectionView.delegate = self
@@ -21,6 +22,7 @@ class DayTodoViewController: UIViewController {
         collectionView.showsVerticalScrollIndicator = false
         collectionView.showsHorizontalScrollIndicator = false
         collectionView.contentInset = UIEdgeInsets(top: 0, left: 25, bottom: 0, right: 25)
+        collectionView.decelerationRate = UIScrollView.DecelerationRate.fast
         return collectionView
     }()
     
@@ -34,8 +36,6 @@ class DayTodoViewController: UIViewController {
     private let calendar = Calendar.current
     private let calendarServiceImp: CalendarService
         = DependencyContainer.shared.getDependency(key: .calendarService)
-    
-    lazy var layout = self.pagingCollectionView.collectionViewLayout as! UICollectionViewFlowLayout
     
     private var indexOfCellBeforeDragging = 0
     
@@ -189,6 +189,10 @@ class DayTodoViewController: UIViewController {
         return (startIndex..<endIndex).map { IndexPath(row: $0, section: 0) }
     }
     
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        dismissDayTodoViewController()
+    }
+    
     private func makeSortedTodoDatas(date: Date) {
         sortedTodoDatas = []
 
@@ -260,84 +264,47 @@ class DayTodoViewController: UIViewController {
             y: pagingCollectionView.contentOffset.y + (afterContentSize.height - beforeContentSize.height))
         pagingCollectionView.setContentOffset(newOffset, animated: false)
     }
-    
-    private func indexOfMajorCell() -> Int {
-        let itemWidth = view.frame.width - 50
-        let proportionalOffset = layout.collectionView!.contentOffset.x / itemWidth
-        let index = Int(round(proportionalOffset))
-        let safeIndex = max(0, min(sortedTodoDatas.count - 1, index))
-        return safeIndex
-    }
-    
-    func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
-        indexOfCellBeforeDragging = indexOfMajorCell()
-    }
-    
+//
+//    private func indexOfMajorCell() -> Int {
+//        let itemWidth = view.frame.width - 50
+//        let proportionalOffset = layout.collectionView!.contentOffset.x / itemWidth
+//        let index = Int(round(proportionalOffset))
+//        let safeIndex = max(0, min(sortedTodoDatas.count - 1, index))
+//        return safeIndex
+//    }
+//
+//    func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+//        indexOfCellBeforeDragging = indexOfMajorCell()
+//    }
+//
     func scrollViewWillEndDragging(_ scrollView: UIScrollView,
                                    withVelocity velocity: CGPoint,
                                    targetContentOffset: UnsafeMutablePointer<CGPoint>) {
-//        // Stop scrollView sliding:
-//        // targetContentOffset : 스크롤 속도가 줄어들어 정지될 때 예상되는 위치
-//        targetContentOffset.pointee = scrollView.contentOffset
-//
-//        // endDragging 했을 때 index
-//        let indexOfMajorCell = self.indexOfMajorCell()
-//
-//        // swipe 시킬 속도
-//        let swipeVelocityThreshold: CGFloat = 0.5 // after some trail and error
-//
-//        let hasEnoughVelocityToSlideToTheNextCell
-//            = indexOfCellBeforeDragging + 1 < sortedTodoDatas.count
-//                && velocity.x > swipeVelocityThreshold
-//
-//        let hasEnoughVelocityToSlideToThePreviousCell
-//            = indexOfCellBeforeDragging - 1 >= 0
-//                && velocity.x < -swipeVelocityThreshold
-//
-//        let majorCellIsTheCellBeforeDragging = indexOfMajorCell == indexOfCellBeforeDragging
-//
-//        // 스와이프 했는지 여부
-//        let didUseSwipeToSkipCell
-//            = majorCellIsTheCellBeforeDragging
-//                && (hasEnoughVelocityToSlideToTheNextCell || hasEnoughVelocityToSlideToThePreviousCell)
-//
-//        let didSwipeToRight = indexOfMajorCell > indexOfCellBeforeDragging
-//
-//        var indexPath = IndexPath()
-//
-//        if didUseSwipeToSkipCell {
-//
-//            if hasEnoughVelocityToSlideToTheNextCell {
-//                indexPath = IndexPath(row: indexOfMajorCell + 1, section: 0)
-//                pagingCollectionView.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: true)
-//            } else {
-//                indexPath = IndexPath(row: indexOfMajorCell - 1, section: 0)
-//                pagingCollectionView.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: true)
-//            }
-//
-//        } else {
-//            indexPath = IndexPath(row: indexOfMajorCell, section: 0)
-//
-//            pagingCollectionView.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: true)
-//        }
         
-//        guard let currentIndexPath
-//            = pagingCollectionView.indexPathForItem(at: CGPoint(x: view.frame.midX + scrollView.contentOffset.x,
-//                                                                y: view.frame.midY)) else {
-//                                                                    return
-//        }
-//
-//        dataPointer = currentIndexPath.item
-//
-//        print(dataPointer)
-//
-//        mutableData = totalTodoDatas[dataPointer]
-//
-//        guard let cell = pagingCollectionView.cellForItem(at: indexPath) as? TodoListCollectionViewCell else {
-//            return
-//        }
-//
-//        cell.todoListTableView.reloadData()
+        // targetContentOffset: 감속되었을 때 예상 정지 위치
+        
+        // item의 사이즈와 item 간의 간격 사이즈를 구해서 하나의 item 크기로 설정.
+        let layout = pagingCollectionView.collectionViewLayout as! UICollectionViewFlowLayout
+        let cellWidthIncludingSpacing = (view.frame.width - 50) + layout.minimumLineSpacing
+        
+        // targetContentOff을 이용하여 x좌표가 얼마나 이동했는지 확인
+        // 이동한 x좌표 값과 item의 크기를 비교하여 몇 페이징이 될 것인지 값 설정
+        var offset = targetContentOffset.pointee
+        let index = (offset.x + scrollView.contentInset.left) / cellWidthIncludingSpacing
+        var roundedIndex = round(index)
+        
+        // 왼쪽 스크롤
+        if scrollView.contentOffset.x > targetContentOffset.pointee.x {
+            roundedIndex = floor(index)
+        } else {
+            // 오른쪽 스크롤
+            roundedIndex = ceil(index)
+        }
+        
+        // 위 코드를 통해 페이징 될 좌표값을 targetContentOffset에 대입하면 된다.
+        offset = CGPoint(x: roundedIndex * cellWidthIncludingSpacing - scrollView.contentInset.left,
+                         y: -scrollView.contentInset.top)
+        targetContentOffset.pointee = offset
         
     }
     

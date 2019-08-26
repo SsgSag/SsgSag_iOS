@@ -82,7 +82,7 @@ class AnalysticsCollectionViewCell: UICollectionViewCell {
             return
         }
         
-        interestedLabel.text = "\(major) \(grade) \(gender)가 관심이 많아요"
+        interestedLabel.text = "\"\(major) \(grade) \(gender)가 관심이 많아요\""
     }
 
 }

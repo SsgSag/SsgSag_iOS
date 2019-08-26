@@ -39,6 +39,11 @@ class InquireViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        contentsTextView.textContainer.lineFragmentPadding = 3
+        contentsTextView.textContainerInset = UIEdgeInsets(top: 10,
+                                                       left: 12,
+                                                       bottom: 10,
+                                                       right: 12)
     }
     
     private func setupTextViewPlaceHolder() {

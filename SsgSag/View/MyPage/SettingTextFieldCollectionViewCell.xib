@@ -40,11 +40,12 @@
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <textInputTraits key="textInputTraits"/>
                                     </textField>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MCT-wz-72T">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MCT-wz-72T">
                                         <rect key="frame" x="289" y="0.0" width="50" height="40"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="50" id="pQP-sh-ARO"/>
                                         </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                         <inset key="contentEdgeInsets" minX="12" minY="3" maxX="12" maxY="3"/>
                                         <state key="normal" title="변경">
                                             <color key="titleColor" red="0.38431372549019605" green="0.41568627450980389" blue="1" alpha="1" colorSpace="calibratedRGB"/>

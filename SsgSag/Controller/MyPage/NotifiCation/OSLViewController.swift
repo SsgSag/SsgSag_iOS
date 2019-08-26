@@ -78,7 +78,7 @@ class OSLViewController: UIViewController {
         self.headerTextView.attributedText = attributedString
         self.headerTextView.linkTextAttributes
             = [NSAttributedString.Key.foregroundColor: UIColor.blue,
-               NSAttributedString.Key.underlineStyle: NSNumber(value: 0)]
+               NSAttributedString.Key.underlineStyle: NSUnderlineStyle.single.rawValue]
         self.headerTextView.dataDetectorTypes = UIDataDetectorTypes.all
     }
     

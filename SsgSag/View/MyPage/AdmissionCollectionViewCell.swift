@@ -21,6 +21,9 @@ class AdmissionCollectionViewCell: UICollectionViewCell {
                                                    target: self,
                                                    action: #selector(touchUpAdmissionDoneButton))
 
+    private let dropDownImageView
+        = UIImageView(image: UIImage(named: "ic_dropDownColor"))
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         
@@ -43,6 +46,9 @@ class AdmissionCollectionViewCell: UICollectionViewCell {
         
         admissionTextField.inputView = admissionPickerView
         admissionTextField.inputAccessoryView = admissionToolBar
+        
+        admissionTextField.rightViewMode = .always
+        admissionTextField.rightView = dropDownImageView
     }
 
     private func setupAdmissionOption() {

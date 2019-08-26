@@ -47,4 +47,9 @@ extension DateFormatter {
         return formatter
     }()
     
+    static let commentDateFormatter: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "M월 d일 h:m"
+        return formatter
+    }()
 }

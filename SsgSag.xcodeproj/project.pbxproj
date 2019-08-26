@@ -135,8 +135,6 @@
 		D11080AA22E07FF000F345A8 /* AnalysticsCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D11080A822E07FF000F345A8 /* AnalysticsCollectionViewCell.xib */; };
 		D11080AD22E0820300F345A8 /* CommentCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D11080AB22E0820300F345A8 /* CommentCollectionViewCell.swift */; };
 		D11080AE22E0820300F345A8 /* CommentCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D11080AC22E0820300F345A8 /* CommentCollectionViewCell.xib */; };
-		D11080B122E0917F00F345A8 /* CommentWriteCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D11080AF22E0917F00F345A8 /* CommentWriteCollectionViewCell.swift */; };
-		D11080B222E0917F00F345A8 /* CommentWriteCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D11080B022E0917F00F345A8 /* CommentWriteCollectionViewCell.xib */; };
 		D11080B822E09F6E00F345A8 /* DetailInfoButtonsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D11080B722E09F6E00F345A8 /* DetailInfoButtonsView.swift */; };
 		D11F9E9E22E0C622000210B0 /* PieChartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D11F9E9D22E0C622000210B0 /* PieChartView.swift */; };
 		D1226C7D22EC1A66007F59BE /* DependencyContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1226C7C22EC1A66007F59BE /* DependencyContainer.swift */; };
@@ -193,14 +191,14 @@
 		D1E517B622E0282B0001EAA5 /* PosterHeaderCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1E517B422E0282B0001EAA5 /* PosterHeaderCollectionReusableView.swift */; };
 		D1E517B722E0282B0001EAA5 /* PosterHeaderCollectionReusableView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D1E517B522E0282B0001EAA5 /* PosterHeaderCollectionReusableView.xib */; };
 		D1E517B922E02BDC0001EAA5 /* TempCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1E517B822E02BDC0001EAA5 /* TempCollectionReusableView.swift */; };
+		D1E6467F2311608100EAB8AC /* NoCommentCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1E6467D2311608100EAB8AC /* NoCommentCollectionViewCell.swift */; };
+		D1E646802311608100EAB8AC /* NoCommentCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D1E6467E2311608100EAB8AC /* NoCommentCollectionViewCell.xib */; };
 		D1E81E6D22DB181E004DAA00 /* FeedPageCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1E81E6C22DB181E004DAA00 /* FeedPageCollectionViewCell.swift */; };
 		D1E81E6F22DB270B004DAA00 /* MenuCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1E81E6E22DB270B004DAA00 /* MenuCollectionViewCell.swift */; };
 		D1E81E7122DC7F84004DAA00 /* majorListByUniv.json in Resources */ = {isa = PBXBuildFile; fileRef = D1E81E7022DC7F84004DAA00 /* majorListByUniv.json */; };
 		D1E9B3D522E594D8007CB6D2 /* SignUp.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1E9B3D422E594D8007CB6D2 /* SignUp.swift */; };
 		D1EAA6152306709E0063E04A /* UnivCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1EAA6132306709E0063E04A /* UnivCollectionViewCell.swift */; };
 		D1EAA6162306709E0063E04A /* UnivCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D1EAA6142306709E0063E04A /* UnivCollectionViewCell.xib */; };
-		D1EAA61923067A3B0063E04A /* MajorCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1EAA61723067A3B0063E04A /* MajorCollectionViewCell.swift */; };
-		D1EAA61A23067A3B0063E04A /* MajorCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D1EAA61823067A3B0063E04A /* MajorCollectionViewCell.xib */; };
 		D1EAA61D230681680063E04A /* GradeCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1EAA61B230681680063E04A /* GradeCollectionViewCell.swift */; };
 		D1EAA61E230681680063E04A /* GradeCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D1EAA61C230681680063E04A /* GradeCollectionViewCell.xib */; };
 		D1EAA621230682F50063E04A /* AdmissionCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1EAA61F230682F50063E04A /* AdmissionCollectionViewCell.swift */; };
@@ -414,8 +412,6 @@
 		D11080A822E07FF000F345A8 /* AnalysticsCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AnalysticsCollectionViewCell.xib; sourceTree = "<group>"; };
 		D11080AB22E0820300F345A8 /* CommentCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentCollectionViewCell.swift; sourceTree = "<group>"; };
 		D11080AC22E0820300F345A8 /* CommentCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CommentCollectionViewCell.xib; sourceTree = "<group>"; };
-		D11080AF22E0917F00F345A8 /* CommentWriteCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentWriteCollectionViewCell.swift; sourceTree = "<group>"; };
-		D11080B022E0917F00F345A8 /* CommentWriteCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CommentWriteCollectionViewCell.xib; sourceTree = "<group>"; };
 		D11080B722E09F6E00F345A8 /* DetailInfoButtonsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailInfoButtonsView.swift; sourceTree = "<group>"; };
 		D11F9E9D22E0C622000210B0 /* PieChartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PieChartView.swift; sourceTree = "<group>"; };
 		D1226C7C22EC1A66007F59BE /* DependencyContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DependencyContainer.swift; sourceTree = "<group>"; };
@@ -472,14 +468,14 @@
 		D1E517B422E0282B0001EAA5 /* PosterHeaderCollectionReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PosterHeaderCollectionReusableView.swift; sourceTree = "<group>"; };
 		D1E517B522E0282B0001EAA5 /* PosterHeaderCollectionReusableView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PosterHeaderCollectionReusableView.xib; sourceTree = "<group>"; };
 		D1E517B822E02BDC0001EAA5 /* TempCollectionReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TempCollectionReusableView.swift; sourceTree = "<group>"; };
+		D1E6467D2311608100EAB8AC /* NoCommentCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoCommentCollectionViewCell.swift; sourceTree = "<group>"; };
+		D1E6467E2311608100EAB8AC /* NoCommentCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NoCommentCollectionViewCell.xib; sourceTree = "<group>"; };
 		D1E81E6C22DB181E004DAA00 /* FeedPageCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedPageCollectionViewCell.swift; sourceTree = "<group>"; };
 		D1E81E6E22DB270B004DAA00 /* MenuCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuCollectionViewCell.swift; sourceTree = "<group>"; };
 		D1E81E7022DC7F84004DAA00 /* majorListByUniv.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = majorListByUniv.json; sourceTree = "<group>"; };
 		D1E9B3D422E594D8007CB6D2 /* SignUp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUp.swift; sourceTree = "<group>"; };
 		D1EAA6132306709E0063E04A /* UnivCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnivCollectionViewCell.swift; sourceTree = "<group>"; };
 		D1EAA6142306709E0063E04A /* UnivCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = UnivCollectionViewCell.xib; sourceTree = "<group>"; };
-		D1EAA61723067A3B0063E04A /* MajorCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MajorCollectionViewCell.swift; sourceTree = "<group>"; };
-		D1EAA61823067A3B0063E04A /* MajorCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MajorCollectionViewCell.xib; sourceTree = "<group>"; };
 		D1EAA61B230681680063E04A /* GradeCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradeCollectionViewCell.swift; sourceTree = "<group>"; };
 		D1EAA61C230681680063E04A /* GradeCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = GradeCollectionViewCell.xib; sourceTree = "<group>"; };
 		D1EAA61F230682F50063E04A /* AdmissionCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdmissionCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -807,14 +803,14 @@
 				D11080A822E07FF000F345A8 /* AnalysticsCollectionViewCell.xib */,
 				D11080AB22E0820300F345A8 /* CommentCollectionViewCell.swift */,
 				D11080AC22E0820300F345A8 /* CommentCollectionViewCell.xib */,
-				D11080AF22E0917F00F345A8 /* CommentWriteCollectionViewCell.swift */,
-				D11080B022E0917F00F345A8 /* CommentWriteCollectionViewCell.xib */,
 				D11080B722E09F6E00F345A8 /* DetailInfoButtonsView.swift */,
 				D11F9E9D22E0C622000210B0 /* PieChartView.swift */,
 				D1EAA6232306A1A20063E04A /* HideAnalyticsCommentsCollectionViewCell.swift */,
 				D1EAA6242306A1A20063E04A /* HideAnalyticsCommentsCollectionViewCell.xib */,
 				D1FDF3DA230AF7550055D293 /* NoTodoTableViewCell.swift */,
 				D1FDF3DB230AF7550055D293 /* NoTodoTableViewCell.xib */,
+				D1E6467D2311608100EAB8AC /* NoCommentCollectionViewCell.swift */,
+				D1E6467E2311608100EAB8AC /* NoCommentCollectionViewCell.xib */,
 			);
 			path = Calendar;
 			sourceTree = "<group>";
@@ -1028,8 +1024,6 @@
 				D1FB05B422E6E3AE001425CF /* SettingMenuCollectionViewCell.xib */,
 				D1EAA6132306709E0063E04A /* UnivCollectionViewCell.swift */,
 				D1EAA6142306709E0063E04A /* UnivCollectionViewCell.xib */,
-				D1EAA61723067A3B0063E04A /* MajorCollectionViewCell.swift */,
-				D1EAA61823067A3B0063E04A /* MajorCollectionViewCell.xib */,
 				D1EAA61B230681680063E04A /* GradeCollectionViewCell.swift */,
 				D1EAA61C230681680063E04A /* GradeCollectionViewCell.xib */,
 				D1EAA61F230682F50063E04A /* AdmissionCollectionViewCell.swift */,
@@ -1337,6 +1331,7 @@
 				8496818E22AFDDD1004A4A63 /* newCalendarStoryboard.storyboard in Resources */,
 				D1B2F43623013BAA00074448 /* AllAndFavoriteCollectionReusableView.xib in Resources */,
 				D1EAA622230682F50063E04A /* AdmissionCollectionViewCell.xib in Resources */,
+				D1E646802311608100EAB8AC /* NoCommentCollectionViewCell.xib in Resources */,
 				D1FB05B622E6E3AE001425CF /* SettingMenuCollectionViewCell.xib in Resources */,
 				D1EAA6162306709E0063E04A /* UnivCollectionViewCell.xib in Resources */,
 				84BA694B21DB395400BA8CB8 /* MyPageStoryBoard.storyboard in Resources */,
@@ -1348,7 +1343,6 @@
 				D1FB05A822E6C917001425CF /* SettingTextFieldCollectionViewCell.xib in Resources */,
 				D11080AA22E07FF000F345A8 /* AnalysticsCollectionViewCell.xib in Resources */,
 				D1EAA62E2306BDC20063E04A /* Splash.storyboard in Resources */,
-				D1EAA61A23067A3B0063E04A /* MajorCollectionViewCell.xib in Resources */,
 				FA7F4CC821DFCC7E00D8643A /* CertificationCell.xib in Resources */,
 				D166AC7122D73CD700ED82DD /* NewsCollectionViewCell.xib in Resources */,
 				D1E81E7122DC7F84004DAA00 /* majorListByUniv.json in Resources */,
@@ -1366,7 +1360,6 @@
 				84B4268A21E9063600B44F71 /* bt_save_round.json in Resources */,
 				D1E517B722E0282B0001EAA5 /* PosterHeaderCollectionReusableView.xib in Resources */,
 				D1CD5DDF22E5B3B90033FCB3 /* myPageMenuTableViewCell.xib in Resources */,
-				D11080B222E0917F00F345A8 /* CommentWriteCollectionViewCell.xib in Resources */,
 				846E6223228FCF320083E3CD /* Launch Screen.storyboard in Resources */,
 				D110809A22E044E600F345A8 /* DetailInfoCollectionViewCell.xib in Resources */,
 				D1E30DA222F04D3A0023DF56 /* TodoListCollectionViewCell.xib in Resources */,
@@ -1483,6 +1476,7 @@
 				8496818A22AFD3FE004A4A63 /* VAWeek.swift in Sources */,
 				FA4FF272221D51D500C3D21A /* CalendarDetailPopUpVC.swift in Sources */,
 				84B8630C22C2562600E4B0C1 /* CateogoryCollectionViewCell.swift in Sources */,
+				D1E6467F2311608100EAB8AC /* NoCommentCollectionViewCell.swift in Sources */,
 				8496818222AFD3FE004A4A63 /* VAWeekView.swift in Sources */,
 				84264BA821DF106C00849E6B /* CalendarDetailVC.swift in Sources */,
 				84B1B254226A385A00077DF9 /* PosterServiceImp.swift in Sources */,
@@ -1518,7 +1512,6 @@
 				D10B6E1822F41BFE007B9BEA /* FeedServiceImp.swift in Sources */,
 				FA7F4CB821DFB0C100D8643A /* CareerVC.swift in Sources */,
 				84FB4FE1226B7CAA00D9F2F9 /* RequestURL.swift in Sources */,
-				D1EAA61923067A3B0063E04A /* MajorCollectionViewCell.swift in Sources */,
 				845928A321D09CDD001DF6CC /* SsgSag.xcdatamodeld in Sources */,
 				84A45D13225FA0E400C60287 /* NetworkRouter.swift in Sources */,
 				D1CD5DE322E5BC610033FCB3 /* Notice.swift in Sources */,
@@ -1654,7 +1647,6 @@
 				845928D921D09F30001DF6CC /* CalenderVC.swift in Sources */,
 				D1C7C1FF22FFFA9A001BDB5D /* ChangePasswordViewController.swift in Sources */,
 				846356772293D67B0060ED91 /* PushAlarmTableViewController.swift in Sources */,
-				D11080B122E0917F00F345A8 /* CommentWriteCollectionViewCell.swift in Sources */,
 				846E6231229291880083E3CD /* NotificationName.swift in Sources */,
 				D1226C8422EC7F24007F59BE /* LoginServiceProtocol.swift in Sources */,
 				FA3A8FDB21DF3F410075A510 /* SplashVC.swift in Sources */,

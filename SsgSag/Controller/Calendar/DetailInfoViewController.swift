@@ -11,6 +11,8 @@ import SwiftKeychainWrapper
 
 class DetailInfoViewController: UIViewController {
 
+    private var safeAreaViewBottomConstraint = NSLayoutConstraint()
+    
     private var posterServiceImp: PosterService
         = DependencyContainer.shared.getDependency(key: .posterService)
     
@@ -30,7 +32,6 @@ class DetailInfoViewController: UIViewController {
         let layout = UICollectionViewFlowLayout()
         layout.minimumInteritemSpacing = 0
         layout.minimumLineSpacing = 0
-//        layout.sectionFootersPinToVisibleBounds = true
         let collectionView = UICollectionView(frame: .zero,
                                               collectionViewLayout: layout)
         collectionView.translatesAutoresizingMaskIntoConstraints = false
@@ -52,6 +53,8 @@ class DetailInfoViewController: UIViewController {
     lazy var buttonsView: DetailInfoButtonsView = {
         let view = DetailInfoButtonsView()
         view.delegate = self
+        view.commentDelegate = self
+        view.commentTextField.delegate = self
         view.callback = { [weak self] in
             self?.isFolding = true
             self?.requestDatas(section: 0)
@@ -178,9 +181,12 @@ class DetailInfoViewController: UIViewController {
         buttonsView.trailingAnchor.constraint(
             equalTo: view.safeAreaLayoutGuide.trailingAnchor).isActive = true
         buttonsView.heightAnchor.constraint(
-            equalToConstant: 46).isActive = true
+            equalToConstant: 93).isActive = true
         buttonsView.bottomAnchor.constraint(
-            equalTo: view.safeAreaLayoutGuide.bottomAnchor).isActive = true
+            equalTo: safeAreaView.topAnchor).isActive = true
+        
+        safeAreaViewBottomConstraint = safeAreaView.bottomAnchor.constraint(
+            equalTo:view.bottomAnchor)
         
         safeAreaView.topAnchor.constraint(
             equalTo: view.safeAreaLayoutGuide.bottomAnchor).isActive = true
@@ -188,8 +194,7 @@ class DetailInfoViewController: UIViewController {
             equalTo: view.safeAreaLayoutGuide.leadingAnchor).isActive = true
         safeAreaView.trailingAnchor.constraint(
             equalTo: view.safeAreaLayoutGuide.trailingAnchor).isActive = true
-        safeAreaView.bottomAnchor.constraint(
-            equalTo:view.bottomAnchor).isActive = true
+        safeAreaViewBottomConstraint.isActive = true
     }
 
     private func setupCollectionView() {
@@ -250,10 +255,14 @@ class DetailInfoViewController: UIViewController {
         
         infoCollectionView.register(hideNib, forCellWithReuseIdentifier: "hideAnalyticsCommentsCell")
         
+        let noCommentNib = UINib(nibName: "NoCommentCollectionViewCell", bundle: nil)
+        
+        infoCollectionView.register(noCommentNib, forCellWithReuseIdentifier: "noCommentCell")
+        
     }
 
-    func estimatedFrame(text: String, font: UIFont) -> CGRect {
-        let size = CGSize(width: view.frame.width - 75, height: 1000) // temporary size
+    func estimatedFrame(width: CGFloat, text: String, font: UIFont) -> CGRect {
+        let size = CGSize(width: width, height: 1000) // temporary size
         let options = NSStringDrawingOptions.usesFontLeading.union(.usesLineFragmentOrigin)
         
         return NSString(string: text).boundingRect(with: size,
@@ -290,13 +299,19 @@ class DetailInfoViewController: UIViewController {
     }
     
     @objc func handleShowKeyboard(notification: NSNotification) {
-        guard let keyboardFrame = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect else { return }
-        infoCollectionView.setContentOffset(CGPoint(x: 0, y: infoCollectionView.contentOffset.y + keyboardFrame.height - buttonsView.frame.height - safeAreaView.frame.height), animated: true)
+        guard let keyboardFrame
+            = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey]
+                as? CGRect else {
+                    return
+        }
+
+        safeAreaViewBottomConstraint.constant = -keyboardFrame.height
+        self.view.layoutIfNeeded()
     }
     
     @objc func handleHideKeyboard(notification: NSNotification) {
-        guard let keyboardFrame = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect else { return }
-        infoCollectionView.setContentOffset(CGPoint(x: 0, y: infoCollectionView.contentOffset.y - keyboardFrame.height + buttonsView.frame.height + safeAreaView.frame.height), animated: true)
+        safeAreaViewBottomConstraint.constant = 0
+        self.view.layoutIfNeeded()
     }
     
     private func addObjects(with objectsToshare: [Any]) {
@@ -334,7 +349,7 @@ extension DetailInfoViewController: UICollectionViewDataSource {
         case 1:
             return 1
         case 2:
-            return (posterDetailData?.commentList?.count ?? 0) + 1
+            return posterDetailData?.commentList?.count != 0 ? (posterDetailData?.commentList?.count ?? 0) : 1
         default:
             return 0
         }
@@ -500,34 +515,29 @@ extension DetailInfoViewController: UICollectionViewDataSource {
             
             return cell
         default:
-            switch indexPath.item {
-            case (posterDetailData?.commentList?.count ?? 0):
+            if posterDetailData?.commentList?.count == 0 {
                 guard let cell
-                    = collectionView.dequeueReusableCell(withReuseIdentifier: "commentWriteCellID",
-                                                         for: indexPath) as? CommentWriteCollectionViewCell else {
+                    = collectionView.dequeueReusableCell(withReuseIdentifier: "noCommentCell",
+                                                         for: indexPath) as? NoCommentCollectionViewCell else {
                                                             return .init()
                 }
-                
-                cell.delegate = self
-                cell.commentWriteTextField.delegate = self
-                
-                return cell
-            default:
-                guard let cell
-                    = collectionView.dequeueReusableCell(withReuseIdentifier: "commentCellID",
-                                                         for: indexPath) as? CommentCollectionViewCell else {
-                                                            return .init()
-                }
-
-                guard let comment = posterDetailData?.commentList?[indexPath.item] else {
-                    return cell
-                }
-
-                cell.delegate = self
-                cell.comment = comment
                 
                 return cell
             }
+            guard let cell
+                = collectionView.dequeueReusableCell(withReuseIdentifier: "commentCellID",
+                                                     for: indexPath) as? CommentCollectionViewCell else {
+                                                        return .init()
+            }
+            
+            guard let comment = posterDetailData?.commentList?[indexPath.item] else {
+                return cell
+            }
+            
+            cell.delegate = self
+            cell.comment = comment
+            
+            return cell
         }
     }
     
@@ -561,15 +571,9 @@ extension DetailInfoViewController: UICollectionViewDataSource {
             
             return header
         } else {
-//            guard let footer = collectionView.dequeueReusableSupplementaryView(ofKind: kind,
-//                                                                               withReuseIdentifier: "posterFooterID",
-//                                                                               for: indexPath) as? PosterFooterCollectionReusableView else {
                 return collectionView.dequeueReusableSupplementaryView(ofKind: kind,
                                                                        withReuseIdentifier: "tempFooter",
                                                                        for: indexPath)
-//            }
-//
-//            return footer
         }
     }
     
@@ -633,7 +637,8 @@ extension DetailInfoViewController: UICollectionViewDelegateFlowLayout {
                 if columnData?.count ?? 3 < 1 {
                     return CGSize(width: view.frame.width, height: 0)
                 }
-                let collectionViewCellHeight = estimatedFrame(text: posterDetailData?.outline ?? "",
+                let collectionViewCellHeight = estimatedFrame(width: view.frame.width - 75,
+                                                              text: posterDetailData?.outline ?? "",
                                                               font: UIFont.systemFont(ofSize: 14)).height
                 
                 return CGSize(width: view.frame.width, height: collectionViewCellHeight + 72)
@@ -642,7 +647,8 @@ extension DetailInfoViewController: UICollectionViewDelegateFlowLayout {
                     return CGSize(width: view.frame.width, height: 0)
                 }
                 
-                let collectionViewCellHeight = estimatedFrame(text: posterDetailData?.target ?? "",
+                let collectionViewCellHeight = estimatedFrame(width: view.frame.width - 75,
+                                                              text: posterDetailData?.target ?? "",
                                                               font: UIFont.systemFont(ofSize: 14)).height
                 
                 return CGSize(width: view.frame.width, height: collectionViewCellHeight + 72)
@@ -651,7 +657,8 @@ extension DetailInfoViewController: UICollectionViewDelegateFlowLayout {
                     return CGSize(width: view.frame.width, height: 0)
                 }
                 
-                let collectionViewCellHeight = estimatedFrame(text: posterDetailData?.benefit ?? "",
+                let collectionViewCellHeight = estimatedFrame(width: view.frame.width - 75,
+                                                              text: posterDetailData?.benefit ?? "",
                                                               font: UIFont.systemFont(ofSize: 14)).height
                 
                 return CGSize(width: view.frame.width, height: collectionViewCellHeight + 72)
@@ -669,7 +676,8 @@ extension DetailInfoViewController: UICollectionViewDelegateFlowLayout {
                 } else {
                     isFolding = !isFolding
                     
-                    let collectionViewCellHeight = estimatedFrame(text: posterDetailData?.posterDetail ?? "",
+                    let collectionViewCellHeight = estimatedFrame(width: view.frame.width - 75,
+                                                                  text: posterDetailData?.posterDetail ?? "",
                                                                   font: UIFont.systemFont(ofSize: 12)).height
                     
                     return CGSize(width: view.frame.width, height: collectionViewCellHeight + 50 + 46)
@@ -680,17 +688,16 @@ extension DetailInfoViewController: UICollectionViewDelegateFlowLayout {
         case 1:
             return CGSize(width: view.frame.width, height: 268)
         default:
-            switch indexPath.item {
-            case (posterDetailData?.commentList?.count ?? 0):
-                return CGSize(width: view.frame.width, height: 46)
-            default:
-                
-                //            let collectionViewCellHeight = estimatedFrame(text: posterDetailData?.posterDetail ?? "",
-                //                                                          font: UIFont.systemFont(ofSize: 12)).height
-                //
-                //            return CGSize(width: view.frame.width, height: collectionViewCellHeight + 50 + 46)
-                return CGSize(width: view.frame.width, height: 65)
+            if posterDetailData?.commentList?.count == 0 {
+                return CGSize(width: view.frame.width, height: 80)
             }
+            
+            let collectionViewCellHeight
+                = estimatedFrame(width: view.frame.width - 48 - 74 - 28,
+                                 text: posterDetailData?.commentList?[indexPath.item].commentContent ?? "",
+                                 font: UIFont.systemFont(ofSize: 13)).height
+
+            return CGSize(width: view.frame.width, height: collectionViewCellHeight + 12 + 8 + 20 + 10)
         }
 
     }
