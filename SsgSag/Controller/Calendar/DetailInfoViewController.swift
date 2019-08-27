@@ -804,150 +804,88 @@ extension DetailInfoViewController: CommentDelegate {
         }
     }
     
-    func presentAlertController(_ userIndex: Int, commentIndex: Int) {
+    func presentAlertController(_ isMine: Bool, commentIndex: Int) {
         let alertController = UIAlertController(title: nil,
                                                 message: nil,
                                                 preferredStyle: .actionSheet)
-//        let userIdx = 0
-//        if userIdx == userIndex {
+        
+        if isMine {
 //            let editAction = UIAlertAction(title: "댓글 수정", style: .default) { [weak self] _ in
-//                
+//
 //            }
-//            
-//            let deleteAction = UIAlertAction(title: "댓글 삭제", style: .default) { [weak self] _ in
-//                self?.commentServiceImp.requestCommentDelete(index: commentIndex) { [weak self] result in
-//                    switch result {
-//                    case .success(let status):
-//                        DispatchQueue.main.async {
-//                            switch status {
-//                            case .processingSuccess:
-//                                self?.simplerAlert(title: "댓글이 삭제되었습니다")
-//                                self?.isFolding = true
-//                                self?.requestDatas(section: 2)
-//                            case .dataBaseError:
-//                                self?.simplerAlert(title: "database error")
-//                                return
-//                            case .serverError:
-//                                self?.simplerAlert(title: "server error")
-//                                return
-//                            default:
-//                                return
-//                            }
-//                        }
-//                    case .failed(let error):
-//                        print(error)
-//                        return
-//                    }
-//                }
-//            }
-//            
-//            let cancelAction = UIAlertAction(title: "취소", style: .cancel) { _ in
-//                alertController.dismiss(animated: true)
-//            }
-//            
+            
+            let deleteAction = UIAlertAction(title: "댓글 삭제", style: .default) { [weak self] _ in
+                self?.commentServiceImp.requestCommentDelete(index: commentIndex) { [weak self] result in
+                    switch result {
+                    case .success(let status):
+                        DispatchQueue.main.async {
+                            switch status {
+                            case .processingSuccess:
+                                self?.simplerAlert(title: "댓글이 삭제되었습니다")
+                                self?.isFolding = true
+                                self?.requestDatas(section: 2)
+                            case .dataBaseError:
+                                self?.simplerAlert(title: "database error")
+                                return
+                            case .serverError:
+                                self?.simplerAlert(title: "server error")
+                                return
+                            default:
+                                return
+                            }
+                        }
+                    case .failed(let error):
+                        print(error)
+                        return
+                    }
+                }
+            }
+            
+            let cancelAction = UIAlertAction(title: "취소", style: .cancel) { _ in
+                alertController.dismiss(animated: true)
+            }
+            
 //            alertController.addAction(editAction)
-//            alertController.addAction(deleteAction)
-//            alertController.addAction(cancelAction)
-//            
-//            present(alertController, animated: true)
-//        } else {
-//            
-//            let reportAction = UIAlertAction(title: "댓글 신고", style: .default) { [weak self] _ in
-//                self?.commentServiceImp.requestCommentReport(index: commentIndex) { [weak self] result in
-//                    switch result {
-//                    case .success(let status):
-//                        DispatchQueue.main.async {
-//                            switch status {
-//                            case .processingSuccess:
-//                                self?.simplerAlert(title: "댓글 신고가 완료되었습니다.")
-//                            case .dataBaseError:
-//                                self?.simplerAlert(title: "database error")
-//                                return
-//                            case .serverError:
-//                                self?.simplerAlert(title: "server error")
-//                                return
-//                            default:
-//                                return
-//                            }
-//                        }
-//                    case .failed(let error):
-//                        print(error)
-//                        return
-//                    }
-//                }
-//            }
-//            
-//            let cancelAction = UIAlertAction(title: "취소", style: .cancel) { _ in
-//                alertController.dismiss(animated: true)
-//            }
-//            
-//            alertController.addAction(reportAction)
-//            alertController.addAction(cancelAction)
-//            
-//            present(alertController, animated: true)
-//        }
-        
-        let deleteAction = UIAlertAction(title: "댓글 삭제", style: .default) { [weak self] _ in
-            self?.commentServiceImp.requestCommentDelete(index: commentIndex) { [weak self] result in
-                switch result {
-                case .success(let status):
-                    DispatchQueue.main.async {
-                        switch status {
-                        case .processingSuccess:
-                            self?.simplerAlert(title: "댓글이 삭제되었습니다")
-                            self?.isFolding = true
-                            self?.requestDatas(section: 2)
-                        case .dataBaseError:
-                            self?.simplerAlert(title: "database error")
-                            return
-                        case .serverError:
-                            self?.simplerAlert(title: "server error")
-                            return
-                        default:
-                            return
+            alertController.addAction(deleteAction)
+            alertController.addAction(cancelAction)
+            
+            present(alertController, animated: true)
+        } else {
+            
+            let reportAction = UIAlertAction(title: "댓글 신고", style: .default) { [weak self] _ in
+                self?.commentServiceImp.requestCommentReport(index: commentIndex) { [weak self] result in
+                    switch result {
+                    case .success(let status):
+                        DispatchQueue.main.async {
+                            switch status {
+                            case .processingSuccess:
+                                self?.simplerAlert(title: "댓글 신고가 완료되었습니다.")
+                            case .dataBaseError:
+                                self?.simplerAlert(title: "database error")
+                                return
+                            case .serverError:
+                                self?.simplerAlert(title: "server error")
+                                return
+                            default:
+                                return
+                            }
                         }
+                    case .failed(let error):
+                        print(error)
+                        return
                     }
-                case .failed(let error):
-                    print(error)
-                    return
                 }
             }
-        }
-        
-        let reportAction = UIAlertAction(title: "댓글 신고", style: .default) { [weak self] _ in
-            self?.commentServiceImp.requestCommentReport(index: commentIndex) { [weak self] result in
-                switch result {
-                case .success(let status):
-                    DispatchQueue.main.async {
-                        switch status {
-                        case .processingSuccess:
-                            self?.simplerAlert(title: "댓글 신고가 완료되었습니다.")
-                        case .dataBaseError:
-                            self?.simplerAlert(title: "database error")
-                            return
-                        case .serverError:
-                            self?.simplerAlert(title: "server error")
-                            return
-                        default:
-                            return
-                        }
-                    }
-                case .failed(let error):
-                    print(error)
-                    return
-                }
+            
+            let cancelAction = UIAlertAction(title: "취소", style: .cancel) { _ in
+                alertController.dismiss(animated: true)
             }
+            
+            alertController.addAction(reportAction)
+            alertController.addAction(cancelAction)
+            
+            present(alertController, animated: true)
         }
-        
-        let cancelAction = UIAlertAction(title: "취소", style: .cancel) { _ in
-            alertController.dismiss(animated: true)
-        }
-        
-        alertController.addAction(deleteAction)
-        alertController.addAction(reportAction)
-        alertController.addAction(cancelAction)
-        
-        present(alertController, animated: true)
     }
 }
 
