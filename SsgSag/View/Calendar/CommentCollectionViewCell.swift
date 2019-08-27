@@ -67,10 +67,10 @@ class CommentCollectionViewCell: UICollectionViewCell {
     
     @IBAction func touchUpEtcButton(_ sender: UIButton) {
         //TODO: alert 띄울것
-        guard let index = comment?.commentIdx else {
+        guard let commentIndex = comment?.commentIdx else {
             return
         }
-        delegate?.presentAlertController(_ userIndex: Int, commentIndex: Int)
+        delegate?.presentAlertController(0, commentIndex: commentIndex)
     }
     
     private func setupCellData(_ comment: CommentList) {
