@@ -49,7 +49,6 @@ class SchoolInfoVC: UIViewController {
     
     lazy var gradePickerView = UIPickerView()
     let gradePickOption = ["1", "2", "3", "4", "5"]
-    var optionRow = 0
     
     lazy var admissionPickerView = UIPickerView()
     var admissionPickOption: [String] = []
@@ -110,13 +109,18 @@ class SchoolInfoVC: UIViewController {
     
     private func setupLayout() {
         
+        let flexible
+            = UIBarButtonItem(barButtonSystemItem: .flexibleSpace,
+                              target: self,
+                              action: nil)
+        
         let gradeToolBar = UIToolbar()
         gradeToolBar.barStyle = .default
         gradeToolBar.isTranslucent = true
         gradeToolBar.tintColor = UIColor(red: 92/255, green: 216/255, blue: 255/255, alpha: 1)
         gradeToolBar.sizeToFit()
         gradeToolBar.isUserInteractionEnabled = true
-        gradeToolBar.setItems([gradeDoneButton], animated: false)
+        gradeToolBar.setItems([flexible, gradeDoneButton], animated: false)
         gradeDoneButton.tintColor = #colorLiteral(red: 0.4603668451, green: 0.5182471275, blue: 1, alpha: 1)
         
         let admissionToolBar = UIToolbar()
@@ -125,7 +129,7 @@ class SchoolInfoVC: UIViewController {
         admissionToolBar.tintColor = UIColor(red: 92/255, green: 216/255, blue: 255/255, alpha: 1)
         admissionToolBar.sizeToFit()
         admissionToolBar.isUserInteractionEnabled = true
-        admissionToolBar.setItems([admissionDoneButton], animated: false)
+        admissionToolBar.setItems([flexible, admissionDoneButton], animated: false)
         admissionDoneButton.tintColor = #colorLiteral(red: 0.4603668451, green: 0.5182471275, blue: 1, alpha: 1)
     
         gradeField.inputView = gradePickerView
@@ -137,12 +141,10 @@ class SchoolInfoVC: UIViewController {
     }
     
     @objc func touchUpGradeDoneButton() {
-        gradeField.text = gradePickOption[optionRow]
         view.endEditing(true)
     }
     
     @objc func touchUpAdmissionDoneButton() {
-        numberField.text = admissionPickOption[optionRow]
         view.endEditing(true)
     }
     
@@ -475,7 +477,11 @@ extension SchoolInfoVC: UIPickerViewDelegate, UIPickerViewDataSource {
     func pickerView(_ pickerView: UIPickerView,
                     didSelectRow row: Int,
                     inComponent component: Int) {
-        optionRow = row
+        if pickerView == gradePickerView {
+            gradeField.text = gradePickOption[row]
+            return
+        }
+        numberField.text = admissionPickOption[row]
     }
 }
 

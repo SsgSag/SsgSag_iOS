@@ -79,6 +79,7 @@ class AccountSettingViewController: UIViewController {
         completeButton.tintColor = #colorLiteral(red: 0.3843137255, green: 0.4156862745, blue: 1, alpha: 1)
         navigationItem.leftBarButtonItem = backButton
         navigationItem.rightBarButtonItem = completeButton
+        navigationController?.interactivePopGestureRecognizer?.delegate = self
     }
     
     override func viewDidLoad() {
@@ -487,6 +488,8 @@ extension AccountSettingViewController: UITextFieldDelegate {
     }
 }
 
+extension AccountSettingViewController: UIGestureRecognizerDelegate {
+}
 
 extension AccountSettingViewController: PasswordDelegate {
     func changePassword() {

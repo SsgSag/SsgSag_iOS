@@ -36,6 +36,9 @@ class myPageVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        navigationController?.navigationBar.isHidden = true
+        navigationController?.interactivePopGestureRecognizer?.delegate = nil
+        
         getData()
     }
     
@@ -185,20 +188,21 @@ extension myPageVC: UITableViewDataSource {
         switch indexPath.row {
         case 0:
             // 나의 이력
-            let pushNavigationVC = storyboard.instantiateViewController(withIdentifier: "careerNavigationVC")
-            present(pushNavigationVC, animated: true)
+            let careerVC = storyboard.instantiateViewController(withIdentifier: "careerVC")
+            navigationController?.pushViewController(careerVC, animated: true)
         case 1:
             // 알림 설정
-            let pushNavigationVC = storyboard.instantiateViewController(withIdentifier: "pushAlarmNavigationVC")
-            present(pushNavigationVC, animated: true)
+            let pushAlarmVC = storyboard.instantiateViewController(withIdentifier: "pushAlarmVC")
+            navigationController?.pushViewController(pushAlarmVC, animated: true)
         case 2:
             // 공지사항
-            let noticeNavigationVC = storyboard.instantiateViewController(withIdentifier: "noticeNavigationVC")
-            present(noticeNavigationVC, animated: true)
+            let noticeVC = storyboard.instantiateViewController(withIdentifier: "noticeVC")
+            navigationController?.pushViewController(noticeVC, animated: true)
         case 3:
             // 문의하기
-            let inquireNavigationVC = storyboard.instantiateViewController(withIdentifier: "inquireNavigationVC")
-            present(inquireNavigationVC, animated: true)
+            let inquireVC = storyboard.instantiateViewController(withIdentifier: "inquireVC")
+            
+            navigationController?.pushViewController(inquireVC, animated: true)
         default:
             return
         }

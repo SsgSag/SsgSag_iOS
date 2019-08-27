@@ -27,7 +27,22 @@ class LoginVC: UIViewController, UITextFieldDelegate {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        navigationController?.navigationBar.isHidden = true
+        
+        let backButton = UIButton()
+        backButton.contentEdgeInsets = UIEdgeInsets(top: 0, left: -20, bottom: 0, right: 0)
+        backButton.setImage(UIImage(named: "ic_ArrowBack"), for: .normal)
+        backButton.setTitle("처음으로", for: .normal)
+        backButton.setTitleColor(#colorLiteral(red: 0.3843137255, green: 0.4156862745, blue: 1, alpha: 1), for: .normal)
+        backButton.titleLabel?.font = UIFont.systemFont(ofSize: 13)
+        backButton.imageEdgeInsets = UIEdgeInsets(top: 0, left: 7, bottom: 0, right: 0)
+        backButton.addTarget(self, action: #selector(touchUpBackButton), for: .touchUpInside)
+        backButton.sizeToFit()
+        
+        navigationItem.leftBarButtonItem = UIBarButtonItem(customView: backButton)
+        
+        navigationController?.navigationBar.isHidden = false
+        navigationController?.interactivePopGestureRecognizer?.delegate = self
+        setNavigationBar(color: .clear)
     }
     
     override func viewDidLoad() {
@@ -165,6 +180,12 @@ class LoginVC: UIViewController, UITextFieldDelegate {
         }
     }
     
+    @objc private func touchUpBackButton() {
+        navigationController?.popViewController(animated: true)
+    }
+}
+
+extension LoginVC: UIGestureRecognizerDelegate {
 }
 
 class FormTextField: UITextField {

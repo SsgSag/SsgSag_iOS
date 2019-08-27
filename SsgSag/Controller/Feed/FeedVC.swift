@@ -96,7 +96,8 @@ class FeedVC: UIViewController {
         let myPageViewController
             = myPageStoryboard.instantiateViewController(withIdentifier: ViewControllerIdentifier.mypageViewController)
         
-        present(myPageViewController, animated: true)
+        present(UINavigationController(rootViewController: myPageViewController),
+                animated: true)
     }
 
     private func setupCollectionView() {

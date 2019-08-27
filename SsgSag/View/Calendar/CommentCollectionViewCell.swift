@@ -10,7 +10,7 @@ import UIKit
 
 protocol CommentDelegate: class {
     func touchUpCommentLikeButton(index: Int, like: Int)
-    func presentAlertController(index: Int)
+    func presentAlertController(_ userIndex: Int, commentIndex: Int)
 }
 
 class CommentCollectionViewCell: UICollectionViewCell {
@@ -70,7 +70,7 @@ class CommentCollectionViewCell: UICollectionViewCell {
         guard let index = comment?.commentIdx else {
             return
         }
-        delegate?.presentAlertController(index: index)
+        delegate?.presentAlertController(_ userIndex: Int, commentIndex: Int)
     }
     
     private func setupCellData(_ comment: CommentList) {

@@ -14,13 +14,17 @@ class AdmissionCollectionViewCell: UICollectionViewCell {
     
     lazy var admissionPickerView = UIPickerView()
     var admissionPickOption: [String] = []
-    var optionRow = 0
     
     lazy var admissionDoneButton = UIBarButtonItem(title: "Done",
                                                    style: .plain,
                                                    target: self,
                                                    action: #selector(touchUpAdmissionDoneButton))
-
+    
+    lazy var flexible
+        = UIBarButtonItem(barButtonSystemItem: .flexibleSpace,
+                          target: self,
+                          action: nil)
+    
     private let dropDownImageView
         = UIImageView(image: UIImage(named: "ic_dropDownColor"))
     
@@ -41,7 +45,7 @@ class AdmissionCollectionViewCell: UICollectionViewCell {
         admissionToolBar.tintColor = UIColor(red: 92/255, green: 216/255, blue: 255/255, alpha: 1)
         admissionToolBar.sizeToFit()
         admissionToolBar.isUserInteractionEnabled = true
-        admissionToolBar.setItems([admissionDoneButton], animated: false)
+        admissionToolBar.setItems([flexible, admissionDoneButton], animated: false)
         admissionDoneButton.tintColor = #colorLiteral(red: 0.4603668451, green: 0.5182471275, blue: 1, alpha: 1)
         
         admissionTextField.inputView = admissionPickerView
@@ -61,7 +65,6 @@ class AdmissionCollectionViewCell: UICollectionViewCell {
     }
     
     @objc func touchUpAdmissionDoneButton() {
-        admissionTextField.text = admissionPickOption[optionRow]
         admissionTextField.resignFirstResponder()
     }
     
@@ -86,6 +89,6 @@ extension AdmissionCollectionViewCell: UIPickerViewDelegate, UIPickerViewDataSou
     func pickerView(_ pickerView: UIPickerView,
                     didSelectRow row: Int,
                     inComponent component: Int) {
-        optionRow = row
+        admissionTextField.text = admissionPickOption[row]
     }
 }

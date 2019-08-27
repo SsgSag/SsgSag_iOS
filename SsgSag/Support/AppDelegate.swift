@@ -54,6 +54,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate, MessagingDelegate ,UNUser
             application.registerUserNotificationSettings(settings)
         }
         
+        if #available(iOS 10, *) {
+            UNUserNotificationCenter.current().requestAuthorization(options:[.badge, .alert, .sound]){ (granted, error) in }
+            application.registerForRemoteNotifications()
+        } else {
+            UIApplication.shared.registerUserNotificationSettings(UIUserNotificationSettings(types: [.badge, .sound, .alert], categories: nil))
+            UIApplication.shared.registerForRemoteNotifications()
+        }
+        
         InstanceID.instanceID().instanceID { (result, error) in
             if let error = error {
                 print("Error fetching remote instance ID: \(error)")
@@ -109,6 +117,21 @@ class AppDelegate: UIResponder, UIApplicationDelegate, MessagingDelegate ,UNUser
     
     func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
         Messaging.messaging().apnsToken = deviceToken
+        
+        // Convert token to string (디바이스 토큰 값을 가져옵니다.)
+        let deviceTokenString = deviceToken.reduce("", {$0 + String(format: "%02X", $1)})
+        
+        // Print it to console(토큰 값을 콘솔창에 보여줍니다. 이 토큰값으로 푸시를 전송할 대상을 정합니다.)
+        print("APNs device token: \(deviceTokenString)")
+        
+        // Persist it in your backend in case it's new
+        
+    }
+    
+    // Called when APNs failed to register the device for push notifications
+    func application(_ application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: Error) {
+        // Print the error to console (you should alert the user that registration failed)
+        print("APNs registration failed: \(error)")
     }
     
     private func naverLogin() {
@@ -270,6 +293,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate, MessagingDelegate ,UNUser
         // Print message ID.
         
         // Print full message.
+        
+        // Print notification payload data (푸시 데이터로 받은 것을 보여줍니다.)
+        print("Push notification received: \(userInfo)")
+        
         print(userInfo)
     }
     

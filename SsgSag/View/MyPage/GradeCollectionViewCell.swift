@@ -17,16 +17,19 @@ class GradeCollectionViewCell: UICollectionViewCell {
                                                target: self,
                                                action: #selector(touchUpGradeDoneButton))
     
+    lazy var flexible
+        = UIBarButtonItem(barButtonSystemItem: .flexibleSpace,
+                          target: self,
+                          action: nil)
+    
     private let dropDownImageView
         = UIImageView(image: UIImage(named: "ic_dropDownColor"))
     
     lazy var gradePickerView = UIPickerView()
     let gradePickOption = ["1", "2", "3", "4", "5"]
-    var optionRow = 0
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
         
         gradePickerView.delegate = self
         gradePickerView.dataSource = self
@@ -41,7 +44,7 @@ class GradeCollectionViewCell: UICollectionViewCell {
         gradeToolBar.tintColor = UIColor(red: 92/255, green: 216/255, blue: 255/255, alpha: 1)
         gradeToolBar.sizeToFit()
         gradeToolBar.isUserInteractionEnabled = true
-        gradeToolBar.setItems([gradeDoneButton], animated: false)
+        gradeToolBar.setItems([flexible, gradeDoneButton], animated: false)
         gradeDoneButton.tintColor = #colorLiteral(red: 0.4603668451, green: 0.5182471275, blue: 1, alpha: 1)
     
         gradeTextField.inputView = gradePickerView
@@ -52,7 +55,6 @@ class GradeCollectionViewCell: UICollectionViewCell {
     }
     
     @objc func touchUpGradeDoneButton() {
-        gradeTextField.text = gradePickOption[optionRow]
         gradeTextField.resignFirstResponder()
     }
 
@@ -77,6 +79,6 @@ extension GradeCollectionViewCell: UIPickerViewDelegate, UIPickerViewDataSource 
     func pickerView(_ pickerView: UIPickerView,
                     didSelectRow row: Int,
                     inComponent component: Int) {
-        optionRow = row
+        gradeTextField.text = gradePickOption[row]
     }
 }

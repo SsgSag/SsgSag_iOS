@@ -38,6 +38,7 @@ class InterestBoardViewController: UIViewController {
         setNavigationBar(color: .white)
         navigationItem.leftBarButtonItem = backButton
         tabBarController?.tabBar.isHidden = true
+        navigationController?.interactivePopGestureRecognizer?.delegate = self
     }
     
     override func viewDidLoad() {
@@ -193,6 +194,9 @@ extension InterestBoardViewController: InterestFollowDelegate {
         }
     }
     
+}
+
+extension InterestBoardViewController: UIGestureRecognizerDelegate {
 }
 
 extension InterestBoardViewController: FilterDelegate {

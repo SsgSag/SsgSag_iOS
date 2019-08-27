@@ -17,13 +17,6 @@ class SplashVC: UIViewController {
     private let tapbarServiceImp: TabbarService
         = DependencyContainer.shared.getDependency(key: .tabbarService)
     
-    private let backgroundImageView: UIImageView = {
-        let imageView = UIImageView()
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.image = UIImage(named: "bgSplash")
-        return imageView
-    }()
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -42,32 +35,18 @@ class SplashVC: UIViewController {
     
     private func setupLayout() {
         
-        view.addSubview(backgroundImageView)
         view.addSubview(animation)
-        
-        backgroundImageView.topAnchor.constraint(
-            equalTo: view.topAnchor).isActive = true
-        backgroundImageView.leadingAnchor.constraint(
-            equalTo: view.leadingAnchor).isActive = true
-        backgroundImageView.trailingAnchor.constraint(
-            equalTo: view.trailingAnchor).isActive = true
-        backgroundImageView.bottomAnchor.constraint(
-            equalTo: view.bottomAnchor).isActive = true
         
         animation.translatesAutoresizingMaskIntoConstraints = false
         animation.centerYAnchor.constraint(
             equalTo: view.centerYAnchor).isActive = true
         animation.centerXAnchor.constraint(
             equalTo: view.centerXAnchor).isActive = true
-        animation.topAnchor.constraint(
-            equalTo: view.topAnchor).isActive = true
-        animation.leadingAnchor.constraint(
-            equalTo: view.leadingAnchor).isActive = true
-        animation.trailingAnchor.constraint(
-            equalTo: view.trailingAnchor).isActive = true
-        animation.bottomAnchor.constraint(
-            equalTo: view.bottomAnchor).isActive = true
-        
+        animation.widthAnchor.constraint(
+            equalToConstant: view.frame.width).isActive = true
+        animation.heightAnchor.constraint(
+            equalTo: animation.widthAnchor,
+            multiplier: 2).isActive = true
     }
     
     private func setupNextViewController() {

@@ -105,7 +105,8 @@ class SplashViewController: UIViewController {
         let selfLoginVC
             = storyboard.instantiateViewController(withIdentifier: ViewControllerIdentifier.loginViewController)
         
-        navigationController?.pushViewController(selfLoginVC, animated: true)
+        navigationController?.pushViewController(selfLoginVC,
+                                                 animated: true)
     }
     
     @IBAction func touchUpKakaoLoginButton(_ sender: UIButton) {

@@ -18,6 +18,10 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IhC-xk-gBy">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="88"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Qa3-PX-6kd" userLabel="SwipeView">
                                 <rect key="frame" x="0.0" y="88" width="414" height="774"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -25,8 +29,12 @@
                         </subviews>
                         <constraints>
                             <constraint firstItem="Qa3-PX-6kd" firstAttribute="top" secondItem="Dc2-OV-lNp" secondAttribute="top" id="Dyj-Cn-AYw"/>
+                            <constraint firstItem="IhC-xk-gBy" firstAttribute="top" secondItem="YSG-iM-g4A" secondAttribute="top" id="GJB-cO-nkq"/>
+                            <constraint firstItem="IhC-xk-gBy" firstAttribute="leading" secondItem="YSG-iM-g4A" secondAttribute="leading" id="IUa-wH-C4x"/>
+                            <constraint firstAttribute="trailing" secondItem="IhC-xk-gBy" secondAttribute="trailing" id="MD4-dc-Ohe"/>
                             <constraint firstItem="Qa3-PX-6kd" firstAttribute="leading" secondItem="Dc2-OV-lNp" secondAttribute="leading" id="MRY-wS-wrg"/>
                             <constraint firstItem="Dc2-OV-lNp" firstAttribute="trailing" secondItem="Qa3-PX-6kd" secondAttribute="trailing" id="aaF-0s-3QQ"/>
+                            <constraint firstItem="Dc2-OV-lNp" firstAttribute="top" secondItem="IhC-xk-gBy" secondAttribute="bottom" id="g1k-I7-nVc"/>
                             <constraint firstItem="Dc2-OV-lNp" firstAttribute="bottom" secondItem="Qa3-PX-6kd" secondAttribute="bottom" id="wTf-nu-KS3"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="Dc2-OV-lNp"/>
@@ -141,7 +149,7 @@
                                 </subviews>
                             </stackView>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_BoxDday" translatesAutoresizingMaskIntoConstraints="NO" id="gPN-Bl-FRs">
-                                <rect key="frame" x="15" y="416.5" width="84" height="16"/>
+                                <rect key="frame" x="15" y="395.5" width="84" height="37"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="84" id="Auj-55-hvO"/>
                                 </constraints>

@@ -235,7 +235,8 @@ class NewCalendarVC: UIViewController {
         let myPageViewController
             = myPageStoryboard.instantiateViewController(withIdentifier: ViewControllerIdentifier.mypageViewController)
         
-        present(myPageViewController, animated: true)
+        present(UINavigationController(rootViewController: myPageViewController),
+                animated: true)
     }
     
     @IBAction func touchUpCalendarShareButton(_ sender: UIBarButtonItem) {

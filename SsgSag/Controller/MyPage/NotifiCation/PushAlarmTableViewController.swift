@@ -26,6 +26,7 @@ class PushAlarmTableViewController: UITableViewController, MessagingDelegate, UN
         
         setNavigationBar(color: .white)
         navigationItem.leftBarButtonItem = backButton
+        navigationController?.navigationBar.isHidden = false
     }
     
     override func viewDidLoad() {
@@ -42,14 +43,24 @@ class PushAlarmTableViewController: UITableViewController, MessagingDelegate, UN
         todayCardSwitch.layer.cornerRadius = deadlineSwitch.frame.height / 2
         todayCardSwitch.backgroundColor = .lightGray
         
+        UNUserNotificationCenter.current().getNotificationSettings { [weak self] settings in
+            if settings.authorizationStatus == .denied {
+                DispatchQueue.main.async {
+                    self?.todayCardSwitch.isOn = false
+                }
+            } else if settings.authorizationStatus == .authorized {
+                DispatchQueue.main.async {
+                    self?.todayCardSwitch.isOn = true
+                }
+            }
+        }
     }
     
     @objc private func touchUpBackButton() {
-        dismiss(animated: true)
+        navigationController?.popViewController(animated: true)
     }
 
     // MARK: - Table view data source
-    
     override func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
         return 1
@@ -65,33 +76,40 @@ class PushAlarmTableViewController: UITableViewController, MessagingDelegate, UN
     }
     
     @IBAction func arriveCard(_ sender: UISwitch) {
-        
-        let alertController = UIAlertController (title: "푸시 알림 설정", message: "세팅 하시겠습니까?", preferredStyle: .alert)
-        
-        let settingsAction = UIAlertAction(title: "세팅", style: .default) { [weak self] (_) -> Void in
-            
-            guard let settingsUrl = URL(string: UIApplication.openSettingsURLString) else {
-                return
-            }
-            
-            self?.setFirebaseRemoteInstanceIDtoken()
-            
-            if UIApplication.shared.canOpenURL(settingsUrl) {
-                UIApplication.shared.open(settingsUrl){ success in
-                    print("Settings opened: \(success)") // Prints true
+        UNUserNotificationCenter.current().getNotificationSettings { [weak self] settings in
+            DispatchQueue.main.async {
+                if settings.authorizationStatus == .denied && sender.isOn {
+                    let alertController
+                        = UIAlertController(title: "알림 설정",
+                                            message: "설정화면에서 알림을 허용해주세요",
+                                            preferredStyle: .alert)
+                    
+                    let settingsAction = UIAlertAction(title: "이동",
+                                                       style: .default) { _ in
+                        guard let settingsUrl = URL(string: UIApplication.openSettingsURLString) else {
+                            return
+                        }
+                        
+                        if UIApplication.shared.canOpenURL(settingsUrl) {
+                            UIApplication.shared.open(settingsUrl){ success in
+                                print("Settings opened: \(success)")
+                            }
+                        }
+                    }
+                    
+                    let cancelAction = UIAlertAction(title: "취소", style: .default) { _ in
+                        sender.isOn = false
+                    }
+                    
+                    alertController.addAction(settingsAction)
+                    alertController.addAction(cancelAction)
+                    
+                    self?.present(alertController, animated: true, completion: nil)
+                } else if settings.authorizationStatus == .authorized {
+                    // API를 통해서 알림 종류 확인
                 }
             }
         }
-        
-        alertController.addAction(settingsAction)
-        
-        let cancelAction = UIAlertAction(title: "취소", style: .default) { _ in
-            sender.isOn = true
-        }
-        
-        alertController.addAction(cancelAction)
-        
-        present(alertController, animated: true, completion: nil)
     }
     
     private func setFirebaseRemoteInstanceIDtoken() {
@@ -103,7 +121,6 @@ class PushAlarmTableViewController: UITableViewController, MessagingDelegate, UN
             UNUserNotificationCenter.current().requestAuthorization(
                 options: authOptions,
                 completionHandler: {_, _ in })
-            
         } else {
             let settings: UIUserNotificationSettings =
                 UIUserNotificationSettings(types: [.alert, .badge, .sound], categories: nil)

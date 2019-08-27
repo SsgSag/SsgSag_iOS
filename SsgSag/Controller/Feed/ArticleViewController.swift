@@ -29,11 +29,15 @@ class ArticleViewController: UIViewController {
                                                   target: self,
                                                   action: #selector(touchUpBackButton))
     
+    private let rightSpacerButton = UIBarButtonItem(title: nil, style: .plain, target: nil, action: nil)
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        
         setNavigationBar(color: .white)
+        
+        rightSpacerButton.width = view.frame.width * 0.15
+        navigationItem.rightBarButtonItem = rightSpacerButton
         
         navigationController?.navigationBar.titleTextAttributes
             = [NSAttributedString.Key.foregroundColor : #colorLiteral(red: 0.3098039216, green: 0.3098039216, blue: 0.3098039216, alpha: 1)]
@@ -42,19 +46,18 @@ class ArticleViewController: UIViewController {
         navigationController?.hidesBarsOnSwipe = true
         
         tabBarController?.tabBar.isHidden = true
+        navigationController?.interactivePopGestureRecognizer?.delegate = self
     }
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        let titleLabel = UILabel(frame: CGRect(x: 0, y: 0, width: 10, height: 40))
+        
+        let titleLabel = UILabel()
         titleLabel.text = articleTitle ?? ""
         titleLabel.textColor = #colorLiteral(red: 0.3058823529, green: 0.3058823529, blue: 0.3058823529, alpha: 1)
         titleLabel.font = UIFont.systemFont(ofSize: 18, weight: .semibold)
-        titleLabel.backgroundColor = UIColor.clear
-        titleLabel.textAlignment = .left
-        titleLabel.lineBreakMode = .byWordWrapping
-        titleLabel.adjustsFontSizeToFitWidth = true
-        titleLabel.clipsToBounds = false
+        titleLabel.lineBreakMode = .byCharWrapping
+        titleLabel.numberOfLines = 1
         self.navigationItem.titleView = titleLabel
     }
     
@@ -79,6 +82,9 @@ class ArticleViewController: UIViewController {
         navigationController?.popViewController(animated: true)
     }
     
+}
+
+extension ArticleViewController: UIGestureRecognizerDelegate {
 }
 
 extension ArticleViewController: WKUIDelegate, WKNavigationDelegate {

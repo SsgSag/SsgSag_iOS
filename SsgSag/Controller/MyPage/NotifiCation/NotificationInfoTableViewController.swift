@@ -18,7 +18,9 @@ class NotificationInfoTableViewController: UITableViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
+        navigationController?.navigationBar.isHidden = false
         navigationController?.navigationBar.barTintColor = .white
+        navigationController?.interactivePopGestureRecognizer?.delegate = self
     }
     
     override func viewDidLoad() {
@@ -51,7 +53,7 @@ class NotificationInfoTableViewController: UITableViewController {
     }
     
     @IBAction func dissmissNotification(_ sender: Any) {
-        dismiss(animated: true)
+        navigationController?.popViewController(animated: true)
     }
 
 }
@@ -83,4 +85,7 @@ extension NotificationInfoTableViewController {
         postViewController.noticeData = noticeList[indexPath.row]
         navigationController?.pushViewController(postViewController, animated: true)
     }
+}
+
+extension NotificationInfoTableViewController: UIGestureRecognizerDelegate {
 }

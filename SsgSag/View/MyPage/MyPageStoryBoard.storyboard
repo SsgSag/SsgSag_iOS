@@ -278,7 +278,7 @@
         <!--공지사항-->
         <scene sceneID="X0p-wR-q3D">
             <objects>
-                <tableViewController id="Jfz-ZF-KRo" customClass="NotificationInfoTableViewController" customModule="슥삭" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="noticeVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="Jfz-ZF-KRo" customClass="NotificationInfoTableViewController" customModule="슥삭" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="plain" separatorStyle="default" rowHeight="60" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="kbt-TH-KSq">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -739,13 +739,13 @@
         <!--문의하기-->
         <scene sceneID="iVg-tI-xML">
             <objects>
-                <viewController id="Bxb-6c-qyf" customClass="InquireViewController" customModule="슥삭" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="inquireVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="Bxb-6c-qyf" customClass="InquireViewController" customModule="슥삭" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="urD-qr-m7O">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" translatesAutoresizingMaskIntoConstraints="NO" id="La5-2T-nwX">
-                                <rect key="frame" x="0.0" y="88" width="375" height="690"/>
+                                <rect key="frame" x="0.0" y="44" width="375" height="734"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mWW-LJ-xWh">
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="691.33333333333337"/>
@@ -1135,7 +1135,7 @@
         <!--푸시 알림 설정-->
         <scene sceneID="fjc-2u-1yB">
             <objects>
-                <tableViewController id="Zs9-o4-lnC" customClass="PushAlarmTableViewController" customModule="슥삭" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="pushAlarmVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="Zs9-o4-lnC" customClass="PushAlarmTableViewController" customModule="슥삭" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="bPA-e1-FlW">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1265,7 +1265,7 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="푸시 알림 설정" id="BkS-fi-5kF">
-                        <barButtonItem key="leftBarButtonItem" title="Item" image="icArrowBack" id="RRK-Ds-1gE">
+                        <barButtonItem key="leftBarButtonItem" title="Item" image="ic_ArrowBack" id="RRK-Ds-1gE">
                             <connections>
                                 <action selector="dissMissPushAlarm:" destination="Zs9-o4-lnC" id="ctZ-4j-qhz"/>
                             </connections>
@@ -1299,7 +1299,7 @@
                                 </textAttributes>
                                 <items>
                                     <navigationItem title="관심직무" id="5ie-Ve-oLR">
-                                        <barButtonItem key="leftBarButtonItem" title="Item" image="icArrowBack" id="ece-9z-dAm">
+                                        <barButtonItem key="leftBarButtonItem" title="Item" image="ic_ArrowBack" id="ece-9z-dAm">
                                             <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <connections>
                                                 <action selector="touchUpBackButton:" destination="cnl-e1-rb8" id="Wfq-tq-FLO"/>
@@ -1735,7 +1735,7 @@
                         <viewLayoutGuide key="safeArea" id="aTU-8k-4LF"/>
                     </view>
                     <navigationItem key="navigationItem" title="구직여부" id="5wf-XZ-Jug">
-                        <barButtonItem key="leftBarButtonItem" image="icArrowBack" id="nl2-zE-J1T">
+                        <barButtonItem key="leftBarButtonItem" image="ic_ArrowBack" id="nl2-zE-J1T">
                             <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         </barButtonItem>
                     </navigationItem>
@@ -1789,7 +1789,7 @@
                                 </textAttributes>
                                 <items>
                                     <navigationItem title="관심분야" id="w5Q-eV-wsQ">
-                                        <barButtonItem key="leftBarButtonItem" title="Item" image="icArrowBack" id="ibW-Oe-tlw">
+                                        <barButtonItem key="leftBarButtonItem" title="Item" image="ic_ArrowBack" id="ibW-Oe-tlw">
                                             <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <connections>
                                                 <action selector="touchUpBackButton:" destination="17w-h8-msn" id="KwV-jx-mDc"/>
@@ -2032,7 +2032,7 @@
                         <viewLayoutGuide key="safeArea" id="Aau-bB-Gl2"/>
                     </view>
                     <navigationItem key="navigationItem" title="관심분야" id="I5P-ul-qYn">
-                        <barButtonItem key="leftBarButtonItem" title="Item" image="icArrowBack" id="5Om-JL-cpg">
+                        <barButtonItem key="leftBarButtonItem" title="Item" image="ic_ArrowBack" id="5Om-JL-cpg">
                             <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         </barButtonItem>
                     </navigationItem>
@@ -2879,7 +2879,7 @@
                         <viewLayoutGuide key="safeArea" id="inr-0z-lYj"/>
                     </view>
                     <navigationItem key="navigationItem" title="이력" id="hLH-Rw-RN1">
-                        <barButtonItem key="leftBarButtonItem" title="Item" image="icArrowBack" id="Q2F-Be-ZMK">
+                        <barButtonItem key="leftBarButtonItem" title="Item" image="ic_ArrowBack" id="Q2F-Be-ZMK">
                             <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         </barButtonItem>
                     </navigationItem>
@@ -4072,24 +4072,6 @@ If you have any questions or concerns, please contact us at opensource@ssgsag.
             <point key="canvasLocation" x="10528.799999999999" y="-252.70935960591135"/>
         </scene>
         <!--Navigation Controller-->
-        <scene sceneID="YIe-cR-PD4">
-            <objects>
-                <navigationController storyboardIdentifier="inquireNavigationVC" automaticallyAdjustsScrollViewInsets="NO" useStoryboardIdentifierAsRestorationIdentifier="YES" id="12r-Sa-oDp" sceneMemberID="viewController">
-                    <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="dIh-QK-6Rp">
-                        <rect key="frame" x="0.0" y="44" width="375" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <nil name="viewControllers"/>
-                    <connections>
-                        <segue destination="Bxb-6c-qyf" kind="relationship" relationship="rootViewController" id="b5r-lI-tSw"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="f4q-NP-xIF" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="5502" y="-433"/>
-        </scene>
-        <!--Navigation Controller-->
         <scene sceneID="wXJ-O3-lq6">
             <objects>
                 <navigationController storyboardIdentifier="careerNavigationVC" automaticallyAdjustsScrollViewInsets="NO" useStoryboardIdentifierAsRestorationIdentifier="YES" id="1eU-Ol-smO" sceneMemberID="viewController">
@@ -4142,7 +4124,6 @@ If you have any questions or concerns, please contact us at opensource@ssgsag.
         <image name="btPreferenceSocietyUnactive" width="162" height="162"/>
         <image name="btPreferenceStartupUnactive" width="162" height="162"/>
         <image name="btPreferenceTechUnactive" width="162" height="162"/>
-        <image name="icArrowBack" width="48" height="48"/>
         <image name="icArrowGradation" width="44" height="50"/>
         <image name="icArrowNextMypage" width="24" height="24"/>
         <image name="icXClose" width="24" height="24"/>

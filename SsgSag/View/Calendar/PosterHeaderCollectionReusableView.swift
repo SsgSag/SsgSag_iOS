@@ -45,7 +45,28 @@ class PosterHeaderCollectionReusableView: UICollectionReusableView {
         posterImageView.addGestureRecognizer(tapGesture)
         
         hashTagTextView.textContainer.lineFragmentPadding = 0
-        hashTagTextView.textContainerInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+        hashTagTextView.textContainerInset = UIEdgeInsets(top: 0,
+                                                          left: 0,
+                                                          bottom: 0,
+                                                          right: 0)
+        
+        let titleStyle = NSMutableParagraphStyle()
+        titleStyle.lineSpacing = 26
+        
+        let titleAttrString = NSMutableAttributedString()
+        titleAttrString.addAttributes([.paragraphStyle : titleStyle],
+                                      range: NSMakeRange(0, titleAttrString.length))
+        posterTitleLabel.attributedText = titleAttrString
+        
+        
+        let hashStyle = NSMutableParagraphStyle()
+        hashStyle.lineSpacing = 20
+        
+        let hashAttrString = NSMutableAttributedString()
+        hashAttrString.addAttributes([.paragraphStyle : hashStyle],
+                                     range: NSMakeRange(0, hashAttrString.length))
+        hashTagTextView.attributedText = hashAttrString
+        
     }
 
     func configure() {

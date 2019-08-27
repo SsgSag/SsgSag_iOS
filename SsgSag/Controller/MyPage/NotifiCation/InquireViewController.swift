@@ -34,6 +34,8 @@ class InquireViewController: UIViewController {
         
         setNavigationBar(color: .white)
         navigationItem.leftBarButtonItem = backbutton
+        navigationController?.navigationBar.isHidden = false
+        navigationController?.interactivePopGestureRecognizer?.delegate = self
     }
     
     override func viewDidLoad() {
@@ -57,7 +59,7 @@ class InquireViewController: UIViewController {
     }
     
     @objc private func touchUpBackButton() {
-        dismiss(animated: true)
+        navigationController?.popViewController(animated: true)
     }
     
     @IBAction func selectedInquireKind(_ sender: UIButton) {
@@ -170,7 +172,7 @@ extension InquireViewController: MFMailComposeViewControllerDelegate {
             controller.simpleAlertwithOKButton(title: "메일 전송 완료",
                                                message: "여러분의 소중한 의견 감사드립니다.\n - 슥삭 -") { [weak self] _ in
                 controller.presentingViewController?.dismiss(animated: true)
-                self?.navigationController?.dismiss(animated: true)
+                self?.navigationController?.popViewController(animated: true)
             }
         case .failed:
             controller.simplerAlert(title: "메일 전송 실패")
