@@ -20,9 +20,15 @@ class UserInfoVC: UIViewController {
     
     @IBOutlet weak var stackViewConstraint: NSLayoutConstraint!
     
+    @IBOutlet weak var textFieldsStackView: UIStackView!
+    
     @IBOutlet weak var isInvaliedEmailLabel: UILabel!
     
     @IBOutlet weak var isnotEqualPWLabel: UILabel!
+    
+    @IBOutlet weak var scrollView: UIScrollView!
+    
+    private var currentTextField: UITextField?
     
     private let signUpServiceImp: SignupService
         = DependencyContainer.shared.getDependency(key: .signUpService)
@@ -42,7 +48,6 @@ class UserInfoVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         passwordCheckTextField.returnKeyType = .done
         
         iniGestureRecognizer()
@@ -187,6 +192,7 @@ class UserInfoVC: UIViewController {
     }
     
     @objc func keyboardWillShow(_ notification: NSNotification) {
+        
         guard let duration
             = notification.userInfo?[UIResponder.keyboardAnimationDurationUserInfoKey]
                 as? Double,
@@ -196,12 +202,14 @@ class UserInfoVC: UIViewController {
                     return
         }
         
+        guard let textField = currentTextField else {
+            return
+        }
+        
         UIView.animate(withDuration: duration,
                        delay: 0.3,
                        options: .init(rawValue: curve),
                        animations: { [weak self] in
-                        guard let height = self?.view.frame.height else { return }
-                        self?.stackViewConstraint.constant = -(height / 10)
         })
         
         view.layoutIfNeeded()
@@ -221,7 +229,7 @@ class UserInfoVC: UIViewController {
                        delay: 0.3,
                        options: .init(rawValue: curve),
                        animations: { [weak self] in
-                        self?.stackViewConstraint.constant = 0
+//                        self?.scrollView.contentOffset.y = textField.frame.origin.y + textField.frame.height
         })
         
         view.layoutIfNeeded()
@@ -270,6 +278,13 @@ class UserInfoVC: UIViewController {
         
         return true
     }
+    
+}
+
+extension UserInfoVC: UIScrollViewDelegate {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        print(scrollView.contentOffset.y)
+    }
 }
 
 extension UserInfoVC: UIGestureRecognizerDelegate {
@@ -295,6 +310,7 @@ extension UserInfoVC: UITextFieldDelegate {
     }
     
     func textFieldDidEndEditing(_ textField: UITextField) {
+        scrollView.setContentOffset(CGPoint(x: 0, y: 0), animated: true)
         
         guard passwordTextField.text == passwordCheckTextField.text else {
             isnotEqualPWLabel.isHidden = false
@@ -317,6 +333,14 @@ extension UserInfoVC: UITextFieldDelegate {
         
         nextButton.topColor = #colorLiteral(red: 0.2078431373, green: 0.9176470588, blue: 0.8901960784, alpha: 1)
         nextButton.bottomColor = #colorLiteral(red: 0.6588235294, green: 0.2784313725, blue: 1, alpha: 1)
+    }
+    
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        scrollView.setContentOffset(CGPoint(x: 0, y: 0), animated: true)
+        
+        scrollView.setContentOffset(CGPoint(x: 0, y: textFieldsStackView.frame.origin.y + textField.frame.origin.y - textFieldsStackView.frame.height * 0.6), animated: true)
+
+        currentTextField = textField
     }
 }
 

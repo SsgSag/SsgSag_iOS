@@ -1,5 +1,6 @@
 import UIKit
 import Lottie
+import SwiftKeychainWrapper
 
 class SwipeVC: UIViewController {
     
@@ -9,7 +10,10 @@ class SwipeVC: UIViewController {
     
     @IBOutlet private var overLapView: UIView!
     
+    @IBOutlet weak var settingBoardButton: UIBarButtonItem!
+    
     lazy private var posters: [Posters] = []
+    private var numberOfSwipe = 0
     
     private static let numberOfTopCards = 2
     
@@ -18,6 +22,7 @@ class SwipeVC: UIViewController {
     private var lastCardIndex: Int = 0
     
     private var currentIndex = 0
+    private var ssgsagCount = 0
     
     private var countTotalCardIndex = 0
     
@@ -28,18 +33,63 @@ class SwipeVC: UIViewController {
     
     private var isOkayToUndo: Bool = false
     
+    private lazy var completeLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.numberOfLines = 2
+        label.font = UIFont.systemFont(ofSize: 20, weight: .medium)
+        
+        if self.ssgsagCount == 0 {
+            label.text = "오늘은 추천해드릴 포스터가 없네요.\n캘린더를 확인해볼까요?"
+        } else {
+            label.text = "오늘 \(self.ssgsagCount)장의 카드를\n슥삭했어요!"
+        }
+        
+        label.textColor = #colorLiteral(red: 0.3098039216, green: 0.3098039216, blue: 0.3098039216, alpha: 1)
+        label.textAlignment = .center
+        label.adjustsFontSizeToFitWidth = true
+        return label
+    }()
+    
+    private lazy var moveToCalendarButton: UIButton = {
+        let button = UIButton()
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.setTitle("캘린더 바로가기", for: .normal)
+        button.backgroundColor = #colorLiteral(red: 0.3843137255, green: 0.4156862745, blue: 1, alpha: 1)
+        button.setTitleColor(.white, for: .normal)
+        button.layer.cornerRadius = 24
+        button.titleLabel?.font = UIFont.systemFont(ofSize: 15)
+        button.addTarget(self, action: #selector(touchUpMoveToCalendarButton), for: .touchUpInside)
+        return button
+    }()
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
         let shadowSize = CGSize(width: self.view.frame.width, height: 3)
         navigationController?.navigationBar.addColorToShadow(color: #colorLiteral(red: 0.3843137255, green: 0.4156862745, blue: 1, alpha: 1),
                                                              size: shadowSize)
+        tabBarController?.tabBar.isHidden = false
+        
+        guard let isTryWithoutLogin = UserDefaults.standard.object(forKey: "isTryWithoutLogin") as? Bool else {
+            return
+        }
+        
+        if isTryWithoutLogin {
+            settingBoardButton.image = nil
+            settingBoardButton.title = "나가기"
+            settingBoardButton.setTitleTextAttributes(
+                [NSAttributedString.Key.font: UIFont(name: "Helvetica",
+                                                     size: 15.0)],
+                for: .normal
+            )
+        }
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        initPoster()
+        requestPoster(isFirst: true)
         
         setCountLabelText()
         
@@ -55,29 +105,61 @@ class SwipeVC: UIViewController {
     private func setEmptyPosterAnimation() {
         let animation = LOTAnimationView(name: "main_empty_hifive")
         
-        view.addSubview(animation)
-
-        animation.translatesAutoresizingMaskIntoConstraints = false
-        animation.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        animation.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
-        animation.widthAnchor.constraint(equalToConstant: 350).isActive = true
-        animation.heightAnchor.constraint(equalToConstant: 350).isActive = true
+        let completeStackView: UIStackView = {
+            let stackView = UIStackView()
+            stackView.translatesAutoresizingMaskIntoConstraints = false
+            stackView.axis = .vertical
+            stackView.alignment = .center
+            stackView.spacing = 30
+            return stackView
+        }()
         
-        animation.loopAnimation = true
+        completeStackView.addArrangedSubview(animation)
+        completeStackView.addArrangedSubview(completeLabel)
+        completeStackView.addArrangedSubview(moveToCalendarButton)
+        view.addSubview(completeStackView)
+
+        completeStackView.centerXAnchor.constraint(
+            equalTo: view.centerXAnchor).isActive = true
+        completeStackView.centerYAnchor.constraint(
+            equalTo: view.centerYAnchor).isActive = true
+        completeStackView.leadingAnchor.constraint(
+            equalTo: view.leadingAnchor,
+            constant: 40).isActive = true
+        completeStackView.trailingAnchor.constraint(
+            equalTo: view.trailingAnchor,
+            constant: -40).isActive = true
+        
+        animation.translatesAutoresizingMaskIntoConstraints = false
+        animation.widthAnchor.constraint(
+            equalToConstant: 170).isActive = true
+        animation.heightAnchor.constraint(
+            equalToConstant: 170).isActive = true
+        
+        moveToCalendarButton.heightAnchor.constraint(
+            equalToConstant: 48).isActive = true
+        moveToCalendarButton.widthAnchor.constraint(
+            equalToConstant: 202).isActive = true
+        
         animation.play()
     }
     
     //FIXME: - CategoryIdx가 3이거나 5일때 예외를 만든다.
-    private func initPoster() {
+    private func requestPoster(isFirst: Bool) {
 
         posterServiceImp.requestPoster { [weak self] response in
             switch response {
-            case .success(let posters):
+            case .success(let posterdata):
+                guard let posters = posterdata.posters,
+                    let numberOfSwipe = posterdata.userCnt else {
+                    return
+                }
                 self?.posters = posters
                 self?.countTotalCardIndex = self?.posters.count ?? 0
+                self?.ssgsagCount = numberOfSwipe
                 
                 DispatchQueue.main.async {
-                    self?.loadCardAndSetPageVC()
+                    self?.loadCardAndSetPageVC(isFirst: isFirst)
                     self?.setCountLabelText()
                 }
             case .failed(let error):
@@ -87,13 +169,16 @@ class SwipeVC: UIViewController {
         }
     }
     
-//    //캘린더 이동
-//    @IBAction func moveToCalendar(_ sender: Any) {
-//        let calendarVC = CalenderVC()
-//        present(calendarVC, animated: true, completion: nil)
-//    }
+    //캘린더 이동
+    @objc func touchUpMoveToCalendarButton() {
+        tabBarController?.selectedIndex = 2
+    }
     
-    private func loadCard() {
+    private func loadCard(isFirst: Bool) {
+        if !isFirst {
+            currentLoadedCardsArray.removeAll()
+        }
+        
         for (index, poster) in posters.enumerated() {
             if index < SwipeVC.numberOfTopCards {
                 guard let photoURL = poster.photoUrl else {
@@ -120,15 +205,22 @@ class SwipeVC: UIViewController {
     
     
     //카드를 로드한다.
-    private func loadCardAndSetPageVC() {
+    private func loadCardAndSetPageVC(isFirst: Bool) {
+        
         if posters.count > 0 {
+            if !isFirst && swipeCardView != nil {
+                swipeCardView.subviews.map({ $0.removeFromSuperview() })
+            }
             
-            loadCard()
+            loadCard(isFirst: isFirst)
             
             setSwipeCardSubview()
             
             setPageVCAndAddToSubView()
         } else {
+            if !isFirst {
+                view.subviews.map({ $0.removeFromSuperview() })
+            }
             setEmptyPosterAnimation()
         }
     }
@@ -283,18 +375,78 @@ class SwipeVC: UIViewController {
     }
     
     @IBAction func touchUpMyPageButton(_ sender: UIBarButtonItem) {
+        if let isTryWithoutLogin = UserDefaults.standard.object(forKey: "isTryWithoutLogin") as? Bool {
+            if isTryWithoutLogin {
+                simpleAlertwithHandler(title: "마이페이지", message: "로그인 후 이용해주세요") { _ in
+                    
+                    KeychainWrapper.standard.removeObject(forKey: TokenName.token)
+                    
+                    guard let window = UIApplication.shared.keyWindow else {
+                        return
+                    }
+                    
+                    let mainStoryboard: UIStoryboard = UIStoryboard(name: "LoginStoryBoard", bundle: nil)
+                    let viewController = mainStoryboard.instantiateViewController(withIdentifier: "splashVC") as! SplashViewController
+                    
+                    let rootNavigationController = UINavigationController(rootViewController: viewController)
+                    
+                    let appDelegate = UIApplication.shared.delegate as! AppDelegate
+                    appDelegate.window?.rootViewController = rootNavigationController
+                    
+                    rootNavigationController.view.layoutIfNeeded()
+                    
+                    UIView.transition(with: window, duration: 0.5, options: .transitionFlipFromLeft, animations: {
+                        window.rootViewController = rootNavigationController
+                    }, completion: nil)
+                }
+                return
+            }
+        }
+        
         let myPageStoryboard = UIStoryboard(name: StoryBoardName.mypage, bundle: nil)
         
         let myPageViewController
             = myPageStoryboard.instantiateViewController(withIdentifier: ViewControllerIdentifier.mypageViewController)
         
-        present(myPageViewController, animated: true)
+        present(UINavigationController(rootViewController: myPageViewController),
+                animated: true)
     }
     
     @IBAction func touchUpBoardSettingButton(_ sender: UIBarButtonItem) {
+        if sender.title == "나가기" {
+            
+            KeychainWrapper.standard.removeObject(forKey: TokenName.token)
+            
+            guard let window = UIApplication.shared.keyWindow else {
+                return
+            }
+            
+            let mainStoryboard: UIStoryboard = UIStoryboard(name: "LoginStoryBoard", bundle: nil)
+            let viewController = mainStoryboard.instantiateViewController(withIdentifier: "splashVC") as! SplashViewController
+            
+            let rootNavigationController = UINavigationController(rootViewController: viewController)
+            
+            let appDelegate = UIApplication.shared.delegate as! AppDelegate
+            appDelegate.window?.rootViewController = rootNavigationController
+            
+            rootNavigationController.view.layoutIfNeeded()
+            
+            UIView.transition(with: window, duration: 0.5, options: .transitionFlipFromLeft, animations: {
+                window.rootViewController = rootNavigationController
+            }, completion: nil)
+            return
+        }
+        
         let storyboard = UIStoryboard(name: StoryBoardName.mypage,
                                       bundle: nil)
-        let interestVC = storyboard.instantiateViewController(withIdentifier: "InterestBoardVC")
+        guard let interestVC = storyboard.instantiateViewController(withIdentifier: "InterestBoardVC") as? InterestBoardViewController else {
+            return
+        }
+        
+        interestVC.callback = { [weak self] in
+//            self?.requestPoster(isFirst: false)
+        }
+        
         navigationController?.pushViewController(interestVC, animated: true)
     }
     
@@ -334,8 +486,21 @@ class SwipeVC: UIViewController {
     private func setCountLabelText() {
         if let tabItems = tabBarController?.tabBar.items {
             let tabItem = tabItems[1]
+            
+            guard countTotalCardIndex != 0 else {
+                tabItem.badgeValue = nil
+                return
+            }
+
             tabItem.badgeColor = #colorLiteral(red: 0.3843137255, green: 0.4156862745, blue: 1, alpha: 1)
             tabItem.badgeValue = "\(self.countTotalCardIndex)"
+        }
+        
+        for badgeView in (tabBarController?.tabBar.subviews[2].subviews)! {
+            if NSStringFromClass(badgeView.classForCoder) == "_UIBadgeView" {
+                badgeView.layer.transform = CATransform3DIdentity
+                badgeView.layer.transform = CATransform3DMakeTranslation(-12.0, -5.0, 1.0)
+            }
         }
     }
     
@@ -368,7 +533,7 @@ extension SwipeVC: movoToDetailPoster {
                                            bundle: nil)
         guard let zoomPosterVC = swipeStoryboard.instantiateViewController(withIdentifier: ViewControllerIdentifier.zoomPosterViewController) as? ZoomPosterVC else {return}
         
-        zoomPosterVC.urlString = self.posters[lastCardIndex-1].photoUrl
+        zoomPosterVC.urlString = self.posters[currentIndex].photoUrl
 
         self.present(zoomPosterVC, animated: true, completion: nil)
     }
@@ -377,7 +542,7 @@ extension SwipeVC: movoToDetailPoster {
 extension SwipeVC : SwipeCardDelegate {
     //카드가 왼쪽으로 갔을때
     func cardGoesLeft(card: SwipeCard) {
-        
+        ssgsagCount += 1
         isOkayToUndo = true
         
         loadCardValuesAfterRemoveObject()
@@ -407,7 +572,7 @@ extension SwipeVC : SwipeCardDelegate {
     
     //카드 오른쪽으로 갔을때
     func cardGoesRight(card: SwipeCard) {
-        
+        ssgsagCount += 1
         isOkayToUndo = true
         
         loadCardValuesAfterRemoveObject()

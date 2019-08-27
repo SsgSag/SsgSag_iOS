@@ -9,8 +9,14 @@
 import UIKit
 import Photos
 
+protocol UpdateDataDelegate: class {
+    func reloadUserData()
+}
+
 class AccountSettingViewController: UIViewController {
 
+    weak var delegate: UpdateDataDelegate?
+    
     let settingTitles = ["닉네임",
                          "아이디(이메일)",
                          "비밀번호",
@@ -20,8 +26,17 @@ class AccountSettingViewController: UIViewController {
                          "입학년도"]
     
     var selectedImage: UIImage?
-    
+    var userData: UserInfoModel?
     var currentTextField: UITextField?
+    
+    var nickName: String?
+    var univ: String?
+    var major: String?
+    var studentNumber: String?
+    var grade: Int?
+    
+    private let mypageService: MyPageService
+        = DependencyContainer.shared.getDependency(key: .myPageService)
     
     private lazy var profileImagePicker: UIImagePickerController = {
         let imagePicker = UIImagePickerController()
@@ -64,11 +79,21 @@ class AccountSettingViewController: UIViewController {
         completeButton.tintColor = #colorLiteral(red: 0.3843137255, green: 0.4156862745, blue: 1, alpha: 1)
         navigationItem.leftBarButtonItem = backButton
         navigationItem.rightBarButtonItem = completeButton
+        navigationController?.interactivePopGestureRecognizer?.delegate = self
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(handleShowKeyboard),
+                                               name: UIWindow.keyboardWillShowNotification,
+                                               object: nil)
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(handleHideKeyboard),
+                                               name: UIWindow.keyboardWillHideNotification,
+                                               object: nil)
+        
         setupLayout()
         setupCollectionView()
     }
@@ -120,6 +145,94 @@ class AccountSettingViewController: UIViewController {
         settingCollectionView.register(menuNib,
                                        forCellWithReuseIdentifier: "menuCellID")
         
+        let univSettingNib = UINib(nibName: "UnivCollectionViewCell", bundle: nil)
+        
+        settingCollectionView.register(univSettingNib, forCellWithReuseIdentifier: "univSettingCell")
+        
+        let majorSettingNib = UINib(nibName: "MajorCollectionViewCell", bundle: nil)
+        
+        settingCollectionView.register(majorSettingNib, forCellWithReuseIdentifier: "majorSettingCell")
+        
+        let gradeSettingNib = UINib(nibName: "GradeCollectionViewCell", bundle: nil)
+        
+        settingCollectionView.register(gradeSettingNib, forCellWithReuseIdentifier: "gradeSettingCell")
+        
+        let admissionSettingNib = UINib(nibName: "AdmissionCollectionViewCell", bundle: nil)
+        
+        settingCollectionView.register(admissionSettingNib, forCellWithReuseIdentifier: "admissionSettingCell")
+    }
+    
+    private func uploadImage(_ selecteImage: UIImage?) {
+        
+        guard let sendImage = selecteImage else { return }
+        
+        guard let sendData = sendImage.jpegData(compressionQuality: 0.7) else {return}
+        
+        let boundary = generateBoundaryString()
+        
+        let bodyData = createBody(parameters: [:],
+                                      boundary: boundary,
+                                      data: sendData,
+                                      mimeType: "image/jpg",
+                                      filename: "profileImage.jpg")
+        
+        mypageService.requestUpdateProfile(boundary: boundary,
+                                           bodyData: bodyData) { [weak self] result in
+                                            switch result {
+                                            case .success(let status):
+                                                DispatchQueue.main.async {
+                                                    switch status {
+                                                    case .processingSuccess:
+                                                        self?.delegate?.reloadUserData()
+                                                        self?.dismiss(animated: true)
+                                                    case .requestError:
+                                                        self?.simplerAlert(title: "사진 등록에 실패했습니다.")
+                                                        return
+                                                    case .dataBaseError:
+                                                        self?.simplerAlert(title: "database error")
+                                                        return
+                                                    case .serverError:
+                                                        self?.simplerAlert(title: "server error")
+                                                        return
+                                                    default:
+                                                        return
+                                                    }
+                                                }
+                                            case .failed(let error):
+                                                print(error)
+                                                return
+                                            }
+        }
+        
+    }
+    
+    private func generateBoundaryString() -> String {
+        return "Boundary-\(UUID().uuidString)"
+    }
+    
+    func createBody(parameters: [String: String],
+                    boundary: String,
+                    data: Data,
+                    mimeType: String,
+                    filename: String) -> Data {
+        let body = NSMutableData()
+        
+        let boundaryPrefix = "--\(boundary)\r\n"
+        
+        for (key, value) in parameters {
+            body.appendString(boundaryPrefix)
+            body.appendString("Content-Disposition: form-data; name=\"\(key)\"\r\n\r\n")
+            body.appendString("\(value)\r\n")
+        }
+        
+        body.appendString(boundaryPrefix)
+        body.appendString("Content-Disposition: form-data; name=\"profile\"; filename=\"\(filename)\"\r\n")
+        body.appendString("Content-Type: \(mimeType)\r\n\r\n")
+        body.append(data)
+        body.appendString("\r\n")
+        body.appendString("--".appending(boundary.appending("--")))
+        
+        return body as Data
     }
     
     private func rePermission() {
@@ -157,8 +270,136 @@ class AccountSettingViewController: UIViewController {
     }
     
     @objc private func touchUpCompleteButton() {
-        print("complete")
+        currentTextField?.resignFirstResponder()
+        
+        guard checkInformation() else {
+            return
+        }
+        
+        let bodyData: [String: Any] = ["userNickname" : nickName ?? (userData?.userNickname ?? ""),
+                                       "userUniv" : univ ?? (userData?.userUniv ?? ""),
+                                       "userMajor" : major ?? (userData?.userMajor ?? ""),
+                                       "userStudentNum" : studentNumber ?? (userData?.userStudentNum ?? ""),
+                                       "userGrade" : grade ?? (userData?.userGrade ?? 1)]
+        
+        mypageService.requestUpdateUserInfo(bodyData: bodyData) { [weak self] result in
+            switch result {
+            case .success(let status):
+                DispatchQueue.main.async {
+                    switch status {
+                    case .processingSuccess:
+                        self?.uploadImage(self?.selectedImage)
+                    case .requestError:
+                        self?.simplerAlert(title: "학교와 학과의 형식이 일치하지 않습니다.")
+                        return
+                    case .dataBaseError:
+                        self?.simplerAlert(title: "database error")
+                        return
+                    default:
+                        return
+                    }
+                }
+            case .failed(let error):
+                print(error)
+                return
+            }
+        }
     }
+    
+    @objc func handleShowKeyboard(notification: NSNotification) {
+        
+        var indexPath = IndexPath()
+        
+        guard let tag = currentTextField?.tag else {
+            return
+        }
+        
+        switch tag {
+        case 0...3:
+            indexPath = IndexPath(item: tag, section: 0)
+        default:
+            indexPath = IndexPath(item: tag - 1, section: 0)
+        }
+        
+        let cell = settingCollectionView.cellForItem(at: indexPath)
+        
+        settingCollectionView.setContentOffset(CGPoint(x: 0,
+                                                       y: (cell?.frame.origin.y ?? 0) - 100),
+                                               animated: true)
+    }
+    
+    @objc func handleHideKeyboard(notification: NSNotification) {
+        settingCollectionView.setContentOffset(CGPoint(x: 0,
+                                                       y: 0),
+                                               animated: true)
+    }
+    
+    private func checkInformation() -> Bool {
+        guard nickName != ""
+            && univ != ""
+            && major != ""
+            && studentNumber != ""
+            && grade != nil else {
+                simplerAlert(title: "입력되지 않은 정보가 있습니다.")
+                return false
+        }
+        
+        guard isValidateNickName(nickName: nickName) else {
+            simplerAlert(title: "닉네임은 1~10자\n영문자, 한글, 숫자 조합을\n사용해주세요")
+            return false
+        }
+        
+        guard grade! >= 1 && grade! <= 5 else {
+            simplerAlert(title: "학년은 1~5학년 사이로 입력해주세요")
+            return false
+        }
+        
+        let currentDate = Date()
+        let year = Calendar.current.component(.year, from: currentDate)
+        
+        guard let admissionYear = Int(studentNumber ?? ""),
+            admissionYear >= 1990 && admissionYear <= year else {
+            simplerAlert(title: "입학년도가 잘못되었습니다.")
+            return false
+        }
+        
+        return true
+    }
+    
+    private func isValidateNickName(nickName: String?) -> Bool {
+        guard nickName != nil else { return false }
+        
+        let regEx = "^[a-zA-Z가-힣0-9]{1,10}$"
+        
+        let pred = NSPredicate(format: "SELF MATCHES %@", regEx)
+        
+        return pred.evaluate(with: nickName)
+    }
+//
+//    // MARK: - Save Image API
+//    private func saveImage(imageName: String, image: UIImage) {
+//
+//        guard let documentsDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first else { return }
+//
+//        let fileName = imageName
+//        let fileURL = documentsDirectory.appendingPathComponent(fileName)
+//        guard let data = image.jpegData(compressionQuality: 1) else { return }
+//
+//        //Checks if file exists, removes it if so.
+//        if FileManager.default.fileExists(atPath: fileURL.path) {
+//            do {
+//                try FileManager.default.removeItem(atPath: fileURL.path)
+//                print("Removed old image")
+//            } catch let removeError {
+//                print("couldn't remove file at path", removeError)
+//            }
+//        }
+//        do {
+//            try data.write(to: fileURL)
+//        } catch let error {
+//            print("error saving file with error", error)
+//        }
+//    }
 }
 
 extension AccountSettingViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
@@ -177,8 +418,6 @@ extension AccountSettingViewController: UIImagePickerControllerDelegate, UINavig
         }
         
         settingCollectionView.reloadSections([0])
-        
-        // 이미지 업로드 할것
     }
     
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
@@ -225,5 +464,44 @@ extension AccountSettingViewController: UITextFieldDelegate {
     
     func textFieldDidBeginEditing(_ textField: UITextField) {
         currentTextField = textField
+    }
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        switch textField.tag {
+        case 0:
+            nickName = textField.text
+        case 3:
+            univ = textField.text
+        case 4:
+            major = textField.text
+        case 5:
+            guard let gradeText = textField.text,
+                let gradeNumber = Int(gradeText) else {
+                    return
+            }
+            self.grade = gradeNumber
+        case 6:
+            studentNumber = textField.text
+        default:
+            break
+        }
+    }
+}
+
+extension AccountSettingViewController: UIGestureRecognizerDelegate {
+}
+
+extension AccountSettingViewController: PasswordDelegate {
+    func changePassword() {
+        guard userData?.signupType == 10 else {
+            simplerAlert(title: "카카오톡 로그인의 경우\n비밀번호 변경이 불가능합니다.")
+            return
+        }
+        
+        let storyboard = UIStoryboard(name: StoryBoardName.mypage, bundle: nil)
+        
+        let changePasswordVC = storyboard.instantiateViewController(withIdentifier: "ChangePasswordVC")
+    
+        navigationController?.pushViewController(changePasswordVC, animated: true)
     }
 }

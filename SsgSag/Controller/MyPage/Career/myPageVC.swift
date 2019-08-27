@@ -24,7 +24,7 @@ class myPageVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
     
     @IBOutlet weak var myPageTableView: UITableView!
     
-    static private let myImage: String = "myImage"
+    private var userInfo: UserInfoModel?
     
     lazy var imagePicker: UIImagePickerController = {
         let picker: UIImagePickerController = UIImagePickerController()
@@ -36,13 +36,15 @@ class myPageVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        navigationController?.navigationBar.isHidden = true
+        navigationController?.interactivePopGestureRecognizer?.delegate = nil
+        
         getData()
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        loadImage()
         setupTableView()
 
         profileImageView.applyRadius(radius: profileImageView.frame.height / 2)
@@ -54,179 +56,22 @@ class myPageVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
         myPageTableView.register(myPageMenuNib, forCellReuseIdentifier: "menuTableViewCell")
     }
     
-    private func loadImage() {
-        if let loadedImage = loadImageFromDiskWith(fileName: myPageVC.myImage) {
-            profileImageView.image = loadedImage
-        }
-    }
-    
     @IBAction func touchUpCancelButton(_ sender: UIButton) {
         dismiss(animated: true)
     }
     
     @IBAction func touchUpSettingButton(_ sender: UIButton) {
-        present(UINavigationController(rootViewController: AccountSettingViewController()), animated: true)
+        let accountSettingVC = AccountSettingViewController()
+        accountSettingVC.userData = userInfo
+        accountSettingVC.nickName = userInfo?.userNickname
+        accountSettingVC.univ = userInfo?.userUniv
+        accountSettingVC.major = userInfo?.userMajor
+        accountSettingVC.studentNumber = userInfo?.userStudentNum
+        accountSettingVC.grade = userInfo?.userGrade
+        accountSettingVC.selectedImage = profileImageView.image
+        accountSettingVC.delegate = self
+        present(UINavigationController(rootViewController: accountSettingVC), animated: true)
     }
-    
-    @IBAction func touchUpCameraButton(_ sender: UIButton) {
-        
-        let photoAuthorizationStatus = PHPhotoLibrary.authorizationStatus()
-        
-        switch photoAuthorizationStatus {
-        case .authorized:
-            self.present(self.imagePicker, animated: true, completion: nil)
-        case .denied, .restricted:
-            rePermission()
-            print("사진첩 접근 불허 ")
-        case .notDetermined:
-            print("접근 아직 응답하지 않음")
-            PHPhotoLibrary.requestAuthorization { status in
-                switch status {
-                case .authorized:
-                    print("사용자가 허용")
-                    self.present(self.imagePicker, animated: true, completion: nil)
-                case .denied:
-                    print("사용자가 불허")
-                default:
-                    break
-                }
-            }
-        }
-    }
-    
-    private func rePermission() {
-        let alertController = UIAlertController (title: "카메라 권한 설정", message: "세팅 하시겠습니까?", preferredStyle: .alert)
-        
-        let settingsAction = UIAlertAction(title: "세팅", style: .default) { (_) -> Void in
-            
-            guard let settingsUrl = URL(string: UIApplication.openSettingsURLString) else {
-                return
-            }
-            
-            if UIApplication.shared.canOpenURL(settingsUrl) {
-                UIApplication.shared.open(settingsUrl){ success in
-                    print("Settings opened: \(success)") // Prints true
-                }
-            }
-            
-        }
-        
-        alertController.addAction(settingsAction)
-        
-        let cancelAction = UIAlertAction(title: "취소", style: .default, handler: nil)
-        alertController.addAction(cancelAction)
-        
-        present(alertController, animated: true, completion: nil)
-    }
-    
-    // MARK: - Save Image API
-    func saveImage(imageName: String, image: UIImage) {
-        
-        guard let documentsDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first else { return }
-        
-        let fileName = imageName
-        let fileURL = documentsDirectory.appendingPathComponent(fileName)
-        guard let data = image.jpegData(compressionQuality: 1) else { return }
-        
-        //Checks if file exists, removes it if so.
-        if FileManager.default.fileExists(atPath: fileURL.path) {
-            do {
-                try FileManager.default.removeItem(atPath: fileURL.path)
-                print("Removed old image")
-            } catch let removeError {
-                print("couldn't remove file at path", removeError)
-            }
-        }
-        do {
-            try data.write(to: fileURL)
-        } catch let error {
-            print("error saving file with error", error)
-        }
-    }
-    
-    func loadImageFromDiskWith(fileName: String) -> UIImage? {
-        
-        let documentDirectory = FileManager.SearchPathDirectory.documentDirectory
-        
-        let userDomainMask = FileManager.SearchPathDomainMask.userDomainMask
-        let paths = NSSearchPathForDirectoriesInDomains(documentDirectory, userDomainMask, true)
-        
-        if let dirPath = paths.first {
-            let imageUrl = URL(fileURLWithPath: dirPath).appendingPathComponent(fileName)
-            let image = UIImage(contentsOfFile: imageUrl.path)
-            return image
-        }
-        
-        return nil
-    }
-    
-    
-    @objc func imagePickerController(_ picker: UIImagePickerController,
-                                     didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-        
-        var selectedImage: UIImage?
-        
-        if let editedImage: UIImage = info[.editedImage] as? UIImage {
-            selectedImage = editedImage
-            saveImage(imageName: myPageVC.myImage, image: editedImage)
-            self.profileImageView.image = selectedImage
-            picker.dismiss(animated: true, completion: nil)
-            
-        } else if let originalImage: UIImage = info[.originalImage] as? UIImage {
-            selectedImage = originalImage
-            self.profileImageView.image = selectedImage!
-            
-            picker.dismiss(animated: true, completion: nil)
-        }
-        
-        uploadImage(selectedImage)
-    }
-    
-    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
-        self.dismiss(animated: true, completion: nil)
-    }
-    
-    // MARK: - Network
-    private func uploadImage(_ selecteImage: UIImage?) {
-        
-        guard let url = UserAPI.sharedInstance.getURL("/user/photo") else {return}
-        
-        guard let sendImage = selecteImage else { return }
-        
-        guard let sendData = sendImage.jpegData(compressionQuality: 1) else {return}
-        
-        guard let token = KeychainWrapper.standard.string(forKey: TokenName.token) else { return }
-    
-        let boundary = generateBoundaryString()
-        
-        var request = URLRequest(url: url)
-        request.httpMethod = "POST"
-        request.addValue("multipart/form-data; boundary=\(boundary)", forHTTPHeaderField: "Content-Type")
-        request.addValue(token, forHTTPHeaderField: "Authorization")
-        request.httpBody = createBody(parameters: [:],
-                                      boundary: boundary,
-                                      data: sendData,
-                                      mimeType: "image/jpeg",
-                                      filename: "profile")
-        
-        NetworkManager.shared.getData(with: request) { (data, error, res) in
-            
-            guard let data = data else {
-                return
-            }
-            
-            do {
-                let status = try JSONDecoder().decode(BasicNetworkModel.self, from: data)
-                
-                //500번 서버 내부 에러 발생 하고 있음
-                print("Message!! \(status.message)")
-                
-            } catch {
-                print("upload data parsing error")
-            }
-        }
-    }
-    
     
     private func getData() {
         guard let url = UserAPI.sharedInstance.getURL("/user") else {return}
@@ -250,16 +95,36 @@ class myPageVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
             do {
                 let apiResponse = try JSONDecoder().decode(UserNetworkModel.self, from: data)
                 
+                self?.userInfo = apiResponse.data
+                
                 DispatchQueue.main.async {
                     self?.nameLabel.text = apiResponse.data?.userName
                     self?.idLabel.text = apiResponse.data?.userNickname
                     self?.majorLabel.text = apiResponse.data?.userMajor
                     self?.schoolLabel.text = apiResponse.data?.userUniv
+                    self?.requestImage()
+                    self?.view.layoutIfNeeded()
                 }
                 
             } catch (let err) {
                 print(err.localizedDescription)
             }
+        }
+    }
+    
+    private func requestImage() {
+        guard let urlString = userInfo?.userProfileUrl,
+            let url = URL(string: urlString) else {
+            return
+        }
+        
+        do {
+            let imageData = try Data(contentsOf: url)
+            
+            profileImageView.image = UIImage(data: imageData, scale: 0.5)
+        } catch let error {
+            print(error)
+            return
         }
     }
     
@@ -323,22 +188,29 @@ extension myPageVC: UITableViewDataSource {
         switch indexPath.row {
         case 0:
             // 나의 이력
-            let pushNavigationVC = storyboard.instantiateViewController(withIdentifier: "careerNavigationVC")
-            present(pushNavigationVC, animated: true)
+            let careerVC = storyboard.instantiateViewController(withIdentifier: "careerVC")
+            navigationController?.pushViewController(careerVC, animated: true)
         case 1:
             // 알림 설정
-            let pushNavigationVC = storyboard.instantiateViewController(withIdentifier: "pushAlarmNavigationVC")
-            present(pushNavigationVC, animated: true)
+            let pushAlarmVC = storyboard.instantiateViewController(withIdentifier: "pushAlarmVC")
+            navigationController?.pushViewController(pushAlarmVC, animated: true)
         case 2:
             // 공지사항
-            let noticeNavigationVC = storyboard.instantiateViewController(withIdentifier: "noticeNavigationVC")
-            present(noticeNavigationVC, animated: true)
+            let noticeVC = storyboard.instantiateViewController(withIdentifier: "noticeVC")
+            navigationController?.pushViewController(noticeVC, animated: true)
         case 3:
             // 문의하기
-            let inquireNavigationVC = storyboard.instantiateViewController(withIdentifier: "inquireNavigationVC")
-            present(inquireNavigationVC, animated: true)
+            let inquireVC = storyboard.instantiateViewController(withIdentifier: "inquireVC")
+            
+            navigationController?.pushViewController(inquireVC, animated: true)
         default:
             return
         }
+    }
+}
+
+extension myPageVC: UpdateDataDelegate {
+    func reloadUserData() {
+        getData()
     }
 }

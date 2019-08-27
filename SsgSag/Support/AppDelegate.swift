@@ -27,6 +27,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, MessagingDelegate ,UNUser
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
+        initUUID()
+        
         Messaging.messaging().isAutoInitEnabled = true
         
         FirebaseApp.configure()
@@ -52,6 +54,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate, MessagingDelegate ,UNUser
             application.registerUserNotificationSettings(settings)
         }
         
+        if #available(iOS 10, *) {
+            UNUserNotificationCenter.current().requestAuthorization(options:[.badge, .alert, .sound]){ (granted, error) in }
+            application.registerForRemoteNotifications()
+        } else {
+            UIApplication.shared.registerUserNotificationSettings(UIUserNotificationSettings(types: [.badge, .sound, .alert], categories: nil))
+            UIApplication.shared.registerForRemoteNotifications()
+        }
+        
         InstanceID.instanceID().instanceID { (result, error) in
             if let error = error {
                 print("Error fetching remote instance ID: \(error)")
@@ -64,11 +74,21 @@ class AppDelegate: UIResponder, UIApplicationDelegate, MessagingDelegate ,UNUser
         
         window = UIWindow(frame: UIScreen.main.bounds)
     
-        setWindowRootViewController()
+        let splashStoryBoard = UIStoryboard(name: "Splash", bundle: nil)
+        let splashVC = splashStoryBoard.instantiateViewController(withIdentifier: "splash")
+
+        window?.rootViewController = splashVC
 
         window?.makeKeyAndVisible()
         
         return true
+    }
+    
+    private func initUUID() {
+        guard let _ = KeychainWrapper.standard.string(forKey: "UUID") else {
+            KeychainWrapper.standard.set(UUID().uuidString, forKey: "UUID")
+            return
+        }
     }
     
     private func adBrixDefaultSetting() {
@@ -88,46 +108,30 @@ class AppDelegate: UIResponder, UIApplicationDelegate, MessagingDelegate ,UNUser
     }
     
     func application(_ application: UIApplication, open url: URL, sourceApplication: String?, annotation: Any) -> Bool {
-        if KOSession.handleOpen(url) {
-            return true
+        if KOSession.isKakaoAccountLoginCallback(url) {
+            return KOSession.handleOpen(url)
         }
+        
         return false
     }
     
     func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
         Messaging.messaging().apnsToken = deviceToken
-    }
-
-    private func setWindowRootViewController() {
-        if let isAutoLogin = UserDefaults.standard.object(forKey: UserDefaultsName.isAutoLogin) as? Bool {
-            if isAutoLogin {
-                if isTokenExist() {
-                    window?.rootViewController = TapbarVC()
-                } else {
-                    let loginStoryBoard = UIStoryboard(name: StoryBoardName.login, bundle: nil)
-                    let loginVC = loginStoryBoard.instantiateViewController(withIdentifier: "splashVC")
-                    
-                    window?.rootViewController = UINavigationController(rootViewController: loginVC)
-                }
-            } else {
-                let loginStoryBoard = UIStoryboard(name: StoryBoardName.login, bundle: nil)
-                let loginVC = loginStoryBoard.instantiateViewController(withIdentifier: "splashVC")
-                
-                window?.rootViewController = UINavigationController(rootViewController: loginVC)
-            }
-        } else {
-            let loginStoryBoard = UIStoryboard(name: StoryBoardName.login, bundle: nil)
-            let loginVC = loginStoryBoard.instantiateViewController(withIdentifier: "splashVC")
-            window?.rootViewController = UINavigationController(rootViewController: loginVC)
-        }
+        
+        // Convert token to string (디바이스 토큰 값을 가져옵니다.)
+        let deviceTokenString = deviceToken.reduce("", {$0 + String(format: "%02X", $1)})
+        
+        // Print it to console(토큰 값을 콘솔창에 보여줍니다. 이 토큰값으로 푸시를 전송할 대상을 정합니다.)
+        print("APNs device token: \(deviceTokenString)")
+        
+        // Persist it in your backend in case it's new
+        
     }
     
-    private func isTokenExist() -> Bool {
-        if KeychainWrapper.standard.string(forKey: TokenName.token) != nil {
-            return true
-        } else {
-            return false
-        }
+    // Called when APNs failed to register the device for push notifications
+    func application(_ application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: Error) {
+        // Print the error to console (you should alert the user that registration failed)
+        print("APNs registration failed: \(error)")
     }
     
     private func naverLogin() {
@@ -208,28 +212,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate, MessagingDelegate ,UNUser
     }
     
     func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any]) -> Bool {
-        //NaverThirdPartyLoginConnection.getSharedInstance()?.application(app, open: url, options: options)
-        
-        var naverSignInResult = false
-        
-        if url.scheme == kServiceAppUrlScheme {
-            if url.host == kCheckResultPage {
-                let loginConn = NaverThirdPartyLoginConnection.getSharedInstance()
-                let resultType = loginConn?.receiveAccessToken(url)
-                
-                if resultType == SUCCESS {
-                    naverSignInResult = true
-                }
-            }
+        if KOSession.isKakaoAccountLoginCallback(url) {
+            return KOSession.handleOpen(url)
         }
         
-        return naverSignInResult
-//
-//        if KOSession.handleOpen(url) {
-//            return true
-//        }
-//
-//        return false
+        return false
     }
     
     func application(_ application: UIApplication, handleOpen url: URL) -> Bool {
@@ -306,6 +293,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate, MessagingDelegate ,UNUser
         // Print message ID.
         
         // Print full message.
+        
+        // Print notification payload data (푸시 데이터로 받은 것을 보여줍니다.)
+        print("Push notification received: \(userInfo)")
+        
         print(userInfo)
     }
     

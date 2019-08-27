@@ -7,9 +7,9 @@ struct Career: Codable {
 }
 
 struct careerData: Codable {
-    let careerIdx, userIdx, careerType: Int
-    let careerName, careerContent, careerDate1: String
-    let careerRegDate: String
+    let careerIdx, userIdx, careerType: Int?
+    let careerName, careerContent, careerDate1: String?
+    let careerRegDate: String?
     let careerDate2: String?
 }
 

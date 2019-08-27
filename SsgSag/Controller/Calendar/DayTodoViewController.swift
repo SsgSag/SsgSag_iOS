@@ -13,12 +13,16 @@ class DayTodoViewController: UIViewController {
     lazy var pagingCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
+        layout.minimumLineSpacing = 15
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         collectionView.delegate = self
         collectionView.dataSource = self
         collectionView.backgroundColor = .clear
+        collectionView.showsVerticalScrollIndicator = false
+        collectionView.showsHorizontalScrollIndicator = false
         collectionView.contentInset = UIEdgeInsets(top: 0, left: 25, bottom: 0, right: 25)
+        collectionView.decelerationRate = UIScrollView.DecelerationRate.fast
         return collectionView
     }()
     
@@ -27,12 +31,11 @@ class DayTodoViewController: UIViewController {
     private var sortedTodoDatas: [[CalendarData]] = []
     private var totalTodoDatas: [[CalendarData]] = []
     var dataPointer = 0
+    var callback: (()->())?
     
     private let calendar = Calendar.current
     private let calendarServiceImp: CalendarService
         = DependencyContainer.shared.getDependency(key: .calendarService)
-    
-    lazy var layout = self.pagingCollectionView.collectionViewLayout as! UICollectionViewFlowLayout
     
     private var indexOfCellBeforeDragging = 0
     
@@ -53,12 +56,29 @@ class DayTodoViewController: UIViewController {
         pagingCollectionView.prefetchDataSource = self
     }
     
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        
+        if totalTodoDatas.count > 0 {
+            guard let currentDate = currentDate else {
+                return
+            }
+            
+            let day = calendar.component(.day, from: currentDate)
+            
+            pagingCollectionView.scrollToItem(at: IndexPath(item: day - 1,
+                                                            section: 0),
+                                              at: .centeredHorizontally,
+                                              animated: false)
+        }
+    }
+    
     private func setupRequestDate() {
         guard let currentDate = currentDate else { return }
         
         requestData(right: true, currentDate)
         
-        requestOtherMonth(currentDate: currentDate)
+//        requestOtherMonth(currentDate: currentDate)
     }
     
     private func requestOtherMonth(currentDate: Date) {
@@ -129,7 +149,8 @@ class DayTodoViewController: UIViewController {
         let year = calendar.component(.year, from: date)
         let month = calendar.component(.month, from: date)
         
-        calendarServiceImp.requestMonthTodoList(year: String(year), month: String(month)) { [weak self] dataResponse in
+        calendarServiceImp.requestMonthTodoList(year: String(year),
+                                                month: String(month)) { [weak self] dataResponse in
             guard let self = self else {
                 return
             }
@@ -152,7 +173,7 @@ class DayTodoViewController: UIViewController {
                     if right {
                         self.pagingCollectionView.reloadData()
                     } else {
-                        self.reloadDataAndKeepOffset()
+//                        self.reloadDataAndKeepOffset()
                     }
                 }
             case .failed(let error):
@@ -166,6 +187,10 @@ class DayTodoViewController: UIViewController {
         let startIndex = totalTodoDatas.count - newArtworks.count
         let endIndex = startIndex + newArtworks.count
         return (startIndex..<endIndex).map { IndexPath(row: $0, section: 0) }
+    }
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        dismissDayTodoViewController()
     }
     
     private func makeSortedTodoDatas(date: Date) {
@@ -188,6 +213,11 @@ class DayTodoViewController: UIViewController {
             guard let posterEndDate = todoData.posterEndDate else { return }
             let endDate = DateCaculate.stringToDateWithGenericFormatter(using: posterEndDate)
             let day = calendar.component(.day, from: endDate)
+            
+            if endDate < previousDate {
+                sortedTodoDatas[day-1][0].todoData.append(todoData)
+                continue
+            }
             
             if previousDay + 1 < day {
                 for numberOfDays in 1..<day - previousDay {
@@ -234,85 +264,54 @@ class DayTodoViewController: UIViewController {
             y: pagingCollectionView.contentOffset.y + (afterContentSize.height - beforeContentSize.height))
         pagingCollectionView.setContentOffset(newOffset, animated: false)
     }
-    
-    private func indexOfMajorCell() -> Int {
-        let itemWidth = view.frame.width - 50
-        let proportionalOffset = layout.collectionView!.contentOffset.x / itemWidth
-        let index = Int(round(proportionalOffset))
-        let safeIndex = max(0, min(sortedTodoDatas.count - 1, index))
-        return safeIndex
-    }
-    
-    func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
-        indexOfCellBeforeDragging = indexOfMajorCell()
-    }
-    
+//
+//    private func indexOfMajorCell() -> Int {
+//        let itemWidth = view.frame.width - 50
+//        let proportionalOffset = layout.collectionView!.contentOffset.x / itemWidth
+//        let index = Int(round(proportionalOffset))
+//        let safeIndex = max(0, min(sortedTodoDatas.count - 1, index))
+//        return safeIndex
+//    }
+//
+//    func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+//        indexOfCellBeforeDragging = indexOfMajorCell()
+//    }
+//
     func scrollViewWillEndDragging(_ scrollView: UIScrollView,
                                    withVelocity velocity: CGPoint,
                                    targetContentOffset: UnsafeMutablePointer<CGPoint>) {
-//        // Stop scrollView sliding:
-//        // targetContentOffset : 스크롤 속도가 줄어들어 정지될 때 예상되는 위치
-//        targetContentOffset.pointee = scrollView.contentOffset
-//
-//        // endDragging 했을 때 index
-//        let indexOfMajorCell = self.indexOfMajorCell()
-//
-//        // swipe 시킬 속도
-//        let swipeVelocityThreshold: CGFloat = 0.5 // after some trail and error
-//
-//        let hasEnoughVelocityToSlideToTheNextCell
-//            = indexOfCellBeforeDragging + 1 < sortedTodoDatas.count
-//                && velocity.x > swipeVelocityThreshold
-//
-//        let hasEnoughVelocityToSlideToThePreviousCell
-//            = indexOfCellBeforeDragging - 1 >= 0
-//                && velocity.x < -swipeVelocityThreshold
-//
-//        let majorCellIsTheCellBeforeDragging = indexOfMajorCell == indexOfCellBeforeDragging
-//
-//        // 스와이프 했는지 여부
-//        let didUseSwipeToSkipCell
-//            = majorCellIsTheCellBeforeDragging
-//                && (hasEnoughVelocityToSlideToTheNextCell || hasEnoughVelocityToSlideToThePreviousCell)
-//
-//        let didSwipeToRight = indexOfMajorCell > indexOfCellBeforeDragging
-//
-//        var indexPath = IndexPath()
-//
-//        if didUseSwipeToSkipCell {
-//
-//            if hasEnoughVelocityToSlideToTheNextCell {
-//                indexPath = IndexPath(row: indexOfMajorCell + 1, section: 0)
-//                pagingCollectionView.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: true)
-//            } else {
-//                indexPath = IndexPath(row: indexOfMajorCell - 1, section: 0)
-//                pagingCollectionView.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: true)
-//            }
-//
-//        } else {
-//            indexPath = IndexPath(row: indexOfMajorCell, section: 0)
-//
-//            pagingCollectionView.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: true)
-//        }
         
-//        guard let currentIndexPath
-//            = pagingCollectionView.indexPathForItem(at: CGPoint(x: view.frame.midX + scrollView.contentOffset.x,
-//                                                                y: view.frame.midY)) else {
-//                                                                    return
-//        }
-//
-//        dataPointer = currentIndexPath.item
-//
-//        print(dataPointer)
-//
-//        mutableData = totalTodoDatas[dataPointer]
-//
-//        guard let cell = pagingCollectionView.cellForItem(at: indexPath) as? TodoListCollectionViewCell else {
-//            return
-//        }
-//
-//        cell.todoListTableView.reloadData()
+        // targetContentOffset: 감속되었을 때 예상 정지 위치
         
+        // item의 사이즈와 item 간의 간격 사이즈를 구해서 하나의 item 크기로 설정.
+        let layout = pagingCollectionView.collectionViewLayout as! UICollectionViewFlowLayout
+        let cellWidthIncludingSpacing = (view.frame.width - 50) + layout.minimumLineSpacing
+        
+        // targetContentOff을 이용하여 x좌표가 얼마나 이동했는지 확인
+        // 이동한 x좌표 값과 item의 크기를 비교하여 몇 페이징이 될 것인지 값 설정
+        var offset = targetContentOffset.pointee
+        let index = (offset.x + scrollView.contentInset.left) / cellWidthIncludingSpacing
+        var roundedIndex = round(index)
+        
+        // 왼쪽 스크롤
+        if scrollView.contentOffset.x > targetContentOffset.pointee.x {
+            roundedIndex = floor(index)
+        } else {
+            // 오른쪽 스크롤
+            roundedIndex = ceil(index)
+        }
+        
+        // 위 코드를 통해 페이징 될 좌표값을 targetContentOffset에 대입하면 된다.
+        offset = CGPoint(x: roundedIndex * cellWidthIncludingSpacing - scrollView.contentInset.left,
+                         y: -scrollView.contentInset.top)
+        targetContentOffset.pointee = offset
+        
+    }
+    
+    private func dismissDayTodoViewController() {
+        callback?()
+        presentingViewController?.tabBarController?.tabBar.isHidden = false
+        dismiss(animated: false)
     }
     
 }
@@ -336,6 +335,7 @@ extension DayTodoViewController: UICollectionViewDataSource {
             return .init()
         }
         
+        cell.controller = self
         let day = calendar.component(.day, from: totalTodoDatas[indexPath.item][0].date)
         
 //        if day == 1 || day == totalTodoDatas[indexPath.item][0].date.getDaysInMonth() {
@@ -345,8 +345,6 @@ extension DayTodoViewController: UICollectionViewDataSource {
         let dateFormatter = DateFormatter.dateFormatterWithKoreanDay
         let dateString = dateFormatter.string(from: totalTodoDatas[indexPath.item][0].date)
         
-        print(dateString)
-
         cell.delegate = self
         cell.pushDelegate = self
         cell.dateLabel.text = dateString
@@ -355,10 +353,6 @@ extension DayTodoViewController: UICollectionViewDataSource {
         cell.monthTodoData = totalTodoDatas[indexPath.item][0].todoData
         
         return cell
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        
     }
     
 }
@@ -389,13 +383,30 @@ extension DayTodoViewController: UICollectionViewDataSourcePrefetching {
 
 extension DayTodoViewController: dismissDelegate {
     func touchUpCancelButton() {
-        presentingViewController?.tabBarController?.tabBar.isHidden = false
-        dismiss(animated: false)
+        dismissDayTodoViewController()
     }
 }
 
 extension DayTodoViewController: PushDelegate {
-    func pushViewController(_ controller: UIViewController) {
+    func pushViewController(_ controller: UIViewController, _ favoriteButton: UIButton) {
+        guard let controller = controller as? DetailInfoViewController else {
+            return
+        }
+        
+        controller.callback = { [weak self] isFavorite in
+            if isFavorite == 1 {
+                favoriteButton.setImage(UIImage(named: "ic_favorite"), for: .normal)
+            } else {
+                favoriteButton.setImage(UIImage(named: "ic_favoritePassive"), for: .normal)
+            }
+        }
         navigationController?.pushViewController(controller, animated: true)
+    }
+}
+
+extension DayTodoViewController: ChangeTabbarItemDelegate {
+    func moveToSwipe() {
+        dismiss(animated: false)
+        presentingViewController?.tabBarController?.selectedIndex = 1
     }
 }

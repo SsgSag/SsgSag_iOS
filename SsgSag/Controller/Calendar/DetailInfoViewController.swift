@@ -7,24 +7,31 @@
 //
 
 import UIKit
+import SwiftKeychainWrapper
 
 class DetailInfoViewController: UIViewController {
 
+    private var safeAreaViewBottomConstraint = NSLayoutConstraint()
+    
     private var posterServiceImp: PosterService
         = DependencyContainer.shared.getDependency(key: .posterService)
     
     private var commentServiceImp: CommentService
         = DependencyContainer.shared.getDependency(key: .commentService)
     
+    var currentTextField: UITextField?
+    var callback: ((Int) -> ())?
     var posterIdx: Int?
     var posterDetailData: DataClass?
-    var isFolding: Bool = false
+    private var isFolding: Bool = false
+    private var columnData: [Column]?
+    
+    let downloadLink = "https://ssgsag.page.link/install"
     
     private lazy var infoCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.minimumInteritemSpacing = 0
         layout.minimumLineSpacing = 0
-//        layout.sectionFootersPinToVisibleBounds = true
         let collectionView = UICollectionView(frame: .zero,
                                               collectionViewLayout: layout)
         collectionView.translatesAutoresizingMaskIntoConstraints = false
@@ -46,6 +53,12 @@ class DetailInfoViewController: UIViewController {
     lazy var buttonsView: DetailInfoButtonsView = {
         let view = DetailInfoButtonsView()
         view.delegate = self
+        view.commentDelegate = self
+        view.commentTextField.delegate = self
+        view.callback = { [weak self] in
+            self?.isFolding = true
+            self?.requestDatas(section: 0)
+        }
         return view
     }()
     
@@ -53,7 +66,7 @@ class DetailInfoViewController: UIViewController {
         let barButton = UIBarButtonItem(title: "공유",
                                         style: .plain,
                                         target: self,
-                                        action: nil)
+                                        action: #selector(touchUpShareButton))
         barButton.tintColor = #colorLiteral(red: 0.4603668451, green: 0.5182471275, blue: 1, alpha: 1)
         return barButton
     }()
@@ -62,11 +75,21 @@ class DetailInfoViewController: UIViewController {
         super.viewWillAppear(animated)
         
         setupNavigationBar()
+        navigationController?.interactivePopGestureRecognizer?.delegate = self
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(handleShowKeyboard),
+                                               name: UIWindow.keyboardWillShowNotification,
+                                               object: nil)
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(handleHideKeyboard),
+                                               name: UIWindow.keyboardWillHideNotification,
+                                               object: nil)
+        
         requestDatas()
         setupLayout()
         setupCollectionView()
@@ -96,19 +119,39 @@ class DetailInfoViewController: UIViewController {
         navigationItem.rightBarButtonItem = shareBarButton
     }
     
-    private func requestDatas() {
+    private func requestDatas(section: Int? = nil) {
         guard let posterIdx = posterIdx else { return }
         
         posterServiceImp.requestPosterDetail(posterIdx: posterIdx) { [weak self] response in
             switch response {
             case .success(let detailData):
                 self?.posterDetailData = detailData
+                self?.buttonsView.posterIndex = posterIdx
+                self?.buttonsView.isLike = detailData.isFavorite
+                self?.buttonsView.isExistApplyURL = detailData.posterWebSite2 != nil ? true : false
+                
+                if detailData.categoryIdx == 3 || detailData.categoryIdx == 5 {
+                    guard let columnJson = detailData.outline,
+                        let data = columnJson.data(using: .utf8) else {
+                            return
+                    }
+                    
+                    do {
+                        self?.columnData = try JSONDecoder().decode([Column].self,
+                                                                    from: data)
+                    } catch let error {
+                        print(error)
+                        return
+                    }
+                }
                 
                 DispatchQueue.main.async {
-                    self?.buttonsView.posterIndex = posterIdx
-                    self?.buttonsView.isLike = detailData.isFavorite
-                    self?.buttonsView.isExistApplyURL = detailData.posterWebSite2 != nil ? true : false
-                    self?.infoCollectionView.reloadData()
+                    guard let section = section else {
+                        self?.infoCollectionView.reloadData()
+                        return
+                    }
+                    
+                    self?.infoCollectionView.reloadSections(IndexSet(integer: section))
                 }
             case .failed(let error):
                 assertionFailure(error.localizedDescription)
@@ -139,9 +182,12 @@ class DetailInfoViewController: UIViewController {
         buttonsView.trailingAnchor.constraint(
             equalTo: view.safeAreaLayoutGuide.trailingAnchor).isActive = true
         buttonsView.heightAnchor.constraint(
-            equalToConstant: 46).isActive = true
+            equalToConstant: 93).isActive = true
         buttonsView.bottomAnchor.constraint(
-            equalTo: view.safeAreaLayoutGuide.bottomAnchor).isActive = true
+            equalTo: safeAreaView.topAnchor).isActive = true
+        
+        safeAreaViewBottomConstraint = safeAreaView.bottomAnchor.constraint(
+            equalTo:view.bottomAnchor)
         
         safeAreaView.topAnchor.constraint(
             equalTo: view.safeAreaLayoutGuide.bottomAnchor).isActive = true
@@ -149,8 +195,7 @@ class DetailInfoViewController: UIViewController {
             equalTo: view.safeAreaLayoutGuide.leadingAnchor).isActive = true
         safeAreaView.trailingAnchor.constraint(
             equalTo: view.safeAreaLayoutGuide.trailingAnchor).isActive = true
-        safeAreaView.bottomAnchor.constraint(
-            equalTo:view.bottomAnchor).isActive = true
+        safeAreaViewBottomConstraint.isActive = true
     }
 
     private func setupCollectionView() {
@@ -177,6 +222,8 @@ class DetailInfoViewController: UIViewController {
                                     withReuseIdentifier: "tempFooter")
         
         // cell
+        infoCollectionView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "tempCell")
+        
         let detailImgNib = UINib(nibName: "DetailImageCollectionViewCell", bundle: nil)
         
         infoCollectionView.register(detailImgNib, forCellWithReuseIdentifier: "detailImgCellID")
@@ -205,10 +252,18 @@ class DetailInfoViewController: UIViewController {
         
         infoCollectionView.register(commentWriteNib, forCellWithReuseIdentifier: "commentWriteCellID")
         
+        let hideNib = UINib(nibName: "HideAnalyticsCommentsCollectionViewCell", bundle: nil)
+        
+        infoCollectionView.register(hideNib, forCellWithReuseIdentifier: "hideAnalyticsCommentsCell")
+        
+        let noCommentNib = UINib(nibName: "NoCommentCollectionViewCell", bundle: nil)
+        
+        infoCollectionView.register(noCommentNib, forCellWithReuseIdentifier: "noCommentCell")
+        
     }
 
-    func estimatedFrame(text: String, font: UIFont) -> CGRect {
-        let size = CGSize(width: view.frame.width - 75, height: 1000) // temporary size
+    func estimatedFrame(width: CGFloat, text: String, font: UIFont) -> CGRect {
+        let size = CGSize(width: width, height: 1000) // temporary size
         let options = NSStringDrawingOptions.usesFontLeading.union(.usesLineFragmentOrigin)
         
         return NSString(string: text).boundingRect(with: size,
@@ -218,17 +273,55 @@ class DetailInfoViewController: UIViewController {
     }
     
     @objc private func touchUpBackButton() {
+        callback?(buttonsView.isLike ?? 0)
         navigationController?.popViewController(animated: true)
     }
     
-    private func scrollToBottom(){
+    // MARK: - 공유 버튼
+    @objc func touchUpShareButton(){
+        UIGraphicsBeginImageContext(view.frame.size)
+        view.layer.render(in: UIGraphicsGetCurrentContext()!)
         
-        let indexPath = IndexPath(item: infoCollectionView.numberOfItems(inSection: 0) - 1,
-                                  section: 0)
+        var objectsToshare: [Any] = []
         
-        infoCollectionView.scrollToItem(at: indexPath, at: .bottom, animated: true)
+        objectsToshare.append("슥삭 다운로드 링크")
+        objectsToshare.append("\(downloadLink)\n")
         
+        guard let posterName = posterDetailData?.posterName,
+            let posterWebSiteURL = posterDetailData?.posterWebSite else {
+                addObjects(with: objectsToshare)
+                return
+        }
+        
+        objectsToshare.append(posterName)
+        objectsToshare.append(posterWebSiteURL)
+        
+        addObjects(with: objectsToshare)
     }
+    
+    @objc func handleShowKeyboard(notification: NSNotification) {
+        guard let keyboardFrame
+            = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey]
+                as? CGRect else {
+                    return
+        }
+
+        safeAreaViewBottomConstraint.constant = -keyboardFrame.height
+        self.view.layoutIfNeeded()
+    }
+    
+    @objc func handleHideKeyboard(notification: NSNotification) {
+        safeAreaViewBottomConstraint.constant = 0
+        self.view.layoutIfNeeded()
+    }
+    
+    private func addObjects(with objectsToshare: [Any]) {
+        let activityVC = UIActivityViewController(activityItems: objectsToshare, applicationActivities: nil)
+        activityVC.excludedActivityTypes = [UIActivity.ActivityType.airDrop, UIActivity.ActivityType.addToReadingList]
+        activityVC.popoverPresentationController?.sourceView = view
+        self.present(activityVC, animated: true, completion: nil)
+    }
+    
 }
 
 extension DetailInfoViewController: UICollectionViewDelegate {
@@ -236,76 +329,183 @@ extension DetailInfoViewController: UICollectionViewDelegate {
 }
 
 extension DetailInfoViewController: UICollectionViewDataSource {
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
+        
+        guard let isTryWithoutLogin = UserDefaults.standard.object(forKey: "isTryWithoutLogin") as? Bool else {
+            return .init()
+        }
+        
+        if isTryWithoutLogin {
+            return 1
+        }
+        
+        return 3
+    }
+    
     func collectionView(_ collectionView: UICollectionView,
                         numberOfItemsInSection section: Int) -> Int {
-        return 8 + (posterDetailData?.commentList?.count ?? 0)
+        switch section {
+        case 0:
+            return 6
+        case 1:
+            return 1
+        case 2:
+            return posterDetailData?.commentList?.count != 0 ? (posterDetailData?.commentList?.count ?? 0) : 1
+        default:
+            return 0
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView,
                         cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        switch indexPath.item {
+        guard let categoryIdx = posterDetailData?.categoryIdx else {
+            return collectionView.dequeueReusableCell(withReuseIdentifier: "tempCell", for: indexPath)
+        }
+        
+        let infoTitles = titleStringByCategory(categoryIdx: categoryIdx)
+        
+        switch indexPath.section {
         case 0:
-            guard let cell
-                = collectionView.dequeueReusableCell(withReuseIdentifier: "detailImgCellID",
-                                                     for: indexPath) as? DetailImageCollectionViewCell else {
-                                                        return .init()
+            switch indexPath.item {
+            case 0:
+                guard let cell
+                    = collectionView.dequeueReusableCell(withReuseIdentifier: "detailImgCellID",
+                                                         for: indexPath) as? DetailImageCollectionViewCell else {
+                                                            return .init()
+                }
+                
+                return cell
+            case 1:
+                guard let cell
+                    = collectionView.dequeueReusableCell(withReuseIdentifier: "detailInfoCellID",
+                                                         for: indexPath) as? DetailInfoCollectionViewCell else {
+                                                            return .init()
+                }
+                
+                if columnData?.count ?? 3 < 1 {
+                    return cell
+                }
+                
+                if categoryIdx == 3 || categoryIdx == 5 {
+                    cell.configure(titleString: columnData?[0].columnName ?? "",
+                                   detailString: columnData?[0].columnContent ?? "")
+                } else if posterDetailData?.categoryIdx == 8 {
+                    cell.configure(titleString: infoTitles[0],
+                                   detailString: posterDetailData?.benefit ?? "")
+                } else {
+                    cell.configure(titleString: infoTitles[0],
+                                   detailString: posterDetailData?.outline ?? "")
+                }
+                
+                return cell
+            case 2:
+                guard let cell
+                    = collectionView.dequeueReusableCell(withReuseIdentifier: "detailInfoCellID",
+                                                         for: indexPath) as? DetailInfoCollectionViewCell else {
+                                                            return .init()
+                }
+                
+                if columnData?.count ?? 3 < 2 {
+                    return cell
+                }
+                
+                if categoryIdx == 3 || categoryIdx == 5 {
+                    cell.configure(titleString: columnData?[1].columnName ?? "",
+                                   detailString: columnData?[1].columnContent ?? "")
+                } else if posterDetailData?.categoryIdx == 2 || posterDetailData?.categoryIdx == 6 {
+                    cell.configure(titleString: infoTitles[1],
+                                   detailString: posterDetailData?.period ?? "")
+                } else {
+                    cell.configure(titleString: infoTitles[1],
+                                   detailString: posterDetailData?.target ?? "")
+                }
+                return cell
+            case 3:
+                guard let cell
+                    = collectionView.dequeueReusableCell(withReuseIdentifier: "detailInfoCellID",
+                                                         for: indexPath) as? DetailInfoCollectionViewCell else {
+                                                            return .init()
+                }
+                
+                if columnData?.count ?? 3 < 3 {
+                    return cell
+                }
+                
+                if categoryIdx == 3 || categoryIdx == 5 {
+                    cell.configure(titleString: columnData?[2].columnName ?? "",
+                                   detailString: columnData?[2].columnContent ?? "")
+                } else if posterDetailData?.categoryIdx == 7 {
+                    cell.configure(titleString: infoTitles[2],
+                                   detailString: posterDetailData?.period ?? "")
+                } else if posterDetailData?.categoryIdx == 8 {
+                    cell.configure(titleString: infoTitles[2],
+                                   detailString: posterDetailData?.outline ?? "")
+                } else {
+                    cell.configure(titleString: infoTitles[2],
+                                   detailString: posterDetailData?.benefit ?? "")
+                }
+                
+                return cell
+            case 4:
+                guard let cell
+                    = collectionView.dequeueReusableCell(withReuseIdentifier: "contactInfoCellID",
+                                                         for: indexPath) as? ContactInfoCollectionViewCell else {
+                                                            return .init()
+                }
+                
+                cell.configure(phoneNumber: posterDetailData?.partnerPhone ?? "", email: posterDetailData?.partnerEmail ?? "")
+                
+                return cell
+            case 5:
+                guard let cell
+                    = collectionView.dequeueReusableCell(withReuseIdentifier: "seeMoreCellID",
+                                                         for: indexPath) as? SeeMoreCollectionViewCell else {
+                                                            return .init()
+                }
+                
+                cell.configure(contents: posterDetailData?.posterDetail ?? "")
+                
+                return cell
+            default:
+                return .init()
             }
-            
-            return cell
         case 1:
-            guard let cell
-                = collectionView.dequeueReusableCell(withReuseIdentifier: "detailInfoCellID",
-                                                     for: indexPath) as? DetailInfoCollectionViewCell else {
-                                                        return .init()
+            guard let isTryWithoutLogin = UserDefaults.standard.object(forKey: "isTryWithoutLogin") as? Bool else {
+                return .init()
             }
             
-            cell.configure(titleString: "항목",
-                           detailString: posterDetailData?.outline ?? "")
-            
-            return cell
-        case 2:
-            guard let cell
-                = collectionView.dequeueReusableCell(withReuseIdentifier: "detailInfoCellID",
-                                                     for: indexPath) as? DetailInfoCollectionViewCell else {
-                                                        return .init()
+            if isTryWithoutLogin {
+                guard let cell
+                    = collectionView.dequeueReusableCell(withReuseIdentifier: "hideAnalyticsCommentsCell",
+                                                         for: indexPath) as? HideAnalyticsCommentsCollectionViewCell else {
+                                                            return .init()
+                }
+                
+                cell.callBack = {
+                    KeychainWrapper.standard.removeObject(forKey: TokenName.token)
+                    
+                    guard let window = UIApplication.shared.keyWindow else {
+                        return
+                    }
+                    
+                    let mainStoryboard: UIStoryboard = UIStoryboard(name: "LoginStoryBoard", bundle: nil)
+                    let viewController = mainStoryboard.instantiateViewController(withIdentifier: "splashVC") as! SplashViewController
+                    
+                    let rootNavigationController = UINavigationController(rootViewController: viewController)
+                    
+                    let appDelegate = UIApplication.shared.delegate as! AppDelegate
+                    appDelegate.window?.rootViewController = rootNavigationController
+                    
+                    rootNavigationController.view.layoutIfNeeded()
+                    
+                    UIView.transition(with: window, duration: 0.5, options: .transitionFlipFromLeft, animations: {
+                        window.rootViewController = rootNavigationController
+                    }, completion: nil)
+                }
+                
+                return cell
             }
             
-            cell.configure(titleString: "항목",
-                           detailString: posterDetailData?.target ?? "")
-            
-            return cell
-        case 3:
-            guard let cell
-                = collectionView.dequeueReusableCell(withReuseIdentifier: "detailInfoCellID",
-                                                     for: indexPath) as? DetailInfoCollectionViewCell else {
-                                                        return .init()
-            }
-            
-            cell.configure(titleString: "항목",
-                           detailString: posterDetailData?.benefit ?? "")
-            
-            return cell
-        case 4:
-            guard let cell
-                = collectionView.dequeueReusableCell(withReuseIdentifier: "contactInfoCellID",
-                                                     for: indexPath) as? ContactInfoCollectionViewCell else {
-                                                        return .init()
-            }
-            
-            cell.configure(phoneNumber: posterDetailData?.partnerPhone ?? "", email: posterDetailData?.partnerEmail ?? "")
-            
-            return cell
-        case 5:
-            guard let cell
-                = collectionView.dequeueReusableCell(withReuseIdentifier: "seeMoreCellID",
-                                                     for: indexPath) as? SeeMoreCollectionViewCell else {
-                                                        return .init()
-            }
-            
-            cell.configure(contents: posterDetailData?.posterDetail ?? "")
-            
-            return cell
-        case 6:
             guard let cell
                 = collectionView.dequeueReusableCell(withReuseIdentifier: "analyticsCellID",
                                                      for: indexPath) as? AnalysticsCollectionViewCell else {
@@ -315,24 +515,23 @@ extension DetailInfoViewController: UICollectionViewDataSource {
             cell.configure(analyticsData: posterDetailData?.analytics)
             
             return cell
-        case 8 + (posterDetailData?.commentList?.count ?? 0) - 1:
-            guard let cell
-                = collectionView.dequeueReusableCell(withReuseIdentifier: "commentWriteCellID",
-                                                     for: indexPath) as? CommentWriteCollectionViewCell else {
-                                                        return .init()
-            }
-            
-            cell.delegate = self
-            
-            return cell
         default:
+            if posterDetailData?.commentList?.count == 0 {
+                guard let cell
+                    = collectionView.dequeueReusableCell(withReuseIdentifier: "noCommentCell",
+                                                         for: indexPath) as? NoCommentCollectionViewCell else {
+                                                            return .init()
+                }
+                
+                return cell
+            }
             guard let cell
                 = collectionView.dequeueReusableCell(withReuseIdentifier: "commentCellID",
                                                      for: indexPath) as? CommentCollectionViewCell else {
                                                         return .init()
             }
             
-            guard let comment = posterDetailData?.commentList?[indexPath.item - 7] else {
+            guard let comment = posterDetailData?.commentList?[indexPath.item] else {
                 return cell
             }
             
@@ -347,13 +546,19 @@ extension DetailInfoViewController: UICollectionViewDataSource {
                         viewForSupplementaryElementOfKind kind: String,
                         at indexPath: IndexPath) -> UICollectionReusableView {
         if kind == UICollectionView.elementKindSectionHeader {
+            guard indexPath.section == 0 else {
+                return collectionView.dequeueReusableSupplementaryView(ofKind: kind,
+                                                                       withReuseIdentifier: "tempHeader",
+                                                                       for: indexPath)
+            }
             guard let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "posterHeaderID", for: indexPath) as? PosterHeaderCollectionReusableView else {
                 return collectionView.dequeueReusableSupplementaryView(ofKind: kind,
                                                                        withReuseIdentifier: "tempHeader",
                                                                        for: indexPath)
             }
             
-            header.configure(data: posterDetailData)
+            header.delegate = self
+            header.detailData = posterDetailData
             
             if let photoURL = posterDetailData?.photoUrl {
                 if let url = URL(string: photoURL){
@@ -367,31 +572,35 @@ extension DetailInfoViewController: UICollectionViewDataSource {
             
             return header
         } else {
-//            guard let footer = collectionView.dequeueReusableSupplementaryView(ofKind: kind,
-//                                                                               withReuseIdentifier: "posterFooterID",
-//                                                                               for: indexPath) as? PosterFooterCollectionReusableView else {
                 return collectionView.dequeueReusableSupplementaryView(ofKind: kind,
                                                                        withReuseIdentifier: "tempFooter",
                                                                        for: indexPath)
-//            }
-//
-//            return footer
         }
     }
     
     func collectionView(_ collectionView: UICollectionView,
                         didSelectItemAt indexPath: IndexPath) {
-        switch indexPath.item {
+        currentTextField?.resignFirstResponder()
+        
+        switch indexPath.section {
         case 0:
-            // 상세 이미지
-            let detailImageView = DetailImageViewController()
-            detailImageView.titleText = posterDetailData?.posterName
-            detailImageView.urlString = posterDetailData?.photoUrl2
-            present(detailImageView, animated: true)
-        case 5:
-            // 자세히 보기
-            let indexPaths = [indexPath]
-            collectionView.reloadItems(at: indexPaths)
+            switch indexPath.item {
+            case 0:
+                if indexPath.item == 0 {
+                    // 상세 이미지
+                    let detailImageView = DetailImageViewController()
+                    detailImageView.titleText = posterDetailData?.posterName
+                    detailImageView.urlString = posterDetailData?.photoUrl2
+                    present(detailImageView, animated: true)
+                }
+            case 5:
+                // 자세히 보기
+                let indexPaths = [indexPath]
+                collectionView.reloadItems(at: indexPaths)
+                collectionView.scrollToItem(at: indexPath, at: .top, animated: true)
+            default:
+                return
+            }
         default:
             return
         }
@@ -402,7 +611,12 @@ extension DetailInfoViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
                         referenceSizeForHeaderInSection section: Int) -> CGSize {
-        return CGSize(width: view.frame.width, height: 243)
+        switch section {
+        case 0:
+            return CGSize(width: view.frame.width, height: 243)
+        default:
+            return CGSize(width: view.frame.width, height: 0)
+        }
     }
     
 //    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForFooterInSection section: Int) -> CGSize {
@@ -412,60 +626,96 @@ extension DetailInfoViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
                         sizeForItemAt indexPath: IndexPath) -> CGSize {
-        switch indexPath.item {
+        switch indexPath.section {
         case 0:
-            guard let _ = posterDetailData?.photoUrl2 else {
+            switch indexPath.item {
+            case 0:
+                guard let _ = posterDetailData?.photoUrl2 else {
+                    return CGSize(width: view.frame.width, height: 0)
+                }
+                return CGSize(width: view.frame.width, height: 41)
+            case 1:
+                if columnData?.count ?? 3 < 1 {
+                    return CGSize(width: view.frame.width, height: 0)
+                }
+                let collectionViewCellHeight = estimatedFrame(width: view.frame.width - 75,
+                                                              text: posterDetailData?.outline ?? "",
+                                                              font: UIFont.systemFont(ofSize: 14)).height
+                
+                return CGSize(width: view.frame.width, height: collectionViewCellHeight + 72)
+            case 2:
+                if columnData?.count ?? 3 < 2 {
+                    return CGSize(width: view.frame.width, height: 0)
+                }
+                
+                let collectionViewCellHeight = estimatedFrame(width: view.frame.width - 75,
+                                                              text: posterDetailData?.target ?? "",
+                                                              font: UIFont.systemFont(ofSize: 14)).height
+                
+                return CGSize(width: view.frame.width, height: collectionViewCellHeight + 72)
+            case 3:
+                if columnData?.count ?? 3 < 3 {
+                    return CGSize(width: view.frame.width, height: 0)
+                }
+                
+                let collectionViewCellHeight = estimatedFrame(width: view.frame.width - 75,
+                                                              text: posterDetailData?.benefit ?? "",
+                                                              font: UIFont.systemFont(ofSize: 14)).height
+                
+                return CGSize(width: view.frame.width, height: collectionViewCellHeight + 72)
+            case 4:
+                guard let _ = posterDetailData?.partnerPhone,
+                    let _ = posterDetailData?.partnerEmail else {
+                        return CGSize(width: 0, height: 0)
+                }
+                
+                return CGSize(width: view.frame.width, height: 106)
+            case 5:
+                if isFolding {
+                    isFolding = !isFolding
+                    return CGSize(width: view.frame.width, height: 46)
+                } else {
+                    isFolding = !isFolding
+                    
+                    let collectionViewCellHeight = estimatedFrame(width: view.frame.width - 75,
+                                                                  text: posterDetailData?.posterDetail ?? "",
+                                                                  font: UIFont.systemFont(ofSize: 12)).height
+                    
+                    return CGSize(width: view.frame.width, height: collectionViewCellHeight + 50 + 46)
+                }
+            default:
                 return CGSize(width: view.frame.width, height: 0)
             }
-            return CGSize(width: view.frame.width, height: 41)
         case 1:
-            let collectionViewCellHeight = estimatedFrame(text: posterDetailData?.outline ?? "",
-                                                          font: UIFont.systemFont(ofSize: 14)).height
-            
-            return CGSize(width: view.frame.width, height: collectionViewCellHeight + 72)
-        case 2:
-            let collectionViewCellHeight = estimatedFrame(text: posterDetailData?.target ?? "",
-                                                          font: UIFont.systemFont(ofSize: 14)).height
-            
-            return CGSize(width: view.frame.width, height: collectionViewCellHeight + 72)
-        case 3:
-            let collectionViewCellHeight = estimatedFrame(text: posterDetailData?.benefit ?? "",
-                                                          font: UIFont.systemFont(ofSize: 14)).height
-            
-            return CGSize(width: view.frame.width, height: collectionViewCellHeight + 72)
-        case 4:
-            guard let _ = posterDetailData?.partnerPhone,
-                let _ = posterDetailData?.partnerEmail else {
-                return CGSize(width: 0, height: 0)
-            }
-            
-            return CGSize(width: view.frame.width, height: 106)
-        case 5:
-            if isFolding {
-                isFolding = !isFolding
-                return CGSize(width: view.frame.width, height: 46)
-            } else {
-                isFolding = !isFolding
-                
-                let collectionViewCellHeight = estimatedFrame(text: posterDetailData?.posterDetail ?? "",
-                                                              font: UIFont.systemFont(ofSize: 12)).height
-                
-                return CGSize(width: view.frame.width, height: collectionViewCellHeight + 50 + 46)
-            }
-        case 6:
             return CGSize(width: view.frame.width, height: 268)
-        case 8 + (posterDetailData?.commentList?.count ?? 0) - 1:
-            return CGSize(width: view.frame.width, height: 46)
         default:
+            if posterDetailData?.commentList?.count == 0 {
+                return CGSize(width: view.frame.width, height: 80)
+            }
             
-//            let collectionViewCellHeight = estimatedFrame(text: posterDetailData?.posterDetail ?? "",
-//                                                          font: UIFont.systemFont(ofSize: 12)).height
-//            
-//            return CGSize(width: view.frame.width, height: collectionViewCellHeight + 50 + 46)
-            return CGSize(width: view.frame.width, height: 65)
+            let collectionViewCellHeight
+                = estimatedFrame(width: view.frame.width - 48 - 74 - 28,
+                                 text: posterDetailData?.commentList?[indexPath.item].commentContent ?? "",
+                                 font: UIFont.systemFont(ofSize: 13)).height
+
+            return CGSize(width: view.frame.width, height: collectionViewCellHeight + 12 + 8 + 20 + 10)
         }
 
     }
+}
+
+extension DetailInfoViewController: UITextFieldDelegate {
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        currentTextField = textField
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
+    }
+}
+
+extension DetailInfoViewController: UIGestureRecognizerDelegate {
 }
 
 extension DetailInfoViewController: WebsiteDelegate {
@@ -487,15 +737,6 @@ extension DetailInfoViewController: WebsiteDelegate {
 }
 
 extension DetailInfoViewController: CommentWriteDelegate {
-    func touchUpTextField() {
-//        let height = KeyboardService.keyboardHeight()
-        infoCollectionView.contentOffset.y = infoCollectionView.contentOffset.y + 263 - buttonsView.frame.height
-    }
-    
-    func returnTextField() {
-        infoCollectionView.contentOffset.y = infoCollectionView.contentOffset.y - 263 + buttonsView.frame.height
-    }
-    
     func commentRegister(text: String) {
         guard let index = posterIdx else {
             return
@@ -508,9 +749,10 @@ extension DetailInfoViewController: CommentWriteDelegate {
                 switch status {
                 case .secondSucess:
                     DispatchQueue.main.async {
+                        self?.currentTextField?.resignFirstResponder()
                         self?.simplerAlert(title: "댓글 등록이 완료되었습니다.")
-                        self?.requestDatas()
-                        self?.scrollToBottom()
+                        self?.isFolding = true
+                        self?.requestDatas(section: 2)
                     }
                 case .dataBaseError:
                     DispatchQueue.main.async {
@@ -543,8 +785,8 @@ extension DetailInfoViewController: CommentDelegate {
                 DispatchQueue.main.async {
                     switch status {
                     case .processingSuccess:
-                        self?.requestDatas()
-                        self?.scrollToBottom()
+                        self?.requestDatas(section: 2)
+                        self?.isFolding = true
                     case .dataBaseError:
                         self?.simplerAlert(title: "database error")
                         return
@@ -562,25 +804,99 @@ extension DetailInfoViewController: CommentDelegate {
         }
     }
     
-    func presentAlertController(index: Int) {
-        
+    func presentAlertController(_ userIndex: Int, commentIndex: Int) {
         let alertController = UIAlertController(title: nil,
                                                 message: nil,
                                                 preferredStyle: .actionSheet)
-        
-        let editAction = UIAlertAction(title: "댓글 수정", style: .default) { [weak self] _ in
-            
-        }
+//        let userIdx = 0
+//        if userIdx == userIndex {
+//            let editAction = UIAlertAction(title: "댓글 수정", style: .default) { [weak self] _ in
+//                
+//            }
+//            
+//            let deleteAction = UIAlertAction(title: "댓글 삭제", style: .default) { [weak self] _ in
+//                self?.commentServiceImp.requestCommentDelete(index: commentIndex) { [weak self] result in
+//                    switch result {
+//                    case .success(let status):
+//                        DispatchQueue.main.async {
+//                            switch status {
+//                            case .processingSuccess:
+//                                self?.simplerAlert(title: "댓글이 삭제되었습니다")
+//                                self?.isFolding = true
+//                                self?.requestDatas(section: 2)
+//                            case .dataBaseError:
+//                                self?.simplerAlert(title: "database error")
+//                                return
+//                            case .serverError:
+//                                self?.simplerAlert(title: "server error")
+//                                return
+//                            default:
+//                                return
+//                            }
+//                        }
+//                    case .failed(let error):
+//                        print(error)
+//                        return
+//                    }
+//                }
+//            }
+//            
+//            let cancelAction = UIAlertAction(title: "취소", style: .cancel) { _ in
+//                alertController.dismiss(animated: true)
+//            }
+//            
+//            alertController.addAction(editAction)
+//            alertController.addAction(deleteAction)
+//            alertController.addAction(cancelAction)
+//            
+//            present(alertController, animated: true)
+//        } else {
+//            
+//            let reportAction = UIAlertAction(title: "댓글 신고", style: .default) { [weak self] _ in
+//                self?.commentServiceImp.requestCommentReport(index: commentIndex) { [weak self] result in
+//                    switch result {
+//                    case .success(let status):
+//                        DispatchQueue.main.async {
+//                            switch status {
+//                            case .processingSuccess:
+//                                self?.simplerAlert(title: "댓글 신고가 완료되었습니다.")
+//                            case .dataBaseError:
+//                                self?.simplerAlert(title: "database error")
+//                                return
+//                            case .serverError:
+//                                self?.simplerAlert(title: "server error")
+//                                return
+//                            default:
+//                                return
+//                            }
+//                        }
+//                    case .failed(let error):
+//                        print(error)
+//                        return
+//                    }
+//                }
+//            }
+//            
+//            let cancelAction = UIAlertAction(title: "취소", style: .cancel) { _ in
+//                alertController.dismiss(animated: true)
+//            }
+//            
+//            alertController.addAction(reportAction)
+//            alertController.addAction(cancelAction)
+//            
+//            present(alertController, animated: true)
+//        }
         
         let deleteAction = UIAlertAction(title: "댓글 삭제", style: .default) { [weak self] _ in
-            self?.commentServiceImp.requestCommentDelete(index: index) { [weak self] result in
+            self?.commentServiceImp.requestCommentDelete(index: commentIndex) { [weak self] result in
                 switch result {
                 case .success(let status):
                     DispatchQueue.main.async {
                         switch status {
                         case .processingSuccess:
                             self?.simplerAlert(title: "댓글이 삭제되었습니다")
-                            self?.requestDatas()
+                            self?.isFolding = true
+                            self?.requestDatas(section: 2)
                         case .dataBaseError:
                             self?.simplerAlert(title: "database error")
                             return
@@ -599,7 +915,7 @@ extension DetailInfoViewController: CommentDelegate {
         }
         
         let reportAction = UIAlertAction(title: "댓글 신고", style: .default) { [weak self] _ in
-            self?.commentServiceImp.requestCommentReport(index: index) { [weak self] result in
+            self?.commentServiceImp.requestCommentReport(index: commentIndex) { [weak self] result in
                 switch result {
                 case .success(let status):
                     DispatchQueue.main.async {
@@ -627,11 +943,56 @@ extension DetailInfoViewController: CommentDelegate {
             alertController.dismiss(animated: true)
         }
         
-        alertController.addAction(editAction)
         alertController.addAction(deleteAction)
         alertController.addAction(reportAction)
         alertController.addAction(cancelAction)
         
         present(alertController, animated: true)
+    }
+}
+
+extension DetailInfoViewController: LargeImageDelegate {
+    func presentLargeImage() {
+        let swipeStoryboard = UIStoryboard(name: StoryBoardName.swipe,
+                                           bundle: nil)
+        guard let zoomPosterVC = swipeStoryboard.instantiateViewController(withIdentifier: ViewControllerIdentifier.zoomPosterViewController) as? ZoomPosterVC else {return}
+        
+        zoomPosterVC.urlString = posterDetailData?.photoUrl
+        
+        self.present(zoomPosterVC, animated: true)
+    }
+}
+
+func titleStringByCategory(categoryIdx: Int) -> [String] {
+    switch categoryIdx {
+    case 0:
+        // 공모전
+        return ["주제", "지원자격", "시상내역"]
+    case 1:
+        // 대외활동
+        return ["지원자격", "활동내용", "혜택"]
+    case 2:
+        // 동아리(연합)
+        return ["활동분야", "모임시간", "활동혜택"]
+    case 3:
+        // 교내공지
+        return ["활동분야", "모임시간", "혜택"]
+    case 4:
+        // 인턴
+        return ["모집분야", "지원자격", "근무조건"]
+    case 5:
+        // 기타
+        return ["", "", ""]
+    case 6:
+        // 동아리 (교내)
+        return ["활동분야", "모임시간", "혜택"]
+    case 7:
+        // 교육/강연
+        return ["주제", "내용/커리큘럼", "일정/기간"]
+    case 8:
+        // 장학금/지원
+        return ["인원/혜택", "대상 및 조건", "기타사항"]
+    default:
+        return ["항목1", "항목2", "항목3"]
     }
 }

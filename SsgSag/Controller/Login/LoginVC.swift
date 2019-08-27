@@ -27,7 +27,22 @@ class LoginVC: UIViewController, UITextFieldDelegate {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        navigationController?.navigationBar.isHidden = true
+        
+        let backButton = UIButton()
+        backButton.contentEdgeInsets = UIEdgeInsets(top: 0, left: -20, bottom: 0, right: 0)
+        backButton.setImage(UIImage(named: "ic_ArrowBack"), for: .normal)
+        backButton.setTitle("처음으로", for: .normal)
+        backButton.setTitleColor(#colorLiteral(red: 0.3843137255, green: 0.4156862745, blue: 1, alpha: 1), for: .normal)
+        backButton.titleLabel?.font = UIFont.systemFont(ofSize: 13)
+        backButton.imageEdgeInsets = UIEdgeInsets(top: 0, left: 7, bottom: 0, right: 0)
+        backButton.addTarget(self, action: #selector(touchUpBackButton), for: .touchUpInside)
+        backButton.sizeToFit()
+        
+        navigationItem.leftBarButtonItem = UIBarButtonItem(customView: backButton)
+        
+        navigationController?.navigationBar.isHidden = false
+        navigationController?.interactivePopGestureRecognizer?.delegate = self
+        setNavigationBar(color: .clear)
     }
     
     override func viewDidLoad() {
@@ -98,6 +113,7 @@ class LoginVC: UIViewController, UITextFieldDelegate {
                     let httpStatusCode = HttpStatusCode(rawValue: status) else {
                         return
                 }
+               
                 
                 switch httpStatusCode {
                 case .sucess:
@@ -106,12 +122,15 @@ class LoginVC: UIViewController, UITextFieldDelegate {
                                                      forKey: TokenName.token)
                     }
                     
+                    UserDefaults.standard.set(false, forKey: "isTryWithoutLogin")
+                    
+                    let tabBar = TapbarVC(nibName: nil, bundle: nil)
                     DispatchQueue.main.async {
-                        self?.present(TapbarVC(), animated: true, completion: nil)
+                        self?.present(tabBar, animated: true, completion: nil)
                     }
                 case .failure:
                     DispatchQueue.main.async {
-                        self?.simplerAlert(title: "로그인 실패")
+                        self?.simplerAlert(title: "이메일 또는 비밀번호가\n잘못되었습니다.")
                     }
                 default:
                     break
@@ -145,13 +164,12 @@ class LoginVC: UIViewController, UITextFieldDelegate {
         return true
     }
     
-    func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
+    func textFieldDidBeginEditing(_ textField: UITextField) {
         self.stackViewCenterXConstraint.constant = -(view.frame.height / 6)
         
         UIView.animate(withDuration: 0.3) {
             self.view.layoutIfNeeded()
         }
-        return true
     }
     
     func textFieldDidEndEditing(_ textField: UITextField) {
@@ -162,6 +180,12 @@ class LoginVC: UIViewController, UITextFieldDelegate {
         }
     }
     
+    @objc private func touchUpBackButton() {
+        navigationController?.popViewController(animated: true)
+    }
+}
+
+extension LoginVC: UIGestureRecognizerDelegate {
 }
 
 class FormTextField: UITextField {

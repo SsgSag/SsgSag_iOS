@@ -13,14 +13,14 @@ import SwiftKeychainWrapper
 class AddCertificationVC: UIViewController, UITextFieldDelegate, UITextViewDelegate {
 
     @IBOutlet weak var titleTextField: UITextField!
-    @IBOutlet weak var yearTextField: UITextField!
     @IBOutlet weak var contentTextView: UITextView!
     @IBOutlet weak var saveButton: UIButton!
+    @IBOutlet weak var dateButton: UIButton!
     
     var titleString: String?
     var yearString: String?
     var contentString: String?
-    var index: Int = 0
+    var index: Int?
     
     weak var delegate: UpdateDelegate?
     var isNewActivity: Bool = true
@@ -38,21 +38,17 @@ class AddCertificationVC: UIViewController, UITextFieldDelegate, UITextViewDeleg
         let day = components.day!
         let currentDateString: String = "\(year)년 \(month)월 \(day)일"
         
-        yearTextField.placeholder = currentDateString
+        dateButton.setTitle(currentDateString, for: .normal)
+        
         contentTextView.applyBorderTextView()
         
         titleTextField.placeholder = "자격증 입력"
         
         titleTextField.delegate = self
-        yearTextField.delegate = self
         contentTextView.delegate = self
         
         if let title = titleString {
             titleTextField.text = title
-        }
-        
-        if let year = yearString {
-            yearTextField.text = year
         }
         
         if let content = contentString {
@@ -62,41 +58,11 @@ class AddCertificationVC: UIViewController, UITextFieldDelegate, UITextViewDeleg
     
     @IBAction func touchUpSaveButton(_ sender: UIButton) {
         //TODO: - 네트워크 연결
-        let animation = LOTAnimationView(name: "bt_save_round")
-        saveButton.addSubview(animation)
-        animation.play()
-        getData(careerType: 2)
         postData()
-        //simplerAlert(title: "저장되었습니다")
     }
     
     @IBAction func dismissModalAction(_ sender: Any) {
         dismiss(animated: true, completion: nil)
-    }
-    
-    func getData(careerType: Int) {
-        
-        let json: [String:Any] = [
-            "careerType" : careerType,
-            "careerName" : "자격증",
-            "careerContent" : "자격증 내용",
-            "careerDate1" : "2019-01"
-        ]
-        
-        guard let token = KeychainWrapper.standard.string(forKey: TokenName.token) else { return }
-        
-        //let json: [String: Any] = ["careerType" : careerType]
-        let jsonData = try? JSONSerialization.data(withJSONObject: json)
-        let url = URL(string: "http://52.78.86.179:8081/career/\(careerType)")!
-        var request = URLRequest(url: url)
-        request.httpMethod = "GET"
-        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.addValue(token, forHTTPHeaderField: "Authorization")
-        request.httpBody = jsonData
-        
-        NetworkManager.shared.getData(with: request) { (data, error, res) in
-    
-        }
     }
     
     func postData() {
@@ -107,7 +73,7 @@ class AddCertificationVC: UIViewController, UITextFieldDelegate, UITextViewDeleg
                 "careerType" : 2,
                 "careerName" : titleTextField.text ?? "",
                 "careerContent" : contentTextView.text ?? "",
-                "careerDate1" : yearTextField.text ?? "" //일까지 줘도 상관없음 ex)"2019-01-12"
+                "careerDate1" : dateButton.titleLabel?.text ?? "" //일까지 줘도 상관없음 ex)"2019-01-12"
             ]
             
             myPageService.requestStoreAddActivity(json) { [weak self] dataResponse in
@@ -154,7 +120,7 @@ class AddCertificationVC: UIViewController, UITextFieldDelegate, UITextViewDeleg
                 "careerType" : 2,
                 "careerName" : titleTextField.text ?? "",
                 "careerContent" : contentTextView.text ?? "",
-                "careerDate1" : yearTextField.text ?? "" //일까지 줘도 상관없음 ex)"2019-01-12"
+                "careerDate1" : dateButton.titleLabel?.text ?? "" //일까지 줘도 상관없음 ex)"2019-01-12"
             ]
             
             myPageService.requestEditActivity(json) { [weak self] (dataResponse) in
@@ -210,6 +176,10 @@ class AddCertificationVC: UIViewController, UITextFieldDelegate, UITextViewDeleg
         self.view.addSubview(popVC.view)
         
         popVC.didMove(toParent: self)
+    }
+    
+    @IBAction func addActiveDate(_ sender: UIButton) {
+        popUpDatePicker(button: sender, activityCategory: ActivityCategory.AddCertificationVC)
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {

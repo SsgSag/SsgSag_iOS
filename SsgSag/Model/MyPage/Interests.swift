@@ -22,6 +22,7 @@ struct SubscribeInterests: Codable {
     let interestIdx: Int?
     let interestName: String?
     let interestUrl: String?
+    let interestDetail: String?
     let userIdx: Int?
 }
 
@@ -33,7 +34,6 @@ struct Interests: Codable {
 
 struct Interest: Codable {
     let interests: [Int]?
-    let isSeeker: Int?
 }
 
 struct ReInterest: Codable {

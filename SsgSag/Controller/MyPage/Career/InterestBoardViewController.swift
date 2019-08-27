@@ -15,6 +15,8 @@ class InterestBoardViewController: UIViewController {
     typealias info = (String, String, Follow)
     
     private var interestInfo: [SubscribeInterests] = []
+    private var selectedIndex: Int?
+    var callback: (()->())?
     
     private let interestService: InterestService
         = DependencyContainer.shared.getDependency(key: .interestService)
@@ -30,19 +32,13 @@ class InterestBoardViewController: UIViewController {
                                           target: self,
                                           action: #selector(touchUpBackButton))
     
-    lazy var doneButton = UIBarButtonItem(title: "완료",
-                                          style: .plain,
-                                          target: self,
-                                          action: #selector(touchUpBackButton))
-    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        doneButton.tintColor = #colorLiteral(red: 0.4603668451, green: 0.5182471275, blue: 1, alpha: 1)
-        
         setNavigationBar(color: .white)
         navigationItem.leftBarButtonItem = backButton
-        navigationItem.rightBarButtonItem = doneButton
+        tabBarController?.tabBar.isHidden = true
+        navigationController?.interactivePopGestureRecognizer?.delegate = self
     }
     
     override func viewDidLoad() {
@@ -53,29 +49,93 @@ class InterestBoardViewController: UIViewController {
         
         tableView.separatorStyle = .none
         
-        tableView.register(UINib.InterestBoardNIB, forCellReuseIdentifier: InterestBoardViewController.cellId)
+        tableView.register(UINib.InterestBoardNIB,
+                           forCellReuseIdentifier: InterestBoardViewController.cellId)
         
         requestSubscribeStatus()
     }
     
     @objc private func touchUpBackButton() {
         navigationController?.popViewController(animated: true)
+        callback?()
     }
     
     private func requestSubscribeStatus() {
-        interestService.requestInterestSubscribe{ (dataResponse) in
-            guard let data = dataResponse.value else {return}
-        
-            guard let interests = data.data else {return}
-            
-            DispatchQueue.main.async {
-                self.interestInfo = interests
+        interestService.requestInterestSubscribe { [weak self] result in
+            switch result {
+            case .success(let data):
+                guard let interests = data.data else {return}
                 
-                self.tableView.reloadData()
+                self?.interestInfo = interests
+                self?.sendEtcToBack()
+                
+                DispatchQueue.main.async {
+                    self?.tableView.reloadData()
+                }
+            case .failed(let error):
+                print(error)
+                return
             }
         }
     }
 
+    private func sendEtcToBack() {
+        for (index, info) in interestInfo.enumerated() {
+            if info.interestName == "기타" {
+                interestInfo.append(info)
+                interestInfo.remove(at: index)
+            }
+        }
+    }
+    
+    func requestInterestAdd(_ categoryName: String) {
+        guard let interestIdx = selectedIndex else {
+            return
+        }
+        
+        interestService.requestInterestSubscribeAdd(interestIdx) { dataResponse in
+            guard let data = dataResponse.value else {return}
+            
+            guard let status = data.status else {return}
+            
+            guard let statusCode = HttpStatusCode(rawValue: status) else {return}
+            
+            DispatchQueue.main.async {
+                switch statusCode {
+                case .sucess:
+                    self.simplerAlert(title: "\(categoryName) 게시판을\n팔로우하였습니다.")
+                    self.requestSubscribeStatus()
+                default:
+                    self.simplerAlert(title: "\(categoryName) 게시판\n팔로우를 실패하였습니다.")
+                }
+            }
+        }
+    }
+    
+    func requestInterestDelete(_ categoryName: String) {
+        guard let interestIdx = selectedIndex else {
+            return
+        }
+        
+        interestService.requestInterestSubscribeDelete(interestIdx) { dataResponse in
+            
+            guard let data = dataResponse.value else {return}
+            
+            guard let status = data.status else {return}
+            
+            guard let statusCode = HttpStatusCode(rawValue: status) else {return}
+            
+            DispatchQueue.main.async {
+                switch statusCode {
+                case .sucess:
+                    self.simplerAlert(title: "\(categoryName) 게시판\n팔로우를 취소하였습니다.")
+                    self.requestSubscribeStatus()
+                default:
+                    self.simplerAlert(title: "\(categoryName) 게시판\n팔로우 취소를 실패하였습니다.")
+                }
+            }
+        }
+    }
 }
 
 extension InterestBoardViewController: UITableViewDelegate, UITableViewDataSource {
@@ -86,7 +146,11 @@ extension InterestBoardViewController: UITableViewDelegate, UITableViewDataSourc
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        guard let interestBoardCell = tableView.dequeueReusableCell(withIdentifier: InterestBoardViewController.cellId) as? InterestBoardTableViewCell else { return .init() }
+        guard let interestBoardCell
+            = tableView.dequeueReusableCell(withIdentifier: InterestBoardViewController.cellId)
+                as? InterestBoardTableViewCell else {
+                    return .init()
+        }
         
         interestBoardCell.selectionStyle = .none
         
@@ -107,54 +171,40 @@ extension InterestBoardViewController: UITableViewDelegate, UITableViewDataSourc
 
 extension InterestBoardViewController: InterestFollowDelegate {
     
-    func interestFollowButton(using interest: SubscribeInterests, indexPath: IndexPath) {
-        
+    func interestFollowButton(using interest: SubscribeInterests,
+                              indexPath: IndexPath) {
         guard let userIdx = interest.userIdx else {return}
         
-        guard let interestIdx = interest.interestIdx else {return}
+        selectedIndex = interest.interestIdx
         
         //구독 안된 상태
         if userIdx == 0 {
-            interestService.requestInterestSubscribeAdd(interestIdx) { dataResponse in
-                guard let data = dataResponse.value else {return}
-                
-                guard let status = data.status else {return}
-                
-                guard let statusCode = HttpStatusCode(rawValue: status) else {return}
-                
-                DispatchQueue.main.async {
-                    switch statusCode {
-                    case .sucess:
-                        self.simplerAlert(title: "구독 등록을 성공 하였습니다.")
-                        self.requestSubscribeStatus()
-                    default:
-                        self.simplerAlert(title: "구독 등록을 실패 하였습니다.")
-                    }
+            if selectedIndex == 4 {
+                let storyboard = UIStoryboard(name: StoryBoardName.mypage, bundle: nil)
+                guard let internFilterVC = storyboard.instantiateViewController(withIdentifier: "InternFilterVC") as? InternFilterViewController else {
+                    return
                 }
+                internFilterVC.delegate = self
+                self.present(internFilterVC, animated: false)
+            } else {
+                self.requestInterestAdd(interest.interestName ?? "")
             }
         } else {
-            interestService.requestInterestSubscribeDelete(interestIdx) { dataResponse in
-                
-                guard let data = dataResponse.value else {return}
-                
-                guard let status = data.status else {return}
-                
-                guard let statusCode = HttpStatusCode(rawValue: status) else {return}
-                
-                DispatchQueue.main.async {
-                    switch statusCode {
-                    case .sucess:
-                        self.simplerAlert(title: "구독 취소를 성공 하였습니다.")
-                        self.requestSubscribeStatus()
-                    default:
-                        self.simplerAlert(title: "구독 등록을 실패 하였습니다.")
-                    }
-                }
-            }
-            
+            self.requestInterestDelete(interest.interestName ?? "")
         }
     }
+    
 }
+
+extension InterestBoardViewController: UIGestureRecognizerDelegate {
+}
+
+extension InterestBoardViewController: FilterDelegate {
+    func completeFilterSetting(_ categoryName: String) {
+        requestInterestAdd(categoryName)
+    }
+}
+
 
 enum Follow {
     case follow
@@ -164,23 +214,6 @@ enum Follow {
 extension UINib {
     static var InterestBoardNIB: UINib {
         return UINib(nibName: "InterestBoardTableViewCell", bundle: nil)
-    }
-}
-
-enum InterestType: String {
-    case competition = "공모전"
-    case activities = "대외활동"
-    case inter = "인턴"
-    
-    func hashTagString() -> String {
-        switch self {
-        case .competition:
-            return "#공모전#경진대회#게시판"
-        case .activities:
-            return "#서포터즈#체험단"
-        case .inter:
-            return "#인턴#채용정보"
-        }
     }
 }
 

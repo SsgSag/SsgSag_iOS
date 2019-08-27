@@ -30,7 +30,7 @@ protocol CalendarService: class {
     
     func requestDelete(
         _ posterIdx: Int,
-        completionHandler: @escaping (DataResponse<PosterFavorite>) -> Void
+        completionHandler: @escaping (DataResponse<HttpStatusCode>) -> Void
     )
     
     func reqeustComplete(

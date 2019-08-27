@@ -15,8 +15,8 @@ protocol MyPageService: class {
     )
     
     func requestStoreSelectedField(
-        _ selectedJson: [String: Any],
-        completionHandler: @escaping ((DataResponse<ReInterest>) -> Void)
+        _ selectedIndex: [Int],
+        completionHandler: @escaping ((DataResponse<HttpStatusCode>) -> Void)
     )
     
     func requestStoreAddActivity(
@@ -41,4 +41,22 @@ protocol MyPageService: class {
     func requestMembershipCancel(
         completionHandler: @escaping (DataResponse<HttpStatusCode>) -> Void
     )
+    
+    func requestChangePassword(
+        oldPassword: String,
+        newPassword: String,
+        completionHandler: @escaping (DataResponse<HttpStatusCode>) -> Void
+    )
+    
+    func requestUpdateUserInfo(
+        bodyData: [String: Any],
+        completionHandler: @escaping (DataResponse<HttpStatusCode>) -> Void
+    )
+    
+    func requestUpdateProfile(
+        boundary: String,
+        bodyData: Data,
+        completionHandler: @escaping (DataResponse<HttpStatusCode>) -> Void
+    )
+    
 }

@@ -14,6 +14,11 @@ class NonActivityCell: UITableViewCell {
     @IBOutlet weak var dateLabel1: UILabel!
     @IBOutlet weak var detailLabel: UILabel!
     
+    weak var activityDelegate: activityDelegate?
+    
+    private let activityServiceImp: ActivityService
+        = DependencyContainer.shared.getDependency(key: .activityService)
+    
     var careerInfo: careerData? {
         didSet {
             guard let career = self.careerInfo else {return}
@@ -34,4 +39,22 @@ class NonActivityCell: UITableViewCell {
         // Configure the view for the selected state
     }
 
+    @IBAction func touchUpDeleteButton(_ sender: UIButton) {
+        guard let careerIdx = self.careerInfo?.careerIdx else {return}
+        
+        activityServiceImp.requestDeleteActivity(contentIdx: careerIdx) { (dataResponse) in
+            guard let status = dataResponse.value?.status else {return}
+            
+            guard let httpStatusCode = HttpStatusCode(rawValue: status) else {return}
+            
+            switch httpStatusCode {
+            case .processingSuccess:
+                self.activityDelegate?.deleteSuccess()
+            case .dataBaseError, .serverError:
+                print("데이터베이스 에러")
+            default:
+                print("데이터베이스 에러 Status 코드 다른")
+            }
+        }
+    }
 }

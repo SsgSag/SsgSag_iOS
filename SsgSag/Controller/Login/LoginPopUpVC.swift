@@ -9,7 +9,6 @@
 import UIKit
 import NaverThirdPartyLogin
 import SwiftKeychainWrapper
-import Alamofire
 
 class LoginPopUpVC: UIViewController, NaverThirdPartyLoginConnectionDelegate {
     
@@ -67,6 +66,8 @@ class LoginPopUpVC: UIViewController, NaverThirdPartyLoginConnectionDelegate {
                         if let storeToken = response.data?.token {
                             KeychainWrapper.standard.set(storeToken, forKey: TokenName.token)
                         }
+                        
+                        UserDefaults.standard.set(false, forKey: "isTryWithoutLogin")
                         
                         DispatchQueue.main.async {
                             switch response.status {
@@ -146,6 +147,8 @@ class LoginPopUpVC: UIViewController, NaverThirdPartyLoginConnectionDelegate {
             if let storeToken = dataResponse.value?.data?.token {
                 KeychainWrapper.standard.set(storeToken, forKey: TokenName.token)
             }
+            
+            UserDefaults.standard.set(false, forKey: "isTryWithoutLogin")
             
             guard let statusCode = dataResponse.value?.status else {return}
             

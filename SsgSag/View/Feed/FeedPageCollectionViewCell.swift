@@ -20,6 +20,12 @@ class FeedPageCollectionViewCell: UICollectionViewCell {
     var feedDatas: [FeedData] = []
     weak var delegate: FeedTouchDelegate?
     
+    private var refreshControl: UIRefreshControl = {
+        let refresh = UIRefreshControl()
+        refresh.tintColor = #colorLiteral(red: 0.3843137255, green: 0.4156862745, blue: 1, alpha: 1)
+        return refresh
+    }()
+    
     lazy var feedCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.minimumLineSpacing = 0
@@ -37,9 +43,10 @@ class FeedPageCollectionViewCell: UICollectionViewCell {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-    
+
         requestFeed()
         setupLayout()
+        setupCollectionView()
     }
     
     private func requestFeed() {
@@ -49,6 +56,7 @@ class FeedPageCollectionViewCell: UICollectionViewCell {
                 self?.feedDatas = feedDatas
                 DispatchQueue.main.async {
                     self?.feedCollectionView.reloadData()
+                    self?.refreshControl.endRefreshing()
                 }
             case .failed(let error):
                 print(error)
@@ -69,11 +77,26 @@ class FeedPageCollectionViewCell: UICollectionViewCell {
         feedCollectionView.bottomAnchor.constraint(
             equalTo: bottomAnchor).isActive = true
         
+    }
+    
+    private func setupCollectionView() {
+        
+        if #available(iOS 10.0, *) {
+            feedCollectionView.refreshControl = refreshControl
+        } else {
+            feedCollectionView.addSubview(refreshControl)
+        }
+        refreshControl.addTarget(self, action: #selector(refresh), for: .valueChanged)
+        
         let nibName = UINib(nibName: "NewsCollectionViewCell",
                             bundle: nil)
         
         feedCollectionView.register(nibName,
                                     forCellWithReuseIdentifier: "newsCell")
+    }
+    
+    @objc private func refresh(){
+        requestFeed()
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -134,6 +157,6 @@ extension FeedPageCollectionViewCell: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
                         sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: frame.width, height: 190)
+        return CGSize(width: frame.width, height: 220)
     }
 }

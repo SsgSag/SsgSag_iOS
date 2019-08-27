@@ -10,7 +10,7 @@ import Foundation
 
 protocol PosterService: class {
     func requestPoster(
-        completionHandler: @escaping (DataResponse<[Posters]>) -> Void
+        completionHandler: @escaping (DataResponse<posterData>) -> Void
     )
     
     func requestPosterLiked(

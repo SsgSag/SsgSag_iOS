@@ -9,32 +9,26 @@
 import UIKit
 
 class TapbarVC: UITabBarController {
-    
-    private let tapbarServiceImp: TabbarService
-        = DependencyContainer.shared.getDependency(key: .tabbarService)
-    
-    struct CreateViewController {
-        static let mypageStoryBoard = UIStoryboard(name: StoryBoardName.mypage, bundle: nil)
+
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
         
-        static let swipeStoryBoard = UIStoryboard(name: StoryBoardName.swipe, bundle: nil)
-        
-        static let feedStoryBoard = UIStoryboard(name: StoryBoardName.feed, bundle: nil)
-        
-        static let newCalendarStoryboard = UIStoryboard(name: StoryBoardName.newCalendar, bundle: nil)
-        
-        static let swipeViewController = swipeStoryBoard.instantiateViewController(withIdentifier: "swipeNavigationVC")
-        
-        static let feedViewController = feedStoryBoard.instantiateViewController(withIdentifier: "feedNavigationVC")
-        
-        static let newCalendarViewController = newCalendarStoryboard.instantiateViewController(withIdentifier: "calendarNavigationVC")
+        var tabBarFrame = self.tabBar.frame
+        print(UIScreen.main.bounds.height)
+        if UIScreen.main.bounds.height >= 812 {
+            tabBarFrame.size.height = 80
+            tabBarFrame.origin.y = self.view.frame.size.height - 75
+        } else {
+            tabBarFrame.size.height = 50
+            tabBarFrame.origin.y = self.view.frame.size.height - 45
+        }
+        self.tabBar.frame = tabBarFrame
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         setupLayout()
-        
-        isServerAvaliable()
         
         setTabBarViewController()
         
@@ -46,35 +40,34 @@ class TapbarVC: UITabBarController {
     private func setupLayout() {
         tabBar.frame.size.height = 48
     }
-
-    // 서버가 유효한지 확인하는 메소드
-    private func isServerAvaliable() {
-        tapbarServiceImp.requestIsInUpdateServer{ [weak self] dataResponse in
-            guard let data = dataResponse.value?.data else { return }
-            
-            if data == 1 {
-                self?.simplerAlert(title: "서버 업데이트 중입니다.")
-            }
-        }
-    }
     
     private func setTabBarViewController() {
-        let swipeViewController = CreateViewController.swipeViewController
+        
+        let swipeStoryBoard = UIStoryboard(name: StoryBoardName.swipe, bundle: nil)
+        
+        let feedStoryBoard = UIStoryboard(name: StoryBoardName.feed, bundle: nil)
+        
+        let newCalendarStoryboard = UIStoryboard(name: StoryBoardName.newCalendar, bundle: nil)
+        
+        let swipeViewController = swipeStoryBoard.instantiateViewController(withIdentifier: "swipeNavigationVC")
+        
+        let feedViewController = feedStoryBoard.instantiateViewController(withIdentifier: "feedNavigationVC")
+        
+        let newCalendarViewController = newCalendarStoryboard.instantiateViewController(withIdentifier: "calendarNavigationVC")
+        
         swipeViewController.tabBarItem = UITabBarItem(title: "",
                                                       image: UIImage(named: "icMain"),
                                                       selectedImage: UIImage(named: "icMainActive"))
         
-        let mypageViewController = CreateViewController.feedViewController
-        mypageViewController.tabBarItem = UITabBarItem(title: "",
-                                                       image: UIImage(named: "ic_feedPassive@tabBar"),
-                                                       selectedImage: UIImage(named: "ic_feed@tabBar"))
+        feedViewController.tabBarItem = UITabBarItem(title: "",
+                                                     image: UIImage(named: "ic_feedPassive@tabBar"),
+                                                     selectedImage: UIImage(named: "ic_feed@tabBar"))
         
-        let calendarViewController = CreateViewController.newCalendarViewController
-        calendarViewController.tabBarItem = UITabBarItem(title: "",
-                                                         image: UIImage(named: "icCal"),
-                                                         selectedImage: UIImage(named: "icCalActive"))
+        newCalendarViewController.tabBarItem = UITabBarItem(title: "",
+                                                            image: UIImage(named: "ic_calendarPassive"),
+                                                            selectedImage: UIImage(named: "ic_calendarActive"))
         
-        let tabBarList = [mypageViewController, swipeViewController, calendarViewController]
+        let tabBarList = [feedViewController, swipeViewController, newCalendarViewController]
         
         self.viewControllers = tabBarList
     }

@@ -10,7 +10,7 @@ import UIKit
 
 protocol CommentDelegate: class {
     func touchUpCommentLikeButton(index: Int, like: Int)
-    func presentAlertController(index: Int)
+    func presentAlertController(_ userIndex: Int, commentIndex: Int)
 }
 
 class CommentCollectionViewCell: UICollectionViewCell {
@@ -67,10 +67,10 @@ class CommentCollectionViewCell: UICollectionViewCell {
     
     @IBAction func touchUpEtcButton(_ sender: UIButton) {
         //TODO: alert 띄울것
-        guard let index = comment?.commentIdx else {
+        guard let commentIndex = comment?.commentIdx else {
             return
         }
-        delegate?.presentAlertController(index: index)
+        delegate?.presentAlertController(0, commentIndex: commentIndex)
     }
     
     private func setupCellData(_ comment: CommentList) {
@@ -84,8 +84,18 @@ class CommentCollectionViewCell: UICollectionViewCell {
             }
         }
         
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+        
+        let commentDateFormatter = DateFormatter.commentDateFormatter
+        
+        guard let commentRegDate = comment.commentRegDate,
+            let date = dateFormatter.date(from: commentRegDate) else {
+            return
+        }
+        
         nameLabel.text = comment.userNickname
-        dateLabel.text = comment.commentRegDate
+        dateLabel.text = commentDateFormatter.string(from: date)
         commentLabel.text = comment.commentContent
         likeNumberLabel.text = "좋아요 " + String(comment.likeNum ?? 0) + "개"
     }

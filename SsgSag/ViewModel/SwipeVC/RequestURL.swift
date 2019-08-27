@@ -32,6 +32,8 @@ enum RequestURL {
     case career(careerType: Int)
     case notice
     case tempPassword
+    case changePassword
+    case updatePhoto
     case feed
     case comment
     case commentLike(index: Int, like: Int)
@@ -65,7 +67,7 @@ enum RequestURL {
         case .interestingField:
             return "/user/interest"
         case .reIntersting:
-            return "/user/reInterestReq1"
+            return "/user/reInterest"
         case .careerActivity:
             return "/career"
         case .registerInterestJobs:
@@ -80,6 +82,10 @@ enum RequestURL {
             return "/user"
         case .tempPassword:
             return "/user/tempPassword"
+        case .changePassword:
+            return "/user/rePassword"
+        case .updatePhoto:
+            return "/user/photo"
         case .isUpdate:
             return "/update"
         case .career(careerType: let careerType):

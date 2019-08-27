@@ -28,7 +28,7 @@ class AddVC: UIViewController, UITextFieldDelegate, UITextViewDelegate {
     var titleString: String?
     var yearString: String?
     var contentString: String?
-    var index: Int = 0
+    var index: Int?
     
     private let myPageService: MyPageService
         = DependencyContainer.shared.getDependency(key: .myPageService)

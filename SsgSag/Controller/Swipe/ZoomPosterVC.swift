@@ -22,7 +22,7 @@ class ZoomPosterVC: UIViewController, UIScrollViewDelegate {
         
         scrollView.delegate = self
         
-        guard let posterURLString = self.urlString else {return}
+        guard let posterURLString = self.urlString else { return }
         
         guard let posterURL = URL(string: posterURLString) else { return }
         
@@ -41,8 +41,7 @@ class ZoomPosterVC: UIViewController, UIScrollViewDelegate {
     }
     
     @IBAction func backToPresenting(_ sender: Any) {
-        dismiss(animated: true, completion: nil)
+        dismiss(animated: true)
     }
-    
     
 }

@@ -67,7 +67,7 @@ class PosterServiceImp: PosterService {
         
     }
     
-    func requestPoster(completionHandler: @escaping (DataResponse<[Posters]>) -> Void) {
+    func requestPoster(completionHandler: @escaping (DataResponse<posterData>) -> Void) {
         
         guard let token
             = KeychainWrapper.standard.string(forKey: TokenName.token),
@@ -86,9 +86,9 @@ class PosterServiceImp: PosterService {
                 do {
                     let order = try JSONDecoder().decode(networkData.self, from: data)
                     
-                    guard let posters = order.data?.posters else { return }
+                    guard let posterData = order.data else { return }
                     
-                    completionHandler(.success(posters))
+                    completionHandler(.success(posterData))
                     
                 } catch let error {
                     completionHandler(.failed(error))

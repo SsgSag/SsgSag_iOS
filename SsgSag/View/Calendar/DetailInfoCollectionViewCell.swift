@@ -10,7 +10,6 @@ import UIKit
 
 class DetailInfoCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var titleLabel: UILabel!
-    
     @IBOutlet weak var detailInfoLabel: UILabel!
     
     override func awakeFromNib() {
@@ -18,7 +17,8 @@ class DetailInfoCollectionViewCell: UICollectionViewCell {
         // Initialization code
     }
     
-    func configure(titleString: String, detailString: String) {
+    func configure(titleString: String,
+                   detailString: String) {
         titleLabel.text = titleString
         detailInfoLabel.text = detailString
     }

@@ -15,7 +15,9 @@ class FindPasswordViewController: UIViewController {
     @IBOutlet weak var sendButton: UIButton!
     
     @IBOutlet weak var safeAreaView: UIView!
+    @IBOutlet weak var scrollView: UIScrollView!
     
+    @IBOutlet weak var textFieldStackView: UIStackView!
     private let loginService: LoginService
         = DependencyContainer.shared.getDependency(key: .loginService)
     
@@ -86,6 +88,8 @@ extension FindPasswordViewController: UIGestureRecognizerDelegate {
 extension FindPasswordViewController: UITextFieldDelegate {
     func textFieldDidEndEditing(_ textField: UITextField,
                                 reason: UITextField.DidEndEditingReason) {
+        scrollView.setContentOffset(CGPoint(x: 0, y: 0), animated: true)
+        
         if emailTextField.text == "" {
             sendButton.backgroundColor = #colorLiteral(red: 0.7882352941, green: 0.7882352941, blue: 0.7882352941, alpha: 1)
             safeAreaView.backgroundColor = #colorLiteral(red: 0.7882352941, green: 0.7882352941, blue: 0.7882352941, alpha: 1)
@@ -93,5 +97,10 @@ extension FindPasswordViewController: UITextFieldDelegate {
             sendButton.backgroundColor = #colorLiteral(red: 0.4603668451, green: 0.5182471275, blue: 1, alpha: 1)
             safeAreaView.backgroundColor = #colorLiteral(red: 0.4603668451, green: 0.5182471275, blue: 1, alpha: 1)
         }
+    }
+    
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        scrollView.setContentOffset(CGPoint(x: 0,
+                                            y: textFieldStackView.frame.origin.y), animated: true)
     }
 }

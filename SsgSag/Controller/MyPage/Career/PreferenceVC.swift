@@ -90,31 +90,31 @@ class PreferenceVC: UIViewController {
             "userInterest" : selectedInterests
         ]
         
-        myPageService?.requestStoreSelectedField(json ) { (dataResponse) in
-            guard let httpStatusCode = dataResponse.value?.status else {return}
-            
-            guard let httpStatus = HttpStatusCode(rawValue: httpStatusCode) else {return}
-            
-            DispatchQueue.main.async {
-                switch httpStatus {
-                case .sucess:
-                    let alert = UIAlertController(title: "저장되었습니다.", message: nil, preferredStyle: .alert)
-                    
-                    let action = UIAlertAction(title: "확인", style: .default, handler: { (action) in
-                        
-                        print("확인 되었습니다")
-                        self.dismiss(animated: true, completion: nil)
-                    })
-                    
-                    alert.addAction(action)
-                    self.present(alert, animated: true, completion: nil)
-                case .dataBaseError, .serverError:
-                    self.simplerAlert(title: "저장에 실패하였습니다")
-                default:
-                    break
-                }
-            }
-        }
+//        myPageService?.requestStoreSelectedField(json) { (dataResponse) in
+//            guard let httpStatusCode = dataResponse.value?.status else {return}
+//            
+//            guard let httpStatus = HttpStatusCode(rawValue: httpStatusCode) else {return}
+//            
+//            DispatchQueue.main.async {
+//                switch httpStatus {
+//                case .sucess:
+//                    let alert = UIAlertController(title: "저장되었습니다.", message: nil, preferredStyle: .alert)
+//                    
+//                    let action = UIAlertAction(title: "확인", style: .default, handler: { (action) in
+//                        
+//                        print("확인 되었습니다")
+//                        self.dismiss(animated: true, completion: nil)
+//                    })
+//                    
+//                    alert.addAction(action)
+//                    self.present(alert, animated: true, completion: nil)
+//                case .dataBaseError, .serverError:
+//                    self.simplerAlert(title: "저장에 실패하였습니다")
+//                default:
+//                    break
+//                }
+//            }
+//        }
         
     }
     

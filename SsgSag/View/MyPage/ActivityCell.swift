@@ -48,9 +48,9 @@ class ActivityCell: UITableViewCell {
     
     @IBAction func deleteActivity(_ sender: Any) {
         
-        guard let activityInfo = self.activityInfo else {return}
+        guard let careerIdx = self.activityInfo?.careerIdx else {return}
         
-        activityServiceImp.requestDeleteActivity(contentIdx: activityInfo.careerIdx) { (dataResponse) in
+        activityServiceImp.requestDeleteActivity(contentIdx: careerIdx) { (dataResponse) in
             guard let status = dataResponse.value?.status else {return}
             
             guard let httpStatusCode = HttpStatusCode(rawValue: status) else {return}

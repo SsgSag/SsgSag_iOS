@@ -16,6 +16,21 @@ class SwipeCard: UIView {
     
     weak var delegate: SwipeCardDelegate?
     
+    lazy var gradientView: CAGradientLayer = {
+        let gradient = CAGradientLayer()
+        gradient.frame = self.overLayImage.bounds
+        gradient.startPoint = CGPoint(x: 0.5, y: 0)
+        gradient.endPoint = CGPoint(x: 0.5, y: 1)
+        gradient.colors = [
+            UIColor(red: 0, green: 0, blue: 0, alpha: 0.2).cgColor,
+            UIColor(red: 0, green: 0, blue: 0, alpha: 0).cgColor,
+            UIColor(red: 0, green: 0, blue: 0, alpha: 0).cgColor,
+            UIColor(red: 0, green: 0, blue: 0, alpha: 0).cgColor,
+            UIColor(red: 0, green: 0, blue: 0, alpha: 0.2).cgColor
+        ]
+        return gradient
+    }()
+    
     public init(frame: CGRect, value: String) {
         super.init(frame: frame)
         self.backgroundColor = .white

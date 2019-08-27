@@ -53,6 +53,15 @@
                                             <constraint firstItem="jaO-T2-FoD" firstAttribute="width" secondItem="H12-qv-6Dr" secondAttribute="width" constant="6" id="kIC-uK-rqp"/>
                                         </constraints>
                                     </stackView>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Rhr-Tr-n6R">
+                                        <rect key="frame" x="359" y="7" width="39" height="30"/>
+                                        <state key="normal" title="나가기">
+                                            <color key="titleColor" red="0.38431372549019605" green="0.41568627450980389" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="touchUpExitButton:" destination="Yih-C1-clG" eventType="touchUpInside" id="o33-jZ-xAz"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
@@ -62,7 +71,9 @@
                                     <constraint firstAttribute="bottom" secondItem="tUb-Nf-Jux" secondAttribute="bottom" id="U0c-KD-Kdt"/>
                                     <constraint firstItem="uR2-i2-ZN4" firstAttribute="height" secondItem="4dd-73-ach" secondAttribute="height" id="WD5-Ij-ODK"/>
                                     <constraint firstItem="tUb-Nf-Jux" firstAttribute="leading" secondItem="4dd-73-ach" secondAttribute="leading" constant="16" id="cFS-XQ-Djc"/>
+                                    <constraint firstItem="Rhr-Tr-n6R" firstAttribute="centerY" secondItem="4dd-73-ach" secondAttribute="centerY" id="sO2-hN-NX5"/>
                                     <constraint firstAttribute="height" constant="44" id="vUM-Sx-GfG"/>
+                                    <constraint firstAttribute="trailing" secondItem="Rhr-Tr-n6R" secondAttribute="trailing" constant="16" id="zVP-0M-DOQ"/>
                                 </constraints>
                             </view>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="Btc-a5-EuC">
@@ -97,6 +108,7 @@
                         <nil key="title"/>
                     </navigationItem>
                     <connections>
+                        <outlet property="exitButton" destination="Rhr-Tr-n6R" id="MLD-Rx-vwO"/>
                         <outlet property="newsCollectionView" destination="Btc-a5-EuC" id="roh-8n-F76"/>
                     </connections>
                 </viewController>

@@ -56,6 +56,7 @@ class CareerVC: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
+        navigationController?.navigationBar.isHidden = false
         setNavigationBar(color: .white)
         navigationItem.leftBarButtonItem = backButton
     }
@@ -77,7 +78,7 @@ class CareerVC: UIViewController {
     }
     
     @objc private func touchUpBackButton() {
-        dismiss(animated: true)
+        navigationController?.popViewController(animated: true)
     }
     
     private func setupActivityDelegate() {
@@ -88,6 +89,7 @@ class CareerVC: UIViewController {
         scrollView.delegate = self
         scrollView.backgroundColor = UIColor.rgb(red: 242, green: 243, blue: 245)
         scrollView.isPagingEnabled = true
+        scrollView.bounces = false
         scrollView.showsHorizontalScrollIndicator = false
         scrollView.showsVerticalScrollIndicator = false
     }
@@ -234,17 +236,17 @@ class CareerVC: UIViewController {
             
             activityTableView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor),
             activityTableView.topAnchor.constraint(equalTo: scrollView.topAnchor),
-            activityTableView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),
+            activityTableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
             activityTableView.trailingAnchor.constraint(equalTo: prizeTableView.leadingAnchor),
             
             prizeTableView.widthAnchor.constraint(equalToConstant: self.view.frame.width),
             prizeTableView.topAnchor.constraint(equalTo: scrollView.topAnchor),
-            prizeTableView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),
+            prizeTableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
             prizeTableView.trailingAnchor.constraint(equalTo: certificationTableView.leadingAnchor),
             
             certificationTableView.widthAnchor.constraint(equalToConstant: self.view.frame.width),
             certificationTableView.topAnchor.constraint(equalTo: scrollView.topAnchor),
-            certificationTableView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),
+            certificationTableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
             certificationTableView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor)
             ])
     }
@@ -263,6 +265,10 @@ class CareerVC: UIViewController {
         prizeTableView.showsVerticalScrollIndicator = false
         certificationTableView.showsVerticalScrollIndicator = false
         
+        activityTableView.bounces = false
+        prizeTableView.bounces = false
+        certificationTableView.bounces = false
+    
         activityTableView.backgroundColor = UIColor.rgb(red: 242, green: 243, blue: 245)
         prizeTableView.backgroundColor = UIColor.rgb(red: 242, green: 243, blue: 245)
         certificationTableView.backgroundColor = UIColor.rgb(red: 242, green: 243, blue: 245)

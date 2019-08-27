@@ -33,9 +33,22 @@ class DetailTodoListTableViewCell: UITableViewCell {
             guard let startWeekDay = WeekDays(rawValue: startComponent.weekday!) else {return}
             
             posterDate.text = "\(startComponent.month!).\(startComponent.day!)(\(startWeekDay.koreanWeekdays))~\(component.month!).\(component.day!)(\(weekDay.koreanWeekdays))"
+            
+            if posterInfo.isFavorite == 1 {
+                favoriteButton.setImage(UIImage(named: "ic_favorite"), for: .normal)
+            } else {
+                favoriteButton.setImage(UIImage(named: "ic_favoritePassive"), for: .normal)
+            }
+            
+            isLike = posterInfo.isFavorite ?? 0
         }
         
     }
+    
+    private let posterService: PosterService
+        = DependencyContainer.shared.getDependency(key: .posterService)
+    
+    private var isLike: Int = 0
     
     @IBOutlet weak var posterImageView: UIImageView!
     
@@ -44,6 +57,8 @@ class DetailTodoListTableViewCell: UITableViewCell {
     @IBOutlet weak var categoryButton: UIButton!
     
     @IBOutlet weak var posterDate: UILabel!
+    
+    @IBOutlet weak var favoriteButton: UIButton!
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -62,10 +77,47 @@ class DetailTodoListTableViewCell: UITableViewCell {
     }
     
     @IBAction func touchUpFavoriteButton(_ sender: UIButton) {
-        if sender.imageView?.image == UIImage(named: "ic_favorite") {
-            sender.setImage(UIImage(named: "ic_favoritePassive"), for: .normal)
-        } else {
-            sender.setImage(UIImage(named: "ic_favorite"), for: .normal)
+        guard let isTryWithoutLogin = UserDefaults.standard.object(forKey: "isTryWithoutLogin") as? Bool,
+            !isTryWithoutLogin else {
+                return
+        }
+        
+        let method: HTTPMethod = poster?.isFavorite == 1 ? .delete : .post
+        
+        guard let index = poster?.posterIdx else {
+            return
+        }
+        
+        posterService.requestPosterFavorite(index: index,
+                                            method: method) { [weak self] result in
+            switch result {
+            case .success(let status):
+                switch status {
+                case .processingSuccess:
+                    DispatchQueue.main.async {
+                        
+                        if sender.imageView?.image == UIImage(named: "ic_favoritePassive") {
+                            sender.setImage(UIImage(named: "ic_favorite"),
+                                            for: .normal)
+                            self?.isLike = 1
+                        } else {
+                            sender.setImage(UIImage(named: "ic_favoritePassive"),
+                                            for: .normal)
+                            self?.isLike = 0
+                        }
+                    }
+                case .dataBaseError:
+                    print("DB 에러")
+                    return
+                case .serverError:
+                    print("server 에러")
+                default:
+                    return
+                }
+            case .failed(let error):
+                print(error)
+                return
+            }
         }
     }
 }

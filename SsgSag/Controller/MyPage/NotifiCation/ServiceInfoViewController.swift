@@ -16,6 +16,8 @@ class ServiceInfoViewController: UIViewController {
         tableView.register(ServiceInfoTableViewCell.self,
                            forCellReuseIdentifier: ServiceInfoViewController.cellId)
         tableView.tableFooterView = UIView()
+        tableView.cellLayoutMarginsFollowReadableWidth = false
+        tableView.separatorInset.left = 0
         return tableView
     }()
     
@@ -130,7 +132,13 @@ extension ServiceInfoViewController: UITableViewDelegate, UITableViewDataSource 
             navigationController?.pushViewController(privateProtectViewController,
                                                      animated: true)
         case .openSourceLicense:
-            navigationController?.pushViewController(OSLViewController(),
+            guard let OSLViewController
+                = storyboard.instantiateViewController(withIdentifier: "OSLVC")
+                    as? OSLViewController else {
+                        return
+            }
+            
+            navigationController?.pushViewController(OSLViewController,
                                                      animated: true)
         }
     }

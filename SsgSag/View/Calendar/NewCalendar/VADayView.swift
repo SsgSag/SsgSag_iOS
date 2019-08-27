@@ -97,7 +97,7 @@ class VADayView: UIView {
     private func drawSeparateView() {
         addSubview(separateView)
         separateView.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -2).isActive = true
-        separateView.heightAnchor.constraint(equalToConstant: 2).isActive = true
+        separateView.heightAnchor.constraint(equalToConstant: 1).isActive = true
         separateView.leadingAnchor.constraint(equalTo: self.leadingAnchor).isActive = true
         separateView.trailingAnchor.constraint(equalTo: self.trailingAnchor).isActive = true
     }
@@ -109,7 +109,8 @@ class VADayView: UIView {
             
             guard let posterEndDate = todo.posterEndDate,
                 let categoryIdx = todo.categoryIdx,
-                let posterName = todo.posterName else {
+                let posterName = todo.posterName,
+                let isFavorite = todo.isFavorite else {
                 return
             }
             
@@ -119,9 +120,9 @@ class VADayView: UIView {
             
             if DateCaculate.isSameDate(self.day.date, monthTodoDate) {
                 if count < 4 {
-                    
                     let lineView = VALineView(color: category?.categoryColors() ?? .clear,
-                                              text: posterName)
+                                              text: posterName,
+                                              isFavorite: isFavorite)
                     if state.state == .out {
                         lineView.backgroundColor = .lightGray
                     }
@@ -132,10 +133,17 @@ class VADayView: UIView {
         }
         
         addSubview(lineStackView)
-        lineStackView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -1).isActive = true
-        lineStackView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 1).isActive = true
-        lineStackView.topAnchor.constraint(equalTo: self.dateLabel.bottomAnchor, constant: 2).isActive = true
-        stackViewHeightAnchor = lineStackView.heightAnchor.constraint(equalToConstant: count * self.frame.height * 0.115)
+        lineStackView.trailingAnchor.constraint(
+            equalTo: self.trailingAnchor,
+            constant: -3).isActive = true
+        lineStackView.leadingAnchor.constraint(
+            equalTo: self.leadingAnchor,
+            constant: 3).isActive = true
+        lineStackView.topAnchor.constraint(
+            equalTo: self.dateLabel.bottomAnchor,
+            constant: 2).isActive = true
+        stackViewHeightAnchor
+            = lineStackView.heightAnchor.constraint(equalToConstant: count * self.frame.height * 0.115)
         
         stackViewHeightAnchor?.isActive = true
     }
@@ -146,7 +154,7 @@ class VADayView: UIView {
         
         addSubview(dateLabel)
         dateLabel.centerXAnchor.constraint(equalTo: self.centerXAnchor).isActive = true
-        dateLabel.widthAnchor.constraint(equalTo: self.widthAnchor, multiplier: 0.6).isActive = true
+        dateLabel.widthAnchor.constraint(equalTo: self.widthAnchor, multiplier: 0.5).isActive = true
         dateLabel.heightAnchor.constraint(equalTo: dateLabel.widthAnchor).isActive = true
         dateLabel.topAnchor.constraint(equalTo: self.topAnchor).isActive = true
         
@@ -166,7 +174,9 @@ class VADayView: UIView {
             
             let posterDate = DateCaculate.stringToDateWithGenericFormatter(using: poster.posterEndDate ?? .init())
             
-            guard let categoryIdx = poster.categoryIdx else { return }
+            guard let posterName = poster.posterName,
+                let categoryIdx = poster.categoryIdx,
+                let isFavorite = poster.isFavorite else { return }
             
             let category = PosterCategory(rawValue: categoryIdx)
             
@@ -175,7 +185,7 @@ class VADayView: UIView {
                     if count < 4 {
                         
                         let lineView = VALineView(color: category?.categoryColors() ?? .clear,
-                                                  text: poster.posterName!)
+                                                  text: posterName, isFavorite: isFavorite)
                         if day.state == .out {
                             lineView.backgroundColor = .lightGray
                         }
@@ -185,22 +195,25 @@ class VADayView: UIView {
                         count += 1
                     }
                 }
-            } else if selectedIndex.contains(category?.calendarFilterNumber ?? 0) {
+            } else if selectedIndex.contains(1) {
                 if DateCaculate.isSameDate(self.day.date, posterDate) {
-                    if count < 4 {
-                        
-                        let lineView = VALineView(color: category?.categoryColors() ?? .clear,
-                                                  text: poster.posterName!)
-                        if day.state == .out {
-                            lineView.backgroundColor = .lightGray
+                    if poster.isFavorite == 1 {
+                        if count < 4 {
+                            
+                            let lineView = VALineView(color: category?.categoryColors() ?? .clear,
+                                                      text: posterName, isFavorite: isFavorite)
+                            if day.state == .out {
+                                lineView.backgroundColor = .lightGray
+                            }
+                            
+                            lineStackView.addArrangedSubview(lineView)
+                            
+                            count += 1
                         }
-                        
-                        lineStackView.addArrangedSubview(lineView)
-                        
-                        count += 1
                     }
                 }
             }
+//            || selectedIndex.contains(category?.rawValue ?? 0)
             
         }
         
@@ -234,7 +247,7 @@ class VADayView: UIView {
         dateLabel.layer.borderColor = UIColor.white.cgColor
         dateLabel.layer.borderWidth = 0
         dateLabel.clipsToBounds = true
-        dateLabel.layer.cornerRadius = self.frame.width * 0.3
+        dateLabel.layer.cornerRadius = self.frame.width * 0.25
     }
     
     private func removeAllSupplementaries() {

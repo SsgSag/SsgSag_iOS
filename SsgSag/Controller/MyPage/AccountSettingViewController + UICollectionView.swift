@@ -21,7 +21,7 @@ extension AccountSettingViewController: UICollectionViewDataSource {
                         numberOfItemsInSection section: Int) -> Int {
         switch section {
         case 0:
-            return 7
+            return 6
         case 1:
             return 3
         default:
@@ -63,24 +63,143 @@ extension AccountSettingViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView,
                         cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if indexPath.section == 0 {
-            guard let cell
-                = collectionView.dequeueReusableCell(withReuseIdentifier: "settingTextFieldCellID",
-                                                     for: indexPath)
-                    as? SettingTextFieldCollectionViewCell else {
-                        return .init()
-            }
             
-            if indexPath.row == 1 {
-                cell.setupUnalterableCell(title: settingTitles[indexPath.row],
-                                          data: "@naver.com")
-            } else {
+            switch indexPath.item {
+            case 0:
+                // 닉네임
+                guard let cell
+                    = collectionView.dequeueReusableCell(withReuseIdentifier: "settingTextFieldCellID",
+                                                         for: indexPath)
+                        as? SettingTextFieldCollectionViewCell else {
+                    return .init()
+                }
+                
+                guard let userData = userData else {
+                    return cell
+                }
+                
+                guard let nickName = userData.userNickname else {
+                    return cell
+                }
+                
                 cell.setupCell(title: settingTitles[indexPath.row],
-                               placeholder: "\(settingTitles[indexPath.row])을/를 입력해주세요")
+                               placeholder: "\(settingTitles[indexPath.row])을/를 입력해주세요",
+                               text: nickName)
+                cell.settingTextField.delegate = self
+                cell.settingTextField.tag = indexPath.item
+                
+                return cell
+            case 1:
+                guard let cell
+                    = collectionView.dequeueReusableCell(withReuseIdentifier: "settingTextFieldCellID",
+                                                         for: indexPath)
+                        as? SettingTextFieldCollectionViewCell else {
+                            return .init()
+                }
+                
+                guard let userData = userData else {
+                    return cell
+                }
+                guard let email = userData.userEmail else {
+                    return cell
+                }
+                
+                cell.setupUnalterableCell(title: settingTitles[indexPath.row],
+                                          data: email)
+                cell.settingTextField.delegate = self
+                cell.settingTextField.tag = indexPath.item
+                return cell
+            case 2:
+                // 비밀번호
+                guard let cell
+                    = collectionView.dequeueReusableCell(withReuseIdentifier: "settingTextFieldCellID",
+                                                         for: indexPath)
+                        as? SettingTextFieldCollectionViewCell else {
+                            return .init()
+                }
+                
+                guard let userData = userData else {
+                    return cell
+                }
+                cell.setupPasswordCell(title: settingTitles[indexPath.row],
+                                       placeholder: "\(settingTitles[indexPath.row])을/를 입력해주세요",
+                                       text: "**********")
+                
+                cell.delegate = self
+                cell.settingTextField.delegate = self
+                cell.settingTextField.tag = indexPath.item
+                return cell
+            case 3:
+                // 학교, 학과
+                guard let cell
+                    = collectionView.dequeueReusableCell(withReuseIdentifier: "univSettingCell",
+                                                         for: indexPath)
+                        as? UnivCollectionViewCell else {
+                            return .init()
+                }
+                
+                guard let userData = userData else {
+                    return cell
+                }
+                
+                guard let univ = userData.userUniv,
+                    let major = userData.userMajor else {
+                    return cell
+                }
+                
+                cell.univName = univ
+                cell.majorTextField.text = major
+                cell.univTextField.delegate = self
+                cell.majorTextField.delegate = self
+                cell.univTextField.tag = indexPath.item
+                cell.majorTextField.tag = indexPath.item + 1
+                
+                return cell
+            case 4:
+                // 학년
+                guard let cell
+                    = collectionView.dequeueReusableCell(withReuseIdentifier: "gradeSettingCell",
+                                                         for: indexPath)
+                        as? GradeCollectionViewCell else {
+                            return .init()
+                }
+                
+                guard let userData = userData else {
+                    return cell
+                }
+                
+                guard let grade = userData.userGrade else {
+                    return cell
+                }
+                
+                cell.gradeTextField.text = String(grade)
+                cell.gradeTextField.delegate = self
+                cell.gradeTextField.tag = indexPath.item + 1
+                return cell
+            case 5:
+                // 입학년도
+                guard let cell
+                    = collectionView.dequeueReusableCell(withReuseIdentifier: "admissionSettingCell",
+                                                         for: indexPath)
+                        as? AdmissionCollectionViewCell else {
+                            return .init()
+                }
+                
+                guard let userData = userData else {
+                    return cell
+                }
+                
+                guard let studentNum = userData.userStudentNum else {
+                    return cell
+                }
+                
+                cell.admissionTextField.text = studentNum
+                cell.admissionTextField.delegate = self
+                cell.admissionTextField.tag = indexPath.item + 1
+                return cell
+            default:
+                return .init()
             }
-            
-            cell.settingTextField.delegate = self
-            
-            return cell
         } else {
             guard let cell
                 = collectionView.dequeueReusableCell(withReuseIdentifier: "menuCellID",
@@ -152,6 +271,12 @@ extension AccountSettingViewController: UICollectionViewDelegateFlowLayout {
                         layout collectionViewLayout: UICollectionViewLayout,
                         sizeForItemAt indexPath: IndexPath) -> CGSize {
         if indexPath.section == 0 {
+            if (indexPath.item == 1 || indexPath.item == 2) && userData?.signupType == 0 {
+                return CGSize(width: view.frame.width, height: 0)
+            } else if indexPath.item == 3 {
+                return CGSize(width: view.frame.width, height: 180)
+            }
+            
             return CGSize(width: view.frame.width, height: 90)
         } else {
             return CGSize(width: view.frame.width, height: 50)

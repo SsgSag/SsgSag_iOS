@@ -7,18 +7,30 @@
 //
 
 import UIKit
+import SwiftKeychainWrapper
 
 class FeedVC: UIViewController {
     
     @IBOutlet weak var newsCollectionView: UICollectionView!
+    @IBOutlet weak var exitButton: UIButton!
     
     var selectedMenuIndex: Int = 0
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
+        tabBarController?.tabBar.isHidden = false
         navigationController?.navigationBar.isHidden = true
         
+        guard let isTryWithoutLogin = UserDefaults.standard.object(forKey: "isTryWithoutLogin") as? Bool else {
+            return
+        }
+        
+        if !isTryWithoutLogin {
+            exitButton.isHidden = true
+        }
+        
+        newsCollectionView.reloadItems(at: [IndexPath(item: 0, section: 0)])
 //        menuBar.menuCollectionView.scrollToItem(at: IndexPath(item: 0, section: 0), at: .left, animated: false)
     }
     
@@ -28,13 +40,64 @@ class FeedVC: UIViewController {
         setupCollectionView()
     }
     
+    @IBAction func touchUpExitButton(_ sender: Any) {
+        KeychainWrapper.standard.removeObject(forKey: TokenName.token)
+        
+        guard let window = UIApplication.shared.keyWindow else {
+            return
+        }
+        
+        let mainStoryboard: UIStoryboard = UIStoryboard(name: "LoginStoryBoard", bundle: nil)
+        let viewController = mainStoryboard.instantiateViewController(withIdentifier: "splashVC") as! SplashViewController
+        
+        let rootNavigationController = UINavigationController(rootViewController: viewController)
+        
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        appDelegate.window?.rootViewController = rootNavigationController
+        
+        rootNavigationController.view.layoutIfNeeded()
+        
+        UIView.transition(with: window, duration: 0.5, options: .transitionFlipFromLeft, animations: {
+            window.rootViewController = rootNavigationController
+        }, completion: nil)
+    }
+    
     @IBAction func touchUpMyPageButton(_ sender: UIButton) {
+        if let isTryWithoutLogin = UserDefaults.standard.object(forKey: "isTryWithoutLogin") as? Bool {
+            if isTryWithoutLogin {
+                simpleAlertwithHandler(title: "마이페이지", message: "로그인 후 이용해주세요") { _ in
+                    
+                    KeychainWrapper.standard.removeObject(forKey: TokenName.token)
+                    
+                    guard let window = UIApplication.shared.keyWindow else {
+                        return
+                    }
+                    
+                    let mainStoryboard: UIStoryboard = UIStoryboard(name: "LoginStoryBoard", bundle: nil)
+                    let viewController = mainStoryboard.instantiateViewController(withIdentifier: "splashVC") as! SplashViewController
+                    
+                    let rootNavigationController = UINavigationController(rootViewController: viewController)
+                    
+                    let appDelegate = UIApplication.shared.delegate as! AppDelegate
+                    appDelegate.window?.rootViewController = rootNavigationController
+                    
+                    rootNavigationController.view.layoutIfNeeded()
+                    
+                    UIView.transition(with: window, duration: 0.5, options: .transitionFlipFromLeft, animations: {
+                        window.rootViewController = rootNavigationController
+                    }, completion: nil)
+                }
+                return
+            }
+        }
+        
         let myPageStoryboard = UIStoryboard(name: StoryBoardName.mypage, bundle: nil)
         
         let myPageViewController
             = myPageStoryboard.instantiateViewController(withIdentifier: ViewControllerIdentifier.mypageViewController)
         
-        present(myPageViewController, animated: true)
+        present(UINavigationController(rootViewController: myPageViewController),
+                animated: true)
     }
 
     private func setupCollectionView() {
@@ -96,7 +159,8 @@ extension FeedVC: UICollectionViewDataSource {
 
 extension FeedVC: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: newsCollectionView.frame.width, height: newsCollectionView.frame.height)
+        return CGSize(width: newsCollectionView.frame.width,
+                      height: newsCollectionView.frame.height)
     }
 }
 

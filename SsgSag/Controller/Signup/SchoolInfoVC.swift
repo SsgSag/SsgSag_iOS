@@ -20,7 +20,7 @@ class SchoolInfoVC: UIViewController {
     var nickName: String = ""
     
     var gender: String = ""
-    
+
     private var sendToken: String = ""
     private var sendType: Int = 0
     
@@ -49,7 +49,6 @@ class SchoolInfoVC: UIViewController {
     
     lazy var gradePickerView = UIPickerView()
     let gradePickOption = ["1", "2", "3", "4", "5"]
-    var optionRow = 0
     
     lazy var admissionPickerView = UIPickerView()
     var admissionPickOption: [String] = []
@@ -66,7 +65,8 @@ class SchoolInfoVC: UIViewController {
     
     @IBOutlet weak var nextButton: GradientButton!
     
-    @IBOutlet weak var imageViewHeightConstraint: NSLayoutConstraint!
+    @IBOutlet weak var textFieldsStackView: UIStackView!
+    @IBOutlet weak var scrollView: UIScrollView!
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -109,13 +109,18 @@ class SchoolInfoVC: UIViewController {
     
     private func setupLayout() {
         
+        let flexible
+            = UIBarButtonItem(barButtonSystemItem: .flexibleSpace,
+                              target: self,
+                              action: nil)
+        
         let gradeToolBar = UIToolbar()
         gradeToolBar.barStyle = .default
         gradeToolBar.isTranslucent = true
         gradeToolBar.tintColor = UIColor(red: 92/255, green: 216/255, blue: 255/255, alpha: 1)
         gradeToolBar.sizeToFit()
         gradeToolBar.isUserInteractionEnabled = true
-        gradeToolBar.setItems([gradeDoneButton], animated: false)
+        gradeToolBar.setItems([flexible, gradeDoneButton], animated: false)
         gradeDoneButton.tintColor = #colorLiteral(red: 0.4603668451, green: 0.5182471275, blue: 1, alpha: 1)
         
         let admissionToolBar = UIToolbar()
@@ -124,7 +129,7 @@ class SchoolInfoVC: UIViewController {
         admissionToolBar.tintColor = UIColor(red: 92/255, green: 216/255, blue: 255/255, alpha: 1)
         admissionToolBar.sizeToFit()
         admissionToolBar.isUserInteractionEnabled = true
-        admissionToolBar.setItems([admissionDoneButton], animated: false)
+        admissionToolBar.setItems([flexible, admissionDoneButton], animated: false)
         admissionDoneButton.tintColor = #colorLiteral(red: 0.4603668451, green: 0.5182471275, blue: 1, alpha: 1)
     
         gradeField.inputView = gradePickerView
@@ -136,12 +141,10 @@ class SchoolInfoVC: UIViewController {
     }
     
     @objc func touchUpGradeDoneButton() {
-        gradeField.text = gradePickOption[optionRow]
         view.endEditing(true)
     }
     
     @objc func touchUpAdmissionDoneButton() {
-        numberField.text = admissionPickOption[optionRow]
         view.endEditing(true)
     }
     
@@ -272,43 +275,40 @@ class SchoolInfoVC: UIViewController {
                 "osType": 1
             ]
         }
-        
-        do {
-            let userInfo = try JSONSerialization.data(withJSONObject: sendData)
             
-            signupService.requestSingup(userInfo) { [weak self] (responseData) in
-                guard let response = responseData.value,
-                    let status = response.status,
-                    let httpStatus = SingupHttpStatusCode(rawValue: status) else {
-                        return
-                }
-                
-                switch httpStatus {
-                case .success:
-                    // 토큰 저장
-                    if let storeToken = response.data?.token {
-                        KeychainWrapper.standard.set(storeToken,
-                                                     forKey: TokenName.token)
-                    }
-                    
-                    DispatchQueue.main.async {
-                        self?.present(TapbarVC(), animated: true)
-                    }
-                    
-//                    self.autoLogin(sendType: sendType, sendToken: sendToken)
-                
-                case .failure:
-                    guard let message = response.message else { return }
-                    
-                    self?.simpleAlert(title: "회원가입 실패",
-                                      message: message)
-                case .databaseError:
-                    self?.simpleAlert(title: "데이터베이스 에러",
-                                      message: "서버 오류")
-                }
+        signupService.requestSingup(sendData) { [weak self] (responseData) in
+            guard let response = responseData.value,
+                let status = response.status,
+                let httpStatus = SingupHttpStatusCode(rawValue: status) else {
+                    return
             }
-        } catch {
             
+            switch httpStatus {
+            case .success:
+                // 토큰 저장
+                
+                if let storeToken = response.data?.token {
+                    KeychainWrapper.standard.set(storeToken,
+                                                 forKey: TokenName.token)
+                }
+                
+                UserDefaults.standard.set(false, forKey: "isTryWithoutLogin")
+                
+                DispatchQueue.main.async {
+                    self?.present(TapbarVC(), animated: true)
+                }
+                
+//                    self.autoLogin(sendType: sendType, sendToken: sendToken)
+            
+            case .failure:
+                guard let message = response.message else { return }
+                
+                self?.simpleAlert(title: "회원가입 실패",
+                                  message: message)
+            case .databaseError:
+                self?.simpleAlert(title: "데이터베이스 에러",
+                                  message: "서버 오류")
+            }
         }
     }
     
@@ -421,14 +421,8 @@ class SchoolInfoVC: UIViewController {
 }
 
 extension SchoolInfoVC: UIGestureRecognizerDelegate {
-    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
-        
-        imageViewHeightConstraint.constant = 114
-        
-        UIView.animate(withDuration: 0.3) {
-            self.view.layoutIfNeeded()
-        }
-        
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer,
+                           shouldReceive touch: UITouch) -> Bool {
         self.view.endEditing(true)
         return true
     }
@@ -438,7 +432,7 @@ extension SchoolInfoVC: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         let nextTag = textField.tag + 1
         
-        if let nextResponder =  self.view.viewWithTag(nextTag){
+        if let nextResponder = self.view.viewWithTag(nextTag){
             nextResponder.becomeFirstResponder()
         } else {
             textField.resignFirstResponder()
@@ -446,16 +440,14 @@ extension SchoolInfoVC: UITextFieldDelegate {
         return true
     }
     
-    func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
-        imageViewHeightConstraint.constant = 0
-        
-        UIView.animate(withDuration: 0.3) {
-            self.view.layoutIfNeeded()
-        }
-        return true
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        scrollView.setContentOffset(CGPoint(x: 0, y: 0), animated: true)
+        scrollView.setContentOffset(CGPoint(x: 0, y: textFieldsStackView.frame.origin.y), animated: true)
     }
     
     func textFieldDidEndEditing(_ textField: UITextField) {
+        scrollView.setContentOffset(CGPoint(x: 0, y: 0), animated: true)
+        
         checkInformation(self)
     }
 }
@@ -485,7 +477,11 @@ extension SchoolInfoVC: UIPickerViewDelegate, UIPickerViewDataSource {
     func pickerView(_ pickerView: UIPickerView,
                     didSelectRow row: Int,
                     inComponent component: Int) {
-        optionRow = row
+        if pickerView == gradePickerView {
+            gradeField.text = gradePickOption[row]
+            return
+        }
+        numberField.text = admissionPickOption[row]
     }
 }
 

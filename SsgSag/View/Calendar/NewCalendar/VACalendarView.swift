@@ -75,7 +75,7 @@ public class VACalendarView: UIScrollView {
     private let numberDaysInWeek = 7
     
     private func getWeekHeight(_ numberOfWeekDays: Int) -> CGFloat {
-        return frame.height / CGFloat(MaxNumberOfWeekType(rawValue: numberOfWeekDays)?.getMultiplier ?? 6)
+        return (frame.height - 44) / CGFloat(MaxNumberOfWeekType(rawValue: numberOfWeekDays)?.getMultiplier ?? 6)
     }
     
     private var weekHeight: CGFloat {
@@ -380,19 +380,19 @@ extension VACalendarView: VAMonthViewDelegate {
         switch selectionStyle {
         case .single:
             
-            guard day.state == .available  else {
-                
-                if day.state == .selected {
-                    calendar.deselectAll()
-                    calendar.setDaySelectionState(day, state: .selected)
-                    calendarDelegate?.selectedDate?(day.date)
-                }
-                
-                return
-            }
+//            guard day.state == .available  else {
+//                
+//                if day.state == .selected {
+////                    calendar.deselectAll()
+////                    calendar.setDaySelectionState(day, state: .selected)
+//                    calendarDelegate?.selectedDate?(day.date)
+//                }
+//                
+//                return
+//            }
             
-            calendar.deselectAll()
-            calendar.setDaySelectionState(day, state: .selected)
+//            calendar.deselectAll()
+//            calendar.setDaySelectionState(day, state: .selected)
             calendarDelegate?.selectedDate?(day.date)
             
         case .multi:
@@ -421,7 +421,8 @@ extension VACalendarView: CategorySelectedDelegate {
         for monthView in self.monthViews {
             for weekView in monthView.weekViews {
                 for dayView in weekView.dayViews {
-                    dayView.drawEventWithSelectedIndex(multipleSelected, monthTodos: monthTodoData)
+                    dayView.drawEventWithSelectedIndex(multipleSelected,
+                                                       monthTodos: monthTodoData)
                 }
             }
         }

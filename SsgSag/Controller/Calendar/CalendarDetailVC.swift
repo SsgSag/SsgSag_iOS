@@ -200,14 +200,14 @@ class CalendarDetailVC: UIViewController {
             return
         }
         
-        objectsToshare.append(posterImage)
-        
         guard let posterWebSiteURL = posterDetail?.posterWebSite else {
             addObjects(with: objectsToshare, sender: sender)
             return
         }
         
         objectsToshare.append(posterWebSiteURL)
+        
+        objectsToshare.append(posterImage)
         
         addObjects(with: objectsToshare, sender: sender)
     }

@@ -85,7 +85,9 @@ class DatePickerPopUpVC: UIViewController {
             
         case .AddCertificationVC:
             
-            let _ = self.parent as! AddCertificationVC
+            let previousVC = self.parent as! AddCertificationVC
+            
+            previousVC.dateButton.setTitle(dateString, for: .normal)
             
         }
         

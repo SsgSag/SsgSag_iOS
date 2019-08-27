@@ -55,7 +55,7 @@ struct DateCaculate {
         return dateFormatter.date(from: cellDateString)
     }
     
-    static func dayInterval(using dateString: String) -> Int{
+    static func dayInterval(using dateString: String) -> Int {
         
         let dateFormatter = DateFormatter.genericDateFormatter
         
@@ -74,14 +74,21 @@ struct DateCaculate {
         
         let dateFormatter = DateFormatter.genericDateFormatter
         
-        guard let startDateString = startDate else { return "" }
-        
         guard let endDateString = endDate else { return "" }
         
         guard let posterEndDate = dateFormatter.date(from: endDateString) else { return "" }
         
-        guard let posterStartDate = dateFormatter.date(from: startDateString) else { return "X ~ \(posterEndDate)" }
+        guard let startDateString = startDate else {
+            let endDate = Calendar.current.dateComponents([.month, .day], from: posterEndDate)
+            
+            guard let endMonth = endDate.month else { return "" }
+            
+            guard let endDay = endDate.day else { return "" }
+            
+            return "~ \(endMonth).\(endDay)"
+        }
         
+        guard let posterStartDate = dateFormatter.date(from: startDateString) else { return "~ \(posterEndDate)" }
 
         let startDate = Calendar.current.dateComponents([.month, .day], from: posterStartDate)
         

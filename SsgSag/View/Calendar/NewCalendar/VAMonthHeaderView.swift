@@ -13,8 +13,8 @@ public struct VAMonthHeaderViewAppearance {
     let dateFormat: String
     
     public init(
-        monthFont: UIFont = UIFont.systemFont(ofSize: 21),
-        monthTextColor: UIColor = UIColor.black,
+        monthFont: UIFont = UIFont.systemFont(ofSize: 20, weight: .semibold),
+        monthTextColor: UIColor = #colorLiteral(red: 0.3098039216, green: 0.3098039216, blue: 0.3098039216, alpha: 1),
         monthTextWidth: CGFloat = 150,
         dateFormat: String = "MMMM") {
         self.monthFont = monthFont
@@ -80,7 +80,7 @@ public class VAMonthHeaderView: UIView {
         
         backgroundColor = .white
         monthLabel.font = appearance.monthFont
-        monthLabel.textAlignment = .center
+        monthLabel.textAlignment = .left
         monthLabel.textColor = appearance.monthTextColor
         
         addSubview(monthLabel)

@@ -166,7 +166,7 @@ class CalendarServiceImp: CalendarService {
     }
     
     func requestDelete(_ posterIdx: Int,
-                       completionHandler: @escaping (DataResponse<PosterFavorite>) -> Void) {
+                       completionHandler: @escaping (DataResponse<HttpStatusCode>) -> Void) {
         
         guard let token
             = KeychainWrapper.standard.string(forKey: TokenName.token),
@@ -184,9 +184,14 @@ class CalendarServiceImp: CalendarService {
             switch result {
             case .success(let data):
                 do {
-                    let response = try JSONDecoder().decode(PosterFavorite.self, from: data)
+                    let decodedData = try JSONDecoder().decode(PosterFavorite.self, from: data)
                     
-                    completionHandler(DataResponse.success(response))
+                    guard let status = decodedData.status,
+                        let httpStatusCode = HttpStatusCode(rawValue: status) else {
+                            return
+                    }
+                    
+                    completionHandler(DataResponse.success(httpStatusCode))
                 } catch let error {
                     completionHandler(.failed(error))
                     return
