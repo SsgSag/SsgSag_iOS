@@ -269,9 +269,16 @@ class DetailNewTextSwipeCard: UIViewController {
             
             self.intervalDate.textColor = category.categoryColors()
             
+            var categoryString = category.categoryString()
+            
+            if posterCategoryIdx == 2 {
+                let subCategory = poster?.subCategoryIdx == 0 ? "연합" : "교내"
+                categoryString.append("(\(subCategory))")
+            }
+            
             self.categoryButton.setTitleColor(category.categoryColors(), for: .normal)
             self.categoryButton.backgroundColor = category.categoryColors().withAlphaComponent(0.05)
-            self.categoryButton.setTitle(category.categoryString(), for: .normal)
+            self.categoryButton.setTitle(categoryString, for: .normal)
         }
     }
     

@@ -336,7 +336,7 @@ extension DetailInfoViewController: UICollectionViewDataSource {
         }
         
         if isTryWithoutLogin {
-            return 1
+            return 2
         }
         
         return 3
@@ -412,7 +412,7 @@ extension DetailInfoViewController: UICollectionViewDataSource {
                 if categoryIdx == 3 || categoryIdx == 5 {
                     cell.configure(titleString: columnData?[1].columnName ?? "",
                                    detailString: columnData?[1].columnContent ?? "")
-                } else if posterDetailData?.categoryIdx == 2 || posterDetailData?.categoryIdx == 6 {
+                } else if posterDetailData?.categoryIdx == 2 {
                     cell.configure(titleString: infoTitles[1],
                                    detailString: posterDetailData?.period ?? "")
                 } else {
@@ -453,7 +453,7 @@ extension DetailInfoViewController: UICollectionViewDataSource {
                                                             return .init()
                 }
                 
-                cell.configure(phoneNumber: posterDetailData?.partnerPhone ?? "", email: posterDetailData?.partnerEmail ?? "")
+                cell.configure(email: posterDetailData?.partnerEmail ?? "")
                 
                 return cell
             case 5:
@@ -664,12 +664,11 @@ extension DetailInfoViewController: UICollectionViewDelegateFlowLayout {
                 
                 return CGSize(width: view.frame.width, height: collectionViewCellHeight + 72)
             case 4:
-                guard let _ = posterDetailData?.partnerPhone,
-                    let _ = posterDetailData?.partnerEmail else {
+                guard let _ = posterDetailData?.partnerEmail else {
                         return CGSize(width: 0, height: 0)
                 }
                 
-                return CGSize(width: view.frame.width, height: 106)
+                return CGSize(width: view.frame.width, height: 80)
             case 5:
                 if isFolding {
                     isFolding = !isFolding
@@ -910,7 +909,7 @@ func titleStringByCategory(categoryIdx: Int) -> [String] {
         // 대외활동
         return ["지원자격", "활동내용", "혜택"]
     case 2:
-        // 동아리(연합)
+        // 동아리
         return ["활동분야", "모임시간", "활동혜택"]
     case 3:
         // 교내공지
@@ -921,9 +920,6 @@ func titleStringByCategory(categoryIdx: Int) -> [String] {
     case 5:
         // 기타
         return ["", "", ""]
-    case 6:
-        // 동아리 (교내)
-        return ["활동분야", "모임시간", "혜택"]
     case 7:
         // 교육/강연
         return ["주제", "내용/커리큘럼", "일정/기간"]

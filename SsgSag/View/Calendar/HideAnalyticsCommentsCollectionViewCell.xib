@@ -29,13 +29,13 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tcX-OP-8LP">
-                                <rect key="frame" x="125.5" y="21" width="109" height="30"/>
+                                <rect key="frame" x="123.5" y="21" width="113" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="f4Z-m8-mlh"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
                                 <inset key="contentEdgeInsets" minX="6" minY="3" maxX="6" maxY="3"/>
-                                <state key="normal" title="회원가입하러가기">
+                                <state key="normal" title="회원가입 하러가기">
                                     <color key="titleColor" red="0.38431372549999998" green="0.41568627450000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
                                 <userDefinedRuntimeAttributes>

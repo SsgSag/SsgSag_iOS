@@ -190,14 +190,20 @@ class TodoTableViewCell: UITableViewCell {
             contentLabel.text = "\(posterName)"
             
             if let category = PosterCategory(rawValue: posterCagegoryIdx) {
-                categoryLabel.text = category.categoryString()
+                
+                var categoryString = category.categoryString()
+                
+                if posterCagegoryIdx == 2 {
+                    let subCategory = poster.subCategoryIdx == 0 ? "연합" : "교내"
+                    categoryString.append("(\(subCategory))")
+                }
+                
+                categoryLabel.text = categoryString
                 categoryLabel.textColor = category.categoryColors()
                 
                 setFavoriteColor(with: category, posterIdx: posterIdx)
                 setComplted(posterIdx: posterIdx)
             }
-            
-            
             
             dayLefted.text = getLeftedDay(using: posterEndDate)
             

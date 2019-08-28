@@ -18,6 +18,7 @@ struct MonthTodoList: Codable {
 // MARK: - MonthTodoData
 struct MonthTodoData: Codable {
     let posterIdx, categoryIdx, isCompleted, isEnded: Int?
+    let subCategoryIdx: Int?
     let posterName, outline, posterEndDate: String?
     let posterStartDate: String?
     let documentDate: String?

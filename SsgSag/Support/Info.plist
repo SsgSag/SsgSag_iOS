@@ -54,7 +54,7 @@
 	<key>LSApplicationQueriesSchemes</key>
 	<array>
 		<string>kakaoed0a3c51db01fecdca098dde710f2753</string>
-        <string>kakaokompassauth</string>
+		<string>kakaokompassauth</string>
 		<string>kakaolink</string>
 		<string>kakaotalk-5.9.7</string>
 		<string>naversearchapp</string>
