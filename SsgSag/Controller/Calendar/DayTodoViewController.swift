@@ -350,7 +350,7 @@ extension DayTodoViewController: UICollectionViewDataSource {
         cell.dateLabel.text = dateString
         cell.backgroundColor = .white
         cell.layer.cornerRadius = 10
-        cell.monthTodoData = totalTodoDatas[indexPath.item][0].todoData
+        cell.setupMonthTodoData(totalTodoDatas[indexPath.item][0].todoData)
         
         return cell
     }

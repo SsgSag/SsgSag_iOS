@@ -41,7 +41,7 @@ class SplashVC: UIViewController {
             equalToConstant: view.frame.width).isActive = true
         animation.heightAnchor.constraint(
             equalTo: animation.widthAnchor,
-            multiplier: 2).isActive = true
+            multiplier: 1.75).isActive = true
     }
     
     private func isAutoLogin() {

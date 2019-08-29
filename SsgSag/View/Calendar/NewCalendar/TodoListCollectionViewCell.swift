@@ -33,11 +33,7 @@ class TodoListCollectionViewCell: UICollectionViewCell {
     private let calendarService: CalendarService
         = DependencyContainer.shared.getDependency(key: .calendarService)
     
-    var monthTodoData: [MonthTodoData]? {
-        didSet {
-            todoListTableView.reloadData()
-        }
-    }
+    var monthTodoData: [MonthTodoData]?
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -45,6 +41,7 @@ class TodoListCollectionViewCell: UICollectionViewCell {
         todoListTableView.delegate = self
         todoListTableView.dataSource = self
         setupTableView()
+        setupLongPressGesture()
     }
     
     private func setupTableView() {
@@ -56,6 +53,65 @@ class TodoListCollectionViewCell: UICollectionViewCell {
         
         let noTodoNib = UINib(nibName: "NoTodoTableViewCell", bundle: nil)
         todoListTableView.register(noTodoNib, forCellReuseIdentifier: "noTodoCell")
+    }
+    
+    private func setupLongPressGesture() {
+        let longPressGesture: UILongPressGestureRecognizer
+            = UILongPressGestureRecognizer(target: self,
+                                           action: #selector(handleLongPress))
+        longPressGesture.minimumPressDuration = 1.0 // 1 second press
+        longPressGesture.delegate = self
+        todoListTableView.addGestureRecognizer(longPressGesture)
+    }
+    
+    func setupMonthTodoData(_ monthTodoData: [MonthTodoData]) {
+        self.monthTodoData = monthTodoData
+        todoListTableView.reloadData()
+        
+    }
+    
+    @objc func handleLongPress(_ gestureRecognizer: UILongPressGestureRecognizer) {
+        if gestureRecognizer.state == .began {
+            let touchPoint = gestureRecognizer.location(in: todoListTableView)
+            if let indexPath = todoListTableView.indexPathForRow(at: touchPoint) {
+                guard let controller = controller as? DayTodoViewController else {
+                    return
+                }
+                
+                guard let posterIdx = monthTodoData?[indexPath.row].posterIdx,
+                    let posterTitle = monthTodoData?[indexPath.row].posterName else {
+                    return
+                }
+                
+                controller.simpleAlertwithHandler(title: "[ \(posterTitle) ]",
+                                                  message: "해당 일정을 삭제하시겠습니까?") { [weak self] _ in
+                    
+                    self?.calendarService.requestDelete(posterIdx) { [weak self] result in
+                        switch result {
+                        case .success(let status):
+                            DispatchQueue.main.async {
+                                switch status {
+                                case .processingSuccess:
+                                    self?.monthTodoData?.remove(at: indexPath.row)
+                                    self?.todoListTableView.deleteRows(at: [indexPath],
+                                                                       with: .fade)
+                                    self?.calendarDelegate?.reloadCalendarData()
+                                case .dataBaseError:
+                                    return
+                                case .serverError:
+                                    return
+                                default:
+                                    return
+                                }
+                            }
+                        case .failed(let error):
+                            print(error)
+                            return
+                        }
+                    }
+                }
+            }
+        }
     }
     
     @IBAction func touchUpCancelButton(_ sender: UIButton) {
@@ -92,7 +148,8 @@ extension TodoListCollectionViewCell: UITableViewDataSource {
     func tableView(_ tableView: UITableView,
                    cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if monthTodoData?.count == 0 {
-            guard let cell = tableView.dequeueReusableCell(withIdentifier: "noTodoCell", for: indexPath) as? NoTodoTableViewCell else {
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: "noTodoCell",
+                                                           for: indexPath) as? NoTodoTableViewCell else {
                 return .init()
             }
             
@@ -149,47 +206,8 @@ extension TodoListCollectionViewCell: UITableViewDataSource {
 
         pushDelegate?.pushViewController(detailInfoVC, cell.favoriteButton)
     }
-//
-//    func tableView(_ tableView: UITableView,
-//                   canEditRowAt indexPath: IndexPath) -> Bool {
-//        return true
-//    }
-//
-//    func tableView(_ tableView: UITableView,
-//                   commit editingStyle: UITableViewCell.EditingStyle,
-//                   forRowAt indexPath: IndexPath) {
-//        if editingStyle == .delete {
-//            monthTodoData?.remove(at: indexPath.row)
-//
-//            guard let posterIdx = monthTodoData?[indexPath.row].posterIdx else {
-//                return
-//            }
-//
-//            calendarService.requestDelete(posterIdx) { [weak self] result in
-//                switch result {
-//                case .success(let status):
-//                    DispatchQueue.main.async {
-//                        switch status {
-//                        case .processingSuccess:
-//                            self?.calendarDelegate?.reloadCalendarData()
-//                            print("완료")
-//                        case .dataBaseError:
-//                            return
-//                        case .serverError:
-//                            return
-//                        default:
-//                            return
-//                        }
-//                    }
-//                case .failed(let error):
-//                    print(error)
-//                    return
-//                }
-//            }
-//
-//            tableView.deleteRows(at: [indexPath],
-//                                 with: .fade)
-//        }
-//    }
-//
+
+}
+
+extension TodoListCollectionViewCell: UIGestureRecognizerDelegate {
 }

@@ -180,6 +180,7 @@ class NewCalendarVC: UIViewController {
                 print("no contentOffset data")
                 return
             }
+            self?.categorySelectedDelegate?.categorySelectedDelegate([])
             self?.calendarView.setupMonths()
             self?.calendarView.drawVisibleMonth(with: contentOffset)
         }
