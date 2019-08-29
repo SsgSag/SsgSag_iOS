@@ -19,6 +19,9 @@ class InquireViewController: UIViewController {
     @IBOutlet weak var promotionButton: UIButton!
     @IBOutlet weak var etcButton: UIButton!
     @IBOutlet weak var contentsTextView: UITextView!
+    @IBOutlet weak var scrollView: UIScrollView!
+    @IBOutlet weak var outsideStackView: UIStackView!
+    @IBOutlet weak var contentsTextViewHeightConstraint: NSLayoutConstraint!
     
     private var kind: InquireKind = .feedBack
     
@@ -135,16 +138,34 @@ class InquireViewController: UIViewController {
 
 extension InquireViewController: UITextViewDelegate {
     func textViewDidBeginEditing(_ textView: UITextView) {
+        scrollView.setContentOffset(CGPoint(x: 0,
+                                            y: outsideStackView.subviews[1].frame.origin.y),
+                                    animated: true)
+        
+        UIView.animate(withDuration: 0.3) { [weak self] in
+            guard let height = self?.view.frame.height else {
+                return
+            }
+            
+            self?.contentsTextViewHeightConstraint.constant = height * 0.25
+        }
         setupTextViewPlaceHolder()
     }
     
     func textViewDidEndEditing(_ textView: UITextView) {
+        UIView.animate(withDuration: 0.3) { [weak self] in
+            self?.scrollView.contentOffset.y = 0
+            self?.contentsTextViewHeightConstraint.constant = 333
+        }
+        
         if textView.text == "" {
             setupTextViewPlaceHolder()
         }
     }
     
-    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+    func textView(_ textView: UITextView,
+                  shouldChangeTextIn range: NSRange,
+                  replacementText text: String) -> Bool {
         if text == "\n" {
             textView.resignFirstResponder()
         }
