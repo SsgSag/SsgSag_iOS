@@ -55,27 +55,27 @@
 ### 캘린더
 
 <div>
-<img src="/ReadmeImages/캘린더1.png" width="170">
-<img src="/ReadmeImages/캘린더2.png" width="170">
+<img src="https://user-images.githubusercontent.com/34293225/64090125-8e66f500-cd84-11e9-9587-6950d576d938.png" width="170">
+<img src="https://user-images.githubusercontent.com/34293225/64090128-94f56c80-cd84-11e9-8dba-32ece16157bc.png" width="170">
 </div>
 
 ### 이력관리
 
 <div>
-<img src="/ReadmeImages/이력관리1.png" width="170">
+<img src="https://user-images.githubusercontent.com/34293225/64090132-9aeb4d80-cd84-11e9-94a2-e223c9d5df34.png" width="170">
 </div>
 
 ### 마이페이지
 
 <div>
-<img src="/ReadmeImages/마이페이지1.png" width="170">
+<img src="https://user-images.githubusercontent.com/34293225/64090139-a3438880-cd84-11e9-9634-aa8d352a86b2.png" width="170">
 </div>
 
 ### 상세페이지
 
 <div>
-<img src="/ReadmeImages/상세정보1.png" width="170">
-<img src="/ReadmeImages/상세정보2.png" width="170">
+<img src="https://user-images.githubusercontent.com/34293225/64090136-9f176b00-cd84-11e9-948b-cdb29f07c806.png" width="170">
+<img src="https://user-images.githubusercontent.com/34293225/64090137-a179c500-cd84-11e9-83c9-f0d1ec96a78c.png" width="170">
 </div>
 
 
