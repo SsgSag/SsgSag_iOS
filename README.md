@@ -48,8 +48,8 @@
 ### 스와이프
 
 <div>
-<img src="/ReadmeImages/스와이프1.png" width="170" style="float: left; margin-right: 10px;"/>
-<img src="/ReadmeImages/스와이프2.png" width="170">
+<img src="./ReadmeImages/스와이프1.png" width="170" style="float: left; margin-right: 10px;"/>
+<img src="./ReadmeImages/스와이프2.png" width="170">
 </div>
 
 ### 캘린더
