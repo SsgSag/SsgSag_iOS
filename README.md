@@ -63,8 +63,6 @@
 
 <div>
 <img src="/ReadmeImages/이력관리1.png" width="170">
-<img src="/ReadmeImages/이력관리2.png" width="170">
-<img src="/ReadmeImages/이력관리3.png" width="170">
 </div>
 
 ### 마이페이지
@@ -76,7 +74,8 @@
 ### 상세페이지
 
 <div>
-<img src="/ReadmeImages/상세페이지.png" width="170">
+<img src="/ReadmeImages/상세정보1.png" width="170">
+<img src="/ReadmeImages/상세정보2.png" width="170">
 </div>
 
 
@@ -91,6 +90,7 @@
 - [Lottie-iOS](https://github.com/airbnb/lottie-ios)
 - [SearchTextField](https://github.com/apasccon/SearchTextField)
 - [SwiftKeychainWrapper](https://github.com/jrendel/SwiftKeychainWrapper)
+- [FBSDKCoreKit](https://github.com/facebook/facebook-swift-sdk)
 
 
 
