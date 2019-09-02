@@ -414,7 +414,6 @@ class SwipeVC: UIViewController {
     
     @IBAction func touchUpBoardSettingButton(_ sender: UIBarButtonItem) {
         if sender.title == "나가기" {
-            
             KeychainWrapper.standard.removeObject(forKey: TokenName.token)
             
             guard let window = UIApplication.shared.keyWindow else {

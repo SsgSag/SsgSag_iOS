@@ -25,14 +25,8 @@
                         <color key="textColor" red="0.46666666666666667" green="0.46666666666666667" blue="0.46666666666666667" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nLT-pZ-GdX">
-                        <rect key="frame" x="25" y="33.5" width="262" height="14.5"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                        <color key="textColor" red="0.46666666666666667" green="0.46666666666666667" blue="0.46666666666666667" alpha="1" colorSpace="calibratedRGB"/>
-                        <nil key="highlightedColor"/>
-                    </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BQV-Gf-ThE">
-                        <rect key="frame" x="25" y="49" width="262" height="14.5"/>
+                        <rect key="frame" x="25" y="34.5" width="262" height="14.5"/>
                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
                         <color key="textColor" red="0.46666666666666667" green="0.46666666666666667" blue="0.46666666666666667" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
@@ -41,21 +35,17 @@
             </view>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
-                <constraint firstItem="nLT-pZ-GdX" firstAttribute="top" secondItem="9vT-0R-OKk" secondAttribute="bottom" constant="4" id="5KO-AN-ml6"/>
                 <constraint firstItem="BQV-Gf-ThE" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="25" id="7TF-UH-uiY"/>
-                <constraint firstItem="BQV-Gf-ThE" firstAttribute="top" secondItem="nLT-pZ-GdX" secondAttribute="bottom" constant="1" id="Hod-gr-ASB"/>
                 <constraint firstItem="9vT-0R-OKk" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" constant="15" id="JM6-1d-F9D"/>
                 <constraint firstAttribute="trailing" secondItem="BQV-Gf-ThE" secondAttribute="trailing" constant="25" id="L3V-0j-8vQ"/>
-                <constraint firstItem="nLT-pZ-GdX" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="25" id="Ldi-2a-wY6"/>
                 <constraint firstAttribute="trailing" secondItem="9vT-0R-OKk" secondAttribute="trailing" constant="25" id="ME7-yu-j2Q"/>
+                <constraint firstItem="BQV-Gf-ThE" firstAttribute="top" secondItem="9vT-0R-OKk" secondAttribute="bottom" constant="5" id="jhz-PM-gwh"/>
                 <constraint firstItem="9vT-0R-OKk" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="25" id="wJd-Yh-vrm"/>
-                <constraint firstAttribute="trailing" secondItem="nLT-pZ-GdX" secondAttribute="trailing" constant="25" id="xlc-RU-7hh"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
             <size key="customSize" width="312" height="87"/>
             <connections>
                 <outlet property="partnerEmailLabel" destination="BQV-Gf-ThE" id="cyV-Z3-I38"/>
-                <outlet property="partnerPhoneNumberLabel" destination="nLT-pZ-GdX" id="sId-Jc-JxI"/>
             </connections>
             <point key="canvasLocation" x="109" y="49"/>
         </collectionViewCell>

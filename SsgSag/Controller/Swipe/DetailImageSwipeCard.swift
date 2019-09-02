@@ -80,7 +80,11 @@ class DetailImageSwipeCardVC: UIViewController {
             
             let interval = DateCaculate.dayInterval(using: posterEndDate)
             
-            day.text = "D-\(interval)"
+            if interval == 0 {
+                day.text = "D-day"
+            } else {
+                day.text = "D-\(interval)"
+            }
             
             guard let posterURLString = poster.photoUrl else { return }
             
@@ -99,7 +103,13 @@ class DetailImageSwipeCardVC: UIViewController {
     
             guard let category = PosterCategory(rawValue: posterCategoryIdx) else { return }
             
-            self.categoryButton.setTitle(category.categoryString(), for: .normal)
+            var categoryString = category.categoryString()
+            if posterCategoryIdx == 2 {
+                let subCategory = poster?.subCategoryIdx == 0 ? "연합" : "교내"
+                categoryString.append("(\(subCategory))")
+            }
+            
+            self.categoryButton.setTitle(categoryString, for: .normal)
             
             self.categoryButton.setTitleColor(category.categoryColors(), for: .normal)
             

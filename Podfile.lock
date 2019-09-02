@@ -1,6 +1,22 @@
 PODS:
   - AdBrixRemastered (1.3.4)
   - Alamofire (4.8.1)
+  - FacebookSDK (5.4.0):
+    - FacebookSDK/CoreKit (= 5.4.0)
+    - FacebookSDK/MarketingKit (= 5.4.0)
+  - FacebookSDK/CoreKit (5.4.0):
+    - FBSDKCoreKit (~> 5.0)
+  - FacebookSDK/MarketingKit (5.4.0):
+    - FacebookSDK/CoreKit
+    - FBSDKMarketingKit (~> 5.0)
+  - FBSDKCoreKit (5.0.0):
+    - FBSDKCoreKit/Basics (= 5.0.0)
+    - FBSDKCoreKit/Core (= 5.0.0)
+  - FBSDKCoreKit/Basics (5.0.0)
+  - FBSDKCoreKit/Core (5.0.0):
+    - FBSDKCoreKit/Basics
+  - FBSDKMarketingKit (5.0.0):
+    - FBSDKCoreKit (= 5.0.0)
   - Firebase/Analytics (5.20.2):
     - Firebase/Core
   - Firebase/Core (5.20.2):
@@ -74,6 +90,7 @@ PODS:
 DEPENDENCIES:
   - AdBrixRemastered
   - Alamofire
+  - FacebookSDK
   - Firebase/Analytics
   - Firebase/Core
   - Firebase/Messaging
@@ -86,6 +103,9 @@ SPEC REPOS:
   https://github.com/cocoapods/specs.git:
     - AdBrixRemastered
     - Alamofire
+    - FacebookSDK
+    - FBSDKCoreKit
+    - FBSDKMarketingKit
     - Firebase
     - FirebaseAnalytics
     - FirebaseAnalyticsInterop
@@ -104,6 +124,9 @@ SPEC REPOS:
 SPEC CHECKSUMS:
   AdBrixRemastered: 72828d7c1dd458b8fc8e676fd2b487c6745a8910
   Alamofire: 16ce2c353fb72865124ddae8a57c5942388f4f11
+  FacebookSDK: 51bf363dc55827013131c1df5e5ceb9f82b3624f
+  FBSDKCoreKit: ba361d4a9d4dc29ff218822b849b22d4f869c7bb
+  FBSDKMarketingKit: 4b8d3c6b53b5397cd0b6ba39b1e7034bc9f3a45e
   Firebase: 0c8cf33f266410c61ab3e2265cfa412200351d9c
   FirebaseAnalytics: ece1aa57a4f43c64d53a648b5a5e05151aae947b
   FirebaseAnalyticsInterop: efbe45c8385ec626e29f9525e5ebd38520dfb6c1
@@ -119,6 +142,6 @@ SPEC CHECKSUMS:
   SearchTextField: a0992739d4b05dcbb40fb3a5cc6526bd991bdd23
   SwiftKeychainWrapper: 6fc49fbf7d4a6b0772917acb0e53a1639f6078d6
 
-PODFILE CHECKSUM: 225f226901f8f14623dfe52e027fad7f6c7942c9
+PODFILE CHECKSUM: 9691caf4508b1219618c0e4ff60a328791b8131a
 
 COCOAPODS: 1.6.2

@@ -16,5 +16,6 @@ target 'SsgSag' do
   pod 'Firebase/Analytics'
   pod 'AdBrixRemastered'
   pod 'SwiftKeychainWrapper'
+  pod 'FacebookSDK' 
 
 end

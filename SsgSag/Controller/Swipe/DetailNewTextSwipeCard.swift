@@ -73,11 +73,10 @@ class DetailNewTextSwipeCard: UIViewController {
     
     private var subjectButton: UIButton = {
         let button = UIButton()
-        button.setTitle("공모주제", for: .normal)
         button.setImage(UIImage(named: "ic_1"), for: .normal)
         button.titleLabel?.font = UIFont.systemFont(ofSize: 18, weight: .semibold)
         button.imageEdgeInsets = UIEdgeInsets(top: 0, left: -15, bottom: 0, right: 0)
-        button.setTitleColor(#colorLiteral(red: 0.1215686275, green: 0.1215686275, blue: 0.1215686275, alpha: 1), for: .normal)
+        button.setTitleColor(#colorLiteral(red: 0.2666666667, green: 0.2666666667, blue: 0.2666666667, alpha: 1), for: .normal)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
@@ -85,7 +84,7 @@ class DetailNewTextSwipeCard: UIViewController {
     private var subjectDetailText: UILabel = {
         let label = UILabel()
         label.numberOfLines = 0
-        label.textColor = #colorLiteral(red: 0.2156862745, green: 0.2156862745, blue: 0.2156862745, alpha: 1)
+        label.textColor = #colorLiteral(red: 0.2666666667, green: 0.2666666667, blue: 0.2666666667, alpha: 1)
         label.font = UIFont.systemFont(ofSize: 15)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -93,11 +92,10 @@ class DetailNewTextSwipeCard: UIViewController {
     
     private var eligibilityButton: UIButton = {
         let button = UIButton()
-        button.setTitle("지원자격", for: .normal)
-        button.setImage(UIImage(named: "ic_2"), for: .normal)
+        button.setImage(UIImage(named: "ic_3"), for: .normal)
         button.titleLabel?.font = UIFont.systemFont(ofSize: 18, weight: .semibold)
         button.imageEdgeInsets = UIEdgeInsets(top: 0, left: -15, bottom: 0, right: 0)
-        button.setTitleColor(#colorLiteral(red: 0.1215686275, green: 0.1215686275, blue: 0.1215686275, alpha: 1), for: .normal)
+        button.setTitleColor(#colorLiteral(red: 0.2666666667, green: 0.2666666667, blue: 0.2666666667, alpha: 1), for: .normal)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
@@ -105,7 +103,7 @@ class DetailNewTextSwipeCard: UIViewController {
     private var eligibilityDetailText: UILabel = {
         let label = UILabel()
         label.numberOfLines = 0
-        label.textColor = #colorLiteral(red: 0.2156862745, green: 0.2156862745, blue: 0.2156862745, alpha: 1)
+        label.textColor = #colorLiteral(red: 0.2666666667, green: 0.2666666667, blue: 0.2666666667, alpha: 1)
         label.font = UIFont.systemFont(ofSize: 15)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -113,11 +111,10 @@ class DetailNewTextSwipeCard: UIViewController {
     
     private var benefitButton: UIButton = {
         let button = UIButton()
-        button.setTitle("시상내역", for: .normal)
-        button.setImage(UIImage(named: "ic_3"), for: .normal)
+        button.setImage(UIImage(named: "ic_2"), for: .normal)
         button.titleLabel?.font = UIFont.systemFont(ofSize: 18, weight: .semibold)
         button.imageEdgeInsets = UIEdgeInsets(top: 0, left: -15, bottom: 0, right: 0)
-        button.setTitleColor(#colorLiteral(red: 0.1215686275, green: 0.1215686275, blue: 0.1215686275, alpha: 1), for: .normal)
+        button.setTitleColor(#colorLiteral(red: 0.2666666667, green: 0.2666666667, blue: 0.2666666667, alpha: 1), for: .normal)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
@@ -125,7 +122,7 @@ class DetailNewTextSwipeCard: UIViewController {
     private var benefitTextField: UILabel = {
         let label = UILabel()
         label.numberOfLines = 0
-        label.textColor = #colorLiteral(red: 0.2156862745, green: 0.2156862745, blue: 0.2156862745, alpha: 1)
+        label.textColor = #colorLiteral(red: 0.2666666667, green: 0.2666666667, blue: 0.2666666667, alpha: 1)
         label.font = UIFont.systemFont(ofSize: 15)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -269,9 +266,16 @@ class DetailNewTextSwipeCard: UIViewController {
             
             self.intervalDate.textColor = category.categoryColors()
             
+            var categoryString = category.categoryString()
+            
+            if posterCategoryIdx == 2 {
+                let subCategory = poster?.subCategoryIdx == 0 ? "연합" : "교내"
+                categoryString.append("(\(subCategory))")
+            }
+            
             self.categoryButton.setTitleColor(category.categoryColors(), for: .normal)
             self.categoryButton.backgroundColor = category.categoryColors().withAlphaComponent(0.05)
-            self.categoryButton.setTitle(category.categoryString(), for: .normal)
+            self.categoryButton.setTitle(categoryString, for: .normal)
         }
     }
     

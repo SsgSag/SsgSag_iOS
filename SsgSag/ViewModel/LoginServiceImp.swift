@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import SwiftKeychainWrapper
 
 class LoginServiceImp: LoginService {
     
@@ -121,6 +122,51 @@ class LoginServiceImp: LoginService {
                                                           code: 0,
                                                           userInfo: nil)))
                         return
+                    }
+                    
+                    completionHandler(DataResponse.success(httpStatusCode))
+                } catch let error {
+                    completionHandler(.failed(error))
+                    return
+                }
+            case .failure(let error):
+                completionHandler(.failed(error))
+                return
+            }
+        }
+    }
+    
+    func requestAutoLogin(completionHandler: @escaping (DataResponse<HttpStatusCode>) -> Void) {
+        var urlComponent = URLComponents(string: UserAPI.sharedInstance.getBaseString())
+        urlComponent?.path = RequestURL.autoLogin.getRequestURL
+        
+        let token
+            = KeychainWrapper.standard.string(forKey: TokenName.token) ?? ""
+        
+        guard let url = urlComponent?.url,
+            let request = requestMaker.makeRequest(url: url,
+                                                   method: .post,
+                                                   header: ["Content-Type": "application/json",
+                                                            "Authorization": token],
+                                                   body: nil) else {
+                                                    completionHandler(.failed(NSError(domain: "request Error",
+                                                                                      code: 0,
+                                                                                      userInfo: nil)))
+                                                    return
+        }
+        
+        network.dispatch(request: request) { result in
+            switch result {
+            case .success(let data):
+                do {
+                    let decodedData = try JSONDecoder().decode(TempPassword.self, from: data)
+                    
+                    guard let status = decodedData.status,
+                        let httpStatusCode = HttpStatusCode(rawValue: status) else {
+                            completionHandler(.failed(NSError(domain: "status Error",
+                                                              code: 0,
+                                                              userInfo: nil)))
+                            return
                     }
                     
                     completionHandler(DataResponse.success(httpStatusCode))

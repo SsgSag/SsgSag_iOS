@@ -131,12 +131,8 @@ class CalendarDetailVC: UIViewController {
 //                        self?.favoriteButton.setTitle(favoriteString, for: .normal)
 //                        self?.likedButton.setTitle(likeString, for: .normal)
                         
-                        if detailData.partnerPhone == nil && detailData.partnerEmail == nil {
+                        if detailData.partnerEmail == nil {
                             self?.contactInfoHeightConstraint.constant = 0
-                        }
-                        
-                        if let partnerPhone = detailData.partnerPhone {
-                            self?.partnerPhoneNumLabel.text = "전화번호: " + partnerPhone
                         }
                         
                         if let partnerEmail = detailData.partnerEmail {

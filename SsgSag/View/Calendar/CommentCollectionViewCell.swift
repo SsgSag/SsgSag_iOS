@@ -10,7 +10,7 @@ import UIKit
 
 protocol CommentDelegate: class {
     func touchUpCommentLikeButton(index: Int, like: Int)
-    func presentAlertController(_ userIndex: Int, commentIndex: Int)
+    func presentAlertController(_ isMine: Bool, commentIndex: Int)
 }
 
 class CommentCollectionViewCell: UICollectionViewCell {
@@ -67,10 +67,11 @@ class CommentCollectionViewCell: UICollectionViewCell {
     
     @IBAction func touchUpEtcButton(_ sender: UIButton) {
         //TODO: alert 띄울것
-        guard let commentIndex = comment?.commentIdx else {
+        guard let commentIndex = comment?.commentIdx,
+            let isMine = comment?.isMine == 1 ? true : false else {
             return
         }
-        delegate?.presentAlertController(0, commentIndex: commentIndex)
+        delegate?.presentAlertController(isMine, commentIndex: commentIndex)
     }
     
     private func setupCellData(_ comment: CommentList) {

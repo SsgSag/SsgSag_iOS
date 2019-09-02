@@ -13,6 +13,7 @@ enum RequestURL {
     case initPoster
     case login
     case snsLogin
+    case autoLogin
     case favorite(posterIdx: Int)
     case deletePoster(posterIdx: Int)
     case completeApply(posterIdx: Int)
@@ -50,6 +51,8 @@ enum RequestURL {
             return "/login2"
         case .snsLogin:
             return "/login"
+        case .autoLogin:
+            return "/autoLogin"
         case .favorite(posterIdx: let posterIdx):
             return "/todo/favorite/\(posterIdx)"
         case .deletePoster(posterIdx: let posterIdx):

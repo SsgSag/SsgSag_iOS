@@ -20,26 +20,16 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="abW-xS-utf">
-                        <rect key="frame" x="91.5" y="81.5" width="137.5" height="76.5"/>
+                        <rect key="frame" x="91.5" y="100.5" width="137.5" height="38.5"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="E8z-Qy-K1o">
                                 <rect key="frame" x="0.0" y="0.0" width="137.5" height="38.5"/>
                                 <string key="text">이날은 일정이 없네요.
 슥삭하러 가볼까요?</string>
-                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="16"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                 <color key="textColor" red="0.59215686274509804" green="0.59215686274509804" blue="0.59215686274509804" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Avl-VZ-cWW">
-                                <rect key="frame" x="28.5" y="48.5" width="80" height="28"/>
-                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="13"/>
-                                <state key="normal" title="슥삭하러가기 &gt;">
-                                    <color key="titleColor" red="0.38431372549999998" green="0.41568627450000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
-                                </state>
-                                <connections>
-                                    <action selector="goToSwipeVC:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="jeZ-Kv-SrY"/>
-                                </connections>
-                            </button>
                         </subviews>
                     </stackView>
                 </subviews>
@@ -49,9 +39,6 @@
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
-            <connections>
-                <outlet property="goToSwipeVCButton" destination="Avl-VZ-cWW" id="OYX-bt-WNm"/>
-            </connections>
             <point key="canvasLocation" x="136" y="110"/>
         </tableViewCell>
     </objects>

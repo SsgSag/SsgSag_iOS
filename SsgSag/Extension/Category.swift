@@ -15,7 +15,6 @@ enum PosterCategory: Int {
     case notice = 3
     case recruit = 4
     case etc = 5
-    case clubOnCampus = 6
     case edu = 7
     case scholar = 8
     
@@ -26,15 +25,13 @@ enum PosterCategory: Int {
         case .act:
             return "대외활동"
         case .club:
-            return "동아리(연합)"
+            return "동아리"
         case .notice:
             return "교내공지"
         case .recruit:
             return "인턴"
         case .etc:
             return "기타"
-        case .clubOnCampus:
-            return "동아리(교내)"
         case .edu:
             return "교육/강연"
         case .scholar:
@@ -48,7 +45,7 @@ enum PosterCategory: Int {
             return #colorLiteral(red: 0.2039215686, green: 0.4274509804, blue: 0.9529411765, alpha: 1)
         case .act:
             return #colorLiteral(red: 0.3725490196, green: 0.1490196078, blue: 0.8039215686, alpha: 1)
-        case .club, .clubOnCampus:
+        case .club:
             return #colorLiteral(red: 0.968627451, green: 0.7137254902, blue: 0.1921568627, alpha: 1)
         case .notice:
             return .white

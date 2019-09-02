@@ -10,8 +10,6 @@ import UIKit
 
 class ContactInfoCollectionViewCell: UICollectionViewCell {
 
-    @IBOutlet weak var partnerPhoneNumberLabel: UILabel!
-    
     @IBOutlet weak var partnerEmailLabel: UILabel!
     
     override func awakeFromNib() {
@@ -19,10 +17,7 @@ class ContactInfoCollectionViewCell: UICollectionViewCell {
         // Initialization code
     }
     
-    func configure(phoneNumber: String,
-                   email: String) {
-        partnerPhoneNumberLabel.text = "전화번호: " + phoneNumber
-        
+    func configure(email: String) {
         partnerEmailLabel.text = "이메일: " + email
     }
 

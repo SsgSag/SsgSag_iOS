@@ -18,6 +18,7 @@ struct PosterDetail: Codable {
 // MARK: - DataClass
 struct DataClass: Codable {
     let posterIdx, categoryIdx: Int?
+    let subCategoryIdx: Int?
     let photoUrl: String?
     let photoUrl2: String?
     let posterName, posterRegDate, posterEndDate: String?
@@ -32,7 +33,7 @@ struct DataClass: Codable {
     let posterInterest: [Int]?
     let adminAccept: Int?
     let keyword: String?
-    let partnerPhone, partnerEmail, chargerName: String?
+    let partnerEmail, chargerName: String?
     let favoriteNum, likeNum: Int?
     let dday: Int?
     let analytics: Analytics?

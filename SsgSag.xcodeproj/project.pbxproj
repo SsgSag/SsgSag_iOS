@@ -116,6 +116,7 @@
 		84FB4FE4226B7F7D00D9F2F9 /* LoginServiceImp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84FB4FE3226B7F7D00D9F2F9 /* LoginServiceImp.swift */; };
 		D103D8A822FA9BD20092FE93 /* ArticleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D103D8A722FA9BD20092FE93 /* ArticleViewController.swift */; };
 		D103D8AA22FBEDA40092FE93 /* CalendarData.swift in Sources */ = {isa = PBXBuildFile; fileRef = D103D8A922FBEDA40092FE93 /* CalendarData.swift */; };
+		D10A42182317C472006063FB /* FBSDKCoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D10A42172317C472006063FB /* FBSDKCoreKit.framework */; };
 		D10B6E1822F41BFE007B9BEA /* FeedServiceImp.swift in Sources */ = {isa = PBXBuildFile; fileRef = D10B6E1722F41BFE007B9BEA /* FeedServiceImp.swift */; };
 		D10B6E1A22F41C10007B9BEA /* FeedServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = D10B6E1922F41C10007B9BEA /* FeedServiceProtocol.swift */; };
 		D10B6E1C22F41C80007B9BEA /* Feed.swift in Sources */ = {isa = PBXBuildFile; fileRef = D10B6E1B22F41C80007B9BEA /* Feed.swift */; };
@@ -395,6 +396,7 @@
 		CD027F324040744246DC41C1 /* Pods-SsgSagTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SsgSagTests.debug.xcconfig"; path = "Target Support Files/Pods-SsgSagTests/Pods-SsgSagTests.debug.xcconfig"; sourceTree = "<group>"; };
 		D103D8A722FA9BD20092FE93 /* ArticleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleViewController.swift; sourceTree = "<group>"; };
 		D103D8A922FBEDA40092FE93 /* CalendarData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarData.swift; sourceTree = "<group>"; };
+		D10A42172317C472006063FB /* FBSDKCoreKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = FBSDKCoreKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D10B6E1722F41BFE007B9BEA /* FeedServiceImp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedServiceImp.swift; sourceTree = "<group>"; };
 		D10B6E1922F41C10007B9BEA /* FeedServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedServiceProtocol.swift; sourceTree = "<group>"; };
 		D10B6E1B22F41C80007B9BEA /* Feed.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Feed.swift; sourceTree = "<group>"; };
@@ -548,6 +550,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D10A42182317C472006063FB /* FBSDKCoreKit.framework in Frameworks */,
 				D1FB9E132313A61F003FA001 /* PushKit.framework in Frameworks */,
 				D1FB9E112313A619003FA001 /* UserNotifications.framework in Frameworks */,
 				844C29BE22A3EA9E00B92895 /* iAd.framework in Frameworks */,
@@ -576,6 +579,7 @@
 		2E04BB9F31A495430F45317D /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				D10A42172317C472006063FB /* FBSDKCoreKit.framework */,
 				D1FB9E122313A61F003FA001 /* PushKit.framework */,
 				D1FB9E102313A618003FA001 /* UserNotifications.framework */,
 				844C29BD22A3EA9E00B92895 /* iAd.framework */,
@@ -1413,6 +1417,7 @@
 				"${PODS_ROOT}/Target Support Files/Pods-SsgSag/Pods-SsgSag-frameworks.sh",
 				"${PODS_ROOT}/AdBrixRemastered/AdBrixRM.framework",
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
+				"${BUILT_PRODUCTS_DIR}/FBSDKCoreKit/FBSDKCoreKit.framework",
 				"${BUILT_PRODUCTS_DIR}/GoogleUtilities/GoogleUtilities.framework",
 				"${BUILT_PRODUCTS_DIR}/Protobuf/Protobuf.framework",
 				"${BUILT_PRODUCTS_DIR}/SearchTextField/SearchTextField.framework",
@@ -1427,6 +1432,7 @@
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AdBrixRM.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBSDKCoreKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleUtilities.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Protobuf.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SearchTextField.framework",
@@ -1751,7 +1757,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -1806,7 +1812,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;

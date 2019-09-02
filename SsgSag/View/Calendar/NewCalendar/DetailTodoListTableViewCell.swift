@@ -19,7 +19,14 @@ class DetailTodoListTableViewCell: UITableViewCell {
                 let posterCate = PosterCategory(rawValue: categoryIdx),
                 let posterEndDate = posterInfo.posterEndDate else { return }
             
-            categoryButton.setTitle(posterCate.categoryString(), for: .normal)
+            var categoryString = posterCate.categoryString()
+            
+            if categoryIdx == 2 {
+                let subCategory = posterInfo.subCategoryIdx == 0 ? "연합" : "교내"
+                categoryString.append("(\(subCategory))")
+            }
+            
+            categoryButton.setTitle(categoryString, for: .normal)
             categoryButton.setTitleColor(posterCate.categoryColors(), for: .normal)
             
             categoryButton.backgroundColor = posterCate.categoryColors().withAlphaComponent(0.05)

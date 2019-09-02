@@ -8,21 +8,19 @@
 
 import Foundation
 
-
 class UserAPI {
     
     private init() { }
     
     static let sharedInstance = UserAPI()
     
-    private let baseURLString = "http://13.209.77.133:8081"
+    private let baseURLString = "http://13.209.77.133:8080"
     
     func getBaseString() -> String {
         return baseURLString
     }
     
     func getURL(_ getString: String) -> URL? {
-        
         let urlString = baseURLString + getString
         
         guard let resultURL = URL(string: urlString) else { return nil }
@@ -31,5 +29,3 @@ class UserAPI {
     }
     
 }
-
-

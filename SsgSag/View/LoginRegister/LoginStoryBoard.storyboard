@@ -399,6 +399,7 @@
                         <outlet property="emailTextField" destination="hQm-bN-Squ" id="WvT-aK-w1s"/>
                         <outlet property="loginButton" destination="22K-B3-6Cl" id="TTj-R6-A83"/>
                         <outlet property="passwordTextField" destination="nsc-cn-S6m" id="AwX-8g-mzP"/>
+                        <outlet property="signinButton" destination="esi-Xn-Jm5" id="BiY-rq-WFh"/>
                         <outlet property="stackViewCenterXConstraint" destination="fEg-Da-AYg" id="2YZ-sR-xuC"/>
                     </connections>
                 </viewController>

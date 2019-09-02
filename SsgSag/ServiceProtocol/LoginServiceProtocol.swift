@@ -24,4 +24,8 @@ protocol LoginService: class {
         email: String,
         completionHandler: @escaping (DataResponse<HttpStatusCode>) -> Void
     )
+    
+    func requestAutoLogin(
+        completionHandler: @escaping (DataResponse<HttpStatusCode>) -> Void
+    )
 }

@@ -74,7 +74,14 @@ class PosterHeaderCollectionReusableView: UICollectionReusableView {
             let categoryIdx = data.categoryIdx else { return }
         
         if let category = PosterCategory(rawValue: categoryIdx) {
-            categoryButton.setTitle(category.categoryString(), for: .normal)
+            var categoryString = category.categoryString()
+            
+            if categoryIdx == 2 {
+                let subCategory = data.subCategoryIdx == 0 ? "연합" : "교내"
+                categoryString.append("(\(subCategory))")
+            }
+            
+            categoryButton.setTitle(categoryString, for: .normal)
             categoryButton.setTitleColor(category.categoryColors(), for: .normal)
             categoryButton.backgroundColor = category.categoryColors().withAlphaComponent(0.05)
         }

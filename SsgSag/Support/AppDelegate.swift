@@ -14,9 +14,10 @@ import UserNotifications
 import AdBrixRM
 import AdSupport
 import SwiftKeychainWrapper
+import FBSDKCoreKit
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate, MessagingDelegate ,UNUserNotificationCenterDelegate{
+class AppDelegate: UIResponder, UIApplicationDelegate {
     
     var window: UIWindow?
     
@@ -27,17 +28,21 @@ class AppDelegate: UIResponder, UIApplicationDelegate, MessagingDelegate ,UNUser
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
+        UIApplication.shared.applicationIconBadgeNumber = 0
+        
         initUUID()
         
         Messaging.messaging().isAutoInitEnabled = true
         
+        //FCM 설정
         FirebaseApp.configure()
-        
-        adBrixDefaultSetting()
         
         Messaging.messaging().delegate = self
         
-        UNUserNotificationCenter.current().delegate = self
+        adBrixDefaultSetting()
+        
+        ApplicationDelegate.shared.application(application,
+                                                              didFinishLaunchingWithOptions: launchOptions)
         
         if #available(iOS 10.0, *) {
             // For iOS 10 display notification (sent via APNS)
@@ -49,19 +54,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate, MessagingDelegate ,UNUser
                 completionHandler: {_, _ in })
         } else {
             let settings: UIUserNotificationSettings =
-                UIUserNotificationSettings(types: [.alert, .badge, .sound], categories: nil)
+                UIUserNotificationSettings(types: [.alert, .badge, .sound],
+                                           categories: nil)
             
             application.registerUserNotificationSettings(settings)
         }
         
-        if #available(iOS 10, *) {
-            UNUserNotificationCenter.current().requestAuthorization(options:[.badge, .alert, .sound]){ (granted, error) in }
-            application.registerForRemoteNotifications()
-        } else {
-            UIApplication.shared.registerUserNotificationSettings(UIUserNotificationSettings(types: [.badge, .sound, .alert], categories: nil))
-            UIApplication.shared.registerForRemoteNotifications()
-        }
+        application.registerForRemoteNotifications()
         
+        // 디바이스 토큰 확인
         InstanceID.instanceID().instanceID { (result, error) in
             if let error = error {
                 print("Error fetching remote instance ID: \(error)")
@@ -113,25 +114,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, MessagingDelegate ,UNUser
         }
         
         return false
-    }
-    
-    func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
-        Messaging.messaging().apnsToken = deviceToken
-        
-        // Convert token to string (디바이스 토큰 값을 가져옵니다.)
-        let deviceTokenString = deviceToken.reduce("", {$0 + String(format: "%02X", $1)})
-        
-        // Print it to console(토큰 값을 콘솔창에 보여줍니다. 이 토큰값으로 푸시를 전송할 대상을 정합니다.)
-        print("APNs device token: \(deviceTokenString)")
-        
-        // Persist it in your backend in case it's new
-        
-    }
-    
-    // Called when APNs failed to register the device for push notifications
-    func application(_ application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: Error) {
-        // Print the error to console (you should alert the user that registration failed)
-        print("APNs registration failed: \(error)")
     }
     
     private func naverLogin() {
@@ -216,7 +198,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, MessagingDelegate ,UNUser
             return KOSession.handleOpen(url)
         }
         
-        return false
+        let handled = ApplicationDelegate.shared.application(app, open: url, options: options)
+        
+        return handled
     }
     
     func application(_ application: UIApplication, handleOpen url: URL) -> Bool {
@@ -270,19 +254,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, MessagingDelegate ,UNUser
         }
     }
     
-    func userNotificationCenter(_ center: UNUserNotificationCenter,
-                                willPresent notification: UNNotification,
-                                withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
-        print("how to ?? \(#function)")
-    }
-    
-    func messaging(_ messaging: Messaging, didReceiveRegistrationToken fcmToken: String) {
-        print("Firebase registration token: \(fcmToken)")
-        let dataDict:[String: String] = ["token": fcmToken]
-        NotificationCenter.default.post(name: Notification.Name("FCMToken"), object: nil, userInfo: dataDict)
-    }
-    
-    func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable: Any]) {
+    func application(_ application: UIApplication,
+                     didReceiveRemoteNotification userInfo: [AnyHashable: Any]) {
         // If you are receiving a notification message while your app is in the background,
         // this callback will not be fired till the user taps on the notification launching the application.
         // TODO: Handle data of notification
@@ -290,17 +263,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate, MessagingDelegate ,UNUser
         // With swizzling disabled you must let Messaging know about the message, for Analytics
         // Messaging.messaging().appDidReceiveMessage(userInfo)
         
-        // Print message ID.
-        
-        // Print full message.
-        
         // Print notification payload data (푸시 데이터로 받은 것을 보여줍니다.)
         print("Push notification received: \(userInfo)")
         
         print(userInfo)
     }
     
-    func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable: Any],
+    func application(_ application: UIApplication,
+                     didReceiveRemoteNotification userInfo: [AnyHashable: Any],
                      fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
         // If you are receiving a notification message while your app is in the background,
         // this callback will not be fired till the user taps on the notification launching the application.
@@ -309,24 +279,82 @@ class AppDelegate: UIResponder, UIApplicationDelegate, MessagingDelegate ,UNUser
         // With swizzling disabled you must let Messaging know about the message, for Analytics
         // Messaging.messaging().appDidReceiveMessage(userInfo)
         
-        // Print message ID.
-        
         // Print full message.
         print(userInfo)
         
         completionHandler(UIBackgroundFetchResult.newData)
     }
     
-    @available(iOS 10, *)
+    func application(_ application: UIApplication,
+                     didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
+        
+        // Convert token to string (디바이스 토큰 값을 가져옵니다.)
+        let deviceTokenString = deviceToken.reduce("", {$0 + String(format: "%02X", $1)})
+        
+        // Print it to console(토큰 값을 콘솔창에 보여줍니다. 이 토큰값으로 푸시를 전송할 대상을 정합니다.)
+        print("APNs device token: \(deviceTokenString)")
+        
+        Messaging.messaging().apnsToken = deviceToken
+        
+        // Persist it in your backend in case it's new
+    }
+    
+    // Called when APNs failed to register the device for push notifications
+    func application(_ application: UIApplication,
+                     didFailToRegisterForRemoteNotificationsWithError error: Error) {
+        // Print the error to console (you should alert the user that registration failed)
+        print("APNs registration failed: \(error)")
+    }
+}
+
+@available(iOS 10, *)
+extension AppDelegate: UNUserNotificationCenterDelegate {
+
+    // Receive displayed notifications for iOS 10 devices.
+    func userNotificationCenter(_ center: UNUserNotificationCenter,
+                                willPresent notification: UNNotification,
+                                withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
+        let userInfo = notification.request.content.userInfo
+        
+        // With swizzling disabled you must let Messaging know about the message, for Analytics
+        // Messaging.messaging().appDidReceiveMessage(userInfo)
+        
+        // Print full message.
+        print(userInfo)
+        
+        // Change this to your preferred presentation option
+        completionHandler([])
+    }
+    
     func userNotificationCenter(_ center: UNUserNotificationCenter,
                                 didReceive response: UNNotificationResponse,
                                 withCompletionHandler completionHandler: @escaping () -> Void) {
         let userInfo = response.notification.request.content.userInfo
-        // Print message ID
         
         // Print full message.
         print(userInfo)
         
         completionHandler()
+    }
+}
+
+extension AppDelegate: MessagingDelegate {
+    
+    // 각 앱 시작 시와 새 토큰이 생성될 때마다 실행된다.
+    func messaging(_ messaging: Messaging,
+                   didReceiveRegistrationToken fcmToken: String) {
+        print("Firebase registration token: \(fcmToken)")
+        
+        let dataDict:[String: String] = ["token": fcmToken]
+        NotificationCenter.default.post(name: Notification.Name("FCMToken"),
+                                        object: nil,
+                                        userInfo: dataDict)
+        // TODO: 필요한 경우 서버로 토큰 보내기
+    }
+    
+//    FCM 직통 채널을 통해 수신된 데이터 메시지 처리(APNS를 통해 수신되지 않음)
+    func messaging(_ messaging: Messaging,
+                   didReceive remoteMessage: MessagingRemoteMessage) {
+        print("Received data message: \(remoteMessage.appData)")
     }
 }

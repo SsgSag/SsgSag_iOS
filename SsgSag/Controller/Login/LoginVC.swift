@@ -18,6 +18,8 @@ class LoginVC: UIViewController, UITextFieldDelegate {
     
     @IBOutlet weak var loginButton: UIButton!
     
+    @IBOutlet weak var signinButton: UIButton!
+    
     @IBOutlet weak var stackViewCenterXConstraint: NSLayoutConstraint!
     
     private let isAutoLogin = "isAutoLogin"
@@ -59,6 +61,7 @@ class LoginVC: UIViewController, UITextFieldDelegate {
         setShadow(layer: emailTextField.layer)
         setShadow(layer: passwordTextField.layer)
         setShadow(layer: loginButton.layer)
+        setShadow(layer: signinButton.layer)
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
