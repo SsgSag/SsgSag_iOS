@@ -48,34 +48,34 @@
 ### 스와이프
 
 <div>
-<img src="./ReadmeImages/스와이프1.png" width="170" style="float: left; margin-right: 10px;"/>
-<img src="./ReadmeImages/스와이프2.png" width="170">
+<img src="https://user-images.githubusercontent.com/34293225/64090256-3d0b3580-cd85-11e9-84b6-4cf5b40dbc69.png" width="200" style="float: left; margin-right: 10px;"/>
+<img src="https://user-images.githubusercontent.com/34293225/64090257-3da3cc00-cd85-11e9-93b5-405d3b32c304.png" width="200">
 </div>
 
 ### 캘린더
 
 <div>
-<img src="https://user-images.githubusercontent.com/34293225/64090125-8e66f500-cd84-11e9-9587-6950d576d938.png" width="170">
-<img src="https://user-images.githubusercontent.com/34293225/64090128-94f56c80-cd84-11e9-8dba-32ece16157bc.png" width="170">
+<img src="https://user-images.githubusercontent.com/34293225/64090125-8e66f500-cd84-11e9-9587-6950d576d938.png" width="200">
+<img src="https://user-images.githubusercontent.com/34293225/64090128-94f56c80-cd84-11e9-8dba-32ece16157bc.png" width="200">
 </div>
 
 ### 이력관리
 
 <div>
-<img src="https://user-images.githubusercontent.com/34293225/64090132-9aeb4d80-cd84-11e9-94a2-e223c9d5df34.png" width="170">
+<img src="https://user-images.githubusercontent.com/34293225/64090132-9aeb4d80-cd84-11e9-94a2-e223c9d5df34.png" width="200">
 </div>
 
 ### 마이페이지
 
 <div>
-<img src="https://user-images.githubusercontent.com/34293225/64090139-a3438880-cd84-11e9-9634-aa8d352a86b2.png" width="170">
+<img src="https://user-images.githubusercontent.com/34293225/64090139-a3438880-cd84-11e9-9634-aa8d352a86b2.png" width="200">
 </div>
 
 ### 상세페이지
 
 <div>
-<img src="https://user-images.githubusercontent.com/34293225/64090136-9f176b00-cd84-11e9-948b-cdb29f07c806.png" width="170">
-<img src="https://user-images.githubusercontent.com/34293225/64090137-a179c500-cd84-11e9-83c9-f0d1ec96a78c.png" width="170">
+<img src="https://user-images.githubusercontent.com/34293225/64090368-c02c8b80-cd85-11e9-98b4-046ed8e56a81.png" width="200">
+<img src="https://user-images.githubusercontent.com/34293225/64090137-a179c500-cd84-11e9-83c9-f0d1ec96a78c.png" width="200">
 </div>
 
 
