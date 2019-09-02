@@ -28,7 +28,7 @@ class TodoListCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var dateLabel: UILabel!
     @IBOutlet weak var todoListTableView: UITableView!
     
-    var controller: ChangeTabbarItemDelegate?
+    var controller: UIViewController?
     
     private let calendarService: CalendarService
         = DependencyContainer.shared.getDependency(key: .calendarService)
@@ -154,7 +154,6 @@ extension TodoListCollectionViewCell: UITableViewDataSource {
             }
             
             cell.selectionStyle = .none
-            cell.delegate = controller
             
             return cell
         }

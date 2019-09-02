@@ -403,10 +403,3 @@ extension DayTodoViewController: PushDelegate {
         navigationController?.pushViewController(controller, animated: true)
     }
 }
-
-extension DayTodoViewController: ChangeTabbarItemDelegate {
-    func moveToSwipe() {
-        dismiss(animated: false)
-        presentingViewController?.tabBarController?.selectedIndex = 1
-    }
-}

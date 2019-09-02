@@ -236,9 +236,12 @@ class SchoolInfoVC: UIViewController {
         
         var sendData: [String: Any] = [:]
         
+        guard let UUID = KeychainWrapper.standard.string(forKey: "UUID") else {
+            return
+        }
+        
         //자체 로그인 아닐 시에는
         if sendType != 10 {
-            
             sendData = [
                 "userName": name,
                 "userNickname": nickName,
@@ -252,10 +255,10 @@ class SchoolInfoVC: UIViewController {
                 "userPushAllow": 1,
                 "userInfoAllow": 1,
                 "userGrade": Int(gradeField.text ?? "") ?? 999,
-                "osType": 1
+                "osType": 1,
+                "uuid" : UUID
             ]
         } else { //자체로그인일 때는
-            
             let UserInfoVC = self.navigationController?.viewControllers[0] as! UserInfoVC
             
             sendData = [
@@ -272,7 +275,8 @@ class SchoolInfoVC: UIViewController {
                 "userPushAllow": 1,
                 "userInfoAllow": 1,
                 "userGrade": Int(gradeField.text ?? "") ?? 1,
-                "osType": 1
+                "osType": 1,
+                "uuid" : UUID
             ]
         }
             

@@ -461,7 +461,7 @@
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="10610"/>
                                         <subviews>
                                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" textAlignment="natural" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0nK-FT-A1T">
-                                                <rect key="frame" x="28" y="28" width="319" height="10554"/>
+                                                <rect key="frame" x="28" y="8" width="319" height="10594"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <string key="text">제1장 총칙
 
@@ -705,9 +705,9 @@
                                         </subviews>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
-                                            <constraint firstAttribute="bottomMargin" secondItem="0nK-FT-A1T" secondAttribute="bottom" constant="20" id="Fax-Eo-ZBh"/>
+                                            <constraint firstAttribute="bottomMargin" secondItem="0nK-FT-A1T" secondAttribute="bottom" id="Fax-Eo-ZBh"/>
                                             <constraint firstItem="0nK-FT-A1T" firstAttribute="leading" secondItem="9HE-uM-e9y" secondAttribute="leadingMargin" constant="20" id="FnM-Ti-HCv"/>
-                                            <constraint firstItem="0nK-FT-A1T" firstAttribute="top" secondItem="9HE-uM-e9y" secondAttribute="topMargin" constant="20" id="Iuf-Zp-YpK"/>
+                                            <constraint firstItem="0nK-FT-A1T" firstAttribute="top" secondItem="9HE-uM-e9y" secondAttribute="topMargin" id="Iuf-Zp-YpK"/>
                                             <constraint firstAttribute="height" constant="10610" id="LyO-nb-4m7"/>
                                             <constraint firstAttribute="trailingMargin" secondItem="0nK-FT-A1T" secondAttribute="trailing" constant="20" id="e9m-RI-f2X"/>
                                         </constraints>
@@ -1139,7 +1139,7 @@
         <scene sceneID="fjc-2u-1yB">
             <objects>
                 <tableViewController storyboardIdentifier="pushAlarmVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="Zs9-o4-lnC" customClass="PushAlarmTableViewController" customModule="슥삭" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="bPA-e1-FlW">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="static" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="bPA-e1-FlW">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -1280,6 +1280,12 @@
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xI7-4Y-lnb" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <view contentMode="scaleToFill" id="uyG-jB-UPp">
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <viewLayoutGuide key="safeArea" id="8o2-5c-Mv3"/>
+                </view>
             </objects>
             <point key="canvasLocation" x="7348" y="1039.6551724137933"/>
         </scene>
@@ -3788,10 +3794,10 @@
                                 <rect key="frame" x="0.0" y="44" width="375" height="734"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="32z-xA-z2O">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="5284.666666666667"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="5244.666666666667"/>
                                         <subviews>
                                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" editable="NO" textAlignment="natural" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2HF-0k-SUB">
-                                                <rect key="frame" x="28" y="28" width="319" height="5228.666666666667"/>
+                                                <rect key="frame" x="28" y="8" width="319" height="5228.666666666667"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <string key="text"> 슥삭 개인정보 처리방침
 
@@ -3937,8 +3943,8 @@
                                         <constraints>
                                             <constraint firstAttribute="trailingMargin" secondItem="2HF-0k-SUB" secondAttribute="trailing" constant="20" id="3RQ-nO-HBx"/>
                                             <constraint firstItem="2HF-0k-SUB" firstAttribute="leading" secondItem="32z-xA-z2O" secondAttribute="leadingMargin" constant="20" id="F0c-Gu-bpV"/>
-                                            <constraint firstAttribute="bottomMargin" secondItem="2HF-0k-SUB" secondAttribute="bottom" constant="20" id="NCU-SG-Vqb"/>
-                                            <constraint firstItem="2HF-0k-SUB" firstAttribute="top" secondItem="32z-xA-z2O" secondAttribute="topMargin" constant="20" id="XFt-qI-AdZ"/>
+                                            <constraint firstAttribute="bottomMargin" secondItem="2HF-0k-SUB" secondAttribute="bottom" id="NCU-SG-Vqb"/>
+                                            <constraint firstItem="2HF-0k-SUB" firstAttribute="top" secondItem="32z-xA-z2O" secondAttribute="topMargin" id="XFt-qI-AdZ"/>
                                         </constraints>
                                     </view>
                                 </subviews>

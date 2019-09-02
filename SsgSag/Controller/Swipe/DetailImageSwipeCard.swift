@@ -80,7 +80,11 @@ class DetailImageSwipeCardVC: UIViewController {
             
             let interval = DateCaculate.dayInterval(using: posterEndDate)
             
-            day.text = "D-\(interval)"
+            if interval == 0 {
+                day.text = "D-day"
+            } else {
+                day.text = "D-\(interval)"
+            }
             
             guard let posterURLString = poster.photoUrl else { return }
             

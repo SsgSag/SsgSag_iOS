@@ -15,7 +15,7 @@
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
-	<string>2.0.1</string>
+	<string>2.0.2</string>
 	<key>CFBundleURLTypes</key>
 	<array>
 		<dict>
@@ -44,9 +44,19 @@
 			<key>CFBundleURLSchemes</key>
 			<array/>
 		</dict>
+		<dict>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>fb878600155873145</string>
+			</array>
+		</dict>
 	</array>
 	<key>CFBundleVersion</key>
-	<string>2</string>
+	<string>1</string>
+	<key>FacebookAppID</key>
+	<string>878600155873145</string>
+	<key>FacebookDisplayName</key>
+	<string>슥삭</string>
 	<key>KAKAO_APP_KEY</key>
 	<string>ed0a3c51db01fecdca098dde710f2753</string>
 	<key>LSApplicationCategoryType</key>

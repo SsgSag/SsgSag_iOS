@@ -37,6 +37,8 @@ class VADayView: UIView {
     
     var stackViewHeightAnchor: NSLayoutConstraint?
     
+    let limitCount: CGFloat = UIScreen.main.bounds.height < 800 ? (UIScreen.main.bounds.height < 700 ? 3 : 4) : 5
+    
     private var dotStackView: UIStackView {
         let stack = UIStackView()
         stack.distribution = .fillEqually
@@ -119,7 +121,7 @@ class VADayView: UIView {
             let category = PosterCategory(rawValue: categoryIdx)
             
             if DateCaculate.isSameDate(self.day.date, monthTodoDate) {
-                if count < 4 {
+                if count < limitCount {
                     let lineView = VALineView(color: category?.categoryColors() ?? .clear,
                                               text: posterName,
                                               isFavorite: isFavorite)
@@ -143,7 +145,7 @@ class VADayView: UIView {
             equalTo: self.dateLabel.bottomAnchor,
             constant: 2).isActive = true
         stackViewHeightAnchor
-            = lineStackView.heightAnchor.constraint(equalToConstant: count * self.frame.height * 0.115)
+            = lineStackView.heightAnchor.constraint(equalToConstant: count * 12)
         
         stackViewHeightAnchor?.isActive = true
     }
@@ -182,7 +184,7 @@ class VADayView: UIView {
             
             if selectedIndex.contains(0) {
                 if DateCaculate.isSameDate(self.day.date, posterDate) {
-                    if count < 4 {
+                    if count < limitCount {
                         
                         let lineView = VALineView(color: category?.categoryColors() ?? .clear,
                                                   text: posterName, isFavorite: isFavorite)
@@ -198,7 +200,7 @@ class VADayView: UIView {
             } else if selectedIndex.contains(1) {
                 if DateCaculate.isSameDate(self.day.date, posterDate) {
                     if poster.isFavorite == 1 {
-                        if count < 4 {
+                        if count < limitCount {
                             
                             let lineView = VALineView(color: category?.categoryColors() ?? .clear,
                                                       text: posterName, isFavorite: isFavorite)
@@ -217,7 +219,7 @@ class VADayView: UIView {
             
         }
         
-        stackViewHeightAnchor?.constant = count * self.frame.height * 0.115
+        stackViewHeightAnchor?.constant = count * 12
     }
     
     @objc

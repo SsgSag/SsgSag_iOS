@@ -28,13 +28,12 @@
                                 <color key="textColor" red="0.30980392156862746" green="0.30980392156862746" blue="0.30980392156862746" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HGk-fk-8pe">
+                            <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HGk-fk-8pe">
                                 <rect key="frame" x="275" y="13.5" width="48" height="48"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="48" id="isw-Y8-3hP"/>
                                     <constraint firstAttribute="height" constant="48" id="rA5-aP-Mqz"/>
                                 </constraints>
-                                <state key="normal" image="ic_cancelGrey"/>
                                 <connections>
                                     <action selector="touchUpCancelButton:" destination="gTV-IL-0wX" eventType="touchUpInside" id="Fr5-UR-aZi"/>
                                 </connections>
@@ -74,7 +73,4 @@
             <point key="canvasLocation" x="41.304347826086961" y="117.85714285714285"/>
         </collectionViewCell>
     </objects>
-    <resources>
-        <image name="ic_cancelGrey" width="48" height="48"/>
-    </resources>
 </document>

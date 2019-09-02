@@ -47,7 +47,7 @@ class VALineView: UIView {
     
     init(color: UIColor, text: String, isFavorite: Int) {
         
-        let frame = CGRect(x: 0, y: 0, width: 20, height: 7)
+        let frame = CGRect(x: 0, y: 0, width: 20, height: 12)
         super.init(frame: frame)
         
         posterLabel.text = "\(text)"

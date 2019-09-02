@@ -14,6 +14,7 @@ import UserNotifications
 import AdBrixRM
 import AdSupport
 import SwiftKeychainWrapper
+import FBSDKCoreKit
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -39,6 +40,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         Messaging.messaging().delegate = self
         
         adBrixDefaultSetting()
+        
+        ApplicationDelegate.shared.application(application,
+                                                              didFinishLaunchingWithOptions: launchOptions)
         
         if #available(iOS 10.0, *) {
             // For iOS 10 display notification (sent via APNS)
@@ -194,7 +198,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             return KOSession.handleOpen(url)
         }
         
-        return false
+        let handled = ApplicationDelegate.shared.application(app, open: url, options: options)
+        
+        return handled
     }
     
     func application(_ application: UIApplication, handleOpen url: URL) -> Bool {
