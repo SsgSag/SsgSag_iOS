@@ -24,9 +24,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var loginViewController: UIViewController?
     var mainViewController: UIViewController?
     
-    // Override point for customization after application launch.
-    
-    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+    func application(_ application: UIApplication,
+                     didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
         UIApplication.shared.applicationIconBadgeNumber = 0
         
@@ -42,7 +41,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         adBrixDefaultSetting()
         
         ApplicationDelegate.shared.application(application,
-                                                              didFinishLaunchingWithOptions: launchOptions)
+                                               didFinishLaunchingWithOptions: launchOptions)
         
         if #available(iOS 10.0, *) {
             // For iOS 10 display notification (sent via APNS)
