@@ -61,7 +61,7 @@ class InterestBoardViewController: UIViewController {
     }
     
     private func requestSubscribeStatus() {
-        interestService.requestInterestSubscribe { [weak self] result in
+        interestService.requestInterestSubscribeStatus { [weak self] result in
             switch result {
             case .success(let data):
                 guard let interests = data.data else {return}

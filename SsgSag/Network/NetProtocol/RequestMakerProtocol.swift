@@ -9,8 +9,10 @@
 import Foundation
 
 protocol RequestMakerProtocol {
-    func makeRequest(url: URL,
-                     method: HTTPMethod,
-                     header: [String: String]?,
-                     body: Data?) -> URLRequest?
+    func makeRequest(
+        url: URL,
+        method: HTTPMethod,
+        header: [String: String]?,
+        body: Data?
+    ) -> URLRequest?
 }

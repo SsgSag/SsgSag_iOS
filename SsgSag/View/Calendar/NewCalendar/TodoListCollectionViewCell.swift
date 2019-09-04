@@ -86,7 +86,7 @@ class TodoListCollectionViewCell: UICollectionViewCell {
                 controller.simpleAlertwithHandler(title: "[ \(posterTitle) ]",
                                                   message: "해당 일정을 삭제하시겠습니까?") { [weak self] _ in
                     
-                    self?.calendarService.requestDelete(posterIdx) { [weak self] result in
+                    self?.calendarService.requestTodoDelete(posterIdx) { [weak self] result in
                         switch result {
                         case .success(let status):
                             DispatchQueue.main.async {

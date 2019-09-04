@@ -14,41 +14,54 @@ class DependencyContainer {
     public static let shared: DependencyContainer = DependencyContainer()
     
     private init() {
-        let calendarService: CalendarService = CalendarServiceImp(requestMaker: RequestMaker(),
-                                                                  network: NetworkImp())
+        let calendarService: CalendarService
+            = CalendarServiceImp(requestMaker: RequestMaker(),
+                                 network: NetworkImp())
         
-        let loginService: LoginService = LoginServiceImp(requestMaker: RequestMaker(),
-                                                         network: NetworkImp())
+        let loginService: LoginService
+            = LoginServiceImp(requestMaker: RequestMaker(),
+                              network: NetworkImp())
         
-        let posterService: PosterService = PosterServiceImp(requestMaker: RequestMaker(),
-                                                            network: NetworkImp())
+        let posterService: PosterService
+            = PosterServiceImp(requestMaker: RequestMaker(),
+                               network: NetworkImp())
         
-        let myPageService: MyPageService = MyPageServiceImp(requestMaker: RequestMaker(),
-                                                            network: NetworkImp())
+        let myPageService: MyPageService
+            = MyPageServiceImp(requestMaker: RequestMaker(),
+                               network: NetworkImp())
         
-        let tabbarService: TabbarService = TabbarServiceImp(requestMaker: RequestMaker(),
-                                                            network: NetworkImp())
+        let tabbarService: TabbarService
+            = TabbarServiceImp(requestMaker: RequestMaker(),
+                               network: NetworkImp())
         
-        let activityService: ActivityService = ActivityServiceImp(requestMaker: RequestMaker(),
-                                                                  network: NetworkImp())
+        let activityService: ActivityService
+            = ActivityServiceImp(requestMaker: RequestMaker(),
+                                 network: NetworkImp())
         
-        let interestService: InterestService = InterestServiceImp(requestMaker: RequestMaker(),
-                                                                  network: NetworkImp())
+        let interestService: InterestService
+            = InterestServiceImp(requestMaker: RequestMaker(),
+                                 network: NetworkImp())
         
-        let signUpService: SignupService = SignupServiceImp(requestMaker: RequestMaker(),
-                                                            network: NetworkImp())
+        let signUpService: SignupService
+            = SignupServiceImp(requestMaker: RequestMaker(),
+                               network: NetworkImp())
         
-        let careerService: CareerService = CareerServiceImp(requestMaker: RequestMaker(),
-                                                            network: NetworkImp())
+        let careerService: CareerService
+            = CareerServiceImp(requestMaker: RequestMaker(),
+                               network: NetworkImp())
         
-        let noticeService: NoticeService = NoticeServiceImp(requestMaker: RequestMaker(),
-                                                            network: NetworkImp())
+        let noticeService: NoticeService
+            = NoticeServiceImp(requestMaker: RequestMaker(),
+                               network: NetworkImp())
         
-        let feedService: FeedService = FeedServiceImp(requestMaker: RequestMaker(),
-                                                      network: NetworkImp())
+        let feedService: FeedService
+            = FeedServiceImp(requestMaker: RequestMaker(),
+                             network: NetworkImp())
         
-        let commentService: CommentService = CommentServiceImp(requestMaker: RequestMaker(),
-                                                               network: NetworkImp())
+        let commentService: CommentService
+            = CommentServiceImp(requestMaker: RequestMaker(),
+                                network: NetworkImp())
+        
         do {
             try dependencyPool.register(key: .calendarService,
                                         dependency: calendarService)

@@ -20,81 +20,6 @@ class MyPageServiceImp: MyPageService {
         self.network = network
     }
     
-    func reqeuestStoreJobsState(_ selectedJson: [String : Any],
-                                completionHandler: @escaping ((DataResponse<ReInterest>) -> Void)) {
-        
-        let json = try? JSONSerialization.data(withJSONObject: selectedJson)
-        
-        guard let token
-            = KeychainWrapper.standard.string(forKey: TokenName.token),
-            let url
-            = UserAPI.sharedInstance.getURL(RequestURL.registerInterestJobs.getRequestURL),
-            let request
-            = requestMaker.makeRequest(url: url,
-                                       method: .post,
-                                       header: ["Authorization": token,
-                                                "Content-Type": "application/json"],
-                                       body: json) else {
-            return
-        }
-        
-        network.dispatch(request: request) { result in
-            switch result {
-            case .success(let data):
-                do {
-                    let decodedData
-                        = try JSONDecoder().decode(ReInterest.self,
-                                                   from: data)
-                    
-                    completionHandler(.success(decodedData))
-                } catch let error {
-                    completionHandler(.failed(error))
-                    return
-                }
-            case .failure(let error):
-                completionHandler(.failed(error))
-                return
-            }
-        }
-    }
-    
-    func requestStoreAddActivity(_ jsonData: [String : Any],
-                                 completionHandler: @escaping (((DataResponse<Activity>) -> Void))) {
-        
-        let json = try? JSONSerialization.data(withJSONObject: jsonData)
-        
-        guard let token
-            = KeychainWrapper.standard.string(forKey: TokenName.token),
-            let url
-            = UserAPI.sharedInstance.getURL(RequestURL.careerActivity.getRequestURL),
-            let request = requestMaker.makeRequest(url: url,
-                                                   method: .post,
-                                                   header: ["Authorization": token,
-                                                            "Content-Type": "application/json"],
-                                                   body: json) else {
-            return
-        }
-        
-        network.dispatch(request: request) { result in
-            switch result {
-            case .success(let data):
-                do {
-                    let decodedData
-                        = try JSONDecoder().decode(Activity.self,
-                                                   from: data)
-                    
-                    completionHandler(.success(decodedData))
-                } catch let error {
-                    completionHandler(.failed(error))
-                    return
-                }
-            case .failure(let error):
-                completionHandler(.failed(error))
-                return
-            }
-        }
-    }
-
     func requestStoreSelectedField(_ selectedIndex: [Int],
                                    completionHandler: @escaping ((DataResponse<HttpStatusCode>) -> Void)) {
         
@@ -129,42 +54,6 @@ class MyPageServiceImp: MyPageService {
                     }
                     
                     completionHandler(.success(httpStatusCode))
-                } catch let error {
-                    completionHandler(.failed(error))
-                    return
-                }
-            case .failure(let error):
-                completionHandler(.failed(error))
-                return
-            }
-        }
-    }
-    
-    func requestEditActivity(_ jsonData: [String : Any],
-                             completionHandler: @escaping ((DataResponse<Activity>) -> Void)) {
-        let json = try? JSONSerialization.data(withJSONObject: jsonData)
-        
-        guard let token
-            = KeychainWrapper.standard.string(forKey: TokenName.token),
-            let url
-            = UserAPI.sharedInstance.getURL(RequestURL.careerActivity.getRequestURL),
-            let request = requestMaker.makeRequest(url: url,
-                                                   method: .put,
-                                                   header: ["Authorization": token,
-                                                            "Content-Type": "application/json"],
-                                                   body: json) else {
-                                                    return
-        }
-        
-        network.dispatch(request: request) { result in
-            switch result {
-            case .success(let data):
-                do {
-                    let decodedData
-                        = try JSONDecoder().decode(Activity.self,
-                                                   from: data)
-                    
-                    completionHandler(.success(decodedData))
                 } catch let error {
                     completionHandler(.failed(error))
                     return
@@ -376,7 +265,7 @@ class MyPageServiceImp: MyPageService {
         }
     }
     
-    func requestUpdateProfile(boundary: String,
+    func requestUpdateProfileImage(boundary: String,
                               bodyData: Data,
                               completionHandler: @escaping (DataResponse<HttpStatusCode>) -> Void) {
         
@@ -390,7 +279,7 @@ class MyPageServiceImp: MyPageService {
                                        header: ["Authorization": token,
                                                 "Content-Type": "multipart/form-data; boundary=\(boundary)"],
                                        body: bodyData) else {
-                                        return
+            return
         }
         
         network.dispatch(request: request) { result in
@@ -418,16 +307,4 @@ class MyPageServiceImp: MyPageService {
         }
     }
     
-}
-
-
-enum ReadError: Error {
-    case JsonError
-    
-    func printErrorType() {
-        switch self {
-        case .JsonError:
-            print("addActivity Json Parsing Error")
-        }
-    }
 }

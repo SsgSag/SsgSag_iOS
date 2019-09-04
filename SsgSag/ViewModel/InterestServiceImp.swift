@@ -89,7 +89,7 @@ class InterestServiceImp: InterestService {
         }
     }
     
-    func requestInterestSubscribe(completionHandler: @escaping (DataResponse<Subscribe>) -> Void) {
+    func requestInterestSubscribeStatus(completionHandler: @escaping (DataResponse<Subscribe>) -> Void) {
         
         guard let token
             = KeychainWrapper.standard.string(forKey: TokenName.token),

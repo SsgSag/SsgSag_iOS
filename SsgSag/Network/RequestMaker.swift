@@ -17,7 +17,8 @@ class RequestMaker: RequestMakerProtocol {
         
         if let header = header {
             for (key, value) in header {
-                request.setValue(value, forHTTPHeaderField: key)
+                request.setValue(value,
+                                 forHTTPHeaderField: key)
             }
         }
         

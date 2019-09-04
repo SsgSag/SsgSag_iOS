@@ -26,6 +26,7 @@ class NewCalendarVC: UIViewController {
             monthHeaderView.appearance = appereance
         }
     }
+    
     @IBOutlet weak var myPageBarButtonItem: UIBarButtonItem!
     
     @IBOutlet weak var weekDaysView: VAWeekDaysView! {

@@ -22,24 +22,19 @@ protocol CalendarService: class {
         completionHandler: @escaping (DataResponse<[DayTodoData]>) -> Void
     )
     
-    func requestFavorite(
+    func requestTodoFavorite(
         _ favorite: favoriteState,
         _ posterIdx: Int,
         completionHandler: @escaping (DataResponse<PosterFavorite>) -> Void
     )
     
-    func requestDelete(
+    func requestTodoDelete(
         _ posterIdx: Int,
         completionHandler: @escaping (DataResponse<HttpStatusCode>) -> Void
     )
     
-    func reqeustComplete(
+    func reqeustApplyComplete(
         _ posterIdx: Int,
         completionHandler: @escaping (DataResponse<PosterFavorite>) -> Void
-    )
-    
-    func requestEachPoster(
-        _ posterIdx: Int,
-        completionHandler: @escaping (DataResponse<networkPostersData>) -> Void
     )
 }

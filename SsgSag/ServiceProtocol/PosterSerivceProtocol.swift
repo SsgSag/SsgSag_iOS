@@ -9,11 +9,11 @@
 import Foundation
 
 protocol PosterService: class {
-    func requestPoster(
+    func requestSwipePosters(
         completionHandler: @escaping (DataResponse<posterData>) -> Void
     )
     
-    func requestPosterLiked(
+    func requestPosterStore(
         of poster: Posters,
         type likedCategory: likedOrDisLiked,
         completionHandler: @escaping (DataResponse<HttpStatusCode>) -> Void

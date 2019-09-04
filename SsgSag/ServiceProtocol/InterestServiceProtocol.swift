@@ -9,7 +9,7 @@
 import Foundation
 
 protocol InterestService: class {
-    func requestInterestSubscribe(
+    func requestInterestSubscribeStatus(
         completionHandler: @escaping (DataResponse<Subscribe>) -> Void
     )
     
