@@ -9,6 +9,9 @@
 import Foundation
 
 protocol Network {
-    func dispatch(request: URLRequest, completion: @escaping (Result<Data, Error>) -> Void)
+    func dispatch(
+        request: URLRequest,
+        completion: @escaping (Result<Data, Error>) -> Void
+    )
 }
 

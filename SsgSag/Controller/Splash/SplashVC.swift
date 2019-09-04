@@ -100,7 +100,7 @@ class SplashVC: UIViewController {
     
     // 서버가 유효한지 확인하는 메소드
     private func isServerAvaliable() {
-        tapbarServiceImp.requestIsInUpdateServer{ [weak self] dataResponse in
+        tapbarServiceImp.requestValidateServer{ [weak self] dataResponse in
             switch dataResponse {
             case .success(let data):
                 guard data.data == 0 else {

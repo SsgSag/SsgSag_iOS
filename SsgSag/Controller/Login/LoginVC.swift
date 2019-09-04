@@ -109,7 +109,7 @@ class LoginVC: UIViewController, UITextFieldDelegate {
             "loginType" : 10 //10은 자체 로그인
         ]
         
-        loginServiceImp.requestLogin(send: sendData) { [weak self] (dataResponse) in
+        loginServiceImp.requestSelfLogin(send: sendData) { [weak self] (dataResponse) in
             switch dataResponse {
             case .success(let loginData):
                 guard let status = loginData.status,

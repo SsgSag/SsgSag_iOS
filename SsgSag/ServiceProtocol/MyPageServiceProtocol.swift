@@ -19,21 +19,6 @@ protocol MyPageService: class {
         completionHandler: @escaping ((DataResponse<HttpStatusCode>) -> Void)
     )
     
-    func requestStoreAddActivity(
-        _ jsonData: [String: Any],
-        completionHandler: @escaping ((DataResponse<Activity>) -> Void)
-    )
-    
-    func reqeuestStoreJobsState(
-        _ selectedJson: [String: Any],
-        completionHandler: @escaping ((DataResponse<ReInterest>) -> Void)
-    )
-    
-    func requestEditActivity(
-        _ jsonData: [String: Any],
-        completionHandler: @escaping ((DataResponse<Activity>) -> Void)
-    )
-    
     func requestUserInformation(
         completionHandler: @escaping (DataResponse<UserNetworkModel>) -> Void
     )
@@ -53,7 +38,7 @@ protocol MyPageService: class {
         completionHandler: @escaping (DataResponse<HttpStatusCode>) -> Void
     )
     
-    func requestUpdateProfile(
+    func requestUpdateProfileImage(
         boundary: String,
         bodyData: Data,
         completionHandler: @escaping (DataResponse<HttpStatusCode>) -> Void

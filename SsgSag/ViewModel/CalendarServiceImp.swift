@@ -41,7 +41,8 @@ class CalendarServiceImp: CalendarService {
             switch result {
             case .success(let data):
                 do {
-                    let response = try JSONDecoder().decode(MonthTodoList.self, from: data)
+                    let response = try JSONDecoder().decode(MonthTodoList.self,
+                                                            from: data)
                     
                     guard let posterData = response.data else {
                         completionHandler(.failed(NSError(domain: "data is nil",
@@ -85,7 +86,8 @@ class CalendarServiceImp: CalendarService {
             switch result {
             case .success(let data):
                 do {
-                    let response = try JSONDecoder().decode(DayTodoList.self, from: data)
+                    let response = try JSONDecoder().decode(DayTodoList.self,
+                                                            from: data)
                     
                     guard let posterData = response.data else { return }
                     
@@ -102,38 +104,9 @@ class CalendarServiceImp: CalendarService {
         }
     }
     
-    func requestEachPoster(_ posterIdx: Int, completionHandler: @escaping
-        (DataResponse<networkPostersData>) -> Void) {
-        
-        guard let url
-            = UserAPI.sharedInstance.getURL(RequestURL.posterDetail(posterIdx: posterIdx).getRequestURL),
-            let request
-            = requestMaker.makeRequest(url: url,
-                                       method: .get,
-                                       header: ["Content-Type": "application/json"],
-                                       body: nil) else {
-            return
-        }
-        
-        network.dispatch(request: request) { result in
-            switch result {
-            case .success(let data):
-                do {
-                    let response = try JSONDecoder().decode(networkPostersData.self, from: data)
-                    
-                    completionHandler(DataResponse.success(response))
-                } catch {
-                    completionHandler(.failed(error))
-                    return
-                }
-            case .failure(let error):
-                completionHandler(.failed(error))
-                return
-            }
-        }
-    }
-    
-    func reqeustComplete(_ posterIdx: Int, completionHandler: @escaping (DataResponse<PosterFavorite>) -> Void) {
+    // 일정 지원 완료
+    func reqeustApplyComplete(_ posterIdx: Int,
+                         completionHandler: @escaping (DataResponse<PosterFavorite>) -> Void) {
         
         guard let token
             = KeychainWrapper.standard.string(forKey: TokenName.token),
@@ -151,7 +124,8 @@ class CalendarServiceImp: CalendarService {
             switch result {
             case .success(let data):
                 do {
-                    let response = try JSONDecoder().decode(PosterFavorite.self, from: data)
+                    let response = try JSONDecoder().decode(PosterFavorite.self,
+                                                            from: data)
                     
                     completionHandler(DataResponse.success(response))
                 } catch let error {
@@ -165,7 +139,7 @@ class CalendarServiceImp: CalendarService {
         }
     }
     
-    func requestDelete(_ posterIdx: Int,
+    func requestTodoDelete(_ posterIdx: Int,
                        completionHandler: @escaping (DataResponse<HttpStatusCode>) -> Void) {
         
         guard let token
@@ -184,7 +158,8 @@ class CalendarServiceImp: CalendarService {
             switch result {
             case .success(let data):
                 do {
-                    let decodedData = try JSONDecoder().decode(PosterFavorite.self, from: data)
+                    let decodedData = try JSONDecoder().decode(PosterFavorite.self,
+                                                               from: data)
                     
                     guard let status = decodedData.status,
                         let httpStatusCode = HttpStatusCode(rawValue: status) else {
@@ -203,7 +178,7 @@ class CalendarServiceImp: CalendarService {
         }
     }
     
-    func requestFavorite(_ favorite: favoriteState,
+    func requestTodoFavorite(_ favorite: favoriteState,
                          _ posterIdx: Int,
                          completionHandler: @escaping (DataResponse<PosterFavorite>) -> Void) {
         
@@ -225,7 +200,8 @@ class CalendarServiceImp: CalendarService {
             switch result {
             case .success(let data):
                 do {
-                    let response = try JSONDecoder().decode(PosterFavorite.self, from: data)
+                    let response = try JSONDecoder().decode(PosterFavorite.self,
+                                                            from: data)
                     
                     completionHandler(DataResponse.success(response))
                 } catch {

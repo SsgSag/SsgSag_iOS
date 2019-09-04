@@ -24,7 +24,6 @@ enum RequestURL {
     case interestingField
     case reIntersting
     case careerActivity
-    case registerInterestJobs
     case deleteAcitivity(careerIdx: Int)
     case subscribeInterest
     case subscribeAddOrDelete(interestIdx: Int)
@@ -73,8 +72,6 @@ enum RequestURL {
             return "/user/reInterest"
         case .careerActivity:
             return "/career"
-        case .registerInterestJobs:
-            return "/user/reInterestReq2"
         case .deleteAcitivity(careerIdx: let careerIdx):
             return "/career/\(careerIdx)"
         case .subscribeInterest:

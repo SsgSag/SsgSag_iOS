@@ -19,7 +19,7 @@ class TabbarServiceImp: TabbarService {
         self.network = network
     }
     
-    func requestIsInUpdateServer(completionHandler: @escaping (DataResponse<UpdateNetworkModel>) -> Void) {
+    func requestValidateServer(completionHandler: @escaping (DataResponse<UpdateNetworkModel>) -> Void) {
         guard let url
             = UserAPI.sharedInstance.getURL(RequestURL.isUpdate.getRequestURL),
             let request

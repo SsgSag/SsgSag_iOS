@@ -20,7 +20,43 @@ class PosterServiceImp: PosterService {
         self.network = network
     }
     
-    func requestPosterLiked(of poster: Posters,
+    func requestSwipePosters(completionHandler: @escaping (DataResponse<posterData>) -> Void) {
+        
+        guard let token
+            = KeychainWrapper.standard.string(forKey: TokenName.token),
+            let url
+            = UserAPI.sharedInstance.getURL(RequestURL.initPoster.getRequestURL),
+            let request
+            = requestMaker.makeRequest(url: url,
+                                       method: .get,
+                                       header: ["Authorization": token],
+                                       body: nil) else {
+                                        return
+        }
+        
+        network.dispatch(request: request) { result in
+            switch result {
+            case .success(let data):
+                do {
+                    let order = try JSONDecoder().decode(networkData.self,
+                                                         from: data)
+                    
+                    guard let posterData = order.data else { return }
+                    
+                    completionHandler(.success(posterData))
+                    
+                } catch let error {
+                    completionHandler(.failed(error))
+                    return
+                }
+            case .failure(let error):
+                completionHandler(.failed(error))
+                return
+            }
+        }
+    }
+    
+    func requestPosterStore(of poster: Posters,
                             type likedCategory: likedOrDisLiked,
                             completionHandler: @escaping (DataResponse<HttpStatusCode>) -> Void) {
         
@@ -33,10 +69,11 @@ class PosterServiceImp: PosterService {
             let url
             = UserAPI.sharedInstance.getURL(RequestURL.posterLiked(posterIdx: posterIdx,
                                                                    likeType: like).getRequestURL),
-            let request = requestMaker.makeRequest(url: url,
-                                                   method: .post,
-                                                   header: ["Authorization": token],
-                                                   body: nil) else {
+            let request
+            = requestMaker.makeRequest(url: url,
+                                       method: .post,
+                                       header: ["Authorization": token],
+                                       body: nil) else {
             return
         }
         
@@ -67,40 +104,6 @@ class PosterServiceImp: PosterService {
         
     }
     
-    func requestPoster(completionHandler: @escaping (DataResponse<posterData>) -> Void) {
-        
-        guard let token
-            = KeychainWrapper.standard.string(forKey: TokenName.token),
-            let url
-            = UserAPI.sharedInstance.getURL(RequestURL.initPoster.getRequestURL),
-            let request = requestMaker.makeRequest(url: url,
-                                                   method: .get,
-                                                   header: ["Authorization": token],
-                                                   body: nil) else {
-            return
-        }
-        
-        network.dispatch(request: request) { result in
-            switch result {
-            case .success(let data):
-                do {
-                    let order = try JSONDecoder().decode(networkData.self, from: data)
-                    
-                    guard let posterData = order.data else { return }
-                    
-                    completionHandler(.success(posterData))
-                    
-                } catch let error {
-                    completionHandler(.failed(error))
-                    return
-                }
-            case .failure(let error):
-                completionHandler(.failed(error))
-                return
-            }
-        }
-    }
-    
     func requestPosterDetail(posterIdx: Int,
                              completionHandler: @escaping (DataResponse<DataClass>) -> Void) {
         
@@ -121,7 +124,8 @@ class PosterServiceImp: PosterService {
             switch result {
             case .success(let data):
                 do {
-                    let response = try JSONDecoder().decode(PosterDetail.self, from: data)
+                    let response = try JSONDecoder().decode(PosterDetail.self,
+                                                            from: data)
                     
                     guard let posterData = response.data else { return }
                     

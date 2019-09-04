@@ -25,8 +25,8 @@ class AddCertificationVC: UIViewController, UITextFieldDelegate, UITextViewDeleg
     weak var delegate: UpdateDelegate?
     var isNewActivity: Bool = true
     
-    private let myPageService: MyPageService
-        = DependencyContainer.shared.getDependency(key: .myPageService)
+    private let activityService: ActivityService
+        = DependencyContainer.shared.getDependency(key: .activityService)
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -76,39 +76,39 @@ class AddCertificationVC: UIViewController, UITextFieldDelegate, UITextViewDeleg
                 "careerDate1" : dateButton.titleLabel?.text ?? "" //일까지 줘도 상관없음 ex)"2019-01-12"
             ]
             
-            myPageService.requestStoreAddActivity(json) { [weak self] dataResponse in
-                
-                if !dataResponse.isSuccess {
-                    guard let readError = dataResponse.error as? ReadError else {return}
-                    print(readError.printErrorType())
+            activityService.requestStoreActivity(json) { [weak self] dataResponse in
+                switch dataResponse {
+                case .success(let activity):
+                    
+                    guard let statusCode = activity.status,
+                        let httpStatus = HttpStatusCode(rawValue: statusCode) else {
+                            return
+                    }
                     
                     DispatchQueue.main.async {
-                        self?.simplerAlert(title: "저장에 실패했습니다")
-                    }
-                }
-                
-                guard let statusCode = dataResponse.value?.status else {return}
-                
-                guard let httpStatus = HttpStatusCode(rawValue: statusCode) else {return}
-                
-                DispatchQueue.main.async {
-                    switch httpStatus {
-                    case .secondSucess:
-                        let animation = LOTAnimationView(name: "bt_save_round")
-                        self?.saveButton.addSubview(animation)
-                        
-                        animation.play()
-                        
-                        self?.simplerAlertwhenSave(title: "저장되었습니다")
-                        
-                        self?.delegate?.updateCareer(type: 2)
-                        
-                    case .serverError, .dataBaseError:
-                        DispatchQueue.main.async {
-                            self?.simplerAlert(title: "저장에 실패했습니다")
+                        switch httpStatus {
+                        case .secondSucess:
+                            let animation = LOTAnimationView(name: "bt_save_round")
+                            self?.saveButton.addSubview(animation)
+                            
+                            animation.play()
+                            
+                            self?.simplerAlertwhenSave(title: "저장되었습니다")
+                            
+                            self?.delegate?.updateCareer(type: 2)
+                            
+                        case .serverError, .dataBaseError:
+                            DispatchQueue.main.async {
+                                self?.simplerAlert(title: "저장에 실패했습니다")
+                            }
+                        default:
+                            break
                         }
-                    default:
-                        break
+                    }
+                case .failed(let error):
+                    print(error)
+                    DispatchQueue.main.async {
+                        self?.simplerAlert(title: "저장에 실패했습니다")
                     }
                 }
             }
@@ -123,42 +123,42 @@ class AddCertificationVC: UIViewController, UITextFieldDelegate, UITextViewDeleg
                 "careerDate1" : dateButton.titleLabel?.text ?? "" //일까지 줘도 상관없음 ex)"2019-01-12"
             ]
             
-            myPageService.requestEditActivity(json) { [weak self] (dataResponse) in
-                
-                if !dataResponse.isSuccess {
-                    guard let readError = dataResponse.error as? ReadError else {return}
-                    print(readError.printErrorType())
+            activityService.requestEditActivity(json) { [weak self] (dataResponse) in
+                switch dataResponse {
+                case .success(let activity):
                     
+                    guard let statusCode = activity.status,
+                        let httpStatus = HttpStatusCode(rawValue: statusCode) else {
+                            return
+                    }
+                    
+                    DispatchQueue.main.async {
+                        switch httpStatus {
+                        case .processingSuccess:
+                            let animation = LOTAnimationView(name: "bt_save_round")
+                            self?.saveButton.addSubview(animation)
+                            
+                            animation.play()
+                            
+                            self?.simplerAlertwhenSave(title: "수정되었습니다")
+                            
+                            self?.delegate?.updateCareer(type: 2)
+                            
+                        case .serverError, .dataBaseError:
+                            DispatchQueue.main.async {
+                                self?.simplerAlert(title: "수정에 실패했습니다")
+                            }
+                        default:
+                            break
+                        }
+                    }
+                    
+                case .failed(let error):
+                    print(error)
                     DispatchQueue.main.async {
                         self?.simplerAlert(title: "수정에 실패했습니다")
                     }
                 }
-                
-                guard let statusCode = dataResponse.value?.status else {return}
-                
-                guard let httpStatus = HttpStatusCode(rawValue: statusCode) else {return}
-                
-                DispatchQueue.main.async {
-                    switch httpStatus {
-                    case .processingSuccess:
-                        let animation = LOTAnimationView(name: "bt_save_round")
-                        self?.saveButton.addSubview(animation)
-                        
-                        animation.play()
-                        
-                        self?.simplerAlertwhenSave(title: "수정되었습니다")
-                        
-                        self?.delegate?.updateCareer(type: 2)
-                        
-                    case .serverError, .dataBaseError:
-                        DispatchQueue.main.async {
-                            self?.simplerAlert(title: "수정에 실패했습니다")
-                        }
-                    default:
-                        break
-                    }
-                }
-                
             }
         }
     }
