@@ -22,13 +22,26 @@ class CalendarServiceImp: CalendarService {
     
     func requestMonthTodoList(year: String,
                               month: String,
+                              _ categoryList: [Int],
+                              favorite: Int,
                               completionHandler: @escaping (DataResponse<[MonthTodoData]>) -> Void) {
+        
+        var listString = ""
+        
+        if categoryList.count != 0 {
+            for category in 0..<categoryList.count - 1 {
+                listString.append("\(String(categoryList[category])),")
+            }
+            listString.append(String(categoryList[categoryList.endIndex - 1]))
+        }
         
         guard let token
             = KeychainWrapper.standard.string(forKey: TokenName.token),
             let url
             = UserAPI.sharedInstance.getURL(RequestURL.monthTodoList(year: year,
-                                                                     month: month).getRequestURL),
+                                                                     month: month,
+                                                                     list: listString,
+                                                                     favorite: favorite).getRequestURL),
             let request
             = requestMaker.makeRequest(url: url,
                                        method: .get,

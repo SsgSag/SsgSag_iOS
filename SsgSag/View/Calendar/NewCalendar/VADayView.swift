@@ -106,9 +106,12 @@ class VADayView: UIView {
     
     var count: CGFloat = 0
     
-    private func drawEvent(_ state: VADay, monthTodoData: [MonthTodoData]) {
+    private func drawEvent(_ state: VADay,
+                           monthTodoData: [MonthTodoData],
+                           categoryList: [Int],
+                           favorite: Int) {
+        
         for todo in monthTodoData {
-            
             guard let posterEndDate = todo.posterEndDate,
                 let categoryIdx = todo.categoryIdx,
                 let posterName = todo.posterName,
@@ -120,16 +123,41 @@ class VADayView: UIView {
             
             let category = PosterCategory(rawValue: categoryIdx)
             
-            if DateCaculate.isSameDate(self.day.date, monthTodoDate) {
-                if count < limitCount {
-                    let lineView = VALineView(color: category?.categoryColors() ?? .clear,
-                                              text: posterName,
-                                              isFavorite: isFavorite)
-                    if state.state == .out {
-                        lineView.backgroundColor = .lightGray
+            if favorite == 0 {
+                if categoryList.contains(categoryIdx) {
+                    if DateCaculate.isSameDate(self.day.date, monthTodoDate) {
+                        if count < limitCount {
+                            
+                            let lineView = VALineView(color: category?.categoryColors() ?? .clear,
+                                                      text: posterName, isFavorite: isFavorite)
+                            if day.state == .out {
+                                lineView.backgroundColor = .lightGray
+                            }
+                            
+                            lineStackView.addArrangedSubview(lineView)
+                            
+                            count += 1
+                        }
                     }
-                    lineStackView.addArrangedSubview(lineView)
-                    count += 1
+                }
+            } else {
+                if categoryList.contains(categoryIdx) {
+                    if DateCaculate.isSameDate(self.day.date, monthTodoDate) {
+                        if todo.isFavorite == 1 {
+                            if count < limitCount {
+                                
+                                let lineView = VALineView(color: category?.categoryColors() ?? .clear,
+                                                          text: posterName, isFavorite: isFavorite)
+                                if day.state == .out {
+                                    lineView.backgroundColor = .lightGray
+                                }
+                                
+                                lineStackView.addArrangedSubview(lineView)
+                                
+                                count += 1
+                            }
+                        }
+                    }
                 }
             }
         }
@@ -150,7 +178,9 @@ class VADayView: UIView {
         stackViewHeightAnchor?.isActive = true
     }
     
-    func setupDay(monthTodoData: [MonthTodoData]) {
+    func setupDay(monthTodoData: [MonthTodoData],
+                  categoryList: [Int],
+                  favorite: Int) {
         
         dateLabel.text = VAFormatters.dayFormatter.string(from: day.date)
         
@@ -161,14 +191,17 @@ class VADayView: UIView {
         dateLabel.topAnchor.constraint(equalTo: self.topAnchor).isActive = true
         
         setState(day.state)
-        drawEvent(day, monthTodoData: monthTodoData)
+        drawEvent(day,
+                  monthTodoData: monthTodoData,
+                  categoryList: categoryList,
+                  favorite: favorite)
     }
     
-    func drawEventWithSelectedIndex(_ selectedIndex: [Int], monthTodos: [MonthTodoData]) {
+    func drawEventWithSelectedIndex(_ selectedIndex: [Int],
+                                    monthTodos: [MonthTodoData],
+                                    favorite: Int) {
         
-        for i in lineStackView.subviews {
-            i.removeFromSuperview()
-        }
+        lineStackView.subviews.forEach { $0.removeFromSuperview() }
         
         count = 0
         
@@ -182,22 +215,24 @@ class VADayView: UIView {
             
             let category = PosterCategory(rawValue: categoryIdx)
             
-            if selectedIndex.contains(0) {
-                if DateCaculate.isSameDate(self.day.date, posterDate) {
-                    if count < limitCount {
-                        
-                        let lineView = VALineView(color: category?.categoryColors() ?? .clear,
-                                                  text: posterName, isFavorite: isFavorite)
-                        if day.state == .out {
-                            lineView.backgroundColor = .lightGray
+            if favorite == 0 {
+                if selectedIndex.contains(categoryIdx) {
+                    if DateCaculate.isSameDate(self.day.date, posterDate) {
+                        if count < limitCount {
+                            
+                            let lineView = VALineView(color: category?.categoryColors() ?? .clear,
+                                                      text: posterName, isFavorite: isFavorite)
+                            if day.state == .out {
+                                lineView.backgroundColor = .lightGray
+                            }
+                            
+                            lineStackView.addArrangedSubview(lineView)
+                            
+                            count += 1
                         }
-                        
-                        lineStackView.addArrangedSubview(lineView)
-                        
-                        count += 1
                     }
                 }
-            } else if selectedIndex.contains(1) {
+            } else {
                 if DateCaculate.isSameDate(self.day.date, posterDate) {
                     if poster.isFavorite == 1 {
                         if count < limitCount {
@@ -215,6 +250,7 @@ class VADayView: UIView {
                     }
                 }
             }
+            
 //            || selectedIndex.contains(category?.rawValue ?? 0)
             
         }
