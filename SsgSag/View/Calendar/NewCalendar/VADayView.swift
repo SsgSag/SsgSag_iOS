@@ -182,37 +182,18 @@ class VADayView: UIView {
             
             let category = PosterCategory(rawValue: categoryIdx)
             
-            if selectedIndex.contains(0) {
-                if DateCaculate.isSameDate(self.day.date, posterDate) {
-                    if count < limitCount {
-                        
-                        let lineView = VALineView(color: category?.categoryColors() ?? .clear,
-                                                  text: posterName, isFavorite: isFavorite)
-                        if day.state == .out {
-                            lineView.backgroundColor = .lightGray
-                        }
-                        
-                        lineStackView.addArrangedSubview(lineView)
-                        
-                        count += 1
+            if DateCaculate.isSameDate(self.day.date, posterDate) {
+                if count < limitCount {
+                    
+                    let lineView = VALineView(color: category?.categoryColors() ?? .clear,
+                                              text: posterName, isFavorite: isFavorite)
+                    if day.state == .out {
+                        lineView.backgroundColor = .lightGray
                     }
-                }
-            } else if selectedIndex.contains(1) {
-                if DateCaculate.isSameDate(self.day.date, posterDate) {
-                    if poster.isFavorite == 1 {
-                        if count < limitCount {
-                            
-                            let lineView = VALineView(color: category?.categoryColors() ?? .clear,
-                                                      text: posterName, isFavorite: isFavorite)
-                            if day.state == .out {
-                                lineView.backgroundColor = .lightGray
-                            }
-                            
-                            lineStackView.addArrangedSubview(lineView)
-                            
-                            count += 1
-                        }
-                    }
+                    
+                    lineStackView.addArrangedSubview(lineView)
+                    
+                    count += 1
                 }
             }
 //            || selectedIndex.contains(category?.rawValue ?? 0)
