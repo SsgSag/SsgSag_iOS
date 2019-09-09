@@ -118,6 +118,10 @@ public class VACalendarView: UIScrollView {
         super.init(frame: frame)
     }
     
+    deinit {
+        print("deinit")
+    }
+    
     public required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -314,7 +318,7 @@ public class VACalendarView: UIScrollView {
                 }
 
             } else {
-                month.clean()
+//                month.clean()
             }
         }
     }
