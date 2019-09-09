@@ -38,6 +38,8 @@ class FeedPageCollectionViewCell: UICollectionViewCell {
         collectionView.contentInset = UIEdgeInsets(top: 15, left: 0, bottom: 15, right: 0)
         collectionView.delegate = self
         collectionView.dataSource = self
+        collectionView.prefetchDataSource = self
+        collectionView.isPrefetchingEnabled = true
         return collectionView
     }()
     
@@ -150,6 +152,13 @@ extension FeedPageCollectionViewCell: UICollectionViewDataSource {
         
         delegate?.touchUpFeedCell(title: title,
                                   urlString: urlString)
+    }
+}
+
+extension FeedPageCollectionViewCell: UICollectionViewDataSourcePrefetching {
+    func collectionView(_ collectionView: UICollectionView,
+                        prefetchItemsAt indexPaths: [IndexPath]) {
+        print(indexPaths)
     }
 }
 
