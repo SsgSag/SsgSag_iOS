@@ -31,7 +31,6 @@ class NewCalendarVC: UIViewController {
     
     @IBOutlet weak var weekDaysView: VAWeekDaysView! {
         didSet {
-            
             let appereance = VAWeekDaysViewAppearance(symbolsType: .veryShort, calendar: defaultCalendar)
             weekDaysView.appearance = appereance
         }

@@ -24,11 +24,17 @@ class CalendarServiceImp: CalendarService {
                               month: String,
                               completionHandler: @escaping (DataResponse<[MonthTodoData]>) -> Void) {
         
+        var monthString = month
+        
+        if monthString.count == 1 {
+            monthString.insert("0", at: monthString.startIndex)
+        }
+        
         guard let token
             = KeychainWrapper.standard.string(forKey: TokenName.token),
             let url
             = UserAPI.sharedInstance.getURL(RequestURL.monthTodoList(year: year,
-                                                                     month: month).getRequestURL),
+                                                                     month: monthString).getRequestURL),
             let request
             = requestMaker.makeRequest(url: url,
                                        method: .get,
