@@ -56,18 +56,15 @@ class AddActivityVC: UIViewController, UITextViewDelegate, UITextFieldDelegate {
         setupLayout()
         setStartEndDate()
         
-        contentTextView.applyBorderTextView()
-        
-        if(contentTextView.text == "") {
-            textViewDidEndEditing(contentTextView)
-        }
-        
         if let title = titleString {
             titleTextField.text = title
         }
         
         if let content = contentTextString {
-            contentTextView.text = content
+            if content != "" {
+                contentTextView.text = content
+                contentTextView.textColor = .black
+            }
         }
     }
     
@@ -143,15 +140,15 @@ class AddActivityVC: UIViewController, UITextViewDelegate, UITextFieldDelegate {
     }
     
     func textViewDidEndEditing(_ textView: UITextView) {
-        if(textView.text == "") {
+        if textView.text == "" {
             textView.text = "동아리, 서포터즈, 봉사활동 등 본인이 했던 대외활동에 대한 구체적인 내용을 작성해보세요!"
-            textView.textColor = UIColor.rgb(red: 189, green: 189, blue: 189)
+            textView.textColor = #colorLiteral(red: 0.7411764706, green: 0.7411764706, blue: 0.7411764706, alpha: 1)
         }
         textView.resignFirstResponder()
     }
     
     func textViewDidBeginEditing(_ textView: UITextView) {
-        if(textView.text == "동아리, 서포터즈, 봉사활동 등 본인이 했던 대외활동에 대한 구체적인 내용을 작성해보세요!") {
+        if textView.text == "동아리, 서포터즈, 봉사활동 등 본인이 했던 대외활동에 대한 구체적인 내용을 작성해보세요!" {
             textView.text = ""
             textView.textColor = .black
         }
