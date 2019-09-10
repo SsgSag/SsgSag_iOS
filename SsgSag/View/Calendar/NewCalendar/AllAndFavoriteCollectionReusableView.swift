@@ -26,20 +26,21 @@ class AllAndFavoriteCollectionReusableView: UICollectionReusableView {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
+        
     }
     
+    // 전체 : -1 , 즐겨찾기 : -2
     @IBAction func touchUpAllButton(_ sender: UIButton) {
         let otherButton: UIButton = sender == allButton ? favoriteButton : allButton
         
         if sender == allButton {
             allUnderBarView.isHidden = false
             favoriteUnderBarView.isHidden = true
-            delegate?.selectedMenu(index: 0)
+            delegate?.selectedMenu(index: -1)
         } else {
             allUnderBarView.isHidden = true
             favoriteUnderBarView.isHidden = false
-            delegate?.selectedMenu(index: 1)
+            delegate?.selectedMenu(index: -2)
         }
         
         sender.isSelected = true
@@ -52,7 +53,20 @@ class AllAndFavoriteCollectionReusableView: UICollectionReusableView {
         sender.setTitleColor(#colorLiteral(red: 0.3843137255, green: 0.4156862745, blue: 1, alpha: 1), for: .normal)
         sender.titleLabel?.font = UIFont.systemFont(ofSize: 15,
                                                     weight: .semibold)
-        
     }
     
+    func deselectedAllMenu() {
+        allButton.isSelected = false
+        favoriteButton.isSelected = false
+        allUnderBarView.isHidden = true
+        favoriteUnderBarView.isHidden = true
+        
+        allButton.setTitleColor(#colorLiteral(red: 0.4666666667, green: 0.4666666667, blue: 0.4666666667, alpha: 1), for: .normal)
+        allButton.titleLabel?.font = UIFont.systemFont(ofSize: 15,
+                                                       weight: .regular)
+        
+        favoriteButton.setTitleColor(#colorLiteral(red: 0.4666666667, green: 0.4666666667, blue: 0.4666666667, alpha: 1), for: .normal)
+        favoriteButton.titleLabel?.font = UIFont.systemFont(ofSize: 15,
+                                                            weight: .regular)
+    }
 }

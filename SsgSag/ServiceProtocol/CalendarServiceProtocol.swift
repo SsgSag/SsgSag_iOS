@@ -12,6 +12,8 @@ protocol CalendarService: class {
     func requestMonthTodoList(
         year: String,
         month: String,
+        _ categoryList: [Int],
+        favorite: Int,
         completionHandler: @escaping (DataResponse<[MonthTodoData]>) -> Void
     )
     

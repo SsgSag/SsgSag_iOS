@@ -61,7 +61,10 @@ class VAMonthView: UIView {
     private let weekHeight: CGFloat
     private var viewType: VACalendarViewType
     
-    init(month: VAMonth, showDaysOut: Bool, weekHeight: CGFloat, viewType: VACalendarViewType) {
+    init(month: VAMonth,
+         showDaysOut: Bool,
+         weekHeight: CGFloat,
+         viewType: VACalendarViewType) {
         self.month = month
         self.showDaysOut = showDaysOut
         self.weekHeight = weekHeight
@@ -76,7 +79,10 @@ class VAMonthView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func setupWeeksView(with type: VACalendarViewType, monthTodoData: [MonthTodoData]) {
+    func setupWeeksView(with type: VACalendarViewType,
+                        monthTodoData: [MonthTodoData],
+                        categoryList: [Int],
+                        favorite: Int) {
         guard isDrawn == false else { return }
     
         self.viewType = type
@@ -88,13 +94,16 @@ class VAMonthView: UIView {
         self.weekViews = []
 
         month.weeks.enumerated().forEach { index, week in
-            let weekView = VAWeekView(week: week, showDaysOut: showDaysOut)
+            let weekView = VAWeekView(week: week,
+                                      showDaysOut: showDaysOut)
             weekView.delegate = self
             self.weekViews.append(weekView)
             self.addSubview(weekView)
         }
         
-        draw(monthTodoData: monthTodoData)
+        draw(monthTodoData: monthTodoData,
+             categoryList: categoryList,
+             favorite: favorite)
     }
     
     func clean() {
@@ -107,7 +116,9 @@ class VAMonthView: UIView {
         return weekViews.first(where: { $0.contains(date: date) })
     }
 
-    private func draw(monthTodoData: [MonthTodoData]) {
+    private func draw(monthTodoData: [MonthTodoData],
+                      categoryList: [Int],
+                      favorite: Int) {
         let leftInset = monthViewAppearanceDelegate?.leftInset?() ?? 0
         let rightInset = monthViewAppearanceDelegate?.rightInset?() ?? 0
         let initialOffsetY = self.monthLabel?.frame.maxY ?? 0
@@ -138,7 +149,9 @@ class VAMonthView: UIView {
                 )
                 x = week.frame.maxX + (leftInset + rightInset)
             }
-            week.setupDays(monthTodoData: monthTodoData)
+            week.setupDays(monthTodoData: monthTodoData,
+                           categoryList: categoryList,
+                           favorite: favorite)
         }
     }
     
@@ -159,7 +172,8 @@ class VAMonthView: UIView {
 
 extension VAMonthView: VAWeekViewDelegate {
     
-    func dayStateChanged(_ day: VADay, in week: VAWeek) {
+    func dayStateChanged(_ day: VADay,
+                         in week: VAWeek) {
         delegate?.dayStateChanged(day, in: month)
     }
     
