@@ -14,6 +14,10 @@ protocol FeedTouchDelegate: class {
 
 class FeedPageCollectionViewCell: UICollectionViewCell {
     
+    private let imageCache = NSCache<NSString, UIImage>()
+    
+    private var feedTasks: [URLSessionDataTask] = []
+    
     private let feedServiceImp: FeedService
         = DependencyContainer.shared.getDependency(key: .feedService)
     
@@ -56,6 +60,27 @@ class FeedPageCollectionViewCell: UICollectionViewCell {
             switch result {
             case .success(let feedDatas):
                 self?.feedDatas = feedDatas
+                
+                for feedData in feedDatas {
+                    guard let urlString = feedData.feedUrl,
+                        let imageURL = URL(string: urlString) else {
+                        continue
+                    }
+                    
+                    let dataTask
+                        = URLSession.shared.dataTask(with: imageURL) { [weak self] data, response, error in
+                        guard error == nil,
+                            let data = data,
+                            let image = UIImage(data: data) else {
+                            return
+                        }
+                        
+                        self?.imageCache.setObject(image, forKey: urlString as NSString)
+                    }
+                    
+                    self?.feedTasks.append(dataTask)
+                }
+                
                 DispatchQueue.main.async {
                     self?.feedCollectionView.reloadData()
                     self?.refreshControl.endRefreshing()
@@ -127,18 +152,30 @@ extension FeedPageCollectionViewCell: UICollectionViewDataSource {
         cell.feedData = feedDatas[indexPath.item]
         
         if feedDatas[indexPath.item].feedPreviewImgUrl == cell.feedData?.feedPreviewImgUrl {
-            let imageURL = feedDatas[indexPath.item].feedPreviewImgUrl ?? ""
-            guard let url = URL(string: imageURL) else {
+            guard let urlString = feedDatas[indexPath.item].feedPreviewImgUrl else {
                 return cell
             }
             
-            ImageNetworkManager.shared.getImageByCache(imageURL: url) { (image, error) in
-                if error == nil {
-                    cell.newsImageView.image = image
+            if imageCache.object(forKey: urlString as NSString) == nil {
+                if let imageURL = URL(string: urlString) {
+                    
+                    URLSession.shared.dataTask(with: imageURL) { data, response, error in
+                        guard error == nil,
+                            let data = data,
+                            let image = UIImage(data: data) else {
+                            return
+                        }
+                        
+                        DispatchQueue.main.async {
+                            cell.newsImageView.image = image
+                        }
+                    }.resume()
                 }
+                return cell
             }
+            
+            cell.newsImageView.image = imageCache.object(forKey: urlString as NSString)
         }
-        
         
         return cell
     }
@@ -158,7 +195,16 @@ extension FeedPageCollectionViewCell: UICollectionViewDataSource {
 extension FeedPageCollectionViewCell: UICollectionViewDataSourcePrefetching {
     func collectionView(_ collectionView: UICollectionView,
                         prefetchItemsAt indexPaths: [IndexPath]) {
-        print(indexPaths)
+        indexPaths.forEach {
+            feedTasks[$0.item].resume()
+        }
+    }
+    
+    func collectionView(_ collectionView: UICollectionView,
+                        cancelPrefetchingForItemsAt indexPaths: [IndexPath]) {
+        indexPaths.forEach {
+            feedTasks[$0.item].cancel()
+        }
     }
 }
 
