@@ -29,6 +29,11 @@ class NewsCollectionViewCell: UICollectionViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
+    }
+    
+    override func prepareForReuse() {
+        newsImageView.image = nil
+        newsTitleLabel.text = ""
+        fromLabel.text = ""
     }
 }
