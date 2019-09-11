@@ -37,21 +37,31 @@ class VAWeekView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func setupDays(monthTodoData: [MonthTodoData]) {
+    func setupDays(monthTodoData: [MonthTodoData],
+                   categoryList: [Int],
+                   favorite: Int) {
         dayViews = []
         
         var x: CGFloat = 0
         
         week.days.enumerated().forEach { index, day in
             let dayView = VADayView(day: day)
-            dayView.frame = CGRect(x: x, y: 3, width: dayWidth, height: frame.height)
-            x = dayView.frame.maxX
+            
             dayView.delegate = self
+            
+            dayView.frame = CGRect(x: x,
+                                   y: 3,
+                                   width: dayWidth,
+                                   height: frame.height)
+            x = dayView.frame.maxX
+    
             dayViews.append(dayView)
             
             if showDaysOut || (!showDaysOut && dayView.day.state != .out) {
                 addSubview(dayView)
-                dayView.setupDay(monthTodoData: monthTodoData)
+                dayView.setupDay(monthTodoData: monthTodoData,
+                                 categoryList: categoryList,
+                                 favorite: favorite)
             }
         }
         

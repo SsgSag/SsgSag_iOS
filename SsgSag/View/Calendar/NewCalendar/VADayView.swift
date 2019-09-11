@@ -29,22 +29,19 @@ class VADayView: UIView {
     
     var day: VADay
     
+    private var count: CGFloat = 0
+    private var stackViewHeightAnchor: NSLayoutConstraint?
+    private var supplementaryViews = [UIView]()
+    
+    private let dotSpacing: CGFloat = 5
+    private let dotSize: CGFloat = 5
+    private let limitCount: CGFloat = UIScreen.main.bounds.height < 800
+        ? (UIScreen.main.bounds.height < 700 ? 3 : 4) : 5
+    
     weak var delegate: VADayViewDelegate?
     
     weak var dayViewAppearanceDelegate: VADayViewAppearanceDelegate? {
         return (superview as? VAWeekView)?.dayViewAppearanceDelegate
-    }
-    
-    var stackViewHeightAnchor: NSLayoutConstraint?
-    
-    let limitCount: CGFloat = UIScreen.main.bounds.height < 800 ? (UIScreen.main.bounds.height < 700 ? 3 : 4) : 5
-    
-    private var dotStackView: UIStackView {
-        let stack = UIStackView()
-        stack.distribution = .fillEqually
-        stack.axis = .horizontal
-        stack.spacing = dotSpacing
-        return stack
     }
     
     private var lineStackView: UIStackView = {
@@ -64,10 +61,6 @@ class VADayView: UIView {
         return separateView
     }()
     
-    private let dotSpacing: CGFloat = 5
-    private let dotSize: CGFloat = 5
-    private var supplementaryViews = [UIView]()
-    
     private let dateLabel: UILabel = {
         let dateLabel = UILabel()
         dateLabel.font = UIFont.systemFont(ofSize: 14)
@@ -78,6 +71,7 @@ class VADayView: UIView {
     
     init(day: VADay) {
         self.day = day
+        
         super.init(frame: .zero)
         
         self.day.stateChanged = { [weak self] state in
@@ -88,7 +82,8 @@ class VADayView: UIView {
         
         drawSeparateView()
         
-        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(didTapSelect))
+        let tapGesture = UITapGestureRecognizer(target: self,
+                                                action: #selector(didTapSelect))
         addGestureRecognizer(tapGesture)
     }
     
@@ -104,11 +99,12 @@ class VADayView: UIView {
         separateView.trailingAnchor.constraint(equalTo: self.trailingAnchor).isActive = true
     }
     
-    var count: CGFloat = 0
-    
-    private func drawEvent(_ state: VADay, monthTodoData: [MonthTodoData]) {
+    private func drawEvent(_ state: VADay,
+                           monthTodoData: [MonthTodoData],
+                           categoryList: [Int],
+                           favorite: Int) {
+        
         for todo in monthTodoData {
-            
             guard let posterEndDate = todo.posterEndDate,
                 let categoryIdx = todo.categoryIdx,
                 let posterName = todo.posterName,
@@ -116,25 +112,56 @@ class VADayView: UIView {
                 return
             }
             
-            let monthTodoDate = DateCaculate.stringToDateWithGenericFormatter(using: posterEndDate)
-            
+            let monthTodoDate
+                = DateCaculate.stringToDateWithGenericFormatter(using: posterEndDate)
             let category = PosterCategory(rawValue: categoryIdx)
             
-            if DateCaculate.isSameDate(self.day.date, monthTodoDate) {
-                if count < limitCount {
-                    let lineView = VALineView(color: category?.categoryColors() ?? .clear,
-                                              text: posterName,
-                                              isFavorite: isFavorite)
-                    if state.state == .out {
-                        lineView.backgroundColor = .lightGray
+            if favorite == 0 {
+                if categoryList.contains(categoryIdx) {
+                    if DateCaculate.isSameDate(self.day.date,
+                                               monthTodoDate) {
+                        if count < limitCount {
+                            
+                            let lineView = VALineView(color: category?.categoryColors() ?? .clear,
+                                                      text: posterName, isFavorite: isFavorite)
+                            if day.state == .out {
+                                lineView.backgroundColor = .lightGray
+                            }
+                            
+                            lineStackView.addArrangedSubview(lineView)
+                            
+                            count += 1
+                        }
                     }
-                    lineStackView.addArrangedSubview(lineView)
-                    count += 1
+                }
+            } else {
+                if categoryList.contains(categoryIdx) {
+                    if DateCaculate.isSameDate(self.day.date,
+                                               monthTodoDate) {
+                        if todo.isFavorite == 1 {
+                            if count < limitCount {
+                                
+                                let lineView = VALineView(color: category?.categoryColors() ?? .clear,
+                                                          text: posterName, isFavorite: isFavorite)
+                                if day.state == .out {
+                                    lineView.backgroundColor = .lightGray
+                                }
+                                
+                                lineStackView.addArrangedSubview(lineView)
+                                
+                                count += 1
+                            }
+                        }
+                    }
                 }
             }
         }
         
         addSubview(lineStackView)
+        
+        stackViewHeightAnchor
+            = lineStackView.heightAnchor.constraint(equalToConstant: count * 12)
+        
         lineStackView.trailingAnchor.constraint(
             equalTo: self.trailingAnchor,
             constant: -3).isActive = true
@@ -144,31 +171,38 @@ class VADayView: UIView {
         lineStackView.topAnchor.constraint(
             equalTo: self.dateLabel.bottomAnchor,
             constant: 2).isActive = true
-        stackViewHeightAnchor
-            = lineStackView.heightAnchor.constraint(equalToConstant: count * 12)
-        
         stackViewHeightAnchor?.isActive = true
     }
     
-    func setupDay(monthTodoData: [MonthTodoData]) {
+    func setupDay(monthTodoData: [MonthTodoData],
+                  categoryList: [Int],
+                  favorite: Int) {
         
         dateLabel.text = VAFormatters.dayFormatter.string(from: day.date)
         
         addSubview(dateLabel)
-        dateLabel.centerXAnchor.constraint(equalTo: self.centerXAnchor).isActive = true
-        dateLabel.widthAnchor.constraint(equalTo: self.widthAnchor, multiplier: 0.5).isActive = true
-        dateLabel.heightAnchor.constraint(equalTo: dateLabel.widthAnchor).isActive = true
-        dateLabel.topAnchor.constraint(equalTo: self.topAnchor).isActive = true
+        dateLabel.centerXAnchor.constraint(
+            equalTo: self.centerXAnchor).isActive = true
+        dateLabel.widthAnchor.constraint(
+            equalTo: self.widthAnchor,
+            multiplier: 0.5).isActive = true
+        dateLabel.heightAnchor.constraint(
+            equalTo: dateLabel.widthAnchor).isActive = true
+        dateLabel.topAnchor.constraint(
+            equalTo: self.topAnchor).isActive = true
         
         setState(day.state)
-        drawEvent(day, monthTodoData: monthTodoData)
+        drawEvent(day,
+                  monthTodoData: monthTodoData,
+                  categoryList: categoryList,
+                  favorite: favorite)
     }
     
-    func drawEventWithSelectedIndex(_ selectedIndex: [Int], monthTodos: [MonthTodoData]) {
+    func drawEventWithSelectedIndex(_ selectedIndex: [Int],
+                                    monthTodos: [MonthTodoData],
+                                    favorite: Int) {
         
-        for i in lineStackView.subviews {
-            i.removeFromSuperview()
-        }
+        lineStackView.subviews.forEach { $0.removeFromSuperview() }
         
         count = 0
         
@@ -182,20 +216,42 @@ class VADayView: UIView {
             
             let category = PosterCategory(rawValue: categoryIdx)
             
-            if DateCaculate.isSameDate(self.day.date, posterDate) {
-                if count < limitCount {
-                    
-                    let lineView = VALineView(color: category?.categoryColors() ?? .clear,
-                                              text: posterName, isFavorite: isFavorite)
-                    if day.state == .out {
-                        lineView.backgroundColor = .lightGray
+            if favorite == 0 {
+                if selectedIndex.contains(categoryIdx) {
+                    if DateCaculate.isSameDate(self.day.date, posterDate) {
+                        if count < limitCount {
+                            
+                            let lineView = VALineView(color: category?.categoryColors() ?? .clear,
+                                                      text: posterName, isFavorite: isFavorite)
+                            if day.state == .out {
+                                lineView.backgroundColor = .lightGray
+                            }
+                            
+                            lineStackView.addArrangedSubview(lineView)
+                            
+                            count += 1
+                        }
                     }
-                    
-                    lineStackView.addArrangedSubview(lineView)
-                    
-                    count += 1
+                }
+            } else {
+                if DateCaculate.isSameDate(self.day.date, posterDate) {
+                    if poster.isFavorite == 1 {
+                        if count < limitCount {
+                            
+                            let lineView = VALineView(color: category?.categoryColors() ?? .clear,
+                                                      text: posterName, isFavorite: isFavorite)
+                            if day.state == .out {
+                                lineView.backgroundColor = .lightGray
+                            }
+                            
+                            lineStackView.addArrangedSubview(lineView)
+                            
+                            count += 1
+                        }
+                    }
                 }
             }
+            
 //            || selectedIndex.contains(category?.rawValue ?? 0)
             
         }
@@ -210,16 +266,22 @@ class VADayView: UIView {
     }
     
     private func setState(_ state: VADayState) {
-        backgroundColor = dayViewAppearanceDelegate?.backgroundColor?(for: state) ?? backgroundColor
-        layer.borderColor = dayViewAppearanceDelegate?.borderColor?(for: state).cgColor ?? layer.borderColor
-        layer.borderWidth = dayViewAppearanceDelegate?.borderWidth?(for: state) ?? dateLabel.layer.borderWidth
+        backgroundColor
+            = dayViewAppearanceDelegate?.backgroundColor?(for: state) ?? backgroundColor
+        layer.borderColor
+            = dayViewAppearanceDelegate?.borderColor?(for: state).cgColor ?? layer.borderColor
+        layer.borderWidth
+            = dayViewAppearanceDelegate?.borderWidth?(for: state) ?? dateLabel.layer.borderWidth
         
-        let component = Calendar.current.dateComponents([.weekday], from: day.date)
+        let component = Calendar.current.dateComponents([.weekday],
+                                                        from: day.date)
         
-        dateLabel.textColor = dayViewAppearanceDelegate?.textColor?(for: state) ?? dateLabel.textColor
-        dateLabel.backgroundColor = dayViewAppearanceDelegate?.textBackgroundColor?(for: state) ?? dateLabel.backgroundColor
+        dateLabel.textColor
+            = dayViewAppearanceDelegate?.textColor?(for: state) ?? dateLabel.textColor
+        dateLabel.backgroundColor
+            = dayViewAppearanceDelegate?.textBackgroundColor?(for: state) ?? dateLabel.backgroundColor
         
-        if component.weekday! == 1 && state == .available{
+        if component.weekday! == 1 && state == .available {
             dateLabel.textColor = #colorLiteral(red: 1, green: 0.1647058824, blue: 0.2588235294, alpha: 1)
         }
         
