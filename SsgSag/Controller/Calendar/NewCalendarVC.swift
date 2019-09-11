@@ -39,6 +39,9 @@ class NewCalendarVC: UIViewController {
     @IBOutlet weak var categoryCollection: UICollectionView!
     
     var calendarView: VACalendarView!
+    private var categoryHeader: AllAndFavoriteCollectionReusableView = AllAndFavoriteCollectionReusableView()
+    private var categoryIndex: [Int] = [0,1,2,3,4,5]
+    private var favorite: Int = 0
     
     var categorySelectedDelegate: CategorySelectedDelegate?
     
@@ -54,7 +57,7 @@ class NewCalendarVC: UIViewController {
         return calendar
     }()
     
-    private let category = ["공모전", "대외활동", "동아리", "인턴", "교육강연", "기타"]
+    private let category = ["공모전", "대외활동", "동아리", "인턴", "교육/강연", "장학금/지원"]
     
     private let downloadLink = "https://ssgsag.page.link/install"
     
@@ -115,8 +118,12 @@ class NewCalendarVC: UIViewController {
         
         categoryCollection.showsHorizontalScrollIndicator = false
         categoryCollection.alwaysBounceHorizontal = true
-        
         categoryCollection.allowsMultipleSelection = true
+        
+        categoryCollection.contentInset = UIEdgeInsets(top: 0,
+                                                       left: 25,
+                                                       bottom: 0,
+                                                       right: 15)
         
         // header
         let allAndFavoriteNib = UINib(nibName: "AllAndFavoriteCollectionReusableView",
@@ -134,6 +141,12 @@ class NewCalendarVC: UIViewController {
         categoryCollection.register(TempCollectionReusableView.self,
                                     forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter,
                                     withReuseIdentifier: "tempFooter")
+        
+        // cell
+        let categoryNib = UINib(nibName: "CategoryCollectionViewCell", bundle: nil)
+        
+        categoryCollection.register(categoryNib.self,
+                                    forCellWithReuseIdentifier: "categoryCell")
     }
 
     override func viewDidLayoutSubviews() {
@@ -159,21 +172,11 @@ class NewCalendarVC: UIViewController {
     
     private func openSelctedDateTodoList(_ date: Date) {
         
-        let storyboard = UIStoryboard(name: StoryBoardName.newCalendar, bundle: nil)
-//        guard let selectedTodoViewController = storyboard.instantiateViewController(withIdentifier: ViewControllerIdentifier.selectedTodoViewController) as? SelectedTodoViewController else {return}
-//
-//        let selectedTodoViewController = SelectedTodoViewController()
-//
-//        selectedTodoViewController.delegate = calendarView
-//        selectedTodoViewController.currentDate = date
-//        selectedTodoViewController.modalPresentationStyle = .overCurrentContext
-//
-//        present(UINavigationController(rootViewController: selectedTodoViewController),
-//                animated: true)
-        
         let dayTodoVC = DayTodoViewController()
         dayTodoVC.modalPresentationStyle = .overCurrentContext
         dayTodoVC.currentDate = date
+        dayTodoVC.categoryList = categoryIndex
+        dayTodoVC.favorite = favorite
         
         dayTodoVC.callback = { [weak self] in
             guard let contentOffset = self?.calendarView.contentOffset else {
@@ -392,71 +395,71 @@ extension NewCalendarVC: VACalendarViewDelegate {
     
 }
 
-extension NewCalendarVC: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+extension NewCalendarVC: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView,
                         numberOfItemsInSection section: Int) -> Int {
-//        return category.count
-        return 0
+        return category.count
     }
     
     func collectionView(_ collectionView: UICollectionView,
                         cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "categoryCell",
-                                                      for: indexPath) as! CateogoryCollectionViewCell
-        cell.categoryLabel.text = category[indexPath.item]
+        guard let cell
+            = collectionView.dequeueReusableCell(withReuseIdentifier: "categoryCell",
+                                                 for: indexPath) as? CategoryCollectionViewCell else {
+                                                    return .init()
+        }
+        
+        cell.categoryButton.setTitle(category[indexPath.item], for: .normal)
         
         return cell
     }
     
-    func collectionView(_ collectionView: UICollectionView,
-                        layout collectionViewLayout: UICollectionViewLayout,
-                        sizeForItemAt indexPath: IndexPath) -> CGSize {
-        
-        let collectionViewCellWidth = self.estimatedFrame(text: category[indexPath.item],
-                                                          font: UIFont.systemFont(ofSize: 12)).width
-        
-        return CGSize(width: collectionViewCellWidth + 5, height: 20)
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
-        return 8
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-        return 1
-    }
-    
     // MARK: multiple selection
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+    func collectionView(_ collectionView: UICollectionView,
+                        didSelectItemAt indexPath: IndexPath) {
         
-        guard let category = CategoryState(rawValue: indexPath.item) else {return}
+        categoryHeader.deselectedAllMenu()
         
-        guard let cell
-            = collectionView.cellForItem(at: indexPath) as? CateogoryCollectionViewCell else { return }
+        guard let category = CategoryState(rawValue: indexPath.item),
+            let cell
+            = collectionView.cellForItem(at: indexPath)
+                as? CategoryCollectionViewCell else {
+                    return
+        }
+        
+        cell.categoryButton.backgroundColor = category.categoryTextColor.withAlphaComponent(0.05)
+        cell.categoryButton.setTitleColor(category.categoryTextColor,
+                                          for: .normal)
+        
+        if categoryIndex.count == 6 {
+            categoryIndex = []
+        }
         
         multipleSelectedIndex.append(indexPath.item)
+        categoryIndex.append(indexPath.item)
         
         categorySelectedDelegate?.categorySelectedDelegate(multipleSelectedIndex)
         
-        if cell.isSelected == true {
-            cell.categoryLabel.backgroundColor = category.categoryTextColor.withAlphaComponent(0.05)
-            cell.categoryLabel.textColor = category.categoryTextColor
-        }
-        
     }
     
-    func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
+    func collectionView(_ collectionView: UICollectionView,
+                        didDeselectItemAt indexPath: IndexPath) {
         
-        guard let cell = collectionView.cellForItem(at: indexPath) as? CateogoryCollectionViewCell else {return}
+        guard let cell
+            = collectionView.cellForItem(at: indexPath)
+                as? CategoryCollectionViewCell else {
+                    return
+        }
         
         if let index = multipleSelectedIndex.index(of: indexPath.item) {
             multipleSelectedIndex.remove(at: index)
+            categoryIndex.remove(at: index)
         }
         
         categorySelectedDelegate?.categorySelectedDelegate(multipleSelectedIndex)
         
-        cell.categoryLabel.backgroundColor = .clear
-        cell.categoryLabel.textColor = #colorLiteral(red: 0.8196078431, green: 0.8196078431, blue: 0.8196078431, alpha: 1)
+        cell.categoryButton.backgroundColor = .clear
+        cell.categoryButton.setTitleColor(#colorLiteral(red: 0.8196078431, green: 0.8196078431, blue: 0.8196078431, alpha: 1), for: .normal)
     }
     
     func collectionView(_ collectionView: UICollectionView,
@@ -473,6 +476,8 @@ extension NewCalendarVC: UICollectionViewDelegate, UICollectionViewDataSource, U
                                                                        for: indexPath)
             }
             
+            categoryHeader = header
+            
             header.delegate = self
             
             return header
@@ -483,13 +488,63 @@ extension NewCalendarVC: UICollectionViewDelegate, UICollectionViewDataSource, U
         }
     }
     
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
+}
+
+extension NewCalendarVC: UICollectionViewDelegateFlowLayout {
+    
+    func collectionView(_ collectionView: UICollectionView,
+                        layout collectionViewLayout: UICollectionViewLayout,
+                        sizeForItemAt indexPath: IndexPath) -> CGSize {
+        
+        let collectionViewCellWidth = self.estimatedFrame(text: category[indexPath.item],
+                                                          font: UIFont.systemFont(ofSize: 12)).width
+        
+        return CGSize(width: collectionViewCellWidth + 5, height: 20)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView,
+                        layout collectionViewLayout: UICollectionViewLayout,
+                        minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+        return 8
+    }
+    
+    func collectionView(_ collectionView: UICollectionView,
+                        layout collectionViewLayout: UICollectionViewLayout,
+                        minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        return 1
+    }
+    
+    func collectionView(_ collectionView: UICollectionView,
+                        layout collectionViewLayout: UICollectionViewLayout,
+                        referenceSizeForHeaderInSection section: Int) -> CGSize {
         return CGSize(width: 90, height: collectionView.frame.height - 2)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+        return UIEdgeInsets(top: 0, left: 14, bottom: 0, right: 0)
     }
 }
 
 extension NewCalendarVC: MenuSelectedDelegate {
     func selectedMenu(index: Int) {
+        multipleSelectedIndex = []
+        categoryIndex = [0,1,2,3,4,5]
+        
+        favorite = index == -1 ? 0 : 1
+        
+        for item in 0..<category.count {
+            let indexPath = IndexPath(item: item, section: 0)
+            
+            guard let cell = categoryCollection.cellForItem(at: indexPath) as? CategoryCollectionViewCell else {
+                return
+            }
+            
+            cell.categoryButton.backgroundColor = .clear
+            cell.categoryButton.setTitleColor(#colorLiteral(red: 0.8196078431, green: 0.8196078431, blue: 0.8196078431, alpha: 1), for: .normal)
+            
+            categoryCollection.deselectItem(at: indexPath, animated: false)
+        }
+        
         categorySelectedDelegate?.categorySelectedDelegate([index])
     }
 }

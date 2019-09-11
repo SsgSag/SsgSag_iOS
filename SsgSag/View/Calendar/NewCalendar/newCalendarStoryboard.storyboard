@@ -25,7 +25,7 @@
                                     <constraint firstAttribute="height" constant="30" id="rSM-02-FLA"/>
                                 </constraints>
                             </view>
-                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="pH2-YY-86Q">
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" bouncesZoom="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="pH2-YY-86Q">
                                 <rect key="frame" x="0.0" y="88" width="414" height="35"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
@@ -37,54 +37,7 @@
                                     <size key="footerReferenceSize" width="0.0" height="0.0"/>
                                     <inset key="sectionInset" minX="25" minY="0.0" maxX="15" maxY="0.0"/>
                                 </collectionViewFlowLayout>
-                                <cells>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="categoryCell" id="vCF-ZG-QJR" customClass="CateogoryCollectionViewCell" customModule="슥삭" customModuleProvider="target">
-                                        <rect key="frame" x="25" y="7.5" width="50" height="20"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
-                                            <rect key="frame" x="0.0" y="0.0" width="50" height="20"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="        " textAlignment="center" lineBreakMode="wordWrap" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Wau-ha-MQx">
-                                                    <rect key="frame" x="0.0" y="0.0" width="50" height="20"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                                    <color key="textColor" red="0.81960784313725488" green="0.81960784313725488" blue="0.81960784313725488" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                    <nil key="highlightedColor"/>
-                                                    <userDefinedRuntimeAttributes>
-                                                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadiusV">
-                                                            <real key="value" value="2"/>
-                                                        </userDefinedRuntimeAttribute>
-                                                    </userDefinedRuntimeAttributes>
-                                                </label>
-                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ysf-2q-Qm2">
-                                                    <rect key="frame" x="0.0" y="18" width="50" height="2"/>
-                                                    <color key="backgroundColor" red="0.38431372549999998" green="0.41568627450000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="height" constant="2" id="RB1-xH-SdP"/>
-                                                    </constraints>
-                                                </view>
-                                            </subviews>
-                                        </view>
-                                        <constraints>
-                                            <constraint firstAttribute="bottom" secondItem="Ysf-2q-Qm2" secondAttribute="bottom" id="3oq-4G-Eb1"/>
-                                            <constraint firstItem="Ysf-2q-Qm2" firstAttribute="leading" secondItem="vCF-ZG-QJR" secondAttribute="leading" id="66v-8v-WWH"/>
-                                            <constraint firstAttribute="trailing" secondItem="Wau-ha-MQx" secondAttribute="trailing" id="9EI-ZM-FtT"/>
-                                            <constraint firstAttribute="bottom" secondItem="Wau-ha-MQx" secondAttribute="bottom" id="DU8-1Y-z4x"/>
-                                            <constraint firstItem="Wau-ha-MQx" firstAttribute="top" secondItem="vCF-ZG-QJR" secondAttribute="top" id="Ktd-WZ-nxL"/>
-                                            <constraint firstAttribute="trailing" secondItem="Ysf-2q-Qm2" secondAttribute="trailing" id="lfX-Qg-feu"/>
-                                            <constraint firstItem="Wau-ha-MQx" firstAttribute="leading" secondItem="vCF-ZG-QJR" secondAttribute="leading" id="n3B-hv-Wcn"/>
-                                        </constraints>
-                                        <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadiusV">
-                                                <real key="value" value="5"/>
-                                            </userDefinedRuntimeAttribute>
-                                        </userDefinedRuntimeAttributes>
-                                        <connections>
-                                            <outlet property="categoryLabel" destination="Wau-ha-MQx" id="b54-uA-Hzk"/>
-                                            <outlet property="selectedBarView" destination="Ysf-2q-Qm2" id="M5m-FY-M5w"/>
-                                        </connections>
-                                    </collectionViewCell>
-                                </cells>
+                                <cells/>
                             </collectionView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

@@ -64,8 +64,8 @@ enum RequestURL {
             return "/todo/complete/\(posterIdx)"
         case .allTodoList:
             return "/todo?year=0000&month=00&day=00"
-            case .monthTodoList(year: let year, month: let month, list: let list, favorite: let favorite):
-                return "/todo?year=\(year)&month=\(month)&day=00&categoryList=\(list)&favorite=\(favorite)"
+        case .monthTodoList(year: let year, month: let month, list: let list, favorite: let favorite):
+            return "/todo?year=\(year)&month=\(month)&day=00&categoryList=\(list)&favorite=\(favorite)"
         case .dayTodoList(year: let year, month: let month, day: let day):
             return "/todo?year=\(year)&month=\(month)&day=\(day)"
         case .posterDetail(posterIdx: let posterIdx):

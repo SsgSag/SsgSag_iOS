@@ -17,7 +17,7 @@
             <autoresizingMask key="autoresizingMask"/>
             <subviews>
                 <stackView opaque="NO" contentMode="scaleToFill" spacing="14" translatesAutoresizingMaskIntoConstraints="NO" id="Prr-OJ-qwC">
-                    <rect key="frame" x="56.5" y="26.5" width="42" height="32"/>
+                    <rect key="frame" x="25" y="26.5" width="105" height="32"/>
                     <subviews>
                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="ndO-Lk-87o">
                             <rect key="frame" x="0.0" y="0.0" width="28" height="32"/>
@@ -46,10 +46,10 @@
                             </constraints>
                         </stackView>
                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="aQB-3J-q51">
-                            <rect key="frame" x="42" y="0.0" width="0.0" height="32"/>
+                            <rect key="frame" x="42" y="0.0" width="63" height="32"/>
                             <subviews>
-                                <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZFq-Pb-vid">
-                                    <rect key="frame" x="0.0" y="0.0" width="63" height="0.0"/>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZFq-Pb-vid">
+                                    <rect key="frame" x="0.0" y="0.0" width="63" height="32"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                     <state key="normal" title="즐겨찾기">
                                         <color key="titleColor" red="0.46666666666666667" green="0.46666666666666667" blue="0.46666666666666667" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -73,6 +73,7 @@
                     </subviews>
                 </stackView>
             </subviews>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
                 <constraint firstItem="Prr-OJ-qwC" firstAttribute="centerY" secondItem="U6b-Vx-4bR" secondAttribute="centerY" id="kfA-kK-ocs"/>
                 <constraint firstItem="Prr-OJ-qwC" firstAttribute="centerX" secondItem="U6b-Vx-4bR" secondAttribute="centerX" id="xyL-aP-bpz"/>

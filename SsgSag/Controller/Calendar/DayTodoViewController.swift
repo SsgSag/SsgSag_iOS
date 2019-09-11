@@ -34,6 +34,8 @@ class DayTodoViewController: UIViewController {
     private var todoDatas: [MonthTodoData] = []
     private var sortedTodoDatas: [[CalendarData]] = []
     private var totalTodoDatas: [[CalendarData]] = []
+    var categoryList: [Int] = []
+    var favorite: Int = 0
     var dataPointer = 0
     var callback: (()->())?
     var isFirstMove: Bool = false
@@ -121,8 +123,25 @@ class DayTodoViewController: UIViewController {
         let year = calendar.component(.year, from: date)
         let month = calendar.component(.month, from: date)
         
+        var list: [Int] = []
+        
+        for category in categoryList {
+            switch category {
+            case 3:
+                list.append(4)
+            case 4:
+                list.append(7)
+            case 5:
+                list.append(8)
+            default:
+                list.append(category)
+            }
+        }
+        
         calendarServiceImp.requestMonthTodoList(year: String(year),
-                                                month: String(month), [0,1,2,4,7,8], favorite: 0) { [weak self] dataResponse in
+                                                month: String(month),
+                                                list,
+                                                favorite: favorite) { [weak self] dataResponse in
             guard let self = self else {
                 return
             }

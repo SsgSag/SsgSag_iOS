@@ -36,7 +36,6 @@ public class VACalendarView: UIScrollView {
     public weak var calendarDelegate: VACalendarViewDelegate?
     
     public var scrollDirection: VACalendarScrollDirection = .horizontal
-    // use this for vertical scroll direction
     public var monthVerticalInset: CGFloat = 20
     public var monthVerticalHeaderHeight: CGFloat = 20
     
@@ -44,15 +43,32 @@ public class VACalendarView: UIScrollView {
     public var showDaysOut = true
     public var selectionStyle: VASelectionStyle = .single
     
-    private var calculatedWeekHeight: CGFloat = 100
+    private let maxNumberOfWeek = 7
+    private let numberDaysInWeek = 7
     private let calendar: VACalendar
-    var monthViews = [VAMonthView]()
-    var monthTodoData: [MonthTodoData] = []
-    
     private let calendarService: CalendarService
         = DependencyContainer.shared.getDependency(key: .calendarService)
     
+    private var viewType: VACalendarViewType = .month
+    private var calculatedWeekHeight: CGFloat = 100
     private var numberOfWeek: MaxNumberOfWeekType?
+    private var monthViews = [VAMonthView]()
+    private var monthTodoData: [MonthTodoData] = []
+    private var categoryList: [Int] = [0,1,2,4,7,8]
+    private var favorite: Int = 0
+    
+    private var currentMonth: VAMonthView? {
+        return getMonthView(with: contentOffset)
+    }
+    
+    private var weekHeight: CGFloat {
+        switch scrollDirection {
+        case .horizontal:
+            return frame.height / CGFloat(numberOfWeek?.getMultiplier ?? 6)
+        default:
+            return 1
+        }
+    }
     
     // MARK: - maxNumberOfWeek 현재 달의 끝 값을 구할 수 있음
     enum MaxNumberOfWeekType: Int {
@@ -67,35 +83,6 @@ public class VACalendarView: UIScrollView {
                 return 7
             }
         }
-        
-    }
-    
-    private let maxNumberOfWeek = 7
-    
-    private let numberDaysInWeek = 7
-    
-    private func getWeekHeight(_ numberOfWeekDays: Int) -> CGFloat {
-        return (frame.height - 44) / CGFloat(MaxNumberOfWeekType(rawValue: numberOfWeekDays)?.getMultiplier ?? 6)
-    }
-    
-    private var weekHeight: CGFloat {
-        switch scrollDirection {
-        case .horizontal:
-            return frame.height / CGFloat(numberOfWeek?.getMultiplier ?? 6)
-        default:
-            return 1
-        }
-    }
-    
-    private var viewType: VACalendarViewType = .month
-    
-    private var currentMonth: VAMonthView? {
-        return getMonthView(with: contentOffset)
-    }
-    
-    // FIXME: - 현재 달의 일 수를 설정하자
-    private func getMaxNumberOfWeek() -> Int {
-        return 7
     }
     
     public convenience init() {
@@ -107,23 +94,38 @@ public class VACalendarView: UIScrollView {
         }()
         
         let calendar = VACalendar(calendar: defaultCalendar)
-        self.init(frame: CGRect.init(x: 0, y: 0, width: 300, height: 300), calendar: calendar)
+        
+        self.init(frame: CGRect.init(x: 0,
+                                     y: 0,
+                                     width: 300,
+                                     height: 300),
+                  calendar: calendar)
     }
     
-    public init(frame: CGRect, calendar: VACalendar) {
+    public init(frame: CGRect,
+                calendar: VACalendar) {
         self.calendar = calendar
         
         super.init(frame: frame)
+    }
+    
+    deinit {
+        print("deinit")
     }
     
     public required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
+    private func getWeekHeight(_ numberOfWeekDays: Int) -> CGFloat {
+        return (frame.height - 44) / CGFloat(MaxNumberOfWeekType(rawValue: numberOfWeekDays)?.getMultiplier ?? 6)
+    }
+    
     // specify all properties before calling setup()
     public func setup() {
         delegate = self
         calendar.delegate = self
+        
         directionSetup()
         calculateContentSize()
         setupMonths()
@@ -211,7 +213,6 @@ public class VACalendarView: UIScrollView {
     }
     
     func setupMonths() {
-        
         monthViews = calendar.months.map {
             VAMonthView(month: $0,
                         showDaysOut: showDaysOut,
@@ -233,7 +234,10 @@ public class VACalendarView: UIScrollView {
                 switch viewType {
                 case .month:
                     let x = index == 0 ? 0 : monthViews[index - 1].frame.maxX
-                    monthView.frame = CGRect(x: x, y: 0, width: self.frame.width, height: self.frame.height)
+                    monthView.frame = CGRect(x: x,
+                                             y: 0,
+                                             width: self.frame.width,
+                                             height: self.frame.height)
                 case .week:
                     let x = index == 0 ? 0 : monthViews[index - 1].frame.maxX
                     let monthWidth = self.frame.width * CGFloat(monthView.numberOfWeeks)
@@ -279,65 +283,53 @@ public class VACalendarView: UIScrollView {
     }
     
     func drawVisibleMonth(with offset: CGPoint) {
-        switch scrollDirection {
-        case .horizontal:
-            guard let currentIndex
-                = monthViews.enumerated().first(where: { $0.element.frame.midX >= offset.x })?.offset else {
-                    return
-            }
-            
-            monthViews.enumerated().forEach { index, month in
-                if index == currentIndex || index + 1 == currentIndex || index - 1 == currentIndex {
-                    month.delegate = self
-                    
-                    let componentYear = Calendar.current.component(.year, from: month.month.date)
-                    let componentMonth = Calendar.current.component(.month, from: month.month.date)
-                    
-                    self.calendarService.requestMonthTodoList(year: String(componentYear),
-                                                              month: String(componentMonth), [0,1,2,4,7,8], favorite: 0) { [weak self] result in
-                        switch result {
-                        case .success(let monthTodoData):
-                            self?.monthTodoData = monthTodoData
+        guard let currentIndex
+            = monthViews.enumerated().first(where: { $0.element.frame.midX >= offset.x })?.offset else {
+                return
+        }
 
-                            let before = monthTodoData.count
-                            let setOfData = Set(monthTodoData)
-                            let after = setOfData.count
-                            if before != after {
-                                assertionFailure()
-                            }
-                            
-                            DispatchQueue.main.async {
-                                month.setupWeeksView(with: (self?.viewType)!,
-                                                     monthTodoData: monthTodoData)
-                            }
-                        case .failed(let error):
-                            print(error)
-                            return
-                        }
+        monthViews.enumerated().forEach { index, month in
+            if index == currentIndex || index + 1 == currentIndex || index - 1 == currentIndex {
+                month.delegate = self
+
+                let componentYear
+                    = Calendar.current.component(.year,
+                                                 from: month.month.date)
+                let componentMonth
+                    = Calendar.current.component(.month,
+                                                 from: month.month.date)
+
+                self.calendarService.requestMonthTodoList(year: String(componentYear),
+                                                          month: String(componentMonth),
+                                                          categoryList,
+                                                          favorite: 0) { [weak self] result in
+                    guard let self = self else {
+                        return
                     }
                     
-                } else {
-//                    month.clean()
+                    switch result {
+                    case .success(let monthTodoData):
+                        self.monthTodoData = monthTodoData
+
+                        DispatchQueue.main.async {
+                            month.setupWeeksView(with: self.viewType,
+                                                 monthTodoData: monthTodoData,
+                                                 categoryList: self.categoryList,
+                                                 favorite: self.favorite)
+                        }
+                    case .failed(let error):
+                        print(error)
+                        return
+                    }
                 }
-            }
-            
-        case .vertical:
-            let first: ((offset: Int, element: VAMonthView)) -> Bool = { $0.element.frame.minY >= offset.y }
-            guard let currentIndex = monthViews.enumerated().first(where: first)?.offset else { return }
-            
-            monthViews.enumerated().forEach { index, month in
-                if index >= currentIndex - 1 && index <= currentIndex + 1 {
-                    month.delegate = self
-                    month.setupWeeksView(with: viewType, monthTodoData: monthTodoData)
-                } else {
-                    month.clean()
-                }
+
             }
         }
     }
     
     private func getNumberOfWeeksDays(_ offset: CGPoint) {
-        numberOfWeek = MaxNumberOfWeekType(rawValue: monthViews.first(where: { $0.frame.midX >= offset.x })?.month.numberOfWeeks ?? 6)
+        numberOfWeek
+            = MaxNumberOfWeekType(rawValue: monthViews.first(where: { $0.frame.midX >= offset.x })?.month.numberOfWeeks ?? 6)
     }
     
     
@@ -345,24 +337,27 @@ public class VACalendarView: UIScrollView {
 }
 
 extension VACalendarView: UIScrollViewDelegate {
-    
     public func scrollViewDidScroll(_ scrollView: UIScrollView) {
         let frameWidth: CGFloat = self.frame.width
         
         // FIXME: - 달력 스와이프시 속도 증가 시킬 수 있습니다.
-        UIView.animate(withDuration: 0.1, animations: {
-            var contentOffsetX = scrollView.contentOffset.x
-                
+        UIView.animate(withDuration: 0.1,
+                       animations: { [weak self] in
+            let contentOffsetX = scrollView.contentOffset.x
+            
             if contentOffsetX.truncatingRemainder(dividingBy: frameWidth) == 0.0 {
-                    
+                
                 DispatchQueue.main.async {
-                    guard let monthView = self.getMonthView(with: scrollView.contentOffset) else { return }
+                    guard let monthView
+                        = self?.getMonthView(with: scrollView.contentOffset) else {
+                            return
+                    }
                     
-                    self.getNumberOfWeeksDays(scrollView.contentOffset)
+                    self?.getNumberOfWeeksDays(scrollView.contentOffset)
                     
-                    self.monthDelegate?.monthDidChange(monthView.month.date)
+                    self?.monthDelegate?.monthDidChange(monthView.month.date)
                     
-                    self.drawVisibleMonth(with: scrollView.contentOffset)
+                    self?.drawVisibleMonth(with: scrollView.contentOffset)
                 }
             }
         })
@@ -429,15 +424,37 @@ extension VACalendarView: CategorySelectedDelegate {
     
     func categorySelectedDelegate(_ multipleSelected: [Int]) {
         
-        for monthView in self.monthViews {
-            for weekView in monthView.weekViews {
-                for dayView in weekView.dayViews {
-                    dayView.drawEventWithSelectedIndex(multipleSelected,
-                                                       monthTodos: monthTodoData)
+        if multipleSelected.first == -1 {
+            favorite = 0
+            categoryList = [0,1,2,4,7,8]
+        } else if multipleSelected.first == -2 {
+            favorite = 1
+            categoryList = [0,1,2,4,7,8]
+        } else {
+            favorite = 0
+            categoryList = []
+            for category in multipleSelected {
+                switch category {
+                case 3:
+                    categoryList.append(4)
+                case 4:
+                    categoryList.append(7)
+                case 5:
+                    categoryList.append(8)
+                default:
+                    categoryList.append(category)
                 }
             }
         }
         
-        print("VACalendarView \(multipleSelected)")
+        for monthView in self.monthViews {
+            for weekView in monthView.weekViews {
+                for dayView in weekView.dayViews {
+                    dayView.drawEventWithSelectedIndex(categoryList,
+                                                       monthTodos: monthTodoData,
+                                                       favorite: favorite)
+                }
+            }
+        }
     }
 }
