@@ -8,6 +8,7 @@
 
 import UIKit
 import SwiftKeychainWrapper
+import AdBrixRM
 
 class LogoutViewController: UIViewController {
 
@@ -29,6 +30,16 @@ class LogoutViewController: UIViewController {
     }
     
     @IBAction func touchUpOkButton(_ sender: UIButton) {
+        let adBrix = AdBrixRM.getInstance
+        
+        if let kakaoToken = KOSession.shared()?.token.accessToken {
+            adBrix.login(userId: kakaoToken)
+        }
+        
+        if let token = KeychainWrapper.standard.object(forKey: TokenName.token) as? String {
+            adBrix.login(userId: token)
+        }
+    
         // token 삭제
         KeychainWrapper.standard.removeObject(forKey: TokenName.token)
         KOSession.shared()?.logoutAndClose(completionHandler: nil)

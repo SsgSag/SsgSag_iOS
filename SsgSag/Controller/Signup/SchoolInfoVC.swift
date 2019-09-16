@@ -10,6 +10,7 @@ import UIKit
 import SearchTextField
 import NaverThirdPartyLogin
 import SwiftKeychainWrapper
+import AdBrixRM
 
 class SchoolInfoVC: UIViewController {
     
@@ -290,7 +291,6 @@ class SchoolInfoVC: UIViewController {
             switch httpStatus {
             case .success:
                 // 토큰 저장
-                
                 if let storeToken = response.data?.token {
                     KeychainWrapper.standard.set(storeToken,
                                                  forKey: TokenName.token)
@@ -298,12 +298,19 @@ class SchoolInfoVC: UIViewController {
                 
                 UserDefaults.standard.set(false, forKey: "isTryWithoutLogin")
                 
-                DispatchQueue.main.async {
-                    self?.present(TapbarVC(), animated: true)
+                guard let token = response.data?.token else {
+                    return
                 }
                 
-//                    self.autoLogin(sendType: sendType, sendToken: sendToken)
-            
+                let adBrix = AdBrixRM.getInstance
+                
+                // 로그인이 성공했을 때, 유저아이디를 전달
+                adBrix.login(userId: token)
+                
+                DispatchQueue.main.async {
+                    self?.present(TapbarVC(),
+                                  animated: true)
+                }
             case .failure:
                 guard let message = response.message else { return }
                 
