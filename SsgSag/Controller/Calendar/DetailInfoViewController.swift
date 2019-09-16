@@ -8,6 +8,7 @@
 
 import UIKit
 import SwiftKeychainWrapper
+import AdBrixRM
 
 class DetailInfoViewController: UIViewController {
 
@@ -279,6 +280,9 @@ class DetailInfoViewController: UIViewController {
     
     // MARK: - 공유 버튼
     @objc func touchUpShareButton(){
+        let adBrix = AdBrixRM.getInstance
+        adBrix.event(eventName: "touchUp_Share")
+        
         UIGraphicsBeginImageContext(view.frame.size)
         view.layer.render(in: UIGraphicsGetCurrentContext()!)
         
@@ -726,6 +730,9 @@ extension DetailInfoViewController: WebsiteDelegate {
             }
             UIApplication.shared.open(url)
         } else {
+            let adBrix = AdBrixRM.getInstance
+            adBrix.event(eventName: "touchUp_MoveToWebsite")
+            
             guard let websiteURL = posterDetailData?.posterWebSite,
                 let url = URL(string: websiteURL) else {
                 return

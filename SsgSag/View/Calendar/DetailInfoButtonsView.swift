@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import AdBrixRM
 
 protocol WebsiteDelegate: class {
     func moveToWebsite(isApply: Bool)
@@ -236,6 +237,9 @@ class DetailInfoButtonsView: UIView {
         guard let index = posterIndex else {
             return
         }
+        
+        let adBrix = AdBrixRM.getInstance
+        adBrix.event(eventName: "touchUp_Favorite")
         
         posterService.requestPosterFavorite(index: index,
                                             method: method) { [weak self] result in

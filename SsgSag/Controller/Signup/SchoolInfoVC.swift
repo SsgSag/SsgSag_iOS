@@ -307,6 +307,13 @@ class SchoolInfoVC: UIViewController {
                 // 로그인이 성공했을 때, 유저아이디를 전달
                 adBrix.login(userId: token)
                 
+                // 회원가입 이벤트 추가
+                if self?.sendType == 10 {
+                    adBrix.commonSignUp(channel: AdBrixRM.AdBrixRmSignUpChannel.AdBrixRmSignUpUserIdChannel)
+                } else {
+                    adBrix.commonSignUp(channel: AdBrixRM.AdBrixRmSignUpChannel.AdBrixRmSignUpKakaoChannel)
+                }
+                
                 DispatchQueue.main.async {
                     self?.present(TapbarVC(),
                                   animated: true)
