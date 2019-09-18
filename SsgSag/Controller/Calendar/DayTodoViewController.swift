@@ -399,12 +399,14 @@ extension DayTodoViewController: dismissDelegate {
 
 extension DayTodoViewController: PushDelegate {
     func pushViewController(_ controller: UIViewController, _ favoriteButton: UIButton) {
-        let adBrix = AdBrixRM.getInstance
-        adBrix.event(eventName: "touchUp_PosterDetail")
         
         guard let controller = controller as? DetailInfoViewController else {
             return
         }
+        
+        let adBrix = AdBrixRM.getInstance
+        adBrix.event(eventName: "touchUp_PosterDetail",
+                     value: ["posterIdx": controller.posterIdx])
         
         controller.callback = { [weak self] isFavorite in
             let adBrix = AdBrixRM.getInstance

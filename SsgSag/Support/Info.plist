@@ -2,6 +2,17 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>Eentitlements File</key>
+	<dict>
+		<key>com.apple.developer.associated-domains</key>
+		<array>
+			<string>applinks:www.ssgsag.kr</string>
+		</array>
+	</dict>
+	<key>FirebaseDynamicLinksCustomDomains</key>
+	<array>
+		<string>https://www.ssgsag.kr</string>
+	</array>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>ko_KR</string>
 	<key>CFBundleExecutable</key>

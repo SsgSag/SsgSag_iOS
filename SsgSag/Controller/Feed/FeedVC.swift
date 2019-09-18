@@ -175,7 +175,8 @@ extension FeedVC: FeedTouchDelegate {
     func touchUpFeedCell(title: String, urlString: String) {
 
         let adBrix = AdBrixRM.getInstance
-        adBrix.event(eventName: "touchUp_FeedNews")
+        adBrix.event(eventName: "touchUp_FeedNews",
+                     value: ["feedUrl": urlString])
         
         let articleVC = ArticleViewController()
         articleVC.articleTitle = title

@@ -241,6 +241,9 @@ class SchoolInfoVC: UIViewController {
             return
         }
         
+        var major = majorField.text ?? ""
+        var univ = schoolField.text ?? ""
+        
         //자체 로그인 아닐 시에는
         if sendType != 10 {
             sendData = [
@@ -248,8 +251,8 @@ class SchoolInfoVC: UIViewController {
                 "userNickname": nickName,
                 "signupType": sendType, //0은 카카오톡, 1은 네이버
                 "accessToken": sendToken,
-                "userUniv": schoolField.text ?? "",
-                "userMajor": majorField.text ?? "",
+                "userUniv": univ,
+                "userMajor": major,
                 "userStudentNum": numberField.text ?? "",
                 "userGender": gender,
                 "userBirth": birth,
@@ -268,8 +271,8 @@ class SchoolInfoVC: UIViewController {
                 "userName": name,
                 "userNickname": nickName,
                 "signupType": sendType, //0은 카카오톡, 1은 네이버
-                "userUniv": schoolField.text ?? "",
-                "userMajor": majorField.text ?? "",
+                "userUniv": univ,
+                "userMajor": major,
                 "userStudentNum": numberField.text ?? "2019",
                 "userGender": gender,
                 "userBirth": birth,
@@ -306,6 +309,14 @@ class SchoolInfoVC: UIViewController {
                 
                 // 로그인이 성공했을 때, 유저아이디를 전달
                 adBrix.login(userId: token)
+                
+                //기타 유저 정보
+                var attrModel = Dictionary<String, Any>()
+                attrModel["gender"] = self?.gender
+                attrModel["birth"] = self?.birth
+                attrModel["major"] = major
+                attrModel["univ"] = univ
+                adBrix.setUserProperties(dictionary: attrModel)
                 
                 // 회원가입 이벤트 추가
                 if self?.sendType == 10 {
