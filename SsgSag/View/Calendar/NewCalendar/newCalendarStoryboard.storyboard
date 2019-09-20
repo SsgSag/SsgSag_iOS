@@ -107,8 +107,8 @@
                                 </connections>
                             </barButtonItem>
                             <barButtonItem style="plain" id="18R-zK-GKS">
-                                <view key="customView" contentMode="scaleToFill" id="p9b-tv-ABd" customClass="VAMonthHeaderView" customModule="슥삭" customModuleProvider="target">
-                                    <rect key="frame" x="87" y="22" width="0.0" height="0.0"/>
+                                <view key="customView" contentMode="scaleToFill" ambiguous="YES" id="p9b-tv-ABd" customClass="VAMonthHeaderView" customModule="슥삭" customModuleProvider="target">
+                                    <rect key="frame" x="55" y="22" width="0.0" height="0.0"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <constraints>
