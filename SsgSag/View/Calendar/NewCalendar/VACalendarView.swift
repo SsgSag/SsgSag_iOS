@@ -287,7 +287,7 @@ public class VACalendarView: UIScrollView {
             = monthViews.enumerated().first(where: { $0.element.frame.midX >= offset.x })?.offset else {
                 return
         }
-
+        
         monthViews.enumerated().forEach { index, month in
             if index == currentIndex || index + 1 == currentIndex || index - 1 == currentIndex {
                 month.delegate = self
@@ -331,8 +331,6 @@ public class VACalendarView: UIScrollView {
         numberOfWeek
             = MaxNumberOfWeekType(rawValue: monthViews.first(where: { $0.frame.midX >= offset.x })?.month.numberOfWeeks ?? 6)
     }
-    
-    
     
 }
 

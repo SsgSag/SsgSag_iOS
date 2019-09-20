@@ -16,6 +16,8 @@ protocol CategorySelectedDelegate: class {
 class NewCalendarVC: UIViewController {
     
     @IBOutlet weak var shareCalendarButton: UIBarButtonItem!
+    @IBOutlet weak var myPageBarButtonItem: UIBarButtonItem!
+    @IBOutlet weak var categoryCollection: UICollectionView!
     
     @IBOutlet weak var monthHeaderView: VAMonthHeaderView! {
         didSet {
@@ -27,8 +29,6 @@ class NewCalendarVC: UIViewController {
         }
     }
     
-    @IBOutlet weak var myPageBarButtonItem: UIBarButtonItem!
-    
     @IBOutlet weak var weekDaysView: VAWeekDaysView! {
         didSet {
             let appereance = VAWeekDaysViewAppearance(symbolsType: .veryShort, calendar: defaultCalendar)
@@ -36,19 +36,16 @@ class NewCalendarVC: UIViewController {
         }
     }
     
-    @IBOutlet weak var categoryCollection: UICollectionView!
+    private weak var categorySelectedDelegate: CategorySelectedDelegate?
     
-    var calendarView: VACalendarView!
-    private var categoryHeader: AllAndFavoriteCollectionReusableView = AllAndFavoriteCollectionReusableView()
+    private var calendarView: VACalendarView!
+    private var categoryHeader = AllAndFavoriteCollectionReusableView()
     private var categoryIndex: [Int] = [0,1,2,3,4,5]
+    private var multipleSelectedIndex: [Int] = []
     private var favorite: Int = 0
-    
-    var categorySelectedDelegate: CategorySelectedDelegate?
     
     private let calendarServiceImp: CalendarService
         = DependencyContainer.shared.getDependency(key: .calendarService)
-    
-    private var multipleSelectedIndex: [Int] = []
     
     private let defaultCalendar: Calendar = {
         var calendar = Calendar.current
@@ -58,7 +55,6 @@ class NewCalendarVC: UIViewController {
     }()
     
     private let category = ["공모전", "대외활동", "동아리", "인턴", "교육/강연", "장학금/지원"]
-    
     private let downloadLink = "https://ssgsag.page.link/install"
     
     override func viewWillAppear(_ animated: Bool) {
@@ -546,6 +542,7 @@ extension NewCalendarVC: MenuSelectedDelegate {
         }
         
         categorySelectedDelegate?.categorySelectedDelegate([index])
+        
     }
 }
 
