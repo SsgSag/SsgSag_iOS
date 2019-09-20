@@ -88,16 +88,6 @@ public class VAMonthHeaderView: UIView {
         layoutSubviews()
     }
     
-    @objc
-    private func didTapNext(_ sender: UIButton) {
-        delegate?.didTapNextMonth()
-    }
-    
-    @objc
-    private func didTapPrevious(_ sender: UIButton) {
-        delegate?.didTapPreviousMonth()
-    }
-    
 }
 
 extension VAMonthHeaderView: VACalendarMonthDelegate {

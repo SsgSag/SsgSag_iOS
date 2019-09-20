@@ -52,14 +52,14 @@ class VAMonthView: UIView {
     }
     
     weak var delegate: VAMonthViewDelegate?
-
-    let month: VAMonth
+    
+    private var monthLabel: UILabel?
+    private var viewType: VACalendarViewType
+    var weekViews = [VAWeekView]()
     
     private let showDaysOut: Bool
-    private var monthLabel: UILabel?
-    var weekViews = [VAWeekView]()
     private let weekHeight: CGFloat
-    private var viewType: VACalendarViewType
+    let month: VAMonth
     
     init(month: VAMonth,
          showDaysOut: Bool,
@@ -84,7 +84,7 @@ class VAMonthView: UIView {
                         categoryList: [Int],
                         favorite: Int) {
         guard isDrawn == false else { return }
-    
+        
         self.viewType = type
         
         if scrollDirection == .vertical {
