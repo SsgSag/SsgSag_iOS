@@ -8,9 +8,10 @@
 
 import UIKit
 import SwiftKeychainWrapper
+import AdBrixRM
 
 class DetailInfoViewController: UIViewController {
-
+    
     private var safeAreaViewBottomConstraint = NSLayoutConstraint()
     
     private var posterServiceImp: PosterService
@@ -80,7 +81,7 @@ class DetailInfoViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         NotificationCenter.default.addObserver(self,
                                                selector: #selector(handleShowKeyboard),
                                                name: UIWindow.keyboardWillShowNotification,
@@ -197,7 +198,7 @@ class DetailInfoViewController: UIViewController {
             equalTo: view.safeAreaLayoutGuide.trailingAnchor).isActive = true
         safeAreaViewBottomConstraint.isActive = true
     }
-
+    
     private func setupCollectionView() {
         // header
         let posterHeaderNib = UINib(nibName: "PosterHeaderCollectionReusableView", bundle: nil)
@@ -261,7 +262,7 @@ class DetailInfoViewController: UIViewController {
         infoCollectionView.register(noCommentNib, forCellWithReuseIdentifier: "noCommentCell")
         
     }
-
+    
     func estimatedFrame(width: CGFloat, text: String, font: UIFont) -> CGRect {
         let size = CGSize(width: width, height: 1000) // temporary size
         let options = NSStringDrawingOptions.usesFontLeading.union(.usesLineFragmentOrigin)
@@ -279,6 +280,10 @@ class DetailInfoViewController: UIViewController {
     
     // MARK: - 공유 버튼
     @objc func touchUpShareButton(){
+        let adBrix = AdBrixRM.getInstance
+        adBrix.event(eventName: "touchUp_Share",
+                     value: ["posterIdx": posterIdx])
+        
         UIGraphicsBeginImageContext(view.frame.size)
         view.layer.render(in: UIGraphicsGetCurrentContext()!)
         
@@ -305,7 +310,7 @@ class DetailInfoViewController: UIViewController {
                 as? CGRect else {
                     return
         }
-
+        
         safeAreaViewBottomConstraint.constant = -keyboardFrame.height
         self.view.layoutIfNeeded()
     }
@@ -563,7 +568,7 @@ extension DetailInfoViewController: UICollectionViewDataSource {
             if let photoURL = posterDetailData?.photoUrl {
                 if let url = URL(string: photoURL){
                     ImageNetworkManager.shared.getImageByCache(imageURL: url) { image, error in
-                        DispatchQueue.main.async { 
+                        DispatchQueue.main.async {
                             header.posterImageView.image = image
                         }
                     }
@@ -572,9 +577,9 @@ extension DetailInfoViewController: UICollectionViewDataSource {
             
             return header
         } else {
-                return collectionView.dequeueReusableSupplementaryView(ofKind: kind,
-                                                                       withReuseIdentifier: "tempFooter",
-                                                                       for: indexPath)
+            return collectionView.dequeueReusableSupplementaryView(ofKind: kind,
+                                                                   withReuseIdentifier: "tempFooter",
+                                                                   for: indexPath)
         }
     }
     
@@ -619,9 +624,9 @@ extension DetailInfoViewController: UICollectionViewDelegateFlowLayout {
         }
     }
     
-//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForFooterInSection section: Int) -> CGSize {
-//        return CGSize(width: view.frame.width, height: 80)
-//    }
+    //    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForFooterInSection section: Int) -> CGSize {
+    //        return CGSize(width: view.frame.width, height: 80)
+    //    }
     
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
@@ -665,7 +670,7 @@ extension DetailInfoViewController: UICollectionViewDelegateFlowLayout {
                 return CGSize(width: view.frame.width, height: collectionViewCellHeight + 72)
             case 4:
                 guard let _ = posterDetailData?.partnerEmail else {
-                        return CGSize(width: 0, height: 0)
+                    return CGSize(width: 0, height: 0)
                 }
                 
                 return CGSize(width: view.frame.width, height: 80)
@@ -696,10 +701,10 @@ extension DetailInfoViewController: UICollectionViewDelegateFlowLayout {
                 = estimatedFrame(width: view.frame.width - 48 - 74 - 28,
                                  text: posterDetailData?.commentList?[indexPath.item].commentContent ?? "",
                                  font: UIFont.systemFont(ofSize: 13)).height
-
+            
             return CGSize(width: view.frame.width, height: collectionViewCellHeight + 12 + 8 + 20 + 10)
         }
-
+        
     }
 }
 
@@ -722,13 +727,17 @@ extension DetailInfoViewController: WebsiteDelegate {
         if isApply {
             guard let applysiteURL = posterDetailData?.posterWebSite2,
                 let url = URL(string: applysiteURL) else {
-                return
+                    return
             }
             UIApplication.shared.open(url)
         } else {
+            let adBrix = AdBrixRM.getInstance
+            adBrix.event(eventName: "touchUp_MoveToWebsite",
+                         value: ["posterIdx": posterIdx])
+            
             guard let websiteURL = posterDetailData?.posterWebSite,
                 let url = URL(string: websiteURL) else {
-                return
+                    return
             }
             UIApplication.shared.open(url)
         }
@@ -742,34 +751,34 @@ extension DetailInfoViewController: CommentWriteDelegate {
         }
         
         commentServiceImp.requestAddComment(index: index,
-                                        comment: text) { [weak self] result in
-            switch result {
-            case .success(let status):
-                switch status {
-                case .secondSucess:
-                    DispatchQueue.main.async {
-                        self?.currentTextField?.resignFirstResponder()
-                        self?.simplerAlert(title: "댓글 등록이 완료되었습니다.")
-                        self?.isFolding = true
-                        self?.requestDatas(section: 2)
-                    }
-                case .dataBaseError:
-                    DispatchQueue.main.async {
-                        self?.simplerAlert(title: "database error")
-                    }
-                    return
-                case .serverError:
-                    DispatchQueue.main.async {
-                        self?.simplerAlert(title: "server error")
-                    }
-                    return
-                default:
-                    return
-                }
-            case .failed(let error):
-                print(error)
-                return
-            }
+                                            comment: text) { [weak self] result in
+                                                switch result {
+                                                case .success(let status):
+                                                    switch status {
+                                                    case .secondSucess:
+                                                        DispatchQueue.main.async {
+                                                            self?.currentTextField?.resignFirstResponder()
+                                                            self?.simplerAlert(title: "댓글 등록이 완료되었습니다.")
+                                                            self?.isFolding = true
+                                                            self?.requestDatas(section: 2)
+                                                        }
+                                                    case .dataBaseError:
+                                                        DispatchQueue.main.async {
+                                                            self?.simplerAlert(title: "database error")
+                                                        }
+                                                        return
+                                                    case .serverError:
+                                                        DispatchQueue.main.async {
+                                                            self?.simplerAlert(title: "server error")
+                                                        }
+                                                        return
+                                                    default:
+                                                        return
+                                                    }
+                                                case .failed(let error):
+                                                    print(error)
+                                                    return
+                                                }
         }
     }
 }
@@ -779,27 +788,27 @@ extension DetailInfoViewController: CommentDelegate {
     func touchUpCommentLikeButton(index: Int, like: Int) {
         commentServiceImp.requestCommentLike(index: index,
                                              like: like) { [weak self] result in
-            switch result {
-            case .success(let status):
-                DispatchQueue.main.async {
-                    switch status {
-                    case .processingSuccess:
-                        self?.requestDatas(section: 2)
-                        self?.isFolding = true
-                    case .dataBaseError:
-                        self?.simplerAlert(title: "database error")
-                        return
-                    case .serverError:
-                        self?.simplerAlert(title: "server error")
-                        return
-                    default:
-                        return
-                    }
-                }
-            case .failed(let error):
-                print(error)
-                return
-            }
+                                                switch result {
+                                                case .success(let status):
+                                                    DispatchQueue.main.async {
+                                                        switch status {
+                                                        case .processingSuccess:
+                                                            self?.requestDatas(section: 2)
+                                                            self?.isFolding = true
+                                                        case .dataBaseError:
+                                                            self?.simplerAlert(title: "database error")
+                                                            return
+                                                        case .serverError:
+                                                            self?.simplerAlert(title: "server error")
+                                                            return
+                                                        default:
+                                                            return
+                                                        }
+                                                    }
+                                                case .failed(let error):
+                                                    print(error)
+                                                    return
+                                                }
         }
     }
     
@@ -809,9 +818,9 @@ extension DetailInfoViewController: CommentDelegate {
                                                 preferredStyle: .actionSheet)
         
         if isMine {
-//            let editAction = UIAlertAction(title: "댓글 수정", style: .default) { [weak self] _ in
-//
-//            }
+            //            let editAction = UIAlertAction(title: "댓글 수정", style: .default) { [weak self] _ in
+            //
+            //            }
             
             let deleteAction = UIAlertAction(title: "댓글 삭제", style: .default) { [weak self] _ in
                 self?.commentServiceImp.requestCommentDelete(index: commentIndex) { [weak self] result in
@@ -844,7 +853,7 @@ extension DetailInfoViewController: CommentDelegate {
                 alertController.dismiss(animated: true)
             }
             
-//            alertController.addAction(editAction)
+            //            alertController.addAction(editAction)
             alertController.addAction(deleteAction)
             alertController.addAction(cancelAction)
             

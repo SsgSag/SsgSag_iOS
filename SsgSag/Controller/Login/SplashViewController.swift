@@ -8,6 +8,7 @@
 
 import UIKit
 import SwiftKeychainWrapper
+import AdBrixRM
 
 class SplashViewController: UIViewController {
 
@@ -139,7 +140,8 @@ class SplashViewController: UIViewController {
                     switch dataResponse {
                     case .success(let response):
                         if let storeToken = response.data?.token {
-                            KeychainWrapper.standard.set(storeToken, forKey: TokenName.token)
+                            KeychainWrapper.standard.set(storeToken,
+                                                         forKey: TokenName.token)
                         }
                         
                         UserDefaults.standard.set(false, forKey: "isTryWithoutLogin")
@@ -147,6 +149,15 @@ class SplashViewController: UIViewController {
                         DispatchQueue.main.async {
                             switch response.status {
                             case 200:
+                                guard let token = response.data?.token else {
+                                    return
+                                }
+                                
+                                let adBrix = AdBrixRM.getInstance
+                                
+                                // 로그인이 성공했을 때, 토큰 전달
+                                adBrix.login(userId: token)
+                                
                                 self?.present(TapbarVC(), animated: true, completion: nil)
                             case 404:
                                 let storyboard = UIStoryboard(name: StoryBoardName.signup, bundle: nil)

@@ -1,6 +1,7 @@
 import UIKit
 import Lottie
 import SwiftKeychainWrapper
+import AdBrixRM
 
 class SwipeVC: UIViewController {
     
@@ -598,6 +599,9 @@ extension SwipeVC : SwipeCardDelegate {
                 switch status {
                 case .sucess:
                     print("성공")
+                    
+                    let adBrix = AdBrixRM.getInstance
+                    adBrix.event(eventName: "swipe_PosterComplete")
                 case .dataBaseError:
                     self?.simplerAlert(title: "데이터베이스 에러")
                 case .serverError:

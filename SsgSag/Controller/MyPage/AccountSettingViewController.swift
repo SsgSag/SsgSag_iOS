@@ -8,6 +8,7 @@
 
 import UIKit
 import Photos
+import AdBrixRM
 
 protocol UpdateDataDelegate: class {
     func reloadUserData()
@@ -288,6 +289,14 @@ class AccountSettingViewController: UIViewController {
                 DispatchQueue.main.async {
                     switch status {
                     case .processingSuccess:
+                        let adBrix = AdBrixRM.getInstance
+                        
+                        var attrModel = Dictionary<String, Any>()
+
+                        attrModel["major"] = self?.major ?? (self?.userData?.userMajor ?? "")
+                        attrModel["univ"] = self?.univ ?? (self?.userData?.userUniv ?? "")
+                        adBrix.setUserProperties(dictionary: attrModel)
+                        
                         self?.uploadImage(self?.selectedImage)
                     case .requestError:
                         self?.simplerAlert(title: "학교와 학과의 형식이 일치하지 않습니다.")

@@ -8,6 +8,7 @@
 
 import UIKit
 import SwiftKeychainWrapper
+import AdBrixRM
 
 // 로그인 시작화면
 class LoginVC: UIViewController, UITextFieldDelegate {
@@ -117,7 +118,6 @@ class LoginVC: UIViewController, UITextFieldDelegate {
                         return
                 }
                
-                
                 switch httpStatusCode {
                 case .sucess:
                     if let storeToken = loginData.data?.token {
@@ -126,6 +126,15 @@ class LoginVC: UIViewController, UITextFieldDelegate {
                     }
                     
                     UserDefaults.standard.set(false, forKey: "isTryWithoutLogin")
+                    
+                    guard let token = loginData.data?.token else {
+                        return
+                    }
+                    
+                    let adBrix = AdBrixRM.getInstance
+                    
+                    // 로그인이 성공했을 때, 유저아이디를 전달
+                    adBrix.login(userId: token)
                     
                     let tabBar = TapbarVC(nibName: nil, bundle: nil)
                     DispatchQueue.main.async {
