@@ -20,26 +20,38 @@ protocol ReloadCalendarDelegate: class {
     func reloadCalendarData()
 }
 
+protocol DeleteTodoDelegate: class {
+    func selectedItem(with indexPath: IndexPath)
+}
+
 class TodoListCollectionViewCell: UICollectionViewCell {
     weak var delegate: dismissDelegate?
     weak var pushDelegate: PushDelegate?
+    weak var deleteDelegate: DeleteTodoDelegate?
     weak var calendarDelegate: ReloadCalendarDelegate?
     
     @IBOutlet weak var dateLabel: UILabel!
     @IBOutlet weak var todoListTableView: UITableView!
+    @IBOutlet weak var edtingButton: UIButton!
     
+    var deleteIndexPaths: [(Int, IndexPath)] = []
     var controller: UIViewController?
+    var monthTodoData: [MonthTodoData]?
+    var isEditing: Bool = false {
+        didSet {
+            changedIsEditing()
+        }
+    }
     
     private let calendarService: CalendarService
         = DependencyContainer.shared.getDependency(key: .calendarService)
-    
-    var monthTodoData: [MonthTodoData]?
     
     override func awakeFromNib() {
         super.awakeFromNib()
         
         todoListTableView.delegate = self
         todoListTableView.dataSource = self
+        
         setupTableView()
         setupLongPressGesture()
     }
@@ -83,7 +95,7 @@ class TodoListCollectionViewCell: UICollectionViewCell {
                     return
                 }
                 
-                controller.simpleAlertwithHandler(title: "[ \(posterTitle) ]",
+                controller.simpleAlertwithHandler(title: "\(posterTitle)",
                                                   message: "해당 일정을 삭제하시겠습니까?") { [weak self] _ in
                     
                     self?.calendarService.requestTodoDelete(posterIdx) { [weak self] result in
@@ -114,8 +126,47 @@ class TodoListCollectionViewCell: UICollectionViewCell {
         }
     }
     
-    @IBAction func touchUpCancelButton(_ sender: UIButton) {
-        delegate?.touchUpCancelButton()
+    @IBAction func touchUpEditButton(_ sender: UIButton) {
+        if sender.titleLabel?.text == "삭제" {
+//            controller.simpleAlertwithHandler(title: "",
+//                                              message: "\(deleteIndexPaths.count)개의 일정을 삭제하시겠어요?") { [weak self] _ in
+//                
+//                self?.calendarService.requestTodoDelete(posterIdx) { [weak self] result in
+//                    switch result {
+//                    case .success(let status):
+//                        DispatchQueue.main.async {
+//                            switch status {
+//                            case .processingSuccess:
+//                                self?.monthTodoData?.remove(at: indexPath.row)
+//                                self?.todoListTableView.deleteRows(at: [indexPath],
+//                                                                   with: .fade)
+//                                self?.calendarDelegate?.reloadCalendarData()
+//                            case .dataBaseError:
+//                                return
+//                            case .serverError:
+//                                return
+//                            default:
+//                                return
+//                            }
+//                        }
+//                    case .failed(let error):
+//                        print(error)
+//                        return
+//                    }
+//                }
+//            }
+        }
+        
+        if isEditing {
+            sender.setImage(#imageLiteral(resourceName: "ic_etc"), for: .normal)
+        } else {
+            sender.setImage(#imageLiteral(resourceName: "ic_editBack"), for: .normal)
+        }
+        isEditing = !isEditing
+    }
+    
+    private func changedIsEditing() {
+        todoListTableView.reloadData()
     }
     
     override func prepareForReuse() {
@@ -165,12 +216,15 @@ extension TodoListCollectionViewCell: UITableViewDataSource {
                     return .init()
         }
         
+        cell.deleteDelegate = self
+        cell.indexPath = indexPath
         cell.selectionStyle = .none
         
         guard let monthTodoData = monthTodoData?[indexPath.row] else {
             return cell
         }
         
+        cell.isEditingDelete = isEditing
         cell.poster = monthTodoData
         
         if monthTodoData.photoUrl == cell.poster?.photoUrl {
@@ -191,6 +245,10 @@ extension TodoListCollectionViewCell: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView,
                    didSelectRowAt indexPath: IndexPath) {
+        guard !isEditing else {
+            return
+        }
+        
         if monthTodoData?.count == 0 {
             return
         }
@@ -209,4 +267,30 @@ extension TodoListCollectionViewCell: UITableViewDataSource {
 }
 
 extension TodoListCollectionViewCell: UIGestureRecognizerDelegate {
+}
+
+extension TodoListCollectionViewCell: TodoDeleteDelegate {
+    func selectedTodo(_ posterIdx: Int, indexPath: IndexPath) {
+        if deleteIndexPaths.count == 0 {
+            edtingButton.setImage(nil, for: .normal)
+            edtingButton.setTitle("삭제", for: .normal)
+        }
+        deleteIndexPaths.append((posterIdx, indexPath))
+    }
+    
+    func deselectedTodo(_ posterIdx: Int, indexPath: IndexPath) {
+        var index = 0
+        
+        for deleteIndexPath in deleteIndexPaths {
+            if indexPath == deleteIndexPath.1 {
+                deleteIndexPaths.remove(at: index)
+                if deleteIndexPaths.count == 0 {
+                    edtingButton.setImage(#imageLiteral(resourceName: "ic_editBack"), for: .normal)
+                    edtingButton.setTitle("", for: .normal)
+                }
+                return
+            }
+            index += 1
+        }
+    }
 }
