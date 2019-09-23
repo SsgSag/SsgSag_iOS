@@ -29,7 +29,7 @@ class FeedVC: UIViewController {
         }
         
         if !isTryWithoutLogin {
-            exitButton.setImage(#imageLiteral(resourceName: "ic_industry"), for: .normal)
+            exitButton.setImage(#imageLiteral(resourceName: "ic_bookmarkMenu"), for: .normal)
             exitButton.setTitle("", for: .normal)
         }
         

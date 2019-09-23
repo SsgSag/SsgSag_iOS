@@ -29,15 +29,17 @@ class ArticleViewController: UIViewController {
                                                   target: self,
                                                   action: #selector(touchUpBackButton))
     
-    private let rightSpacerButton = UIBarButtonItem(title: nil, style: .plain, target: nil, action: nil)
+    private lazy var scrapButton = UIBarButtonItem(image: UIImage(named: "ic_bookmarkPassive"),
+                                                   style: .plain,
+                                                   target: self,
+                                                   action: #selector(touchUpScrapButton))
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
         setNavigationBar(color: .white)
         
-        rightSpacerButton.width = view.frame.width * 0.15
-        navigationItem.rightBarButtonItem = rightSpacerButton
+        navigationItem.rightBarButtonItem = scrapButton
         
         navigationController?.navigationBar.titleTextAttributes
             = [NSAttributedString.Key.foregroundColor : #colorLiteral(red: 0.3098039216, green: 0.3098039216, blue: 0.3098039216, alpha: 1)]
@@ -80,6 +82,14 @@ class ArticleViewController: UIViewController {
     
     @objc private func touchUpBackButton() {
         navigationController?.popViewController(animated: true)
+    }
+    
+    @objc private func touchUpScrapButton() {
+        if scrapButton.image == UIImage(named: "ic_bookmarkPassive") {
+            scrapButton.image = UIImage(named: "ic_bookmark")
+        } else {
+            scrapButton.image = UIImage(named: "ic_bookmarkPassive")
+        }
     }
     
 }

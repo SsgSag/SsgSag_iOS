@@ -16,7 +16,7 @@ class FeedPageCollectionViewCell: UICollectionViewCell {
     
     private let imageCache = NSCache<NSString, UIImage>()
     
-    private var feedTasks: [URLSessionDataTask] = []
+    private var feedTasks: [URLSessionDataTask?] = []
     
     private let feedServiceImp: FeedService
         = DependencyContainer.shared.getDependency(key: .feedService)
@@ -32,7 +32,7 @@ class FeedPageCollectionViewCell: UICollectionViewCell {
     
     lazy var feedCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
-        layout.minimumLineSpacing = 0
+        layout.minimumLineSpacing = 4
         layout.minimumInteritemSpacing = 0
         let collectionView = UICollectionView(frame: .zero,
                                               collectionViewLayout: layout)
@@ -64,6 +64,7 @@ class FeedPageCollectionViewCell: UICollectionViewCell {
                 for feedData in feedDatas {
                     guard let urlString = feedData.feedUrl,
                         let imageURL = URL(string: urlString) else {
+                        self?.feedTasks.append(nil)
                         continue
                     }
                     
@@ -196,14 +197,14 @@ extension FeedPageCollectionViewCell: UICollectionViewDataSourcePrefetching {
     func collectionView(_ collectionView: UICollectionView,
                         prefetchItemsAt indexPaths: [IndexPath]) {
         indexPaths.forEach {
-            feedTasks[$0.item].resume()
+            feedTasks[$0.item]?.resume()
         }
     }
     
     func collectionView(_ collectionView: UICollectionView,
                         cancelPrefetchingForItemsAt indexPaths: [IndexPath]) {
         indexPaths.forEach {
-            feedTasks[$0.item].cancel()
+            feedTasks[$0.item]?.cancel()
         }
     }
 }
@@ -212,6 +213,7 @@ extension FeedPageCollectionViewCell: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
                         sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: frame.width, height: 220)
+        return CGSize(width: frame.width,
+                      height: 220)
     }
 }

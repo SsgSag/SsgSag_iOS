@@ -23,11 +23,18 @@ class ScrapViewController: UIViewController {
         return collectionView
     }()
     
+    private lazy var backButton = UIBarButtonItem(image: UIImage(named: "ic_backFeed"),
+                                                  style: .plain,
+                                                  target: self,
+                                                  action: #selector(touchUpBackButton))
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
         navigationController?.navigationBar.isHidden = false
-        navigationItem.title = "저장한 뉴스"
+        navigationItem.title = "북마크"
+        navigationItem.setHidesBackButton(true, animated: false)
+        navigationItem.rightBarButtonItem = backButton
         tabBarController?.tabBar.isHidden = true
     }
     
@@ -56,6 +63,10 @@ class ScrapViewController: UIViewController {
     private func setupCollectionView() {
         scrapCollectionView.register(NewsCollectionViewCell.self,
                                      forCellWithReuseIdentifier: "scrapCell")
+    }
+    
+    @objc private func touchUpBackButton() {
+        navigationController?.popViewController(animated: true)
     }
 
 }
