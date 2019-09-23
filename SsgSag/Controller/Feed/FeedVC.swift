@@ -22,13 +22,15 @@ class FeedVC: UIViewController {
         
         tabBarController?.tabBar.isHidden = false
         navigationController?.navigationBar.isHidden = true
+        setNavigationBar(color: .white)
         
         guard let isTryWithoutLogin = UserDefaults.standard.object(forKey: "isTryWithoutLogin") as? Bool else {
             return
         }
         
         if !isTryWithoutLogin {
-            exitButton.isHidden = true
+            exitButton.setImage(#imageLiteral(resourceName: "ic_industry"), for: .normal)
+            exitButton.setTitle("", for: .normal)
         }
         
         newsCollectionView.reloadItems(at: [IndexPath(item: 0, section: 0)])
@@ -42,6 +44,11 @@ class FeedVC: UIViewController {
     }
     
     @IBAction func touchUpExitButton(_ sender: Any) {
+        if exitButton.titleLabel?.text != "나가기" {
+            navigationController?.pushViewController(ScrapViewController(), animated: true)
+            return
+        }
+        
         KeychainWrapper.standard.removeObject(forKey: TokenName.token)
         
         guard let window = UIApplication.shared.keyWindow else {
