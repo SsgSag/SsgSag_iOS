@@ -219,6 +219,7 @@
 		D1FB05AE22E6DC2F001425CF /* AccountSettingViewController + UICollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1FB05AD22E6DC2F001425CF /* AccountSettingViewController + UICollectionView.swift */; };
 		D1FB05B522E6E3AE001425CF /* SettingMenuCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1FB05B322E6E3AE001425CF /* SettingMenuCollectionViewCell.swift */; };
 		D1FB05B622E6E3AE001425CF /* SettingMenuCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D1FB05B422E6E3AE001425CF /* SettingMenuCollectionViewCell.xib */; };
+		D1FB9B0223388EBF00B4C4F9 /* ScrapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1FB9B0123388EBF00B4C4F9 /* ScrapViewController.swift */; };
 		D1FB9E112313A619003FA001 /* UserNotifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D1FB9E102313A618003FA001 /* UserNotifications.framework */; };
 		D1FB9E132313A61F003FA001 /* PushKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D1FB9E122313A61F003FA001 /* PushKit.framework */; };
 		D1FDF3DC230AF7550055D293 /* NoTodoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1FDF3DA230AF7550055D293 /* NoTodoTableViewCell.swift */; };
@@ -503,6 +504,7 @@
 		D1FB05AD22E6DC2F001425CF /* AccountSettingViewController + UICollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AccountSettingViewController + UICollectionView.swift"; sourceTree = "<group>"; };
 		D1FB05B322E6E3AE001425CF /* SettingMenuCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingMenuCollectionViewCell.swift; sourceTree = "<group>"; };
 		D1FB05B422E6E3AE001425CF /* SettingMenuCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SettingMenuCollectionViewCell.xib; sourceTree = "<group>"; };
+		D1FB9B0123388EBF00B4C4F9 /* ScrapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrapViewController.swift; sourceTree = "<group>"; };
 		D1FB9E102313A618003FA001 /* UserNotifications.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotifications.framework; path = System/Library/Frameworks/UserNotifications.framework; sourceTree = SDKROOT; };
 		D1FB9E122313A61F003FA001 /* PushKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PushKit.framework; path = System/Library/Frameworks/PushKit.framework; sourceTree = SDKROOT; };
 		D1FDF3DA230AF7550055D293 /* NoTodoTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoTodoTableViewCell.swift; sourceTree = "<group>"; };
@@ -1143,6 +1145,7 @@
 			children = (
 				D166AC6522D733CC00ED82DD /* FeedVC.swift */,
 				D103D8A722FA9BD20092FE93 /* ArticleViewController.swift */,
+				D1FB9B0123388EBF00B4C4F9 /* ScrapViewController.swift */,
 			);
 			path = Feed;
 			sourceTree = "<group>";
@@ -1552,6 +1555,7 @@
 				8496818822AFD3FE004A4A63 /* VAWeekDaysView.swift in Sources */,
 				D1E81E6D22DB181E004DAA00 /* FeedPageCollectionViewCell.swift in Sources */,
 				D166AC5D22D46D4100ED82DD /* MonthTodoList.swift in Sources */,
+				D1FB9B0223388EBF00B4C4F9 /* ScrapViewController.swift in Sources */,
 				D1CF9B752302E77B005B6EFA /* InternFilterViewController.swift in Sources */,
 				D110809D22E04A9800F345A8 /* ContactInfoCollectionViewCell.swift in Sources */,
 				D1EAA61D230681680063E04A /* GradeCollectionViewCell.swift in Sources */,
