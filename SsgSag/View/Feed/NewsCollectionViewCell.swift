@@ -11,19 +11,27 @@ import UIKit
 class NewsCollectionViewCell: UICollectionViewCell {
 
     @IBOutlet weak var newsImageView: UIImageView!
-    
     @IBOutlet weak var newsTitleLabel: UILabel!
-    
     @IBOutlet weak var fromLabel: UILabel!
+    @IBOutlet weak var bookmarkImageView: UIImageView!
+    @IBOutlet weak var dateLabel: UILabel!
+    @IBOutlet weak var viewCountLabel: UILabel!
     
     var feedData: FeedData? {
         didSet {
-            guard let feedData = feedData else {
+            guard let feedData = feedData,
+                let date = feedData.feedRegDate else {
                 return
             }
             
+            let endDate = DateCaculate.stringToDateWithGenericFormatter(using: date)
+            let dateFormatter = DateFormatter.feedDateFormatter
+            let dateString = dateFormatter.string(from: endDate)
+            
             newsTitleLabel.text = feedData.feedName
             fromLabel.text = feedData.feedHost
+            dateLabel.text = dateString
+            viewCountLabel.text = "조회수 "
         }
     }
     
