@@ -7,10 +7,14 @@
 //
 
 import UIKit
+import AdBrixRM
 
 class AllPostersListViewController: UIViewController {
     
     private let categoryList = [1, 0, 4, 7, 5]
+    private var posterData: [PosterDataAfterSwpie] = []
+    private var currentSortType = 0
+    private var currentCategory = 1
     
     private lazy var mypageButton = UIBarButtonItem(image: UIImage(named: "ic_mypage"),
                                                     style: .plain,
@@ -21,6 +25,9 @@ class AllPostersListViewController: UIViewController {
                                                           style: .plain,
                                                           target: self,
                                                           action: #selector(touchUpSettingBoardButton))
+    
+    private let posterService: PosterService
+        = DependencyContainer.shared.getDependency(key: .posterService)
     
     private lazy var categoryCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
@@ -91,6 +98,7 @@ class AllPostersListViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
+        requestPosterData()
         tabBarController?.tabBar.isHidden = false
         
         let shadowSize = CGSize(width: self.view.frame.width, height: 3)
@@ -106,6 +114,29 @@ class AllPostersListViewController: UIViewController {
 
         setupLayout()
         setupCollectionView()
+    }
+    
+    private func requestPosterData() {
+        posterService.requestAllPosterAfterSwipe(category: currentCategory,
+                                                 sortType: currentSortType) { [weak self] result in
+            switch result {
+            case .success(let posterData):
+                self?.posterData = posterData
+                
+                DispatchQueue.main.async {
+                    self?.listCollectionView.reloadData()
+                    if self?.posterData.count != 0 {
+                        self?.listCollectionView.scrollToItem(at: IndexPath(item: 0,
+                                                                            section: 0),
+                                                              at: .top,
+                                                              animated: true)
+                    }
+                }
+            case .failed(let error):
+                print(error)
+                return
+            }
+        }
     }
     
     private func setupLayout() {
@@ -203,11 +234,15 @@ class AllPostersListViewController: UIViewController {
     
     @objc private func touchUpOrderButton() {
         if popularOrderButton.isSelected {
+            currentSortType = 1
+            requestPosterData()
             popularOrderButton.setImage(UIImage(named: "ic_orderPassive"),
                                         for: .normal)
             deadlineOrderButton.setImage(UIImage(named: "ic_order"),
                                          for: .normal)
         } else {
+            currentSortType = 0
+            requestPosterData()
             popularOrderButton.setImage(UIImage(named: "ic_order"),
                                         for: .normal)
             deadlineOrderButton.setImage(UIImage(named: "ic_orderPassive"),
@@ -229,7 +264,7 @@ extension AllPostersListViewController: UICollectionViewDataSource {
         if collectionView == categoryCollectionView {
             return 5
         } else {
-            return 10
+            return posterData.count
         }
     }
     
@@ -268,6 +303,21 @@ extension AllPostersListViewController: UICollectionViewDataSource {
                 return UICollectionViewCell()
             }
             
+            if posterData[indexPath.item].photoUrl == cell.posterData?.photoUrl {
+                let imageURL = posterData[indexPath.item].photoUrl ?? ""
+                guard let url = URL(string: imageURL) else {
+                    return cell
+                }
+                
+                ImageNetworkManager.shared.getImageByCache(imageURL: url){ (image, error) in
+                    if error == nil {
+                        cell.posterImageView.image = image
+                    }
+                }
+            }
+            
+            cell.posterData = posterData[indexPath.item]
+            
             return cell
         }
     }
@@ -280,13 +330,37 @@ extension AllPostersListViewController: UICollectionViewDataSource {
                 return
             }
             
+            currentCategory = categoryList[indexPath.item]
+            requestPosterData()
+            
             if let category = PosterCategory(rawValue: categoryList[indexPath.item]) {
                 cell.categoryButton.setTitle(category.categoryString(), for: .normal)
                 cell.categoryButton.setTitleColor(category.categoryColors(), for: .normal)
                 cell.categoryButton.backgroundColor = category.categoryColors().withAlphaComponent(0.05)
             }
         } else {
+            let detailInfoVC = DetailInfoViewController()
             
+            detailInfoVC.posterIdx = posterData[indexPath.item].posterIdx
+            detailInfoVC.isCalendar = false
+            
+            if let isSave = posterData[indexPath.item].isSave {
+                detailInfoVC.isSave = isSave
+            }
+            
+            let adBrix = AdBrixRM.getInstance
+            adBrix.event(eventName: "touchUp_PosterDetail",
+                         value: ["posterIdx": detailInfoVC.posterIdx])
+            
+            detailInfoVC.callback = { [weak self] isFavorite in
+                DispatchQueue.main.async {
+                    let adBrix = AdBrixRM.getInstance
+                    adBrix.event(eventName: "touchUp_Favorite")
+                }
+            }
+            
+            tabBarController?.tabBar.isHidden = true
+            navigationController?.pushViewController(detailInfoVC, animated: true)
         }
     }
     

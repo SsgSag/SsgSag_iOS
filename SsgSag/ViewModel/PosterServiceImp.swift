@@ -56,13 +56,11 @@ class PosterServiceImp: PosterService {
         }
     }
     
-    func requestPosterStore(of poster: Posters,
+    func requestPosterStore(of posterIdx: Int,
                             type likedCategory: likedOrDisLiked,
                             completionHandler: @escaping (DataResponse<HttpStatusCode>) -> Void) {
         
         let like = likedCategory.rawValue
-        
-        guard let posterIdx = poster.posterIdx else { return }
         
         guard let token
             = KeychainWrapper.standard.string(forKey: TokenName.token),
@@ -182,5 +180,42 @@ class PosterServiceImp: PosterService {
         }
     }
     
+    func requestAllPosterAfterSwipe(category: Int,
+                                    sortType: Int,
+                                    completionHandler: @escaping (DataResponse<[PosterDataAfterSwpie]>) -> Void) {
+        guard let token
+            = KeychainWrapper.standard.string(forKey: TokenName.token),
+            let url
+            = UserAPI.sharedInstance.getURL(RequestURL.allPoster(category: category,
+                                                                 sortType: sortType).getRequestURL),
+            let request
+            = requestMaker.makeRequest(url: url,
+                                       method: .get,
+                                       header: ["Authorization": token],
+                                       body: nil) else {
+                                        return
+        }
+        
+        network.dispatch(request: request) { result in
+            switch result {
+            case .success(let data):
+                do {
+                    let order = try JSONDecoder().decode(PosterAfterSwipe.self,
+                                                         from: data)
+                    
+                    guard let posterData = order.data else { return }
+                    
+                    completionHandler(.success(posterData))
+                    
+                } catch let error {
+                    completionHandler(.failed(error))
+                    return
+                }
+            case .failure(let error):
+                completionHandler(.failed(error))
+                return
+            }
+        }
+    }
 }
 

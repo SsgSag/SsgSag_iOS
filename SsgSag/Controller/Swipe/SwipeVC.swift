@@ -581,9 +581,10 @@ extension SwipeVC : SwipeCardDelegate {
         
         loadCardValuesAfterRemoveObject()
         
-        guard let disLikedCategory = likedOrDisLiked(rawValue: 0) else { return }
+        guard let disLikedCategory = likedOrDisLiked(rawValue: 0),
+            let posterIdx = posters[currentIndex-1].posterIdx else { return }
         
-        posterServiceImp.requestPosterStore(of: self.posters[currentIndex-1],
+        posterServiceImp.requestPosterStore(of: posterIdx,
                                             type: disLikedCategory) { [weak self] result in
             switch result {
             case .success(let status):
@@ -624,9 +625,10 @@ extension SwipeVC : SwipeCardDelegate {
         
         likedPoster.append(self.posters[currentIndex - 1])
         
-        guard let likedCategory = likedOrDisLiked(rawValue: 1) else { return }
+        guard let likedCategory = likedOrDisLiked(rawValue: 1),
+            let posterIdx = posters[currentIndex-1].posterIdx else { return }
         
-        posterServiceImp.requestPosterStore(of: self.posters[currentIndex - 1],
+        posterServiceImp.requestPosterStore(of: posterIdx,
                                             type: likedCategory) { [weak self] result in
             switch result {
             case .success(let status):
@@ -659,9 +661,10 @@ extension SwipeVC : SwipeCardDelegate {
             likedPoster.append(self.posters[currentIndex - 1])
         }
         
-        guard let likedCategory = likedOrDisLiked(rawValue: 1) else { return }
+        guard let likedCategory = likedOrDisLiked(rawValue: 1),
+            let posterIdx = posters[currentIndex-1].posterIdx else { return }
         
-        posterServiceImp.requestPosterStore(of: self.posters[currentIndex - 1],
+        posterServiceImp.requestPosterStore(of: posterIdx,
                                             type: likedCategory) { [weak self] result in
             switch result {
             case .success(let status):

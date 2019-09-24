@@ -11,14 +11,16 @@ import SwiftKeychainWrapper
 import AdBrixRM
 
 class DetailInfoViewController: UIViewController {
+    var isCalendar: Bool = true
+    var isSave: Int = 1
     
     private var safeAreaViewBottomConstraint = NSLayoutConstraint()
-    
     private var posterServiceImp: PosterService
         = DependencyContainer.shared.getDependency(key: .posterService)
-    
     private var commentServiceImp: CommentService
         = DependencyContainer.shared.getDependency(key: .commentService)
+    private var calendarService: CalendarService
+        = DependencyContainer.shared.getDependency(key: .calendarService)
     
     var currentTextField: UITextField?
     var callback: ((Int) -> ())?
@@ -26,6 +28,7 @@ class DetailInfoViewController: UIViewController {
     var posterDetailData: DataClass?
     private var isFolding: Bool = false
     private var columnData: [Column]?
+    private var analyticsData: Analytics?
     
     let downloadLink = "https://ssgsag.page.link/install"
     
@@ -52,10 +55,17 @@ class DetailInfoViewController: UIViewController {
     }()
     
     lazy var buttonsView: DetailInfoButtonsView = {
-        let view = DetailInfoButtonsView()
+        let view = DetailInfoButtonsView(isCalendar: self.isCalendar,
+                                         isSave: self.isSave)
         view.delegate = self
         view.commentDelegate = self
         view.commentTextField.delegate = self
+        view.saveAtCalendar = { [weak self] in
+            self?.saveAtCalendar()
+        }
+        view.removeAtCalendar = { [weak self] in
+            self?.removeAtCalendar()
+        }
         view.callback = { [weak self] in
             self?.isFolding = true
             self?.requestDatas(section: 0)
@@ -144,6 +154,19 @@ class DetailInfoViewController: UIViewController {
                         print(error)
                         return
                     }
+                }
+                
+                guard let analyticsJson = detailData.analytics,
+                    let data = analyticsJson.data(using: .utf8) else {
+                    return
+                }
+                
+                do {
+                    self?.analyticsData = try JSONDecoder().decode(Analytics.self,
+                                                                   from: data)
+                } catch let error {
+                    print(error)
+                    return
                 }
                 
                 DispatchQueue.main.async {
@@ -271,6 +294,61 @@ class DetailInfoViewController: UIViewController {
                                                    options: options,
                                                    attributes: [NSAttributedString.Key.font: font],
                                                    context: nil)
+    }
+    
+    private func saveAtCalendar() {
+        guard let posterIdx = posterIdx else {
+            assertionFailure()
+            return
+        }
+        
+        posterServiceImp.requestPosterStore(of: posterIdx,
+                                            type: .liked) { [weak self] result in
+            switch result {
+            case .success(let status):
+                switch status {
+                case .sucess:
+                    print("성공")
+                case .dataBaseError:
+                    self?.simplerAlert(title: "데이터베이스 에러")
+                case .serverError:
+                    self?.simplerAlert(title: "서버 에러")
+                default:
+                    print("슥/삭 실패")
+                }
+            case .failed(let error):
+                print(error)
+                return
+            }
+        }
+    }
+    
+    private func removeAtCalendar() {
+        guard let posterIdx = posterIdx else {
+            assertionFailure()
+            return
+        }
+        
+        calendarService.requestTodoDelete(posterIdx) { [weak self] result in
+            switch result {
+            case .success(let status):
+                DispatchQueue.main.async {
+                    switch status {
+                    case .processingSuccess:
+                        print("성공")
+                    case .dataBaseError:
+                        self?.simplerAlert(title: "데이터베이스 에러")
+                    case .serverError:
+                        self?.simplerAlert(title: "서버 에러")
+                    default:
+                        print("슥/삭 실패")
+                    }
+                }
+            case .failed(let error):
+                print(error)
+                return
+            }
+        }
     }
     
     @objc private func touchUpBackButton() {
@@ -517,7 +595,7 @@ extension DetailInfoViewController: UICollectionViewDataSource {
                                                         return .init()
             }
             
-            cell.configure(analyticsData: posterDetailData?.analytics)
+            cell.configure(analyticsData: analyticsData)
             
             return cell
         default:
@@ -623,10 +701,6 @@ extension DetailInfoViewController: UICollectionViewDelegateFlowLayout {
             return CGSize(width: view.frame.width, height: 0)
         }
     }
-    
-    //    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForFooterInSection section: Int) -> CGSize {
-    //        return CGSize(width: view.frame.width, height: 80)
-    //    }
     
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,

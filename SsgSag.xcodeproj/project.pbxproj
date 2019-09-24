@@ -170,6 +170,7 @@
 		D1C9151322FD5D9800189FD2 /* KeyboardService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1C9151222FD5D9800189FD2 /* KeyboardService.swift */; };
 		D1C9151522FD838B00189FD2 /* CommentServiceImp.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1C9151422FD838B00189FD2 /* CommentServiceImp.swift */; };
 		D1C9151722FD839300189FD2 /* CommentServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1C9151622FD839300189FD2 /* CommentServiceProtocol.swift */; };
+		D1CC98002339E78D0064A867 /* PosterAfterSwipe.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1CC97FF2339E78D0064A867 /* PosterAfterSwipe.swift */; };
 		D1CD5DDE22E5B3B90033FCB3 /* myPageMenuTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1CD5DDC22E5B3B90033FCB3 /* myPageMenuTableViewCell.swift */; };
 		D1CD5DDF22E5B3B90033FCB3 /* myPageMenuTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D1CD5DDD22E5B3B90033FCB3 /* myPageMenuTableViewCell.xib */; };
 		D1CD5DE122E5BBDB0033FCB3 /* NoticeServiceImp.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1CD5DE022E5BBDB0033FCB3 /* NoticeServiceImp.swift */; };
@@ -453,6 +454,7 @@
 		D1C9151222FD5D9800189FD2 /* KeyboardService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardService.swift; sourceTree = "<group>"; };
 		D1C9151422FD838B00189FD2 /* CommentServiceImp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentServiceImp.swift; sourceTree = "<group>"; };
 		D1C9151622FD839300189FD2 /* CommentServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentServiceProtocol.swift; sourceTree = "<group>"; };
+		D1CC97FF2339E78D0064A867 /* PosterAfterSwipe.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PosterAfterSwipe.swift; sourceTree = "<group>"; };
 		D1CD5DDC22E5B3B90033FCB3 /* myPageMenuTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = myPageMenuTableViewCell.swift; sourceTree = "<group>"; };
 		D1CD5DDD22E5B3B90033FCB3 /* myPageMenuTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = myPageMenuTableViewCell.xib; sourceTree = "<group>"; };
 		D1CD5DE022E5BBDB0033FCB3 /* NoticeServiceImp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoticeServiceImp.swift; sourceTree = "<group>"; };
@@ -1012,6 +1014,7 @@
 				D166AC5C22D46D4100ED82DD /* MonthTodoList.swift */,
 				D166AC5E22D4726000ED82DD /* DayTodoList.swift */,
 				D1CF960522DDC0B70069C75F /* PosterDetail.swift */,
+				D1CC97FF2339E78D0064A867 /* PosterAfterSwipe.swift */,
 			);
 			path = Poster;
 			sourceTree = "<group>";
@@ -1682,6 +1685,7 @@
 				D1CD5DE122E5BBDB0033FCB3 /* NoticeServiceImp.swift in Sources */,
 				D17A1C4422ED8D2F00939788 /* SignUpServiceProtocol.swift in Sources */,
 				8496818022AFD3FE004A4A63 /* VACalendarMonthDelegate.swift in Sources */,
+				D1CC98002339E78D0064A867 /* PosterAfterSwipe.swift in Sources */,
 				D10B6E2222F42600007B9BEA /* BoardCollectionViewCell.swift in Sources */,
 				8496819022AFDF66004A4A63 /* NewCalendarVC.swift in Sources */,
 				D166AC7022D73CD700ED82DD /* NewsCollectionViewCell.swift in Sources */,

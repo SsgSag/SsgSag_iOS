@@ -19,7 +19,7 @@
                 <rect key="frame" x="0.0" y="0.0" width="331" height="192"/>
                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 <subviews>
-                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="L88-2x-WEN">
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="L88-2x-WEN">
                         <rect key="frame" x="10" y="52.5" width="67" height="87"/>
                         <color key="backgroundColor" red="0.66666666669999997" green="0.66666666669999997" blue="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
@@ -99,7 +99,7 @@
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="O6c-6M-vjE">
                                         <rect key="frame" x="38" y="0.0" width="17" height="13"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="10"/>
-                                        <inset key="imageEdgeInsets" minX="-4" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                        <inset key="imageEdgeInsets" minX="-5" minY="0.0" maxX="0.0" maxY="0.0"/>
                                         <state key="normal" title="0" image="ic_view">
                                             <color key="titleColor" red="0.66666666666666663" green="0.66666666666666663" blue="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </state>
@@ -107,7 +107,7 @@
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VfR-wr-Cjy">
                                         <rect key="frame" x="63" y="0.0" width="17" height="13"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="10"/>
-                                        <inset key="imageEdgeInsets" minX="-4" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                        <inset key="imageEdgeInsets" minX="-5" minY="0.0" maxX="0.0" maxY="0.0"/>
                                         <state key="normal" title="0" image="ic_calendarMini">
                                             <color key="titleColor" red="0.66666666669999997" green="0.66666666669999997" blue="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </state>
@@ -155,6 +155,16 @@
                     <color key="value" red="0.95294117647058818" green="0.95686274509803915" blue="0.96078431372549022" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                 </userDefinedRuntimeAttribute>
             </userDefinedRuntimeAttributes>
+            <connections>
+                <outlet property="calendarSaveCountButton" destination="VfR-wr-Cjy" id="VII-Uc-iYy"/>
+                <outlet property="categoryButton" destination="L9n-0s-T0I" id="QZ9-wN-2IG"/>
+                <outlet property="ddayButton" destination="Hvm-7p-DZJ" id="EJ7-IY-gir"/>
+                <outlet property="hashTagLabel" destination="3s8-Wg-mQK" id="7KW-fb-AKE"/>
+                <outlet property="posterImageView" destination="L88-2x-WEN" id="kou-ui-x8B"/>
+                <outlet property="saveStatusButton" destination="WEj-br-KFO" id="aXp-de-bsp"/>
+                <outlet property="titleLabel" destination="4jt-S5-tm0" id="Faa-rQ-xTj"/>
+                <outlet property="viewCountButton" destination="O6c-6M-vjE" id="U2z-Cg-pky"/>
+            </connections>
             <point key="canvasLocation" x="-286" y="73"/>
         </collectionViewCell>
     </objects>
