@@ -48,7 +48,7 @@ public class ImageNetworkManager {
     }
     
     public func getImageByCache(imageURL: URL, completionHandler: @escaping (UIImage?, Error?) -> Void) {
-            downloadImage(imageURL: imageURL, completionHandler: completionHandler)
+        downloadImage(imageURL: imageURL, completionHandler: completionHandler)
     }
     
 }

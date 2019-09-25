@@ -11,10 +11,12 @@ import AdBrixRM
 
 class AllPostersListViewController: UIViewController {
     
+    private let imageCache = NSCache<NSString, UIImage>()
     private let categoryList = [1, 0, 4, 7, 5]
     private var posterData: [PosterDataAfterSwpie] = []
     private var currentSortType = 0
     private var currentCategory = 1
+    private var posterImageTasks: [URLSessionDataTask] = []
     
     private lazy var mypageButton = UIBarButtonItem(image: UIImage(named: "ic_mypage"),
                                                     style: .plain,
@@ -116,16 +118,37 @@ class AllPostersListViewController: UIViewController {
         setupCollectionView()
     }
     
-    private func requestPosterData() {
+    private func requestPosterData(_ scrollToTop: Bool = false) {
+        posterImageTasks.removeAll()
+        
         posterService.requestAllPosterAfterSwipe(category: currentCategory,
                                                  sortType: currentSortType) { [weak self] result in
             switch result {
             case .success(let posterData):
                 self?.posterData = posterData
                 
+                for data in posterData {
+                    guard let urlString = data.photoUrl,
+                        let imageURL = URL(string: urlString) else {
+                            continue
+                    }
+                    
+                    let dataTask
+                        = URLSession.shared.dataTask(with: imageURL) { [weak self] data, response, error in
+                            guard error == nil,
+                                let data = data,
+                                let image = UIImage(data: data) else {
+                                    return
+                            }
+                            
+                            self?.imageCache.setObject(image, forKey: urlString as NSString)
+                    }
+                    
+                    self?.posterImageTasks.append(dataTask)
+                }
                 DispatchQueue.main.async {
                     self?.listCollectionView.reloadData()
-                    if self?.posterData.count != 0 {
+                    if self?.posterData.count != 0 && scrollToTop {
                         self?.listCollectionView.scrollToItem(at: IndexPath(item: 0,
                                                                             section: 0),
                                                               at: .top,
@@ -235,14 +258,14 @@ class AllPostersListViewController: UIViewController {
     @objc private func touchUpOrderButton() {
         if popularOrderButton.isSelected {
             currentSortType = 1
-            requestPosterData()
+            requestPosterData(true)
             popularOrderButton.setImage(UIImage(named: "ic_orderPassive"),
                                         for: .normal)
             deadlineOrderButton.setImage(UIImage(named: "ic_order"),
                                          for: .normal)
         } else {
             currentSortType = 0
-            requestPosterData()
+            requestPosterData(true)
             popularOrderButton.setImage(UIImage(named: "ic_order"),
                                         for: .normal)
             deadlineOrderButton.setImage(UIImage(named: "ic_orderPassive"),
@@ -303,20 +326,33 @@ extension AllPostersListViewController: UICollectionViewDataSource {
                 return UICollectionViewCell()
             }
             
+            cell.posterData = posterData[indexPath.item]
+            
             if posterData[indexPath.item].photoUrl == cell.posterData?.photoUrl {
-                let imageURL = posterData[indexPath.item].photoUrl ?? ""
-                guard let url = URL(string: imageURL) else {
+                guard let urlString = posterData[indexPath.item].photoUrl else {
                     return cell
                 }
                 
-                ImageNetworkManager.shared.getImageByCache(imageURL: url){ (image, error) in
-                    if error == nil {
-                        cell.posterImageView.image = image
+                if imageCache.object(forKey: urlString as NSString) == nil {
+                    if let imageURL = URL(string: urlString) {
+                        
+                        URLSession.shared.dataTask(with: imageURL) { data, response, error in
+                            guard error == nil,
+                                let data = data,
+                                let image = UIImage(data: data) else {
+                                    return
+                            }
+                            
+                            DispatchQueue.main.async {
+                                cell.posterImageView.image = image
+                            }
+                        }.resume()
                     }
+                    return cell
                 }
+                
+                cell.posterImageView.image = imageCache.object(forKey: urlString as NSString)
             }
-            
-            cell.posterData = posterData[indexPath.item]
             
             return cell
         }
@@ -331,7 +367,7 @@ extension AllPostersListViewController: UICollectionViewDataSource {
             }
             
             currentCategory = categoryList[indexPath.item]
-            requestPosterData()
+            requestPosterData(true)
             
             if let category = PosterCategory(rawValue: categoryList[indexPath.item]) {
                 cell.categoryButton.setTitle(category.categoryString(), for: .normal)
@@ -379,6 +415,22 @@ extension AllPostersListViewController: UICollectionViewDataSource {
             }
         } else {
             
+        }
+    }
+}
+
+extension AllPostersListViewController: UICollectionViewDataSourcePrefetching {
+    func collectionView(_ collectionView: UICollectionView,
+                        prefetchItemsAt indexPaths: [IndexPath]) {
+        indexPaths.forEach {
+            posterImageTasks[$0.item].resume()
+        }
+    }
+    
+    func collectionView(_ collectionView: UICollectionView,
+                        cancelPrefetchingForItemsAt indexPaths: [IndexPath]) {
+        indexPaths.forEach {
+            posterImageTasks[$0.item].cancel()
         }
     }
 }
