@@ -220,4 +220,44 @@ class CalendarServiceImp: CalendarService {
             }
         }
     }
+    
+    func requestTodoListClickRecord(_ posterIdx: Int,
+                                    type: Int,
+                                    completionHandler: @escaping (DataResponse<HttpStatusCode>) -> Void) {
+        guard let token
+            = KeychainWrapper.standard.string(forKey: TokenName.token),
+            let url
+            = UserAPI.sharedInstance.getURL(RequestURL.clickRecord(posterIdx: posterIdx,
+                                                                   type: type).getRequestURL),
+            let request
+            = requestMaker.makeRequest(url: url,
+                                       method: .post,
+                                       header: ["Authorization": token],
+                                       body: nil) else {
+                                        return
+        }
+        
+        network.dispatch(request: request) { result in
+            switch result {
+            case .success(let data):
+                do {
+                    let decodedData = try JSONDecoder().decode(PosterFavorite.self,
+                                                               from: data)
+                    
+                    guard let status = decodedData.status,
+                        let httpStatusCode = HttpStatusCode(rawValue: status) else {
+                            return
+                    }
+                    
+                    completionHandler(DataResponse.success(httpStatusCode))
+                } catch let error {
+                    completionHandler(.failed(error))
+                    return
+                }
+            case .failure(let error):
+                completionHandler(.failed(error))
+                return
+            }
+        }
+    }
 }

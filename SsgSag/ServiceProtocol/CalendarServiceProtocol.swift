@@ -37,4 +37,10 @@ protocol CalendarService: class {
         _ posterIdx: Int,
         completionHandler: @escaping (DataResponse<PosterFavorite>) -> Void
     )
+    
+    func requestTodoListClickRecord(
+        _ posterIdx: Int,
+        type: Int,
+        completionHandler: @escaping (DataResponse<HttpStatusCode>) -> Void
+    )
 }
