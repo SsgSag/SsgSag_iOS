@@ -9,15 +9,15 @@
 import Foundation
 
 protocol LoginService: class {
-    func requestLogin(
-        send data: [String:Any],
-        completionHandler: @escaping (DataResponse<LoginStruct>) -> Void
-    )
-    
     func requestSnsLogin(
         using accessToken: String,
         type login: Int,
         completionHandler: @escaping (DataResponse<TokenResponse>) -> Void
+    )
+    
+    func requestSelfLogin(
+        send data: [String:Any],
+        completionHandler: @escaping (DataResponse<LoginStruct>) -> Void
     )
     
     func requestTempPassword(

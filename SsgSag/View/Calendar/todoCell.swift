@@ -401,7 +401,7 @@ enum favoriteState: Int {
         let calendarServiceImp: CalendarService
             = DependencyContainer.shared.getDependency(key: .calendarService)
         
-        calendarServiceImp.requestFavorite(self, posterIdx) { (dataResponse) in
+        calendarServiceImp.requestTodoFavorite(self, posterIdx) { (dataResponse) in
             
             guard let statusCode = dataResponse.value?.status else {return}
             

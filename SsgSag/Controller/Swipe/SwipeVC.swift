@@ -1,6 +1,7 @@
 import UIKit
 import Lottie
 import SwiftKeychainWrapper
+import AdBrixRM
 
 class SwipeVC: UIViewController {
     
@@ -51,6 +52,21 @@ class SwipeVC: UIViewController {
         return label
     }()
     
+    private lazy var viewAllPostersButton: UIButton = {
+        let button = UIButton()
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.setTitle("전체 포스터 보기", for: .normal)
+        button.setTitleColor(#colorLiteral(red: 0.3843137255, green: 0.4156862745, blue: 1, alpha: 1), for: .normal)
+        button.layer.cornerRadius = 24
+        button.layer.borderColor = #colorLiteral(red: 0.3843137255, green: 0.4156862745, blue: 1, alpha: 1)
+        button.layer.borderWidth = 1
+        button.titleLabel?.font = UIFont.systemFont(ofSize: 15)
+        button.addTarget(self,
+                         action: #selector(touchUpViewAllPostersButton),
+                         for: .touchUpInside)
+        return button
+    }()
+    
     private lazy var moveToCalendarButton: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
@@ -59,7 +75,9 @@ class SwipeVC: UIViewController {
         button.setTitleColor(.white, for: .normal)
         button.layer.cornerRadius = 24
         button.titleLabel?.font = UIFont.systemFont(ofSize: 15)
-        button.addTarget(self, action: #selector(touchUpMoveToCalendarButton), for: .touchUpInside)
+        button.addTarget(self,
+                         action: #selector(touchUpMoveToCalendarButton),
+                         for: .touchUpInside)
         return button
     }()
     
@@ -110,12 +128,17 @@ class SwipeVC: UIViewController {
             stackView.translatesAutoresizingMaskIntoConstraints = false
             stackView.axis = .vertical
             stackView.alignment = .center
-            stackView.spacing = 30
+            stackView.spacing = 10
             return stackView
         }()
         
+        let spaceView = UIView()
+        spaceView.translatesAutoresizingMaskIntoConstraints = false
+        
         completeStackView.addArrangedSubview(animation)
         completeStackView.addArrangedSubview(completeLabel)
+        completeStackView.addArrangedSubview(spaceView)
+        completeStackView.addArrangedSubview(viewAllPostersButton)
         completeStackView.addArrangedSubview(moveToCalendarButton)
         view.addSubview(completeStackView)
 
@@ -136,6 +159,14 @@ class SwipeVC: UIViewController {
         animation.heightAnchor.constraint(
             equalToConstant: 170).isActive = true
         
+        spaceView.heightAnchor.constraint(
+            equalToConstant: 15).isActive = true
+        
+        viewAllPostersButton.heightAnchor.constraint(
+            equalToConstant: 48).isActive = true
+        viewAllPostersButton.widthAnchor.constraint(
+            equalToConstant: 202).isActive = true
+        
         moveToCalendarButton.heightAnchor.constraint(
             equalToConstant: 48).isActive = true
         moveToCalendarButton.widthAnchor.constraint(
@@ -147,7 +178,7 @@ class SwipeVC: UIViewController {
     //FIXME: - CategoryIdx가 3이거나 5일때 예외를 만든다.
     private func requestPoster(isFirst: Bool) {
 
-        posterServiceImp.requestPoster { [weak self] response in
+        posterServiceImp.requestSwipePosters { [weak self] response in
             switch response {
             case .success(let posterdata):
                 guard let posters = posterdata.posters,
@@ -172,6 +203,10 @@ class SwipeVC: UIViewController {
     //캘린더 이동
     @objc func touchUpMoveToCalendarButton() {
         tabBarController?.selectedIndex = 2
+    }
+    
+    @objc func touchUpViewAllPostersButton() {
+        navigationController?.pushViewController(AllPostersListViewController(), animated: true)
     }
     
     private func loadCard(isFirst: Bool) {
@@ -546,9 +581,10 @@ extension SwipeVC : SwipeCardDelegate {
         
         loadCardValuesAfterRemoveObject()
         
-        guard let disLikedCategory = likedOrDisLiked(rawValue: 0) else { return }
+        guard let disLikedCategory = likedOrDisLiked(rawValue: 0),
+            let posterIdx = posters[currentIndex-1].posterIdx else { return }
         
-        posterServiceImp.requestPosterLiked(of: self.posters[currentIndex-1],
+        posterServiceImp.requestPosterStore(of: posterIdx,
                                             type: disLikedCategory) { [weak self] result in
             switch result {
             case .success(let status):
@@ -589,15 +625,19 @@ extension SwipeVC : SwipeCardDelegate {
         
         likedPoster.append(self.posters[currentIndex - 1])
         
-        guard let likedCategory = likedOrDisLiked(rawValue: 1) else { return }
+        guard let likedCategory = likedOrDisLiked(rawValue: 1),
+            let posterIdx = posters[currentIndex-1].posterIdx else { return }
         
-        posterServiceImp.requestPosterLiked(of: self.posters[currentIndex - 1],
+        posterServiceImp.requestPosterStore(of: posterIdx,
                                             type: likedCategory) { [weak self] result in
             switch result {
             case .success(let status):
                 switch status {
                 case .sucess:
                     print("성공")
+                    
+                    let adBrix = AdBrixRM.getInstance
+                    adBrix.event(eventName: "swipe_PosterComplete")
                 case .dataBaseError:
                     self?.simplerAlert(title: "데이터베이스 에러")
                 case .serverError:
@@ -621,9 +661,10 @@ extension SwipeVC : SwipeCardDelegate {
             likedPoster.append(self.posters[currentIndex - 1])
         }
         
-        guard let likedCategory = likedOrDisLiked(rawValue: 1) else { return }
+        guard let likedCategory = likedOrDisLiked(rawValue: 1),
+            let posterIdx = posters[currentIndex-1].posterIdx else { return }
         
-        posterServiceImp.requestPosterLiked(of: self.posters[currentIndex - 1],
+        posterServiceImp.requestPosterStore(of: posterIdx,
                                             type: likedCategory) { [weak self] result in
             switch result {
             case .success(let status):

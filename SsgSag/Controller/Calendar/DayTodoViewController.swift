@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import AdBrixRM
 
 class DayTodoViewController: UIViewController {
 
@@ -26,12 +27,16 @@ class DayTodoViewController: UIViewController {
         return collectionView
     }()
     
+    private var currentScrollContentWidth: CGFloat = 0
     var currentDate: Date?
+    private var frontDate: Date?
+    private var backDate: Date?
     private var todoDatas: [MonthTodoData] = []
     private var sortedTodoDatas: [[CalendarData]] = []
     private var totalTodoDatas: [[CalendarData]] = []
     var dataPointer = 0
     var callback: (()->())?
+    var isFirstMove: Bool = false
     
     private let calendar = Calendar.current
     private let calendarServiceImp: CalendarService
@@ -41,6 +46,9 @@ class DayTodoViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
+        frontDate = currentDate
+        backDate = currentDate
         
         navigationController?.navigationBar.isHidden = true
     }
@@ -60,16 +68,20 @@ class DayTodoViewController: UIViewController {
         super.viewDidLayoutSubviews()
         
         if totalTodoDatas.count > 0 {
-            guard let currentDate = currentDate else {
-                return
+            
+            if !isFirstMove {
+                guard let currentDate = currentDate else {
+                    return
+                }
+                
+                let day = calendar.component(.day, from: currentDate)
+                
+                pagingCollectionView.scrollToItem(at: IndexPath(item: day - 1,
+                                                                section: 0),
+                                                  at: .centeredHorizontally,
+                                                  animated: false)
             }
-            
-            let day = calendar.component(.day, from: currentDate)
-            
-            pagingCollectionView.scrollToItem(at: IndexPath(item: day - 1,
-                                                            section: 0),
-                                              at: .centeredHorizontally,
-                                              animated: false)
+            isFirstMove = true
         }
     }
     
@@ -77,50 +89,10 @@ class DayTodoViewController: UIViewController {
         guard let currentDate = currentDate else { return }
         
         requestData(right: true, currentDate)
-        
-//        requestOtherMonth(currentDate: currentDate)
     }
     
-    private func requestOtherMonth(currentDate: Date) {
-        let year = calendar.component(.year, from: currentDate)
-        let month = calendar.component(.month, from: currentDate)
-        let day = calendar.component(.day, from: currentDate)
-        
-        var dateComponents = DateComponents()
-        
-        if day == 1 {
-            if month == 1 {
-                dateComponents.year = year - 1
-                dateComponents.month = 12
-                guard let date = calendar.date(from: dateComponents) else {
-                    return
-                }
-                requestData(right: false, date)
-            } else {
-                dateComponents.year = year
-                dateComponents.month = month - 1
-                guard let date = calendar.date(from: dateComponents) else {
-                    return
-                }
-                requestData(right: false, date)
-            }
-        } else if day == 30 || day == 31 {
-            if month == 12 {
-                dateComponents.year = year + 1
-                dateComponents.month = 1
-                guard let date = calendar.date(from: dateComponents) else {
-                    return
-                }
-                requestData(right: true, date)
-            } else {
-                dateComponents.year = year
-                dateComponents.month = month + 1
-                guard let date = calendar.date(from: dateComponents) else {
-                    return
-                }
-                requestData(right: true, date)
-            }
-        }
+    private func requestOtherMonth(right: Bool, requestDate: Date) {
+        requestData(right: right, requestDate)
     }
     
     private func setupLayout() {
@@ -173,7 +145,7 @@ class DayTodoViewController: UIViewController {
                     if right {
                         self.pagingCollectionView.reloadData()
                     } else {
-//                        self.reloadDataAndKeepOffset()
+                        self.reloadDataAndKeepOffset()
                     }
                 }
             case .failed(let error):
@@ -264,19 +236,7 @@ class DayTodoViewController: UIViewController {
             y: pagingCollectionView.contentOffset.y + (afterContentSize.height - beforeContentSize.height))
         pagingCollectionView.setContentOffset(newOffset, animated: false)
     }
-//
-//    private func indexOfMajorCell() -> Int {
-//        let itemWidth = view.frame.width - 50
-//        let proportionalOffset = layout.collectionView!.contentOffset.x / itemWidth
-//        let index = Int(round(proportionalOffset))
-//        let safeIndex = max(0, min(sortedTodoDatas.count - 1, index))
-//        return safeIndex
-//    }
-//
-//    func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
-//        indexOfCellBeforeDragging = indexOfMajorCell()
-//    }
-//
+
     func scrollViewWillEndDragging(_ scrollView: UIScrollView,
                                    withVelocity velocity: CGPoint,
                                    targetContentOffset: UnsafeMutablePointer<CGPoint>) {
@@ -314,6 +274,56 @@ class DayTodoViewController: UIViewController {
         dismiss(animated: false)
     }
     
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        
+        if scrollView.contentSize.width != 0 {
+            if currentScrollContentWidth != scrollView.contentSize.width {
+                if scrollView.contentOffset.x < scrollView.contentSize.width * 0.1 {
+                    guard let frontDate = frontDate else {
+                        return
+                    }
+                    
+                    let year = calendar.component(.year, from: frontDate)
+                    let month = calendar.component(.month, from: frontDate)
+                    
+                    var dateComponents = DateComponents()
+                    
+                    dateComponents.year = year
+                    dateComponents.month = month - 1
+                    dateComponents.day = 1
+                    
+                    guard let date = calendar.date(from: dateComponents) else {
+                        return
+                    }
+                    
+                    self.frontDate = date
+                    requestOtherMonth(right: false, requestDate: date)
+                    currentScrollContentWidth = scrollView.contentSize.width
+                } else if scrollView.contentOffset.x > scrollView.contentSize.width * 0.9 {
+                    guard let backDate = backDate else {
+                        return
+                    }
+                    
+                    let year = calendar.component(.year, from: backDate)
+                    let month = calendar.component(.month, from: backDate)
+                    
+                    var dateComponents = DateComponents()
+                    
+                    dateComponents.year = year
+                    dateComponents.month = month + 1
+                    dateComponents.day = 1
+                    
+                    guard let date = calendar.date(from: dateComponents) else {
+                        return
+                    }
+                    
+                    self.backDate = date
+                    requestOtherMonth(right: true, requestDate: date)
+                    currentScrollContentWidth = scrollView.contentSize.width
+                }
+            }
+        }
+    }
 }
 
 extension DayTodoViewController: UICollectionViewDelegate {
@@ -389,11 +399,19 @@ extension DayTodoViewController: dismissDelegate {
 
 extension DayTodoViewController: PushDelegate {
     func pushViewController(_ controller: UIViewController, _ favoriteButton: UIButton) {
+        
         guard let controller = controller as? DetailInfoViewController else {
             return
         }
         
+        let adBrix = AdBrixRM.getInstance
+        adBrix.event(eventName: "touchUp_PosterDetail",
+                     value: ["posterIdx": controller.posterIdx])
+        
         controller.callback = { [weak self] isFavorite in
+            let adBrix = AdBrixRM.getInstance
+            adBrix.event(eventName: "touchUp_Favorite")
+            
             if isFavorite == 1 {
                 favoriteButton.setImage(UIImage(named: "ic_favorite"), for: .normal)
             } else {

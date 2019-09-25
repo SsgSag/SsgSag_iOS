@@ -11,13 +11,15 @@ import Foundation
 class DependencyPool {
     private var dependencyPool: [DependencyKey: Any] = [:]
     
-    func register<T>(key: DependencyKey, dependency: T) throws {
+    func register<T>(key: DependencyKey,
+                     dependency: T) throws {
         
         guard dependencyPool[key] == nil else {
             throw DependencyError.keyAlreadyExistsError(key: key)
         }
         
-        dependencyPool.updateValue(dependency, forKey: key)
+        dependencyPool.updateValue(dependency,
+                                   forKey: key)
     }
     
     func pullOutDependency<T>(key: DependencyKey) throws -> T {

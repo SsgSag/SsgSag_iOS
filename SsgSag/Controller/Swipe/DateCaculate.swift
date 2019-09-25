@@ -78,7 +78,8 @@ struct DateCaculate {
         
         guard let posterEndDate = dateFormatter.date(from: endDateString) else { return "" }
         
-        guard let startDateString = startDate else {
+        guard let startDateString = startDate,
+            let posterStartDate = dateFormatter.date(from: startDateString) else {
             let endDate = Calendar.current.dateComponents([.month, .day], from: posterEndDate)
             
             guard let endMonth = endDate.month else { return "" }
@@ -88,8 +89,6 @@ struct DateCaculate {
             return "~ \(endMonth).\(endDay)"
         }
         
-        guard let posterStartDate = dateFormatter.date(from: startDateString) else { return "~ \(posterEndDate)" }
-
         let startDate = Calendar.current.dateComponents([.month, .day], from: posterStartDate)
         
         let endDate = Calendar.current.dateComponents([.month, .day], from: posterEndDate)

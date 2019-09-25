@@ -32,6 +32,7 @@ class AddActivityVC: UIViewController, UITextViewDelegate, UITextFieldDelegate {
     
     private var titleString : String?
     private var contentTextString: String?
+    private lazy var tapGesture = UITapGestureRecognizer(target: self, action: nil)
     
     var activityData: careerData? {
         didSet {
@@ -42,30 +43,33 @@ class AddActivityVC: UIViewController, UITextViewDelegate, UITextFieldDelegate {
         }
     }
     
-    private let myPageServiceImp : MyPageService
-        = DependencyContainer.shared.getDependency(key: .myPageService)
+    private let activityService: ActivityService
+        = DependencyContainer.shared.getDependency(key: .activityService)
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         titleTextField.delegate = self
         contentTextView.delegate = self
+        tapGesture.delegate = self
         
+        setupLayout()
         setStartEndDate()
-        
-        contentTextView.applyBorderTextView()
-        
-        if(contentTextView.text == "") {
-            textViewDidEndEditing(contentTextView)
-        }
         
         if let title = titleString {
             titleTextField.text = title
         }
         
         if let content = contentTextString {
-            contentTextView.text = content
+            if content != "" {
+                contentTextView.text = content
+                contentTextView.textColor = .black
+            }
         }
+    }
+    
+    private func setupLayout() {
+        view.addGestureRecognizer(tapGesture)
     }
     
     private func setStartEndDate() {
@@ -136,15 +140,15 @@ class AddActivityVC: UIViewController, UITextViewDelegate, UITextFieldDelegate {
     }
     
     func textViewDidEndEditing(_ textView: UITextView) {
-        if(textView.text == "") {
+        if textView.text == "" {
             textView.text = "동아리, 서포터즈, 봉사활동 등 본인이 했던 대외활동에 대한 구체적인 내용을 작성해보세요!"
-            textView.textColor = UIColor.rgb(red: 189, green: 189, blue: 189)
+            textView.textColor = #colorLiteral(red: 0.7411764706, green: 0.7411764706, blue: 0.7411764706, alpha: 1)
         }
         textView.resignFirstResponder()
     }
     
     func textViewDidBeginEditing(_ textView: UITextView) {
-        if(textView.text == "동아리, 서포터즈, 봉사활동 등 본인이 했던 대외활동에 대한 구체적인 내용을 작성해보세요!") {
+        if textView.text == "동아리, 서포터즈, 봉사활동 등 본인이 했던 대외활동에 대한 구체적인 내용을 작성해보세요!" {
             textView.text = ""
             textView.textColor = .black
         }
@@ -241,39 +245,38 @@ class AddActivityVC: UIViewController, UITextViewDelegate, UITextFieldDelegate {
                 "careerDate2": sendEndData
             ]
             
-            myPageServiceImp.requestStoreAddActivity(json) { [weak self] (dataResponse) in
-                
-                if !dataResponse.isSuccess {
-                    guard let readError = dataResponse.error as? ReadError else {return}
-                    print(readError.printErrorType())
+            activityService.requestStoreActivity(json) { [weak self] dataResponse in
+                switch dataResponse {
+                case .success(let activity):
+                    guard let statusCode = activity.status,
+                        let httpStatus = HttpStatusCode(rawValue: statusCode) else {
+                            return
+                    }
                     
                     DispatchQueue.main.async {
-                        self?.simplerAlert(title: "저장에 실패했습니다")
-                    }
-                }
-                
-                guard let statusCode = dataResponse.value?.status else {return}
-                
-                guard let httpStatus = HttpStatusCode(rawValue: statusCode) else {return}
-                
-                DispatchQueue.main.async {
-                    switch httpStatus {
-                    case .secondSucess:
-                        let animation = LOTAnimationView(name: "bt_save_round")
-                        self?.saveButton.addSubview(animation)
-                        
-                        animation.play()
-                        
-                        self?.simplerAlertwhenSave(title: "저장되었습니다")
-                        
-                        self?.delegate?.updateCareer(type: 0)
-                        
-                    case .serverError, .dataBaseError:
-                        DispatchQueue.main.async {
-                            self?.simplerAlert(title: "저장에 실패했습니다")
+                        switch httpStatus {
+                        case .secondSucess:
+                            let animation = LOTAnimationView(name: "bt_save_round")
+                            self?.saveButton.addSubview(animation)
+                            
+                            animation.play()
+                            
+                            self?.simplerAlertwhenSave(title: "저장되었습니다")
+                            
+                            self?.delegate?.updateCareer(type: 0)
+                            
+                        case .serverError, .dataBaseError:
+                            DispatchQueue.main.async {
+                                self?.simplerAlert(title: "저장에 실패했습니다")
+                            }
+                        default:
+                            break
                         }
-                    default:
-                        break
+                    }
+                case .failed(let error):
+                    print(error)
+                    DispatchQueue.main.async {
+                        self?.simplerAlert(title: "저장에 실패했습니다")
                     }
                 }
                 
@@ -292,46 +295,54 @@ class AddActivityVC: UIViewController, UITextViewDelegate, UITextFieldDelegate {
                 "careerDate2": sendEndData
             ]
             
-            myPageServiceImp.requestEditActivity(json) { [weak self] (dataResponse) in
-                
-                if !dataResponse.isSuccess {
-                    guard let readError = dataResponse.error as? ReadError else {return}
-                    print(readError.printErrorType())
+            activityService.requestEditActivity(json) { [weak self] dataResponse in
+                switch dataResponse {
+                case .success(let activity):
+                    
+                    guard let statusCode = activity.status,
+                        let httpStatus = HttpStatusCode(rawValue: statusCode) else {
+                            return
+                    }
+                    
+                    DispatchQueue.main.async {
+                        switch httpStatus {
+                        case .processingSuccess:
+                            let animation = LOTAnimationView(name: "bt_save_round")
+                            self?.saveButton.addSubview(animation)
+                            
+                            animation.play()
+                            
+                            self?.simplerAlertwhenSave(title: "수정되었습니다")
+                            
+                            self?.delegate?.updateCareer(type: 0)
+                            
+                        case .serverError, .dataBaseError:
+                            DispatchQueue.main.async {
+                                self?.simplerAlert(title: "수정에 실패했습니다")
+                            }
+                        default:
+                            break
+                        }
+                    }
+                    
+                case .failed(let error):
+                    print(error)
                     
                     DispatchQueue.main.async {
                         self?.simplerAlert(title: "수정에 실패했습니다")
                     }
                 }
-                
-                guard let statusCode = dataResponse.value?.status else {return}
-                
-                guard let httpStatus = HttpStatusCode(rawValue: statusCode) else {return}
-                
-                DispatchQueue.main.async {
-                    switch httpStatus {
-                    case .processingSuccess:
-                        let animation = LOTAnimationView(name: "bt_save_round")
-                        self?.saveButton.addSubview(animation)
-                        
-                        animation.play()
-                        
-                        self?.simplerAlertwhenSave(title: "수정되었습니다")
-                        
-                        self?.delegate?.updateCareer(type: 0)
-                        
-                    case .serverError, .dataBaseError:
-                        DispatchQueue.main.async {
-                            self?.simplerAlert(title: "수정에 실패했습니다")
-                        }
-                    default:
-                        break
-                    }
-                }
-                
             }
         }
     }
     
+}
+
+extension AddActivityVC: UIGestureRecognizerDelegate {
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
+        view.endEditing(true)
+        return true
+    }
 }
 
 enum JSONSerializationError: Error

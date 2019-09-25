@@ -39,7 +39,10 @@ class DetailTodoListTableViewCell: UITableViewCell {
             let startComponent = Calendar.current.dateComponents([.month, .day, .weekday], from: startDateFormString)
             guard let startWeekDay = WeekDays(rawValue: startComponent.weekday!) else {return}
             
-            posterDate.text = "\(startComponent.month!).\(startComponent.day!)(\(startWeekDay.koreanWeekdays))~\(component.month!).\(component.day!)(\(weekDay.koreanWeekdays))"
+            let startDateString = "\(startComponent.month!).\(startComponent.day!)(\(startWeekDay.koreanWeekdays))"
+            let endDateString = "\(component.month!).\(component.day!)(\(weekDay.koreanWeekdays))"
+            
+            posterDate.text = startDateString == endDateString ? "~\(endDateString)" : "\(startDateString)~\(endDateString)"
             
             if posterInfo.isFavorite == 1 {
                 favoriteButton.setImage(UIImage(named: "ic_favorite"), for: .normal)

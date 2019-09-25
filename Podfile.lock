@@ -24,6 +24,9 @@ PODS:
     - FirebaseAnalytics (= 5.8.1)
   - Firebase/CoreOnly (5.20.2):
     - FirebaseCore (= 5.4.1)
+  - Firebase/DynamicLinks (5.20.2):
+    - Firebase/CoreOnly
+    - FirebaseDynamicLinks (= 3.4.3)
   - Firebase/Messaging (5.20.2):
     - Firebase/CoreOnly
     - FirebaseMessaging (= 3.5.0)
@@ -40,6 +43,10 @@ PODS:
   - FirebaseCore (5.4.1):
     - GoogleUtilities/Environment (~> 5.2)
     - GoogleUtilities/Logger (~> 5.2)
+  - FirebaseDynamicLinks (3.4.3):
+    - FirebaseAnalytics (~> 5.1)
+    - FirebaseAnalyticsInterop (~> 1.0)
+    - FirebaseCore (~> 5.2)
   - FirebaseInstanceID (3.8.1):
     - FirebaseCore (~> 5.2)
     - GoogleUtilities/Environment (~> 5.2)
@@ -82,7 +89,7 @@ PODS:
     - nanopb/encode (= 0.3.901)
   - nanopb/decode (0.3.901)
   - nanopb/encode (0.3.901)
-  - naveridlogin-sdk-ios (4.0.10)
+  - naveridlogin-sdk-ios (4.0.12)
   - Protobuf (3.7.0)
   - SearchTextField (1.2.2)
   - SwiftKeychainWrapper (3.4.0)
@@ -93,6 +100,7 @@ DEPENDENCIES:
   - FacebookSDK
   - Firebase/Analytics
   - Firebase/Core
+  - Firebase/DynamicLinks
   - Firebase/Messaging
   - lottie-ios
   - naveridlogin-sdk-ios
@@ -110,6 +118,7 @@ SPEC REPOS:
     - FirebaseAnalytics
     - FirebaseAnalyticsInterop
     - FirebaseCore
+    - FirebaseDynamicLinks
     - FirebaseInstanceID
     - FirebaseMessaging
     - GoogleAppMeasurement
@@ -131,17 +140,18 @@ SPEC CHECKSUMS:
   FirebaseAnalytics: ece1aa57a4f43c64d53a648b5a5e05151aae947b
   FirebaseAnalyticsInterop: efbe45c8385ec626e29f9525e5ebd38520dfb6c1
   FirebaseCore: f1a9a8be1aee4bf71a2fc0f4096df6788bdfda61
+  FirebaseDynamicLinks: f7a8717e2c7ea652923882a2d60b0045d6fd99d5
   FirebaseInstanceID: a122b0c258720cf250551bb2bedf48c699f80d90
   FirebaseMessaging: 4235f949ce1c4e827aeb19705ba5c53f9b85aa10
   GoogleAppMeasurement: ffe513e90551844a739e7bcbb1d2aca1c28a4338
   GoogleUtilities: 04fce34bcd5620c1ee76fb79172105c74a4df335
   lottie-ios: 3fef45d3fabe63e3c7c2eb603dd64ddfffc73062
   nanopb: 2901f78ea1b7b4015c860c2fdd1ea2fee1a18d48
-  naveridlogin-sdk-ios: b5a31343e7f98bab1a5a37b1bc0af3354ad59d11
+  naveridlogin-sdk-ios: f894849d1f3454f8a68a57383ba29bd9f0d0257f
   Protobuf: 7a877b7f3e5964e3fce995e2eb323dbc6831bb5a
   SearchTextField: a0992739d4b05dcbb40fb3a5cc6526bd991bdd23
   SwiftKeychainWrapper: 6fc49fbf7d4a6b0772917acb0e53a1639f6078d6
 
-PODFILE CHECKSUM: 9691caf4508b1219618c0e4ff60a328791b8131a
+PODFILE CHECKSUM: a6f6a75fd48ba3557f130e33c2a2c149674d6f14
 
 COCOAPODS: 1.6.2

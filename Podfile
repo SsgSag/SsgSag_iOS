@@ -9,11 +9,12 @@ target 'SsgSag' do
 	
   pod 'Alamofire'
   pod 'lottie-ios'
-  pod 'naveridlogin-sdk-ios'
   pod 'SearchTextField'
   pod 'Firebase/Core'
   pod 'Firebase/Messaging'
   pod 'Firebase/Analytics'
+  pod 'Firebase/DynamicLinks'
+  pod 'naveridlogin-sdk-ios'
   pod 'AdBrixRemastered'
   pod 'SwiftKeychainWrapper'
   pod 'FacebookSDK' 

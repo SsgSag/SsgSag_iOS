@@ -18,7 +18,14 @@ class DetailImageViewController: UIViewController {
             }
             
             ImageNetworkManager.shared.getImageByCache(imageURL: posterURL) { [weak self] image, error in
-                self?.detailImageView.image = image
+                guard let image = image,
+                    let width = self?.view.frame.width else {
+                    return
+                }
+                
+                let resizedImage = self?.imageWithImage(sourceImage: image,
+                                                        scaledToWidth: width)
+                self?.detailImageView.image = resizedImage
             }
         }
     }
@@ -59,6 +66,7 @@ class DetailImageViewController: UIViewController {
     private lazy var imageScrollView: UIScrollView = {
         let scrollView = UIScrollView()
         scrollView.translatesAutoresizingMaskIntoConstraints = false
+        scrollView.showsVerticalScrollIndicator = false
         scrollView.delegate = self
         scrollView.minimumZoomScale = 1.0
         scrollView.maximumZoomScale = 3.0
@@ -106,8 +114,6 @@ class DetailImageViewController: UIViewController {
             equalTo: imageScrollView.bottomAnchor).isActive = true
         detailImageView.centerXAnchor.constraint(
             equalTo: imageScrollView.centerXAnchor).isActive = true
-        detailImageView.centerYAnchor.constraint(
-            equalTo: imageScrollView.centerYAnchor).isActive = true
         
         titleLabel.topAnchor.constraint(
             equalTo: view.safeAreaLayoutGuide.topAnchor,
@@ -131,8 +137,26 @@ class DetailImageViewController: UIViewController {
 
     }
     
+    func imageWithImage(sourceImage: UIImage, scaledToWidth: CGFloat) -> UIImage {
+        let oldWidth = sourceImage.size.width
+        let scaleFactor = scaledToWidth / oldWidth
+        
+        let newHeight = sourceImage.size.height * scaleFactor
+        let newWidth = oldWidth * scaleFactor
+        
+        UIGraphicsBeginImageContext(CGSize(width: newWidth, height: newHeight))
+        sourceImage.draw(in: CGRect(x: 0, y: 0, width: newWidth, height: newHeight))
+        let newImage = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        
+        return newImage!
+    }
+    
     @objc private func touchUpCloseButton() {
         dismiss(animated: true)
+        print(imageScrollView.frame.size)
+        print(detailImageView.frame.size)
+        print(detailImageView.image!.size)
     }
 }
 
@@ -141,3 +165,4 @@ extension DetailImageViewController: UIScrollViewDelegate {
         return detailImageView
     }
 }
+

@@ -24,7 +24,6 @@ enum RequestURL {
     case interestingField
     case reIntersting
     case careerActivity
-    case registerInterestJobs
     case deleteAcitivity(careerIdx: Int)
     case subscribeInterest
     case subscribeAddOrDelete(interestIdx: Int)
@@ -40,6 +39,7 @@ enum RequestURL {
     case commentLike(index: Int, like: Int)
     case commentDelete(index: Int)
     case commentReport(index: Int)
+    case allPoster(category: Int, sortType: Int)
     
     var getRequestURL: String {
         switch self {
@@ -62,7 +62,7 @@ enum RequestURL {
         case .allTodoList:
             return "/todo?year=0000&month=00&day=00"
         case .monthTodoList(year: let year, month: let month):
-            return "/todo?year=\(year)&month=\(month)&day=00"
+            return "/todo?year=\(year)&month=\(month)&day=00&categoryList=0,1,2,4,7,8"
         case .dayTodoList(year: let year, month: let month, day: let day):
             return "/todo?year=\(year)&month=\(month)&day=\(day)"
         case .posterDetail(posterIdx: let posterIdx):
@@ -73,8 +73,6 @@ enum RequestURL {
             return "/user/reInterest"
         case .careerActivity:
             return "/career"
-        case .registerInterestJobs:
-            return "/user/reInterestReq2"
         case .deleteAcitivity(careerIdx: let careerIdx):
             return "/career/\(careerIdx)"
         case .subscribeInterest:
@@ -105,6 +103,8 @@ enum RequestURL {
             return "/comment/\(index)"
         case .commentReport(let index):
             return "/comment/caution/\(index)"
+        case .allPoster(let category, let sortType):
+            return "/poster/all?category=\(category)&sortType=\(sortType)"
         }
     }
     

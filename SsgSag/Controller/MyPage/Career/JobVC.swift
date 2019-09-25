@@ -234,25 +234,6 @@ class JobVC: UIViewController {
             "userInterest" : sendJsonArray
         ]
         
-        myPageService.reqeuestStoreJobsState(json) { dataResponse in
-            guard let response = dataResponse.value else {return}
-            
-            guard let statusCode = response.status else {return}
-            
-            guard let status = HttpStatusCode(rawValue: statusCode) else {return}
-            
-            DispatchQueue.main.async { [weak self] in
-                switch status {
-                case .sucess:
-                    //저장된후 dismiss합시다.
-                    self?.successAlarm(title: "저장되었습니다")
-                case .dataBaseError, .serverError:
-                    self?.simplerAlert(title: "서버 에러가 발생하였습니다 \n 다시 시도해 주세요!")
-                default:
-                    break
-                }
-            }
-        }
     }
     
     private func chnageIsUserInteraction() {

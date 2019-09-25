@@ -38,7 +38,8 @@ class FeedServiceImp: FeedService {
             switch result {
             case .success(let data):
                 do {
-                    let decodedData = try JSONDecoder().decode(Feed.self, from: data)
+                    let decodedData = try JSONDecoder().decode(Feed.self,
+                                                               from: data)
                     
                     guard let feedDatas = decodedData.data else {
                         completionHandler(.failed(NSError(domain: "request error",

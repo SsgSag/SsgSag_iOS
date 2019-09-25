@@ -8,6 +8,7 @@
 
 import UIKit
 import Photos
+import AdBrixRM
 
 protocol UpdateDataDelegate: class {
     func reloadUserData()
@@ -176,32 +177,32 @@ class AccountSettingViewController: UIViewController {
                                       mimeType: "image/jpg",
                                       filename: "profileImage.jpg")
         
-        mypageService.requestUpdateProfile(boundary: boundary,
+        mypageService.requestUpdateProfileImage(boundary: boundary,
                                            bodyData: bodyData) { [weak self] result in
-                                            switch result {
-                                            case .success(let status):
-                                                DispatchQueue.main.async {
-                                                    switch status {
-                                                    case .processingSuccess:
-                                                        self?.delegate?.reloadUserData()
-                                                        self?.dismiss(animated: true)
-                                                    case .requestError:
-                                                        self?.simplerAlert(title: "사진 등록에 실패했습니다.")
-                                                        return
-                                                    case .dataBaseError:
-                                                        self?.simplerAlert(title: "database error")
-                                                        return
-                                                    case .serverError:
-                                                        self?.simplerAlert(title: "server error")
-                                                        return
-                                                    default:
-                                                        return
-                                                    }
-                                                }
-                                            case .failed(let error):
-                                                print(error)
-                                                return
-                                            }
+            switch result {
+            case .success(let status):
+                DispatchQueue.main.async {
+                    switch status {
+                    case .processingSuccess:
+                        self?.delegate?.reloadUserData()
+                        self?.dismiss(animated: true)
+                    case .requestError:
+                        self?.simplerAlert(title: "사진 등록에 실패했습니다.")
+                        return
+                    case .dataBaseError:
+                        self?.simplerAlert(title: "database error")
+                        return
+                    case .serverError:
+                        self?.simplerAlert(title: "server error")
+                        return
+                    default:
+                        return
+                    }
+                }
+            case .failed(let error):
+                print(error)
+                return
+            }
         }
         
     }
@@ -288,6 +289,14 @@ class AccountSettingViewController: UIViewController {
                 DispatchQueue.main.async {
                     switch status {
                     case .processingSuccess:
+                        let adBrix = AdBrixRM.getInstance
+                        
+                        var attrModel = Dictionary<String, Any>()
+
+                        attrModel["major"] = self?.major ?? (self?.userData?.userMajor ?? "")
+                        attrModel["univ"] = self?.univ ?? (self?.userData?.userUniv ?? "")
+                        adBrix.setUserProperties(dictionary: attrModel)
+                        
                         self?.uploadImage(self?.selectedImage)
                     case .requestError:
                         self?.simplerAlert(title: "학교와 학과의 형식이 일치하지 않습니다.")
