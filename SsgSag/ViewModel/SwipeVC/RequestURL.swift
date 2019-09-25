@@ -39,6 +39,7 @@ enum RequestURL {
     case commentLike(index: Int, like: Int)
     case commentDelete(index: Int)
     case commentReport(index: Int)
+    case allPoster(category: Int, sortType: Int)
     
     var getRequestURL: String {
         switch self {
@@ -102,6 +103,8 @@ enum RequestURL {
             return "/comment/\(index)"
         case .commentReport(let index):
             return "/comment/caution/\(index)"
+        case .allPoster(let category, let sortType):
+            return "/poster/all?category=\(category)&sortType=\(sortType)"
         }
     }
     

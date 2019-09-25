@@ -36,9 +36,11 @@ struct DataClass: Codable {
     let partnerEmail, chargerName: String?
     let favoriteNum, likeNum: Int?
     let dday: Int?
-    let analytics: Analytics?
+    let analytics: String?
     let commentList: [CommentList]?
     let isFavorite: Int?
+    let swipeNum: Int?
+    let isSave: Int?
 }
 
 // MARK: - Analytics

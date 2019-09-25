@@ -22,7 +22,10 @@ class DetailInfoButtonsView: UIView {
     private let posterService: PosterService
         = DependencyContainer.shared.getDependency(key: .posterService)
     
+    var isCalendar: Bool = true
     var callback: (() -> ())?
+    var saveAtCalendar: (() -> ())?
+    var removeAtCalendar: (() -> ())?
     weak var delegate: WebsiteDelegate?
     weak var commentDelegate: CommentWriteDelegate?
     var posterIndex: Int?
@@ -144,6 +147,24 @@ class DetailInfoButtonsView: UIView {
         return button
     }()
     
+    private let saveAndRemoveButton: UIButton = {
+        let button = UIButton()
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.setImage(UIImage(named: "ic_calendar"), for: .normal)
+        button.setTitle("캘린더에 저장",
+                        for: .normal)
+        button.imageEdgeInsets = UIEdgeInsets(top: 0,
+                                              left: -9,
+                                              bottom: 0,
+                                              right: 0)
+        button.titleLabel?.font = UIFont.systemFont(ofSize: 14)
+        button.addTarget(self,
+                         action: #selector(touchUpSaveAndRemoveButton(_:)),
+                         for: .touchUpInside)
+        button.setTitleColor(.white, for: .normal)
+        return button
+    }()
+    
     private let buttonView: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -166,6 +187,21 @@ class DetailInfoButtonsView: UIView {
         setupLayout()
     }
     
+    init(isCalendar: Bool, isSave: Int) {
+        super.init(frame: .zero)
+        
+        if isSave == 1 {
+            saveAndRemoveButton.setTitle("캘린더에서 삭제", for: .normal)
+            saveAndRemoveButton.setImage(UIImage(named: "ic_calendarDelete"), for: .normal)
+        } else {
+            saveAndRemoveButton.setTitle("캘린더에 저장", for: .normal)
+            saveAndRemoveButton.setImage(UIImage(named: "ic_calendar"), for: .normal)
+        }
+        
+        self.isCalendar = isCalendar
+        setupLayout()
+    }
+    
     private func setupLayout() {
         translatesAutoresizingMaskIntoConstraints = false
         
@@ -177,7 +213,11 @@ class DetailInfoButtonsView: UIView {
         
         buttonStackView.addArrangedSubview(likeButton)
         buttonStackView.addArrangedSubview(moveToWebSiteButton)
-        buttonStackView.addArrangedSubview(applyButton)
+        if isCalendar {
+            buttonStackView.addArrangedSubview(applyButton)
+        } else {
+            buttonStackView.addArrangedSubview(saveAndRemoveButton)
+        }
         
         bottomStackView.addArrangedSubview(lineView)
         bottomStackView.addArrangedSubview(commentWriteView)
@@ -192,30 +232,70 @@ class DetailInfoButtonsView: UIView {
 
         lineView.heightAnchor.constraint(equalToConstant: 1).isActive = true
         
-        likeButton.widthAnchor.constraint(
-            equalToConstant: 46).isActive = true
+        if isCalendar {
+            likeButton.widthAnchor.constraint(
+                equalToConstant: 46).isActive = true
+            
+            moveToWebSiteButton.widthAnchor.constraint(
+                equalToConstant: (frame.width - 46 - 40) / 2).isActive = true
+            
+            applyButton.widthAnchor.constraint(
+                equalTo: moveToWebSiteButton.widthAnchor).isActive = true
+            applyButton.heightAnchor.constraint(
+                equalToConstant: 46).isActive = true
+        } else {
+            likeButton.widthAnchor.constraint(
+                equalToConstant: 0).isActive = true
+            
+            moveToWebSiteButton.widthAnchor.constraint(
+                equalToConstant: (frame.width - 20) / 2).isActive = true
+            
+            saveAndRemoveButton.widthAnchor.constraint(
+                equalTo: moveToWebSiteButton.widthAnchor).isActive = true
+            saveAndRemoveButton.heightAnchor.constraint(
+                equalToConstant: 46).isActive = true
+        }
+        
         likeButton.heightAnchor.constraint(
             equalToConstant: 46).isActive = true
         
-        commentWriteView.heightAnchor.constraint(equalToConstant: 46).isActive = true
-        commentWriteView.leadingAnchor.constraint(equalTo: bottomStackView.leadingAnchor).isActive = true
-        commentWriteView.trailingAnchor.constraint(equalTo: bottomStackView.trailingAnchor).isActive = true
+        moveToWebSiteButton.heightAnchor.constraint(
+            equalToConstant: 46).isActive = true
         
-        commentWriteStackView.leadingAnchor.constraint(equalTo: commentWriteView.leadingAnchor, constant: 18).isActive = true
-        commentWriteStackView.trailingAnchor.constraint(equalTo: commentWriteView.trailingAnchor, constant: -18).isActive = true
-        commentWriteStackView.centerYAnchor.constraint(equalTo: commentWriteView.centerYAnchor).isActive = true
+        commentWriteView.heightAnchor.constraint(
+            equalToConstant: 46).isActive = true
+        commentWriteView.leadingAnchor.constraint(
+            equalTo: bottomStackView.leadingAnchor).isActive = true
+        commentWriteView.trailingAnchor.constraint(
+            equalTo: bottomStackView.trailingAnchor).isActive = true
         
-        registerButton.widthAnchor.constraint(equalToConstant: 60).isActive = true
-        registerButton.heightAnchor.constraint(equalToConstant: 30).isActive = true
+        commentWriteStackView.leadingAnchor.constraint(
+            equalTo: commentWriteView.leadingAnchor,
+            constant: 18).isActive = true
+        commentWriteStackView.trailingAnchor.constraint(
+            equalTo: commentWriteView.trailingAnchor,
+            constant: -18).isActive = true
+        commentWriteStackView.centerYAnchor.constraint(
+            equalTo: commentWriteView.centerYAnchor).isActive = true
         
-        buttonView.heightAnchor.constraint(equalToConstant: 46).isActive = true
-        buttonView.leadingAnchor.constraint(equalTo: bottomStackView.leadingAnchor).isActive = true
-        buttonView.trailingAnchor.constraint(equalTo: bottomStackView.trailingAnchor).isActive = true
+        registerButton.widthAnchor.constraint(
+            equalToConstant: 60).isActive = true
+        registerButton.heightAnchor.constraint(
+            equalToConstant: 30).isActive = true
+        
+        buttonView.heightAnchor.constraint(
+            equalToConstant: 46).isActive = true
+        buttonView.leadingAnchor.constraint(
+            equalTo: bottomStackView.leadingAnchor).isActive = true
+        buttonView.trailingAnchor.constraint(
+            equalTo: bottomStackView.trailingAnchor).isActive = true
         
         buttonStackView.leadingAnchor.constraint(
-            equalTo: buttonView.leadingAnchor, constant: 12).isActive = true
+            equalTo: buttonView.leadingAnchor,
+            constant: 12).isActive = true
         buttonStackView.trailingAnchor.constraint(
-            equalTo: buttonView.trailingAnchor, constant: -12).isActive = true
+            equalTo: buttonView.trailingAnchor,
+            constant: -12).isActive = true
     }
     
     @objc private func touchUpWebSiteButton() {
@@ -224,6 +304,18 @@ class DetailInfoButtonsView: UIView {
     
     @objc private func touchUpApplyButton() {
         delegate?.moveToWebsite(isApply: true)
+    }
+    
+    @objc private func touchUpSaveAndRemoveButton(_ sender: UIButton) {
+        if sender.titleLabel?.text == "캘린더에 저장" {
+            saveAtCalendar?()
+            sender.setTitle("캘린더에서 삭제", for: .normal)
+            sender.setImage(UIImage(named: "ic_calendarDelete"), for: .normal)
+        } else {
+            removeAtCalendar?()
+            sender.setTitle("캘린더에 저장", for: .normal)
+            sender.setImage(UIImage(named: "ic_calendar"), for: .normal)
+        }
     }
     
     @objc private func touchUpLikeButton(_ sender: UIButton) {

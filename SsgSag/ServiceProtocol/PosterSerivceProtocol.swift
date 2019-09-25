@@ -14,7 +14,7 @@ protocol PosterService: class {
     )
     
     func requestPosterStore(
-        of poster: Posters,
+        of posterIdx: Int,
         type likedCategory: likedOrDisLiked,
         completionHandler: @escaping (DataResponse<HttpStatusCode>) -> Void
     )
@@ -28,5 +28,11 @@ protocol PosterService: class {
         index: Int,
         method: HTTPMethod,
         completionHandler: @escaping (DataResponse<HttpStatusCode>) -> Void
+    )
+    
+    func requestAllPosterAfterSwipe(
+        category: Int,
+        sortType: Int,
+        completionHandler: @escaping (DataResponse<[PosterDataAfterSwpie]>) -> Void
     )
 }
