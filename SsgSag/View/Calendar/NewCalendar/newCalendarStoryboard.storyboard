@@ -105,7 +105,7 @@
                                 </constraints>
                             </view>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="9uD-hQ-tab">
-                                <rect key="frame" x="0.0" y="118" width="414" height="744"/>
+                                <rect key="frame" x="0.0" y="118" width="414" height="695"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="K09-EA-GOw">
                                     <size key="itemSize" width="50" height="50"/>
@@ -141,7 +141,37 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="RdR-rS-w49"/>
                     </view>
-                    <navigationItem key="navigationItem" id="ZHs-vD-Tbe"/>
+                    <toolbarItems/>
+                    <navigationItem key="navigationItem" id="ZHs-vD-Tbe">
+                        <barButtonItem key="leftBarButtonItem" image="ic_mypage" id="wWF-4d-XVd">
+                            <connections>
+                                <action selector="touchUpMypageButton:" destination="29K-Ao-k5E" id="Fob-Ys-rJ4"/>
+                            </connections>
+                        </barButtonItem>
+                        <rightBarButtonItems>
+                            <barButtonItem style="plain" id="Vin-20-YYa">
+                                <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="joh-VV-6IC">
+                                    <rect key="frame" x="356" y="0.0" width="38" height="44"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <state key="normal" image="ic_modify"/>
+                                </button>
+                                <connections>
+                                    <action selector="touchUpCalendarEtcButton:" destination="29K-Ao-k5E" id="xDl-SV-rD7"/>
+                                </connections>
+                            </barButtonItem>
+                            <barButtonItem style="plain" id="CJU-Ld-8mE">
+                                <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="9dj-UV-ohh">
+                                    <rect key="frame" x="310" y="0.0" width="38" height="44"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <state key="normal" image="ic_switchToCalendar"/>
+                                </button>
+                                <connections>
+                                    <action selector="touchUpCalendarTypeButton:" destination="29K-Ao-k5E" id="8lT-AW-b36"/>
+                                </connections>
+                            </barButtonItem>
+                        </rightBarButtonItems>
+                    </navigationItem>
+                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="calendarCollectionView" destination="9uD-hQ-tab" id="5u7-pP-U2j"/>
                         <outlet property="weekDaysView" destination="cVN-XG-svs" id="eTh-V8-otw"/>
@@ -205,6 +235,8 @@
         </scene>
     </scenes>
     <resources>
+        <image name="ic_modify" width="38" height="48"/>
         <image name="ic_mypage" width="48" height="48"/>
+        <image name="ic_switchToCalendar" width="38" height="48"/>
     </resources>
 </document>

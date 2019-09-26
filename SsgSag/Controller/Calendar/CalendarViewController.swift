@@ -7,16 +7,10 @@
 //
 
 import UIKit
+import SwiftKeychainWrapper
 
 class CalendarViewController: UIViewController {
 
-    private let defaultCalendar: Calendar = {
-        var calendar = Calendar.current
-        calendar.firstWeekday = 1
-        calendar.timeZone = TimeZone(secondsFromGMT: 0)!
-        return calendar
-    }()
-    
     @IBOutlet weak var weekDaysView: VAWeekDaysView! {
         didSet {
             let appereance = VAWeekDaysViewAppearance(symbolsType: .veryShort, calendar: defaultCalendar)
@@ -25,6 +19,13 @@ class CalendarViewController: UIViewController {
     }
     
     @IBOutlet weak var calendarCollectionView: UICollectionView!
+    
+    private let defaultCalendar: Calendar = {
+        var calendar = Calendar.current
+        calendar.firstWeekday = 1
+        calendar.timeZone = TimeZone(secondsFromGMT: 0)!
+        return calendar
+    }()
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -49,6 +50,49 @@ class CalendarViewController: UIViewController {
                                         forCellWithReuseIdentifier: "monthCell")
     }
 
+    @IBAction func touchUpMypageButton(_ sender: UIBarButtonItem) {
+        if let isTryWithoutLogin = UserDefaults.standard.object(forKey: "isTryWithoutLogin") as? Bool {
+            if isTryWithoutLogin {
+                simpleAlertwithHandler(title: "마이페이지", message: "로그인 후 이용해주세요") { _ in
+                    
+                    KeychainWrapper.standard.removeObject(forKey: TokenName.token)
+                    
+                    guard let window = UIApplication.shared.keyWindow else {
+                        return
+                    }
+                    
+                    let mainStoryboard: UIStoryboard = UIStoryboard(name: "LoginStoryBoard", bundle: nil)
+                    let viewController = mainStoryboard.instantiateViewController(withIdentifier: "splashVC") as! SplashViewController
+                    
+                    let rootNavigationController = UINavigationController(rootViewController: viewController)
+                    
+                    let appDelegate = UIApplication.shared.delegate as! AppDelegate
+                    appDelegate.window?.rootViewController = rootNavigationController
+                    
+                    rootNavigationController.view.layoutIfNeeded()
+                    
+                    UIView.transition(with: window, duration: 0.5, options: .transitionFlipFromLeft, animations: {
+                        window.rootViewController = rootNavigationController
+                    }, completion: nil)
+                }
+                return
+            }
+        }
+        
+        let myPageStoryboard = UIStoryboard(name: StoryBoardName.mypage, bundle: nil)
+        
+        let myPageViewController
+            = myPageStoryboard.instantiateViewController(withIdentifier: ViewControllerIdentifier.mypageViewController)
+        
+        present(UINavigationController(rootViewController: myPageViewController),
+                animated: true)
+    }
+    
+    @IBAction func touchUpCalendarTypeButton(_ sender: Any) {
+    }
+    
+    @IBAction func touchUpCalendarEtcButton(_ sender: Any) {
+    }
 }
 
 extension CalendarViewController: UICollectionViewDelegate {
