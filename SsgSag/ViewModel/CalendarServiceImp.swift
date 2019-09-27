@@ -112,7 +112,7 @@ class CalendarServiceImp: CalendarService {
     
     // 일정 지원 완료
     func reqeustApplyComplete(_ posterIdx: Int,
-                         completionHandler: @escaping (DataResponse<PosterFavorite>) -> Void) {
+                              completionHandler: @escaping (DataResponse<PosterFavorite>) -> Void) {
         
         guard let token
             = KeychainWrapper.standard.string(forKey: TokenName.token),
@@ -145,18 +145,22 @@ class CalendarServiceImp: CalendarService {
         }
     }
     
-    func requestTodoDelete(_ posterIdx: Int,
-                       completionHandler: @escaping (DataResponse<HttpStatusCode>) -> Void) {
+    func requestTodoDelete(_ posterIdxs: [Int],
+                           completionHandler: @escaping (DataResponse<HttpStatusCode>) -> Void) {
+        let bodyData = ["posterIdxList": posterIdxs]
+        
+        let jsonData = try? JSONSerialization.data(withJSONObject: bodyData)
         
         guard let token
             = KeychainWrapper.standard.string(forKey: TokenName.token),
             let url
-            = UserAPI.sharedInstance.getURL(RequestURL.deletePoster(posterIdx: posterIdx).getRequestURL),
+            = UserAPI.sharedInstance.getURL(RequestURL.deletePoster.getRequestURL),
             let request
             = requestMaker.makeRequest(url: url,
                                        method: .delete,
-                                       header: ["Authorization": token],
-                                       body: nil) else {
+                                       header: ["Authorization": token,
+                                                "Content-Type": "application/json"],
+                                       body: jsonData) else {
             return
         }
         

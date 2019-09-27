@@ -329,7 +329,7 @@ class DetailInfoViewController: UIViewController {
             return
         }
         
-        calendarService.requestTodoDelete(posterIdx) { [weak self] result in
+        calendarService.requestTodoDelete([posterIdx]) { [weak self] result in
             switch result {
             case .success(let status):
                 DispatchQueue.main.async {

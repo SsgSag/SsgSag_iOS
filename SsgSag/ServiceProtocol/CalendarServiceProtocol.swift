@@ -29,7 +29,7 @@ protocol CalendarService: class {
     )
     
     func requestTodoDelete(
-        _ posterIdx: Int,
+        _ posterIdxs: [Int],
         completionHandler: @escaping (DataResponse<HttpStatusCode>) -> Void
     )
     
