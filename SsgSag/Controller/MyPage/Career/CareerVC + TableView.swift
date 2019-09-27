@@ -111,7 +111,7 @@ extension CareerVC: UITableViewDelegate, UITableViewDataSource {
             activityVC.activityData = activity
             activityVC.isNewActivity = false
             activityVC.delegate = self
-                    
+            activityVC.modalPresentationStyle = .fullScreen
             present(activityVC, animated: true)
             
         case prizeTableView:
@@ -129,6 +129,7 @@ extension CareerVC: UITableViewDelegate, UITableViewDataSource {
             prizeVC.index = prize.careerIdx
             prizeVC.delegate = self
             
+            prizeVC.modalPresentationStyle = .fullScreen
             present(prizeVC, animated: true)
         case certificationTableView:
             
@@ -146,6 +147,7 @@ extension CareerVC: UITableViewDelegate, UITableViewDataSource {
             certiVC.index = certification.careerIdx
             certiVC.delegate = self
             
+            certiVC.modalPresentationStyle = .fullScreen
             present(certiVC, animated: true)
         default:
             print("tableview가 없습니다.")
@@ -172,6 +174,7 @@ extension CareerVC: activityDelegate {
         }
         
         alert.addAction(okAction)
+        alert.modalPresentationStyle = .fullScreen
         present(alert, animated: true)
     }
 }

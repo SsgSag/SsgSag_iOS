@@ -10,8 +10,8 @@ import Foundation
 
 // MARK: - Feed
 struct Feed: Codable {
-    let status: Int
-    let message: String
+    let status: Int?
+    let message: String?
     let data: [FeedData]?
 }
 
@@ -22,4 +22,5 @@ struct FeedData: Codable {
     let feedUrl: String?
     let feedRegDate: String?
     let feedPreviewImgUrl: String?
+    let showNum, isSave: Int?
 }

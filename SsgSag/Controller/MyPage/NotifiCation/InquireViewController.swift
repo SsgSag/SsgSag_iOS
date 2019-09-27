@@ -126,7 +126,8 @@ class InquireViewController: UIViewController {
             case .etc:
                 mail.setSubject("문의: 기타")
             }
-            
+
+            mail.modalPresentationStyle = .fullScreen
             present(mail, animated: true)
         } else {
             simpleAlert(title: "메일 전송 실패",

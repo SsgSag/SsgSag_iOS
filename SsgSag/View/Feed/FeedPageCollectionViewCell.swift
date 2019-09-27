@@ -9,7 +9,7 @@
 import UIKit
 
 protocol FeedTouchDelegate: class {
-    func touchUpFeedCell(title: String, urlString: String)
+    func touchUpFeedCell(title: String, feedIdx: Int, urlString: String, isSave: Int)
 }
 
 class FeedPageCollectionViewCell: UICollectionViewCell {
@@ -184,12 +184,16 @@ extension FeedPageCollectionViewCell: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView,
                         didSelectItemAt indexPath: IndexPath) {
         guard let title = feedDatas[indexPath.item].feedName,
-            let urlString = feedDatas[indexPath.item].feedUrl else {
+            let urlString = feedDatas[indexPath.item].feedUrl,
+            let feedIdx = feedDatas[indexPath.item].feedIdx,
+            let isSave = feedDatas[indexPath.item].isSave else {
             return
         }
         
         delegate?.touchUpFeedCell(title: title,
-                                  urlString: urlString)
+                                  feedIdx: feedIdx,
+                                  urlString: urlString,
+                                  isSave: isSave)
     }
 }
 

@@ -11,10 +11,26 @@ import WebKit
 
 class ArticleViewController: UIViewController {
 
+    var feedIdx: Int?
     var articleTitle: String?
     var articleUrlString: String?
+    var isSave: Int? {
+        didSet {
+            guard let isSave = isSave else {
+                return
+            }
+            
+            if isSave == 1 {
+                scrapButton.setImage(UIImage(named: "ic_bookmark"), for: .normal)
+            } else {
+                scrapButton.setImage(UIImage(named: "ic_bookmarkPassive"), for: .normal)
+            }
+        }
+    }
     
     private var indicator = UIActivityIndicatorView()
+    private var feedService: FeedService
+        = DependencyContainer.shared.getDependency(key: .feedService)
     
     private lazy var articleWebView: WKWebView = {
         let webView = WKWebView()
@@ -29,17 +45,22 @@ class ArticleViewController: UIViewController {
                                                   target: self,
                                                   action: #selector(touchUpBackButton))
     
-    private lazy var scrapButton = UIBarButtonItem(image: UIImage(named: "ic_bookmarkPassive"),
-                                                   style: .plain,
-                                                   target: self,
-                                                   action: #selector(touchUpScrapButton))
+    private lazy var scrapButton: UIButton = {
+        let button = UIButton()
+        button.addTarget(self,
+                         action: #selector(touchUpScrapButton),
+                         for: .touchUpInside)
+        return button
+    }()
+    
+    private lazy var rightBarButton = UIBarButtonItem(customView: self.scrapButton)
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
         setNavigationBar(color: .white)
         
-        navigationItem.rightBarButtonItem = scrapButton
+        navigationItem.rightBarButtonItem = rightBarButton
         
         navigationController?.navigationBar.titleTextAttributes
             = [NSAttributedString.Key.foregroundColor : #colorLiteral(red: 0.3098039216, green: 0.3098039216, blue: 0.3098039216, alpha: 1)]
@@ -80,15 +101,81 @@ class ArticleViewController: UIViewController {
         view = articleWebView
     }
     
+    private func requestScrap() {
+        guard let feedIdx = feedIdx else {
+            return
+        }
+        
+        feedService.requestScrapStore(feedIndex: feedIdx) { [weak self] result in
+            switch result {
+            case .success(let status):
+                switch status {
+                case .sucess:
+                    DispatchQueue.main.async {
+                        self?.scrapButton.setImage(UIImage(named: "ic_bookmark"),
+                                                   for: .normal)
+                    }
+                    print("스크랩 완료")
+                    return
+                case .dataBaseError:
+                    print("DB 에러")
+                    return
+                case .serverError:
+                    print("서버 에러")
+                    return
+                default:
+                    print("저장 실패")
+                    return
+                }
+            case .failed:
+                assertionFailure()
+                return
+            }
+        }
+    }
+    
+    private func requestScrapDelete() {
+        guard let feedIdx = feedIdx else {
+            return
+        }
+        
+        feedService.requestScrapDelete(feedIndex: feedIdx) { [weak self] result in
+            switch result {
+            case .success(let status):
+                switch status {
+                case .sucess:
+                    DispatchQueue.main.async {
+                        self?.scrapButton.setImage(UIImage(named: "ic_bookmarkPassive"),
+                                                   for: .normal)
+                    }
+                    print("스크랩 취소 완료")
+                    return
+                case .dataBaseError:
+                    print("DB 에러")
+                    return
+                case .serverError:
+                    print("서버 에러")
+                    return
+                default:
+                    print("저장 실패")
+                    return
+                }
+            case .failed:
+                assertionFailure()
+                return
+            }
+        }
+    }
+    
     @objc private func touchUpBackButton() {
         navigationController?.popViewController(animated: true)
     }
     
     @objc private func touchUpScrapButton() {
-        if scrapButton.image == UIImage(named: "ic_bookmarkPassive") {
-            scrapButton.image = UIImage(named: "ic_bookmark")
+        if scrapButton.imageView?.image == UIImage(named: "ic_bookmarkPassive") {
+            requestScrap()
         } else {
-            scrapButton.image = UIImage(named: "ic_bookmarkPassive")
+            requestScrapDelete()
         }
     }
     

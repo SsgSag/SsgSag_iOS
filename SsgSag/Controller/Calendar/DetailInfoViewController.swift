@@ -402,6 +402,7 @@ class DetailInfoViewController: UIViewController {
         let activityVC = UIActivityViewController(activityItems: objectsToshare, applicationActivities: nil)
         activityVC.excludedActivityTypes = [UIActivity.ActivityType.airDrop, UIActivity.ActivityType.addToReadingList]
         activityVC.popoverPresentationController?.sourceView = view
+        activityVC.modalPresentationStyle = .fullScreen
         self.present(activityVC, animated: true, completion: nil)
     }
     
@@ -674,6 +675,7 @@ extension DetailInfoViewController: UICollectionViewDataSource {
                     let detailImageView = DetailImageViewController()
                     detailImageView.titleText = posterDetailData?.posterName
                     detailImageView.urlString = posterDetailData?.photoUrl2
+                    detailImageView.modalPresentationStyle = .fullScreen
                     present(detailImageView, animated: true)
                 }
             case 5:
@@ -930,7 +932,8 @@ extension DetailInfoViewController: CommentDelegate {
             //            alertController.addAction(editAction)
             alertController.addAction(deleteAction)
             alertController.addAction(cancelAction)
-            
+
+            alertController.modalPresentationStyle = .fullScreen
             present(alertController, animated: true)
         } else {
             
@@ -965,6 +968,7 @@ extension DetailInfoViewController: CommentDelegate {
             
             alertController.addAction(reportAction)
             alertController.addAction(cancelAction)
+            alertController.modalPresentationStyle = .fullScreen
             
             present(alertController, animated: true)
         }
@@ -978,7 +982,7 @@ extension DetailInfoViewController: LargeImageDelegate {
         guard let zoomPosterVC = swipeStoryboard.instantiateViewController(withIdentifier: ViewControllerIdentifier.zoomPosterViewController) as? ZoomPosterVC else {return}
         
         zoomPosterVC.urlString = posterDetailData?.photoUrl
-        
+        zoomPosterVC.modalPresentationStyle = .fullScreen
         self.present(zoomPosterVC, animated: true)
     }
 }

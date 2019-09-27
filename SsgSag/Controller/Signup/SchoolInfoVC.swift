@@ -326,7 +326,9 @@ class SchoolInfoVC: UIViewController {
                 }
                 
                 DispatchQueue.main.async {
-                    self?.present(TapbarVC(),
+                    let tapBarVC = TapbarVC()
+                    tapBarVC.modalPresentationStyle = .fullScreen
+                    self?.present(tapBarVC,
                                   animated: true)
                 }
             case .failure:

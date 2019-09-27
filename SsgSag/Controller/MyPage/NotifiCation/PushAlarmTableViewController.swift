@@ -103,7 +103,8 @@ class PushAlarmTableViewController: UITableViewController, MessagingDelegate, UN
                     
                     alertController.addAction(settingsAction)
                     alertController.addAction(cancelAction)
-                    
+
+                    alertController.modalPresentationStyle = .fullScreen
                     self?.present(alertController, animated: true, completion: nil)
                 } else if settings.authorizationStatus == .authorized {
                     // API를 통해서 알림 종류 확인

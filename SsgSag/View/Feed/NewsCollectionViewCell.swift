@@ -20,6 +20,9 @@ class NewsCollectionViewCell: UICollectionViewCell {
     var feedData: FeedData? {
         didSet {
             guard let feedData = feedData,
+                let name = feedData.feedName,
+                let host = feedData.feedHost,
+                let viewNum = feedData.showNum,
                 let date = feedData.feedRegDate else {
                 return
             }
@@ -28,10 +31,16 @@ class NewsCollectionViewCell: UICollectionViewCell {
             let dateFormatter = DateFormatter.feedDateFormatter
             let dateString = dateFormatter.string(from: endDate)
             
-            newsTitleLabel.text = feedData.feedName
-            fromLabel.text = feedData.feedHost
-            dateLabel.text = dateString
-            viewCountLabel.text = "조회수 "
+            newsTitleLabel?.text = name
+            fromLabel?.text = host
+            dateLabel?.text = dateString
+            viewCountLabel?.text = "조회수 \(viewNum)"
+            
+            if feedData.isSave == 1 {
+                bookmarkImageView.image = UIImage(named: "ic_bookmarkArticle")
+            } else {
+                bookmarkImageView.image = UIImage(named: "ic_bookmarkArticlePassive")
+            }
         }
     }
     
@@ -40,8 +49,11 @@ class NewsCollectionViewCell: UICollectionViewCell {
     }
     
     override func prepareForReuse() {
-        newsImageView.image = nil
-        newsTitleLabel.text = ""
-        fromLabel.text = ""
+        bookmarkImageView?.image = nil
+        newsImageView?.image = nil
+        newsTitleLabel?.text = ""
+        fromLabel?.text = ""
+        dateLabel?.text = ""
+        viewCountLabel?.text = ""
     }
 }

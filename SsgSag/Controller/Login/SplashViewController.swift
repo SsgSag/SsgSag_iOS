@@ -60,7 +60,9 @@ class SplashViewController: UIViewController {
                     UserDefaults.standard.setValue(false, forKey: UserDefaultsName.isAutoLogin)
                     
                     DispatchQueue.main.async {
-                        self?.present(TapbarVC(), animated: true, completion: nil)
+                        let tapBarVC = TapbarVC()
+                        tapBarVC.modalPresentationStyle = .fullScreen
+                        self?.present(tapBarVC, animated: true, completion: nil)
                     }
                 case .secondSucess:
                     // 화원가입 성공
@@ -71,7 +73,9 @@ class SplashViewController: UIViewController {
                     UserDefaults.standard.set(true, forKey: "isTryWithoutLogin")
                     
                     DispatchQueue.main.async {
-                        self?.present(TapbarVC(), animated: true, completion: nil)
+                        let tapBarVC = TapbarVC()
+                        tapBarVC.modalPresentationStyle = .fullScreen
+                        self?.present(tapBarVC, animated: true, completion: nil)
                         return
                     }
                 case .requestError:
@@ -158,7 +162,9 @@ class SplashViewController: UIViewController {
                                 // 로그인이 성공했을 때, 토큰 전달
                                 adBrix.login(userId: token)
                                 
-                                self?.present(TapbarVC(), animated: true, completion: nil)
+                                let tapBarVC = TapbarVC()
+                                tapBarVC.modalPresentationStyle = .fullScreen
+                                self?.present(tapBarVC, animated: true, completion: nil)
                             case 404:
                                 let storyboard = UIStoryboard(name: StoryBoardName.signup, bundle: nil)
                                 
@@ -166,6 +172,7 @@ class SplashViewController: UIViewController {
                                 
                                 let signupNavigator = UINavigationController(rootViewController: signupVC)
                                 
+                                signupNavigator.modalPresentationStyle = .fullScreen
                                 self?.present(signupNavigator, animated: true, completion: nil)
                             default:
                                 break

@@ -212,6 +212,7 @@
 		D1F0DA22230D062F00C6FF19 /* Column.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1F0DA21230D062F00C6FF19 /* Column.swift */; };
 		D1F3A283230593CD007B72E1 /* OSLTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1F3A281230593CD007B72E1 /* OSLTableViewCell.swift */; };
 		D1F3A284230593CD007B72E1 /* OSLTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D1F3A282230593CD007B72E1 /* OSLTableViewCell.xib */; };
+		D1F9A1E1233DD4A100C67E1D /* EmptyScrapCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1F9A1E0233DD4A100C67E1D /* EmptyScrapCollectionViewCell.swift */; };
 		D1FB05A722E6C917001425CF /* SettingTextFieldCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1FB05A522E6C917001425CF /* SettingTextFieldCollectionViewCell.swift */; };
 		D1FB05A822E6C917001425CF /* SettingTextFieldCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D1FB05A622E6C917001425CF /* SettingTextFieldCollectionViewCell.xib */; };
 		D1FB05AB22E6D68D001425CF /* SettingProfileImageCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1FB05A922E6D68D001425CF /* SettingProfileImageCollectionReusableView.swift */; };
@@ -497,6 +498,7 @@
 		D1F0DA21230D062F00C6FF19 /* Column.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Column.swift; sourceTree = "<group>"; };
 		D1F3A281230593CD007B72E1 /* OSLTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OSLTableViewCell.swift; sourceTree = "<group>"; };
 		D1F3A282230593CD007B72E1 /* OSLTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = OSLTableViewCell.xib; sourceTree = "<group>"; };
+		D1F9A1E0233DD4A100C67E1D /* EmptyScrapCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyScrapCollectionViewCell.swift; sourceTree = "<group>"; };
 		D1FB05A522E6C917001425CF /* SettingTextFieldCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingTextFieldCollectionViewCell.swift; sourceTree = "<group>"; };
 		D1FB05A622E6C917001425CF /* SettingTextFieldCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SettingTextFieldCollectionViewCell.xib; sourceTree = "<group>"; };
 		D1FB05A922E6D68D001425CF /* SettingProfileImageCollectionReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingProfileImageCollectionReusableView.swift; sourceTree = "<group>"; };
@@ -1162,6 +1164,7 @@
 				D10B6E2122F42600007B9BEA /* BoardCollectionViewCell.swift */,
 				D10B6E2322F4268E007B9BEA /* BoardPostCollectionViewCell.swift */,
 				D10B6E2422F4268E007B9BEA /* BoardPostCollectionViewCell.xib */,
+				D1F9A1E0233DD4A100C67E1D /* EmptyScrapCollectionViewCell.swift */,
 			);
 			path = Feed;
 			sourceTree = "<group>";
@@ -1551,6 +1554,7 @@
 				84C77E4F22759AAF00DEE2D8 /* ZoomPosterVC.swift in Sources */,
 				D1FB05AB22E6D68D001425CF /* SettingProfileImageCollectionReusableView.swift in Sources */,
 				D1226C8622EC838B007F59BE /* PosterSerivceProtocol.swift in Sources */,
+				D1F9A1E1233DD4A100C67E1D /* EmptyScrapCollectionViewCell.swift in Sources */,
 				84D09D0822883421008EEA7C /* ActivityServiceImp.swift in Sources */,
 				8496818822AFD3FE004A4A63 /* VAWeekDaysView.swift in Sources */,
 				D1E81E6D22DB181E004DAA00 /* FeedPageCollectionViewCell.swift in Sources */,

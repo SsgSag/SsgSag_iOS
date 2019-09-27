@@ -228,8 +228,10 @@ class SignUpCompleteVC: UIViewController {
                             KeychainWrapper.standard.set(storeToken,
                                                          forKey: TokenName.token)
                         }
-                        
-                        self.present(TapbarVC(), animated: true, completion: nil)
+
+                        let tapBarVC = TapbarVC()
+                        tapBarVC.modalPresentationStyle = .fullScreen
+                        self.present(tapBarVC, animated: true, completion: nil)
                     case .failure:
                         self.simpleAlert(title: "로그인 실패", message: "")
                     default:
