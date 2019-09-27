@@ -28,14 +28,18 @@
                                 <color key="textColor" red="0.30980392156862746" green="0.30980392156862746" blue="0.30980392156862746" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HGk-fk-8pe">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HGk-fk-8pe">
                                 <rect key="frame" x="275" y="13.5" width="48" height="48"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="48" id="isw-Y8-3hP"/>
                                     <constraint firstAttribute="height" constant="48" id="rA5-aP-Mqz"/>
                                 </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                <state key="normal" image="ic_editList-1">
+                                    <color key="titleColor" red="0.38431372549019605" green="0.41568627450980389" blue="0.99999129772186279" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
                                 <connections>
-                                    <action selector="touchUpCancelButton:" destination="gTV-IL-0wX" eventType="touchUpInside" id="Fr5-UR-aZi"/>
+                                    <action selector="touchUpEditButton:" destination="gTV-IL-0wX" eventType="touchUpInside" id="qxF-Nn-LdK"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -68,9 +72,13 @@
             <size key="customSize" width="337" height="386"/>
             <connections>
                 <outlet property="dateLabel" destination="2h6-De-p1R" id="dWs-h6-RcD"/>
+                <outlet property="edtingButton" destination="HGk-fk-8pe" id="eFs-U5-WFu"/>
                 <outlet property="todoListTableView" destination="3Kh-Fz-99d" id="bUM-n4-550"/>
             </connections>
             <point key="canvasLocation" x="41.304347826086961" y="117.85714285714285"/>
         </collectionViewCell>
     </objects>
+    <resources>
+        <image name="ic_editList-1" width="20" height="20"/>
+    </resources>
 </document>

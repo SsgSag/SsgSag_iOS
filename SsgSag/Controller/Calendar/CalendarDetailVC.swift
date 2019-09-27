@@ -212,6 +212,7 @@ class CalendarDetailVC: UIViewController {
         let activityVC = UIActivityViewController(activityItems: objectsToshare, applicationActivities: nil)
         activityVC.excludedActivityTypes = [UIActivity.ActivityType.airDrop, UIActivity.ActivityType.addToReadingList]
         activityVC.popoverPresentationController?.sourceView = sender
+        activityVC.modalPresentationStyle = .fullScreen
         self.present(activityVC, animated: true, completion: nil)
     }
     

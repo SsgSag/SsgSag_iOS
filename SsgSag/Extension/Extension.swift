@@ -71,6 +71,7 @@ extension UIViewController {
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
         let okAction = UIAlertAction(title: "확인",style: .default)
         alert.addAction(okAction)
+        alert.modalPresentationStyle = .fullScreen
         present(alert, animated: true)
     }
     
@@ -78,6 +79,7 @@ extension UIViewController {
         let alert = UIAlertController(title: title, message: nil, preferredStyle: .alert)
         let action = UIAlertAction(title: "확인", style: .default, handler: nil)
         alert.addAction(action)
+        alert.modalPresentationStyle = .fullScreen
         present(alert, animated: true, completion: nil)
     }
     
@@ -88,6 +90,7 @@ extension UIViewController {
         let cancelAction = UIAlertAction(title: "취소",style: .cancel, handler: nil)
         alert.addAction(okAction)
         alert.addAction(cancelAction)
+        alert.modalPresentationStyle = .fullScreen
         present(alert, animated: true, completion: nil)
     }
     
@@ -95,6 +98,7 @@ extension UIViewController {
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
         let okAction = UIAlertAction(title: "확인",style: .default, handler: okHandler)
         alert.addAction(okAction)
+        alert.modalPresentationStyle = .fullScreen
         present(alert, animated: true, completion: nil)
     }
     
@@ -102,6 +106,7 @@ extension UIViewController {
         let alert = UIAlertController(title: title, message: nil, preferredStyle: .alert)
         let action = UIAlertAction(title: "확인", style: .default, handler: dismissView)
         alert.addAction(action)
+        alert.modalPresentationStyle = .fullScreen
         present(alert, animated: true, completion: nil)
     }
     

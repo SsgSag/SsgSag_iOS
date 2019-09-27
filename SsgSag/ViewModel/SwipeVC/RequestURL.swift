@@ -15,7 +15,7 @@ enum RequestURL {
     case snsLogin
     case autoLogin
     case favorite(posterIdx: Int)
-    case deletePoster(posterIdx: Int)
+    case deletePoster
     case completeApply(posterIdx: Int)
     case allTodoList
     case monthTodoList(year: String, month: String)
@@ -35,11 +35,13 @@ enum RequestURL {
     case changePassword
     case updatePhoto
     case feed
+    case scrap(index: Int)
     case comment
     case commentLike(index: Int, like: Int)
     case commentDelete(index: Int)
     case commentReport(index: Int)
     case allPoster(category: Int, sortType: Int)
+    case clickRecord(posterIdx: Int, type: Int)
     
     var getRequestURL: String {
         switch self {
@@ -55,8 +57,8 @@ enum RequestURL {
             return "/autoLogin"
         case .favorite(posterIdx: let posterIdx):
             return "/todo/favorite/\(posterIdx)"
-        case .deletePoster(posterIdx: let posterIdx):
-            return "/todo/\(posterIdx)"
+        case .deletePoster:
+            return "/todo"
         case .completeApply(posterIdx: let posterIdx):
             return "/todo/complete/\(posterIdx)"
         case .allTodoList:
@@ -95,6 +97,8 @@ enum RequestURL {
             return "/notice"
         case .feed:
             return "/feed"
+        case .scrap(let index):
+            return "/feed/\(index)"
         case .comment:
             return "/comment"
         case .commentLike(let index, let like):
@@ -105,6 +109,8 @@ enum RequestURL {
             return "/comment/caution/\(index)"
         case .allPoster(let category, let sortType):
             return "/poster/all?category=\(category)&sortType=\(sortType)"
+        case .clickRecord(let posterIdx, let type):
+            return "/todo/click/\(posterIdx)/\(type)"
         }
     }
     

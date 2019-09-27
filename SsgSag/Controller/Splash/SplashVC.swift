@@ -11,7 +11,7 @@ import SwiftKeychainWrapper
 
 class SplashVC: UIViewController {
     
-    private let animation = LOTAnimationView(name: "splash")
+    private let animation = AnimationView(name: "splash")
     private var nextViewController = UIViewController()
     
     private let loginServiceImp: LoginService
@@ -50,14 +50,15 @@ class SplashVC: UIViewController {
                 case .success(let status):
                     switch status {
                     case .sucess:
-                        self?.nextViewController = TapbarVC()
-                        
                         DispatchQueue.main.async {
+                            self?.nextViewController = TapbarVC()
+                            
                             self?.animation.play { [weak self] _ in
                                 guard let self = self else {
                                     return
                                 }
-                                
+
+                                self.nextViewController.modalPresentationStyle = .fullScreen
                                 self.present(self.nextViewController,
                                              animated: true)
                             }
@@ -75,6 +76,7 @@ class SplashVC: UIViewController {
                                     return
                                 }
                                 
+                                self.nextViewController.modalPresentationStyle = .fullScreen
                                 self.present(self.nextViewController,
                                              animated: true)
                             }

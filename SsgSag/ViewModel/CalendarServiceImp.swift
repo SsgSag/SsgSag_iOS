@@ -112,7 +112,7 @@ class CalendarServiceImp: CalendarService {
     
     // 일정 지원 완료
     func reqeustApplyComplete(_ posterIdx: Int,
-                         completionHandler: @escaping (DataResponse<PosterFavorite>) -> Void) {
+                              completionHandler: @escaping (DataResponse<PosterFavorite>) -> Void) {
         
         guard let token
             = KeychainWrapper.standard.string(forKey: TokenName.token),
@@ -145,18 +145,22 @@ class CalendarServiceImp: CalendarService {
         }
     }
     
-    func requestTodoDelete(_ posterIdx: Int,
-                       completionHandler: @escaping (DataResponse<HttpStatusCode>) -> Void) {
+    func requestTodoDelete(_ posterIdxs: [Int],
+                           completionHandler: @escaping (DataResponse<HttpStatusCode>) -> Void) {
+        let bodyData = ["posterIdxList": posterIdxs]
+        
+        let jsonData = try? JSONSerialization.data(withJSONObject: bodyData)
         
         guard let token
             = KeychainWrapper.standard.string(forKey: TokenName.token),
             let url
-            = UserAPI.sharedInstance.getURL(RequestURL.deletePoster(posterIdx: posterIdx).getRequestURL),
+            = UserAPI.sharedInstance.getURL(RequestURL.deletePoster.getRequestURL),
             let request
             = requestMaker.makeRequest(url: url,
                                        method: .delete,
-                                       header: ["Authorization": token],
-                                       body: nil) else {
+                                       header: ["Authorization": token,
+                                                "Content-Type": "application/json"],
+                                       body: jsonData) else {
             return
         }
         
@@ -211,6 +215,46 @@ class CalendarServiceImp: CalendarService {
                     
                     completionHandler(DataResponse.success(response))
                 } catch {
+                    completionHandler(.failed(error))
+                    return
+                }
+            case .failure(let error):
+                completionHandler(.failed(error))
+                return
+            }
+        }
+    }
+    
+    func requestTodoListClickRecord(_ posterIdx: Int,
+                                    type: Int,
+                                    completionHandler: @escaping (DataResponse<HttpStatusCode>) -> Void) {
+        guard let token
+            = KeychainWrapper.standard.string(forKey: TokenName.token),
+            let url
+            = UserAPI.sharedInstance.getURL(RequestURL.clickRecord(posterIdx: posterIdx,
+                                                                   type: type).getRequestURL),
+            let request
+            = requestMaker.makeRequest(url: url,
+                                       method: .post,
+                                       header: ["Authorization": token],
+                                       body: nil) else {
+                                        return
+        }
+        
+        network.dispatch(request: request) { result in
+            switch result {
+            case .success(let data):
+                do {
+                    let decodedData = try JSONDecoder().decode(PosterFavorite.self,
+                                                               from: data)
+                    
+                    guard let status = decodedData.status,
+                        let httpStatusCode = HttpStatusCode(rawValue: status) else {
+                            return
+                    }
+                    
+                    completionHandler(DataResponse.success(httpStatusCode))
+                } catch let error {
                     completionHandler(.failed(error))
                     return
                 }

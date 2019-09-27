@@ -276,6 +276,7 @@ class JobVC: UIViewController {
         }
         
         alert.addAction(action)
+        alert.modalPresentationStyle = .fullScreen
         present(alert, animated: true, completion: nil)
     }
     

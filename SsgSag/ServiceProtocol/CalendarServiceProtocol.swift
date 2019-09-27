@@ -29,12 +29,18 @@ protocol CalendarService: class {
     )
     
     func requestTodoDelete(
-        _ posterIdx: Int,
+        _ posterIdxs: [Int],
         completionHandler: @escaping (DataResponse<HttpStatusCode>) -> Void
     )
     
     func reqeustApplyComplete(
         _ posterIdx: Int,
         completionHandler: @escaping (DataResponse<PosterFavorite>) -> Void
+    )
+    
+    func requestTodoListClickRecord(
+        _ posterIdx: Int,
+        type: Int,
+        completionHandler: @escaping (DataResponse<HttpStatusCode>) -> Void
     )
 }

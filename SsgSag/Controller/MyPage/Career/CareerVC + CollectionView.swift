@@ -74,6 +74,7 @@ extension CareerVC : UICollectionViewDelegate, UICollectionViewDataSource, UICol
             return
         }
         activityVC.delegate = self
+        activityVC.modalPresentationStyle = .fullScreen
         present(activityVC, animated: true)
     }
     
@@ -82,6 +83,7 @@ extension CareerVC : UICollectionViewDelegate, UICollectionViewDataSource, UICol
             return
         }
         addVC.delegate = self
+        addVC.modalPresentationStyle = .fullScreen
         present(addVC, animated: true)
     }
     
@@ -91,6 +93,7 @@ extension CareerVC : UICollectionViewDelegate, UICollectionViewDataSource, UICol
         }
         
         certifiVC.delegate = self
+        certifiVC.modalPresentationStyle = .fullScreen
         present(certifiVC, animated: true)
     }
     

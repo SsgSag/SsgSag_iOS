@@ -22,13 +22,15 @@ class FeedVC: UIViewController {
         
         tabBarController?.tabBar.isHidden = false
         navigationController?.navigationBar.isHidden = true
+        setNavigationBar(color: .white)
         
         guard let isTryWithoutLogin = UserDefaults.standard.object(forKey: "isTryWithoutLogin") as? Bool else {
             return
         }
         
         if !isTryWithoutLogin {
-            exitButton.isHidden = true
+            exitButton.setImage(#imageLiteral(resourceName: "ic_bookmarkMenu"), for: .normal)
+            exitButton.setTitle("", for: .normal)
         }
         
         newsCollectionView.reloadItems(at: [IndexPath(item: 0, section: 0)])
@@ -42,6 +44,11 @@ class FeedVC: UIViewController {
     }
     
     @IBAction func touchUpExitButton(_ sender: Any) {
+        if exitButton.titleLabel?.text != "나가기" {
+            navigationController?.pushViewController(ScrapViewController(), animated: true)
+            return
+        }
+        
         KeychainWrapper.standard.removeObject(forKey: TokenName.token)
         
         guard let window = UIApplication.shared.keyWindow else {
@@ -97,7 +104,10 @@ class FeedVC: UIViewController {
         let myPageViewController
             = myPageStoryboard.instantiateViewController(withIdentifier: ViewControllerIdentifier.mypageViewController)
         
-        present(UINavigationController(rootViewController: myPageViewController),
+        let myPageViewNavigator = UINavigationController(rootViewController: myPageViewController)
+        myPageViewNavigator.modalPresentationStyle = .fullScreen
+        
+        present(myPageViewNavigator,
                 animated: true)
     }
 
@@ -159,7 +169,9 @@ extension FeedVC: UICollectionViewDataSource {
 }
 
 extension FeedVC: UICollectionViewDelegateFlowLayout {
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+    func collectionView(_ collectionView: UICollectionView,
+                        layout collectionViewLayout: UICollectionViewLayout,
+                        sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: newsCollectionView.frame.width,
                       height: newsCollectionView.frame.height)
     }
@@ -172,7 +184,7 @@ extension FeedVC: MenuBarDelegate {
 }
 
 extension FeedVC: FeedTouchDelegate {
-    func touchUpFeedCell(title: String, urlString: String) {
+    func touchUpFeedCell(title: String, feedIdx: Int, urlString: String, isSave: Int) {
 
         let adBrix = AdBrixRM.getInstance
         adBrix.event(eventName: "touchUp_FeedNews",
@@ -181,6 +193,8 @@ extension FeedVC: FeedTouchDelegate {
         let articleVC = ArticleViewController()
         articleVC.articleTitle = title
         articleVC.articleUrlString = urlString
+        articleVC.feedIdx = feedIdx
+        articleVC.isSave = isSave
         navigationController?.pushViewController(articleVC,
                                                  animated: true)
     }

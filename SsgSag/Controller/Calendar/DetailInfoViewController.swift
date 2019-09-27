@@ -329,7 +329,7 @@ class DetailInfoViewController: UIViewController {
             return
         }
         
-        calendarService.requestTodoDelete(posterIdx) { [weak self] result in
+        calendarService.requestTodoDelete([posterIdx]) { [weak self] result in
             switch result {
             case .success(let status):
                 DispatchQueue.main.async {
@@ -402,9 +402,34 @@ class DetailInfoViewController: UIViewController {
         let activityVC = UIActivityViewController(activityItems: objectsToshare, applicationActivities: nil)
         activityVC.excludedActivityTypes = [UIActivity.ActivityType.airDrop, UIActivity.ActivityType.addToReadingList]
         activityVC.popoverPresentationController?.sourceView = view
+        activityVC.modalPresentationStyle = .fullScreen
         self.present(activityVC, animated: true, completion: nil)
     }
     
+    private func requestClickRecord(type: Int) {
+        guard let posterIdx = posterIdx else {
+            return
+        }
+        
+        calendarService.requestTodoListClickRecord(posterIdx, type: type) { result in
+            switch result {
+            case .success(let status):
+                switch status {
+                case .processingSuccess:
+                    print("기록 성공")
+                case .dataBaseError:
+                    print("DB 에러")
+                case .serverError:
+                    print("server 에러")
+                default:
+                    print("기록 실패")
+                }
+            case .failed:
+                assertionFailure()
+                return
+            }
+        }
+    }
 }
 
 extension DetailInfoViewController: UICollectionViewDelegate {
@@ -674,6 +699,7 @@ extension DetailInfoViewController: UICollectionViewDataSource {
                     let detailImageView = DetailImageViewController()
                     detailImageView.titleText = posterDetailData?.posterName
                     detailImageView.urlString = posterDetailData?.photoUrl2
+                    detailImageView.modalPresentationStyle = .fullScreen
                     present(detailImageView, animated: true)
                 }
             case 5:
@@ -681,6 +707,8 @@ extension DetailInfoViewController: UICollectionViewDataSource {
                 let indexPaths = [indexPath]
                 collectionView.reloadItems(at: indexPaths)
                 collectionView.scrollToItem(at: indexPath, at: .top, animated: true)
+                
+                requestClickRecord(type: 2)
             default:
                 return
             }
@@ -803,6 +831,9 @@ extension DetailInfoViewController: WebsiteDelegate {
                 let url = URL(string: applysiteURL) else {
                     return
             }
+            
+            requestClickRecord(type: 1)
+            
             UIApplication.shared.open(url)
         } else {
             let adBrix = AdBrixRM.getInstance
@@ -813,6 +844,9 @@ extension DetailInfoViewController: WebsiteDelegate {
                 let url = URL(string: websiteURL) else {
                     return
             }
+            
+            requestClickRecord(type: 0)
+            
             UIApplication.shared.open(url)
         }
     }
@@ -930,7 +964,8 @@ extension DetailInfoViewController: CommentDelegate {
             //            alertController.addAction(editAction)
             alertController.addAction(deleteAction)
             alertController.addAction(cancelAction)
-            
+
+            alertController.modalPresentationStyle = .fullScreen
             present(alertController, animated: true)
         } else {
             
@@ -965,6 +1000,7 @@ extension DetailInfoViewController: CommentDelegate {
             
             alertController.addAction(reportAction)
             alertController.addAction(cancelAction)
+            alertController.modalPresentationStyle = .fullScreen
             
             present(alertController, animated: true)
         }
@@ -978,7 +1014,7 @@ extension DetailInfoViewController: LargeImageDelegate {
         guard let zoomPosterVC = swipeStoryboard.instantiateViewController(withIdentifier: ViewControllerIdentifier.zoomPosterViewController) as? ZoomPosterVC else {return}
         
         zoomPosterVC.urlString = posterDetailData?.photoUrl
-        
+        zoomPosterVC.modalPresentationStyle = .fullScreen
         self.present(zoomPosterVC, animated: true)
     }
 }

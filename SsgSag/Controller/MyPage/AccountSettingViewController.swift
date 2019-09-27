@@ -262,7 +262,8 @@ class AccountSettingViewController: UIViewController {
                                          style: .default,
                                          handler: nil)
         alertController.addAction(cancelAction)
-        
+
+        alertController.modalPresentationStyle = .fullScreen
         present(alertController, animated: true)
     }
     
@@ -442,6 +443,7 @@ extension AccountSettingViewController: ShowImagePickerDelegate {
         
         switch photoAuthorizationStatus {
         case .authorized:
+            profileImagePicker.modalPresentationStyle = .fullScreen
             present(profileImagePicker,
                     animated: true)
         case .denied, .restricted:
@@ -453,6 +455,7 @@ extension AccountSettingViewController: ShowImagePickerDelegate {
                 switch status {
                 case .authorized:
                     print("사용자가 허용")
+                    self!.profileImagePicker.modalPresentationStyle = .fullScreen
                     self?.present(self!.profileImagePicker,
                                  animated: true)
                 case .denied:

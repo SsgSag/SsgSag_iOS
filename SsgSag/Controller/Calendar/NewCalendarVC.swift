@@ -183,10 +183,12 @@ class NewCalendarVC: UIViewController {
             self?.categorySelectedDelegate?.categorySelectedDelegate([])
             self?.calendarView.setupMonths()
             self?.calendarView.drawVisibleMonth(with: contentOffset)
+            
+            self?.tabBarController?.tabBar.isHidden = false
         }
         
         let navigationVC = UINavigationController(rootViewController: dayTodoVC)
-        navigationVC.modalPresentationStyle = .overCurrentContext
+        navigationVC.modalPresentationStyle = .overFullScreen
         
         tabBarController?.tabBar.isHidden = true
         present(navigationVC, animated: false)
@@ -236,7 +238,10 @@ class NewCalendarVC: UIViewController {
         let myPageViewController
             = myPageStoryboard.instantiateViewController(withIdentifier: ViewControllerIdentifier.mypageViewController)
         
-        present(UINavigationController(rootViewController: myPageViewController),
+        let myPageViewNavigator = UINavigationController(rootViewController: myPageViewController)
+        myPageViewNavigator.modalPresentationStyle = .fullScreen
+        
+        present(myPageViewNavigator,
                 animated: true)
     }
     
@@ -297,6 +302,7 @@ class NewCalendarVC: UIViewController {
                                                   applicationActivities: nil)
         activityVC.excludedActivityTypes = [UIActivity.ActivityType.airDrop, UIActivity.ActivityType.addToReadingList]
         activityVC.popoverPresentationController?.sourceView = view
+        activityVC.modalPresentationStyle = .fullScreen
         self.present(activityVC, animated: true, completion: nil)
     }
     

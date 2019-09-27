@@ -121,7 +121,7 @@ class SwipeVC: UIViewController {
     }
     
     private func setEmptyPosterAnimation() {
-        let animation = LOTAnimationView(name: "main_empty_hifive")
+        let animation = AnimationView(name: "main_empty_hifive")
         
         let completeStackView: UIStackView = {
             let stackView = UIStackView()
@@ -443,7 +443,10 @@ class SwipeVC: UIViewController {
         let myPageViewController
             = myPageStoryboard.instantiateViewController(withIdentifier: ViewControllerIdentifier.mypageViewController)
         
-        present(UINavigationController(rootViewController: myPageViewController),
+        let myPageViewNavigator = UINavigationController(rootViewController: myPageViewController)
+        
+        myPageViewNavigator.modalPresentationStyle = .fullScreen
+        present(myPageViewNavigator,
                 animated: true)
     }
     
@@ -569,6 +572,7 @@ extension SwipeVC: movoToDetailPoster {
         
         zoomPosterVC.urlString = self.posters[currentIndex].photoUrl
 
+        zoomPosterVC.modalPresentationStyle = .fullScreen
         self.present(zoomPosterVC, animated: true, completion: nil)
     }
 }
