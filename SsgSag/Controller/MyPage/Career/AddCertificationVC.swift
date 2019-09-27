@@ -110,7 +110,7 @@ class AddCertificationVC: UIViewController, UITextFieldDelegate {
                     DispatchQueue.main.async {
                         switch httpStatus {
                         case .secondSucess:
-                            let animation = LOTAnimationView(name: "bt_save_round")
+                            let animation = AnimationView(name: "bt_save_round")
                             self?.saveButton.addSubview(animation)
                             
                             animation.play()
@@ -157,7 +157,7 @@ class AddCertificationVC: UIViewController, UITextFieldDelegate {
                     DispatchQueue.main.async {
                         switch httpStatus {
                         case .processingSuccess:
-                            let animation = LOTAnimationView(name: "bt_save_round")
+                            let animation = AnimationView(name: "bt_save_round")
                             self?.saveButton.addSubview(animation)
                             
                             animation.play()

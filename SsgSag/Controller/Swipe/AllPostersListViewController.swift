@@ -237,7 +237,9 @@ class AllPostersListViewController: UIViewController {
         let myPageViewController
             = myPageStoryboard.instantiateViewController(withIdentifier: ViewControllerIdentifier.mypageViewController)
         
-        present(UINavigationController(rootViewController: myPageViewController),
+        let myPageViewNavigator = UINavigationController(rootViewController: myPageViewController)
+        myPageViewNavigator.modalPresentationStyle = .fullScreen
+        present(myPageViewNavigator,
                 animated: true)
     }
     

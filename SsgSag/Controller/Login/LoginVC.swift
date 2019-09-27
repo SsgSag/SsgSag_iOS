@@ -138,6 +138,7 @@ class LoginVC: UIViewController, UITextFieldDelegate {
                     
                     let tabBar = TapbarVC(nibName: nil, bundle: nil)
                     DispatchQueue.main.async {
+                        tabBar.modalPresentationStyle = .fullScreen
                         self?.present(tabBar, animated: true, completion: nil)
                     }
                 case .failure:
@@ -159,6 +160,8 @@ class LoginVC: UIViewController, UITextFieldDelegate {
         let storyboard = UIStoryboard(name: StoryBoardName.signup, bundle: nil)
         let userInfoVC = storyboard.instantiateViewController(withIdentifier: ViewControllerIdentifier.userInfoViewContrller)
         let signupNavigator = UINavigationController(rootViewController: userInfoVC)
+
+        signupNavigator.modalPresentationStyle = .fullScreen
         self.present(signupNavigator, animated: true, completion: nil)
     }
     

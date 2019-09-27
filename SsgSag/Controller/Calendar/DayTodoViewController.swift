@@ -270,7 +270,6 @@ class DayTodoViewController: UIViewController {
     
     private func dismissDayTodoViewController() {
         callback?()
-        presentingViewController?.tabBarController?.tabBar.isHidden = false
         dismiss(animated: false)
     }
     

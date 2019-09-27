@@ -66,7 +66,7 @@ class AddPassiveDateVC: UIViewController, UITextFieldDelegate, UITextViewDelegat
     }
     
     @IBAction func storeButton(_ sender: UIButton) {
-        let animation = LOTAnimationView(name: "bt_save_round")
+        let animation = AnimationView(name: "bt_save_round")
         sender.addSubview(animation)
         animation.play()
         simplerAlert(title: "저장되었습니다")

@@ -185,6 +185,7 @@ extension InterestBoardViewController: InterestFollowDelegate {
                     return
                 }
                 internFilterVC.delegate = self
+                internFilterVC.modalPresentationStyle = .fullScreen
                 self.present(internFilterVC, animated: false)
             } else {
                 self.requestInterestAdd(interest.interestName ?? "")

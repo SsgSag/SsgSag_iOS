@@ -70,7 +70,10 @@ class myPageVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
         accountSettingVC.grade = userInfo?.userGrade
         accountSettingVC.selectedImage = profileImageView.image
         accountSettingVC.delegate = self
-        present(UINavigationController(rootViewController: accountSettingVC), animated: true)
+        
+        let accountSettingNavigator = UINavigationController(rootViewController: accountSettingVC)
+        accountSettingNavigator.modalPresentationStyle = .fullScreen
+        present(accountSettingNavigator, animated: true)
     }
     
     private func getData() {

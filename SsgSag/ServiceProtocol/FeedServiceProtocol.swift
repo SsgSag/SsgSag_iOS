@@ -12,4 +12,18 @@ protocol FeedService: class {
     func requestFeedData(
         completionHandler: @escaping (DataResponse<[FeedData]>) -> Void
     )
+    
+    func requestScrapStore(
+        feedIndex: Int,
+        completionHandler: @escaping (DataResponse<HttpStatusCode>) -> Void
+    )
+    
+    func requestScrapDelete(
+        feedIndex: Int,
+        completionHandler: @escaping (DataResponse<HttpStatusCode>) -> Void
+    )
+    
+    func requestScrapList(
+        completionHandler: @escaping (DataResponse<[FeedData]>) -> Void
+    )
 }

@@ -72,7 +72,9 @@ class LoginPopUpVC: UIViewController, NaverThirdPartyLoginConnectionDelegate {
                         DispatchQueue.main.async {
                             switch response.status {
                             case 200:
-                                self?.present(TapbarVC(), animated: true, completion: nil)
+                                let tapBarVC = TapbarVC()
+                                tapBarVC.modalPresentationStyle = .fullScreen
+                                self?.present(tapBarVC, animated: true, completion: nil)
                             case 404:
                                 let storyboard = UIStoryboard(name: StoryBoardName.signup, bundle: nil)
                                 
@@ -80,6 +82,7 @@ class LoginPopUpVC: UIViewController, NaverThirdPartyLoginConnectionDelegate {
                                 
                                 let signupNavigator = UINavigationController(rootViewController: signupVC)
                                 
+                                signupNavigator.modalPresentationStyle = .fullScreen
                                 self?.present(signupNavigator, animated: true, completion: nil)
                             default:
                                 break
@@ -104,7 +107,7 @@ class LoginPopUpVC: UIViewController, NaverThirdPartyLoginConnectionDelegate {
     // ---- 3
     func oauth20ConnectionDidOpenInAppBrowser(forOAuth request: URLRequest!) {
         if request != nil {
-            presentWebViewControllerWithRequest(loginRequest: request)
+//            presentWebViewControllerWithRequest(loginRequest: request)
         } else {
             print("Nil Request")
         }
@@ -186,12 +189,12 @@ class LoginPopUpVC: UIViewController, NaverThirdPartyLoginConnectionDelegate {
         naverLoginConnection.requestThirdPartyLogin()
     }
     
-    func presentWebViewControllerWithRequest(loginRequest: URLRequest) {
-        print(loginRequest.description)
-        
-        let inAppBrowser: NLoginThirdPartyOAuth20InAppBrowserViewController = NLoginThirdPartyOAuth20InAppBrowserViewController(request: loginRequest)
-        self.present(inAppBrowser, animated: true, completion: nil)
-    }
+//    func presentWebViewControllerWithRequest(loginRequest: URLRequest) {
+//        print(loginRequest.description)
+//
+//        let inAppBrowser: NLoginThirdPartyOAuth20InAppBrowserViewController = NLoginThirdPartyOAuth20InAppBrowserViewController(request: loginRequest)
+//        self.present(inAppBrowser, animated: true, completion: nil)
+//    }
 }
 
 struct TokenResponse: Codable {
