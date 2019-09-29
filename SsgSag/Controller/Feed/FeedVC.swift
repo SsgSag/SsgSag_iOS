@@ -33,7 +33,8 @@ class FeedVC: UIViewController {
             exitButton.setTitle("", for: .normal)
         }
         
-        newsCollectionView.reloadItems(at: [IndexPath(item: 0, section: 0)])
+        newsCollectionView.reloadData()
+//        newsCollectionView.reloadItems(at: [IndexPath(item: 0, section: 0)])
 //        menuBar.menuCollectionView.scrollToItem(at: IndexPath(item: 0, section: 0), at: .left, animated: false)
     }
     
