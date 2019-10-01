@@ -19,30 +19,29 @@ class AnalysticsCollectionViewCell: UICollectionViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
     }
     
-    override func prepareForReuse() {
-        super.prepareForReuse()
-        
-        majorChartView.layer.sublayers?.forEach {
-            if let _ = $0 as? CAShapeLayer {
-                $0.removeFromSuperlayer()
-            }
-        }
-        
-        gradeChartView.layer.sublayers?.forEach {
-            if let _ = $0 as? CAShapeLayer {
-                $0.removeFromSuperlayer()
-            }
-        }
-        
-        genderChartView.layer.sublayers?.forEach {
-            if let _ = $0 as? CAShapeLayer {
-                $0.removeFromSuperlayer()
-            }
-        }
-    }
+//    override func prepareForReuse() {
+//        super.prepareForReuse()
+//
+//        majorChartView.layer.sublayers?.forEach {
+//            if let _ = $0 as? CAShapeLayer {
+//                $0.removeFromSuperlayer()
+//            }
+//        }
+//
+//        gradeChartView.layer.sublayers?.forEach {
+//            if let _ = $0 as? CAShapeLayer {
+//                $0.removeFromSuperlayer()
+//            }
+//        }
+//
+//        genderChartView.layer.sublayers?.forEach {
+//            if let _ = $0 as? CAShapeLayer {
+//                $0.removeFromSuperlayer()
+//            }
+//        }
+//    }
     
     func configure(analyticsData: Analytics?) {
         setupInterestedLabel(major: analyticsData?.majorCategory?[0],

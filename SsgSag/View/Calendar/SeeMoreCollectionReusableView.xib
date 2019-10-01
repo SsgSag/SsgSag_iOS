@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14868" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14824"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionReusableView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="U6b-Vx-4bR" customClass="SeeMoreCollectionReusableView" customModule="슥삭" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="138"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <subviews>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zZb-tO-th5">
+                    <rect key="frame" x="0.0" y="0.0" width="320" height="46"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="46" id="eyQ-e3-69w"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                    <inset key="imageEdgeInsets" minX="-15" minY="0.0" maxX="0.0" maxY="0.0"/>
+                    <state key="normal" title="자세히 보기" image="ic_dropdownGray">
+                        <color key="titleColor" red="0.31372549020000001" green="0.31372549020000001" blue="0.31372549020000001" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                    </state>
+                    <connections>
+                        <action selector="touchUpSeeMoreButton:" destination="U6b-Vx-4bR" eventType="touchUpInside" id="DUV-OT-54C"/>
+                    </connections>
+                </button>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="K8C-ww-ZfU">
+                    <rect key="frame" x="0.0" y="46" width="320" height="1"/>
+                    <color key="backgroundColor" red="0.93333333333333335" green="0.93333333333333335" blue="0.93333333333333335" alpha="1" colorSpace="calibratedRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="1" id="qFQ-tu-Nif"/>
+                    </constraints>
+                </view>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="P5s-aG-Dyh">
+                    <rect key="frame" x="0.0" y="47" width="320" height="0.0"/>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="c5b-4a-cjI">
+                            <rect key="frame" x="25" y="16" width="270" height="0.0"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                            <color key="textColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                    </subviews>
+                    <color key="backgroundColor" red="0.96470588235294119" green="0.96470588235294119" blue="0.96470588235294119" alpha="1" colorSpace="calibratedRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="height" id="5qe-N1-7dg"/>
+                        <constraint firstItem="c5b-4a-cjI" firstAttribute="leading" secondItem="P5s-aG-Dyh" secondAttribute="leading" constant="25" id="8lg-ew-8IA"/>
+                        <constraint firstItem="c5b-4a-cjI" firstAttribute="top" relation="lessThanOrEqual" secondItem="P5s-aG-Dyh" secondAttribute="top" constant="16" id="RNB-FA-00H"/>
+                        <constraint firstAttribute="trailing" secondItem="c5b-4a-cjI" secondAttribute="trailing" constant="25" id="m7V-yV-BsU"/>
+                        <constraint firstAttribute="bottom" relation="lessThanOrEqual" secondItem="c5b-4a-cjI" secondAttribute="bottom" constant="16" id="w5J-40-mf6"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <constraints>
+                <constraint firstItem="P5s-aG-Dyh" firstAttribute="leading" secondItem="VXr-Tz-HHm" secondAttribute="leading" id="5Vx-yS-JzO"/>
+                <constraint firstItem="VXr-Tz-HHm" firstAttribute="trailing" secondItem="P5s-aG-Dyh" secondAttribute="trailing" id="6Ad-Rp-8CE"/>
+                <constraint firstItem="K8C-ww-ZfU" firstAttribute="leading" secondItem="VXr-Tz-HHm" secondAttribute="leading" id="6Qy-iO-JbX"/>
+                <constraint firstItem="zZb-tO-th5" firstAttribute="top" secondItem="U6b-Vx-4bR" secondAttribute="top" id="6T7-7l-ecY"/>
+                <constraint firstItem="P5s-aG-Dyh" firstAttribute="top" secondItem="K8C-ww-ZfU" secondAttribute="bottom" id="KF5-pZ-EP7"/>
+                <constraint firstItem="zZb-tO-th5" firstAttribute="leading" secondItem="VXr-Tz-HHm" secondAttribute="leading" id="UuJ-aI-Hqe"/>
+                <constraint firstItem="K8C-ww-ZfU" firstAttribute="top" secondItem="zZb-tO-th5" secondAttribute="bottom" id="Zgf-f3-qfH"/>
+                <constraint firstItem="VXr-Tz-HHm" firstAttribute="trailing" secondItem="K8C-ww-ZfU" secondAttribute="trailing" id="sw0-vH-h9p"/>
+                <constraint firstItem="VXr-Tz-HHm" firstAttribute="trailing" secondItem="zZb-tO-th5" secondAttribute="trailing" id="xDc-rf-AJ6"/>
+            </constraints>
+            <viewLayoutGuide key="safeArea" id="VXr-Tz-HHm"/>
+            <connections>
+                <outlet property="contentsLabel" destination="c5b-4a-cjI" id="NnI-8v-Rin"/>
+                <outlet property="seeMoreView" destination="P5s-aG-Dyh" id="1Uw-3O-jKX"/>
+                <outlet property="seeMoreViewHeightConstraint" destination="5qe-N1-7dg" id="BZe-xP-t9e"/>
+            </connections>
+            <point key="canvasLocation" x="-224.63768115942031" y="51.5625"/>
+        </collectionReusableView>
+    </objects>
+    <resources>
+        <image name="ic_dropdownGray" width="17" height="17"/>
+    </resources>
+</document>

@@ -153,6 +153,8 @@
 		D1564EFE22EC0AA400BDA7F6 /* NetworkProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1564EFD22EC0AA400BDA7F6 /* NetworkProtocol.swift */; };
 		D1564F0022EC102400BDA7F6 /* RequestMakerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1564EFF22EC102400BDA7F6 /* RequestMakerProtocol.swift */; };
 		D1564F0222EC10B500BDA7F6 /* RequestMaker.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1564F0122EC10B500BDA7F6 /* RequestMaker.swift */; };
+		D1656C682342EAFD00FCEA47 /* SeeMoreCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1656C662342EAFD00FCEA47 /* SeeMoreCollectionReusableView.swift */; };
+		D1656C692342EAFD00FCEA47 /* SeeMoreCollectionReusableView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D1656C672342EAFD00FCEA47 /* SeeMoreCollectionReusableView.xib */; };
 		D166AC5D22D46D4100ED82DD /* MonthTodoList.swift in Sources */ = {isa = PBXBuildFile; fileRef = D166AC5C22D46D4100ED82DD /* MonthTodoList.swift */; };
 		D166AC5F22D4726000ED82DD /* DayTodoList.swift in Sources */ = {isa = PBXBuildFile; fileRef = D166AC5E22D4726000ED82DD /* DayTodoList.swift */; };
 		D166AC6622D733CC00ED82DD /* FeedVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D166AC6522D733CC00ED82DD /* FeedVC.swift */; };
@@ -439,6 +441,8 @@
 		D1564EFD22EC0AA400BDA7F6 /* NetworkProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkProtocol.swift; sourceTree = "<group>"; };
 		D1564EFF22EC102400BDA7F6 /* RequestMakerProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestMakerProtocol.swift; sourceTree = "<group>"; };
 		D1564F0122EC10B500BDA7F6 /* RequestMaker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestMaker.swift; sourceTree = "<group>"; };
+		D1656C662342EAFD00FCEA47 /* SeeMoreCollectionReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeeMoreCollectionReusableView.swift; sourceTree = "<group>"; };
+		D1656C672342EAFD00FCEA47 /* SeeMoreCollectionReusableView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SeeMoreCollectionReusableView.xib; sourceTree = "<group>"; };
 		D166AC5C22D46D4100ED82DD /* MonthTodoList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthTodoList.swift; sourceTree = "<group>"; };
 		D166AC5E22D4726000ED82DD /* DayTodoList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayTodoList.swift; sourceTree = "<group>"; };
 		D166AC6522D733CC00ED82DD /* FeedVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedVC.swift; sourceTree = "<group>"; };
@@ -835,6 +839,8 @@
 				D1FDF3DB230AF7550055D293 /* NoTodoTableViewCell.xib */,
 				D1E6467D2311608100EAB8AC /* NoCommentCollectionViewCell.swift */,
 				D1E6467E2311608100EAB8AC /* NoCommentCollectionViewCell.xib */,
+				D1656C662342EAFD00FCEA47 /* SeeMoreCollectionReusableView.swift */,
+				D1656C672342EAFD00FCEA47 /* SeeMoreCollectionReusableView.xib */,
 			);
 			path = Calendar;
 			sourceTree = "<group>";
@@ -1362,6 +1368,7 @@
 				D1FEA3522334C79600464DC4 /* AllPosterListCollectionViewCell.xib in Resources */,
 				D1B2F43623013BAA00074448 /* AllAndFavoriteCollectionReusableView.xib in Resources */,
 				D1EAA622230682F50063E04A /* AdmissionCollectionViewCell.xib in Resources */,
+				D1656C692342EAFD00FCEA47 /* SeeMoreCollectionReusableView.xib in Resources */,
 				D1E646802311608100EAB8AC /* NoCommentCollectionViewCell.xib in Resources */,
 				D1FB05B622E6E3AE001425CF /* SettingMenuCollectionViewCell.xib in Resources */,
 				D1EAA6162306709E0063E04A /* UnivCollectionViewCell.xib in Resources */,
@@ -1630,6 +1637,7 @@
 				D1F3A283230593CD007B72E1 /* OSLTableViewCell.swift in Sources */,
 				845F12C722672A3200DFF42E /* DateFormatter.swift in Sources */,
 				8496818422AFD3FE004A4A63 /* VAMonth.swift in Sources */,
+				D1656C682342EAFD00FCEA47 /* SeeMoreCollectionReusableView.swift in Sources */,
 				842C619E21DD1807001BA6D8 /* networkData.swift in Sources */,
 				846356792293EAA10060ED91 /* NotificationInfoTableViewController.swift in Sources */,
 				D1F0DA22230D062F00C6FF19 /* Column.swift in Sources */,

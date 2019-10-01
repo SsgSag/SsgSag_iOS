@@ -84,6 +84,8 @@ class SwipeVC: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
+        setNavigationBar(color: .white)
+        
         let shadowSize = CGSize(width: self.view.frame.width, height: 3)
         navigationController?.navigationBar.addColorToShadow(color: #colorLiteral(red: 0.3843137255, green: 0.4156862745, blue: 1, alpha: 1),
                                                              size: shadowSize)
