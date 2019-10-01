@@ -148,7 +148,7 @@ class PieChartView: UIView {
     private func drawAnalytics(rates: [Int]) {
         let center = CGPoint(x: frame.width / 2, y: frame.height / 2 + 23)
         
-        var color: [UIColor] = [#colorLiteral(red: 0.4603668451, green: 0.5182471275, blue: 1, alpha: 1), #colorLiteral(red: 0.4603668451, green: 0.5182471275, blue: 1, alpha: 0.65), #colorLiteral(red: 0.4603668451, green: 0.5182471275, blue: 1, alpha: 0.5), #colorLiteral(red: 0.4603668451, green: 0.5182471275, blue: 1, alpha: 0.3)]
+        let color: [UIColor] = [#colorLiteral(red: 0.4603668451, green: 0.5182471275, blue: 1, alpha: 1), #colorLiteral(red: 0.4603668451, green: 0.5182471275, blue: 1, alpha: 0.65), #colorLiteral(red: 0.4603668451, green: 0.5182471275, blue: 1, alpha: 0.5), #colorLiteral(red: 0.4603668451, green: 0.5182471275, blue: 1, alpha: 0.3)]
 
         let animation = CABasicAnimation(keyPath: "strokeEnd")
         

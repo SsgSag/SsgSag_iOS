@@ -11,16 +11,22 @@ import UIKit
 class SeeMoreCollectionViewCell: UICollectionViewCell {
 
     @IBOutlet weak var seeMoreContentsLabel: UILabel!
+    @IBOutlet weak var seeMoreHeightConstraint: NSLayoutConstraint!
     
     var isFolding: Bool = true
+    var callback: (()->())?
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
     }
     
-    func configure(contents: String) {
+    func configure(contents: String,
+                   height: CGFloat) {
         seeMoreContentsLabel.text = contents
+        seeMoreHeightConstraint.constant = height
     }
 
+    @IBAction func touchUpSeeMoreButton(_ sender: UIButton) {
+        callback?()
+    }
 }
