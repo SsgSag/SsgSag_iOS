@@ -35,6 +35,7 @@ enum RequestURL {
     case changePassword
     case updatePhoto
     case feed
+    case feedLookUp(posterIndex: Int)
     case scrap(index: Int)
     case comment
     case commentLike(index: Int, like: Int)
@@ -97,6 +98,8 @@ enum RequestURL {
             return "/notice"
         case .feed:
             return "/feed"
+        case .feedLookUp(let posterIndex):
+            return "/feed/\(posterIndex)"
         case .scrap(let index):
             return "/feed/\(index)"
         case .comment:

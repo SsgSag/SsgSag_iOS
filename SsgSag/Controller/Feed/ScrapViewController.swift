@@ -44,6 +44,7 @@ class ScrapViewController: UIViewController {
         navigationItem.setHidesBackButton(true, animated: false)
         navigationItem.rightBarButtonItem = backButton
         tabBarController?.tabBar.isHidden = true
+//        navigationController?.hidesBarsOnSwipe = false
     }
     
     override func viewDidLoad() {

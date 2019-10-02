@@ -31,17 +31,11 @@ class SeeMoreCollectionReusableView: UICollectionReusableView {
     }
     
     @IBAction func touchUpSeeMoreButton(_ sender: UIButton) {
-        if seeMoreViewHeightConstraint.constant == 0 {
-            contentsLabel.isHidden = false
-            let collectionViewCellHeight = estimatedFrame(width: frame.width - 75,
-                                                          text: contentsLabel.text ?? "",
-                                                          font: UIFont.systemFont(ofSize: 12)).height
+        let collectionViewCellHeight = estimatedFrame(width: frame.width - 75,
+                                                      text: contentsLabel.text ?? "",
+                                                      font: UIFont.systemFont(ofSize: 12)).height
 
-            seeMoreViewHeightConstraint.constant = collectionViewCellHeight + 50
-        } else {
-            contentsLabel.isHidden = true
-            seeMoreViewHeightConstraint.constant = 0
-        }
+        seeMoreViewHeightConstraint.constant = collectionViewCellHeight + 50
         callback?()
     }
 }

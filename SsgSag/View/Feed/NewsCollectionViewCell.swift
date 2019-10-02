@@ -13,9 +13,12 @@ class NewsCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var newsImageView: UIImageView!
     @IBOutlet weak var newsTitleLabel: UILabel!
     @IBOutlet weak var fromLabel: UILabel!
-    @IBOutlet weak var bookmarkImageView: UIImageView!
+    @IBOutlet weak var bookmarkButton: UIButton!
     @IBOutlet weak var dateLabel: UILabel!
     @IBOutlet weak var viewCountLabel: UILabel!
+    
+    var callback: ((Int, Int)->())?
+    var indexPath: IndexPath?
     
     var feedData: FeedData? {
         didSet {
@@ -37,9 +40,11 @@ class NewsCollectionViewCell: UICollectionViewCell {
             viewCountLabel?.text = "조회수 \(viewNum)"
             
             if feedData.isSave == 1 {
-                bookmarkImageView.image = UIImage(named: "ic_bookmarkArticle")
+                bookmarkButton.setImage(UIImage(named: "ic_bookmarkArticle"),
+                                        for: .normal)
             } else {
-                bookmarkImageView.image = UIImage(named: "ic_bookmarkArticlePassive")
+                bookmarkButton.setImage(UIImage(named: "ic_bookmarkArticlePassive"),
+                                        for: .normal)
             }
         }
     }
@@ -48,8 +53,17 @@ class NewsCollectionViewCell: UICollectionViewCell {
         super.awakeFromNib()
     }
     
+    @IBAction func touchUpBookmarkButton(_ sender: UIButton) {
+        guard let feedIdx = feedData?.feedIdx,
+            let isSave = feedData?.isSave else {
+            return
+        }
+        
+        callback?(feedIdx, isSave)
+    }
+    
     override func prepareForReuse() {
-        bookmarkImageView?.image = nil
+        bookmarkButton.setImage(nil, for: .normal)
         newsImageView?.image = nil
         newsTitleLabel?.text = ""
         fromLabel?.text = ""
