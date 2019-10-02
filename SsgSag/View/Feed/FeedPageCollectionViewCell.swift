@@ -55,7 +55,7 @@ class FeedPageCollectionViewCell: UICollectionViewCell {
         setupCollectionView()
     }
     
-    private func requestFeed() {
+    func requestFeed() {
         feedServiceImp.requestFeedData { [weak self] result in
             switch result {
             case .success(let feedDatas):

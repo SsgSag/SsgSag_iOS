@@ -46,7 +46,17 @@ class FeedVC: UIViewController {
     
     @IBAction func touchUpExitButton(_ sender: Any) {
         if exitButton.titleLabel?.text != "나가기" {
-            navigationController?.pushViewController(ScrapViewController(), animated: true)
+            let scrapViewController = ScrapViewController()
+            scrapViewController.callback = { [weak self] in
+                guard let cell = self?.newsCollectionView.cellForItem(at: IndexPath(item: 0,
+                                                                                    section: 0))
+                    as? FeedPageCollectionViewCell else {
+                    return
+                }
+                
+                cell.requestFeed()
+            }
+            navigationController?.pushViewController(scrapViewController, animated: true)
             return
         }
         
@@ -196,6 +206,15 @@ extension FeedVC: FeedTouchDelegate {
         articleVC.articleUrlString = urlString
         articleVC.feedIdx = feedIdx
         articleVC.isSave = isSave
+        articleVC.callback = { [weak self] in
+            guard let cell = self?.newsCollectionView.cellForItem(at: IndexPath(item: 0,
+                                                                                section: 0))
+                as? FeedPageCollectionViewCell else {
+                return
+            }
+            
+            cell.requestFeed()
+        }
         navigationController?.pushViewController(articleVC,
                                                  animated: true)
     }

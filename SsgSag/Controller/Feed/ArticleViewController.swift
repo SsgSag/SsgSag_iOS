@@ -11,6 +11,7 @@ import WebKit
 
 class ArticleViewController: UIViewController {
 
+    var callback: (()->())?
     var feedIdx: Int?
     var articleTitle: String?
     var articleUrlString: String?
@@ -168,6 +169,7 @@ class ArticleViewController: UIViewController {
     }
     
     @objc private func touchUpBackButton() {
+        callback?()
         navigationController?.popViewController(animated: true)
     }
     

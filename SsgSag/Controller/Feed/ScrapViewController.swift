@@ -17,6 +17,7 @@ class ScrapViewController: UIViewController {
     
     private var feedData: [FeedData] = []
     private var feedTasks: [URLSessionTask?] = []
+    var callback: (()->())?
     
     private lazy var scrapCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
@@ -116,6 +117,7 @@ class ScrapViewController: UIViewController {
     }
     
     @objc private func touchUpBackButton() {
+        callback?()
         navigationController?.popViewController(animated: true)
     }
 
@@ -195,6 +197,9 @@ extension ScrapViewController: UICollectionViewDataSource {
         articleVC.articleUrlString = feedData[indexPath.item].feedUrl
         articleVC.feedIdx = feedData[indexPath.item].feedIdx
         articleVC.isSave = feedData[indexPath.item].isSave
+        articleVC.callback = { [weak self] in
+            self?.setupRequestScrap()
+        }
         navigationController?.pushViewController(articleVC,
                                                  animated: true)
     }
