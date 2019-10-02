@@ -66,11 +66,12 @@ class SplashVC: UIViewController {
                     case .authenticationFailure:
                         let loginStoryBoard = UIStoryboard(name: StoryBoardName.login,
                                                            bundle: nil)
-                        let loginVC = loginStoryBoard.instantiateViewController(withIdentifier: "splashVC")
-                        
-                        self?.nextViewController = UINavigationController(rootViewController: loginVC)
                         
                         DispatchQueue.main.async {
+                            let loginVC = loginStoryBoard.instantiateViewController(withIdentifier: "splashVC")
+                            
+                            self?.nextViewController = UINavigationController(rootViewController: loginVC)
+                            
                             self?.animation.play { [weak self] _ in
                                 guard let self = self else {
                                     return

@@ -71,7 +71,7 @@ class NewCalendarVC: UIViewController {
         
         self.navigationController?.navigationBar.isHidden = false
         
-        calendarView.setupMonths()
+        calendarView.drawMonths()
         calendarView.drawVisibleMonth(with: calendarView.contentOffset)
         
         guard let isTryWithoutLogin = UserDefaults.standard.object(forKey: "isTryWithoutLogin") as? Bool else {
@@ -180,8 +180,8 @@ class NewCalendarVC: UIViewController {
                 print("no contentOffset data")
                 return
             }
-            self?.categorySelectedDelegate?.categorySelectedDelegate([])
-            self?.calendarView.setupMonths()
+            
+            self?.calendarView.drawMonths()
             self?.calendarView.drawVisibleMonth(with: contentOffset)
             
             self?.tabBarController?.tabBar.isHidden = false

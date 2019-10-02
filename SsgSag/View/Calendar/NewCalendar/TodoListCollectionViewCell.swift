@@ -34,6 +34,7 @@ class TodoListCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var todoListTableView: UITableView!
     @IBOutlet weak var edtingButton: UIButton!
     
+    var callback: (([MonthTodoData]?)->())?
     var deleteIndexPaths: [IndexPath] = []
     var deletePosterIndexs: [Int] = []
     var controller: UIViewController?
@@ -63,16 +64,13 @@ class TodoListCollectionViewCell: UICollectionViewCell {
         
         todoListTableView.register(todoNib,
                                    forCellReuseIdentifier: "todoCell")
-        
-        let noTodoNib = UINib(nibName: "NoTodoTableViewCell", bundle: nil)
-        todoListTableView.register(noTodoNib, forCellReuseIdentifier: "noTodoCell")
     }
     
     private func setupLongPressGesture() {
         let longPressGesture: UILongPressGestureRecognizer
             = UILongPressGestureRecognizer(target: self,
                                            action: #selector(handleLongPress))
-        longPressGesture.minimumPressDuration = 1.0 // 1 second press
+        longPressGesture.minimumPressDuration = 1.0
         longPressGesture.delegate = self
         todoListTableView.addGestureRecognizer(longPressGesture)
     }
@@ -80,7 +78,6 @@ class TodoListCollectionViewCell: UICollectionViewCell {
     func setupMonthTodoData(_ monthTodoData: [MonthTodoData]) {
         self.monthTodoData = monthTodoData
         todoListTableView.reloadData()
-        
     }
     
     @objc func handleLongPress(_ gestureRecognizer: UILongPressGestureRecognizer) {
@@ -108,7 +105,7 @@ class TodoListCollectionViewCell: UICollectionViewCell {
                                     self?.monthTodoData?.remove(at: indexPath.row)
                                     self?.todoListTableView.deleteRows(at: [indexPath],
                                                                        with: .fade)
-                                    self?.calendarDelegate?.reloadCalendarData()
+                                    self?.callback?(self?.monthTodoData)
                                 case .dataBaseError:
                                     print("DB 에러")
                                     return
@@ -130,17 +127,20 @@ class TodoListCollectionViewCell: UICollectionViewCell {
     }
     
     @IBAction func touchUpEditButton(_ sender: UIButton) {
-        if sender.titleLabel?.text == "삭제" {
+        if sender.titleLabel?.text == "삭제" && deleteIndexPaths.count != 0 {
             
             controller?.simpleAlertwithHandler(title: "",
                                                message: "\(deleteIndexPaths.count)개의 일정을 삭제하시겠어요?") { [weak self] _ in
-                                                guard let self = self else {
-                                                    return
-                                                }
-                                                self.calendarService.requestTodoDelete(self.deletePosterIndexs) { [weak self] result in
-                                                    guard let self = self else {
-                                                        return
-                                                    }
+                guard let self = self else {
+                    return
+                }
+                                                
+                self.deleteIndexPaths.sort()
+                                                
+                self.calendarService.requestTodoDelete(self.deletePosterIndexs) { [weak self] result in
+                    guard let self = self else {
+                        return
+                    }
                     switch result {
                     case .success(let status):
                         DispatchQueue.main.async {
@@ -152,8 +152,9 @@ class TodoListCollectionViewCell: UICollectionViewCell {
                                     count += 1
                                 }
                                 self.todoListTableView.deleteRows(at: self.deleteIndexPaths,
-                                                                   with: .fade)
-                                self.calendarDelegate?.reloadCalendarData()
+                                                                  with: .fade)
+                                self.deleteIndexPaths = []
+                                self.callback?(self.monthTodoData)
                             case .dataBaseError:
                                 print("DB 에러")
                                 return
@@ -206,25 +207,11 @@ extension TodoListCollectionViewCell: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView,
                    numberOfRowsInSection section: Int) -> Int {
-        if monthTodoData?.count == 0 {
-            return 1
-        }
         return monthTodoData?.count ?? 0
     }
     
     func tableView(_ tableView: UITableView,
                    cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if monthTodoData?.count == 0 {
-            guard let cell = tableView.dequeueReusableCell(withIdentifier: "noTodoCell",
-                                                           for: indexPath) as? NoTodoTableViewCell else {
-                return .init()
-            }
-            
-            cell.selectionStyle = .none
-            
-            return cell
-        }
-        
         guard let cell
             = tableView.dequeueReusableCell(withIdentifier: "todoCell",
                                             for: indexPath)
@@ -260,12 +247,20 @@ extension TodoListCollectionViewCell: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView,
+                   heightForHeaderInSection section: Int) -> CGFloat {
+        if monthTodoData?.count == 0 {
+            return tableView.frame.height
+        }
+        return 0
+    }
+    
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        return NoTodoHeaderView()
+    }
+    
+    func tableView(_ tableView: UITableView,
                    didSelectRowAt indexPath: IndexPath) {
         guard !isEditing else {
-            return
-        }
-        
-        if monthTodoData?.count == 0 {
             return
         }
         

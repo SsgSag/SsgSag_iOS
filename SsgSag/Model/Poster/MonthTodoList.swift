@@ -16,7 +16,7 @@ struct MonthTodoList: Codable {
 }
 
 // MARK: - MonthTodoData
-struct MonthTodoData: Codable {
+struct MonthTodoData: Codable, Equatable, Hashable {
     let posterIdx, categoryIdx, isCompleted, isEnded: Int?
     let subCategoryIdx: Int?
     let posterName, outline, posterEndDate: String?
@@ -25,4 +25,11 @@ struct MonthTodoData: Codable {
     let isFavorite: Int?
     let photoUrl: String?
     let dday: Int?
+    
+    static func == (lhs: MonthTodoData, rhs: MonthTodoData) -> Bool {
+        if lhs.posterName == rhs.posterName {
+            return true
+        }
+        return false
+    }
 }
