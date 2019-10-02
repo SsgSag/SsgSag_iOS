@@ -26,9 +26,10 @@ class DetailInfoViewController: UIViewController {
     var callback: ((Int) -> ())?
     var posterIdx: Int?
     var posterDetailData: DataClass?
-    private var isFolding: Bool = false
+    private var isFolding: Bool = true
     private var columnData: [Column]?
     private var analyticsData: Analytics?
+    private var firstCount: Int = 0
     
     let downloadLink = "https://ssgsag.page.link/install"
     
@@ -572,38 +573,6 @@ extension DetailInfoViewController: UICollectionViewDataSource {
                 cell.configure(email: posterDetailData?.partnerEmail ?? "")
                 
                 return cell
-//            case 5:
-//                guard let cell
-//                    = collectionView.dequeueReusableCell(withReuseIdentifier: "seeMoreCellID",
-//                                                         for: indexPath) as? SeeMoreCollectionViewCell else {
-//                                                            return .init()
-//                }
-//
-//                guard posterDetailData?.posterDetail != nil else {
-//                    return cell
-//                }
-//
-//                if isFolding {
-//                    let collectionViewCellHeight = estimatedFrame(width: view.frame.width - 75,
-//                                                                  text: posterDetailData?.posterDetail ?? "",
-//                                                                  font: UIFont.systemFont(ofSize: 12)).height
-//
-//                    cell.configure(contents: posterDetailData?.posterDetail ?? "",
-//                                   height: collectionViewCellHeight + 50)
-//                } else {
-//                    cell.configure(contents: "",
-//                                   height: 0)
-//                }
-//
-//                cell.callback = { [weak self] in
-//                    // 자세히 보기
-//                    collectionView.reloadData()
-//                    collectionView.scrollToItem(at: indexPath, at: .top, animated: true)
-//
-//                    self?.requestClickRecord(type: 2)
-//                }
-//
-//                return cell
             default:
                 return .init()
             }
@@ -779,19 +748,26 @@ extension DetailInfoViewController: UICollectionViewDelegateFlowLayout {
                 return CGSize(width: view.frame.width, height: 0)
             }
             
-            if !isFolding {
-                isFolding = true
+            if firstCount >= 2 {
+                if !isFolding {
+                    isFolding = true
+                    
+                    return CGSize(width: view.frame.width, height: 47)
+                } else {
+                    isFolding = false
+
+                    let collectionViewCellHeight = estimatedFrame(width: view.frame.width - 75,
+                                                                  text: posterDetailData?.posterDetail ?? "",
+                                                                  font: UIFont.systemFont(ofSize: 12)).height
+
+                    return CGSize(width: view.frame.width,
+                                  height: collectionViewCellHeight + 50 + 47)
+                }
+            } else {
+                firstCount += 1
+                isFolding = false
                 
                 return CGSize(width: view.frame.width, height: 47)
-            } else {
-                isFolding = false
-
-                let collectionViewCellHeight = estimatedFrame(width: view.frame.width - 75,
-                                                              text: posterDetailData?.posterDetail ?? "",
-                                                              font: UIFont.systemFont(ofSize: 12)).height
-
-                return CGSize(width: view.frame.width,
-                              height: collectionViewCellHeight + 50 + 47)
             }
         default:
             return CGSize(width: view.frame.width, height: 0)

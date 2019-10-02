@@ -26,4 +26,9 @@ protocol FeedService: class {
     func requestScrapList(
         completionHandler: @escaping (DataResponse<[FeedData]>) -> Void
     )
+    
+    func requestFeedLookUp(
+        posterIndex: Int,
+        completionHandler: @escaping (DataResponse<HttpStatusCode>) -> Void
+    )
 }
