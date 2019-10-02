@@ -54,12 +54,13 @@ class NewsCollectionViewCell: UICollectionViewCell {
     }
     
     @IBAction func touchUpBookmarkButton(_ sender: UIButton) {
-        guard let feedIdx = feedData?.feedIdx,
-            let isSave = feedData?.isSave else {
+        guard let feedIdx = feedData?.feedIdx else {
             return
         }
         
-        callback?(feedIdx, isSave)
+        let status = bookmarkButton.imageView?.image == UIImage(named: "ic_bookmarkArticle") ? 1 : 0
+        
+        callback?(feedIdx, status)
     }
     
     override func prepareForReuse() {

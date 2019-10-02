@@ -71,11 +71,20 @@ class DetailInfoViewController: UIViewController {
             self?.isFolding = true
             self?.requestDatas(section: 0)
         }
+        view.alertCallback = { [weak self] in
+            let alert = UIAlertController(title: "포스터가 저장되었습니다.", message: nil, preferredStyle: .alert)
+            alert.modalPresentationStyle = .fullScreen
+            self?.present(alert, animated: true)
+            
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                alert.dismiss(animated: true)
+            }
+        }
         return view
     }()
     
     private lazy var shareBarButton: UIBarButtonItem = {
-        let barButton = UIBarButtonItem(title: "공유",
+        let barButton = UIBarButtonItem(image: UIImage(named: "ic_share"),
                                         style: .plain,
                                         target: self,
                                         action: #selector(touchUpShareButton))

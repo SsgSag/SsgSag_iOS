@@ -217,6 +217,11 @@ class AllPostersListViewController: UIViewController {
         
         listCollectionView.register(allposterNib,
                                     forCellWithReuseIdentifier: "allPosterListCell")
+        
+        let noPosterNib = UINib(nibName: "NoPosterCollectionViewCell", bundle: nil)
+        
+        listCollectionView.register(noPosterNib,
+                                    forCellWithReuseIdentifier: "noPosterCell")
     }
     
     func estimatedFrame(text: String,
@@ -289,6 +294,9 @@ extension AllPostersListViewController: UICollectionViewDataSource {
         if collectionView == categoryCollectionView {
             return 5
         } else {
+            if posterData.count == 0 {
+                return 1
+            }
             return posterData.count
         }
     }
@@ -321,6 +329,17 @@ extension AllPostersListViewController: UICollectionViewDataSource {
             
             return cell
         } else {
+            if posterData.count == 0 {
+                guard let cell
+                    = collectionView.dequeueReusableCell(withReuseIdentifier: "noPosterCell",
+                                                         for: indexPath)
+                        as? NoPosterCollectionViewCell else {
+                    return UICollectionViewCell()
+                }
+                
+                return cell
+            }
+            
             guard let cell
                 = collectionView.dequeueReusableCell(withReuseIdentifier: "allPosterListCell",
                                                      for: indexPath)
@@ -377,6 +396,10 @@ extension AllPostersListViewController: UICollectionViewDataSource {
                 cell.categoryButton.backgroundColor = category.categoryColors().withAlphaComponent(0.05)
             }
         } else {
+            if posterData.count == 0 {
+                return
+            }
+            
             let detailInfoVC = DetailInfoViewController()
             
             detailInfoVC.posterIdx = posterData[indexPath.item].posterIdx
@@ -415,8 +438,6 @@ extension AllPostersListViewController: UICollectionViewDataSource {
                 cell.categoryButton.setTitleColor(#colorLiteral(red: 0.4666666667, green: 0.4666666667, blue: 0.4666666667, alpha: 1), for: .normal)
                 cell.categoryButton.backgroundColor = .clear
             }
-        } else {
-            
         }
     }
 }
@@ -451,6 +472,10 @@ extension AllPostersListViewController: UICollectionViewDelegateFlowLayout {
             
             return CGSize(width: width + 12, height: 21)
         } else {
+            if posterData.count == 0 {
+                return CGSize(width: collectionView.frame.width,
+                              height: collectionView.frame.height)
+            }
             return CGSize(width: collectionView.frame.width - 10,
                           height: 100)
         }

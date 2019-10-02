@@ -24,6 +24,7 @@ class DetailInfoButtonsView: UIView {
     
     var isCalendar: Bool = true
     var callback: (() -> ())?
+    var alertCallback: (()->())?
     var saveAtCalendar: (() -> ())?
     var removeAtCalendar: (() -> ())?
     weak var delegate: WebsiteDelegate?
@@ -309,6 +310,7 @@ class DetailInfoButtonsView: UIView {
     @objc private func touchUpSaveAndRemoveButton(_ sender: UIButton) {
         if sender.titleLabel?.text == "캘린더에 저장" {
             saveAtCalendar?()
+            alertCallback?()
             sender.setTitle("캘린더에서 삭제", for: .normal)
             sender.setImage(UIImage(named: "ic_calendarDelete"), for: .normal)
         } else {

@@ -165,6 +165,8 @@
 		D17A1C4222ED8A6200939788 /* InterestServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = D17A1C4122ED8A6200939788 /* InterestServiceProtocol.swift */; };
 		D17A1C4422ED8D2F00939788 /* SignUpServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = D17A1C4322ED8D2F00939788 /* SignUpServiceProtocol.swift */; };
 		D1A4EEA42344422B003FAC88 /* NoTodoHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1A4EEA32344422B003FAC88 /* NoTodoHeaderView.swift */; };
+		D1A4EEA72344FC7E003FAC88 /* NoPosterCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1A4EEA52344FC7E003FAC88 /* NoPosterCollectionViewCell.swift */; };
+		D1A4EEA82344FC7E003FAC88 /* NoPosterCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D1A4EEA62344FC7E003FAC88 /* NoPosterCollectionViewCell.xib */; };
 		D1B2F43523013BAA00074448 /* AllAndFavoriteCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1B2F43323013BAA00074448 /* AllAndFavoriteCollectionReusableView.swift */; };
 		D1B2F43623013BAA00074448 /* AllAndFavoriteCollectionReusableView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D1B2F43423013BAA00074448 /* AllAndFavoriteCollectionReusableView.xib */; };
 		D1C7C1FD22FFEF3F001BDB5D /* UserDefaults+.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1C7C1FC22FFEF3F001BDB5D /* UserDefaults+.swift */; };
@@ -454,6 +456,8 @@
 		D17A1C4122ED8A6200939788 /* InterestServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterestServiceProtocol.swift; sourceTree = "<group>"; };
 		D17A1C4322ED8D2F00939788 /* SignUpServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpServiceProtocol.swift; sourceTree = "<group>"; };
 		D1A4EEA32344422B003FAC88 /* NoTodoHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoTodoHeaderView.swift; sourceTree = "<group>"; };
+		D1A4EEA52344FC7E003FAC88 /* NoPosterCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoPosterCollectionViewCell.swift; sourceTree = "<group>"; };
+		D1A4EEA62344FC7E003FAC88 /* NoPosterCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NoPosterCollectionViewCell.xib; sourceTree = "<group>"; };
 		D1B2F43323013BAA00074448 /* AllAndFavoriteCollectionReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllAndFavoriteCollectionReusableView.swift; sourceTree = "<group>"; };
 		D1B2F43423013BAA00074448 /* AllAndFavoriteCollectionReusableView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AllAndFavoriteCollectionReusableView.xib; sourceTree = "<group>"; };
 		D1C7C1FC22FFEF3F001BDB5D /* UserDefaults+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserDefaults+.swift"; sourceTree = "<group>"; };
@@ -877,6 +881,8 @@
 				FA851DE821D3DBBC002065D0 /* SwipeCard.swift */,
 				D1FEA34F2334C79600464DC4 /* AllPosterListCollectionViewCell.swift */,
 				D1FEA3502334C79600464DC4 /* AllPosterListCollectionViewCell.xib */,
+				D1A4EEA52344FC7E003FAC88 /* NoPosterCollectionViewCell.swift */,
+				D1A4EEA62344FC7E003FAC88 /* NoPosterCollectionViewCell.xib */,
 			);
 			path = Swipe;
 			sourceTree = "<group>";
@@ -1377,6 +1383,7 @@
 				D1EAA6162306709E0063E04A /* UnivCollectionViewCell.xib in Resources */,
 				84BA694B21DB395400BA8CB8 /* MyPageStoryBoard.storyboard in Resources */,
 				D1EAA61E230681680063E04A /* GradeCollectionViewCell.xib in Resources */,
+				D1A4EEA82344FC7E003FAC88 /* NoPosterCollectionViewCell.xib in Resources */,
 				84E19CE421DCC9F4006F72EC /* LoginStoryBoard.storyboard in Resources */,
 				FA7F4CBC21DFC7E700D8643A /* CustomCareerCell.xib in Resources */,
 				D10B6E2622F4268E007B9BEA /* BoardPostCollectionViewCell.xib in Resources */,
@@ -1706,6 +1713,7 @@
 				D17A1C4422ED8D2F00939788 /* SignUpServiceProtocol.swift in Sources */,
 				8496818022AFD3FE004A4A63 /* VACalendarMonthDelegate.swift in Sources */,
 				D1CC98002339E78D0064A867 /* PosterAfterSwipe.swift in Sources */,
+				D1A4EEA72344FC7E003FAC88 /* NoPosterCollectionViewCell.swift in Sources */,
 				D10B6E2222F42600007B9BEA /* BoardCollectionViewCell.swift in Sources */,
 				8496819022AFDF66004A4A63 /* NewCalendarVC.swift in Sources */,
 				D166AC7022D73CD700ED82DD /* NewsCollectionViewCell.swift in Sources */,
@@ -1880,6 +1888,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				MARKETING_VERSION = 2.0.4;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-framework",
@@ -1926,6 +1935,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				MARKETING_VERSION = 2.0.4;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-framework",

@@ -219,8 +219,8 @@ extension FeedPageCollectionViewCell: UICollectionViewDataSource {
         }
         
         cell.feedData = feedDatas[indexPath.item]
-        cell.callback = { [weak self] feedIndex, isSave in
-            if isSave == 0 {
+        cell.callback = { [weak self] feedIndex, status in
+            if status == 0 {
                 self?.requestScrap(feedIndex,
                                    indexPath: indexPath)
             } else {
