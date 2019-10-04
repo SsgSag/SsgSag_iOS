@@ -52,20 +52,22 @@ class FindPasswordViewController: UIViewController {
         loginService.requestTempPassword(email: email) { [weak self] result in
             switch result {
             case .success(let statusCode):
-                switch statusCode {
-                case .processingSuccess:
-                    self?.simpleAlertwithHandler(title: "임시 비밀번호가 발급되었습니다.",
-                                                 message: "새로운 비밀번호로 로그인해주세요") { _ in
-                        self?.navigationController?.popViewController(animated: true)
+                DispatchQueue.main.async {
+                    switch statusCode {
+                    case .processingSuccess:
+                        self?.simpleAlertwithHandler(title: "임시 비밀번호가 발급되었습니다.",
+                                                     message: "새로운 비밀번호로 로그인해주세요") { _ in
+                            self?.navigationController?.popViewController(animated: true)
+                        }
+                    case .requestError:
+                        self?.simplerAlert(title: "유효한 이메일이 아닙니다.")
+                    case .dataBaseError:
+                        self?.simplerAlert(title: "데이터베이스 에러")
+                    case .serverError:
+                        self?.simplerAlert(title: "서버 에러")
+                    default:
+                        return
                     }
-                case .requestError:
-                    self?.simplerAlert(title: "유효한 이메일이 아닙니다.")
-                case .dataBaseError:
-                    self?.simplerAlert(title: "데이터베이스 에러")
-                case .serverError:
-                    self?.simplerAlert(title: "서버 에러")
-                default:
-                    return
                 }
             case .failed(let error):
                 print(error)
