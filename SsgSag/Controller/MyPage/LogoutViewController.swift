@@ -32,7 +32,10 @@ class LogoutViewController: UIViewController {
     @IBAction func touchUpOkButton(_ sender: UIButton) {
         let adBrix = AdBrixRM.getInstance
         
-        if let kakaoToken = KOSession.shared()?.token.accessToken {
+        if KOSession.shared()?.token != nil {
+            guard let kakaoToken = KOSession.shared()?.token.accessToken else {
+                return
+            }
             adBrix.login(userId: kakaoToken)
         }
         
