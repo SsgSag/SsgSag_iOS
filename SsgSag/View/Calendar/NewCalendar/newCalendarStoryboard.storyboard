@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
-    <device id="retina6_1" orientation="portrait">
-        <adaptation id="fullscreen"/>
-    </device>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14868" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14824"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="collection view cell content view" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -60,8 +59,8 @@
                                 </connections>
                             </barButtonItem>
                             <barButtonItem style="plain" id="18R-zK-GKS">
-                                <view key="customView" contentMode="scaleToFill" ambiguous="YES" id="p9b-tv-ABd" customClass="VAMonthHeaderView" customModule="슥삭" customModuleProvider="target">
-                                    <rect key="frame" x="55" y="22" width="0.0" height="0.0"/>
+                                <view key="customView" contentMode="scaleToFill" id="p9b-tv-ABd" customClass="VAMonthHeaderView" customModule="슥삭" customModuleProvider="target">
+                                    <rect key="frame" x="135" y="22" width="0.0" height="0.0"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <constraints>
@@ -97,15 +96,42 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="Qgi-YN-xKC">
+                                <rect key="frame" x="0.0" y="88" width="414" height="35"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="35" id="jgL-L7-svP"/>
+                                </constraints>
+                                <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="p56-7K-uX6">
+                                    <size key="itemSize" width="50" height="50"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                                <cells>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="MZs-RP-aDm">
+                                        <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="0ud-DU-OHC">
+                                            <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </collectionViewCellContentView>
+                                    </collectionViewCell>
+                                </cells>
+                                <connections>
+                                    <outlet property="dataSource" destination="29K-Ao-k5E" id="slB-tm-RTu"/>
+                                    <outlet property="delegate" destination="29K-Ao-k5E" id="PgP-YB-qpV"/>
+                                </connections>
+                            </collectionView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cVN-XG-svs" customClass="VAWeekDaysView" customModule="슥삭" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="88" width="414" height="30"/>
+                                <rect key="frame" x="-6" y="123" width="426" height="30"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="Ahy-f5-BGf"/>
                                 </constraints>
                             </view>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="9uD-hQ-tab">
-                                <rect key="frame" x="0.0" y="118" width="414" height="695"/>
+                                <rect key="frame" x="0.0" y="153" width="414" height="660"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="K09-EA-GOw">
                                     <size key="itemSize" width="50" height="50"/>
@@ -132,12 +158,16 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="RdR-rS-w49" firstAttribute="bottom" secondItem="9uD-hQ-tab" secondAttribute="bottom" id="Cqc-yM-Hei"/>
-                            <constraint firstItem="cVN-XG-svs" firstAttribute="leading" secondItem="RdR-rS-w49" secondAttribute="leading" id="MD5-MW-tkD"/>
-                            <constraint firstItem="RdR-rS-w49" firstAttribute="trailing" secondItem="cVN-XG-svs" secondAttribute="trailing" id="MTx-dp-6of"/>
+                            <constraint firstItem="Qgi-YN-xKC" firstAttribute="leading" secondItem="RdR-rS-w49" secondAttribute="leading" id="J46-UX-4tj"/>
+                            <constraint firstItem="cVN-XG-svs" firstAttribute="leading" secondItem="RdR-rS-w49" secondAttribute="leading" constant="-6" id="MD5-MW-tkD"/>
+                            <constraint firstItem="RdR-rS-w49" firstAttribute="trailing" secondItem="cVN-XG-svs" secondAttribute="trailing" constant="-6" id="MTx-dp-6of"/>
+                            <constraint firstItem="Qgi-YN-xKC" firstAttribute="top" secondItem="RdR-rS-w49" secondAttribute="top" id="Nqw-fB-wk0"/>
                             <constraint firstItem="9uD-hQ-tab" firstAttribute="top" secondItem="cVN-XG-svs" secondAttribute="bottom" id="UDv-iw-J4d"/>
-                            <constraint firstItem="cVN-XG-svs" firstAttribute="top" secondItem="RdR-rS-w49" secondAttribute="top" id="bXn-K6-tCu"/>
+                            <constraint firstItem="cVN-XG-svs" firstAttribute="top" secondItem="Qgi-YN-xKC" secondAttribute="bottom" id="bXn-K6-tCu"/>
+                            <constraint firstItem="cVN-XG-svs" firstAttribute="top" secondItem="Qgi-YN-xKC" secondAttribute="bottom" id="bpF-QC-0c8"/>
                             <constraint firstItem="9uD-hQ-tab" firstAttribute="leading" secondItem="RdR-rS-w49" secondAttribute="leading" id="h7H-35-bO1"/>
                             <constraint firstItem="RdR-rS-w49" firstAttribute="trailing" secondItem="9uD-hQ-tab" secondAttribute="trailing" id="jJK-ff-j6q"/>
+                            <constraint firstItem="RdR-rS-w49" firstAttribute="trailing" secondItem="Qgi-YN-xKC" secondAttribute="trailing" id="yfc-27-yLB"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="RdR-rS-w49"/>
                     </view>
@@ -150,8 +180,8 @@
                         </barButtonItem>
                         <rightBarButtonItems>
                             <barButtonItem style="plain" id="Vin-20-YYa">
-                                <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="joh-VV-6IC">
-                                    <rect key="frame" x="356" y="0.0" width="38" height="44"/>
+                                <button key="customView" opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="joh-VV-6IC">
+                                    <rect key="frame" x="318" y="0.0" width="34" height="44"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <state key="normal" image="ic_modify"/>
                                 </button>
@@ -160,8 +190,8 @@
                                 </connections>
                             </barButtonItem>
                             <barButtonItem style="plain" id="CJU-Ld-8mE">
-                                <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="9dj-UV-ohh">
-                                    <rect key="frame" x="310" y="0.0" width="38" height="44"/>
+                                <button key="customView" opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="9dj-UV-ohh">
+                                    <rect key="frame" x="234" y="0.0" width="34" height="44"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <state key="normal" image="ic_switchToCalendar"/>
                                 </button>
@@ -174,6 +204,7 @@
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="calendarCollectionView" destination="9uD-hQ-tab" id="5u7-pP-U2j"/>
+                        <outlet property="categoryCollectionView" destination="Qgi-YN-xKC" id="4rz-Yf-cmk"/>
                         <outlet property="weekDaysView" destination="cVN-XG-svs" id="eTh-V8-otw"/>
                     </connections>
                 </viewController>

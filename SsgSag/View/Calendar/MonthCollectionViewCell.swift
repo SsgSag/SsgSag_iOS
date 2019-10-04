@@ -11,6 +11,12 @@ import UIKit
 class MonthCollectionViewCell: UICollectionViewCell {
     var month: Int = 0
     
+    var monthDataSource: MonthCollectionViewDataSource? {
+        didSet {
+            monthCollectionView.reloadData()
+        }
+    }
+    
     private lazy var monthCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.minimumInteritemSpacing = 0
@@ -23,7 +29,6 @@ class MonthCollectionViewCell: UICollectionViewCell {
         collectionView.isScrollEnabled = false
         collectionView.backgroundColor = .white
         collectionView.delegate = self
-        collectionView.dataSource = self
         return collectionView
     }()
     
@@ -52,6 +57,9 @@ class MonthCollectionViewCell: UICollectionViewCell {
     }
     
     private func setupCollectionView() {
+        monthDataSource = MonthCollectionViewDataSource()
+        monthCollectionView.dataSource = monthDataSource
+        
         let dayNib = UINib(nibName: "DayCollectionViewCell", bundle: nil)
         
         monthCollectionView.register(dayNib, forCellWithReuseIdentifier: "dayCell")
@@ -60,21 +68,4 @@ class MonthCollectionViewCell: UICollectionViewCell {
 
 extension MonthCollectionViewCell: UICollectionViewDelegate {
     
-}
-
-extension MonthCollectionViewCell: UICollectionViewDataSource {
-    func collectionView(_ collectionView: UICollectionView,
-                        numberOfItemsInSection section: Int) -> Int {
-        return 30
-    }
-    
-    func collectionView(_ collectionView: UICollectionView,
-                        cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "dayCell",
-                                                            for: indexPath) as? DayCollectionViewCell else {
-                                                                return UICollectionViewCell()
-        }
-        
-        return cell
-    }
 }
