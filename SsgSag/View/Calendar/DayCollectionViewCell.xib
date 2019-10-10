@@ -17,10 +17,16 @@
                 <rect key="frame" x="0.0" y="0.0" width="152" height="165"/>
                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 <subviews>
-                    <tableView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="RHm-IM-Lh1">
+                    <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="Igx-LE-XT6">
                         <rect key="frame" x="4" y="28" width="144" height="129"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                    </tableView>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="sp1-kf-ogq">
+                            <size key="itemSize" width="50" height="50"/>
+                            <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                            <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                            <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                        </collectionViewFlowLayout>
+                    </collectionView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="e3P-ZA-cj3">
                         <rect key="frame" x="0.0" y="7" width="152" height="14"/>
                         <constraints>
@@ -40,22 +46,22 @@
                 </subviews>
             </view>
             <constraints>
-                <constraint firstItem="RHm-IM-Lh1" firstAttribute="top" secondItem="e3P-ZA-cj3" secondAttribute="bottom" constant="7" id="4vB-Yk-FBg"/>
                 <constraint firstAttribute="bottom" secondItem="zIR-Uc-lDi" secondAttribute="bottom" id="7Ku-6E-ZAo"/>
-                <constraint firstAttribute="trailing" secondItem="RHm-IM-Lh1" secondAttribute="trailing" constant="4" id="GMS-Fi-4BA"/>
+                <constraint firstItem="Igx-LE-XT6" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="4" id="Kbp-yn-ApO"/>
                 <constraint firstAttribute="trailing" secondItem="zIR-Uc-lDi" secondAttribute="trailing" id="Kns-Xl-Wbf"/>
                 <constraint firstItem="e3P-ZA-cj3" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" constant="7" id="LC3-XI-7Ft"/>
                 <constraint firstItem="e3P-ZA-cj3" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="Sgx-xP-9Xv"/>
                 <constraint firstAttribute="trailing" secondItem="e3P-ZA-cj3" secondAttribute="trailing" id="TA0-tp-SqT"/>
-                <constraint firstItem="RHm-IM-Lh1" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="4" id="Yvf-bc-bOV"/>
+                <constraint firstAttribute="trailing" secondItem="Igx-LE-XT6" secondAttribute="trailing" constant="4" id="WUH-Nu-sH2"/>
+                <constraint firstItem="Igx-LE-XT6" firstAttribute="top" secondItem="e3P-ZA-cj3" secondAttribute="bottom" constant="7" id="aOQ-30-9TX"/>
                 <constraint firstItem="zIR-Uc-lDi" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="abS-KY-qyd"/>
-                <constraint firstItem="zIR-Uc-lDi" firstAttribute="top" secondItem="RHm-IM-Lh1" secondAttribute="bottom" constant="7" id="gJr-v3-yqw"/>
+                <constraint firstItem="zIR-Uc-lDi" firstAttribute="top" secondItem="Igx-LE-XT6" secondAttribute="bottom" constant="7" id="mNR-OI-Ozs"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
             <size key="customSize" width="152" height="165"/>
             <connections>
+                <outlet property="dayCollectionView" destination="Igx-LE-XT6" id="LbE-m3-ILh"/>
                 <outlet property="dayTitleLabel" destination="e3P-ZA-cj3" id="KpF-gT-3Ko"/>
-                <outlet property="todoTableView" destination="RHm-IM-Lh1" id="vAp-5Q-wIR"/>
             </connections>
             <point key="canvasLocation" x="-84.057971014492765" y="92.745535714285708"/>
         </collectionViewCell>

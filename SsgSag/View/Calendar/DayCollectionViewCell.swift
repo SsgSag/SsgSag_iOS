@@ -10,17 +10,33 @@ import UIKit
 
 class DayCollectionViewCell: UICollectionViewCell {
 
-    @IBOutlet weak var dayTitleLabel: UILabel!
-    @IBOutlet weak var todoTableView: UITableView!
+    @IBOutlet weak var dayTitleLabel: UILabel!    
+    @IBOutlet weak var dayCollectionView: UICollectionView!
     
     override func awakeFromNib() {
         super.awakeFromNib()
         
-        setupTableView()
+        setupCollectionView()
     }
     
-    private func setupTableView() {
-        todoTableView.separatorStyle = .none
+    private func setupCollectionView() {
+        
     }
     
+}
+
+extension DayCollectionViewCell: UICollectionViewDelegate {
+    
+}
+extension DayCollectionViewCell: UICollectionViewDataSource {
+    
+    func collectionView(_ collectionView: UICollectionView,
+                        numberOfItemsInSection section: Int) -> Int {
+        return 0
+    }
+    
+    func collectionView(_ collectionView: UICollectionView,
+                        cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        return UICollectionViewCell()
+    }
 }

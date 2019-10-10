@@ -1,15 +1,16 @@
 //
-//  ______Tests.swift
-//  슥삭Tests
+//  SsgSagTests.swift
+//  SsgSagTests
 //
-//  Created by admin on 06/05/2019.
+//  Created by 이혜주 on 09/10/2019.
 //  Copyright © 2019 wndzlf. All rights reserved.
 //
 
 import XCTest
 
-class ______Tests: XCTestCase {
 
+class SsgSagTests: XCTestCase {
+//    let calendar = HJCalendar()
     override func setUp() {
         // Put setup code here. This method is called before the invocation of each test method in the class.
     }
@@ -25,7 +26,7 @@ class ______Tests: XCTestCase {
 
     func testPerformanceExample() {
         // This is an example of a performance test case.
-        self.measure {
+        measure {
             // Put the code you want to measure the time of here.
         }
     }

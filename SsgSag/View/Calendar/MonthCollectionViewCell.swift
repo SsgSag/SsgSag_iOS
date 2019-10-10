@@ -9,7 +9,6 @@
 import UIKit
 
 class MonthCollectionViewCell: UICollectionViewCell {
-    var month: Int = 0
     
     var monthDataSource: MonthCollectionViewDataSource? {
         didSet {
@@ -17,7 +16,7 @@ class MonthCollectionViewCell: UICollectionViewCell {
         }
     }
     
-    private lazy var monthCollectionView: UICollectionView = {
+    lazy var monthCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.minimumInteritemSpacing = 0
         layout.minimumLineSpacing = 0
@@ -63,6 +62,10 @@ class MonthCollectionViewCell: UICollectionViewCell {
         let dayNib = UINib(nibName: "DayCollectionViewCell", bundle: nil)
         
         monthCollectionView.register(dayNib, forCellWithReuseIdentifier: "dayCell")
+    }
+    
+    func configure(month: HJMonth) {
+        
     }
 }
 

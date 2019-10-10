@@ -11,7 +11,7 @@ import SwiftKeychainWrapper
 
 class CalendarViewController: UIViewController {
     
-    private var calendar: SSCalendar = SSCalendar()
+    private var calendar: HJCalendar = HJCalendar()
     
     private let defaultCalendar: Calendar = {
         var calendar = Calendar.current
@@ -23,12 +23,6 @@ class CalendarViewController: UIViewController {
     var categoryDataSource: CategoryCollectionViewDataSource? {
         didSet {
             categoryCollectionView.reloadData()
-        }
-    }
-    
-    var calendarDataSource: CalendarCollectionViewDataSource? {
-        didSet {
-            calendarCollectionView.reloadData()
         }
     }
     
@@ -65,8 +59,18 @@ class CalendarViewController: UIViewController {
         categoryDataSource = CategoryCollectionViewDataSource()
         categoryCollectionView.dataSource = categoryDataSource
         
-        calendarDataSource = CalendarCollectionViewDataSource()
+        let calendarDataSource: CalendarCollectionViewDataSource = CalendarDataSourceContainer.shared.getDependency(key: .calendarDataSource)
         calendarCollectionView.dataSource = calendarDataSource
+        
+        let monthDataSource: MonthCollectionViewDataSource
+            = CalendarDataSourceContainer.shared.getDependency(key: .monthDataSource)
+        
+        let dayDataSource: DayCollectionViewDataSource
+            = CalendarDataSourceContainer.shared.getDependency(key: .dayDataSource)
+        
+        calendarDataSource.connect(with: monthDataSource)
+        monthDataSource.connect(with: dayDataSource)
+        calendarDataSource.months = calendar.getMonths()
         
         calendarCollectionView.register(MonthCollectionViewCell.self,
                                         forCellWithReuseIdentifier: "monthCell")

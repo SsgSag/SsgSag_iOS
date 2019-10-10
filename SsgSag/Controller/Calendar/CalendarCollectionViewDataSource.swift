@@ -9,9 +9,18 @@
 import Foundation
 
 class CalendarCollectionViewDataSource: NSObject, UICollectionViewDataSource {
+    
+    var months: [HJMonth]?
+    
+    var targetView: UICollectionView?
+    
+    func connect(with dataSource: UICollectionViewDataSource) {
+        targetView?.dataSource = dataSource
+    }
+    
     func collectionView(_ collectionView: UICollectionView,
                         numberOfItemsInSection section: Int) -> Int {
-        return 30
+        return months?.count ?? 0
     }
     
     func collectionView(_ collectionView: UICollectionView,
@@ -21,6 +30,9 @@ class CalendarCollectionViewDataSource: NSObject, UICollectionViewDataSource {
             as? MonthCollectionViewCell else {
                 return UICollectionViewCell()
         }
+        
+        targetView = cell.monthCollectionView
+//        cell.configure(months[indexPath.item])
         
         return cell
     }

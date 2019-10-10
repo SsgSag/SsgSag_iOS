@@ -9,6 +9,14 @@
 import Foundation
 
 class MonthCollectionViewDataSource: NSObject, UICollectionViewDataSource {
+    
+    //var months = []
+    var targetView: UICollectionView?
+    
+    func connect(with dataSource: UICollectionViewDataSource) {
+        targetView?.dataSource = dataSource
+    }
+    
     func collectionView(_ collectionView: UICollectionView,
                         numberOfItemsInSection section: Int) -> Int {
         return 30
