@@ -153,6 +153,8 @@
 		D1564EFE22EC0AA400BDA7F6 /* NetworkProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1564EFD22EC0AA400BDA7F6 /* NetworkProtocol.swift */; };
 		D1564F0022EC102400BDA7F6 /* RequestMakerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1564EFF22EC102400BDA7F6 /* RequestMakerProtocol.swift */; };
 		D1564F0222EC10B500BDA7F6 /* RequestMaker.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1564F0122EC10B500BDA7F6 /* RequestMaker.swift */; };
+		D1656C682342EAFD00FCEA47 /* SeeMoreCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1656C662342EAFD00FCEA47 /* SeeMoreCollectionReusableView.swift */; };
+		D1656C692342EAFD00FCEA47 /* SeeMoreCollectionReusableView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D1656C672342EAFD00FCEA47 /* SeeMoreCollectionReusableView.xib */; };
 		D166AC5D22D46D4100ED82DD /* MonthTodoList.swift in Sources */ = {isa = PBXBuildFile; fileRef = D166AC5C22D46D4100ED82DD /* MonthTodoList.swift */; };
 		D166AC5F22D4726000ED82DD /* DayTodoList.swift in Sources */ = {isa = PBXBuildFile; fileRef = D166AC5E22D4726000ED82DD /* DayTodoList.swift */; };
 		D166AC6622D733CC00ED82DD /* FeedVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D166AC6522D733CC00ED82DD /* FeedVC.swift */; };
@@ -162,6 +164,9 @@
 		D166AC7522D76DFC00ED82DD /* MenuBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = D166AC7422D76DFC00ED82DD /* MenuBar.swift */; };
 		D17A1C4222ED8A6200939788 /* InterestServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = D17A1C4122ED8A6200939788 /* InterestServiceProtocol.swift */; };
 		D17A1C4422ED8D2F00939788 /* SignUpServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = D17A1C4322ED8D2F00939788 /* SignUpServiceProtocol.swift */; };
+		D1A4EEA42344422B003FAC88 /* NoTodoHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1A4EEA32344422B003FAC88 /* NoTodoHeaderView.swift */; };
+		D1A4EEA72344FC7E003FAC88 /* NoPosterCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1A4EEA52344FC7E003FAC88 /* NoPosterCollectionViewCell.swift */; };
+		D1A4EEA82344FC7E003FAC88 /* NoPosterCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D1A4EEA62344FC7E003FAC88 /* NoPosterCollectionViewCell.xib */; };
 		D1B2F43523013BAA00074448 /* AllAndFavoriteCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1B2F43323013BAA00074448 /* AllAndFavoriteCollectionReusableView.swift */; };
 		D1B2F43623013BAA00074448 /* AllAndFavoriteCollectionReusableView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D1B2F43423013BAA00074448 /* AllAndFavoriteCollectionReusableView.xib */; };
 		D1C7C1FD22FFEF3F001BDB5D /* UserDefaults+.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1C7C1FC22FFEF3F001BDB5D /* UserDefaults+.swift */; };
@@ -439,6 +444,8 @@
 		D1564EFD22EC0AA400BDA7F6 /* NetworkProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkProtocol.swift; sourceTree = "<group>"; };
 		D1564EFF22EC102400BDA7F6 /* RequestMakerProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestMakerProtocol.swift; sourceTree = "<group>"; };
 		D1564F0122EC10B500BDA7F6 /* RequestMaker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestMaker.swift; sourceTree = "<group>"; };
+		D1656C662342EAFD00FCEA47 /* SeeMoreCollectionReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeeMoreCollectionReusableView.swift; sourceTree = "<group>"; };
+		D1656C672342EAFD00FCEA47 /* SeeMoreCollectionReusableView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SeeMoreCollectionReusableView.xib; sourceTree = "<group>"; };
 		D166AC5C22D46D4100ED82DD /* MonthTodoList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonthTodoList.swift; sourceTree = "<group>"; };
 		D166AC5E22D4726000ED82DD /* DayTodoList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayTodoList.swift; sourceTree = "<group>"; };
 		D166AC6522D733CC00ED82DD /* FeedVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedVC.swift; sourceTree = "<group>"; };
@@ -448,6 +455,9 @@
 		D166AC7422D76DFC00ED82DD /* MenuBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuBar.swift; sourceTree = "<group>"; };
 		D17A1C4122ED8A6200939788 /* InterestServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterestServiceProtocol.swift; sourceTree = "<group>"; };
 		D17A1C4322ED8D2F00939788 /* SignUpServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpServiceProtocol.swift; sourceTree = "<group>"; };
+		D1A4EEA32344422B003FAC88 /* NoTodoHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoTodoHeaderView.swift; sourceTree = "<group>"; };
+		D1A4EEA52344FC7E003FAC88 /* NoPosterCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoPosterCollectionViewCell.swift; sourceTree = "<group>"; };
+		D1A4EEA62344FC7E003FAC88 /* NoPosterCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NoPosterCollectionViewCell.xib; sourceTree = "<group>"; };
 		D1B2F43323013BAA00074448 /* AllAndFavoriteCollectionReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllAndFavoriteCollectionReusableView.swift; sourceTree = "<group>"; };
 		D1B2F43423013BAA00074448 /* AllAndFavoriteCollectionReusableView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AllAndFavoriteCollectionReusableView.xib; sourceTree = "<group>"; };
 		D1C7C1FC22FFEF3F001BDB5D /* UserDefaults+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserDefaults+.swift"; sourceTree = "<group>"; };
@@ -835,6 +845,9 @@
 				D1FDF3DB230AF7550055D293 /* NoTodoTableViewCell.xib */,
 				D1E6467D2311608100EAB8AC /* NoCommentCollectionViewCell.swift */,
 				D1E6467E2311608100EAB8AC /* NoCommentCollectionViewCell.xib */,
+				D1656C662342EAFD00FCEA47 /* SeeMoreCollectionReusableView.swift */,
+				D1656C672342EAFD00FCEA47 /* SeeMoreCollectionReusableView.xib */,
+				D1A4EEA32344422B003FAC88 /* NoTodoHeaderView.swift */,
 			);
 			path = Calendar;
 			sourceTree = "<group>";
@@ -868,6 +881,8 @@
 				FA851DE821D3DBBC002065D0 /* SwipeCard.swift */,
 				D1FEA34F2334C79600464DC4 /* AllPosterListCollectionViewCell.swift */,
 				D1FEA3502334C79600464DC4 /* AllPosterListCollectionViewCell.xib */,
+				D1A4EEA52344FC7E003FAC88 /* NoPosterCollectionViewCell.swift */,
+				D1A4EEA62344FC7E003FAC88 /* NoPosterCollectionViewCell.xib */,
 			);
 			path = Swipe;
 			sourceTree = "<group>";
@@ -1362,11 +1377,13 @@
 				D1FEA3522334C79600464DC4 /* AllPosterListCollectionViewCell.xib in Resources */,
 				D1B2F43623013BAA00074448 /* AllAndFavoriteCollectionReusableView.xib in Resources */,
 				D1EAA622230682F50063E04A /* AdmissionCollectionViewCell.xib in Resources */,
+				D1656C692342EAFD00FCEA47 /* SeeMoreCollectionReusableView.xib in Resources */,
 				D1E646802311608100EAB8AC /* NoCommentCollectionViewCell.xib in Resources */,
 				D1FB05B622E6E3AE001425CF /* SettingMenuCollectionViewCell.xib in Resources */,
 				D1EAA6162306709E0063E04A /* UnivCollectionViewCell.xib in Resources */,
 				84BA694B21DB395400BA8CB8 /* MyPageStoryBoard.storyboard in Resources */,
 				D1EAA61E230681680063E04A /* GradeCollectionViewCell.xib in Resources */,
+				D1A4EEA82344FC7E003FAC88 /* NoPosterCollectionViewCell.xib in Resources */,
 				84E19CE421DCC9F4006F72EC /* LoginStoryBoard.storyboard in Resources */,
 				FA7F4CBC21DFC7E700D8643A /* CustomCareerCell.xib in Resources */,
 				D10B6E2622F4268E007B9BEA /* BoardPostCollectionViewCell.xib in Resources */,
@@ -1533,6 +1550,7 @@
 				846E6225228FDA140083E3CD /* InterestServiceImp.swift in Sources */,
 				8406BB7D220E9EE80065B180 /* Event.swift in Sources */,
 				FA23A93F21DF6FCF003DB5F9 /* myPageTableViewCell.swift in Sources */,
+				D1A4EEA42344422B003FAC88 /* NoTodoHeaderView.swift in Sources */,
 				D1E037CE22F2C8C10081B8A1 /* TempPassword.swift in Sources */,
 				845928E121D20068001DF6CC /* LoginVC.swift in Sources */,
 				FA61FE0F21E0E3D300A28947 /* JobVC.swift in Sources */,
@@ -1630,6 +1648,7 @@
 				D1F3A283230593CD007B72E1 /* OSLTableViewCell.swift in Sources */,
 				845F12C722672A3200DFF42E /* DateFormatter.swift in Sources */,
 				8496818422AFD3FE004A4A63 /* VAMonth.swift in Sources */,
+				D1656C682342EAFD00FCEA47 /* SeeMoreCollectionReusableView.swift in Sources */,
 				842C619E21DD1807001BA6D8 /* networkData.swift in Sources */,
 				846356792293EAA10060ED91 /* NotificationInfoTableViewController.swift in Sources */,
 				D1F0DA22230D062F00C6FF19 /* Column.swift in Sources */,
@@ -1694,6 +1713,7 @@
 				D17A1C4422ED8D2F00939788 /* SignUpServiceProtocol.swift in Sources */,
 				8496818022AFD3FE004A4A63 /* VACalendarMonthDelegate.swift in Sources */,
 				D1CC98002339E78D0064A867 /* PosterAfterSwipe.swift in Sources */,
+				D1A4EEA72344FC7E003FAC88 /* NoPosterCollectionViewCell.swift in Sources */,
 				D10B6E2222F42600007B9BEA /* BoardCollectionViewCell.swift in Sources */,
 				8496819022AFDF66004A4A63 /* NewCalendarVC.swift in Sources */,
 				D166AC7022D73CD700ED82DD /* NewsCollectionViewCell.swift in Sources */,
@@ -1868,6 +1888,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				MARKETING_VERSION = 2.0.5;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-framework",
@@ -1914,6 +1935,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				MARKETING_VERSION = 2.0.5;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-framework",

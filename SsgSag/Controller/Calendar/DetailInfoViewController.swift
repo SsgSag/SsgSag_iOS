@@ -26,9 +26,10 @@ class DetailInfoViewController: UIViewController {
     var callback: ((Int) -> ())?
     var posterIdx: Int?
     var posterDetailData: DataClass?
-    private var isFolding: Bool = false
+    private var isFolding: Bool = true
     private var columnData: [Column]?
     private var analyticsData: Analytics?
+    private var firstCount: Int = 0
     
     let downloadLink = "https://ssgsag.page.link/install"
     
@@ -70,11 +71,20 @@ class DetailInfoViewController: UIViewController {
             self?.isFolding = true
             self?.requestDatas(section: 0)
         }
+        view.alertCallback = { [weak self] in
+            let alert = UIAlertController(title: "포스터가 저장되었습니다.", message: nil, preferredStyle: .alert)
+            alert.modalPresentationStyle = .fullScreen
+            self?.present(alert, animated: true)
+            
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+                alert.dismiss(animated: true)
+            }
+        }
         return view
     }()
     
     private lazy var shareBarButton: UIBarButtonItem = {
-        let barButton = UIBarButtonItem(title: "공유",
+        let barButton = UIBarButtonItem(image: UIImage(named: "ic_share"),
                                         style: .plain,
                                         target: self,
                                         action: #selector(touchUpShareButton))
@@ -229,6 +239,12 @@ class DetailInfoViewController: UIViewController {
         infoCollectionView.register(posterHeaderNib,
                                     forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
                                     withReuseIdentifier: "posterHeaderID")
+        
+        let seeMoreHeaderNib = UINib(nibName: "SeeMoreCollectionReusableView", bundle: nil)
+        
+        infoCollectionView.register(seeMoreHeaderNib,
+                                    forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
+                                    withReuseIdentifier: "seeMoreHeaderID")
         
         infoCollectionView.register(TempCollectionReusableView.self,
                                     forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
@@ -444,20 +460,22 @@ extension DetailInfoViewController: UICollectionViewDataSource {
         }
         
         if isTryWithoutLogin {
-            return 2
+            return 3
         }
         
-        return 3
+        return 4
     }
     
     func collectionView(_ collectionView: UICollectionView,
                         numberOfItemsInSection section: Int) -> Int {
         switch section {
         case 0:
-            return 6
+            return 5
         case 1:
-            return 1
+            return 0
         case 2:
+            return 1
+        case 3:
             return posterDetailData?.commentList?.count != 0 ? (posterDetailData?.commentList?.count ?? 0) : 1
         default:
             return 0
@@ -564,20 +582,10 @@ extension DetailInfoViewController: UICollectionViewDataSource {
                 cell.configure(email: posterDetailData?.partnerEmail ?? "")
                 
                 return cell
-            case 5:
-                guard let cell
-                    = collectionView.dequeueReusableCell(withReuseIdentifier: "seeMoreCellID",
-                                                         for: indexPath) as? SeeMoreCollectionViewCell else {
-                                                            return .init()
-                }
-                
-                cell.configure(contents: posterDetailData?.posterDetail ?? "")
-                
-                return cell
             default:
                 return .init()
             }
-        case 1:
+        case 2:
             guard let isTryWithoutLogin = UserDefaults.standard.object(forKey: "isTryWithoutLogin") as? Bool else {
                 return .init()
             }
@@ -620,6 +628,10 @@ extension DetailInfoViewController: UICollectionViewDataSource {
                                                         return .init()
             }
             
+            if cell.majorChartView.layer.sublayers != nil {
+                return cell
+            }
+            
             cell.configure(analyticsData: analyticsData)
             
             return cell
@@ -654,31 +666,53 @@ extension DetailInfoViewController: UICollectionViewDataSource {
                         viewForSupplementaryElementOfKind kind: String,
                         at indexPath: IndexPath) -> UICollectionReusableView {
         if kind == UICollectionView.elementKindSectionHeader {
-            guard indexPath.section == 0 else {
-                return collectionView.dequeueReusableSupplementaryView(ofKind: kind,
-                                                                       withReuseIdentifier: "tempHeader",
-                                                                       for: indexPath)
-            }
-            guard let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "posterHeaderID", for: indexPath) as? PosterHeaderCollectionReusableView else {
-                return collectionView.dequeueReusableSupplementaryView(ofKind: kind,
-                                                                       withReuseIdentifier: "tempHeader",
-                                                                       for: indexPath)
-            }
-            
-            header.delegate = self
-            header.detailData = posterDetailData
-            
-            if let photoURL = posterDetailData?.photoUrl {
-                if let url = URL(string: photoURL){
-                    ImageNetworkManager.shared.getImageByCache(imageURL: url) { image, error in
-                        DispatchQueue.main.async {
-                            header.posterImageView.image = image
+            switch indexPath.section {
+            case 0:
+                guard let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind,
+                                                                                   withReuseIdentifier: "posterHeaderID",
+                                                                                   for: indexPath)
+                    as? PosterHeaderCollectionReusableView else {
+                    return collectionView.dequeueReusableSupplementaryView(ofKind: kind,
+                                                                           withReuseIdentifier: "tempHeader",
+                                                                           for: indexPath)
+                }
+                
+                header.delegate = self
+                header.detailData = posterDetailData
+                
+                if let thumbPhotoUrl = posterDetailData?.thumbPhotoUrl {
+                    if let url = URL(string: thumbPhotoUrl){
+                        ImageNetworkManager.shared.getImageByCache(imageURL: url) { image, error in
+                            DispatchQueue.main.async {
+                                header.posterImageView.image = image
+                            }
                         }
                     }
                 }
+                
+                return header
+            case 1:
+                guard let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind,
+                                                                                   withReuseIdentifier: "seeMoreHeaderID",
+                                                                                   for: indexPath)
+                    as? SeeMoreCollectionReusableView else {
+                    return collectionView.dequeueReusableSupplementaryView(ofKind: kind,
+                                                                           withReuseIdentifier: "tempHeader",
+                                                                           for: indexPath)
+                }
+                
+                header.contentsLabel.text = posterDetailData?.posterDetail ?? ""
+                header.callback = {
+                    collectionView.reloadData()
+                }
+                
+                return header
+            default:
+                return collectionView.dequeueReusableSupplementaryView(ofKind: kind,
+                withReuseIdentifier: "tempHeader",
+                for: indexPath)
             }
             
-            return header
         } else {
             return collectionView.dequeueReusableSupplementaryView(ofKind: kind,
                                                                    withReuseIdentifier: "tempFooter",
@@ -702,13 +736,6 @@ extension DetailInfoViewController: UICollectionViewDataSource {
                     detailImageView.modalPresentationStyle = .fullScreen
                     present(detailImageView, animated: true)
                 }
-            case 5:
-                // 자세히 보기
-                let indexPaths = [indexPath]
-                collectionView.reloadItems(at: indexPaths)
-                collectionView.scrollToItem(at: indexPath, at: .top, animated: true)
-                
-                requestClickRecord(type: 2)
             default:
                 return
             }
@@ -725,6 +752,32 @@ extension DetailInfoViewController: UICollectionViewDelegateFlowLayout {
         switch section {
         case 0:
             return CGSize(width: view.frame.width, height: 243)
+        case 1:
+            guard posterDetailData?.posterDetail != nil else {
+                return CGSize(width: view.frame.width, height: 0)
+            }
+            
+            if firstCount >= 2 {
+                if !isFolding {
+                    isFolding = true
+                    
+                    return CGSize(width: view.frame.width, height: 47)
+                } else {
+                    isFolding = false
+
+                    let collectionViewCellHeight = estimatedFrame(width: view.frame.width - 75,
+                                                                  text: posterDetailData?.posterDetail ?? "",
+                                                                  font: UIFont.systemFont(ofSize: 12)).height
+
+                    return CGSize(width: view.frame.width,
+                                  height: collectionViewCellHeight + 50 + 47)
+                }
+            } else {
+                firstCount += 1
+                isFolding = false
+                
+                return CGSize(width: view.frame.width, height: 47)
+            }
         default:
             return CGSize(width: view.frame.width, height: 0)
         }
@@ -738,9 +791,11 @@ extension DetailInfoViewController: UICollectionViewDelegateFlowLayout {
             switch indexPath.item {
             case 0:
                 guard let _ = posterDetailData?.photoUrl2 else {
-                    return CGSize(width: view.frame.width, height: 0)
+                    return CGSize(width: view.frame.width,
+                                  height: 0)
                 }
-                return CGSize(width: view.frame.width, height: 41)
+                return CGSize(width: view.frame.width,
+                              height: 41)
             case 1:
                 if columnData?.count ?? 3 < 1 {
                     return CGSize(width: view.frame.width, height: 0)
@@ -749,7 +804,8 @@ extension DetailInfoViewController: UICollectionViewDelegateFlowLayout {
                                                               text: posterDetailData?.outline ?? "",
                                                               font: UIFont.systemFont(ofSize: 14)).height
                 
-                return CGSize(width: view.frame.width, height: collectionViewCellHeight + 72)
+                return CGSize(width: view.frame.width,
+                              height: collectionViewCellHeight + 72)
             case 2:
                 if columnData?.count ?? 3 < 2 {
                     return CGSize(width: view.frame.width, height: 0)
@@ -759,7 +815,8 @@ extension DetailInfoViewController: UICollectionViewDelegateFlowLayout {
                                                               text: posterDetailData?.target ?? "",
                                                               font: UIFont.systemFont(ofSize: 14)).height
                 
-                return CGSize(width: view.frame.width, height: collectionViewCellHeight + 72)
+                return CGSize(width: view.frame.width,
+                              height: collectionViewCellHeight + 72)
             case 3:
                 if columnData?.count ?? 3 < 3 {
                     return CGSize(width: view.frame.width, height: 0)
@@ -769,30 +826,18 @@ extension DetailInfoViewController: UICollectionViewDelegateFlowLayout {
                                                               text: posterDetailData?.benefit ?? "",
                                                               font: UIFont.systemFont(ofSize: 14)).height
                 
-                return CGSize(width: view.frame.width, height: collectionViewCellHeight + 72)
+                return CGSize(width: view.frame.width,
+                              height: collectionViewCellHeight + 72)
             case 4:
                 guard let _ = posterDetailData?.partnerEmail else {
                     return CGSize(width: 0, height: 0)
                 }
                 
                 return CGSize(width: view.frame.width, height: 80)
-            case 5:
-                if isFolding {
-                    isFolding = !isFolding
-                    return CGSize(width: view.frame.width, height: 46)
-                } else {
-                    isFolding = !isFolding
-                    
-                    let collectionViewCellHeight = estimatedFrame(width: view.frame.width - 75,
-                                                                  text: posterDetailData?.posterDetail ?? "",
-                                                                  font: UIFont.systemFont(ofSize: 12)).height
-                    
-                    return CGSize(width: view.frame.width, height: collectionViewCellHeight + 50 + 46)
-                }
             default:
                 return CGSize(width: view.frame.width, height: 0)
             }
-        case 1:
+        case 2:
             return CGSize(width: view.frame.width, height: 268)
         default:
             if posterDetailData?.commentList?.count == 0 {

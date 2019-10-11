@@ -11,6 +11,7 @@ import WebKit
 
 class ArticleViewController: UIViewController {
 
+    var callback: (()->())?
     var feedIdx: Int?
     var articleTitle: String?
     var articleUrlString: String?
@@ -66,7 +67,7 @@ class ArticleViewController: UIViewController {
             = [NSAttributedString.Key.foregroundColor : #colorLiteral(red: 0.3098039216, green: 0.3098039216, blue: 0.3098039216, alpha: 1)]
         navigationController?.navigationBar.isHidden = false
         navigationItem.leftBarButtonItem = backbutton
-        navigationController?.hidesBarsOnSwipe = true
+//        navigationController?.hidesBarsOnSwipe = true
         
         tabBarController?.tabBar.isHidden = true
         navigationController?.interactivePopGestureRecognizer?.delegate = self
@@ -87,6 +88,7 @@ class ArticleViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        requestFeedLookUp()
         guard let articleUrl = URL(string: articleUrlString ?? "") else {
             return
         }
@@ -99,6 +101,35 @@ class ArticleViewController: UIViewController {
         super.loadView()
         
         view = articleWebView
+    }
+    
+    private func requestFeedLookUp() {
+        guard let feedIdx = feedIdx else {
+            return
+        }
+        
+        feedService.requestFeedLookUp(posterIndex: feedIdx) { result in
+            switch result {
+            case .success(let status):
+                switch status {
+                case .sucess:
+                    print("조회 완료")
+                    return
+                case .dataBaseError:
+                    print("DB 에러")
+                    return
+                case .serverError:
+                    print("서버 에러")
+                    return
+                default:
+                    print("저장 실패")
+                    return
+                }
+            case .failed(let error):
+                print(error)
+                return
+            }
+        }
     }
     
     private func requestScrap() {
@@ -168,6 +199,7 @@ class ArticleViewController: UIViewController {
     }
     
     @objc private func touchUpBackButton() {
+        callback?()
         navigationController?.popViewController(animated: true)
     }
     

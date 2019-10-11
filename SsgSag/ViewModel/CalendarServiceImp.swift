@@ -22,9 +22,19 @@ class CalendarServiceImp: CalendarService {
     
     func requestMonthTodoList(year: String,
                               month: String,
+                              _ categoryList: [Int],
+                              favorite: Int,
                               completionHandler: @escaping (DataResponse<[MonthTodoData]>) -> Void) {
         
+        var listString = ""
         var monthString = month
+        
+        if categoryList.count != 0 {
+            for category in 0..<categoryList.count - 1 {
+                listString.append("\(String(categoryList[category])),")
+            }
+            listString.append(String(categoryList[categoryList.endIndex - 1]))
+        }
         
         if monthString.count == 1 {
             monthString.insert("0", at: monthString.startIndex)
@@ -34,7 +44,9 @@ class CalendarServiceImp: CalendarService {
             = KeychainWrapper.standard.string(forKey: TokenName.token),
             let url
             = UserAPI.sharedInstance.getURL(RequestURL.monthTodoList(year: year,
-                                                                     month: monthString).getRequestURL),
+                                                                     month: monthString,
+                                                                     list: listString,
+                                                                     favorite: favorite).getRequestURL),
             let request
             = requestMaker.makeRequest(url: url,
                                        method: .get,

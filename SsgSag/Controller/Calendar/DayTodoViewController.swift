@@ -122,7 +122,7 @@ class DayTodoViewController: UIViewController {
         let month = calendar.component(.month, from: date)
         
         calendarServiceImp.requestMonthTodoList(year: String(year),
-                                                month: String(month)) { [weak self] dataResponse in
+                                                month: String(month), [0,1,2,4,7,8], favorite: 0) { [weak self] dataResponse in
             guard let self = self else {
                 return
             }
@@ -360,6 +360,12 @@ extension DayTodoViewController: UICollectionViewDataSource {
         cell.backgroundColor = .white
         cell.layer.cornerRadius = 10
         cell.setupMonthTodoData(totalTodoDatas[indexPath.item][0].todoData)
+        cell.callback = { [weak self] monthTodoData in
+            guard let monthTodoData = monthTodoData else {
+                return
+            }
+            self?.totalTodoDatas[indexPath.item][0].todoData = monthTodoData
+        }
         
         return cell
     }

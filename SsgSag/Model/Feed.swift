@@ -15,6 +15,12 @@ struct Feed: Codable {
     let data: [FeedData]?
 }
 
+struct FeedLookUp: Codable {
+    let status: Int?
+    let message: String?
+    let data: FeedData?
+}
+
 // MARK: - FeedData
 struct FeedData: Codable {
     let feedIdx: Int?

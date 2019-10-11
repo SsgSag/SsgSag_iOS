@@ -84,6 +84,8 @@ class SwipeVC: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
+        setNavigationBar(color: .white)
+        
         let shadowSize = CGSize(width: self.view.frame.width, height: 3)
         navigationController?.navigationBar.addColorToShadow(color: #colorLiteral(red: 0.3843137255, green: 0.4156862745, blue: 1, alpha: 1),
                                                              size: shadowSize)
@@ -94,6 +96,8 @@ class SwipeVC: UIViewController {
         }
         
         if isTryWithoutLogin {
+            viewAllPostersButton.setTitle("슥삭 회원가입", for: .normal)
+            
             settingBoardButton.image = nil
             settingBoardButton.title = "나가기"
             settingBoardButton.setTitleTextAttributes(
@@ -205,7 +209,29 @@ class SwipeVC: UIViewController {
         tabBarController?.selectedIndex = 2
     }
     
-    @objc func touchUpViewAllPostersButton() {
+    @objc func touchUpViewAllPostersButton(_ sender: UIButton) {
+        if sender.titleLabel?.text == "슥삭 회원가입" {
+            KeychainWrapper.standard.removeObject(forKey: TokenName.token)
+            
+            guard let window = UIApplication.shared.keyWindow else {
+                return
+            }
+            
+            let mainStoryboard: UIStoryboard = UIStoryboard(name: "LoginStoryBoard", bundle: nil)
+            let viewController = mainStoryboard.instantiateViewController(withIdentifier: "splashVC") as! SplashViewController
+            
+            let rootNavigationController = UINavigationController(rootViewController: viewController)
+            
+            let appDelegate = UIApplication.shared.delegate as! AppDelegate
+            appDelegate.window?.rootViewController = rootNavigationController
+            
+            rootNavigationController.view.layoutIfNeeded()
+            
+            UIView.transition(with: window, duration: 0.5, options: .transitionFlipFromLeft, animations: {
+                window.rootViewController = rootNavigationController
+            }, completion: nil)
+            return
+        }
         navigationController?.pushViewController(AllPostersListViewController(), animated: true)
     }
     

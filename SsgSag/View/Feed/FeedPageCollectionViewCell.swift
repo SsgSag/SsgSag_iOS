@@ -55,7 +55,7 @@ class FeedPageCollectionViewCell: UICollectionViewCell {
         setupCollectionView()
     }
     
-    private func requestFeed() {
+    func requestFeed() {
         feedServiceImp.requestFeedData { [weak self] result in
             switch result {
             case .success(let feedDatas):
@@ -88,6 +88,74 @@ class FeedPageCollectionViewCell: UICollectionViewCell {
                 }
             case .failed(let error):
                 print(error)
+                return
+            }
+        }
+    }
+    
+    private func requestScrap(_ feedIndex: Int, indexPath: IndexPath) {
+        feedServiceImp.requestScrapStore(feedIndex: feedIndex) { [weak self] result in
+            switch result {
+            case .success(let status):
+                switch status {
+                case .sucess:
+                    DispatchQueue.main.async {
+                        guard let cell = self?.feedCollectionView.cellForItem(at: indexPath)
+                            as? NewsCollectionViewCell else {
+                            return
+                        }
+                        cell.bookmarkButton.setImage(UIImage(named: "ic_bookmarkArticle"),
+                                                     for: .normal)
+                    }
+                    print("스크랩 완료")
+                    return
+                case .dataBaseError:
+                    print("DB 에러")
+                    return
+                case .serverError:
+                    print("서버 에러")
+                    return
+                default:
+                    print("저장 실패")
+                    return
+                }
+            case .failed:
+                assertionFailure()
+                return
+            }
+        }
+    }
+    
+    private func requestScrapDelete(_ feedIndex: Int, indexPath: IndexPath) {
+        feedServiceImp.requestScrapDelete(feedIndex: feedIndex) { [weak self] result in
+            switch result {
+            case .success(let status):
+                switch status {
+                case .sucess:
+                    DispatchQueue.main.async {
+                        DispatchQueue.main.async {
+                            guard let cell = self?.feedCollectionView.cellForItem(at: indexPath)
+                                as? NewsCollectionViewCell else {
+                                return
+                            }
+                            cell.bookmarkButton.setImage(UIImage(named: "ic_bookmarkArticlePassive"),
+                                                         for: .normal)
+                        }
+                    }
+                    print("스크랩 취소 완료")
+                    return
+                case .dataBaseError:
+                    print("DB 에러")
+                    return
+                case .serverError:
+                    print("서버 에러")
+                    return
+                default:
+                    print("저장 실패")
+                    return
+                }
+            case .failed:
+                assertionFailure()
                 return
             }
         }
@@ -151,6 +219,15 @@ extension FeedPageCollectionViewCell: UICollectionViewDataSource {
         }
         
         cell.feedData = feedDatas[indexPath.item]
+        cell.callback = { [weak self] feedIndex, status in
+            if status == 0 {
+                self?.requestScrap(feedIndex,
+                                   indexPath: indexPath)
+            } else {
+                self?.requestScrapDelete(feedIndex,
+                                         indexPath: indexPath)
+            }
+        }
         
         if feedDatas[indexPath.item].feedPreviewImgUrl == cell.feedData?.feedPreviewImgUrl {
             guard let urlString = feedDatas[indexPath.item].feedPreviewImgUrl else {

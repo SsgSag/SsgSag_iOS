@@ -48,9 +48,6 @@ class InterestBoardTableViewCell: UITableViewCell {
         selectFollow.backgroundColor = #colorLiteral(red: 0.4603668451, green: 0.5182471275, blue: 1, alpha: 1)
         selectFollow.setTitleColor(.white, for: .normal)
         selectFollow.layer.borderWidth = 0
-        
-        categoryButton.setTitleColor(.lightGray, for: .normal)
-        categoryButton.backgroundColor = #colorLiteral(red: 0.6666666667, green: 0.6666666667, blue: 0.6666666667, alpha: 0.08)
     }
     
     private func changeAllColorToFollow() {

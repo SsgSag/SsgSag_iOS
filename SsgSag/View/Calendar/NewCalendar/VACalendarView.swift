@@ -224,8 +224,9 @@ public class VACalendarView: UIScrollView {
         drawMonths()
     }
     
-    private func drawMonths() {
+    func drawMonths() {
         monthViews.forEach { $0.clean() }
+        
         monthViews.enumerated().forEach { index, monthView in
             switch scrollDirection {
             case .horizontal:
@@ -280,8 +281,10 @@ public class VACalendarView: UIScrollView {
     func drawVisibleMonth(with offset: CGPoint) {
         switch scrollDirection {
         case .horizontal:
-            let first: ((offset: Int, element: VAMonthView)) -> Bool = { $0.element.frame.midX >= offset.x }
-            guard let currentIndex = monthViews.enumerated().first(where: first)?.offset else { return }
+            guard let currentIndex
+                = monthViews.enumerated().first(where: { $0.element.frame.midX >= offset.x })?.offset else {
+                    return
+            }
             
             monthViews.enumerated().forEach { index, month in
                 if index == currentIndex || index + 1 == currentIndex || index - 1 == currentIndex {
@@ -291,13 +294,21 @@ public class VACalendarView: UIScrollView {
                     let componentMonth = Calendar.current.component(.month, from: month.month.date)
                     
                     self.calendarService.requestMonthTodoList(year: String(componentYear),
-                                                              month: String(componentMonth)) { [weak self] result in
+                                                              month: String(componentMonth), [0,1,2,4,7,8], favorite: 0) { [weak self] result in
                         switch result {
                         case .success(let monthTodoData):
                             self?.monthTodoData = monthTodoData
+
+                            let before = monthTodoData.count
+                            let setOfData = Set(monthTodoData)
+                            let after = setOfData.count
+                            if before != after {
+                                assertionFailure()
+                            }
                             
                             DispatchQueue.main.async {
-                                month.setupWeeksView(with: (self?.viewType)!, monthTodoData: monthTodoData)
+                                month.setupWeeksView(with: (self?.viewType)!,
+                                                     monthTodoData: monthTodoData)
                             }
                         case .failed(let error):
                             print(error)
@@ -306,7 +317,7 @@ public class VACalendarView: UIScrollView {
                     }
                     
                 } else {
-                    month.clean()
+//                    month.clean()
                 }
             }
             
@@ -381,13 +392,13 @@ extension VACalendarView: VAMonthViewDelegate {
         case .single:
             
 //            guard day.state == .available  else {
-//                
+//
 //                if day.state == .selected {
 ////                    calendar.deselectAll()
 ////                    calendar.setDaySelectionState(day, state: .selected)
 //                    calendarDelegate?.selectedDate?(day.date)
 //                }
-//                
+//
 //                return
 //            }
             

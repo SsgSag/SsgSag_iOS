@@ -18,7 +18,7 @@ enum RequestURL {
     case deletePoster
     case completeApply(posterIdx: Int)
     case allTodoList
-    case monthTodoList(year: String, month: String)
+    case monthTodoList(year: String, month: String, list: String, favorite: Int)
     case dayTodoList(year: String, month: String, day: String)
     case posterDetail(posterIdx: Int)
     case interestingField
@@ -35,6 +35,7 @@ enum RequestURL {
     case changePassword
     case updatePhoto
     case feed
+    case feedLookUp(posterIndex: Int)
     case scrap(index: Int)
     case comment
     case commentLike(index: Int, like: Int)
@@ -63,8 +64,8 @@ enum RequestURL {
             return "/todo/complete/\(posterIdx)"
         case .allTodoList:
             return "/todo?year=0000&month=00&day=00"
-        case .monthTodoList(year: let year, month: let month):
-            return "/todo?year=\(year)&month=\(month)&day=00&categoryList=0,1,2,4,7,8"
+            case .monthTodoList(year: let year, month: let month, list: let list, favorite: let favorite):
+                return "/todo?year=\(year)&month=\(month)&day=00&categoryList=\(list)&favorite=\(favorite)"
         case .dayTodoList(year: let year, month: let month, day: let day):
             return "/todo?year=\(year)&month=\(month)&day=\(day)"
         case .posterDetail(posterIdx: let posterIdx):
@@ -97,6 +98,8 @@ enum RequestURL {
             return "/notice"
         case .feed:
             return "/feed"
+        case .feedLookUp(let posterIndex):
+            return "/feed/\(posterIndex)"
         case .scrap(let index):
             return "/feed/\(index)"
         case .comment:

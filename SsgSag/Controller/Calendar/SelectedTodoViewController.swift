@@ -166,7 +166,7 @@ class SelectedTodoViewController: UIViewController {
         let month = String(calendar.component(.month, from: date))
         
         calendarServiceImp.requestMonthTodoList(year: year,
-                                              month: month) { [weak self] dataResponse in
+                                              month: month, [0,1,2,4,7,8], favorite: 0) { [weak self] dataResponse in
             switch dataResponse {
             case .success(let monthTodoData):
                 self?.monthTodoData = monthTodoData
