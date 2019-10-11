@@ -19,6 +19,7 @@ struct PosterAfterSwipe: Codable {
 struct PosterDataAfterSwpie: Codable {
     let posterIdx, categoryIdx, subCategoryIdx: Int?
     let photoUrl: String?
+    let thumbPhotoUrl: String?
     let posterName, posterRegDate, posterStartDate, posterEndDate: String?
     let documentDate: String?
     let contentIdx: Int?

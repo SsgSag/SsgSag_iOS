@@ -680,8 +680,8 @@ extension DetailInfoViewController: UICollectionViewDataSource {
                 header.delegate = self
                 header.detailData = posterDetailData
                 
-                if let photoURL = posterDetailData?.photoUrl {
-                    if let url = URL(string: photoURL){
+                if let thumbPhotoUrl = posterDetailData?.thumbPhotoUrl {
+                    if let url = URL(string: thumbPhotoUrl){
                         ImageNetworkManager.shared.getImageByCache(imageURL: url) { image, error in
                             DispatchQueue.main.async {
                                 header.posterImageView.image = image

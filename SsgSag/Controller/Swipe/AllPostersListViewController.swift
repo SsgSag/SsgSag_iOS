@@ -128,7 +128,7 @@ class AllPostersListViewController: UIViewController {
                 self?.posterData = posterData
                 
                 for data in posterData {
-                    guard let urlString = data.photoUrl,
+                    guard let urlString = data.thumbPhotoUrl,
                         let imageURL = URL(string: urlString) else {
                             continue
                     }
@@ -349,8 +349,8 @@ extension AllPostersListViewController: UICollectionViewDataSource {
             
             cell.posterData = posterData[indexPath.item]
             
-            if posterData[indexPath.item].photoUrl == cell.posterData?.photoUrl {
-                guard let urlString = posterData[indexPath.item].photoUrl else {
+            if posterData[indexPath.item].thumbPhotoUrl == cell.posterData?.thumbPhotoUrl {
+                guard let urlString = posterData[indexPath.item].thumbPhotoUrl else {
                     return cell
                 }
                 

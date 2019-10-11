@@ -21,6 +21,7 @@ struct DataClass: Codable {
     let subCategoryIdx: Int?
     let photoUrl: String?
     let photoUrl2: String?
+    let thumbPhotoUrl: String?
     let posterName, posterRegDate, posterEndDate: String?
     let posterStartDate: String?
     let posterWebSite: String?
