@@ -12,7 +12,7 @@ class HJCalendar {
     
     var todoData: [[[MonthTodoData]]] = []
     var months: [HJMonth] = []
-    var currentMonth: Int?
+    var currentDate: Date?
     var today: Date = Date()
     let calendar = Calendar.current
     
@@ -20,21 +20,26 @@ class HJCalendar {
         = DependencyContainer.shared.getDependency(key: .calendarService)
 
     init() {
-        currentMonth = calendar.component(.month,
-                                          from: today)
+        currentDate = today
         
         requestData()
         setupCalendar()
     }
     
     func setupCalendar() {
-        guard let currentMonth = currentMonth else {
+        guard let currentDate = currentDate else {
             return
         }
         
         // months 생성
         for index in -2...2 {
-            let month = HJMonth(currentMonth + index)
+            guard let date = calendar.date(byAdding: .month,
+                                           value: index,
+                                           to: currentDate) else {
+                return
+            }
+            
+            let month = HJMonth(date)
             months.append(month)
         }
     }
@@ -43,9 +48,36 @@ class HJCalendar {
         return months
     }
     
-    // 3달치 month를 추가할 때 사용할 메소드
-    func addMonth() {
-        //TODO: months에 HJMonth 3달치 만들어서 추가하고, 3달치 데이터 네트워킹 요청
+    func addNextMonths() {
+        let lastMonth = months[months.endIndex - 1].startDate
+        
+        // months 생성
+        for index in 1..<4 {
+            guard let date = calendar.date(byAdding: .month,
+                                           value: index,
+                                           to: lastMonth) else {
+                return
+            }
+            
+            let month = HJMonth(date)
+            months.append(month)
+        }
+    }
+    
+    func addPreviousMonths() {
+        let firstMonth = months[0].startDate
+        
+        // months 생성
+        for index in 1..<4 {
+            guard let date = calendar.date(byAdding: .month,
+                                           value: -index,
+                                           to: firstMonth) else {
+                return
+            }
+            
+            let month = HJMonth(date)
+            months.insert(month, at: 0)
+        }
     }
     
     func requestData() {

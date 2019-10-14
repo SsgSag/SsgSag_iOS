@@ -9,7 +9,17 @@
 import Foundation
 
 class HJDay {
-    var currentDate: Date?
-    var dayOfTheWeek: DayOfTheWeek?
-    var todoData: [MonthTodoData] = []
+    var day: Int = 0
+    var date: Date?
+//    var todoData: [MonthTodoData] = []
+    
+    init(_ date: Date) {
+        self.date = date
+        day = Calendar.current.component(.day,
+                                         from: date)
+    }
+    
+    func getColorOfDay() -> UIColor {
+        return #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
+    }
 }

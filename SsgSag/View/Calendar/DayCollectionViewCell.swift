@@ -23,20 +23,28 @@ class DayCollectionViewCell: UICollectionViewCell {
         
     }
     
+    func configure(_ day: HJDay?) {
+        guard let day = day else {
+            return
+        }
+        
+        dayTitleLabel.text = "\(day.day)"
+    }
 }
 
 extension DayCollectionViewCell: UICollectionViewDelegate {
     
 }
-extension DayCollectionViewCell: UICollectionViewDataSource {
-    
-    func collectionView(_ collectionView: UICollectionView,
-                        numberOfItemsInSection section: Int) -> Int {
-        return 0
-    }
-    
-    func collectionView(_ collectionView: UICollectionView,
-                        cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        return UICollectionViewCell()
-    }
-}
+
+//extension DayCollectionViewCell: UICollectionViewDataSource {
+//
+//    func collectionView(_ collectionView: UICollectionView,
+//                        numberOfItemsInSection section: Int) -> Int {
+//        return 0
+//    }
+//
+//    func collectionView(_ collectionView: UICollectionView,
+//                        cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+//        return UICollectionViewCell()
+//    }
+//}

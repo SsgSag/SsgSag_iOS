@@ -12,10 +12,12 @@ class CalendarCollectionViewDataSource: NSObject, UICollectionViewDataSource {
     
     var months: [HJMonth]?
     
-    var targetView: UICollectionView?
+//    var targetView: UICollectionView?
+    var dataSource: UICollectionViewDataSource?
     
     func connect(with dataSource: UICollectionViewDataSource) {
-        targetView?.dataSource = dataSource
+//        targetView?.dataSource = dataSource
+        self.dataSource = dataSource
     }
     
     func collectionView(_ collectionView: UICollectionView,
@@ -31,8 +33,20 @@ class CalendarCollectionViewDataSource: NSObject, UICollectionViewDataSource {
                 return UICollectionViewCell()
         }
         
-        targetView = cell.monthCollectionView
-//        cell.configure(months[indexPath.item])
+        guard let month = months?[indexPath.item] else {
+            return UICollectionViewCell()
+        }
+        
+//        targetView = cell.monthCollectionView
+        cell.monthCollectionView.dataSource = dataSource
+        cell.configure(month: month)
+        
+        guard let monthDataSource = cell.monthCollectionView.dataSource as? MonthCollectionViewDataSource else {
+            return cell
+        }
+        
+        monthDataSource.days = month.days
+        monthDataSource.numberOfCell = month.numberOfDay + month.startDay - 1
         
         return cell
     }

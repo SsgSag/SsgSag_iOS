@@ -10,18 +10,18 @@ import UIKit
 
 class MonthCollectionViewCell: UICollectionViewCell {
     
-    var monthDataSource: MonthCollectionViewDataSource? {
-        didSet {
-            monthCollectionView.reloadData()
-        }
-    }
+//    var monthDataSource: MonthCollectionViewDataSource? {
+//        didSet {
+//            monthCollectionView.reloadData()
+//        }
+//    }
     
     lazy var monthCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.minimumInteritemSpacing = 0
         layout.minimumLineSpacing = 0
         layout.itemSize = CGSize(width: frame.width / 7,
-                                 height: frame.height / 4)
+                                 height: frame.height / 5)
         let collectionView = UICollectionView(frame: .zero,
                                               collectionViewLayout: layout)
         collectionView.translatesAutoresizingMaskIntoConstraints = false
@@ -56,9 +56,6 @@ class MonthCollectionViewCell: UICollectionViewCell {
     }
     
     private func setupCollectionView() {
-        monthDataSource = MonthCollectionViewDataSource()
-        monthCollectionView.dataSource = monthDataSource
-        
         let dayNib = UINib(nibName: "DayCollectionViewCell", bundle: nil)
         
         monthCollectionView.register(dayNib, forCellWithReuseIdentifier: "dayCell")
