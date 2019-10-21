@@ -50,7 +50,7 @@ public class VAMonthHeaderView: UIView {
         return formatter
     }()
     
-    private let monthLabel = UILabel()
+    let monthLabel = UILabel()
     private let previousButton = UIButton()
     private let nextButton = UIButton()
     
