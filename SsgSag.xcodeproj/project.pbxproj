@@ -222,6 +222,8 @@
 		D1F0DA22230D062F00C6FF19 /* Column.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1F0DA21230D062F00C6FF19 /* Column.swift */; };
 		D1F3A283230593CD007B72E1 /* OSLTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1F3A281230593CD007B72E1 /* OSLTableViewCell.swift */; };
 		D1F3A284230593CD007B72E1 /* OSLTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D1F3A282230593CD007B72E1 /* OSLTableViewCell.xib */; };
+		D1F61A7323601119008F690E /* ListCollectionViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1F61A7223601119008F690E /* ListCollectionViewDataSource.swift */; };
+		D1F61A7523601805008F690E /* CategoryCollectionViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1F61A7423601805008F690E /* CategoryCollectionViewDataSource.swift */; };
 		D1F9A1E1233DD4A100C67E1D /* EmptyScrapCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1F9A1E0233DD4A100C67E1D /* EmptyScrapCollectionViewCell.swift */; };
 		D1FB05A722E6C917001425CF /* SettingTextFieldCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1FB05A522E6C917001425CF /* SettingTextFieldCollectionViewCell.swift */; };
 		D1FB05A822E6C917001425CF /* SettingTextFieldCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D1FB05A622E6C917001425CF /* SettingTextFieldCollectionViewCell.xib */; };
@@ -518,6 +520,8 @@
 		D1F0DA21230D062F00C6FF19 /* Column.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Column.swift; sourceTree = "<group>"; };
 		D1F3A281230593CD007B72E1 /* OSLTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OSLTableViewCell.swift; sourceTree = "<group>"; };
 		D1F3A282230593CD007B72E1 /* OSLTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = OSLTableViewCell.xib; sourceTree = "<group>"; };
+		D1F61A7223601119008F690E /* ListCollectionViewDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListCollectionViewDataSource.swift; sourceTree = "<group>"; };
+		D1F61A7423601805008F690E /* CategoryCollectionViewDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryCollectionViewDataSource.swift; sourceTree = "<group>"; };
 		D1F9A1E0233DD4A100C67E1D /* EmptyScrapCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyScrapCollectionViewCell.swift; sourceTree = "<group>"; };
 		D1FB05A522E6C917001425CF /* SettingTextFieldCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingTextFieldCollectionViewCell.swift; sourceTree = "<group>"; };
 		D1FB05A622E6C917001425CF /* SettingTextFieldCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SettingTextFieldCollectionViewCell.xib; sourceTree = "<group>"; };
@@ -817,6 +821,8 @@
 				D1E30D9B22EFF1E70023DF56 /* DayTodoViewController.swift */,
 				D1C9151022FD3B6F00189FD2 /* DetailImageViewController.swift */,
 				D149F598235D52230018B8F5 /* CalendarListViewController.swift */,
+				D1F61A7223601119008F690E /* ListCollectionViewDataSource.swift */,
+				D1F61A7423601805008F690E /* CategoryCollectionViewDataSource.swift */,
 			);
 			path = Calendar;
 			sourceTree = "<group>";
@@ -1567,6 +1573,7 @@
 				846E6225228FDA140083E3CD /* InterestServiceImp.swift in Sources */,
 				8406BB7D220E9EE80065B180 /* Event.swift in Sources */,
 				FA23A93F21DF6FCF003DB5F9 /* myPageTableViewCell.swift in Sources */,
+				D1F61A7323601119008F690E /* ListCollectionViewDataSource.swift in Sources */,
 				D1A4EEA42344422B003FAC88 /* NoTodoHeaderView.swift in Sources */,
 				D149F599235D52230018B8F5 /* CalendarListViewController.swift in Sources */,
 				D1E037CE22F2C8C10081B8A1 /* TempPassword.swift in Sources */,
@@ -1719,6 +1726,7 @@
 				D1E517B622E0282B0001EAA5 /* PosterHeaderCollectionReusableView.swift in Sources */,
 				D1E517AF22E023890001EAA5 /* DetailInfoViewController.swift in Sources */,
 				D1C9151522FD838B00189FD2 /* CommentServiceImp.swift in Sources */,
+				D1F61A7523601805008F690E /* CategoryCollectionViewDataSource.swift in Sources */,
 				845928D921D09F30001DF6CC /* CalenderVC.swift in Sources */,
 				D149F5A0235D96930018B8F5 /* ListDateSperateCollectionReusableView.swift in Sources */,
 				D1C7C1FF22FFFA9A001BDB5D /* ChangePasswordViewController.swift in Sources */,

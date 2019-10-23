@@ -13,43 +13,56 @@ class CalendarListViewController: UIViewController {
     var year: Int?
     var month: Int?
     
-    private var todoData: [MonthTodoData] = []
+    private var todoData: [[MonthTodoData]] = []
     private var posterImageTasks: [URLSessionDataTask] = []
+    private var currentScrollContentHeight: CGFloat = 0
     
+    private let category = ["전체", "즐겨찾기", "공모전", "대외활동", "인턴", "교육/강연", "기타"]
     private let downloadLink = "https://ssgsag.page.link/install"
     private let imageCache = NSCache<NSString, UIImage>()
     private let calendarService: CalendarService
         = DependencyContainer.shared.getDependency(key: .calendarService)
     
+    private var listDataSource: ListCollectionViewDataSource?
+    
+    private var categoryDataSourece: CategoryCollectionViewDataSourece? {
+        didSet {
+            categoryCollectionView.reloadData()
+        }
+    }
+    
     lazy var categoryCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
+        
         let collectionView = UICollectionView(frame: .zero,
                                               collectionViewLayout: layout)
         collectionView.translatesAutoresizingMaskIntoConstraints = false
+        collectionView.contentInset = UIEdgeInsets(top: 0,
+                                                   left: 25,
+                                                   bottom: 0,
+                                                   right: 25)
         collectionView.backgroundColor = .white
         collectionView.showsHorizontalScrollIndicator = false
         collectionView.delegate = self
-        collectionView.dataSource = self
         return collectionView
     }()
     
     lazy var listCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
-        layout.itemSize = CGSize(width: view.frame.width - 30,
-                                 height: 90)
-        layout.headerReferenceSize = CGSize(width: view.frame.width, height: 30)
+        layout.headerReferenceSize = CGSize(width: view.frame.width,
+                                            height: 48)
+        
         let collectionView = UICollectionView(frame: .zero,
                                               collectionViewLayout: layout)
         collectionView.translatesAutoresizingMaskIntoConstraints = false
-        collectionView.contentInset = UIEdgeInsets(top: 15,
+        collectionView.contentInset = UIEdgeInsets(top: -10,
                                                    left: 0,
-                                                   bottom: 15,
+                                                   bottom: 10,
                                                    right: 0)
         collectionView.backgroundColor = .white
         collectionView.showsVerticalScrollIndicator = false
         collectionView.delegate = self
-        collectionView.dataSource = self
         return collectionView
     }()
     
@@ -111,7 +124,7 @@ class CalendarListViewController: UIViewController {
                                              favorite: 0) { [weak self] result in
             switch result {
             case .success(let monthTodoData):
-                self?.todoData = monthTodoData
+                self?.classifyMonthToData(monthTodoData)
                 
                 for data in monthTodoData {
                     guard let urlString = data.thumbPhotoUrl,
@@ -134,6 +147,15 @@ class CalendarListViewController: UIViewController {
                 }
                 
                 DispatchQueue.main.async {
+                    guard let todoData = self?.todoData,
+                        let imageCache = self?.imageCache else {
+                        return
+                    }
+                    
+                    self?.listDataSource
+                        = ListCollectionViewDataSource(todoData,
+                                                       cache: imageCache)
+                    self?.listCollectionView.dataSource = self?.listDataSource
                     self?.listCollectionView.reloadData()
                 }
             case .failed:
@@ -143,6 +165,18 @@ class CalendarListViewController: UIViewController {
     }
     
     private func setupCollectionView() {
+        categoryDataSourece = CategoryCollectionViewDataSourece()
+        categoryCollectionView.dataSource = categoryDataSourece
+        
+        categoryCollectionView.dataSource = categoryDataSourece
+//        listCollectionView.dataSource = listDataSource
+        
+        categoryCollectionView.register(CategoryHeaderCollectionViewCell.self,
+                                        forCellWithReuseIdentifier: "categoryHeaderCell")
+        
+        categoryCollectionView.register(CategoryCollectionViewCell.self,
+                                        forCellWithReuseIdentifier: "categoryCell")
+        
         let dateSeperateNib = UINib(nibName: "ListDateSperateCollectionReusableView",
                                     bundle: nil)
         listCollectionView.register(dateSeperateNib,
@@ -182,6 +216,37 @@ class CalendarListViewController: UIViewController {
             equalTo: view.trailingAnchor).isActive = true
         listCollectionView.bottomAnchor.constraint(
             equalTo: view.bottomAnchor).isActive = true
+    }
+    
+    private func classifyMonthToData(_ todoData: [MonthTodoData]) {
+        var todoDataOfDay: [MonthTodoData] = []
+        var beforeDday = -1
+        
+        for todo in todoData {
+            if todo.dday == -1 || todo.dday == nil {
+                continue
+            }
+            
+            if beforeDday != todo.dday {
+                if todoDataOfDay.count != 0 {
+                    self.todoData.append(todoDataOfDay)
+                }
+                todoDataOfDay = [todo]
+                beforeDday = todo.dday!
+            } else {
+                todoDataOfDay.append(todo)
+            }
+            
+        }
+    }
+    
+    private func estimatedFrame(text: String, font: UIFont) -> CGRect {
+        let size = CGSize(width: 200, height: 1000) // temporary size
+        let options = NSStringDrawingOptions.usesFontLeading.union(.usesLineFragmentOrigin)
+        return NSString(string: text).boundingRect(with: size,
+                                                   options: options,
+                                                   attributes: [NSAttributedString.Key.font: font],
+                                                   context: nil)
     }
     
     @objc private func touchUpMypageButton() {
@@ -232,85 +297,82 @@ class CalendarListViewController: UIViewController {
     }
 }
 
-extension CalendarListViewController: UICollectionViewDelegate {
-    
+// scroll
+extension CalendarListViewController {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        guard scrollView != categoryCollectionView else {
+            return
+        }
+        
+        if scrollView.contentSize.width != 0 {
+            if currentScrollContentHeight != scrollView.contentSize.width {
+                if scrollView.contentOffset.y < scrollView.contentSize.width * 0.8 {
+                    guard var year = year,
+                        var month = month else {
+                        return
+                    }
+                    
+                    if month == 12 {
+                        year += 1
+                        month = 1
+                    } else {
+                        month += 1
+                    }
+                    
+                    requestTodoData(year: year, month: month)
+                    currentScrollContentHeight = scrollView.contentSize.width
+                }
+            }
+        }
+    }
 }
 
-extension CalendarListViewController: UICollectionViewDataSource {
+extension CalendarListViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView,
-                        numberOfItemsInSection section: Int) -> Int {
-        if collectionView == listCollectionView {
-            return todoData.count
-        }
-        return 0
-    }
-    
-    func collectionView(_ collectionView: UICollectionView,
-                        cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        if collectionView == listCollectionView {
-            guard let cell
-                = collectionView.dequeueReusableCell(withReuseIdentifier: "listCell",
-                                                     for: indexPath)
-                    as? CalendarListCollectionViewCell else {
-                return UICollectionViewCell()
-            }
-            
-            cell.todoData = todoData[indexPath.item]
-            
-            if todoData[indexPath.item].thumbPhotoUrl == cell.todoData?.thumbPhotoUrl {
-                guard let urlString = todoData[indexPath.item].thumbPhotoUrl else {
-                    return cell
+                        didSelectItemAt indexPath: IndexPath) {
+        if collectionView == categoryCollectionView {
+            switch indexPath.item {
+            case 0, 1:
+                guard let cell
+                    = categoryCollectionView.cellForItem(at: indexPath)
+                        as? CategoryHeaderCollectionViewCell else {
+                    return
                 }
                 
-                if imageCache.object(forKey: urlString as NSString) == nil {
-                    if let imageURL = URL(string: urlString) {
-                        
-                        URLSession.shared.dataTask(with: imageURL) { data, response, error in
-                            guard error == nil,
-                                let data = data,
-                                let image = UIImage(data: data) else {
-                                    return
-                            }
-                            
-                            DispatchQueue.main.async {
-                                cell.posterImageView.image = image
-                            }
-                        }.resume()
-                    }
-                    return cell
+                cell.didSelectedCell()
+            default:
+                guard let cell
+                    = categoryCollectionView.cellForItem(at: indexPath)
+                        as? CategoryCollectionViewCell else {
+                    return
                 }
                 
-                cell.posterImageView.image = imageCache.object(forKey: urlString as NSString)
+                cell.didSelectedCell(index: indexPath.item)
             }
-            
-            return cell
         }
-        return UICollectionViewCell()
     }
     
-    func collectionView(_ collectionView: UICollectionView,
-                        viewForSupplementaryElementOfKind kind: String,
-                        at indexPath: IndexPath) -> UICollectionReusableView {
-        if collectionView == listCollectionView {
-            if todoData.count == 0 {
-                return collectionView.dequeueReusableSupplementaryView(ofKind: kind,
-                                                                       withReuseIdentifier: "tempHeader",
-                                                                       for: indexPath)
+    func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
+        if collectionView == categoryCollectionView {
+            switch indexPath.item {
+            case 0, 1:
+                guard let cell
+                    = categoryCollectionView.cellForItem(at: indexPath)
+                        as? CategoryHeaderCollectionViewCell else {
+                    return
+                }
+                
+                cell.didDeselectedCell()
+            default:
+                guard let cell
+                    = categoryCollectionView.cellForItem(at: indexPath)
+                        as? CategoryCollectionViewCell else {
+                    return
+                }
+                
+                cell.didDeselectedCell()
             }
-            
-            guard let header
-                = collectionView.dequeueReusableSupplementaryView(ofKind: kind,
-                                                                  withReuseIdentifier: "dateSeperateHeader",
-                                                                  for: indexPath)
-                    as? ListDateSperateCollectionReusableView else {
-                return UICollectionReusableView()
-            }
-            
-            header.dateLabel.text = todoData[indexPath.item].posterEndDate
-            
-            return header
         }
-        return UICollectionReusableView()
     }
 }
 
@@ -327,5 +389,22 @@ extension CalendarListViewController: UICollectionViewDataSourcePrefetching {
         indexPaths.forEach {
             posterImageTasks[$0.item].cancel()
         }
+    }
+}
+
+extension CalendarListViewController: UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView,
+                        layout collectionViewLayout: UICollectionViewLayout,
+                        sizeForItemAt indexPath: IndexPath) -> CGSize {
+        if collectionView == categoryCollectionView {
+            let collectionViewCellWidth = estimatedFrame(text: category[indexPath.item],
+                                                         font: UIFont.systemFont(ofSize: 15)).width
+            
+            return CGSize(width: collectionViewCellWidth + 5,
+                          height: 20)
+        }
+        
+        return CGSize(width: view.frame.width - 30,
+                      height: 90)
     }
 }
