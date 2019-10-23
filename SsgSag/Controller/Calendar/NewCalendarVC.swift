@@ -254,10 +254,10 @@ class NewCalendarVC: UIViewController {
         
         dateText?.forEach {
             if $0 == "년" {
-                listViewController.year = Int(intText)
+                listViewController.currentYear = Int(intText)
                 intText = ""
             } else if $0 == "월" {
-                listViewController.month = Int(intText)
+                listViewController.currentMonth = Int(intText)
             } else if $0 >= "0" && $0 <= "9" {
                 intText.append($0)
             }

@@ -28,6 +28,13 @@ class CategoryCollectionViewDataSourece: NSObject, UICollectionViewDataSource {
             
             cell.setLabelWith("전체")
             
+            if collectionView.indexPathsForSelectedItems?.count == 0 {
+                collectionView.selectItem(at: indexPath,
+                                          animated: false,
+                                          scrollPosition: .left)
+                cell.didSelectedCell()
+            }
+            
             return cell
         case 1:
             guard let cell
@@ -53,7 +60,6 @@ class CategoryCollectionViewDataSourece: NSObject, UICollectionViewDataSource {
             return cell
         }
     }
-    
 }
 
 class CategoryHeaderCollectionViewCell: UICollectionViewCell {
@@ -154,12 +160,16 @@ class CategoryCollectionViewCell: UICollectionViewCell {
         }
     }
     
-    func didSelectedCell(index: Int) {
-        if let category = PosterCategory(rawValue: getCategoryIndex(index)) {
+    func didSelectedCell(index: Int) -> [Int] {
+        let categoryIndex = getCategoryIndex(index)
+        
+        if let category = PosterCategory(rawValue: categoryIndex) {
             categoryButton.setTitleColor(category.categoryColors(),
                                          for: .normal)
             categoryButton.backgroundColor = category.categoryColors().withAlphaComponent(0.05)
         }
+        
+        return [categoryIndex]
     }
     
     func didDeselectedCell() {

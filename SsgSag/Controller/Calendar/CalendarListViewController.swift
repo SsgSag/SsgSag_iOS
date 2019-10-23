@@ -10,12 +10,18 @@ import UIKit
 
 class CalendarListViewController: UIViewController {
 
+    // 오늘 기준 날짜
+    var currentYear: Int?
+    var currentMonth: Int?
+    
     var year: Int?
     var month: Int?
     
     private var todoData: [[MonthTodoData]] = []
     private var posterImageTasks: [URLSessionDataTask] = []
     private var currentScrollContentHeight: CGFloat = 0
+    private var networkCategoryList = [0, 1, 4, 7, 5]
+    private var isFavorite = 0
     
     private let category = ["전체", "즐겨찾기", "공모전", "대외활동", "인턴", "교육/강연", "기타"]
     private let downloadLink = "https://ssgsag.page.link/install"
@@ -40,7 +46,7 @@ class CalendarListViewController: UIViewController {
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         collectionView.contentInset = UIEdgeInsets(top: 0,
                                                    left: 25,
-                                                   bottom: 0,
+                                                   bottom: 5,
                                                    right: 25)
         collectionView.backgroundColor = .white
         collectionView.showsHorizontalScrollIndicator = false
@@ -107,6 +113,8 @@ class CalendarListViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        year = currentYear
+        month = currentMonth
         requestTodoData(year: year, month: month)
         setupCollectionView()
         setupLayout()
@@ -120,10 +128,14 @@ class CalendarListViewController: UIViewController {
         
         calendarService.requestMonthTodoList(year: String(year),
                                              month: String(month),
-                                             [0,1,2,4,7,8],
-                                             favorite: 0) { [weak self] result in
+                                             networkCategoryList,
+                                             favorite: isFavorite) { [weak self] result in
             switch result {
             case .success(let monthTodoData):
+                if self?.currentYear == year && self?.currentMonth == month {
+                    self?.todoData = []
+                }
+
                 self?.classifyMonthToData(monthTodoData)
                 
                 for data in monthTodoData {
@@ -148,7 +160,8 @@ class CalendarListViewController: UIViewController {
                 
                 DispatchQueue.main.async {
                     guard let todoData = self?.todoData,
-                        let imageCache = self?.imageCache else {
+                        let imageCache = self?.imageCache,
+                        let width = self?.listCollectionView.contentSize.width else {
                         return
                     }
                     
@@ -157,6 +170,18 @@ class CalendarListViewController: UIViewController {
                                                        cache: imageCache)
                     self?.listCollectionView.dataSource = self?.listDataSource
                     self?.listCollectionView.reloadData()
+                    
+                    self?.currentScrollContentHeight = width
+                    if let attributes =
+                        self?.listCollectionView.collectionViewLayout.layoutAttributesForSupplementaryView(
+                            ofKind: UICollectionView.elementKindSectionHeader,
+                            at: IndexPath(item: 0, section: 0)) {
+                    self?.listCollectionView.setContentOffset(
+                        CGPoint(x: 0,
+                                y: attributes.frame.origin.y
+                                    - (self?.listCollectionView.contentInset.top)!),
+                        animated: false)
+                    }
                 }
             case .failed:
                 return
@@ -169,7 +194,6 @@ class CalendarListViewController: UIViewController {
         categoryCollectionView.dataSource = categoryDataSourece
         
         categoryCollectionView.dataSource = categoryDataSourece
-//        listCollectionView.dataSource = listDataSource
         
         categoryCollectionView.register(CategoryHeaderCollectionViewCell.self,
                                         forCellWithReuseIdentifier: "categoryHeaderCell")
@@ -206,7 +230,7 @@ class CalendarListViewController: UIViewController {
         categoryCollectionView.trailingAnchor.constraint(
             equalTo: view.trailingAnchor).isActive = true
         categoryCollectionView.heightAnchor.constraint(
-            equalToConstant: 30).isActive = true
+            equalToConstant: 33).isActive = true
         
         listCollectionView.topAnchor.constraint(
             equalTo: categoryCollectionView.bottomAnchor).isActive = true
@@ -222,7 +246,7 @@ class CalendarListViewController: UIViewController {
         var todoDataOfDay: [MonthTodoData] = []
         var beforeDday = -1
         
-        for todo in todoData {
+        for (index, todo) in todoData.enumerated() {
             if todo.dday == -1 || todo.dday == nil {
                 continue
             }
@@ -232,6 +256,10 @@ class CalendarListViewController: UIViewController {
                     self.todoData.append(todoDataOfDay)
                 }
                 todoDataOfDay = [todo]
+                
+                if index == todoData.endIndex - 1 {
+                    self.todoData.append(todoDataOfDay)
+                }
                 beforeDday = todo.dday!
             } else {
                 todoDataOfDay.append(todo)
@@ -320,7 +348,6 @@ extension CalendarListViewController {
                     }
                     
                     requestTodoData(year: year, month: month)
-                    currentScrollContentHeight = scrollView.contentSize.width
                 }
             }
         }
@@ -340,6 +367,8 @@ extension CalendarListViewController: UICollectionViewDelegate {
                 }
                 
                 cell.didSelectedCell()
+                
+                networkCategoryList = [0, 1, 4, 7, 5]
             default:
                 guard let cell
                     = categoryCollectionView.cellForItem(at: indexPath)
@@ -347,8 +376,12 @@ extension CalendarListViewController: UICollectionViewDelegate {
                     return
                 }
                 
-                cell.didSelectedCell(index: indexPath.item)
+                networkCategoryList = cell.didSelectedCell(index: indexPath.item)
             }
+
+            isFavorite = indexPath.item == 1 ? 1 : 0
+            
+            requestTodoData(year: currentYear, month: currentMonth)
         }
     }
     
