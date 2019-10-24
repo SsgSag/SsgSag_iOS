@@ -169,6 +169,8 @@
 		D166AC7522D76DFC00ED82DD /* MenuBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = D166AC7422D76DFC00ED82DD /* MenuBar.swift */; };
 		D17A1C4222ED8A6200939788 /* InterestServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = D17A1C4122ED8A6200939788 /* InterestServiceProtocol.swift */; };
 		D17A1C4422ED8D2F00939788 /* SignUpServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = D17A1C4322ED8D2F00939788 /* SignUpServiceProtocol.swift */; };
+		D1A244B52360937400FD9844 /* Dynamic.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1A244B42360937400FD9844 /* Dynamic.swift */; };
+		D1A244B72360939800FD9844 /* ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1A244B62360939800FD9844 /* ViewModel.swift */; };
 		D1A4EEA42344422B003FAC88 /* NoTodoHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1A4EEA32344422B003FAC88 /* NoTodoHeaderView.swift */; };
 		D1A4EEA72344FC7E003FAC88 /* NoPosterCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1A4EEA52344FC7E003FAC88 /* NoPosterCollectionViewCell.swift */; };
 		D1A4EEA82344FC7E003FAC88 /* NoPosterCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D1A4EEA62344FC7E003FAC88 /* NoPosterCollectionViewCell.xib */; };
@@ -467,6 +469,8 @@
 		D166AC7422D76DFC00ED82DD /* MenuBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuBar.swift; sourceTree = "<group>"; };
 		D17A1C4122ED8A6200939788 /* InterestServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterestServiceProtocol.swift; sourceTree = "<group>"; };
 		D17A1C4322ED8D2F00939788 /* SignUpServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpServiceProtocol.swift; sourceTree = "<group>"; };
+		D1A244B42360937400FD9844 /* Dynamic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dynamic.swift; sourceTree = "<group>"; };
+		D1A244B62360939800FD9844 /* ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModel.swift; sourceTree = "<group>"; };
 		D1A4EEA32344422B003FAC88 /* NoTodoHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoTodoHeaderView.swift; sourceTree = "<group>"; };
 		D1A4EEA52344FC7E003FAC88 /* NoPosterCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoPosterCollectionViewCell.swift; sourceTree = "<group>"; };
 		D1A4EEA62344FC7E003FAC88 /* NoPosterCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NoPosterCollectionViewCell.xib; sourceTree = "<group>"; };
@@ -663,6 +667,7 @@
 		8459289921D09CDD001DF6CC /* SsgSag */ = {
 			isa = PBXGroup;
 			children = (
+				D1A244B32360935A00FD9844 /* Utils */,
 				D1226C8022EC6231007F59BE /* ServiceProtocol */,
 				D1226C7B22EC1A3F007F59BE /* DependencyContainer */,
 				D1564EF922EC0A6400BDA7F6 /* Network */,
@@ -1205,6 +1210,15 @@
 			path = Feed;
 			sourceTree = "<group>";
 		};
+		D1A244B32360935A00FD9844 /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				D1A244B42360937400FD9844 /* Dynamic.swift */,
+				D1A244B62360939800FD9844 /* ViewModel.swift */,
+			);
+			path = Utils;
+			sourceTree = "<group>";
+		};
 		D1E2C21E22E306940044E6A1 /* SignUp */ = {
 			isa = PBXGroup;
 			children = (
@@ -1627,6 +1641,7 @@
 				84B1B24E2269DFC600077DF9 /* CalendarForNetwork.swift in Sources */,
 				FAD25C132212CD78004B45E2 /* LoginPopUpVC.swift in Sources */,
 				FA3A344421E72F5200668908 /* SchoolInfoVC.swift in Sources */,
+				D1A244B52360937400FD9844 /* Dynamic.swift in Sources */,
 				D1CD5DE922E5E6BA0033FCB3 /* AccountSettingViewController.swift in Sources */,
 				84B1B250226A364100077DF9 /* DataResponse.swift in Sources */,
 				8463567D229418300060ED91 /* ImageNetworkManager.swift in Sources */,
@@ -1663,6 +1678,7 @@
 				84F1670C228011C000071075 /* StringToDate.swift in Sources */,
 				84BA694921DB394800BA8CB8 /* myPageVC.swift in Sources */,
 				840DDD3E227EA85500D9D515 /* AllTodo.swift in Sources */,
+				D1A244B72360939800FD9844 /* ViewModel.swift in Sources */,
 				84264BAA21DF109200849E6B /* AddPassiveDateVC.swift in Sources */,
 				D103D8AA22FBEDA40092FE93 /* CalendarData.swift in Sources */,
 				D1E30DA422F1B5360023DF56 /* SplashViewController.swift in Sources */,

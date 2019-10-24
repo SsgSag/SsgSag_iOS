@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import AdBrixRM
 
 class CalendarListViewController: UIViewController {
 
@@ -68,6 +69,7 @@ class CalendarListViewController: UIViewController {
                                                    right: 0)
         collectionView.backgroundColor = .white
         collectionView.showsVerticalScrollIndicator = false
+        collectionView.alwaysBounceVertical = true
         collectionView.delegate = self
         return collectionView
     }()
@@ -154,14 +156,13 @@ class CalendarListViewController: UIViewController {
                             
                             self?.imageCache.setObject(image, forKey: urlString as NSString)
                     }
-                    
+                    dataTask.resume()
                     self?.posterImageTasks.append(dataTask)
                 }
                 
                 DispatchQueue.main.async {
                     guard let todoData = self?.todoData,
-                        let imageCache = self?.imageCache,
-                        let width = self?.listCollectionView.contentSize.width else {
+                        let imageCache = self?.imageCache else {
                         return
                     }
                     
@@ -171,7 +172,6 @@ class CalendarListViewController: UIViewController {
                     self?.listCollectionView.dataSource = self?.listDataSource
                     self?.listCollectionView.reloadData()
                     
-                    self?.currentScrollContentHeight = width
                     if let attributes =
                         self?.listCollectionView.collectionViewLayout.layoutAttributesForSupplementaryView(
                             ofKind: UICollectionView.elementKindSectionHeader,
@@ -257,12 +257,13 @@ class CalendarListViewController: UIViewController {
                 }
                 todoDataOfDay = [todo]
                 
-                if index == todoData.endIndex - 1 {
-                    self.todoData.append(todoDataOfDay)
-                }
                 beforeDday = todo.dday!
             } else {
                 todoDataOfDay.append(todo)
+            }
+
+            if index == todoData.endIndex - 1 {
+                self.todoData.append(todoDataOfDay)
             }
             
         }
@@ -294,34 +295,7 @@ class CalendarListViewController: UIViewController {
     }
     
     @objc private func touchUpCalendarEtcButton(_ sender: UIButton) {
-        // 공유하기
-        
-        let layer = UIApplication.shared.keyWindow!.layer
-        let scale = UIScreen.main.scale
-        
-        UIGraphicsBeginImageContextWithOptions(layer.frame.size, false, scale)
-        
-        guard let context = UIGraphicsGetCurrentContext() else {
-            return
-        }
-        
-        layer.render(in: context)
-        let screenshotImage = UIGraphicsGetImageFromCurrentImageContext()
-        UIGraphicsEndImageContext()
-        
-        var objectsToshare: [Any] = []
-        
-        guard screenshotImage != nil else {
-            return
-        }
-        
-        objectsToshare.append(screenshotImage)
-        
-        objectsToshare.append("슥삭 다운로드 바로가기")
-        
-        objectsToshare.append("\(downloadLink)\n")
-        
-//        addObjects(with: objectsToshare)
+        // 삭제
     }
 }
 
@@ -334,7 +308,7 @@ extension CalendarListViewController {
         
         if scrollView.contentSize.width != 0 {
             if currentScrollContentHeight != scrollView.contentSize.width {
-                if scrollView.contentOffset.y < scrollView.contentSize.width * 0.8 {
+                if scrollView.contentOffset.y + listCollectionView.frame.height > scrollView.contentSize.height * 0.8 {
                     guard var year = year,
                         var month = month else {
                         return
@@ -348,6 +322,7 @@ extension CalendarListViewController {
                     }
                     
                     requestTodoData(year: year, month: month)
+                    currentScrollContentHeight = scrollView.contentSize.width
                 }
             }
         }
@@ -382,6 +357,36 @@ extension CalendarListViewController: UICollectionViewDelegate {
             isFavorite = indexPath.item == 1 ? 1 : 0
             
             requestTodoData(year: currentYear, month: currentMonth)
+        } else {
+        
+            let posterIdx = todoData[indexPath.section][indexPath.item].posterIdx
+            let detailInfoViewController = DetailInfoViewController()
+            
+            detailInfoViewController.posterIdx = posterIdx
+            
+            let adBrix = AdBrixRM.getInstance
+            adBrix.event(eventName: "touchUp_PosterDetail",
+                         value: ["posterIdx": posterIdx])
+            
+            detailInfoViewController.callback = { [weak self] isFavorite in
+                let adBrix = AdBrixRM.getInstance
+                adBrix.event(eventName: "touchUp_Favorite")
+                
+                guard let cell
+                    = self?.listCollectionView.cellForItem(at: indexPath)
+                        as? CalendarListCollectionViewCell else {
+                    return
+                }
+                
+                let imageName
+                    = isFavorite == 1 ? "ic_favorite" : "ic_favoritePassvie"
+                
+                cell.favoriteButton.setImage(UIImage(named: imageName),
+                                             for: .normal)
+            }
+            
+            navigationController?.pushViewController(detailInfoViewController,
+                                                     animated: true)
         }
     }
     
@@ -420,6 +425,7 @@ extension CalendarListViewController: UICollectionViewDataSourcePrefetching {
     func collectionView(_ collectionView: UICollectionView,
                         cancelPrefetchingForItemsAt indexPaths: [IndexPath]) {
         indexPaths.forEach {
+            
             posterImageTasks[$0.item].cancel()
         }
     }

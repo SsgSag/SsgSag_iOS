@@ -293,32 +293,50 @@ class NewCalendarVC: UIViewController {
             return
         }
         
-        let layer = UIApplication.shared.keyWindow!.layer
-        let scale = UIScreen.main.scale
-        
-        UIGraphicsBeginImageContextWithOptions(layer.frame.size, false, scale)
-        
-        guard let context = UIGraphicsGetCurrentContext() else {
-            return
-        }
-        
-        layer.render(in: context)
-        let screenshotImage = UIGraphicsGetImageFromCurrentImageContext()
-        UIGraphicsEndImageContext()
-        
-        var objectsToshare: [Any] = []
-        
-        guard screenshotImage != nil else {
-            return
-        }
-        
-        objectsToshare.append(screenshotImage)
-        
-        objectsToshare.append("슥삭 다운로드 바로가기")
-        
-        objectsToshare.append("\(downloadLink)\n")
+        let alert = UIAlertController(title: nil,
+                                      message: nil,
+                                      preferredStyle: .actionSheet)
+        let shareAction = UIAlertAction(title: "공유하기",
+                                        style: .default) { [weak self] (action) in
+            
+            let layer = UIApplication.shared.keyWindow!.layer
+            let scale = UIScreen.main.scale
+            
+            UIGraphicsBeginImageContextWithOptions(layer.frame.size, false, scale)
+            
+            guard let context = UIGraphicsGetCurrentContext(),
+                let downloadLink = self?.downloadLink else {
+                return
+            }
+            
+            layer.render(in: context)
+            let screenshotImage = UIGraphicsGetImageFromCurrentImageContext()
+            UIGraphicsEndImageContext()
+            
+            var objectsToshare: [Any] = []
+            
+            guard screenshotImage != nil else {
+                return
+            }
+            
+            objectsToshare.append(screenshotImage)
+            
+            objectsToshare.append("슥삭 다운로드 바로가기")
+            
+            objectsToshare.append("\(downloadLink)\n")
 
-        addObjects(with: objectsToshare)
+            self?.addObjects(with: objectsToshare)
+        }
+        
+        let cancelAction = UIAlertAction(title: "취소", style: .cancel) { _ in
+            alert.dismiss(animated: true)
+        }
+        
+        alert.addAction(shareAction)
+        alert.addAction(cancelAction)
+        alert.modalPresentationStyle = .fullScreen
+        present(alert, animated: true)
+        
     }
     
     private func addObjects(with objectsToshare: [Any]) {

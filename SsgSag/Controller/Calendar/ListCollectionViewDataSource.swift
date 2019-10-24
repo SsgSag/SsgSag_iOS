@@ -37,6 +37,7 @@ class ListCollectionViewDataSource: NSObject, UICollectionViewDataSource {
                 as? CalendarListCollectionViewCell else {
             return UICollectionViewCell()
         }
+        //viewModel.request
         
         cell.todoData = todoData[indexPath.section][indexPath.item]
         
@@ -48,7 +49,7 @@ class ListCollectionViewDataSource: NSObject, UICollectionViewDataSource {
             if cache.object(forKey: urlString as NSString) == nil {
                 if let imageURL = URL(string: urlString) {
                     
-                    URLSession.shared.dataTask(with: imageURL) { data, response, error in
+                    URLSession.shared.dataTask(with: imageURL) { [cell] data, response, error in
                         guard error == nil,
                             let data = data,
                             let image = UIImage(data: data) else {

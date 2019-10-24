@@ -18,6 +18,12 @@ class CalendarListCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var hashTagLabel: UILabel!
     @IBOutlet weak var favoriteButton: UIButton!
     
+    private let posterService: PosterService
+        = DependencyContainer.shared.getDependency(key: .posterService)
+    
+    var isEditingDelete: Bool = false
+    var isLiked: Int = 0
+    
     var todoData: MonthTodoData? {
         didSet {
             guard let todoData = self.todoData else {
@@ -38,7 +44,8 @@ class CalendarListCollectionViewCell: UICollectionViewCell {
             let dday = todoData.dday,
             let calendarSaveCount = todoData.likeNum,
             let hashTag = todoData.keyword,
-            let categoryIdx = todoData.categoryIdx else {
+            let categoryIdx = todoData.categoryIdx,
+            let isFavorite = todoData.isFavorite else {
             return
         }
         
@@ -52,6 +59,14 @@ class CalendarListCollectionViewCell: UICollectionViewCell {
         ddayButton.setTitle("D-\(dday)", for: .normal)
         calendarSaveCountButton.setTitle("\(calendarSaveCount)", for: .normal)
         hashTagLabel.text = hashTag
+        
+        if isFavorite == 1 {
+            favoriteButton.setImage(UIImage(named: "ic_favorite"), for: .normal)
+            isLiked = 1
+        } else {
+            favoriteButton.setImage(UIImage(named: "ic_favoritePassive"), for: .normal)
+            isLiked = 0
+        }
     }
     
     override func prepareForReuse() {
@@ -63,6 +78,66 @@ class CalendarListCollectionViewCell: UICollectionViewCell {
     }
     
     @IBAction func touchUpFavoriteButton(_ sender: UIButton) {
-        sender.setImage(UIImage(named: "ic_favorite"), for: .normal)
+        if isEditingDelete {
+//            guard let indexPath = indexPath,
+//                let posterIdx = poster?.posterIdx else {
+//                return
+//            }
+//
+//            sender.isSelected = !sender.isSelected
+//
+//            if sender.isSelected {
+//                sender.setImage(UIImage(named: "ic_selectAll-1"),
+//                                for: .normal)
+//                deleteDelegate?.selectedTodo(posterIdx, indexPath: indexPath)
+//            } else {
+//                sender.setImage(UIImage(named: "ic_selectAllPassive"),
+//                                for: .normal)
+//                deleteDelegate?.deselectedTodo(posterIdx, indexPath: indexPath)
+//            }
+//            return
+        }
+        
+        guard let isTryWithoutLogin = UserDefaults.standard.object(forKey: "isTryWithoutLogin") as? Bool,
+            !isTryWithoutLogin else {
+                return
+        }
+        
+        let method: HTTPMethod = todoData?.isFavorite == 1 ? .delete : .post
+        
+        guard let index = todoData?.posterIdx else {
+            return
+        }
+        
+        posterService.requestPosterFavorite(index: index,
+                                            method: method) { [weak self] result in
+            switch result {
+            case .success(let status):
+                switch status {
+                case .processingSuccess:
+                    DispatchQueue.main.async {
+                        if sender.imageView?.image == UIImage(named: "ic_favoritePassive") {
+                            sender.setImage(UIImage(named: "ic_favorite"),
+                                            for: .normal)
+                            self?.isLiked = 1
+                        } else {
+                            sender.setImage(UIImage(named: "ic_favoritePassive"),
+                                            for: .normal)
+                            self?.isLiked = 0
+                        }
+                    }
+                case .dataBaseError:
+                    print("DB 에러")
+                    return
+                case .serverError:
+                    print("server 에러")
+                default:
+                    return
+                }
+            case .failed(let error):
+                print(error)
+                return
+            }
+        }
     }
 }
