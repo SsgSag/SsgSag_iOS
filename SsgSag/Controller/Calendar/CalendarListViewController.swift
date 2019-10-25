@@ -104,11 +104,28 @@ class CalendarListViewController: UIViewController {
     private lazy var calendarEtcBarButton
         = UIBarButtonItem(customView: calendarEtcButton)
     
+    private lazy var dateLabel: UILabel = {
+        let label = UILabel()
+        
+        guard let year = year,
+            let month = month else {
+            return label
+        }
+        
+        label.text = "\(year)년 \(month)월"
+        label.font = .systemFont(ofSize: 20,
+                                 weight: .semibold)
+        label.textColor = #colorLiteral(red: 0.3098039216, green: 0.3098039216, blue: 0.3098039216, alpha: 1)
+        return label
+    }()
+    
+    private lazy var dateHeaderBarItem = UIBarButtonItem(customView: self.dateLabel)
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
         setNavigationBar(color: .white)
-        navigationItem.leftBarButtonItem = mypageButton
+        navigationItem.leftBarButtonItems = [mypageButton, dateHeaderBarItem]
         navigationItem.rightBarButtonItems = [calendarEtcBarButton, calendarSwitchBarButton]
     }
     
@@ -323,9 +340,39 @@ extension CalendarListViewController {
                     
                     requestTodoData(year: year, month: month)
                     currentScrollContentHeight = scrollView.contentSize.width
+                    self.year = year
+                    self.month = month
                 }
             }
         }
+        
+        print(listCollectionView.indexPathForItem(at: CGPoint(x: listCollectionView.frame.width / 2, y: listCollectionView.contentOffset.y)))
+        
+        guard let indexPathForItem
+            = listCollectionView.indexPathForItem(at: CGPoint(x: listCollectionView.frame.width / 2,
+                                                              y: listCollectionView.contentOffset.y)) else {
+            return
+        }
+        
+        guard let cell
+            = listCollectionView.cellForItem(at: indexPathForItem)
+                as? CalendarListCollectionViewCell else {
+            return
+        }
+
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+        
+        guard let posterEndDate = cell.todoData?.posterEndDate,
+            let date = dateFormatter.date(from: posterEndDate) else {
+            return
+        }
+        
+        let year = Calendar.current.component(.year, from: date)
+        let month = Calendar.current.component(.month, from: date)
+        
+        dateLabel.text = "\(year)년 \(month)월"
+        
     }
 }
 
