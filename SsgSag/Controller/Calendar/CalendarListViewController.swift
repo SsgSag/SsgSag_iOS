@@ -23,6 +23,9 @@ class CalendarListViewController: UIViewController {
     private var currentScrollContentHeight: CGFloat = 0
     private var networkCategoryList = [0, 1, 4, 7, 5]
     private var isFavorite = 0
+    private var isDeleting: Bool = false
+    private var deleteIndexPaths: [IndexPath] = []
+    private var deletePosterIndexs: [Int] = []
     
     private let category = ["전체", "즐겨찾기", "공모전", "대외활동", "인턴", "교육/강연", "기타"]
     private let downloadLink = "https://ssgsag.page.link/install"
@@ -98,6 +101,8 @@ class CalendarListViewController: UIViewController {
                          action: #selector(touchUpCalendarEtcButton(_:)),
                          for: .touchUpInside)
         button.setImage(UIImage(named: "ic_modify"), for: .normal)
+        button.setTitleColor(UIColor(red: 98/255.0 , green: 106/255.0, blue: 255/255.0, alpha: 1.0), for: .normal)
+        button.titleLabel?.font = .systemFont(ofSize: 14)
         return button
     }()
     
@@ -187,6 +192,7 @@ class CalendarListViewController: UIViewController {
                         = ListCollectionViewDataSource(todoData,
                                                        cache: imageCache)
                     self?.listCollectionView.dataSource = self?.listDataSource
+                    self?.listDataSource?.controller = self
                     self?.listCollectionView.reloadData()
                     
                     if let attributes =
@@ -312,7 +318,91 @@ class CalendarListViewController: UIViewController {
     }
     
     @objc private func touchUpCalendarEtcButton(_ sender: UIButton) {
-        // 삭제
+        if calendarEtcButton.titleLabel?.text == "삭제" && deleteIndexPaths.count != 0 {
+            // 삭제
+            
+            simpleAlertwithHandler(title: "",
+                                   message: "\(deleteIndexPaths.count)개의 일정을 삭제하시겠어요?") { [weak self] _ in
+                guard let self = self else {
+                    return
+                }
+                                                
+                self.deleteIndexPaths.sort()
+                                                
+                self.calendarService.requestTodoDelete(self.deletePosterIndexs) { [weak self] result in
+                    guard let self = self else {
+                        return
+                    }
+                    switch result {
+                    case .success(let status):
+                        DispatchQueue.main.async {
+                            switch status {
+                            case .processingSuccess:
+                                var count = 0
+                                self.deleteIndexPaths.forEach {
+                                    self.todoData[$0.section].remove(at: $0.item - count)
+                                    if self.todoData[$0.section].count == 0 {
+                                        self.todoData.remove(at: $0.section)
+                                    }
+                                    count += 1
+                                }
+                                self.listCollectionView.deleteItems(at: self.deleteIndexPaths)
+                                self.deleteIndexPaths = []
+                                self.listDataSource?.todoData = self.todoData
+                                self.listCollectionView.reloadData()
+                            case .dataBaseError:
+                                print("DB 에러")
+                                return
+                            case .serverError:
+                                print("서버 에러")
+                                return
+                            default:
+                                return
+                            }
+                        }
+                    case .failed(let error):
+                        print(error)
+                        return
+                    }
+                }
+            }
+        }
+        
+        if calendarEtcButton.imageView?.image == UIImage(named: "ic_back") {
+            calendarEtcButton.setImage(UIImage(named: "ic_modify"), for: .normal)
+            calendarEtcButton.setTitle(nil, for: .normal)
+            calendarSwitchButton.setImage(UIImage(named: "ic_switchToCalendar"), for: .normal)
+            listDataSource?.isDeleting = false
+            isDeleting = false
+            listCollectionView.reloadData()
+            return
+        }
+        
+        let alert = UIAlertController(title: nil,
+                                      message: nil,
+                                      preferredStyle: .actionSheet)
+        
+        let shareAction = UIAlertAction(title: "편집",
+                                        style: .default) { [weak self] (action) in
+            self?.calendarEtcButton.setImage(UIImage(named: "ic_back"),
+                                             for: .normal)
+            self?.calendarSwitchButton.setImage(nil,
+                                                for: .normal)
+            
+            self?.isDeleting = true
+            self?.listDataSource?.isDeleting = true
+            self?.listCollectionView.reloadData()
+        }
+        
+        let cancelAction = UIAlertAction(title: "취소", style: .cancel) { _ in
+            alert.dismiss(animated: true)
+        }
+        
+        alert.addAction(shareAction)
+        alert.addAction(cancelAction)
+        alert.modalPresentationStyle = .fullScreen
+        present(alert, animated: true)
+        
     }
 }
 
@@ -405,7 +495,10 @@ extension CalendarListViewController: UICollectionViewDelegate {
             
             requestTodoData(year: currentYear, month: currentMonth)
         } else {
-        
+            guard !isDeleting else {
+                return
+            }
+            
             let posterIdx = todoData[indexPath.section][indexPath.item].posterIdx
             let detailInfoViewController = DetailInfoViewController()
             
@@ -492,5 +585,33 @@ extension CalendarListViewController: UICollectionViewDelegateFlowLayout {
         
         return CGSize(width: view.frame.width - 30,
                       height: 90)
+    }
+}
+
+extension CalendarListViewController: TodoDeleteDelegate {
+    func selectedTodo(_ posterIdx: Int, indexPath: IndexPath) {
+        if deleteIndexPaths.count == 0 {
+            calendarEtcButton.setImage(nil, for: .normal)
+            calendarEtcButton.setTitle("삭제", for: .normal)
+        }
+        deletePosterIndexs.append(posterIdx)
+        deleteIndexPaths.append(indexPath)
+    }
+    
+    func deselectedTodo(_ posterIdx: Int, indexPath: IndexPath) {
+        var index = 0
+        
+        for deleteIndexPath in deleteIndexPaths {
+            if indexPath == deleteIndexPath {
+                deleteIndexPaths.remove(at: index)
+                deletePosterIndexs.remove(at: index)
+                if deleteIndexPaths.count == 0 {
+                    calendarEtcButton.setImage(#imageLiteral(resourceName: "ic_editBack"), for: .normal)
+                    calendarEtcButton.setTitle("", for: .normal)
+                }
+                return
+            }
+            index += 1
+        }
     }
 }

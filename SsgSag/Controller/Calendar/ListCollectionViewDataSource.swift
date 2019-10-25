@@ -10,8 +10,11 @@ import Foundation
 
 class ListCollectionViewDataSource: NSObject, UICollectionViewDataSource {
     
-    private let todoData: [[MonthTodoData]]
+    var todoData: [[MonthTodoData]]
     private let cache: NSCache<NSString, UIImage>
+    
+    var isDeleting: Bool = false
+    var controller: CalendarListViewController?
 
     init(_ todoData: [[MonthTodoData]], cache: NSCache<NSString, UIImage>) {
         self.todoData = todoData
@@ -39,7 +42,10 @@ class ListCollectionViewDataSource: NSObject, UICollectionViewDataSource {
         }
         //viewModel.request
         
+        cell.isEditingDelete = isDeleting
         cell.todoData = todoData[indexPath.section][indexPath.item]
+        cell.indexPath = indexPath
+        cell.deleteDelegate = controller
         
         if todoData[indexPath.section][indexPath.item].thumbPhotoUrl == cell.todoData?.thumbPhotoUrl {
             guard let urlString = todoData[indexPath.section][indexPath.item].thumbPhotoUrl else {

@@ -21,8 +21,11 @@ class CalendarListCollectionViewCell: UICollectionViewCell {
     private let posterService: PosterService
         = DependencyContainer.shared.getDependency(key: .posterService)
     
+    weak var deleteDelegate: TodoDeleteDelegate?
+    
     var isEditingDelete: Bool = false
     var isLiked: Int = 0
+    var indexPath: IndexPath?
     
     var todoData: MonthTodoData? {
         didSet {
@@ -60,6 +63,11 @@ class CalendarListCollectionViewCell: UICollectionViewCell {
         calendarSaveCountButton.setTitle("\(calendarSaveCount)", for: .normal)
         hashTagLabel.text = hashTag
         
+        if isEditingDelete {
+            favoriteButton.setImage(UIImage(named: "ic_selectAllPassive"), for: .normal)
+            return
+        }
+        
         if isFavorite == 1 {
             favoriteButton.setImage(UIImage(named: "ic_favorite"), for: .normal)
             isLiked = 1
@@ -79,23 +87,23 @@ class CalendarListCollectionViewCell: UICollectionViewCell {
     
     @IBAction func touchUpFavoriteButton(_ sender: UIButton) {
         if isEditingDelete {
-//            guard let indexPath = indexPath,
-//                let posterIdx = poster?.posterIdx else {
-//                return
-//            }
-//
-//            sender.isSelected = !sender.isSelected
-//
-//            if sender.isSelected {
-//                sender.setImage(UIImage(named: "ic_selectAll-1"),
-//                                for: .normal)
-//                deleteDelegate?.selectedTodo(posterIdx, indexPath: indexPath)
-//            } else {
-//                sender.setImage(UIImage(named: "ic_selectAllPassive"),
-//                                for: .normal)
-//                deleteDelegate?.deselectedTodo(posterIdx, indexPath: indexPath)
-//            }
-//            return
+            guard let indexPath = indexPath,
+                let posterIdx = todoData?.posterIdx else {
+                return
+            }
+
+            sender.isSelected = !sender.isSelected
+
+            if sender.isSelected {
+                sender.setImage(UIImage(named: "ic_selectAll-1"),
+                                for: .normal)
+                deleteDelegate?.selectedTodo(posterIdx, indexPath: indexPath)
+            } else {
+                sender.setImage(UIImage(named: "ic_selectAllPassive"),
+                                for: .normal)
+                deleteDelegate?.deselectedTodo(posterIdx, indexPath: indexPath)
+            }
+            return
         }
         
         guard let isTryWithoutLogin = UserDefaults.standard.object(forKey: "isTryWithoutLogin") as? Bool,
