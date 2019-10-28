@@ -24,6 +24,7 @@ class CalendarListViewController: UIViewController {
     private var networkCategoryList = [0, 1, 4, 7, 5]
     private var isFavorite = 0
     private var isDeleting: Bool = false
+    private var isNetworking: Bool = false
     private var deleteIndexPaths: [IndexPath] = []
     private var deletePosterIndexs: [Int] = []
     
@@ -205,6 +206,8 @@ class CalendarListViewController: UIViewController {
                                     - (self?.listCollectionView.contentInset.top)!),
                         animated: false)
                     }
+                    
+                    self?.isNetworking = false
                 }
             case .failed:
                 return
@@ -409,13 +412,17 @@ class CalendarListViewController: UIViewController {
 // scroll
 extension CalendarListViewController {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        guard !isNetworking else {
+            return
+        }
+        
         guard scrollView != categoryCollectionView else {
             return
         }
         
-        if scrollView.contentSize.width != 0 {
-            if currentScrollContentHeight != scrollView.contentSize.width {
-                if scrollView.contentOffset.y + listCollectionView.frame.height > scrollView.contentSize.height * 0.8 {
+        if scrollView.contentSize.height != 0 {
+            if currentScrollContentHeight != scrollView.contentSize.height {
+                if scrollView.contentOffset.y + listCollectionView.frame.height >= scrollView.contentSize.height {
                     guard var year = year,
                         var month = month else {
                         return
@@ -428,8 +435,10 @@ extension CalendarListViewController {
                         month += 1
                     }
                     
+                    isNetworking = true
+                    
                     requestTodoData(year: year, month: month)
-                    currentScrollContentHeight = scrollView.contentSize.width
+                    currentScrollContentHeight = scrollView.contentSize.height
                     self.year = year
                     self.month = month
                 }
