@@ -46,11 +46,11 @@ public class VAMonthHeaderView: UIView {
     private lazy var formatterWithYearAndMonth: DateFormatter = {
         let formatter = DateFormatter()
         
-        formatter.dateFormat = "YYYY년 MM월"
+        formatter.dateFormat = "YYYY년 M월"
         return formatter
     }()
     
-    private let monthLabel = UILabel()
+    let monthLabel = UILabel()
     private let previousButton = UIButton()
     private let nextButton = UIButton()
     

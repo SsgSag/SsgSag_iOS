@@ -15,7 +15,7 @@ protocol CategorySelectedDelegate: class {
 
 class NewCalendarVC: UIViewController {
     
-    @IBOutlet weak var shareCalendarButton: UIBarButtonItem!
+    @IBOutlet weak var etcButton: UIButton!
     
     @IBOutlet weak var monthHeaderView: VAMonthHeaderView! {
         didSet {
@@ -79,9 +79,9 @@ class NewCalendarVC: UIViewController {
         }
         
         if isTryWithoutLogin {
-            shareCalendarButton.image = nil
-            shareCalendarButton.title = "나가기"
-            shareCalendarButton.setTitleTextAttributes([NSAttributedString.Key.font: UIFont(name: "Helvetica", size: 15.0)], for: .normal)
+            etcButton.setImage(nil, for: .normal)
+            etcButton.setTitle("나가기", for: .normal)
+            etcButton.titleLabel?.font = .systemFont(ofSize: 15)
         }
     }
     
@@ -245,8 +245,32 @@ class NewCalendarVC: UIViewController {
                 animated: true)
     }
     
-    @IBAction func touchUpCalendarShareButton(_ sender: UIBarButtonItem) {
-        if sender.title == "나가기" {
+    @IBAction func touchUpCalendarSwitchButton(_ sender: UIButton) {
+        let listViewController = CalendarListViewController()
+        
+        let dateText = monthHeaderView.monthLabel.text
+        
+        var intText = ""
+        
+        dateText?.forEach {
+            if $0 == "년" {
+                listViewController.currentYear = Int(intText)
+                intText = ""
+            } else if $0 == "월" {
+                listViewController.currentMonth = Int(intText)
+            } else if $0 >= "0" && $0 <= "9" {
+                intText.append($0)
+            }
+        }
+        
+        let listNavigator = UINavigationController(rootViewController: listViewController)
+        listNavigator.modalPresentationStyle = .fullScreen
+        present(listNavigator, animated: false)
+    }
+    
+    @IBAction func touchUpCalendarEtcButton(_ sender: UIButton) {
+        // 공유하기
+        if sender.titleLabel?.text == "나가기" {
             KeychainWrapper.standard.removeObject(forKey: TokenName.token)
             
             guard let window = UIApplication.shared.keyWindow else {
@@ -269,32 +293,50 @@ class NewCalendarVC: UIViewController {
             return
         }
         
-        let layer = UIApplication.shared.keyWindow!.layer
-        let scale = UIScreen.main.scale
-        
-        UIGraphicsBeginImageContextWithOptions(layer.frame.size, false, scale)
-        
-        guard let context = UIGraphicsGetCurrentContext() else {
-            return
+        let alert = UIAlertController(title: nil,
+                                      message: nil,
+                                      preferredStyle: .actionSheet)
+        let shareAction = UIAlertAction(title: "공유하기",
+                                        style: .default) { [weak self] (action) in
+            
+            let layer = UIApplication.shared.keyWindow!.layer
+            let scale = UIScreen.main.scale
+            
+            UIGraphicsBeginImageContextWithOptions(layer.frame.size, false, scale)
+            
+            guard let context = UIGraphicsGetCurrentContext(),
+                let downloadLink = self?.downloadLink else {
+                return
+            }
+            
+            layer.render(in: context)
+            let screenshotImage = UIGraphicsGetImageFromCurrentImageContext()
+            UIGraphicsEndImageContext()
+            
+            var objectsToshare: [Any] = []
+            
+            guard screenshotImage != nil else {
+                return
+            }
+            
+            objectsToshare.append(screenshotImage)
+            
+            objectsToshare.append("슥삭 다운로드 바로가기")
+            
+            objectsToshare.append("\(downloadLink)\n")
+
+            self?.addObjects(with: objectsToshare)
         }
         
-        layer.render(in: context)
-        let screenshotImage = UIGraphicsGetImageFromCurrentImageContext()
-        UIGraphicsEndImageContext()
-        
-        var objectsToshare: [Any] = []
-        
-        guard screenshotImage != nil else {
-            return
+        let cancelAction = UIAlertAction(title: "취소", style: .cancel) { _ in
+            alert.dismiss(animated: true)
         }
         
-        objectsToshare.append(screenshotImage)
+        alert.addAction(shareAction)
+        alert.addAction(cancelAction)
+        alert.modalPresentationStyle = .fullScreen
+        present(alert, animated: true)
         
-        objectsToshare.append("슥삭 다운로드 바로가기")
-        
-        objectsToshare.append("\(downloadLink)\n")
-        
-        addObjects(with: objectsToshare)
     }
     
     private func addObjects(with objectsToshare: [Any]) {

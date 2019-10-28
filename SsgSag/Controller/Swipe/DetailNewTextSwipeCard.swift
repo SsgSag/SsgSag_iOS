@@ -208,45 +208,21 @@ class DetailNewTextSwipeCard: UIViewController {
             eligibilityButton.setTitle(categoryTitle[2], for: .normal)
             
             if categoryIdx == 2 || categoryIdx == 6 {
-                guard let outline = poster.outline,
-                    let benefit = poster.benefit,
-                    let period = poster.period else {
-                        return
-                }
-                
-                subjectDetailText.text = outline
-                benefitTextField.text = period
-                eligibilityDetailText.text = benefit
+                subjectDetailText.text = poster.outline ?? ""
+                benefitTextField.text = poster.period ?? ""
+                eligibilityDetailText.text = poster.benefit ?? ""
             } else if categoryIdx == 7 {
-                guard let outline = poster.outline,
-                    let target = poster.target,
-                    let period = poster.period else {
-                        return
-                }
-                
-                subjectDetailText.text = outline
-                benefitTextField.text = target
-                eligibilityDetailText.text = period
+                subjectDetailText.text = poster.outline ?? ""
+                benefitTextField.text = poster.target ?? ""
+                eligibilityDetailText.text = poster.period ?? ""
             } else if categoryIdx == 8 {
-                guard let outline = poster.outline,
-                    let benefit = poster.benefit,
-                    let target = poster.target else {
-                        return
-                }
-                
-                subjectDetailText.text = benefit
-                benefitTextField.text = target
-                eligibilityDetailText.text = outline
+                subjectDetailText.text = poster.benefit ?? ""
+                benefitTextField.text = poster.target ?? ""
+                eligibilityDetailText.text = poster.outline ?? ""
             } else {
-                guard let outline = poster.outline,
-                    let benefit = poster.benefit,
-                    let target = poster.target else {
-                        return
-                }
-                
-                subjectDetailText.text = outline
-                benefitTextField.text = target
-                eligibilityDetailText.text = benefit
+                subjectDetailText.text = poster.outline ?? ""
+                benefitTextField.text = poster.target ?? ""
+                eligibilityDetailText.text = poster.benefit ?? ""
             }
             
             benefitTextField.setLineSpacing(lineSpacing: 5.0)

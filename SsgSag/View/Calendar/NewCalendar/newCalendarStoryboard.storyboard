@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
-    <device id="retina6_1" orientation="portrait">
-        <adaptation id="fullscreen"/>
-    </device>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14868" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14824"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -107,8 +105,8 @@
                                 </connections>
                             </barButtonItem>
                             <barButtonItem style="plain" id="18R-zK-GKS">
-                                <view key="customView" contentMode="scaleToFill" ambiguous="YES" id="p9b-tv-ABd" customClass="VAMonthHeaderView" customModule="슥삭" customModuleProvider="target">
-                                    <rect key="frame" x="55" y="22" width="0.0" height="0.0"/>
+                                <view key="customView" contentMode="scaleToFill" id="p9b-tv-ABd" customClass="VAMonthHeaderView" customModule="슥삭" customModuleProvider="target">
+                                    <rect key="frame" x="87" y="22" width="0.0" height="0.0"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <constraints>
@@ -117,18 +115,43 @@
                                 </view>
                             </barButtonItem>
                         </leftBarButtonItems>
-                        <barButtonItem key="rightBarButtonItem" title="캘린더공유" id="1Vu-al-imD">
-                            <color key="tintColor" red="0.38431372549019605" green="0.41568627450980389" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
-                            <connections>
-                                <action selector="touchUpCalendarShareButton:" destination="B71-YN-EqE" id="rjl-Lt-MSx"/>
-                            </connections>
-                        </barButtonItem>
+                        <rightBarButtonItems>
+                            <barButtonItem width="38" style="plain" id="QNQ-pb-H2P">
+                                <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="iXw-cr-BBI">
+                                    <rect key="frame" x="318" y="0.0" width="38" height="44"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                    <state key="normal" image="ic_modify">
+                                        <color key="titleColor" red="0.38431372549019605" green="0.41568627450980389" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                                    </state>
+                                    <connections>
+                                        <action selector="touchUpCalendarEtcButton:" destination="B71-YN-EqE" eventType="touchUpInside" id="4xB-Z3-6r1"/>
+                                    </connections>
+                                </button>
+                                <connections>
+                                    <action selector="touchUpCalendarEtcButton:" destination="B71-YN-EqE" id="rLS-97-2Qj"/>
+                                </connections>
+                            </barButtonItem>
+                            <barButtonItem width="38" style="plain" id="D5R-Ov-NWY">
+                                <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="3ld-Sy-av3">
+                                    <rect key="frame" x="234" y="0.0" width="38" height="44"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <state key="normal" image="ic_switchToCalendar"/>
+                                    <connections>
+                                        <action selector="touchUpCalendarSwitchButton:" destination="B71-YN-EqE" eventType="touchUpInside" id="PyI-QY-H4e"/>
+                                    </connections>
+                                </button>
+                                <connections>
+                                    <action selector="touchUpCalendarSwitchButton:" destination="B71-YN-EqE" id="l8f-Mc-Kad"/>
+                                </connections>
+                            </barButtonItem>
+                        </rightBarButtonItems>
                     </navigationItem>
                     <connections>
                         <outlet property="categoryCollection" destination="pH2-YY-86Q" id="Qfx-B8-e1y"/>
+                        <outlet property="etcButton" destination="iXw-cr-BBI" id="een-Ey-hQU"/>
                         <outlet property="monthHeaderView" destination="p9b-tv-ABd" id="Glu-iV-W61"/>
                         <outlet property="myPageBarButtonItem" destination="r3m-mp-CER" id="IHR-9h-rbB"/>
-                        <outlet property="shareCalendarButton" destination="1Vu-al-imD" id="23B-tA-pYF"/>
                         <outlet property="weekDaysView" destination="vLE-vE-5Ar" id="8Jt-Zp-wE1"/>
                     </connections>
                 </viewController>
@@ -172,6 +195,8 @@
         </scene>
     </scenes>
     <resources>
+        <image name="ic_modify" width="38" height="48"/>
         <image name="ic_mypage" width="48" height="48"/>
+        <image name="ic_switchToCalendar" width="38" height="48"/>
     </resources>
 </document>

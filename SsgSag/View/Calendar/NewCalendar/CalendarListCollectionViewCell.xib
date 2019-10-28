@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="14868" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14824"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="gTV-IL-0wX" customClass="CalendarListCollectionViewCell" customModule="슥삭" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="449" height="169"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                <rect key="frame" x="0.0" y="0.0" width="449" height="169"/>
+                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <subviews>
+                    <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" alignment="center" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="Yta-hA-BMG">
+                        <rect key="frame" x="10" y="41" width="454" height="158"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="039-S7-dkG">
+                                <rect key="frame" x="0.0" y="33" width="67" height="87"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="67" id="6w4-Ec-gg0"/>
+                                    <constraint firstAttribute="height" constant="87" id="Tcg-lv-KYE"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadiusV">
+                                        <real key="value" value="3"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="borderWidthV">
+                                        <real key="value" value="1"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="borderColorV">
+                                        <color key="value" red="0.84705882352941175" green="0.84705882352941175" blue="0.84705882352941175" alpha="0.84705882352941175" colorSpace="calibratedRGB"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </imageView>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="4cq-e4-DM5">
+                                <rect key="frame" x="77" y="36" width="309" height="81.5"/>
+                                <subviews>
+                                    <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mUY-7d-Tld">
+                                        <rect key="frame" x="0.0" y="0.0" width="309" height="18"/>
+                                        <subviews>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="abu-Og-aBm">
+                                                <rect key="frame" x="0.0" y="0.0" width="23" height="18"/>
+                                                <color key="backgroundColor" red="0.38431372549999998" green="0.41568627450000001" blue="1" alpha="0.080000000000000002" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="18" id="r7X-UZ-3az"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" type="system" pointSize="11"/>
+                                                <inset key="contentEdgeInsets" minX="6" minY="2" maxX="6" maxY="2"/>
+                                                <state key="normal" title="대외활동">
+                                                    <color key="titleColor" red="0.38431372549999998" green="0.41568627450000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                </state>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadiusV">
+                                                        <real key="value" value="6"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
+                                            </button>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QWy-uG-YHi">
+                                                <rect key="frame" x="23" y="0.0" width="286" height="18"/>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            </view>
+                                        </subviews>
+                                    </stackView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="강원도 25초 영상/사진 공모전" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Q2N-0V-iXr">
+                                        <rect key="frame" x="0.0" y="23" width="189.5" height="19.5"/>
+                                        <fontDescription key="fontDescription" type="system" weight="medium" pointSize="16"/>
+                                        <color key="textColor" red="0.23921568630000001" green="0.23921568630000001" blue="0.23921568630000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <stackView opaque="NO" contentMode="scaleToFill" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="5zs-7m-A4x">
+                                        <rect key="frame" x="0.0" y="47.5" width="55" height="13"/>
+                                        <subviews>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yoP-UP-BwF">
+                                                <rect key="frame" x="0.0" y="0.0" width="30" height="13"/>
+                                                <color key="backgroundColor" red="0.38431372549999998" green="0.41568627450000001" blue="1" alpha="0.080000000000000002" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="13" id="SzY-IM-NqL"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" type="system" pointSize="10"/>
+                                                <state key="normal" title="D-0">
+                                                    <color key="titleColor" red="0.38431372549999998" green="0.41568627450000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                </state>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadiusV">
+                                                        <real key="value" value="3"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yVy-jn-Egh">
+                                                <rect key="frame" x="38" y="0.0" width="17" height="13"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="10"/>
+                                                <inset key="imageEdgeInsets" minX="-5" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                                <state key="normal" title="0" image="ic_calendarMini">
+                                                    <color key="titleColor" red="0.66666666669999997" green="0.66666666669999997" blue="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                </state>
+                                            </button>
+                                        </subviews>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="13" id="WRc-Rv-osd"/>
+                                        </constraints>
+                                    </stackView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="#대학생 #창업 #IT #개발 #디자인 #기획 #마케팅 #연합동아리 #달빛산책 #김홍삼 " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mk1-7i-nui">
+                                        <rect key="frame" x="0.0" y="65.5" width="309" height="16"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="16" id="tDd-2Z-cyQ"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="10"/>
+                                        <color key="textColor" red="0.47058823529999999" green="0.47058823529999999" blue="0.47058823529999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="mk1-7i-nui" secondAttribute="trailing" id="SFt-Jz-qYB"/>
+                                    <constraint firstAttribute="trailing" secondItem="mUY-7d-Tld" secondAttribute="trailing" id="pkt-hH-KLa"/>
+                                </constraints>
+                            </stackView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yWm-zc-drd">
+                                <rect key="frame" x="396" y="67.5" width="20" height="18"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="20" id="hoe-c6-a53"/>
+                                    <constraint firstAttribute="height" constant="18" id="w0Z-GQ-uhk"/>
+                                </constraints>
+                                <state key="normal" image="ic_favoritePassive"/>
+                                <connections>
+                                    <action selector="touchUpFavoriteButton:" destination="gTV-IL-0wX" eventType="touchUpInside" id="C1R-Vm-qsJ"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                    </stackView>
+                </subviews>
+            </view>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <constraints>
+                <constraint firstItem="Yta-hA-BMG" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="10" id="C69-yF-ndi"/>
+                <constraint firstItem="Yta-hA-BMG" firstAttribute="centerY" secondItem="gTV-IL-0wX" secondAttribute="centerY" id="NDh-ra-M1X"/>
+                <constraint firstAttribute="bottom" secondItem="Yta-hA-BMG" secondAttribute="bottom" constant="8" id="RTW-Fm-r40"/>
+                <constraint firstItem="Yta-hA-BMG" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" constant="8" id="TdZ-KL-1E3"/>
+                <constraint firstAttribute="trailing" secondItem="Yta-hA-BMG" secondAttribute="trailing" constant="23" id="tja-Zv-vXb"/>
+            </constraints>
+            <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
+            <size key="customSize" width="449" height="169"/>
+            <userDefinedRuntimeAttributes>
+                <userDefinedRuntimeAttribute type="number" keyPath="borderWidthV">
+                    <real key="value" value="1"/>
+                </userDefinedRuntimeAttribute>
+                <userDefinedRuntimeAttribute type="color" keyPath="borderColorV">
+                    <color key="value" red="0.95294117647058818" green="0.95686274509803915" blue="0.96078431372549022" alpha="0.84705882352941175" colorSpace="calibratedRGB"/>
+                </userDefinedRuntimeAttribute>
+                <userDefinedRuntimeAttribute type="number" keyPath="cornerRadiusV">
+                    <real key="value" value="4"/>
+                </userDefinedRuntimeAttribute>
+            </userDefinedRuntimeAttributes>
+            <connections>
+                <outlet property="calendarSaveCountButton" destination="yVy-jn-Egh" id="NSh-pb-uPw"/>
+                <outlet property="categoryButton" destination="abu-Og-aBm" id="CgM-Kp-h0P"/>
+                <outlet property="ddayButton" destination="yoP-UP-BwF" id="xgs-9s-nNV"/>
+                <outlet property="favoriteButton" destination="yWm-zc-drd" id="l0t-dP-Ymi"/>
+                <outlet property="hashTagLabel" destination="mk1-7i-nui" id="0Xe-hx-85k"/>
+                <outlet property="posterImageView" destination="039-S7-dkG" id="fNp-5q-qfO"/>
+                <outlet property="titleLabel" destination="Q2N-0V-iXr" id="Lm8-Cn-a1P"/>
+            </connections>
+            <point key="canvasLocation" x="66" y="95"/>
+        </collectionViewCell>
+    </objects>
+    <resources>
+        <image name="ic_calendarMini" width="10" height="11"/>
+        <image name="ic_favoritePassive" width="20" height="17"/>
+    </resources>
+</document>

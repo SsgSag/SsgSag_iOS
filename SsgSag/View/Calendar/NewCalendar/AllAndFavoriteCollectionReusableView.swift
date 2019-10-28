@@ -16,10 +16,6 @@ class AllAndFavoriteCollectionReusableView: UICollectionReusableView {
 
     weak var delegate: MenuSelectedDelegate?
     
-    @IBOutlet weak var allUnderBarView: UIView!
-    
-    @IBOutlet weak var favoriteUnderBarView: UIView!
-    
     @IBOutlet weak var allButton: UIButton!
     
     @IBOutlet weak var favoriteButton: UIButton!
@@ -33,12 +29,8 @@ class AllAndFavoriteCollectionReusableView: UICollectionReusableView {
         let otherButton: UIButton = sender == allButton ? favoriteButton : allButton
         
         if sender == allButton {
-            allUnderBarView.isHidden = false
-            favoriteUnderBarView.isHidden = true
             delegate?.selectedMenu(index: 0)
         } else {
-            allUnderBarView.isHidden = true
-            favoriteUnderBarView.isHidden = false
             delegate?.selectedMenu(index: 1)
         }
         

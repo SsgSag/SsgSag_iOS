@@ -20,11 +20,16 @@ struct MonthTodoData: Codable, Equatable, Hashable {
     let posterIdx, categoryIdx, isCompleted, isEnded: Int?
     let subCategoryIdx: Int?
     let posterName, outline, posterEndDate: String?
+    let thumbPhotoUrl: String?
+    let keyword: String?
     let posterStartDate: String?
     let documentDate: String?
     let isFavorite: Int?
     let photoUrl: String?
     let dday: Int?
+    let likeNum: Int?
+    let swipeNum: Int?
+    let favoriteNum: Int?
     
     static func == (lhs: MonthTodoData, rhs: MonthTodoData) -> Bool {
         if lhs.posterName == rhs.posterName {
