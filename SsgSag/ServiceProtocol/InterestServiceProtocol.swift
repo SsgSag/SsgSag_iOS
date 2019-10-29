@@ -9,15 +9,18 @@
 import Foundation
 
 protocol InterestService: class {
+    // 구독상태 조회
     func requestInterestSubscribeStatus(
         completionHandler: @escaping (DataResponse<Subscribe>) -> Void
     )
     
+    // 구독 취소
     func requestInterestSubscribeDelete(
         _ interedIdx: Int,
         completionHandler: @escaping (DataResponse<BasicNetworkModel>) -> Void
     )
     
+    // 구독 등록
     func requestInterestSubscribeAdd(
         _ interedIdx: Int,
         completionHandler: @escaping (DataResponse<BasicNetworkModel>) -> Void

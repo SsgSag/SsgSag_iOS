@@ -9,23 +9,27 @@
 import Foundation
 
 protocol CommentService: class {
+    // 댓글 등록
     func requestAddComment(
         index: Int,
         comment: String,
         completionHandler: @escaping (DataResponse<HttpStatusCode>) -> Void
     )
     
+    // 댓글 좋아요 여부
     func requestCommentLike(
         index: Int,
         like: Int,
         completionHandler: @escaping (DataResponse<HttpStatusCode>) -> Void
     )
     
+    // 댓글 삭제
     func requestCommentDelete(
         index: Int,
         completionHandler: @escaping (DataResponse<HttpStatusCode>) -> Void
     )
     
+    // 댓글 신고
     func requestCommentReport(
         index: Int,
         completionHandler: @escaping (DataResponse<HttpStatusCode>) -> Void

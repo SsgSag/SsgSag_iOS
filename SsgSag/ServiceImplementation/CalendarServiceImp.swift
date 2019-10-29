@@ -200,43 +200,6 @@ class CalendarServiceImp: CalendarService {
         }
     }
     
-    func requestTodoFavorite(_ favorite: favoriteState,
-                         _ posterIdx: Int,
-                         completionHandler: @escaping (DataResponse<PosterFavorite>) -> Void) {
-        
-        let httpMethod: HTTPMethod = favorite == .favorite ? .delete : .post
-        
-        guard let token
-            = KeychainWrapper.standard.string(forKey: TokenName.token),
-            let url
-            = UserAPI.sharedInstance.getURL(RequestURL.favorite(posterIdx: posterIdx).getRequestURL),
-            let request
-            = requestMaker.makeRequest(url: url,
-                                       method: httpMethod,
-                                       header: ["Authorization": token],
-                                       body: nil) else {
-            return
-        }
-        
-        network.dispatch(request: request) { result in
-            switch result {
-            case .success(let data):
-                do {
-                    let response = try JSONDecoder().decode(PosterFavorite.self,
-                                                            from: data)
-                    
-                    completionHandler(DataResponse.success(response))
-                } catch {
-                    completionHandler(.failed(error))
-                    return
-                }
-            case .failure(let error):
-                completionHandler(.failed(error))
-                return
-            }
-        }
-    }
-    
     func requestTodoListClickRecord(_ posterIdx: Int,
                                     type: Int,
                                     completionHandler: @escaping (DataResponse<HttpStatusCode>) -> Void) {

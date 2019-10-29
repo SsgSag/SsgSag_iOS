@@ -104,9 +104,19 @@ class SplashVC: UIViewController {
     // 서버가 유효한지 확인하는 메소드
     private func isServerAvaliable() {
         tapbarServiceImp.requestValidateServer{ [weak self] dataResponse in
-            switch dataResponse {
-            case .success(let data):
-                guard data.data == 0 else {
+            DispatchQueue.main.async {
+                switch dataResponse {
+                case .success(let data):
+                    guard data.data == 0 else {
+                        self?.simpleAlertwithHandler(title: "",
+                                                     message: "서버 업데이트 중입니다.",
+                                                     okHandler: { _ in
+                                                        exit(0)
+                        })
+                        return
+                    }
+                case .failed(let error):
+                    print(error)
                     self?.simpleAlertwithHandler(title: "",
                                                  message: "서버 업데이트 중입니다.",
                                                  okHandler: { _ in
@@ -114,14 +124,6 @@ class SplashVC: UIViewController {
                     })
                     return
                 }
-            case .failed(let error):
-                print(error)
-                self?.simpleAlertwithHandler(title: "",
-                                             message: "서버 업데이트 중입니다.",
-                                             okHandler: { _ in
-                                                exit(0)
-                })
-                return
             }
         }
     }

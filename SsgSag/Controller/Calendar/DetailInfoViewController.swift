@@ -272,14 +272,6 @@ class DetailInfoViewController: UIViewController {
         
         infoCollectionView.register(detailInfoNib, forCellWithReuseIdentifier: "detailInfoCellID")
         
-        let contactInfoNib = UINib(nibName: "ContactInfoCollectionViewCell", bundle: nil)
-        
-        infoCollectionView.register(contactInfoNib, forCellWithReuseIdentifier: "contactInfoCellID")
-        
-        let seeMoreNib = UINib(nibName: "SeeMoreCollectionViewCell", bundle: nil)
-        
-        infoCollectionView.register(seeMoreNib, forCellWithReuseIdentifier: "seeMoreCellID")
-        
         let analyticsNib = UINib(nibName: "AnalysticsCollectionViewCell", bundle: nil)
         
         infoCollectionView.register(analyticsNib, forCellWithReuseIdentifier: "analyticsCellID")
@@ -470,7 +462,7 @@ extension DetailInfoViewController: UICollectionViewDataSource {
                         numberOfItemsInSection section: Int) -> Int {
         switch section {
         case 0:
-            return 5
+            return 4
         case 1:
             return 0
         case 2:
@@ -570,16 +562,6 @@ extension DetailInfoViewController: UICollectionViewDataSource {
                     cell.configure(titleString: infoTitles[2],
                                    detailString: posterDetailData?.benefit ?? "")
                 }
-                
-                return cell
-            case 4:
-                guard let cell
-                    = collectionView.dequeueReusableCell(withReuseIdentifier: "contactInfoCellID",
-                                                         for: indexPath) as? ContactInfoCollectionViewCell else {
-                                                            return .init()
-                }
-                
-                cell.configure(email: posterDetailData?.partnerEmail ?? "")
                 
                 return cell
             default:

@@ -20,6 +20,40 @@ class ActivityServiceImp: ActivityService {
         self.network = network
     }
     
+    func requestCareerWith(careerType: Int,
+                           completionHandler: @escaping (DataResponse<Career>) -> Void) {
+        guard let token
+            = KeychainWrapper.standard.string(forKey: TokenName.token),
+            let url
+            = UserAPI.sharedInstance.getURL(RequestURL.career(careerType: careerType).getRequestURL),
+            let request
+            = requestMaker.makeRequest(url: url,
+                                       method: .get,
+                                       header: ["Authorization": token],
+                                       body: nil) else {
+            return
+        }
+        
+        network.dispatch(request: request) { result in
+            switch result {
+            case .success(let data):
+                do {
+                    let decodedData
+                        = try JSONDecoder().decode(Career.self,
+                                                   from: data)
+                    
+                    completionHandler(.success(decodedData))
+                } catch let error {
+                    completionHandler(.failed(error))
+                    return
+                }
+            case .failure(let error):
+                completionHandler(.failed(error))
+                return
+            }
+        }
+    }
+    
     func requestStoreActivity(_ jsonData: [String : Any],
                               completionHandler: @escaping (((DataResponse<Activity>) -> Void))) {
         

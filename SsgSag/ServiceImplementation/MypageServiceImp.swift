@@ -101,42 +101,6 @@ class MyPageServiceImp: MyPageService {
         }
     }
     
-    func requestUserInformation(completionHandler: @escaping (DataResponse<UserNetworkModel>) -> Void) {
-        
-        guard let token
-            = KeychainWrapper.standard.string(forKey: TokenName.token),
-            let url
-            = UserAPI.sharedInstance.getURL(RequestURL.signUp.getRequestURL),
-            let request
-            = requestMaker.makeRequest(url: url,
-                                       method: .get,
-                                       header: ["Authorization": token,
-                                                "Content-Type": "application/json"],
-                                       body: nil) else {
-            return
-        }
-        
-        network.dispatch(request: request) { result in
-            switch result {
-            case .success(let data):
-                do {
-                    let decodedData
-                        = try JSONDecoder().decode(UserNetworkModel.self,
-                                                   from: data)
-                    
-                    completionHandler(.success(decodedData))
-                    
-                } catch let error {
-                    completionHandler(.failed(error))
-                    return
-                }
-            case .failure(let error):
-                completionHandler(.failed(error))
-                return
-            }
-        }
-    }
-    
     // 회원탈퇴
     func requestMembershipCancel(completionHandler: @escaping (DataResponse<HttpStatusCode>) -> Void) {
         guard let token
