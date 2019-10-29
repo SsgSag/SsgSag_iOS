@@ -33,7 +33,7 @@
 			<string>Editor</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>kakaoed0a3c51db01fecdca098dde710f2753</string>
+				<string>kakaoc04255800313c33eff056de904ed9023</string>
 			</array>
 		</dict>
 		<dict>
@@ -71,12 +71,12 @@
 		<string>https://www.ssgsag.kr</string>
 	</array>
 	<key>KAKAO_APP_KEY</key>
-	<string>ed0a3c51db01fecdca098dde710f2753</string>
+	<string>c04255800313c33eff056de904ed9023</string>
 	<key>LSApplicationCategoryType</key>
 	<string></string>
 	<key>LSApplicationQueriesSchemes</key>
 	<array>
-		<string>kakaoed0a3c51db01fecdca098dde710f2753</string>
+		<string>kakaoc04255800313c33eff056de904ed9023</string>
 		<string>kakaokompassauth</string>
 		<string>kakaolink</string>
 		<string>kakaotalk-5.9.7</string>
