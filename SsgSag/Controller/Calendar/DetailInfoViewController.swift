@@ -275,14 +275,6 @@ class DetailInfoViewController: UIViewController {
         
         infoCollectionView.register(detailInfoNib, forCellWithReuseIdentifier: "detailInfoCellID")
         
-        let contactInfoNib = UINib(nibName: "ContactInfoCollectionViewCell", bundle: nil)
-        
-        infoCollectionView.register(contactInfoNib, forCellWithReuseIdentifier: "contactInfoCellID")
-        
-        let seeMoreNib = UINib(nibName: "SeeMoreCollectionViewCell", bundle: nil)
-        
-        infoCollectionView.register(seeMoreNib, forCellWithReuseIdentifier: "seeMoreCellID")
-        
         let analyticsNib = UINib(nibName: "AnalysticsCollectionViewCell", bundle: nil)
         
         infoCollectionView.register(analyticsNib, forCellWithReuseIdentifier: "analyticsCellID")
@@ -499,7 +491,7 @@ extension DetailInfoViewController: UICollectionViewDataSource {
                         numberOfItemsInSection section: Int) -> Int {
         switch section {
         case 0:
-            return 5
+            return 4
         case 1:
             return 0
         case 2:
@@ -513,11 +505,12 @@ extension DetailInfoViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView,
                         cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let categoryIdx = posterDetailData?.categoryIdx else {
+        guard let categoryIdx = posterDetailData?.categoryIdx,
+            let category = PosterCategory(rawValue: categoryIdx) else {
             return collectionView.dequeueReusableCell(withReuseIdentifier: "tempCell", for: indexPath)
         }
         
-        let infoTitles = titleStringByCategory(categoryIdx: categoryIdx)
+        let infoTitles = category.titleStringByCategory()
         
         switch indexPath.section {
         case 0:
@@ -599,16 +592,6 @@ extension DetailInfoViewController: UICollectionViewDataSource {
                     cell.configure(titleString: infoTitles[2],
                                    detailString: posterDetailData?.benefit ?? "")
                 }
-                
-                return cell
-            case 4:
-                guard let cell
-                    = collectionView.dequeueReusableCell(withReuseIdentifier: "contactInfoCellID",
-                                                         for: indexPath) as? ContactInfoCollectionViewCell else {
-                                                            return .init()
-                }
-                
-                cell.configure(email: posterDetailData?.partnerEmail ?? "")
                 
                 return cell
             default:
@@ -1093,33 +1076,3 @@ extension DetailInfoViewController: LargeImageDelegate {
     }
 }
 
-func titleStringByCategory(categoryIdx: Int) -> [String] {
-    switch categoryIdx {
-    case 0:
-        // 공모전
-        return ["주제", "지원자격", "시상내역"]
-    case 1:
-        // 대외활동
-        return ["지원자격", "활동내용", "혜택"]
-    case 2:
-        // 동아리
-        return ["활동분야", "모임시간", "활동혜택"]
-    case 3:
-        // 교내공지
-        return ["활동분야", "모임시간", "혜택"]
-    case 4:
-        // 인턴
-        return ["모집분야", "지원자격", "근무조건"]
-    case 5:
-        // 기타
-        return ["", "", ""]
-    case 7:
-        // 교육/강연
-        return ["주제", "내용/커리큘럼", "일정/기간"]
-    case 8:
-        // 장학금/지원
-        return ["인원/혜택", "대상 및 조건", "기타사항"]
-    default:
-        return ["항목1", "항목2", "항목3"]
-    }
-}

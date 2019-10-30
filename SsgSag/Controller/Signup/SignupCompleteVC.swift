@@ -308,7 +308,7 @@ class SignUpCompleteVC: UIViewController {
             }
             
             do {
-                let modelData = try JSONDecoder().decode(PosterFavorite.self, from: data)
+                let modelData = try JSONDecoder().decode(BasicResponse.self, from: data)
                 
                 guard let status = modelData.status else {return}
                 

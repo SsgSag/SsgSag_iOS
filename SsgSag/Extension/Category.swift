@@ -59,4 +59,33 @@ enum PosterCategory: Int {
             return #colorLiteral(red: 0.768627451, green: 0.768627451, blue: 0.768627451, alpha: 1)
         }
     }
+    
+    func titleStringByCategory() -> [String] {
+        switch self {
+        case .contest:
+            // 공모전
+            return ["주제", "지원자격", "시상내역"]
+        case .act:
+            // 대외활동
+            return ["지원자격", "활동내용", "혜택"]
+        case .club:
+            // 동아리
+            return ["활동분야", "모임시간", "활동혜택"]
+        case .notice:
+            // 교내공지
+            return ["활동분야", "모임시간", "혜택"]
+        case .recruit:
+            // 인턴
+            return ["모집분야", "지원자격", "근무조건"]
+        case .etc:
+            // 기타
+            return ["", "", ""]
+        case .edu:
+            // 교육/강연
+            return ["주제", "내용/커리큘럼", "일정/기간"]
+        case .scholar:
+            // 장학금/지원
+            return ["인원/혜택", "대상 및 조건", "기타사항"]
+        }
+    }
 }
