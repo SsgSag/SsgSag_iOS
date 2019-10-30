@@ -22,8 +22,8 @@ class CareerVC: UIViewController {
     
     private var latestContentOffsetX: CGFloat = 0
     
-    private let careerServiceImp: CareerService
-        = DependencyContainer.shared.getDependency(key: .careerService)
+    private let activityServiceImp: ActivityService
+        = DependencyContainer.shared.getDependency(key: .activityService)
     
     var customTabBarCollectionView: UICollectionView = {
         let collectionViewLayout = UICollectionViewFlowLayout()
@@ -302,7 +302,7 @@ class CareerVC: UIViewController {
     
     func getData(careerType: Int) {
         
-        careerServiceImp.requestCareerWith(careerType: careerType) { [weak self] dataResponse in
+        activityServiceImp.requestCareerWith(careerType: careerType) { [weak self] dataResponse in
             guard let careerData = dataResponse.value?.data else {return}
             
             DispatchQueue.main.async {

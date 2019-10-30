@@ -14,14 +14,12 @@ import UserNotifications
 import AdBrixRM
 import AdSupport
 import SwiftKeychainWrapper
-import FBSDKCoreKit
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
     
     var window: UIWindow?
-    private var loginViewController: UIViewController?
-    private var mainViewController: UIViewController?
+    static var posterIndex: Int?
     
     private lazy var persistentContainer: NSPersistentContainer = {
         let container = NSPersistentContainer(name: "SsgSag")
@@ -56,9 +54,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         Messaging.messaging().delegate = self
         
         setupAdBrix()
-        
-        ApplicationDelegate.shared.application(application,
-                                               didFinishLaunchingWithOptions: launchOptions)
+//
+//        ApplicationDelegate.shared.application(application,
+//                                               didFinishLaunchingWithOptions: launchOptions)
         
         if #available(iOS 10.0, *) {
             // For iOS 10 display notification (sent via APNS)
@@ -92,8 +90,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
         let splashStoryBoard = UIStoryboard(name: "Splash",
                                             bundle: nil)
-        let splashVC
-            = splashStoryBoard.instantiateViewController(withIdentifier: "splash")
+        guard let splashVC
+            = splashStoryBoard.instantiateViewController(withIdentifier: "splash") as? SplashVC else {
+                return true
+        }
 
         window?.rootViewController = splashVC
         window?.makeKeyAndVisible()
@@ -127,11 +127,40 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             return KOSession.handleOpen(url)
         }
         
-        let handled = ApplicationDelegate.shared.application(app,
-                                                             open: url,
-                                                             options: options)
+        if KLKTalkLinkCenter.shared().isTalkLinkCallback(url) {
+            guard let params = url.query?.components(separatedBy: "=") else {
+                return true
+            }
+            
+            AppDelegate.posterIndex = Int(params[1])
+            return true
+        }
+        return false
+    }
+    
+    func applicationWillEnterForeground(_ application: UIApplication) {
+        guard AppDelegate.posterIndex != nil else {
+            return
+        }
         
-        return handled
+        // 재실행
+        let splashStoryBoard = UIStoryboard(name: "Splash",
+                                            bundle: nil)
+        guard let splashVC
+            = splashStoryBoard.instantiateViewController(withIdentifier: "splash")
+                as? SplashVC else {
+                return
+        }
+        
+        guard let window = UIApplication.shared.keyWindow,
+            let rootViewController = window.rootViewController else {
+            return
+        }
+
+        splashVC.view.frame = rootViewController.view.frame
+        splashVC.view.layoutIfNeeded()
+
+        window.rootViewController = splashVC
     }
     
     func application(_ application: UIApplication,
@@ -212,17 +241,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             }
         }
     }
-    
-    //    private func naverLogin() {
-    //        let instance = NaverThirdPartyLoginConnection.getSharedInstance()
-    //        instance?.isInAppOauthEnable = true
-    //        instance?.isNaverAppOauthEnable = true
-    //        instance?.isOnlyPortraitSupportedInIphone()
-    //        instance?.serviceUrlScheme = kServiceAppUrlScheme
-    //        instance?.consumerKey = kConsumerKey
-    //        instance?.consumerSecret = kConsumerSecret
-    //        instance?.appName = kServiceAppName
-    //    }
 }
 
 @available(iOS 10, *)

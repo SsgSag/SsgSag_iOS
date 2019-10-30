@@ -202,7 +202,11 @@ class DetailNewTextSwipeCard: UIViewController {
                 }
             }
             
-            let categoryTitle = titleStringByCategory(categoryIdx: categoryIdx)
+            guard let category = PosterCategory(rawValue: categoryIdx) else {
+                return
+            }
+            
+            let categoryTitle = category.titleStringByCategory()
             subjectButton.setTitle(categoryTitle[0], for: .normal)
             benefitButton.setTitle(categoryTitle[1], for: .normal)
             eligibilityButton.setTitle(categoryTitle[2], for: .normal)

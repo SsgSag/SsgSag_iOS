@@ -12,7 +12,6 @@ import SwiftKeychainWrapper
 class SplashVC: UIViewController {
     
     private let animation = AnimationView(name: "splash")
-    private var nextViewController = UIViewController()
     
     private let loginServiceImp: LoginService
         = DependencyContainer.shared.getDependency(key: .loginService)
@@ -51,34 +50,36 @@ class SplashVC: UIViewController {
                     switch status {
                     case .sucess:
                         DispatchQueue.main.async {
-                            self?.nextViewController = TapbarVC()
+                            let tabBarVC = TapbarVC()
                             
-                            self?.animation.play { [weak self] _ in
-                                guard let self = self else {
-                                    return
-                                }
-
-                                self.nextViewController.modalPresentationStyle = .fullScreen
-                                self.present(self.nextViewController,
-                                             animated: true)
-                            }
-                        }
-                    case .authenticationFailure:
-                        let loginStoryBoard = UIStoryboard(name: StoryBoardName.login,
-                                                           bundle: nil)
-                        
-                        DispatchQueue.main.async {
-                            let loginVC = loginStoryBoard.instantiateViewController(withIdentifier: "splashVC")
-                            
-                            self?.nextViewController = UINavigationController(rootViewController: loginVC)
                             
                             self?.animation.play { [weak self] _ in
                                 guard let self = self else {
                                     return
                                 }
                                 
-                                self.nextViewController.modalPresentationStyle = .fullScreen
-                                self.present(self.nextViewController,
+                                tabBarVC.modalPresentationStyle = .fullScreen
+                                self.present(tabBarVC,
+                                             animated: true)
+                            }
+                        }
+                    case .authenticationFailure:
+                        let loginStoryBoard = UIStoryboard(name: StoryBoardName.login,
+                                                           bundle: nil)
+                        AppDelegate.posterIndex = nil
+                        
+                        DispatchQueue.main.async {
+                            let loginVC = loginStoryBoard.instantiateViewController(withIdentifier: "splashVC")
+                            
+                            let nextViewController = UINavigationController(rootViewController: loginVC)
+                            
+                            self?.animation.play { [weak self] _ in
+                                guard let self = self else {
+                                    return
+                                }
+                                
+                                nextViewController.modalPresentationStyle = .fullScreen
+                                self.present(nextViewController,
                                              animated: true)
                             }
                         }
@@ -104,9 +105,19 @@ class SplashVC: UIViewController {
     // 서버가 유효한지 확인하는 메소드
     private func isServerAvaliable() {
         tapbarServiceImp.requestValidateServer{ [weak self] dataResponse in
-            switch dataResponse {
-            case .success(let data):
-                guard data.data == 0 else {
+            DispatchQueue.main.async {
+                switch dataResponse {
+                case .success(let data):
+                    guard data.data == 0 else {
+                        self?.simpleAlertwithHandler(title: "",
+                                                     message: "서버 업데이트 중입니다.",
+                                                     okHandler: { _ in
+                                                        exit(0)
+                        })
+                        return
+                    }
+                case .failed(let error):
+                    print(error)
                     self?.simpleAlertwithHandler(title: "",
                                                  message: "서버 업데이트 중입니다.",
                                                  okHandler: { _ in
@@ -114,14 +125,6 @@ class SplashVC: UIViewController {
                     })
                     return
                 }
-            case .failed(let error):
-                print(error)
-                self?.simpleAlertwithHandler(title: "",
-                                             message: "서버 업데이트 중입니다.",
-                                             okHandler: { _ in
-                                                exit(0)
-                })
-                return
             }
         }
     }

@@ -9,11 +9,13 @@
 import Foundation
 
 protocol SignupService: class {
+    // 이메일 유효성 검사
     func requestValidateEmail(
         urlString: String,
         completionHandler: @escaping (DataResponse<HttpStatusCode>, Bool) -> Void
     )
     
+    // 회원가입 요청
     func requestSingup(
         _ userInfo: [String: Any],
         completionHandler: @escaping (DataResponse<Signup>) -> Void

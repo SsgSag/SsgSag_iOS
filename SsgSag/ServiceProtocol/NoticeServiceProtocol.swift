@@ -9,6 +9,7 @@
 import Foundation
 
 protocol NoticeService: class {
+    // 공지사항 목록 요청
     func requestNotice(
         completionHandler: @escaping (DataResponse<[NoticeData]>) -> Void
     )

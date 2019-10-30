@@ -355,7 +355,6 @@ extension UINavigationBar {
 }
 
 extension Date {
-    
     func getDaysInMonth() -> Int {
         let calendar = Calendar.current
         
@@ -368,5 +367,9 @@ extension Date {
         let numDays = range.count
         
         return numDays
+    }
+    
+    func changeDaysBy(days : Int) -> Date {
+        return Calendar.current.date(byAdding: .day, value: days, to: self)!
     }
 }
