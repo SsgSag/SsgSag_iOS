@@ -13,6 +13,10 @@ protocol CategorySelectedDelegate: class {
     func categorySelectedDelegate(_ multipleSelected: [Int])
 }
 
+protocol selectedTodoDelegate: class {
+    func changeCurrentWindowDate(_ currentDate: Date)
+}
+
 class NewCalendarVC: UIViewController {
     
     @IBOutlet weak var etcButton: UIButton!
@@ -470,8 +474,9 @@ extension NewCalendarVC: UICollectionViewDelegate, UICollectionViewDataSource, U
     
     // MARK: multiple selection
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        
-        guard let category = CategoryState(rawValue: indexPath.item) else {return}
+        guard let category = PosterCategory(rawValue: indexPath.item) else {
+            return
+        }
         
         guard let cell
             = collectionView.cellForItem(at: indexPath) as? CateogoryCollectionViewCell else { return }
@@ -481,8 +486,8 @@ extension NewCalendarVC: UICollectionViewDelegate, UICollectionViewDataSource, U
         categorySelectedDelegate?.categorySelectedDelegate(multipleSelectedIndex)
         
         if cell.isSelected == true {
-            cell.categoryLabel.backgroundColor = category.categoryTextColor.withAlphaComponent(0.05)
-            cell.categoryLabel.textColor = category.categoryTextColor
+            cell.categoryLabel.backgroundColor = category.categoryColors().withAlphaComponent(0.05)
+            cell.categoryLabel.textColor = category.categoryColors()
         }
         
     }
@@ -536,31 +541,3 @@ extension NewCalendarVC: MenuSelectedDelegate {
     }
 }
 
-enum CategoryState: Int {
-    case contest = 0
-    case act = 1
-    case recuit
-    case club
-    case edu
-    case scholar
-    case other
-    
-    var categoryTextColor: UIColor {
-        switch self {
-        case .contest:
-            return #colorLiteral(red: 0.2039215686, green: 0.4274509804, blue: 0.9529411765, alpha: 1)
-        case .act:
-            return #colorLiteral(red: 0.3725490196, green: 0.1490196078, blue: 0.8039215686, alpha: 1)
-        case .recuit:
-            return #colorLiteral(red: 0.9960784314, green: 0.4274509804, blue: 0.4274509804, alpha: 1)
-        case .club:
-            return #colorLiteral(red: 0.968627451, green: 0.7137254902, blue: 0.1921568627, alpha: 1)
-        case .edu:
-            return #colorLiteral(red: 0.9921568627, green: 0.5607843137, blue: 0.2980392157, alpha: 1)
-        case .scholar:
-            return #colorLiteral(red: 0.1803921569, green: 0.7411764706, blue: 0.4784313725, alpha: 1)
-        case .other:
-            return #colorLiteral(red: 0.3098039216, green: 0.3098039216, blue: 0.3098039216, alpha: 1)
-        }
-    }
-}

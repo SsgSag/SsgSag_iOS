@@ -46,10 +46,6 @@ class DependencyContainer {
             = SignupServiceImp(requestMaker: RequestMaker(),
                                network: NetworkImp())
         
-        let careerService: CareerService
-            = CareerServiceImp(requestMaker: RequestMaker(),
-                               network: NetworkImp())
-        
         let noticeService: NoticeService
             = NoticeServiceImp(requestMaker: RequestMaker(),
                                network: NetworkImp())
@@ -79,8 +75,6 @@ class DependencyContainer {
                                         dependency: interestService)
             try dependencyPool.register(key: .signUpService,
                                         dependency: signUpService)
-            try dependencyPool.register(key: .careerService,
-                                        dependency: careerService)
             try dependencyPool.register(key: .noticeService,
                                         dependency: noticeService)
             try dependencyPool.register(key: .feedService,
@@ -117,7 +111,6 @@ enum DependencyKey {
     case activityService
     case interestService
     case signUpService
-    case careerService
     case noticeService
     case feedService
     case commentService
