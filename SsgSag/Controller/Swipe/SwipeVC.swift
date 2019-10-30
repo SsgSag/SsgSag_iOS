@@ -118,6 +118,8 @@ class SwipeVC: UIViewController {
         setView()
         
         UIView.appearance().isExclusiveTouch = true
+        
+        inCaseTheKakaoLink()
     }
 
     private func setView() {
@@ -433,6 +435,26 @@ class SwipeVC: UIViewController {
                                                   by poster: Posters) {
         detailTextSwipeCard.poster = poster
         detailImageSwipeCardVC.poster = poster
+    }
+    
+    private func inCaseTheKakaoLink() {
+        guard let posterIndex = AppDelegate.posterIndex else {
+            return
+        }
+        
+        AppDelegate.posterIndex = nil
+        
+        let adBrix = AdBrixRM.getInstance
+        adBrix.event(eventName: "touchUp_PosterDetail",
+                     value: ["posterIdx": posterIndex])
+        
+        let detailInfoViewController = DetailInfoViewController()
+        
+        detailInfoViewController.posterIdx = posterIndex
+        detailInfoViewController.isCalendar = false
+        
+        navigationController?.pushViewController(detailInfoViewController,
+                                                 animated: true)
     }
     
     @IBAction func touchUpMyPageButton(_ sender: UIBarButtonItem) {
