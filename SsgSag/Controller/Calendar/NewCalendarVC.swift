@@ -298,7 +298,7 @@ class NewCalendarVC: UIViewController {
                                       preferredStyle: .actionSheet)
         let shareAction = UIAlertAction(title: "공유하기",
                                         style: .default) { [weak self] (action) in
-            
+
             let layer = UIApplication.shared.keyWindow!.layer
             let scale = UIScreen.main.scale
             

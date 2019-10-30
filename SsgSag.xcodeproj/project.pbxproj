@@ -146,6 +146,9 @@
 		D1226C8822EC88DF007F59BE /* MyPageServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1226C8722EC88DF007F59BE /* MyPageServiceProtocol.swift */; };
 		D1226C8A22EC9572007F59BE /* TabbarServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1226C8922EC9572007F59BE /* TabbarServiceProtocol.swift */; };
 		D1226C8C22EC9A26007F59BE /* ActicityServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1226C8B22EC9A26007F59BE /* ActicityServiceProtocol.swift */; };
+		D126F902236744F700BFE435 /* KakaoLink.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D126F901236744F700BFE435 /* KakaoLink.framework */; };
+		D126F9042367475500BFE435 /* KakaoMessageTemplate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D126F9032367475500BFE435 /* KakaoMessageTemplate.framework */; };
+		D126F907236748F400BFE435 /* KakaoCommon.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D126F906236748F400BFE435 /* KakaoCommon.framework */; };
 		D13F378522E9BD490004875C /* OSLViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D13F378422E9BD490004875C /* OSLViewController.swift */; };
 		D13F378722E9BEEF0004875C /* LogoutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D13F378622E9BEEF0004875C /* LogoutViewController.swift */; };
 		D13F378922E9C3250004875C /* MembershipCancelViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D13F378822E9C3250004875C /* MembershipCancelViewController.swift */; };
@@ -384,7 +387,6 @@
 		84A45D12225FA0E400C60287 /* NetworkRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkRouter.swift; sourceTree = "<group>"; };
 		84A45D14225FA1E800C60287 /* Router.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Router.swift; sourceTree = "<group>"; };
 		84A8AF2D22006FEB00CE72F8 /* KakaoOpenSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = KakaoOpenSDK.framework; sourceTree = "<group>"; };
-		84A8AF2F2200782800CE72F8 /* Kakao_Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Kakao_Header.h; sourceTree = "<group>"; };
 		84B1B24D2269DFC600077DF9 /* CalendarForNetwork.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarForNetwork.swift; sourceTree = "<group>"; };
 		84B1B24F226A364100077DF9 /* DataResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = DataResponse.swift; path = SsgSag/Model/Calendar/DataResponse.swift; sourceTree = SOURCE_ROOT; };
 		84B1B253226A385A00077DF9 /* PosterServiceImp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PosterServiceImp.swift; sourceTree = "<group>"; };
@@ -446,6 +448,10 @@
 		D1226C8722EC88DF007F59BE /* MyPageServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageServiceProtocol.swift; sourceTree = "<group>"; };
 		D1226C8922EC9572007F59BE /* TabbarServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabbarServiceProtocol.swift; sourceTree = "<group>"; };
 		D1226C8B22EC9A26007F59BE /* ActicityServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActicityServiceProtocol.swift; sourceTree = "<group>"; };
+		D126F901236744F700BFE435 /* KakaoLink.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = KakaoLink.framework; sourceTree = "<group>"; };
+		D126F9032367475500BFE435 /* KakaoMessageTemplate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = KakaoMessageTemplate.framework; sourceTree = "<group>"; };
+		D126F9052367480D00BFE435 /* KakaoOpenSDK-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "KakaoOpenSDK-Bridging-Header.h"; sourceTree = "<group>"; };
+		D126F906236748F400BFE435 /* KakaoCommon.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = KakaoCommon.framework; sourceTree = "<group>"; };
 		D13F378422E9BD490004875C /* OSLViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OSLViewController.swift; sourceTree = "<group>"; };
 		D13F378622E9BEEF0004875C /* LogoutViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogoutViewController.swift; sourceTree = "<group>"; };
 		D13F378822E9C3250004875C /* MembershipCancelViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MembershipCancelViewController.swift; sourceTree = "<group>"; };
@@ -592,9 +598,12 @@
 			files = (
 				D10A42182317C472006063FB /* FBSDKCoreKit.framework in Frameworks */,
 				D1FB9E132313A61F003FA001 /* PushKit.framework in Frameworks */,
+				D126F9042367475500BFE435 /* KakaoMessageTemplate.framework in Frameworks */,
 				D1FB9E112313A619003FA001 /* UserNotifications.framework in Frameworks */,
+				D126F907236748F400BFE435 /* KakaoCommon.framework in Frameworks */,
 				844C29BE22A3EA9E00B92895 /* iAd.framework in Frameworks */,
 				84A8AF2E22006FEB00CE72F8 /* KakaoOpenSDK.framework in Frameworks */,
+				D126F902236744F700BFE435 /* KakaoLink.framework in Frameworks */,
 				203A3F6260CB2DCADDDD7022 /* Pods_SsgSag.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -619,7 +628,10 @@
 		2E04BB9F31A495430F45317D /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				D126F906236748F400BFE435 /* KakaoCommon.framework */,
+				D126F901236744F700BFE435 /* KakaoLink.framework */,
 				D10A42172317C472006063FB /* FBSDKCoreKit.framework */,
+				D126F9032367475500BFE435 /* KakaoMessageTemplate.framework */,
 				D1FB9E122313A61F003FA001 /* PushKit.framework */,
 				D1FB9E102313A618003FA001 /* UserNotifications.framework */,
 				844C29BD22A3EA9E00B92895 /* iAd.framework */,
@@ -1267,7 +1279,7 @@
 				FA61FE1221E1D48D00A28947 /* .gitignore */,
 				8459289A21D09CDD001DF6CC /* AppDelegate.swift */,
 				84D09D0522880C3C008EEA7C /* GoogleService-Info.plist */,
-				84A8AF2F2200782800CE72F8 /* Kakao_Header.h */,
+				D126F9052367480D00BFE435 /* KakaoOpenSDK-Bridging-Header.h */,
 				845928A921D09CE0001DF6CC /* Info.plist */,
 				845928A121D09CDD001DF6CC /* SsgSag.xcdatamodeld */,
 				845928A421D09CE0001DF6CC /* Assets.xcassets */,
@@ -1950,7 +1962,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.wndzlf.SsgSag;
 				PRODUCT_NAME = "슥삭";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				SWIFT_OBJC_BRIDGING_HEADER = ./SsgSag/Support/Kakao_Header.h;
+				SWIFT_OBJC_BRIDGING_HEADER = "./SsgSag/Support/KakaoOpenSDK-Bridging-Header.h";
 				SWIFT_REFLECTION_METADATA_LEVEL = all;
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = 1;
@@ -1997,7 +2009,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.wndzlf.SsgSag;
 				PRODUCT_NAME = "슥삭";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				SWIFT_OBJC_BRIDGING_HEADER = ./SsgSag/Support/Kakao_Header.h;
+				SWIFT_OBJC_BRIDGING_HEADER = "./SsgSag/Support/KakaoOpenSDK-Bridging-Header.h";
 				SWIFT_REFLECTION_METADATA_LEVEL = all;
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = 1;

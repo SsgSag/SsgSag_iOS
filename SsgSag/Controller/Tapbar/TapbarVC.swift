@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import AdBrixRM
 
 class TapbarVC: UITabBarController {
 

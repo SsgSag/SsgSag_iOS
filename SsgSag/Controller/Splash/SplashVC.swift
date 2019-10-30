@@ -12,7 +12,6 @@ import SwiftKeychainWrapper
 class SplashVC: UIViewController {
     
     private let animation = AnimationView(name: "splash")
-    private var nextViewController = UIViewController()
     
     private let loginServiceImp: LoginService
         = DependencyContainer.shared.getDependency(key: .loginService)
@@ -51,34 +50,36 @@ class SplashVC: UIViewController {
                     switch status {
                     case .sucess:
                         DispatchQueue.main.async {
-                            self?.nextViewController = TapbarVC()
+                            let tabBarVC = TapbarVC()
                             
-                            self?.animation.play { [weak self] _ in
-                                guard let self = self else {
-                                    return
-                                }
-
-                                self.nextViewController.modalPresentationStyle = .fullScreen
-                                self.present(self.nextViewController,
-                                             animated: true)
-                            }
-                        }
-                    case .authenticationFailure:
-                        let loginStoryBoard = UIStoryboard(name: StoryBoardName.login,
-                                                           bundle: nil)
-                        
-                        DispatchQueue.main.async {
-                            let loginVC = loginStoryBoard.instantiateViewController(withIdentifier: "splashVC")
-                            
-                            self?.nextViewController = UINavigationController(rootViewController: loginVC)
                             
                             self?.animation.play { [weak self] _ in
                                 guard let self = self else {
                                     return
                                 }
                                 
-                                self.nextViewController.modalPresentationStyle = .fullScreen
-                                self.present(self.nextViewController,
+                                tabBarVC.modalPresentationStyle = .fullScreen
+                                self.present(tabBarVC,
+                                             animated: true)
+                            }
+                        }
+                    case .authenticationFailure:
+                        let loginStoryBoard = UIStoryboard(name: StoryBoardName.login,
+                                                           bundle: nil)
+                        AppDelegate.posterIndex = nil
+                        
+                        DispatchQueue.main.async {
+                            let loginVC = loginStoryBoard.instantiateViewController(withIdentifier: "splashVC")
+                            
+                            let nextViewController = UINavigationController(rootViewController: loginVC)
+                            
+                            self?.animation.play { [weak self] _ in
+                                guard let self = self else {
+                                    return
+                                }
+                                
+                                nextViewController.modalPresentationStyle = .fullScreen
+                                self.present(nextViewController,
                                              animated: true)
                             }
                         }

@@ -31,7 +31,9 @@ class DetailInfoViewController: UIViewController {
     private var analyticsData: Analytics?
     private var firstCount: Int = 0
     
-    let downloadLink = "https://ssgsag.page.link/install"
+    let appStoreLink = "https://itunes.apple.com/kr/app/apple-store/1457422029"
+    let androidLink = ""
+    let wekLink = ""
     
     private lazy var infoCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
@@ -95,6 +97,7 @@ class DetailInfoViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
+        tabBarController?.tabBar.isHidden = true
         setupNavigationBar()
         navigationController?.interactivePopGestureRecognizer?.delegate = self
     }
@@ -377,25 +380,51 @@ class DetailInfoViewController: UIViewController {
         let adBrix = AdBrixRM.getInstance
         adBrix.event(eventName: "touchUp_Share",
                      value: ["posterIdx": posterIdx])
-        
-        UIGraphicsBeginImageContext(view.frame.size)
-        view.layer.render(in: UIGraphicsGetCurrentContext()!)
-        
-        var objectsToshare: [Any] = []
-        
-        objectsToshare.append("슥삭 다운로드 링크")
-        objectsToshare.append("\(downloadLink)\n")
-        
-        guard let posterName = posterDetailData?.posterName,
-            let posterWebSiteURL = posterDetailData?.posterWebSite else {
-                addObjects(with: objectsToshare)
+
+        let template = KMTFeedTemplate { [weak self] feedTemplateBuilder in
+            
+            guard let posterName = self?.posterDetailData?.posterName,
+                let thumbPhotoUrl = self?.posterDetailData?.thumbPhotoUrl,
+                let tag = self?.posterDetailData?.keyword,
+                let imageUrl = URL(string: thumbPhotoUrl),
+                let posterIdx = self?.posterIdx else {
                 return
+            }
+            
+            feedTemplateBuilder.content = KMTContentObject(builderBlock: { contentBuilder in
+                contentBuilder.imageURL = imageUrl
+                contentBuilder.title = posterName
+                contentBuilder.desc = tag
+                
+                contentBuilder.link = KMTLinkObject(builderBlock: { linkBuilder in
+                    linkBuilder.androidExecutionParams = "param=\(posterIdx)&from=main"
+                    linkBuilder.iosExecutionParams = "posterIdx=\(posterIdx)"
+                })
+            })
+
+            feedTemplateBuilder.addButton(KMTButtonObject(builderBlock: { buttonBuilder in
+                buttonBuilder.title = "앱에서 보기"
+
+                buttonBuilder.link = KMTLinkObject(builderBlock: { linkBuilder in
+//                            linkBuilder.webURL = URL(string: )
+                    linkBuilder.androidExecutionParams = "param=\(posterIdx)&from=main"
+                    linkBuilder.iosExecutionParams = "posterIdx=\(posterIdx)"
+
+                })
+
+            }))
         }
-        
-        objectsToshare.append(posterName)
-        objectsToshare.append(posterWebSiteURL)
-        
-        addObjects(with: objectsToshare)
+
+        // 카카오링크 실행
+        KLKTalkLinkCenter.shared().sendDefault(with: template, success: { warningMsg, argumentMsg in
+            // 성공
+            print("warning message: \(String(describing: warningMsg))")
+            print("argument message: \(String(describing: argumentMsg))")
+        }, failure: { error in
+            // 실패
+            print("error \(error)")
+            
+        })
     }
     
     @objc func handleShowKeyboard(notification: NSNotification) {
