@@ -61,6 +61,7 @@ class FeedPageCollectionViewCell: UICollectionViewCell {
             switch result {
             case .success(let feedDatas):
                 if feedDatas.count == 0 {
+                    self?.currentPage -= 0
                     return
                 }
                 
