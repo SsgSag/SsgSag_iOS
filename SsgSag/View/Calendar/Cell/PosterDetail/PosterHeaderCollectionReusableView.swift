@@ -108,9 +108,6 @@ class PosterHeaderCollectionReusableView: UICollectionReusableView {
         //            partnerEmailLabel.text = "이메일: " + partnerEmail
         //        }
         
-        periodLabel.text
-            = DateCaculate.getDifferenceBetweenStartAndEnd(startDate: data.posterStartDate,
-                                                           endDate: data.posterEndDate)
         hashTagTextView.text = data.keyword
         
         posterTitleLabel.text = data.posterName

@@ -26,14 +26,9 @@ class DetailInfoViewController: UIViewController {
     var callback: ((Int) -> ())?
     var posterIdx: Int?
     var posterDetailData: DataClass?
-    private var isFolding: Bool = true
     private var columnData: [Column]?
     private var analyticsData: Analytics?
     private var firstCount: Int = 0
-    
-    let appStoreLink = "https://itunes.apple.com/kr/app/apple-store/1457422029"
-    let androidLink = ""
-    let wekLink = ""
     
     private lazy var infoCollectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
@@ -70,7 +65,6 @@ class DetailInfoViewController: UIViewController {
             self?.removeAtCalendar()
         }
         view.callback = { [weak self] in
-            self?.isFolding = true
             self?.requestDatas(section: 0)
         }
         view.alertCallback = { [weak self] in
@@ -260,6 +254,10 @@ class DetailInfoViewController: UIViewController {
                                     forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter,
                                     withReuseIdentifier: "posterFooterID")
         
+        infoCollectionView.register(SeperateCollectionReusableView.self,
+                                    forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter,
+                                    withReuseIdentifier: "seperateFooter")
+        
         infoCollectionView.register(TempCollectionReusableView.self,
                                     forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter,
                                     withReuseIdentifier: "tempFooter")
@@ -267,13 +265,17 @@ class DetailInfoViewController: UIViewController {
         // cell
         infoCollectionView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "tempCell")
         
-        let detailImgNib = UINib(nibName: "DetailImageCollectionViewCell", bundle: nil)
+        let dateNib = UINib(nibName: "DateCollectionViewCell", bundle: nil)
         
-        infoCollectionView.register(detailImgNib, forCellWithReuseIdentifier: "detailImgCellID")
+        infoCollectionView.register(dateNib, forCellWithReuseIdentifier: "dateCell")
         
         let detailInfoNib = UINib(nibName: "DetailInfoCollectionViewCell", bundle: nil)
         
         infoCollectionView.register(detailInfoNib, forCellWithReuseIdentifier: "detailInfoCellID")
+        
+        let detailImageNib = UINib(nibName: "DetailImageCollectionViewCell", bundle: nil)
+        
+        infoCollectionView.register(detailImageNib, forCellWithReuseIdentifier: "detailImageCell")
         
         let analyticsNib = UINib(nibName: "AnalysticsCollectionViewCell", bundle: nil)
         
@@ -297,13 +299,27 @@ class DetailInfoViewController: UIViewController {
         
     }
     
-    func estimatedFrame(width: CGFloat, text: String, font: UIFont) -> CGRect {
+    func estimatedFrame(width: CGFloat,
+                        text: String,
+                        font: UIFont,
+                        paragraphStyle: NSMutableParagraphStyle? = nil) -> CGRect {
         let size = CGSize(width: width, height: 1000) // temporary size
         let options = NSStringDrawingOptions.usesFontLeading.union(.usesLineFragmentOrigin)
         
+        var attribute: [NSAttributedString.Key : Any]? = [NSAttributedString.Key.font: font]
+        
+        guard paragraphStyle != nil else {
+            return NSString(string: text).boundingRect(with: size,
+                                                       options: options,
+                                                       attributes: attribute,
+                                                       context: nil)
+        }
+        
+        attribute?.updateValue(paragraphStyle, forKey: NSAttributedString.Key.paragraphStyle)
+        
         return NSString(string: text).boundingRect(with: size,
                                                    options: options,
-                                                   attributes: [NSAttributedString.Key.font: font],
+                                                   attributes: attribute,
                                                    context: nil)
     }
     
@@ -481,10 +497,10 @@ extension DetailInfoViewController: UICollectionViewDataSource {
         }
         
         if isTryWithoutLogin {
-            return 3
+            return 4
         }
         
-        return 4
+        return 5
     }
     
     func collectionView(_ collectionView: UICollectionView,
@@ -493,10 +509,14 @@ extension DetailInfoViewController: UICollectionViewDataSource {
         case 0:
             return 4
         case 1:
-            return 0
-        case 2:
+            // 이미지
             return 1
+        case 2:
+            // 상세정보
+            return 0
         case 3:
+            return 1
+        case 4:
             return posterDetailData?.commentList?.count != 0 ? (posterDetailData?.commentList?.count ?? 0) : 1
         default:
             return 0
@@ -517,10 +537,17 @@ extension DetailInfoViewController: UICollectionViewDataSource {
             switch indexPath.item {
             case 0:
                 guard let cell
-                    = collectionView.dequeueReusableCell(withReuseIdentifier: "detailImgCellID",
-                                                         for: indexPath) as? DetailImageCollectionViewCell else {
-                                                            return .init()
+                    = collectionView.dequeueReusableCell(withReuseIdentifier: "dateCell",
+                                                         for: indexPath)
+                        as? DateCollectionViewCell else {
+                    return .init()
                 }
+                
+                let dateString
+                    = DateCaculate.getDifferenceBetweenStartAndEnd(startDate: posterDetailData?.posterStartDate,
+                                                                   endDate: posterDetailData?.posterEndDate)
+                
+                cell.configure(dateString, dday: posterDetailData?.dday)
                 
                 return cell
             case 1:
@@ -595,9 +622,25 @@ extension DetailInfoViewController: UICollectionViewDataSource {
                 
                 return cell
             default:
-                return .init()
+                return UICollectionViewCell()
             }
-        case 2:
+        case 1:
+            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "detailImageCell", for: indexPath) as? DetailImageCollectionViewCell else {
+                return UICollectionViewCell()
+            }
+
+            if let thumbPhotoUrl = posterDetailData?.thumbPhotoUrl {
+                if let url = URL(string: thumbPhotoUrl){
+                    ImageNetworkManager.shared.getImageByCache(imageURL: url) { image, error in
+                        DispatchQueue.main.async {
+                            cell.posterImageView.image = image
+                        }
+                    }
+                }
+            }
+            
+            return cell
+        case 3:
             guard let isTryWithoutLogin = UserDefaults.standard.object(forKey: "isTryWithoutLogin") as? Bool else {
                 return .init()
             }
@@ -701,9 +744,9 @@ extension DetailInfoViewController: UICollectionViewDataSource {
                         }
                     }
                 }
-                
+
                 return header
-            case 1:
+            case 2:
                 guard let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind,
                                                                                    withReuseIdentifier: "seeMoreHeaderID",
                                                                                    for: indexPath)
@@ -713,10 +756,7 @@ extension DetailInfoViewController: UICollectionViewDataSource {
                                                                            for: indexPath)
                 }
                 
-                header.contentsLabel.text = posterDetailData?.posterDetail ?? ""
-                header.callback = {
-                    collectionView.reloadData()
-                }
+                header.configure(posterDetailData?.posterDetail ?? "")
                 
                 return header
             default:
@@ -727,7 +767,7 @@ extension DetailInfoViewController: UICollectionViewDataSource {
             
         } else {
             return collectionView.dequeueReusableSupplementaryView(ofKind: kind,
-                                                                   withReuseIdentifier: "tempFooter",
+                                                                   withReuseIdentifier: "seperateFooter",
                                                                    for: indexPath)
         }
     }
@@ -763,36 +803,36 @@ extension DetailInfoViewController: UICollectionViewDelegateFlowLayout {
                         referenceSizeForHeaderInSection section: Int) -> CGSize {
         switch section {
         case 0:
-            return CGSize(width: view.frame.width, height: 243)
-        case 1:
+            return CGSize(width: view.frame.width, height: 220)
+        case 2:
             guard posterDetailData?.posterDetail != nil else {
                 return CGSize(width: view.frame.width, height: 0)
             }
             
-            if firstCount >= 2 {
-                if !isFolding {
-                    isFolding = true
-                    
-                    return CGSize(width: view.frame.width, height: 47)
-                } else {
-                    isFolding = false
-
-                    let collectionViewCellHeight = estimatedFrame(width: view.frame.width - 75,
-                                                                  text: posterDetailData?.posterDetail ?? "",
-                                                                  font: UIFont.systemFont(ofSize: 12)).height
-
-                    return CGSize(width: view.frame.width,
-                                  height: collectionViewCellHeight + 50 + 47)
-                }
-            } else {
-                firstCount += 1
-                isFolding = false
-                
-                return CGSize(width: view.frame.width, height: 47)
-            }
+            let paragraphStyle = NSMutableParagraphStyle()
+            paragraphStyle.lineSpacing = 10
+            
+            let collectionViewCellHeight = estimatedFrame(width: view.frame.width - 60,
+                                                          text: posterDetailData?.posterDetail ?? "",
+                                                          font: UIFont.systemFont(ofSize: 15),
+                                                          paragraphStyle: paragraphStyle).height
+            
+            return CGSize(width: view.frame.width,
+                          height: collectionViewCellHeight + 50 + 47)
         default:
             return CGSize(width: view.frame.width, height: 0)
         }
+    }
+    
+    func collectionView(_ collectionView: UICollectionView,
+                        layout collectionViewLayout: UICollectionViewLayout,
+                        referenceSizeForFooterInSection section: Int) -> CGSize {
+        if section == 0 {
+            return CGSize(width: view.frame.width, height: 30)
+        } else if section == 4 {
+            return CGSize(width: view.frame.width, height: 0)
+        }
+        return CGSize(width: view.frame.width, height: 7)
     }
     
     func collectionView(_ collectionView: UICollectionView,
@@ -802,54 +842,58 @@ extension DetailInfoViewController: UICollectionViewDelegateFlowLayout {
         case 0:
             switch indexPath.item {
             case 0:
-                guard let _ = posterDetailData?.photoUrl2 else {
-                    return CGSize(width: view.frame.width,
-                                  height: 0)
-                }
-                return CGSize(width: view.frame.width,
-                              height: 41)
+                return CGSize(width: view.frame.width, height: 26)
             case 1:
                 if columnData?.count ?? 3 < 1 {
                     return CGSize(width: view.frame.width, height: 0)
                 }
-                let collectionViewCellHeight = estimatedFrame(width: view.frame.width - 75,
+                
+                let paragraphStyle = NSMutableParagraphStyle()
+                paragraphStyle.lineSpacing = 10
+                
+                let collectionViewCellHeight = estimatedFrame(width: view.frame.width - 79,
                                                               text: posterDetailData?.outline ?? "",
-                                                              font: UIFont.systemFont(ofSize: 14)).height
+                                                              font: UIFont.systemFont(ofSize: 15),
+                                                              paragraphStyle: paragraphStyle).height
                 
                 return CGSize(width: view.frame.width,
-                              height: collectionViewCellHeight + 72)
+                              height: collectionViewCellHeight + 7)
             case 2:
                 if columnData?.count ?? 3 < 2 {
                     return CGSize(width: view.frame.width, height: 0)
                 }
                 
-                let collectionViewCellHeight = estimatedFrame(width: view.frame.width - 75,
+                let paragraphStyle = NSMutableParagraphStyle()
+                paragraphStyle.lineSpacing = 10
+                
+                let collectionViewCellHeight = estimatedFrame(width: view.frame.width - 79,
                                                               text: posterDetailData?.target ?? "",
-                                                              font: UIFont.systemFont(ofSize: 14)).height
+                                                              font: UIFont.systemFont(ofSize: 15),
+                                                              paragraphStyle: paragraphStyle).height
                 
                 return CGSize(width: view.frame.width,
-                              height: collectionViewCellHeight + 72)
+                              height: collectionViewCellHeight + 7)
             case 3:
                 if columnData?.count ?? 3 < 3 {
                     return CGSize(width: view.frame.width, height: 0)
                 }
                 
-                let collectionViewCellHeight = estimatedFrame(width: view.frame.width - 75,
+                let paragraphStyle = NSMutableParagraphStyle()
+                paragraphStyle.lineSpacing = 10
+                
+                let collectionViewCellHeight = estimatedFrame(width: view.frame.width - 79,
                                                               text: posterDetailData?.benefit ?? "",
-                                                              font: UIFont.systemFont(ofSize: 14)).height
+                                                              font: UIFont.systemFont(ofSize: 15),
+                                                              paragraphStyle: paragraphStyle).height
                 
                 return CGSize(width: view.frame.width,
-                              height: collectionViewCellHeight + 72)
-            case 4:
-                guard let _ = posterDetailData?.partnerEmail else {
-                    return CGSize(width: 0, height: 0)
-                }
-                
-                return CGSize(width: view.frame.width, height: 80)
+                              height: collectionViewCellHeight + 7)
             default:
                 return CGSize(width: view.frame.width, height: 0)
             }
-        case 2:
+        case 1:
+            return CGSize(width: view.frame.width, height: 400)
+        case 3:
             return CGSize(width: view.frame.width, height: 268)
         default:
             if posterDetailData?.commentList?.count == 0 {
@@ -924,7 +968,6 @@ extension DetailInfoViewController: CommentWriteDelegate {
                                                         DispatchQueue.main.async {
                                                             self?.currentTextField?.resignFirstResponder()
                                                             self?.simplerAlert(title: "댓글 등록이 완료되었습니다.")
-                                                            self?.isFolding = true
                                                             self?.requestDatas(section: 2)
                                                         }
                                                     case .dataBaseError:
@@ -959,7 +1002,6 @@ extension DetailInfoViewController: CommentDelegate {
                                                         switch status {
                                                         case .processingSuccess:
                                                             self?.requestDatas(section: 2)
-                                                            self?.isFolding = true
                                                         case .dataBaseError:
                                                             self?.simplerAlert(title: "database error")
                                                             return
@@ -995,7 +1037,6 @@ extension DetailInfoViewController: CommentDelegate {
                             switch status {
                             case .processingSuccess:
                                 self?.simplerAlert(title: "댓글이 삭제되었습니다")
-                                self?.isFolding = true
                                 self?.requestDatas(section: 2)
                             case .dataBaseError:
                                 self?.simplerAlert(title: "database error")

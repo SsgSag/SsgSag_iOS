@@ -150,13 +150,6 @@ class PieChartView: UIView {
         
         let color: [UIColor] = [#colorLiteral(red: 0.4603668451, green: 0.5182471275, blue: 1, alpha: 1), #colorLiteral(red: 0.4603668451, green: 0.5182471275, blue: 1, alpha: 0.65), #colorLiteral(red: 0.4603668451, green: 0.5182471275, blue: 1, alpha: 0.5), #colorLiteral(red: 0.4603668451, green: 0.5182471275, blue: 1, alpha: 0.3)]
 
-        let animation = CABasicAnimation(keyPath: "strokeEnd")
-        
-        animation.toValue = 1
-        animation.duration = 2
-        animation.fillMode = .forwards
-        animation.isRemovedOnCompletion = false
-    
         for i in 0..<rates.count {
             let shapeLayer = CAShapeLayer()
             let path = UIBezierPath(arcCenter: center,

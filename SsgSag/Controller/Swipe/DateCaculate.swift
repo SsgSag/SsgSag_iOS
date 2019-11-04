@@ -80,28 +80,37 @@ struct DateCaculate {
         
         guard let startDateString = startDate,
             let posterStartDate = dateFormatter.date(from: startDateString) else {
-            let endDate = Calendar.current.dateComponents([.month, .day], from: posterEndDate)
+                let endDate = Calendar.current.dateComponents([.month, .day, .weekday], from: posterEndDate)
             
-            guard let endMonth = endDate.month else { return "" }
+                guard let endMonth = endDate.month else { return "" }
             
-            guard let endDay = endDate.day else { return "" }
+                guard let endDay = endDate.day else { return "" }
             
-            return "~ \(endMonth).\(endDay)"
+                guard let endWeekDay = endDate.weekday,
+                    let endWeekDayString = WeekDays(rawValue: endWeekDay)?.koreanWeekdays else { return "" }
+
+                return "~ \(endMonth).\(endDay)(\(endWeekDayString))"
         }
         
-        let startDate = Calendar.current.dateComponents([.month, .day], from: posterStartDate)
+        let startDate = Calendar.current.dateComponents([.month, .day, .weekday], from: posterStartDate)
         
-        let endDate = Calendar.current.dateComponents([.month, .day], from: posterEndDate)
+        let endDate = Calendar.current.dateComponents([.month, .day, .weekday], from: posterEndDate)
         
         guard let startMonth = startDate.month else {return ""}
         
         guard let startDay = startDate.day else {return ""}
         
+        guard let startWeekDay = endDate.weekday,
+            let startWeekDayString = WeekDays(rawValue: startWeekDay)?.koreanWeekdays else { return "" }
+        
         guard let endMonth = endDate.month else {return ""}
         
         guard let endDay = endDate.day else {return ""}
+
+        guard let endWeekDay = endDate.weekday,
+            let endWeekDayString = WeekDays(rawValue: endWeekDay)?.koreanWeekdays else { return "" }
         
-        return "\(startMonth).\(startDay) ~ \(endMonth).\(endDay)"
+        return "\(startMonth).\(startDay)(\(startWeekDayString)) ~ \(endMonth).\(endDay)(\(endWeekDayString))"
     }
  
     

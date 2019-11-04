@@ -241,7 +241,7 @@ class DayTodoViewController: UIViewController {
                                    withVelocity velocity: CGPoint,
                                    targetContentOffset: UnsafeMutablePointer<CGPoint>) {
         
-        // targetContentOffset: 감속되었을 때 예상 정지 위치
+        // : 감속되었을 때 예상 정지 위치
         
         // item의 사이즈와 item 간의 간격 사이즈를 구해서 하나의 item 크기로 설정.
         let layout = pagingCollectionView.collectionViewLayout as! UICollectionViewFlowLayout
