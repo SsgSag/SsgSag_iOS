@@ -232,11 +232,8 @@ extension TodoListCollectionViewCell: UITableViewDataSource {
         
         if monthTodoData.photoUrl == cell.poster?.photoUrl {
             let imageURL = monthTodoData.photoUrl ?? ""
-            guard let url = URL(string: imageURL) else {
-                return cell
-            }
             
-            ImageNetworkManager.shared.getImageByCache(imageURL: url){ (image, error) in
+            ImageNetworkManager.shared.getImageByCache(imageURL: imageURL){ (image, error) in
                 if error == nil {
                     cell.posterImageView.image = image
                 }

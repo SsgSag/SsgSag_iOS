@@ -26,6 +26,7 @@ class DetailInfoViewController: UIViewController {
     var callback: ((Int) -> ())?
     var posterIdx: Int?
     var posterDetailData: DataClass?
+    var imageSize: CGSize?
     private var columnData: [Column]?
     private var analyticsData: Analytics?
     private var firstCount: Int = 0
@@ -164,7 +165,8 @@ class DetailInfoViewController: UIViewController {
                 }
                 
                 guard let analyticsJson = detailData.analytics,
-                    let data = analyticsJson.data(using: .utf8) else {
+                    let data = analyticsJson.data(using: .utf8),
+                    let photoUrl = detailData.photoUrl else {
                     return
                 }
                 
@@ -173,6 +175,28 @@ class DetailInfoViewController: UIViewController {
                                                                    from: data)
                 } catch let error {
                     print(error)
+                    return
+                }
+                
+                guard let _ = self?.imageSize else {
+                    ImageNetworkManager.shared.getImageByCache(imageURL: photoUrl) { [weak self] image, error in
+                        DispatchQueue.main.async {
+                            guard let image = image,
+                                let width = self?.view.frame.width else {
+                                return
+                            }
+
+                            self?.imageSize
+                                = self?.imageWithImage(sourceImage: image, scaledToWidth: width).size
+                            
+                            guard let section = section else {
+                                self?.infoCollectionView.reloadData()
+                                return
+                            }
+                            
+                            self?.infoCollectionView.reloadSections(IndexSet(integer: section))
+                        }
+                    }
                     return
                 }
                 
@@ -392,9 +416,9 @@ class DetailInfoViewController: UIViewController {
         let template = KMTFeedTemplate { [weak self] feedTemplateBuilder in
             
             guard let posterName = self?.posterDetailData?.posterName,
-                let thumbPhotoUrl = self?.posterDetailData?.thumbPhotoUrl,
+                let photoUrl = self?.posterDetailData?.photoUrl,
                 let tag = self?.posterDetailData?.keyword,
-                let imageUrl = URL(string: thumbPhotoUrl),
+                let imageUrl = URL(string: photoUrl),
                 let posterIdx = self?.posterIdx else {
                 return
             }
@@ -482,6 +506,20 @@ class DetailInfoViewController: UIViewController {
                 return
             }
         }
+    }
+    
+    func imageWithImage (sourceImage:UIImage, scaledToWidth: CGFloat) -> UIImage {
+        let oldWidth = sourceImage.size.width
+        let scaleFactor = scaledToWidth / oldWidth
+
+        let newHeight = sourceImage.size.height * scaleFactor
+        let newWidth = oldWidth * scaleFactor
+
+        UIGraphicsBeginImageContext(CGSize(width: newWidth, height: newHeight))
+        sourceImage.draw(in: CGRect(x: 0, y: 0, width: newWidth, height: newHeight))
+        let newImage = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        return newImage!
     }
 }
 
@@ -629,12 +667,16 @@ extension DetailInfoViewController: UICollectionViewDataSource {
                 return UICollectionViewCell()
             }
 
-            if let thumbPhotoUrl = posterDetailData?.thumbPhotoUrl {
-                if let url = URL(string: thumbPhotoUrl){
-                    ImageNetworkManager.shared.getImageByCache(imageURL: url) { image, error in
-                        DispatchQueue.main.async {
-                            cell.posterImageView.image = image
+            if let photoUrl = posterDetailData?.photoUrl {
+                ImageNetworkManager.shared.getImageByCache(imageURL: photoUrl) { [weak self] image, error in
+                    DispatchQueue.main.async {
+                        guard let image = image, let width = self?.view.frame.width else {
+                            return
                         }
+
+                        let resizeImage = self?.imageWithImage(sourceImage: image,
+                                                               scaledToWidth: width)
+                        cell.posterImageView.image = resizeImage
                     }
                 }
             }
@@ -736,11 +778,9 @@ extension DetailInfoViewController: UICollectionViewDataSource {
                 header.detailData = posterDetailData
                 
                 if let thumbPhotoUrl = posterDetailData?.thumbPhotoUrl {
-                    if let url = URL(string: thumbPhotoUrl){
-                        ImageNetworkManager.shared.getImageByCache(imageURL: url) { image, error in
-                            DispatchQueue.main.async {
-                                header.posterImageView.image = image
-                            }
+                    ImageNetworkManager.shared.getImageByCache(imageURL: thumbPhotoUrl) { image, error in
+                        DispatchQueue.main.async {
+                            header.posterImageView.image = image
                         }
                     }
                 }
@@ -892,7 +932,15 @@ extension DetailInfoViewController: UICollectionViewDelegateFlowLayout {
                 return CGSize(width: view.frame.width, height: 0)
             }
         case 1:
-            return CGSize(width: view.frame.width, height: 400)
+            return imageSize ?? CGSize(width: view.frame.width, height: 0)
+//            guard let cell = collectionView.cellForItem(at: IndexPath(item: 0, section: 1)) as? DetailImageCollectionViewCell,
+//                let size = cell.posterImageView.image?.size else {
+//                return CGSize(width: view.frame.width, height: 0)
+//            }
+//
+//            return size
+            
+//            return CGSize(width: view.frame.width, height: 400)
         case 3:
             return CGSize(width: view.frame.width, height: 268)
         default:
