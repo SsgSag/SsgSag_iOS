@@ -22,11 +22,12 @@ struct FeedLookUp: Codable {
 }
 
 // MARK: - FeedData
-struct FeedData: Codable {
+class FeedData: Codable {
     let feedIdx: Int?
     let feedName, feedHost: String?
     let feedUrl: String?
     let feedRegDate: String?
     let feedPreviewImgUrl: String?
-    let showNum, isSave: Int?
+    let showNum: Int?
+    var isSave: Int?
 }

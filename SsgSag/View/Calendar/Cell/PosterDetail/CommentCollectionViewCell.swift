@@ -76,11 +76,9 @@ class CommentCollectionViewCell: UICollectionViewCell {
     
     private func setupCellData(_ comment: CommentList) {
         if let photoURL = comment.userProfileUrl {
-            if let url = URL(string: photoURL){
-                ImageNetworkManager.shared.getImageByCache(imageURL: url) { [weak self] image, error in
-                    DispatchQueue.main.async {
-                        self?.profileImageView.image = image
-                    }
+            ImageNetworkManager.shared.getImageByCache(imageURL: photoURL) { [weak self] image, error in
+                DispatchQueue.main.async {
+                    self?.profileImageView.image = image
                 }
             }
         }

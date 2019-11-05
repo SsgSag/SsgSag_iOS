@@ -62,11 +62,10 @@ class SwipeCard: UIView {
                                      action: #selector(self.beingDragged))
         addGestureRecognizer(panGestureRecognizer)
         
-        guard let imageURL = URL(string: value) else { return }
         overLayImage = UIImageView(frame: bounds)
         overLayImage.alpha = 0
         
-        ImageNetworkManager.shared.getImageByCache(imageURL: imageURL) { [weak self] image, error in
+        ImageNetworkManager.shared.getImageByCache(imageURL: value) { [weak self] image, error in
             self?.overLayImage.image = image
             self?.addSubview(self?.overLayImage ?? .init())
         }

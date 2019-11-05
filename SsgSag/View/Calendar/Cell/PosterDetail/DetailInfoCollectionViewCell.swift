@@ -14,13 +14,20 @@ class DetailInfoCollectionViewCell: UICollectionViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
     }
     
     func configure(titleString: String,
                    detailString: String) {
         titleLabel.text = titleString
         detailInfoLabel.text = detailString
+        
+        let attrString = NSMutableAttributedString(string: detailString)
+        let paragraphStyle = NSMutableParagraphStyle()
+        paragraphStyle.lineSpacing = 10
+        attrString.addAttribute(NSAttributedString.Key.paragraphStyle,
+                                value: paragraphStyle,
+                                range: NSMakeRange(0, attrString.length))
+        detailInfoLabel.attributedText = attrString
     }
 
 }
