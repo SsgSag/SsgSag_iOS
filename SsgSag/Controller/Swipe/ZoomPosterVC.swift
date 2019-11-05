@@ -24,9 +24,7 @@ class ZoomPosterVC: UIViewController, UIScrollViewDelegate {
         
         guard let posterURLString = self.urlString else { return }
         
-        guard let posterURL = URL(string: posterURLString) else { return }
-        
-        ImageNetworkManager.shared.getImageByCache(imageURL: posterURL) { [weak self] image, error in
+        ImageNetworkManager.shared.getImageByCache(imageURL: posterURLString) { [weak self] image, error in
             self?.imageView.image = image
         }
         

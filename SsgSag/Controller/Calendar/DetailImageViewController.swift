@@ -12,12 +12,11 @@ class DetailImageViewController: UIViewController {
 
     var urlString: String? {
         didSet {
-            guard let urlString = self.urlString,
-                let posterURL = URL(string: urlString) else {
+            guard let urlString = self.urlString else {
                     return
             }
             
-            ImageNetworkManager.shared.getImageByCache(imageURL: posterURL) { [weak self] image, error in
+            ImageNetworkManager.shared.getImageByCache(imageURL: urlString) { [weak self] image, error in
                 guard let image = image,
                     let width = self?.view.frame.width else {
                     return

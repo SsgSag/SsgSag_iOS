@@ -17,6 +17,7 @@ class ScrapViewController: UIViewController {
     
     private var feedData: [FeedData] = []
     private var feedTasks: [URLSessionTask?] = []
+    private var currentPage: Int = 0
     var callback: (()->())?
     
     private lazy var scrapCollectionView: UICollectionView = {
@@ -56,7 +57,7 @@ class ScrapViewController: UIViewController {
     }
     
     private func setupRequestScrap() {
-        feedService.requestScrapList { [weak self] result in
+        feedService.requestScrapList(page: currentPage) { [weak self] result in
             switch result {
             case .success(let feedDatas):
                 self?.feedData = feedDatas

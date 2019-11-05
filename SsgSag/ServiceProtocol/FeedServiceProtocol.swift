@@ -11,6 +11,7 @@ import Foundation
 protocol FeedService: class {
     // 피드 데이터 요청
     func requestFeedData(
+        page: Int,
         completionHandler: @escaping (DataResponse<[FeedData]>) -> Void
     )
     
@@ -28,6 +29,7 @@ protocol FeedService: class {
     
     // 스크랩 목록 요청
     func requestScrapList(
+        page: Int,
         completionHandler: @escaping (DataResponse<[FeedData]>) -> Void
     )
     

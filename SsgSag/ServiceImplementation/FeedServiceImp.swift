@@ -19,9 +19,12 @@ class FeedServiceImp: FeedService {
         self.network = network
     }
     
-    func requestFeedData(completionHandler: @escaping (DataResponse<[FeedData]>) -> Void) {
+    func requestFeedData(page: Int,
+                         completionHandler: @escaping (DataResponse<[FeedData]>) -> Void) {
         var urlComponent = URLComponents(string: UserAPI.sharedInstance.getBaseString())
         urlComponent?.path = RequestURL.feed.getRequestURL
+        urlComponent?.queryItems = [URLQueryItem(name: "curPage",
+                                                 value: "\(page)")]
        
         guard let token
                    = KeychainWrapper.standard.string(forKey: TokenName.token),
@@ -150,11 +153,14 @@ class FeedServiceImp: FeedService {
         }
     }
     
-    func requestScrapList(completionHandler: @escaping (DataResponse<[FeedData]>) -> Void) {
+    func requestScrapList(page: Int,
+                          completionHandler: @escaping (DataResponse<[FeedData]>) -> Void) {
         var urlComponent = URLComponents(string: UserAPI.sharedInstance.getBaseString())
         urlComponent?.path = RequestURL.feed.getRequestURL
         urlComponent?.queryItems = [URLQueryItem(name: "save",
-                                                 value: "1")]
+                                                 value: "1"),
+                                    URLQueryItem(name: "curPage",
+                                                 value: "\(page)")]
         
          guard let token
                     = KeychainWrapper.standard.string(forKey: TokenName.token),

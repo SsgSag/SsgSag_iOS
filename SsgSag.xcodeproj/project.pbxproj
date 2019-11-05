@@ -223,6 +223,9 @@
 		D1FB9B0223388EBF00B4C4F9 /* ScrapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1FB9B0123388EBF00B4C4F9 /* ScrapViewController.swift */; };
 		D1FB9E112313A619003FA001 /* UserNotifications.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D1FB9E102313A618003FA001 /* UserNotifications.framework */; };
 		D1FB9E132313A61F003FA001 /* PushKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D1FB9E122313A61F003FA001 /* PushKit.framework */; };
+		D1FCC4E3236BD2BE000E3769 /* DateCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1FCC4E1236BD2BE000E3769 /* DateCollectionViewCell.swift */; };
+		D1FCC4E4236BD2BE000E3769 /* DateCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D1FCC4E2236BD2BE000E3769 /* DateCollectionViewCell.xib */; };
+		D1FCC4E6236C1082000E3769 /* SeperateCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1FCC4E5236C1082000E3769 /* SeperateCollectionReusableView.swift */; };
 		D1FDF3DC230AF7550055D293 /* NoTodoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1FDF3DA230AF7550055D293 /* NoTodoTableViewCell.swift */; };
 		D1FDF3DD230AF7550055D293 /* NoTodoTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D1FDF3DB230AF7550055D293 /* NoTodoTableViewCell.xib */; };
 		D1FEA34E2334A1A600464DC4 /* AllPostersListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1FEA34D2334A1A600464DC4 /* AllPostersListViewController.swift */; };
@@ -505,6 +508,9 @@
 		D1FB9B0123388EBF00B4C4F9 /* ScrapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScrapViewController.swift; sourceTree = "<group>"; };
 		D1FB9E102313A618003FA001 /* UserNotifications.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotifications.framework; path = System/Library/Frameworks/UserNotifications.framework; sourceTree = SDKROOT; };
 		D1FB9E122313A61F003FA001 /* PushKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = PushKit.framework; path = System/Library/Frameworks/PushKit.framework; sourceTree = SDKROOT; };
+		D1FCC4E1236BD2BE000E3769 /* DateCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateCollectionViewCell.swift; sourceTree = "<group>"; };
+		D1FCC4E2236BD2BE000E3769 /* DateCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DateCollectionViewCell.xib; sourceTree = "<group>"; };
+		D1FCC4E5236C1082000E3769 /* SeperateCollectionReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeperateCollectionReusableView.swift; sourceTree = "<group>"; };
 		D1FDF3DA230AF7550055D293 /* NoTodoTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoTodoTableViewCell.swift; sourceTree = "<group>"; };
 		D1FDF3DB230AF7550055D293 /* NoTodoTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NoTodoTableViewCell.xib; sourceTree = "<group>"; };
 		D1FEA34D2334A1A600464DC4 /* AllPostersListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AllPostersListViewController.swift; sourceTree = "<group>"; };
@@ -1171,6 +1177,9 @@
 				D1EAA6242306A1A20063E04A /* HideAnalyticsCommentsCollectionViewCell.xib */,
 				D188C90B2368347E00AB88F0 /* SeeMoreCollectionReusableView.swift */,
 				D188C90A2368347E00AB88F0 /* SeeMoreCollectionReusableView.xib */,
+				D1FCC4E1236BD2BE000E3769 /* DateCollectionViewCell.swift */,
+				D1FCC4E2236BD2BE000E3769 /* DateCollectionViewCell.xib */,
+				D1FCC4E5236C1082000E3769 /* SeperateCollectionReusableView.swift */,
 			);
 			path = PosterDetail;
 			sourceTree = "<group>";
@@ -1381,6 +1390,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D1FCC4E4236BD2BE000E3769 /* DateCollectionViewCell.xib in Resources */,
 				8496818E22AFDDD1004A4A63 /* newCalendarStoryboard.storyboard in Resources */,
 				D1FEA3522334C79600464DC4 /* AllPosterListCollectionViewCell.xib in Resources */,
 				D1B2F43623013BAA00074448 /* AllAndFavoriteCollectionReusableView.xib in Resources */,
@@ -1557,6 +1567,7 @@
 				845928E121D20068001DF6CC /* LoginVC.swift in Sources */,
 				FA61FE0F21E0E3D300A28947 /* JobVC.swift in Sources */,
 				D1FDF3DC230AF7550055D293 /* NoTodoTableViewCell.swift in Sources */,
+				D1FCC4E6236C1082000E3769 /* SeperateCollectionReusableView.swift in Sources */,
 				D17A1C4222ED8A6200939788 /* InterestServiceProtocol.swift in Sources */,
 				FA7F4CCA21DFD61300D8643A /* ActivityCell.swift in Sources */,
 				FA7F4CD421E0A0BB00D8643A /* AddVC.swift in Sources */,
@@ -1639,6 +1650,7 @@
 				D103D8AA22FBEDA40092FE93 /* CalendarData.swift in Sources */,
 				D1E30DA422F1B5360023DF56 /* SplashViewController.swift in Sources */,
 				84A45D07225F9B3100C60287 /* EndPointType.swift in Sources */,
+				D1FCC4E3236BD2BE000E3769 /* DateCollectionViewCell.swift in Sources */,
 				FA806B9A22060A8F00EB38D6 /* Category.swift in Sources */,
 				D1FEA3512334C79600464DC4 /* AllPosterListCollectionViewCell.swift in Sources */,
 				D110809522E042D900F345A8 /* DetailImageCollectionViewCell.swift in Sources */,

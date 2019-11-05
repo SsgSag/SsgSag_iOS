@@ -11,31 +11,20 @@ import UIKit
 class SeeMoreCollectionReusableView: UICollectionReusableView {
 
     @IBOutlet weak var contentsLabel: UILabel!
-    @IBOutlet weak var seeMoreView: UIView!
-    @IBOutlet weak var seeMoreViewHeightConstraint: NSLayoutConstraint!
-    
-    var callback: (()->())?
     
     override func awakeFromNib() {
         super.awakeFromNib()
     }
     
-    func estimatedFrame(width: CGFloat, text: String, font: UIFont) -> CGRect {
-        let size = CGSize(width: width, height: 1000) // temporary size
-        let options = NSStringDrawingOptions.usesFontLeading.union(.usesLineFragmentOrigin)
+    func configure(_ contentsString: String) {
+        let attrString = NSMutableAttributedString(string: contentsString)
+        let paragraphStyle = NSMutableParagraphStyle()
+        paragraphStyle.lineSpacing = 10
+        attrString.addAttribute(NSAttributedString.Key.paragraphStyle,
+                                value: paragraphStyle,
+                                range: NSMakeRange(0, attrString.length))
+        contentsLabel.attributedText = attrString
         
-        return NSString(string: text).boundingRect(with: size,
-                                                   options: options,
-                                                   attributes: [NSAttributedString.Key.font: font],
-                                                   context: nil)
-    }
-    
-    @IBAction func touchUpSeeMoreButton(_ sender: UIButton) {
-        let collectionViewCellHeight = estimatedFrame(width: frame.width - 75,
-                                                      text: contentsLabel.text ?? "",
-                                                      font: UIFont.systemFont(ofSize: 12)).height
-
-        seeMoreViewHeightConstraint.constant = collectionViewCellHeight + 50
-        callback?()
+        contentsLabel.text = contentsString
     }
 }

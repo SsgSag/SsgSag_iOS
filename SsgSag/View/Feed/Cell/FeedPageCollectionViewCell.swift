@@ -17,6 +17,7 @@ class FeedPageCollectionViewCell: UICollectionViewCell {
     private let imageCache = NSCache<NSString, UIImage>()
     
     private var feedTasks: [URLSessionDataTask?] = []
+    private var currentPage: Int = 0
     
     private let feedServiceImp: FeedService
         = DependencyContainer.shared.getDependency(key: .feedService)
@@ -56,10 +57,13 @@ class FeedPageCollectionViewCell: UICollectionViewCell {
     }
     
     func requestFeed() {
-        feedServiceImp.requestFeedData { [weak self] result in
+        feedServiceImp.requestFeedData(page: currentPage) { [weak self] result in
             switch result {
             case .success(let feedDatas):
-                self?.feedDatas = feedDatas
+                if feedDatas.count == 0 {
+                    self?.currentPage -= 0
+                    return
+                }
                 
                 for feedData in feedDatas {
                     guard let urlString = feedData.feedUrl,
@@ -82,9 +86,22 @@ class FeedPageCollectionViewCell: UICollectionViewCell {
                     self?.feedTasks.append(dataTask)
                 }
                 
-                DispatchQueue.main.async {
-                    self?.feedCollectionView.reloadData()
-                    self?.refreshControl.endRefreshing()
+                if self?.feedDatas.count == 0 {
+                    self?.feedDatas = feedDatas
+
+                    DispatchQueue.main.async {
+                        self?.feedCollectionView.reloadData()
+                        self?.refreshControl.endRefreshing()
+                    }
+                } else {
+                    DispatchQueue.main.async {
+                        feedDatas.forEach {
+                            let indexPath = IndexPath(row: self?.feedDatas.count ?? 0, section: 0)
+                            self?.feedDatas.append($0)
+                            self?.feedCollectionView.insertItems(at: [indexPath])
+                            self?.refreshControl.endRefreshing()
+                        }
+                    }
                 }
             case .failed(let error):
                 print(error)
@@ -104,6 +121,9 @@ class FeedPageCollectionViewCell: UICollectionViewCell {
                             as? NewsCollectionViewCell else {
                             return
                         }
+                        
+                        self?.feedDatas[indexPath.item].isSave = 1
+                        
                         cell.bookmarkButton.setImage(UIImage(named: "ic_bookmarkArticle"),
                                                      for: .normal)
                     }
@@ -133,14 +153,15 @@ class FeedPageCollectionViewCell: UICollectionViewCell {
                 switch status {
                 case .sucess:
                     DispatchQueue.main.async {
-                        DispatchQueue.main.async {
-                            guard let cell = self?.feedCollectionView.cellForItem(at: indexPath)
-                                as? NewsCollectionViewCell else {
-                                return
-                            }
-                            cell.bookmarkButton.setImage(UIImage(named: "ic_bookmarkArticlePassive"),
-                                                         for: .normal)
+                        guard let cell = self?.feedCollectionView.cellForItem(at: indexPath)
+                            as? NewsCollectionViewCell else {
+                            return
                         }
+                        
+                        self?.feedDatas[indexPath.item].isSave = 0
+                        
+                        cell.bookmarkButton.setImage(UIImage(named: "ic_bookmarkArticlePassive"),
+                                                     for: .normal)
                     }
                     print("스크랩 취소 완료")
                     return
@@ -197,6 +218,13 @@ class FeedPageCollectionViewCell: UICollectionViewCell {
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        if scrollView.contentOffset.y + scrollView.frame.height >= scrollView.contentSize.height {
+            currentPage += 1
+            requestFeed()
+        }
     }
 }
 

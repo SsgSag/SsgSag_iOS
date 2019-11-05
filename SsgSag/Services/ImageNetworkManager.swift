@@ -24,9 +24,13 @@ public class ImageNetworkManager {
     }
     
     // FIXME: - like 할시에만 cache에 넣는 정책을 사용하자.
-    private func downloadImage(imageURL: URL, completionHandler: @escaping (UIImage?, Error?) -> Void) {
+    private func downloadImage(imageURL: String, completionHandler: @escaping (UIImage?, Error?) -> Void) {
         
-        session.dataTask(with: imageURL) { (data, _, error) in
+        guard let url = URL(string: imageURL) else {
+            return
+        }
+        
+        session.dataTask(with: url) { [weak self] (data, _, error) in
             
             if error != nil {
                 return
@@ -40,15 +44,23 @@ public class ImageNetworkManager {
                 return
             }
             
+            self?.cache.setObject(image, forKey: imageURL as NSString)
+
             DispatchQueue.main.async {
                 completionHandler(image, nil)
             }
-            
         }.resume()
     }
     
-    public func getImageByCache(imageURL: URL, completionHandler: @escaping (UIImage?, Error?) -> Void) {
-        downloadImage(imageURL: imageURL, completionHandler: completionHandler)
+    public func getImageByCache(imageURL: String, completionHandler: @escaping (UIImage?, Error?) -> Void) {
+        guard let image = cache.object(forKey: imageURL as NSString) else {
+            downloadImage(imageURL: imageURL, completionHandler: completionHandler)
+            return
+        }
+        
+        DispatchQueue.main.async {
+            completionHandler(image, nil)
+        }
     }
     
 }

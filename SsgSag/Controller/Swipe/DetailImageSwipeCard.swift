@@ -88,9 +88,7 @@ class DetailImageSwipeCardVC: UIViewController {
             
             guard let posterURLString = poster.photoUrl else { return }
             
-            guard let posterURL = URL(string: posterURLString) else { return }
-            
-            ImageNetworkManager.shared.getImageByCache(imageURL: posterURL) { [weak self] image, error in
+            ImageNetworkManager.shared.getImageByCache(imageURL: posterURLString) { [weak self] image, error in
                 self?.detailImageVIew.image = image
                 self?.detailImageVIew.layer.addSublayer(self!.gradientView)
             }
