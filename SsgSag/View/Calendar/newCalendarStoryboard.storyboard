@@ -106,7 +106,7 @@
                             </barButtonItem>
                             <barButtonItem style="plain" id="18R-zK-GKS">
                                 <view key="customView" contentMode="scaleToFill" id="p9b-tv-ABd" customClass="VAMonthHeaderView" customModule="슥삭" customModuleProvider="target">
-                                    <rect key="frame" x="87" y="22" width="0.0" height="0.0"/>
+                                    <rect key="frame" x="135" y="22" width="0.0" height="0.0"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <constraints>
@@ -148,6 +148,7 @@
                         </rightBarButtonItems>
                     </navigationItem>
                     <connections>
+                        <outlet property="calendarSwitchButton" destination="3ld-Sy-av3" id="14Q-5c-PMU"/>
                         <outlet property="categoryCollection" destination="pH2-YY-86Q" id="Qfx-B8-e1y"/>
                         <outlet property="etcButton" destination="iXw-cr-BBI" id="een-Ey-hQU"/>
                         <outlet property="monthHeaderView" destination="p9b-tv-ABd" id="Glu-iV-W61"/>

@@ -23,6 +23,7 @@ class FeedPageCollectionViewCell: UICollectionViewCell {
     private let feedServiceImp: FeedService
         = DependencyContainer.shared.getDependency(key: .feedService)
     
+    var lookAroundCallback: (()->())?
     var feedDatas: [FeedData] = []
     weak var delegate: FeedTouchDelegate?
     
@@ -258,6 +259,15 @@ extension FeedPageCollectionViewCell: UICollectionViewDataSource {
         
         cell.feedData = feedDatas[indexPath.item]
         cell.callback = { [weak self] feedIndex, status in
+            guard let isTryWithoutLogin = UserDefaults.standard.object(forKey: "isTryWithoutLogin") as? Bool else {
+                return
+            }
+            
+            guard !isTryWithoutLogin else {
+                self?.lookAroundCallback?()
+                return
+            }
+            
             if status == 0 {
                 self?.requestScrap(feedIndex,
                                    indexPath: indexPath)

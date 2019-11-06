@@ -8,6 +8,7 @@
 
 import UIKit
 import WebKit
+import SwiftKeychainWrapper
 
 class ArticleViewController: UIViewController {
 
@@ -204,6 +205,38 @@ class ArticleViewController: UIViewController {
     }
     
     @objc private func touchUpScrapButton() {
+        guard let isTryWithoutLogin = UserDefaults.standard.object(forKey: "isTryWithoutLogin") as? Bool else {
+            return
+        }
+        
+        guard !isTryWithoutLogin else {
+            simpleAlertwithHandler(title: "북마크",
+                                   message: "해당 기능을 이용하려면\n회원가입을 진행해주세요") { _ in
+                   KeychainWrapper.standard.removeObject(forKey: TokenName.token)
+                   
+                   guard let window = UIApplication.shared.keyWindow else {
+                       return
+                   }
+                   
+                   let mainStoryboard: UIStoryboard = UIStoryboard(name: "LoginStoryBoard", bundle: nil)
+                   let viewController = mainStoryboard.instantiateViewController(withIdentifier: "splashVC") as! SplashViewController
+                   
+                   let rootNavigationController = UINavigationController(rootViewController: viewController)
+                   
+                   let appDelegate = UIApplication.shared.delegate as! AppDelegate
+                   appDelegate.window?.rootViewController = rootNavigationController
+                   
+                   rootNavigationController.view.layoutIfNeeded()
+                   
+                   UIView.transition(with: window, duration: 0.5, options: .transitionFlipFromLeft, animations: {
+                       window.rootViewController = rootNavigationController
+                   }, completion: nil)
+                
+                   return
+               }
+            return
+        }
+        
         if scrapButton.imageView?.image == UIImage(named: "ic_bookmarkPassive") {
             requestScrap()
         } else {
