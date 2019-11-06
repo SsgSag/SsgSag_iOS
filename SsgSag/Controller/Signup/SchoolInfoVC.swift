@@ -49,7 +49,7 @@ class SchoolInfoVC: UIViewController {
                                                    action: #selector(touchUpAdmissionDoneButton))
     
     lazy var gradePickerView = UIPickerView()
-    let gradePickOption = ["1", "2", "3", "4", "5"]
+    var gradePickOption: [String] = []
     
     lazy var admissionPickerView = UIPickerView()
     var admissionPickOption: [String] = []
@@ -62,11 +62,10 @@ class SchoolInfoVC: UIViewController {
     
     @IBOutlet weak var gradeField: UITextField!
     
-    @IBOutlet weak var numberField: UITextField!
-    
     @IBOutlet weak var nextButton: GradientButton!
     
     @IBOutlet weak var textFieldsStackView: UIStackView!
+    
     @IBOutlet weak var scrollView: UIScrollView!
     
     override func viewWillAppear(_ animated: Bool) {
@@ -89,10 +88,13 @@ class SchoolInfoVC: UIViewController {
     
     private func setupAdmissionOption() {
         let currentDate = Date()
-        let year = Calendar.current.component(.year, from: currentDate)
+        let currentYear = Calendar.current.component(.year,
+                                                     from: currentDate)
         
-        for admissionYear in (1990...year).reversed() {
-            admissionPickOption.append(String(admissionYear))
+        for year in (currentYear - 10...currentYear).reversed() {
+            let grade = year % 100
+            let gradeString = grade / 10 < 1 ? "0\(grade)학번" : "\(grade)학번"
+            gradePickOption.append("\(gradeString)")
         }
     }
     
@@ -100,7 +102,6 @@ class SchoolInfoVC: UIViewController {
         schoolField.delegate = self
         majorField.delegate = self
         gradeField.delegate = self
-        numberField.delegate = self
         tapGesture.delegate = self
         gradePickerView.delegate = self
         gradePickerView.dataSource = self
@@ -135,8 +136,6 @@ class SchoolInfoVC: UIViewController {
     
         gradeField.inputView = gradePickerView
         gradeField.inputAccessoryView = gradeToolBar
-        numberField.inputView = admissionPickerView
-        numberField.inputAccessoryView = admissionToolBar
         
         view.addGestureRecognizer(tapGesture)
     }
@@ -152,8 +151,7 @@ class SchoolInfoVC: UIViewController {
     private func checkInformation(_ sender: Any) {
         if schoolField.hasText
             && majorField.hasText
-            && gradeField.hasText
-            && numberField.hasText {
+            && gradeField.hasText {
             nextButton.isUserInteractionEnabled = true
             
             nextButton.topColor = #colorLiteral(red: 0.2078431373, green: 0.9176470588, blue: 0.8901960784, alpha: 1)
@@ -253,7 +251,7 @@ class SchoolInfoVC: UIViewController {
                 "accessToken": sendToken,
                 "userUniv": univ,
                 "userMajor": major,
-                "userStudentNum": numberField.text ?? "",
+                "userStudentNum": "",
                 "userGender": gender,
                 "userBirth": birth,
                 "userPushAllow": 1,
@@ -273,7 +271,7 @@ class SchoolInfoVC: UIViewController {
                 "signupType": sendType, //0은 카카오톡, 1은 네이버
                 "userUniv": univ,
                 "userMajor": major,
-                "userStudentNum": numberField.text ?? "2019",
+                "userStudentNum": "2019",
                 "userGender": gender,
                 "userBirth": birth,
                 "userPushAllow": 1,
@@ -367,76 +365,6 @@ class SchoolInfoVC: UIViewController {
         }
     }
     
-//    private func autoLogin(sendType: Int, sendToken: String) {
-//
-//        var urlString: URL?
-//
-//        var sendData: [String: Any] = [:]
-//
-//        //자체로그인
-//        if sendType == 10 {
-//            urlString = UserAPI.sharedInstance.getURL("/login2")
-//
-//            let UserInfoVC = self.navigationController?.viewControllers[0] as! UserInfoVC
-//
-//            sendData = [
-//                "userEmail": "\(UserInfoVC.emailTextField.text!)",
-//                "userId" : "\(UserInfoVC.passwordTextField.text!)",
-//                "loginType" : sendType //10은 자체 로그인
-//            ]
-//        } else {
-//
-//            urlString = UserAPI.sharedInstance.getURL("/login")
-//
-//            sendData = [
-//                "accessToken": sendToken,
-//                "loginType" : sendType //10은 자체 로그인
-//            ]
-//        }
-//
-//        guard let url = urlString else { return }
-//
-//        let jsonData = try? JSONSerialization.data(withJSONObject: sendData)
-//
-//        var request = URLRequest(url: url)
-//        request.httpMethod = "POST"
-//        request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-//        request.httpBody = jsonData
-//
-//        NetworkManager.shared.getData(with: request) { (data, err, res) in
-//            guard let data = data else {
-//                return
-//            }
-//
-//            do {
-//                let login = try JSONDecoder().decode(LoginStruct.self, from: data)
-//
-//                guard let statusCode = login.status else {return}
-//
-//                guard let httpStatusCode = HttpStatusCode(rawValue: statusCode) else {return}
-//
-//                DispatchQueue.main.async {
-//                    switch httpStatusCode {
-//                    case .sucess:
-//
-//                        if let storeToken = login.data?.token {
-//                            UserDefaults.standard.set(storeToken,
-//                                                      forKey: TokenName.token)
-//                        }
-//
-//                        self.present(TapbarVC(), animated: true, completion: nil)
-//                    case .failure:
-//                        self.simpleAlert(title: "로그인 실패", message: "")
-//                    default:
-//                        break
-//                    }
-//                }
-//            } catch {
-//                print("LoginStruct Parsing Error")
-//            }
-//        }
-//    }
-    
     @objc func touchUpBackButton() {
         navigationController?.popViewController(animated: true)
     }
@@ -449,6 +377,21 @@ class SchoolInfoVC: UIViewController {
         postData()
     }
     
+    @IBAction func touchUpCheckBoxButton(_ sender: UIButton) {
+        if sender.isSelected {
+            sender.isSelected = false
+            sender.setImage(UIImage(named: "btCheckUnactive"), for: .normal)
+        } else {
+            sender.isSelected = true
+            sender.setImage(UIImage(named: "btCheckActive"), for: .normal)
+        }
+//        checkInformation()
+    }
+    
+    @IBAction func touchUpGradeDropDownButton(_ sender: UIButton) {
+        // 선택중이면 return되게 할지 고민해봐야대용
+        gradeField.becomeFirstResponder()
+    }
 }
 
 extension SchoolInfoVC: UIGestureRecognizerDelegate {
@@ -490,29 +433,19 @@ extension SchoolInfoVC: UIPickerViewDelegate, UIPickerViewDataSource {
     
     func pickerView(_ pickerView: UIPickerView,
                     numberOfRowsInComponent component: Int) -> Int {
-        if pickerView == gradePickerView {
-            return gradePickOption.count
-        }
-        return admissionPickOption.count
+        return gradePickOption.count
     }
     
     func pickerView(_ pickerView: UIPickerView,
                     titleForRow row: Int,
                     forComponent component: Int) -> String? {
-        if pickerView == gradePickerView {
-            return gradePickOption[row]
-        }
-        return admissionPickOption[row]
+        return gradePickOption[row]
     }
     
     func pickerView(_ pickerView: UIPickerView,
                     didSelectRow row: Int,
                     inComponent component: Int) {
-        if pickerView == gradePickerView {
-            gradeField.text = gradePickOption[row]
-            return
-        }
-        numberField.text = admissionPickOption[row]
+        gradeField.text = gradePickOption[row]
     }
 }
 
