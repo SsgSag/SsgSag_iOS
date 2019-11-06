@@ -166,10 +166,14 @@ class DetailInfoViewController: UIViewController {
                 
                 guard let analyticsJson = detailData.analytics,
                     let data = analyticsJson.data(using: .utf8),
-                    let photoUrl = detailData.photoUrl else {
+                    var photoUrl = detailData.photoUrl else {
                     return
                 }
                 
+                if detailData.photoUrl2 != "" && detailData.photoUrl2 != nil {
+                    photoUrl = detailData.photoUrl2 ?? ""
+                }
+
                 do {
                     self?.analyticsData = try JSONDecoder().decode(Analytics.self,
                                                                    from: data)
@@ -327,7 +331,7 @@ class DetailInfoViewController: UIViewController {
                         text: String,
                         font: UIFont,
                         paragraphStyle: NSMutableParagraphStyle? = nil) -> CGRect {
-        let size = CGSize(width: width, height: 1000) // temporary size
+        let size = CGSize(width: width, height: 3000) // temporary size
         let options = NSStringDrawingOptions.usesFontLeading.union(.usesLineFragmentOrigin)
         
         var attribute: [NSAttributedString.Key : Any]? = [NSAttributedString.Key.font: font]
@@ -508,14 +512,14 @@ class DetailInfoViewController: UIViewController {
         }
     }
     
-    func imageWithImage (sourceImage:UIImage, scaledToWidth: CGFloat) -> UIImage {
+    func imageWithImage(sourceImage: UIImage, scaledToWidth: CGFloat) -> UIImage {
         let oldWidth = sourceImage.size.width
         let scaleFactor = scaledToWidth / oldWidth
 
         let newHeight = sourceImage.size.height * scaleFactor
         let newWidth = oldWidth * scaleFactor
 
-        UIGraphicsBeginImageContext(CGSize(width: newWidth, height: newHeight))
+        UIGraphicsBeginImageContextWithOptions(CGSize(width: newWidth, height: newHeight), true, 10.0)
         sourceImage.draw(in: CGRect(x: 0, y: 0, width: newWidth, height: newHeight))
         let newImage = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
@@ -667,7 +671,11 @@ extension DetailInfoViewController: UICollectionViewDataSource {
                 return UICollectionViewCell()
             }
 
-            if let photoUrl = posterDetailData?.photoUrl {
+            if var photoUrl = posterDetailData?.photoUrl {
+                if posterDetailData?.photoUrl2 != nil && posterDetailData?.photoUrl2 != "" {
+                    photoUrl = posterDetailData?.photoUrl2 ?? ""
+                }
+                
                 ImageNetworkManager.shared.getImageByCache(imageURL: photoUrl) { [weak self] image, error in
                     DispatchQueue.main.async {
                         guard let image = image, let width = self?.view.frame.width else {
@@ -815,25 +823,6 @@ extension DetailInfoViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView,
                         didSelectItemAt indexPath: IndexPath) {
         currentTextField?.resignFirstResponder()
-        
-        switch indexPath.section {
-        case 0:
-            switch indexPath.item {
-            case 0:
-                if indexPath.item == 0 {
-                    // 상세 이미지
-                    let detailImageView = DetailImageViewController()
-                    detailImageView.titleText = posterDetailData?.posterName
-                    detailImageView.urlString = posterDetailData?.photoUrl2
-                    detailImageView.modalPresentationStyle = .fullScreen
-                    present(detailImageView, animated: true)
-                }
-            default:
-                return
-            }
-        default:
-            return
-        }
     }
 }
 
@@ -852,13 +841,13 @@ extension DetailInfoViewController: UICollectionViewDelegateFlowLayout {
             let paragraphStyle = NSMutableParagraphStyle()
             paragraphStyle.lineSpacing = 10
             
-            let collectionViewCellHeight = estimatedFrame(width: view.frame.width - 60,
+            let collectionViewCellHeight = estimatedFrame(width: view.frame.width - 46,
                                                           text: posterDetailData?.posterDetail ?? "",
-                                                          font: UIFont.systemFont(ofSize: 15),
+                                                          font: UIFont.systemFont(ofSize: 12),
                                                           paragraphStyle: paragraphStyle).height
             
             return CGSize(width: view.frame.width,
-                          height: collectionViewCellHeight + 50 + 47)
+                          height: collectionViewCellHeight + 47 + 20)
         default:
             return CGSize(width: view.frame.width, height: 0)
         }
@@ -912,7 +901,7 @@ extension DetailInfoViewController: UICollectionViewDelegateFlowLayout {
                                                               paragraphStyle: paragraphStyle).height
                 
                 return CGSize(width: view.frame.width,
-                              height: collectionViewCellHeight + 7)
+                              height: collectionViewCellHeight + 7 + 3)
             case 3:
                 if columnData?.count ?? 3 < 3 {
                     return CGSize(width: view.frame.width, height: 0)
@@ -927,7 +916,7 @@ extension DetailInfoViewController: UICollectionViewDelegateFlowLayout {
                                                               paragraphStyle: paragraphStyle).height
                 
                 return CGSize(width: view.frame.width,
-                              height: collectionViewCellHeight + 7)
+                              height: collectionViewCellHeight + 7 + 3)
             default:
                 return CGSize(width: view.frame.width, height: 0)
             }
@@ -953,7 +942,7 @@ extension DetailInfoViewController: UICollectionViewDelegateFlowLayout {
                                  text: posterDetailData?.commentList?[indexPath.item].commentContent ?? "",
                                  font: UIFont.systemFont(ofSize: 13)).height
             
-            return CGSize(width: view.frame.width, height: collectionViewCellHeight + 12 + 8 + 20 + 10)
+            return CGSize(width: view.frame.width, height: collectionViewCellHeight + 12 + 8 + 20 + 10 + 3)
         }
         
     }
