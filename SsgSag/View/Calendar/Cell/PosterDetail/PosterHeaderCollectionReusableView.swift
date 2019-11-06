@@ -20,9 +20,7 @@ class PosterHeaderCollectionReusableView: UICollectionReusableView {
     
     @IBOutlet weak var posterTitleLabel: UILabel!
     
-    @IBOutlet weak var periodLabel: UILabel!
-
-    @IBOutlet weak var hashTagTextView: UITextView!
+    @IBOutlet weak var hashTagLabel: UILabel!
     
     @IBOutlet weak var favoriteButton: UIButton!
     
@@ -44,11 +42,11 @@ class PosterHeaderCollectionReusableView: UICollectionReusableView {
         tapGesture.delegate = self
         posterImageView.addGestureRecognizer(tapGesture)
         
-        hashTagTextView.textContainer.lineFragmentPadding = 0
-        hashTagTextView.textContainerInset = UIEdgeInsets(top: 0,
-                                                          left: 0,
-                                                          bottom: 0,
-                                                          right: 0)
+//        hashTagLabel.textContainer.lineFragmentPadding = 0
+//        hashTagLabel.textContainerInset = UIEdgeInsets(top: 0,
+//                                                          left: 0,
+//                                                          bottom: 0,
+//                                                          right: 0)
         
         let titleStyle = NSMutableParagraphStyle()
         titleStyle.lineSpacing = 26
@@ -65,7 +63,7 @@ class PosterHeaderCollectionReusableView: UICollectionReusableView {
         let hashAttrString = NSMutableAttributedString()
         hashAttrString.addAttributes([.paragraphStyle : hashStyle],
                                      range: NSMakeRange(0, hashAttrString.length))
-        hashTagTextView.attributedText = hashAttrString
+        hashTagLabel.attributedText = hashAttrString
         
     }
 
@@ -108,7 +106,7 @@ class PosterHeaderCollectionReusableView: UICollectionReusableView {
         //            partnerEmailLabel.text = "이메일: " + partnerEmail
         //        }
         
-        hashTagTextView.text = data.keyword
+        hashTagLabel.text = data.keyword
         
         posterTitleLabel.text = data.posterName
         //        outLineLabel.text = detailData.outline

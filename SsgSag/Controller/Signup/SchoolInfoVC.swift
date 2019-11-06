@@ -291,54 +291,54 @@ class SchoolInfoVC: UIViewController {
                     return
             }
             
-            switch httpStatus {
-            case .success:
-                // 토큰 저장
-                if let storeToken = response.data?.token {
-                    KeychainWrapper.standard.set(storeToken,
-                                                 forKey: TokenName.token)
-                }
+            DispatchQueue.main.async {
+                switch httpStatus {
+                case .success:
+                    // 토큰 저장
+                    if let storeToken = response.data?.token {
+                        KeychainWrapper.standard.set(storeToken,
+                                                     forKey: TokenName.token)
+                    }
+                    
+                    UserDefaults.standard.set(false, forKey: "isTryWithoutLogin")
+                    
+                    guard let token = response.data?.token else {
+                        return
+                    }
+                    
+                    let adBrix = AdBrixRM.getInstance
+                    
+                    // 로그인이 성공했을 때, 유저아이디를 전달
+                    adBrix.login(userId: token)
+                    
+                    //기타 유저 정보
+                    var attrModel = Dictionary<String, Any>()
+                    attrModel["gender"] = self?.gender
+                    attrModel["birth"] = self?.birth
+                    attrModel["major"] = major
+                    attrModel["univ"] = univ
+                    adBrix.setUserProperties(dictionary: attrModel)
+                    
+                    // 회원가입 이벤트 추가
+                    if self?.sendType == 10 {
+                        adBrix.commonSignUp(channel: AdBrixRM.AdBrixRmSignUpChannel.AdBrixRmSignUpUserIdChannel)
+                    } else {
+                        adBrix.commonSignUp(channel: AdBrixRM.AdBrixRmSignUpChannel.AdBrixRmSignUpKakaoChannel)
+                    }
                 
-                UserDefaults.standard.set(false, forKey: "isTryWithoutLogin")
-                
-                guard let token = response.data?.token else {
-                    return
-                }
-                
-                let adBrix = AdBrixRM.getInstance
-                
-                // 로그인이 성공했을 때, 유저아이디를 전달
-                adBrix.login(userId: token)
-                
-                //기타 유저 정보
-                var attrModel = Dictionary<String, Any>()
-                attrModel["gender"] = self?.gender
-                attrModel["birth"] = self?.birth
-                attrModel["major"] = major
-                attrModel["univ"] = univ
-                adBrix.setUserProperties(dictionary: attrModel)
-                
-                // 회원가입 이벤트 추가
-                if self?.sendType == 10 {
-                    adBrix.commonSignUp(channel: AdBrixRM.AdBrixRmSignUpChannel.AdBrixRmSignUpUserIdChannel)
-                } else {
-                    adBrix.commonSignUp(channel: AdBrixRM.AdBrixRmSignUpChannel.AdBrixRmSignUpKakaoChannel)
-                }
-                
-                DispatchQueue.main.async {
                     let tapBarVC = TapbarVC()
                     tapBarVC.modalPresentationStyle = .fullScreen
                     self?.present(tapBarVC,
                                   animated: true)
+                case .failure:
+                    guard let message = response.message else { return }
+                    
+                    self?.simpleAlert(title: "회원가입 실패",
+                                      message: message)
+                case .databaseError:
+                    self?.simpleAlert(title: "데이터베이스 에러",
+                                      message: "서버 오류")
                 }
-            case .failure:
-                guard let message = response.message else { return }
-                
-                self?.simpleAlert(title: "회원가입 실패",
-                                  message: message)
-            case .databaseError:
-                self?.simpleAlert(title: "데이터베이스 에러",
-                                  message: "서버 오류")
             }
         }
     }
