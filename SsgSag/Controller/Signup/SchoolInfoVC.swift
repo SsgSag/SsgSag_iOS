@@ -68,6 +68,11 @@ class SchoolInfoVC: UIViewController {
     
     @IBOutlet weak var scrollView: UIScrollView!
     
+    @IBOutlet weak var maleButton: UIButton!
+    @IBOutlet weak var femaleButton: UIButton!
+    
+    @IBOutlet weak var servicePolicyButton: UIButton!
+    @IBOutlet weak var privacyPolicyButton: UIButton!
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
@@ -78,12 +83,30 @@ class SchoolInfoVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        setButtonUnderline()
         setupAdmissionOption()
         setupDelegate()
         setupLayout()
         
         configureSimpleSearchTextField()
         configureSimpleMajorSearchTextField()
+    }
+    
+    private func setButtonUnderline() {
+        let attributes = [NSAttributedString.Key.underlineStyle : NSUnderlineStyle.single.rawValue]
+
+        let servicePolicyAttributedString
+            = NSMutableAttributedString(string: servicePolicyButton.titleLabel?.text ?? "",
+                                        attributes: attributes)
+        
+        let privacyPolicyAttributedString
+            = NSMutableAttributedString(string: privacyPolicyButton.titleLabel?.text ?? "",
+                                        attributes: attributes)
+        
+        servicePolicyButton.setAttributedTitle(servicePolicyAttributedString,
+                                               for: .normal)
+        privacyPolicyButton.setAttributedTitle(privacyPolicyAttributedString,
+                                               for: .normal)
     }
     
     private func setupAdmissionOption() {
@@ -391,6 +414,104 @@ class SchoolInfoVC: UIViewController {
     @IBAction func touchUpGradeDropDownButton(_ sender: UIButton) {
         // 선택중이면 return되게 할지 고민해봐야대용
         gradeField.becomeFirstResponder()
+    }
+    
+    @IBAction func touchUpMaleButton(_ sender: UIButton) {
+        femaleButton.isSelected = false
+        femaleButton.setImage(UIImage(named: "ic_selectAllPassive0"),
+                              for: .normal)
+        femaleButton.setTitleColor(UIColor(red: 200.0/225.0,
+                                           green: 200.0/225.0,
+                                           blue: 200.0/225.0,
+                                           alpha: 1.0),
+                                   for: .normal)
+        
+        if maleButton.isSelected {
+            gender = ""
+            maleButton.isSelected = false
+            maleButton.setImage(UIImage(named: "ic_selectAllPassive0"),
+                                for: .normal)
+
+            maleButton.setTitleColor(UIColor(red: 200.0/225.0,
+                                             green: 200.0/225.0,
+                                             blue: 200.0/225.0,
+                                             alpha: 1.0),
+                                     for: .normal)
+        } else {
+            gender = "male"
+            maleButton.isSelected = true
+            maleButton.setImage(UIImage(named: "ic_selectAll"),
+                                for: .normal)
+            maleButton.setTitleColor(UIColor(red: 98.0/225.0,
+                                             green: 106.0/225.0,
+                                             blue: 225.0/225.0,
+                                             alpha: 1.0),
+                                     for: .normal)
+        }
+//        checkInformation()
+    }
+    
+    @IBAction func touchUpFemaleButton(_ sender: UIButton) {
+        maleButton.isSelected = false
+        maleButton.setImage(UIImage(named: "ic_selectAllPassive0"),
+                            for: .normal)
+        maleButton.setTitleColor(UIColor(red: 200.0/225.0,
+                                         green: 200.0/225.0,
+                                         blue: 200.0/225.0,
+                                         alpha: 1.0),
+                                 for: .normal)
+        
+        if femaleButton.isSelected {
+            gender = ""
+            femaleButton.isSelected = false
+            femaleButton.setImage(UIImage(named: "ic_selectAllPassive0"),
+                                  for: .normal)
+            
+            femaleButton.setTitleColor(UIColor(red: 200.0/225.0,
+                                               green: 200.0/225.0,
+                                               blue: 200.0/225.0,
+                                               alpha: 1.0),
+                                     for: .normal)
+        } else {
+            gender = "female"
+            femaleButton.isSelected = true
+            femaleButton.setImage(UIImage(named: "ic_selectAll"),
+                                  for: .normal)
+            
+            femaleButton.setTitleColor(UIColor(red: 98.0/225.0,
+                                             green: 106.0/225.0,
+                                             blue: 225.0/225.0,
+                                             alpha: 1.0),
+                                     for: .normal)
+        }
+        
+//        checkInformation()
+    }
+    
+    @IBAction func touchUpServicePolicyButton(_ sender: UIButton) {
+        let storyboard = UIStoryboard(name: StoryBoardName.mypage,
+                                      bundle: nil)
+        
+        guard let termsOfServiceViewController
+            = storyboard.instantiateViewController(withIdentifier: ViewControllerIdentifier.privateProtectViewController)
+                as? PrivateProtectViewController else {
+                    return
+        }
+        
+        present(termsOfServiceViewController, animated: true)
+    }
+    
+    @IBAction func touchUpPrivacyPolicyButton(_ sender: UIButton) {
+        let storyboard = UIStoryboard(name: StoryBoardName.mypage,
+        bundle: nil)
+        
+        guard let privateProtectViewController
+            = storyboard.instantiateViewController(withIdentifier: ViewControllerIdentifier.termsOfServiceViewController)
+                as? TermsOfServiceViewController else {
+                    return
+        }
+        
+        present(privateProtectViewController, animated: true)
     }
 }
 

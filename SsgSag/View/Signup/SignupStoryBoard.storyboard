@@ -331,14 +331,14 @@
                                                                 <color key="textColor" red="0.38431372549999998" green="0.41568627450000001" blue="0.99999129769999995" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
-                                                            <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tps-KE-Qib">
+                                                            <stackView opaque="NO" contentMode="scaleToFill" spacing="13" translatesAutoresizingMaskIntoConstraints="NO" id="tps-KE-Qib">
                                                                 <rect key="frame" x="0.0" y="11" width="339" height="41"/>
                                                                 <subviews>
                                                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="MVv-Wi-ofy">
-                                                                        <rect key="frame" x="0.0" y="0.0" width="239" height="41"/>
+                                                                        <rect key="frame" x="0.0" y="0.0" width="213" height="41"/>
                                                                         <subviews>
                                                                             <textField opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="닉네임" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="gsO-bU-4a2" customClass="SearchTextField" customModule="SearchTextField">
-                                                                                <rect key="frame" x="0.0" y="0.0" width="239" height="40"/>
+                                                                                <rect key="frame" x="0.0" y="0.0" width="213" height="40"/>
                                                                                 <constraints>
                                                                                     <constraint firstAttribute="height" constant="40" id="ZGS-ps-xBa"/>
                                                                                 </constraints>
@@ -346,7 +346,7 @@
                                                                                 <textInputTraits key="textInputTraits" returnKeyType="next"/>
                                                                             </textField>
                                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ugJ-Px-bmb">
-                                                                                <rect key="frame" x="0.0" y="40" width="239" height="1"/>
+                                                                                <rect key="frame" x="0.0" y="40" width="213" height="1"/>
                                                                                 <color key="backgroundColor" red="0.87843137250000003" green="0.87843137250000003" blue="0.87843137250000003" alpha="1" colorSpace="calibratedRGB"/>
                                                                                 <constraints>
                                                                                     <constraint firstAttribute="height" constant="1" id="bNB-wp-014"/>
@@ -358,7 +358,7 @@
                                                                         </constraints>
                                                                     </stackView>
                                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HMB-D5-pZ6">
-                                                                        <rect key="frame" x="239" y="0.0" width="50" height="41"/>
+                                                                        <rect key="frame" x="226" y="0.0" width="50" height="41"/>
                                                                         <constraints>
                                                                             <constraint firstAttribute="width" constant="50" id="qeY-nm-yQ2"/>
                                                                         </constraints>
@@ -366,6 +366,9 @@
                                                                         <state key="normal" title="남" image="ic_selectAll">
                                                                             <color key="titleColor" red="0.38431372549999998" green="0.41568627450000001" blue="0.99999129769999995" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
                                                                         </state>
+                                                                        <connections>
+                                                                            <action selector="touchUpMaleButton:" destination="xEW-PO-qx4" eventType="touchUpInside" id="WEy-hF-6sJ"/>
+                                                                        </connections>
                                                                     </button>
                                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EiR-Zp-br7">
                                                                         <rect key="frame" x="289" y="0.0" width="50" height="41"/>
@@ -376,6 +379,9 @@
                                                                         <state key="normal" title="여" image="ic_selectAllPassive0">
                                                                             <color key="titleColor" red="0.8666666666666667" green="0.8666666666666667" blue="0.8666666666666667" alpha="1" colorSpace="calibratedRGB"/>
                                                                         </state>
+                                                                        <connections>
+                                                                            <action selector="touchUpFemaleButton:" destination="xEW-PO-qx4" eventType="touchUpInside" id="Vzm-YQ-vsi"/>
+                                                                        </connections>
                                                                     </button>
                                                                 </subviews>
                                                             </stackView>
@@ -518,7 +524,7 @@
                                                         <rect key="frame" x="0.0" y="294.00000000000006" width="339" height="20"/>
                                                         <subviews>
                                                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="4Sb-VV-UXB" userLabel="서비스이용약관">
-                                                                <rect key="frame" x="0.0" y="0.0" width="297" height="20"/>
+                                                                <rect key="frame" x="0.0" y="0.0" width="298.66666666666669" height="20"/>
                                                                 <subviews>
                                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="svV-dP-ikb">
                                                                         <rect key="frame" x="0.0" y="0.0" width="20" height="20"/>
@@ -531,16 +537,43 @@
                                                                             <action selector="touchUpCheckBoxButton:" destination="9Eg-LF-Rpx" eventType="touchUpInside" id="g8u-BI-hae"/>
                                                                         </connections>
                                                                     </button>
-                                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="W9s-6f-8T1">
-                                                                        <rect key="frame" x="28" y="0.0" width="269" height="20"/>
-                                                                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="13"/>
-                                                                        <state key="normal" title="서비스 이용약관 및 개인정보 취급방침에 동의합니다.">
-                                                                            <color key="titleColor" red="0.61960784310000006" green="0.61960784310000006" blue="0.61960784310000006" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                                                        </state>
-                                                                        <connections>
-                                                                            <action selector="privatePolicyInfomation:" destination="9Eg-LF-Rpx" eventType="touchUpInside" id="Yb9-8m-l2T"/>
-                                                                        </connections>
-                                                                    </button>
+                                                                    <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pRA-Oa-PZd">
+                                                                        <rect key="frame" x="28" y="0.0" width="270.66666666666669" height="20"/>
+                                                                        <subviews>
+                                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="W9s-6f-8T1">
+                                                                                <rect key="frame" x="0.0" y="0.0" width="83" height="20"/>
+                                                                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="13"/>
+                                                                                <state key="normal" title="서비스 이용약관">
+                                                                                    <color key="titleColor" red="0.61960784310000006" green="0.61960784310000006" blue="0.61960784310000006" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                                                                </state>
+                                                                                <connections>
+                                                                                    <action selector="touchUpServicePolicyButton:" destination="xEW-PO-qx4" eventType="touchUpInside" id="STQ-v5-UzV"/>
+                                                                                </connections>
+                                                                            </button>
+                                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text=" 및 " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0Wi-nj-lrJ">
+                                                                                <rect key="frame" x="83" y="0.0" width="18.333333333333329" height="20"/>
+                                                                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="13"/>
+                                                                                <color key="textColor" red="0.61960784310000006" green="0.61960784310000006" blue="0.61960784310000006" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                                                                <nil key="highlightedColor"/>
+                                                                            </label>
+                                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UnQ-vg-L4D">
+                                                                                <rect key="frame" x="101.33333333333334" y="0.0" width="94" height="20"/>
+                                                                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="13"/>
+                                                                                <state key="normal" title="개인정보 취급방침">
+                                                                                    <color key="titleColor" red="0.61960784310000006" green="0.61960784310000006" blue="0.61960784310000006" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                                                                </state>
+                                                                                <connections>
+                                                                                    <action selector="touchUpPrivacyPolicyButton:" destination="xEW-PO-qx4" eventType="touchUpInside" id="YXY-6Q-bm2"/>
+                                                                                </connections>
+                                                                            </button>
+                                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="에 동의합니다." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ymy-my-k0D">
+                                                                                <rect key="frame" x="195.33333333333334" y="0.0" width="75.333333333333343" height="20"/>
+                                                                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="13"/>
+                                                                                <color key="textColor" red="0.61960784310000006" green="0.61960784310000006" blue="0.61960784310000006" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                                                                <nil key="highlightedColor"/>
+                                                                            </label>
+                                                                        </subviews>
+                                                                    </stackView>
                                                                 </subviews>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="20" id="1Lw-iR-xEe"/>
@@ -605,11 +638,15 @@
                         <viewLayoutGuide key="safeArea" id="r1C-NK-h1t"/>
                     </view>
                     <connections>
+                        <outlet property="femaleButton" destination="EiR-Zp-br7" id="vuF-mu-BFL"/>
                         <outlet property="gradeField" destination="lKN-Oq-kJh" id="gTI-w2-gCj"/>
                         <outlet property="majorField" destination="cBY-ZG-hiL" id="L7K-1y-l8A"/>
+                        <outlet property="maleButton" destination="HMB-D5-pZ6" id="exe-ee-gZe"/>
                         <outlet property="nextButton" destination="cO1-KY-RkO" id="2SW-YS-hXQ"/>
+                        <outlet property="privacyPolicyButton" destination="UnQ-vg-L4D" id="o7O-6H-lnV"/>
                         <outlet property="schoolField" destination="nD2-oj-mhp" id="9i1-w2-KgC"/>
                         <outlet property="scrollView" destination="fIY-13-aZR" id="AEL-Sn-gag"/>
+                        <outlet property="servicePolicyButton" destination="W9s-6f-8T1" id="6Ro-o9-eFF"/>
                         <outlet property="textFieldsStackView" destination="hay-RC-Z1l" id="zg5-r9-x19"/>
                         <outlet property="titleLabel" destination="KIh-pl-kUk" id="dlA-09-86m"/>
                     </connections>
