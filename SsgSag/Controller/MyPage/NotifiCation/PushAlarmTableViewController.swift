@@ -16,6 +16,7 @@ class PushAlarmTableViewController: UITableViewController, MessagingDelegate, UN
     @IBOutlet weak var deadlineSwitch: UISwitch!
     
     @IBOutlet weak var todayCardSwitch: UISwitch!
+    
     private lazy var backButton = UIBarButtonItem(image: UIImage(named: "ic_ArrowBack"),
                                                   style: .plain,
                                                   target: self,
@@ -32,6 +33,12 @@ class PushAlarmTableViewController: UITableViewController, MessagingDelegate, UN
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(willEnterForeground),
+                                               name: UIApplication.willEnterForegroundNotification,
+                                               object: nil)
+
+        
         tableView.allowsSelection = false
         tableView.separatorStyle = .none
         
@@ -43,6 +50,10 @@ class PushAlarmTableViewController: UITableViewController, MessagingDelegate, UN
         todayCardSwitch.layer.cornerRadius = deadlineSwitch.frame.height / 2
         todayCardSwitch.backgroundColor = .lightGray
         
+        setupSwitchWithSetting()
+    }
+    
+    private func setupSwitchWithSetting() {
         UNUserNotificationCenter.current().getNotificationSettings { [weak self] settings in
             if settings.authorizationStatus == .denied {
                 DispatchQueue.main.async {
@@ -71,6 +82,10 @@ class PushAlarmTableViewController: UITableViewController, MessagingDelegate, UN
         return 2
     }
     
+    @objc func willEnterForeground() {
+        setupSwitchWithSetting()
+    }
+    
     @IBAction func dissMissPushAlarm(_ sender: Any) {
         self.dismiss(animated: true, completion: nil)
     }
@@ -78,37 +93,33 @@ class PushAlarmTableViewController: UITableViewController, MessagingDelegate, UN
     @IBAction func arriveCard(_ sender: UISwitch) {
         UNUserNotificationCenter.current().getNotificationSettings { [weak self] settings in
             DispatchQueue.main.async {
-                if settings.authorizationStatus == .denied && sender.isOn {
-                    let alertController
-                        = UIAlertController(title: "알림 설정",
-                                            message: "설정화면에서 알림을 허용해주세요",
-                                            preferredStyle: .alert)
-                    
-                    let settingsAction = UIAlertAction(title: "이동",
-                                                       style: .default) { _ in
-                        guard let settingsUrl = URL(string: UIApplication.openSettingsURLString) else {
-                            return
-                        }
-                        
-                        if UIApplication.shared.canOpenURL(settingsUrl) {
-                            UIApplication.shared.open(settingsUrl){ success in
-                                print("Settings opened: \(success)")
-                            }
-                        }
+                let alertController
+                    = UIAlertController(title: "알림 설정",
+                                        message: "설정에서 알림 여부를 변경해주세요",
+                                        preferredStyle: .alert)
+                
+                let settingsAction = UIAlertAction(title: "설정으로 이동",
+                                                   style: .default) { _ in
+                    guard let settingsUrl = URL(string: UIApplication.openSettingsURLString) else {
+                        return
                     }
                     
-                    let cancelAction = UIAlertAction(title: "취소", style: .default) { _ in
-                        sender.isOn = false
+                    if UIApplication.shared.canOpenURL(settingsUrl) {
+                        UIApplication.shared.open(settingsUrl){ success in
+                            print("Settings opened: \(success)")
+                        }
                     }
-                    
-                    alertController.addAction(settingsAction)
-                    alertController.addAction(cancelAction)
-
-                    alertController.modalPresentationStyle = .fullScreen
-                    self?.present(alertController, animated: true, completion: nil)
-                } else if settings.authorizationStatus == .authorized {
-                    // API를 통해서 알림 종류 확인
                 }
+                
+                let cancelAction = UIAlertAction(title: "취소", style: .default) { _ in
+                    sender.isOn = !sender.isOn
+                }
+                
+                alertController.addAction(settingsAction)
+                alertController.addAction(cancelAction)
+
+                alertController.modalPresentationStyle = .fullScreen
+                self?.present(alertController, animated: true, completion: nil)
             }
         }
     }
