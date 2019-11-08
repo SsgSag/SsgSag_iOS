@@ -165,6 +165,35 @@ extension FeedVC: UICollectionViewDataSource {
             }
             
             cell.delegate = self
+            cell.lookAroundCallback = { [weak self] in
+                self?.simpleAlertwithHandler(title: "북마크",
+                                       message: "해당 기능을 이용하려면\n회원가입을 진행해주세요") { _ in
+                       KeychainWrapper.standard.removeObject(forKey: TokenName.token)
+                       
+                       guard let window = UIApplication.shared.keyWindow else {
+                           return
+                       }
+                       
+                       let mainStoryboard: UIStoryboard = UIStoryboard(name: "LoginStoryBoard", bundle: nil)
+                       let viewController = mainStoryboard.instantiateViewController(withIdentifier: "splashVC") as! SplashViewController
+                       
+                       let rootNavigationController = UINavigationController(rootViewController: viewController)
+                       
+                       let appDelegate = UIApplication.shared.delegate as! AppDelegate
+                       appDelegate.window?.rootViewController = rootNavigationController
+                       
+                       rootNavigationController.view.layoutIfNeeded()
+                       
+                       UIView.transition(with: window,
+                                         duration: 0.5,
+                                         options: .transitionFlipFromLeft,
+                                         animations: {
+                           window.rootViewController = rootNavigationController
+                       }, completion: nil)
+                    
+                       return
+                   }
+            }
             
             return cell
         } else {
