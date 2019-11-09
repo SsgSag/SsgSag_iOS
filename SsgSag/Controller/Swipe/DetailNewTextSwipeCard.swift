@@ -141,7 +141,7 @@ class DetailNewTextSwipeCard: UIViewController {
         return view
     }()
     
-    var poster: Posters? {
+    var poster: Poster? {
         didSet {
             
             guard let poster = poster else { return }

@@ -1,7 +1,7 @@
 import Foundation
 
 // MARK: - PosterElement
-struct Posters: Codable {
+struct Poster: Codable {
     let posterIdx: Int?
     let categoryIdx: Int?
     let subCategoryIdx: Int?

@@ -1,6 +1,6 @@
 import Foundation
 
-struct posterData : Codable {
-	let posters : [Posters]?
+struct PosterData : Codable {
+	let posters : [Poster]?
 	let userCnt : Int?
 }

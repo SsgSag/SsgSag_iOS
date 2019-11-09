@@ -11,7 +11,7 @@ import Foundation
 protocol PosterService: class {
     // swipe화면에 보여질 poster들 요청
     func requestSwipePosters(
-        completionHandler: @escaping (DataResponse<posterData>) -> Void
+        completionHandler: @escaping (DataResponse<PosterData>) -> Void
     )
     
     // poster 캘린더에 저장

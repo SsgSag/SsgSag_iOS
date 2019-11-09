@@ -13,7 +13,7 @@ class SwipeVC: UIViewController {
     
     @IBOutlet weak var settingBoardButton: UIBarButtonItem!
     
-    lazy private var posters: [Posters] = []
+    lazy private var posters: [Poster] = []
     private var numberOfSwipe = 0
     
     private static let numberOfTopCards = 2
@@ -28,7 +28,7 @@ class SwipeVC: UIViewController {
     private var countTotalCardIndex = 0
     
     private var posterServiceImp: PosterService
-        = DependencyContainer.shared.getDependency(key: .posterService)
+        = MockPosterServiceImp()//DependencyContainer.shared.getDependency(key: .posterService)
     
     private var lastDeletedSwipeCard: SwipeCard?
     
@@ -432,7 +432,7 @@ class SwipeVC: UIViewController {
     /// show 'detailTextSwipeCard' and 'detailImageSwipeCard'
     private func setDetailSwipeCardAndSwipeCardVC(of detailTextSwipeCard: DetailNewTextSwipeCard,
                                                   of detailImageSwipeCardVC: DetailImageSwipeCardVC,
-                                                  by poster: Posters) {
+                                                  by poster: Poster) {
         detailTextSwipeCard.poster = poster
         detailImageSwipeCardVC.poster = poster
     }
@@ -601,7 +601,7 @@ class SwipeVC: UIViewController {
         }
     }
     
-    func isDuplicated(in posters: [Posters], checkValue: Posters) -> Bool {
+    func isDuplicated(in posters: [Poster], checkValue: Poster) -> Bool {
         for poster in posters {
             if poster.posterName! == checkValue.posterName! {
                 return true
@@ -673,7 +673,7 @@ extension SwipeVC : SwipeCardDelegate {
     }
     
     private func addUserDefaultsWhenNoData() {
-        var likedPoster: [Posters] = []
+        var likedPoster: [Poster] = []
         
         likedPoster.append(self.posters[currentIndex - 1])
         
@@ -706,7 +706,7 @@ extension SwipeVC : SwipeCardDelegate {
         NotificationCenter.default.post(name: NSNotification.Name(NotificationName.addUserDefaults), object: nil)
     }
     
-    private func addUserDefautlsWhenDataIsExist(_ posterInfo: [Posters]) {
+    private func addUserDefautlsWhenDataIsExist(_ posterInfo: [Poster]) {
         var likedPoster = posterInfo
         
         if isDuplicated(in: likedPoster, checkValue: posters[currentIndex - 1]) == false {

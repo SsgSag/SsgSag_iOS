@@ -22,7 +22,7 @@ class DetailTextSwipeCard: UIViewController {
     
     @IBOutlet var benefit: UILabel!
     
-    var poster: Posters? {
+    var poster: Poster? {
         didSet {
             
             guard let poster = poster else { return }

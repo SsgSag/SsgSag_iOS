@@ -18,5 +18,7 @@ target 'SsgSag' do
   pod 'AdBrixRemastered'
   pod 'SwiftKeychainWrapper'
   pod 'FacebookSDK' 
+  pod 'RxSwift'
+  pod 'RxCocoa'
 
 end

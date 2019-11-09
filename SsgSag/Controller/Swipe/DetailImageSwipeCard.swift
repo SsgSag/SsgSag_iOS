@@ -66,7 +66,7 @@ class DetailImageSwipeCardVC: UIViewController {
         return button
     }()
     
-    var poster: Posters? {
+    var poster: Poster? {
         didSet {
             guard let poster = poster else { return }
             

@@ -103,6 +103,12 @@ PODS:
   - nanopb/encode (0.3.901)
   - naveridlogin-sdk-ios (4.1.0)
   - Protobuf (3.9.2)
+  - RxCocoa (5.0.0):
+    - RxRelay (~> 5)
+    - RxSwift (~> 5)
+  - RxRelay (5.0.0):
+    - RxSwift (~> 5)
+  - RxSwift (5.0.0)
   - SearchTextField (1.2.4)
   - SwiftKeychainWrapper (3.4.0)
 
@@ -116,6 +122,8 @@ DEPENDENCIES:
   - Firebase/Messaging
   - lottie-ios
   - naveridlogin-sdk-ios
+  - RxCocoa
+  - RxSwift
   - SearchTextField
   - SwiftKeychainWrapper
 
@@ -143,6 +151,9 @@ SPEC REPOS:
     - nanopb
     - naveridlogin-sdk-ios
     - Protobuf
+    - RxCocoa
+    - RxRelay
+    - RxSwift
     - SearchTextField
     - SwiftKeychainWrapper
 
@@ -169,9 +180,12 @@ SPEC CHECKSUMS:
   nanopb: 2901f78ea1b7b4015c860c2fdd1ea2fee1a18d48
   naveridlogin-sdk-ios: eaef9c106bd04f1ec592a9f8418ccb03275ddb02
   Protobuf: 67fb42ba613def994e61854de2b3164f13790cc4
+  RxCocoa: fcf32050ac00d801f34a7f71d5e8e7f23026dcd8
+  RxRelay: 4f7409406a51a55cd88483f21ed898c234d60f18
+  RxSwift: 8b0671caa829a763bbce7271095859121cbd895f
   SearchTextField: 40dc3cc57def5a211f263cac263622c163bbc25a
   SwiftKeychainWrapper: 6fc49fbf7d4a6b0772917acb0e53a1639f6078d6
 
-PODFILE CHECKSUM: a6f6a75fd48ba3557f130e33c2a2c149674d6f14
+PODFILE CHECKSUM: 0051c9f5e1b064eddf8a3e8c84631f92b2c6104e
 
 COCOAPODS: 1.6.2
