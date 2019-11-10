@@ -69,7 +69,7 @@ class NewsCollectionViewCell: UICollectionViewCell {
     
     override func prepareForReuse() {
         bookmarkButton.setImage(nil, for: .normal)
-        newsImageView?.image = nil
+        newsImageView?.image = UIImage(named: "ic_imgDefault")
         newsTitleLabel?.text = ""
         fromLabel?.text = ""
         dateLabel?.text = ""

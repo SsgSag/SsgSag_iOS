@@ -45,7 +45,7 @@ class DetailTodoListTableViewCell: UITableViewCell {
     }
     
     override func prepareForReuse() {
-        self.posterImageView.image = nil
+        self.posterImageView.image = UIImage(named: "ic_imgDefault")
         self.posterName.text = ""
     }
     

@@ -20,7 +20,7 @@
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5cU-2h-DLw" userLabel="borderView">
                         <rect key="frame" x="10" y="5" width="398" height="99"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="E7D-ZZ-2ES">
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_imgDefault" translatesAutoresizingMaskIntoConstraints="NO" id="E7D-ZZ-2ES">
                                 <rect key="frame" x="10" y="19" width="45" height="61"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="61" id="cbt-AN-3pD"/>
@@ -119,5 +119,6 @@
     </objects>
     <resources>
         <image name="ic_favoritePassive" width="20" height="17"/>
+        <image name="ic_imgDefault" width="336" height="336"/>
     </resources>
 </document>
