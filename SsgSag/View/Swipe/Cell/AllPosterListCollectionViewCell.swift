@@ -64,7 +64,7 @@ class AllPosterListCollectionViewCell: UICollectionViewCell {
     }
     
     override func prepareForReuse() {
-        posterImageView.image = nil
+        posterImageView.image = UIImage(named: "ic_imgDefault")
         saveStatusButton.isHidden = true
         ddayButton.setTitle("", for: .normal)
         viewCountButton.setTitle("", for: .normal)

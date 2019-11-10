@@ -22,9 +22,50 @@ class SplashVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        isServerAvaliable()
-        isAutoLogin()
-        setupLayout()
+        if isUpdateAvailable() {
+            showNeedForUpdate()
+        } else {
+            isServerAvaliable()
+            isAutoLogin()
+            setupLayout()
+        }
+    }
+    
+    private func showNeedForUpdate() {
+        DispatchQueue.main.async { [weak self] in
+            self?.simpleAlertwithHandler(title: "업데이트",
+                                   message: "최신 업데이트가 있습니다.\n업데이트하시겠습니까?") { _ in
+                let urlString = "https://itunes.apple.com/app/id1457422029"
+                UIApplication.shared.open(URL(string: urlString)!)
+            }
+        }
+    }
+    
+    private func moveToAppStoreForUpdate() {
+        
+    }
+    
+    private func isUpdateAvailable() -> Bool {
+        guard let version
+            = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String,
+            let url
+            = URL(string: "http://itunes.apple.com/lookup?bundleId=com.wndzlf.SsgSag"),
+            let data
+            = try? Data(contentsOf: url),
+            let json
+            = try? JSONSerialization.jsonObject(with: data,
+                                                options: .allowFragments) as? [String: Any],
+            let results = json?["results"] as? [[String: Any]],
+            results.count > 0,
+            let appStoreVersion = results[0]["version"] as? String else {
+                return false
+        }
+
+        if !(version == appStoreVersion) {
+            return true
+        }
+
+        return false
     }
     
     private func setupLayout() {
@@ -51,7 +92,6 @@ class SplashVC: UIViewController {
                     case .sucess:
                         DispatchQueue.main.async {
                             let tabBarVC = TapbarVC()
-                            
                             
                             self?.animation.play { [weak self] _ in
                                 guard let self = self else {

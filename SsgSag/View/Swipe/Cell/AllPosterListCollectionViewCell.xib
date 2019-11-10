@@ -17,7 +17,7 @@
                 <rect key="frame" x="0.0" y="0.0" width="331" height="192"/>
                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 <subviews>
-                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="L88-2x-WEN">
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_imgDefault" translatesAutoresizingMaskIntoConstraints="NO" id="L88-2x-WEN">
                         <rect key="frame" x="10" y="52.5" width="67" height="87"/>
                         <color key="backgroundColor" red="0.66666666669999997" green="0.66666666669999997" blue="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
@@ -168,6 +168,7 @@
     </objects>
     <resources>
         <image name="ic_calendarMini" width="10" height="11"/>
+        <image name="ic_imgDefault" width="336" height="336"/>
         <image name="ic_view" width="10" height="11"/>
     </resources>
 </document>

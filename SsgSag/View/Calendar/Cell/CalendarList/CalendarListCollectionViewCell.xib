@@ -20,7 +20,7 @@
                     <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" alignment="center" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="Yta-hA-BMG">
                         <rect key="frame" x="10" y="41" width="454" height="158"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="039-S7-dkG">
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_imgDefault" translatesAutoresizingMaskIntoConstraints="NO" id="039-S7-dkG">
                                 <rect key="frame" x="0.0" y="33" width="67" height="87"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="67" id="6w4-Ec-gg0"/>
@@ -171,5 +171,6 @@
     <resources>
         <image name="ic_calendarMini" width="10" height="11"/>
         <image name="ic_favoritePassive" width="20" height="17"/>
+        <image name="ic_imgDefault" width="336" height="336"/>
     </resources>
 </document>
