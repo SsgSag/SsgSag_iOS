@@ -14,7 +14,7 @@
             <rect key="frame" x="0.0" y="0.0" width="451" height="373"/>
             <autoresizingMask key="autoresizingMask"/>
             <subviews>
-                <imageView clipsSubviews="YES" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="mJf-cC-chr">
+                <imageView clipsSubviews="YES" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_imgDefault" translatesAutoresizingMaskIntoConstraints="NO" id="mJf-cC-chr">
                     <rect key="frame" x="22" y="10" width="150.5" height="211"/>
                     <constraints>
                         <constraint firstAttribute="width" secondItem="mJf-cC-chr" secondAttribute="height" multiplier="134:188" id="3GB-EL-h46"/>
@@ -113,5 +113,6 @@
     <resources>
         <image name="ic_calendar" width="15" height="15"/>
         <image name="ic_favoriteGray" width="17" height="16"/>
+        <image name="ic_imgDefault" width="336" height="336"/>
     </resources>
 </document>

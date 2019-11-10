@@ -75,7 +75,7 @@ class CalendarListCollectionViewCell: UICollectionViewCell {
     }
     
     override func prepareForReuse() {
-        posterImageView.image = nil
+        posterImageView.image = UIImage(named: "ic_imgDefault")
         ddayButton.setTitle("", for: .normal)
         calendarSaveCountButton.setTitle("", for: .normal)
         titleLabel.text = ""

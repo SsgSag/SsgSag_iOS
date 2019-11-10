@@ -42,12 +42,6 @@ class PosterHeaderCollectionReusableView: UICollectionReusableView {
         tapGesture.delegate = self
         posterImageView.addGestureRecognizer(tapGesture)
         
-//        hashTagLabel.textContainer.lineFragmentPadding = 0
-//        hashTagLabel.textContainerInset = UIEdgeInsets(top: 0,
-//                                                          left: 0,
-//                                                          bottom: 0,
-//                                                          right: 0)
-        
         let titleStyle = NSMutableParagraphStyle()
         titleStyle.lineSpacing = 26
         
@@ -93,18 +87,6 @@ class PosterHeaderCollectionReusableView: UICollectionReusableView {
             let likeString = String(data.likeNum!)
             likeButton.setTitle(likeString, for: .normal)
         }
-        
-        //        if data.partnerPhone == nil && detailData.partnerEmail == nil {
-        //            contactInfoHeightConstraint.constant = 0
-        //        }
-        //
-        //        if let partnerPhone = data.partnerPhone {
-        //            partnerPhoneNumLabel.text = "전화번호: " + partnerPhone
-        //        }
-        //
-        //        if let partnerEmail = data.partnerEmail {
-        //            partnerEmailLabel.text = "이메일: " + partnerEmail
-        //        }
         
         hashTagLabel.text = data.keyword
         
