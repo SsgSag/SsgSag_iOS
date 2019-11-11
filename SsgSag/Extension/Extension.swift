@@ -91,7 +91,7 @@ extension UIViewController {
         alert.addAction(okAction)
         alert.addAction(cancelAction)
         alert.modalPresentationStyle = .fullScreen
-        present(alert, animated: true, completion: nil)
+        present(alert, animated: false, completion: nil)
     }
     
     func simpleAlertwithOKButton(title: String, message: String, okHandler : ((UIAlertAction) -> Void)?){

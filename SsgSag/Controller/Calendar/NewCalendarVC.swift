@@ -20,6 +20,7 @@ protocol selectedTodoDelegate: class {
 class NewCalendarVC: UIViewController {
     
     @IBOutlet weak var etcButton: UIButton!
+    @IBOutlet weak var calendarSwitchButton: UIButton!
     
     @IBOutlet weak var monthHeaderView: VAMonthHeaderView! {
         didSet {
@@ -78,15 +79,6 @@ class NewCalendarVC: UIViewController {
         calendarView.drawMonths()
         calendarView.drawVisibleMonth(with: calendarView.contentOffset)
         
-        guard let isTryWithoutLogin = UserDefaults.standard.object(forKey: "isTryWithoutLogin") as? Bool else {
-            return
-        }
-        
-        if isTryWithoutLogin {
-            etcButton.setImage(nil, for: .normal)
-            etcButton.setTitle("나가기", for: .normal)
-            etcButton.titleLabel?.font = .systemFont(ofSize: 15)
-        }
     }
     
     override func viewDidLoad() {
@@ -273,29 +265,6 @@ class NewCalendarVC: UIViewController {
     }
     
     @IBAction func touchUpCalendarEtcButton(_ sender: UIButton) {
-        // 공유하기
-        if sender.titleLabel?.text == "나가기" {
-            KeychainWrapper.standard.removeObject(forKey: TokenName.token)
-            
-            guard let window = UIApplication.shared.keyWindow else {
-                return
-            }
-            
-            let mainStoryboard: UIStoryboard = UIStoryboard(name: "LoginStoryBoard", bundle: nil)
-            let viewController = mainStoryboard.instantiateViewController(withIdentifier: "splashVC") as! SplashViewController
-            
-            let rootNavigationController = UINavigationController(rootViewController: viewController)
-            
-            let appDelegate = UIApplication.shared.delegate as! AppDelegate
-            appDelegate.window?.rootViewController = rootNavigationController
-            
-            rootNavigationController.view.layoutIfNeeded()
-            
-            UIView.transition(with: window, duration: 0.5, options: .transitionFlipFromLeft, animations: {
-                window.rootViewController = rootNavigationController
-            }, completion: nil)
-            return
-        }
         
         let alert = UIAlertController(title: nil,
                                       message: nil,
