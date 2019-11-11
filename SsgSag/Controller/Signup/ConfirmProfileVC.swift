@@ -265,11 +265,11 @@ class ConfirmProfileVC: UIViewController {
             = storyboard.instantiateViewController(withIdentifier: ViewControllerIdentifier.schoolInfoViewController)
                 as! SchoolInfoVC
         
-        SchoolInfoVC.name = nameField.text ?? ""
-        SchoolInfoVC.birth = birthField.text ?? ""
-        SchoolInfoVC.nickName = nickNameField.text ?? ""
-        SchoolInfoVC.gender = gender
-        
+//        SchoolInfoVC.name = nameField.text ?? ""
+//        SchoolInfoVC.birth = birthField.text ?? ""
+//        SchoolInfoVC.nickName = nickNameField.text ?? ""
+//        SchoolInfoVC.gender = gender
+//        
         navigationController?.pushViewController(SchoolInfoVC, animated: true)
     }
     

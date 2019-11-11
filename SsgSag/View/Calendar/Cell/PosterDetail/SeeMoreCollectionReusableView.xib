@@ -24,7 +24,7 @@
                     <nil key="highlightedColor"/>
                 </label>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="c5b-4a-cjI">
-                    <rect key="frame" x="23" y="47" width="325" height="281"/>
+                    <rect key="frame" x="23" y="47" width="325" height="0.0"/>
                     <fontDescription key="fontDescription" type="system" pointSize="12"/>
                     <color key="textColor" red="0.31372549019607843" green="0.31372549019607843" blue="0.31372549019607843" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
@@ -34,7 +34,6 @@
                 <constraint firstItem="c5b-4a-cjI" firstAttribute="top" secondItem="7xQ-NC-IDg" secondAttribute="bottom" constant="10" id="0Xx-nx-1qc"/>
                 <constraint firstAttribute="trailing" secondItem="c5b-4a-cjI" secondAttribute="trailing" constant="23" id="8xz-Hf-xME"/>
                 <constraint firstItem="7xQ-NC-IDg" firstAttribute="top" secondItem="U6b-Vx-4bR" secondAttribute="top" constant="20" id="KEl-va-6sE"/>
-                <constraint firstItem="VXr-Tz-HHm" firstAttribute="bottom" secondItem="c5b-4a-cjI" secondAttribute="bottom" constant="20" id="e50-qc-COu"/>
                 <constraint firstItem="7xQ-NC-IDg" firstAttribute="leading" secondItem="U6b-Vx-4bR" secondAttribute="leading" constant="23" id="h7j-7o-J3B"/>
                 <constraint firstItem="c5b-4a-cjI" firstAttribute="leading" secondItem="U6b-Vx-4bR" secondAttribute="leading" constant="23" id="lfB-Cz-7hJ"/>
             </constraints>

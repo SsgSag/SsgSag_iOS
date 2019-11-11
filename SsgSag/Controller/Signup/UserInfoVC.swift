@@ -18,6 +18,8 @@ class UserInfoVC: UIViewController {
     
     @IBOutlet weak var nextButton: GradientButton!
     
+    @IBOutlet weak var invaliedLabelBottomSpacing: NSLayoutConstraint!
+    
     @IBOutlet weak var stackViewConstraint: NSLayoutConstraint!
     
     @IBOutlet weak var textFieldsStackView: UIStackView!
@@ -128,6 +130,7 @@ class UserInfoVC: UIViewController {
         guard isValidEmail(email: emailTextField.text) else {
             isInvaliedEmailLabel.textColor = #colorLiteral(red: 1, green: 0.3490196078, blue: 0.3490196078, alpha: 1)
             isInvaliedEmailLabel.text = "이메일 형식이 아닙니다"
+            invaliedLabelBottomSpacing.constant = 10
             return
         }
         
@@ -144,13 +147,15 @@ class UserInfoVC: UIViewController {
                 case .sucess:
                     if isValidate {
                         DispatchQueue.main.async {
-                            self?.isInvaliedEmailLabel.textColor = #colorLiteral(red: 0.4603668451, green: 0.5182471275, blue: 1, alpha: 1)
+                            self?.isInvaliedEmailLabel.textColor = #colorLiteral(red: 0.3607843137, green: 0.7921568627, blue: 0.2901960784, alpha: 1)
                             self?.isInvaliedEmailLabel.text = "사용가능한 이메일입니다"
+                            self?.invaliedLabelBottomSpacing.constant = 10
                         }
                     } else {
                         DispatchQueue.main.async {
                             self?.isInvaliedEmailLabel.textColor = #colorLiteral(red: 1, green: 0.3490196078, blue: 0.3490196078, alpha: 1)
                             self?.isInvaliedEmailLabel.text = "이미 존재하는 이메일입니다"
+                            self?.invaliedLabelBottomSpacing.constant = 10
                         }
                     }
                 case .dataBaseError, .serverError:
@@ -174,15 +179,28 @@ class UserInfoVC: UIViewController {
     @IBAction func confirmEmail(_ sender: Any) {
         guard checkInformation() else { return }
         
-        let storyboard = UIStoryboard(name: StoryBoardName.signup,
-                                      bundle: nil)
         
-        let ConfirmProfileVC
-            = storyboard.instantiateViewController(withIdentifier: ViewControllerIdentifier.confirmProfileViewController)
-                as! ConfirmProfileVC
         
-        navigationController?.pushViewController(ConfirmProfileVC,
-                                                 animated: true)
+        let storyboard = UIStoryboard(name: StoryBoardName.signup, bundle: nil)
+        let SchoolInfoVC
+            = storyboard.instantiateViewController(withIdentifier: ViewControllerIdentifier.schoolInfoViewController)
+                as! SchoolInfoVC
+        
+//        SchoolInfoVC.name = nameField.text ?? ""
+//        SchoolInfoVC.birth = birthField.text ?? ""
+//        SchoolInfoVC.nickName = nickNameField.text ?? ""
+//        SchoolInfoVC.gender = gender
+        
+        navigationController?.pushViewController(SchoolInfoVC, animated: true)
+//        let storyboard = UIStoryboard(name: StoryBoardName.signup,
+//                                      bundle: nil)
+//
+//        let ConfirmProfileVC
+//            = storyboard.instantiateViewController(withIdentifier: ViewControllerIdentifier.confirmProfileViewController)
+//                as! ConfirmProfileVC
+//
+//        navigationController?.pushViewController(ConfirmProfileVC,
+//                                                 animated: true)
     }
     
     @objc func handleTabMainView(_ sender: UITapGestureRecognizer) {

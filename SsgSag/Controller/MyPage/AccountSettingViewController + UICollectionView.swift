@@ -21,7 +21,7 @@ extension AccountSettingViewController: UICollectionViewDataSource {
                         numberOfItemsInSection section: Int) -> Int {
         switch section {
         case 0:
-            return 6
+            return 5
         case 1:
             return 3
         default:
@@ -100,6 +100,7 @@ extension AccountSettingViewController: UICollectionViewDataSource {
                 guard let userData = userData else {
                     return cell
                 }
+                
                 guard let email = userData.userEmail else {
                     return cell
                 }
@@ -156,28 +157,7 @@ extension AccountSettingViewController: UICollectionViewDataSource {
                 
                 return cell
             case 4:
-                // 학년
-                guard let cell
-                    = collectionView.dequeueReusableCell(withReuseIdentifier: "gradeSettingCell",
-                                                         for: indexPath)
-                        as? GradeCollectionViewCell else {
-                            return .init()
-                }
-                
-                guard let userData = userData else {
-                    return cell
-                }
-                
-                guard let grade = userData.userGrade else {
-                    return cell
-                }
-                
-                cell.gradeTextField.text = String(grade)
-                cell.gradeTextField.delegate = self
-                cell.gradeTextField.tag = indexPath.item + 1
-                return cell
-            case 5:
-                // 입학년도
+                // 학번
                 guard let cell
                     = collectionView.dequeueReusableCell(withReuseIdentifier: "admissionSettingCell",
                                                          for: indexPath)
@@ -193,7 +173,7 @@ extension AccountSettingViewController: UICollectionViewDataSource {
                     return cell
                 }
                 
-                cell.admissionTextField.text = studentNum
+                cell.admissionTextField.text = "\(studentNum)학번"
                 cell.admissionTextField.delegate = self
                 cell.admissionTextField.tag = indexPath.item + 1
                 return cell

@@ -57,10 +57,10 @@ class AdmissionCollectionViewCell: UICollectionViewCell {
 
     private func setupAdmissionOption() {
         let currentDate = Date()
-        let year = Calendar.current.component(.year, from: currentDate)
+        let year = Calendar.current.component(.year, from: currentDate) % 100
         
-        for admissionYear in (1990...year).reversed() {
-            admissionPickOption.append(String(admissionYear))
+        for studentNumber in (year-10...year).reversed() {
+            admissionPickOption.append("\(String(studentNumber))학번")
         }
     }
     

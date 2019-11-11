@@ -50,18 +50,17 @@
                             <color key="textColor" red="0.30980392156862746" green="0.30980392156862746" blue="0.30980392156862746" alpha="1" colorSpace="calibratedRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" textAlignment="natural" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0OH-09-czS">
-                            <rect key="frame" x="0.0" y="83" width="242.5" height="106"/>
-                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                            <color key="textColor" red="0.38431372549999998" green="0.41568627450000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cLm-h5-oI8">
+                            <rect key="frame" x="0.0" y="83" width="242.5" height="16"/>
                             <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                            <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                        </textView>
+                            <color key="textColor" red="0.38431372549019605" green="0.41568627450980389" blue="0.99999129772186279" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                            <nil key="highlightedColor"/>
+                        </label>
                         <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="8jz-t3-hIJ">
-                            <rect key="frame" x="0.0" y="195" width="242.5" height="16"/>
+                            <rect key="frame" x="0.0" y="105" width="242.5" height="106"/>
                             <subviews>
                                 <button opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dvP-bI-JZ2">
-                                    <rect key="frame" x="0.0" y="0.0" width="104.5" height="16"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="104.5" height="106"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                     <inset key="contentEdgeInsets" minX="5" minY="0.0" maxX="0.0" maxY="0.0"/>
                                     <inset key="imageEdgeInsets" minX="-5" minY="0.0" maxX="0.0" maxY="0.0"/>
@@ -70,7 +69,7 @@
                                     </state>
                                 </button>
                                 <button opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WoG-Uy-W16">
-                                    <rect key="frame" x="116.5" y="0.0" width="126" height="16"/>
+                                    <rect key="frame" x="116.5" y="0.0" width="126" height="106"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                     <inset key="contentEdgeInsets" minX="5" minY="0.0" maxX="0.0" maxY="0.0"/>
                                     <inset key="imageEdgeInsets" minX="-5" minY="0.0" maxX="0.0" maxY="0.0"/>
@@ -82,9 +81,9 @@
                         </stackView>
                     </subviews>
                     <constraints>
-                        <constraint firstItem="0OH-09-czS" firstAttribute="width" secondItem="40s-88-CXL" secondAttribute="width" id="8SX-Ob-vDz"/>
                         <constraint firstItem="8jz-t3-hIJ" firstAttribute="leading" secondItem="40s-88-CXL" secondAttribute="leading" id="DVQ-aF-dto"/>
                         <constraint firstAttribute="trailing" secondItem="8jz-t3-hIJ" secondAttribute="trailing" id="RUK-Em-cHn"/>
+                        <constraint firstItem="cLm-h5-oI8" firstAttribute="width" secondItem="40s-88-CXL" secondAttribute="width" id="a6P-er-Bz6"/>
                         <constraint firstItem="GVw-I1-Vcq" firstAttribute="width" secondItem="40s-88-CXL" secondAttribute="width" id="pj7-FR-zFU"/>
                     </constraints>
                 </stackView>
@@ -103,7 +102,7 @@
             <connections>
                 <outlet property="categoryButton" destination="cSX-wg-Vdx" id="idc-Pn-vVR"/>
                 <outlet property="favoriteButton" destination="dvP-bI-JZ2" id="maG-uT-KVI"/>
-                <outlet property="hashTagTextView" destination="0OH-09-czS" id="5n2-aZ-aHf"/>
+                <outlet property="hashTagLabel" destination="cLm-h5-oI8" id="Oud-6d-dGO"/>
                 <outlet property="likeButton" destination="WoG-Uy-W16" id="eRs-B2-Q7P"/>
                 <outlet property="posterImageView" destination="mJf-cC-chr" id="4Gy-dF-xy1"/>
                 <outlet property="posterTitleLabel" destination="GVw-I1-Vcq" id="k2s-oA-27c"/>

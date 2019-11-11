@@ -168,7 +168,7 @@ class SplashViewController: UIViewController {
                             case 404:
                                 let storyboard = UIStoryboard(name: StoryBoardName.signup, bundle: nil)
                                 
-                                let signupVC = storyboard.instantiateViewController(withIdentifier: "ConfirmProfileVC")
+                                let signupVC = storyboard.instantiateViewController(withIdentifier: ViewControllerIdentifier.schoolInfoViewController)
                                 
                                 let signupNavigator = UINavigationController(rootViewController: signupVC)
                                 
