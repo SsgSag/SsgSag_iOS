@@ -283,9 +283,14 @@ class AccountSettingViewController: UIViewController {
         
         mypageService.requestUpdateUserInfo(bodyData: bodyData) { [weak self] result in
             switch result {
-            case .success(let status):
+            case .success(let response):
+                guard let status = response.status,
+                    let httpStatusCode = HttpStatusCode(rawValue: status) else {
+                        return
+                }
+                
                 DispatchQueue.main.async {
-                    switch status {
+                    switch httpStatusCode {
                     case .processingSuccess:
                         let adBrix = AdBrixRM.getInstance
                         
@@ -300,7 +305,8 @@ class AccountSettingViewController: UIViewController {
                         self?.simplerAlert(title: "이미 사용중인 닉네임입니다.")
                         return
                     case .requestError:
-                        self?.simplerAlert(title: "학교와 학과의 형식이 일치하지 않습니다.")
+                        self?.simplerAlert(title: response.message ?? "")
+//                        self?.simplerAlert(title: "학교와 학과의 형식이 일치하지 않습니다.")
                         return
                     case .dataBaseError:
                         self?.simplerAlert(title: "database error")
@@ -309,6 +315,7 @@ class AccountSettingViewController: UIViewController {
                         return
                     }
                 }
+                
             case .failed(let error):
                 print(error)
                 return
@@ -354,7 +361,7 @@ class AccountSettingViewController: UIViewController {
         }
         
         guard isValidateNickName(nickName: nickName) else {
-            simplerAlert(title: "닉네임은 2~10자\n영문자, 한글, 숫자 조합을\n사용해주세요")
+            simplerAlert(title: "닉네임은 2글자 이상\n영문자, 한글, 숫자를\n조합해 사용해주세요")
             return false
         }
         
