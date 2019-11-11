@@ -337,7 +337,7 @@
                                                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="MVv-Wi-ofy">
                                                                         <rect key="frame" x="0.0" y="0.0" width="213" height="41"/>
                                                                         <subviews>
-                                                                            <textField opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="닉네임" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="gsO-bU-4a2" customClass="SearchTextField" customModule="SearchTextField">
+                                                                            <textField opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="닉네임" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="gsO-bU-4a2">
                                                                                 <rect key="frame" x="0.0" y="0.0" width="213" height="40"/>
                                                                                 <constraints>
                                                                                     <constraint firstAttribute="height" constant="40" id="ZGS-ps-xBa"/>
@@ -385,6 +385,15 @@
                                                                     </button>
                                                                 </subviews>
                                                             </stackView>
+                                                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="이미 존재하는 닉네임입니다." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oxo-0s-QT6">
+                                                                <rect key="frame" x="0.0" y="52" width="339" height="25"/>
+                                                                <constraints>
+                                                                    <constraint firstAttribute="height" constant="25" id="dZZ-pH-ISN"/>
+                                                                </constraints>
+                                                                <fontDescription key="fontDescription" type="system" pointSize="10"/>
+                                                                <color key="textColor" red="1" green="0.34901960784313724" blue="0.34901960784313724" alpha="1" colorSpace="calibratedRGB"/>
+                                                                <nil key="highlightedColor"/>
+                                                            </label>
                                                         </subviews>
                                                     </stackView>
                                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="-1" translatesAutoresizingMaskIntoConstraints="NO" id="PWi-xg-MtB">
@@ -396,7 +405,7 @@
                                                                 <color key="textColor" red="0.38431372549999998" green="0.41568627450000001" blue="0.99999129769999995" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
-                                                            <textField opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="생년월일 (예: 950429)" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="pyu-Ig-C49" customClass="SearchTextField" customModule="SearchTextField">
+                                                            <textField opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="생년월일 (예: 950429)" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="pyu-Ig-C49">
                                                                 <rect key="frame" x="0.0" y="11" width="339" height="40"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="40" id="WFC-Wa-7cC"/>
@@ -431,7 +440,7 @@
                                                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="NzX-SK-z9D">
                                                                         <rect key="frame" x="0.0" y="0.0" width="229" height="41"/>
                                                                         <subviews>
-                                                                            <textField opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="학교 선택" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="nD2-oj-mhp" customClass="SearchTextField" customModule="SearchTextField">
+                                                                            <textField opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="학교 선택" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="nD2-oj-mhp" customClass="SearchTextField" customModule="SearchTextField">
                                                                                 <rect key="frame" x="0.0" y="0.0" width="229" height="40"/>
                                                                                 <constraints>
                                                                                     <constraint firstAttribute="height" constant="40" id="eht-yK-FAK"/>
@@ -457,7 +466,7 @@
                                                                             <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ATp-NQ-N0S">
                                                                                 <rect key="frame" x="0.0" y="0.0" width="100" height="40"/>
                                                                                 <subviews>
-                                                                                    <textField opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="학번" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="lKN-Oq-kJh">
+                                                                                    <textField opaque="NO" tag="4" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="학번" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="lKN-Oq-kJh">
                                                                                         <rect key="frame" x="0.0" y="0.0" width="70" height="40"/>
                                                                                         <fontDescription key="fontDescription" type="system" weight="medium" pointSize="14"/>
                                                                                         <textInputTraits key="textInputTraits" autocorrectionType="no" keyboardType="numbersAndPunctuation"/>
@@ -499,7 +508,7 @@
                                                                 <color key="textColor" red="0.38431372549999998" green="0.41568627450000001" blue="0.99999129769999995" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
-                                                            <textField opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="학과 선택" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="cBY-ZG-hiL" customClass="SearchTextField" customModule="SearchTextField">
+                                                            <textField opaque="NO" tag="5" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="학과 선택" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="cBY-ZG-hiL" customClass="SearchTextField" customModule="SearchTextField">
                                                                 <rect key="frame" x="0.0" y="11" width="339" height="40"/>
                                                                 <constraints>
                                                                     <constraint firstAttribute="height" constant="40" id="NNC-1M-lDP"/>
@@ -638,11 +647,15 @@
                         <viewLayoutGuide key="safeArea" id="r1C-NK-h1t"/>
                     </view>
                     <connections>
+                        <outlet property="birthTextField" destination="pyu-Ig-C49" id="ihO-mS-XSc"/>
                         <outlet property="femaleButton" destination="EiR-Zp-br7" id="vuF-mu-BFL"/>
                         <outlet property="gradeField" destination="lKN-Oq-kJh" id="gTI-w2-gCj"/>
                         <outlet property="majorField" destination="cBY-ZG-hiL" id="L7K-1y-l8A"/>
                         <outlet property="maleButton" destination="HMB-D5-pZ6" id="exe-ee-gZe"/>
                         <outlet property="nextButton" destination="cO1-KY-RkO" id="2SW-YS-hXQ"/>
+                        <outlet property="nickNameTextField" destination="gsO-bU-4a2" id="PyN-ic-qYB"/>
+                        <outlet property="nicknameValidateLabel" destination="oxo-0s-QT6" id="ncj-OF-kHw"/>
+                        <outlet property="policyCheckBoxButton" destination="svV-dP-ikb" id="A9y-gX-ZH0"/>
                         <outlet property="privacyPolicyButton" destination="UnQ-vg-L4D" id="o7O-6H-lnV"/>
                         <outlet property="schoolField" destination="nD2-oj-mhp" id="9i1-w2-KgC"/>
                         <outlet property="scrollView" destination="fIY-13-aZR" id="AEL-Sn-gag"/>

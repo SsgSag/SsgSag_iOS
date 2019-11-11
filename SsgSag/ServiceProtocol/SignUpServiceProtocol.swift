@@ -15,6 +15,11 @@ protocol SignupService: class {
         completionHandler: @escaping (DataResponse<HttpStatusCode>, Bool) -> Void
     )
     
+    func requestValidateNickName(
+        nickName: String,
+        completionHandler: @escaping (DataResponse<HttpStatusCode>, Bool) -> Void
+    )
+    
     // 회원가입 요청
     func requestSingup(
         _ userInfo: [String: Any],

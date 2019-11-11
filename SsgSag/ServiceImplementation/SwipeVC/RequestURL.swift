@@ -26,6 +26,7 @@ enum RequestURL {
     case subscribeInterest
     case subscribeAddOrDelete(interestIdx: Int)
     case signUp
+    case validateNickname
     case isUpdate
     case career(careerType: Int)
     case notice
@@ -84,6 +85,8 @@ enum RequestURL {
             return "/user/subscribe/\(interestIdx)"
         case .signUp:
             return "/user"
+        case .validateNickname:
+            return "/user/validateNickname"
         case .tempPassword:
             return "/user/tempPassword"
         case .changePassword:

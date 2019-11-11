@@ -213,6 +213,7 @@
 		D1F61A7323601119008F690E /* ListCollectionViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1F61A7223601119008F690E /* ListCollectionViewDataSource.swift */; };
 		D1F61A7523601805008F690E /* CategoryCollectionViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1F61A7423601805008F690E /* CategoryCollectionViewDataSource.swift */; };
 		D1F9A1E1233DD4A100C67E1D /* EmptyScrapCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1F9A1E0233DD4A100C67E1D /* EmptyScrapCollectionViewCell.swift */; };
+		D1FA073F23786FED0045C303 /* MockFeedServiceImp.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1FA073E23786FED0045C303 /* MockFeedServiceImp.swift */; };
 		D1FB05A722E6C917001425CF /* SettingTextFieldCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1FB05A522E6C917001425CF /* SettingTextFieldCollectionViewCell.swift */; };
 		D1FB05A822E6C917001425CF /* SettingTextFieldCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D1FB05A622E6C917001425CF /* SettingTextFieldCollectionViewCell.xib */; };
 		D1FB05AB22E6D68D001425CF /* SettingProfileImageCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1FB05A922E6D68D001425CF /* SettingProfileImageCollectionReusableView.swift */; };
@@ -498,6 +499,7 @@
 		D1F61A7223601119008F690E /* ListCollectionViewDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListCollectionViewDataSource.swift; sourceTree = "<group>"; };
 		D1F61A7423601805008F690E /* CategoryCollectionViewDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryCollectionViewDataSource.swift; sourceTree = "<group>"; };
 		D1F9A1E0233DD4A100C67E1D /* EmptyScrapCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyScrapCollectionViewCell.swift; sourceTree = "<group>"; };
+		D1FA073E23786FED0045C303 /* MockFeedServiceImp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockFeedServiceImp.swift; sourceTree = "<group>"; };
 		D1FB05A522E6C917001425CF /* SettingTextFieldCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingTextFieldCollectionViewCell.swift; sourceTree = "<group>"; };
 		D1FB05A622E6C917001425CF /* SettingTextFieldCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SettingTextFieldCollectionViewCell.xib; sourceTree = "<group>"; };
 		D1FB05A922E6D68D001425CF /* SettingProfileImageCollectionReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingProfileImageCollectionReusableView.swift; sourceTree = "<group>"; };
@@ -1022,6 +1024,7 @@
 				D1E0B02A22ED974C003F84D6 /* NoticeServiceProtocol.swift */,
 				D10B6E1922F41C10007B9BEA /* FeedServiceProtocol.swift */,
 				D1C9151622FD839300189FD2 /* CommentServiceProtocol.swift */,
+				D1FA073E23786FED0045C303 /* MockFeedServiceImp.swift */,
 			);
 			path = ServiceProtocol;
 			sourceTree = "<group>";
@@ -1578,6 +1581,7 @@
 				FA7F4CB821DFB0C100D8643A /* CareerVC.swift in Sources */,
 				84FB4FE1226B7CAA00D9F2F9 /* RequestURL.swift in Sources */,
 				845928A321D09CDD001DF6CC /* SsgSag.xcdatamodeld in Sources */,
+				D1FA073F23786FED0045C303 /* MockFeedServiceImp.swift in Sources */,
 				84A45D13225FA0E400C60287 /* NetworkRouter.swift in Sources */,
 				D1CD5DE322E5BC610033FCB3 /* Notice.swift in Sources */,
 				FA851DE921D3DBBC002065D0 /* SwipeCard.swift in Sources */,

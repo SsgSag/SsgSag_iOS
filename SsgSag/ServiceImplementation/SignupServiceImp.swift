@@ -57,6 +57,49 @@ class SignupServiceImp: SignupService {
         }
     }
     
+    func requestValidateNickName(nickName: String,
+                                 completionHandler: @escaping (DataResponse<HttpStatusCode>, Bool) -> Void) {
+        var urlComponent = URLComponents(string: UserAPI.sharedInstance.getBaseString())
+        urlComponent?.path = RequestURL.validateNickname.getRequestURL
+        urlComponent?.queryItems = [URLQueryItem(name: "userNickname",
+                                                 value: nickName)]
+        
+        guard let url
+            = urlComponent?.url,
+            let requset
+            = requestMaker.makeRequest(url: url,
+                                       method: .get,
+                                       header: nil,
+                                       body: nil) else {
+            return
+        }
+        
+        network.dispatch(request: requset) { result in
+            switch result {
+            case .success(let data):
+                do {
+                    let decodedData
+                        = try JSONDecoder().decode(EmailValidate.self,
+                                                   from: data)
+                    
+                    guard let httpStatusCode = decodedData.status,
+                        let status = HttpStatusCode(rawValue: httpStatusCode),
+                        let isValidate = decodedData.data else {
+                            return
+                    }
+                    
+                    completionHandler(.success(status), isValidate)
+                } catch let error {
+                    completionHandler(.failed(error), false)
+                    return
+                }
+            case .failure(let error):
+                completionHandler(.failed(error), false)
+                return
+            }
+        }
+    }
+    
     func requestSingup(_ userInfo: [String: Any],
                        completionHandler: @escaping (DataResponse<Signup>) -> Void) {
         

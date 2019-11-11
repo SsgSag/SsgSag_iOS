@@ -16,6 +16,7 @@ class FeedPageCollectionViewCell: UICollectionViewCell {
     
     private let imageCache = NSCache<NSString, UIImage>()
     
+    private var isUpdating = false
     private var feedTasks: [URLSessionDataTask?] = []
     private var currentPage: Int = 0
     
@@ -57,13 +58,22 @@ class FeedPageCollectionViewCell: UICollectionViewCell {
     }
     
     func requestFeed() {
+        guard !isUpdating else {
+            return
+        }
+        
+        isUpdating = true
+        
         feedServiceImp.requestFeedData(page: currentPage) { [weak self] result in
             switch result {
             case .success(let feedDatas):
+                self?.isUpdating = false
+                
                 if feedDatas.count == 0 {
-                    self?.currentPage -= 0
                     return
                 }
+                
+                self?.currentPage += 1
                 
                 for feedData in feedDatas {
                     guard let urlString = feedData.feedUrl,
@@ -103,8 +113,8 @@ class FeedPageCollectionViewCell: UICollectionViewCell {
                         }
                     }
                 }
-            case .failed(let error):
-                print(error)
+            case .failed:
+                self?.isUpdating = false
                 return
             }
         }
@@ -212,7 +222,8 @@ class FeedPageCollectionViewCell: UICollectionViewCell {
                                     forCellWithReuseIdentifier: "newsCell")
     }
     
-    @objc private func refresh(){
+    @objc private func refresh() {
+        currentPage = 0
         requestFeed()
     }
     
@@ -222,7 +233,6 @@ class FeedPageCollectionViewCell: UICollectionViewCell {
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         if scrollView.contentOffset.y + scrollView.frame.height >= scrollView.contentSize.height {
-            currentPage += 1
             requestFeed()
         }
     }

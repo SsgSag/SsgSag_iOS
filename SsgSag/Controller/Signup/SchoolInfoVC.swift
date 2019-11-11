@@ -14,14 +14,9 @@ import AdBrixRM
 
 class SchoolInfoVC: UIViewController {
     
-    var name: String = ""
+    var isSnsLogin: Bool = false
     
-    var birth: String = ""
-    
-    var nickName: String = ""
-    
-    var gender: String = ""
-
+    private var gender: String = ""
     private var sendToken: String = ""
     private var sendType: Int = 0
     
@@ -51,9 +46,6 @@ class SchoolInfoVC: UIViewController {
     lazy var gradePickerView = UIPickerView()
     var gradePickOption: [String] = []
     
-    lazy var admissionPickerView = UIPickerView()
-    var admissionPickOption: [String] = []
-    
     @IBOutlet weak var titleLabel: UILabel!
     
     @IBOutlet weak var schoolField: SearchTextField!
@@ -62,7 +54,11 @@ class SchoolInfoVC: UIViewController {
     
     @IBOutlet weak var gradeField: UITextField!
     
+    @IBOutlet weak var nickNameTextField: UITextField!
+    @IBOutlet weak var birthTextField: UITextField!
+    
     @IBOutlet weak var nextButton: GradientButton!
+    @IBOutlet weak var policyCheckBoxButton: UIButton!
     
     @IBOutlet weak var textFieldsStackView: UIStackView!
     
@@ -73,6 +69,9 @@ class SchoolInfoVC: UIViewController {
     
     @IBOutlet weak var servicePolicyButton: UIButton!
     @IBOutlet weak var privacyPolicyButton: UIButton!
+    
+    @IBOutlet weak var nicknameValidateLabel: UILabel!
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
@@ -125,14 +124,15 @@ class SchoolInfoVC: UIViewController {
         schoolField.delegate = self
         majorField.delegate = self
         gradeField.delegate = self
+        nickNameTextField.delegate = self
+        birthTextField.delegate = self
         tapGesture.delegate = self
         gradePickerView.delegate = self
         gradePickerView.dataSource = self
-        admissionPickerView.delegate = self
-        admissionPickerView.dataSource = self
     }
     
     private func setupLayout() {
+        maleButton.isSelected = true
         
         let flexible
             = UIBarButtonItem(barButtonSystemItem: .flexibleSpace,
@@ -171,21 +171,58 @@ class SchoolInfoVC: UIViewController {
         view.endEditing(true)
     }
     
-    private func checkInformation(_ sender: Any) {
-        if schoolField.hasText
-            && majorField.hasText
-            && gradeField.hasText {
-            nextButton.isUserInteractionEnabled = true
-            
-            nextButton.topColor = #colorLiteral(red: 0.2078431373, green: 0.9176470588, blue: 0.8901960784, alpha: 1)
-            nextButton.bottomColor = #colorLiteral(red: 0.6588235294, green: 0.2784313725, blue: 1, alpha: 1)
-            
-        } else {
+    private func checkInformation() {
+        guard !nicknameValidateLabel.isHidden else {
             nextButton.isUserInteractionEnabled = false
             
             nextButton.topColor = .lightGray
             nextButton.bottomColor = .lightGray
+            return
         }
+        
+        guard schoolField.hasText
+            && majorField.hasText
+            && gradeField.hasText
+            && nickNameTextField.hasText
+            && birthTextField.hasText else {
+                nextButton.isUserInteractionEnabled = false
+                
+                nextButton.topColor = .lightGray
+                nextButton.bottomColor = .lightGray
+                return
+        }
+        
+        guard maleButton.isSelected
+            || femaleButton.isSelected else {
+            nextButton.isUserInteractionEnabled = false
+
+            nextButton.topColor = .lightGray
+            nextButton.bottomColor = .lightGray
+
+            return
+        }
+        
+        guard policyCheckBoxButton.isSelected else {
+            nextButton.isUserInteractionEnabled = false
+
+            nextButton.topColor = .lightGray
+            nextButton.bottomColor = .lightGray
+
+            return
+        }
+        
+        nextButton.isUserInteractionEnabled = true
+        
+        nextButton.topColor = #colorLiteral(red: 0.2078431373, green: 0.9176470588, blue: 0.8901960784, alpha: 1)
+        nextButton.bottomColor = #colorLiteral(red: 0.6588235294, green: 0.2784313725, blue: 1, alpha: 1)
+    }
+    
+    private func validateNickname(_ nickname: String) -> Bool {
+        let regEx = "^[a-zA-Z가-힣0-9]{2,10}$"
+        
+        let pred = NSPredicate(format: "SELF MATCHES %@", regEx)
+        
+        return pred.evaluate(with: nickname)
     }
     
     private func configureSimpleSearchTextField() {
@@ -262,24 +299,23 @@ class SchoolInfoVC: UIViewController {
             return
         }
         
-        var major = majorField.text ?? ""
-        var univ = schoolField.text ?? ""
+        let major = majorField.text ?? ""
+        let univ = schoolField.text ?? ""
+        let studentNum: [Character] = (gradeField.text ?? "").map { return $0 }
         
         //자체 로그인 아닐 시에는
         if sendType != 10 {
             sendData = [
-                "userName": name,
-                "userNickname": nickName,
+                "userNickname": nickNameTextField.text ?? "",
                 "signupType": sendType, //0은 카카오톡, 1은 네이버
                 "accessToken": sendToken,
                 "userUniv": univ,
                 "userMajor": major,
-                "userStudentNum": "",
+                "userStudentNum": String(studentNum[0..<2]),
                 "userGender": gender,
-                "userBirth": birth,
+                "userBirth": birthTextField.text ?? "",
                 "userPushAllow": 1,
                 "userInfoAllow": 1,
-                "userGrade": Int(gradeField.text ?? "") ?? 999,
                 "osType": 1,
                 "uuid" : UUID
             ]
@@ -289,23 +325,21 @@ class SchoolInfoVC: UIViewController {
             sendData = [
                 "userEmail": "\(UserInfoVC.emailTextField.text!)", //유저 아이디 //추가
                 "userId": "\(UserInfoVC.passwordTextField.text!)", //유저 비밀번호 //추가
-                "userName": name,
-                "userNickname": nickName,
+                "userNickname": nickNameTextField.text ?? "",
                 "signupType": sendType, //0은 카카오톡, 1은 네이버
                 "userUniv": univ,
                 "userMajor": major,
-                "userStudentNum": "2019",
+                "userStudentNum": String(studentNum[0..<2]),
                 "userGender": gender,
-                "userBirth": birth,
+                "userBirth": birthTextField.text ?? "",
                 "userPushAllow": 1,
                 "userInfoAllow": 1,
-                "userGrade": Int(gradeField.text ?? "") ?? 1,
                 "osType": 1,
                 "uuid" : UUID
             ]
         }
             
-        signupService.requestSingup(sendData) { [weak self] (responseData) in
+        signupService.requestSingup(sendData) { [weak self] responseData in
             guard let response = responseData.value,
                 let status = response.status,
                 let httpStatus = SingupHttpStatusCode(rawValue: status) else {
@@ -335,9 +369,10 @@ class SchoolInfoVC: UIViewController {
                     //기타 유저 정보
                     var attrModel = Dictionary<String, Any>()
                     attrModel["gender"] = self?.gender
-                    attrModel["birth"] = self?.birth
+                    attrModel["birth"] = self?.birthTextField.text ?? ""
                     attrModel["major"] = major
                     attrModel["univ"] = univ
+                    
                     adBrix.setUserProperties(dictionary: attrModel)
                     
                     // 회원가입 이벤트 추가
@@ -389,7 +424,11 @@ class SchoolInfoVC: UIViewController {
     }
     
     @objc func touchUpBackButton() {
-        navigationController?.popViewController(animated: true)
+        if isSnsLogin {
+            dismiss(animated: true)
+        } else {
+            navigationController?.popViewController(animated: true)
+        }
     }
     
     @IBAction func editingDidBeginMajorField(_ sender: Any) {
@@ -408,7 +447,8 @@ class SchoolInfoVC: UIViewController {
             sender.isSelected = true
             sender.setImage(UIImage(named: "btCheckActive"), for: .normal)
         }
-//        checkInformation()
+        
+        checkInformation()
     }
     
     @IBAction func touchUpGradeDropDownButton(_ sender: UIButton) {
@@ -448,7 +488,7 @@ class SchoolInfoVC: UIViewController {
                                              alpha: 1.0),
                                      for: .normal)
         }
-//        checkInformation()
+        checkInformation()
     }
     
     @IBAction func touchUpFemaleButton(_ sender: UIButton) {
@@ -485,7 +525,7 @@ class SchoolInfoVC: UIViewController {
                                      for: .normal)
         }
         
-//        checkInformation()
+        checkInformation()
     }
     
     @IBAction func touchUpServicePolicyButton(_ sender: UIButton) {
@@ -543,7 +583,52 @@ extension SchoolInfoVC: UITextFieldDelegate {
     func textFieldDidEndEditing(_ textField: UITextField) {
         scrollView.setContentOffset(CGPoint(x: 0, y: 0), animated: true)
         
-        checkInformation(self)
+        checkInformation()
+        
+        if textField.tag == 1 {
+            guard let nickname = textField.text else {
+                return
+            }
+            
+            guard validateNickname(nickname) else {
+                nicknameValidateLabel.isHidden = false
+                nicknameValidateLabel.text = "닉네임은 영어, 한글, 숫자 혼용 2글자 이상으로 입력해주세요"
+                return
+            }
+            
+            signupService.requestValidateNickName(nickName: nickname) { [weak self] dataResponse, isValidate in
+                switch dataResponse {
+                case .success(let status):
+                    switch status {
+                    case .sucess:
+                        if isValidate {
+                            DispatchQueue.main.async {
+                                self?.nicknameValidateLabel.isHidden = true
+                            }
+                        } else {
+                            DispatchQueue.main.async {
+                                self?.nicknameValidateLabel.isHidden = false
+                                self?.nicknameValidateLabel.text = "이미 사용중인 닉네임입니다."
+                            }
+                        }
+                    case .serverError:
+                        DispatchQueue.main.async {
+                            self?.simplerAlert(title: "서버 내부 에러")
+                        }
+                    case .dataBaseError:
+                        DispatchQueue.main.async {
+                            self?.simplerAlert(title: "데이터베이스 에러")
+                        }
+                    default:
+                        return
+                    }
+                case .failed(let error):
+                    assertionFailure(error.localizedDescription)
+                    return
+                }
+            }
+        }
+        
     }
 }
 
