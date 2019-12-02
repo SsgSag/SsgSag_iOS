@@ -465,16 +465,18 @@ extension AccountSettingViewController: ShowImagePickerDelegate {
         case .notDetermined:
             print("접근 아직 응답하지 않음")
             PHPhotoLibrary.requestAuthorization { [weak self] status in
-                switch status {
-                case .authorized:
-                    print("사용자가 허용")
-                    self!.profileImagePicker.modalPresentationStyle = .fullScreen
-                    self?.present(self!.profileImagePicker,
-                                 animated: true)
-                case .denied:
-                    print("사용자가 불허")
-                default:
-                    break
+                DispatchQueue.main.async {
+                    switch status {
+                    case .authorized:
+                        print("사용자가 허용")
+                        self!.profileImagePicker.modalPresentationStyle = .fullScreen
+                        self?.present(self!.profileImagePicker,
+                                     animated: true)
+                    case .denied:
+                        print("사용자가 불허")
+                    default:
+                        break
+                    }
                 }
             }
         }
