@@ -27,8 +27,7 @@ class SwipeVC: UIViewController {
     
     private var countTotalCardIndex = 0
     
-    private var posterServiceImp: PosterService
-        = DependencyContainer.shared.getDependency(key: .posterService)
+    private var posterServiceImp: PosterService?
     
     private var lastDeletedSwipeCard: SwipeCard?
     
@@ -111,6 +110,11 @@ class SwipeVC: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        posterServiceImp
+            = SplashVC.isLatest
+            ? DependencyContainer.shared.getDependency(key: .posterService)
+            : DependencyContainer.shared.getDependency(key: .posterMockService)
+        
         requestPoster(isFirst: true)
         
         setCountLabelText()
@@ -184,7 +188,7 @@ class SwipeVC: UIViewController {
     //FIXME: - CategoryIdx가 3이거나 5일때 예외를 만든다.
     private func requestPoster(isFirst: Bool) {
 
-        posterServiceImp.requestSwipePosters { [weak self] response in
+        posterServiceImp?.requestSwipePosters { [weak self] response in
             switch response {
             case .success(let posterdata):
                 guard let posters = posterdata.posters,
@@ -636,7 +640,7 @@ extension SwipeVC : SwipeCardDelegate {
         guard let disLikedCategory = likedOrDisLiked(rawValue: 0),
             let posterIdx = posters[currentIndex-1].posterIdx else { return }
         
-        posterServiceImp.requestPosterStore(of: posterIdx,
+        posterServiceImp?.requestPosterStore(of: posterIdx,
                                             type: disLikedCategory) { [weak self] result in
             switch result {
             case .success(let status):
@@ -680,7 +684,7 @@ extension SwipeVC : SwipeCardDelegate {
         guard let likedCategory = likedOrDisLiked(rawValue: 1),
             let posterIdx = posters[currentIndex-1].posterIdx else { return }
         
-        posterServiceImp.requestPosterStore(of: posterIdx,
+        posterServiceImp?.requestPosterStore(of: posterIdx,
                                             type: likedCategory) { [weak self] result in
             switch result {
             case .success(let status):
@@ -716,7 +720,7 @@ extension SwipeVC : SwipeCardDelegate {
         guard let likedCategory = likedOrDisLiked(rawValue: 1),
             let posterIdx = posters[currentIndex-1].posterIdx else { return }
         
-        posterServiceImp.requestPosterStore(of: posterIdx,
+        posterServiceImp?.requestPosterStore(of: posterIdx,
                                             type: likedCategory) { [weak self] result in
             switch result {
             case .success(let status):

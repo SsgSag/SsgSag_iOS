@@ -14,7 +14,7 @@
 		840FEDC52207569D00581A3B /* CalendarView + extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 840FEDC42207569D00581A3B /* CalendarView + extension.swift */; };
 		84264BA621DF0FF300849E6B /* Calendar.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 84264BA521DF0FF300849E6B /* Calendar.storyboard */; };
 		842C618521DCDC92001BA6D8 /* SignupCompleteVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842C618421DCDC92001BA6D8 /* SignupCompleteVC.swift */; };
-		842C619D21DD1807001BA6D8 /* posterData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842C619A21DD1807001BA6D8 /* posterData.swift */; };
+		842C619D21DD1807001BA6D8 /* PosterData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842C619A21DD1807001BA6D8 /* PosterData.swift */; };
 		842C619E21DD1807001BA6D8 /* networkData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842C619B21DD1807001BA6D8 /* networkData.swift */; };
 		842C619F21DD1807001BA6D8 /* Posters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842C619C21DD1807001BA6D8 /* Posters.swift */; };
 		843813112270153900C9E47B /* MypageServiceImp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 843813102270153900C9E47B /* MypageServiceImp.swift */; };
@@ -158,6 +158,7 @@
 		D188C90C2368347E00AB88F0 /* SeeMoreCollectionReusableView.xib in Resources */ = {isa = PBXBuildFile; fileRef = D188C90A2368347E00AB88F0 /* SeeMoreCollectionReusableView.xib */; };
 		D188C90D2368347E00AB88F0 /* SeeMoreCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D188C90B2368347E00AB88F0 /* SeeMoreCollectionReusableView.swift */; };
 		D188C90F236834DB00AB88F0 /* CateogoryCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D188C90E236834DB00AB88F0 /* CateogoryCollectionViewCell.swift */; };
+		D19C5D4E23955AA8006DEF5C /* MockServiceImp.swift in Sources */ = {isa = PBXBuildFile; fileRef = D19C5D4D23955AA8006DEF5C /* MockServiceImp.swift */; };
 		D1A4EEA42344422B003FAC88 /* NoTodoHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1A4EEA32344422B003FAC88 /* NoTodoHeaderView.swift */; };
 		D1A4EEA72344FC7E003FAC88 /* NoPosterCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1A4EEA52344FC7E003FAC88 /* NoPosterCollectionViewCell.swift */; };
 		D1A4EEA82344FC7E003FAC88 /* NoPosterCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D1A4EEA62344FC7E003FAC88 /* NoPosterCollectionViewCell.xib */; };
@@ -291,7 +292,7 @@
 		840FEDC42207569D00581A3B /* CalendarView + extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "CalendarView + extension.swift"; path = "../Controller/Calendar/CalendarView + extension.swift"; sourceTree = "<group>"; };
 		84264BA521DF0FF300849E6B /* Calendar.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Calendar.storyboard; sourceTree = "<group>"; };
 		842C618421DCDC92001BA6D8 /* SignupCompleteVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupCompleteVC.swift; sourceTree = "<group>"; };
-		842C619A21DD1807001BA6D8 /* posterData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = posterData.swift; sourceTree = "<group>"; };
+		842C619A21DD1807001BA6D8 /* PosterData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PosterData.swift; sourceTree = "<group>"; };
 		842C619B21DD1807001BA6D8 /* networkData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = networkData.swift; sourceTree = "<group>"; };
 		842C619C21DD1807001BA6D8 /* Posters.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Posters.swift; sourceTree = "<group>"; };
 		843813102270153900C9E47B /* MypageServiceImp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MypageServiceImp.swift; sourceTree = "<group>"; };
@@ -444,6 +445,7 @@
 		D188C90A2368347E00AB88F0 /* SeeMoreCollectionReusableView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SeeMoreCollectionReusableView.xib; sourceTree = "<group>"; };
 		D188C90B2368347E00AB88F0 /* SeeMoreCollectionReusableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SeeMoreCollectionReusableView.swift; sourceTree = "<group>"; };
 		D188C90E236834DB00AB88F0 /* CateogoryCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CateogoryCollectionViewCell.swift; sourceTree = "<group>"; };
+		D19C5D4D23955AA8006DEF5C /* MockServiceImp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockServiceImp.swift; sourceTree = "<group>"; };
 		D1A4EEA32344422B003FAC88 /* NoTodoHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoTodoHeaderView.swift; sourceTree = "<group>"; };
 		D1A4EEA52344FC7E003FAC88 /* NoPosterCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoPosterCollectionViewCell.swift; sourceTree = "<group>"; };
 		D1A4EEA62344FC7E003FAC88 /* NoPosterCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NoPosterCollectionViewCell.xib; sourceTree = "<group>"; };
@@ -918,6 +920,7 @@
 				D1CD5DE022E5BBDB0033FCB3 /* NoticeServiceImp.swift */,
 				D10B6E1722F41BFE007B9BEA /* FeedServiceImp.swift */,
 				D1C9151422FD838B00189FD2 /* CommentServiceImp.swift */,
+				D19C5D4D23955AA8006DEF5C /* MockServiceImp.swift */,
 			);
 			path = ServiceImplementation;
 			sourceTree = "<group>";
@@ -960,7 +963,7 @@
 		84B23B42229558B000BAE2CD /* Poster */ = {
 			isa = PBXGroup;
 			children = (
-				842C619A21DD1807001BA6D8 /* posterData.swift */,
+				842C619A21DD1807001BA6D8 /* PosterData.swift */,
 				842C619B21DD1807001BA6D8 /* networkData.swift */,
 				842C619C21DD1807001BA6D8 /* Posters.swift */,
 				D166AC5C22D46D4100ED82DD /* MonthTodoList.swift */,
@@ -1533,7 +1536,7 @@
 				84FB4FE4226B7F7D00D9F2F9 /* LoginServiceImp.swift in Sources */,
 				D10B6E1A22F41C10007B9BEA /* FeedServiceProtocol.swift in Sources */,
 				FAFB87D222145ABE002CDED9 /* NetworkManager.swift in Sources */,
-				842C619D21DD1807001BA6D8 /* posterData.swift in Sources */,
+				842C619D21DD1807001BA6D8 /* PosterData.swift in Sources */,
 				D11F9E9E22E0C622000210B0 /* PieChartView.swift in Sources */,
 				D16F30A423697FEB00C127CA /* LoginStruct.swift in Sources */,
 				D1FEA34E2334A1A600464DC4 /* AllPostersListViewController.swift in Sources */,
@@ -1700,6 +1703,7 @@
 				D10B6E2822F43AAA007B9BEA /* InquireViewController.swift in Sources */,
 				8496818322AFD3FE004A4A63 /* VAMonthView.swift in Sources */,
 				D11080A922E07FF000F345A8 /* AnalysticsCollectionViewCell.swift in Sources */,
+				D19C5D4E23955AA8006DEF5C /* MockServiceImp.swift in Sources */,
 				84A45D0D225F9C8400C60287 /* ParameterEncoding.swift in Sources */,
 				845928E321D35F09001DF6CC /* PageViewController.swift in Sources */,
 				D1C9151722FD839300189FD2 /* CommentServiceProtocol.swift in Sources */,
@@ -1888,7 +1892,7 @@
 				CODE_SIGN_ENTITLEMENTS = "SsgSag/슥삭.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 3;
+				CURRENT_PROJECT_VERSION = 4;
 				DEVELOPMENT_TEAM = 3HB3SZKJFD;
 				ENABLE_BITCODE = YES;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -1901,7 +1905,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.0.4;
+				MARKETING_VERSION = 2.0.6;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-framework",
@@ -1936,7 +1940,7 @@
 				CODE_SIGN_ENTITLEMENTS = "SsgSag/슥삭.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 3;
+				CURRENT_PROJECT_VERSION = 4;
 				DEVELOPMENT_TEAM = 3HB3SZKJFD;
 				ENABLE_BITCODE = YES;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -1949,7 +1953,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.0.4;
+				MARKETING_VERSION = 2.0.6;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-framework",

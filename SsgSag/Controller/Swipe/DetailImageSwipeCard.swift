@@ -68,7 +68,8 @@ class DetailImageSwipeCardVC: UIViewController {
     
     var poster: Posters? {
         didSet {
-            guard let poster = poster else { return }
+            guard let poster = poster,
+                let dday = poster.dday else { return }
             
             name.text = poster.posterName
             
@@ -76,14 +77,10 @@ class DetailImageSwipeCardVC: UIViewController {
             
             posterCategory = poster.categoryIdx
             
-            guard let posterEndDate = poster.posterEndDate else { return }
-            
-            let interval = DateCaculate.dayInterval(using: posterEndDate)
-            
-            if interval == 0 {
+            if dday == 0 {
                 day.text = "D-day"
             } else {
-                day.text = "D-\(interval)"
+                day.text = "D-\(dday)"
             }
             
             guard let posterURLString = poster.photoUrl else { return }
