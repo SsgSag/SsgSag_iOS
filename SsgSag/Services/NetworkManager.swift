@@ -29,7 +29,7 @@ class NetworkManager {
                 return
             }
             
-            completionHandler(data, nil, response)
+            completionHandler(data, nil, response as! URLResponse)
             
         }.resume()
         

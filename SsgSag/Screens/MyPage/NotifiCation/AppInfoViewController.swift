@@ -8,7 +8,7 @@
 
 import UIKit
 
-let latestVersion = "2.0.6"
+let latestVersion = "2.0.0"
 
 class AppInfoViewController: UIViewController {
     

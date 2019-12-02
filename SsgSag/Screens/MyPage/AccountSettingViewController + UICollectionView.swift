@@ -100,7 +100,6 @@ extension AccountSettingViewController: UICollectionViewDataSource {
                 guard let userData = userData else {
                     return cell
                 }
-                
                 guard let email = userData.userEmail else {
                     return cell
                 }
@@ -157,27 +156,6 @@ extension AccountSettingViewController: UICollectionViewDataSource {
                 
                 return cell
             case 4:
-                // 학번
-                guard let cell
-                    = collectionView.dequeueReusableCell(withReuseIdentifier: "studentNumberSettingCell",
-                                                         for: indexPath)
-                        as? StudentNumberCollectionViewCell else {
-                            return .init()
-                }
-                
-                guard let userData = userData else {
-                    return cell
-                }
-                
-                guard let studentNum = userData.userStudentNum else {
-                    return cell
-                }
-                
-                cell.studentNumberTextField.text = "\(studentNum)학번"
-                cell.studentNumberTextField.delegate = self
-                cell.studentNumberTextField.tag = indexPath.item + 1
-                return cell
-            case 5:
                 // 학년
                 guard let cell
                     = collectionView.dequeueReusableCell(withReuseIdentifier: "gradeSettingCell",
@@ -190,13 +168,34 @@ extension AccountSettingViewController: UICollectionViewDataSource {
                     return cell
                 }
                 
-                guard let studentNum = userData.userGrade else {
+                guard let grade = userData.userGrade else {
                     return cell
                 }
                 
-                cell.gradeTextField.text = "\(studentNum)학년"
+                cell.gradeTextField.text = String(grade)
                 cell.gradeTextField.delegate = self
                 cell.gradeTextField.tag = indexPath.item + 1
+                return cell
+            case 5:
+                // 입학년도
+                guard let cell
+                    = collectionView.dequeueReusableCell(withReuseIdentifier: "admissionSettingCell",
+                                                         for: indexPath)
+                        as? AdmissionCollectionViewCell else {
+                            return .init()
+                }
+                
+                guard let userData = userData else {
+                    return cell
+                }
+                
+                guard let studentNum = userData.userStudentNum else {
+                    return cell
+                }
+                
+                cell.admissionTextField.text = studentNum
+                cell.admissionTextField.delegate = self
+                cell.admissionTextField.tag = indexPath.item + 1
                 return cell
             default:
                 return .init()

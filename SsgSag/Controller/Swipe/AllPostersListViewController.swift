@@ -144,7 +144,7 @@ class AllPostersListViewController: UIViewController {
                             self?.imageCache.setObject(image, forKey: urlString as NSString)
                     }
                     
-                    self?.posterImageTasks.append(dataTask)
+                    self?.posterImageTasks.append(dataTask as! URLSessionDataTask)
                 }
                 DispatchQueue.main.async {
                     self?.listCollectionView.reloadData()

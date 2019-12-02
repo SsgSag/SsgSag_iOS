@@ -81,14 +81,15 @@ class SwipeVC: UIViewController {
         return button
     }()
     
+   
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        setNavigationBar(color: .white)
+       //
         
-        let shadowSize = CGSize(width: self.view.frame.width, height: 3)
-        navigationController?.navigationBar.addColorToShadow(color: #colorLiteral(red: 0.3843137255, green: 0.4156862745, blue: 1, alpha: 1),
-                                                             size: shadowSize)
+//        let shadowSize = CGSize(width: self.view.frame.width, height: 3)
+//        navigationController?.navigationBar.addColorToShadow(color: #colorLiteral(red: 0.3843137255, green: 0.4156862745, blue: 1, alpha: 1),
+//                                                             size: shadowSize)
         tabBarController?.tabBar.isHidden = false
         
         guard let isTryWithoutLogin = UserDefaults.standard.object(forKey: "isTryWithoutLogin") as? Bool else {
@@ -110,7 +111,6 @@ class SwipeVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         requestPoster(isFirst: true)
         
         setCountLabelText()
@@ -123,7 +123,31 @@ class SwipeVC: UIViewController {
     }
 
     private func setView() {
+        navigationController?.navigationBar.shadowImage = UIImage()
         view.backgroundColor = .white
+        let categoryButtonView = UINib(nibName: "SwipeNavigationBarCenterButtonView",
+                                       bundle: nil).instantiate(withOwner: self,
+                                                                options: nil).first as? SwipeNavigationBarCenterButtonView
+        categoryButtonView?.widthAnchor.constraint(equalToConstant: 200).isActive = true
+        categoryButtonView?.heightAnchor.constraint(equalToConstant: 44).isActive = true
+        let filterImage = UIImage(named: "filter")
+      
+        let filterBarButton =  UIBarButtonItem(image: filterImage,
+                                   style: .done, target: self,
+                                   action: #selector(touchUpFilterButton))
+        filterBarButton.tintColor = .unselectedGray
+        
+        let settingButton = settingBoardButton
+        categoryButtonView?.recommendViewButtonHandler = { [weak self] in
+            self?.navigationItem.rightBarButtonItem = filterBarButton
+        }
+        
+        categoryButtonView?.totalViewButtonnHandler = { [weak self] in
+            self?.navigationItem.rightBarButtonItem = settingButton
+        }
+        
+        categoryButtonView?.userpressed(type: .total)
+        navigationItem.titleView = categoryButtonView
     }
     
     private func setEmptyPosterAnimation() {
@@ -456,6 +480,21 @@ class SwipeVC: UIViewController {
         navigationController?.pushViewController(detailInfoViewController,
                                                  animated: true)
     }
+    
+    @objc func touchUpFilterButton() {
+           let myBoard = UIStoryboard(name: "MyPageStoryBoard",
+                                                             bundle: nil)
+            guard let myVC
+                      = myBoard.instantiateViewController(withIdentifier: "MyFilterSettingViewController") as? MyFilterSettingViewController else {
+                          return
+                  }
+               
+                  myVC.reactor = MyFilterSettingViewReactor(jobKind: ["개발자", "디자이너", "기획자", "마케터", "모르겠어요"], interestedField: ["서포터즈", "봉사활동", "기획/아이디어","광고/마케팅", "디자인","영상/콘텐츠", "IT/공학", "창업/스타트업", "금융/경제"], maxGrade: 5)
+               
+           
+           navigationController?.pushViewController(myVC, animated: true)
+        
+       }
     
     @IBAction func touchUpMyPageButton(_ sender: UIBarButtonItem) {
         if let isTryWithoutLogin = UserDefaults.standard.object(forKey: "isTryWithoutLogin") as? Bool {

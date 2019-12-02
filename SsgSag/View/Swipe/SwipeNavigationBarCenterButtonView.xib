@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15509"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="Mpq-Ik-4Pc" customClass="SwipeNavigationBarCenterButtonView" customModule="슥삭" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="431" height="118"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Af3-kz-CCY">
+                    <rect key="frame" x="215" y="50.5" width="1" height="17"/>
+                    <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="1" id="9Gg-0L-JFg"/>
+                        <constraint firstAttribute="height" constant="17" id="PWh-Os-lwc"/>
+                    </constraints>
+                </view>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eas-yM-ReC">
+                    <rect key="frame" x="216" y="42.5" width="70" height="33"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="70" id="kjW-Ri-jh9"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" name="AppleSDGothicNeo-SemiBold" family="Apple SD Gothic Neo" pointSize="17"/>
+                    <state key="normal" title="추천">
+                        <color key="titleColor" red="0.66666666666666663" green="0.66666666666666663" blue="0.66666666666666663" alpha="0.84705882352941175" colorSpace="calibratedRGB"/>
+                    </state>
+                    <connections>
+                        <action selector="recommendButtonDidTap:" destination="Mpq-Ik-4Pc" eventType="touchUpInside" id="8x6-1P-wWV"/>
+                    </connections>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OgW-xE-Jmp">
+                    <rect key="frame" x="145" y="42.5" width="70" height="33"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="70" id="iJ9-j7-9wy"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" name="AppleSDGothicNeo-SemiBold" family="Apple SD Gothic Neo" pointSize="17"/>
+                    <state key="normal" title="전체">
+                        <color key="titleColor" red="0.66666666669999997" green="0.66666666669999997" blue="0.66666666669999997" alpha="0.84705882349999995" colorSpace="calibratedRGB"/>
+                    </state>
+                    <connections>
+                        <action selector="totalButtonDidTap:" destination="Mpq-Ik-4Pc" eventType="touchUpInside" id="Vru-0S-cIi"/>
+                    </connections>
+                </button>
+            </subviews>
+            <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+            <constraints>
+                <constraint firstItem="Af3-kz-CCY" firstAttribute="centerY" secondItem="Mpq-Ik-4Pc" secondAttribute="centerY" id="3uz-Y8-ZnD"/>
+                <constraint firstItem="Af3-kz-CCY" firstAttribute="leading" secondItem="OgW-xE-Jmp" secondAttribute="trailing" id="BoI-mf-aeD"/>
+                <constraint firstItem="Af3-kz-CCY" firstAttribute="centerX" secondItem="Mpq-Ik-4Pc" secondAttribute="centerX" id="Yge-Z6-bJI"/>
+                <constraint firstItem="eas-yM-ReC" firstAttribute="leading" secondItem="Af3-kz-CCY" secondAttribute="trailing" id="cdT-lW-Jme"/>
+                <constraint firstItem="eas-yM-ReC" firstAttribute="centerY" secondItem="Mpq-Ik-4Pc" secondAttribute="centerY" id="gg8-RJ-nt0"/>
+                <constraint firstItem="OgW-xE-Jmp" firstAttribute="centerY" secondItem="Mpq-Ik-4Pc" secondAttribute="centerY" id="mBK-ai-Ms1"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <viewLayoutGuide key="safeArea" id="nwT-Ch-pYW"/>
+            <connections>
+                <outlet property="recommendViewButton" destination="eas-yM-ReC" id="KPQ-t7-b9F"/>
+                <outlet property="totalViewButton" destination="OgW-xE-Jmp" id="UOd-4B-XZH"/>
+            </connections>
+            <point key="canvasLocation" x="-139.85507246376812" y="-632.8125"/>
+        </view>
+    </objects>
+</document>

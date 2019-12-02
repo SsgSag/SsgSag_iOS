@@ -80,7 +80,7 @@ class ScrapViewController: UIViewController {
                         self?.imageCache.setObject(image, forKey: urlString as NSString)
                     }
                     
-                    self?.feedTasks.append(dataTask)
+                    self?.feedTasks.append(dataTask as! URLSessionTask)
                 }
                 
                 DispatchQueue.main.async {

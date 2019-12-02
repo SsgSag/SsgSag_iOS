@@ -180,7 +180,7 @@ class CalendarListViewController: UIViewController {
                             self?.imageCache.setObject(image, forKey: urlString as NSString)
                     }
                     dataTask.resume()
-                    self?.posterImageTasks.append(dataTask)
+                    self?.posterImageTasks.append(dataTask as! URLSessionDataTask)
                 }
                 
                 DispatchQueue.main.async {

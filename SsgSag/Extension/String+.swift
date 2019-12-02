@@ -6,7 +6,7 @@
 //  Copyright © 2019 wndzlf. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 extension String {
     var Date: Date {
@@ -17,4 +17,15 @@ extension String {
         
         return date
     }
+    
+    func estimatedFrame(font: UIFont) -> CGRect {
+        let label = UILabel(frame: .zero)
+        label.numberOfLines = 1
+        label.text = self
+        label.font = font
+        label.sizeToFit()
+        return label.bounds
+    }
 }
+
+

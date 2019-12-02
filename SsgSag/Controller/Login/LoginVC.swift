@@ -136,8 +136,9 @@ class LoginVC: UIViewController, UITextFieldDelegate {
                     // 로그인이 성공했을 때, 유저아이디를 전달
                     adBrix.login(userId: token)
                     
-                    let tabBar = TapbarVC(nibName: nil, bundle: nil)
+                   
                     DispatchQueue.main.async {
+                         let tabBar = TapbarVC(nibName: nil, bundle: nil)
                         tabBar.modalPresentationStyle = .fullScreen
                         self?.present(tabBar, animated: true, completion: nil)
                     }

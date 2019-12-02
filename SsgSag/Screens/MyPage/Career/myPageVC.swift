@@ -67,6 +67,7 @@ class myPageVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
         accountSettingVC.univ = userInfo?.userUniv
         accountSettingVC.major = userInfo?.userMajor
         accountSettingVC.studentNumber = userInfo?.userStudentNum
+        accountSettingVC.grade = userInfo?.userGrade
         accountSettingVC.selectedImage = profileImageView.image
         accountSettingVC.delegate = self
         

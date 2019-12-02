@@ -188,7 +188,7 @@ class MyPageServiceImp: MyPageService {
     }
     
     func requestUpdateUserInfo(bodyData: [String: Any],
-                               completionHandler: @escaping (DataResponse<UserNetworkModel>) -> Void) {
+                               completionHandler: @escaping (DataResponse<HttpStatusCode>) -> Void) {
         let json = try? JSONSerialization.data(withJSONObject: bodyData)
         
         guard let token
@@ -212,7 +212,12 @@ class MyPageServiceImp: MyPageService {
                         = try JSONDecoder().decode(UserNetworkModel.self,
                                                    from: data)
                     
-                    completionHandler(.success(decodedData))
+                    guard let status = decodedData.status,
+                        let httpStatusCode = HttpStatusCode(rawValue: status) else {
+                            return
+                    }
+                    
+                    completionHandler(.success(httpStatusCode))
                 } catch let error {
                     completionHandler(.failed(error))
                     return

@@ -7,6 +7,8 @@
 //
 
 import Foundation
+import RxSwift
+import RxCocoa
 
 class NetworkImp: Network {
     let session = URLSession.shared
@@ -30,3 +32,42 @@ class NetworkImp: Network {
         }.resume()
     }
 }
+
+class RxNetworkImp: RxNetwork {
+    let session: URLSessionProtocol
+    init(session: URLSessionProtocol) {
+        self.session = session
+    }
+    
+    func dispatch(request: URLRequest) -> Observable<Data> {
+        return Observable.create { [weak self] (observer) -> Disposable in
+            guard let self = self else {
+                observer.onError(NSError(domain: "failed to track lifecycle",
+                                         code: -1,
+                                         userInfo: nil))
+                return Disposables.create()
+            }
+                
+            let task = self.session.dataTask(with: request) { (data, response, error) in
+                if error != nil {
+                    observer.onError(RxCocoaURLError.unknown)
+                    return
+                }
+                guard response?.isSuccess ?? false else {
+                    observer.onError(RxCocoaURLError.unknown)
+                    return
+                 }
+                guard let data = data else {
+                    observer.onError(RxCocoaURLError.unknown)
+                    return
+                }
+                observer.onNext(data)
+                observer.onCompleted()
+            }
+            task.resume()
+                
+            return Disposables.create()
+        }
+    }
+}
+    

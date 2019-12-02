@@ -36,7 +36,7 @@ protocol MyPageService: class {
     // 마이페이지 정보 업데이트
     func requestUpdateUserInfo(
         bodyData: [String: Any],
-        completionHandler: @escaping (DataResponse<UserNetworkModel>) -> Void
+        completionHandler: @escaping (DataResponse<HttpStatusCode>) -> Void
     )
     
     // 프로필 이미지 업데이트

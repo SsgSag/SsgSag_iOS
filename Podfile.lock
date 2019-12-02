@@ -1,6 +1,7 @@
 PODS:
   - AdBrixRemastered (1.6.3000)
   - Alamofire (4.9.1)
+  - Differentiator (4.0.1)
   - FacebookSDK (5.10.1):
     - FacebookSDK/CoreKit (= 5.10.1)
     - FacebookSDK/MarketingKit (= 5.10.1)
@@ -104,6 +105,18 @@ PODS:
   - nanopb/encode (0.3.9011)
   - naveridlogin-sdk-ios (4.1.0)
   - Protobuf (3.10.0)
+  - ReactorKit (2.0.1):
+    - RxSwift (~> 5.0)
+  - RxCocoa (5.0.1):
+    - RxRelay (~> 5)
+    - RxSwift (~> 5)
+  - RxDataSources (4.0.1):
+    - Differentiator (~> 4.0)
+    - RxCocoa (~> 5.0)
+    - RxSwift (~> 5.0)
+  - RxRelay (5.0.1):
+    - RxSwift (~> 5)
+  - RxSwift (5.0.1)
   - SearchTextField (1.2.4)
   - SwiftKeychainWrapper (3.4.0)
 
@@ -117,6 +130,10 @@ DEPENDENCIES:
   - Firebase/Messaging
   - lottie-ios
   - naveridlogin-sdk-ios
+  - ReactorKit
+  - RxCocoa
+  - RxDataSources
+  - RxSwift
   - SearchTextField
   - SwiftKeychainWrapper
 
@@ -124,6 +141,7 @@ SPEC REPOS:
   https://github.com/cocoapods/specs.git:
     - AdBrixRemastered
     - Alamofire
+    - Differentiator
     - FacebookSDK
     - FBSDKCoreKit
     - FBSDKMarketingKit
@@ -144,12 +162,18 @@ SPEC REPOS:
     - nanopb
     - naveridlogin-sdk-ios
     - Protobuf
+    - ReactorKit
+    - RxCocoa
+    - RxDataSources
+    - RxRelay
+    - RxSwift
     - SearchTextField
     - SwiftKeychainWrapper
 
 SPEC CHECKSUMS:
   AdBrixRemastered: 23a022501a434609086ad42f1dad930c2f3d96e8
   Alamofire: 85e8a02c69d6020a0d734f6054870d7ecb75cf18
+  Differentiator: 886080237d9f87f322641dedbc5be257061b0602
   FacebookSDK: 6037b5e4cbde73d40e7c835510ae307118917751
   FBSDKCoreKit: aa8887f21898ac5bcf07bef4fb253aa41c91be04
   FBSDKMarketingKit: 7bf10d0f716713615c3434a57e94dd7d14436cd8
@@ -170,9 +194,14 @@ SPEC CHECKSUMS:
   nanopb: 18003b5e52dab79db540fe93fe9579f399bd1ccd
   naveridlogin-sdk-ios: eaef9c106bd04f1ec592a9f8418ccb03275ddb02
   Protobuf: a4dc852ad69c027ca2166ed287b856697814375b
+  ReactorKit: a63c5e11e0fd32d59d672e54178b0ed2876b764b
+  RxCocoa: e741b9749968e8a143e2b787f1dfbff2b63d0a5c
+  RxDataSources: efee07fa4de48477eca0a4611e6d11e2da9c1114
+  RxRelay: 89d54507f4fd4d969e6ec1d4bd7f3673640b4640
+  RxSwift: e2dc62b366a3adf6a0be44ba9f405efd4c94e0c4
   SearchTextField: 40dc3cc57def5a211f263cac263622c163bbc25a
   SwiftKeychainWrapper: 6fc49fbf7d4a6b0772917acb0e53a1639f6078d6
 
-PODFILE CHECKSUM: a6f6a75fd48ba3557f130e33c2a2c149674d6f14
+PODFILE CHECKSUM: cd26dc78ff7fcabfc794232eede248ab08a13f75
 
-COCOAPODS: 1.6.2
+COCOAPODS: 1.5.3

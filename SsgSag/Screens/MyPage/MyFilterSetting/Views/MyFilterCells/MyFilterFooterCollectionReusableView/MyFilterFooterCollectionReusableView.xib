@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15509"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionReusableView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="MyFilterFooterCollectionReusableView" id="cqe-V4-LB8" customClass="MyFilterFooterCollectionReusableView" customModule="슥삭" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="48"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <subviews>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VzB-Tb-OCl">
+                    <rect key="frame" x="86.5" y="0.0" width="241" height="48"/>
+                    <color key="backgroundColor" red="0.38431372549999998" green="0.41591680050000002" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                    <fontDescription key="fontDescription" name="AppleSDGothicNeo-Regular" family="Apple SD Gothic Neo" pointSize="15"/>
+                    <state key="normal" title="맞춤정보 받아보기"/>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadiusV">
+                            <real key="value" value="24"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
+                </button>
+            </subviews>
+            <constraints>
+                <constraint firstItem="VzB-Tb-OCl" firstAttribute="top" secondItem="cqe-V4-LB8" secondAttribute="top" id="5Cd-Hw-ZVa"/>
+                <constraint firstItem="O4N-Mf-s7V" firstAttribute="bottom" secondItem="VzB-Tb-OCl" secondAttribute="bottom" id="W20-ry-ksx"/>
+                <constraint firstItem="VzB-Tb-OCl" firstAttribute="centerX" secondItem="cqe-V4-LB8" secondAttribute="centerX" id="fba-Dr-SZf"/>
+                <constraint firstItem="O4N-Mf-s7V" firstAttribute="trailing" secondItem="VzB-Tb-OCl" secondAttribute="trailing" constant="86.5" id="oxh-bG-Yb4"/>
+                <constraint firstItem="VzB-Tb-OCl" firstAttribute="leading" secondItem="O4N-Mf-s7V" secondAttribute="leading" constant="86.5" id="roH-Kx-K1r"/>
+            </constraints>
+            <viewLayoutGuide key="safeArea" id="O4N-Mf-s7V"/>
+            <connections>
+                <outlet property="confirmButton" destination="VzB-Tb-OCl" id="OcT-6e-SLM"/>
+            </connections>
+            <point key="canvasLocation" x="8.6956521739130448" y="75"/>
+        </collectionReusableView>
+    </objects>
+</document>

@@ -94,7 +94,7 @@ class FeedPageCollectionViewCell: UICollectionViewCell {
                         self?.imageCache.setObject(image, forKey: urlString as NSString)
                     }
                     
-                    self?.feedTasks.append(dataTask)
+                    self?.feedTasks.append(dataTask as! URLSessionDataTask)
                 }
                 
                 if self?.feedDatas.count == 0 {

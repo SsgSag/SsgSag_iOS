@@ -7,11 +7,16 @@
 //
 
 import Foundation
+import RxSwift
 
 protocol Network {
     func dispatch(
         request: URLRequest,
         completion: @escaping (Result<Data, Error>) -> Void
     )
+}
+
+protocol RxNetwork {
+    func dispatch(request: URLRequest) -> Observable<Data>
 }
 
