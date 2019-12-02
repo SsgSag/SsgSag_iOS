@@ -26,6 +26,10 @@ class DependencyContainer {
             = PosterServiceImp(requestMaker: RequestMaker(),
                                network: NetworkImp())
         
+        let posterMockService: PosterService
+            = MockServiceImp(requestMaker: RequestMaker(),
+                             network: NetworkImp())
+        
         let myPageService: MyPageService
             = MyPageServiceImp(requestMaker: RequestMaker(),
                                network: NetworkImp())
@@ -65,6 +69,8 @@ class DependencyContainer {
                                         dependency: loginService)
             try dependencyPool.register(key: .posterService,
                                         dependency: posterService)
+            try dependencyPool.register(key: .posterMockService,
+                                        dependency: posterMockService)
             try dependencyPool.register(key: .myPageService,
                                         dependency: myPageService)
             try dependencyPool.register(key: .tabbarService,
@@ -106,6 +112,7 @@ enum DependencyKey {
     case calendarService
     case loginService
     case posterService
+    case posterMockService
     case myPageService
     case tabbarService
     case activityService

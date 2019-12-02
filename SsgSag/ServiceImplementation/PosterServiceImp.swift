@@ -20,7 +20,7 @@ class PosterServiceImp: PosterService {
         self.network = network
     }
     
-    func requestSwipePosters(completionHandler: @escaping (DataResponse<posterData>) -> Void) {
+    func requestSwipePosters(completionHandler: @escaping (DataResponse<PosterData>) -> Void) {
         
         guard let token
             = KeychainWrapper.standard.string(forKey: TokenName.token),

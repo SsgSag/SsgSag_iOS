@@ -10,6 +10,7 @@ import Lottie
 import SwiftKeychainWrapper
 
 class SplashVC: UIViewController {
+    static var isLatest: Bool = true
     
     private let animation = AnimationView(name: "splash")
     
@@ -56,6 +57,7 @@ class SplashVC: UIViewController {
     }
     
     private func notUpdate(isLatest: Bool) {
+        SplashVC.isLatest = isLatest
         self.isServerAvaliable()
         self.isAutoLogin(isLatest: isLatest)
     }

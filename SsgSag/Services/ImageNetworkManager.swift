@@ -53,6 +53,13 @@ public class ImageNetworkManager {
     }
     
     public func getImageByCache(imageURL: String, completionHandler: @escaping (UIImage?, Error?) -> Void) {
+        if imageURL == "" {
+            DispatchQueue.main.async {
+                completionHandler(UIImage(named: "ic_developer"), nil)
+                return
+            }
+        }
+        
         guard let image = cache.object(forKey: imageURL as NSString) else {
             downloadImage(imageURL: imageURL, completionHandler: completionHandler)
             return

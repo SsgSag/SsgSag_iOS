@@ -3,7 +3,7 @@ import Foundation
 struct networkData : Codable {
 	let status : Int?
 	let message : String?
-	let data : posterData?
+	let data : PosterData?
     
     enum ReadError: Error {
         case JsonError
@@ -21,7 +21,7 @@ struct networkData : Codable {
 		let values = try decoder.container(keyedBy: CodingKeys.self)
 		status = try values.decodeIfPresent(Int.self, forKey: .status)
 		message = try values.decodeIfPresent(String.self, forKey: .message)
-		data = try values.decodeIfPresent(posterData.self, forKey: .data)
+		data = try values.decodeIfPresent(PosterData.self, forKey: .data)
 	}
 
 }
