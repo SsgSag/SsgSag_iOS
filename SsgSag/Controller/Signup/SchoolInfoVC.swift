@@ -33,15 +33,18 @@ class SchoolInfoVC: UIViewController {
                                           target: self,
                                           action: #selector(touchUpBackButton))
     
+    lazy var studentNumberDoneButton = UIBarButtonItem(title: "Done",
+                                               style: .plain,
+                                               target: self,
+                                               action: #selector(touchUpGradeDoneButton))
+    
     lazy var gradeDoneButton = UIBarButtonItem(title: "Done",
                                                style: .plain,
                                                target: self,
                                                action: #selector(touchUpGradeDoneButton))
     
-    lazy var admissionDoneButton = UIBarButtonItem(title: "Done",
-                                                   style: .plain,
-                                                   target: self,
-                                                   action: #selector(touchUpAdmissionDoneButton))
+    lazy var studentNumberPickerView = UIPickerView()
+    var studentNumberPickOption: [String] = []
     
     lazy var gradePickerView = UIPickerView()
     var gradePickOption: [String] = []
@@ -51,6 +54,8 @@ class SchoolInfoVC: UIViewController {
     @IBOutlet weak var schoolField: SearchTextField!
     
     @IBOutlet weak var majorField: SearchTextField!
+    
+    @IBOutlet weak var studentNumberField: UITextField!
     
     @IBOutlet weak var gradeField: UITextField!
     
@@ -114,19 +119,26 @@ class SchoolInfoVC: UIViewController {
                                                      from: currentDate)
         
         for year in (currentYear - 10...currentYear).reversed() {
-            let grade = year % 100
-            let gradeString = grade / 10 < 1 ? "0\(grade)학번" : "\(grade)학번"
-            gradePickOption.append("\(gradeString)")
+            let studentNumber = year % 100
+            let studentNumberString = studentNumber / 10 < 1 ? "0\(studentNumber)학번" : "\(studentNumber)학번"
+            studentNumberPickOption.append("\(studentNumberString)")
+        }
+        
+        for grade in 1...5 {
+            gradePickOption.append("\(grade)학년")
         }
     }
     
     private func setupDelegate() {
         schoolField.delegate = self
         majorField.delegate = self
+        studentNumberField.delegate = self
         gradeField.delegate = self
         nickNameTextField.delegate = self
         birthTextField.delegate = self
         tapGesture.delegate = self
+        studentNumberPickerView.delegate = self
+        studentNumberPickerView.dataSource = self
         gradePickerView.delegate = self
         gradePickerView.dataSource = self
     }
@@ -139,6 +151,15 @@ class SchoolInfoVC: UIViewController {
                               target: self,
                               action: nil)
         
+        let studentNumberToolBar = UIToolbar()
+        studentNumberToolBar.barStyle = .default
+        studentNumberToolBar.isTranslucent = true
+        studentNumberToolBar.tintColor = UIColor(red: 92/255, green: 216/255, blue: 255/255, alpha: 1)
+        studentNumberToolBar.sizeToFit()
+        studentNumberToolBar.isUserInteractionEnabled = true
+        studentNumberToolBar.setItems([flexible, studentNumberDoneButton], animated: false)
+        studentNumberDoneButton.tintColor = #colorLiteral(red: 0.4603668451, green: 0.5182471275, blue: 1, alpha: 1)
+        
         let gradeToolBar = UIToolbar()
         gradeToolBar.barStyle = .default
         gradeToolBar.isTranslucent = true
@@ -147,16 +168,10 @@ class SchoolInfoVC: UIViewController {
         gradeToolBar.isUserInteractionEnabled = true
         gradeToolBar.setItems([flexible, gradeDoneButton], animated: false)
         gradeDoneButton.tintColor = #colorLiteral(red: 0.4603668451, green: 0.5182471275, blue: 1, alpha: 1)
-        
-        let admissionToolBar = UIToolbar()
-        admissionToolBar.barStyle = .default
-        admissionToolBar.isTranslucent = true
-        admissionToolBar.tintColor = UIColor(red: 92/255, green: 216/255, blue: 255/255, alpha: 1)
-        admissionToolBar.sizeToFit()
-        admissionToolBar.isUserInteractionEnabled = true
-        admissionToolBar.setItems([flexible, admissionDoneButton], animated: false)
-        admissionDoneButton.tintColor = #colorLiteral(red: 0.4603668451, green: 0.5182471275, blue: 1, alpha: 1)
     
+        studentNumberField.inputView = studentNumberPickerView
+        studentNumberField.inputAccessoryView = studentNumberToolBar
+
         gradeField.inputView = gradePickerView
         gradeField.inputAccessoryView = gradeToolBar
         
@@ -167,12 +182,8 @@ class SchoolInfoVC: UIViewController {
         view.endEditing(true)
     }
     
-    @objc func touchUpAdmissionDoneButton() {
-        view.endEditing(true)
-    }
-    
     private func checkInformation() {
-        guard !nicknameValidateLabel.isHidden else {
+        guard nicknameValidateLabel.isHidden else {
             nextButton.isUserInteractionEnabled = false
             
             nextButton.topColor = .lightGray
@@ -182,9 +193,10 @@ class SchoolInfoVC: UIViewController {
         
         guard schoolField.hasText
             && majorField.hasText
-            && gradeField.hasText
+            && studentNumberField.hasText
             && nickNameTextField.hasText
-            && birthTextField.hasText else {
+            && birthTextField.hasText
+            && gradeField.hasText else {
                 nextButton.isUserInteractionEnabled = false
                 
                 nextButton.topColor = .lightGray
@@ -301,7 +313,8 @@ class SchoolInfoVC: UIViewController {
         
         let major = majorField.text ?? ""
         let univ = schoolField.text ?? ""
-        let studentNum: [Character] = (gradeField.text ?? "").map { return $0 }
+        let studentNum: [Character] = (studentNumberField.text ?? "").map { return $0 }
+        let grade: [Character] = (gradeField.text ?? "").map { return $0 }
         
         //자체 로그인 아닐 시에는
         if sendType != 10 {
@@ -311,6 +324,7 @@ class SchoolInfoVC: UIViewController {
                 "accessToken": sendToken,
                 "userUniv": univ,
                 "userMajor": major,
+                "userGrade" : String(grade[0]),
                 "userStudentNum": String(studentNum[0..<2]),
                 "userGender": gender,
                 "userBirth": birthTextField.text ?? "",
@@ -329,6 +343,7 @@ class SchoolInfoVC: UIViewController {
                 "signupType": sendType, //0은 카카오톡, 1은 네이버
                 "userUniv": univ,
                 "userMajor": major,
+                "userGrade" : String(grade[0]),
                 "userStudentNum": String(studentNum[0..<2]),
                 "userGender": gender,
                 "userBirth": birthTextField.text ?? "",
@@ -449,6 +464,11 @@ class SchoolInfoVC: UIViewController {
         }
         
         checkInformation()
+    }
+    
+    @IBAction func touchUpStudentNumberDropDownButton(_ sender: UIButton) {
+        // 선택중이면 return되게 할지 고민해봐야대용
+        studentNumberField.becomeFirstResponder()
     }
     
     @IBAction func touchUpGradeDropDownButton(_ sender: UIButton) {
@@ -639,19 +659,29 @@ extension SchoolInfoVC: UIPickerViewDelegate, UIPickerViewDataSource {
     
     func pickerView(_ pickerView: UIPickerView,
                     numberOfRowsInComponent component: Int) -> Int {
-        return gradePickOption.count
+        if pickerView == gradePickerView {
+            return gradePickOption.count
+        }
+        return studentNumberPickOption.count
     }
     
     func pickerView(_ pickerView: UIPickerView,
                     titleForRow row: Int,
                     forComponent component: Int) -> String? {
-        return gradePickOption[row]
+        if pickerView == gradePickerView {
+            return gradePickOption[row]
+        }
+        return studentNumberPickOption[row]
     }
     
     func pickerView(_ pickerView: UIPickerView,
                     didSelectRow row: Int,
                     inComponent component: Int) {
-        gradeField.text = gradePickOption[row]
+        if pickerView == gradePickerView {
+            gradeField.text = gradePickOption[row]
+            return
+        }
+        studentNumberField.text = studentNumberPickOption[row]
     }
 }
 

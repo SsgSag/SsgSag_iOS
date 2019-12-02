@@ -371,7 +371,7 @@ extension VACalendarView: UIScrollViewDelegate {
 }
 
 extension VACalendarView: VACalendarViewDelegate {
-    func selectedDate(_ date: Date) {
+    public func selectedDate(_ date: Date) {
         //print(date)
     }
 }

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14868" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="GGt-42-CPf">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="GGt-42-CPf">
     <device id="retina5_9" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14824"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15510"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -320,7 +320,7 @@
                                                 </subviews>
                                             </stackView>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="22" translatesAutoresizingMaskIntoConstraints="NO" id="hay-RC-Z1l" userLabel="학교정보">
-                                                <rect key="frame" x="18" y="292.33333333333331" width="339" height="313.99999999999994"/>
+                                                <rect key="frame" x="18" y="292.33333333333331" width="339" height="314.99999999999994"/>
                                                 <subviews>
                                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="-1" translatesAutoresizingMaskIntoConstraints="NO" id="dvP-tr-xxu">
                                                         <rect key="frame" x="0.0" y="0.0" width="339" height="52"/>
@@ -478,7 +478,7 @@
                                                                                         </constraints>
                                                                                         <state key="normal" title="Button" image="ic_dropDownColor"/>
                                                                                         <connections>
-                                                                                            <action selector="touchUpGradeDropDownButton:" destination="xEW-PO-qx4" eventType="touchUpInside" id="MhZ-Si-yld"/>
+                                                                                            <action selector="touchUpStudentNumberDropDownButton:" destination="xEW-PO-qx4" eventType="touchUpInside" id="MhZ-Si-yld"/>
                                                                                         </connections>
                                                                                     </button>
                                                                                 </subviews>
@@ -500,7 +500,7 @@
                                                         </subviews>
                                                     </stackView>
                                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="-1" translatesAutoresizingMaskIntoConstraints="NO" id="FsK-6y-ZbA">
-                                                        <rect key="frame" x="0.0" y="221.00000000000006" width="339" height="51"/>
+                                                        <rect key="frame" x="0.0" y="221.00000000000006" width="339" height="52"/>
                                                         <subviews>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="학과" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2oI-Qw-2im">
                                                                 <rect key="frame" x="0.0" y="0.0" width="339" height="12"/>
@@ -508,29 +508,74 @@
                                                                 <color key="textColor" red="0.38431372549999998" green="0.41568627450000001" blue="0.99999129769999995" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
-                                                            <textField opaque="NO" tag="5" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="학과 선택" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="cBY-ZG-hiL" customClass="SearchTextField" customModule="SearchTextField">
-                                                                <rect key="frame" x="0.0" y="11" width="339" height="40"/>
-                                                                <constraints>
-                                                                    <constraint firstAttribute="height" constant="40" id="NNC-1M-lDP"/>
-                                                                </constraints>
-                                                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="14"/>
-                                                                <textInputTraits key="textInputTraits" returnKeyType="next"/>
-                                                                <connections>
-                                                                    <action selector="editingDidBeginMajorField:" destination="xEW-PO-qx4" eventType="editingDidBegin" id="TDh-7y-QOv"/>
-                                                                    <action selector="touchUpMajorField:" destination="xEW-PO-qx4" eventType="touchUpInside" id="3LX-MF-LPa"/>
-                                                                </connections>
-                                                            </textField>
-                                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TQw-6R-p0C">
-                                                                <rect key="frame" x="0.0" y="50" width="339" height="1"/>
-                                                                <color key="backgroundColor" red="0.87843137250000003" green="0.87843137250000003" blue="0.87843137250000003" alpha="1" colorSpace="calibratedRGB"/>
-                                                                <constraints>
-                                                                    <constraint firstAttribute="height" constant="1" id="51v-AM-zeO"/>
-                                                                </constraints>
-                                                            </view>
+                                                            <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="f17-Ha-ksR">
+                                                                <rect key="frame" x="0.0" y="11" width="339" height="41"/>
+                                                                <subviews>
+                                                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="BbN-vN-y6y">
+                                                                        <rect key="frame" x="0.0" y="0.0" width="229" height="41"/>
+                                                                        <subviews>
+                                                                            <textField opaque="NO" tag="5" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="학과 선택" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="cBY-ZG-hiL" customClass="SearchTextField" customModule="SearchTextField">
+                                                                                <rect key="frame" x="0.0" y="0.0" width="229" height="40"/>
+                                                                                <constraints>
+                                                                                    <constraint firstAttribute="height" constant="40" id="NNC-1M-lDP"/>
+                                                                                </constraints>
+                                                                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="14"/>
+                                                                                <textInputTraits key="textInputTraits" returnKeyType="next"/>
+                                                                                <connections>
+                                                                                    <action selector="editingDidBeginMajorField:" destination="xEW-PO-qx4" eventType="editingDidBegin" id="TDh-7y-QOv"/>
+                                                                                    <action selector="touchUpMajorField:" destination="xEW-PO-qx4" eventType="touchUpInside" id="3LX-MF-LPa"/>
+                                                                                </connections>
+                                                                            </textField>
+                                                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TQw-6R-p0C">
+                                                                                <rect key="frame" x="0.0" y="40" width="229" height="1"/>
+                                                                                <color key="backgroundColor" red="0.87843137250000003" green="0.87843137250000003" blue="0.87843137250000003" alpha="1" colorSpace="calibratedRGB"/>
+                                                                                <constraints>
+                                                                                    <constraint firstAttribute="height" constant="1" id="51v-AM-zeO"/>
+                                                                                </constraints>
+                                                                            </view>
+                                                                        </subviews>
+                                                                    </stackView>
+                                                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="lXO-QB-rjY">
+                                                                        <rect key="frame" x="239" y="0.0" width="100" height="41"/>
+                                                                        <subviews>
+                                                                            <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WGh-A6-3dE">
+                                                                                <rect key="frame" x="0.0" y="0.0" width="100" height="40"/>
+                                                                                <subviews>
+                                                                                    <textField opaque="NO" tag="4" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="학년" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="rnA-hr-fbn">
+                                                                                        <rect key="frame" x="0.0" y="0.0" width="70" height="40"/>
+                                                                                        <fontDescription key="fontDescription" type="system" weight="medium" pointSize="14"/>
+                                                                                        <textInputTraits key="textInputTraits" autocorrectionType="no" keyboardType="numbersAndPunctuation"/>
+                                                                                    </textField>
+                                                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ckb-bZ-XPr">
+                                                                                        <rect key="frame" x="70" y="0.0" width="30" height="40"/>
+                                                                                        <constraints>
+                                                                                            <constraint firstAttribute="width" constant="30" id="tUS-Rm-bbD"/>
+                                                                                        </constraints>
+                                                                                        <state key="normal" title="Button" image="ic_dropDownColor"/>
+                                                                                        <connections>
+                                                                                            <action selector="touchUpGradeDropDownButton:" destination="xEW-PO-qx4" eventType="touchUpInside" id="umz-oy-7Bx"/>
+                                                                                        </connections>
+                                                                                    </button>
+                                                                                </subviews>
+                                                                            </stackView>
+                                                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Pgc-75-1rY">
+                                                                                <rect key="frame" x="0.0" y="40" width="100" height="1"/>
+                                                                                <color key="backgroundColor" red="0.87843137250000003" green="0.87843137250000003" blue="0.87843137250000003" alpha="1" colorSpace="calibratedRGB"/>
+                                                                                <constraints>
+                                                                                    <constraint firstAttribute="height" constant="1" id="yEV-3r-C68"/>
+                                                                                </constraints>
+                                                                            </view>
+                                                                        </subviews>
+                                                                        <constraints>
+                                                                            <constraint firstAttribute="width" constant="100" id="Uly-kE-wHC"/>
+                                                                        </constraints>
+                                                                    </stackView>
+                                                                </subviews>
+                                                            </stackView>
                                                         </subviews>
                                                     </stackView>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Bgo-CN-EY8">
-                                                        <rect key="frame" x="0.0" y="294.00000000000006" width="339" height="20"/>
+                                                        <rect key="frame" x="0.0" y="295.00000000000006" width="339" height="20"/>
                                                         <subviews>
                                                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="4Sb-VV-UXB" userLabel="서비스이용약관">
                                                                 <rect key="frame" x="0.0" y="0.0" width="298.66666666666669" height="20"/>
@@ -649,7 +694,7 @@
                     <connections>
                         <outlet property="birthTextField" destination="pyu-Ig-C49" id="ihO-mS-XSc"/>
                         <outlet property="femaleButton" destination="EiR-Zp-br7" id="vuF-mu-BFL"/>
-                        <outlet property="gradeField" destination="lKN-Oq-kJh" id="gTI-w2-gCj"/>
+                        <outlet property="gradeField" destination="rnA-hr-fbn" id="hPj-1u-tkB"/>
                         <outlet property="majorField" destination="cBY-ZG-hiL" id="L7K-1y-l8A"/>
                         <outlet property="maleButton" destination="HMB-D5-pZ6" id="exe-ee-gZe"/>
                         <outlet property="nextButton" destination="cO1-KY-RkO" id="2SW-YS-hXQ"/>
@@ -660,6 +705,7 @@
                         <outlet property="schoolField" destination="nD2-oj-mhp" id="9i1-w2-KgC"/>
                         <outlet property="scrollView" destination="fIY-13-aZR" id="AEL-Sn-gag"/>
                         <outlet property="servicePolicyButton" destination="W9s-6f-8T1" id="6Ro-o9-eFF"/>
+                        <outlet property="studentNumberField" destination="lKN-Oq-kJh" id="gTI-w2-gCj"/>
                         <outlet property="textFieldsStackView" destination="hay-RC-Z1l" id="zg5-r9-x19"/>
                         <outlet property="titleLabel" destination="KIh-pl-kUk" id="dlA-09-86m"/>
                     </connections>

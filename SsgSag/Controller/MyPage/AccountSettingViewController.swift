@@ -23,7 +23,8 @@ class AccountSettingViewController: UIViewController {
                          "비밀번호",
                          "학교",
                          "학과",
-                         "학번"]
+                         "학번",
+                         "학과"]
     
     var selectedImage: UIImage?
     var userData: UserInfoModel?
@@ -33,6 +34,7 @@ class AccountSettingViewController: UIViewController {
     var univ: String?
     var major: String?
     var studentNumber: String?
+    var grade: String?
     
     private let mypageService: MyPageService
         = DependencyContainer.shared.getDependency(key: .myPageService)
@@ -144,21 +146,29 @@ class AccountSettingViewController: UIViewController {
         settingCollectionView.register(menuNib,
                                        forCellWithReuseIdentifier: "menuCellID")
         
-        let univSettingNib = UINib(nibName: "UnivCollectionViewCell", bundle: nil)
+        let univSettingNib = UINib(nibName: "UnivCollectionViewCell",
+                                   bundle: nil)
         
-        settingCollectionView.register(univSettingNib, forCellWithReuseIdentifier: "univSettingCell")
+        settingCollectionView.register(univSettingNib,
+                                       forCellWithReuseIdentifier: "univSettingCell")
         
-        let majorSettingNib = UINib(nibName: "MajorCollectionViewCell", bundle: nil)
+        let majorSettingNib = UINib(nibName: "MajorCollectionViewCell",
+                                    bundle: nil)
         
-        settingCollectionView.register(majorSettingNib, forCellWithReuseIdentifier: "majorSettingCell")
+        settingCollectionView.register(majorSettingNib,
+                                       forCellWithReuseIdentifier: "majorSettingCell")
         
-        let gradeSettingNib = UINib(nibName: "GradeCollectionViewCell", bundle: nil)
+        let gradeSettingNib = UINib(nibName: "GradeCollectionViewCell",
+                                    bundle: nil)
         
-        settingCollectionView.register(gradeSettingNib, forCellWithReuseIdentifier: "gradeSettingCell")
+        settingCollectionView.register(gradeSettingNib,
+                                       forCellWithReuseIdentifier: "gradeSettingCell")
         
-        let admissionSettingNib = UINib(nibName: "AdmissionCollectionViewCell", bundle: nil)
+        let studentNumberSettingNib = UINib(nibName: "StudentNumberCollectionViewCell",
+                                            bundle: nil)
         
-        settingCollectionView.register(admissionSettingNib, forCellWithReuseIdentifier: "admissionSettingCell")
+        settingCollectionView.register(studentNumberSettingNib,
+                                       forCellWithReuseIdentifier: "studentNumberSettingCell")
     }
     
     private func uploadImage(_ selecteImage: UIImage?) {
@@ -279,7 +289,8 @@ class AccountSettingViewController: UIViewController {
         let bodyData: [String: Any] = ["userNickname" : nickName ?? (userData?.userNickname ?? ""),
                                        "userUniv" : univ ?? (userData?.userUniv ?? ""),
                                        "userMajor" : major ?? (userData?.userMajor ?? ""),
-                                       "userStudentNum" : studentNumber ?? (userData?.userStudentNum ?? "")]
+                                       "userStudentNum" : studentNumber ?? (userData?.userStudentNum ?? ""),
+                                       "userGrade" : grade ?? (userData?.userGrade ?? "")]
         
         mypageService.requestUpdateUserInfo(bodyData: bodyData) { [weak self] result in
             switch result {
@@ -355,7 +366,8 @@ class AccountSettingViewController: UIViewController {
         guard nickName != ""
             && univ != ""
             && major != ""
-            && studentNumber != "" else {
+            && studentNumber != ""
+            && grade != "" else {
                 simplerAlert(title: "입력되지 않은 정보가 있습니다.")
                 return false
         }
@@ -490,6 +502,9 @@ extension AccountSettingViewController: UITextFieldDelegate {
         case 5:
             let studentNumberArray: [Character] = (textField.text ?? "").map { $0 }
             studentNumber = String(studentNumberArray[0..<2])
+        case 6:
+            let gradeArray: [Character] = (textField.text ?? "").map { $0 }
+            grade = String(gradeArray[0])
         default:
             break
         }

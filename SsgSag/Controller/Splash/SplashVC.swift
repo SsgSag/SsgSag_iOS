@@ -21,28 +21,43 @@ class SplashVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        setupLayout()
         
-        if isUpdateAvailable() {
-            showNeedForUpdate()
-        } else {
-            isServerAvaliable()
-            isAutoLogin()
-            setupLayout()
+        animation.play { [weak self] _ in
+            guard let self = self else {
+                return
+            }
+            
+            if self.isUpdateAvailable() {
+                self.showNeedForUpdate()
+            } else {
+                self.notUpdate(isLatest: true)
+            }
         }
     }
     
     private func showNeedForUpdate() {
         DispatchQueue.main.async { [weak self] in
-            self?.simpleAlertwithHandler(title: "업데이트",
-                                   message: "최신 업데이트가 있습니다.\n업데이트하시겠습니까?") { _ in
-                let urlString = "https://itunes.apple.com/app/id1457422029"
-                UIApplication.shared.open(URL(string: urlString)!)
-            }
+            self?.simpleAlertWithHandlers(title: "업데이트",
+                                          message: "최신 업데이트가 있습니다.\n업데이트하시겠습니까?",
+                                          okHandler: { _ in
+                                            self?.moveToAppStore()
+            },
+                                          cancelHandler: { _ in
+                                            self?.notUpdate(isLatest: false)
+            })
         }
     }
     
-    private func moveToAppStoreForUpdate() {
-        
+    private func moveToAppStore() {
+        let urlString = "https://itunes.apple.com/app/id1457422029"
+        UIApplication.shared.open(URL(string: urlString)!)
+    }
+    
+    private func notUpdate(isLatest: Bool) {
+        self.isServerAvaliable()
+        self.isAutoLogin(isLatest: isLatest)
     }
     
     private func isUpdateAvailable() -> Bool {
@@ -55,13 +70,13 @@ class SplashVC: UIViewController {
             let json
             = try? JSONSerialization.jsonObject(with: data,
                                                 options: .allowFragments) as? [String: Any],
-            let results = json?["results"] as? [[String: Any]],
+            let results = json["results"] as? [[String: Any]],
             results.count > 0,
             let appStoreVersion = results[0]["version"] as? String else {
                 return false
         }
 
-        if !(version == appStoreVersion) {
+        if version < appStoreVersion {
             return true
         }
 
@@ -82,9 +97,10 @@ class SplashVC: UIViewController {
         animation.heightAnchor.constraint(
             equalTo: animation.widthAnchor,
             multiplier: 1.75).isActive = true
+
     }
     
-    private func isAutoLogin() {
+    private func isAutoLogin(isLatest: Bool) {
             loginServiceImp.requestAutoLogin { [weak self] result in
                 switch result {
                 case .success(let status):
@@ -92,16 +108,10 @@ class SplashVC: UIViewController {
                     case .sucess:
                         DispatchQueue.main.async {
                             let tabBarVC = TapbarVC()
-                            
-                            self?.animation.play { [weak self] _ in
-                                guard let self = self else {
-                                    return
-                                }
-                                
-                                tabBarVC.modalPresentationStyle = .fullScreen
-                                self.present(tabBarVC,
-                                             animated: true)
-                            }
+
+                            tabBarVC.modalPresentationStyle = .fullScreen
+                            self?.present(tabBarVC,
+                                          animated: true)
                         }
                     case .authenticationFailure:
                         let loginStoryBoard = UIStoryboard(name: StoryBoardName.login,
@@ -112,16 +122,10 @@ class SplashVC: UIViewController {
                             let loginVC = loginStoryBoard.instantiateViewController(withIdentifier: "splashVC")
                             
                             let nextViewController = UINavigationController(rootViewController: loginVC)
-                            
-                            self?.animation.play { [weak self] _ in
-                                guard let self = self else {
-                                    return
-                                }
-                                
-                                nextViewController.modalPresentationStyle = .fullScreen
-                                self.present(nextViewController,
-                                             animated: true)
-                            }
+
+                            nextViewController.modalPresentationStyle = .fullScreen
+                            self?.present(nextViewController,
+                                          animated: true)
                         }
                     default:
                         return

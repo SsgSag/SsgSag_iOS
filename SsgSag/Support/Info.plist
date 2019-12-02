@@ -54,7 +54,7 @@
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
-	<string>1</string>
+	<string>$(CURRENT_PROJECT_VERSION)</string>
 	<key>Eentitlements File</key>
 	<dict>
 		<key>com.apple.developer.associated-domains</key>

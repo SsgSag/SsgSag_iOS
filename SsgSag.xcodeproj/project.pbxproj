@@ -201,8 +201,8 @@
 		D1EAA6162306709E0063E04A /* UnivCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D1EAA6142306709E0063E04A /* UnivCollectionViewCell.xib */; };
 		D1EAA61D230681680063E04A /* GradeCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1EAA61B230681680063E04A /* GradeCollectionViewCell.swift */; };
 		D1EAA61E230681680063E04A /* GradeCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D1EAA61C230681680063E04A /* GradeCollectionViewCell.xib */; };
-		D1EAA621230682F50063E04A /* AdmissionCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1EAA61F230682F50063E04A /* AdmissionCollectionViewCell.swift */; };
-		D1EAA622230682F50063E04A /* AdmissionCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D1EAA620230682F50063E04A /* AdmissionCollectionViewCell.xib */; };
+		D1EAA621230682F50063E04A /* StudentNumberCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1EAA61F230682F50063E04A /* StudentNumberCollectionViewCell.swift */; };
+		D1EAA622230682F50063E04A /* StudentNumberCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D1EAA620230682F50063E04A /* StudentNumberCollectionViewCell.xib */; };
 		D1EAA6252306A1A20063E04A /* HideAnalyticsCommentsCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1EAA6232306A1A20063E04A /* HideAnalyticsCommentsCollectionViewCell.swift */; };
 		D1EAA6262306A1A20063E04A /* HideAnalyticsCommentsCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = D1EAA6242306A1A20063E04A /* HideAnalyticsCommentsCollectionViewCell.xib */; };
 		D1EAA6282306BBFC0063E04A /* splash.json in Resources */ = {isa = PBXBuildFile; fileRef = D1EAA6272306BBFC0063E04A /* splash.json */; };
@@ -487,8 +487,8 @@
 		D1EAA6142306709E0063E04A /* UnivCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = UnivCollectionViewCell.xib; sourceTree = "<group>"; };
 		D1EAA61B230681680063E04A /* GradeCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradeCollectionViewCell.swift; sourceTree = "<group>"; };
 		D1EAA61C230681680063E04A /* GradeCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = GradeCollectionViewCell.xib; sourceTree = "<group>"; };
-		D1EAA61F230682F50063E04A /* AdmissionCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdmissionCollectionViewCell.swift; sourceTree = "<group>"; };
-		D1EAA620230682F50063E04A /* AdmissionCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AdmissionCollectionViewCell.xib; sourceTree = "<group>"; };
+		D1EAA61F230682F50063E04A /* StudentNumberCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudentNumberCollectionViewCell.swift; sourceTree = "<group>"; };
+		D1EAA620230682F50063E04A /* StudentNumberCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = StudentNumberCollectionViewCell.xib; sourceTree = "<group>"; };
 		D1EAA6232306A1A20063E04A /* HideAnalyticsCommentsCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HideAnalyticsCommentsCollectionViewCell.swift; sourceTree = "<group>"; };
 		D1EAA6242306A1A20063E04A /* HideAnalyticsCommentsCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HideAnalyticsCommentsCollectionViewCell.xib; sourceTree = "<group>"; };
 		D1EAA6272306BBFC0063E04A /* splash.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = splash.json; sourceTree = "<group>"; };
@@ -1129,8 +1129,8 @@
 				D1EAA6142306709E0063E04A /* UnivCollectionViewCell.xib */,
 				D1EAA61B230681680063E04A /* GradeCollectionViewCell.swift */,
 				D1EAA61C230681680063E04A /* GradeCollectionViewCell.xib */,
-				D1EAA61F230682F50063E04A /* AdmissionCollectionViewCell.swift */,
-				D1EAA620230682F50063E04A /* AdmissionCollectionViewCell.xib */,
+				D1EAA61F230682F50063E04A /* StudentNumberCollectionViewCell.swift */,
+				D1EAA620230682F50063E04A /* StudentNumberCollectionViewCell.xib */,
 			);
 			path = Cell;
 			sourceTree = "<group>";
@@ -1397,7 +1397,7 @@
 				8496818E22AFDDD1004A4A63 /* newCalendarStoryboard.storyboard in Resources */,
 				D1FEA3522334C79600464DC4 /* AllPosterListCollectionViewCell.xib in Resources */,
 				D1B2F43623013BAA00074448 /* AllAndFavoriteCollectionReusableView.xib in Resources */,
-				D1EAA622230682F50063E04A /* AdmissionCollectionViewCell.xib in Resources */,
+				D1EAA622230682F50063E04A /* StudentNumberCollectionViewCell.xib in Resources */,
 				D1E646802311608100EAB8AC /* NoCommentCollectionViewCell.xib in Resources */,
 				D1FB05B622E6E3AE001425CF /* SettingMenuCollectionViewCell.xib in Resources */,
 				D1EAA6162306709E0063E04A /* UnivCollectionViewCell.xib in Resources */,
@@ -1474,7 +1474,7 @@
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
 				"${BUILT_PRODUCTS_DIR}/FBSDKCoreKit/FBSDKCoreKit.framework",
 				"${BUILT_PRODUCTS_DIR}/GoogleUtilities/GoogleUtilities.framework",
-				"${BUILT_PRODUCTS_DIR}/Protobuf/Protobuf.framework",
+				"${BUILT_PRODUCTS_DIR}/Protobuf/protobuf.framework",
 				"${BUILT_PRODUCTS_DIR}/SearchTextField/SearchTextField.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftKeychainWrapper/SwiftKeychainWrapper.framework",
 				"${BUILT_PRODUCTS_DIR}/lottie-ios/Lottie.framework",
@@ -1489,7 +1489,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBSDKCoreKit.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleUtilities.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Protobuf.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/protobuf.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SearchTextField.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftKeychainWrapper.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Lottie.framework",
@@ -1640,7 +1640,7 @@
 				D1FB05A722E6C917001425CF /* SettingTextFieldCollectionViewCell.swift in Sources */,
 				FAD323DB21E36FA6000C4FBA /* AddCertificationVC.swift in Sources */,
 				D16F30A62369804500C127CA /* FormTextField.swift in Sources */,
-				D1EAA621230682F50063E04A /* AdmissionCollectionViewCell.swift in Sources */,
+				D1EAA621230682F50063E04A /* StudentNumberCollectionViewCell.swift in Sources */,
 				D1B2F43523013BAA00074448 /* AllAndFavoriteCollectionReusableView.swift in Sources */,
 				D11080B822E09F6E00F345A8 /* DetailInfoButtonsView.swift in Sources */,
 				FA3A344221E7285C00668908 /* ConfirmProfileVC.swift in Sources */,
@@ -1813,7 +1813,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -1868,7 +1868,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -1888,6 +1888,7 @@
 				CODE_SIGN_ENTITLEMENTS = "SsgSag/슥삭.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_TEAM = 3HB3SZKJFD;
 				ENABLE_BITCODE = YES;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -1920,7 +1921,7 @@
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "./SsgSag/Support/KakaoOpenSDK-Bridging-Header.h";
 				SWIFT_REFLECTION_METADATA_LEVEL = all;
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
@@ -1935,6 +1936,7 @@
 				CODE_SIGN_ENTITLEMENTS = "SsgSag/슥삭.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_TEAM = 3HB3SZKJFD;
 				ENABLE_BITCODE = YES;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -1967,7 +1969,7 @@
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "./SsgSag/Support/KakaoOpenSDK-Bridging-Header.h";
 				SWIFT_REFLECTION_METADATA_LEVEL = all;
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;

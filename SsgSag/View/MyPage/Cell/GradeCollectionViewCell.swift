@@ -26,7 +26,7 @@ class GradeCollectionViewCell: UICollectionViewCell {
         = UIImageView(image: UIImage(named: "ic_dropDownColor"))
     
     lazy var gradePickerView = UIPickerView()
-    let gradePickOption = ["1", "2", "3", "4", "5"]
+    var gradePickOption: [String] = []
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -34,7 +34,14 @@ class GradeCollectionViewCell: UICollectionViewCell {
         gradePickerView.delegate = self
         gradePickerView.dataSource = self
         
+        setupGradePickOption()
         setupLayout()
+    }
+    
+    private func setupGradePickOption() {
+        for grade in 1...5 {
+            gradePickOption.append("\(grade)학년")
+        }
     }
     
     private func setupLayout() {
