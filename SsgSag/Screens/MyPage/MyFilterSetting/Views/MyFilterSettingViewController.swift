@@ -147,26 +147,30 @@ class MyFilterSettingViewController: UIViewController, StoryboardView {
                     as? MyFilterFooterCollectionReusableView else {
                                                         return emptyView
                 }
-                footer.confirmButton.rx
-                    .tap
-                    .subscribe(onNext: { [weak self] _ in
-                        reactor.service
-                            .save(filterSetting: reactor.currentState.myFilterSetting).subscribe(onNext: { (response) in
-                                if response.status == 200 {
-                                    print("success")
-                                }
-                            }, onError: { (error) in
-                                if error != nil {
-                                    print("error")
-                                }
-                            })
-                            .disposed(by: footer.disposeBag)
+
+                footer.confirmButton.rx.tap
+                    .throttle(0.5, scheduler: MainScheduler.instance)
+                    .flatMapLatest { [weak self] event -> Observable<AlertType> in
+                        guard let self = self else { return Observable.just(AlertType.cancel) }
+                        return self.makeAlertObservable(title: "정보 저장", message: "입력하신 정보를 저장하시겠습니까")
+                    }
+                    .flatMapLatest { type -> Observable<BasicResponse> in
+                        switch type {
+                        case .ok:
+                            return reactor.service.save(filterSetting: reactor.currentState.myFilterSetting)
+                        case .cancel:
+                            return .empty()
+                        }
+                    }
+                    .observeOn(MainScheduler.instance)
+                    .subscribe(onNext: { _ in
+                        self.navigationController?.popViewController(animated: true)
+                    }, onError: { _ in
+                        self.simplerAlert(title: "저장에 실패했습니다.")
                     })
                     .disposed(by: footer.disposeBag)
                 return footer
             }
-         
-            
         })
     
         reactor.sections

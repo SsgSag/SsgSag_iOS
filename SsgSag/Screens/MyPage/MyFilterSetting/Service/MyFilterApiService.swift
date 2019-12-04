@@ -16,6 +16,7 @@ protocol MyFilterApiService {
 
 class MyFilterApiServiceImp: MyFilterApiService {
     
+    var disposeBag = DisposeBag()
     private let network: RxNetwork = RxNetworkImp(session: URLSession.shared)
     private let requestMaker: RequestMakerProtocol = RequestMaker()
     
@@ -23,9 +24,10 @@ class MyFilterApiServiceImp: MyFilterApiService {
         let bodyData = ["userInterest" : filterSetting.map()]
         let jsonData = try? JSONSerialization.data(withJSONObject: bodyData)
         let savingObservable = Observable<BasicResponse>.create({ [weak self] (observer) -> Disposable in
+            guard let self = self else { return Disposables.create() }
             guard let token = KeychainWrapper.standard.string(forKey: TokenName.token),
                       let url = UserAPI.sharedInstance.getURL(RequestURL.reIntersting.getRequestURL),
-                let request = self?.requestMaker.makeRequest(url: url,
+                let request = self.requestMaker.makeRequest(url: url,
                                                           method: .post,
                                                           header: ["Authorization": token,
                                                                    "Content-Type": "application/json" ],
@@ -35,7 +37,7 @@ class MyFilterApiServiceImp: MyFilterApiService {
                 userInfo: nil))
                                                             return Disposables.create()
             }
-            self?.network.dispatch(request: request)
+            self.network.dispatch(request: request)
                 .subscribe(onNext: { data in
                     do {
                         let response = try JSONDecoder().decode(BasicResponse.self, from: data)
@@ -48,7 +50,7 @@ class MyFilterApiServiceImp: MyFilterApiService {
                     observer.onError(error)
                     
                 })
-                .dispose()
+                .disposed(by: self.disposeBag)
             return Disposables.create()
         })
         return savingObservable

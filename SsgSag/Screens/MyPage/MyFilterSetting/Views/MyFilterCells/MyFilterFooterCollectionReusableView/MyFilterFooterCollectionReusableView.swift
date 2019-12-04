@@ -11,5 +11,11 @@ import RxSwift
 
 class MyFilterFooterCollectionReusableView: UICollectionReusableView {
     var disposeBag = DisposeBag()
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        
+        disposeBag = DisposeBag()
+    }
     @IBOutlet weak var confirmButton: UIButton!
 }

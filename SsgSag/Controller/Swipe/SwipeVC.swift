@@ -5,6 +5,34 @@ import AdBrixRM
 
 class SwipeVC: UIViewController {
     
+    private let completeStackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        stackView.axis = .vertical
+        stackView.alignment = .center
+        stackView.spacing = 5
+        return stackView
+    }()
+    
+    private let completeImageView: UIImageView = {
+        let view = UIImageView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.image = UIImage(named: "designer")
+        return view
+    }()
+    
+    private let completeFilterLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.text = "*맞춤정보를 설정해주세요"
+        label.numberOfLines = 1
+        label.font = UIFont.systemFont(ofSize: 16, weight: .regular)
+        label.textColor = .cornFlower
+        label.textAlignment = .center
+        label.adjustsFontSizeToFitWidth = true
+        return label
+       }()
+    
     @IBOutlet weak var swipeCardView: UIView!
     
     @IBOutlet private var countLabel: UILabel!
@@ -33,16 +61,18 @@ class SwipeVC: UIViewController {
     
     private var isOkayToUndo: Bool = false
     
+    var currentView: UIView?
+    
     private lazy var completeLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.numberOfLines = 2
-        label.font = UIFont.systemFont(ofSize: 20, weight: .medium)
+        label.font = UIFont.systemFont(ofSize: 16, weight: .regular)
         
         if self.ssgsagCount == 0 {
             label.text = "오늘은 추천해드릴 포스터가 없네요.\n캘린더를 확인해볼까요?"
         } else {
-            label.text = "오늘 \(self.ssgsagCount)장의 카드를\n슥삭했어요!"
+            label.text = " OOO님을 위한 \n 정보를 매일 추천해드려요 :)"
         }
         
         label.textColor = #colorLiteral(red: 0.3098039216, green: 0.3098039216, blue: 0.3098039216, alpha: 1)
@@ -66,16 +96,23 @@ class SwipeVC: UIViewController {
         return button
     }()
     
-    private lazy var moveToCalendarButton: UIButton = {
+    private lazy var moveToFilterButton: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.setTitle("캘린더 바로가기", for: .normal)
+        button.setTitle("맞춤 정보 설정하기", for: .normal)
         button.backgroundColor = #colorLiteral(red: 0.3843137255, green: 0.4156862745, blue: 1, alpha: 1)
+        button.setImage(UIImage(named: "filterIcon"), for: .normal)
+        button.imageView?.translatesAutoresizingMaskIntoConstraints = false
+        button.imageView?.leadingAnchor.constraint(
+            equalTo: button.leadingAnchor,
+            constant: 24).isActive = true
+        button.imageView?.centerYAnchor.constraint(
+            equalTo: button.centerYAnchor).isActive = true
         button.setTitleColor(.white, for: .normal)
         button.layer.cornerRadius = 24
         button.titleLabel?.font = UIFont.systemFont(ofSize: 15)
         button.addTarget(self,
-                         action: #selector(touchUpMoveToCalendarButton),
+                         action: #selector(touchUpFilterButton),
                          for: .touchUpInside)
         return button
     }()
@@ -83,12 +120,7 @@ class SwipeVC: UIViewController {
    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
-       //
-        
-//        let shadowSize = CGSize(width: self.view.frame.width, height: 3)
-//        navigationController?.navigationBar.addColorToShadow(color: #colorLiteral(red: 0.3843137255, green: 0.4156862745, blue: 1, alpha: 1),
-//                                                             size: shadowSize)
+
         tabBarController?.tabBar.isHidden = false
         
         guard let isTryWithoutLogin = UserDefaults.standard.object(forKey: "isTryWithoutLogin") as? Bool else {
@@ -112,9 +144,9 @@ class SwipeVC: UIViewController {
         super.viewDidLoad()
 
         posterServiceImp
-            = SplashVC.isLatest
+            = DependencyContainer.shared.getDependency(key: .posterMockService)/*
             ? DependencyContainer.shared.getDependency(key: .posterService)
-            : DependencyContainer.shared.getDependency(key: .posterMockService)
+            : DependencyContainer.shared.getDependency(key: .posterMockService)*/
         
         requestPoster(isFirst: true)
         
@@ -128,6 +160,7 @@ class SwipeVC: UIViewController {
     }
 
     private func setView() {
+        currentView = self.view
         navigationController?.navigationBar.shadowImage = UIImage()
         view.backgroundColor = .white
         let categoryButtonView = UINib(nibName: "SwipeNavigationBarCenterButtonView",
@@ -145,10 +178,12 @@ class SwipeVC: UIViewController {
         let settingButton = settingBoardButton
         categoryButtonView?.recommendViewButtonHandler = { [weak self] in
             self?.navigationItem.rightBarButtonItem = filterBarButton
+            
         }
         
         categoryButtonView?.totalViewButtonnHandler = { [weak self] in
             self?.navigationItem.rightBarButtonItem = settingButton
+           UIApplication.shared.keyWindow?.rootViewController = self
         }
         
         categoryButtonView?.userpressed(type: .total)
@@ -156,27 +191,23 @@ class SwipeVC: UIViewController {
     }
     
     private func setEmptyPosterAnimation() {
-        let animation = AnimationView(name: "main_empty_hifive")
-        
-        let completeStackView: UIStackView = {
-            let stackView = UIStackView()
-            stackView.translatesAutoresizingMaskIntoConstraints = false
-            stackView.axis = .vertical
-            stackView.alignment = .center
-            stackView.spacing = 10
-            return stackView
-        }()
-        
         let spaceView = UIView()
         spaceView.translatesAutoresizingMaskIntoConstraints = false
+        spaceView.heightAnchor.constraint(equalToConstant: 10).isActive = true
         
-        completeStackView.addArrangedSubview(animation)
-        completeStackView.addArrangedSubview(completeLabel)
+        completeStackView.addArrangedSubview(completeImageView)
         completeStackView.addArrangedSubview(spaceView)
-        completeStackView.addArrangedSubview(viewAllPostersButton)
-        completeStackView.addArrangedSubview(moveToCalendarButton)
+        completeStackView.addArrangedSubview(completeLabel)
+        completeStackView.addArrangedSubview(completeFilterLabel)
+        completeStackView.addArrangedSubview(spaceView)
+        completeStackView.addArrangedSubview(moveToFilterButton)
         view.addSubview(completeStackView)
-
+        
+        completeLabel.widthAnchor.constraint(
+            equalToConstant: 186).isActive = true
+        completeLabel.heightAnchor.constraint(
+            equalToConstant: 36).isActive = true
+        
         completeStackView.centerXAnchor.constraint(
             equalTo: view.centerXAnchor).isActive = true
         completeStackView.centerYAnchor.constraint(
@@ -188,26 +219,16 @@ class SwipeVC: UIViewController {
             equalTo: view.trailingAnchor,
             constant: -40).isActive = true
         
-        animation.translatesAutoresizingMaskIntoConstraints = false
-        animation.widthAnchor.constraint(
-            equalToConstant: 170).isActive = true
-        animation.heightAnchor.constraint(
-            equalToConstant: 170).isActive = true
-        
-        spaceView.heightAnchor.constraint(
-            equalToConstant: 15).isActive = true
-        
         viewAllPostersButton.heightAnchor.constraint(
             equalToConstant: 48).isActive = true
         viewAllPostersButton.widthAnchor.constraint(
             equalToConstant: 202).isActive = true
         
-        moveToCalendarButton.heightAnchor.constraint(
+        moveToFilterButton.heightAnchor.constraint(
             equalToConstant: 48).isActive = true
-        moveToCalendarButton.widthAnchor.constraint(
+        moveToFilterButton.widthAnchor.constraint(
             equalToConstant: 202).isActive = true
-        
-        animation.play()
+       
     }
     
     //FIXME: - CategoryIdx가 3이거나 5일때 예외를 만든다.
@@ -233,11 +254,6 @@ class SwipeVC: UIViewController {
                 return
             }
         }
-    }
-    
-    //캘린더 이동
-    @objc func touchUpMoveToCalendarButton() {
-        tabBarController?.selectedIndex = 2
     }
     
     @objc func touchUpViewAllPostersButton(_ sender: UIButton) {
@@ -494,7 +510,9 @@ class SwipeVC: UIViewController {
                           return
                   }
                
-                  myVC.reactor = MyFilterSettingViewReactor(jobKind: ["개발자", "디자이너", "기획자", "마케터", "모르겠어요"], interestedField: ["서포터즈", "봉사활동", "기획/아이디어","광고/마케팅", "디자인","영상/콘텐츠", "IT/공학", "창업/스타트업", "금융/경제"], maxGrade: 5)
+        myVC.reactor = MyFilterSettingViewReactor(jobKind: ["개발자", "디자이너", "기획자", "마케터", "모르겠어요"],
+                                                  interestedField: ["서포터즈", "봉사활동", "기획/아이디어","광고/마케팅", "디자인","영상/콘텐츠", "IT/공학", "창업/스타트업", "금융/경제"],
+                                                  maxGrade: 5)
                
            
            navigationController?.pushViewController(myVC, animated: true)

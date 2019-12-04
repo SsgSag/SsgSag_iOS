@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import RxSwift
 
 extension UIColor {
     static func rgb(red: CGFloat, green: CGFloat, blue: CGFloat) -> UIColor {
@@ -63,6 +64,12 @@ extension NSObject {
     }
 }
 
+
+enum AlertType {
+    case ok
+    case cancel
+}
+
 extension UIViewController {
     
     //확인 팝업
@@ -115,6 +122,23 @@ extension UIViewController {
         alert.addAction(cancelAction)
         alert.modalPresentationStyle = .fullScreen
         present(alert, animated: false, completion: nil)
+    }
+    
+    func makeAlertObservable(title: String, message: String) -> Observable<AlertType> {
+        let alertObservable = Observable<AlertType>.create { [weak self] (observer) -> Disposable in
+            guard let self = self else { return Disposables.create() }
+            self.simpleAlertWithHandlers(title: title,
+                                    message: message,
+                                    okHandler: { _ in
+                                        observer.onNext(.ok)
+                                        observer.onCompleted() },
+                                    cancelHandler: { _ in
+                                        observer.onNext(.cancel)
+                                        observer.onCompleted()
+            })
+            return Disposables.create()
+        }
+        return alertObservable
     }
     
     func simpleAlertwithOKButton(title: String, message: String, okHandler : ((UIAlertAction) -> Void)?){
