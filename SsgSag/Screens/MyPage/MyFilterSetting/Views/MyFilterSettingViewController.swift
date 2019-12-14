@@ -51,8 +51,6 @@ class MyFilterSettingViewController: UIViewController, StoryboardView {
     }
     
     func setUpUiComponnents() {
-        //navigationBar
-       // self.navigationController?.navigationBar.topItem?.title = "맞춤 추천 설정"
         let backButton = UIButton(type: .custom)
         backButton.setImage(UIImage(named: "ic_ArrowBack"), for: .normal)
         let leftBarbutton = UIBarButtonItem(customView: backButton)
@@ -62,6 +60,8 @@ class MyFilterSettingViewController: UIViewController, StoryboardView {
             }).disposed(by: disposeBag)
         title = "맞춤 추천 설정"
         navigationItem.leftBarButtonItem = leftBarbutton
+        setNavigationBar(color: .white)
+        
         //collectionView
          filteringCollectionView.rx
             .setDelegate(self)

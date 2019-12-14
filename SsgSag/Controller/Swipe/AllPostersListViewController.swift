@@ -18,10 +18,10 @@ class AllPostersListViewController: UIViewController {
     private var currentCategory = 1
     private var posterImageTasks: [URLSessionDataTask] = []
     
-    private lazy var mypageButton = UIBarButtonItem(image: UIImage(named: "ic_mypage"),
+    private lazy var backButton = UIBarButtonItem(image: UIImage(named: "ic_ArrowBack"),
                                                     style: .plain,
                                                     target: self,
-                                                    action: #selector(touchUpMypageButton))
+                                                    action: #selector(touchUpBackButton))
     
     private lazy var settingBoardButton = UIBarButtonItem(image: UIImage(named: "bulletin"),
                                                           style: .plain,
@@ -107,7 +107,7 @@ class AllPostersListViewController: UIViewController {
         navigationController?.navigationBar.addColorToShadow(color: #colorLiteral(red: 0.3843137255, green: 0.4156862745, blue: 1, alpha: 1),
                                                              size: shadowSize)
         
-        navigationItem.leftBarButtonItem = mypageButton
+        navigationItem.leftBarButtonItem = backButton
         navigationItem.rightBarButtonItem = settingBoardButton
     }
     
@@ -236,16 +236,8 @@ class AllPostersListViewController: UIViewController {
         
     }
     
-    @objc private func touchUpMypageButton() {
-        let myPageStoryboard = UIStoryboard(name: StoryBoardName.mypage, bundle: nil)
-        
-        let myPageViewController
-            = myPageStoryboard.instantiateViewController(withIdentifier: ViewControllerIdentifier.mypageViewController)
-        
-        let myPageViewNavigator = UINavigationController(rootViewController: myPageViewController)
-        myPageViewNavigator.modalPresentationStyle = .fullScreen
-        present(myPageViewNavigator,
-                animated: true)
+    @objc private func touchUpBackButton() {
+        navigationController?.popViewController(animated: true)
     }
     
     @objc private func touchUpSettingBoardButton() {

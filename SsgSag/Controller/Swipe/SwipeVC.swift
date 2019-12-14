@@ -61,8 +61,6 @@ class SwipeVC: UIViewController {
     
     private var isOkayToUndo: Bool = false
     
-    var currentView: UIView?
-    
     private lazy var completeLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -144,7 +142,7 @@ class SwipeVC: UIViewController {
         super.viewDidLoad()
 
         posterServiceImp
-            = DependencyContainer.shared.getDependency(key: .posterMockService)/*
+            = DependencyContainer.shared.getDependency(key: .posterService)/*
             ? DependencyContainer.shared.getDependency(key: .posterService)
             : DependencyContainer.shared.getDependency(key: .posterMockService)*/
         
@@ -160,34 +158,8 @@ class SwipeVC: UIViewController {
     }
 
     private func setView() {
-        currentView = self.view
         navigationController?.navigationBar.shadowImage = UIImage()
         view.backgroundColor = .white
-        let categoryButtonView = UINib(nibName: "SwipeNavigationBarCenterButtonView",
-                                       bundle: nil).instantiate(withOwner: self,
-                                                                options: nil).first as? SwipeNavigationBarCenterButtonView
-        categoryButtonView?.widthAnchor.constraint(equalToConstant: 200).isActive = true
-        categoryButtonView?.heightAnchor.constraint(equalToConstant: 44).isActive = true
-        let filterImage = UIImage(named: "filter")
-      
-        let filterBarButton =  UIBarButtonItem(image: filterImage,
-                                   style: .done, target: self,
-                                   action: #selector(touchUpFilterButton))
-        filterBarButton.tintColor = .unselectedGray
-        
-        let settingButton = settingBoardButton
-        categoryButtonView?.recommendViewButtonHandler = { [weak self] in
-            self?.navigationItem.rightBarButtonItem = filterBarButton
-            
-        }
-        
-        categoryButtonView?.totalViewButtonnHandler = { [weak self] in
-            self?.navigationItem.rightBarButtonItem = settingButton
-           UIApplication.shared.keyWindow?.rootViewController = self
-        }
-        
-        categoryButtonView?.userpressed(type: .total)
-        navigationItem.titleView = categoryButtonView
     }
     
     private func setEmptyPosterAnimation() {
@@ -503,19 +475,14 @@ class SwipeVC: UIViewController {
     }
     
     @objc func touchUpFilterButton() {
-           let myBoard = UIStoryboard(name: "MyPageStoryBoard",
-                                                             bundle: nil)
-            guard let myVC
-                      = myBoard.instantiateViewController(withIdentifier: "MyFilterSettingViewController") as? MyFilterSettingViewController else {
-                          return
-                  }
-               
+        let myBoard = UIStoryboard(name: "MyPageStoryBoard",
+                                   bundle: nil)
+        guard let myVC
+            = myBoard.instantiateViewController(withIdentifier: "MyFilterSettingViewController") as? MyFilterSettingViewController else { return }
         myVC.reactor = MyFilterSettingViewReactor(jobKind: ["개발자", "디자이너", "기획자", "마케터", "모르겠어요"],
                                                   interestedField: ["서포터즈", "봉사활동", "기획/아이디어","광고/마케팅", "디자인","영상/콘텐츠", "IT/공학", "창업/스타트업", "금융/경제"],
                                                   maxGrade: 5)
-               
-           
-           navigationController?.pushViewController(myVC, animated: true)
+        navigationController?.pushViewController(myVC, animated: true)
         
        }
     

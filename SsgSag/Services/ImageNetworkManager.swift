@@ -6,6 +6,49 @@
 //  Copyright © 2019 team-b1. All rights reserved.
 //
 import UIKit
+import RxSwift
+import RxCocoa
+
+class ImageLoader {
+    
+    var disposeBag = DisposeBag()
+    private let network: RxNetwork = RxNetworkImp(session: URLSession.shared)
+    private let imageCache = NSCache<NSString, UIImage>()
+    func load(with urlString: String) -> Observable<UIImage?> {
+        return Observable<UIImage?>.create { [weak self] (observer) in
+            guard let self = self,
+                let url = URL(string: urlString) else {
+                observer.onError(RxCocoaURLError.unknown)
+                return Disposables.create()
+            }
+            
+            if let cachedImage = self.imageCache.object(forKey: urlString as NSString) {
+                observer.onNext(cachedImage)
+                observer.onCompleted()
+                return Disposables.create()
+            }
+            
+            let dataObservable = self.network.dispatch(request: URLRequest(url: url))
+            dataObservable
+                .subscribe(onNext: { (data) in
+                    if let image = UIImage(data: data) {
+                        
+                        self.imageCache.setObject(image.scale(with: 0.4),
+                                             forKey: urlString as NSString)
+                        observer.onNext(image)
+                    } else {
+                        observer.onNext(nil)
+                    }
+                    observer.onCompleted()
+                
+                }, onError: { (error) in
+                    observer.onError(error)
+                })
+                .disposed(by: self.disposeBag)
+            return Disposables.create()
+        }
+    }
+}
 
 public class ImageNetworkManager {
     
@@ -53,13 +96,6 @@ public class ImageNetworkManager {
     }
     
     public func getImageByCache(imageURL: String, completionHandler: @escaping (UIImage?, Error?) -> Void) {
-        if imageURL == "" {
-            DispatchQueue.main.async {
-                completionHandler(UIImage(named: "ic_developer"), nil)
-                return
-            }
-        }
-        
         guard let image = cache.object(forKey: imageURL as NSString) else {
             downloadImage(imageURL: imageURL, completionHandler: completionHandler)
             return
@@ -70,4 +106,20 @@ public class ImageNetworkManager {
         }
     }
     
+}
+
+extension UIImage {
+    func scale(with scale: CGFloat) -> UIImage {
+        let size = CGSize(width: self.size.width * scale, height: self.size.height * scale)
+        let format = UIGraphicsImageRendererFormat.default()
+        format.opaque = true
+        format.scale = self.scale
+        
+        let render = UIGraphicsImageRenderer(size:size, format: format)
+        let image = render.image { _ in
+            self.draw(in: CGRect(origin: .zero, size: size))
+        }
+        
+        return image
+    }
 }

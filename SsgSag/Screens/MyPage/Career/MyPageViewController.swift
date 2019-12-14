@@ -10,7 +10,7 @@ import UIKit
 import Photos
 import SwiftKeychainWrapper
 
-class myPageVC: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+class MyPageViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
 
     @IBOutlet weak var nameLabel: UILabel!
     
@@ -161,13 +161,13 @@ class myPageVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
     }
 }
 
-extension myPageVC: UITableViewDelegate {
+extension MyPageViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 50
     }
 }
 
-extension myPageVC: UITableViewDataSource {
+extension MyPageViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 4
     }
@@ -212,7 +212,7 @@ extension myPageVC: UITableViewDataSource {
     }
 }
 
-extension myPageVC: UpdateDataDelegate {
+extension MyPageViewController: UpdateDataDelegate {
     func reloadUserData() {
         getData()
     }

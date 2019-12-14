@@ -154,7 +154,7 @@ class SplashVC: UIViewController {
             DispatchQueue.main.async {
                 switch dataResponse {
                 case .success(let data):
-                    guard data.data == 0 else {
+                    guard data.data ?? 0 == 0 else {
                         self?.simpleAlertwithHandler(title: "",
                                                      message: "서버 업데이트 중입니다.",
                                                      okHandler: { _ in

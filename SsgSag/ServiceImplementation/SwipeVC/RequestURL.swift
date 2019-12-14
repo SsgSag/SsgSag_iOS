@@ -19,6 +19,7 @@ enum RequestURL {
     case monthTodoList(year: String, month: String, list: String, favorite: Int)
     case dayTodoList(year: String, month: String, day: String)
     case posterDetail(posterIdx: Int)
+    case posterWhat(category: Int)
     case interestingField
     case reIntersting
     case careerActivity
@@ -71,6 +72,8 @@ enum RequestURL {
             return "/todo?year=\(year)&month=\(month)&day=\(day)"
         case .posterDetail(let posterIdx):
             return "/poster/\(posterIdx)"
+        case .posterWhat(let category):
+            return "/poster/what?category=\(category)"
         case .interestingField:
             return "/user/interest"
         case .reIntersting:

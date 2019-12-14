@@ -94,7 +94,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             = splashStoryBoard.instantiateViewController(withIdentifier: "splash") as? SplashVC else {
                 return true
         }
-
+        
         window?.rootViewController = splashVC
         window?.makeKeyAndVisible()
         

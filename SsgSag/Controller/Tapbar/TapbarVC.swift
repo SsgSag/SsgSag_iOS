@@ -44,19 +44,24 @@ class TapbarVC: UITabBarController {
     
     private func setTabBarViewController() {
         
-        let swipeStoryBoard = UIStoryboard(name: StoryBoardName.swipe, bundle: nil)
+       // let swipeStoryBoard = UIStoryboard(name: StoryBoardName.swipe, bundle: nil)
+        let mainStoryBoard = UIStoryboard(name: "MainViewStoryboard",
+                                          bundle: nil)
+        guard let mainViewController
+                   = mainStoryBoard.instantiateViewController(withIdentifier: "MainViewNavigationController") as? MainViewNavigationController else { return }
+               
         
         let feedStoryBoard = UIStoryboard(name: StoryBoardName.feed, bundle: nil)
         
         let newCalendarStoryboard = UIStoryboard(name: StoryBoardName.newCalendar, bundle: nil)
         
-        let swipeViewController = swipeStoryBoard.instantiateViewController(withIdentifier: "swipeNavigationVC")
+        //let swipeViewController = swipeStoryBoard.instantiateViewController(withIdentifier: "swipeNavigationVC")
         
         let feedViewController = feedStoryBoard.instantiateViewController(withIdentifier: "feedNavigationVC")
         
         let newCalendarViewController = newCalendarStoryboard.instantiateViewController(withIdentifier: "calendarNavigationVC")
         
-        swipeViewController.tabBarItem = UITabBarItem(title: "",
+        mainViewController.tabBarItem = UITabBarItem(title: "",
                                                       image: UIImage(named: "icMain"),
                                                       selectedImage: UIImage(named: "icMainActive"))
         
@@ -68,7 +73,7 @@ class TapbarVC: UITabBarController {
                                                             image: UIImage(named: "ic_calendarPassive"),
                                                             selectedImage: UIImage(named: "ic_calendarActive"))
         
-        let tabBarList = [feedViewController, swipeViewController, newCalendarViewController]
+        let tabBarList = [feedViewController, mainViewController, newCalendarViewController]
         
         self.viewControllers = tabBarList
     }
