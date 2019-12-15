@@ -64,7 +64,7 @@ class MyFilterSliderCollectionViewCell: UICollectionViewCell, StoryboardView {
             self?.gradeSlider.rx.value
                 .distinctUntilChanged()
                 .map { value in MyFilterGradeCollectionViewCellReactor.Action.select(Int(lroundf(value)) - 1) }
-                .bind(to: reactor.gradeCellReactors[indexPath].action)         // Bind to reactor.action
+                .bind(to: reactor.gradeCellReactors[indexPath].action)
                 .disposed(by: gradeCell.disposeBag)
            }
        .disposed(by: disposeBag)
