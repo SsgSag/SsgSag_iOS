@@ -74,3 +74,67 @@ class MockServiceImp: PosterService {
     }
 }
 
+class MyPageMockServiceImp: MyPageService {
+    
+    let requestMaker: RequestMakerProtocol
+    let network: Network
+    
+    init(requestMaker: RequestMakerProtocol,
+         network: Network) {
+        self.requestMaker = requestMaker
+        self.network = network
+    }
+    
+    func requestUserInfo(completionHandler: @escaping ((DataResponse<UserInfomationResponse>) -> Void)) {
+        let userInfomation = UserInfomation(userIdx: 1,
+                                            userEmail: "hhhuul098098@gmail.com",
+                                            userName: "이혜주",
+                                            userBirth: "950429",
+                                            userNickname: "혜주혜주이혜주",
+                                            userUniv: "인하대학교",
+                                            userMajor: "컴퓨터공학과",
+                                            userGrade: 5,
+                                            userStudentNum: "1988",
+                                            userGender: "male",
+                                            userSignOutDate: "2019-02-03 18:45:18",
+                                            userSignInDate: "2019-02-03 18:45:18",
+                                            userPushAllow: 1,
+                                            userIsSeeker: 0,
+                                            userCnt: 15,
+                                            userInfoAllow: 1,
+                                            userProfileUrl: "https://s3.ap-northeast-2.amazonaws.com/project-hs/99ced6ba5175467ca71ea26a7ac4b3b6.png",
+                                            userAlreadyOut: 0,
+                                            lastLoginTime: "2019-02-03 21:50:08",
+                                            signupType: 0,
+                                            userId: "1012134787",
+                                            uuid: "uuid",
+                                            wannaJob: "예비 개발자",
+                                            wannaJobNumList: [301, 302],
+                                            userInterest: "#기획/아이디어 #광고/마케팅 #디자인 #서포터즈")
+        
+        let userInfomationResponse = UserInfomationResponse(status: 200,
+                                                            message: "회원 정보 조회 성공",
+                                                            data: userInfomation)
+        
+        completionHandler(.success(userInfomationResponse))
+    }
+    
+    func requestSelectedState(completionHandler: @escaping ((DataResponse<Interests>) -> Void)) {
+    }
+    
+    func requestStoreSelectedField(_ selectedIndex: [Int], completionHandler: @escaping ((DataResponse<HttpStatusCode>) -> Void)) {
+    }
+    
+    func requestMembershipCancel(completionHandler: @escaping (DataResponse<HttpStatusCode>) -> Void) {
+    }
+    
+    func requestChangePassword(oldPassword: String, newPassword: String, completionHandler: @escaping (DataResponse<HttpStatusCode>) -> Void) {
+    }
+    
+    func requestUpdateUserInfo(bodyData: [String : Any], completionHandler: @escaping (DataResponse<UserInfomationResponse>) -> Void) {
+    }
+    
+    func requestUpdateProfileImage(boundary: String, bodyData: Data, completionHandler: @escaping (DataResponse<HttpStatusCode>) -> Void) {
+    }
+    
+}

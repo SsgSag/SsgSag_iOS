@@ -14,7 +14,7 @@ class UserAPI {
     
     static let sharedInstance = UserAPI()
     
-    private let baseURLString = "http://13.209.77.133:8080"
+    private let baseURLString = "http://ssgsag-alb-2141317761.ap-northeast-2.elb.amazonaws.com"
     
     func getBaseString() -> String {
         return baseURLString

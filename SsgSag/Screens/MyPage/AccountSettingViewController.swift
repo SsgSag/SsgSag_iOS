@@ -23,18 +23,18 @@ class AccountSettingViewController: UIViewController {
                          "비밀번호",
                          "학교",
                          "학과",
-                         "학년",
-                         "입학년도"]
+                         "학번",
+                         "학과"]
     
     var selectedImage: UIImage?
-    var userData: UserInfoModel?
+    var userData: UserInfomation?
     var currentTextField: UITextField?
     
     var nickName: String?
     var univ: String?
     var major: String?
     var studentNumber: String?
-    var grade: Int?
+    var grade: String?
     
     private let mypageService: MyPageService
         = DependencyContainer.shared.getDependency(key: .myPageService)
@@ -146,26 +146,34 @@ class AccountSettingViewController: UIViewController {
         settingCollectionView.register(menuNib,
                                        forCellWithReuseIdentifier: "menuCellID")
         
-        let univSettingNib = UINib(nibName: "UnivCollectionViewCell", bundle: nil)
+        let univSettingNib = UINib(nibName: "UnivCollectionViewCell",
+                                   bundle: nil)
         
-        settingCollectionView.register(univSettingNib, forCellWithReuseIdentifier: "univSettingCell")
+        settingCollectionView.register(univSettingNib,
+                                       forCellWithReuseIdentifier: "univSettingCell")
         
-        let majorSettingNib = UINib(nibName: "MajorCollectionViewCell", bundle: nil)
+        let majorSettingNib = UINib(nibName: "MajorCollectionViewCell",
+                                    bundle: nil)
         
-        settingCollectionView.register(majorSettingNib, forCellWithReuseIdentifier: "majorSettingCell")
+        settingCollectionView.register(majorSettingNib,
+                                       forCellWithReuseIdentifier: "majorSettingCell")
         
-        let gradeSettingNib = UINib(nibName: "GradeCollectionViewCell", bundle: nil)
+        let gradeSettingNib = UINib(nibName: "GradeCollectionViewCell",
+                                    bundle: nil)
         
-        settingCollectionView.register(gradeSettingNib, forCellWithReuseIdentifier: "gradeSettingCell")
+        settingCollectionView.register(gradeSettingNib,
+                                       forCellWithReuseIdentifier: "gradeSettingCell")
         
-        let admissionSettingNib = UINib(nibName: "AdmissionCollectionViewCell", bundle: nil)
+        let studentNumberSettingNib = UINib(nibName: "StudentNumberCollectionViewCell",
+                                            bundle: nil)
         
-        settingCollectionView.register(admissionSettingNib, forCellWithReuseIdentifier: "admissionSettingCell")
+        settingCollectionView.register(studentNumberSettingNib,
+                                       forCellWithReuseIdentifier: "studentNumberSettingCell")
     }
     
-    private func uploadImage(_ selecteImage: UIImage?) {
+    private func uploadImage(_ selectedImage: UIImage?) {
         
-        guard let sendImage = selecteImage else { return }
+        guard let sendImage = selectedImage else { return }
         
         guard let sendData = sendImage.jpegData(compressionQuality: 0.7) else {return}
         
@@ -282,13 +290,18 @@ class AccountSettingViewController: UIViewController {
                                        "userUniv" : univ ?? (userData?.userUniv ?? ""),
                                        "userMajor" : major ?? (userData?.userMajor ?? ""),
                                        "userStudentNum" : studentNumber ?? (userData?.userStudentNum ?? ""),
-                                       "userGrade" : grade ?? (userData?.userGrade ?? 1)]
+                                       "userGrade" : grade ?? (userData?.userGrade ?? "")]
         
         mypageService.requestUpdateUserInfo(bodyData: bodyData) { [weak self] result in
             switch result {
-            case .success(let status):
+            case .success(let response):
+                guard let status = response.status,
+                    let httpStatusCode = HttpStatusCode(rawValue: status) else {
+                        return
+                }
+                
                 DispatchQueue.main.async {
-                    switch status {
+                    switch httpStatusCode {
                     case .processingSuccess:
                         let adBrix = AdBrixRM.getInstance
                         
@@ -299,8 +312,12 @@ class AccountSettingViewController: UIViewController {
                         adBrix.setUserProperties(dictionary: attrModel)
                         
                         self?.uploadImage(self?.selectedImage)
+                    case .authorizationFailure:
+                        self?.simplerAlert(title: "이미 사용중인 닉네임입니다.")
+                        return
                     case .requestError:
-                        self?.simplerAlert(title: "학교와 학과의 형식이 일치하지 않습니다.")
+                        self?.simplerAlert(title: response.message ?? "")
+//                        self?.simplerAlert(title: "학교와 학과의 형식이 일치하지 않습니다.")
                         return
                     case .dataBaseError:
                         self?.simplerAlert(title: "database error")
@@ -309,6 +326,7 @@ class AccountSettingViewController: UIViewController {
                         return
                     }
                 }
+                
             case .failed(let error):
                 print(error)
                 return
@@ -349,27 +367,22 @@ class AccountSettingViewController: UIViewController {
             && univ != ""
             && major != ""
             && studentNumber != ""
-            && grade != nil else {
+            && grade != "" else {
                 simplerAlert(title: "입력되지 않은 정보가 있습니다.")
                 return false
         }
         
         guard isValidateNickName(nickName: nickName) else {
-            simplerAlert(title: "닉네임은 1~10자\n영문자, 한글, 숫자 조합을\n사용해주세요")
-            return false
-        }
-        
-        guard grade! >= 1 && grade! <= 5 else {
-            simplerAlert(title: "학년은 1~5학년 사이로 입력해주세요")
+            simplerAlert(title: "닉네임은 2글자 이상\n영문자, 한글, 숫자를\n조합해 사용해주세요")
             return false
         }
         
         let currentDate = Date()
-        let year = Calendar.current.component(.year, from: currentDate)
+        let year = Calendar.current.component(.year, from: currentDate) % 100
         
-        guard let admissionYear = Int(studentNumber ?? ""),
-            admissionYear >= 1990 && admissionYear <= year else {
-            simplerAlert(title: "입학년도가 잘못되었습니다.")
+        guard let studentNumber = Int(studentNumber ?? ""),
+            studentNumber >= year - 10 && studentNumber <= year else {
+            simplerAlert(title: "학번이 잘못되었습니다.")
             return false
         }
         
@@ -379,7 +392,7 @@ class AccountSettingViewController: UIViewController {
     private func isValidateNickName(nickName: String?) -> Bool {
         guard nickName != nil else { return false }
         
-        let regEx = "^[a-zA-Z가-힣0-9]{1,10}$"
+        let regEx = "^[a-zA-Z가-힣0-9]{2,10}$"
         
         let pred = NSPredicate(format: "SELF MATCHES %@", regEx)
         
@@ -452,16 +465,18 @@ extension AccountSettingViewController: ShowImagePickerDelegate {
         case .notDetermined:
             print("접근 아직 응답하지 않음")
             PHPhotoLibrary.requestAuthorization { [weak self] status in
-                switch status {
-                case .authorized:
-                    print("사용자가 허용")
-                    self!.profileImagePicker.modalPresentationStyle = .fullScreen
-                    self?.present(self!.profileImagePicker,
-                                 animated: true)
-                case .denied:
-                    print("사용자가 불허")
-                default:
-                    break
+                DispatchQueue.main.async {
+                    switch status {
+                    case .authorized:
+                        print("사용자가 허용")
+                        self!.profileImagePicker.modalPresentationStyle = .fullScreen
+                        self?.present(self!.profileImagePicker,
+                                     animated: true)
+                    case .denied:
+                        print("사용자가 불허")
+                    default:
+                        break
+                    }
                 }
             }
         }
@@ -475,6 +490,36 @@ extension AccountSettingViewController: UITextFieldDelegate {
     }
     
     func textFieldDidBeginEditing(_ textField: UITextField) {
+        // studentNumber
+        if textField.tag == 5 {
+            guard let cell = settingCollectionView.cellForItem(at: IndexPath(item: 4, section: 0)) as? StudentNumberCollectionViewCell else {
+                return
+            }
+            
+            for (index, value) in cell.studentNumberPickOption.enumerated() {
+                if value == textField.text {
+                    cell.studentNumberPickerView.selectRow(index,
+                                                           inComponent: 0,
+                                                           animated: true)
+                    break
+                }
+            }
+            
+        // grade
+        } else if textField.tag == 6 {
+            guard let cell = settingCollectionView.cellForItem(at: IndexPath(item: 5, section: 0)) as? GradeCollectionViewCell else {
+                return
+            }
+            
+            for (index, value) in cell.gradePickOption.enumerated() {
+                if value == textField.text {
+                    cell.gradePickerView.selectRow(index,
+                                                   inComponent: 0,
+                                                   animated: true)
+                    break
+                }
+            }
+        }
         currentTextField = textField
     }
     
@@ -487,13 +532,12 @@ extension AccountSettingViewController: UITextFieldDelegate {
         case 4:
             major = textField.text
         case 5:
-            guard let gradeText = textField.text,
-                let gradeNumber = Int(gradeText) else {
-                    return
-            }
-            self.grade = gradeNumber
+            let studentNumberArray
+                = (textField.text ?? "").filter { $0 >= "0" && $0 <= "9" }
+            studentNumber = String(studentNumberArray)
         case 6:
-            studentNumber = textField.text
+            let gradeArray: [Character] = (textField.text ?? "").map { $0 }
+            grade = String(gradeArray[0])
         default:
             break
         }

@@ -138,7 +138,7 @@
 		C9A828672395528D0029A493 /* SettingProfileImageCollectionReusableView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C9A828182395528D0029A493 /* SettingProfileImageCollectionReusableView.xib */; };
 		C9A828682395528E0029A493 /* UnivCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C9A828192395528D0029A493 /* UnivCollectionViewCell.xib */; };
 		C9A828692395528E0029A493 /* ActivityCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C9A8281A2395528D0029A493 /* ActivityCell.xib */; };
-		C9A8286A2395528E0029A493 /* AdmissionCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9A8281B2395528D0029A493 /* AdmissionCollectionViewCell.swift */; };
+		C9A8286A2395528E0029A493 /* StudentNumberCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9A8281B2395528D0029A493 /* StudentNumberCollectionViewCell.swift */; };
 		C9A8286B2395528E0029A493 /* SettingMenuCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C9A8281C2395528D0029A493 /* SettingMenuCollectionViewCell.xib */; };
 		C9A8286C2395528E0029A493 /* NonActivityCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9A8281D2395528D0029A493 /* NonActivityCell.swift */; };
 		C9A8286D2395528E0029A493 /* UnivCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9A8281E2395528D0029A493 /* UnivCollectionViewCell.swift */; };
@@ -159,7 +159,7 @@
 		C9A8287C2395528E0029A493 /* CustomCareerCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C9A8282D2395528D0029A493 /* CustomCareerCell.xib */; };
 		C9A8287D2395528E0029A493 /* InterestBoardTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C9A8282E2395528D0029A493 /* InterestBoardTableViewCell.xib */; };
 		C9A8287E2395528E0029A493 /* SettingTextFieldCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C9A8282F2395528D0029A493 /* SettingTextFieldCollectionViewCell.xib */; };
-		C9A8287F2395528E0029A493 /* AdmissionCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C9A828302395528D0029A493 /* AdmissionCollectionViewCell.xib */; };
+		C9A8287F2395528E0029A493 /* StudentNumberCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C9A828302395528D0029A493 /* StudentNumberCollectionViewCell.xib */; };
 		C9A828802395528E0029A493 /* ActivityCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9A828312395528D0029A493 /* ActivityCell.swift */; };
 		C9A828812395528E0029A493 /* GradeCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9A828322395528D0029A493 /* GradeCollectionViewCell.swift */; };
 		C9A828822395528E0029A493 /* ServiceInfoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9A828332395528D0029A493 /* ServiceInfoTableViewCell.swift */; };
@@ -459,7 +459,7 @@
 		C9A828182395528D0029A493 /* SettingProfileImageCollectionReusableView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SettingProfileImageCollectionReusableView.xib; sourceTree = "<group>"; };
 		C9A828192395528D0029A493 /* UnivCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = UnivCollectionViewCell.xib; sourceTree = "<group>"; };
 		C9A8281A2395528D0029A493 /* ActivityCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ActivityCell.xib; sourceTree = "<group>"; };
-		C9A8281B2395528D0029A493 /* AdmissionCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AdmissionCollectionViewCell.swift; sourceTree = "<group>"; };
+		C9A8281B2395528D0029A493 /* StudentNumberCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StudentNumberCollectionViewCell.swift; sourceTree = "<group>"; };
 		C9A8281C2395528D0029A493 /* SettingMenuCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SettingMenuCollectionViewCell.xib; sourceTree = "<group>"; };
 		C9A8281D2395528D0029A493 /* NonActivityCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NonActivityCell.swift; sourceTree = "<group>"; };
 		C9A8281E2395528D0029A493 /* UnivCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UnivCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -480,7 +480,7 @@
 		C9A8282D2395528D0029A493 /* CustomCareerCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CustomCareerCell.xib; sourceTree = "<group>"; };
 		C9A8282E2395528D0029A493 /* InterestBoardTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = InterestBoardTableViewCell.xib; sourceTree = "<group>"; };
 		C9A8282F2395528D0029A493 /* SettingTextFieldCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SettingTextFieldCollectionViewCell.xib; sourceTree = "<group>"; };
-		C9A828302395528D0029A493 /* AdmissionCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AdmissionCollectionViewCell.xib; sourceTree = "<group>"; };
+		C9A828302395528D0029A493 /* StudentNumberCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = StudentNumberCollectionViewCell.xib; sourceTree = "<group>"; };
 		C9A828312395528D0029A493 /* ActivityCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActivityCell.swift; sourceTree = "<group>"; };
 		C9A828322395528D0029A493 /* GradeCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GradeCollectionViewCell.swift; sourceTree = "<group>"; };
 		C9A828332395528D0029A493 /* ServiceInfoTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ServiceInfoTableViewCell.swift; sourceTree = "<group>"; };
@@ -1277,7 +1277,7 @@
 				C9A828182395528D0029A493 /* SettingProfileImageCollectionReusableView.xib */,
 				C9A828192395528D0029A493 /* UnivCollectionViewCell.xib */,
 				C9A8281A2395528D0029A493 /* ActivityCell.xib */,
-				C9A8281B2395528D0029A493 /* AdmissionCollectionViewCell.swift */,
+				C9A8281B2395528D0029A493 /* StudentNumberCollectionViewCell.swift */,
 				C9A8281C2395528D0029A493 /* SettingMenuCollectionViewCell.xib */,
 				C9A8281D2395528D0029A493 /* NonActivityCell.swift */,
 				C9A8281E2395528D0029A493 /* UnivCollectionViewCell.swift */,
@@ -1298,7 +1298,7 @@
 				C9A8282D2395528D0029A493 /* CustomCareerCell.xib */,
 				C9A8282E2395528D0029A493 /* InterestBoardTableViewCell.xib */,
 				C9A8282F2395528D0029A493 /* SettingTextFieldCollectionViewCell.xib */,
-				C9A828302395528D0029A493 /* AdmissionCollectionViewCell.xib */,
+				C9A828302395528D0029A493 /* StudentNumberCollectionViewCell.xib */,
 				C9A828312395528D0029A493 /* ActivityCell.swift */,
 				C9A828322395528D0029A493 /* GradeCollectionViewCell.swift */,
 				C9A828332395528D0029A493 /* ServiceInfoTableViewCell.swift */,
@@ -1722,7 +1722,7 @@
 				C9A828642395528D0029A493 /* MyPageStoryBoard.storyboard in Resources */,
 				D166AC7122D73CD700ED82DD /* NewsCollectionViewCell.xib in Resources */,
 				D1E81E7122DC7F84004DAA00 /* majorListByUniv.json in Resources */,
-				C9A8287F2395528E0029A493 /* AdmissionCollectionViewCell.xib in Resources */,
+				C9A8287F2395528E0029A493 /* StudentNumberCollectionViewCell.xib in Resources */,
 				84B4268C21E9091D00B44F71 /* main_empty_hifive.json in Resources */,
 				845928A521D09CE0001DF6CC /* Assets.xcassets in Resources */,
 				84264BA621DF0FF300849E6B /* Calendar.storyboard in Resources */,
@@ -1952,7 +1952,7 @@
 				84A45D0F225F9E0000C60287 /* URLParameterEncoder.swift in Sources */,
 				845928E721D3877D001DF6CC /* DetailTextSwipeCard.swift in Sources */,
 				C9A8285F2395528D0029A493 /* InternFilterViewController.swift in Sources */,
-				C9A8286A2395528E0029A493 /* AdmissionCollectionViewCell.swift in Sources */,
+				C9A8286A2395528E0029A493 /* StudentNumberCollectionViewCell.swift in Sources */,
 				8459289B21D09CDD001DF6CC /* AppDelegate.swift in Sources */,
 				C9A8283C2395528D0029A493 /* JobVC.swift in Sources */,
 				846E622F22928F800083E3CD /* TokenName.swift in Sources */,

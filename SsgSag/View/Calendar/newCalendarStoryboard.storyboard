@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14868" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14824"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15510"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -106,7 +106,7 @@
                             </barButtonItem>
                             <barButtonItem style="plain" id="18R-zK-GKS">
                                 <view key="customView" contentMode="scaleToFill" id="p9b-tv-ABd" customClass="VAMonthHeaderView" customModule="슥삭" customModuleProvider="target">
-                                    <rect key="frame" x="135" y="22" width="0.0" height="0.0"/>
+                                    <rect key="frame" x="87" y="22" width="0.0" height="0.0"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <constraints>
@@ -118,7 +118,7 @@
                         <rightBarButtonItems>
                             <barButtonItem width="38" style="plain" id="QNQ-pb-H2P">
                                 <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="iXw-cr-BBI">
-                                    <rect key="frame" x="318" y="0.0" width="38" height="44"/>
+                                    <rect key="frame" x="356" y="0.0" width="38" height="44"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                     <state key="normal" image="ic_modify">
@@ -134,9 +134,9 @@
                             </barButtonItem>
                             <barButtonItem width="38" style="plain" id="D5R-Ov-NWY">
                                 <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="3ld-Sy-av3">
-                                    <rect key="frame" x="234" y="0.0" width="38" height="44"/>
+                                    <rect key="frame" x="310" y="0.0" width="38" height="44"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                    <state key="normal" image="ic_switchToCalendar"/>
+                                    <state key="normal" image="ic_switchToList"/>
                                     <connections>
                                         <action selector="touchUpCalendarSwitchButton:" destination="B71-YN-EqE" eventType="touchUpInside" id="PyI-QY-H4e"/>
                                     </connections>
@@ -198,6 +198,6 @@
     <resources>
         <image name="ic_modify" width="38" height="48"/>
         <image name="ic_mypage" width="48" height="48"/>
-        <image name="ic_switchToCalendar" width="38" height="48"/>
+        <image name="ic_switchToList" width="38" height="48"/>
     </resources>
 </document>

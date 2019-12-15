@@ -317,7 +317,7 @@ class CalendarListViewController: UIViewController {
     }
     
     @objc private func touchUpCalendarSwitchButton(_ sender: UIButton) {
-        dismiss(animated: false)
+        navigationController?.popViewController(animated: false)
     }
     
     @objc private func touchUpCalendarEtcButton(_ sender: UIButton) {

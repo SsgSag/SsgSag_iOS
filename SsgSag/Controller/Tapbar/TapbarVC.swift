@@ -11,6 +11,8 @@ import AdBrixRM
 
 class TapbarVC: UITabBarController {
 
+    let previousIndex: Int = 1
+    
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         
@@ -28,6 +30,8 @@ class TapbarVC: UITabBarController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.delegate = self
         
         setupLayout()
         
@@ -88,6 +92,13 @@ class TapbarVC: UITabBarController {
     
 }
 
-
-
-
+extension TapbarVC: UITabBarControllerDelegate {
+    func tabBarController(_ tabBarController: UITabBarController,
+                          shouldSelect viewController: UIViewController) -> Bool {
+        if tabBarController.selectedViewController == viewController {
+            return false
+        } else {
+            return true
+        }
+    }
+}

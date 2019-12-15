@@ -19,13 +19,13 @@ class TabbarServiceImp: TabbarService {
         self.network = network
     }
     
-    func requestValidateServer(completionHandler: @escaping (DataResponse<ServerUpdateResponse>) -> Void) {
+    func requestValidateServer(version: String, completionHandler: @escaping (DataResponse<ServerUpdateResponse>) -> Void) {
         guard let url
-            = UserAPI.sharedInstance.getURL(RequestURL.isUpdate.getRequestURL),
+            = UserAPI.sharedInstance.getURL(RequestURL.isUpdate(version: version).getRequestURL),
             let request
             = requestMaker.makeRequest(url: url,
                                        method: .get,
-                                       header: ["osType": "1"],
+                                       header: nil,
                                        body: nil) else {
             return
         }

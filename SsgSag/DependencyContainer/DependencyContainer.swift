@@ -34,6 +34,10 @@ class DependencyContainer {
             = MyPageServiceImp(requestMaker: RequestMaker(),
                                network: NetworkImp())
         
+        let myPageMockService: MyPageService
+            = MyPageMockServiceImp(requestMaker: RequestMaker(),
+                                   network: NetworkImp())
+        
         let tabbarService: TabbarService
             = TabbarServiceImp(requestMaker: RequestMaker(),
                                network: NetworkImp())
@@ -73,6 +77,8 @@ class DependencyContainer {
                                         dependency: posterMockService)
             try dependencyPool.register(key: .myPageService,
                                         dependency: myPageService)
+            try dependencyPool.register(key: .myPageMockService,
+                                        dependency: myPageMockService)
             try dependencyPool.register(key: .tabbarService,
                                         dependency: tabbarService)
             try dependencyPool.register(key: .activityService,
@@ -114,6 +120,7 @@ enum DependencyKey {
     case posterService
     case posterMockService
     case myPageService
+    case myPageMockService
     case tabbarService
     case activityService
     case interestService

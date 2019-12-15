@@ -259,9 +259,7 @@ class NewCalendarVC: UIViewController {
             }
         }
         
-        let listNavigator = UINavigationController(rootViewController: listViewController)
-        listNavigator.modalPresentationStyle = .fullScreen
-        present(listNavigator, animated: false)
+        navigationController?.pushViewController(listViewController, animated: false)
     }
     
     @IBAction func touchUpCalendarEtcButton(_ sender: UIButton) {

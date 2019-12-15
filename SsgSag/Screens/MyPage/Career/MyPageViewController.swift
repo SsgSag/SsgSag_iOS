@@ -24,7 +24,10 @@ class MyPageViewController: UIViewController, UIImagePickerControllerDelegate, U
     
     @IBOutlet weak var myPageTableView: UITableView!
     
-    private var userInfo: UserInfoModel?
+    private var userInfo: UserInfomation?
+    
+    let mypageService: MyPageService
+        = DependencyContainer.shared.getDependency(key: .myPageService)
     
     lazy var imagePicker: UIImagePickerController = {
         let picker: UIImagePickerController = UIImagePickerController()
@@ -67,7 +70,6 @@ class MyPageViewController: UIViewController, UIImagePickerControllerDelegate, U
         accountSettingVC.univ = userInfo?.userUniv
         accountSettingVC.major = userInfo?.userMajor
         accountSettingVC.studentNumber = userInfo?.userStudentNum
-        accountSettingVC.grade = userInfo?.userGrade
         accountSettingVC.selectedImage = profileImageView.image
         accountSettingVC.delegate = self
         
@@ -77,40 +79,39 @@ class MyPageViewController: UIViewController, UIImagePickerControllerDelegate, U
     }
     
     private func getData() {
-        guard let url = UserAPI.sharedInstance.getURL("/user") else {return}
-        
-        guard let token = KeychainWrapper.standard.string(forKey: TokenName.token) else { return }
-        
-        var request = URLRequest(url: url)
-        request.httpMethod = "GET"
-        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.addValue(token, forHTTPHeaderField: "Authorization")
-        
-        NetworkManager.shared.getData(with: request) { [weak self] (data, error, res) in
-            if error != nil {
-                print(error.debugDescription)
-            }
-            
-            guard let data = data else {
-                return
-            }
-            
-            do {
-                let apiResponse = try JSONDecoder().decode(UserNetworkModel.self, from: data)
-                
-                self?.userInfo = apiResponse.data
-                
-                DispatchQueue.main.async {
-                    self?.nameLabel.text = apiResponse.data?.userName
-                    self?.idLabel.text = apiResponse.data?.userNickname
-                    self?.majorLabel.text = apiResponse.data?.userMajor
-                    self?.schoolLabel.text = apiResponse.data?.userUniv
-                    self?.requestImage()
-                    self?.view.layoutIfNeeded()
+        mypageService.requestUserInfo { [weak self] response in
+            switch response {
+            case .success(let userInfoResponse):
+                guard let status = userInfoResponse.status,
+                    let httpStatusCode = HttpStatusCode(rawValue: status) else {
+                        return
                 }
                 
-            } catch (let err) {
-                print(err.localizedDescription)
+                switch httpStatusCode {
+                case .sucess:
+                    self?.userInfo = UserInfomation(userInfomation: userInfoResponse.data)
+                    
+                    DispatchQueue.main.async {
+                        self?.nameLabel.text = userInfoResponse.data?.userName
+                        self?.idLabel.text = userInfoResponse.data?.userNickname
+                        self?.majorLabel.text = userInfoResponse.data?.userMajor
+                        self?.schoolLabel.text = userInfoResponse.data?.userUniv
+                        self?.requestImage()
+                        self?.view.layoutIfNeeded()
+                    }
+                case .failure:
+                    self?.simplerAlert(title: "회원정보를 찾을 수 없습니다.")
+                    return
+                case .serverError:
+                    self?.simplerAlert(title: "서버 내부 에러")
+                    return
+                default:
+                    return
+                }
+                
+            case .failed(let error):
+                print(error)
+                return
             }
         }
     }
@@ -123,7 +124,7 @@ class MyPageViewController: UIViewController, UIImagePickerControllerDelegate, U
         
         do {
             let imageData = try Data(contentsOf: url)
-            
+
             profileImageView.image = UIImage(data: imageData, scale: 0.5)
         } catch let error {
             print(error)

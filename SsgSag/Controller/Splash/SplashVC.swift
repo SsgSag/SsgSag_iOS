@@ -115,7 +115,7 @@ class SplashVC: UIViewController {
                             self?.present(tabBarVC,
                                           animated: true)
                         }
-                    case .authenticationFailure:
+                    case .authenticationFailure, .serverError:
                         let loginStoryBoard = UIStoryboard(name: StoryBoardName.login,
                                                            bundle: nil)
                         AppDelegate.posterIndex = nil
@@ -150,22 +150,27 @@ class SplashVC: UIViewController {
     
     // 서버가 유효한지 확인하는 메소드
     private func isServerAvaliable() {
-        tapbarServiceImp.requestValidateServer{ [weak self] dataResponse in
+        guard let version
+            = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String else {
+                return
+        }
+        
+        tapbarServiceImp.requestValidateServer(version: version) { [weak self] dataResponse in
             DispatchQueue.main.async {
                 switch dataResponse {
                 case .success(let data):
-                    guard data.data ?? 0 == 0 else {
-                        self?.simpleAlertwithHandler(title: "",
-                                                     message: "서버 업데이트 중입니다.",
-                                                     okHandler: { _ in
-                                                        exit(0)
+                    guard data.data == 0 || data.data == 1 else {
+                        self?.simpleAlertwithOKButton(title: "",
+                                                      message: "서버 점검 중입니다.",
+                                                      okHandler: { _ in
+                                                            exit(0)
                         })
                         return
                     }
                 case .failed(let error):
                     print(error)
-                    self?.simpleAlertwithHandler(title: "",
-                                                 message: "서버 업데이트 중입니다.",
+                    self?.simpleAlertwithOKButton(title: "",
+                                                 message: "서버 점검 중입니다.",
                                                  okHandler: { _ in
                                                     exit(0)
                     })

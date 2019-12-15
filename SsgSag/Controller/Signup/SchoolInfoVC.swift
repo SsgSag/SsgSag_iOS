@@ -120,7 +120,15 @@ class SchoolInfoVC: UIViewController {
         
         for year in (currentYear - 10...currentYear).reversed() {
             let studentNumber = year % 100
-            let studentNumberString = studentNumber / 10 < 1 ? "0\(studentNumber)학번" : "\(studentNumber)학번"
+            
+            var studentNumberString
+                = studentNumber / 10 < 1 ? "0\(studentNumber)학번" : "\(studentNumber)학번"
+            
+            if year == currentYear - 10 {
+                studentNumberString.insert("~",
+                                           at: studentNumberString.startIndex)
+            }
+            
             studentNumberPickOption.append("\(studentNumberString)")
         }
         
@@ -313,8 +321,8 @@ class SchoolInfoVC: UIViewController {
         
         let major = majorField.text ?? ""
         let univ = schoolField.text ?? ""
-        let studentNum: [Character] = (studentNumberField.text ?? "").map { return $0 }
-        let grade: [Character] = (gradeField.text ?? "").map { return $0 }
+        let studentNum: [Character] = (studentNumberField.text ?? "").filter { $0 >= "0" && $0 <= "9" }
+        let grade: [Character] = (gradeField.text ?? "").map { $0 }
         
         //자체 로그인 아닐 시에는
         if sendType != 10 {
@@ -325,7 +333,7 @@ class SchoolInfoVC: UIViewController {
                 "userUniv": univ,
                 "userMajor": major,
                 "userGrade" : String(grade[0]),
-                "userStudentNum": String(studentNum[0..<2]),
+                "userStudentNum": String(studentNum),
                 "userGender": gender,
                 "userBirth": birthTextField.text ?? "",
                 "userPushAllow": 1,
@@ -344,7 +352,7 @@ class SchoolInfoVC: UIViewController {
                 "userUniv": univ,
                 "userMajor": major,
                 "userGrade" : String(grade[0]),
-                "userStudentNum": String(studentNum[0..<2]),
+                "userStudentNum": String(studentNum),
                 "userGender": gender,
                 "userBirth": birthTextField.text ?? "",
                 "userPushAllow": 1,
@@ -596,6 +604,14 @@ extension SchoolInfoVC: UITextFieldDelegate {
     }
     
     func textFieldDidBeginEditing(_ textField: UITextField) {
+        if textField == gradeField && textField.text == "" {
+            textField.text = gradePickOption[0]
+        }
+        
+        if textField == studentNumberField && textField.text == "" {
+            textField.text = studentNumberPickOption[0]
+        }
+        
         scrollView.setContentOffset(CGPoint(x: 0, y: 0), animated: true)
         scrollView.setContentOffset(CGPoint(x: 0, y: textFieldsStackView.frame.origin.y), animated: true)
     }

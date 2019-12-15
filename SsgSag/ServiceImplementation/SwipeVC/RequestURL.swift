@@ -28,7 +28,7 @@ enum RequestURL {
     case subscribeAddOrDelete(interestIdx: Int)
     case signUp
     case validateNickname
-    case isUpdate
+    case isUpdate(version: String)
     case career(careerType: Int)
     case notice
     case tempPassword
@@ -96,8 +96,8 @@ enum RequestURL {
             return "/user/rePassword"
         case .updatePhoto:
             return "/user/photo"
-        case .isUpdate:
-            return "/update"
+        case .isUpdate(let version):
+            return "/update?osType=ios&version=\(version)"
         case .career(let careerType):
             return "/career/\(careerType)"
         case .notice:

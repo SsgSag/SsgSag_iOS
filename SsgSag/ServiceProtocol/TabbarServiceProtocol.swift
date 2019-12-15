@@ -10,6 +10,7 @@ import Foundation
 
 protocol TabbarService: class {
     func requestValidateServer(
+        version: String,
         completionHandler: @escaping (DataResponse<ServerUpdateResponse>) -> Void
     )
 }

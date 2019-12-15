@@ -20,6 +20,40 @@ class MyPageServiceImp: MyPageService {
         self.network = network
     }
     
+    func requestUserInfo(completionHandler: @escaping ((DataResponse<UserInfomationResponse>) -> Void)) {
+        
+        guard let token
+            = KeychainWrapper.standard.string(forKey: TokenName.token),
+            let url
+            = UserAPI.sharedInstance.getURL(RequestURL.signUp.getRequestURL),
+            let request
+            = requestMaker.makeRequest(url: url,
+                                       method: .get,
+                                       header: ["Authorization": token],
+                                       body: nil) else {
+            return
+        }
+        
+        network.dispatch(request: request) { result in
+            switch result {
+            case .success(let data):
+                do {
+                    let decodedData
+                        = try JSONDecoder().decode(UserInfomationResponse.self,
+                                                   from: data)
+                    
+                    completionHandler(.success(decodedData))
+                } catch let error {
+                    completionHandler(.failed(error))
+                    return
+                }
+            case .failure(let error):
+                completionHandler(.failed(error))
+                return
+            }
+        }
+    }
+    
     func requestStoreSelectedField(_ selectedIndex: [Int],
                                    completionHandler: @escaping ((DataResponse<HttpStatusCode>) -> Void)) {
         
@@ -120,7 +154,7 @@ class MyPageServiceImp: MyPageService {
             case .success(let data):
                 do {
                     let decodedData
-                        = try JSONDecoder().decode(UserNetworkModel.self,
+                        = try JSONDecoder().decode(UserInfomationResponse.self,
                                                    from: data)
                     
                     guard let status = decodedData.status,
@@ -167,7 +201,7 @@ class MyPageServiceImp: MyPageService {
             case .success(let data):
                 do {
                     let decodedData
-                        = try JSONDecoder().decode(UserNetworkModel.self,
+                        = try JSONDecoder().decode(UserInfomationResponse.self,
                                                    from: data)
                     
                     guard let status = decodedData.status,
@@ -188,7 +222,7 @@ class MyPageServiceImp: MyPageService {
     }
     
     func requestUpdateUserInfo(bodyData: [String: Any],
-                               completionHandler: @escaping (DataResponse<HttpStatusCode>) -> Void) {
+                               completionHandler: @escaping (DataResponse<UserInfomationResponse>) -> Void) {
         let json = try? JSONSerialization.data(withJSONObject: bodyData)
         
         guard let token
@@ -209,15 +243,10 @@ class MyPageServiceImp: MyPageService {
             case .success(let data):
                 do {
                     let decodedData
-                        = try JSONDecoder().decode(UserNetworkModel.self,
+                        = try JSONDecoder().decode(UserInfomationResponse.self,
                                                    from: data)
                     
-                    guard let status = decodedData.status,
-                        let httpStatusCode = HttpStatusCode(rawValue: status) else {
-                            return
-                    }
-                    
-                    completionHandler(.success(httpStatusCode))
+                    completionHandler(.success(decodedData))
                 } catch let error {
                     completionHandler(.failed(error))
                     return
@@ -251,7 +280,7 @@ class MyPageServiceImp: MyPageService {
             case .success(let data):
                 do {
                     let decodedData
-                        = try JSONDecoder().decode(UserNetworkModel.self,
+                        = try JSONDecoder().decode(UserInfomationResponse.self,
                                                    from: data)
                     
                     guard let status = decodedData.status,
