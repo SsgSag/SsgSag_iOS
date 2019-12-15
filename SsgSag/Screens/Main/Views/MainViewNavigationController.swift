@@ -7,9 +7,12 @@
 //
 
 import UIKit
+import RxSwift
 
 class MainViewNavigationController: UINavigationController {
-
+    let myFilterService = MyFilterApiServiceImp()
+    var disposeBag = DisposeBag()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setUpViewChildControllers()
@@ -79,14 +82,20 @@ class MainViewNavigationController: UINavigationController {
     }
     
     @objc func touchUpFilterButton() {
-        let myBoard = UIStoryboard(name: "MyPageStoryBoard",
-                                   bundle: nil)
-        guard let myVC
-            = myBoard.instantiateViewController(withIdentifier: "MyFilterSettingViewController") as? MyFilterSettingViewController else { return }
-        myVC.reactor = MyFilterSettingViewReactor(jobKind: ["개발자", "디자이너", "기획자", "마케터", "모르겠어요"],
-                                                  interestedField: ["서포터즈", "봉사활동", "기획/아이디어","광고/마케팅", "디자인","영상/콘텐츠", "IT/공학", "창업/스타트업", "금융/경제"],
-                                                  maxGrade: 5)
-        pushViewController(myVC, animated: true)
+        myFilterService.fetchMyFilterSetting()
+            .observeOn(MainScheduler.instance)
+            .subscribe(onNext:{ [weak self] setting in
+                guard let self = self else { return }
+                let myBoard = UIStoryboard(name: "MyPageStoryBoard",
+                                               bundle: nil)
+                guard let myVC
+                        = myBoard.instantiateViewController(withIdentifier: "MyFilterSettingViewController") as? MyFilterSettingViewController else { return }
+                myVC.reactor = MyFilterSettingViewReactor(jobKind: ["개발자", "디자이너", "기획자", "마케터", "모르겠어요"],
+                                                              interestedField: ["서포터즈", "봉사활동", "기획/아이디어","광고/마케팅", "디자인","영상/콘텐츠", "IT/공학", "창업/스타트업", "금융/경제"],
+                                                              maxGrade: 5, initialSetting: setting)
+                self.pushViewController(myVC, animated: true)
+            })
+    
     }
     
     @objc func touchUpProfileButton() {

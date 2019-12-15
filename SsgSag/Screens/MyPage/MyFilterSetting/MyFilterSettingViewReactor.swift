@@ -31,9 +31,10 @@ typealias FilterSectionModel = SectionModel<String, MyFilterCollectionViewCellRe
 
 class MyFilterSettingViewReactor: Reactor {
     
+    var buttonCellViewReactors: [[MyFilterButtonCollectionViewCellReactor]] = []
+    var sliderCellViewReactor: MyFilterSliderCollectionViewCellReactor
+
     let service: MyFilterApiService = MyFilterApiServiceImp()
-    
-    var sections: Observable<[SectionModel<String, MyFilterCollectionViewCellReactor>]>
     
     enum Action {
         case save
@@ -48,10 +49,12 @@ class MyFilterSettingViewReactor: Reactor {
     }
 
     struct State {
+        var observableSections: [SectionModel<String, MyFilterCollectionViewCellReactor>]
         var sections: [[String]] = []
+        var jobKind: [String]
+        var interestedField: [String]
+        var maxGrade: Int
         var headers: [MyFilterHeader]
-        var buttonCellViewReactors: [[MyFilterButtonCollectionViewCellReactor]]
-        var sliderCellViewReactor: MyFilterSliderCollectionViewCellReactor
         var myFilterSetting: MyFilterSetting
         var selectedJobKindsIndexies: [Int]
         var numberOfSelectedJobkind: Int = 1
@@ -62,29 +65,7 @@ class MyFilterSettingViewReactor: Reactor {
     
     init(jobKind: [String],
          interestedField: [String],
-         maxGrade: Int) {
-        let initialSelectedItemNumber = 0
-        let jobKindCellReactors = jobKind.enumerated().map {
-            MyFilterButtonCollectionViewCellReactor(titleText: $0.element,
-                                                    isSelected: $0.offset == initialSelectedItemNumber,
-                                                    indexPath: IndexPath(item: $0.offset, section: 0))
-        }
-        
-        let interestedFieldCellReactors = interestedField.enumerated().map {
-            MyFilterButtonCollectionViewCellReactor(titleText: $0.element,
-                                                    isSelected: $0.offset == initialSelectedItemNumber,
-                                                    indexPath: IndexPath(item: $0.offset, section: 1))
-        }
-        
-        
-        let defaultValue = 3
-        let sliderCellReactor = MyFilterSliderCollectionViewCellReactor(maxValue: maxGrade,
-                                                                        currentValue: defaultValue)
-        
-        let mySetting = MyFilterSetting(jobKind: [jobKind[initialSelectedItemNumber]],
-                                        interestedField: [interestedField[initialSelectedItemNumber]],
-                                        grade: 3)
-        
+         maxGrade: Int, initialSetting: MyFilterSetting) {
         let headers = [
             MyFilterHeader(title: "희망 직무",
                            description: "직무에 맞는 필요한 정보를 추천해드려요."),
@@ -93,19 +74,46 @@ class MyFilterSettingViewReactor: Reactor {
             MyFilterHeader(title: "학년",
                            description: "시기 별로 필요한 정보를 추천해드려요.")
         ]
-        self.initialState = State(sections: [
-            jobKind, interestedField, Array(1...maxGrade).map { "\($0)" }
-        ], headers: headers,
-           buttonCellViewReactors: [jobKindCellReactors, interestedFieldCellReactors],
-           sliderCellViewReactor: sliderCellReactor,
-           myFilterSetting: mySetting,
-           selectedJobKindsIndexies: [initialSelectedItemNumber])
 
-        self.sections = Observable.just([
-            SectionModel(model: "jobKind", items: jobKindCellReactors),
-            SectionModel(model: "interestedField", items: interestedFieldCellReactors),
-            SectionModel(model: "grade", items: [sliderCellReactor])
-        ])
+        
+        let jobKindCellReactors = jobKind.enumerated().map {
+            MyFilterButtonCollectionViewCellReactor(titleText: $0.element,
+                                                    isSelected: initialSetting.jobKind.contains($0.element),
+                                                    indexPath: IndexPath(item: $0.offset, section: 0))
+              }
+              
+        let interestedFieldCellReactors = interestedField.enumerated().map {
+            MyFilterButtonCollectionViewCellReactor(titleText: $0.element,
+                                                    isSelected: initialSetting.interestedField.contains($0.element),
+                                                    indexPath: IndexPath(item: $0.offset, section: 1))
+              }
+
+        let sliderCellReactor = MyFilterSliderCollectionViewCellReactor(maxValue: maxGrade,
+                                                                        currentValue: initialSetting.grade)
+        self.buttonCellViewReactors = [jobKindCellReactors, interestedFieldCellReactors]
+        self.sliderCellViewReactor = sliderCellReactor
+        
+        
+        let selectedIndex = jobKind
+            .enumerated()
+            .filter { initialSetting.jobKind.contains($0.element) }
+            .map { $0.offset }
+   
+        let observableSections: [SectionModel<String, MyFilterCollectionViewCellReactor>] = [
+            SectionModel(model: "jobKind", items: buttonCellViewReactors[0]),
+            SectionModel(model: "interestedField", items: buttonCellViewReactors[1]),
+            SectionModel(model: "grade", items: [sliderCellViewReactor])
+        ]
+
+        self.initialState = State(observableSections: observableSections, sections: [
+            jobKind, interestedField, Array(1...maxGrade).map { "\($0)" }
+            ],
+                                  jobKind: jobKind,
+                                  interestedField: interestedField,
+                                  maxGrade: maxGrade,
+                                  headers: headers,
+                                  myFilterSetting: initialSetting,
+                                  selectedJobKindsIndexies: selectedIndex)
         
     }
 

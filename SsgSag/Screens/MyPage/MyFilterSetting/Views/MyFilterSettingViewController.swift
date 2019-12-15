@@ -92,9 +92,12 @@ class MyFilterSettingViewController: UIViewController, StoryboardView {
             .register(myFilterCollectionFooterReusableViewNib,
                       forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter,
                       withReuseIdentifier: "MyFilterFooterCollectionReusableView")
+        
+        
     }
     
     func bind(reactor: MyFilterSettingViewReactor) {
+
         let itemSelectedObservable =  filteringCollectionView.rx.itemSelected.share()
         
         let dataSource = RxCollectionViewSectionedReloadDataSource<FilterSectionModel>(configureCell: { dataSource, collectionView, indexPath, targetReactor in
@@ -115,12 +118,12 @@ class MyFilterSettingViewController: UIViewController, StoryboardView {
                     
                 return cell
             case .userGrade:
-                guard let reactor = targetReactor as? MyFilterSliderCollectionViewCellReactor else { return .init() }
+                guard let sliderReactor = targetReactor as? MyFilterSliderCollectionViewCellReactor else { return .init() }
                 guard let cell = collectionView
                     .dequeueReusableCell(withReuseIdentifier: "MyFilterSliderCollectionViewCell",
                                          for: indexPath)
                     as? MyFilterSliderCollectionViewCell else { return .init() }
-                cell.reactor = reactor
+                cell.reactor = sliderReactor
                 return cell
             }
         }, configureSupplementaryView: { dataSource, collectionView, kind, indexPath in
@@ -163,7 +166,7 @@ class MyFilterSettingViewController: UIViewController, StoryboardView {
                         }
                     }
                     .observeOn(MainScheduler.instance)
-                    .subscribe(onNext: { _ in
+                    .subscribe(onNext: { val in val
                         self.navigationController?.popViewController(animated: true)
                     }, onError: { _ in
                         self.simplerAlert(title: "저장에 실패했습니다.")
@@ -173,33 +176,30 @@ class MyFilterSettingViewController: UIViewController, StoryboardView {
             }
         })
     
-        reactor.sections
-            .bind(to: filteringCollectionView
-                .rx
-                .items(dataSource: dataSource)
+        Observable.just(reactor.currentState.observableSections)
+            .bind(to: filteringCollectionView.rx.items(dataSource: dataSource)
             )
             .disposed(by: disposeBag)
         
         itemSelectedObservable
             .subscribe(onNext: { indexPath in
         
-        let buttonCellReactor = reactor.currentState.buttonCellViewReactors[indexPath.section][indexPath.item]
-                let selectedJobKinds = reactor.currentState.myFilterSetting.jobKind.count 
+        let buttonCellReactor = reactor.buttonCellViewReactors[indexPath.section][indexPath.item]
+        let selectedJobKinds = reactor.currentState.myFilterSetting.jobKind.count
         Observable.just(MyFilterButtonCollectionViewCellReactor.Action.userPressed(indexPath, selectedJobKinds))
             .bind(to: buttonCellReactor.action)
             .disposed(by: self.disposeBag)
             }, onError: nil)
             .disposed(by: disposeBag)
-        
-        
-        let sliderCellReactor = reactor.currentState.sliderCellViewReactor
-        sliderCellReactor.state.map { $0.value }
-            .map { value in Reactor.Action.update(IndexPath(item: 0, section: 2), value)}
+
+        itemSelectedObservable
+            .map { indexPath in Reactor.Action.update(indexPath, nil) }
             .bind(to: reactor.action)
             .disposed(by: disposeBag)
         
-        itemSelectedObservable
-            .map { indexPath in Reactor.Action.update(indexPath, nil) }
+        let sliderReactor = reactor.sliderCellViewReactor
+        sliderReactor.state.map { $0.value }
+            .map { Reactor.Action.update(IndexPath(item: 0, section: 2), $0) }
             .bind(to: reactor.action)
             .disposed(by: disposeBag)
         

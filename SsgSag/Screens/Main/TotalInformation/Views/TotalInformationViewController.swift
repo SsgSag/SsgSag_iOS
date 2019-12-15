@@ -60,6 +60,7 @@ class TotalInformationViewController: UIViewController, StoryboardView {
                 cell.moreButton.rx.tap.subscribe(onNext: { [weak self] in
                     guard let self = self else { return }
                     let allPostersViewController = AllPostersListViewController()
+                    allPostersViewController.setCategory(number: indexPath)
                     self.navigationController?.pushViewController(allPostersViewController,
                                                                   animated: true)
                     //item.key

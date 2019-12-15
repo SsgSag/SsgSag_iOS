@@ -68,7 +68,6 @@ class MyFilterButtonCollectionViewCellReactor: Reactor, MyFilterCollectionViewCe
                 return Observable.just(Mutation.empty)
             }
         case .userPressed(let eventValue):
-            print("num: \(eventValue.1)")
             let section = Section(at: eventValue.0)
             switch section {
             case .jobKind:

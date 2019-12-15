@@ -13,10 +13,24 @@ struct MyFilterHeader {
     let description: String
 }
 
-struct MyFilterSetting {
+struct MyFilterSetting: Decodable {
     let jobKind: [String]
     let interestedField: [String]
     let grade: Int
+    
+    init() {
+        jobKind = []
+        interestedField = []
+        grade = 3
+    }
+    
+    init(jobKind: [String],
+         interestedField: [String],
+         grade: Int) {
+        self.jobKind = jobKind
+        self.interestedField = interestedField
+        self.grade = grade
+    }
     
     func map() -> [Int] {
         let mappedJobKind = jobKind.map {
@@ -34,6 +48,31 @@ struct MyFilterSetting {
         
         return mergedArray.sorted()
     }
+    
+    func map(interests: [Int]?) -> MyFilterSetting {
+        guard let interests = interests else { return .init() }
+        let jobKind = interests
+            .filter { categorizedDictionary["jobKind"]!.contains($0) }
+            .compactMap { mapDictionary.getKey(forValue: $0) }
+        let safeJobKind = jobKind.isEmpty ? ["개발자"] : jobKind
+        
+        let interestedField = interests.filter { categorizedDictionary["interestedField"]!.contains($0) }
+            .compactMap { mapDictionary.getKey(forValue: $0) }
+        
+        
+        let grade = interests.filter { categorizedDictionary["grade"]!.contains($0) }
+            .compactMap { Int(mapDictionary.getKey(forValue: $0) ?? "1") }.first ?? 1
+        
+        let myFilterSetting = MyFilterSetting(jobKind: safeJobKind,
+                                              interestedField: interestedField,
+                                              grade: grade)
+        return myFilterSetting
+    }
+    
+    let categorizedDictionary = ["jobKind": [301,302,303,304,305],
+                                 "interestedField": [201,202,205,206,207,208,215,251,252,299],
+                                 "grade": [501,502,503,504,505]
+    ]
     
     let mapDictionary = [
                          "개발자": 301,
@@ -66,4 +105,9 @@ struct MyFilterSetting {
                          "비영리단체/재단": 85000,
                          "기타단체": 95000,
                         ]
+}
+extension Dictionary where Value: Equatable {
+    func getKey(forValue val: Value) -> Key? {
+        return first(where: { (dict) in dict.value == val })?.key
+    }
 }

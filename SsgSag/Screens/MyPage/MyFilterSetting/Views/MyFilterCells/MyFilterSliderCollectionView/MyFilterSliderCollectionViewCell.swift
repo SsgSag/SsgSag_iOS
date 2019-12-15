@@ -29,8 +29,7 @@ class MyFilterSliderCollectionViewCell: UICollectionViewCell, StoryboardView {
                                      forCellWithReuseIdentifier: "MyFilterGradeCollectionViewCell")
         
         //gradeSlider
-        gradeSlider.maximumValue = 5
-        gradeSlider.value = 3
+        
         gradeSlider.setThumbImage(UIImage(named: "sliderThumb"), for: .normal)
         gradeSlider.setThumbImage(UIImage(named: "sliderThumb"), for: .highlighted)
         gradeSlider.isContinuous = false
@@ -43,12 +42,19 @@ class MyFilterSliderCollectionViewCell: UICollectionViewCell, StoryboardView {
         layout.itemSize = reactor.itemsSize
         layout.minimumLineSpacing = reactor.spacing
 
+        gradeSlider.maximumValue = Float(reactor.currentState.maxValue)
+        gradeSlider.value = Float(reactor.currentState.value)
         // Action
-        gradeSlider.rx.value
-            .map { Reactor.Action.set(Int(lroundf($0))) }
-            .bind(to: reactor.action)         // Bind to reactor.action
-            .disposed(by: disposeBag)
         
+        gradeSlider.rx.value
+            .distinctUntilChanged()
+            .do(onNext: {[weak self] (value) in
+                self?.gradeSlider.value = Float(lroundf(value))
+            })
+            .map { Reactor.Action.set(Int(lroundf($0))) }
+            .bind(to: reactor.action)
+            .disposed(by: disposeBag)
+
         // State
        reactor.state.map { $0.grades }
         .bind(to: gradeCollectionView.rx.items(cellIdentifier: "MyFilterGradeCollectionViewCell")) {[weak self] indexPath, grade, cell in
@@ -56,16 +62,12 @@ class MyFilterSliderCollectionViewCell: UICollectionViewCell, StoryboardView {
                 as? MyFilterGradeCollectionViewCell else { return }
             gradeCell.reactor = reactor.gradeCellReactors[indexPath]
             self?.gradeSlider.rx.value
+                .distinctUntilChanged()
                 .map { value in MyFilterGradeCollectionViewCellReactor.Action.select(Int(lroundf(value)) - 1) }
                 .bind(to: reactor.gradeCellReactors[indexPath].action)         // Bind to reactor.action
                 .disposed(by: gradeCell.disposeBag)
            }
        .disposed(by: disposeBag)
-        
-        reactor.state.map { Float($0.value) }
-            .bind(to: gradeSlider.rx.value)
-            .disposed(by: disposeBag)
-    
     }
 }
 

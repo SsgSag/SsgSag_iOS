@@ -54,8 +54,7 @@ class TotalInformationService: TotalInformationServiceProtocol {
                 let url = UserAPI.sharedInstance.getURL(RequestURL.posterWhat(category: category.rawValue).getRequestURL),
                 let request = self.requestMaker.makeRequest(url: url,
                                                           method: .get,
-                                                          header: ["Authorization": token
-                                                                   ],
+                                                          header: ["Authorization": token],
                                                           body: nil) else {
                 observer.onError(NSError(domain: "building failed",
                 code: -1,

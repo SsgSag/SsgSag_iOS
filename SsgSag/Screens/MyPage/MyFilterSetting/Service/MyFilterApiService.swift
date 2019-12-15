@@ -12,6 +12,7 @@ import SwiftKeychainWrapper
 
 protocol MyFilterApiService {
     func save(filterSetting: MyFilterSetting) -> Observable<BasicResponse>
+    func fetchMyFilterSetting() -> Observable<MyFilterSetting>
 }
 
 class MyFilterApiServiceImp: MyFilterApiService {
@@ -54,6 +55,40 @@ class MyFilterApiServiceImp: MyFilterApiService {
             return Disposables.create()
         })
         return savingObservable
+    }
+    
+    func fetchMyFilterSetting() -> Observable<MyFilterSetting> {
+        let fetchObservable = Observable<MyFilterSetting>.create({ [weak self] (observer) -> Disposable in
+            guard let self = self else { return Disposables.create() }
+            guard let token = KeychainWrapper.standard.string(forKey: TokenName.token),
+                      let url = UserAPI.sharedInstance.getURL(RequestURL.interestingField.getRequestURL),
+                let request = self.requestMaker.makeRequest(url: url,
+                                                          method: .get,
+                                                          header: ["Authorization": token],
+                                                          body: nil) else {
+                observer.onError(NSError(domain: "building failed",
+                code: -1,
+                userInfo: nil))
+                                                            return Disposables.create()
+            }
+            self.network.dispatch(request: request)
+                .subscribe(onNext: { data in
+                    do {
+                        let response = try JSONDecoder().decode(Interests.self, from: data)
+                        let myFilterSetting = MyFilterSetting().map(interests: response.data?.interests)
+                        observer.onNext(myFilterSetting)
+                    } catch let error {
+                        observer.onError(error)
+                    }
+                },
+                onError: { error in
+                    observer.onError(error)
+                    
+                })
+                .disposed(by: self.disposeBag)
+            return Disposables.create()
+        })
+        return fetchObservable
     }
 }
     

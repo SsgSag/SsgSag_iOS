@@ -12,7 +12,7 @@ import AdBrixRM
 class AllPostersListViewController: UIViewController {
     
     private let imageCache = NSCache<NSString, UIImage>()
-    private let categoryList = [1, 0, 4, 7, 5]
+    private let categoryList = [0, 1, 4, 5, 7]
     private var posterData: [PosterDataAfterSwpie] = []
     private var currentSortType = 0
     private var currentCategory = 1
@@ -116,6 +116,16 @@ class AllPostersListViewController: UIViewController {
 
         setupLayout()
         setupCollectionView()
+    }
+    
+    func setCategory(number: Int) {
+        currentCategory = categoryList[number]
+        requestPosterData(true)
+        if let category = PosterCategory(rawValue: currentCategory) {
+            title = category.categoryString()
+        }
+        
+        
     }
     
     private func requestPosterData(_ scrollToTop: Bool = false) {
@@ -383,6 +393,7 @@ extension AllPostersListViewController: UICollectionViewDataSource {
             requestPosterData(true)
             
             if let category = PosterCategory(rawValue: categoryList[indexPath.item]) {
+                title = category.categoryString()
                 cell.categoryButton.setTitle(category.categoryString(), for: .normal)
                 cell.categoryButton.setTitleColor(category.categoryColors(), for: .normal)
                 cell.categoryButton.backgroundColor = category.categoryColors().withAlphaComponent(0.05)

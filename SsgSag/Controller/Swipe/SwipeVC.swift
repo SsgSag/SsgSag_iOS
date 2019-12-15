@@ -2,8 +2,11 @@ import UIKit
 import Lottie
 import SwiftKeychainWrapper
 import AdBrixRM
+import RxSwift
 
 class SwipeVC: UIViewController {
+    var disposeBag = DisposeBag()
+    let myFilterService = MyFilterApiServiceImp()
     
     private let completeStackView: UIStackView = {
         let stackView = UIStackView()
@@ -475,16 +478,21 @@ class SwipeVC: UIViewController {
     }
     
     @objc func touchUpFilterButton() {
-        let myBoard = UIStoryboard(name: "MyPageStoryBoard",
-                                   bundle: nil)
-        guard let myVC
-            = myBoard.instantiateViewController(withIdentifier: "MyFilterSettingViewController") as? MyFilterSettingViewController else { return }
-        myVC.reactor = MyFilterSettingViewReactor(jobKind: ["개발자", "디자이너", "기획자", "마케터", "모르겠어요"],
-                                                  interestedField: ["서포터즈", "봉사활동", "기획/아이디어","광고/마케팅", "디자인","영상/콘텐츠", "IT/공학", "창업/스타트업", "금융/경제"],
-                                                  maxGrade: 5)
-        navigationController?.pushViewController(myVC, animated: true)
-        
-       }
+        myFilterService.fetchMyFilterSetting()
+            .observeOn(MainScheduler.instance)
+            .subscribe(onNext:{ [weak self] setting in
+                guard let self = self else { return }
+                let myBoard = UIStoryboard(name: "MyPageStoryBoard",
+                                              bundle: nil)
+                guard let myVC
+                        = myBoard.instantiateViewController(withIdentifier: "MyFilterSettingViewController") as? MyFilterSettingViewController else { return }
+                 myVC.reactor = MyFilterSettingViewReactor(jobKind: ["개발자", "디자이너", "기획자", "마케터", "모르겠어요"],
+                                                             interestedField: ["서포터즈", "봉사활동", "기획/아이디어","광고/마케팅", "디자인","영상/콘텐츠", "IT/공학", "창업/스타트업", "금융/경제"],
+                                                             maxGrade: 5, initialSetting: setting)
+                self.navigationController?.pushViewController(myVC, animated: true)
+            })
+            .disposed(by: disposeBag)
+    }
     
     @IBAction func touchUpMyPageButton(_ sender: UIBarButtonItem) {
         if let isTryWithoutLogin = UserDefaults.standard.object(forKey: "isTryWithoutLogin") as? Bool {

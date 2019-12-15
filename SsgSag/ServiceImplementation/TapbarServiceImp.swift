@@ -25,7 +25,7 @@ class TabbarServiceImp: TabbarService {
             let request
             = requestMaker.makeRequest(url: url,
                                        method: .get,
-                                       header: nil,
+                                       header: ["osType": "1"],
                                        body: nil) else {
             return
         }
