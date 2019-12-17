@@ -54,7 +54,6 @@ struct MyFilterSetting: Decodable {
         let jobKind = interests
             .filter { categorizedDictionary["jobKind"]!.contains($0) }
             .compactMap { mapDictionary.getKey(forValue: $0) }
-        let safeJobKind = jobKind.isEmpty ? ["개발자"] : jobKind
         
         let interestedField = interests.filter { categorizedDictionary["interestedField"]!.contains($0) }
             .compactMap { mapDictionary.getKey(forValue: $0) }
@@ -63,7 +62,7 @@ struct MyFilterSetting: Decodable {
         let grade = interests.filter { categorizedDictionary["grade"]!.contains($0) }
             .compactMap { Int(mapDictionary.getKey(forValue: $0) ?? "1") }.first ?? 1
         
-        let myFilterSetting = MyFilterSetting(jobKind: safeJobKind,
+        let myFilterSetting = MyFilterSetting(jobKind: jobKind,
                                               interestedField: interestedField,
                                               grade: grade)
         return myFilterSetting

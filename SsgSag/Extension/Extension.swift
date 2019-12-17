@@ -67,6 +67,7 @@ extension NSObject {
 
 enum AlertType {
     case ok
+    case warning
     case cancel
 }
 
@@ -88,6 +89,15 @@ extension UIViewController {
         alert.addAction(action)
         alert.modalPresentationStyle = .fullScreen
         present(alert, animated: true, completion: nil)
+    }
+    
+    func simplerAlertWithTimer(title: String, after time: Double) {
+        let alert = UIAlertController(title: title, message: nil, preferredStyle: .alert)
+        alert.modalPresentationStyle = .fullScreen
+        present(alert, animated: true, completion: nil)
+        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + time) {
+            alert.dismiss(animated: true)
+        }
     }
     
     //확인, 취소 팝업
@@ -124,18 +134,22 @@ extension UIViewController {
         present(alert, animated: false, completion: nil)
     }
     
-    func makeAlertObservable(title: String, message: String) -> Observable<AlertType> {
+    func makeAlertObservable(title: String, message: String? = nil) -> Observable<AlertType> {
         let alertObservable = Observable<AlertType>.create { [weak self] (observer) -> Disposable in
             guard let self = self else { return Disposables.create() }
-            self.simpleAlertWithHandlers(title: title,
-                                    message: message,
-                                    okHandler: { _ in
-                                        observer.onNext(.ok)
-                                        observer.onCompleted() },
-                                    cancelHandler: { _ in
-                                        observer.onNext(.cancel)
-                                        observer.onCompleted()
-            })
+            if let message = message {
+                self.simpleAlertWithHandlers(title: title,
+                                             message: message,
+                                             okHandler: { _ in
+                                                observer.onNext(.ok)
+                                                observer.onCompleted() },
+                                             cancelHandler: { _ in
+                                                observer.onNext(.cancel)
+                                                observer.onCompleted()
+                })
+            } else {
+                self.simplerAlertWithTimer(title: title, after: 1)
+            }
             return Disposables.create()
         }
         return alertObservable

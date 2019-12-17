@@ -53,9 +53,6 @@ class TotalInformationTableViewCell: UITableViewCell, StoryboardView {
             .map { _ in Reactor.Action.moreButtonTapped }
             .bind(to: reactor.action)
             .disposed(by: disposeBag)
-
-      
-        
     }
 
 }

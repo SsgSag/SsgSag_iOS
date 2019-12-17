@@ -41,7 +41,7 @@ class TotalInformationReactor: Reactor {
             let setItemsMutation = service.fetchAllTotalInformations(categories: TotalInfoCategoryType.allCases).map { (dict) -> TotalInformationReactor.Mutation in
                 let sortedInfos = dict
                     .sorted { prevDict, currentDict in
-                        prevDict.key.rawValue > currentDict.key.rawValue
+                        prevDict.key.rawValue < currentDict.key.rawValue
                 }
                 .filter { !$0.value.isEmpty}
                 return Mutation.setItems(sortedInfos)

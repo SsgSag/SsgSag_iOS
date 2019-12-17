@@ -486,7 +486,7 @@ class SwipeVC: UIViewController {
                                               bundle: nil)
                 guard let myVC
                         = myBoard.instantiateViewController(withIdentifier: "MyFilterSettingViewController") as? MyFilterSettingViewController else { return }
-                 myVC.reactor = MyFilterSettingViewReactor(jobKind: ["개발자", "디자이너", "기획자", "마케터", "모르겠어요"],
+                 myVC.reactor = MyFilterSettingViewReactor(jobKind: ["개발자", "디자이너", "기획자", "마케터", "기타"],
                                                              interestedField: ["서포터즈", "봉사활동", "기획/아이디어","광고/마케팅", "디자인","영상/콘텐츠", "IT/공학", "창업/스타트업", "금융/경제"],
                                                              maxGrade: 5, initialSetting: setting)
                 self.navigationController?.pushViewController(myVC, animated: true)

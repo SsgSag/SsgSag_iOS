@@ -48,11 +48,9 @@ class TotalInformationViewController: UIViewController, StoryboardView {
             .bind(to: totalTableView.rx.items(cellIdentifier: "TotalInformationTableViewCell"))
             { indexPath, item, cell in
 
-                guard let type = TotalInfoCategoryType.allCases[safe: indexPath] else { return }
                 guard let cell = cell as? TotalInformationTableViewCell else { return }
-
                 cell.itemCollectionView.delegate = self
-                cell.reactor = TotalInformationTableViewCellReactor(type: type, items: item.value)
+                cell.reactor = TotalInformationTableViewCellReactor(type: item.key, items: item.value)
                 Observable.just(())
                     .map { TotalInformationTableViewCellReactor.Action.set("") }
                     .bind(to: cell.reactor!.action)
@@ -63,7 +61,17 @@ class TotalInformationViewController: UIViewController, StoryboardView {
                     allPostersViewController.setCategory(number: indexPath)
                     self.navigationController?.pushViewController(allPostersViewController,
                                                                   animated: true)
-                    //item.key
+                }).disposed(by: cell.disposeBag)
+                
+                
+                
+                cell.itemCollectionView.rx.itemSelected.subscribe(onNext: { [weak self] indexPath in
+                    guard let self = self else { return }
+                    guard let cellReactor = cell.reactor else { return }
+                    let detailInfoViewController = DetailInfoViewController()
+                    detailInfoViewController.posterIdx = cellReactor.currentState.items[indexPath.item].posterIdx
+                    self.navigationController?.pushViewController(detailInfoViewController,
+                                                                  animated: true)
                 }).disposed(by: cell.disposeBag)
         }
         .disposed(by: disposeBag)
@@ -78,28 +86,6 @@ extension TotalInformationViewController: UITableViewDelegate {
         return 334
     }
 }
-//
-//extension TotalInformationViewController: UITableViewDataSource {
-//    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-//       return TotalInfoCategoryType.allCases.count
-//    }
-//
-//    func tableView(_ tableView: UITableView,
-//                   cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-//        guard let cell = tableView.dequeueReusableCell(withIdentifier: "TotalInformationTableViewCell",
-//                                                       for: indexPath) as? TotalInformationTableViewCell else { return .init() }
-//        guard let type = TotalInfoCategoryType.allCases[safe: indexPath.item] else { return .init() }
-//        guard let items = reactor?.currentState.currentItems[type] else { return .init() }
-//        cell.reactor = TotalInformationTableViewCellReactor(type: type, items: items)
-//        Observable.just(()).map { TotalInformationTableViewCellReactor.Action.set("") }.bind(to: cell.reactor!.action).disposed(by: cell.disposeBag)
-//        //cell.itemCollectionView.dataSource = self
-//        //cell.itemCollectionView.delegate = self
-//        return cell
-//    }
-//}
-
-
-
 
 extension TotalInformationViewController: UICollectionViewDelegate,
 UICollectionViewDelegateFlowLayout  {
@@ -109,19 +95,6 @@ UICollectionViewDelegateFlowLayout  {
         return CGSize(width: 170, height: 250)
     }
 }
-//extension TotalInformationViewController: UICollectionViewDataSource {
-//    func collectionView(_ collectionView: UICollectionView,
-//                        numberOfItemsInSection section: Int) -> Int {
-//    
-//    }
-//    
-//    func collectionView(_ collectionView: UICollectionView,
-//                        cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-//        
-//    }
-//    
-//    
-//}
 
 extension Array {
     public subscript(safe index: Int) -> Element? {

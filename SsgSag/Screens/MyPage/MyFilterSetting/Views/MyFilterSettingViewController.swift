@@ -155,21 +155,30 @@ class MyFilterSettingViewController: UIViewController, StoryboardView {
                     .throttle(0.5, scheduler: MainScheduler.instance)
                     .flatMapLatest { [weak self] event -> Observable<AlertType> in
                         guard let self = self else { return Observable.just(AlertType.cancel) }
-                        return self.makeAlertObservable(title: "정보 저장", message: "입력하신 정보를 저장하시겠습니까")
+                        let setting = reactor.currentState.myFilterSetting
+                        if setting.jobKind.isEmpty
+                            || setting.interestedField.isEmpty {
+                            return self.makeAlertObservable(title: "각 항목을 1개 이상 선택해주세요")
+                        } else {
+                             return self.makeAlertObservable(title: "정보 저장", message: "입력하신 정보를 저장하시겠습니까")
+                        }
                     }
-                    .flatMapLatest { type -> Observable<BasicResponse> in
+                    .flatMapLatest { [weak reactor] type -> Observable<BasicResponse> in
+                        guard let reactor = reactor else { return .empty() }
                         switch type {
                         case .ok:
                             return reactor.service.save(filterSetting: reactor.currentState.myFilterSetting)
+                        case .warning:
+                            return .empty()
                         case .cancel:
                             return .empty()
                         }
                     }
                     .observeOn(MainScheduler.instance)
-                    .subscribe(onNext: { val in val
-                        self.navigationController?.popViewController(animated: true)
-                    }, onError: { _ in
-                        self.simplerAlert(title: "저장에 실패했습니다.")
+                    .subscribe(onNext: { [weak self] _ in
+                        self?.navigationController?.popViewController(animated: true)
+                    }, onError: { [weak self] _ in
+                        self?.simplerAlert(title: "저장에 실패했습니다.")
                     })
                     .disposed(by: footer.disposeBag)
                 return footer

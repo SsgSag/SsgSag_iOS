@@ -108,7 +108,7 @@ class AllPostersListViewController: UIViewController {
                                                              size: shadowSize)
         
         navigationItem.leftBarButtonItem = backButton
-        navigationItem.rightBarButtonItem = settingBoardButton
+        //navigationItem.rightBarButtonItem = settingBoardButton
     }
     
     override func viewDidLoad() {
@@ -187,7 +187,7 @@ class AllPostersListViewController: UIViewController {
         categoryCollectionView.trailingAnchor.constraint(
             equalTo: view.safeAreaLayoutGuide.trailingAnchor).isActive = true
         categoryCollectionView.heightAnchor.constraint(
-            equalToConstant: 50).isActive = true
+            equalToConstant: 0).isActive = true
         
         popularOrderButton.topAnchor.constraint(
             equalTo: categoryCollectionView.bottomAnchor).isActive = true
