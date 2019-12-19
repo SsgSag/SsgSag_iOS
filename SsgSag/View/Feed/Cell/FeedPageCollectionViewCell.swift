@@ -225,6 +225,7 @@ class FeedPageCollectionViewCell: UICollectionViewCell {
     
     @objc private func refresh() {
         currentPage = 0
+        feedDatas = []
         requestFeed()
     }
     
