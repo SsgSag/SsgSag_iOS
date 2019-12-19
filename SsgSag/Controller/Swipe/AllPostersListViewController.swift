@@ -102,10 +102,8 @@ class AllPostersListViewController: UIViewController {
         
         requestPosterData()
         tabBarController?.tabBar.isHidden = false
-        
-        let shadowSize = CGSize(width: self.view.frame.width, height: 3)
-        navigationController?.navigationBar.addColorToShadow(color: #colorLiteral(red: 0.3843137255, green: 0.4156862745, blue: 1, alpha: 1),
-                                                             size: shadowSize)
+    
+        navigationController?.navigationBar.shadowImage = UIImage()
         
         navigationItem.leftBarButtonItem = backButton
         //navigationItem.rightBarButtonItem = settingBoardButton

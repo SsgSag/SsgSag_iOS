@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15702" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina5_9" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15509"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15704"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="collection view cell content view" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -1903,20 +1903,20 @@
                                                 </subviews>
                                             </stackView>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="1Hl-JO-fSj" userLabel="관심분야">
-                                                <rect key="frame" x="20" y="144" width="336" height="2004"/>
+                                                <rect key="frame" x="20" y="144" width="336" height="1032"/>
                                                 <subviews>
                                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="6y7-zh-eZn">
-                                                        <rect key="frame" x="0.0" y="0.0" width="336" height="324"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="336" height="162"/>
                                                         <subviews>
-                                                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="G4t-3o-BBI" userLabel="IdeaButton">
-                                                                <rect key="frame" x="0.0" y="0.0" width="0.0" height="324"/>
+                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="G4t-3o-BBI" userLabel="IdeaButton">
+                                                                <rect key="frame" x="0.0" y="0.0" width="162" height="162"/>
                                                                 <state key="normal" image="btPreferenceIdeaUnactive"/>
                                                                 <connections>
                                                                     <action selector="touchUpPreferenceButtons:" destination="17w-h8-msn" eventType="touchUpInside" id="Gd9-Ir-ubx"/>
                                                                 </connections>
                                                             </button>
-                                                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Hc7-6L-6mn" userLabel="CameraButton">
-                                                                <rect key="frame" x="12" y="0.0" width="324" height="324"/>
+                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Hc7-6L-6mn" userLabel="CameraButton">
+                                                                <rect key="frame" x="174" y="0.0" width="162" height="162"/>
                                                                 <state key="normal" image="btPreferenceCameraUnactive"/>
                                                                 <connections>
                                                                     <action selector="touchUpPreferenceButtons:" destination="17w-h8-msn" eventType="touchUpInside" id="ge0-Eu-h21"/>
@@ -1925,17 +1925,17 @@
                                                         </subviews>
                                                     </stackView>
                                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="4pH-IN-0cd">
-                                                        <rect key="frame" x="0.0" y="336" width="336" height="324"/>
+                                                        <rect key="frame" x="0.0" y="174" width="336" height="162"/>
                                                         <subviews>
-                                                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oFz-fY-vKV" userLabel="DesignButton">
-                                                                <rect key="frame" x="0.0" y="0.0" width="0.0" height="324"/>
+                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oFz-fY-vKV" userLabel="DesignButton">
+                                                                <rect key="frame" x="0.0" y="0.0" width="162" height="162"/>
                                                                 <state key="normal" image="btPreferenceDesignUnactive"/>
                                                                 <connections>
                                                                     <action selector="touchUpPreferenceButtons:" destination="17w-h8-msn" eventType="touchUpInside" id="aoU-mO-x7V"/>
                                                                 </connections>
                                                             </button>
-                                                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mKv-E4-KkS" userLabel="MarketingButton">
-                                                                <rect key="frame" x="12" y="0.0" width="324" height="324"/>
+                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mKv-E4-KkS" userLabel="MarketingButton">
+                                                                <rect key="frame" x="174" y="0.0" width="162" height="162"/>
                                                                 <state key="normal" image="btPreferenceMarketingUnactive"/>
                                                                 <connections>
                                                                     <action selector="touchUpPreferenceButtons:" destination="17w-h8-msn" eventType="touchUpInside" id="yar-82-dXY"/>
@@ -1944,17 +1944,17 @@
                                                         </subviews>
                                                     </stackView>
                                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="J0I-Wi-45f">
-                                                        <rect key="frame" x="0.0" y="672" width="336" height="324"/>
+                                                        <rect key="frame" x="0.0" y="348" width="336" height="162"/>
                                                         <subviews>
-                                                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xE5-bf-gNo" userLabel="TechButton">
-                                                                <rect key="frame" x="0.0" y="0.0" width="0.0" height="324"/>
+                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xE5-bf-gNo" userLabel="TechButton">
+                                                                <rect key="frame" x="0.0" y="0.0" width="162" height="162"/>
                                                                 <state key="normal" image="btPreferenceTechUnactive"/>
                                                                 <connections>
                                                                     <action selector="touchUpPreferenceButtons:" destination="17w-h8-msn" eventType="touchUpInside" id="KpK-SE-nfR"/>
                                                                 </connections>
                                                             </button>
-                                                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0ui-WG-Q9q" userLabel="LiteratureButton">
-                                                                <rect key="frame" x="12" y="0.0" width="324" height="324"/>
+                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0ui-WG-Q9q" userLabel="LiteratureButton">
+                                                                <rect key="frame" x="174" y="0.0" width="162" height="162"/>
                                                                 <state key="normal" image="btPreferenceLiteratureUnactive"/>
                                                                 <connections>
                                                                     <action selector="touchUpPreferenceButtons:" destination="17w-h8-msn" eventType="touchUpInside" id="eSw-K7-NK4"/>
@@ -1963,17 +1963,17 @@
                                                         </subviews>
                                                     </stackView>
                                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="a6E-Rd-G6q">
-                                                        <rect key="frame" x="0.0" y="1008" width="336" height="324"/>
+                                                        <rect key="frame" x="0.0" y="522" width="336" height="162"/>
                                                         <subviews>
-                                                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rAz-04-Vs4" userLabel="ScholarshipButton">
-                                                                <rect key="frame" x="0.0" y="0.0" width="0.0" height="324"/>
+                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rAz-04-Vs4" userLabel="ScholarshipButton">
+                                                                <rect key="frame" x="0.0" y="0.0" width="162" height="162"/>
                                                                 <state key="normal" image="btPreferenceSholarshipUnactive"/>
                                                                 <connections>
                                                                     <action selector="touchUpPreferenceButtons:" destination="17w-h8-msn" eventType="touchUpInside" id="EZP-N5-l7u"/>
                                                                 </connections>
                                                             </button>
-                                                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iq7-72-o5E" userLabel="HealthButton">
-                                                                <rect key="frame" x="12" y="0.0" width="324" height="324"/>
+                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iq7-72-o5E" userLabel="HealthButton">
+                                                                <rect key="frame" x="174" y="0.0" width="162" height="162"/>
                                                                 <state key="normal" image="btPreferenceHealthUnactive"/>
                                                                 <connections>
                                                                     <action selector="touchUpPreferenceButtons:" destination="17w-h8-msn" eventType="touchUpInside" id="cm5-s6-3wm"/>
@@ -1982,17 +1982,17 @@
                                                         </subviews>
                                                     </stackView>
                                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="PGR-i0-b23">
-                                                        <rect key="frame" x="0.0" y="1344" width="336" height="324"/>
+                                                        <rect key="frame" x="0.0" y="696" width="336" height="162"/>
                                                         <subviews>
-                                                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="awm-rm-XyJ" userLabel="StartupButton">
-                                                                <rect key="frame" x="0.0" y="0.0" width="0.0" height="324"/>
+                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="awm-rm-XyJ" userLabel="StartupButton">
+                                                                <rect key="frame" x="0.0" y="0.0" width="162" height="162"/>
                                                                 <state key="normal" image="btPreferenceStartupUnactive"/>
                                                                 <connections>
                                                                     <action selector="touchUpPreferenceButtons:" destination="17w-h8-msn" eventType="touchUpInside" id="0Gn-kF-VVi"/>
                                                                 </connections>
                                                             </button>
-                                                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AR9-D1-SaG" userLabel="Art">
-                                                                <rect key="frame" x="12" y="0.0" width="324" height="324"/>
+                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AR9-D1-SaG" userLabel="Art">
+                                                                <rect key="frame" x="174" y="0.0" width="162" height="162"/>
                                                                 <state key="normal" image="btPreferenceArtUnactive"/>
                                                                 <connections>
                                                                     <action selector="touchUpPreferenceButtons:" destination="17w-h8-msn" eventType="touchUpInside" id="K83-bj-dad"/>
@@ -2001,17 +2001,17 @@
                                                         </subviews>
                                                     </stackView>
                                                     <stackView opaque="NO" contentMode="scaleToFill" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="Eme-F0-byx">
-                                                        <rect key="frame" x="0.0" y="1680" width="336" height="324"/>
+                                                        <rect key="frame" x="0.0" y="870" width="336" height="162"/>
                                                         <subviews>
-                                                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="d5m-fx-C4X" userLabel="EconomyButton">
-                                                                <rect key="frame" x="0.0" y="0.0" width="0.0" height="324"/>
+                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="d5m-fx-C4X" userLabel="EconomyButton">
+                                                                <rect key="frame" x="0.0" y="0.0" width="162" height="162"/>
                                                                 <state key="normal" image="btPreferenceEconomyUnactive"/>
                                                                 <connections>
                                                                     <action selector="touchUpPreferenceButtons:" destination="17w-h8-msn" eventType="touchUpInside" id="9KF-lS-hFQ"/>
                                                                 </connections>
                                                             </button>
-                                                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gwi-7B-LeV" userLabel="SocietyButton">
-                                                                <rect key="frame" x="12" y="0.0" width="324" height="324"/>
+                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gwi-7B-LeV" userLabel="SocietyButton">
+                                                                <rect key="frame" x="174" y="0.0" width="162" height="162"/>
                                                                 <state key="normal" image="btPreferenceSocietyUnactive"/>
                                                                 <connections>
                                                                     <action selector="touchUpPreferenceButtons:" destination="17w-h8-msn" eventType="touchUpInside" id="SXY-Iw-mce"/>
@@ -2232,7 +2232,7 @@
                                                 <rect key="frame" x="0.0" y="0.0" width="335" height="502.33333333333331"/>
                                                 <subviews>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wjK-SC-1FJ">
-                                                        <rect key="frame" x="30" y="17" width="93" height="40"/>
+                                                        <rect key="frame" x="30" y="17" width="73" height="20"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                         <inset key="imageEdgeInsets" minX="-7" minY="0.0" maxX="0.0" maxY="0.0"/>
                                                         <state key="normal" title="직무 분야" image="ic_jobCategory">
@@ -2240,7 +2240,7 @@
                                                         </state>
                                                     </button>
                                                     <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="i4T-S6-qwZ">
-                                                        <rect key="frame" x="250" y="21" width="55" height="32"/>
+                                                        <rect key="frame" x="266" y="19" width="39" height="16"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                                         <inset key="imageEdgeInsets" minX="-7" minY="0.0" maxX="0.0" maxY="0.0"/>
                                                         <state key="normal" title="전체" image="ic_selectAllPassive">
@@ -2262,7 +2262,7 @@
                                                         </connections>
                                                     </button>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Zft-Gb-b5E">
-                                                        <rect key="frame" x="30" y="353" width="93" height="40"/>
+                                                        <rect key="frame" x="30" y="333" width="73" height="20"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                         <inset key="imageEdgeInsets" minX="-7" minY="0.0" maxX="0.0" maxY="0.0"/>
                                                         <state key="normal" title="기업 형태" image="ic_industry">
@@ -2270,7 +2270,7 @@
                                                         </state>
                                                     </button>
                                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="6" translatesAutoresizingMaskIntoConstraints="NO" id="ESr-XY-ygN">
-                                                        <rect key="frame" x="20" y="71" width="295" height="260"/>
+                                                        <rect key="frame" x="20" y="51" width="295" height="260"/>
                                                         <subviews>
                                                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="Knp-7U-XgO">
                                                                 <rect key="frame" x="0.0" y="0.0" width="295" height="32"/>
@@ -2325,7 +2325,7 @@
                                                                 </constraints>
                                                             </stackView>
                                                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="WXt-kw-Wc4">
-                                                                <rect key="frame" x="0.0" y="38.000000000000028" width="295" height="32"/>
+                                                                <rect key="frame" x="0.0" y="38" width="295" height="32"/>
                                                                 <subviews>
                                                                     <button opaque="NO" tag="104" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iPY-1r-dez">
                                                                         <rect key="frame" x="0.0" y="0.0" width="141.66666666666666" height="32"/>
@@ -2655,7 +2655,7 @@
                                                         </constraints>
                                                     </stackView>
                                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="6" translatesAutoresizingMaskIntoConstraints="NO" id="scl-xW-luq">
-                                                        <rect key="frame" x="20" y="406" width="295" height="108"/>
+                                                        <rect key="frame" x="20" y="366" width="295" height="108"/>
                                                         <subviews>
                                                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="kbU-5a-YRI">
                                                                 <rect key="frame" x="0.0" y="0.0" width="295" height="32"/>
@@ -2824,13 +2824,13 @@
                                                         </constraints>
                                                     </stackView>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="(최소 1가지)" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TZV-6m-25y">
-                                                        <rect key="frame" x="127.99999999999999" y="42" width="50.333333333333329" height="12"/>
+                                                        <rect key="frame" x="107.99999999999999" y="22" width="50.333333333333329" height="12"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="10"/>
                                                         <color key="textColor" red="0.38431372549999998" green="0.41568627450000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="(최소 1가지)" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KTe-HV-KUl">
-                                                        <rect key="frame" x="127.99999999999999" y="378" width="50.333333333333329" height="12"/>
+                                                        <rect key="frame" x="107.99999999999999" y="338" width="50.333333333333329" height="12"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="10"/>
                                                         <color key="textColor" red="0.38431372549999998" green="0.41568627450000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <nil key="highlightedColor"/>
@@ -3039,7 +3039,7 @@
                                                         </subviews>
                                                     </stackView>
                                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icArrowGradation" translatesAutoresizingMaskIntoConstraints="NO" id="evL-3t-iVu">
-                                                        <rect key="frame" x="159" y="147.33333333333334" width="39" height="100"/>
+                                                        <rect key="frame" x="159" y="147.33333333333334" width="39" height="50"/>
                                                     </imageView>
                                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="4i3-85-sfJ" userLabel="종료일">
                                                         <rect key="frame" x="201" y="147.33333333333334" width="140" height="49"/>
@@ -3146,7 +3146,7 @@
                                                 </constraints>
                                             </view>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="use-wv-0gS">
-                                                <rect key="frame" x="57.666666666666657" y="579.66666666666663" width="260" height="88"/>
+                                                <rect key="frame" x="122.66666666666669" y="579.66666666666663" width="130" height="44"/>
                                                 <state key="normal" image="btFormSave"/>
                                                 <connections>
                                                     <action selector="touchUpSaveButton:" destination="F2a-8a-TlB" eventType="touchUpInside" id="E3w-W3-vN1"/>
@@ -3215,7 +3215,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ab3-3e-aed">
-                                <rect key="frame" x="0.0" y="44" width="373.66666666666669" height="44"/>
+                                <rect key="frame" x="0.0" y="44" width="375" height="44"/>
                                 <color key="barTintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <textAttributes key="titleTextAttributes">
                                     <fontDescription key="fontDescription" type="system" weight="medium" pointSize="18"/>
@@ -3232,37 +3232,37 @@
                                 </items>
                             </navigationBar>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="La0-Lo-kth">
-                                <rect key="frame" x="0.0" y="88" width="373.66666666666669" height="690"/>
+                                <rect key="frame" x="0.0" y="88" width="375" height="690"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4we-hr-GgQ" userLabel="GrayBackGroundView">
-                                        <rect key="frame" x="0.0" y="0.0" width="373.66666666666669" height="724"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="724"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6uW-ci-hyS" userLabel="ContentsView">
-                                                <rect key="frame" x="9.3333333333333428" y="10" width="355" height="591.33333333333337"/>
+                                                <rect key="frame" x="9.3333333333333428" y="10" width="356.33333333333326" height="591.33333333333337"/>
                                                 <subviews>
                                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="수상명 입력" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="XKN-GJ-sIe">
-                                                        <rect key="frame" x="20" y="38" width="315" height="29"/>
+                                                        <rect key="frame" x="20" y="38" width="316.33333333333331" height="29"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="24"/>
                                                         <textInputTraits key="textInputTraits"/>
                                                     </textField>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iYm-fK-o58" userLabel="line">
-                                                        <rect key="frame" x="20" y="71" width="315" height="1"/>
+                                                        <rect key="frame" x="20" y="71" width="316.33333333333331" height="1"/>
                                                         <color key="backgroundColor" red="0.90196078430000004" green="0.90196078430000004" blue="0.90196078430000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="1" id="mBA-go-3EQ"/>
                                                         </constraints>
                                                     </view>
                                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="BLm-x9-ZYF">
-                                                        <rect key="frame" x="20" y="112" width="315" height="33"/>
+                                                        <rect key="frame" x="20" y="112" width="316.33333333333331" height="33"/>
                                                         <subviews>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="수상연도" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0s4-5I-Xyb">
-                                                                <rect key="frame" x="0.0" y="0.0" width="157.66666666666666" height="33"/>
+                                                                <rect key="frame" x="0.0" y="0.0" width="158.33333333333334" height="33"/>
                                                                 <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="20"/>
                                                                 <color key="textColor" red="0.25882352939999997" green="0.36862745099999999" blue="0.8980392157" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="x82-Tr-uxa">
-                                                                <rect key="frame" x="157.66666666666663" y="0.0" width="157.33333333333337" height="33"/>
+                                                                <rect key="frame" x="158.33333333333331" y="0.0" width="158" height="33"/>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                                 <state key="normal" title="2019년 1월 30일">
                                                                     <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -3326,7 +3326,7 @@
                                                 </constraints>
                                             </view>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7QG-Cw-qpq">
-                                                <rect key="frame" x="57" y="620.66666666666663" width="260" height="88"/>
+                                                <rect key="frame" x="122.66666666666669" y="620.66666666666663" width="130" height="44"/>
                                                 <state key="normal" image="btFormSave"/>
                                                 <connections>
                                                     <action selector="touchUpSaveButton:" destination="3BH-gx-Png" eventType="touchUpInside" id="soQ-OK-MWh"/>
@@ -3354,7 +3354,7 @@
                                 </constraints>
                             </scrollView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VWd-sw-Ml0">
-                                <rect key="frame" x="0.0" y="0.0" width="373.66666666666669" height="44"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
                         </subviews>
