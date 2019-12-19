@@ -17,6 +17,8 @@ class AllPostersListViewController: UIViewController {
     private var currentSortType = 0
     private var currentCategory = 1
     private var posterImageTasks: [URLSessionDataTask] = []
+    private var currentPage = 0
+    private var isNetworking = false
     
     private lazy var backButton = UIBarButtonItem(image: UIImage(named: "ic_ArrowBack"),
                                                     style: .plain,
@@ -48,35 +50,16 @@ class AllPostersListViewController: UIViewController {
         return collectionView
     }()
     
-    private lazy var popularOrderButton: UIButton = {
+    private lazy var sortTypeButton: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.isSelected = true
         button.addTarget(self,
                          action: #selector(touchUpOrderButton),
                          for: .touchUpInside)
         button.setImage(UIImage(named: "ic_order"),
                         for: .normal)
-        button.setTitle("인기순", for: .normal)
-        button.setTitleColor(#colorLiteral(red: 0.3098039216, green: 0.3098039216, blue: 0.3098039216, alpha: 1), for: .normal)
-        button.titleLabel?.font = UIFont.systemFont(ofSize: 13)
-        button.imageEdgeInsets = UIEdgeInsets(top: 0,
-                                              left: -8,
-                                              bottom: 0,
-                                              right: 0)
-        return button
-    }()
-    
-    private lazy var deadlineOrderButton: UIButton = {
-        let button = UIButton()
-        button.translatesAutoresizingMaskIntoConstraints = false
-        button.addTarget(self,
-                         action: #selector(touchUpOrderButton),
-                         for: .touchUpInside)
-        button.setImage(UIImage(named: "ic_orderPassive"),
-                        for: .normal)
-        button.setTitle("마감일순", for: .normal)
-        button.setTitleColor(#colorLiteral(red: 0.3098039216, green: 0.3098039216, blue: 0.3098039216, alpha: 1), for: .normal)
+        button.setTitle("최신순", for: .normal)
+        button.setTitleColor(#colorLiteral(red: 0.3843137255, green: 0.4156862745, blue: 1, alpha: 1), for: .normal)
         button.titleLabel?.font = UIFont.systemFont(ofSize: 13)
         button.imageEdgeInsets = UIEdgeInsets(top: 0,
                                               left: -8,
@@ -122,48 +105,76 @@ class AllPostersListViewController: UIViewController {
         if let category = PosterCategory(rawValue: currentCategory) {
             title = category.categoryString()
         }
-        
-        
     }
     
     private func requestPosterData(_ scrollToTop: Bool = false) {
+        guard !isNetworking else {
+            return
+        }
+        
+        isNetworking = true
+        
         posterImageTasks.removeAll()
         
         posterService.requestAllPosterAfterSwipe(category: currentCategory,
-                                                 sortType: currentSortType) { [weak self] result in
+                                                 sortType: currentSortType,
+                                                 curPage: currentPage) { [weak self] result in
             switch result {
             case .success(let posterData):
-                self?.posterData = posterData
+                if posterData.count == 0 {
+                    self?.isNetworking = false
+                    return
+                }
                 
-                for data in posterData {
-                    guard let urlString = data.thumbPhotoUrl,
-                        let imageURL = URL(string: urlString) else {
-                            continue
+                if self?.posterData.count == 0 {
+                    self?.posterData = posterData
+
+                    for data in posterData {
+                        guard let urlString = data.thumbPhotoUrl,
+                            let imageURL = URL(string: urlString) else {
+                                continue
+                        }
+                        
+                        let dataTask
+                            = URLSession.shared.dataTask(with: imageURL) { [weak self] data, response, error in
+                                guard error == nil,
+                                    let data = data,
+                                    let image = UIImage(data: data) else {
+                                        self?.isNetworking = false
+                                        return
+                                }
+                                
+                                self?.imageCache.setObject(image, forKey: urlString as NSString)
+                        }
+                        
+                        self?.posterImageTasks.append(dataTask as! URLSessionDataTask)
                     }
                     
-                    let dataTask
-                        = URLSession.shared.dataTask(with: imageURL) { [weak self] data, response, error in
-                            guard error == nil,
-                                let data = data,
-                                let image = UIImage(data: data) else {
-                                    return
-                            }
-                            
-                            self?.imageCache.setObject(image, forKey: urlString as NSString)
+                    DispatchQueue.main.async {
+                        self?.listCollectionView.reloadData()
+                        if self?.posterData.count != 0 && scrollToTop {
+                            self?.listCollectionView.scrollToItem(at: IndexPath(item: 0,
+                                                                                section: 0),
+                                                                  at: .top,
+                                                                  animated: false)
+                        }
+                        self?.isNetworking = false
                     }
-                    
-                    self?.posterImageTasks.append(dataTask as! URLSessionDataTask)
-                }
-                DispatchQueue.main.async {
-                    self?.listCollectionView.reloadData()
-                    if self?.posterData.count != 0 && scrollToTop {
-                        self?.listCollectionView.scrollToItem(at: IndexPath(item: 0,
-                                                                            section: 0),
-                                                              at: .top,
-                                                              animated: true)
+                } else {
+                    DispatchQueue.main.async {
+                        posterData.forEach {
+                            let indexPath = IndexPath(row: self?.posterData.count ?? 0, section: 0)
+                            self?.posterData.append($0)
+                            self?.listCollectionView.insertItems(at: [indexPath])
+                        }
+                        self?.isNetworking = false
                     }
                 }
+
+                self?.currentPage += 1
+                
             case .failed(let error):
+                self?.isNetworking = false
                 print(error)
                 return
             }
@@ -174,8 +185,7 @@ class AllPostersListViewController: UIViewController {
         view.backgroundColor = .white
         
         view.addSubview(categoryCollectionView)
-        view.addSubview(popularOrderButton)
-        view.addSubview(deadlineOrderButton)
+        view.addSubview(sortTypeButton)
         view.addSubview(listCollectionView)
         
         categoryCollectionView.topAnchor.constraint(
@@ -187,24 +197,16 @@ class AllPostersListViewController: UIViewController {
         categoryCollectionView.heightAnchor.constraint(
             equalToConstant: 0).isActive = true
         
-        popularOrderButton.topAnchor.constraint(
+        sortTypeButton.topAnchor.constraint(
             equalTo: categoryCollectionView.bottomAnchor).isActive = true
-        popularOrderButton.leadingAnchor.constraint(
-            equalTo: view.leadingAnchor,
-            constant: 28).isActive = true
-        popularOrderButton.heightAnchor.constraint(
+        sortTypeButton.trailingAnchor.constraint(
+            equalTo: view.trailingAnchor,
+            constant: -28).isActive = true
+        sortTypeButton.heightAnchor.constraint(
             equalToConstant: 18).isActive = true
         
-        deadlineOrderButton.topAnchor.constraint(
-            equalTo: popularOrderButton.topAnchor).isActive = true
-        deadlineOrderButton.leadingAnchor.constraint(
-            equalTo: popularOrderButton.trailingAnchor,
-            constant: 15).isActive = true
-        deadlineOrderButton.heightAnchor.constraint(
-            equalTo: popularOrderButton.heightAnchor).isActive = true
-        
         listCollectionView.topAnchor.constraint(
-            equalTo: popularOrderButton.bottomAnchor,
+            equalTo: sortTypeButton.bottomAnchor,
             constant: 10).isActive = true
         listCollectionView.leadingAnchor.constraint(
             equalTo: view.leadingAnchor,
@@ -263,24 +265,42 @@ class AllPostersListViewController: UIViewController {
     }
     
     @objc private func touchUpOrderButton() {
-        if popularOrderButton.isSelected {
-            currentSortType = 1
-            requestPosterData(true)
-            popularOrderButton.setImage(UIImage(named: "ic_orderPassive"),
-                                        for: .normal)
-            deadlineOrderButton.setImage(UIImage(named: "ic_order"),
-                                         for: .normal)
-        } else {
-            currentSortType = 0
-            requestPosterData(true)
-            popularOrderButton.setImage(UIImage(named: "ic_order"),
-                                        for: .normal)
-            deadlineOrderButton.setImage(UIImage(named: "ic_orderPassive"),
-                                         for: .normal)
+        
+        let alert = UIAlertController(title: "정렬 형식", message: "", preferredStyle: .actionSheet)
+        
+        let latestOrderAction = UIAlertAction(title: "최신순", style: .default) { [weak self] (action) in
+            self?.didSelectedSort(type: .latest)
         }
         
-        popularOrderButton.isSelected = !popularOrderButton.isSelected
-        deadlineOrderButton.isSelected = !deadlineOrderButton.isSelected
+        let deadlineOrderAction = UIAlertAction(title: "마감순", style: .default) { [weak self] (action) in
+            self?.didSelectedSort(type: .deadline)
+        }
+        
+        let popularOrderAction = UIAlertAction(title: "인기순", style: .default) { [weak self] (action) in
+            self?.didSelectedSort(type: .popular)
+        }
+        
+        let cancelAction = UIAlertAction(title: "취소", style: .cancel)
+        
+        alert.addAction(latestOrderAction)
+        alert.addAction(deadlineOrderAction)
+        alert.addAction(popularOrderAction)
+        alert.addAction(cancelAction)
+        present(alert, animated: true)
+    }
+    
+    func didSelectedSort(type: SortType) {
+        sortTypeButton.setTitle(type.getTypeString(), for: .normal)
+        currentSortType = type.rawValue
+        currentPage = 0
+        posterData = []
+        requestPosterData(true)
+    }
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        if scrollView.contentOffset.y + scrollView.frame.height >= scrollView.contentSize.height {
+            requestPosterData()
+        }
     }
 }
 
