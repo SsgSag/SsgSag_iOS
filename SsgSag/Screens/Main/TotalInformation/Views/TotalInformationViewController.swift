@@ -52,7 +52,7 @@ class TotalInformationViewController: UIViewController, StoryboardView {
                 cell.itemCollectionView.delegate = self
                 cell.reactor = TotalInformationTableViewCellReactor(type: item.key, items: item.value)
                 Observable.just(())
-                    .map { TotalInformationTableViewCellReactor.Action.set("") }
+                    .map { TotalInformationTableViewCellReactor.Action.set }
                     .bind(to: cell.reactor!.action)
                     .disposed(by: cell.disposeBag)
                 cell.moreButton.rx.tap.subscribe(onNext: { [weak self] in

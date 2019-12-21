@@ -12,7 +12,7 @@ import ReactorKit
 
 class TotalInformationTableViewCellReactor: Reactor {
     enum Action {
-        case set(String)
+        case set
         case moreButtonTapped
     }
 
@@ -34,7 +34,7 @@ class TotalInformationTableViewCellReactor: Reactor {
 
     func mutate(action: Action) -> Observable<Mutation> {
         switch action {
-        case .set(let title):
+        case .set:
             let type = currentState.type
             var activityTypeString = ""
             switch type {

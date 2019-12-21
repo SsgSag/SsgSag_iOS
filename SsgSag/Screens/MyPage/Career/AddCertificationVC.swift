@@ -138,7 +138,7 @@ class AddCertificationVC: UIViewController, UITextFieldDelegate {
         } else {
             
             let json: [String: Any] = [
-                "careerIdx": index,
+                "careerIdx": index ?? 0,
                 "careerType" : 2,
                 "careerName" : titleTextField.text ?? "",
                 "careerContent" : content,

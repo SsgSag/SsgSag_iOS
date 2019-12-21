@@ -152,7 +152,7 @@ class MyFilterSettingViewController: UIViewController, StoryboardView {
                 }
 
                 footer.confirmButton.rx.tap
-                    .throttle(0.5, scheduler: MainScheduler.instance)
+                    .throttle(0.5, latest: true, scheduler: MainScheduler.instance)
                     .flatMapLatest { [weak self] event -> Observable<AlertType> in
                         guard let self = self else { return Observable.just(AlertType.cancel) }
                         let setting = reactor.currentState.myFilterSetting

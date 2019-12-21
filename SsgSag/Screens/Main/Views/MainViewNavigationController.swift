@@ -41,7 +41,7 @@ class MainViewNavigationController: UINavigationController {
         
         let categoryButtonView = UINib(nibName: "SwipeNavigationBarCenterButtonView",
                                        bundle: nil).instantiate(withOwner: self,
-                                                                options: nil).first as? SwipeNavigationBarCenterButtonView
+                                                                options: nil).first as? MainNavigationBarCenterButtonView
         categoryButtonView?.widthAnchor.constraint(equalToConstant: 200).isActive = true
         categoryButtonView?.heightAnchor.constraint(equalToConstant: 44).isActive = true
         categoryButtonView?.userpressed(type: .total)
@@ -95,6 +95,7 @@ class MainViewNavigationController: UINavigationController {
                                                               maxGrade: 5, initialSetting: setting)
                 self.pushViewController(myVC, animated: true)
             })
+            .disposed(by: disposeBag)
     
     }
     
