@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15702" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15704"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="jyS-pM-2SB" customClass="PosterListCategoryView" customModule="슥삭" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="309"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <subviews>
+                <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" contentInsetAdjustmentBehavior="never" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="ojF-Ua-1De">
+                    <rect key="frame" x="0.0" y="0.0" width="414" height="309"/>
+                    <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                    <collectionViewLayout key="collectionViewLayout" id="d9p-e5-omD" customClass="LeftAlignedCollectionViewFlowLayout" customModule="슥삭" customModuleProvider="target"/>
+                    <cells/>
+                </collectionView>
+            </subviews>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <constraints>
+                <constraint firstItem="ojF-Ua-1De" firstAttribute="top" secondItem="jyS-pM-2SB" secondAttribute="top" id="86R-df-kcR"/>
+                <constraint firstItem="ojF-Ua-1De" firstAttribute="leading" secondItem="lFR-Rf-Uyp" secondAttribute="leading" id="Hji-gr-xcg"/>
+                <constraint firstItem="lFR-Rf-Uyp" firstAttribute="trailing" secondItem="ojF-Ua-1De" secondAttribute="trailing" id="LZF-1U-BBW"/>
+                <constraint firstItem="lFR-Rf-Uyp" firstAttribute="bottom" secondItem="ojF-Ua-1De" secondAttribute="bottom" id="qjM-tV-yR1"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <viewLayoutGuide key="safeArea" id="lFR-Rf-Uyp"/>
+            <connections>
+                <outlet property="posterListCategoryCollectionView" destination="ojF-Ua-1De" id="ekw-3p-cfh"/>
+            </connections>
+            <point key="canvasLocation" x="63.768115942028992" y="-457.03125"/>
+        </view>
+    </objects>
+</document>

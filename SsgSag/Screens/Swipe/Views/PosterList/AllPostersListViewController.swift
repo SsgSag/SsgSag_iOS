@@ -8,14 +8,20 @@
 
 import UIKit
 import AdBrixRM
+import RxSwift
+import RxCocoa
 
 class AllPostersListViewController: UIViewController {
     
     private let imageCache = NSCache<NSString, UIImage>()
     private let categoryList = [0, 1, 4, 5, 7]
+    
+    var disposeBag = DisposeBag()
+    
     private var posterData: [PosterDataAfterSwpie] = []
     private var currentSortType = 0
     private var currentCategory = 1
+    private var currentCategoryType: Int = 0
     private var posterImageTasks: [URLSessionDataTask] = []
     private var currentPage = 0
     private var isNetworking = false
@@ -24,6 +30,12 @@ class AllPostersListViewController: UIViewController {
                                                     style: .plain,
                                                     target: self,
                                                     action: #selector(touchUpBackButton))
+    
+    private lazy var categoryCancelButton = UIBarButtonItem(image: UIImage(named: "ic_cancel"),
+                                                  style: .plain,
+                                                  target: self,
+                                                  action: nil)
+    
     
     private lazy var settingBoardButton = UIBarButtonItem(image: UIImage(named: "bulletin"),
                                                           style: .plain,
@@ -80,6 +92,39 @@ class AllPostersListViewController: UIViewController {
         return collectionView
     }()
     
+    private let categoryView: PosterListCategoryView? = {
+        let view = UINib(nibName: "PosterListCategoryView",
+        bundle: nil).instantiate(withOwner: self,
+                                 options: nil).first as? PosterListCategoryView
+        view?.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+    
+    var categoryViewTopConstraint: NSLayoutConstraint?
+    
+    private let categorySelectButton: UIButton = {
+        let button = UIButton(type: .system)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        button.tintColor = .clear
+        button.setTitle("분야: 전체", for: .normal)
+        button.setTitleColor(UIColor(red: 119/255,
+                                     green: 119/255,
+                                     blue: 119/255,
+                                     alpha: 1),
+                             for: .normal)
+        button.titleLabel?.font = UIFont.systemFont(ofSize: 12, weight: .medium)
+        
+        button.borderColorV = UIColor(red: 230/255,
+                                       green: 230/255,
+                                       blue: 230/255,
+                                       alpha: 1)
+        button.borderWidthV = 1
+        button.layer.cornerRadius = 14
+        return button
+    }()
+    
+    var categorySelectButtonWidthConstraint: NSLayoutConstraint?
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
@@ -94,9 +139,74 @@ class AllPostersListViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+       
         setupLayout()
         setupCollectionView()
+    }
+    
+    func bind(viewModel: PosterListViewModel) {
+        categoryView?.bind(viewModel: viewModel.categoryViewModel)
+        let viewHeight: CGFloat = CGFloat((((viewModel.categoryViewModel.titles.count / 2) * 2) - 1) * 18)
+        categoryView?.heightAnchor.constraint(equalToConstant: viewHeight + 55).isActive = true
+        
+        categoryView?.posterListCategoryCollectionView
+            .rx
+            .itemSelected
+            .observeOn(MainScheduler.instance)
+            .do(onNext: { [viewModel, weak self] index in
+                let type = viewModel.categoryViewModel.categories[index.item]
+                self?.currentCategoryType = type
+                self?.posterData.removeAll()
+                self?.navigationItem.leftBarButtonItem = self?.backButton
+                let categorySelectButtonTitle = "분야: \(viewModel.categoryViewModel.cellViewModels[index.item].title)"
+                self?.categorySelectButton.setTitle(categorySelectButtonTitle, for: .normal)
+                self?.categorySelectButtonWidthConstraint?.constant = categorySelectButtonTitle
+                    .estimatedFrame(font: UIFont.systemFont(ofSize: 12, weight: .medium)).width + 14
+                UIView.animate(withDuration: 0.5) {
+                    self?.categoryViewTopConstraint?.constant = -230
+                    self?.view.layoutIfNeeded()
+                }
+             
+                self?.currentPage = 0
+                self?.requestPosterData()
+                self?.listCollectionView.reloadData()
+                viewModel.userPressedCategoryTitle(at: index)
+            })
+            .subscribe()
+            .disposed(by: disposeBag)
+        
+        categoryCancelButton
+            .rx
+            .tap
+            .do(onNext: { [weak self] _ in
+                guard let self = self else { return }
+                self.navigationItem.leftBarButtonItem = self.backButton
+                if let category = PosterCategory(rawValue: self.currentCategory) {
+                    self.title = category.categoryString()
+                }
+                UIView.animate(withDuration: 0.5) {
+                    self.categoryViewTopConstraint?.constant = -230
+                    self.view.layoutIfNeeded()
+                }
+               
+            })
+            .subscribe()
+            .disposed(by: disposeBag)
+        
+        categorySelectButton
+            .rx
+            .tap
+            .do(onNext: { [weak self] _ in
+                guard let self = self else { return }
+                self.navigationItem.leftBarButtonItem = self.categoryCancelButton
+                self.title = ""
+                UIView.animate(withDuration: 0.5) {
+                    self.categoryViewTopConstraint?.constant = 0
+                    self.view.layoutIfNeeded()
+                }
+            })
+            .subscribe()
+            .disposed(by: disposeBag)
     }
     
     func setCategory(number: Int) {
@@ -115,9 +225,11 @@ class AllPostersListViewController: UIViewController {
         isNetworking = true
         
         posterImageTasks.removeAll()
+        let currentInterestType = currentCategoryType == 0 ? nil : currentCategoryType
         
         posterService.requestAllPosterAfterSwipe(category: currentCategory,
                                                  sortType: currentSortType,
+                                                 interestType: currentInterestType,
                                                  curPage: currentPage) { [weak self] result in
             switch result {
             case .success(let posterData):
@@ -183,10 +295,17 @@ class AllPostersListViewController: UIViewController {
     
     private func setupLayout() {
         view.backgroundColor = .white
-        
         view.addSubview(categoryCollectionView)
         view.addSubview(sortTypeButton)
         view.addSubview(listCollectionView)
+        view.addSubview(categorySelectButton)
+        view.addSubview(categoryView ?? UIView())
+        
+        categoryViewTopConstraint = categoryView?.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor)
+        categoryViewTopConstraint?.isActive = true
+        categoryViewTopConstraint?.constant = -230
+        categoryView?.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
+        categoryView?.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
         
         categoryCollectionView.topAnchor.constraint(
             equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
@@ -197,8 +316,18 @@ class AllPostersListViewController: UIViewController {
         categoryCollectionView.heightAnchor.constraint(
             equalToConstant: 0).isActive = true
         
+        categorySelectButtonWidthConstraint = categorySelectButton.widthAnchor.constraint(equalToConstant: 73)
+        categorySelectButtonWidthConstraint?.isActive = true
+        categorySelectButton.topAnchor.constraint(
+            equalTo: view.topAnchor, constant: 14).isActive = true
+        categorySelectButton.leadingAnchor.constraint(
+            equalTo: view.leadingAnchor,
+            constant: 23).isActive = true
+        categorySelectButton.heightAnchor.constraint(
+            equalToConstant: 28).isActive = true
+        
         sortTypeButton.topAnchor.constraint(
-            equalTo: categoryCollectionView.bottomAnchor).isActive = true
+            equalTo: view.topAnchor, constant: 14).isActive = true
         sortTypeButton.trailingAnchor.constraint(
             equalTo: view.trailingAnchor,
             constant: -28).isActive = true
@@ -207,7 +336,7 @@ class AllPostersListViewController: UIViewController {
         
         listCollectionView.topAnchor.constraint(
             equalTo: sortTypeButton.bottomAnchor,
-            constant: 10).isActive = true
+            constant: 28).isActive = true
         listCollectionView.leadingAnchor.constraint(
             equalTo: view.leadingAnchor,
             constant: 18).isActive = true

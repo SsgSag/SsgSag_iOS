@@ -33,7 +33,7 @@ enum RequestURL {
     case commentLike(index: Int, like: Int)
     case commentDelete(index: Int)
     case commentReport(index: Int)
-    case allPoster(category: Int, sortType: Int, curPage: Int)
+    case allPoster(category: Int, sortType: Int, interestField: Int?, curPage: Int)
     case clickRecord(posterIdx: Int, type: Int)
     
     var getRequestURL: String {
@@ -111,7 +111,11 @@ enum RequestURL {
             return "/comment/caution/\(index)"
         case .allPoster(let category,
                         let sortType,
+                        let interestType,
                         let curPage):
+            if let interestType = interestType {
+                return "/poster/all?category=\(category)&interestNum=\(interestType)&sortType=\(sortType)&curPage=\(curPage)"
+            }
             return "/poster/all?category=\(category)&sortType=\(sortType)&curPage=\(curPage)"
         case .clickRecord(let posterIdx,
                           let type):

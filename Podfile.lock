@@ -1,7 +1,10 @@
 PODS:
   - AdBrixRemastered (1.6.3000)
   - Alamofire (4.9.1)
+  - Crashlytics (3.14.0):
+    - Fabric (~> 1.10.2)
   - Differentiator (4.0.1)
+  - Fabric (1.10.2)
   - FacebookSDK (5.13.1):
     - FacebookSDK/CoreKit (= 5.13.1)
     - FacebookSDK/MarketingKit (= 5.13.1)
@@ -123,6 +126,8 @@ PODS:
 DEPENDENCIES:
   - AdBrixRemastered
   - Alamofire
+  - Crashlytics (~> 3.14.0)
+  - Fabric (~> 1.10.2)
   - FacebookSDK
   - Firebase/Analytics
   - Firebase/Core
@@ -141,7 +146,9 @@ SPEC REPOS:
   https://github.com/cocoapods/specs.git:
     - AdBrixRemastered
     - Alamofire
+    - Crashlytics
     - Differentiator
+    - Fabric
     - FacebookSDK
     - FBSDKCoreKit
     - FBSDKMarketingKit
@@ -173,7 +180,9 @@ SPEC REPOS:
 SPEC CHECKSUMS:
   AdBrixRemastered: 23a022501a434609086ad42f1dad930c2f3d96e8
   Alamofire: 85e8a02c69d6020a0d734f6054870d7ecb75cf18
+  Crashlytics: 540b7e5f5da5a042647227a5e3ac51d85eed06df
   Differentiator: 886080237d9f87f322641dedbc5be257061b0602
+  Fabric: 706c8b8098fff96c33c0db69cbf81f9c551d0d74
   FacebookSDK: d22350d1f3c143f43a311b12b488abd17e5f2033
   FBSDKCoreKit: 8fb98209109fb684937f05d534305edb18c20207
   FBSDKMarketingKit: 6f7122d7d2b6286d61200467e4919d8d6677b2ee
@@ -202,6 +211,6 @@ SPEC CHECKSUMS:
   SearchTextField: 40dc3cc57def5a211f263cac263622c163bbc25a
   SwiftKeychainWrapper: 6fc49fbf7d4a6b0772917acb0e53a1639f6078d6
 
-PODFILE CHECKSUM: cd26dc78ff7fcabfc794232eede248ab08a13f75
+PODFILE CHECKSUM: abf81e38e30def8324ed1113b005ea6f94df1a55
 
 COCOAPODS: 1.5.3

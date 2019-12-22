@@ -182,6 +182,7 @@ class PosterServiceImp: PosterService {
     
     func requestAllPosterAfterSwipe(category: Int,
                                     sortType: Int,
+                                    interestType: Int? = nil,
                                     curPage: Int,
                                     completionHandler: @escaping (DataResponse<[PosterDataAfterSwpie]>) -> Void) {
         guard let token
@@ -189,6 +190,7 @@ class PosterServiceImp: PosterService {
             let url
             = UserAPI.sharedInstance.getURL(RequestURL.allPoster(category: category,
                                                                  sortType: sortType,
+                                                                 interestField: interestType,
                                                                  curPage: curPage).getRequestURL),
             let request
             = requestMaker.makeRequest(url: url,

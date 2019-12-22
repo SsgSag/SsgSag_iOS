@@ -38,6 +38,7 @@ protocol PosterService: class {
     func requestAllPosterAfterSwipe(
         category: Int,
         sortType: Int,
+        interestType: Int?,
         curPage: Int,
         completionHandler: @escaping (DataResponse<[PosterDataAfterSwpie]>) -> Void
     )

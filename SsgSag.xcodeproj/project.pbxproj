@@ -70,9 +70,10 @@
 		84C77E4F22759AAF00DEE2D8 /* ZoomPosterVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84C77E4E22759AAF00DEE2D8 /* ZoomPosterVC.swift */; };
 		84D09D0622880C3D008EEA7C /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 84D09D0522880C3C008EEA7C /* GoogleService-Info.plist */; };
 		84D09D0822883421008EEA7C /* ActivityServiceImp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84D09D0722883421008EEA7C /* ActivityServiceImp.swift */; };
-		84E19CE421DCC9F4006F72EC /* LoginStoryBoard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 84E19CE321DCC9F4006F72EC /* LoginStoryBoard.storyboard */; };
 		84FB4FE1226B7CAA00D9F2F9 /* RequestURL.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84FB4FE0226B7CAA00D9F2F9 /* RequestURL.swift */; };
 		84FB4FE4226B7F7D00D9F2F9 /* LoginServiceImp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84FB4FE3226B7F7D00D9F2F9 /* LoginServiceImp.swift */; };
+		C947B61D23AE5B2C007CB18C /* PosterListCategoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C947B61C23AE5B2C007CB18C /* PosterListCategoryView.swift */; };
+		C947B61F23AE5B4A007CB18C /* PosterListCategoryView.xib in Resources */ = {isa = PBXBuildFile; fileRef = C947B61E23AE5B4A007CB18C /* PosterListCategoryView.xib */; };
 		C9558B8023955D5C00E63F93 /* String+.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9558B7F23955D5C00E63F93 /* String+.swift */; };
 		C9558B88239BDA5400E63F93 /* MainViewStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C9558B87239BDA5400E63F93 /* MainViewStoryboard.storyboard */; };
 		C9558B8A239BDE4C00E63F93 /* MainViewNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9558B89239BDE4B00E63F93 /* MainViewNavigationController.swift */; };
@@ -80,6 +81,12 @@
 		C9558B92239BE71B00E63F93 /* TotalInformationReactor.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9558B91239BE71B00E63F93 /* TotalInformationReactor.swift */; };
 		C9558B96239BF0DD00E63F93 /* TotalInformation.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9558B95239BF0DD00E63F93 /* TotalInformation.swift */; };
 		C9558B98239C15DD00E63F93 /* TotalInformationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9558B97239C15DD00E63F93 /* TotalInformationService.swift */; };
+		C9625E0F23AE605C00FF5109 /* PosterListCategoryCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9625E0E23AE605C00FF5109 /* PosterListCategoryCollectionViewCell.swift */; };
+		C9625E1023AE667D00FF5109 /* LoginStoryBoard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 84E19CE321DCC9F4006F72EC /* LoginStoryBoard.storyboard */; };
+		C9625E1223AE66EA00FF5109 /* PosterListCategoryCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C9625E1123AE66EA00FF5109 /* PosterListCategoryCollectionViewCell.xib */; };
+		C9625E1523AE680B00FF5109 /* PosterListCategoryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9625E1423AE680B00FF5109 /* PosterListCategoryViewModel.swift */; };
+		C9625E1723AF1E5000FF5109 /* PosterListCategoryCollectionViewCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9625E1623AF1E5000FF5109 /* PosterListCategoryCollectionViewCellViewModel.swift */; };
+		C9625E1923AF267B00FF5109 /* PosterListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9625E1823AF267B00FF5109 /* PosterListViewModel.swift */; };
 		C9A828382395528D0029A493 /* AddVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9A827DB2395528D0029A493 /* AddVC.swift */; };
 		C9A828392395528D0029A493 /* InterestBoardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9A827DC2395528D0029A493 /* InterestBoardViewController.swift */; };
 		C9A8283A2395528D0029A493 /* DatePickerPopUpVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9A827DD2395528D0029A493 /* DatePickerPopUpVC.swift */; };
@@ -313,7 +320,7 @@
 
 /* Begin PBXFileReference section */
 		031F14AE11BD590702A32B8D /* Pods_SsgSag.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SsgSag.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		41FD5F99E923D854C5827AD8 /* Pods-SsgSag.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SsgSag.release.xcconfig"; path = "Target Support Files/Pods-SsgSag/Pods-SsgSag.release.xcconfig"; sourceTree = "<group>"; };
+		41F0B899B4CCAC855CFD54F6 /* Pods-SsgSag.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SsgSag.debug.xcconfig"; path = "Target Support Files/Pods-SsgSag/Pods-SsgSag.debug.xcconfig"; sourceTree = "<group>"; };
 		840AFF8722A2622C00EA12E6 /* UIDevice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIDevice.swift; sourceTree = "<group>"; };
 		840DDD3F227EAC4000D9D515 /* TapbarServiceImp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TapbarServiceImp.swift; sourceTree = "<group>"; };
 		840FEDC22207500E00581A3B /* CalendarColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarColor.swift; sourceTree = "<group>"; };
@@ -384,7 +391,8 @@
 		84F3C6FE227F49560028A2F0 /* SsgSagTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SsgSagTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		84FB4FE0226B7CAA00D9F2F9 /* RequestURL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = RequestURL.swift; path = SsgSag/Helper/RequestURL.swift; sourceTree = SOURCE_ROOT; };
 		84FB4FE3226B7F7D00D9F2F9 /* LoginServiceImp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginServiceImp.swift; sourceTree = "<group>"; };
-		BAFC920E0143C1946D9C0ADC /* Pods-SsgSag.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SsgSag.debug.xcconfig"; path = "Target Support Files/Pods-SsgSag/Pods-SsgSag.debug.xcconfig"; sourceTree = "<group>"; };
+		C947B61C23AE5B2C007CB18C /* PosterListCategoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PosterListCategoryView.swift; sourceTree = "<group>"; };
+		C947B61E23AE5B4A007CB18C /* PosterListCategoryView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PosterListCategoryView.xib; sourceTree = "<group>"; };
 		C9558B7F23955D5C00E63F93 /* String+.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+.swift"; sourceTree = "<group>"; };
 		C9558B87239BDA5400E63F93 /* MainViewStoryboard.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = MainViewStoryboard.storyboard; sourceTree = "<group>"; };
 		C9558B89239BDE4B00E63F93 /* MainViewNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewNavigationController.swift; sourceTree = "<group>"; };
@@ -392,6 +400,11 @@
 		C9558B91239BE71B00E63F93 /* TotalInformationReactor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TotalInformationReactor.swift; sourceTree = "<group>"; };
 		C9558B95239BF0DD00E63F93 /* TotalInformation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TotalInformation.swift; sourceTree = "<group>"; };
 		C9558B97239C15DD00E63F93 /* TotalInformationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TotalInformationService.swift; sourceTree = "<group>"; };
+		C9625E0E23AE605C00FF5109 /* PosterListCategoryCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PosterListCategoryCollectionViewCell.swift; sourceTree = "<group>"; };
+		C9625E1123AE66EA00FF5109 /* PosterListCategoryCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PosterListCategoryCollectionViewCell.xib; sourceTree = "<group>"; };
+		C9625E1423AE680B00FF5109 /* PosterListCategoryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PosterListCategoryViewModel.swift; sourceTree = "<group>"; };
+		C9625E1623AF1E5000FF5109 /* PosterListCategoryCollectionViewCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PosterListCategoryCollectionViewCellViewModel.swift; sourceTree = "<group>"; };
+		C9625E1823AF267B00FF5109 /* PosterListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PosterListViewModel.swift; sourceTree = "<group>"; };
 		C9A827DB2395528D0029A493 /* AddVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddVC.swift; sourceTree = "<group>"; };
 		C9A827DC2395528D0029A493 /* InterestBoardViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = InterestBoardViewController.swift; sourceTree = "<group>"; };
 		C9A827DD2395528D0029A493 /* DatePickerPopUpVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DatePickerPopUpVC.swift; sourceTree = "<group>"; };
@@ -477,6 +490,7 @@
 		C9C26BEC239D476B0084C248 /* TotalInformationCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TotalInformationCollectionViewCell.swift; sourceTree = "<group>"; };
 		C9C26BEE239D47B40084C248 /* TotalInformationCollectionViewCellReactor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TotalInformationCollectionViewCellReactor.swift; sourceTree = "<group>"; };
 		C9D865A323ADD2E800D12339 /* CalendarView + extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CalendarView + extension.swift"; sourceTree = "<group>"; };
+		CD661D6C84CC3F8DF0B8C7D5 /* Pods-SsgSag.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SsgSag.release.xcconfig"; path = "Target Support Files/Pods-SsgSag/Pods-SsgSag.release.xcconfig"; sourceTree = "<group>"; };
 		D103D8A722FA9BD20092FE93 /* ArticleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleViewController.swift; sourceTree = "<group>"; };
 		D103D8A922FBEDA40092FE93 /* CalendarData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarData.swift; sourceTree = "<group>"; };
 		D109DC5723ABC3FB00E5BAF7 /* SortType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SortType.swift; sourceTree = "<group>"; };
@@ -661,8 +675,8 @@
 		3F1AE9C8059B4EA2C16410FE /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				BAFC920E0143C1946D9C0ADC /* Pods-SsgSag.debug.xcconfig */,
-				41FD5F99E923D854C5827AD8 /* Pods-SsgSag.release.xcconfig */,
+				41F0B899B4CCAC855CFD54F6 /* Pods-SsgSag.debug.xcconfig */,
+				CD661D6C84CC3F8DF0B8C7D5 /* Pods-SsgSag.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -773,6 +787,25 @@
 			path = NewCalendar;
 			sourceTree = "<group>";
 		};
+		C947B61A23AE575B007CB18C /* PosterList */ = {
+			isa = PBXGroup;
+			children = (
+				C9625E1323AE67F600FF5109 /* ViewModels */,
+				C947B61B23AE5B10007CB18C /* Storyboards */,
+				D1FEA34D2334A1A600464DC4 /* AllPostersListViewController.swift */,
+			);
+			path = PosterList;
+			sourceTree = "<group>";
+		};
+		C947B61B23AE5B10007CB18C /* Storyboards */ = {
+			isa = PBXGroup;
+			children = (
+				C947B61C23AE5B2C007CB18C /* PosterListCategoryView.swift */,
+				C947B61E23AE5B4A007CB18C /* PosterListCategoryView.xib */,
+			);
+			path = Storyboards;
+			sourceTree = "<group>";
+		};
 		C9558B81239BD98E00E63F93 /* Main */ = {
 			isa = PBXGroup;
 			children = (
@@ -861,6 +894,16 @@
 				C9558B95239BF0DD00E63F93 /* TotalInformation.swift */,
 			);
 			path = Models;
+			sourceTree = "<group>";
+		};
+		C9625E1323AE67F600FF5109 /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				C9625E1423AE680B00FF5109 /* PosterListCategoryViewModel.swift */,
+				C9625E1623AF1E5000FF5109 /* PosterListCategoryCollectionViewCellViewModel.swift */,
+				C9625E1823AF267B00FF5109 /* PosterListViewModel.swift */,
+			);
+			path = ViewModels;
 			sourceTree = "<group>";
 		};
 		C9A827D82395528D0029A493 /* Screens */ = {
@@ -1318,6 +1361,7 @@
 		C9D8659523ADC95400D12339 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				C947B61A23AE575B007CB18C /* PosterList */,
 				C9D8659723ADC97C00D12339 /* Extensions */,
 				C9D8659623ADC96600D12339 /* Storyboards */,
 				D188C9062368314600AB88F0 /* Cell */,
@@ -1327,7 +1371,6 @@
 				845928E621D3877D001DF6CC /* DetailTextSwipeCard.swift */,
 				84C30E2A22780D50008F1165 /* DetailNewTextSwipeCard.swift */,
 				84C77E4E22759AAF00DEE2D8 /* ZoomPosterVC.swift */,
-				D1FEA34D2334A1A600464DC4 /* AllPostersListViewController.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -1512,6 +1555,8 @@
 				D1FEA3502334C79600464DC4 /* AllPosterListCollectionViewCell.xib */,
 				D1A4EEA52344FC7E003FAC88 /* NoPosterCollectionViewCell.swift */,
 				D1A4EEA62344FC7E003FAC88 /* NoPosterCollectionViewCell.xib */,
+				C9625E0E23AE605C00FF5109 /* PosterListCategoryCollectionViewCell.swift */,
+				C9625E1123AE66EA00FF5109 /* PosterListCategoryCollectionViewCell.xib */,
 			);
 			path = Cell;
 			sourceTree = "<group>";
@@ -1610,6 +1655,7 @@
 				8459289421D09CDD001DF6CC /* Frameworks */,
 				8459289521D09CDD001DF6CC /* Resources */,
 				011E163BB7EF87DA5B420D76 /* [CP] Embed Pods Frameworks */,
+				C947B5F323ADEF83007CB18C /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -1722,7 +1768,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C9625E1023AE667D00FF5109 /* LoginStoryBoard.storyboard in Resources */,
 				D1FCC4E4236BD2BE000E3769 /* DateCollectionViewCell.xib in Resources */,
+				C9625E1223AE66EA00FF5109 /* PosterListCategoryCollectionViewCell.xib in Resources */,
 				8496818E22AFDDD1004A4A63 /* newCalendarStoryboard.storyboard in Resources */,
 				D1FEA3522334C79600464DC4 /* AllPosterListCollectionViewCell.xib in Resources */,
 				D1B2F43623013BAA00074448 /* AllAndFavoriteCollectionReusableView.xib in Resources */,
@@ -1730,7 +1778,6 @@
 				C9A828742395528E0029A493 /* PrizeCell.xib in Resources */,
 				C9A8287C2395528E0029A493 /* CustomCareerCell.xib in Resources */,
 				D1A4EEA82344FC7E003FAC88 /* NoPosterCollectionViewCell.xib in Resources */,
-				84E19CE421DCC9F4006F72EC /* LoginStoryBoard.storyboard in Resources */,
 				D10B6E2622F4268E007B9BEA /* BoardPostCollectionViewCell.xib in Resources */,
 				84B8630A22B64F7900E4B0C1 /* DetailTodoListTableViewCell.xib in Resources */,
 				D11080AA22E07FF000F345A8 /* AnalysticsCollectionViewCell.xib in Resources */,
@@ -1759,6 +1806,7 @@
 				D110809622E042D900F345A8 /* DetailImageCollectionViewCell.xib in Resources */,
 				C9A828672395528D0029A493 /* SettingProfileImageCollectionReusableView.xib in Resources */,
 				D1E517B722E0282B0001EAA5 /* PosterHeaderCollectionReusableView.xib in Resources */,
+				C947B61F23AE5B4A007CB18C /* PosterListCategoryView.xib in Resources */,
 				C9A828552395528D0029A493 /* MyFilterFooterCollectionReusableView.xib in Resources */,
 				D149F5A1235D96930018B8F5 /* ListDateSperateCollectionReusableView.xib in Resources */,
 				846E6223228FCF320083E3CD /* Launch Screen.storyboard in Resources */,
@@ -1849,6 +1897,23 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-SsgSag/Pods-SsgSag-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
+		C947B5F323ADEF83007CB18C /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\n\"${PODS_ROOT}/Fabric/run\"\n";
+		};
 		E08FB57B34FA9A17076B2D57 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -1914,6 +1979,7 @@
 				FA5A87F421E7D51D008C2C41 /* Career.swift in Sources */,
 				C9A828512395528D0029A493 /* MyFilterSettingViewReactor.swift in Sources */,
 				C9A8283F2395528D0029A493 /* CareerVC.swift in Sources */,
+				C9625E0F23AE605C00FF5109 /* PosterListCategoryCollectionViewCell.swift in Sources */,
 				C9558B8F239BE54500E63F93 /* TotalInformationViewController.swift in Sources */,
 				C9A8283E2395528D0029A493 /* AddActivityVC.swift in Sources */,
 				C9A828662395528D0029A493 /* SettingMenuCollectionViewCell.swift in Sources */,
@@ -1982,6 +2048,7 @@
 				FAF6DEE4222EAAEF001C70CC /* Interests.swift in Sources */,
 				C9A828422395528D0029A493 /* AddCertificationVC.swift in Sources */,
 				C9A828582395528D0029A493 /* MyFilterSliderCollectionViewCell.swift in Sources */,
+				C9625E1923AF267B00FF5109 /* PosterListViewModel.swift in Sources */,
 				D1E2C22022E306C90044E6A1 /* EmailValidate.swift in Sources */,
 				C9C26BEF239D47B40084C248 /* TotalInformationCollectionViewCellReactor.swift in Sources */,
 				D1226C8C22EC9A26007F59BE /* ActicityServiceProtocol.swift in Sources */,
@@ -2044,6 +2111,7 @@
 				84B8630422B3509400E4B0C1 /* ClientKey.swift in Sources */,
 				D16F309D2369764000C127CA /* ServerUpdateResponse.swift in Sources */,
 				D149F59C235D75E30018B8F5 /* CalendarListCollectionViewCell.swift in Sources */,
+				C9625E1723AF1E5000FF5109 /* PosterListCategoryCollectionViewCellViewModel.swift in Sources */,
 				8496817F22AFD3FE004A4A63 /* VACalendarView.swift in Sources */,
 				8486D266226E18E800D7A0C7 /* CalendarServiceImp.swift in Sources */,
 				84A45D09225F9B8B00C60287 /* HTTPMethod.swift in Sources */,
@@ -2066,6 +2134,7 @@
 				C9A8285E2395528D0029A493 /* LeftAlignedFlowLayout.swift in Sources */,
 				C9A828542395528D0029A493 /* MyFilterButtonCollectionViewCell.swift in Sources */,
 				845928E321D35F09001DF6CC /* PageViewController.swift in Sources */,
+				C9625E1523AE680B00FF5109 /* PosterListCategoryViewModel.swift in Sources */,
 				D1C9151722FD839300189FD2 /* CommentServiceProtocol.swift in Sources */,
 				D166AC5F22D4726000ED82DD /* DayTodoList.swift in Sources */,
 				C9A828832395528E0029A493 /* InterestPartVC.swift in Sources */,
@@ -2087,6 +2156,7 @@
 				84BA694D21DB74BD00BA8CB8 /* TabBarViewController.swift in Sources */,
 				8496818122AFD3FE004A4A63 /* VADayView.swift in Sources */,
 				C9A8286D2395528E0029A493 /* UnivCollectionViewCell.swift in Sources */,
+				C947B61D23AE5B2C007CB18C /* PosterListCategoryView.swift in Sources */,
 				C9A8284D2395528D0029A493 /* MyFilterButtonCollectionViewCellReactor.swift in Sources */,
 				D1CD5DE122E5BBDB0033FCB3 /* NoticeServiceImp.swift in Sources */,
 				D17A1C4422ED8D2F00939788 /* SignUpServiceProtocol.swift in Sources */,
@@ -2250,7 +2320,7 @@
 		};
 		845928C321D09CE0001DF6CC /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = BAFC920E0143C1946D9C0ADC /* Pods-SsgSag.debug.xcconfig */;
+			baseConfigurationReference = 41F0B899B4CCAC855CFD54F6 /* Pods-SsgSag.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -2298,7 +2368,7 @@
 		};
 		845928C421D09CE0001DF6CC /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 41FD5F99E923D854C5827AD8 /* Pods-SsgSag.release.xcconfig */;
+			baseConfigurationReference = CD661D6C84CC3F8DF0B8C7D5 /* Pods-SsgSag.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;

@@ -39,7 +39,7 @@ class MainViewNavigationController: UINavigationController {
                                    action: #selector(touchUpProfileButton))
         profileBarButton.tintColor = .cornFlower
         
-        let categoryButtonView = UINib(nibName: "SwipeNavigationBarCenterButtonView",
+        let categoryButtonView = UINib(nibName: "MainNavigationBarCenterButtonView",
                                        bundle: nil).instantiate(withOwner: self,
                                                                 options: nil).first as? MainNavigationBarCenterButtonView
         categoryButtonView?.widthAnchor.constraint(equalToConstant: 200).isActive = true

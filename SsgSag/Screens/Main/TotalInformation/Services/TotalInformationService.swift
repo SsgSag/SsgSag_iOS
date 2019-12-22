@@ -24,7 +24,7 @@ enum TotalInfoCategoryType: Int, CaseIterable {
     
     static func getType(by numberingOrder: Int) -> TotalInfoCategoryType {
         let maxNumber = TotalInfoCategoryType.allCases.count
-        guard maxNumber < numberingOrder else { return .contest }
+        guard maxNumber > numberingOrder else { return .contest }
         switch numberingOrder {
         case 0:
             return .contest

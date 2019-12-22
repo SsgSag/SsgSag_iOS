@@ -57,7 +57,11 @@ class TotalInformationViewController: UIViewController, StoryboardView {
                     .disposed(by: cell.disposeBag)
                 cell.moreButton.rx.tap.subscribe(onNext: { [weak self] in
                     guard let self = self else { return }
+                    let categoryType = TotalInfoCategoryType.getType(by: indexPath)
+                    let posterListViewModel = PosterListViewModel(categoryType: categoryType)
+                    posterListViewModel.create()
                     let allPostersViewController = AllPostersListViewController()
+                    allPostersViewController.bind(viewModel: posterListViewModel)
                     allPostersViewController.setCategory(number: indexPath)
                     self.navigationController?.pushViewController(allPostersViewController,
                                                                   animated: true)
