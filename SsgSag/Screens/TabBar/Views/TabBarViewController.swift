@@ -8,6 +8,7 @@
 
 import UIKit
 import AdBrixRM
+import FBSDKCoreKit
 
 class TabBarViewController: UITabBarController {
 
@@ -72,10 +73,12 @@ class TabBarViewController: UITabBarController {
         feedViewController.tabBarItem = UITabBarItem(title: "",
                                                      image: UIImage(named: "ic_feedPassive@tabBar"),
                                                      selectedImage: UIImage(named: "ic_feed@tabBar"))
+        feedViewController.tabBarItem.accessibilityIdentifier = "feed"
         
         newCalendarViewController.tabBarItem = UITabBarItem(title: "",
                                                             image: UIImage(named: "ic_calendarPassive"),
                                                             selectedImage: UIImage(named: "ic_calendarActive"))
+        newCalendarViewController.tabBarItem.accessibilityIdentifier = "calendar"
         
         let tabBarList = [feedViewController, mainViewController, newCalendarViewController]
         
@@ -99,6 +102,14 @@ extension TabBarViewController: UITabBarControllerDelegate {
             return false
         } else {
             return true
+        }
+    }
+    
+    override func tabBar(_ tabBar: UITabBar, didSelect item: UITabBarItem) {
+        if item.accessibilityIdentifier == "calendar" {
+            AppEvents.logEvent(.viewedContent, valueToSum: 1)
+        } else if item.accessibilityIdentifier == "feed" {
+            AppEvents.logEvent(.viewedContent, valueToSum: 4)
         }
     }
 }

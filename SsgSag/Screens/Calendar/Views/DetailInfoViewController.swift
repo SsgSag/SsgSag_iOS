@@ -9,6 +9,7 @@
 import UIKit
 import SwiftKeychainWrapper
 import AdBrixRM
+import FBSDKCoreKit
 
 class DetailInfoViewController: UIViewController {
     var isCalendar: Bool = true
@@ -409,6 +410,9 @@ class DetailInfoViewController: UIViewController {
     @objc private func touchUpBackButton() {
         callback?(buttonsView.isLike ?? 0)
         navigationController?.popViewController(animated: true)
+        tabBarController?.tabBar.isHidden = false
+        
+        
     }
     
     // MARK: - 공유 버튼
@@ -974,6 +978,7 @@ extension DetailInfoViewController: WebsiteDelegate {
             
             UIApplication.shared.open(url)
         } else {
+            AppEvents.logEvent(.viewedContent, valueToSum: 3)
             let adBrix = AdBrixRM.getInstance
             adBrix.event(eventName: "touchUp_MoveToWebsite",
                          value: ["posterIdx": posterIdx])

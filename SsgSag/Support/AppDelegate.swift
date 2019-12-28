@@ -14,6 +14,7 @@ import UserNotifications
 import AdBrixRM
 import AdSupport
 import SwiftKeychainWrapper
+import FBSDKCoreKit
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -42,6 +43,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication,
                      didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
+        ApplicationDelegate.shared.application(application, didFinishLaunchingWithOptions: launchOptions)
         UIApplication.shared.applicationIconBadgeNumber = 0
         
         initUUID()
@@ -54,10 +56,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         Messaging.messaging().delegate = self
         
         setupAdBrix()
-//
-//        ApplicationDelegate.shared.application(application,
-//                                               didFinishLaunchingWithOptions: launchOptions)
-        
+
         if #available(iOS 10.0, *) {
             // For iOS 10 display notification (sent via APNS)
             UNUserNotificationCenter.current().delegate = self
@@ -116,7 +115,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ app: UIApplication,
                      open url: URL,
                      options: [UIApplication.OpenURLOptionsKey : Any]) -> Bool {
-        
+        ApplicationDelegate.shared.application(app, open: url, options: options)
         // AdBrixRM 인스턴스 생성
         let adBrix = AdBrixRM.getInstance
         

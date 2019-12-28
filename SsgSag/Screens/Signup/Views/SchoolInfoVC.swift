@@ -11,6 +11,7 @@ import SearchTextField
 import NaverThirdPartyLogin
 import SwiftKeychainWrapper
 import AdBrixRM
+import FBSDKCoreKit
 
 class SchoolInfoVC: UIViewController {
     
@@ -372,6 +373,7 @@ class SchoolInfoVC: UIViewController {
             DispatchQueue.main.async {
                 switch httpStatus {
                 case .success:
+                    AppEvents.logEvent(.completedRegistration)
                     // 토큰 저장
                     if let storeToken = response.data?.token {
                         KeychainWrapper.standard.set(storeToken,

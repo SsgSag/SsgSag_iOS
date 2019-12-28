@@ -3,6 +3,7 @@ import Lottie
 import SwiftKeychainWrapper
 import AdBrixRM
 import RxSwift
+import FBSDKCoreKit
 
 class SwipeVC: UIViewController {
     var disposeBag = DisposeBag()
@@ -123,6 +124,8 @@ class SwipeVC: UIViewController {
         super.viewWillAppear(animated)
 
         tabBarController?.tabBar.isHidden = false
+        requestPoster(isFirst: false)
+        setCountLabelText()
         
         guard let isTryWithoutLogin = UserDefaults.standard.object(forKey: "isTryWithoutLogin") as? Bool else {
             return
@@ -139,6 +142,7 @@ class SwipeVC: UIViewController {
                 for: .normal
             )
         }
+
     }
     
     override func viewDidLoad() {
@@ -304,6 +308,7 @@ class SwipeVC: UIViewController {
             if !isFirst {
                 view.subviews.forEach { $0.removeFromSuperview() }
             }
+            AppEvents.logEvent(AppEvents.Name(rawValue: "스와이프 완료"))
             setEmptyPosterAnimation()
         }
     }

@@ -8,6 +8,7 @@
 
 import UIKit
 import RxSwift
+import FBSDKCoreKit
 
 class MainViewNavigationController: UINavigationController {
     let myFilterService = MyFilterApiServiceImp()
@@ -67,7 +68,7 @@ class MainViewNavigationController: UINavigationController {
         
         //setButtonClosure
         categoryButtonView?.recommendViewButtonHandler = { [weak self] in
-                 //self?.navigationItem.rightBarButtonItem = filterBarButton
+            AppEvents.logEvent(.subscribe)
             self?.setViewControllers([swipeViewController], animated: false)
         }
                   

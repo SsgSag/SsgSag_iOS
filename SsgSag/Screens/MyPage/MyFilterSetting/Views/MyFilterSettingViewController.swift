@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import FBSDKCoreKit
 import RxSwift
 import RxCocoa
 import RxDataSources
@@ -177,6 +178,7 @@ class MyFilterSettingViewController: UIViewController, StoryboardView {
                     .observeOn(MainScheduler.instance)
                     .subscribe(onNext: { [weak self] _ in
                         self?.navigationController?.popViewController(animated: true)
+                        AppEvents.logEvent(AppEvents.Name.customizeProduct)
                     }, onError: { [weak self] _ in
                         self?.simplerAlert(title: "저장에 실패했습니다.")
                     })
