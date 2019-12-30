@@ -282,10 +282,15 @@ class SwipeVC: UIViewController {
     private func setSwipeCardSubview() {
         for (i, _) in currentLoadedCardsArray.enumerated() {
             if i > 0 {
-                swipeCardView.insertSubview(currentLoadedCardsArray[i],
-                                            belowSubview: currentLoadedCardsArray[i - 1])
+                if let currrentCard = currentLoadedCardsArray[safe: i],
+                    let belowCard = currentLoadedCardsArray[safe: i - 1] {
+                    swipeCardView.insertSubview(currrentCard,
+                                                belowSubview: belowCard)
+                }
             } else {
-                swipeCardView.addSubview(currentLoadedCardsArray[i])
+                if let currrentCard = currentLoadedCardsArray[safe: i] {
+                    swipeCardView.addSubview(currrentCard)
+                }
             }
         }
     }

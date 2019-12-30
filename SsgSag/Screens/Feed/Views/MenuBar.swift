@@ -16,7 +16,7 @@ class MenuBar: UIView {
     
     let menuTitle: [String] = ["슥삭 추천뉴스", "대학교 게시판"]
     var horizontalBarViewLeadingConstraint: NSLayoutConstraint?
-    var feedVC: FeedVC?
+    var feedVC: FeedViewController?
     var delegate: MenuBarDelegate?
     
     lazy var menuCollectionView: UICollectionView = {
@@ -135,7 +135,7 @@ extension MenuBar: UICollectionViewDataSource {
                         },
                        completion: nil)
 
-        feedVC?.scrollToMenuIndex(indexPath.item)
+        //feedVC?.scrollToMenuIndex(indexPath.item)
     }
 
 }
