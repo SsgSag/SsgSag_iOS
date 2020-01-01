@@ -10,25 +10,11 @@ import UIKit
 import RxSwift
 import RxCocoa
 
-protocol FeedTouchDelegate: class {
-    func touchUpFeedCell(title: String, feedIdx: Int, urlString: String, isSave: Int)
-}
-
 class FeedPageCollectionViewCell: UICollectionViewCell {
     
     var disposeBag = DisposeBag()
-    private let imageCache = NSCache<NSString, UIImage>()
-    
-    private var isUpdating = false
-    private var feedTasks: [URLSessionDataTask?] = []
-    private var currentPage: Int = 0
-    
-    private let feedServiceImp: FeedService
-        = DependencyContainer.shared.getDependency(key: .feedService)
     
     var lookAroundCallback: (()->())?
-    var feedDatas: [FeedData] = []
-    weak var delegate: FeedTouchDelegate?
     
     private var refreshControl: UIRefreshControl = {
         let refresh = UIRefreshControl()
@@ -78,6 +64,9 @@ class FeedPageCollectionViewCell: UICollectionViewCell {
                 addedViewModels.append(contentsOf: feeds.map { NewsCellViewModel(feed: $0) })
                 viewModel.newsCellViewModels.accept(addedViewModels)
                 viewModel.isLoading.accept(false)
+                },
+                       onError: { [weak viewModel] _ in
+                viewModel?.isLoading.accept(false)
             })
             .disposed(by: disposeBag)
             
@@ -94,10 +83,19 @@ class FeedPageCollectionViewCell: UICollectionViewCell {
         refreshControl
             .rx
             .controlEvent(.valueChanged)
-            .withLatestFrom(viewModel.fetchFeedPage())
-            .subscribe(onNext: { [weak self, weak viewModel] feeds in
+            .filter { !viewModel.isLoading.value }
+            .do(onNext: { [weak viewModel] in
                 viewModel?.currentFeedPageNumber = 0
+                viewModel?.isLoading.accept(true) })
+            .flatMapLatest { return viewModel.fetchFeedPage() }
+            .observeOn(MainScheduler.instance)
+            .subscribe(onNext: { [weak self, weak viewModel] feeds in
                 viewModel?.newsCellViewModels.accept(feeds.map { NewsCellViewModel(feed: $0) })
+                viewModel?.isLoading.accept(false)
+                self?.refreshControl.endRefreshing()
+                },
+                       onError: { [weak self, weak viewModel] _ in
+                viewModel?.isLoading.accept(false)
                 self?.refreshControl.endRefreshing()
             })
             .disposed(by: disposeBag)

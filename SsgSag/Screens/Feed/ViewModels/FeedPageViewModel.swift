@@ -24,9 +24,23 @@ class FeedPageViewModel {
         self.feedService = service
     }
     
+    deinit {
+        debugPrint("deinit: FeedPageViewModel deinited")
+    }
+    
     func fetchFeedPage() -> Observable<[FeedData]> {
        return feedService
         .requestFeedData(page: currentFeedPageNumber)
+        .filter { $0.count > 0 }
+        .flatMapLatest { [weak self] (feeds) -> Observable<[FeedData]> in
+            self?.currentFeedPageNumber += 1
+            return .just(feeds)
+        }
+    }
+    
+    func fetchScrapedFeedPage() -> Observable<[FeedData]> {
+       return feedService
+        .requestScrapList(page: currentFeedPageNumber)
         .filter { $0.count > 0 }
         .flatMapLatest { [weak self] (feeds) -> Observable<[FeedData]> in
             self?.currentFeedPageNumber += 1
