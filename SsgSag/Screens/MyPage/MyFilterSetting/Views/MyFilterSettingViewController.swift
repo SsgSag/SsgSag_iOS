@@ -29,8 +29,9 @@ private enum Section: Int {
 }
 
 class MyFilterSettingViewController: UIViewController, StoryboardView {
-    
+    //TODO: 전체적으로 폰트 변경 및 사이즈 변경사항 적용해야함
     var disposeBag = DisposeBag()
+    var callback: (() -> ())?
     
     typealias Reactor = MyFilterSettingViewReactor
 
@@ -177,6 +178,7 @@ class MyFilterSettingViewController: UIViewController, StoryboardView {
                     }
                     .observeOn(MainScheduler.instance)
                     .subscribe(onNext: { [weak self] _ in
+                        self?.callback?()
                         self?.navigationController?.popViewController(animated: true)
                         AppEvents.logEvent(AppEvents.Name.customizeProduct)
                     }, onError: { [weak self] _ in

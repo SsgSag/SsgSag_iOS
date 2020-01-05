@@ -55,27 +55,33 @@ class TotalInformationViewController: UIViewController, StoryboardView {
                     .map { TotalInformationTableViewCellReactor.Action.set }
                     .bind(to: cell.reactor!.action)
                     .disposed(by: cell.disposeBag)
-                cell.moreButton.rx.tap.subscribe(onNext: { [weak self] in
-                    guard let self = self else { return }
-                    let categoryType = TotalInfoCategoryType.getType(by: indexPath)
-                    let posterListViewModel = PosterListViewModel(categoryType: categoryType)
-                    posterListViewModel.create()
-                    let allPostersViewController = AllPostersListViewController()
-                    allPostersViewController.bind(viewModel: posterListViewModel)
-                    allPostersViewController.setCategory(number: indexPath)
-                    self.navigationController?.pushViewController(allPostersViewController,
-                                                                  animated: true)
-                }).disposed(by: cell.disposeBag)
                 
+                cell.moreButton
+                    .rx
+                    .tap
+                    .subscribe(onNext: { [weak self] in
+                        guard let self = self else { return }
+                        let categoryType = TotalInfoCategoryType.getType(by: indexPath)
+                        let posterListViewModel = PosterListViewModel(categoryType: categoryType)
+                        posterListViewModel.create()
+                        let allPostersViewController = AllPostersListViewController()
+                        allPostersViewController.bind(viewModel: posterListViewModel)
+                        allPostersViewController.setCategory(number: indexPath)
+                        self.navigationController?.pushViewController(allPostersViewController,
+                                                                      animated: true)
+                })
+                .disposed(by: cell.disposeBag)
                 
-                
-                cell.itemCollectionView.rx.itemSelected.subscribe(onNext: { [weak self] indexPath in
-                    guard let self = self else { return }
-                    guard let cellReactor = cell.reactor else { return }
-                    let detailInfoViewController = DetailInfoViewController()
-                    detailInfoViewController.posterIdx = cellReactor.currentState.items[indexPath.item].posterIdx
-                    self.navigationController?.pushViewController(detailInfoViewController,
-                                                                  animated: true)
+                cell.itemCollectionView
+                    .rx
+                    .itemSelected
+                    .subscribe(onNext: { [weak self] indexPath in
+                        guard let self = self else { return }
+                        guard let cellReactor = cell.reactor else { return }
+                        let detailInfoViewController = DetailInfoViewController()
+                        detailInfoViewController.posterIdx = cellReactor.currentState.items[indexPath.item].posterIdx
+                        self.navigationController?.pushViewController(detailInfoViewController,
+                                                                      animated: true)
                 }).disposed(by: cell.disposeBag)
         }
         .disposed(by: disposeBag)

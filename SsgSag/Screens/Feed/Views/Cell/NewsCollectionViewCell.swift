@@ -72,6 +72,7 @@ class NewsCollectionViewCell: UICollectionViewCell {
 
     
     override func prepareForReuse() {
+        disposeBag = DisposeBag()
         bookmarkButton.setImage(nil, for: .normal)
         newsImageView?.image = UIImage(named: "ic_imgDefault")
         newsTitleLabel?.text = ""

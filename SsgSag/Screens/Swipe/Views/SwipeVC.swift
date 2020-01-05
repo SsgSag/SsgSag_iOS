@@ -37,13 +37,13 @@ class SwipeVC: UIViewController {
         return label
        }()
     
-    @IBOutlet weak var swipeCardView: UIView!
+    @IBOutlet weak var swipeCardView: UIView?
     
     @IBOutlet private var countLabel: UILabel!
     
     @IBOutlet private var overLapView: UIView!
     
-    @IBOutlet weak var settingBoardButton: UIBarButtonItem!
+    @IBOutlet weak var settingBoardButton: UIBarButtonItem?
     
     lazy private var posters: [Posters] = []
     private var numberOfSwipe = 0
@@ -65,11 +65,13 @@ class SwipeVC: UIViewController {
     
     private var isOkayToUndo: Bool = false
     
+    //TODO: 하단 타이틀 가변 길이, 상세보기에서 요일 삭제, 날짜 및 텍스트 가변길이로 , 해시태그 truncate
+    
     private lazy var completeLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.numberOfLines = 2
-        label.font = UIFont.systemFont(ofSize: 16, weight: .regular)
+        label.font = UIFont.systemFont(ofSize: 13, weight: .regular)
         
         if self.ssgsagCount == 0 {
             label.text = "오늘은 추천해드릴 포스터가 없네요.\n캘린더를 확인해볼까요?"
@@ -122,11 +124,9 @@ class SwipeVC: UIViewController {
    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-
+        completeStackView.removeFromSuperview()
         tabBarController?.tabBar.isHidden = false
-        requestPoster(isFirst: false)
-        setCountLabelText()
-        
+
         guard let isTryWithoutLogin = UserDefaults.standard.object(forKey: "isTryWithoutLogin") as? Bool else {
             return
         }
@@ -134,9 +134,9 @@ class SwipeVC: UIViewController {
         if isTryWithoutLogin {
             viewAllPostersButton.setTitle("슥삭 회원가입", for: .normal)
             
-            settingBoardButton.image = nil
-            settingBoardButton.title = "나가기"
-            settingBoardButton.setTitleTextAttributes(
+            settingBoardButton?.image = nil
+            settingBoardButton?.title = "나가기"
+            settingBoardButton?.setTitleTextAttributes(
                 [NSAttributedString.Key.font: UIFont(name: "Helvetica",
                                                      size: 15.0)],
                 for: .normal
@@ -147,7 +147,6 @@ class SwipeVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
         posterServiceImp
             = DependencyContainer.shared.getDependency(key: .posterService)/*
             ? DependencyContainer.shared.getDependency(key: .posterService)
@@ -170,6 +169,8 @@ class SwipeVC: UIViewController {
     }
     
     private func setEmptyPosterAnimation() {
+        completeStackView.removeFromSuperview()
+        
         let spaceView = UIView()
         spaceView.translatesAutoresizingMaskIntoConstraints = false
         spaceView.heightAnchor.constraint(equalToConstant: 10).isActive = true
@@ -211,7 +212,7 @@ class SwipeVC: UIViewController {
     }
     
     //FIXME: - CategoryIdx가 3이거나 5일때 예외를 만든다.
-    private func requestPoster(isFirst: Bool) {
+    func requestPoster(isFirst: Bool) {
 
         posterServiceImp?.requestSwipePosters { [weak self] response in
             switch response {
@@ -284,12 +285,12 @@ class SwipeVC: UIViewController {
             if i > 0 {
                 if let currrentCard = currentLoadedCardsArray[safe: i],
                     let belowCard = currentLoadedCardsArray[safe: i - 1] {
-                    swipeCardView.insertSubview(currrentCard,
+                    swipeCardView?.insertSubview(currrentCard,
                                                 belowSubview: belowCard)
                 }
             } else {
                 if let currrentCard = currentLoadedCardsArray[safe: i] {
-                    swipeCardView.addSubview(currrentCard)
+                    swipeCardView?.addSubview(currrentCard)
                 }
             }
         }
@@ -301,7 +302,7 @@ class SwipeVC: UIViewController {
         
         if posters.count > 0 {
             if !isFirst && swipeCardView != nil {
-                swipeCardView.subviews.forEach { $0.removeFromSuperview() }
+                swipeCardView?.subviews.forEach { $0.removeFromSuperview() }
             }
             
             loadCard(isFirst: isFirst)
@@ -311,9 +312,10 @@ class SwipeVC: UIViewController {
             setPageVCAndAddToSubView()
         } else {
             if !isFirst {
-                view.subviews.forEach { $0.removeFromSuperview() }
+                swipeCardView?.subviews.forEach {
+                    $0.removeFromSuperview()
+                }
             }
-            AppEvents.logEvent(AppEvents.Name(rawValue: "스와이프 완료"))
             setEmptyPosterAnimation()
         }
     }
@@ -355,11 +357,12 @@ class SwipeVC: UIViewController {
     
     //SwipeCard 생성
     private func createSwipeCard(at index: Int , value: String) -> SwipeCard {
+        let cardFrame: CGRect = swipeCardView == nil ? .zero : swipeCardView!.frame
         let card = SwipeCard(
             frame: CGRect(x: 15,
-                          y: (swipeCardView.frame.size.height - swipeCardView.frame.size.height * 0.95) / 2,
-                          width: swipeCardView.frame.size.width - 30,
-                          height: swipeCardView.frame.size.height * 0.95),
+                          y: (cardFrame.size.height - cardFrame.size.height * 0.95) / 2,
+                          width: cardFrame.size.width - 30,
+                          height: cardFrame.size.height * 0.95),
             value: value
         )
         card.delegate = self
@@ -408,6 +411,7 @@ class SwipeVC: UIViewController {
             }
         } else if currentLoadedCardsArray.count == 0 {
             setEmptyPosterAnimation()
+            AppEvents.logEvent(AppEvents.Name(rawValue: "스와이프 완료"))
         }
     }
     
@@ -499,6 +503,7 @@ class SwipeVC: UIViewController {
                  myVC.reactor = MyFilterSettingViewReactor(jobKind: ["개발자", "디자이너", "기획자", "마케터", "기타"],
                                                              interestedField: ["서포터즈", "봉사활동", "기획/아이디어","광고/마케팅", "디자인","영상/콘텐츠", "IT/공학", "창업/스타트업", "금융/경제"],
                                                              maxGrade: 5, initialSetting: setting)
+                myVC.callback = { [weak self] in self?.requestPoster(isFirst: false) }
                 self.navigationController?.pushViewController(myVC, animated: true)
             })
             .disposed(by: disposeBag)
@@ -755,8 +760,8 @@ extension SwipeVC : SwipeCardDelegate {
     
     private func addUserDefautlsWhenDataIsExist(_ posterInfo: [Posters]) {
         var likedPoster = posterInfo
-        
-        if isDuplicated(in: likedPoster, checkValue: posters[currentIndex - 1]) == false {
+        guard let currentPoster = posters[safe: currentIndex - 1] else { return }
+        if isDuplicated(in: likedPoster, checkValue: currentPoster) == false {
             likedPoster.append(self.posters[currentIndex - 1])
         }
         

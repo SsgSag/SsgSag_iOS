@@ -506,6 +506,7 @@
 		C9C26BEC239D476B0084C248 /* TotalInformationCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TotalInformationCollectionViewCell.swift; sourceTree = "<group>"; };
 		C9C26BEE239D47B40084C248 /* TotalInformationCollectionViewCellReactor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TotalInformationCollectionViewCellReactor.swift; sourceTree = "<group>"; };
 		C9D865A323ADD2E800D12339 /* CalendarView + extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CalendarView + extension.swift"; sourceTree = "<group>"; };
+		C9FFF68123BFCCAB0008D565 /* 슥삭Release.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "슥삭Release.entitlements"; sourceTree = "<group>"; };
 		CD661D6C84CC3F8DF0B8C7D5 /* Pods-SsgSag.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SsgSag.release.xcconfig"; path = "Target Support Files/Pods-SsgSag/Pods-SsgSag.release.xcconfig"; sourceTree = "<group>"; };
 		D103D8A722FA9BD20092FE93 /* ArticleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleViewController.swift; sourceTree = "<group>"; };
 		D103D8A922FBEDA40092FE93 /* CalendarData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarData.swift; sourceTree = "<group>"; };
@@ -720,6 +721,7 @@
 		8459289921D09CDD001DF6CC /* SsgSag */ = {
 			isa = PBXGroup;
 			children = (
+				C9FFF68123BFCCAB0008D565 /* 슥삭Release.entitlements */,
 				C9A827D82395528D0029A493 /* Screens */,
 				D1226C7B22EC1A3F007F59BE /* DependencyContainer */,
 				D1564EF922EC0A6400BDA7F6 /* Network */,
@@ -2384,7 +2386,7 @@
 				CODE_SIGN_ENTITLEMENTS = "SsgSag/슥삭.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 4;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 3HB3SZKJFD;
 				ENABLE_BITCODE = YES;
@@ -2430,10 +2432,10 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ALLOW_ENTITLEMENTS_MODIFICATION = YES;
-				CODE_SIGN_ENTITLEMENTS = "SsgSag/슥삭.entitlements";
+				CODE_SIGN_ENTITLEMENTS = "SsgSag/슥삭Release.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 2;
+				CURRENT_PROJECT_VERSION = 4;
 				DEVELOPMENT_TEAM = 3HB3SZKJFD;
 				ENABLE_BITCODE = YES;
 				FRAMEWORK_SEARCH_PATHS = (
