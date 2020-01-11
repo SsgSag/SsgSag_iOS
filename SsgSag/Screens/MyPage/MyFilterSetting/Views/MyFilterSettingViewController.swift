@@ -54,7 +54,7 @@ class MyFilterSettingViewController: UIViewController, StoryboardView {
     
     func setUpUiComponnents() {
         let backButton = UIButton(type: .custom)
-        backButton.setImage(UIImage(named: "ic_ArrowBack"), for: .normal)
+        backButton.setImage(UIImage(named: "back"), for: .normal)
         let leftBarbutton = UIBarButtonItem(customView: backButton)
         backButton.rx.tap
             .subscribe(onNext: { [weak self] _ in

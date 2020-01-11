@@ -53,10 +53,23 @@ struct MyFilterSetting: Decodable {
         guard let interests = interests else { return .init() }
         let jobKind = interests
             .filter { categorizedDictionary["jobKind"]!.contains($0) }
-            .compactMap { mapDictionary.getKey(forValue: $0) }
+            .compactMap { (value) -> String in
+                if value == 299 {
+                    return "기타"
+                } else {
+                    return mapDictionary.getKey(forValue: value) ?? ""
+                }
+            }
         
-        let interestedField = interests.filter { categorizedDictionary["interestedField"]!.contains($0) }
-            .compactMap { mapDictionary.getKey(forValue: $0) }
+        let interestedField = interests
+            .filter { categorizedDictionary["interestedField"]!.contains($0) }
+            .compactMap { (value) -> String in
+                if value == 299 {
+                    return "기타"
+                } else {
+                    return mapDictionary.getKey(forValue: value) ?? ""
+                }
+            }
         
         
         let grade = interests.filter { categorizedDictionary["grade"]!.contains($0) }
@@ -68,7 +81,7 @@ struct MyFilterSetting: Decodable {
         return myFilterSetting
     }
     
-    let categorizedDictionary = ["jobKind": [301,302,303,304,305],
+    let categorizedDictionary = ["jobKind": [301,302,303,304,305,299],
                                  "interestedField": [201,202,205,206,207,208,215,251,252,299],
                                  "grade": [501,502,503,504,505]
     ]

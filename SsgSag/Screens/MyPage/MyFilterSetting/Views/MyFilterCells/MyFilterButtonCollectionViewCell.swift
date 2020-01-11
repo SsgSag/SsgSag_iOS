@@ -37,5 +37,11 @@ class MyFilterButtonCollectionViewCell: UICollectionViewCell, StoryboardView {
             .bind(to: titleLabel.rx.text)
             .disposed(by: disposeBag)
         
+        reactor.state.map { $0.textFont }
+            .subscribe(onNext: { [weak self] font in
+                self?.titleLabel.font = font
+            })
+            .disposed(by: disposeBag)
+        
     }
 }

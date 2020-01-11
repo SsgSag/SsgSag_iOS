@@ -68,6 +68,7 @@ class MyFilterSliderCollectionViewCell: UICollectionViewCell, StoryboardView {
                 .disposed(by: gradeCell.disposeBag)
            }
        .disposed(by: disposeBag)
+        
     }
 }
 

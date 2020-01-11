@@ -6,7 +6,7 @@
 //  Copyright © 2019 wndzlf. All rights reserved.
 //
 
-import Foundation
+import UIKit
 import RxSwift
 import ReactorKit
 
@@ -34,10 +34,12 @@ class MyFilterButtonCollectionViewCellReactor: Reactor, MyFilterCollectionViewCe
         case setBorderColor(UIColor)
         case setTextColor(UIColor)
         case setSelected(Bool)
+        case setTextFont(UIFont)
         case empty
     }
 
     struct State {
+        var textFont: UIFont
         var borderColor: UIColor
         var textColor: UIColor
         var titleText: String
@@ -48,7 +50,8 @@ class MyFilterButtonCollectionViewCellReactor: Reactor, MyFilterCollectionViewCe
     let initialState: State
 
     init(titleText: String, isSelected: Bool, indexPath: IndexPath) {
-        self.initialState = State(borderColor: UIColor.unselectedBorderGray,
+        self.initialState = State(textFont: UIFont.systemFont(ofSize: 13, weight: .regular),
+                                  borderColor: UIColor.unselectedBorderGray,
                                   textColor: UIColor.unselectedGray,
                                   titleText: titleText,
                                   isSelected: isSelected,
@@ -62,6 +65,7 @@ class MyFilterButtonCollectionViewCellReactor: Reactor, MyFilterCollectionViewCe
             if currentState.isSelected {
                 return Observable.concat([
                     Observable.just(Mutation.setBorderColor(.cornFlower)),
+                    Observable.just(Mutation.setTextFont(.systemFont(ofSize: 13, weight: .semibold))),
                     Observable.just(Mutation.setTextColor(.cornFlower))
                 ])
             } else {
@@ -82,6 +86,7 @@ class MyFilterButtonCollectionViewCellReactor: Reactor, MyFilterCollectionViewCe
                     return Observable.concat([
                         Observable.just(Mutation.setSelected(!currentState.isSelected)),
                         Observable.just(Mutation.setBorderColor(borderColor)),
+                        Observable.just(Mutation.setTextFont(UIFont.systemFont(ofSize: 13, weight: .regular))),
                         Observable.just(Mutation.setTextColor(textColor))
                     ])
                 } else {
@@ -90,6 +95,7 @@ class MyFilterButtonCollectionViewCellReactor: Reactor, MyFilterCollectionViewCe
                     return Observable.concat([
                         Observable.just(Mutation.setSelected(!currentState.isSelected)),
                         Observable.just(Mutation.setBorderColor(borderColor)),
+                        Observable.just(Mutation.setTextFont(UIFont.systemFont(ofSize: 13, weight: .semibold))),
                         Observable.just(Mutation.setTextColor(textColor))
                     ])
                 }
@@ -120,6 +126,8 @@ class MyFilterButtonCollectionViewCellReactor: Reactor, MyFilterCollectionViewCe
     func reduce(state: State, mutation: Mutation) -> State {
         var state = state
         switch mutation {
+        case .setTextFont(let font):
+            state.textFont = font
         case .setBorderColor(let color):
             state.borderColor = color
         case .setTextColor(let color):
