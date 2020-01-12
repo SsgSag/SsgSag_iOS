@@ -55,6 +55,7 @@ class FeedViewController: UIViewController {
   
         if !isTryWithoutLogin {
             exitButton.setImage(UIImage(named: "bookmarkMenu"), for: .normal)
+            exitButton.tintColor = .unselectedButtonDefault
             exitButton.setTitle("", for: .normal)
         }
     }

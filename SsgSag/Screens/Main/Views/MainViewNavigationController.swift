@@ -38,7 +38,7 @@ class MainViewNavigationController: UINavigationController {
         let profileBarButton =  UIBarButtonItem(image: profileImage,
                                    style: .done, target: self,
                                    action: #selector(touchUpProfileButton))
-        profileBarButton.tintColor = .cornFlower
+        profileBarButton.tintColor = .unselectedButtonDefault
         
         let categoryButtonView = UINib(nibName: "MainNavigationBarCenterButtonView",
                                        bundle: nil).instantiate(withOwner: self,

@@ -89,7 +89,7 @@ struct DateCaculate {
                 guard let endWeekDay = endDate.weekday,
                     let endWeekDayString = WeekDays(rawValue: endWeekDay)?.koreanWeekdays else { return "" }
 
-                return "~ \(endMonth).\(endDay)(\(endWeekDayString))"
+                return "~ \(endMonth).\(endDay)"
         }
         
         let startDate = Calendar.current.dateComponents([.month, .day, .weekday], from: posterStartDate)
@@ -110,7 +110,7 @@ struct DateCaculate {
         guard let endWeekDay = endDate.weekday,
             let endWeekDayString = WeekDays(rawValue: endWeekDay)?.koreanWeekdays else { return "" }
         
-        return "\(startMonth).\(startDay)(\(startWeekDayString)) ~ \(endMonth).\(endDay)(\(endWeekDayString))"
+        return "\(startMonth).\(startDay) ~ \(endMonth).\(endDay)"
     }
  
     

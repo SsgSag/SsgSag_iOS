@@ -62,7 +62,7 @@ class AccountSettingViewController: UIViewController {
         return collectionView
     }()
     
-    private lazy var backButton = UIBarButtonItem(image: UIImage(named: "ic_ArrowBack"),
+    private lazy var backButton = UIBarButtonItem(image: UIImage(named: "back"),
                                                   style: .plain,
                                                   target: self,
                                                   action: #selector(touchUpBackButton))
@@ -103,6 +103,8 @@ class AccountSettingViewController: UIViewController {
         view.backgroundColor = .white
         
         view.addSubview(settingCollectionView)
+        
+        backButton.tintColor = .unselectedButtonDefault
         
         settingCollectionView.topAnchor.constraint(
             equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
