@@ -103,16 +103,19 @@ class MyFilterButtonCollectionViewCellReactor: Reactor, MyFilterCollectionViewCe
             case .interestedField:
                 var borderColor: UIColor = .unselectedBorderGray
                 var textColor: UIColor = .unselectedGray
+                var font: UIFont = UIFont.systemFont(ofSize: 13, weight: .regular)
                 if currentState.isSelected {
                     borderColor = .unselectedBorderGray
                     textColor = .unselectedGray
                 } else {
                     borderColor = .cornFlower
                     textColor = .cornFlower
+                    font = UIFont.systemFont(ofSize: 13, weight: .semibold)
                 }
                 return Observable.concat([
                     Observable.just(Mutation.setSelected(!currentState.isSelected)),
                     Observable.just(Mutation.setBorderColor(borderColor)),
+                    Observable.just(Mutation.setTextFont(font)),
                     Observable.just(Mutation.setTextColor(textColor))
                 ])
             default:

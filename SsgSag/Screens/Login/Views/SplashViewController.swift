@@ -34,7 +34,7 @@ class SplashViewController: UIViewController {
         guard let UUID = KeychainWrapper.standard.string(forKey: "UUID") else {
             return
         }
-        AppEvents.logEvent(AppEvents.Name.completedTutorial)
+        AppEvents.logEvent(AppEvents.Name("EVENT_NAME_TUTORIALS_COMPLETED"))
         let userInfo: [String: Any]
             = ["uuid" : UUID,
                "signupType" : 11,

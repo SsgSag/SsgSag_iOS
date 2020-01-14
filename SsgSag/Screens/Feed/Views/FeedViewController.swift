@@ -157,7 +157,7 @@ class FeedViewController: UIViewController {
                         articleVC.articleTitle = cellViewModel.feed.feedName ?? ""
                         articleVC.articleUrlString = cellViewModel.feed.feedUrl ?? ""
                         articleVC.feedIdx = cellViewModel.feed.feedIdx ?? 0
-                        articleVC.isSave = cellViewModel.feed.isSave ?? 0
+                        articleVC.isSave = cellViewModel.saveButtonImageName.value == "ic_bookmarkArticlePassive" ? 0 : 1
 
                         self?.navigationController?.pushViewController(articleVC,
                                                                  animated: true)

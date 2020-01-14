@@ -180,7 +180,7 @@ class MyFilterSettingViewController: UIViewController, StoryboardView {
                     .subscribe(onNext: { [weak self] _ in
                         self?.callback?()
                         self?.navigationController?.popViewController(animated: true)
-                        AppEvents.logEvent(AppEvents.Name.customizeProduct)
+                        AppEvents.logEvent(AppEvents.Name(rawValue: "EVENT_NAME_CUSTOMIZED_FILTER") )
                     }, onError: { [weak self] _ in
                         self?.simplerAlert(title: "저장에 실패했습니다.")
                     })

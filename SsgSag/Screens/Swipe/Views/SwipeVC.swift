@@ -411,7 +411,7 @@ class SwipeVC: UIViewController {
             }
         } else if currentLoadedCardsArray.count == 0 {
             setEmptyPosterAnimation()
-            AppEvents.logEvent(AppEvents.Name(rawValue: "스와이프 완료"))
+            AppEvents.logEvent(AppEvents.Name(rawValue: "EVENT_NAME_SWIPE_SUCCESS"))
         }
     }
     
@@ -762,7 +762,7 @@ extension SwipeVC : SwipeCardDelegate {
         var likedPoster = posterInfo
         guard let currentPoster = posters[safe: currentIndex - 1] else { return }
         if isDuplicated(in: likedPoster, checkValue: currentPoster) == false {
-            likedPoster.append(self.posters[currentIndex - 1])
+            likedPoster.append(currentPoster)
         }
         
         guard let likedCategory = likedOrDisLiked(rawValue: 1),

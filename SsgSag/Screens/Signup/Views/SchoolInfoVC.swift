@@ -373,7 +373,7 @@ class SchoolInfoVC: UIViewController {
             DispatchQueue.main.async {
                 switch httpStatus {
                 case .success:
-                    AppEvents.logEvent(.completedRegistration)
+                    AppEvents.logEvent(AppEvents.Name("EVENT_NAME_COMPELTE_REGISTRATION"))
                     // 토큰 저장
                     if let storeToken = response.data?.token {
                         KeychainWrapper.standard.set(storeToken,
