@@ -3,10 +3,18 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0610DF0C23D92E6400DC2273 /* ReviewMainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0610DF0B23D92E6400DC2273 /* ReviewMainViewController.swift */; };
+		0610DF0F23D92ECB00DC2273 /* Review.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0610DF0E23D92ECB00DC2273 /* Review.storyboard */; };
+		0610DF1223D9436800DC2273 /* ReviewMainVC+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0610DF1123D9436800DC2273 /* ReviewMainVC+Extension.swift */; };
+		0610DF1423D9484300DC2273 /* ClubReviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0610DF1323D9484300DC2273 /* ClubReviewViewController.swift */; };
+		0610DF1623D96A9C00DC2273 /* ReviewPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0610DF1523D96A9C00DC2273 /* ReviewPageViewController.swift */; };
+		0610DF1923D96D1D00DC2273 /* ReviewPageCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0610DF1823D96D1D00DC2273 /* ReviewPageCollectionViewCell.swift */; };
+		0610DF1E23D9919E00DC2273 /* ReviewTabCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0610DF1D23D9919E00DC2273 /* ReviewTabCellModel.swift */; };
+		0629921F23D935590053B9F2 /* LoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0629921E23D935590053B9F2 /* LoginVC.swift */; };
 		2E158304683BAFB18A8CD876 /* Pods_SsgSag.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 031F14AE11BD590702A32B8D /* Pods_SsgSag.framework */; };
 		840AFF8822A2622C00EA12E6 /* UIDevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 840AFF8722A2622C00EA12E6 /* UIDevice.swift */; };
 		840DDD40227EAC4000D9D515 /* TapbarServiceImp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 840DDD3F227EAC4000D9D515 /* TapbarServiceImp.swift */; };
@@ -23,7 +31,6 @@
 		845928A321D09CDD001DF6CC /* SsgSag.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 845928A121D09CDD001DF6CC /* SsgSag.xcdatamodeld */; };
 		845928A521D09CE0001DF6CC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 845928A421D09CE0001DF6CC /* Assets.xcassets */; };
 		845928CC21D09D09001DF6CC /* SwipeStoryBoard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 845928CB21D09D09001DF6CC /* SwipeStoryBoard.storyboard */; };
-		845928E121D20068001DF6CC /* LoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845928E021D20068001DF6CC /* LoginVC.swift */; };
 		845928E321D35F09001DF6CC /* PageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845928E221D35F09001DF6CC /* PageViewController.swift */; };
 		845928E521D38771001DF6CC /* DetailImageSwipeCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845928E421D38771001DF6CC /* DetailImageSwipeCard.swift */; };
 		845928E721D3877D001DF6CC /* DetailTextSwipeCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 845928E621D3877D001DF6CC /* DetailTextSwipeCard.swift */; };
@@ -320,6 +327,14 @@
 
 /* Begin PBXFileReference section */
 		031F14AE11BD590702A32B8D /* Pods_SsgSag.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SsgSag.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		0610DF0B23D92E6400DC2273 /* ReviewMainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewMainViewController.swift; sourceTree = "<group>"; };
+		0610DF0E23D92ECB00DC2273 /* Review.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Review.storyboard; sourceTree = "<group>"; };
+		0610DF1123D9436800DC2273 /* ReviewMainVC+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ReviewMainVC+Extension.swift"; sourceTree = "<group>"; };
+		0610DF1323D9484300DC2273 /* ClubReviewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClubReviewViewController.swift; sourceTree = "<group>"; };
+		0610DF1523D96A9C00DC2273 /* ReviewPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewPageViewController.swift; sourceTree = "<group>"; };
+		0610DF1823D96D1D00DC2273 /* ReviewPageCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewPageCollectionViewCell.swift; sourceTree = "<group>"; };
+		0610DF1D23D9919E00DC2273 /* ReviewTabCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewTabCellModel.swift; sourceTree = "<group>"; };
+		0629921E23D935590053B9F2 /* LoginVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginVC.swift; sourceTree = "<group>"; };
 		41F0B899B4CCAC855CFD54F6 /* Pods-SsgSag.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SsgSag.debug.xcconfig"; path = "Target Support Files/Pods-SsgSag/Pods-SsgSag.debug.xcconfig"; sourceTree = "<group>"; };
 		840AFF8722A2622C00EA12E6 /* UIDevice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIDevice.swift; sourceTree = "<group>"; };
 		840DDD3F227EAC4000D9D515 /* TapbarServiceImp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TapbarServiceImp.swift; sourceTree = "<group>"; };
@@ -338,7 +353,6 @@
 		845928A421D09CE0001DF6CC /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		845928A921D09CE0001DF6CC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		845928CB21D09D09001DF6CC /* SwipeStoryBoard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = SwipeStoryBoard.storyboard; sourceTree = "<group>"; };
-		845928E021D20068001DF6CC /* LoginVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = LoginVC.swift; path = /Users/bumslap/Documents/SsgSag_IOS_Deploy/SsgSag/Screens/Login/Views/LoginVC.swift; sourceTree = "<absolute>"; };
 		845928E221D35F09001DF6CC /* PageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageViewController.swift; sourceTree = "<group>"; };
 		845928E421D38771001DF6CC /* DetailImageSwipeCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailImageSwipeCard.swift; sourceTree = "<group>"; };
 		845928E621D3877D001DF6CC /* DetailTextSwipeCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailTextSwipeCard.swift; sourceTree = "<group>"; };
@@ -656,6 +670,60 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		0610DF0923D92D2800DC2273 /* Review */ = {
+			isa = PBXGroup;
+			children = (
+				0610DF0A23D92D5800DC2273 /* View */,
+			);
+			path = Review;
+			sourceTree = "<group>";
+		};
+		0610DF0A23D92D5800DC2273 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				0610DF1A23D98AA200DC2273 /* Model */,
+				0610DF1723D96C0900DC2273 /* Cell */,
+				0610DF1023D9434000DC2273 /* Extension */,
+				0610DF0D23D92EB900DC2273 /* StoryBoard */,
+				0610DF0B23D92E6400DC2273 /* ReviewMainViewController.swift */,
+				0610DF1523D96A9C00DC2273 /* ReviewPageViewController.swift */,
+				0610DF1323D9484300DC2273 /* ClubReviewViewController.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		0610DF0D23D92EB900DC2273 /* StoryBoard */ = {
+			isa = PBXGroup;
+			children = (
+				0610DF0E23D92ECB00DC2273 /* Review.storyboard */,
+			);
+			path = StoryBoard;
+			sourceTree = "<group>";
+		};
+		0610DF1023D9434000DC2273 /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				0610DF1123D9436800DC2273 /* ReviewMainVC+Extension.swift */,
+			);
+			path = Extension;
+			sourceTree = "<group>";
+		};
+		0610DF1723D96C0900DC2273 /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				0610DF1823D96D1D00DC2273 /* ReviewPageCollectionViewCell.swift */,
+			);
+			path = Cell;
+			sourceTree = "<group>";
+		};
+		0610DF1A23D98AA200DC2273 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				0610DF1D23D9919E00DC2273 /* ReviewTabCellModel.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
 		2E04BB9F31A495430F45317D /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -918,6 +986,7 @@
 				C9558B81239BD98E00E63F93 /* Main */,
 				C9A827D92395528D0029A493 /* MyPage */,
 				C9A828372395528D0029A493 /* Feed */,
+				0610DF0923D92D2800DC2273 /* Review */,
 			);
 			path = Screens;
 			sourceTree = "<group>";
@@ -1239,7 +1308,7 @@
 			isa = PBXGroup;
 			children = (
 				C9D8658B23ADC7CF00D12339 /* Storyboards */,
-				845928E021D20068001DF6CC /* LoginVC.swift */,
+				0629921E23D935590053B9F2 /* LoginVC.swift */,
 				D1E30DA322F1B5360023DF56 /* SplashViewController.swift */,
 				D1E037CB22F2C25A0081B8A1 /* FindPasswordViewController.swift */,
 			);
@@ -1786,6 +1855,7 @@
 				C9A828572395528D0029A493 /* MyFilterGradeCollectionViewCell.xib in Resources */,
 				C9A828682395528E0029A493 /* UnivCollectionViewCell.xib in Resources */,
 				C9A8287E2395528E0029A493 /* SettingTextFieldCollectionViewCell.xib in Resources */,
+				0610DF0F23D92ECB00DC2273 /* Review.storyboard in Resources */,
 				C9A828592395528D0029A493 /* MyFilterSliderCollectionViewCell.xib in Resources */,
 				C9A8285B2395528D0029A493 /* MyFilterCollectionReusableView.xib in Resources */,
 				C9A828642395528D0029A493 /* MyPageStoryBoard.storyboard in Resources */,
@@ -1851,50 +1921,15 @@
 			files = (
 			);
 			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-SsgSag/Pods-SsgSag-frameworks.sh",
-				"${PODS_ROOT}/AdBrixRemastered/AdBrixRM.framework",
-				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
-				"${BUILT_PRODUCTS_DIR}/Differentiator/Differentiator.framework",
-				"${BUILT_PRODUCTS_DIR}/FBSDKCoreKit/FBSDKCoreKit.framework",
-				"${BUILT_PRODUCTS_DIR}/GoogleUtilities/GoogleUtilities.framework",
-				"${BUILT_PRODUCTS_DIR}/Protobuf/protobuf.framework",
-				"${BUILT_PRODUCTS_DIR}/ReactorKit/ReactorKit.framework",
-				"${BUILT_PRODUCTS_DIR}/RxCocoa/RxCocoa.framework",
-				"${BUILT_PRODUCTS_DIR}/RxDataSources/RxDataSources.framework",
-				"${BUILT_PRODUCTS_DIR}/RxRelay/RxRelay.framework",
-				"${BUILT_PRODUCTS_DIR}/RxSwift/RxSwift.framework",
-				"${BUILT_PRODUCTS_DIR}/SearchTextField/SearchTextField.framework",
-				"${BUILT_PRODUCTS_DIR}/SwiftKeychainWrapper/SwiftKeychainWrapper.framework",
-				"${BUILT_PRODUCTS_DIR}/lottie-ios/Lottie.framework",
-				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
-				"${PODS_ROOT}/naveridlogin-sdk-ios/NaverThirdPartyLogin.framework",
+				"${PODS_ROOT}/Target Support Files/Pods-SsgSag/Pods-SsgSag-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
-			);
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AdBrixRM.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Differentiator.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBSDKCoreKit.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleUtilities.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/protobuf.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ReactorKit.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxCocoa.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxDataSources.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxRelay.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxSwift.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SearchTextField.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftKeychainWrapper.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Lottie.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/NaverThirdPartyLogin.framework",
+				"${PODS_ROOT}/Target Support Files/Pods-SsgSag/Pods-SsgSag-frameworks-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-SsgSag/Pods-SsgSag-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-SsgSag/Pods-SsgSag-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		C947B5F323ADEF83007CB18C /* ShellScript */ = {
@@ -1945,6 +1980,7 @@
 			files = (
 				84FB4FE4226B7F7D00D9F2F9 /* LoginServiceImp.swift in Sources */,
 				D10B6E1A22F41C10007B9BEA /* FeedServiceProtocol.swift in Sources */,
+				0629921F23D935590053B9F2 /* LoginVC.swift in Sources */,
 				FAFB87D222145ABE002CDED9 /* NetworkManager.swift in Sources */,
 				842C619D21DD1807001BA6D8 /* PosterData.swift in Sources */,
 				D11F9E9E22E0C622000210B0 /* PieChartView.swift in Sources */,
@@ -1984,6 +2020,7 @@
 				C9A8283E2395528D0029A493 /* AddActivityVC.swift in Sources */,
 				C9A828662395528D0029A493 /* SettingMenuCollectionViewCell.swift in Sources */,
 				C9A828812395528E0029A493 /* GradeCollectionViewCell.swift in Sources */,
+				0610DF1423D9484300DC2273 /* ClubReviewViewController.swift in Sources */,
 				84836ABF222E515200922A78 /* UserNetworkModel.swift in Sources */,
 				C9A8284A2395528D0029A493 /* PostViewController.swift in Sources */,
 				D1564EFB22EC0A7D00BDA7F6 /* Network.swift in Sources */,
@@ -1995,7 +2032,6 @@
 				D149F599235D52230018B8F5 /* CalendarListViewController.swift in Sources */,
 				D1E037CE22F2C8C10081B8A1 /* TempPassword.swift in Sources */,
 				C9558B98239C15DD00E63F93 /* TotalInformationService.swift in Sources */,
-				845928E121D20068001DF6CC /* LoginVC.swift in Sources */,
 				D1FDF3DC230AF7550055D293 /* NoTodoTableViewCell.swift in Sources */,
 				D1FCC4E6236C1082000E3769 /* SeperateCollectionReusableView.swift in Sources */,
 				C9A8284E2395528D0029A493 /* MyFilterGradeCollectionViewCellReactor.swift in Sources */,
@@ -2040,6 +2076,7 @@
 				C9A8286A2395528E0029A493 /* StudentNumberCollectionViewCell.swift in Sources */,
 				8459289B21D09CDD001DF6CC /* AppDelegate.swift in Sources */,
 				C9A8283C2395528D0029A493 /* JobVC.swift in Sources */,
+				0610DF0C23D92E6400DC2273 /* ReviewMainViewController.swift in Sources */,
 				846E622F22928F800083E3CD /* TokenName.swift in Sources */,
 				FA3A344421E72F5200668908 /* SchoolInfoVC.swift in Sources */,
 				84B1B250226A364100077DF9 /* DataResponse.swift in Sources */,
@@ -2050,6 +2087,7 @@
 				C9A828582395528D0029A493 /* MyFilterSliderCollectionViewCell.swift in Sources */,
 				C9625E1923AF267B00FF5109 /* PosterListViewModel.swift in Sources */,
 				D1E2C22022E306C90044E6A1 /* EmailValidate.swift in Sources */,
+				0610DF1E23D9919E00DC2273 /* ReviewTabCellModel.swift in Sources */,
 				C9C26BEF239D47B40084C248 /* TotalInformationCollectionViewCellReactor.swift in Sources */,
 				D1226C8C22EC9A26007F59BE /* ActicityServiceProtocol.swift in Sources */,
 				846E6233229294300083E3CD /* UserDefaultsName.swift in Sources */,
@@ -2076,6 +2114,7 @@
 				FA3A8FD921DF3D5F0075A510 /* Extension.swift in Sources */,
 				84C30E2B22780D50008F1165 /* DetailNewTextSwipeCard.swift in Sources */,
 				D16F309823696DDB00C127CA /* BasicResponse.swift in Sources */,
+				0610DF1623D96A9C00DC2273 /* ReviewPageViewController.swift in Sources */,
 				C9A82889239555470029A493 /* ProjectColor.swift in Sources */,
 				C9A828862395541B0029A493 /* URLSessionProtocol.swift in Sources */,
 				D103D8AA22FBEDA40092FE93 /* CalendarData.swift in Sources */,
@@ -2096,6 +2135,7 @@
 				C9A828532395528D0029A493 /* MyFilterCollectionReusableView.swift in Sources */,
 				D1F0DA22230D062F00C6FF19 /* Column.swift in Sources */,
 				C9A828482395528D0029A493 /* ServiceInfoViewController.swift in Sources */,
+				0610DF1923D96D1D00DC2273 /* ReviewPageCollectionViewCell.swift in Sources */,
 				C9A828762395528E0029A493 /* OSLTableViewCell.swift in Sources */,
 				C9A8287A2395528E0029A493 /* myPageMenuTableViewCell.swift in Sources */,
 				D1E9B3D522E594D8007CB6D2 /* SignUp.swift in Sources */,
@@ -2121,6 +2161,7 @@
 				D1226C8822EC88DF007F59BE /* MyPageServiceProtocol.swift in Sources */,
 				D1E0B02B22ED974C003F84D6 /* NoticeServiceProtocol.swift in Sources */,
 				D16F30A82369808100C127CA /* HttpStatusCode.swift in Sources */,
+				0610DF1223D9436800DC2273 /* ReviewMainVC+Extension.swift in Sources */,
 				C9558B8023955D5C00E63F93 /* String+.swift in Sources */,
 				843813112270153900C9E47B /* MypageServiceImp.swift in Sources */,
 				8496818522AFD3FE004A4A63 /* VADay.swift in Sources */,
@@ -2341,7 +2382,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.0.7;
+				MARKETING_VERSION = 2.0.8;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-framework",
@@ -2389,7 +2430,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 2.0.7;
+				MARKETING_VERSION = 2.0.8;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-framework",

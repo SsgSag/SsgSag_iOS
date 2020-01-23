@@ -113,7 +113,7 @@ class MyFilterSettingViewReactor: Reactor {
                                   maxGrade: maxGrade,
                                   headers: headers,
                                   myFilterSetting: initialSetting,
-                                  selectedJobKindsIndexies: selectedIndex)
+                                  selectedJobKindsIndexies: selectedIndex, numberOfSelectedJobkind: 1, isLoading: false) //numberOfSelectedJobkind 임시로 추가했습니다.
         
     }
 

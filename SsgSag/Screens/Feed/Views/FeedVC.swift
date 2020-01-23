@@ -8,7 +8,7 @@
 
 import UIKit
 import SwiftKeychainWrapper
-import AdBrixRM
+//import AdBrixRM
 
 class FeedVC: UIViewController {
     
@@ -227,9 +227,9 @@ extension FeedVC: MenuBarDelegate {
 extension FeedVC: FeedTouchDelegate {
     func touchUpFeedCell(title: String, feedIdx: Int, urlString: String, isSave: Int) {
 
-        let adBrix = AdBrixRM.getInstance
-        adBrix.event(eventName: "touchUp_FeedNews",
-                     value: ["feedUrl": urlString])
+//        let adBrix = AdBrixRM.getInstance
+//        adBrix.event(eventName: "touchUp_FeedNews",
+//                     value: ["feedUrl": urlString])
         
         let articleVC = ArticleViewController()
         articleVC.articleTitle = title

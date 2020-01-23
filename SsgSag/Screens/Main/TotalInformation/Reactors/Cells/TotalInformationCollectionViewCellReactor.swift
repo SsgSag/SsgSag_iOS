@@ -37,8 +37,8 @@ class TotalInformationCollectionViewCellReactor: Reactor {
    
     init(title: String, thumbnailImageUrl: String, hashTags: String) {
        self.initialState = State(title: title,
-                                 thumbnailImageUrl: thumbnailImageUrl,
-                                 hashTags: hashTags)
+                                 thumbnailImageUrl: thumbnailImageUrl, thumbnailImage: nil,
+                                 hashTags: hashTags, day: "") // thumbnailImage, day가 비어있어서 임시로 추가했습니다.
    }
 
    func mutate(action: Action) -> Observable<Mutation> {

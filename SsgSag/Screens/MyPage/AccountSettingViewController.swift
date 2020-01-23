@@ -8,7 +8,7 @@
 
 import UIKit
 import Photos
-import AdBrixRM
+//import AdBrixRM
 
 protocol UpdateDataDelegate: class {
     func reloadUserData()
@@ -303,13 +303,13 @@ class AccountSettingViewController: UIViewController {
                 DispatchQueue.main.async {
                     switch httpStatusCode {
                     case .processingSuccess:
-                        let adBrix = AdBrixRM.getInstance
+//                        let adBrix = AdBrixRM.getInstance
                         
                         var attrModel = Dictionary<String, Any>()
 
                         attrModel["major"] = self?.major ?? (self?.userData?.userMajor ?? "")
                         attrModel["univ"] = self?.univ ?? (self?.userData?.userUniv ?? "")
-                        adBrix.setUserProperties(dictionary: attrModel)
+//                        adBrix.setUserProperties(dictionary: attrModel)
                         
                         self?.uploadImage(self?.selectedImage)
                     case .authorizationFailure:

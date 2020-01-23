@@ -11,7 +11,7 @@ import CoreData
 import Firebase
 import FirebaseMessaging
 import UserNotifications
-import AdBrixRM
+//import AdBrixRM
 import AdSupport
 import SwiftKeychainWrapper
 
@@ -53,7 +53,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         Messaging.messaging().delegate = self
         
-        setupAdBrix()
+//        setupAdBrix()
 //
 //        ApplicationDelegate.shared.application(application,
 //                                               didFinishLaunchingWithOptions: launchOptions)
@@ -118,10 +118,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                      options: [UIApplication.OpenURLOptionsKey : Any]) -> Bool {
         
         // AdBrixRM 인스턴스 생성
-        let adBrix = AdBrixRM.getInstance
-        
-        // 딥링크 오픈 트래킹 코드 호출
-        adBrix.deepLinkOpen(url: url)
+//        let adBrix = AdBrixRM.getInstance
+//        
+//        // 딥링크 오픈 트래킹 코드 호출
+//        adBrix.deepLinkOpen(url: url)
         
         if KOSession.isKakaoAccountLoginCallback(url) {
             return KOSession.handleOpen(url)
@@ -201,26 +201,26 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
     }
     
-    private func setupAdBrix() {
-        // AdBrixRm 인스턴스 생성
-        let adBrix = AdBrixRM.getInstance
-        
-        if ((NSClassFromString("ASIdentifierManager")) != nil) {
-            let idfa: UUID = ASIdentifierManager.shared().advertisingIdentifier
-            
-            // IDFA를 AdBrix SDK에 전달
-            adBrix.setAppleAdvertisingIdentifier(idfa.uuidString)
-        }
-        
-        adBrix.setLogLevel(AdBrixRM.AdBrixLogLevel.TRACE)
-        adBrix.setEventUploadCountInterval(AdBrixRM.AdBrixEventUploadCountInterval.MIN)
-        adBrix.setEventUploadTimeInterval(AdBrixRM.AdBrixEventUploadTimeInterval.NORMAL)
-        adBrix.initAdBrix(appKey: ClientKey.adBrixAppKey.getClienyKey,
-                          secretKey: ClientKey.adBrixSecretKey.getClienyKey)
-        
-        adBrix.delegateDeeplink = self
-        
-    }
+//    private func setupAdBrix() {
+//        // AdBrixRm 인스턴스 생성
+//        let adBrix = AdBrixRM.getInstance
+//        
+//        if ((NSClassFromString("ASIdentifierManager")) != nil) {
+//            let idfa: UUID = ASIdentifierManager.shared().advertisingIdentifier
+//            
+//            // IDFA를 AdBrix SDK에 전달
+//            adBrix.setAppleAdvertisingIdentifier(idfa.uuidString)
+//        }
+//        
+//        adBrix.setLogLevel(AdBrixRM.AdBrixLogLevel.TRACE)
+//        adBrix.setEventUploadCountInterval(AdBrixRM.AdBrixEventUploadCountInterval.MIN)
+//        adBrix.setEventUploadTimeInterval(AdBrixRM.AdBrixEventUploadTimeInterval.NORMAL)
+//        adBrix.initAdBrix(appKey: ClientKey.adBrixAppKey.getClienyKey,
+//                          secretKey: ClientKey.adBrixSecretKey.getClienyKey)
+//        
+//        adBrix.delegateDeeplink = self
+//        
+//    }
     
     private func hasToken() -> Bool {
         guard let _ = KeychainWrapper.standard.string(forKey: TokenName.token) else {
@@ -293,9 +293,9 @@ extension AppDelegate: MessagingDelegate {
     }
 }
 
-extension AppDelegate: AdBrixRMDeeplinkDelegate {
-    func didReceiveDeeplink(deeplink: String) {
-        print("DEEPLINK :: received - \(deeplink)")
-        // deeplink 로 전달되는 정보를 사용하여 해당 페이지로 랜딩합니다.
-    }
-}
+//extension AppDelegate: AdBrixRMDeeplinkDelegate {
+//    func didReceiveDeeplink(deeplink: String) {
+//        print("DEEPLINK :: received - \(deeplink)")
+//        // deeplink 로 전달되는 정보를 사용하여 해당 페이지로 랜딩합니다.
+//    }
+//}

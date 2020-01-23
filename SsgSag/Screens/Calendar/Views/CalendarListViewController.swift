@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import AdBrixRM
+//import AdBrixRM
 
 class CalendarListViewController: UIViewController {
 
@@ -511,13 +511,13 @@ extension CalendarListViewController: UICollectionViewDelegate {
             
             detailInfoViewController.posterIdx = posterIdx
             
-            let adBrix = AdBrixRM.getInstance
-            adBrix.event(eventName: "touchUp_PosterDetail",
-                         value: ["posterIdx": posterIdx])
+//            let adBrix = AdBrixRM.getInstance
+//            adBrix.event(eventName: "touchUp_PosterDetail",
+//                         value: ["posterIdx": posterIdx])
             
             detailInfoViewController.callback = { [weak self] isFavorite in
-                let adBrix = AdBrixRM.getInstance
-                adBrix.event(eventName: "touchUp_Favorite")
+//                let adBrix = AdBrixRM.getInstance
+//                adBrix.event(eventName: "touchUp_Favorite")
                 
                 guard let cell
                     = self?.listCollectionView.cellForItem(at: indexPath)

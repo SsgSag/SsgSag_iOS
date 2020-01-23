@@ -8,7 +8,6 @@
 
 import UIKit
 import SwiftKeychainWrapper
-import AdBrixRM
 
 // 로그인 시작화면
 class LoginVC: UIViewController, UITextFieldDelegate {
@@ -131,11 +130,11 @@ class LoginVC: UIViewController, UITextFieldDelegate {
                         return
                     }
                     
-                    let adBrix = AdBrixRM.getInstance
-                    
-                    // 로그인이 성공했을 때, 유저아이디를 전달
-                    adBrix.login(userId: token)
-                    
+//                    let adBrix = AdBrixRM.getInstance
+//                    
+//                    // 로그인이 성공했을 때, 유저아이디를 전달
+//                    adBrix.login(userId: token)
+//                    
                    
                     DispatchQueue.main.async {
                          let tabBar = TabBarViewController(nibName: nil, bundle: nil)

@@ -8,7 +8,7 @@
 
 import UIKit
 import SwiftKeychainWrapper
-import AdBrixRM
+//import AdBrixRM
 
 class DetailInfoViewController: UIViewController {
     var isCalendar: Bool = true
@@ -413,9 +413,9 @@ class DetailInfoViewController: UIViewController {
     
     // MARK: - 공유 버튼
     @objc func touchUpShareButton(){
-        let adBrix = AdBrixRM.getInstance
-        adBrix.event(eventName: "touchUp_Share",
-                     value: ["posterIdx": posterIdx])
+//        let adBrix = AdBrixRM.getInstance
+//        adBrix.event(eventName: "touchUp_Share",
+//                     value: ["posterIdx": posterIdx])
 
         let template = KMTFeedTemplate { [weak self] feedTemplateBuilder in
             
@@ -974,9 +974,9 @@ extension DetailInfoViewController: WebsiteDelegate {
             
             UIApplication.shared.open(url)
         } else {
-            let adBrix = AdBrixRM.getInstance
-            adBrix.event(eventName: "touchUp_MoveToWebsite",
-                         value: ["posterIdx": posterIdx])
+//            let adBrix = AdBrixRM.getInstance
+//            adBrix.event(eventName: "touchUp_MoveToWebsite",
+//                         value: ["posterIdx": posterIdx])
             
             guard let websiteURL = posterDetailData?.posterWebSite,
                 let url = URL(string: websiteURL) else {

@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import AdBrixRM
+//import AdBrixRM
 
 class ScrapViewController: UIViewController {
     
@@ -190,9 +190,9 @@ extension ScrapViewController: UICollectionViewDataSource {
             return
         }
         
-        let adBrix = AdBrixRM.getInstance
-        adBrix.event(eventName: "touchUp_FeedNews",
-                     value: ["feedUrl": feedData[indexPath.item].feedUrl])
+//        let adBrix = AdBrixRM.getInstance
+//        adBrix.event(eventName: "touchUp_FeedNews",
+//                     value: ["feedUrl": feedData[indexPath.item].feedUrl])
         
         let articleVC = ArticleViewController()
         articleVC.articleTitle = feedData[indexPath.item].feedName

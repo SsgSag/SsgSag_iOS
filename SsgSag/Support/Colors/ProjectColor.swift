@@ -28,4 +28,11 @@ extension UIColor {
                                               green: 231/255,
                                               blue: 231/255,
                                               alpha: 1)
+
+    @nonobjc class var reviewDeselectGray: UIColor {
+      return UIColor(white: 187.0 / 255.0, alpha: 1.0)
+    }
+    @nonobjc class var reviewDeselectLineGray: UIColor {
+        return UIColor(white: 238.0 / 255.0, alpha: 1.0)
+    }
 }

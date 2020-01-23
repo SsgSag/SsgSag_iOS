@@ -10,7 +10,7 @@ import UIKit
 import SearchTextField
 import NaverThirdPartyLogin
 import SwiftKeychainWrapper
-import AdBrixRM
+//import AdBrixRM
 
 class SchoolInfoVC: UIViewController {
     
@@ -384,10 +384,10 @@ class SchoolInfoVC: UIViewController {
                         return
                     }
                     
-                    let adBrix = AdBrixRM.getInstance
+//                    let adBrix = AdBrixRM.getInstance
                     
                     // 로그인이 성공했을 때, 유저아이디를 전달
-                    adBrix.login(userId: token)
+//                    adBrix.login(userId: token)
                     
                     //기타 유저 정보
                     var attrModel = Dictionary<String, Any>()
@@ -396,14 +396,14 @@ class SchoolInfoVC: UIViewController {
                     attrModel["major"] = major
                     attrModel["univ"] = univ
                     
-                    adBrix.setUserProperties(dictionary: attrModel)
+//                    adBrix.setUserProperties(dictionary: attrModel)
                     
                     // 회원가입 이벤트 추가
-                    if self?.sendType == 10 {
-                        adBrix.commonSignUp(channel: AdBrixRM.AdBrixRmSignUpChannel.AdBrixRmSignUpUserIdChannel)
-                    } else {
-                        adBrix.commonSignUp(channel: AdBrixRM.AdBrixRmSignUpChannel.AdBrixRmSignUpKakaoChannel)
-                    }
+//                    if self?.sendType == 10 {
+//                        adBrix.commonSignUp(channel: AdBrixRM.AdBrixRmSignUpChannel.AdBrixRmSignUpUserIdChannel)
+//                    } else {
+//                        adBrix.commonSignUp(channel: AdBrixRM.AdBrixRmSignUpChannel.AdBrixRmSignUpKakaoChannel)
+//                    }
                 
                     let tapBarVC = TabBarViewController()
                     tapBarVC.modalPresentationStyle = .fullScreen

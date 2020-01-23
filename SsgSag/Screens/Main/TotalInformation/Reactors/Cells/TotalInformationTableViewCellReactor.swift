@@ -29,7 +29,7 @@ class TotalInformationTableViewCellReactor: Reactor {
     let initialState: State
     
     init(type: TotalInfoCategoryType, items: [TotalInformation]) {
-        self.initialState = State(type: type, items: items)
+        self.initialState = State(title: "", type: type, items: items) // title 매개변수 비어있어서 임시로 추가하였습니다.
     }
 
     func mutate(action: Action) -> Observable<Mutation> {

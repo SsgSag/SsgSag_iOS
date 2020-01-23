@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import AdBrixRM
+//import AdBrixRM
 
 class TabBarViewController: UITabBarController {
 
@@ -59,11 +59,15 @@ class TabBarViewController: UITabBarController {
         
         let newCalendarStoryboard = UIStoryboard(name: StoryBoardName.newCalendar, bundle: nil)
         
+        let reviewStoryBoard = UIStoryboard(name: StoryBoardName.review , bundle: nil)
+        
         //let swipeViewController = swipeStoryBoard.instantiateViewController(withIdentifier: "swipeNavigationVC")
         
         let feedViewController = feedStoryBoard.instantiateViewController(withIdentifier: "feedNavigationVC")
         
         let newCalendarViewController = newCalendarStoryboard.instantiateViewController(withIdentifier: "calendarNavigationVC")
+        
+        let reviewViewController = reviewStoryBoard.instantiateViewController(withIdentifier: "reviewVC")
         
         mainViewController.tabBarItem = UITabBarItem(title: "",
                                                       image: UIImage(named: "icMain"),
@@ -77,7 +81,11 @@ class TabBarViewController: UITabBarController {
                                                             image: UIImage(named: "ic_calendarPassive"),
                                                             selectedImage: UIImage(named: "ic_calendarActive"))
         
-        let tabBarList = [feedViewController, mainViewController, newCalendarViewController]
+        reviewViewController.tabBarItem = UITabBarItem(title: "",
+                                                                   image: UIImage(named: "ic_calendarPassive"),
+                                                                   selectedImage: UIImage(named: "ic_calendarActive"))
+        
+        let tabBarList = [feedViewController, mainViewController, newCalendarViewController, reviewViewController]
         
         self.viewControllers = tabBarList
     }

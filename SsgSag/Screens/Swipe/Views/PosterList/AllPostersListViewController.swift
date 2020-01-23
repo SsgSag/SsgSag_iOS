@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import AdBrixRM
 import RxSwift
 import RxCocoa
 
@@ -559,14 +558,14 @@ extension AllPostersListViewController: UICollectionViewDataSource {
                 detailInfoVC.isSave = isSave
             }
             
-            let adBrix = AdBrixRM.getInstance
-            adBrix.event(eventName: "touchUp_PosterDetail",
-                         value: ["posterIdx": detailInfoVC.posterIdx ?? 0])
+//            let adBrix = AdBrixRM.getInstance
+//            adBrix.event(eventName: "touchUp_PosterDetail",
+//                         value: ["posterIdx": detailInfoVC.posterIdx ?? 0])
             
             detailInfoVC.callback = { isFavorite in
                 DispatchQueue.main.async {
-                    let adBrix = AdBrixRM.getInstance
-                    adBrix.event(eventName: "touchUp_Favorite")
+//                    let adBrix = AdBrixRM.getInstance
+//                    adBrix.event(eventName: "touchUp_Favorite")
                 }
             }
             

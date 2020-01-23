@@ -1,7 +1,7 @@
 import UIKit
 import Lottie
 import SwiftKeychainWrapper
-import AdBrixRM
+//import AdBrixRM
 import RxSwift
 
 class SwipeVC: UIViewController {
@@ -464,9 +464,9 @@ class SwipeVC: UIViewController {
         
         AppDelegate.posterIndex = nil
         
-        let adBrix = AdBrixRM.getInstance
-        adBrix.event(eventName: "touchUp_PosterDetail",
-                     value: ["posterIdx": posterIndex])
+//        let adBrix = AdBrixRM.getInstance
+//        adBrix.event(eventName: "touchUp_PosterDetail",
+//                     value: ["posterIdx": posterIndex])
         
         let detailInfoViewController = DetailInfoViewController()
         
@@ -725,8 +725,8 @@ extension SwipeVC : SwipeCardDelegate {
                 case .sucess:
                     print("성공")
                     
-                    let adBrix = AdBrixRM.getInstance
-                    adBrix.event(eventName: "swipe_PosterComplete")
+//                    let adBrix = AdBrixRM.getInstance
+//                    adBrix.event(eventName: "swipe_PosterComplete")
                 case .dataBaseError:
                     self?.simplerAlert(title: "데이터베이스 에러")
                 case .serverError:

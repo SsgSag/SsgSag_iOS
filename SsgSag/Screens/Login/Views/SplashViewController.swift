@@ -8,7 +8,7 @@
 
 import UIKit
 import SwiftKeychainWrapper
-import AdBrixRM
+//import AdBrixRM
 
 class SplashViewController: UIViewController {
 
@@ -156,11 +156,11 @@ class SplashViewController: UIViewController {
                                     return
                                 }
                                 
-                                let adBrix = AdBrixRM.getInstance
-                                
-                                // 로그인이 성공했을 때, 토큰 전달
-                                adBrix.login(userId: token)
-                                
+//                                let adBrix = AdBrixRM.getInstance
+//                                
+//                                // 로그인이 성공했을 때, 토큰 전달
+//                                adBrix.login(userId: token)
+//                                
                                 let tapBarVC = TabBarViewController()
                                 tapBarVC.modalPresentationStyle = .fullScreen
                                 self?.present(tapBarVC, animated: true, completion: nil)

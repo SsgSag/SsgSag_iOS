@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import AdBrixRM
+////import AdBrixRM
 
 class DayTodoViewController: UIViewController {
 
@@ -409,14 +409,14 @@ extension DayTodoViewController: PushDelegate {
             return
         }
         
-        let adBrix = AdBrixRM.getInstance
-        adBrix.event(eventName: "touchUp_PosterDetail",
-                     value: ["posterIdx": controller.posterIdx])
+//        let adBrix = AdBrixRM.getInstance
+//        adBrix.event(eventName: "touchUp_PosterDetail",
+//                     value: ["posterIdx": controller.posterIdx])
         
         controller.callback = { [weak self] isFavorite in
-            let adBrix = AdBrixRM.getInstance
-            adBrix.event(eventName: "touchUp_Favorite")
-            
+//            let adBrix = AdBrixRM.getInstance
+//            adBrix.event(eventName: "touchUp_Favorite")
+//            
             if isFavorite == 1 {
                 favoriteButton.setImage(UIImage(named: "ic_favorite"), for: .normal)
             } else {
