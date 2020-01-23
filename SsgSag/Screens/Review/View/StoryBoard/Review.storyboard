@@ -193,6 +193,21 @@
             </objects>
             <point key="canvasLocation" x="1719" y="607"/>
         </scene>
+        <!--Test View Controller-->
+        <scene sceneID="PfB-b3-Xfc">
+            <objects>
+                <viewController storyboardIdentifier="testVC" id="xop-15-8Az" customClass="TestViewController" customModule="슥삭" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="7vX-OP-ohE">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <viewLayoutGuide key="safeArea" id="fwr-MM-Yzu"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="hz8-jk-tNM" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2420" y="612"/>
+        </scene>
         <!--Navigation Controller-->
         <scene sceneID="1iY-L4-gGd">
             <objects>

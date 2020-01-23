@@ -24,7 +24,13 @@ class ReviewPageCollectionViewCell: UICollectionViewCell {
         }
     }
     
-    override func select(_ sender: Any?) {
+    override var isSelected: Bool {
+        didSet {
+            self.onFocus = isSelected ? true : false
+        }
+    }
+    
+    override func awakeFromNib() {
         
     }
 }

@@ -35,15 +35,25 @@ extension ReviewMainViewController: UICollectionViewDataSource, UICollectionView
 
 extension ReviewMainViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        print(indexPath.item)
         let cell = collectionView.cellForItem(at: indexPath) as! ReviewPageCollectionViewCell
+        self.tabTitle[indexPath.item].onFocus = true
         cell.onFocus = true
         self.focusIndex.onNext(indexPath.item)
     }
     
     func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
         let cell = collectionView.cellForItem(at: indexPath) as! ReviewPageCollectionViewCell
+        self.tabTitle[indexPath.item].onFocus = false
         cell.onFocus = false
     }
     
+}
+
+extension ReviewMainViewController: ReviewPageDelegate {
+    func setPageTabStatus(index: Int) {
+        
+        self.tabCollectionView.deselectItem(at: IndexPath(item: index, section: 0), animated: false)
+        self.tabCollectionView.selectItem(at: IndexPath(item: index, section: 0), animated: false, scrollPosition: .left)
+        
+    }
 }

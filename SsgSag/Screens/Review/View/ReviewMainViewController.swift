@@ -10,6 +10,7 @@ import UIKit
 import RxSwift
 
 class ReviewMainViewController: UIViewController {
+    
     @IBOutlet weak var tabCollectionView: UICollectionView!
     
     typealias TabModel = ReviewTabCellModel
@@ -28,6 +29,7 @@ class ReviewMainViewController: UIViewController {
         self.tabCollectionView.delegate = self
         self.tabCollectionView.selectItem(at: IndexPath(item: 0, section: 0), animated: true, scrollPosition: .left)
         bindData()
+        
     }
     
     func bindData() {
@@ -43,11 +45,10 @@ class ReviewMainViewController: UIViewController {
         .disposed(by: disposeBag)
     }
     
-    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "ReviewPageSegue" {
             self.reviewPageInstance = segue.destination as? ReviewPageViewController
+            reviewPageInstance.pageDelegate = self
         }
     }
-    
 }

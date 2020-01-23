@@ -14,6 +14,8 @@
 		0610DF1623D96A9C00DC2273 /* ReviewPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0610DF1523D96A9C00DC2273 /* ReviewPageViewController.swift */; };
 		0610DF1923D96D1D00DC2273 /* ReviewPageCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0610DF1823D96D1D00DC2273 /* ReviewPageCollectionViewCell.swift */; };
 		0610DF1E23D9919E00DC2273 /* ReviewTabCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0610DF1D23D9919E00DC2273 /* ReviewTabCellModel.swift */; };
+		0610DF2123D9943200DC2273 /* ReviewPageDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0610DF2023D9943200DC2273 /* ReviewPageDelegate.swift */; };
+		0610DF2323D99FB300DC2273 /* TestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0610DF2223D99FB300DC2273 /* TestViewController.swift */; };
 		0629921F23D935590053B9F2 /* LoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0629921E23D935590053B9F2 /* LoginVC.swift */; };
 		2E158304683BAFB18A8CD876 /* Pods_SsgSag.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 031F14AE11BD590702A32B8D /* Pods_SsgSag.framework */; };
 		840AFF8822A2622C00EA12E6 /* UIDevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 840AFF8722A2622C00EA12E6 /* UIDevice.swift */; };
@@ -334,6 +336,8 @@
 		0610DF1523D96A9C00DC2273 /* ReviewPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewPageViewController.swift; sourceTree = "<group>"; };
 		0610DF1823D96D1D00DC2273 /* ReviewPageCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewPageCollectionViewCell.swift; sourceTree = "<group>"; };
 		0610DF1D23D9919E00DC2273 /* ReviewTabCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewTabCellModel.swift; sourceTree = "<group>"; };
+		0610DF2023D9943200DC2273 /* ReviewPageDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewPageDelegate.swift; sourceTree = "<group>"; };
+		0610DF2223D99FB300DC2273 /* TestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestViewController.swift; sourceTree = "<group>"; };
 		0629921E23D935590053B9F2 /* LoginVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginVC.swift; sourceTree = "<group>"; };
 		41F0B899B4CCAC855CFD54F6 /* Pods-SsgSag.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SsgSag.debug.xcconfig"; path = "Target Support Files/Pods-SsgSag/Pods-SsgSag.debug.xcconfig"; sourceTree = "<group>"; };
 		840AFF8722A2622C00EA12E6 /* UIDevice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIDevice.swift; sourceTree = "<group>"; };
@@ -681,6 +685,7 @@
 		0610DF0A23D92D5800DC2273 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				0610DF1F23D9941300DC2273 /* Protocol */,
 				0610DF1A23D98AA200DC2273 /* Model */,
 				0610DF1723D96C0900DC2273 /* Cell */,
 				0610DF1023D9434000DC2273 /* Extension */,
@@ -688,6 +693,7 @@
 				0610DF0B23D92E6400DC2273 /* ReviewMainViewController.swift */,
 				0610DF1523D96A9C00DC2273 /* ReviewPageViewController.swift */,
 				0610DF1323D9484300DC2273 /* ClubReviewViewController.swift */,
+				0610DF2223D99FB300DC2273 /* TestViewController.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -722,6 +728,14 @@
 				0610DF1D23D9919E00DC2273 /* ReviewTabCellModel.swift */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		0610DF1F23D9941300DC2273 /* Protocol */ = {
+			isa = PBXGroup;
+			children = (
+				0610DF2023D9943200DC2273 /* ReviewPageDelegate.swift */,
+			);
+			path = Protocol;
 			sourceTree = "<group>";
 		};
 		2E04BB9F31A495430F45317D /* Frameworks */ = {
@@ -2048,6 +2062,7 @@
 				D109DC5823ABC3FB00E5BAF7 /* SortType.swift in Sources */,
 				D16F309F23697A8F00C127CA /* WeekDays.swift in Sources */,
 				C9558B92239BE71B00E63F93 /* TotalInformationReactor.swift in Sources */,
+				0610DF2323D99FB300DC2273 /* TestViewController.swift in Sources */,
 				C9A828412395528D0029A493 /* CareerVC + TableView.swift in Sources */,
 				D188C90D2368347E00AB88F0 /* SeeMoreCollectionReusableView.swift in Sources */,
 				84C77E4F22759AAF00DEE2D8 /* ZoomPosterVC.swift in Sources */,
@@ -2208,6 +2223,7 @@
 				D1A4EEA72344FC7E003FAC88 /* NoPosterCollectionViewCell.swift in Sources */,
 				D10B6E2222F42600007B9BEA /* BoardCollectionViewCell.swift in Sources */,
 				8496819022AFDF66004A4A63 /* NewCalendarVC.swift in Sources */,
+				0610DF2123D9943200DC2273 /* ReviewPageDelegate.swift in Sources */,
 				D166AC7022D73CD700ED82DD /* NewsCollectionViewCell.swift in Sources */,
 				C9A828612395528D0029A493 /* MembershipCancelViewController.swift in Sources */,
 			);

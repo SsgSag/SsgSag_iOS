@@ -9,7 +9,7 @@
 import UIKit
 
 class ClubReviewViewController: UIViewController {
-
+    let pageIndex = 0
     override func viewDidLoad() {
         super.viewDidLoad()
 

@@ -9,10 +9,12 @@
 import UIKit
 
 class ReviewPageViewController: UIPageViewController, UIPageViewControllerDataSource, UIPageViewControllerDelegate {
+    var pageDelegate: ReviewPageDelegate?
+    
     lazy var subViewControllers: [UIViewController] = {
         return [
             UIStoryboard(name: "Review", bundle: nil).instantiateViewController(withIdentifier: "clubReviewVC") as! ClubReviewViewController,
-            UIStoryboard(name: "Review", bundle: nil).instantiateViewController(withIdentifier: "clubReviewVC") as! ClubReviewViewController,
+            UIStoryboard(name: "Review", bundle: nil).instantiateViewController(withIdentifier: "testVC") as! TestViewController,
             UIStoryboard(name: "Review", bundle: nil).instantiateViewController(withIdentifier: "clubReviewVC") as! ClubReviewViewController,
         ]
     }()
@@ -38,6 +40,20 @@ class ReviewPageViewController: UIPageViewController, UIPageViewControllerDataSo
         return subViewControllers.count
     }
 
+    func pageViewController(_ pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool) {
+        // 페이지이동시 tab이동
+        if completed {
+            var index: Int!
+            if let curVC = pageViewController.viewControllers?.first as? ClubReviewViewController {
+                index = curVC.pageIndex
+            } else if let curVC = pageViewController.viewControllers?.first as? TestViewController {
+                index = curVC.pageIndex
+            }
+            pageDelegate?.setPageTabStatus(index: index)
+        }
+        
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -50,5 +66,4 @@ class ReviewPageViewController: UIPageViewController, UIPageViewControllerDataSo
     required init?(coder: NSCoder) {
         super.init(transitionStyle: .scroll, navigationOrientation: .horizontal)
     }
-   
 }
