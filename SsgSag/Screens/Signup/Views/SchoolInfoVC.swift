@@ -10,12 +10,8 @@ import UIKit
 import SearchTextField
 import NaverThirdPartyLogin
 import SwiftKeychainWrapper
-<<<<<<< HEAD
 //import AdBrixRM
-=======
-import AdBrixRM
 import FBSDKCoreKit
->>>>>>> 93fd4d497b7ab160a756e12430170ac1439df7e9
 
 class SchoolInfoVC: UIViewController {
     

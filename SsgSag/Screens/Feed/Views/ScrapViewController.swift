@@ -94,9 +94,9 @@ class ScrapViewController: UIViewController {
                     .value[indexPath.item].feed else {
                     return
                 }
-                let adBrix = AdBrixRM.getInstance
-                adBrix.event(eventName: "touchUp_FeedNews",
-                             value: ["feedUrl": feed.feedUrl ?? ""])
+//                let adBrix = AdBrixRM.getInstance
+//                adBrix.event(eventName: "touchUp_FeedNews",
+//                             value: ["feedUrl": feed.feedUrl ?? ""])
                
                 let articleVC = ArticleViewController()
                 articleVC.articleTitle = feed.feedName
@@ -141,10 +141,9 @@ class ScrapViewController: UIViewController {
         scrapCollectionView.register(EmptyScrapCollectionViewCell.self,
                                      forCellWithReuseIdentifier: "emptyScrapCell")
     }
-<<<<<<< HEAD
     
     @objc private func touchUpBackButton() {
-        callback?()
+//        callback?()
         navigationController?.popViewController(animated: true)
     }
 
@@ -153,7 +152,7 @@ class ScrapViewController: UIViewController {
 extension ScrapViewController: UICollectionViewDelegate {
     
 }
-
+/*
 extension ScrapViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView,
                         numberOfItemsInSection section: Int) -> Int {
@@ -230,8 +229,6 @@ extension ScrapViewController: UICollectionViewDataSource {
         navigationController?.pushViewController(articleVC,
                                                  animated: true)
     }
-=======
->>>>>>> 93fd4d497b7ab160a756e12430170ac1439df7e9
 }
 
 
@@ -243,3 +240,4 @@ extension ScrapViewController: UICollectionViewDelegateFlowLayout, UICollectionV
                       height: 220)
     }
 }
+*/

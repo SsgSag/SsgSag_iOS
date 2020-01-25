@@ -978,16 +978,10 @@ extension DetailInfoViewController: WebsiteDelegate {
             
             UIApplication.shared.open(url)
         } else {
-<<<<<<< HEAD
 //            let adBrix = AdBrixRM.getInstance
 //            adBrix.event(eventName: "touchUp_MoveToWebsite",
 //                         value: ["posterIdx": posterIdx])
-=======
             AppEvents.logEvent(.viewedContent, valueToSum: 3)
-            let adBrix = AdBrixRM.getInstance
-            adBrix.event(eventName: "touchUp_MoveToWebsite",
-                         value: ["posterIdx": posterIdx])
->>>>>>> 93fd4d497b7ab160a756e12430170ac1439df7e9
             
             guard let websiteURL = posterDetailData?.posterWebSite,
                 let url = URL(string: websiteURL) else {
