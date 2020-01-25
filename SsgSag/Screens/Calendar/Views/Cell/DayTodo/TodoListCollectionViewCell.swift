@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import FBSDKCoreKit
 
 protocol dismissDelegate: class {
     func touchUpCancelButton()
@@ -264,7 +265,7 @@ extension TodoListCollectionViewCell: UITableViewDataSource {
         guard let cell = tableView.cellForRow(at: indexPath) as? DetailTodoListTableViewCell else {
             return
         }
-        
+        AppEvents.logEvent(.viewedContent, valueToSum: 2)
         let detailInfoVC = DetailInfoViewController()
         
         detailInfoVC.posterIdx = monthTodoData?[indexPath.row].posterIdx

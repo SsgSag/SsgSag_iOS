@@ -7,9 +7,12 @@
 //
 
 import UIKit
+import RxSwift
+import RxCocoa
 
 class NewsCollectionViewCell: UICollectionViewCell {
-
+    
+    var disposeBag = DisposeBag()
     @IBOutlet weak var newsImageView: UIImageView!
     @IBOutlet weak var newsTitleLabel: UILabel!
     @IBOutlet weak var fromLabel: UILabel!
@@ -17,57 +20,59 @@ class NewsCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var dateLabel: UILabel!
     @IBOutlet weak var viewCountLabel: UILabel!
     
-    var callback: ((Int, Int)->())?
-    var indexPath: IndexPath?
-    
-    var feedData: FeedData? {
-        didSet {
-            setupFeedData()
-        }
-    }
-    
     override func awakeFromNib() {
         super.awakeFromNib()
     }
     
-    @IBAction func touchUpBookmarkButton(_ sender: UIButton) {
-        guard let feedIdx = feedData?.feedIdx else {
-            return
-        }
+    func bind(viewModel: NewsCellViewModel) {
+        newsTitleLabel.text = viewModel.newsTitle
+        fromLabel.text = viewModel.source
+        dateLabel.text = viewModel.dateString
+        viewCountLabel.text = "조회수 \(viewModel.viewCount)"
         
-        let status = bookmarkButton.imageView?.image == UIImage(named: "ic_bookmarkArticle") ? 1 : 0
+        viewModel.saveButtonImageName
+            .asObservable()
+            .observeOn(MainScheduler.instance)
+            .subscribe(onNext: { [weak self] name in
+                self?.bookmarkButton.setImage(UIImage(named: name), for: .normal)
+            })
+            .disposed(by: disposeBag)
         
-        callback?(feedIdx, status)
+        ImageLoader.shared
+            .load(with: viewModel.newsImageUrl)
+            .observeOn(MainScheduler.instance)
+            .subscribe(onNext: { [weak self] image in
+                self?.newsImageView.image = image
+            })
+            .disposed(by: disposeBag)
+        
+        bookmarkButton
+            .rx
+            .tap
+            .flatMapLatest { [weak viewModel] _ -> Observable<DataResponse<HttpStatusCode>> in
+                guard let viewModel = viewModel else { return .empty() }
+                if viewModel.saveButtonImageName.value == "ic_bookmarkArticle" {
+                    return viewModel.deleteBookmark()
+                } else {
+                    return viewModel.saveBookmark()
+                }
+            }
+            .observeOn(MainScheduler.instance)
+            .subscribe(onNext: { [weak viewModel] response in
+                if response.isSuccess {
+                    if viewModel?.saveButtonImageName.value == "ic_bookmarkArticle" {
+                        viewModel?.saveButtonImageName.accept("ic_bookmarkArticlePassive")
+                    } else {
+                        viewModel?.saveButtonImageName.accept("ic_bookmarkArticle")
+                    }
+                }
+            })
+            .disposed(by: disposeBag)
     }
-    
-    private func setupFeedData() {
-        guard let feedData = feedData,
-            let name = feedData.feedName,
-            let host = feedData.feedHost,
-            let viewNum = feedData.showNum,
-            let date = feedData.feedRegDate else {
-            return
-        }
-        
-        let endDate = DateCaculate.stringToDateWithGenericFormatter(using: date)
-        let dateFormatter = DateFormatter.feedDateFormatter
-        let dateString = dateFormatter.string(from: endDate)
-        
-        newsTitleLabel?.text = name
-        fromLabel?.text = host
-        dateLabel?.text = dateString
-        viewCountLabel?.text = "조회수 \(viewNum)"
-        
-        if feedData.isSave == 1 {
-            bookmarkButton.setImage(UIImage(named: "ic_bookmarkArticle"),
-                                    for: .normal)
-        } else {
-            bookmarkButton.setImage(UIImage(named: "ic_bookmarkArticlePassive"),
-                                    for: .normal)
-        }
-    }
+
     
     override func prepareForReuse() {
+        disposeBag = DisposeBag()
         bookmarkButton.setImage(nil, for: .normal)
         newsImageView?.image = UIImage(named: "ic_imgDefault")
         newsTitleLabel?.text = ""

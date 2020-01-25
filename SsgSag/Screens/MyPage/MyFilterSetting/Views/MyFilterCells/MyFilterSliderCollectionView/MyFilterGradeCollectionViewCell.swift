@@ -33,6 +33,12 @@ class MyFilterGradeCollectionViewCell: UICollectionViewCell, StoryboardView {
         reactor.state.map { $0.gradeText }
             .bind(to: gradeLabel.rx.text)
             .disposed(by: disposeBag)
+        
+        reactor.state.map { $0.textFont }
+            .subscribe(onNext: { [weak self] font in
+                self?.gradeLabel.font = font
+            })
+            .disposed(by: disposeBag)
     
     }
 }

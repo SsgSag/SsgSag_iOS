@@ -8,7 +8,12 @@
 
 import UIKit
 import SwiftKeychainWrapper
+<<<<<<< HEAD
 //import AdBrixRM
+=======
+import AdBrixRM
+import FBSDKCoreKit
+>>>>>>> 93fd4d497b7ab160a756e12430170ac1439df7e9
 
 class SplashViewController: UIViewController {
 
@@ -33,7 +38,7 @@ class SplashViewController: UIViewController {
         guard let UUID = KeychainWrapper.standard.string(forKey: "UUID") else {
             return
         }
-        
+        AppEvents.logEvent(AppEvents.Name("EVENT_NAME_TUTORIALS_COMPLETED"))
         let userInfo: [String: Any]
             = ["uuid" : UUID,
                "signupType" : 11,

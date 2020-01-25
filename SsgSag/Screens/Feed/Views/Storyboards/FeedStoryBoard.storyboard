@@ -1,17 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14868" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="tQd-VL-6ro">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15702" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="tQd-VL-6ro">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14824"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15704"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="collection view cell content view" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--FeedVC-->
+        <!--Feed View Controller-->
         <scene sceneID="8p2-AW-wbA">
             <objects>
-                <viewController storyboardIdentifier="FeedVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="Yih-C1-clG" customClass="FeedVC" customModule="슥삭" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="FeedVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="Yih-C1-clG" customClass="FeedViewController" customModule="슥삭" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Mhk-Pg-b7R">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="808"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -24,10 +25,7 @@
                                         <constraints>
                                             <constraint firstAttribute="width" secondItem="tUb-Nf-Jux" secondAttribute="height" multiplier="1:1" id="fNn-fC-9YD"/>
                                         </constraints>
-                                        <state key="normal" image="ic_mypage"/>
-                                        <connections>
-                                            <action selector="touchUpMyPageButton:" destination="Yih-C1-clG" eventType="touchUpInside" id="cpY-sQ-F3W"/>
-                                        </connections>
+                                        <state key="normal" image="profile"/>
                                     </button>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="-3" translatesAutoresizingMaskIntoConstraints="NO" id="uR2-i2-ZN4">
                                         <rect key="frame" x="161.5" y="0.0" width="91" height="44"/>
@@ -53,12 +51,10 @@
                                     </stackView>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Rhr-Tr-n6R">
                                         <rect key="frame" x="359" y="7" width="39" height="30"/>
+                                        <color key="tintColor" red="0.38431372549999998" green="0.41591680050000002" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                         <state key="normal" title="나가기">
                                             <color key="titleColor" red="0.38431372549019605" green="0.41568627450980389" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                         </state>
-                                        <connections>
-                                            <action selector="touchUpExitButton:" destination="Yih-C1-clG" eventType="touchUpInside" id="o33-jZ-xAz"/>
-                                        </connections>
                                     </button>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -74,10 +70,46 @@
                                     <constraint firstAttribute="trailing" secondItem="Rhr-Tr-n6R" secondAttribute="trailing" constant="16" id="zVP-0M-DOQ"/>
                                 </constraints>
                             </view>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="uSe-33-EAI">
+                                <rect key="frame" x="0.0" y="44" width="414" height="0.0"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" id="iVC-M4-lZF"/>
+                                </constraints>
+                                <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="oFO-H8-QN5">
+                                    <size key="itemSize" width="50" height="50"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                                <cells>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="FeedTabCollectionViewCell" id="WB6-Js-NE6" customClass="FeedTabCollectionViewCell" customModule="슥삭" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="0.0" width="90" height="38"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" ambiguous="YES" insetsLayoutMarginsFromSafeArea="NO" id="xQI-uW-D0i">
+                                            <rect key="frame" x="0.0" y="0.0" width="90" height="38"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="BEST" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1mk-oU-wiy">
+                                                    <rect key="frame" x="22.5" y="10" width="45.5" height="23"/>
+                                                    <fontDescription key="fontDescription" name="NotoSansKannada-Bold" family="Noto Sans Kannada" pointSize="17"/>
+                                                    <color key="textColor" red="0.38431372549999998" green="0.41591680050000002" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="1mk-oU-wiy" firstAttribute="top" secondItem="xQI-uW-D0i" secondAttribute="top" constant="10" id="FiS-I1-SkX"/>
+                                                <constraint firstItem="1mk-oU-wiy" firstAttribute="centerX" secondItem="xQI-uW-D0i" secondAttribute="centerX" id="utc-co-GAS"/>
+                                            </constraints>
+                                        </collectionViewCellContentView>
+                                        <size key="customSize" width="90" height="38"/>
+                                    </collectionViewCell>
+                                </cells>
+                            </collectionView>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="Btc-a5-EuC">
                                 <rect key="frame" x="0.0" y="44" width="414" height="730"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="bfV-ep-uHG">
+                                <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="bfV-ep-uHG">
                                     <size key="itemSize" width="414" height="175"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                     <size key="footerReferenceSize" width="0.0" height="0.0"/>
@@ -85,7 +117,6 @@
                                 </collectionViewFlowLayout>
                                 <cells/>
                                 <connections>
-                                    <outlet property="dataSource" destination="Yih-C1-clG" id="PbE-7v-pJ3"/>
                                     <outlet property="delegate" destination="Yih-C1-clG" id="2M4-gI-4G4"/>
                                 </connections>
                             </collectionView>
@@ -93,10 +124,13 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="4dd-73-ach" firstAttribute="leading" secondItem="3iC-89-Vd9" secondAttribute="leading" id="5mT-Ey-ZV9"/>
+                            <constraint firstItem="3iC-89-Vd9" firstAttribute="trailing" secondItem="uSe-33-EAI" secondAttribute="trailing" id="Dbm-mc-Jjg"/>
                             <constraint firstItem="Btc-a5-EuC" firstAttribute="top" secondItem="4dd-73-ach" secondAttribute="bottom" id="FLe-BK-Bre"/>
                             <constraint firstItem="Btc-a5-EuC" firstAttribute="leading" secondItem="3iC-89-Vd9" secondAttribute="leading" id="MwT-co-ybG"/>
                             <constraint firstItem="3iC-89-Vd9" firstAttribute="bottom" secondItem="Btc-a5-EuC" secondAttribute="bottom" id="SXI-yw-vpv"/>
                             <constraint firstItem="3iC-89-Vd9" firstAttribute="trailing" secondItem="Btc-a5-EuC" secondAttribute="trailing" id="Vqg-Ia-EBI"/>
+                            <constraint firstItem="uSe-33-EAI" firstAttribute="leading" secondItem="3iC-89-Vd9" secondAttribute="leading" id="ckW-my-MTb"/>
+                            <constraint firstItem="uSe-33-EAI" firstAttribute="top" secondItem="4dd-73-ach" secondAttribute="bottom" id="haj-4i-K0Y"/>
                             <constraint firstItem="4dd-73-ach" firstAttribute="top" secondItem="3iC-89-Vd9" secondAttribute="top" id="zQi-eE-p9n"/>
                             <constraint firstItem="3iC-89-Vd9" firstAttribute="trailing" secondItem="4dd-73-ach" secondAttribute="trailing" id="zWO-lW-nfd"/>
                         </constraints>
@@ -107,6 +141,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="exitButton" destination="Rhr-Tr-n6R" id="MLD-Rx-vwO"/>
+                        <outlet property="myPageButton" destination="tUb-Nf-Jux" id="HCg-YG-oNx"/>
                         <outlet property="newsCollectionView" destination="Btc-a5-EuC" id="roh-8n-F76"/>
                     </connections>
                 </viewController>
@@ -140,6 +175,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="ic_mypage" width="48" height="48"/>
+        <image name="profile" width="48" height="48"/>
     </resources>
 </document>

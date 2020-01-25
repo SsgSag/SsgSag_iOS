@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import FBSDKCoreKit
 import RxSwift
 import RxCocoa
 import RxDataSources
@@ -28,8 +29,9 @@ private enum Section: Int {
 }
 
 class MyFilterSettingViewController: UIViewController, StoryboardView {
-    
+    //TODO: 전체적으로 폰트 변경 및 사이즈 변경사항 적용해야함
     var disposeBag = DisposeBag()
+    var callback: (() -> ())?
     
     typealias Reactor = MyFilterSettingViewReactor
 
@@ -52,7 +54,7 @@ class MyFilterSettingViewController: UIViewController, StoryboardView {
     
     func setUpUiComponnents() {
         let backButton = UIButton(type: .custom)
-        backButton.setImage(UIImage(named: "ic_ArrowBack"), for: .normal)
+        backButton.setImage(UIImage(named: "back"), for: .normal)
         let leftBarbutton = UIBarButtonItem(customView: backButton)
         backButton.rx.tap
             .subscribe(onNext: { [weak self] _ in
@@ -176,7 +178,9 @@ class MyFilterSettingViewController: UIViewController, StoryboardView {
                     }
                     .observeOn(MainScheduler.instance)
                     .subscribe(onNext: { [weak self] _ in
+                        self?.callback?()
                         self?.navigationController?.popViewController(animated: true)
+                        AppEvents.logEvent(AppEvents.Name(rawValue: "EVENT_NAME_CUSTOMIZED_FILTER") )
                     }, onError: { [weak self] _ in
                         self?.simplerAlert(title: "저장에 실패했습니다.")
                     })

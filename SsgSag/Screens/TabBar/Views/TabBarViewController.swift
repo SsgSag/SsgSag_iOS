@@ -7,7 +7,12 @@
 //
 
 import UIKit
+<<<<<<< HEAD
 //import AdBrixRM
+=======
+import AdBrixRM
+import FBSDKCoreKit
+>>>>>>> 93fd4d497b7ab160a756e12430170ac1439df7e9
 
 class TabBarViewController: UITabBarController {
 
@@ -76,10 +81,12 @@ class TabBarViewController: UITabBarController {
         feedViewController.tabBarItem = UITabBarItem(title: "",
                                                      image: UIImage(named: "ic_feedPassive@tabBar"),
                                                      selectedImage: UIImage(named: "ic_feed@tabBar"))
+        feedViewController.tabBarItem.accessibilityIdentifier = "feed"
         
         newCalendarViewController.tabBarItem = UITabBarItem(title: "",
                                                             image: UIImage(named: "ic_calendarPassive"),
                                                             selectedImage: UIImage(named: "ic_calendarActive"))
+        newCalendarViewController.tabBarItem.accessibilityIdentifier = "calendar"
         
         reviewViewController.tabBarItem = UITabBarItem(title: "",
                                                                    image: UIImage(named: "ic_calendarPassive"),
@@ -107,6 +114,14 @@ extension TabBarViewController: UITabBarControllerDelegate {
             return false
         } else {
             return true
+        }
+    }
+    
+    override func tabBar(_ tabBar: UITabBar, didSelect item: UITabBarItem) {
+        if item.accessibilityIdentifier == "calendar" {
+            AppEvents.logEvent(.viewedContent, valueToSum: 1)
+        } else if item.accessibilityIdentifier == "feed" {
+            AppEvents.logEvent(.viewedContent, valueToSum: 4)
         }
     }
 }

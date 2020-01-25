@@ -10,6 +10,7 @@
 import UIKit
 import NaverThirdPartyLogin
 import SwiftKeychainWrapper
+import FBSDKCoreKit
 
 class SignUpCompleteVC: UIViewController {
     
@@ -231,6 +232,7 @@ class SignUpCompleteVC: UIViewController {
 
                         let tapBarVC = TabBarViewController()
                         tapBarVC.modalPresentationStyle = .fullScreen
+                        
                         self.present(tapBarVC, animated: true, completion: nil)
                     case .failure:
                         self.simpleAlert(title: "로그인 실패", message: "")

@@ -297,18 +297,13 @@ public class VACalendarView: UIScrollView {
                                                               month: String(componentMonth), [0,1,2,4,7,8], favorite: 0) { [weak self] result in
                         switch result {
                         case .success(let monthTodoData):
-                            self?.monthTodoData = monthTodoData
-
-                            let before = monthTodoData.count
                             let setOfData = Set(monthTodoData)
-                            let after = setOfData.count
-                            if before != after {
-                                assertionFailure()
-                            }
-                            
+                            let noneDuplicatedData = Array(setOfData)
+                            self?.monthTodoData = noneDuplicatedData
+                        
                             DispatchQueue.main.async {
                                 month.setupWeeksView(with: (self?.viewType)!,
-                                                     monthTodoData: monthTodoData)
+                                                     monthTodoData: noneDuplicatedData)
                             }
                         case .failed(let error):
                             print(error)

@@ -44,8 +44,8 @@ class MyFilterSliderCollectionViewCellReactor: Reactor, MyFilterCollectionViewCe
                                   maxValue: maxValue)
         let calculatedItemSize = MyFilterSizeLayout.calculateItemSize(by: .userGrade)
         let itemWidth = calculatedItemSize.width / CGFloat(maxValue - 1)
-        self.itemsSize = .init(width: 16, height: 19)
-        self.spacing = itemWidth - 16 - 8
+        self.itemsSize = .init(width: 22, height: 19)
+        self.spacing = itemWidth - 16 - 15
             
         
         self.gradeCellReactors = (1...maxValue).map {

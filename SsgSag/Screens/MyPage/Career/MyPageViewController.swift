@@ -64,18 +64,7 @@ class MyPageViewController: UIViewController, UIImagePickerControllerDelegate, U
     }
     
     @IBAction func touchUpSettingButton(_ sender: UIButton) {
-        let accountSettingVC = AccountSettingViewController()
-        accountSettingVC.userData = userInfo
-        accountSettingVC.nickName = userInfo?.userNickname
-        accountSettingVC.univ = userInfo?.userUniv
-        accountSettingVC.major = userInfo?.userMajor
-        accountSettingVC.studentNumber = userInfo?.userStudentNum
-        accountSettingVC.selectedImage = profileImageView.image
-        accountSettingVC.delegate = self
-        
-        let accountSettingNavigator = UINavigationController(rootViewController: accountSettingVC)
-        accountSettingNavigator.modalPresentationStyle = .fullScreen
-        present(accountSettingNavigator, animated: true)
+       
     }
     
     private func getData() {
@@ -170,7 +159,7 @@ extension MyPageViewController: UITableViewDelegate {
 
 extension MyPageViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 4
+        return 5
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -207,6 +196,19 @@ extension MyPageViewController: UITableViewDataSource {
             let inquireVC = storyboard.instantiateViewController(withIdentifier: "inquireVC")
             
             navigationController?.pushViewController(inquireVC, animated: true)
+        case 4:
+            let accountSettingVC = AccountSettingViewController()
+            accountSettingVC.userData = userInfo
+            accountSettingVC.nickName = userInfo?.userNickname
+            accountSettingVC.univ = userInfo?.userUniv
+            accountSettingVC.major = userInfo?.userMajor
+            accountSettingVC.studentNumber = userInfo?.userStudentNum
+            accountSettingVC.selectedImage = profileImageView.image
+            accountSettingVC.delegate = self
+                   
+            let accountSettingNavigator = UINavigationController(rootViewController: accountSettingVC)
+            accountSettingNavigator.modalPresentationStyle = .fullScreen
+            present(accountSettingNavigator, animated: true)
         default:
             return
         }

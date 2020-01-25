@@ -53,10 +53,23 @@ struct MyFilterSetting: Decodable {
         guard let interests = interests else { return .init() }
         let jobKind = interests
             .filter { categorizedDictionary["jobKind"]!.contains($0) }
-            .compactMap { mapDictionary.getKey(forValue: $0) }
+            .compactMap { (value) -> String in
+                if value == 299 {
+                    return "기타"
+                } else {
+                    return mapDictionary.getKey(forValue: value) ?? ""
+                }
+            }
         
-        let interestedField = interests.filter { categorizedDictionary["interestedField"]!.contains($0) }
-            .compactMap { mapDictionary.getKey(forValue: $0) }
+        let interestedField = interests
+            .filter { categorizedDictionary["interestedField"]!.contains($0) }
+            .compactMap { (value) -> String in
+                if value == 299 {
+                    return "기타"
+                } else {
+                    return mapDictionary.getKey(forValue: value) ?? ""
+                }
+            }
         
         
         let grade = interests.filter { categorizedDictionary["grade"]!.contains($0) }
@@ -68,7 +81,7 @@ struct MyFilterSetting: Decodable {
         return myFilterSetting
     }
     
-    let categorizedDictionary = ["jobKind": [301,302,303,304,305],
+    let categorizedDictionary = ["jobKind": [301,302,303,304,305,299],
                                  "interestedField": [201,202,205,206,207,208,215,251,252,299],
                                  "grade": [501,502,503,504,505]
     ]
@@ -78,7 +91,6 @@ struct MyFilterSetting: Decodable {
                          "디자이너": 302,
                          "마케터": 303,
                          "기획자": 304,
-                         "모르겠어요": 305,
                          "기획/아이디어": 201,
                          "광고/마케팅": 202,
                          "디자인": 205,
@@ -88,7 +100,7 @@ struct MyFilterSetting: Decodable {
                          "금융/경제": 215,
                          "서포터즈": 251,
                          "봉사활동": 252,
-                         "기타": 299,
+                         "기타": 305,
                          "1": 501,
                          "2": 502,
                          "3": 503,

@@ -109,8 +109,9 @@ class SplashVC: UIViewController {
                     switch status {
                     case .sucess:
                         DispatchQueue.main.async {
+                            UserDefaults.standard.set(false, forKey: "isTryWithoutLogin")
                             let tabBarVC = TabBarViewController()
-
+                            
                             tabBarVC.modalPresentationStyle = .fullScreen
                             self?.present(tabBarVC,
                                           animated: true)

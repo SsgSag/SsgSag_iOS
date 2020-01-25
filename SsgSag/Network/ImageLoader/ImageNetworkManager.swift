@@ -11,6 +11,8 @@ import RxCocoa
 
 class ImageLoader {
     
+    static let shared = ImageLoader()
+    
     var disposeBag = DisposeBag()
     private let network: RxNetwork = RxNetworkImp(session: URLSession.shared)
     private let imageCache = NSCache<NSString, UIImage>()
