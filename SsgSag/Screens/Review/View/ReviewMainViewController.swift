@@ -32,9 +32,11 @@ class ReviewMainViewController: UIViewController {
         
     }
     
+    
     func bindData() {
         let sub = reviewPageInstance.subViewControllers
         
+        // 클릭한 인덱스에 따라서 페이지이동
         focusIndex.subscribe(onNext: { index in
             guard self.curIndex != index else { return }
             
@@ -46,6 +48,7 @@ class ReviewMainViewController: UIViewController {
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        // ContainerView Instance설정
         if segue.identifier == "ReviewPageSegue" {
             self.reviewPageInstance = segue.destination as? ReviewPageViewController
             reviewPageInstance.pageDelegate = self

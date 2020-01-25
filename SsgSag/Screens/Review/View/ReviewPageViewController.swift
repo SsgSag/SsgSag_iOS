@@ -19,6 +19,7 @@ class ReviewPageViewController: UIPageViewController, UIPageViewControllerDataSo
         ]
     }()
     
+    // 이전페이지
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
         
         let curindex: Int = subViewControllers.firstIndex(of: viewController) ?? 0
@@ -28,6 +29,7 @@ class ReviewPageViewController: UIPageViewController, UIPageViewControllerDataSo
         return subViewControllers[curindex-1]
     }
     
+    // 다음페이지
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerAfter viewController: UIViewController) -> UIViewController? {
         let curindex: Int = subViewControllers.firstIndex(of: viewController) ?? 0
         if curindex >= subViewControllers.count - 1 {
@@ -63,6 +65,7 @@ class ReviewPageViewController: UIPageViewController, UIPageViewControllerDataSo
         self.setViewControllers([subViewControllers[0]], direction: .forward, animated: true, completion: nil)
     }
     
+    // 스크롤식의 페이징설정
     required init?(coder: NSCoder) {
         super.init(transitionStyle: .scroll, navigationOrientation: .horizontal)
     }

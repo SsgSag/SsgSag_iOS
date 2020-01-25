@@ -48,7 +48,7 @@ extension ReviewMainViewController: UICollectionViewDelegate {
     }
     
 }
-
+//페이징시 이벤트
 extension ReviewMainViewController: ReviewPageDelegate {
     func setPageTabStatus(index: Int) {
         
