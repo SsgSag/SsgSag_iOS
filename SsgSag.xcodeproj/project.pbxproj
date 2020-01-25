@@ -17,6 +17,7 @@
 		0610DF2123D9943200DC2273 /* ReviewPageDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0610DF2023D9943200DC2273 /* ReviewPageDelegate.swift */; };
 		0629921F23D935590053B9F2 /* LoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0629921E23D935590053B9F2 /* LoginVC.swift */; };
 		0655964723DCA36000C779A5 /* ClubReviewTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0655964623DCA36000C779A5 /* ClubReviewTableViewCell.swift */; };
+		0655964923DCA88100C779A5 /* ClubReviewVC+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0655964823DCA88100C779A5 /* ClubReviewVC+Extension.swift */; };
 		2E158304683BAFB18A8CD876 /* Pods_SsgSag.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 031F14AE11BD590702A32B8D /* Pods_SsgSag.framework */; };
 		840AFF8822A2622C00EA12E6 /* UIDevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 840AFF8722A2622C00EA12E6 /* UIDevice.swift */; };
 		840DDD40227EAC4000D9D515 /* TapbarServiceImp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 840DDD3F227EAC4000D9D515 /* TapbarServiceImp.swift */; };
@@ -347,6 +348,7 @@
 		0610DF2023D9943200DC2273 /* ReviewPageDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewPageDelegate.swift; sourceTree = "<group>"; };
 		0629921E23D935590053B9F2 /* LoginVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginVC.swift; sourceTree = "<group>"; };
 		0655964623DCA36000C779A5 /* ClubReviewTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClubReviewTableViewCell.swift; sourceTree = "<group>"; };
+		0655964823DCA88100C779A5 /* ClubReviewVC+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ClubReviewVC+Extension.swift"; sourceTree = "<group>"; };
 		41F0B899B4CCAC855CFD54F6 /* Pods-SsgSag.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SsgSag.debug.xcconfig"; path = "Target Support Files/Pods-SsgSag/Pods-SsgSag.debug.xcconfig"; sourceTree = "<group>"; };
 		840AFF8722A2622C00EA12E6 /* UIDevice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIDevice.swift; sourceTree = "<group>"; };
 		840DDD3F227EAC4000D9D515 /* TapbarServiceImp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TapbarServiceImp.swift; sourceTree = "<group>"; };
@@ -726,6 +728,7 @@
 			isa = PBXGroup;
 			children = (
 				0610DF1123D9436800DC2273 /* ReviewMainVC+Extension.swift */,
+				0655964823DCA88100C779A5 /* ClubReviewVC+Extension.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -2072,6 +2075,7 @@
 				C9A828562395528D0029A493 /* MyFilterFooterCollectionReusableView.swift in Sources */,
 				D1C9151122FD3B6F00189FD2 /* DetailImageViewController.swift in Sources */,
 				D103D8A822FA9BD20092FE93 /* ArticleViewController.swift in Sources */,
+				0655964923DCA88100C779A5 /* ClubReviewVC+Extension.swift in Sources */,
 				8459289D21D09CDD001DF6CC /* SwipeVC.swift in Sources */,
 				C9A828382395528D0029A493 /* AddVC.swift in Sources */,
 				C9A828652395528D0029A493 /* LogoutViewController.swift in Sources */,

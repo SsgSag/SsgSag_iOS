@@ -196,7 +196,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="132" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="g07-8o-nH1">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="132" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="g07-8o-nH1">
                                 <rect key="frame" x="0.0" y="44" width="375" height="734"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <prototypes>
@@ -312,10 +312,18 @@
                                                         <action selector="moreReviewClick:" destination="qZW-d9-03R" eventType="touchUpInside" id="dMm-06-Mrg"/>
                                                     </connections>
                                                 </button>
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="evR-Aj-5ll">
+                                                    <rect key="frame" x="0.0" y="131" width="375" height="1"/>
+                                                    <color key="backgroundColor" red="0.93333333333333335" green="0.93333333333333335" blue="0.93333333333333335" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="1" id="dKg-wN-SSl"/>
+                                                    </constraints>
+                                                </view>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="fBb-DY-ZUy" firstAttribute="leading" secondItem="qbZ-ht-w7F" secondAttribute="leading" id="2aB-Iy-seR"/>
                                                 <constraint firstItem="Tbs-7S-i0Y" firstAttribute="centerY" secondItem="9P0-Jj-DLw" secondAttribute="centerY" id="2p3-gs-kUl"/>
+                                                <constraint firstAttribute="trailing" secondItem="evR-Aj-5ll" secondAttribute="trailing" id="449-To-16h"/>
                                                 <constraint firstItem="fBb-DY-ZUy" firstAttribute="trailing" secondItem="cxg-f5-1ae" secondAttribute="trailing" id="6rc-fT-xJG"/>
                                                 <constraint firstItem="cxg-f5-1ae" firstAttribute="centerY" secondItem="9P0-Jj-DLw" secondAttribute="centerY" id="Fnv-GS-Ha6"/>
                                                 <constraint firstAttribute="trailing" secondItem="cxg-f5-1ae" secondAttribute="trailing" constant="24" id="HOe-ok-4sP"/>
@@ -327,6 +335,7 @@
                                                 <constraint firstItem="QxS-vX-lIb" firstAttribute="trailing" secondItem="JVb-ug-dm8" secondAttribute="trailing" id="WCl-jM-uld"/>
                                                 <constraint firstItem="QxS-vX-lIb" firstAttribute="top" secondItem="JVb-ug-dm8" secondAttribute="bottom" constant="2" id="XDP-Va-dIX"/>
                                                 <constraint firstItem="cxg-f5-1ae" firstAttribute="leading" secondItem="qbZ-ht-w7F" secondAttribute="trailing" constant="4" id="ZJY-Jf-rAx"/>
+                                                <constraint firstAttribute="bottom" secondItem="evR-Aj-5ll" secondAttribute="bottom" id="caY-oU-WeR"/>
                                                 <constraint firstItem="JVb-ug-dm8" firstAttribute="top" secondItem="raG-j5-amC" secondAttribute="bottom" constant="5" id="eZT-kZ-UpW"/>
                                                 <constraint firstItem="raG-j5-amC" firstAttribute="centerY" secondItem="EZq-F8-Mit" secondAttribute="centerY" id="hBH-iD-8cC"/>
                                                 <constraint firstItem="9P0-Jj-DLw" firstAttribute="top" secondItem="QxS-vX-lIb" secondAttribute="bottom" constant="16" id="knc-T9-lZA"/>
@@ -337,6 +346,7 @@
                                                 <constraint firstItem="EZq-F8-Mit" firstAttribute="leading" secondItem="yJr-gM-xW3" secondAttribute="leading" constant="24" id="uuj-o4-M36"/>
                                                 <constraint firstItem="raG-j5-amC" firstAttribute="width" secondItem="EZq-F8-Mit" secondAttribute="width" constant="8" id="vFR-xW-4bW"/>
                                                 <constraint firstItem="fBb-DY-ZUy" firstAttribute="centerY" secondItem="cxg-f5-1ae" secondAttribute="centerY" id="vv4-hD-8V0"/>
+                                                <constraint firstItem="evR-Aj-5ll" firstAttribute="leading" secondItem="yJr-gM-xW3" secondAttribute="leading" id="wr6-Xy-dCk"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
@@ -364,6 +374,9 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="SM3-QU-OYD"/>
                     </view>
+                    <connections>
+                        <outlet property="reviewTableView" destination="g07-8o-nH1" id="KMJ-VP-p5l"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mvj-Ei-fNW" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>

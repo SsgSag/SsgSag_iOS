@@ -9,13 +9,11 @@
 import UIKit
 
 class ClubReviewViewController: UIViewController {
+    @IBOutlet weak var reviewTableView: UITableView!
     let pageIndex = 0
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
+        self.reviewTableView.dataSource = self
     }
-    
-
-
 }
