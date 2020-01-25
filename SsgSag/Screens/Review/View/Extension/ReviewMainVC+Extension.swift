@@ -35,16 +35,23 @@ extension ReviewMainViewController: UICollectionViewDataSource, UICollectionView
 
 extension ReviewMainViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let cell = collectionView.cellForItem(at: indexPath) as! ReviewPageCollectionViewCell
-        self.tabTitle[indexPath.item].onFocus = true
-        cell.onFocus = true
-        self.focusIndex.onNext(indexPath.item)
+        
+//        클릭시 해당 인덱스의 페이지로 이동 아직 페이지 미구현이므로 주석처리하였습니다.
+//        let cell = collectionView.cellForItem(at: indexPath) as! ReviewPageCollectionViewCell
+//        self.tabTitle[indexPath.item].onFocus = true
+//        cell.onFocus = true
+//        self.focusIndex.onNext(indexPath.item)
+        guard indexPath.item != 0 else { return }
+        self.simplerAlert(title: "아직 준비중이에요!!")
+        
     }
     
     func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
-        let cell = collectionView.cellForItem(at: indexPath) as! ReviewPageCollectionViewCell
-        self.tabTitle[indexPath.item].onFocus = false
-        cell.onFocus = false
+
+//        클릭시 해당 인덱스의 페이지로 이동 아직 페이지 미구현이므로 주석처리하였습니다.
+//        let cell = collectionView.cellForItem(at: indexPath) as! ReviewPageCollectionViewCell
+//        self.tabTitle[indexPath.item].onFocus = false
+//        cell.onFocus = false
     }
     
 }

@@ -14,8 +14,8 @@ class ReviewPageViewController: UIPageViewController, UIPageViewControllerDataSo
     lazy var subViewControllers: [UIViewController] = {
         return [
             UIStoryboard(name: "Review", bundle: nil).instantiateViewController(withIdentifier: "clubReviewVC") as! ClubReviewViewController,
-            UIStoryboard(name: "Review", bundle: nil).instantiateViewController(withIdentifier: "testVC") as! TestViewController,
-            UIStoryboard(name: "Review", bundle: nil).instantiateViewController(withIdentifier: "clubReviewVC") as! ClubReviewViewController,
+//            UIStoryboard(name: "2", bundle: nil).instantiateViewController(withIdentifier: "두번째페이지") as! TestViewController,
+//            UIStoryboard(name: "3", bundle: nil).instantiateViewController(withIdentifier: "세번째페이지") as! ClubReviewViewController,
         ]
     }()
     
@@ -48,9 +48,7 @@ class ReviewPageViewController: UIPageViewController, UIPageViewControllerDataSo
             var index: Int!
             if let curVC = pageViewController.viewControllers?.first as? ClubReviewViewController {
                 index = curVC.pageIndex
-            } else if let curVC = pageViewController.viewControllers?.first as? TestViewController {
-                index = curVC.pageIndex
-            }
+            } 
             pageDelegate?.setPageTabStatus(index: index)
         }
         

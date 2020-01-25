@@ -15,8 +15,8 @@
 		0610DF1923D96D1D00DC2273 /* ReviewPageCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0610DF1823D96D1D00DC2273 /* ReviewPageCollectionViewCell.swift */; };
 		0610DF1E23D9919E00DC2273 /* ReviewTabCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0610DF1D23D9919E00DC2273 /* ReviewTabCellModel.swift */; };
 		0610DF2123D9943200DC2273 /* ReviewPageDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0610DF2023D9943200DC2273 /* ReviewPageDelegate.swift */; };
-		0610DF2323D99FB300DC2273 /* TestViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0610DF2223D99FB300DC2273 /* TestViewController.swift */; };
 		0629921F23D935590053B9F2 /* LoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0629921E23D935590053B9F2 /* LoginVC.swift */; };
+		0655964723DCA36000C779A5 /* ClubReviewTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0655964623DCA36000C779A5 /* ClubReviewTableViewCell.swift */; };
 		2E158304683BAFB18A8CD876 /* Pods_SsgSag.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 031F14AE11BD590702A32B8D /* Pods_SsgSag.framework */; };
 		840AFF8822A2622C00EA12E6 /* UIDevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 840AFF8722A2622C00EA12E6 /* UIDevice.swift */; };
 		840DDD40227EAC4000D9D515 /* TapbarServiceImp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 840DDD3F227EAC4000D9D515 /* TapbarServiceImp.swift */; };
@@ -345,8 +345,8 @@
 		0610DF1823D96D1D00DC2273 /* ReviewPageCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewPageCollectionViewCell.swift; sourceTree = "<group>"; };
 		0610DF1D23D9919E00DC2273 /* ReviewTabCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewTabCellModel.swift; sourceTree = "<group>"; };
 		0610DF2023D9943200DC2273 /* ReviewPageDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewPageDelegate.swift; sourceTree = "<group>"; };
-		0610DF2223D99FB300DC2273 /* TestViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestViewController.swift; sourceTree = "<group>"; };
 		0629921E23D935590053B9F2 /* LoginVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginVC.swift; sourceTree = "<group>"; };
+		0655964623DCA36000C779A5 /* ClubReviewTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClubReviewTableViewCell.swift; sourceTree = "<group>"; };
 		41F0B899B4CCAC855CFD54F6 /* Pods-SsgSag.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SsgSag.debug.xcconfig"; path = "Target Support Files/Pods-SsgSag/Pods-SsgSag.debug.xcconfig"; sourceTree = "<group>"; };
 		840AFF8722A2622C00EA12E6 /* UIDevice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIDevice.swift; sourceTree = "<group>"; };
 		840DDD3F227EAC4000D9D515 /* TapbarServiceImp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TapbarServiceImp.swift; sourceTree = "<group>"; };
@@ -710,7 +710,6 @@
 				0610DF0B23D92E6400DC2273 /* ReviewMainViewController.swift */,
 				0610DF1523D96A9C00DC2273 /* ReviewPageViewController.swift */,
 				0610DF1323D9484300DC2273 /* ClubReviewViewController.swift */,
-				0610DF2223D99FB300DC2273 /* TestViewController.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -735,6 +734,7 @@
 			isa = PBXGroup;
 			children = (
 				0610DF1823D96D1D00DC2273 /* ReviewPageCollectionViewCell.swift */,
+				0655964623DCA36000C779A5 /* ClubReviewTableViewCell.swift */,
 			);
 			path = Cell;
 			sourceTree = "<group>";
@@ -2115,7 +2115,6 @@
 				D109DC5823ABC3FB00E5BAF7 /* SortType.swift in Sources */,
 				D16F309F23697A8F00C127CA /* WeekDays.swift in Sources */,
 				C9558B92239BE71B00E63F93 /* TotalInformationReactor.swift in Sources */,
-				0610DF2323D99FB300DC2273 /* TestViewController.swift in Sources */,
 				C9A828412395528D0029A493 /* CareerVC + TableView.swift in Sources */,
 				D188C90D2368347E00AB88F0 /* SeeMoreCollectionReusableView.swift in Sources */,
 				84C77E4F22759AAF00DEE2D8 /* ZoomPosterVC.swift in Sources */,
@@ -2204,6 +2203,7 @@
 				8496818422AFD3FE004A4A63 /* VAMonth.swift in Sources */,
 				842C619E21DD1807001BA6D8 /* networkData.swift in Sources */,
 				C9A828822395528E0029A493 /* ServiceInfoTableViewCell.swift in Sources */,
+				0655964723DCA36000C779A5 /* ClubReviewTableViewCell.swift in Sources */,
 				C9A828532395528D0029A493 /* MyFilterCollectionReusableView.swift in Sources */,
 				D1F0DA22230D062F00C6FF19 /* Column.swift in Sources */,
 				C9A828482395528D0029A493 /* ServiceInfoViewController.swift in Sources */,
@@ -2351,6 +2351,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = "";
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
@@ -2412,6 +2413,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = "";
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
