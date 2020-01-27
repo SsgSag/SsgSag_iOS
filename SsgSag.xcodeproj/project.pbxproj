@@ -696,16 +696,17 @@
 		0610DF0923D92D2800DC2273 /* Review */ = {
 			isa = PBXGroup;
 			children = (
-				0610DF0A23D92D5800DC2273 /* View */,
+				0655964C23DF21A000C779A5 /* Services */,
+				0655964B23DF219A00C779A5 /* ViewModels */,
+				0655964A23DF219300C779A5 /* Models */,
+				0610DF0A23D92D5800DC2273 /* Views */,
 			);
 			path = Review;
 			sourceTree = "<group>";
 		};
-		0610DF0A23D92D5800DC2273 /* View */ = {
+		0610DF0A23D92D5800DC2273 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				0610DF1F23D9941300DC2273 /* Protocol */,
-				0610DF1A23D98AA200DC2273 /* Model */,
 				0610DF1723D96C0900DC2273 /* Cell */,
 				0610DF1023D9434000DC2273 /* Extension */,
 				0610DF0D23D92EB900DC2273 /* StoryBoard */,
@@ -713,7 +714,7 @@
 				0610DF1523D96A9C00DC2273 /* ReviewPageViewController.swift */,
 				0610DF1323D9484300DC2273 /* ClubReviewViewController.swift */,
 			);
-			path = View;
+			path = Views;
 			sourceTree = "<group>";
 		};
 		0610DF0D23D92EB900DC2273 /* StoryBoard */ = {
@@ -742,20 +743,35 @@
 			path = Cell;
 			sourceTree = "<group>";
 		};
-		0610DF1A23D98AA200DC2273 /* Model */ = {
-			isa = PBXGroup;
-			children = (
-				0610DF1D23D9919E00DC2273 /* ReviewTabCellModel.swift */,
-			);
-			path = Model;
-			sourceTree = "<group>";
-		};
 		0610DF1F23D9941300DC2273 /* Protocol */ = {
 			isa = PBXGroup;
 			children = (
 				0610DF2023D9943200DC2273 /* ReviewPageDelegate.swift */,
 			);
 			path = Protocol;
+			sourceTree = "<group>";
+		};
+		0655964A23DF219300C779A5 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				0610DF1D23D9919E00DC2273 /* ReviewTabCellModel.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		0655964B23DF219A00C779A5 /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		0655964C23DF21A000C779A5 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				0610DF1F23D9941300DC2273 /* Protocol */,
+			);
+			path = Services;
 			sourceTree = "<group>";
 		};
 		2E04BB9F31A495430F45317D /* Frameworks */ = {
