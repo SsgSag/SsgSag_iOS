@@ -699,6 +699,7 @@
 				0655964C23DF21A000C779A5 /* Services */,
 				0655964B23DF219A00C779A5 /* ViewModels */,
 				0655964A23DF219300C779A5 /* Models */,
+				0610DF1023D9434000DC2273 /* Extension */,
 				0610DF0A23D92D5800DC2273 /* Views */,
 			);
 			path = Review;
@@ -708,7 +709,6 @@
 			isa = PBXGroup;
 			children = (
 				0610DF1723D96C0900DC2273 /* Cell */,
-				0610DF1023D9434000DC2273 /* Extension */,
 				0610DF0D23D92EB900DC2273 /* StoryBoard */,
 				0610DF0B23D92E6400DC2273 /* ReviewMainViewController.swift */,
 				0610DF1523D96A9C00DC2273 /* ReviewPageViewController.swift */,
