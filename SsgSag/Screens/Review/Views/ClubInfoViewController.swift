@@ -10,10 +10,15 @@ import UIKit
 
 class ClubInfoViewController: UIViewController {
 
+    @IBOutlet weak var photoCollectionView: UICollectionView!
+    var infoPhotoURLSet: [String] = ["1","2","3","4"]
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
+        self.photoCollectionView.dataSource = self
+        self.photoCollectionView.delegate = self
+
     }
+    
     
 }

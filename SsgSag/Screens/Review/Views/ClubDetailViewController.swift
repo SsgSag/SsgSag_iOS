@@ -44,6 +44,7 @@ class ClubDetailViewController: UIViewController {
     func setupCategoryList() {
         self.clubCategoryList = "연합,IT/공학,디자인,기획/전략"
         self.clubCategorySet = clubCategoryList.removeComma()
+        self.categoryCollectionView.reloadData()
     }
     
     func bind() {

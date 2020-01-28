@@ -30,6 +30,8 @@
 		0655966723E0130600C779A5 /* ClubPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0655966623E0130600C779A5 /* ClubPageViewController.swift */; };
 		0655966A23E0138900C779A5 /* ClubInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0655966923E0138900C779A5 /* ClubInfoViewController.swift */; };
 		0655966C23E013CA00C779A5 /* ClubReviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0655966B23E013CA00C779A5 /* ClubReviewViewController.swift */; };
+		0655967023E029CE00C779A5 /* ClubInfoVC+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0655966F23E029CE00C779A5 /* ClubInfoVC+Extension.swift */; };
+		0655967223E02B1A00C779A5 /* ClubPhotoCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0655967123E02B1A00C779A5 /* ClubPhotoCollectionViewCell.swift */; };
 		2E158304683BAFB18A8CD876 /* Pods_SsgSag.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 031F14AE11BD590702A32B8D /* Pods_SsgSag.framework */; };
 		840AFF8822A2622C00EA12E6 /* UIDevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 840AFF8722A2622C00EA12E6 /* UIDevice.swift */; };
 		840DDD40227EAC4000D9D515 /* TapbarServiceImp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 840DDD3F227EAC4000D9D515 /* TapbarServiceImp.swift */; };
@@ -373,6 +375,8 @@
 		0655966623E0130600C779A5 /* ClubPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClubPageViewController.swift; sourceTree = "<group>"; };
 		0655966923E0138900C779A5 /* ClubInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClubInfoViewController.swift; sourceTree = "<group>"; };
 		0655966B23E013CA00C779A5 /* ClubReviewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClubReviewViewController.swift; sourceTree = "<group>"; };
+		0655966F23E029CE00C779A5 /* ClubInfoVC+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ClubInfoVC+Extension.swift"; sourceTree = "<group>"; };
+		0655967123E02B1A00C779A5 /* ClubPhotoCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClubPhotoCollectionViewCell.swift; sourceTree = "<group>"; };
 		41F0B899B4CCAC855CFD54F6 /* Pods-SsgSag.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SsgSag.debug.xcconfig"; path = "Target Support Files/Pods-SsgSag/Pods-SsgSag.debug.xcconfig"; sourceTree = "<group>"; };
 		840AFF8722A2622C00EA12E6 /* UIDevice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIDevice.swift; sourceTree = "<group>"; };
 		840DDD3F227EAC4000D9D515 /* TapbarServiceImp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TapbarServiceImp.swift; sourceTree = "<group>"; };
@@ -761,6 +765,7 @@
 				0655964823DCA88100C779A5 /* ClubReviewVC+Extension.swift */,
 				0655965A23DFE00A00C779A5 /* ClubDetailVC+Extension.swift */,
 				0655965E23DFFE0400C779A5 /* String+Extension.swift */,
+				0655966F23E029CE00C779A5 /* ClubInfoVC+Extension.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -771,6 +776,7 @@
 				0610DF1823D96D1D00DC2273 /* ReviewPageCollectionViewCell.swift */,
 				0655964623DCA36000C779A5 /* ClubListTableViewCell.swift */,
 				0655965C23DFFDBF00C779A5 /* ClubCategoryCollectionViewCell.swift */,
+				0655967123E02B1A00C779A5 /* ClubPhotoCollectionViewCell.swift */,
 			);
 			path = Cell;
 			sourceTree = "<group>";
@@ -2113,6 +2119,7 @@
 				D11F9E9E22E0C622000210B0 /* PieChartView.swift in Sources */,
 				D16F30A423697FEB00C127CA /* LoginStruct.swift in Sources */,
 				D1FEA34E2334A1A600464DC4 /* AllPostersListViewController.swift in Sources */,
+				0655967023E029CE00C779A5 /* ClubInfoVC+Extension.swift in Sources */,
 				C9A828472395528D0029A493 /* PrivateProtectViewController.swift in Sources */,
 				C905D02B23B8DDCD00E9B2B2 /* FeedServiceTypeImp.swift in Sources */,
 				0655966A23E0138900C779A5 /* ClubInfoViewController.swift in Sources */,
@@ -2259,6 +2266,7 @@
 				FA3A8FD921DF3D5F0075A510 /* Extension.swift in Sources */,
 				84C30E2B22780D50008F1165 /* DetailNewTextSwipeCard.swift in Sources */,
 				D16F309823696DDB00C127CA /* BasicResponse.swift in Sources */,
+				0655967223E02B1A00C779A5 /* ClubPhotoCollectionViewCell.swift in Sources */,
 				0610DF1623D96A9C00DC2273 /* ReviewPageViewController.swift in Sources */,
 				C9A82889239555470029A493 /* ProjectColor.swift in Sources */,
 				C9A828862395541B0029A493 /* URLSessionProtocol.swift in Sources */,
