@@ -29,7 +29,10 @@ class ReviewMainViewController: UIViewController {
         self.tabCollectionView.delegate = self
         self.tabCollectionView.selectItem(at: IndexPath(item: 0, section: 0), animated: true, scrollPosition: .left)
         bindData()
-        
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        self.tabBarController?.tabBar.isHidden = false
     }
     
     

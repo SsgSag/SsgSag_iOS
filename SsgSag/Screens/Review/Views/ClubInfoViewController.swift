@@ -1,5 +1,5 @@
 //
-//  ClubReviewViewController.swift
+//  ClubInfoViewController.swift
 //  SsgSag
 //
 //  Created by 남수김 on 2020/01/28.
@@ -8,12 +8,12 @@
 
 import UIKit
 
-class ClubReviewViewController: UIViewController {
+class ClubInfoViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
     }
-
+    
 }

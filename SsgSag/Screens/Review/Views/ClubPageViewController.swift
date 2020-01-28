@@ -1,21 +1,20 @@
 //
-//  ReviewPageViewController.swift
+//  ClubPageViewController.swift
 //  SsgSag
 //
-//  Created by 남수김 on 2020/01/23.
+//  Created by 남수김 on 2020/01/28.
 //  Copyright © 2020 wndzlf. All rights reserved.
 //
 
 import UIKit
 
-class ReviewPageViewController: UIPageViewController, UIPageViewControllerDataSource, UIPageViewControllerDelegate {
-    var pageDelegate: ReviewPageDelegate?
+class ClubPageViewController: UIPageViewController, UIPageViewControllerDataSource, UIPageViewControllerDelegate {
+    var tabViewModel: ClubDetailViewModel?
     
     lazy var subViewControllers: [UIViewController] = {
         return [
-            UIStoryboard(name: "Review", bundle: nil).instantiateViewController(withIdentifier: "ClubListVC") as! ClubListViewController,
-//            UIStoryboard(name: "2", bundle: nil).instantiateViewController(withIdentifier: "두번째페이지") as! TestViewController,
-//            UIStoryboard(name: "3", bundle: nil).instantiateViewController(withIdentifier: "세번째페이지") as! ClubReviewViewController,
+            UIStoryboard(name: "Review", bundle: nil).instantiateViewController(withIdentifier: "ClubInfoVC") as! ClubInfoViewController ,
+            UIStoryboard(name: "Review", bundle: nil).instantiateViewController(withIdentifier: "ClubReviewVC") as! ClubReviewViewController
         ]
     }()
     
@@ -46,10 +45,13 @@ class ReviewPageViewController: UIPageViewController, UIPageViewControllerDataSo
         // 페이지이동시 tab이동
         if completed {
             var index: Int!
-            if let curVC = pageViewController.viewControllers?.first as? ClubListViewController {
-                index = curVC.pageIndex
-            } 
-            pageDelegate?.setPageTabStatus(index: index)
+            if (pageViewController.viewControllers?.first as? ClubInfoViewController) != nil {
+                index = 0
+            } else if (pageViewController.viewControllers?.first as? ClubReviewViewController) != nil {
+                index = 1
+            }
+            
+            tabViewModel?.tabPageObservable.onNext(index)
         }
         
     }

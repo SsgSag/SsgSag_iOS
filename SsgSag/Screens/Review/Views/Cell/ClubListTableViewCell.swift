@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ClubReviewTableViewCell: UITableViewCell {
+class ClubListTableViewCell: UITableViewCell {
 
     @IBOutlet weak var star5: UIImageView!
     @IBOutlet weak var star4: UIImageView!
@@ -20,11 +20,13 @@ class ClubReviewTableViewCell: UITableViewCell {
     @IBOutlet weak var descriptionLabel: UILabel!
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var categoryLabel: UILabel!
+    @IBOutlet weak var clubDetailButton: UIButton!
     
     let fullStar = UIImage(named: "star2")
     let halfStar = UIImage(named: "star1")
     let blackStar = UIImage(named: "star0")
     var score: Float = -1
+    var delegate: ClubListSelectDelgate!
     var viewModel: ClubListData! {
         willSet {
             self.reviewCountLabel.text = newValue.categoryList
@@ -33,6 +35,8 @@ class ClubReviewTableViewCell: UITableViewCell {
             self.scoreLabel.text = "평점 \(newValue.aveScore)"
             self.score = newValue.aveScore
             self.reviewCountLabel.text = "후기 20개"
+            self.categoryLabel.text = newValue.categoryList
+            self.categoryLabel.sizeToFit()
             
             ratePaint()
         }
@@ -63,6 +67,6 @@ class ClubReviewTableViewCell: UITableViewCell {
     }
 
     @IBAction func moreReviewClick(_ sender: Any) {
-        //next view
+        delegate.clubDetailClick(clubIdx: viewModel.clubIdx)
     }
 }
