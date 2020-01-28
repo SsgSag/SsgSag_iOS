@@ -35,6 +35,7 @@ enum RequestURL {
     case commentReport(index: Int)
     case allPoster(category: Int, sortType: Int, interestField: Int?, curPage: Int)
     case clickRecord(posterIdx: Int, type: Int)
+    case clubList(curPage: Int)
     
     var getRequestURL: String {
         switch self {
@@ -120,6 +121,8 @@ enum RequestURL {
         case .clickRecord(let posterIdx,
                           let type):
             return "/todo/click/\(posterIdx)/\(type)"
+        case .clubList(let curPage):
+            return "/club?curPage=\(curPage)"
         }
     }
     

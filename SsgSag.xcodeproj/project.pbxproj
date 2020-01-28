@@ -18,6 +18,9 @@
 		0629921F23D935590053B9F2 /* LoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0629921E23D935590053B9F2 /* LoginVC.swift */; };
 		0655964723DCA36000C779A5 /* ClubReviewTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0655964623DCA36000C779A5 /* ClubReviewTableViewCell.swift */; };
 		0655964923DCA88100C779A5 /* ClubReviewVC+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0655964823DCA88100C779A5 /* ClubReviewVC+Extension.swift */; };
+		0655964F23DF2B6A00C779A5 /* ClubServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0655964E23DF2B6A00C779A5 /* ClubServiceProtocol.swift */; };
+		0655965123DF2C9700C779A5 /* Club.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0655965023DF2C9700C779A5 /* Club.swift */; };
+		0655965323DFBAA000C779A5 /* ClubService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0655965223DFBAA000C779A5 /* ClubService.swift */; };
 		2E158304683BAFB18A8CD876 /* Pods_SsgSag.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 031F14AE11BD590702A32B8D /* Pods_SsgSag.framework */; };
 		840AFF8822A2622C00EA12E6 /* UIDevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 840AFF8722A2622C00EA12E6 /* UIDevice.swift */; };
 		840DDD40227EAC4000D9D515 /* TapbarServiceImp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 840DDD3F227EAC4000D9D515 /* TapbarServiceImp.swift */; };
@@ -349,6 +352,9 @@
 		0629921E23D935590053B9F2 /* LoginVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginVC.swift; sourceTree = "<group>"; };
 		0655964623DCA36000C779A5 /* ClubReviewTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClubReviewTableViewCell.swift; sourceTree = "<group>"; };
 		0655964823DCA88100C779A5 /* ClubReviewVC+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ClubReviewVC+Extension.swift"; sourceTree = "<group>"; };
+		0655964E23DF2B6A00C779A5 /* ClubServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClubServiceProtocol.swift; sourceTree = "<group>"; };
+		0655965023DF2C9700C779A5 /* Club.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Club.swift; sourceTree = "<group>"; };
+		0655965223DFBAA000C779A5 /* ClubService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClubService.swift; sourceTree = "<group>"; };
 		41F0B899B4CCAC855CFD54F6 /* Pods-SsgSag.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SsgSag.debug.xcconfig"; path = "Target Support Files/Pods-SsgSag/Pods-SsgSag.debug.xcconfig"; sourceTree = "<group>"; };
 		840AFF8722A2622C00EA12E6 /* UIDevice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIDevice.swift; sourceTree = "<group>"; };
 		840DDD3F227EAC4000D9D515 /* TapbarServiceImp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TapbarServiceImp.swift; sourceTree = "<group>"; };
@@ -708,6 +714,7 @@
 		0610DF0A23D92D5800DC2273 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				0610DF1F23D9941300DC2273 /* Protocol */,
 				0610DF1723D96C0900DC2273 /* Cell */,
 				0610DF0D23D92EB900DC2273 /* StoryBoard */,
 				0610DF0B23D92E6400DC2273 /* ReviewMainViewController.swift */,
@@ -755,6 +762,7 @@
 			isa = PBXGroup;
 			children = (
 				0610DF1D23D9919E00DC2273 /* ReviewTabCellModel.swift */,
+				0655965023DF2C9700C779A5 /* Club.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -769,9 +777,18 @@
 		0655964C23DF21A000C779A5 /* Services */ = {
 			isa = PBXGroup;
 			children = (
-				0610DF1F23D9941300DC2273 /* Protocol */,
+				0655964D23DF2A9F00C779A5 /* Protocol */,
+				0655965223DFBAA000C779A5 /* ClubService.swift */,
 			);
 			path = Services;
+			sourceTree = "<group>";
+		};
+		0655964D23DF2A9F00C779A5 /* Protocol */ = {
+			isa = PBXGroup;
+			children = (
+				0655964E23DF2B6A00C779A5 /* ClubServiceProtocol.swift */,
+			);
+			path = Protocol;
 			sourceTree = "<group>";
 		};
 		2E04BB9F31A495430F45317D /* Frameworks */ = {
@@ -2130,6 +2147,7 @@
 				84FB4FE1226B7CAA00D9F2F9 /* RequestURL.swift in Sources */,
 				845928A321D09CDD001DF6CC /* SsgSag.xcdatamodeld in Sources */,
 				D1FA073F23786FED0045C303 /* MockFeedServiceImp.swift in Sources */,
+				0655964F23DF2B6A00C779A5 /* ClubServiceProtocol.swift in Sources */,
 				D1CD5DE322E5BC610033FCB3 /* Notice.swift in Sources */,
 				FA851DE921D3DBBC002065D0 /* SwipeCard.swift in Sources */,
 				D109DC5823ABC3FB00E5BAF7 /* SortType.swift in Sources */,
@@ -2145,6 +2163,7 @@
 				D1F9A1E1233DD4A100C67E1D /* EmptyScrapCollectionViewCell.swift in Sources */,
 				84D09D0822883421008EEA7C /* ActivityServiceImp.swift in Sources */,
 				8496818822AFD3FE004A4A63 /* VAWeekDaysView.swift in Sources */,
+				0655965323DFBAA000C779A5 /* ClubService.swift in Sources */,
 				D1E81E6D22DB181E004DAA00 /* FeedPageCollectionViewCell.swift in Sources */,
 				D166AC5D22D46D4100ED82DD /* MonthTodoList.swift in Sources */,
 				D1FB9B0223388EBF00B4C4F9 /* ScrapViewController.swift in Sources */,
@@ -2252,6 +2271,7 @@
 				D16F309A23696ED400C127CA /* JSONNull.swift in Sources */,
 				D1226C8822EC88DF007F59BE /* MyPageServiceProtocol.swift in Sources */,
 				D1E0B02B22ED974C003F84D6 /* NoticeServiceProtocol.swift in Sources */,
+				0655965123DF2C9700C779A5 /* Club.swift in Sources */,
 				D16F30A82369808100C127CA /* HttpStatusCode.swift in Sources */,
 				0610DF1223D9436800DC2273 /* ReviewMainVC+Extension.swift in Sources */,
 				C9558B8023955D5C00E63F93 /* String+.swift in Sources */,
