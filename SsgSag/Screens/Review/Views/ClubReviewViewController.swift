@@ -12,6 +12,7 @@ import RxSwift
 class ClubReviewViewController: UIViewController {
     let tabViewModel = ClubDetailViewModel.shared
     var disposeBag: DisposeBag!
+//    var reviewDataSet: [ReviewInfo]!
     @IBOutlet weak var normalReviewCollectionView: UICollectionView!
     
     override func viewDidLoad() {
