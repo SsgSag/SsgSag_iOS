@@ -14,6 +14,7 @@ class ClubPhotoCollectionViewCell: UICollectionViewCell {
         
     }
     
+    // 사진이 더 있는경우 표시
     func morePhotoView(moreCount: Int) {
         let view = UIView()
         view.backgroundColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 0.5)
