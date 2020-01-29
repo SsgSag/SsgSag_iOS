@@ -21,8 +21,16 @@ extension ClubInfoViewController: UICollectionViewDataSource, UICollectionViewDe
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ClubPhotoCell", for: indexPath) as! ClubPhotoCollectionViewCell
         
-        // 이미지 삽입
-        // +10장 라벨 카운트주기
+        cell.imgString = self.infoPhotoURLSet[indexPath.item]
+        
+        let dataNum = self.infoPhotoURLSet.count
+        if indexPath.item == 5 && dataNum > 6 {
+            
+            let gap = dataNum - 6
+            cell.morePhotoView(moreCount: gap)
+        } else {
+            cell.hideView()
+        }
         
         return cell
     }

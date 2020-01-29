@@ -7,13 +7,33 @@
 //
 
 import UIKit
+import RxSwift
 
 class ClubReviewViewController: UIViewController {
-
+    let tabViewModel = ClubDetailViewModel.shared
+    var disposeBag: DisposeBag!
+    @IBOutlet weak var normalReviewCollectionView: UICollectionView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
+        disposeBag = DisposeBag()
+        bind()
+    }
+    
+    func bind() {
+        self.tabViewModel.reviewDataSet
+        .filter { $0 != nil }
+        .map { $0 }
+        .observeOn(MainScheduler.instance)
+        .subscribe(onNext: { [weak self] data in
+            self?.view.layoutIfNeeded()
+        })
+        .disposed(by: disposeBag)
+    }
+    
+    deinit {
+        print("memory - review 종료")
     }
 
 }
