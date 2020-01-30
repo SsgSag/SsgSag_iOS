@@ -23,13 +23,7 @@ class ReviewPageCollectionViewCell: UICollectionViewCell {
             }
         }
     }
-    /*
-    override var isSelected: Bool {
-        didSet {
-            self.onFocus = isSelected ? true : false
-        }
-    }
-    */
+    
     override func awakeFromNib() {
         
     }

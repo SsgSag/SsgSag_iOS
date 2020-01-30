@@ -12,14 +12,18 @@ import RxSwift
 class ClubReviewViewController: UIViewController {
     let tabViewModel = ClubDetailViewModel.shared
     var disposeBag: DisposeBag!
-//    var reviewDataSet: [ReviewInfo]!
-    @IBOutlet weak var normalReviewCollectionView: UICollectionView!
+    var reviewDataSet: [ReviewInfo] = []
+    
+    @IBOutlet weak var normalReviewTableView: UITableView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
         disposeBag = DisposeBag()
         bind()
+        self.normalReviewTableView.dataSource = self
+        self.normalReviewTableView.estimatedRowHeight = 400
+        self.normalReviewTableView.rowHeight = UITableView.automaticDimension
     }
     
     func bind() {
@@ -28,7 +32,10 @@ class ClubReviewViewController: UIViewController {
         .map { $0 }
         .observeOn(MainScheduler.instance)
         .subscribe(onNext: { [weak self] data in
-            self?.view.layoutIfNeeded()
+            guard data != nil else {return}
+            self?.reviewDataSet = data!
+            self?.normalReviewTableView.reloadData()
+            
         })
         .disposed(by: disposeBag)
     }
