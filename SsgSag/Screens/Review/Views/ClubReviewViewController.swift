@@ -12,8 +12,9 @@ import RxSwift
 class ClubReviewViewController: UIViewController {
     let tabViewModel = ClubDetailViewModel.shared
     var disposeBag: DisposeBag!
-    var reviewDataSet: [ReviewInfo] = []
+    var reviewDataSet: [ReviewCellInfo] = []
     
+    @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var normalReviewTableView: UITableView!
     
     override func viewDidLoad() {
@@ -24,6 +25,10 @@ class ClubReviewViewController: UIViewController {
         self.normalReviewTableView.dataSource = self
         self.normalReviewTableView.estimatedRowHeight = 400
         self.normalReviewTableView.rowHeight = UITableView.automaticDimension
+        
+//        self.normalReviewTableView.frame.size.height = self.normalReviewTableView.contentSize.height
+        
+        print("size - \(self.normalReviewTableView.contentSize)")
     }
     
     func bind() {
@@ -33,11 +38,27 @@ class ClubReviewViewController: UIViewController {
         .observeOn(MainScheduler.instance)
         .subscribe(onNext: { [weak self] data in
             guard data != nil else {return}
-            self?.reviewDataSet = data!
+            self?.reviewDataSet.removeAll()
+            data?.forEach { self?.reviewDataSet.append(ReviewCellInfo(data: $0))
+                self?.reviewDataSet.append(ReviewCellInfo(data: $0))
+                self?.reviewDataSet.append(ReviewCellInfo(data: $0))
+                self?.reviewDataSet.append(ReviewCellInfo(data: $0))
+                self?.reviewDataSet.append(ReviewCellInfo(data: $0))
+            }
             self?.normalReviewTableView.reloadData()
-            
         })
         .disposed(by: disposeBag)
+    }
+    
+    @objc func moreViewSelect(sender: UIButton) {
+        self.reviewDataSet[sender.tag].onClick = true
+        self.normalReviewTableView.reloadData()
+        
+        
+//        self.normalReviewTableView.frame.size.height = self.normalReviewTableView.contentSize.height
+//        self.scrollView.contentSize.height = self.normalReviewTableView.contentSize.height + 48 + 48 + 48
+//        print("size - \(self.normalReviewTableView.contentSize)")
+//        self.view.layoutIfNeeded()
     }
     
     deinit {

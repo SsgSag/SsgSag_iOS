@@ -9,6 +9,11 @@
 import Foundation
 
 
+struct ReviewCellInfo {
+    let data: ReviewInfo!
+    var onClick = false
+}
+
 struct ReviewInfo: Codable {
     let clubPostIdx: Int
     let clubStartDate, clubEndDate: String

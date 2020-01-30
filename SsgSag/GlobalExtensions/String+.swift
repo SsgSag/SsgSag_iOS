@@ -18,9 +18,9 @@ extension String {
         return date
     }
     
-    func estimatedFrame(font: UIFont) -> CGRect {
+    func estimatedFrame(font: UIFont?) -> CGRect {
         let label = UILabel(frame: .zero)
-        label.numberOfLines = 1
+        label.numberOfLines = 0
         label.text = self
         label.font = font
         label.sizeToFit()
