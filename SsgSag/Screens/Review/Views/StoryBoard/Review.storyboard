@@ -45,6 +45,9 @@
                                             <constraint firstAttribute="height" constant="48" id="z2j-ZE-kZO"/>
                                         </constraints>
                                         <state key="normal" image="searchGray"/>
+                                        <connections>
+                                            <segue destination="Owf-U8-GIa" kind="show" id="IGI-tr-wN5"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
@@ -856,6 +859,84 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="KPS-fK-xe7" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="86.956521739130437" y="-39.508928571428569"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="sux-od-Ojs">
+            <objects>
+                <viewController id="Owf-U8-GIa" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="k6M-KO-NDw">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="동아리 이름으로 검색" textAlignment="right" minimumFontSize="14" clearButtonMode="unlessEditing" translatesAutoresizingMaskIntoConstraints="NO" id="G9R-zQ-ian">
+                                <rect key="frame" x="68" y="58.666666666666657" width="239" height="19"/>
+                                <color key="textColor" red="0.2666666667" green="0.2666666667" blue="0.2666666667" alpha="1" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" name="AppleSDGothicNeo-Regular" family="Apple SD Gothic Neo" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" spellCheckingType="no" smartQuotesType="no"/>
+                            </textField>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EhV-sO-hZt">
+                                <rect key="frame" x="12" y="44" width="48" height="48"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="48" id="8tU-mv-9Mg"/>
+                                    <constraint firstAttribute="width" constant="48" id="cIU-7B-Vhf"/>
+                                </constraints>
+                                <state key="normal" image="back"/>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aI3-Go-V5a">
+                                <rect key="frame" x="315" y="44" width="48" height="48"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="48" id="GaL-Nf-ld7"/>
+                                    <constraint firstAttribute="width" constant="48" id="IDZ-Ng-XzZ"/>
+                                </constraints>
+                                <state key="normal" image="icSearchActive"/>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="'뜨끈한 국밥'에 대한 검샐 결과가 없습니다." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1ir-9I-AGW">
+                                <rect key="frame" x="24" y="101.66666666666667" width="327" height="17"/>
+                                <fontDescription key="fontDescription" name="AppleSDGothicNeo-Bold" family="Apple SD Gothic Neo" pointSize="14"/>
+                                <color key="textColor" red="0.38431372549999998" green="0.41568627450000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Y89-tD-feY">
+                                <rect key="frame" x="24" y="166.66666666666666" width="113" height="20"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="20" id="qW0-DU-5yK"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="AppleSDGothicNeo-Bold" family="Apple SD Gothic Neo" pointSize="14"/>
+                                <state key="normal" title="동아리 등록하러가기">
+                                    <color key="titleColor" red="0.38431372549999998" green="0.41568627450000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                </state>
+                            </button>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Wkg-rT-PTU">
+                                <rect key="frame" x="0.0" y="126.66666666666669" width="375" height="651.33333333333326"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="1ir-9I-AGW" firstAttribute="top" secondItem="G9R-zQ-ian" secondAttribute="bottom" constant="24" id="0bq-Va-Ffv"/>
+                            <constraint firstItem="1ir-9I-AGW" firstAttribute="leading" secondItem="m11-oM-DJx" secondAttribute="leading" constant="24" id="22N-rt-E5Q"/>
+                            <constraint firstItem="m11-oM-DJx" firstAttribute="trailing" secondItem="1ir-9I-AGW" secondAttribute="trailing" constant="24" id="41f-On-dRm"/>
+                            <constraint firstItem="aI3-Go-V5a" firstAttribute="leading" secondItem="G9R-zQ-ian" secondAttribute="trailing" constant="8" id="A54-Fy-Fcn"/>
+                            <constraint firstItem="aI3-Go-V5a" firstAttribute="top" secondItem="m11-oM-DJx" secondAttribute="top" id="BcO-Za-YZW"/>
+                            <constraint firstItem="Wkg-rT-PTU" firstAttribute="top" secondItem="1ir-9I-AGW" secondAttribute="bottom" constant="8" symbolic="YES" id="Dii-Y5-AlZ"/>
+                            <constraint firstItem="Y89-tD-feY" firstAttribute="leading" secondItem="m11-oM-DJx" secondAttribute="leading" constant="24" id="HIM-sA-7jk"/>
+                            <constraint firstItem="EhV-sO-hZt" firstAttribute="leading" secondItem="m11-oM-DJx" secondAttribute="leading" constant="12" id="Lsr-JY-Ywj"/>
+                            <constraint firstItem="G9R-zQ-ian" firstAttribute="leading" secondItem="EhV-sO-hZt" secondAttribute="trailing" constant="8" id="Nr0-zM-fTU"/>
+                            <constraint firstItem="m11-oM-DJx" firstAttribute="trailing" secondItem="Wkg-rT-PTU" secondAttribute="trailing" id="Oew-AG-JB6"/>
+                            <constraint firstItem="EhV-sO-hZt" firstAttribute="top" secondItem="m11-oM-DJx" secondAttribute="top" id="RxT-Mj-Ckl"/>
+                            <constraint firstItem="Y89-tD-feY" firstAttribute="top" secondItem="1ir-9I-AGW" secondAttribute="bottom" constant="48" id="Sdo-TQ-U5y"/>
+                            <constraint firstItem="m11-oM-DJx" firstAttribute="trailing" secondItem="aI3-Go-V5a" secondAttribute="trailing" constant="12" id="fGZ-Qf-xTG"/>
+                            <constraint firstItem="Wkg-rT-PTU" firstAttribute="leading" secondItem="m11-oM-DJx" secondAttribute="leading" id="fIG-Zr-VBA"/>
+                            <constraint firstItem="m11-oM-DJx" firstAttribute="bottom" secondItem="Wkg-rT-PTU" secondAttribute="bottom" id="pIf-n9-U4L"/>
+                            <constraint firstItem="G9R-zQ-ian" firstAttribute="centerY" secondItem="aI3-Go-V5a" secondAttribute="centerY" id="vkN-RA-bUD"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="m11-oM-DJx"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="Nli-AW-b5W"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="cIw-SZ-fqt" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1733" y="-586"/>
         </scene>
         <!--Review Page View Controller-->
         <scene sceneID="boe-jZ-8q1">
@@ -1791,6 +1872,7 @@
         <image name="icArrowNextActive" width="22" height="22"/>
         <image name="icHelpful" width="16" height="16"/>
         <image name="icReviewBlog" width="20" height="20"/>
+        <image name="icSearchActive" width="24" height="24"/>
         <image name="profile" width="48" height="48"/>
         <image name="searchGray" width="48" height="48"/>
         <image name="small" width="22" height="22"/>
