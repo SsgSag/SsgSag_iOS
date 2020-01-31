@@ -20,6 +20,10 @@
 		063B570F23E18BC900B8F617 /* ClubReviewVC+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 063B570E23E18BC900B8F617 /* ClubReviewVC+Extension.swift */; };
 		063B571423E3C2E500B8F617 /* BlogReviewTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 063B571223E3C2E500B8F617 /* BlogReviewTableViewCell.swift */; };
 		063B571523E3C2E600B8F617 /* BlogReviewTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 063B571323E3C2E500B8F617 /* BlogReviewTableViewCell.xib */; };
+		063B571723E3D0B500B8F617 /* MoreReviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 063B571623E3D0B500B8F617 /* MoreReviewViewController.swift */; };
+		063B571A23E3ED2B00B8F617 /* SsgSagReviewTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 063B571823E3ED2B00B8F617 /* SsgSagReviewTableViewCell.swift */; };
+		063B571B23E3ED2B00B8F617 /* SsgSagReviewTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 063B571923E3ED2B00B8F617 /* SsgSagReviewTableViewCell.xib */; };
+		063B571D23E3F5F500B8F617 /* MoreReviewVC+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 063B571C23E3F5F500B8F617 /* MoreReviewVC+Extension.swift */; };
 		0655964723DCA36000C779A5 /* ClubListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0655964623DCA36000C779A5 /* ClubListTableViewCell.swift */; };
 		0655964923DCA88100C779A5 /* ClubListVC+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0655964823DCA88100C779A5 /* ClubListVC+Extension.swift */; };
 		0655964F23DF2B6A00C779A5 /* ClubServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0655964E23DF2B6A00C779A5 /* ClubServiceProtocol.swift */; };
@@ -370,6 +374,10 @@
 		063B570E23E18BC900B8F617 /* ClubReviewVC+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ClubReviewVC+Extension.swift"; sourceTree = "<group>"; };
 		063B571223E3C2E500B8F617 /* BlogReviewTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlogReviewTableViewCell.swift; sourceTree = "<group>"; };
 		063B571323E3C2E500B8F617 /* BlogReviewTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BlogReviewTableViewCell.xib; sourceTree = "<group>"; };
+		063B571623E3D0B500B8F617 /* MoreReviewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoreReviewViewController.swift; sourceTree = "<group>"; };
+		063B571823E3ED2B00B8F617 /* SsgSagReviewTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SsgSagReviewTableViewCell.swift; sourceTree = "<group>"; };
+		063B571923E3ED2B00B8F617 /* SsgSagReviewTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SsgSagReviewTableViewCell.xib; sourceTree = "<group>"; };
+		063B571C23E3F5F500B8F617 /* MoreReviewVC+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MoreReviewVC+Extension.swift"; sourceTree = "<group>"; };
 		0655964623DCA36000C779A5 /* ClubListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClubListTableViewCell.swift; sourceTree = "<group>"; };
 		0655964823DCA88100C779A5 /* ClubListVC+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ClubListVC+Extension.swift"; sourceTree = "<group>"; };
 		0655964E23DF2B6A00C779A5 /* ClubServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClubServiceProtocol.swift; sourceTree = "<group>"; };
@@ -756,6 +764,7 @@
 				0655966B23E013CA00C779A5 /* ClubReviewViewController.swift */,
 				0610DF1323D9484300DC2273 /* ClubListViewController.swift */,
 				0655965623DFD5FC00C779A5 /* ClubDetailViewController.swift */,
+				063B571623E3D0B500B8F617 /* MoreReviewViewController.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -777,6 +786,7 @@
 				0655965E23DFFE0400C779A5 /* String+Extension.swift */,
 				0655966F23E029CE00C779A5 /* ClubInfoVC+Extension.swift */,
 				063B570E23E18BC900B8F617 /* ClubReviewVC+Extension.swift */,
+				063B571C23E3F5F500B8F617 /* MoreReviewVC+Extension.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -791,6 +801,8 @@
 				063B570C23E183D100B8F617 /* NormalReviewTableViewCell.swift */,
 				063B571223E3C2E500B8F617 /* BlogReviewTableViewCell.swift */,
 				063B571323E3C2E500B8F617 /* BlogReviewTableViewCell.xib */,
+				063B571823E3ED2B00B8F617 /* SsgSagReviewTableViewCell.swift */,
+				063B571923E3ED2B00B8F617 /* SsgSagReviewTableViewCell.xib */,
 			);
 			path = Cell;
 			sourceTree = "<group>";
@@ -1988,6 +2000,7 @@
 				C9625E1023AE667D00FF5109 /* LoginStoryBoard.storyboard in Resources */,
 				D1FCC4E4236BD2BE000E3769 /* DateCollectionViewCell.xib in Resources */,
 				C9625E1223AE66EA00FF5109 /* PosterListCategoryCollectionViewCell.xib in Resources */,
+				063B571B23E3ED2B00B8F617 /* SsgSagReviewTableViewCell.xib in Resources */,
 				8496818E22AFDDD1004A4A63 /* newCalendarStoryboard.storyboard in Resources */,
 				D1FEA3522334C79600464DC4 /* AllPosterListCollectionViewCell.xib in Resources */,
 				D1B2F43623013BAA00074448 /* AllAndFavoriteCollectionReusableView.xib in Resources */,
@@ -2149,6 +2162,7 @@
 				8496818A22AFD3FE004A4A63 /* VAWeek.swift in Sources */,
 				D1E6467F2311608100EAB8AC /* NoCommentCollectionViewCell.swift in Sources */,
 				8496818222AFD3FE004A4A63 /* VAWeekView.swift in Sources */,
+				063B571A23E3ED2B00B8F617 /* SsgSagReviewTableViewCell.swift in Sources */,
 				C9A8287B2395528E0029A493 /* InterestBoardTableViewCell.swift in Sources */,
 				C9A828522395528D0029A493 /* MyFilterApiService.swift in Sources */,
 				84B1B254226A385A00077DF9 /* PosterServiceImp.swift in Sources */,
@@ -2266,6 +2280,7 @@
 				0655965723DFD5FC00C779A5 /* ClubDetailViewController.swift in Sources */,
 				D1C9151322FD5D9800189FD2 /* KeyboardService.swift in Sources */,
 				0655965B23DFE00A00C779A5 /* ClubDetailVC+Extension.swift in Sources */,
+				063B571723E3D0B500B8F617 /* MoreReviewViewController.swift in Sources */,
 				C9A828802395528E0029A493 /* ActivityCell.swift in Sources */,
 				C9A8283A2395528D0029A493 /* DatePickerPopUpVC.swift in Sources */,
 				D1226C7D22EC1A66007F59BE /* DependencyContainer.swift in Sources */,
@@ -2322,6 +2337,7 @@
 				FAA2386721FF32B400C6DB13 /* ZoomPosterImageVC.swift in Sources */,
 				063B570F23E18BC900B8F617 /* ClubReviewVC+Extension.swift in Sources */,
 				842C619F21DD1807001BA6D8 /* Posters.swift in Sources */,
+				063B571D23E3F5F500B8F617 /* MoreReviewVC+Extension.swift in Sources */,
 				84B8630422B3509400E4B0C1 /* ClientKey.swift in Sources */,
 				D16F309D2369764000C127CA /* ServerUpdateResponse.swift in Sources */,
 				D149F59C235D75E30018B8F5 /* CalendarListCollectionViewCell.swift in Sources */,

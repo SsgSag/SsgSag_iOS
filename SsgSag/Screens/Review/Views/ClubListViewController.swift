@@ -13,11 +13,13 @@ class ClubListViewController: UIViewController {
     let pageIndex = 0
     internal var curPage = 0
     var cellData: [ClubListData] = []
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         self.reviewTableView.dataSource = self
         self.reviewTableView.delegate = self
+        self.reviewTableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 120, right: 0)
         requestPage()
     }
     

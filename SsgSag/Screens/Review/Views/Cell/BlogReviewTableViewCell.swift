@@ -10,6 +10,12 @@ import UIKit
 
 class BlogReviewTableViewCell: UITableViewCell {
 
+    @IBOutlet weak var createDateLabel: UILabel!
+    @IBOutlet weak var createNameLabel: UILabel!
+    @IBOutlet weak var thumbImgViewStack: UIStackView!
+    @IBOutlet weak var contentLabel: UILabel!
+    @IBOutlet weak var titleLabel: UILabel!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
