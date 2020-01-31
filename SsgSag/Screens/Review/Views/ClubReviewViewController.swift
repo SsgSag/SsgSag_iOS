@@ -14,6 +14,7 @@ class ClubReviewViewController: UIViewController {
     var disposeBag: DisposeBag!
     var reviewDataSet: [ReviewCellInfo] = []
     
+    @IBOutlet weak var reviewTableHeightLayout: NSLayoutConstraint!
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var normalReviewTableView: UITableView!
     
@@ -23,12 +24,8 @@ class ClubReviewViewController: UIViewController {
         disposeBag = DisposeBag()
         bind()
         self.normalReviewTableView.dataSource = self
-        self.normalReviewTableView.estimatedRowHeight = 400
+        self.normalReviewTableView.estimatedRowHeight = 428
         self.normalReviewTableView.rowHeight = UITableView.automaticDimension
-        
-//        self.normalReviewTableView.frame.size.height = self.normalReviewTableView.contentSize.height
-        
-        print("size - \(self.normalReviewTableView.contentSize)")
     }
     
     func bind() {
@@ -45,20 +42,23 @@ class ClubReviewViewController: UIViewController {
                 self?.reviewDataSet.append(ReviewCellInfo(data: $0))
                 self?.reviewDataSet.append(ReviewCellInfo(data: $0))
             }
+            
+            self?.reviewTableHeightLayout.constant = CGFloat.greatestFiniteMagnitude
             self?.normalReviewTableView.reloadData()
+            self?.view.layoutIfNeeded()
+            self?.reviewTableHeightLayout.constant = self?.normalReviewTableView.contentSize.height ?? 428
+
         })
         .disposed(by: disposeBag)
+    
     }
     
     @objc func moreViewSelect(sender: UIButton) {
         self.reviewDataSet[sender.tag].onClick = true
+        self.reviewTableHeightLayout.constant = CGFloat.greatestFiniteMagnitude
         self.normalReviewTableView.reloadData()
-        
-        
-//        self.normalReviewTableView.frame.size.height = self.normalReviewTableView.contentSize.height
-//        self.scrollView.contentSize.height = self.normalReviewTableView.contentSize.height + 48 + 48 + 48
-//        print("size - \(self.normalReviewTableView.contentSize)")
-//        self.view.layoutIfNeeded()
+        self.view.layoutIfNeeded()
+        self.reviewTableHeightLayout.constant = self.normalReviewTableView.contentSize.height
     }
     
     deinit {

@@ -18,6 +18,8 @@
 		0629921F23D935590053B9F2 /* LoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0629921E23D935590053B9F2 /* LoginVC.swift */; };
 		063B570D23E183D100B8F617 /* NormalReviewTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 063B570C23E183D100B8F617 /* NormalReviewTableViewCell.swift */; };
 		063B570F23E18BC900B8F617 /* ClubReviewVC+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 063B570E23E18BC900B8F617 /* ClubReviewVC+Extension.swift */; };
+		063B571423E3C2E500B8F617 /* BlogReviewTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 063B571223E3C2E500B8F617 /* BlogReviewTableViewCell.swift */; };
+		063B571523E3C2E600B8F617 /* BlogReviewTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 063B571323E3C2E500B8F617 /* BlogReviewTableViewCell.xib */; };
 		0655964723DCA36000C779A5 /* ClubListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0655964623DCA36000C779A5 /* ClubListTableViewCell.swift */; };
 		0655964923DCA88100C779A5 /* ClubListVC+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0655964823DCA88100C779A5 /* ClubListVC+Extension.swift */; };
 		0655964F23DF2B6A00C779A5 /* ClubServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0655964E23DF2B6A00C779A5 /* ClubServiceProtocol.swift */; };
@@ -366,6 +368,8 @@
 		0629921E23D935590053B9F2 /* LoginVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginVC.swift; sourceTree = "<group>"; };
 		063B570C23E183D100B8F617 /* NormalReviewTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NormalReviewTableViewCell.swift; sourceTree = "<group>"; };
 		063B570E23E18BC900B8F617 /* ClubReviewVC+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ClubReviewVC+Extension.swift"; sourceTree = "<group>"; };
+		063B571223E3C2E500B8F617 /* BlogReviewTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlogReviewTableViewCell.swift; sourceTree = "<group>"; };
+		063B571323E3C2E500B8F617 /* BlogReviewTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BlogReviewTableViewCell.xib; sourceTree = "<group>"; };
 		0655964623DCA36000C779A5 /* ClubListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClubListTableViewCell.swift; sourceTree = "<group>"; };
 		0655964823DCA88100C779A5 /* ClubListVC+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ClubListVC+Extension.swift"; sourceTree = "<group>"; };
 		0655964E23DF2B6A00C779A5 /* ClubServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClubServiceProtocol.swift; sourceTree = "<group>"; };
@@ -785,6 +789,8 @@
 				0655965C23DFFDBF00C779A5 /* ClubCategoryCollectionViewCell.swift */,
 				0655967123E02B1A00C779A5 /* ClubPhotoCollectionViewCell.swift */,
 				063B570C23E183D100B8F617 /* NormalReviewTableViewCell.swift */,
+				063B571223E3C2E500B8F617 /* BlogReviewTableViewCell.swift */,
+				063B571323E3C2E500B8F617 /* BlogReviewTableViewCell.xib */,
 			);
 			path = Cell;
 			sourceTree = "<group>";
@@ -2026,6 +2032,7 @@
 				D188C90C2368347E00AB88F0 /* SeeMoreCollectionReusableView.xib in Resources */,
 				D1E30DA222F04D3A0023DF56 /* TodoListCollectionViewCell.xib in Resources */,
 				FA61FE1321E1D48D00A28947 /* .gitignore in Resources */,
+				063B571523E3C2E600B8F617 /* BlogReviewTableViewCell.xib in Resources */,
 				D149F59D235D75E30018B8F5 /* CalendarListCollectionViewCell.xib in Resources */,
 				C9A828692395528E0029A493 /* ActivityCell.xib in Resources */,
 				D166AC6922D733F900ED82DD /* FeedStoryBoard.storyboard in Resources */,
@@ -2222,6 +2229,7 @@
 				84B8630922B64F7900E4B0C1 /* DetailTodoListTableViewCell.swift in Sources */,
 				D1CF960622DDC0B70069C75F /* PosterDetail.swift in Sources */,
 				0655966523E00C4700C779A5 /* ClubDetailViewModel.swift in Sources */,
+				063B571423E3C2E500B8F617 /* BlogReviewTableViewCell.swift in Sources */,
 				D1E81E6F22DB270B004DAA00 /* MenuCollectionViewCell.swift in Sources */,
 				C905D02D23B9031E00E9B2B2 /* NewsCellViewModel.swift in Sources */,
 				C9C26BE8239D361E0084C248 /* TotalInformationTableViewCell.swift in Sources */,
