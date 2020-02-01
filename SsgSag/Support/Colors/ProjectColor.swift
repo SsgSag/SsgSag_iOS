@@ -9,9 +9,9 @@
 import Foundation
 
 extension UIColor {
-    static let cornFlower = UIColor(red: 98/255,
-                                    green: 106/255,
-                                    blue: 255/255,
+    static let cornFlower = UIColor(red: 101/255,
+                                    green: 110/255,
+                                    blue: 240/255,
                                     alpha: 1)
     
     static let unselectedTextGray = UIColor(red: 153/255,
@@ -32,6 +32,10 @@ extension UIColor {
     static let unselectedBorderGray = UIColor(red: 231/255,
                                               green: 231/255,
                                               blue: 231/255,
+                                              alpha: 1)
+    static let blackOne = UIColor(red: 51/255,
+                                              green: 51/255,
+                                              blue: 51/255,
                                               alpha: 1)
 
     @nonobjc class var reviewDeselectGray: UIColor {

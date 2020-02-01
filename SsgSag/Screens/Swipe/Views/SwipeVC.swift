@@ -25,18 +25,6 @@ class SwipeVC: UIViewController {
         return view
     }()
     
-    private let completeFilterLabel: UILabel = {
-        let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "*맞춤정보를 설정해주세요"
-        label.numberOfLines = 1
-        label.font = UIFont.systemFont(ofSize: 16, weight: .regular)
-        label.textColor = .cornFlower
-        label.textAlignment = .center
-        label.adjustsFontSizeToFitWidth = true
-        return label
-       }()
-    
     @IBOutlet weak var swipeCardView: UIView?
     
     @IBOutlet private var countLabel: UILabel!
@@ -71,15 +59,15 @@ class SwipeVC: UIViewController {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.numberOfLines = 2
-        label.font = UIFont.systemFont(ofSize: 13, weight: .regular)
+        label.font = UIFont.systemFont(ofSize: 15, weight: .semibold)
         
         if self.ssgsagCount == 0 {
             label.text = "오늘은 추천해드릴 포스터가 없네요.\n캘린더를 확인해볼까요?"
         } else {
-            label.text = " OOO님을 위한 \n 정보를 매일 추천해드려요 :)"
+            label.text = "매일 점심시간\n 오늘의 추천정보를 보내드릴게요🐥"
         }
         
-        label.textColor = #colorLiteral(red: 0.3098039216, green: 0.3098039216, blue: 0.3098039216, alpha: 1)
+        label.textColor = .blackOne
         label.textAlignment = .center
         label.adjustsFontSizeToFitWidth = true
         return label
@@ -103,18 +91,11 @@ class SwipeVC: UIViewController {
     private lazy var moveToFilterButton: UIButton = {
         let button = UIButton()
         button.translatesAutoresizingMaskIntoConstraints = false
-        button.setTitle("맞춤 정보 설정하기", for: .normal)
+        button.setTitle("오늘 저장한 정보 확인하기", for: .normal)
         button.backgroundColor = #colorLiteral(red: 0.3843137255, green: 0.4156862745, blue: 1, alpha: 1)
-        button.setImage(UIImage(named: "filterIcon"), for: .normal)
-        button.imageView?.translatesAutoresizingMaskIntoConstraints = false
-        button.imageView?.leadingAnchor.constraint(
-            equalTo: button.leadingAnchor,
-            constant: 24).isActive = true
-        button.imageView?.centerYAnchor.constraint(
-            equalTo: button.centerYAnchor).isActive = true
         button.setTitleColor(.white, for: .normal)
-        button.layer.cornerRadius = 24
-        button.titleLabel?.font = UIFont.systemFont(ofSize: 15)
+        button.layer.cornerRadius = 4
+        button.titleLabel?.font = UIFont.systemFont(ofSize: 13)
         button.addTarget(self,
                          action: #selector(touchUpFilterButton),
                          for: .touchUpInside)
@@ -124,12 +105,12 @@ class SwipeVC: UIViewController {
    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        completeStackView.removeFromSuperview()
         tabBarController?.tabBar.isHidden = false
-
+        
         guard let isTryWithoutLogin = UserDefaults.standard.object(forKey: "isTryWithoutLogin") as? Bool else {
             return
         }
+        
         
         if isTryWithoutLogin {
             viewAllPostersButton.setTitle("슥삭 회원가입", for: .normal)
@@ -171,15 +152,18 @@ class SwipeVC: UIViewController {
     private func setEmptyPosterAnimation() {
         completeStackView.removeFromSuperview()
         
-        let spaceView = UIView()
-        spaceView.translatesAutoresizingMaskIntoConstraints = false
-        spaceView.heightAnchor.constraint(equalToConstant: 10).isActive = true
+        let firstSpaceView = UIView()
+        firstSpaceView.translatesAutoresizingMaskIntoConstraints = false
+        firstSpaceView.heightAnchor.constraint(equalToConstant: 32).isActive = true
+        
+        let secondSpaceView = UIView()
+        secondSpaceView.translatesAutoresizingMaskIntoConstraints = false
+        secondSpaceView.heightAnchor.constraint(equalToConstant: 48).isActive = true
         
         completeStackView.addArrangedSubview(completeImageView)
-        completeStackView.addArrangedSubview(spaceView)
+        completeStackView.addArrangedSubview(firstSpaceView)
         completeStackView.addArrangedSubview(completeLabel)
-        completeStackView.addArrangedSubview(completeFilterLabel)
-        completeStackView.addArrangedSubview(spaceView)
+        completeStackView.addArrangedSubview(secondSpaceView)
         completeStackView.addArrangedSubview(moveToFilterButton)
         view.addSubview(completeStackView)
         
@@ -207,7 +191,7 @@ class SwipeVC: UIViewController {
         moveToFilterButton.heightAnchor.constraint(
             equalToConstant: 48).isActive = true
         moveToFilterButton.widthAnchor.constraint(
-            equalToConstant: 202).isActive = true
+            equalToConstant: 181).isActive = true
        
     }
     
@@ -503,7 +487,9 @@ class SwipeVC: UIViewController {
                  myVC.reactor = MyFilterSettingViewReactor(jobKind: ["개발자", "디자이너", "기획자", "마케터", "기타"],
                                                              interestedField: ["서포터즈", "봉사활동", "기획/아이디어","광고/마케팅", "디자인","영상/콘텐츠", "IT/공학", "창업/스타트업", "금융/경제"],
                                                              maxGrade: 5, initialSetting: setting)
-                myVC.callback = { [weak self] in self?.requestPoster(isFirst: false) }
+                myVC.callback = { [weak self] in
+                    self?.completeStackView.removeFromSuperview()
+                    self?.requestPoster(isFirst: false) }
                 self.navigationController?.pushViewController(myVC, animated: true)
             })
             .disposed(by: disposeBag)
