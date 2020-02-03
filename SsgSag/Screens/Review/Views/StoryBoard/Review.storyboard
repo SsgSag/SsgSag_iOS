@@ -860,10 +860,10 @@
             </objects>
             <point key="canvasLocation" x="86.956521739130437" y="-39.508928571428569"/>
         </scene>
-        <!--View Controller-->
+        <!--Review Search View Controller-->
         <scene sceneID="sux-od-Ojs">
             <objects>
-                <viewController id="Owf-U8-GIa" sceneMemberID="viewController">
+                <viewController id="Owf-U8-GIa" customClass="ReviewSearchViewController" customModule="슥삭" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="k6M-KO-NDw">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -881,6 +881,9 @@
                                     <constraint firstAttribute="width" constant="48" id="cIU-7B-Vhf"/>
                                 </constraints>
                                 <state key="normal" image="back"/>
+                                <connections>
+                                    <action selector="backClick:" destination="Owf-U8-GIa" eventType="touchUpInside" id="kb2-de-sEs"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aI3-Go-V5a">
                                 <rect key="frame" x="315" y="44" width="48" height="48"/>
@@ -896,7 +899,11 @@
                                 <color key="textColor" red="0.38431372549999998" green="0.41568627450000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Y89-tD-feY">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="132" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Wkg-rT-PTU">
+                                <rect key="frame" x="0.0" y="126.66666666666669" width="375" height="651.33333333333326"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                            </tableView>
+                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Y89-tD-feY">
                                 <rect key="frame" x="24" y="166.66666666666666" width="113" height="20"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="20" id="qW0-DU-5yK"/>
@@ -906,10 +913,6 @@
                                     <color key="titleColor" red="0.38431372549999998" green="0.41568627450000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 </state>
                             </button>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Wkg-rT-PTU">
-                                <rect key="frame" x="0.0" y="126.66666666666669" width="375" height="651.33333333333326"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                            </tableView>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
@@ -933,6 +936,9 @@
                         <viewLayoutGuide key="safeArea" id="m11-oM-DJx"/>
                     </view>
                     <navigationItem key="navigationItem" id="Nli-AW-b5W"/>
+                    <connections>
+                        <outlet property="tableView" destination="Wkg-rT-PTU" id="KaN-FB-hdC"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cIw-SZ-fqt" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>

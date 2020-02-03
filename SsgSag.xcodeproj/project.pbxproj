@@ -27,6 +27,8 @@
 		063B571F23E42B7800B8F617 /* ReviewSearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 063B571E23E42B7800B8F617 /* ReviewSearchViewController.swift */; };
 		063B572223E4300800B8F617 /* ReviewSearchTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 063B572023E4300800B8F617 /* ReviewSearchTableViewCell.swift */; };
 		063B572323E4300800B8F617 /* ReviewSearchTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 063B572123E4300800B8F617 /* ReviewSearchTableViewCell.xib */; };
+		0652950523E7ADA400DA9F3B /* CategoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0652950423E7ADA400DA9F3B /* CategoryView.swift */; };
+		0652950723E7B74500DA9F3B /* ReviewSearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0652950623E7B74500DA9F3B /* ReviewSearchViewModel.swift */; };
 		0655964723DCA36000C779A5 /* ClubListTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0655964623DCA36000C779A5 /* ClubListTableViewCell.swift */; };
 		0655964923DCA88100C779A5 /* ClubListVC+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0655964823DCA88100C779A5 /* ClubListVC+Extension.swift */; };
 		0655964F23DF2B6A00C779A5 /* ClubServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0655964E23DF2B6A00C779A5 /* ClubServiceProtocol.swift */; };
@@ -384,6 +386,8 @@
 		063B571E23E42B7800B8F617 /* ReviewSearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewSearchViewController.swift; sourceTree = "<group>"; };
 		063B572023E4300800B8F617 /* ReviewSearchTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewSearchTableViewCell.swift; sourceTree = "<group>"; };
 		063B572123E4300800B8F617 /* ReviewSearchTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ReviewSearchTableViewCell.xib; sourceTree = "<group>"; };
+		0652950423E7ADA400DA9F3B /* CategoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryView.swift; sourceTree = "<group>"; };
+		0652950623E7B74500DA9F3B /* ReviewSearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewSearchViewModel.swift; sourceTree = "<group>"; };
 		0655964623DCA36000C779A5 /* ClubListTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClubListTableViewCell.swift; sourceTree = "<group>"; };
 		0655964823DCA88100C779A5 /* ClubListVC+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ClubListVC+Extension.swift"; sourceTree = "<group>"; };
 		0655964E23DF2B6A00C779A5 /* ClubServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClubServiceProtocol.swift; sourceTree = "<group>"; };
@@ -831,6 +835,7 @@
 				0610DF1D23D9919E00DC2273 /* ReviewTabCellModel.swift */,
 				0655965023DF2C9700C779A5 /* Club.swift */,
 				0655967323E11DB000C779A5 /* Review.swift */,
+				0652950423E7ADA400DA9F3B /* CategoryView.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -839,6 +844,7 @@
 			isa = PBXGroup;
 			children = (
 				0655966423E00C4700C779A5 /* ClubDetailViewModel.swift */,
+				0652950623E7B74500DA9F3B /* ReviewSearchViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -2344,6 +2350,7 @@
 				C9C26BEB239D36DD0084C248 /* TotalInformationTableViewCellReactor.swift in Sources */,
 				0655965D23DFFDBF00C779A5 /* ClubCategoryCollectionViewCell.swift in Sources */,
 				D10B6E2522F4268E007B9BEA /* BoardPostCollectionViewCell.swift in Sources */,
+				0652950523E7ADA400DA9F3B /* CategoryView.swift in Sources */,
 				D1C7C1FD22FFEF3F001BDB5D /* UserDefaults+.swift in Sources */,
 				FAA2386721FF32B400C6DB13 /* ZoomPosterImageVC.swift in Sources */,
 				063B570F23E18BC900B8F617 /* ClubReviewVC+Extension.swift in Sources */,
@@ -2371,6 +2378,7 @@
 				8496818522AFD3FE004A4A63 /* VADay.swift in Sources */,
 				D166AC6622D733CC00ED82DD /* FeedViewController.swift in Sources */,
 				8496818322AFD3FE004A4A63 /* VAMonthView.swift in Sources */,
+				0652950723E7B74500DA9F3B /* ReviewSearchViewModel.swift in Sources */,
 				C9A8285D2395528D0029A493 /* MyFilterSizeLayout.swift in Sources */,
 				C9558B96239BF0DD00E63F93 /* TotalInformation.swift in Sources */,
 				D11080A922E07FF000F345A8 /* AnalysticsCollectionViewCell.swift in Sources */,

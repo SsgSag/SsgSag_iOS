@@ -16,7 +16,6 @@ class ClubService: ClubServiceProtocol {
     
     //http://13.209.77.133:8082
     func requestClubList(curPage: Int, completion: @escaping (([ClubListData]?) -> Void)) {
-        
         let baseURL = "http://13.209.77.133:8082"
         let path = RequestURL.clubList(curPage: curPage).getRequestURL
         let url = baseURL + path
