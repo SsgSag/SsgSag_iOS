@@ -28,17 +28,17 @@
                                         <state key="normal" image="profile"/>
                                     </button>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="-3" translatesAutoresizingMaskIntoConstraints="NO" id="uR2-i2-ZN4">
-                                        <rect key="frame" x="161.5" y="0.0" width="91" height="44"/>
+                                        <rect key="frame" x="155.5" y="0.0" width="103" height="44"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="H12-qv-6Dr">
-                                                <rect key="frame" x="0.0" y="0.0" width="91" height="44"/>
-                                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="16"/>
-                                                <state key="normal" title="슥삭 추천뉴스">
-                                                    <color key="titleColor" red="0.38431372549999998" green="0.41568627450000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="103" height="44"/>
+                                                <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
+                                                <state key="normal" title="슥삭 추천 뉴스">
+                                                    <color key="titleColor" red="0.26666666666666666" green="0.26666666666666666" blue="0.26666666666666666" alpha="1" colorSpace="calibratedRGB"/>
                                                 </state>
                                             </button>
                                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jaO-T2-FoD">
-                                                <rect key="frame" x="-3" y="0.0" width="97" height="3"/>
+                                                <rect key="frame" x="-3" y="0.0" width="109" height="3"/>
                                                 <color key="backgroundColor" red="0.38431372549999998" green="0.41568627450000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="3" id="BnM-AS-tKH"/>

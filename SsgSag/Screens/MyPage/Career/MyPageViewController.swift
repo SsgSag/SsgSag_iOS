@@ -11,8 +11,6 @@ import Photos
 import SwiftKeychainWrapper
 
 class MyPageViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
-
-    @IBOutlet weak var nameLabel: UILabel!
     
     @IBOutlet weak var idLabel: UILabel!
     
@@ -81,7 +79,6 @@ class MyPageViewController: UIViewController, UIImagePickerControllerDelegate, U
                     self?.userInfo = UserInfomation(userInfomation: userInfoResponse.data)
                     
                     DispatchQueue.main.async {
-                        self?.nameLabel.text = userInfoResponse.data?.userName
                         self?.idLabel.text = userInfoResponse.data?.userNickname
                         self?.majorLabel.text = userInfoResponse.data?.userMajor
                         self?.schoolLabel.text = userInfoResponse.data?.userUniv
@@ -159,7 +156,7 @@ extension MyPageViewController: UITableViewDelegate {
 
 extension MyPageViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 5
+        return 6
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -197,6 +194,9 @@ extension MyPageViewController: UITableViewDataSource {
             
             navigationController?.pushViewController(inquireVC, animated: true)
         case 4:
+            let serviceVC = ServiceInfoViewController()
+            navigationController?.pushViewController(serviceVC, animated: true)
+        case 5:
             let accountSettingVC = AccountSettingViewController()
             accountSettingVC.userData = userInfo
             accountSettingVC.nickName = userInfo?.userNickname

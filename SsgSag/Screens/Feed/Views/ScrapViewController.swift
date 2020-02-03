@@ -46,8 +46,6 @@ class ScrapViewController: UIViewController {
 
         setupLayout()
         setupCollectionView()
-        
-        //bind(viewModel: viewModel)
     }
     
     func bind(viewModel: FeedPageViewModel) {
@@ -94,10 +92,6 @@ class ScrapViewController: UIViewController {
                     .value[indexPath.item].feed else {
                     return
                 }
-//                let adBrix = AdBrixRM.getInstance
-//                adBrix.event(eventName: "touchUp_FeedNews",
-//                             value: ["feedUrl": feed.feedUrl ?? ""])
-               
                 let articleVC = ArticleViewController()
                 articleVC.articleTitle = feed.feedName
                 articleVC.articleUrlString = feed.feedUrl
@@ -149,89 +143,6 @@ class ScrapViewController: UIViewController {
 
 }
 
-extension ScrapViewController: UICollectionViewDelegate {
-    
-}
-/*
-extension ScrapViewController: UICollectionViewDataSource {
-    func collectionView(_ collectionView: UICollectionView,
-                        numberOfItemsInSection section: Int) -> Int {
-        return feedData.count == 0 ? 1 : feedData.count
-    }
-    
-    func collectionView(_ collectionView: UICollectionView,
-                        cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        if feedData.count == 0 {
-            guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "emptyScrapCell",
-                                                                for: indexPath)
-                as? EmptyScrapCollectionViewCell else {
-                return UICollectionViewCell()
-            }
-            
-            return cell
-        }
-        
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "newsCell",
-                                                            for: indexPath)
-            as? NewsCollectionViewCell else {
-                return UICollectionViewCell()
-        }
-        
-        cell.feedData = feedData[indexPath.item]
-        
-        if feedData[indexPath.item].feedPreviewImgUrl == cell.feedData?.feedPreviewImgUrl {
-            guard let urlString = feedData[indexPath.item].feedPreviewImgUrl else {
-                return cell
-            }
-            
-            if imageCache.object(forKey: urlString as NSString) == nil {
-                if let imageURL = URL(string: urlString) {
-                    
-                    URLSession.shared.dataTask(with: imageURL) { data, response, error in
-                        guard error == nil,
-                            let data = data,
-                            let image = UIImage(data: data) else {
-                            return
-                        }
-                        
-                        DispatchQueue.main.async {
-                            cell.newsImageView?.image = image
-                        }
-                    }.resume()
-                }
-                return cell
-            }
-            
-            cell.newsImageView.image = imageCache.object(forKey: urlString as NSString)
-        }
-        
-        return cell
-    }
-    
-    func collectionView(_ collectionView: UICollectionView,
-                        didSelectItemAt indexPath: IndexPath) {
-        if feedData.count == 0 {
-            return
-        }
-        
-//        let adBrix = AdBrixRM.getInstance
-//        adBrix.event(eventName: "touchUp_FeedNews",
-//                     value: ["feedUrl": feedData[indexPath.item].feedUrl])
-        
-        let articleVC = ArticleViewController()
-        articleVC.articleTitle = feedData[indexPath.item].feedName
-        articleVC.articleUrlString = feedData[indexPath.item].feedUrl
-        articleVC.feedIdx = feedData[indexPath.item].feedIdx
-        articleVC.isSave = feedData[indexPath.item].isSave
-        articleVC.callback = { [weak self] in
-            self?.setupRequestScrap()
-        }
-        navigationController?.pushViewController(articleVC,
-                                                 animated: true)
-    }
-}
-
-
 extension ScrapViewController: UICollectionViewDelegateFlowLayout, UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
@@ -240,4 +151,3 @@ extension ScrapViewController: UICollectionViewDelegateFlowLayout, UICollectionV
                       height: 220)
     }
 }
-*/

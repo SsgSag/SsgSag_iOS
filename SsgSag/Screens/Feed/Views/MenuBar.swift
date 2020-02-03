@@ -14,7 +14,7 @@ protocol MenuBarDelegate: class {
 
 class MenuBar: UIView {
     
-    let menuTitle: [String] = ["슥삭 추천뉴스", "대학교 게시판"]
+    let menuTitle: [String] = ["슥삭 추천 뉴스", "대학교 게시판"]
     var horizontalBarViewLeadingConstraint: NSLayoutConstraint?
     var feedVC: FeedViewController?
     var delegate: MenuBarDelegate?

@@ -51,7 +51,7 @@ class NewsCollectionViewCell: UICollectionViewCell {
             .tap
             .flatMapLatest { [weak viewModel] _ -> Observable<DataResponse<HttpStatusCode>> in
                 guard let viewModel = viewModel else { return .empty() }
-                if viewModel.saveButtonImageName.value == "ic_bookmarkArticle" {
+                if viewModel.saveButtonImageName.value == "icBookmarkActive" {
                     return viewModel.deleteBookmark()
                 } else {
                     return viewModel.saveBookmark()
@@ -60,10 +60,10 @@ class NewsCollectionViewCell: UICollectionViewCell {
             .observeOn(MainScheduler.instance)
             .subscribe(onNext: { [weak viewModel] response in
                 if response.isSuccess {
-                    if viewModel?.saveButtonImageName.value == "ic_bookmarkArticle" {
-                        viewModel?.saveButtonImageName.accept("ic_bookmarkArticlePassive")
+                    if viewModel?.saveButtonImageName.value == "icBookmarkActive" {
+                        viewModel?.saveButtonImageName.accept("icBookmark")
                     } else {
-                        viewModel?.saveButtonImageName.accept("ic_bookmarkArticle")
+                        viewModel?.saveButtonImageName.accept("icBookmarkActive")
                     }
                 }
             })

@@ -37,7 +37,7 @@ class ServiceInfoViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
+        navigationController?.navigationBar.isHidden = false
         let shadowSize = CGSize(width: view.frame.width, height: 1)
         navigationController?.navigationBar.addColorToShadow(color: #colorLiteral(red: 0.8784313725, green: 0.8784313725, blue: 0.8784313725, alpha: 1),
                                                              size: shadowSize)

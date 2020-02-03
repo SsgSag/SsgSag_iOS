@@ -17,24 +17,38 @@ class NewsCellViewModel {
     let newsImageUrl: String
     let newsTitle: String
     let source: String
-    let dateString: String
+    var dateString: String
     let viewCount: String
-    let saveButtonImageName = BehaviorRelay<String>(value: "ic_bookmarkArticlePassive")
+    let saveButtonImageName = BehaviorRelay<String>(value: "icBookmark")
     let feed: FeedData
 
     init(feed: FeedData) {
+        self.dateString = ""
         self.feedService = FeedServiceTypeImp()
         self.newsImageUrl = feed.feedPreviewImgUrl ?? ""
         self.newsTitle = feed.feedName ?? ""
         self.source = feed.feedHost ?? ""
-        self.dateString = feed.feedRegDate ?? ""
+        
         self.viewCount = "\(feed.showNum ?? 0)"
         self.feed = feed
 
         if feed.isSave == 1 {
-            saveButtonImageName.accept("ic_bookmarkArticle")
+            saveButtonImageName.accept("icBookmarkActive")
         } else {
-            saveButtonImageName.accept("ic_bookmarkArticlePassive")
+            saveButtonImageName.accept("icBookmark")
+        }
+        self.dateString = date(to: (feed.feedRegDate ?? ""))
+    }
+    
+    func date(to calendarDate: String) -> String {
+        let formatter = DateFormatter()
+        formatter.dateFormat =  "yyyy-MM-dd HH:mm:ss"
+        if let date = formatter.date(from: calendarDate) {
+            formatter.dateFormat =  "yyyy-MM-dd"
+            let convertedStringDate = formatter.string(from: date)
+            return convertedStringDate
+        } else {
+            return ""
         }
     }
     

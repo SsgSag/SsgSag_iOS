@@ -69,7 +69,7 @@ class InquireViewController: UIViewController {
         for tag in 1...6 {
             if sender.tag == tag {
                 sender.setTitleColor(.white, for: .normal)
-                sender.backgroundColor = #colorLiteral(red: 0.3843137255, green: 0.4156862745, blue: 1, alpha: 1)
+                sender.backgroundColor = #colorLiteral(red: 0.3960784314, green: 0.431372549, blue: 0.9411764706, alpha: 1)
                 
                 switch sender.tag {
                 case 1:

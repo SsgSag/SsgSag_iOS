@@ -13,9 +13,9 @@ class SettingMenuCollectionViewCell: UICollectionViewCell {
     
     @IBOutlet weak var menuTitleLabel: UILabel!
     
-    private let menuTitleString: [String] = ["서비스 정보", "로그아웃", "회원탈퇴"]
+    private let menuTitleString: [String] = ["로그아웃", "회원탈퇴"]
     
-    private let menuImageString: [String] = ["ic_serviceInfo", "ic_logOut", "ic_membershipOut"]
+    private let menuImageString: [String] = ["ic_logOut", "ic_membershipOut"]
     
     override func awakeFromNib() {
         super.awakeFromNib()

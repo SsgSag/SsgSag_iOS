@@ -23,7 +23,7 @@ extension AccountSettingViewController: UICollectionViewDataSource {
         case 0:
             return 6
         case 1:
-            return 3
+            return 2
         default:
             return 0
         }
@@ -233,11 +233,7 @@ extension AccountSettingViewController: UICollectionViewDataSource {
         view.endEditing(true)
         currentTextField?.resignFirstResponder()
         
-        // 서비스 정보
         if indexPath == IndexPath(item: 0, section: 1) {
-            navigationController?.pushViewController(ServiceInfoViewController(),
-                                                     animated: true)
-        } else if indexPath == IndexPath(item: 1, section: 1) {
             // 로그아웃
             let storyboard = UIStoryboard(name: "MyPageStoryBoard",
                                           bundle: nil)
@@ -251,7 +247,7 @@ extension AccountSettingViewController: UICollectionViewDataSource {
             
             navigationController?.pushViewController(logoutVC,
                                                      animated: true)
-        } else if indexPath == IndexPath(item: 2, section: 1) {
+        } else if indexPath == IndexPath(item: 1, section: 1) {
             // 회원 탈퇴
             let storyboard = UIStoryboard(name: "MyPageStoryBoard",
                                           bundle: nil)
