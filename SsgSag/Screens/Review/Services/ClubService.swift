@@ -11,8 +11,10 @@ import Alamofire
 import SwiftKeychainWrapper
 
 class ClubService: ClubServiceProtocol {
-    private init() {}
-    static let shared = ClubService()
+//    private init() {}
+//    static let shared = ClubService()
+    private let requestMaker: RequestMakerProtocol = RequestMaker()
+    private let network: Network = NetworkImp()
     
     //http://13.209.77.133:8082
     func requestClubList(curPage: Int, completion: @escaping (([ClubListData]?) -> Void)) {
@@ -59,7 +61,6 @@ class ClubService: ClubServiceProtocol {
         let header: HTTPHeaders = [
             "Authorization" : token
         ]
-        print(url)
         Alamofire.request(url, method: .get, parameters: nil, encoding: JSONEncoding.default, headers: header).responseJSON { response in
             switch response.result {
             case .success:
@@ -86,6 +87,35 @@ class ClubService: ClubServiceProtocol {
                 completion(nil)
             }
         }
+    }
+    
+    func requestClubWithName(clubType: ClubType, location: String, keyword: String, curPage: Int, completion: @escaping ([ClubListData]?) -> Void) {
+        
+        let baseURL = UserAPI.sharedInstance.getBaseString()
+        let path = RequestURL.searchClubWithName(clubType: clubType, location: location, keyword: keyword, curPage: curPage).getRequestURL
+        print(path)
+        guard let urlString = (baseURL + path).addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) else {return}
+        guard let url = URL(string:  urlString) else {return}
+        let token = TokenName.tokenString
+        let header: HTTPHeaders = [
+            "Authorization" : token
+        ]
+        
+        guard let request = requestMaker.makeRequest(url: url, method: .get, header: header, body: nil) else {return}
+        
+        network.dispatch(request: request) { result in
+            switch result {
+            case .success(let data):
+                if let object = try? JSONDecoder().decode(Clubs.self, from: data) {
+                    completion(object.data)
+                } else {
+                    completion(nil)
+                }
+            case .failure(let err):
+                print(err.localizedDescription)
+            }
+        }
+        
     }
 }
 

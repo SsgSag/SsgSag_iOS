@@ -14,9 +14,8 @@ class ReviewMainViewController: UIViewController {
     @IBOutlet weak var tabCollectionView: UICollectionView!
     
     typealias TabModel = ReviewTabCellModel
-    var tabTitle = [ TabModel(title: "동아리 후기", onFocus: true),
-                     TabModel(title: "대외활동 후기", onFocus: false),
-                     TabModel(title: "인턴 후기", onFocus: false)
+    var tabTitle = [ TabModel(title: "교내 동아리", onFocus: true),
+                     TabModel(title: "연합 동아리", onFocus: false)
                     ]
     var reviewPageInstance: ReviewPageViewController!
     var focusIndex: BehaviorSubject<Int> = BehaviorSubject<Int>(value: 0)
@@ -56,5 +55,11 @@ class ReviewMainViewController: UIViewController {
             self.reviewPageInstance = segue.destination as? ReviewPageViewController
             reviewPageInstance.pageDelegate = self
         }
+    }
+    @IBAction func searchButtoClickn(_ sender: Any) {
+        let type: ClubType = curIndex == 0 ? .Union : .School
+        let nextVC = self.storyboard?.instantiateViewController(withIdentifier: "ReviewSearch") as! ReviewSearchViewController
+        nextVC.viewModel = ReviewSearchViewModel(clubType: type, service: ClubService())
+        self.present(nextVC, animated: true)
     }
 }

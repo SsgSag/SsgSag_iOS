@@ -101,7 +101,7 @@ class ClubDetailViewController: UIViewController {
     
     func requestClubInfo() {
         DispatchQueue.global().async {
-            ClubService.shared.requestClubInfo(clubIdx: self.clubIdx) { data in
+            ClubService().requestClubInfo(clubIdx: self.clubIdx) { data in
                 guard data != nil else {return}
                 
                 /*

@@ -37,6 +37,7 @@ enum RequestURL {
     case clickRecord(posterIdx: Int, type: Int)
     case clubList(curPage: Int)
     case clubInfo(clubIdx: Int)
+    case searchClubWithName(clubType: ClubType, location: String, keyword: String, curPage: Int)
     
     var getRequestURL: String {
         switch self {
@@ -126,6 +127,8 @@ enum RequestURL {
             return "/club?curPage=\(curPage)"
         case .clubInfo(let clubIdx):
             return  "/club/\(clubIdx)"
+        case .searchClubWithName(let clubType, let location, let keyword, let curPage):
+            return "/club/search?clubType=\(clubType.rawValue)&univOrLocation=\(location)&keyword=\(keyword)&curPage=\(curPage)"
         }
         
     }

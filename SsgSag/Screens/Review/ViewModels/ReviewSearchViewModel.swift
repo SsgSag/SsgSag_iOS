@@ -11,19 +11,23 @@ import RxSwift
 import RxCocoa
 
 class ReviewSearchViewModel {
-    let cellModel: BehaviorRelay<[String]> = BehaviorRelay(value: ["1","2","22"])
+    let searchService: ClubServiceProtocol
+    let cellModel: BehaviorRelay<[ClubListData]> = BehaviorRelay(value: [])
     let isEmpty = BehaviorRelay(value: true)
+    let clubType: ClubType
     var disposeBag: DisposeBag
     
-    init() {
+    init(clubType: ClubType, service: ClubServiceProtocol = ClubService()) {
         disposeBag = DisposeBag()
+        searchService = service
+        self.clubType = clubType
         bind()
     }
     
     func bind() {
         cellModel
-            .distinctUntilChanged()
             .subscribe(onNext: { [weak self] datas in
+                print(datas.isEmpty)
             if datas.isEmpty {
                 self?.isEmpty.accept(true)
             }else {
@@ -31,5 +35,16 @@ class ReviewSearchViewModel {
             }
         })
             .disposed(by: disposeBag)
+    }
+    
+    func fetchCellData(keyword: String) {
+        searchService.requestClubWithName(clubType: clubType, location: "서울", keyword: keyword, curPage: 0) { data in
+            guard let data = data else {
+                print("out")
+                self.cellModel.accept([])
+                return
+            }
+            self.cellModel.accept(data)
+        }
     }
 }

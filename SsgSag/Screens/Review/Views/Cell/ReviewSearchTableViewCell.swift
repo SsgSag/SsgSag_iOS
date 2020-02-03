@@ -12,8 +12,16 @@ import RxCocoa
 
 class ReviewSearchTableViewCell: UITableViewCell {
     
+    @IBOutlet weak var starStackView: UIStackView!
+    @IBOutlet weak var scoreNumLabel: UILabel!
+    @IBOutlet weak var scoreLabel: UILabel!
+    @IBOutlet weak var oneLineLabel: UILabel!
+    @IBOutlet weak var clubNameLabel: UILabel!
     let categoryStack = CategoryList()
     var disposeBag = DisposeBag()
+    let fullStar = UIImage(named: "star2")
+    let halfStar = UIImage(named: "star1")
+    let blackStar = UIImage(named: "star0")
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -44,8 +52,32 @@ class ReviewSearchTableViewCell: UITableViewCell {
         self.layoutIfNeeded()
     }
     
-    func bind(viewModel: ReviewSearchViewModel) {
-        categoryFactory(labels: viewModel.cellModel.value)
+    func ratePaint(score: Float) {
+        let stackStar = self.starStackView.subviews as! [UIImageView]
+        var score = score
+        
+        stackStar.forEach {
+            score -= 1
+            if score >= 0 {
+                $0.image = self.fullStar
+            } else if score > -1 {
+                $0.image = self.halfStar
+            } else {
+                $0.image = self.blackStar
+            }
+        }
+    }
+    
+    func bind(viewModel: ReviewSearchViewModel, row: Int) {
+        categoryStack.subviews.forEach { $0.removeFromSuperview() }
+        categoryFactory(labels: viewModel.cellModel.value[row].categoryList.removeComma())
+        clubNameLabel.text = viewModel.cellModel.value[row].clubName
+        oneLineLabel.text = viewModel.cellModel.value[row].oneLine
+        ratePaint(score: viewModel.cellModel.value[row].aveScore)
+        scoreLabel.text = "평점 \(viewModel.cellModel.value[row].aveScore)"
+        scoreNumLabel.text = "후기 \(viewModel.cellModel.value[row].scoreNum)개"
+        
+        
     }
     
 }

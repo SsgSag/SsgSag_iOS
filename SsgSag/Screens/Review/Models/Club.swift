@@ -8,6 +8,11 @@
 
 import Foundation
 
+enum ClubType: String {
+    case Union = "0"
+    case School = "1"
+}
+
 // 동아리 리스트
 struct Clubs: Codable {
     let status: Int?

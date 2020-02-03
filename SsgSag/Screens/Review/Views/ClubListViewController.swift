@@ -10,8 +10,8 @@ import UIKit
 
 class ClubListViewController: UIViewController {
     @IBOutlet weak var reviewTableView: UITableView!
-    let pageIndex = 0
-    internal var curPage = 0
+    var pageIndex = 0
+    var curPage = 0
     var cellData: [ClubListData] = []
     
     override func viewDidLoad() {
@@ -24,10 +24,11 @@ class ClubListViewController: UIViewController {
     }
     
     func requestPage() {
-        ClubService.shared.requestClubList(curPage: curPage) { data in
+        ClubService().requestClubList(curPage: curPage) { data in
             guard data != nil else { return }
             data!.forEach { self.cellData.append($0) }
             self.reviewTableView.reloadData()
         }
     }
+    
 }
