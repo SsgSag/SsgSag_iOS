@@ -45,7 +45,7 @@ class ReviewSearchTableViewCell: UITableViewCell {
     }
     
     func bind(viewModel: ReviewSearchViewModel) {
-        categoryFactory(labels: viewModel.cellModel)
+        categoryFactory(labels: viewModel.cellModel.value)
     }
     
 }

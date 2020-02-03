@@ -11,5 +11,25 @@ import RxSwift
 import RxCocoa
 
 class ReviewSearchViewModel {
-    let cellModel = ["1","123","test"]
+    let cellModel: BehaviorRelay<[String]> = BehaviorRelay(value: ["1","2","22"])
+    let isEmpty = BehaviorRelay(value: true)
+    var disposeBag: DisposeBag
+    
+    init() {
+        disposeBag = DisposeBag()
+        bind()
+    }
+    
+    func bind() {
+        cellModel
+            .distinctUntilChanged()
+            .subscribe(onNext: { [weak self] datas in
+            if datas.isEmpty {
+                self?.isEmpty.accept(true)
+            }else {
+                self?.isEmpty.accept(false)
+            }
+        })
+            .disposed(by: disposeBag)
+    }
 }
