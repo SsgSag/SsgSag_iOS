@@ -52,7 +52,6 @@ class ReviewSearchViewController: UIViewController {
         viewModel.isEmpty
             .asDriver()
             .drive(onNext: { [weak self] bool in
-                print("view - \(bool)" )
                 if bool {
                     guard let title = self?.searchTexfield.text else {return}
                     guard title != "" else {return}

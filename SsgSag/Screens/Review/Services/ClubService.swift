@@ -93,7 +93,6 @@ class ClubService: ClubServiceProtocol {
         
         let baseURL = UserAPI.sharedInstance.getBaseString()
         let path = RequestURL.searchClubWithName(clubType: clubType, location: location, keyword: keyword, curPage: curPage).getRequestURL
-        print(path)
         guard let urlString = (baseURL + path).addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) else {return}
         guard let url = URL(string:  urlString) else {return}
         let token = TokenName.tokenString

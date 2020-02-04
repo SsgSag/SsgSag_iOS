@@ -8,6 +8,7 @@
 
 import UIKit
 import RxSwift
+import Kingfisher
 
 class ClubInfoViewController: UIViewController {
 
@@ -18,7 +19,7 @@ class ClubInfoViewController: UIViewController {
     @IBOutlet weak var activeNumLabel: UILabel!
     @IBOutlet weak var homePageLabel: UILabel!
     @IBOutlet weak var photoCollectionView: UICollectionView!
-    var infoPhotoURLSet: [String] = []
+    var imgSet: [String] = []
     let tabViewModel = ClubDetailViewModel.shared
     var disposeBag: DisposeBag!
     let indicator = UIActivityIndicatorView()
@@ -30,31 +31,30 @@ class ClubInfoViewController: UIViewController {
         self.photoCollectionView.delegate = self
         labelGestureAdd()
         disposeBag = DisposeBag()
-        bind()
         setIndicatorView()
+        bind()
     }
     
     func bind() {
         self.tabViewModel.clubInfoData
-        .filter { $0 != nil }
-        .map { $0 }
-        .observeOn(MainScheduler.instance)
-        .subscribe(onNext: { [weak self] data in
-            guard data != nil else { return }
-            self?.activeNumLabel.text = data!.activeNum
-            self?.meetingLabel.text = data!.meetingTime
-            self?.feeLabel.text = data!.clubFee
-            self?.webSiteLabel.text = data!.clubWebsite
-            self?.introduceLabel.text = data!.introduce
-            self?.infoPhotoURLSet = data!.clubPhotoUrlList.removeComma()
-            
-            DispatchQueue.main.async {
+            .filter { $0 != nil }
+            .map { $0 }
+            .observeOn(MainScheduler.instance)
+            .subscribe(onNext: { [weak self] data in
+                guard data != nil else { return }
+                self?.activeNumLabel.text = data!.activeNum
+                self?.meetingLabel.text = data!.meetingTime
+                self?.feeLabel.text = data!.clubFee
+                self?.webSiteLabel.text = data!.clubWebsite
+                self?.introduceLabel.text = data!.introduce
+                
+                self?.imgSet = data!.clubPhotoUrlList.removeComma()
                 self?.photoCollectionView.reloadData()
                 self?.view.layoutIfNeeded()
-            }
-            self?.indicator.stopAnimating()
-        })
-        .disposed(by: disposeBag)
+                
+                self?.indicator.stopAnimating()
+            })
+            .disposed(by: disposeBag)
     }
     
     func setIndicatorView() {

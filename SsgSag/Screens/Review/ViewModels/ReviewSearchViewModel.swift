@@ -27,7 +27,6 @@ class ReviewSearchViewModel {
     func bind() {
         cellModel
             .subscribe(onNext: { [weak self] datas in
-                print(datas.isEmpty)
             if datas.isEmpty {
                 self?.isEmpty.accept(true)
             }else {
@@ -40,7 +39,6 @@ class ReviewSearchViewModel {
     func fetchCellData(keyword: String) {
         searchService.requestClubWithName(clubType: clubType, location: "서울", keyword: keyword, curPage: 0) { data in
             guard let data = data else {
-                print("out")
                 self.cellModel.accept([])
                 return
             }
