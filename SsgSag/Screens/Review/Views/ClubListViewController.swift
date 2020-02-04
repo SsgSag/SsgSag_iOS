@@ -25,8 +25,13 @@ class ClubListViewController: UIViewController {
     
     func requestPage() {
         ClubService().requestClubList(curPage: curPage) { data in
-            guard data != nil else { return }
-            data!.forEach { self.cellData.append($0) }
+            guard let data = data else { return }
+            if data.count == 0 {
+                self.curPage -= 1
+                return
+            }
+            
+            data.forEach { self.cellData.append($0) }
             self.reviewTableView.reloadData()
         }
     }

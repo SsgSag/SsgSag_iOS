@@ -25,6 +25,7 @@ class ClubService: ClubServiceProtocol {
         let header: HTTPHeaders = [
            "Authorization" : token
        ]
+
         Alamofire.request(url, method: .get, parameters: nil, encoding: JSONEncoding.default, headers: header).responseJSON { response in
             switch response.result {
             case .success:
