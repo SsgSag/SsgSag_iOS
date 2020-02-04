@@ -10,7 +10,7 @@ import UIKit
 import RxSwift
 import RxCocoa
 
-class ReviewSearchViewController: UIViewController {
+class ReviewSearchViewController: UIViewController, UITextFieldDelegate {
 
     @IBOutlet weak var searchTexfield: UITextField!
     @IBOutlet weak var clubRegisterButton: UIButton!
@@ -25,6 +25,7 @@ class ReviewSearchViewController: UIViewController {
         
         let nib = UINib(nibName: "ReviewSearchTableViewCell", bundle: nil)
         tableView.register(nib, forCellReuseIdentifier: "ReviewSearchCell")
+        self.searchTexfield.delegate = self
         
         guard let viewModel = viewModel else {return}
         bind(viewModel: viewModel)
@@ -52,13 +53,13 @@ class ReviewSearchViewController: UIViewController {
         viewModel.isEmpty
             .asDriver()
             .drive(onNext: { [weak self] bool in
+                guard let title = self?.searchTexfield.text else {return}
                 if bool {
-                    guard let title = self?.searchTexfield.text else {return}
                     guard title != "" else {return}
                     self?.searchLabel.text = "\'\(title)\'에 대한 검색 결과가 없습니다."
                     self?.clubRegisterButton.setTitle("\'\(title)\' 동아리 등록하러가기", for: .normal)
                 } else {
-                    self?.searchLabel.text = "\'\(self?.searchTexfield.text)\'에 대한 검색 결과입니다."
+                    self?.searchLabel.text = "\'\(title)\'에 대한 검색 결과입니다."
                 }
                 self?.searchLabel.isHidden = !bool
                 self?.clubRegisterButton.isHidden = !bool
@@ -68,5 +69,13 @@ class ReviewSearchViewController: UIViewController {
     }
     @IBAction func backClick(_ sender: Any) {
         self.dismiss(animated: true)
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        guard let keyword = self.searchTexfield.text else { return false }
+        guard let viewModel = viewModel else { return false }
+        viewModel.fetchCellData(keyword: keyword)
+        self.view.endEditing(true)
+        return true
     }
 }
