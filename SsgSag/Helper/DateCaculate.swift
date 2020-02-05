@@ -113,5 +113,18 @@ struct DateCaculate {
         return "\(startMonth).\(startDay) ~ \(endMonth).\(endDay)"
     }
  
+    static func dateToStringShowDateFormatter(date: Date) -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yy년 M월"
+        
+        return dateFormatter.string(from: date)
+    }
+    
+    static func dateToStringRequestDateDateFormatter(date: Date) -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM"
+        
+        return dateFormatter.string(from: date)
+    }
     
 }

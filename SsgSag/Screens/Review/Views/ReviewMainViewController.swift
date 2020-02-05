@@ -62,4 +62,8 @@ class ReviewMainViewController: UIViewController {
         nextVC.viewModel = ReviewSearchViewModel(clubType: type, service: ClubService())
         self.present(nextVC, animated: true)
     }
+    @IBAction func writeReviewClick(_ sender: Any) {
+        let nextVC = self.storyboard?.instantiateViewController(withIdentifier: "ReviewPrepareVC") as! ReviewPrepareViewController
+        self.navigationController?.pushViewController(nextVC, animated: true)
+    }
 }
