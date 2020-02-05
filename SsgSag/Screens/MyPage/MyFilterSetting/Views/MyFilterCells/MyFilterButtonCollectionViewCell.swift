@@ -27,20 +27,14 @@ class MyFilterButtonCollectionViewCell: UICollectionViewCell, StoryboardView {
             })
             .disposed(by: disposeBag)
         
-        reactor.state.map { $0.borderColor }
+        reactor.state.map { $0.backgroundColor }
             .subscribe(onNext: { [weak self] (color) in
-                self?.contentView.layer.borderColor = color.cgColor
+                self?.contentView.backgroundColor = color
             })
             .disposed(by: disposeBag)
         
         reactor.state.map { $0.titleText }
             .bind(to: titleLabel.rx.text)
-            .disposed(by: disposeBag)
-        
-        reactor.state.map { $0.textFont }
-            .subscribe(onNext: { [weak self] font in
-                self?.titleLabel.font = font
-            })
             .disposed(by: disposeBag)
         
     }

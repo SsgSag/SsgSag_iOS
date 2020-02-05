@@ -30,25 +30,26 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="개발자" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qSF-w8-3wZ">
-                                                    <rect key="frame" x="16" y="17" width="34" height="16"/>
+                                                    <rect key="frame" x="16" y="17.333333333333332" width="34" height="15.666666666666668"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                                                    <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <color key="textColor" red="0.46666666666666667" green="0.46666666666666667" blue="0.46666666666666667" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
+                                            <color key="backgroundColor" red="0.93333333333333335" green="0.93333333333333335" blue="0.93333333333333335" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                             <constraints>
                                                 <constraint firstItem="qSF-w8-3wZ" firstAttribute="leading" secondItem="5RS-90-3hq" secondAttribute="leading" constant="16" id="AV1-hK-Wj6"/>
                                                 <constraint firstItem="qSF-w8-3wZ" firstAttribute="centerY" secondItem="5RS-90-3hq" secondAttribute="centerY" id="hOo-oB-0eF"/>
                                             </constraints>
                                             <userDefinedRuntimeAttributes>
                                                 <userDefinedRuntimeAttribute type="color" keyPath="borderColorV">
-                                                    <color key="value" red="0.38431372549019605" green="0.4159168004989624" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                                    <color key="value" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 </userDefinedRuntimeAttribute>
                                                 <userDefinedRuntimeAttribute type="number" keyPath="borderWidthV">
                                                     <real key="value" value="1"/>
                                                 </userDefinedRuntimeAttribute>
                                                 <userDefinedRuntimeAttribute type="number" keyPath="cornerRadiusV">
-                                                    <real key="value" value="15"/>
+                                                    <real key="value" value="3"/>
                                                 </userDefinedRuntimeAttribute>
                                             </userDefinedRuntimeAttributes>
                                         </collectionViewCellContentView>
@@ -4210,7 +4211,7 @@ If you have any questions or concerns, please contact us at opensource@ssgsag.
         <image name="icArrowNextMypage" width="24" height="24"/>
         <image name="icCancelActive" width="25" height="24"/>
         <image name="icXClose" width="24" height="24"/>
-        <image name="ic_ArrowBack" width="48" height="48"/>
+        <image name="ic_ArrowBack" width="25" height="24"/>
         <image name="ic_industry" width="20" height="20"/>
         <image name="ic_jobCategory" width="20" height="20"/>
         <image name="ic_selectAllPassive" width="16" height="16"/>

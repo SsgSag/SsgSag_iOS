@@ -21,7 +21,7 @@ class SwipeVC: UIViewController {
     private let completeImageView: UIImageView = {
         let view = UIImageView()
         view.translatesAutoresizingMaskIntoConstraints = false
-        view.image = UIImage(named: "designer")
+        view.image = UIImage(named: "imgLunchtime")
         return view
     }()
     
@@ -69,7 +69,6 @@ class SwipeVC: UIViewController {
         
         label.textColor = .blackOne
         label.textAlignment = .center
-        label.adjustsFontSizeToFitWidth = true
         return label
     }()
     
@@ -167,8 +166,12 @@ class SwipeVC: UIViewController {
         completeStackView.addArrangedSubview(moveToFilterButton)
         view.addSubview(completeStackView)
         
-        completeLabel.widthAnchor.constraint(
-            equalToConstant: 186).isActive = true
+        completeLabel.leadingAnchor.constraint(
+            equalTo: completeStackView.leadingAnchor
+        ).isActive = true
+        completeLabel.trailingAnchor.constraint(
+            equalTo: completeStackView.trailingAnchor
+        ).isActive = true
         completeLabel.heightAnchor.constraint(
             equalToConstant: 36).isActive = true
         

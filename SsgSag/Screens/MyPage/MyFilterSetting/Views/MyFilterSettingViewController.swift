@@ -240,7 +240,9 @@ UICollectionViewDelegateFlowLayout {
         let section = Section(at: indexPath)
         switch section {
         case .jobKind:
-            return MyFilterSizeLayout.calculateItemSize(by: .jobKind)
+            let titleString = self.reactor?.currentState.sections[indexPath.section][indexPath.item] ?? ""
+            return MyFilterSizeLayout.calculateItemSize(by: .jobKind,
+                                                        targetString: titleString)
         case .interestedField:
             let titleString = self.reactor?.currentState.sections[indexPath.section][indexPath.item] ?? ""
             return MyFilterSizeLayout.calculateItemSize(by: .interestedField,

@@ -13,6 +13,10 @@ extension UIColor {
                                     green: 110/255,
                                     blue: 240/255,
                                     alpha: 1)
+    static let cornFlowerLight = UIColor(red: 101/255,
+                                    green: 110/255,
+                                    blue: 240/255,
+                                    alpha: 0.8)
     
     static let unselectedTextGray = UIColor(red: 153/255,
                                             green: 153/255,
@@ -34,9 +38,19 @@ extension UIColor {
                                               blue: 231/255,
                                               alpha: 1)
     static let blackOne = UIColor(red: 51/255,
-                                              green: 51/255,
-                                              blue: 51/255,
-                                              alpha: 1)
+                                  green: 51/255,
+                                  blue: 51/255,
+                                  alpha: 1)
+    
+    static let greyThree = UIColor(red: 119/255,
+                                   green: 119/255,
+                                   blue: 119/255,
+                                   alpha: 1)
+    
+    static let greyFour = UIColor(red: 238/255,
+                                  green: 238/255,
+                                  blue: 238/255,
+                                  alpha: 1)
 
     @nonobjc class var reviewDeselectGray: UIColor {
       return UIColor(white: 187.0 / 255.0, alpha: 1.0)
