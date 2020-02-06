@@ -30,6 +30,7 @@
 		065264DB23EA8FEE00501200 /* NotFoundClubViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 065264DA23EA8FEE00501200 /* NotFoundClubViewController.swift */; };
 		065264DD23EAC4BA00501200 /* FoundClubViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 065264DC23EAC4BA00501200 /* FoundClubViewController.swift */; };
 		065264DF23EBC55C00501200 /* StarRatingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 065264DE23EBC55C00501200 /* StarRatingViewController.swift */; };
+		065264E123EBCCE500501200 /* StarRatingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 065264E023EBCCE500501200 /* StarRatingViewModel.swift */; };
 		0652950523E7ADA400DA9F3B /* CategoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0652950423E7ADA400DA9F3B /* CategoryView.swift */; };
 		0652950723E7B74500DA9F3B /* ReviewSearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0652950623E7B74500DA9F3B /* ReviewSearchViewModel.swift */; };
 		0652950A23E91C3E00DA9F3B /* InputCategoryCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0652950823E91C3E00DA9F3B /* InputCategoryCollectionViewCell.swift */; };
@@ -400,6 +401,7 @@
 		065264DA23EA8FEE00501200 /* NotFoundClubViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotFoundClubViewController.swift; sourceTree = "<group>"; };
 		065264DC23EAC4BA00501200 /* FoundClubViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoundClubViewController.swift; sourceTree = "<group>"; };
 		065264DE23EBC55C00501200 /* StarRatingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StarRatingViewController.swift; sourceTree = "<group>"; };
+		065264E023EBCCE500501200 /* StarRatingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StarRatingViewModel.swift; sourceTree = "<group>"; };
 		0652950423E7ADA400DA9F3B /* CategoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryView.swift; sourceTree = "<group>"; };
 		0652950623E7B74500DA9F3B /* ReviewSearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewSearchViewModel.swift; sourceTree = "<group>"; };
 		0652950823E91C3E00DA9F3B /* InputCategoryCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputCategoryCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -878,6 +880,7 @@
 			children = (
 				0655966423E00C4700C779A5 /* ClubDetailViewModel.swift */,
 				0652950623E7B74500DA9F3B /* ReviewSearchViewModel.swift */,
+				065264E023EBCCE500501200 /* StarRatingViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -2327,6 +2330,7 @@
 				0610DF1E23D9919E00DC2273 /* ReviewTabCellModel.swift in Sources */,
 				0655965F23DFFE0400C779A5 /* String+Extension.swift in Sources */,
 				C9C26BEF239D47B40084C248 /* TotalInformationCollectionViewCellReactor.swift in Sources */,
+				065264E123EBCCE500501200 /* StarRatingViewModel.swift in Sources */,
 				D1226C8C22EC9A26007F59BE /* ActicityServiceProtocol.swift in Sources */,
 				846E6233229294300083E3CD /* UserDefaultsName.swift in Sources */,
 				FA3A342221E5D64300668908 /* UserInfoVC.swift in Sources */,
