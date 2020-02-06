@@ -199,4 +199,12 @@ class StarRatingViewController: UIViewController {
     @IBAction func backClick(_ sender: Any) {
         self.navigationController?.popViewController(animated: true)
     }
+    
+    @IBAction func nextClick(_ sender: Any) {
+        let nextVC = self.storyboard?.instantiateViewController(withIdentifier: "SimpleReviewVC") as! SimpleReviewViewController
+        
+        nextVC.clubactInfo = clubactInfo
+        
+        self.navigationController?.pushViewController(nextVC, animated: true)        
+    }
 }

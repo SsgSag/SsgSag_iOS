@@ -56,14 +56,17 @@ class ReviewMainViewController: UIViewController {
             reviewPageInstance.pageDelegate = self
         }
     }
+    
     @IBAction func searchButtoClickn(_ sender: Any) {
         let type: ClubType = curIndex == 0 ? .Union : .School
         let nextVC = self.storyboard?.instantiateViewController(withIdentifier: "ReviewSearch") as! ReviewSearchViewController
         nextVC.viewModel = ReviewSearchViewModel(clubType: type, service: ClubService())
         self.present(nextVC, animated: true)
     }
+    
     @IBAction func writeReviewClick(_ sender: Any) {
-        let nextVC = self.storyboard?.instantiateViewController(withIdentifier: "ReviewPrepareVC") as! ReviewPrepareViewController
-        self.navigationController?.pushViewController(nextVC, animated: true)
+        guard let nextVC = self.storyboard?.instantiateViewController(withIdentifier: "ReviewPrepareVC") else {return}
+        self.present(nextVC, animated: true)
+        
     }
 }

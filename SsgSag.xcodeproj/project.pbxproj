@@ -31,6 +31,7 @@
 		065264DD23EAC4BA00501200 /* FoundClubViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 065264DC23EAC4BA00501200 /* FoundClubViewController.swift */; };
 		065264DF23EBC55C00501200 /* StarRatingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 065264DE23EBC55C00501200 /* StarRatingViewController.swift */; };
 		065264E123EBCCE500501200 /* StarRatingViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 065264E023EBCCE500501200 /* StarRatingViewModel.swift */; };
+		065264E323EBFEE900501200 /* SimpleReviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 065264E223EBFEE900501200 /* SimpleReviewViewController.swift */; };
 		0652950523E7ADA400DA9F3B /* CategoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0652950423E7ADA400DA9F3B /* CategoryView.swift */; };
 		0652950723E7B74500DA9F3B /* ReviewSearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0652950623E7B74500DA9F3B /* ReviewSearchViewModel.swift */; };
 		0652950A23E91C3E00DA9F3B /* InputCategoryCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0652950823E91C3E00DA9F3B /* InputCategoryCollectionViewCell.swift */; };
@@ -402,6 +403,7 @@
 		065264DC23EAC4BA00501200 /* FoundClubViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoundClubViewController.swift; sourceTree = "<group>"; };
 		065264DE23EBC55C00501200 /* StarRatingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StarRatingViewController.swift; sourceTree = "<group>"; };
 		065264E023EBCCE500501200 /* StarRatingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StarRatingViewModel.swift; sourceTree = "<group>"; };
+		065264E223EBFEE900501200 /* SimpleReviewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleReviewViewController.swift; sourceTree = "<group>"; };
 		0652950423E7ADA400DA9F3B /* CategoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryView.swift; sourceTree = "<group>"; };
 		0652950623E7B74500DA9F3B /* ReviewSearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewSearchViewModel.swift; sourceTree = "<group>"; };
 		0652950823E91C3E00DA9F3B /* InputCategoryCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputCategoryCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -807,6 +809,7 @@
 				065264DA23EA8FEE00501200 /* NotFoundClubViewController.swift */,
 				065264DC23EAC4BA00501200 /* FoundClubViewController.swift */,
 				065264DE23EBC55C00501200 /* StarRatingViewController.swift */,
+				065264E223EBFEE900501200 /* SimpleReviewViewController.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -2357,6 +2360,7 @@
 				D1B2F43523013BAA00074448 /* AllAndFavoriteCollectionReusableView.swift in Sources */,
 				D11080B822E09F6E00F345A8 /* DetailInfoButtonsView.swift in Sources */,
 				C9A828492395528D0029A493 /* PushAlarmTableViewController.swift in Sources */,
+				065264E323EBFEE900501200 /* SimpleReviewViewController.swift in Sources */,
 				FA3A344221E7285C00668908 /* ConfirmProfileVC.swift in Sources */,
 				D11080AD22E0820300F345A8 /* CommentCollectionViewCell.swift in Sources */,
 				FA3A8FD921DF3D5F0075A510 /* Extension.swift in Sources */,

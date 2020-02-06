@@ -1001,7 +1001,7 @@
         <!--Review Prepare View Controller-->
         <scene sceneID="5fY-Z6-Aro">
             <objects>
-                <viewController storyboardIdentifier="ReviewPrepareVC" id="atn-QF-A6E" customClass="ReviewPrepareViewController" customModule="슥삭" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController modalPresentationStyle="fullScreen" id="atn-QF-A6E" customClass="ReviewPrepareViewController" customModule="슥삭" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="DFn-9g-dni">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1204,10 +1204,11 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="jrf-la-mvA"/>
                     </view>
+                    <navigationItem key="navigationItem" id="KuF-Bq-DTr"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="HbY-iM-DWO" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3213.5999999999999" y="-67.241379310344826"/>
+            <point key="canvasLocation" x="4156" y="-67.241379310344826"/>
         </scene>
         <!--Select Club Type View Controller-->
         <scene sceneID="8bF-rj-rVR">
@@ -1306,7 +1307,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="no4-Xu-frx" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3852" y="-68"/>
+            <point key="canvasLocation" x="4794.3999999999996" y="-68.7192118226601"/>
         </scene>
         <!--Input User Club Info View Controller-->
         <scene sceneID="zCp-EF-Ubh">
@@ -1632,7 +1633,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="N2I-dJ-Z6U" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4492" y="-67.241379310344826"/>
+            <point key="canvasLocation" x="5434.3999999999996" y="-67.241379310344826"/>
         </scene>
         <!--Club Act Info Alert View Controller-->
         <scene sceneID="mGM-6M-b7g">
@@ -1770,7 +1771,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="uVi-U1-G6L" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5124" y="-67.241379310344826"/>
+            <point key="canvasLocation" x="6066.3999999999996" y="-67.241379310344826"/>
         </scene>
         <!--Not Found Club View Controller-->
         <scene sceneID="S6F-A1-shD">
@@ -1912,7 +1913,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hR4-Hm-DLP" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5770" y="-69"/>
+            <point key="canvasLocation" x="6711.1999999999998" y="-69.458128078817737"/>
         </scene>
         <!--Club Page View Controller-->
         <scene sceneID="pwR-fa-WsS">
@@ -3594,6 +3595,7 @@
                                             <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </state>
                                         <connections>
+                                            <action selector="nextClick:" destination="DWx-aS-7wh" eventType="touchUpInside" id="cKq-tM-65V"/>
                                             <action selector="nextClick:" destination="Vsu-ey-w3J" eventType="touchUpInside" id="dWK-xQ-XE6"/>
                                         </connections>
                                     </button>
@@ -3655,6 +3657,38 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="w5O-hO-u3q" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="5141.6000000000004" y="-744.0886699507389"/>
+        </scene>
+        <!--Simple Review View Controller-->
+        <scene sceneID="oig-PO-u1V">
+            <objects>
+                <viewController storyboardIdentifier="SimpleReviewVC" id="iJP-aq-Qva" customClass="SimpleReviewViewController" customModule="슥삭" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="zeg-GN-GYF">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <viewLayoutGuide key="safeArea" id="YQW-c4-SmE"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ALN-0e-kwB" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="5792" y="-745"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="0n5-m3-g4k">
+            <objects>
+                <navigationController storyboardIdentifier="ReviewPrepareVC" automaticallyAdjustsScrollViewInsets="NO" modalPresentationStyle="fullScreen" navigationBarHidden="YES" id="4yX-rW-her" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="DZx-ld-NYr">
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="atn-QF-A6E" kind="relationship" relationship="rootViewController" id="ziL-qB-aim"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="bLD-Uq-5Qn" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3213.5999999999999" y="-67.241379310344826"/>
         </scene>
     </scenes>
     <resources>
