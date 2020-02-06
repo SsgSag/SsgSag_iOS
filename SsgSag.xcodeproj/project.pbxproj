@@ -28,6 +28,8 @@
 		063B572223E4300800B8F617 /* ReviewSearchTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 063B572023E4300800B8F617 /* ReviewSearchTableViewCell.swift */; };
 		063B572323E4300800B8F617 /* ReviewSearchTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 063B572123E4300800B8F617 /* ReviewSearchTableViewCell.xib */; };
 		065264DB23EA8FEE00501200 /* NotFoundClubViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 065264DA23EA8FEE00501200 /* NotFoundClubViewController.swift */; };
+		065264DD23EAC4BA00501200 /* FoundClubViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 065264DC23EAC4BA00501200 /* FoundClubViewController.swift */; };
+		065264DF23EBC55C00501200 /* StarRatingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 065264DE23EBC55C00501200 /* StarRatingViewController.swift */; };
 		0652950523E7ADA400DA9F3B /* CategoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0652950423E7ADA400DA9F3B /* CategoryView.swift */; };
 		0652950723E7B74500DA9F3B /* ReviewSearchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0652950623E7B74500DA9F3B /* ReviewSearchViewModel.swift */; };
 		0652950A23E91C3E00DA9F3B /* InputCategoryCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0652950823E91C3E00DA9F3B /* InputCategoryCollectionViewCell.swift */; };
@@ -396,6 +398,8 @@
 		063B572023E4300800B8F617 /* ReviewSearchTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewSearchTableViewCell.swift; sourceTree = "<group>"; };
 		063B572123E4300800B8F617 /* ReviewSearchTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ReviewSearchTableViewCell.xib; sourceTree = "<group>"; };
 		065264DA23EA8FEE00501200 /* NotFoundClubViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotFoundClubViewController.swift; sourceTree = "<group>"; };
+		065264DC23EAC4BA00501200 /* FoundClubViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoundClubViewController.swift; sourceTree = "<group>"; };
+		065264DE23EBC55C00501200 /* StarRatingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StarRatingViewController.swift; sourceTree = "<group>"; };
 		0652950423E7ADA400DA9F3B /* CategoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryView.swift; sourceTree = "<group>"; };
 		0652950623E7B74500DA9F3B /* ReviewSearchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewSearchViewModel.swift; sourceTree = "<group>"; };
 		0652950823E91C3E00DA9F3B /* InputCategoryCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputCategoryCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -799,6 +803,8 @@
 				0652951023E93CDE00DA9F3B /* InputUserClubInfoViewController.swift */,
 				0652951223E959BF00DA9F3B /* ClubActInfoAlertViewController.swift */,
 				065264DA23EA8FEE00501200 /* NotFoundClubViewController.swift */,
+				065264DC23EAC4BA00501200 /* FoundClubViewController.swift */,
+				065264DE23EBC55C00501200 /* StarRatingViewController.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -2215,6 +2221,7 @@
 				D1E517B922E02BDC0001EAA5 /* TempCollectionReusableView.swift in Sources */,
 				840AFF8822A2622C00EA12E6 /* UIDevice.swift in Sources */,
 				D188C90F236834DB00AB88F0 /* CateogoryCollectionViewCell.swift in Sources */,
+				065264DF23EBC55C00501200 /* StarRatingViewController.swift in Sources */,
 				C9A828432395528D0029A493 /* ChangePasswordViewController.swift in Sources */,
 				C9A828442395528D0029A493 /* AppInfoViewController.swift in Sources */,
 				C9A828562395528D0029A493 /* MyFilterFooterCollectionReusableView.swift in Sources */,
@@ -2249,6 +2256,7 @@
 				D149F599235D52230018B8F5 /* CalendarListViewController.swift in Sources */,
 				D1E037CE22F2C8C10081B8A1 /* TempPassword.swift in Sources */,
 				C9558B98239C15DD00E63F93 /* TotalInformationService.swift in Sources */,
+				065264DD23EAC4BA00501200 /* FoundClubViewController.swift in Sources */,
 				D1FDF3DC230AF7550055D293 /* NoTodoTableViewCell.swift in Sources */,
 				D1FCC4E6236C1082000E3769 /* SeperateCollectionReusableView.swift in Sources */,
 				C9A8284E2395528D0029A493 /* MyFilterGradeCollectionViewCellReactor.swift in Sources */,

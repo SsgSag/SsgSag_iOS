@@ -42,6 +42,10 @@ class ClubDetailViewController: UIViewController {
         requestClubInfo()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+         tabBarController?.tabBar.isHidden = false
+    }
+    
     func setupDefault() {
         self.categoryCollectionView.dataSource = self
         self.categoryCollectionView.delegate = self

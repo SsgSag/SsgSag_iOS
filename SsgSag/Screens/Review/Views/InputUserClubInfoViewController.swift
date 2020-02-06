@@ -153,11 +153,17 @@ class InputUserClubInfoViewController: UIViewController {
         
         
         // 동아리가 등록되어 있다면
+        let nextVC = self.storyboard?.instantiateViewController(withIdentifier: "FoundClubVC") as! FoundClubViewController
+        clubactInfo.clubName = "TESTCLUB"
+        clubactInfo.clubType = .School
+        
+        nextVC.clubactInfo = clubactInfo
         
         
         // 동아리가 등록되어있지 않다면
-        let nextVC = self.storyboard?.instantiateViewController(withIdentifier: "NotFoundClubVC") as! NotFoundClubViewController
-        nextVC.clubactInfo = clubactInfo
+        
+//        let nextVC = self.storyboard?.instantiateViewController(withIdentifier: "NotFoundClubVC") as! NotFoundClubViewController
+//        nextVC.clubactInfo = clubactInfo
         
         self.navigationController?.pushViewController(nextVC, animated: true)
         

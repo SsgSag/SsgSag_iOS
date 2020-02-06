@@ -22,7 +22,9 @@ struct Clubs: Codable {
 
 struct ClubListData: Codable {
     let clubIdx: Int
-    let clubName, clubType, categoryList, oneLine: String
+    let clubName: String
+    let clubType: Int
+    let categoryList, oneLine: String
     let score0sum, scoreNum: Int
     let aveScore: Float
 }
