@@ -12,6 +12,7 @@ import RxSwift
 import RxCocoa
 import RxDataSources
 import ReactorKit
+import Adjust
 
 private enum Section: Int {
     case jobKind
@@ -180,7 +181,7 @@ class MyFilterSettingViewController: UIViewController, StoryboardView {
                     .subscribe(onNext: { [weak self] _ in
                         self?.callback?()
                         self?.navigationController?.popViewController(animated: true)
-                        AppEvents.logEvent(AppEvents.Name(rawValue: "EVENT_NAME_CUSTOMIZED_FILTER") )
+                        self?.eventLog()
                     }, onError: { [weak self] _ in
                         self?.simplerAlert(title: "저장에 실패했습니다.")
                     })
@@ -216,6 +217,12 @@ class MyFilterSettingViewController: UIViewController, StoryboardView {
             .bind(to: reactor.action)
             .disposed(by: disposeBag)
         
+    }
+    
+    private func eventLog() {
+        AppEvents.logEvent(AppEvents.Name(rawValue: "CUSTOMIZED_FILTER") )
+        let event = ADJEvent(eventToken: AdjustTokenName.CUSTOMIZE_FILTER.getTokenString)
+        Adjust.trackEvent(event)
     }
 }
 

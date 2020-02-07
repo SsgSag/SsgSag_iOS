@@ -4,6 +4,7 @@ import SwiftKeychainWrapper
 //import AdBrixRM
 import RxSwift
 import FBSDKCoreKit
+import Adjust
 
 class SwipeVC: UIViewController {
     var disposeBag = DisposeBag()
@@ -411,7 +412,23 @@ class SwipeVC: UIViewController {
             }
         } else if currentLoadedCardsArray.count == 0 {
             setEmptyPosterAnimation()
-            AppEvents.logEvent(AppEvents.Name(rawValue: "EVENT_NAME_SWIPE_SUCCESS"))
+            eventLog()
+        }
+    }
+    
+    private func eventLog() {
+        let isAround = UserDefaults.standard.bool(forKey: "isTryWithoutLogin")
+        
+        if isAround {
+            //facebook
+            AppEvents.logEvent(AppEvents.Name("TUTORIALS_COMPLETE"))
+            //adjust
+            let event = ADJEvent(eventToken: AdjustTokenName.TUTORIALS_COMPLETE.getTokenString)
+            Adjust.trackEvent(event)
+        } else {
+            AppEvents.logEvent(AppEvents.Name("SWIPE_SUCCESS"))
+            let event = ADJEvent(eventToken: AdjustTokenName.SWIPE_SUCCESS.getTokenString)
+            Adjust.trackEvent(event)
         }
     }
     

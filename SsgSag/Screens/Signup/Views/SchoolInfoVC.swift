@@ -12,6 +12,7 @@ import NaverThirdPartyLogin
 import SwiftKeychainWrapper
 //import AdBrixRM
 import FBSDKCoreKit
+import Adjust
 
 class SchoolInfoVC: UIViewController {
     
@@ -373,7 +374,7 @@ class SchoolInfoVC: UIViewController {
             DispatchQueue.main.async {
                 switch httpStatus {
                 case .success:
-                    AppEvents.logEvent(AppEvents.Name("EVENT_NAME_COMPELTE_REGISTRATION"))
+                    self?.eventLog()
                     // 토큰 저장
                     if let storeToken = response.data?.token {
                         KeychainWrapper.standard.set(storeToken,
@@ -422,6 +423,12 @@ class SchoolInfoVC: UIViewController {
                 }
             }
         }
+    }
+    
+    private func eventLog() {
+        AppEvents.logEvent(AppEvents.Name("REGISTRATION_COMPELTE"))
+        let event = ADJEvent(eventToken: AdjustTokenName.COMPLETE_REGISTRATION.getTokenString)
+        Adjust.trackEvent(event)
     }
     
     private func setSendTokenAndSendType() {

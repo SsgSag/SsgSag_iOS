@@ -11,6 +11,7 @@ import Foundation
 enum ClientKey {
     case adBrixAppKey
     case adBrixSecretKey
+    case adJustAppToken
     
     var getClienyKey: String {
         switch self {
@@ -18,6 +19,8 @@ enum ClientKey {
             return "UBVFGgtRykabVMFEdAlL0w"
         case .adBrixSecretKey:
             return "cMxXoU7sl06k2KZeHMbxdA"
+        case .adJustAppToken:
+            return "j5uza6tddv5s"
         }
     }
 }
