@@ -57,8 +57,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         Messaging.messaging().delegate = self
         
         let appToken = ClientKey.adJustAppToken.getClienyKey
-        let environment = ADJEnvironmentSandbox
-//        let environment = ADJEnvironmentProduction
+//        let environment = ADJEnvironmentSandbox
+        let environment = ADJEnvironmentProduction
         let adjustConfig = ADJConfig(appToken: appToken, environment: environment)
         Adjust.appDidLaunch(adjustConfig!)
 //        setupAdBrix()
