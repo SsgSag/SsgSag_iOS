@@ -42,7 +42,7 @@ class StarRatingViewController: UIViewController {
     
     func scrollAppearAnim() {
         
-        UIView.animate(withDuration: 1) {
+        UIView.animate(withDuration: 0.3) {
             self.scrollView.alpha = 1
             self.scrollView.transform = .identity
         }
@@ -202,6 +202,8 @@ class StarRatingViewController: UIViewController {
     
     @IBAction func nextClick(_ sender: Any) {
         let nextVC = self.storyboard?.instantiateViewController(withIdentifier: "SimpleReviewVC") as! SimpleReviewViewController
+        
+        clubactInfo.starRatingBind(model: starRatingModel)
         
         nextVC.clubactInfo = clubactInfo
         

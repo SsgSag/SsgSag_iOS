@@ -12,6 +12,7 @@ import RxSwift
 
 class InputUserClubInfoViewController: UIViewController {
 
+    @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var clubNameTextField: UITextField!
     @IBOutlet weak var nextButton: UIButton!
     @IBOutlet weak var startDateLabel: UITextField!
@@ -26,8 +27,9 @@ class InputUserClubInfoViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         typeSetting()
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(tapHideKeyBoard))
+        scrollView.addGestureRecognizer(tapGesture)
         bind(model: clubactInfo)
-        
     }
     
     func typeSetting() {
@@ -40,6 +42,10 @@ class InputUserClubInfoViewController: UIViewController {
             self.univOrLocalTextField.isEnabled = false
             self.univOrLoaclImgView.isHidden = false
         }
+    }
+    
+    @objc func tapHideKeyBoard() {
+        self.view.endEditing(true)
     }
     
     func bind(model: ClubActInfoModel) {

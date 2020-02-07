@@ -89,6 +89,7 @@ class FoundClubViewController: UIViewController {
     
     @IBAction func nextClick(_ sender: Any) {
         let nextVC = self.storyboard?.instantiateViewController(withIdentifier: "StarRatingVC") as! StarRatingViewController
+        nextVC.clubactInfo = self.clubactInfo
         
         self.navigationController?.pushViewController(nextVC, animated: true)
     }

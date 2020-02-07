@@ -20,7 +20,7 @@ class ClubActInfoAlertViewController: UIViewController {
     @IBOutlet weak var dateViewBotLayout: NSLayoutConstraint!
     var originDatePickerPos = CGPoint.zero
     let feedbackGenerator = UISelectionFeedbackGenerator()
-    
+    let animationDuration = 0.2
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -42,12 +42,12 @@ class ClubActInfoAlertViewController: UIViewController {
     func appearAnim(type: InputType) {
         if type == .location {
             self.locationView.isHidden = false
-           UIView.animate(withDuration: 0.3, delay: 0, options: .curveEaseOut, animations: {
+           UIView.animate(withDuration: animationDuration, delay: 0, options: .curveEaseOut, animations: {
                 self.locationView.transform = CGAffineTransform(translationX: 0, y: -300)
             })
         } else {
             self.dateView.isHidden = false
-            UIView.animate(withDuration: 0.3, delay: 0, options: .curveEaseOut, animations: {
+            UIView.animate(withDuration: animationDuration, delay: 0, options: .curveEaseOut, animations: {
                 self.dateView.transform = CGAffineTransform(translationX: 0, y: -300)
             })
         }
@@ -56,11 +56,11 @@ class ClubActInfoAlertViewController: UIViewController {
     
     func dismissAnim(type: InputType) {
         if type == .location {
-            UIView.animate(withDuration: 0.3, delay: 0, options: .curveEaseOut, animations: {
+            UIView.animate(withDuration: animationDuration, delay: 0, options: .curveEaseOut, animations: {
                 self.locationView.transform = .identity
             })
         } else {
-            UIView.animate(withDuration: 0.3, delay: 0, options: .curveEaseOut, animations: {
+            UIView.animate(withDuration: animationDuration, delay: 0, options: .curveEaseOut, animations: {
                 self.dateView.transform = .identity
             })
         }

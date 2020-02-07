@@ -19,9 +19,9 @@ extension UIColor {
                                             blue: 153/255,
                                             alpha: 1)
     
-    static let unselectedGray = UIColor(red: 171/255,
-                                        green: 171/255,
-                                        blue: 171/255,
+    static let unselectedGray = UIColor(red: 170/255,
+                                        green: 170/255,
+                                        blue: 170/255,
                                         alpha: 1)
     
     static let unselectedButtonDefault = UIColor(red: 193/255,
