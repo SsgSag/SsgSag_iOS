@@ -88,7 +88,7 @@ class TabBarViewController: UITabBarController {
                                                                    image: UIImage(named: "ic_calendarPassive"),
                                                                    selectedImage: UIImage(named: "ic_calendarActive"))
         
-        let tabBarList = [feedViewController, mainViewController, newCalendarViewController, reviewViewController]
+        let tabBarList = [feedViewController, mainViewController, newCalendarViewController] //, reviewViewController
         
         self.viewControllers = tabBarList
     }
