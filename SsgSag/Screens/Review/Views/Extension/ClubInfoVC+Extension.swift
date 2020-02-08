@@ -11,8 +11,8 @@ import UIKit
 
 extension ClubInfoViewController: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        if self.imgSet.count > 6 {
-            return 6
+        if self.imgSet.count > showPhotoMaximum {
+            return showPhotoMaximum
         }
         
         return self.imgSet.count
@@ -24,9 +24,9 @@ extension ClubInfoViewController: UICollectionViewDataSource, UICollectionViewDe
         cell.imgString = self.imgSet[indexPath.item]
         
         let dataNum = self.imgSet.count
-        if indexPath.item == 5 && dataNum > 6 {
+        if indexPath.item == showPhotoMaximum-1 && dataNum > showPhotoMaximum {
             
-            let gap = dataNum - 6
+            let gap = dataNum - showPhotoMaximum
             cell.morePhotoView(moreCount: gap)
         } else {
             cell.hideView()

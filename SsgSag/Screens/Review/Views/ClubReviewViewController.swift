@@ -10,10 +10,12 @@ import UIKit
 import RxSwift
 
 class ClubReviewViewController: UIViewController {
-    let tabViewModel = ClubDetailViewModel.shared
+    var tabViewModel: ClubDetailViewModel!
     var disposeBag: DisposeBag!
     var reviewDataSet: [ReviewCellInfo] = []
     
+    @IBOutlet weak var emptyBlogView: UIView!
+    @IBOutlet weak var emptyReviewView: UIView!
     @IBOutlet weak var blogTableHeightLayout: NSLayoutConstraint!
     @IBOutlet weak var reviewTableHeightLayout: NSLayoutConstraint!
     @IBOutlet weak var scrollView: UIScrollView!
@@ -39,30 +41,38 @@ class ClubReviewViewController: UIViewController {
     
     func bind() {
         self.tabViewModel.reviewDataSet
-        .filter { $0 != nil }
-        .map { $0 }
+            .compactMap{ $0 }
         .observeOn(MainScheduler.instance)
         .subscribe(onNext: { [weak self] data in
-            guard data != nil else {return}
-            self?.reviewDataSet.removeAll()
-            data?.forEach { self?.reviewDataSet.append(ReviewCellInfo(data: $0))
-                self?.reviewDataSet.append(ReviewCellInfo(data: $0))
-                self?.reviewDataSet.append(ReviewCellInfo(data: $0))
-                self?.reviewDataSet.append(ReviewCellInfo(data: $0))
-                self?.reviewDataSet.append(ReviewCellInfo(data: $0))
+            if !data.isEmpty {
+                self?.emptyReviewView.isHidden = true
             }
+            self?.reviewDataSet.removeAll()
+//            data?.forEach {
+//                self?.reviewDataSet.append(ReviewCellInfo(data: $0))
+//                self?.reviewDataSet.append(ReviewCellInfo(data: $0))
+//                self?.reviewDataSet.append(ReviewCellInfo(data: $0))
+//                self?.reviewDataSet.append(ReviewCellInfo(data: $0))
+//                self?.reviewDataSet.append(ReviewCellInfo(data: $0))
+//            }
             
             self?.reviewTableHeightLayout.constant = CGFloat.greatestFiniteMagnitude
             self?.normalReviewTableView.reloadData()
             self?.view.layoutIfNeeded()
-            self?.reviewTableHeightLayout.constant = self?.normalReviewTableView.contentSize.height ?? 428
+            if let contentSize = self?.normalReviewTableView.contentSize.height {
+                self?.reviewTableHeightLayout.constant = contentSize == 0 ? 428 : contentSize
+            }
+            
             
             // 나중에 블로그 통신코드에 넣어주기
+//            self?.emptyBlogView.isHidden = true
             self?.blogTableHeightLayout.constant = CGFloat.greatestFiniteMagnitude
             self?.blogReviewTableView.reloadData()
             self?.view.layoutIfNeeded()
-            self?.blogTableHeightLayout.constant = self?.blogReviewTableView.contentSize.height ?? 428
-
+            if let contentSize = self?.blogReviewTableView.contentSize.height {
+                self?.blogTableHeightLayout.constant = contentSize == 0 ? 428 : contentSize
+            }
+            
         })
         .disposed(by: disposeBag)
     

@@ -42,6 +42,7 @@ extension ClubListViewController: ClubListSelectDelgate {
     func clubDetailClick(clubIdx: Int) {
           let nextVC = UIStoryboard(name: "Review", bundle: nil).instantiateViewController(withIdentifier: "ClubDetailVC") as! ClubDetailViewController
               nextVC.clubIdx = clubIdx
+        nextVC.tabViewModel = ClubDetailViewModel()
         self.navigationController?.pushViewController(nextVC, animated: true)
     }
 }

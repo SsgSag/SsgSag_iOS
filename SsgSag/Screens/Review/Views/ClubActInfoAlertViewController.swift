@@ -101,7 +101,7 @@ extension ClubActInfoAlertViewController: UITableViewDataSource, UITableViewDele
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "ActLocationCell", for: indexPath) as! ActLocationTableViewCell
-        cell.locationLabel.text = self.locations[indexPath.row]
+        cell.locationLabel.text = self.locations[safe: indexPath.row]
         
         return cell
     }

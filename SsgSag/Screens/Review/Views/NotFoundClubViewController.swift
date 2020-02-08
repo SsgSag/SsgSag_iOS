@@ -50,7 +50,7 @@ class NotFoundClubViewController: UIViewController {
             
             guard let cell = cell as? InputCategoryCollectionViewCell else {return}
             guard let cellModel = self?.cellModel else {return}
-            cell.bind(model: cellModel, item: indexPath)
+            cell.bind(model: cellModel.value, item: indexPath)
         
         }.disposed(by: disposeBag)
         

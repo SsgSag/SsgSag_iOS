@@ -28,6 +28,9 @@
 		063B572223E4300800B8F617 /* ReviewSearchTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 063B572023E4300800B8F617 /* ReviewSearchTableViewCell.swift */; };
 		063B572323E4300800B8F617 /* ReviewSearchTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 063B572123E4300800B8F617 /* ReviewSearchTableViewCell.xib */; };
 		064AD7B523ECFAE10006E02C /* SimpleReviewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 064AD7B423ECFAE10006E02C /* SimpleReviewViewModel.swift */; };
+		064AD7B723ED4E490006E02C /* CompleteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 064AD7B623ED4E490006E02C /* CompleteViewController.swift */; };
+		064AD7B923ED52650006E02C /* ReviewServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 064AD7B823ED52650006E02C /* ReviewServiceProtocol.swift */; };
+		064AD7BB23ED54290006E02C /* ReviewService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 064AD7BA23ED54290006E02C /* ReviewService.swift */; };
 		065264DB23EA8FEE00501200 /* NotFoundClubViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 065264DA23EA8FEE00501200 /* NotFoundClubViewController.swift */; };
 		065264DD23EAC4BA00501200 /* FoundClubViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 065264DC23EAC4BA00501200 /* FoundClubViewController.swift */; };
 		065264DF23EBC55C00501200 /* StarRatingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 065264DE23EBC55C00501200 /* StarRatingViewController.swift */; };
@@ -401,6 +404,9 @@
 		063B572023E4300800B8F617 /* ReviewSearchTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewSearchTableViewCell.swift; sourceTree = "<group>"; };
 		063B572123E4300800B8F617 /* ReviewSearchTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ReviewSearchTableViewCell.xib; sourceTree = "<group>"; };
 		064AD7B423ECFAE10006E02C /* SimpleReviewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleReviewViewModel.swift; sourceTree = "<group>"; };
+		064AD7B623ED4E490006E02C /* CompleteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompleteViewController.swift; sourceTree = "<group>"; };
+		064AD7B823ED52650006E02C /* ReviewServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewServiceProtocol.swift; sourceTree = "<group>"; };
+		064AD7BA23ED54290006E02C /* ReviewService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewService.swift; sourceTree = "<group>"; };
 		065264DA23EA8FEE00501200 /* NotFoundClubViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotFoundClubViewController.swift; sourceTree = "<group>"; };
 		065264DC23EAC4BA00501200 /* FoundClubViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoundClubViewController.swift; sourceTree = "<group>"; };
 		065264DE23EBC55C00501200 /* StarRatingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StarRatingViewController.swift; sourceTree = "<group>"; };
@@ -812,6 +818,7 @@
 				065264DC23EAC4BA00501200 /* FoundClubViewController.swift */,
 				065264DE23EBC55C00501200 /* StarRatingViewController.swift */,
 				065264E223EBFEE900501200 /* SimpleReviewViewController.swift */,
+				064AD7B623ED4E490006E02C /* CompleteViewController.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -896,6 +903,7 @@
 			children = (
 				0655964D23DF2A9F00C779A5 /* Protocol */,
 				0655965223DFBAA000C779A5 /* ClubService.swift */,
+				064AD7BA23ED54290006E02C /* ReviewService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -904,6 +912,7 @@
 			isa = PBXGroup;
 			children = (
 				0655964E23DF2B6A00C779A5 /* ClubServiceProtocol.swift */,
+				064AD7B823ED52650006E02C /* ReviewServiceProtocol.swift */,
 			);
 			path = Protocol;
 			sourceTree = "<group>";
@@ -2429,6 +2438,7 @@
 				0610DF1223D9436800DC2273 /* ReviewMainVC+Extension.swift in Sources */,
 				C9558B8023955D5C00E63F93 /* String+.swift in Sources */,
 				C905D01C23B895D000E9B2B2 /* FeedTabCollectionViewCell.swift in Sources */,
+				064AD7B923ED52650006E02C /* ReviewServiceProtocol.swift in Sources */,
 				0655967423E11DB000C779A5 /* Review.swift in Sources */,
 				843813112270153900C9E47B /* MypageServiceImp.swift in Sources */,
 				8496818522AFD3FE004A4A63 /* VADay.swift in Sources */,
@@ -2451,11 +2461,13 @@
 				C9A8288E23955C630029A493 /* MainNavigationBarCenterButtonView.swift in Sources */,
 				C9A828772395528E0029A493 /* PostTableViewCell.swift in Sources */,
 				8496818922AFD3FE004A4A63 /* VADotView.swift in Sources */,
+				064AD7BB23ED54290006E02C /* ReviewService.swift in Sources */,
 				D1E517B622E0282B0001EAA5 /* PosterHeaderCollectionReusableView.swift in Sources */,
 				D1E517AF22E023890001EAA5 /* DetailInfoViewController.swift in Sources */,
 				D1C9151522FD838B00189FD2 /* CommentServiceImp.swift in Sources */,
 				D1F61A7523601805008F690E /* CategoryCollectionViewDataSource.swift in Sources */,
 				063B572223E4300800B8F617 /* ReviewSearchTableViewCell.swift in Sources */,
+				064AD7B723ED4E490006E02C /* CompleteViewController.swift in Sources */,
 				D149F5A0235D96930018B8F5 /* ListDateSperateCollectionReusableView.swift in Sources */,
 				C9A828792395528E0029A493 /* SettingProfileImageCollectionReusableView.swift in Sources */,
 				846E6231229291880083E3CD /* NotificationName.swift in Sources */,

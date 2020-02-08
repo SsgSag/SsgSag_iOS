@@ -25,6 +25,7 @@ class SimpleReviewViewController: UIViewController, UITextViewDelegate, UITextFi
     var clubactInfo: ClubActInfoModel!
     let simpleReviewViewModel = SimpleReviewViewModel()
     let disposeBag = DisposeBag()
+    let textLengthMaximum = 20
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -123,7 +124,7 @@ class SimpleReviewViewController: UIViewController, UITextViewDelegate, UITextFi
         guard let stringRange = Range(range, in: curString) else { return false }
         
         let updateText = curString.replacingCharacters(in: stringRange, with: string)
-        return updateText.count < 20
+        return updateText.count < textLengthMaximum
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
@@ -137,16 +138,10 @@ class SimpleReviewViewController: UIViewController, UITextViewDelegate, UITextFi
     
     @IBAction func submitClick(_ sender: Any) {
         clubactInfo.simpleReivewBind(model: simpleReviewViewModel)
-//        let nextVC = self.storyboard?.instantiateViewController(withIdentifier: <#T##String#>)
-        //
-        //
-        //
-        //
-        //                  후기 완료 뷰 작성하기
-        //
-        //
-        //
-        //
-        //
+        let nextVC = self.storyboard?.instantiateViewController(withIdentifier: "CompleteVC") as! CompleteViewController
+        nextVC.titleText = "후기 등록이\n완료되었습니다 :)"
+        nextVC.subText = ""
+        
+        self.navigationController?.pushViewController(nextVC, animated: true)
     }
 }

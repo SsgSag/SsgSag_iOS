@@ -20,10 +20,10 @@ class InputCategoryCollectionViewCell: UICollectionViewCell {
         self.layer.cornerRadius = 4
     }
     
-    func bind(model: BehaviorRelay<[CategorySelectModel]>, item: Int) {
-        categoryLabel.text = model.value[item].title
-        print(model.value[item].onClick)
-        if model.value[item].onClick {
+    func bind(model: [CategorySelectModel], item: Int) {
+        categoryLabel.text = model[item].title
+        
+        if model[item].onClick {
             backGroundView.backgroundColor = .cornFlower
             categoryLabel.textColor = .white
         } else {

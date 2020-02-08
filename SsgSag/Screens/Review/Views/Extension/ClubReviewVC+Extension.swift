@@ -14,7 +14,7 @@ extension ClubReviewViewController: UITableViewDataSource {
         if normalReviewTableView == tableView {
             return self.reviewDataSet.count
         } else {
-            return 3
+            return 0
         }
     }
     

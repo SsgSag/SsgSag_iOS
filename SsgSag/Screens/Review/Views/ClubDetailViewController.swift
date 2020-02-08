@@ -30,7 +30,7 @@ class ClubDetailViewController: UIViewController {
     var clubCategorySet: [String] = []
     var clubCategoryList = ""
     let tabString = ["정보", "후기"]
-    let tabViewModel = ClubDetailViewModel.shared
+    var tabViewModel: ClubDetailViewModel!
     var disposeBag: DisposeBag!
     var clubPageInstance: ClubPageViewController!
     var curPage = 0
@@ -104,18 +104,18 @@ class ClubDetailViewController: UIViewController {
     }
     
     func requestClubInfo() {
-        DispatchQueue.global().async {
-            ClubService().requestClubInfo(clubIdx: self.clubIdx) { data in
-                guard data != nil else {return}
-                
-                /*
-                 평점
-                 성격정도 바인딩하기
-                 */
-                
-                self.tabViewModel.setData(data: data!)
-            }
+        
+        ClubService().requestClubInfo(clubIdx: self.clubIdx) { data in
+            guard let data = data else {return}
+            
+            /*
+             평점
+             성격정도 바인딩하기
+             */
+            
+            self.tabViewModel.setData(data: data)
         }
+        
     }
         
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

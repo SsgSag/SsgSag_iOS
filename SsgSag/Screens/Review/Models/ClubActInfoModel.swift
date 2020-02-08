@@ -18,6 +18,8 @@ class ClubActInfoModel {
     var clubType: ClubType
     var inputType: InputType = .none
     var clubName: String?
+    var isExistClub = false
+    var clubIdx: Int?
     var location = BehaviorRelay(value: "")
     var schoolName: String?
     var startDate = BehaviorRelay(value: "")
@@ -36,11 +38,15 @@ class ClubActInfoModel {
     var disadvantageString = ""
     var honeyString = ""
     
-    init(clubType: ClubType) {
+    var reviewService: ReviewServiceProtocol
+    
+    init(clubType: ClubType, service: ReviewServiceProtocol = ReviewService()) {
         self.clubType = clubType
+        self.reviewService = service
     }
     
     func starRatingBind(model: StarRatingViewModel) {
+        
         recommendScore = model.recommendDegreeObservable.value+1
         funScore = model.funDegreeObservable.value+1
         proScore = model.proDegreeObservable.value+1
@@ -49,9 +55,15 @@ class ClubActInfoModel {
     }
     
     func simpleReivewBind(model: SimpleReviewViewModel) {
+        
         oneLineString = model.oneLineObservable.value
         advantageString = model.advantageObservable.value
         disadvantageString = model.disadvantageObservable.value
         honeyString = model.honeyObservable.value
+    }
+    
+    func submitRequest() -> Bool {
+        
+        return isExistClub ? reviewService.requestExistClubReviewPost(model: self) : reviewService.requestNonExistClubReviewPost(model: self)
     }
 }

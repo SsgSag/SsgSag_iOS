@@ -19,9 +19,27 @@ class ReviewSearchTableViewCell: UITableViewCell {
     @IBOutlet weak var clubNameLabel: UILabel!
     let categoryStack = CategoryList()
     var disposeBag = DisposeBag()
-    let fullStar = UIImage(named: "star2")
-    let halfStar = UIImage(named: "star1")
-    let blackStar = UIImage(named: "star0")
+    lazy var fullStar: UIImage = {
+        if let image = UIImage(named: "star2") {
+            return image
+        } else {
+            return UIImage()
+        }
+    }()
+    lazy var halfStar: UIImage = {
+        if let image = UIImage(named: "star1") {
+            return image
+        } else {
+            return UIImage()
+        }
+    }()
+    lazy var blackStar: UIImage = {
+        if let image = UIImage(named: "star0") {
+            return image
+        } else {
+            return UIImage()
+        }
+    }()
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -42,18 +60,15 @@ class ReviewSearchTableViewCell: UITableViewCell {
         categoryStack.topAnchor.constraint(equalTo: self.topAnchor, constant: 14).isActive = true
         categoryStack.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -24).isActive = true
         
-        labels.compactMap {
-            let lable = CategoryView(text: $0)
-            return lable
+        labels
+            .forEach {
+                let label = CategoryView(text: $0)
+                categoryStack.addSubview(label)
         }
-        .forEach {
-            categoryStack.addSubview($0)
-        }
-        self.layoutIfNeeded()
     }
     
-    func ratePaint(score: Float) {
-        let stackStar = self.starStackView.subviews as! [UIImageView]
+    func ratePaint(score: Float, starStackView: UIStackView) {
+        guard let stackStar = starStackView.subviews as? [UIImageView] else { return }
         var score = score
         
         stackStar.forEach {
@@ -73,11 +88,9 @@ class ReviewSearchTableViewCell: UITableViewCell {
         categoryFactory(labels: viewModel.cellModel.value[row].categoryList.removeComma())
         clubNameLabel.text = viewModel.cellModel.value[row].clubName
         oneLineLabel.text = viewModel.cellModel.value[row].oneLine
-        ratePaint(score: viewModel.cellModel.value[row].aveScore)
+        ratePaint(score: viewModel.cellModel.value[row].aveScore, starStackView: starStackView)
         scoreLabel.text = "평점 \(viewModel.cellModel.value[row].aveScore)"
         scoreNumLabel.text = "후기 \(viewModel.cellModel.value[row].scoreNum)개"
-        
-        
     }
     
 }

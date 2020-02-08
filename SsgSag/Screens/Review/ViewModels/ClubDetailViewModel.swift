@@ -11,8 +11,6 @@ import RxSwift
 import RxCocoa
 
 class ClubDetailViewModel {
-    private init() {}
-    static let shared = ClubDetailViewModel()
     
     let tabPageObservable: BehaviorSubject<Int> = BehaviorSubject<Int>(value: 0)
     let tabFirstButtonStatus: BehaviorSubject<Bool> = BehaviorSubject<Bool>(value: true)

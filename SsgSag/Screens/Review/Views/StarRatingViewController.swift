@@ -33,7 +33,6 @@ class StarRatingViewController: UIViewController {
         UIView.animate(withDuration: 1) {
             self.scrollView.transform = CGAffineTransform(scaleX: 1, y: 0)
         }
-        self.view.layoutIfNeeded()
         
         bind(viewModel: starRatingModel)
         setupRateCalculate()
@@ -46,108 +45,111 @@ class StarRatingViewController: UIViewController {
             self.scrollView.alpha = 1
             self.scrollView.transform = .identity
         }
-        self.view.layoutIfNeeded()
+        scrollAppear = true
     }
     
     func bind(viewModel: StarRatingViewModel) {
-        let recommendStarButtons = recommendStack.subviews as! [UIButton]
-        viewModel
-            .recommendDegreeObservable
-            .filter { $0 != -1 }
-            .distinctUntilChanged()
-            .do(onNext: { [weak self] index in
-                recommendStarButtons.forEach {
-                    
-                    if let scrollAppear = self?.scrollAppear {
-                        if !scrollAppear {
-                            self?.scrollAppearAnim()
-                            self?.scrollAppear = true
-                        }
-                    }
-                    $0.setImage(self?.blackStar, for: .normal)}
-            })
-            .subscribe(onNext: { [weak self] index in
+        if let recommendStarButtons = recommendStack.subviews as? [UIButton] {
+            viewModel
+                .recommendDegreeObservable
+                .filter { $0 != -1 }
+                .distinctUntilChanged()
+                .do(onNext: { [weak self] index in
                 
-                recommendStarButtons.filter { $0.tag <= index }
-                    .forEach {
-                        $0.setImage(self?.fillStar, for: .normal)
-                        
-                }
-            })
-            .disposed(by: disposeBag)
-        
-        let funStarButtons = funStack.subviews as! [UIButton]
-        viewModel
-        .funDegreeObservable
-        .filter { $0 != -1 }
-        .distinctUntilChanged()
-        .do(onNext: { [weak self] _ in
-            funStarButtons.forEach { $0.setImage(self?.blackStar, for: .normal)}
-        })
-        .subscribe(onNext: { [weak self] index in
-            
-            funStarButtons.filter { $0.tag <= index }
-                .forEach {
-                    $0.setImage(self?.fillStar, for: .normal)
+                    if !(self?.scrollAppear ?? false) {
+                        self?.scrollAppearAnim()
+                    }
                     
-            }
-        })
-        .disposed(by: disposeBag)
-        
-        let proStarButtons = proDegreeStack.subviews as! [UIButton]
-        viewModel
-        .proDegreeObservable
-        .filter { $0 != -1 }
-        .distinctUntilChanged()
-        .do(onNext: { [weak self] _ in
-            proStarButtons.forEach { $0.setImage(self?.blackStar, for: .normal)}
-        })
-        .subscribe(onNext: { [weak self] index in
-            
-            proStarButtons.filter { $0.tag <= index }
-                .forEach {
-                    $0.setImage(self?.fillStar, for: .normal)
+                    recommendStarButtons
+                        .forEach {$0.setImage(self?.blackStar, for: .normal)}
+                })
+                .subscribe(onNext: { [weak self] index in
                     
-            }
-        })
-        .disposed(by: disposeBag)
+                    recommendStarButtons.filter { $0.tag <= index }
+                        .forEach {
+                            $0.setImage(self?.fillStar, for: .normal)
+                            
+                    }
+                })
+                .disposed(by: disposeBag)
+        }
         
-        let hardStarButtons = hardDegreeStack.subviews as! [UIButton]
-        viewModel
-        .hardDegreeObservable
-        .filter { $0 != -1 }
-        .distinctUntilChanged()
-        .do(onNext: { [weak self] _ in
-            hardStarButtons.forEach { $0.setImage(self?.blackStar, for: .normal)}
-        })
-        .subscribe(onNext: { [weak self] index in
-            
-            hardStarButtons.filter { $0.tag <= index }
-                .forEach {
-                    $0.setImage(self?.fillStar, for: .normal)
+        if let funStarButtons = funStack.subviews as? [UIButton] {
+            viewModel
+                .funDegreeObservable
+                .filter { $0 != -1 }
+                .distinctUntilChanged()
+                .do(onNext: { [weak self] _ in
+                    funStarButtons.forEach { $0.setImage(self?.blackStar, for: .normal)}
+                })
+                .subscribe(onNext: { [weak self] index in
                     
-            }
-        })
-        .disposed(by: disposeBag)
+                    funStarButtons
+                        .filter { $0.tag <= index }
+                        .forEach {
+                            $0.setImage(self?.fillStar, for: .normal)
+                            
+                    }
+                })
+                .disposed(by: disposeBag)
+        }
         
-        let friendStarButtons = friendStack.subviews as! [UIButton]
-        viewModel
-        .friendDegreeObservable
-        .filter { $0 != -1 }
-        .distinctUntilChanged()
-        .do(onNext: { [weak self] _ in
-            friendStarButtons.forEach { $0.setImage(self?.blackStar, for: .normal)}
-        })
-        .subscribe(onNext: { [weak self] index in
-            
-            friendStarButtons.filter { $0.tag <= index }
-                .forEach {
-                    $0.setImage(self?.fillStar, for: .normal)
+        if let proStarButtons = proDegreeStack.subviews as? [UIButton] {
+            viewModel
+                .proDegreeObservable
+                .filter { $0 != -1 }
+                .distinctUntilChanged()
+                .do(onNext: { [weak self] _ in
+                    proStarButtons.forEach { $0.setImage(self?.blackStar, for: .normal)}
+                })
+                .subscribe(onNext: { [weak self] index in
                     
-            }
-        })
-        .disposed(by: disposeBag)
+                    proStarButtons.filter { $0.tag <= index }
+                        .forEach {
+                            $0.setImage(self?.fillStar, for: .normal)
+                            
+                    }
+                })
+                .disposed(by: disposeBag)
+        }
         
+        if let hardStarButtons = hardDegreeStack.subviews as? [UIButton] {
+            viewModel
+                .hardDegreeObservable
+                .filter { $0 != -1 }
+                .distinctUntilChanged()
+                .do(onNext: { [weak self] _ in
+                    hardStarButtons.forEach { $0.setImage(self?.blackStar, for: .normal)}
+                })
+                .subscribe(onNext: { [weak self] index in
+                    
+                    hardStarButtons.filter { $0.tag <= index }
+                        .forEach {
+                            $0.setImage(self?.fillStar, for: .normal)
+                            
+                    }
+                })
+                .disposed(by: disposeBag)
+        }
+        
+        if let friendStarButtons = friendStack.subviews as? [UIButton] {
+            viewModel
+                .friendDegreeObservable
+                .filter { $0 != -1 }
+                .distinctUntilChanged()
+                .do(onNext: { [weak self] _ in
+                    friendStarButtons.forEach { $0.setImage(self?.blackStar, for: .normal)}
+                })
+                .subscribe(onNext: { [weak self] index in
+                    
+                    friendStarButtons.filter { $0.tag <= index }
+                        .forEach {
+                            $0.setImage(self?.fillStar, for: .normal)
+                            
+                    }
+                })
+                .disposed(by: disposeBag)
+        }
         viewModel
             .nextButtonEnableObservable
             .distinctUntilChanged()
@@ -157,6 +159,7 @@ class StarRatingViewController: UIViewController {
                 self?.nextButton.backgroundColor = .cornFlower
             })
             .disposed(by: disposeBag)
+        
     }
     
     func setupRateCalculate() {
