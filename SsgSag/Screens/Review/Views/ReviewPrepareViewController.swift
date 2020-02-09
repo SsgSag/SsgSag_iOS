@@ -17,11 +17,13 @@ class ReviewPrepareViewController: UIViewController {
     }
     
     @IBAction func backClick(_ sender: Any) {
-        self.navigationController?.popViewController(animated: true)
+        self.dismiss(animated: true)
     }
     
     @IBAction func nextClick(_ sender: Any) {
-        guard let nextVC = self.storyboard?.instantiateViewController(withIdentifier: "SelectClubTypeVC") else {return}
+        guard let nextVC = self.storyboard?.instantiateViewController(withIdentifier: "SelectClubTypeVC") as? SelectClubTypeViewController else {return}
+        nextVC.registerType = .Review
+        
         self.navigationController?.pushViewController(nextVC, animated: true)
     }
 }

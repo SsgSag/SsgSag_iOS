@@ -13,7 +13,7 @@ class ClubActInfoAlertViewController: UIViewController {
 
     @IBOutlet weak var datePicker: UIDatePicker!
     @IBOutlet weak var tableView: UITableView!
-    let locations = ["서울", "경기", "부산", "대전", "강원도", "충북", "충남", "전라도" ]
+    let locations = ClubAbout.locations
     var clubactInfo: ClubActInfoModel!
     @IBOutlet weak var locationView: UIView!
     @IBOutlet weak var dateView: UIView!

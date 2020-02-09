@@ -46,3 +46,8 @@ struct ClubInfo: Codable{
     let aveScore0, aveScore1, aveScore2, aveScore3, aveScore4, isMine: Int
     let clubPostList: [ReviewInfo]
 }
+
+struct ClubAbout {
+    static let locations = ["서울", "경기", "부산", "대전", "강원도", "충북", "충남", "전라도"]
+    static let categorys = ["문화생활", "스포츠", "여행", "음악/예술", "봉사", "스터디/학회", "어학", "창업", "친목", "기타"]
+}

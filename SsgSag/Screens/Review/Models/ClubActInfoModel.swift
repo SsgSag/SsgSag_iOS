@@ -11,7 +11,7 @@ import RxSwift
 import RxCocoa
 
 enum InputType {
-    case location, start, end, none
+    case location, start, end, none, category
 }
 
 class ClubActInfoModel {

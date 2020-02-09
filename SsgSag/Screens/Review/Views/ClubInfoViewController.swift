@@ -82,6 +82,13 @@ class ClubInfoViewController: UIViewController {
         
     }
     
+    @IBAction func registerClubInfo(_ sender: Any) {
+        guard let nextVC = self.storyboard?.instantiateViewController(withIdentifier: "SelectClubManagerVC") else {return}
+        
+        self.present(nextVC, animated: true)
+        
+    }
+    
     deinit {
         print("memory - info 종료")
     }
