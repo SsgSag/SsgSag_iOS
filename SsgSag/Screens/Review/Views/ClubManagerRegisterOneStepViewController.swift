@@ -30,7 +30,7 @@ class ClubManagerRegisterOneStepViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        bindInput(viewModel: viewModel)
+        bindInput(viewModel: viewModel, type: model.clubType)
         bindOutput(viewModel: viewModel)
         scrollView.delegate = self
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(tapHideKeyBoard))
@@ -43,11 +43,10 @@ class ClubManagerRegisterOneStepViewController: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        univOrLocationTextField.text = viewModel.univOrLocationObservable.value
         categoryTextField.text = viewModel.categoryObservable.value.last
     }
     
-    func bindInput(viewModel: ClubRegisterOneStepViewModel) {
+    func bindInput(viewModel: ClubRegisterOneStepViewModel, type: ClubType) {
         clubNameTextField
             .rx
             .text
@@ -55,12 +54,14 @@ class ClubManagerRegisterOneStepViewController: UIViewController {
             .bind(to: viewModel.clubNameObservable)
             .disposed(by: disposeBag)
         
-        univOrLocationTextField
-            .rx
-            .text
-            .orEmpty
-            .bind(to: viewModel.univOrLocationObservable)
-            .disposed(by: disposeBag)
+        if type == .School {
+            univOrLocationTextField
+                .rx
+                .text
+                .orEmpty
+                .bind(to: viewModel.univOrLocationObservable)
+                .disposed(by: disposeBag)
+        }
         
         oneLineTextField
             .rx
@@ -72,9 +73,15 @@ class ClubManagerRegisterOneStepViewController: UIViewController {
     }
     
     func bindOutput(viewModel: ClubRegisterOneStepViewModel) {
+        
+        viewModel.univOrLocationObservable
+            .subscribe(onNext: { [weak self] text in
+                self?.univOrLocationTextField.text = text
+            })
+            .disposed(by: disposeBag)
+        
         viewModel.nextButtonEnableObservable
             .subscribe(onNext: { [weak self] isEnable in
-                print(isEnable)
                 self?.nextButton.backgroundColor = isEnable ? .cornFlower : .unselectedGray
                 self?.nextButton.isEnabled = isEnable
             })
@@ -106,6 +113,22 @@ class ClubManagerRegisterOneStepViewController: UIViewController {
         self.view.endEditing(true)
     }
     
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        
+        guard let curString = textField.text else { return false }
+        guard let stringRange = Range(range, in: curString) else { return false }
+        
+        let updateText = curString.replacingCharacters(in: stringRange, with: string)
+        return updateText.count < textLengthMaximum
+    }
+    
+    func modelInsertData(model: ClubRegisterModel, viewModel: ClubRegisterOneStepViewModel) {
+        model.clubName = viewModel.clubNameObservable.value
+        model.univOrLocation = viewModel.univOrLocationObservable.value
+        model.oneLine = viewModel.oneLineObservable.value
+        model.category = viewModel.categoryObservable.value
+    }
+    
     @IBAction func selectOptionClick(_ sender: UIButton) {
         let type: InputType = sender.tag == 0 ? .location : .category
         
@@ -126,22 +149,15 @@ class ClubManagerRegisterOneStepViewController: UIViewController {
     @IBAction func nextStepClick(_ sender: Any) {
         
         guard let nextVC = self.storyboard?.instantiateViewController(withIdentifier: "ClubManagerRegisterTwoStepVC") as? ClubManagerRegisterTwoStepViewController else {return}
+        modelInsertData(model: model, viewModel: viewModel)
         nextVC.model = model
+        nextVC.viewModel = ClubRegisterTwoStepViewModel()
         
         self.navigationController?.pushViewController(nextVC, animated: true)
     }
     
     @IBAction func backClick(_ sender: Any) {
         self.navigationController?.popViewController(animated: true)
-    }
-    
-    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-        
-        guard let curString = textField.text else { return false }
-        guard let stringRange = Range(range, in: curString) else { return false }
-        
-        let updateText = curString.replacingCharacters(in: stringRange, with: string)
-        return updateText.count < textLengthMaximum
     }
 }
 

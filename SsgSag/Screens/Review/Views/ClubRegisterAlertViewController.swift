@@ -78,7 +78,8 @@ extension ClubRegisterAlertViewController: UITableViewDataSource, UITableViewDel
         let cell = tableView.cellForRow(at: indexPath) as! ActLocationTableViewCell
         guard let title = cell.locationLabel.text else {return}
         
-        if type == InputType.location { viewModel.univOrLocationObservable.accept(title)
+        if type == InputType.location {
+            viewModel.univOrLocationObservable.accept(title)
         } else {
             var tempCategoryArray = viewModel.categoryObservable.value
             

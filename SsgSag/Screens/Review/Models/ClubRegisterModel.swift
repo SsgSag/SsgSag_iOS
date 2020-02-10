@@ -9,11 +9,19 @@
 import Foundation
 
 class ClubRegisterModel {
+    //one step
     var clubType: ClubType
     var clubName = ""
     var univOrLocation = ""
     var oneLine = ""
     var category: [String] = []
+    //two step
+    var activeMember = ""
+    var meetTime = ""
+    var fee = ""
+    var webSite = ""
+    var introduce = ""
+    var photoDatas: [Data] = []
     
     init(clubType: ClubType) {
         self.clubType = clubType
