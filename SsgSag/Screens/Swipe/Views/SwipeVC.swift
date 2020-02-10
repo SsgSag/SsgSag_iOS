@@ -8,6 +8,7 @@ import FBSDKCoreKit
 class SwipeVC: UIViewController {
     var disposeBag = DisposeBag()
     let myFilterService = MyFilterApiServiceImp()
+    let userInfoService = UserInfoServiceImp()
     
     private let completeStackView: UIStackView = {
         let stackView = UIStackView()
@@ -302,6 +303,9 @@ class SwipeVC: UIViewController {
                 swipeCardView?.subviews.forEach {
                     $0.removeFromSuperview()
                 }
+                if currentLoadedCardsArray.isEmpty == false {
+                    completeStackView.removeFromSuperview()
+                }
             }
             setEmptyPosterAnimation()
         }
@@ -479,23 +483,50 @@ class SwipeVC: UIViewController {
     }
     
     @objc func touchUpFilterButton() {
-        myFilterService.fetchMyFilterSetting()
-            .observeOn(MainScheduler.instance)
-            .subscribe(onNext:{ [weak self] setting in
-                guard let self = self else { return }
-                let myBoard = UIStoryboard(name: "MyPageStoryBoard",
-                                              bundle: nil)
-                guard let myVC
-                        = myBoard.instantiateViewController(withIdentifier: "MyFilterSettingViewController") as? MyFilterSettingViewController else { return }
-                 myVC.reactor = MyFilterSettingViewReactor(jobKind: ["개발자", "디자이너", "기획자", "마케터", "기타"],
-                                                             interestedField: ["서포터즈", "봉사활동", "기획/아이디어","광고/마케팅", "디자인","영상/콘텐츠", "IT/공학", "창업/스타트업", "금융/경제"],
-                                                             maxGrade: 5, initialSetting: setting)
-                myVC.callback = { [weak self] in
-                    self?.completeStackView.removeFromSuperview()
-                    self?.requestPoster(isFirst: false) }
-                self.navigationController?.pushViewController(myVC, animated: true)
-            })
-            .disposed(by: disposeBag)
+        
+         let swipeBoard = UIStoryboard(name: "SwipeStoryBoard",
+                                    bundle: nil)
+        guard let savedPosterViewController
+        = swipeBoard.instantiateViewController(withIdentifier: "SavedPosterViewController") as? SavedPosterViewController else { return }
+        self.navigationController?.pushViewController(savedPosterViewController, animated: true)
+        
+//        Observable.zip(myFilterService.fetchMyFilterSetting(),
+//                   userInfoService.fetchUserInfo())
+//            .map { (filterSetting: $0.0,
+//                           userInfo: [$0.1.userName ?? "", $0.1.userUniv ?? "", $0.1.userMajor ?? ""]) }
+//            .observeOn(MainScheduler.instance)
+//            .subscribe(onNext:{ [weak self] initialSetting in
+//                guard let self = self else { return }
+//                let myBoard = UIStoryboard(name: "MyPageStoryBoard",
+//                                              bundle: nil)
+//                guard let myVC
+//                        = myBoard.instantiateViewController(withIdentifier: "MyFilterSettingViewController") as? MyFilterSettingViewController else { return }
+//                myVC.reactor = MyFilterSettingViewReactor(myInfo: initialSetting.userInfo,
+//                                                          interestedField: ["서포터즈",
+//                                                                            "봉사활동",
+//                                                                            "기획/아이디어",
+//                                                                            "광고/마케팅",
+//                                                                            "디자인",
+//                                                                            "영상/콘텐츠",
+//                                                                            "IT/공학",
+//                                                                            "창업/스타트업",
+//                                                                            "금융/경제"],
+//                                                          interestedJob: ["대기업",
+//                                                                             "중견기업",
+//                                                                             "강소기업",
+//                                                                             "공사/공기업",
+//                                                                             "외국계기업",
+//                                                                             "스타트업",
+//                                                                             "정부/지방자치단체",
+//                                                                             "비영리단체/재단",
+//                                                                             "기타단체"],
+//                                                          initialSetting: initialSetting.filterSetting)
+//                myVC.callback = { [weak self] in
+//                    self?.completeStackView.removeFromSuperview()
+//                    self?.requestPoster(isFirst: false) }
+//                self.navigationController?.pushViewController(myVC, animated: true)
+//            })
+//            .disposed(by: disposeBag)
     }
     
     @IBAction func touchUpMyPageButton(_ sender: UIBarButtonItem) {
@@ -673,7 +704,9 @@ extension SwipeVC : SwipeCardDelegate {
         isOkayToUndo = true
         
         loadCardValuesAfterRemoveObject()
-        
+        if let poster = posters[safe: currentIndex - 1] {
+            MockPosterStorage.shared.store(type: .liked, poster: poster)
+        }
         guard let disLikedCategory = likedOrDisLiked(rawValue: 0),
             let posterIdx = posters[currentIndex-1].posterIdx else { return }
         
@@ -709,7 +742,9 @@ extension SwipeVC : SwipeCardDelegate {
             addUserDefaultsWhenNoData()
             return
         }
-        
+        if let poster = posters[safe: currentIndex - 1] {
+            MockPosterStorage.shared.store(type: .disliked, poster: poster)
+        }
         addUserDefautlsWhenDataIsExist(posters)
     }
     

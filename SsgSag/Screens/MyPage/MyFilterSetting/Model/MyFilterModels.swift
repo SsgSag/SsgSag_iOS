@@ -14,52 +14,47 @@ struct MyFilterHeader {
 }
 
 struct MyFilterSetting: Decodable {
-    let jobKind: [String]
+    let myInfo: [String]
     let interestedField: [String]
-    let grade: Int
+    let interestedJob: [String]
     
     init() {
-        jobKind = []
+        myInfo = []
         interestedField = []
-        grade = 3
+        interestedJob = []
     }
     
-    init(jobKind: [String],
+    init(myInfo: [String] = [],
          interestedField: [String],
-         grade: Int) {
-        self.jobKind = jobKind
+         interestedJob: [String]) {
+        self.myInfo = myInfo
         self.interestedField = interestedField
-        self.grade = grade
+        self.interestedJob = interestedJob
     }
     
     func map() -> [Int] {
-        let mappedJobKind = jobKind.map {
+        let mappedJobKind = interestedField.map {
             mapDictionary[$0]
         }.compactMap { $0 }
         
-        let mappedInterestedField = interestedField.map {
+        let mappedInterestedField = interestedJob.map {
             mapDictionary[$0]
         }.compactMap { $0 }
+
+        let mergedArray = Array([mappedJobKind, mappedInterestedField].joined())
+            .sorted()
         
-        let mappedGrade = mapDictionary["\(grade)"] ?? 1
-        
-        var mergedArray = Array([mappedJobKind, mappedInterestedField].joined())
-        mergedArray.append(mappedGrade)
-        
-        return mergedArray.sorted()
+        return mergedArray
     }
     
     func map(interests: [Int]?) -> MyFilterSetting {
         guard let interests = interests else { return .init() }
-        let jobKind = interests
-            .filter { categorizedDictionary["jobKind"]!.contains($0) }
-            .compactMap { (value) -> String in
-                if value == 299 {
-                    return "기타"
-                } else {
-                    return mapDictionary.getKey(forValue: value) ?? ""
+        let interestedJob = interests
+            .filter { categorizedDictionary["interestedJob"]!.contains($0) }
+            .compactMap {
+                    return mapDictionary.getKey(forValue: $0) ?? ""
                 }
-            }
+            
         
         let interestedField = interests
             .filter { categorizedDictionary["interestedField"]!.contains($0) }
@@ -71,19 +66,16 @@ struct MyFilterSetting: Decodable {
                 }
             }
         
-        
-        let grade = interests.filter { categorizedDictionary["grade"]!.contains($0) }
-            .compactMap { Int(mapDictionary.getKey(forValue: $0) ?? "1") }.first ?? 1
-        
-        let myFilterSetting = MyFilterSetting(jobKind: jobKind,
-                                              interestedField: interestedField,
-                                              grade: grade)
+        let myFilterSetting = MyFilterSetting(interestedField: interestedField,
+                                              interestedJob: interestedJob)
         return myFilterSetting
     }
     
     let categorizedDictionary = ["jobKind": [301,302,303,304,305,299],
                                  "interestedField": [201,202,205,206,207,208,215,251,252,299],
-                                 "grade": [501,502,503,504,505]
+                                 "grade": [501,502,503,504,505],
+                                 "interestedJob": [10000, 20000, 30000, 50000, 60000, 40000, 70000, 85000, 95000]
+            
     ]
     
     let mapDictionary = [

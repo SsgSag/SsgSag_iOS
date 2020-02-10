@@ -74,7 +74,6 @@ class PosterServiceImp: PosterService {
                                        body: nil) else {
             return
         }
-        
         network.dispatch(request: request) { result in
             switch result {
             case .success(let data):
@@ -220,6 +219,14 @@ class PosterServiceImp: PosterService {
                 return
             }
         }
+    }
+    
+    func requestStoredPoster(index: Int,
+                             type likedCategory: likedOrDisLiked,
+                             completionHandler: @escaping (DataResponse<PosterData>) -> Void) {
+        let storedPosters = MockPosterStorage.shared.fetchPoster(type: likedCategory)
+        let posters = PosterData(storedPosters, 0)
+        completionHandler(.success(posters))
     }
 }
 

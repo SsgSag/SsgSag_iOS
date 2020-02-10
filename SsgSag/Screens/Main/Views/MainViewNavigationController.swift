@@ -9,9 +9,10 @@
 import UIKit
 import RxSwift
 import FBSDKCoreKit
-//TODO: 마이페이지 버튼 필터버튼 에셋변경, 추천이 먼저떠야함
+
 class MainViewNavigationController: UINavigationController {
     let myFilterService = MyFilterApiServiceImp()
+    let userInfoService = UserInfoServiceImp()
     var disposeBag = DisposeBag()
     
     override func viewDidLoad() {
@@ -64,6 +65,7 @@ class MainViewNavigationController: UINavigationController {
         totalInfoViewController.navigationItem.titleView = categoryButtonView
         setViewControllers([swipeViewController], animated: false)
         totalInfoViewController.navigationItem.leftBarButtonItem = profileBarButton
+        totalInfoViewController.navigationItem.leftBarButtonItem = filterBarButton
         
         
         //setButtonClosure
@@ -83,19 +85,40 @@ class MainViewNavigationController: UINavigationController {
     }
     
     @objc func touchUpFilterButton() {
-        myFilterService.fetchMyFilterSetting()
+        Observable.zip(myFilterService.fetchMyFilterSetting(),
+            userInfoService.fetchUserInfo())
+            .map { (filterSetting: $0.0,
+                    userInfo: [$0.1.userUniv ?? "", $0.1.userMajor ?? ""]) }
             .observeOn(MainScheduler.instance)
-            .subscribe(onNext:{ [weak self] setting in
+            .subscribe(onNext:{ [weak self] initialInfo in
                 guard let self = self else { return }
                 let myBoard = UIStoryboard(name: "MyPageStoryBoard",
                                                bundle: nil)
                 guard let myVC
                         = myBoard.instantiateViewController(withIdentifier: "MyFilterSettingViewController") as? MyFilterSettingViewController else { return }
-                myVC.reactor = MyFilterSettingViewReactor(jobKind: ["개발자", "디자이너", "기획자", "마케터", "기타"],
-                                                              interestedField: ["서포터즈", "봉사활동", "기획/아이디어","광고/마케팅", "디자인","영상/콘텐츠", "IT/공학", "창업/스타트업", "금융/경제"],
-                                                              maxGrade: 5, initialSetting: setting)
+                myVC.reactor = MyFilterSettingViewReactor(myInfo: initialInfo.userInfo,
+                                                              interestedField: ["서포터즈",
+                                                                                "봉사활동",
+                                                                                "기획/아이디어",
+                                                                                "광고/마케팅",
+                                                                                "디자인","영상/콘텐츠",
+                                                                                "IT/공학",
+                                                                                "창업/스타트업",
+                                                                                "금융/경제"],
+                                                              interestedJob:["대기업",
+                                                                             "중견기업",
+                                                                             "강소기업",
+                                                                             "공사/공기업",
+                                                                             "외국계기업",
+                                                                             "스타트업",
+                                                                             "정부/지방자치단체",
+                                                                             "비영리단체/재단",
+                                                                             "기타단체"],
+                                                              initialSetting: initialInfo.filterSetting)
                 if let swipeViewController = self.viewControllers.first as? SwipeVC {
-                     myVC.callback = { [weak swipeViewController] in swipeViewController?.requestPoster(isFirst: false) }
+                     myVC.callback = { [weak swipeViewController] in
+                        swipeViewController?.requestPoster(isFirst: false)
+                    }
                 }
                 self.pushViewController(myVC, animated: true)
             })

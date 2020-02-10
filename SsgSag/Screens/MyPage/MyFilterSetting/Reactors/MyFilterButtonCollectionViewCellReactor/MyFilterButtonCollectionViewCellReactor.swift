@@ -11,9 +11,9 @@ import RxSwift
 import ReactorKit
 
 private enum Section: Int {
-    case jobKind
+    case myInfo
     case interestedField
-    case userGrade
+    case interestedFJob
     
     init(section: Int) {
         self = Section(rawValue: section)!
@@ -70,31 +70,9 @@ class MyFilterButtonCollectionViewCellReactor: Reactor, MyFilterCollectionViewCe
         case .userPressed(let eventValue):
             let section = Section(at: eventValue.0)
             switch section {
-            case .jobKind:
-                var backgroundColor: UIColor = .greyFour
-                var textColor: UIColor = .greyThree
-                if currentState.isSelected {
-                    guard eventValue.1 > 1 else {
-                            return Observable.just(Mutation.empty)
-                        }
-                        backgroundColor = .unselectedBorderGray
-                        textColor = .unselectedGray
-                    return Observable.concat([
-                        Observable.just(Mutation.setSelected(!currentState.isSelected)),
-                        Observable.just(Mutation.setBackgroundColor(backgroundColor)),
-                        Observable.just(Mutation.setTextColor(textColor))
-                    ])
-                } else {
-                    backgroundColor = .cornFlowerLight
-                    textColor = .white
-                    return Observable.concat([
-                        Observable.just(Mutation.setSelected(!currentState.isSelected)),
-                        Observable.just(Mutation.setBackgroundColor(backgroundColor)),
-                        Observable.just(Mutation.setTextColor(textColor))
-                    ])
-                }
-               
-            case .interestedField:
+            case .myInfo:
+                return Observable.just(Mutation.empty)
+            case .interestedField, .interestedFJob:
                 var backgroundColor: UIColor = .greyFour
                 var textColor: UIColor = .greyThree
                 if currentState.isSelected {
@@ -109,9 +87,6 @@ class MyFilterButtonCollectionViewCellReactor: Reactor, MyFilterCollectionViewCe
                     Observable.just(Mutation.setBackgroundColor(backgroundColor)),
                     Observable.just(Mutation.setTextColor(textColor))
                 ])
-            default:
-                assertionFailure("can't handle")
-                return Observable.just(Mutation.empty)
             }
         }
     }

@@ -11,59 +11,54 @@ import UIKit
 class MyFilterSizeLayout {
     
     enum MyFilterSection: Int {
-        case jobKind
+        case myInfo
         case interestedField
-        case userGrade
+        case interestedJob
     }
     
     static let screenWidth = UIScreen.main.bounds.width
     static let insets = UIEdgeInsets(top: 0, left: 32, bottom: 0, right: 32.5)
     static let itemHeight: CGFloat = 30
     static let headerSize = CGSize(width: screenWidth, height: 45)
-    static let footerSize = CGSize(width: screenWidth, height: 48)
+    static let footerSize = CGSize(width: screenWidth, height: 53)
     
     static func inheritsSpacing(for section: MyFilterSection) -> CGFloat {
         switch section {
-        case .jobKind:
+        case .myInfo:
             return 11
         case .interestedField:
             return 8
-        case .userGrade:
+        case .interestedJob:
             return 0
         }
     }
     
     static func minimumSpacing(for section: MyFilterSection) -> CGFloat {
         switch section {
-        case .jobKind:
+        case .myInfo:
             return 8
         case .interestedField:
             return 9
-        case .userGrade:
+        case .interestedJob:
             return 0
         }
     }
     
-    static func calculateItemSize(by section: MyFilterSection,
-                                  targetString: String = "",
-                                  currentViewSize: CGSize = .zero
-    ) -> CGSize {
-        let viewWidth = screenWidth - (insets.left + insets.right)
+    static func headerSize(by section: MyFilterSection) -> CGSize {
         switch section {
-        case .jobKind:
-            let textMargin: CGFloat = 15
-            let calculatedRect = targetString.estimatedFrame(font: UIFont(name: "AppleSDGothicNeo-Regular", size: 13)!)
-            return CGSize(width: calculatedRect.width + textMargin * 2,
-                          height: itemHeight)
-        case .interestedField:
-            let textMargin: CGFloat = 15
-            let calculatedRect = targetString.estimatedFrame(font: UIFont(name: "AppleSDGothicNeo-Regular", size: 13)!)
-            return CGSize(width: calculatedRect.width + textMargin * 2,
-                          height: itemHeight)
-        case .userGrade:
-            return CGSize(width: viewWidth,
-                          height: 45)
-          
+        case .myInfo:
+            return .init(width: screenWidth, height: 23)
+        default:
+            return .init(width: screenWidth, height: 45)
         }
+    }
+    
+    static func calculateItemSize(by section: MyFilterSection,
+                                  targetString: String,
+                                  currentViewSize: CGSize = .zero) -> CGSize {
+        let textMargin: CGFloat = 8
+        let calculatedRect = targetString.estimatedFrame(font: UIFont(name: "AppleSDGothicNeo-Regular", size: 13)!)
+        return CGSize(width: calculatedRect.width + textMargin * 2,
+                      height: itemHeight)
     }
 }

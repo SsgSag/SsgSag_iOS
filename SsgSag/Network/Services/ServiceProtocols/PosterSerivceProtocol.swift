@@ -42,4 +42,8 @@ protocol PosterService: class {
         curPage: Int,
         completionHandler: @escaping (DataResponse<[PosterDataAfterSwpie]>) -> Void
     )
+    
+    func requestStoredPoster(index: Int,
+                             type likedCategory: likedOrDisLiked,
+                             completionHandler: @escaping (DataResponse<PosterData>) -> Void)
 }

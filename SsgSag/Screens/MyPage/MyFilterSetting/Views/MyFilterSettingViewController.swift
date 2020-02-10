@@ -14,9 +14,10 @@ import RxDataSources
 import ReactorKit
 
 private enum Section: Int {
-    case jobKind
+    
+    case myInfo
     case interestedField
-    case userGrade
+    case interestedJob
     
     init(section: Int) {
         self = Section(rawValue: section)!
@@ -36,6 +37,7 @@ class MyFilterSettingViewController: UIViewController, StoryboardView {
     typealias Reactor = MyFilterSettingViewReactor
 
     @IBOutlet weak var filteringCollectionView: UICollectionView!
+    @IBOutlet weak var saveButton: UIButton!
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -44,7 +46,12 @@ class MyFilterSettingViewController: UIViewController, StoryboardView {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
+        tabBarController?.tabBar.isHidden = true
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        tabBarController?.tabBar.isHidden = false
     }
     
     override func viewDidLoad() {
@@ -56,15 +63,19 @@ class MyFilterSettingViewController: UIViewController, StoryboardView {
         let backButton = UIButton(type: .custom)
         backButton.setImage(UIImage(named: "back"), for: .normal)
         let leftBarbutton = UIBarButtonItem(customView: backButton)
+        
         backButton.rx.tap
             .subscribe(onNext: { [weak self] _ in
                 self?.navigationController?.popViewController(animated: true)
-            }).disposed(by: disposeBag)
+            }
+        ).disposed(by: disposeBag)
+        
         title = "맞춤 추천 설정"
         navigationItem.leftBarButtonItem = leftBarbutton
         setNavigationBar(color: .white)
         
         //collectionView
+
          filteringCollectionView.rx
             .setDelegate(self)
             .disposed(by: disposeBag)
@@ -72,15 +83,7 @@ class MyFilterSettingViewController: UIViewController, StoryboardView {
             .register(UICollectionReusableView.self,
                       forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
                       withReuseIdentifier: "UICollectionReusableView")
-        
-         let sliderCellNib = UINib(nibName: "MyFilterSliderCollectionViewCell",
-         bundle: nil)
 
-         filteringCollectionView
-            .register(sliderCellNib,
-                      forCellWithReuseIdentifier: "MyFilterSliderCollectionViewCell")
-        
-         
          let myFilterCollectionReusableViewNib = UINib(nibName: "MyFilterCollectionReusableView",
                                                        bundle: nil)
          filteringCollectionView
@@ -99,13 +102,44 @@ class MyFilterSettingViewController: UIViewController, StoryboardView {
     }
     
     func bind(reactor: MyFilterSettingViewReactor) {
+        
+        saveButton.rx.tap
+            .throttle(0.5, latest: true,
+                  scheduler: MainScheduler.instance)
+            .flatMapLatest { [weak self] event -> Observable<AlertType> in
+                guard let self = self else { return Observable.just(AlertType.cancel) }
+                let setting = reactor.currentState.myFilterSetting
+                if setting.interestedJob.isEmpty
+                    || setting.interestedField.isEmpty {
+                    return self.makeAlertObservable(title: "각 항목을 1개 이상 선택해주세요")
+                } else {
+                     return self.makeAlertObservable(title: "정보 저장", message: "입력하신 정보를 저장하시겠습니까")
+                }
+            }
+            .flatMapLatest { [weak reactor] type -> Observable<BasicResponse> in
+                guard let reactor = reactor else { return .empty() }
+                switch type {
+                case .ok:
+                    return reactor.myFilterService.save(filterSetting: reactor.currentState.myFilterSetting)
+                case .warning:
+                    return .empty()
+                case .cancel:
+                    return .empty()
+                }
+            }
+            .observeOn(MainScheduler.instance)
+            .subscribe(onNext: { [weak self] _ in
+                self?.callback?()
+                self?.navigationController?.popViewController(animated: true)
+                AppEvents.logEvent(AppEvents.Name(rawValue: "EVENT_NAME_CUSTOMIZED_FILTER") )
+            }, onError: { [weak self] _ in
+                self?.simplerAlert(title: "저장에 실패했습니다.")
+            })
+            .disposed(by: disposeBag)
 
         let itemSelectedObservable =  filteringCollectionView.rx.itemSelected.share()
         
         let dataSource = RxCollectionViewSectionedReloadDataSource<FilterSectionModel>(configureCell: { dataSource, collectionView, indexPath, targetReactor in
-            let section = Section(at: indexPath)
-            switch section {
-            case .jobKind, .interestedField:
                 guard let reactor = targetReactor as? MyFilterButtonCollectionViewCellReactor else { return .init() }
                 guard let cell = collectionView
                     .dequeueReusableCell(withReuseIdentifier: "MyFilterButtonCollectionViewCell",
@@ -119,15 +153,6 @@ class MyFilterSettingViewController: UIViewController, StoryboardView {
                 .disposed(by: cell.disposeBag)
                     
                 return cell
-            case .userGrade:
-                guard let sliderReactor = targetReactor as? MyFilterSliderCollectionViewCellReactor else { return .init() }
-                guard let cell = collectionView
-                    .dequeueReusableCell(withReuseIdentifier: "MyFilterSliderCollectionViewCell",
-                                         for: indexPath)
-                    as? MyFilterSliderCollectionViewCell else { return .init() }
-                cell.reactor = sliderReactor
-                return cell
-            }
         }, configureSupplementaryView: { dataSource, collectionView, kind, indexPath in
             let emptyView = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader,
             withReuseIdentifier: "UICollectionReusableView",
@@ -145,47 +170,19 @@ class MyFilterSettingViewController: UIViewController, StoryboardView {
                 return header
                
             default:
-                guard let footer = collectionView
-                    .dequeueReusableSupplementaryView(ofKind: kind,
-                                                      withReuseIdentifier: "MyFilterFooterCollectionReusableView",
-                                                      for: indexPath)
-                    as? MyFilterFooterCollectionReusableView else {
-                                                        return emptyView
+                switch Section(at: indexPath) {
+                case .myInfo:
+                    guard let footer = collectionView
+                        .dequeueReusableSupplementaryView(ofKind: kind,
+                                                          withReuseIdentifier: "MyFilterFooterCollectionReusableView",
+                                                          for: indexPath)
+                        as? MyFilterFooterCollectionReusableView else {
+                                                            return emptyView
+                    }
+                    return footer
+                default:
+                    return emptyView
                 }
-
-                footer.confirmButton.rx.tap
-                    .throttle(0.5, latest: true, scheduler: MainScheduler.instance)
-                    .flatMapLatest { [weak self] event -> Observable<AlertType> in
-                        guard let self = self else { return Observable.just(AlertType.cancel) }
-                        let setting = reactor.currentState.myFilterSetting
-                        if setting.jobKind.isEmpty
-                            || setting.interestedField.isEmpty {
-                            return self.makeAlertObservable(title: "각 항목을 1개 이상 선택해주세요")
-                        } else {
-                             return self.makeAlertObservable(title: "정보 저장", message: "입력하신 정보를 저장하시겠습니까")
-                        }
-                    }
-                    .flatMapLatest { [weak reactor] type -> Observable<BasicResponse> in
-                        guard let reactor = reactor else { return .empty() }
-                        switch type {
-                        case .ok:
-                            return reactor.service.save(filterSetting: reactor.currentState.myFilterSetting)
-                        case .warning:
-                            return .empty()
-                        case .cancel:
-                            return .empty()
-                        }
-                    }
-                    .observeOn(MainScheduler.instance)
-                    .subscribe(onNext: { [weak self] _ in
-                        self?.callback?()
-                        self?.navigationController?.popViewController(animated: true)
-                        AppEvents.logEvent(AppEvents.Name(rawValue: "EVENT_NAME_CUSTOMIZED_FILTER") )
-                    }, onError: { [weak self] _ in
-                        self?.simplerAlert(title: "저장에 실패했습니다.")
-                    })
-                    .disposed(by: footer.disposeBag)
-                return footer
             }
         })
     
@@ -198,7 +195,7 @@ class MyFilterSettingViewController: UIViewController, StoryboardView {
             .subscribe(onNext: { indexPath in
         
         let buttonCellReactor = reactor.buttonCellViewReactors[indexPath.section][indexPath.item]
-        let selectedJobKinds = reactor.currentState.myFilterSetting.jobKind.count
+        let selectedJobKinds = reactor.currentState.myFilterSetting.interestedJob.count
         Observable.just(MyFilterButtonCollectionViewCellReactor.Action.userPressed(indexPath, selectedJobKinds))
             .bind(to: buttonCellReactor.action)
             .disposed(by: self.disposeBag)
@@ -206,16 +203,9 @@ class MyFilterSettingViewController: UIViewController, StoryboardView {
             .disposed(by: disposeBag)
 
         itemSelectedObservable
-            .map { indexPath in Reactor.Action.update(indexPath, nil) }
+            .map { indexPath in Reactor.Action.update(indexPath) }
             .bind(to: reactor.action)
             .disposed(by: disposeBag)
-        
-        let sliderReactor = reactor.sliderCellViewReactor
-        sliderReactor.state.map { $0.value }
-            .map { Reactor.Action.update(IndexPath(item: 0, section: 2), $0) }
-            .bind(to: reactor.action)
-            .disposed(by: disposeBag)
-        
     }
 }
 
@@ -224,50 +214,59 @@ UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
                         insetForSectionAt section: Int) -> UIEdgeInsets {
-        
-        let section = Section(section: section)
-        switch section {
-        case .jobKind, .interestedField:
-            return UIEdgeInsets(top: 12, left: 0, bottom: 30, right: 0)
-        case .userGrade:
-            return UIEdgeInsets(top: 12, left: 0, bottom: 73, right: 0)
+        switch Section(section: section) {
+        case .myInfo:
+            return UIEdgeInsets(top: 16, left: 0, bottom: 12, right: 0)
+        case .interestedField:
+            return UIEdgeInsets(top: 16, left: 0, bottom: 40, right: 0)
+        case .interestedJob:
+            return UIEdgeInsets(top: 16, left: 0, bottom: 0, right: 0)
         }
     }
+
     
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
                         sizeForItemAt indexPath: IndexPath) -> CGSize {
         let section = Section(at: indexPath)
         switch section {
-        case .jobKind:
+        case .myInfo:
             let titleString = self.reactor?.currentState.sections[indexPath.section][indexPath.item] ?? ""
-            return MyFilterSizeLayout.calculateItemSize(by: .jobKind,
+            return MyFilterSizeLayout.calculateItemSize(by: .myInfo,
                                                         targetString: titleString)
         case .interestedField:
             let titleString = self.reactor?.currentState.sections[indexPath.section][indexPath.item] ?? ""
             return MyFilterSizeLayout.calculateItemSize(by: .interestedField,
                                                         targetString: titleString)
-        case .userGrade:
-            return MyFilterSizeLayout.calculateItemSize(by: .userGrade,
-                                                        currentViewSize: collectionView.bounds.size)
+        case .interestedJob:
+            let titleString = self.reactor?.currentState.sections[indexPath.section][indexPath.item] ?? ""
+            return MyFilterSizeLayout.calculateItemSize(by: .interestedJob,
+                                                        targetString: titleString)
         }
     }
     
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
                         referenceSizeForHeaderInSection section: Int) -> CGSize {
-        return MyFilterSizeLayout.headerSize
+        switch Section(section: section) {
+        case .myInfo:
+            return MyFilterSizeLayout.headerSize(by: .myInfo)
+        case .interestedField:
+            return MyFilterSizeLayout.headerSize(by: .interestedField)
+        case .interestedJob:
+            return MyFilterSizeLayout.headerSize(by: .interestedJob)
+        }
+        
     }
     
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
                         referenceSizeForFooterInSection section: Int) -> CGSize {
-        let section = Section(section: section)
-        switch section {
-        case .jobKind, .interestedField:
-            return .zero
-        case .userGrade:
+        switch Section(section: section) {
+        case .myInfo:
             return MyFilterSizeLayout.footerSize
+        default:
+            return .zero
         }
     }
 }

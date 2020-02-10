@@ -89,15 +89,22 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 //        naverLogin()
         
         window = UIWindow(frame: UIScreen.main.bounds)
-    
+        
         let splashStoryBoard = UIStoryboard(name: "Splash",
                                             bundle: nil)
+        let introStoryBoard = UIStoryboard(name: "IntroStoryboard",
+                                            bundle: nil)
+        
+        guard let introViewController
+            = introStoryBoard.instantiateViewController(withIdentifier: "IntroPageViewController") as? IntroPageViewController else {
+                return true
+        }
         guard let splashVC
             = splashStoryBoard.instantiateViewController(withIdentifier: "splash") as? SplashVC else {
                 return true
         }
         
-        window?.rootViewController = splashVC
+        window?.rootViewController = introViewController
         window?.makeKeyAndVisible()
         
         return true
