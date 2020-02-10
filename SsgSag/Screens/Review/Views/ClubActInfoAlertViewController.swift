@@ -18,9 +18,8 @@ class ClubActInfoAlertViewController: UIViewController {
     @IBOutlet weak var locationView: UIView!
     @IBOutlet weak var dateView: UIView!
     @IBOutlet weak var dateViewBotLayout: NSLayoutConstraint!
-    var originDatePickerPos = CGPoint.zero
     let feedbackGenerator = UISelectionFeedbackGenerator()
-    let animationDuration = 0.2
+    let animationDuration = 0.3
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -29,7 +28,7 @@ class ClubActInfoAlertViewController: UIViewController {
         setupDatePicker()
     }
     
-    override func viewDidAppear(_ animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         appearAnim(type: clubactInfo.inputType)
     }
     

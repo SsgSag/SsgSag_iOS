@@ -23,17 +23,22 @@ class ClubRegisterOneStepViewModel {
     }
     
     func bind() {
-        Observable.combineLatest(clubNameObservable, univOrLocationObservable, oneLineObservable, resultSelector: {
-            self.emptyCheck(text: $0) &&
-            self.emptyCheck(text: $1) &&
-            self.emptyCheck(text: $2)
+        Observable.combineLatest(clubNameObservable, univOrLocationObservable, oneLineObservable, categoryObservable, resultSelector: {
+            self.emptyStringCheck(text: $0) &&
+            self.emptyStringCheck(text: $1) &&
+            self.emptyStringCheck(text: $2) &&
+                self.emptyArrayCheck(arr: $3 )
         }).distinctUntilChanged()
             .bind(to: nextButtonEnableObservable)
             .disposed(by: disposeBag)
     }
     
-    func emptyCheck(text: String) -> Bool {
+    func emptyStringCheck(text: String) -> Bool {
         return !text.isEmpty
+    }
+    
+    func emptyArrayCheck(arr: [String]) -> Bool {
+        return !arr.isEmpty
     }
     
     func isMaxCategory() -> Bool {
@@ -41,6 +46,12 @@ class ClubRegisterOneStepViewModel {
             return true
         }
         return false
+    }
+    
+    func deleteCategory(index: Int) {
+        var tempCategoryArray = categoryObservable.value
+        tempCategoryArray.remove(at: index)
+        categoryObservable.accept(tempCategoryArray)
     }
     
     deinit {

@@ -18,4 +18,5 @@ class ClubRegisterModel {
     init(clubType: ClubType) {
         self.clubType = clubType
     }
+   
 }

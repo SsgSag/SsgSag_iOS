@@ -37,6 +37,9 @@
 		064AD7C523EFD1B60006E02C /* ClubRegisterOneStepViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 064AD7C423EFD1B60006E02C /* ClubRegisterOneStepViewModel.swift */; };
 		064AD7C723EFD1C10006E02C /* ClubRegisterModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 064AD7C623EFD1C10006E02C /* ClubRegisterModel.swift */; };
 		064AD7C923EFFF7A0006E02C /* ClubRegisterAlertViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 064AD7C823EFFF7A0006E02C /* ClubRegisterAlertViewController.swift */; };
+		064AD7CB23F0EB690006E02C /* ClubManagerRegisterTwoStepViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 064AD7CA23F0EB690006E02C /* ClubManagerRegisterTwoStepViewController.swift */; };
+		064AD7D023F0EE720006E02C /* RegisterCategoryCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 064AD7CE23F0EE720006E02C /* RegisterCategoryCollectionViewCell.swift */; };
+		064AD7D123F0EE720006E02C /* RegisterCategoryCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 064AD7CF23F0EE720006E02C /* RegisterCategoryCollectionViewCell.xib */; };
 		065264DB23EA8FEE00501200 /* NotFoundClubViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 065264DA23EA8FEE00501200 /* NotFoundClubViewController.swift */; };
 		065264DD23EAC4BA00501200 /* FoundClubViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 065264DC23EAC4BA00501200 /* FoundClubViewController.swift */; };
 		065264DF23EBC55C00501200 /* StarRatingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 065264DE23EBC55C00501200 /* StarRatingViewController.swift */; };
@@ -419,6 +422,9 @@
 		064AD7C423EFD1B60006E02C /* ClubRegisterOneStepViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClubRegisterOneStepViewModel.swift; sourceTree = "<group>"; };
 		064AD7C623EFD1C10006E02C /* ClubRegisterModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClubRegisterModel.swift; sourceTree = "<group>"; };
 		064AD7C823EFFF7A0006E02C /* ClubRegisterAlertViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClubRegisterAlertViewController.swift; sourceTree = "<group>"; };
+		064AD7CA23F0EB690006E02C /* ClubManagerRegisterTwoStepViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClubManagerRegisterTwoStepViewController.swift; sourceTree = "<group>"; };
+		064AD7CE23F0EE720006E02C /* RegisterCategoryCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterCategoryCollectionViewCell.swift; sourceTree = "<group>"; };
+		064AD7CF23F0EE720006E02C /* RegisterCategoryCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RegisterCategoryCollectionViewCell.xib; sourceTree = "<group>"; };
 		065264DA23EA8FEE00501200 /* NotFoundClubViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotFoundClubViewController.swift; sourceTree = "<group>"; };
 		065264DC23EAC4BA00501200 /* FoundClubViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoundClubViewController.swift; sourceTree = "<group>"; };
 		065264DE23EBC55C00501200 /* StarRatingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StarRatingViewController.swift; sourceTree = "<group>"; };
@@ -835,6 +841,7 @@
 				064AD7BE23EFC8220006E02C /* NoClubManagerViewController.swift */,
 				064AD7C023EFCF940006E02C /* ClubManagerRegisterOneStepViewController.swift */,
 				064AD7C823EFFF7A0006E02C /* ClubRegisterAlertViewController.swift */,
+				064AD7CA23F0EB690006E02C /* ClubManagerRegisterTwoStepViewController.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -878,6 +885,8 @@
 				0652950823E91C3E00DA9F3B /* InputCategoryCollectionViewCell.swift */,
 				0652950923E91C3E00DA9F3B /* InputCategoryCollectionViewCell.xib */,
 				0652951423E95B0A00DA9F3B /* ActLocationTableViewCell.swift */,
+				064AD7CE23F0EE720006E02C /* RegisterCategoryCollectionViewCell.swift */,
+				064AD7CF23F0EE720006E02C /* RegisterCategoryCollectionViewCell.xib */,
 			);
 			path = Cell;
 			sourceTree = "<group>";
@@ -2084,6 +2093,7 @@
 				C9625E1023AE667D00FF5109 /* LoginStoryBoard.storyboard in Resources */,
 				D1FCC4E4236BD2BE000E3769 /* DateCollectionViewCell.xib in Resources */,
 				C9625E1223AE66EA00FF5109 /* PosterListCategoryCollectionViewCell.xib in Resources */,
+				064AD7D123F0EE720006E02C /* RegisterCategoryCollectionViewCell.xib in Resources */,
 				063B571B23E3ED2B00B8F617 /* SsgSagReviewTableViewCell.xib in Resources */,
 				8496818E22AFDDD1004A4A63 /* newCalendarStoryboard.storyboard in Resources */,
 				D1FEA3522334C79600464DC4 /* AllPosterListCollectionViewCell.xib in Resources */,
@@ -2355,6 +2365,7 @@
 				84B1B250226A364100077DF9 /* DataResponse.swift in Sources */,
 				063B571F23E42B7800B8F617 /* ReviewSearchViewController.swift in Sources */,
 				C9A828602395528D0029A493 /* AccountSettingViewController.swift in Sources */,
+				064AD7D023F0EE720006E02C /* RegisterCategoryCollectionViewCell.swift in Sources */,
 				8463567D229418300060ED91 /* ImageNetworkManager.swift in Sources */,
 				FAF6DEE4222EAAEF001C70CC /* Interests.swift in Sources */,
 				C905D02123B8D50D00E9B2B2 /* Array+.swift in Sources */,
@@ -2382,6 +2393,7 @@
 				063B571723E3D0B500B8F617 /* MoreReviewViewController.swift in Sources */,
 				C9A828802395528E0029A493 /* ActivityCell.swift in Sources */,
 				C9A8283A2395528D0029A493 /* DatePickerPopUpVC.swift in Sources */,
+				064AD7CB23F0EB690006E02C /* ClubManagerRegisterTwoStepViewController.swift in Sources */,
 				D1226C7D22EC1A66007F59BE /* DependencyContainer.swift in Sources */,
 				D16F30A123697C4D00C127CA /* TokenResponse.swift in Sources */,
 				0655965923DFDAE600C779A5 /* ClubListSelectDelgate.swift in Sources */,
