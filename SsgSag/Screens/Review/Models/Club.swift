@@ -43,7 +43,8 @@ struct ClubInfo: Codable{
     let univOrLocation, oneLine, categoryList, activeNum, meetingTime, clubFee, clubWebsite, introduce, clubPhotoUrlList: String
     let score0sum, score1sum, score2sum, score3sum, score4sum, scoreNum, userIdx: Int
     let regDate: String
-    let aveScore0, aveScore1, aveScore2, aveScore3, aveScore4, isMine: Int
+    let aveScore0, aveScore1, aveScore2, aveScore3, aveScore4: Float
+    let isMine: Int
     let clubPostList: [ReviewInfo]
 }
 

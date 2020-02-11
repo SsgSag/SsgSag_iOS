@@ -93,14 +93,8 @@ extension ClubListTableViewCell: UICollectionViewDataSource, UICollectionViewDel
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         
         let title = self.categorySet[indexPath.row]
+        let width = title.estimatedFrame(font: UIFont.fontWithName(type: .regular, size: 10)).width
         
-        let widthEstimate = collectionView.frame.width/2
-        let size = CGSize(width: widthEstimate, height: 18)
-        let attributes: [NSAttributedString.Key : Any] = [NSAttributedString.Key.font: UIFont(name: "Apple SD 산돌고딕 Neo", size: 10.0) as Any]
-        let estimateSize = NSString(string: title).boundingRect(with: size, options: .usesLineFragmentOrigin, attributes: attributes, context: nil)
-        
-        //폰트가로크기오차 6 마진 8
-        //폰트세로크기오차 2 마진 8
-        return CGSize(width: estimateSize.width+6+8, height: estimateSize.height+2+8)
+        return CGSize(width: width + 8, height: 18)
     }
 }

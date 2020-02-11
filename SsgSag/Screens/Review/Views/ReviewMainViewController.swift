@@ -69,4 +69,9 @@ class ReviewMainViewController: UIViewController {
         self.present(nextVC, animated: true)
         
     }
+    
+    @IBAction func registerClubClick(_ sender: Any) {
+        guard let nextVC = self.storyboard?.instantiateViewController(withIdentifier: "SelectClubManagerVC") else {return}
+        self.present(nextVC, animated: true)
+    }
 }

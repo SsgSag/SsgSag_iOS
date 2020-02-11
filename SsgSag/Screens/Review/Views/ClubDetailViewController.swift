@@ -42,6 +42,9 @@ class ClubDetailViewController: UIViewController {
         requestClubInfo()
     }
     
+    lazy var blackStar = UIImage(named: "icStar0")
+    lazy var fillStar = UIImage(named: "icStar2")
+    
     override func viewWillAppear(_ animated: Bool) {
          tabBarController?.tabBar.isHidden = false
     }
@@ -64,7 +67,7 @@ class ClubDetailViewController: UIViewController {
     }
     
     func bind() {
-        self.tabViewModel.tabPageObservable
+        tabViewModel.tabPageObservable
             .observeOn( MainScheduler.instance )
             .distinctUntilChanged()
             .subscribe(onNext: { [weak self] page in
@@ -83,7 +86,7 @@ class ClubDetailViewController: UIViewController {
             })
             .disposed(by: disposeBag)
         
-        self.tabViewModel.tabFirstButtonStatus
+        tabViewModel.tabFirstButtonStatus
             .observeOn( MainScheduler.instance )
             .distinctUntilChanged()
             .subscribe(onNext: { [weak self] b in
@@ -91,33 +94,75 @@ class ClubDetailViewController: UIViewController {
                 self?.clubReviewButton.isSelected = !b
                 
                 if b {
+                    self?.clubInfoButton.titleLabel?.font = UIFont.fontWithName(type: .semibold, size: 15)
+                    self?.clubReviewButton.titleLabel?.font = UIFont.fontWithName(type: .regular, size: 15)
                     self?.infoLineView.backgroundColor = #colorLiteral(red: 0.376783371, green: 0.4170111418, blue: 1, alpha: 1)
                     self?.reviewLineView.backgroundColor = #colorLiteral(red: 0.9333333333, green: 0.9333333333, blue: 0.9333333333, alpha: 1)
                     self?.tabViewModel.setPage(page: 0)
                 }else {
+                    self?.clubInfoButton.titleLabel?.font = UIFont.fontWithName(type: .regular, size: 15)
+                    self?.clubReviewButton.titleLabel?.font = UIFont.fontWithName(type: .semibold, size: 15)
                     self?.infoLineView.backgroundColor = #colorLiteral(red: 0.9333333333, green: 0.9333333333, blue: 0.9333333333, alpha: 1)
                     self?.reviewLineView.backgroundColor = #colorLiteral(red: 0.376783371, green: 0.4170111418, blue: 1, alpha: 1)
                     self?.tabViewModel.setPage(page: 1)
                 }
             })
             .disposed(by: disposeBag)
+        
+        tabViewModel.proObservable
+            .subscribe(onNext: { [weak self] scoreText in
+                self?.proDegreeLabel.text = scoreText
+            })
+        .disposed(by: disposeBag)
+        
+        tabViewModel.funObservable
+            .subscribe(onNext: { [weak self] scoreText in
+                self?.funDegreeLabel.text = scoreText
+            })
+        .disposed(by: disposeBag)
+        
+        tabViewModel.hardObservable
+            .subscribe(onNext: { [weak self] scoreText in
+                self?.hardDegreeLabel.text = scoreText
+            })
+        .disposed(by: disposeBag)
+        
+        tabViewModel.friendObservable
+            .subscribe(onNext: { [weak self] scoreText in
+                self?.friendDegreeLabel.text = scoreText
+            })
+        .disposed(by: disposeBag)
+        
+        tabViewModel.recommendObservable
+            .subscribe(onNext: { [weak self] scoreNum in
+                self?.scoreLabel.text = "평점 \(scoreNum)"
+                var score = scoreNum
+                if let starImgs = self?.starStackView.subviews as? [UIImageView ] {
+                    
+                    starImgs.forEach{ score -= 1
+                        if score < 0 {
+                            ///수정하기
+                            $0.image = self?.blackStar
+                        } else{
+                            $0.image = self?.fillStar
+                        }
+                        
+                        
+                    }
+                }
+            })
+        .disposed(by: disposeBag)
+    
     }
     
     func requestClubInfo() {
         
         ClubService().requestClubInfo(clubIdx: self.clubIdx) { data in
             guard let data = data else {return}
-            
-            /*
-             평점
-             성격정도 바인딩하기
-             */
-            
             self.tabViewModel.setData(data: data)
         }
-        
     }
-        
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "DetailPageSegue" {
             self.clubPageInstance = segue.destination as? ClubPageViewController

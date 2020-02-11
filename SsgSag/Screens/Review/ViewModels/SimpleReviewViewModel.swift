@@ -23,8 +23,8 @@ class SimpleReviewViewModel {
     }
     
     func bind() {
-        Observable.combineLatest(oneLineObservable, advantageObservable, disadvantageObservable, honeyObservable, resultSelector: {
-            return self.checkEmpty(text: $0) && self.checkMinmumText(text: $1) && self.checkMinmumText(text: $2) && self.checkMinmumText(text: $3)
+        Observable.combineLatest(oneLineObservable, advantageObservable, disadvantageObservable, resultSelector: {
+            return self.checkEmpty(text: $0) && self.checkMinmumText(text: $1) && self.checkMinmumText(text: $2)
         })
             .distinctUntilChanged()
             .bind(to: submitButtonEnableObservable)

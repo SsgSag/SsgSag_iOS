@@ -16,9 +16,11 @@ class ReviewPageCollectionViewCell: UICollectionViewCell {
         willSet {
             if newValue {
                 self.lineView.backgroundColor = .cornFlower
+                self.tabLabel.font = UIFont.fontWithName(type: .medium, size: 14)
                 self.tabLabel.textColor = .cornFlower
             } else {
                 self.lineView.backgroundColor = .reviewDeselectLineGray
+                self.tabLabel.font = UIFont.fontWithName(type: .regular, size: 14)
                 self.tabLabel.textColor = .reviewDeselectGray
             }
         }
