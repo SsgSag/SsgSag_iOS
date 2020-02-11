@@ -16,7 +16,8 @@ class ClubRegisterTwoStepViewModel {
     let feeObservable = BehaviorRelay(value: "")
     let clubSiteObservable = BehaviorRelay(value: "")
     let introduceObservable = BehaviorRelay(value: "")
-    let photoURLObservable:BehaviorRelay<[Data]> = BehaviorRelay(value: [])
+    let photoDataObservable:BehaviorRelay<[Data]> = BehaviorRelay(value: [])
+    let photoURLObservable:BehaviorRelay<[String]> = BehaviorRelay(value: [])
     let nextButtonEnableObservable = BehaviorRelay(value: false)
     private let maxCount = 9
     let disposeBag = DisposeBag()
@@ -38,16 +39,16 @@ class ClubRegisterTwoStepViewModel {
     }
     
     func isMaxPhoto() -> Bool {
-        if photoURLObservable.value.count >= maxCount {
+        if photoDataObservable.value.count >= maxCount {
             return true
         }
         return false
     }
     
     func deletePhoto(index: Int) {
-        var tempPhotoArray = photoURLObservable.value
+        var tempPhotoArray = photoDataObservable.value
         tempPhotoArray.remove(at: index)
-        photoURLObservable.accept(tempPhotoArray)
+        photoDataObservable.accept(tempPhotoArray)
     }
     
     func emptyStringCheck(text: String) -> Bool {

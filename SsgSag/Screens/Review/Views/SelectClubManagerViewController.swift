@@ -9,16 +9,18 @@
 import UIKit
 
 class SelectClubManagerViewController: UIViewController {
-
+    
+    var isReviewExist = false
+    var clubIdx = -1
     override func viewDidLoad() {
         super.viewDidLoad()
-
-//        registertype넘기기
     }
     
     @IBAction func clubManagerClick(_ sender: Any) {
         let nextVC = self.storyboard?.instantiateViewController(withIdentifier: "SelectClubTypeVC") as! SelectClubTypeViewController
         nextVC.registerType = .Club
+        nextVC.isReviewExist = isReviewExist
+        nextVC.clubIdx = clubIdx
         self.navigationController?.pushViewController(nextVC, animated: true)
     }
     

@@ -2985,6 +2985,7 @@
                         <outlet property="meetingLabel" destination="SLv-Mb-mLG" id="raD-Mn-rD8"/>
                         <outlet property="photoCollectionView" destination="zbT-JS-Xqh" id="TEa-zL-DDB"/>
                         <outlet property="webSiteLabel" destination="pe6-64-Rrd" id="EM1-qI-B5N"/>
+                        <segue destination="Ar6-On-kEe" kind="presentation" identifier="SelectClubManagerSegue" id="Zo6-St-ZCT"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="stP-5z-uHj" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -4256,10 +4257,10 @@
                                 </constraints>
                                 <state key="normal" image="icCancel"/>
                                 <connections>
-                                    <action selector="dismissClick:" destination="oAN-zL-068" eventType="touchUpInside" id="kIV-ik-MIg"/>
+                                    <action selector="dismissClick:" destination="oAN-zL-068" eventType="touchUpInside" id="cUA-Dh-q5s"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="top" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Iy6-jD-STn">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="top" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Iy6-jD-STn">
                                 <rect key="frame" x="0.0" y="729" width="375" height="83"/>
                                 <color key="backgroundColor" red="0.39607843139999999" green="0.43137254899999999" blue="0.94117647059999998" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <constraints>
@@ -4271,8 +4272,7 @@
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
                                 <connections>
-                                    <action selector="dismissClick:" destination="oAN-zL-068" eventType="touchUpInside" id="fUR-h4-PkL"/>
-                                    <action selector="submitClick:" destination="iJP-aq-Qva" eventType="touchUpInside" id="hm0-Fx-3PP"/>
+                                    <action selector="dismissClick:" destination="oAN-zL-068" eventType="touchUpInside" id="Cmq-ZL-XHn"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -4322,7 +4322,7 @@
         <!--Navigation Controller-->
         <scene sceneID="ilz-8H-TGi">
             <objects>
-                <navigationController storyboardIdentifier="SelectClubManagerVC" automaticallyAdjustsScrollViewInsets="NO" navigationBarHidden="YES" id="Ar6-On-kEe" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="SelectClubManagerVC" automaticallyAdjustsScrollViewInsets="NO" modalPresentationStyle="fullScreen" navigationBarHidden="YES" id="Ar6-On-kEe" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="NIG-i9-hD8">
                         <autoresizingMask key="autoresizingMask"/>
@@ -4441,7 +4441,6 @@
                                 </state>
                                 <connections>
                                     <action selector="completeClick:" destination="p8J-0m-ZpR" eventType="touchUpInside" id="4nt-Bk-fSD"/>
-                                    <action selector="dismissClick:" destination="oAN-zL-068" eventType="touchUpInside" id="0Vb-ez-AMb"/>
                                     <action selector="submitClick:" destination="iJP-aq-Qva" eventType="touchUpInside" id="Y4p-fc-2xM"/>
                                 </connections>
                             </button>
@@ -5313,7 +5312,6 @@
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
                                 <connections>
-                                    <action selector="dismissClick:" destination="oAN-zL-068" eventType="touchUpInside" id="nXc-XM-9Op"/>
                                     <action selector="submitClick:" destination="RFs-nU-j7n" eventType="touchUpInside" id="Wsy-vu-5WA"/>
                                     <action selector="submitClick:" destination="iJP-aq-Qva" eventType="touchUpInside" id="nGt-2D-4Xq"/>
                                 </connections>
@@ -5343,6 +5341,10 @@
                                     <constraint firstAttribute="height" constant="0.5" id="qLj-sz-hPj"/>
                                 </constraints>
                             </view>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="large" translatesAutoresizingMaskIntoConstraints="NO" id="UtH-zF-Eax">
+                                <rect key="frame" x="169" y="492" width="37" height="37"/>
+                                <color key="color" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
@@ -5359,8 +5361,10 @@
                             <constraint firstItem="qpC-IU-F3R" firstAttribute="centerX" secondItem="oaa-DN-cGm" secondAttribute="centerX" id="OPy-Zm-mDe"/>
                             <constraint firstAttribute="bottom" secondItem="XbQ-Xg-MFv" secondAttribute="bottom" id="Toc-EA-Bnv"/>
                             <constraint firstItem="nuG-Al-gFX" firstAttribute="leading" secondItem="Kmj-ix-Yqv" secondAttribute="leading" constant="24" id="VlZ-mE-gwh"/>
+                            <constraint firstItem="UtH-zF-Eax" firstAttribute="centerX" secondItem="oaa-DN-cGm" secondAttribute="centerX" id="WW6-zu-v9s"/>
                             <constraint firstItem="oqe-KP-PK1" firstAttribute="leading" secondItem="oaa-DN-cGm" secondAttribute="leading" id="eYM-VC-H26"/>
                             <constraint firstItem="IYq-rs-LdQ" firstAttribute="leading" secondItem="Ju0-sE-BLr" secondAttribute="leading" id="fL6-ca-zt8"/>
+                            <constraint firstItem="XbQ-Xg-MFv" firstAttribute="top" secondItem="UtH-zF-Eax" secondAttribute="bottom" constant="200" id="ftR-LR-OlD"/>
                             <constraint firstItem="qpC-IU-F3R" firstAttribute="top" secondItem="Kmj-ix-Yqv" secondAttribute="top" constant="15" id="gxs-G1-Dcn"/>
                             <constraint firstItem="Ju0-sE-BLr" firstAttribute="top" secondItem="BYa-Sf-SA7" secondAttribute="bottom" constant="54" id="hse-8P-SDR"/>
                             <constraint firstItem="BYa-Sf-SA7" firstAttribute="top" secondItem="oqe-KP-PK1" secondAttribute="bottom" constant="51" id="hvy-WM-wC8"/>
@@ -5380,6 +5384,7 @@
                     <navigationItem key="navigationItem" id="hJs-gp-5V4"/>
                     <connections>
                         <outlet property="emailTextField" destination="nuG-Al-gFX" id="B1k-OQ-FKN"/>
+                        <outlet property="indicator" destination="UtH-zF-Eax" id="doj-ED-Uma"/>
                         <outlet property="phoneTextField" destination="djH-lb-ruZ" id="OyD-ok-Jub"/>
                         <outlet property="submitButton" destination="XbQ-Xg-MFv" id="M3Y-Ub-AhV"/>
                     </connections>

@@ -38,7 +38,8 @@ enum RequestURL {
     case clubList(curPage: Int)
     case clubInfo(clubIdx: Int)
     case searchClubWithName(clubType: ClubType, location: String, keyword: String, curPage: Int)
-    case notMemberClubRegister
+    case ClubRegister
+    case requestPhotoURL
     
     var getRequestURL: String {
         switch self {
@@ -130,9 +131,12 @@ enum RequestURL {
             return  "/club/\(clubIdx)"
         case .searchClubWithName(let clubType, let location, let keyword, let curPage):
             return "/club/search?clubType=\(clubType.rawValue)&univOrLocation=\(location)&keyword=\(keyword)&curPage=\(curPage)"
-        case .notMemberClubRegister:
+        case .ClubRegister:
             return "/club"
+        case .requestPhotoURL:
+            return "/upload/photo"
         }
+        
         
     }
     

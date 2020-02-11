@@ -26,6 +26,4 @@ class CompleteViewController: UIViewController {
     @IBAction func dismissClick(_ sender: Any) {
         self.dismiss(animated: true)
     }
-    
-
 }

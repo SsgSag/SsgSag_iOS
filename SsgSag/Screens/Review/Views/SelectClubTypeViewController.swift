@@ -14,6 +14,8 @@ enum RegisterType {
 class SelectClubTypeViewController: UIViewController {
 
     var registerType: RegisterType!
+    var isReviewExist = false
+    var clubIdx = -1
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,6 +32,9 @@ class SelectClubTypeViewController: UIViewController {
         let nextVC = self.storyboard?.instantiateViewController(withIdentifier: "ClubManagerRegisterOneStepVC") as! ClubManagerRegisterOneStepViewController
         nextVC.viewModel = ClubRegisterOneStepViewModel()
         nextVC.model = ClubRegisterModel(clubType: clubType)
+        nextVC.model.isReviewExist = isReviewExist
+        nextVC.model.clubIdx = clubIdx
+        
         self.navigationController?.pushViewController(nextVC, animated: true)
     }
     

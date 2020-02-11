@@ -9,6 +9,8 @@
 import Foundation
 
 class ClubRegisterModel {
+    var isReviewExist = false
+    var clubIdx = -1
     //one step
     var clubType: ClubType
     var clubName = ""
@@ -21,7 +23,7 @@ class ClubRegisterModel {
     var fee = ""
     var webSite = ""
     var introduce = ""
-    var photoDatas: [Data] = []
+    var photoUrlList: [String] = []
     //three step
     var email = ""
     var phone = ""

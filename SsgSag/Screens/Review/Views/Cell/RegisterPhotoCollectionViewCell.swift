@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Kingfisher
 
 class RegisterPhotoCollectionViewCell: UICollectionViewCell {
 
@@ -22,7 +23,7 @@ class RegisterPhotoCollectionViewCell: UICollectionViewCell {
     
     func setImg(index: Int) {
         self.index = index
-        guard let imgData = viewModel.photoURLObservable.value[safe: index] else {return}
+        guard let imgData = viewModel.photoDataObservable.value[safe: index] else {return}
         let image = UIImage(data: imgData)
         imageView.image = image
     }

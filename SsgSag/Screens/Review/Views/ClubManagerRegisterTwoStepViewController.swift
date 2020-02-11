@@ -27,6 +27,7 @@ class ClubManagerRegisterTwoStepViewController: UIViewController {
     var model: ClubRegisterModel!
     var viewModel: ClubRegisterTwoStepViewModel!
     let disposeBag = DisposeBag()
+    let service = ClubService()
     
     lazy var imagePicker: UIImagePickerController = {
         let picker = UIImagePickerController()
@@ -88,12 +89,12 @@ class ClubManagerRegisterTwoStepViewController: UIViewController {
     func bindOutput(viewModel: ClubRegisterTwoStepViewModel) {
         
         viewModel.introduceObservable
-            .subscribe(onNext: { text in
-                self.introduceLabel.isHidden = text.count == 0 ? false : true
+            .subscribe(onNext: { [weak self] text in
+                self?.introduceLabel.isHidden = text.count == 0 ? false : true
             })
             .disposed(by: disposeBag)
         
-        viewModel.photoURLObservable.bind(to: photoCollectionView.rx.items(cellIdentifier: "RegisterPhotoCell")) { (indexPath, cellViewModel, cell) in
+        viewModel.photoDataObservable.bind(to: photoCollectionView.rx.items(cellIdentifier: "RegisterPhotoCell")) { (indexPath, cellViewModel, cell) in
             guard let cell = cell as? RegisterPhotoCollectionViewCell else {return}
             
             cell.viewModel = viewModel
@@ -102,7 +103,7 @@ class ClubManagerRegisterTwoStepViewController: UIViewController {
         }
         .disposed(by: disposeBag)
         
-        viewModel.photoURLObservable
+        viewModel.photoDataObservable
             .subscribe(onNext: { [weak self] imgDataSet in
                 self?.collectionHeightLayout.constant = CGFloat.greatestFiniteMagnitude
                 self?.view.layoutIfNeeded()
@@ -119,6 +120,15 @@ class ClubManagerRegisterTwoStepViewController: UIViewController {
             .disposed(by: disposeBag)
 
     }
+    
+    func modelInsertData(model: ClubRegisterModel, viewModel: ClubRegisterTwoStepViewModel) {
+        model.activeMember = viewModel.activeMemberObservable.value
+        model.meetTime = viewModel.meetingTimeObservable.value
+        model.fee = viewModel.feeObservable.value
+        model.webSite = viewModel.clubSiteObservable.value
+        model.introduce = viewModel.introduceObservable.value
+        model.photoUrlList = viewModel.photoURLObservable.value
+    }
 
     
     @IBAction func uploadClick(_ sender: Any) {
@@ -131,9 +141,10 @@ class ClubManagerRegisterTwoStepViewController: UIViewController {
     
     @IBAction func nextClick(_ sender: Any) {
         guard let nextVC = self.storyboard?.instantiateViewController(withIdentifier: "ClubManagerRegisterThreeStepVC") as? ClubManagerRegisterThreeStepViewController else {return}
+        modelInsertData(model: model, viewModel: viewModel)
         nextVC.viewModel = ClubRegisterThreeStepViewModel()
         nextVC.model = model
-        
+        nextVC.service = ClubService()
         self.navigationController?.pushViewController(nextVC, animated: true)
     }
     
@@ -149,13 +160,23 @@ extension ClubManagerRegisterTwoStepViewController: UIImagePickerControllerDeleg
     }
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        
         if let originImage: UIImage = info[.editedImage] as? UIImage {
-            var tempImgArray = viewModel.photoURLObservable.value
+            var tempImgArray = viewModel.photoDataObservable.value
+            var tempUrlArray = viewModel.photoURLObservable.value
             guard let imgData = originImage.jpegData(compressionQuality: 1.0) else { return }
-            tempImgArray.append(imgData)
-            viewModel.photoURLObservable.accept(tempImgArray)
+            service.requestPhotoURL(imageData: imgData) { imgURL in
+                if let imgURL = imgURL {
+                    tempImgArray.append(imgData)
+                    self.viewModel.photoDataObservable.accept(tempImgArray)
+                    tempUrlArray.append(imgURL)
+                    self.viewModel.photoURLObservable.accept(tempUrlArray)
+                } else {
+                    self.simpleAlert(title: "이미지 업로드중 오류가 발생했습니다.", message: "다시 시도해주세요")
+                }
+            }
+            self.dismiss(animated: true)
         }
-        self.dismiss(animated: true)
     }
 }
 

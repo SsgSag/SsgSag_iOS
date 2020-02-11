@@ -25,16 +25,17 @@ class ClubInfoViewController: UIViewController {
     var disposeBag: DisposeBag!
     let indicator = UIActivityIndicatorView()
     let showPhotoMaximum = 6
+    var clubIdx = -1
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
         self.photoCollectionView.dataSource = self
         self.photoCollectionView.delegate = self
         labelGestureAdd()
         disposeBag = DisposeBag()
         setIndicatorView()
         bind()
+        
     }
     
     func bind() {
@@ -45,6 +46,7 @@ class ClubInfoViewController: UIViewController {
                 if !data.activeNum.isEmpty {
                     self?.emptyClubInfoView.isHidden = true
                 }
+                self?.clubIdx = data.clubIdx
                 self?.activeNumLabel.text = data.activeNum
                 self?.meetingLabel.text = data.meetingTime
                 self?.feeLabel.text = data.clubFee
@@ -83,13 +85,17 @@ class ClubInfoViewController: UIViewController {
     }
     
     @IBAction func registerClubInfo(_ sender: Any) {
-        guard let nextVC = self.storyboard?.instantiateViewController(withIdentifier: "SelectClubManagerVC") else {return}
-        
-        self.present(nextVC, animated: true)
-        
+        performSegue(withIdentifier: "SelectClubManagerSegue", sender: self)
     }
     
     deinit {
         print("memory - info 종료")
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        guard let navigationVC = segue.destination as? UINavigationController else {return}
+        guard let nextVC = navigationVC.topViewController as? SelectClubManagerViewController else {return}
+        nextVC.isReviewExist = true
+        nextVC.clubIdx = clubIdx
     }
 }
