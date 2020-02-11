@@ -115,7 +115,40 @@ class ClubService: ClubServiceProtocol {
                 print(err.localizedDescription)
             }
         }
+    }
+    
+    func requestNotMemberClubRegister(admin: Int, name: String, phone: String, completion: @escaping (Bool) -> Void) {
         
+        let baseURL = UserAPI.sharedInstance.getBaseString()
+        let path = RequestURL.notMemberClubRegister.getRequestURL
+        guard let url = URL(string: baseURL+path) else {return}
+        let token = TokenName.tokenString
+        let header: HTTPHeaders = [
+            "Authorization": token,
+            "Content-Type": "application/json"
+        ]
+        let body: Parameters = [
+            "isAdmin": admin,
+            "adminName": name,
+            "adminCallNum": phone
+        ]
+        let jsonData = try? JSONSerialization.data(withJSONObject: body)
+        guard let request = requestMaker.makeRequest(url: url, method: .post, header: header, body: jsonData) else {return}
+        network.dispatch(request: request) { result in
+            switch result {
+            case .success(let data):
+                if let object = try? JSONDecoder().decode(Club.self, from: data) {
+                    if object.status == 200 {
+                        completion(true)
+                    } else {
+                        completion(false)
+                    }
+                }
+            case .failure(let err):
+                print(err.localizedDescription)
+                completion(false)
+            }
+        }
     }
 }
 

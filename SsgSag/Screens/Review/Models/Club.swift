@@ -31,7 +31,7 @@ struct ClubListData: Codable {
 
 // 동아리 상세
 struct Club: Codable {
-    let status: Int?
+    let status: Int
     let message: String?
     let data: ClubInfo?
 }

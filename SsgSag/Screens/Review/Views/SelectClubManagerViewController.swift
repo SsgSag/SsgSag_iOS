@@ -24,6 +24,7 @@ class SelectClubManagerViewController: UIViewController {
     
     @IBAction func notClubManagerClick(_ sender: Any) {
         let nextVC = self.storyboard?.instantiateViewController(withIdentifier: "NoClubManagerVC") as! NoClubManagerViewController
+        nextVC.service = ClubService()
         self.navigationController?.pushViewController(nextVC, animated: true)
     }
     

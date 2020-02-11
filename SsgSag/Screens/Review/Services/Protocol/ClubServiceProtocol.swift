@@ -18,4 +18,11 @@ protocol ClubServiceProtocol {
     
     //동아리 이름 검색
     func requestClubWithName(clubType: ClubType, location: String, keyword: String, curPage: Int, completion: @escaping ([ClubListData]?) -> Void )
+    
+    //미관계자 동아리 등록
+    func requestNotMemberClubRegister(admin: Int, name: String, phone: String, completion: @escaping (Bool) -> Void )
+    
+    //관계자 동아리 등록
+    
+    //관계자 후기 먼저 등록시 동아리 등록
 }

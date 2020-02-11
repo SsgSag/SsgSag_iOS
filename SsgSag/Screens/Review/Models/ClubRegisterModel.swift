@@ -22,6 +22,9 @@ class ClubRegisterModel {
     var webSite = ""
     var introduce = ""
     var photoDatas: [Data] = []
+    //three step
+    var email = ""
+    var phone = ""
     
     init(clubType: ClubType) {
         self.clubType = clubType

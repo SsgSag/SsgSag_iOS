@@ -130,6 +130,11 @@ class ClubManagerRegisterTwoStepViewController: UIViewController {
     }
     
     @IBAction func nextClick(_ sender: Any) {
+        guard let nextVC = self.storyboard?.instantiateViewController(withIdentifier: "ClubManagerRegisterThreeStepVC") as? ClubManagerRegisterThreeStepViewController else {return}
+        nextVC.viewModel = ClubRegisterThreeStepViewModel()
+        nextVC.model = model
+        
+        self.navigationController?.pushViewController(nextVC, animated: true)
     }
     
     @IBAction func backClick(_ sender: Any) {
