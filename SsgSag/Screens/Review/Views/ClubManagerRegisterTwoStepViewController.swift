@@ -40,12 +40,17 @@ class ClubManagerRegisterTwoStepViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(tapHideKeyBoard))
+        scrollView.addGestureRecognizer(tapGesture)
         let nib = UINib(nibName: "RegisterPhotoCollectionViewCell", bundle: nil)
         photoCollectionView.register(nib, forCellWithReuseIdentifier: "RegisterPhotoCell")
         
         bindInput(viewModel: viewModel)
         bindOutput(viewModel: viewModel)
+    }
+    
+    @objc func tapHideKeyBoard() {
+        self.view.endEditing(true)
     }
     
     func bindInput(viewModel: ClubRegisterTwoStepViewModel) {

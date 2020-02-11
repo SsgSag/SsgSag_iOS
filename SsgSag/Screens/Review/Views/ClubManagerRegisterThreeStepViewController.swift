@@ -28,6 +28,10 @@ class ClubManagerRegisterThreeStepViewController: UIViewController {
         bindOutput(viewModel: viewModel)
     }
     
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.view.endEditing(true)
+    }
+    
     func bindInput(viewModel: ClubRegisterThreeStepViewModel) {
         emailTextField
             .rx
