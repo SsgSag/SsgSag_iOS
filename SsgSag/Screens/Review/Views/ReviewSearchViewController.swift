@@ -22,7 +22,7 @@ class ReviewSearchViewController: UIViewController, UITextFieldDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        self.tabBarController?.tabBar.isHidden = true
         let nib = UINib(nibName: "ReviewSearchTableViewCell", bundle: nil)
         tableView.register(nib, forCellReuseIdentifier: "ReviewSearchCell")
         self.searchTexfield.delegate = self
@@ -36,6 +36,7 @@ class ReviewSearchViewController: UIViewController, UITextFieldDelegate {
         viewModel.cellModel.bind(to: tableView.rx.items(cellIdentifier: "ReviewSearchCell")) { (indexPath, cellViewModel, cell)  in
             guard let cell = cell as? ReviewSearchTableViewCell else {return}
             cell.bind(viewModel: viewModel, row: indexPath)
+            cell.delegate = self
         }
         .disposed(by: disposeBag)
         
@@ -68,7 +69,7 @@ class ReviewSearchViewController: UIViewController, UITextFieldDelegate {
         
     }
     @IBAction func backClick(_ sender: Any) {
-        self.dismiss(animated: true)
+        self.navigationController?.popViewController(animated: true)
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
@@ -77,5 +78,19 @@ class ReviewSearchViewController: UIViewController, UITextFieldDelegate {
         viewModel.fetchCellData(keyword: keyword)
         self.view.endEditing(true)
         return true
+    }
+    
+    @IBAction func registerClick(_ sender: Any) {
+        guard let nextVC = self.storyboard?.instantiateViewController(withIdentifier: "SelectClubManagerVC") else {return}
+        self.present(nextVC, animated: true)
+    }
+}
+
+extension ReviewSearchViewController: ClubListSelectDelgate {
+    func clubDetailClick(clubIdx: Int) {
+          let nextVC = UIStoryboard(name: "Review", bundle: nil).instantiateViewController(withIdentifier: "ClubDetailVC") as! ClubDetailViewController
+              nextVC.clubIdx = clubIdx
+        nextVC.tabViewModel = ClubDetailViewModel()
+        self.navigationController?.pushViewController(nextVC, animated: true)
     }
 }

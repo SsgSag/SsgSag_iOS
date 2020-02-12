@@ -9,6 +9,6 @@
 import Foundation
 
 protocol ReviewServiceProtocol {
-    func requestExistClubReviewPost(model: ClubActInfoModel) -> Bool
-    func requestNonExistClubReviewPost(model: ClubActInfoModel) -> Bool
+    func requestExistClubReviewPost(model: ClubActInfoModel, completion: @escaping (Bool) -> Void)
+    func requestNonExistClubReviewPost(model: ClubActInfoModel, completion: @escaping (Bool) -> Void)
 }

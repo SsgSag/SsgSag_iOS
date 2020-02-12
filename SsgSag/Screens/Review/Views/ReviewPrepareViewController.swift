@@ -10,6 +10,9 @@ import UIKit
 
 class ReviewPrepareViewController: UIViewController {
 
+    var isExistClub = false
+    var clubactInfo: ClubActInfoModel?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         tabBarController?.tabBar.isHidden = true
@@ -23,10 +26,17 @@ class ReviewPrepareViewController: UIViewController {
     }
     
     @IBAction func nextClick(_ sender: Any) {
-        guard let nextVC = self.storyboard?.instantiateViewController(withIdentifier: "SelectClubTypeVC") as? SelectClubTypeViewController else {return}
-        nextVC.registerType = .Review
         
-        self.navigationController?.pushViewController(nextVC, animated: true)
+        if isExistClub {
+            guard let nextVC = self.storyboard?.instantiateViewController(withIdentifier: "FoundClubVC") as? FoundClubViewController else {return}
+            nextVC.clubactInfo = clubactInfo
+            self.navigationController?.pushViewController(nextVC, animated: true)
+        } else {
+            guard let nextVC = self.storyboard?.instantiateViewController(withIdentifier: "SelectClubTypeVC") as? SelectClubTypeViewController else {return}
+            nextVC.registerType = .Review
+            
+            self.navigationController?.pushViewController(nextVC, animated: true)
+        }
     }
 }
 

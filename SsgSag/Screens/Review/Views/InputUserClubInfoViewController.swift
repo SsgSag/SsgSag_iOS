@@ -26,6 +26,7 @@ class InputUserClubInfoViewController: UIViewController {
     let disposeBag = DisposeBag()
     var service: ClubServiceProtocol?
     var jsonResult: [[String: Any]] = [[:]]
+    var isExistClub = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -133,6 +134,7 @@ class InputUserClubInfoViewController: UIViewController {
             .asObservable()
             .do(onNext: { [weak self] _ in
                 self?.isEnableButton()
+                self?.isExistClub = false
             })
             .subscribe(onNext: { [weak self] clubName in
                 guard let service = self?.service else {return}
@@ -141,7 +143,10 @@ class InputUserClubInfoViewController: UIViewController {
                 guard let clubName = clubName else {return}
                 
                 service.requestClubWithName(clubType: clubactInfo.clubType, location: location, keyword: clubName, curPage: 0) { clubList in
+                    print(clubList)
                     guard let clubList = clubList else {return}
+                    guard !clubList.isEmpty else {return}
+                    self?.isExistClub = true
                     DispatchQueue.main.async {
                         self?.searchLocalClubListSet(clubList: clubList)
                     }
@@ -225,23 +230,18 @@ class InputUserClubInfoViewController: UIViewController {
     }
     
     @IBAction func nextClick(_ sender: Any) {
-        
-        
         // 동아리가 등록되어 있다면
-        let nextVC = self.storyboard?.instantiateViewController(withIdentifier: "FoundClubVC") as! FoundClubViewController
-        clubactInfo.clubName = "TESTCLUB"
-        clubactInfo.clubType = .School
-        
-        nextVC.clubactInfo = clubactInfo
-        
-        
-        // 동아리가 등록되어있지 않다면
-        
-//        let nextVC = self.storyboard?.instantiateViewController(withIdentifier: "NotFoundClubVC") as! NotFoundClubViewController
-//        nextVC.clubactInfo = clubactInfo
-        
-        self.navigationController?.pushViewController(nextVC, animated: true)
-        
+        if isExistClub {
+            let nextVC = self.storyboard?.instantiateViewController(withIdentifier: "StarRatingVC") as! StarRatingViewController
+            nextVC.clubactInfo = clubactInfo
+            self.navigationController?.pushViewController(nextVC, animated: true)
+            
+        } else {
+            // 동아리가 등록되어있지 않다면
+            let nextVC = self.storyboard?.instantiateViewController(withIdentifier: "NotFoundClubVC") as! NotFoundClubViewController
+            nextVC.clubactInfo = clubactInfo
+            self.navigationController?.pushViewController(nextVC, animated: true)
+        }
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {

@@ -43,8 +43,11 @@ class ClubInfoViewController: UIViewController {
             .compactMap{ $0 }
             .observeOn(MainScheduler.instance)
             .subscribe(onNext: { [weak self] data in
-                if !data.activeNum.isEmpty {
-                    self?.emptyClubInfoView.isHidden = true
+            
+                guard !(data.activeNum == "") else {
+                    self?.emptyClubInfoView.isHidden = false
+                    self?.indicator.stopAnimating()
+                    return
                 }
                 self?.clubIdx = data.clubIdx
                 self?.activeNumLabel.text = data.activeNum

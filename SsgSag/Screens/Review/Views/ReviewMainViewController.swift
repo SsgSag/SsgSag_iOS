@@ -60,10 +60,12 @@ class ReviewMainViewController: UIViewController {
     }
     
     @IBAction func searchButtoClickn(_ sender: Any) {
+        
+        guard let nextVC = self.storyboard?.instantiateViewController(withIdentifier: "ReviewSearch") as? ReviewSearchViewController else {return}
         let type: ClubType = curIndex == 0 ? .Union : .School
-        let nextVC = self.storyboard?.instantiateViewController(withIdentifier: "ReviewSearch") as! ReviewSearchViewController
         nextVC.viewModel = ReviewSearchViewModel(clubType: type, service: ClubService())
-        self.present(nextVC, animated: true)
+        
+        self.navigationController?.pushViewController(nextVC, animated: true)
     }
     
     @IBAction func writeReviewClick(_ sender: Any) {
@@ -74,6 +76,12 @@ class ReviewMainViewController: UIViewController {
     
     @IBAction func registerClubClick(_ sender: Any) {
         guard let nextVC = self.storyboard?.instantiateViewController(withIdentifier: "SelectClubManagerVC") else {return}
+        self.present(nextVC, animated: true)
+    }
+    
+    @IBAction func mypageClick(_ sender: Any) {
+        let storyBoard = UIStoryboard(name: StoryBoardName.mypage, bundle: nil)
+        guard let nextVC = storyBoard.instantiateViewController(withIdentifier: "MyPageVC") as? MyPageViewController else {return}
         self.present(nextVC, animated: true)
     }
 }

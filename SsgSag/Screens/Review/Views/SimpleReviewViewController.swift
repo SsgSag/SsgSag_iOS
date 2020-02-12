@@ -12,6 +12,7 @@ import RxCocoa
 
 class SimpleReviewViewController: UIViewController, UITextViewDelegate, UITextFieldDelegate {
     
+    @IBOutlet weak var indicator: UIActivityIndicatorView!
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var oneLineTextField: UITextField!
     @IBOutlet weak var honeyTextView: UITextView!
@@ -26,9 +27,11 @@ class SimpleReviewViewController: UIViewController, UITextViewDelegate, UITextFi
     let simpleReviewViewModel = SimpleReviewViewModel()
     let disposeBag = DisposeBag()
     let textLengthMaximum = 20
+    var service: ReviewServiceProtocol?
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        service = ReviewService()
         advantageTextView.delegate = self
         disadvantageTextView.delegate = self
         honeyTextView.delegate = self
@@ -137,11 +140,52 @@ class SimpleReviewViewController: UIViewController, UITextViewDelegate, UITextFi
     }
     
     @IBAction func submitClick(_ sender: Any) {
+        indicator.startAnimating()
         clubactInfo.simpleReivewBind(model: simpleReviewViewModel)
-        let nextVC = self.storyboard?.instantiateViewController(withIdentifier: "CompleteVC") as! CompleteViewController
-        nextVC.titleText = "후기 등록이\n완료되었습니다 :)"
-        nextVC.subText = ""
         
-        self.navigationController?.pushViewController(nextVC, animated: true)
+        if clubactInfo.isExistClub {
+            print("존재하는 동아리에 리뷰등록")
+            service?.requestExistClubReviewPost(model: clubactInfo) {
+                isSuccess in
+                
+                if isSuccess {
+                    let nextVC = self.storyboard?.instantiateViewController(withIdentifier: "CompleteVC") as! CompleteViewController
+                    nextVC.titleText = "등록이\n완료되었습니다 :)"
+                    nextVC.subText = "승인여부는 3일 내 이메일로 알려드릴게요."
+                    DispatchQueue.main.async {
+                        self.indicator.stopAnimating()
+                        self.navigationController?.pushViewController(nextVC, animated: true)
+                        
+                    }
+                } else {
+                    DispatchQueue.main.async {
+                        self.indicator.stopAnimating()
+                        self.simpleAlert(title: "전송 실패", message: "다시 시도해주세요.")
+                    }
+                }
+            }
+        } else {
+            print("존재하지않는 동아리에 리뷰등록")
+            service?.requestNonExistClubReviewPost(model: clubactInfo) {
+                isSuccess in
+                if isSuccess {
+                    let nextVC = self.storyboard?.instantiateViewController(withIdentifier: "CompleteVC") as! CompleteViewController
+                    nextVC.titleText = "등록이\n완료되었습니다 :)"
+                    nextVC.subText = "승인여부는 3일 내 이메일로 알려드릴게요."
+                    DispatchQueue.main.async {
+                        self.indicator.stopAnimating()
+                        self.navigationController?.pushViewController(nextVC, animated: true)
+                        
+                    }
+                } else {
+                    DispatchQueue.main.async {
+                        self.indicator.stopAnimating()
+                        self.simpleAlert(title: "전송 실패", message: "다시 시도해주세요.")
+                    }
+                }
+            }
+        }
+        
+        
     }
 }

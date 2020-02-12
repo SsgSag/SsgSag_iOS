@@ -120,7 +120,7 @@ class ClubService: ClubServiceProtocol {
     func requestNotMemberClubRegister(admin: Int, name: String, phone: String, completion: @escaping (Bool) -> Void) {
         
         let baseURL = UserAPI.sharedInstance.getBaseString()
-        let path = RequestURL.ClubRegister.getRequestURL
+        let path = RequestURL.clubRegister.getRequestURL
         guard let url = URL(string: baseURL+path) else {return}
         let token = TokenName.tokenString
         let header: HTTPHeaders = [
@@ -153,7 +153,7 @@ class ClubService: ClubServiceProtocol {
     
     func requestMemberClubRegister(admin: Int, dataModel: ClubRegisterModel, completion: @escaping (Bool) -> Void) {
         let baseURL = UserAPI.sharedInstance.getBaseString()
-        let path = RequestURL.ClubRegister.getRequestURL
+        let path = RequestURL.clubRegister.getRequestURL
         guard let url = URL(string: baseURL+path) else {return}
         let token = TokenName.tokenString
         let header: HTTPHeaders = [
@@ -222,7 +222,7 @@ class ClubService: ClubServiceProtocol {
     
     func requestMemberReviewClubRegister(admin: Int, dataModel: ClubRegisterModel, completion: @escaping (Bool) -> Void) {
         let baseURL = UserAPI.sharedInstance.getBaseString()
-        let path = RequestURL.ClubRegister.getRequestURL
+        let path = RequestURL.clubRegister.getRequestURL
         guard let url = URL(string: baseURL+path) else {return}
         let token = TokenName.tokenString
         let header: HTTPHeaders = [
@@ -295,14 +295,14 @@ class ClubService: ClubServiceProtocol {
         let token = TokenName.tokenString
         let header: HTTPHeaders = [
             "Authorization" : token,
-            "Content-Type": "multipart/form-data"
+            "Content-Type": "multipart/form-detailData"
         ]
-        
+
         Alamofire.upload(multipartFormData: { multipartFormData in
             let data = imageData
-            multipartFormData.append(data, withName: "photo", mimeType: "image/jpg")
+            multipartFormData.append(data, withName: "photo", fileName: "uploadImg.jpeg", mimeType: "image/jpeg")
             
-        }, usingThreshold: UInt64.init(), to: url, method: .post, headers: header) { result in
+        }, to: url, method: .post, headers: header) { result in
             switch result {
             case .success(let upload, _, _):
                 upload.responseJSON { response in

@@ -19,6 +19,9 @@ class ReviewSearchTableViewCell: UITableViewCell {
     @IBOutlet weak var clubNameLabel: UILabel!
     let categoryStack = CategoryList()
     var disposeBag = DisposeBag()
+    var delegate: ClubListSelectDelgate?
+    var clubIdx: Int?
+    
     lazy var fullStar: UIImage = {
         if let image = UIImage(named: "star2") {
             return image
@@ -91,6 +94,11 @@ class ReviewSearchTableViewCell: UITableViewCell {
         ratePaint(score: viewModel.cellModel.value[row].aveScore, starStackView: starStackView)
         scoreLabel.text = "평점 \(viewModel.cellModel.value[row].aveScore)"
         scoreNumLabel.text = "후기 \(viewModel.cellModel.value[row].scoreNum)개"
+        clubIdx = viewModel.cellModel.value[row].clubIdx
     }
     
+    @IBAction func cellClick(_ sender: Any) {
+        guard let clubIdx = clubIdx else {return}
+        delegate?.clubDetailClick(clubIdx: clubIdx)
+    }
 }

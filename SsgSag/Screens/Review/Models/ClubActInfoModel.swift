@@ -17,15 +17,16 @@ enum InputType {
 class ClubActInfoModel {
     var clubType: ClubType
     var inputType: InputType = .none
-    var clubName: String?
+    var clubName = ""
     var isExistClub = false
-    var clubIdx: Int?
+    var clubIdx = -1
     var location = BehaviorRelay(value: "")
     var schoolName: String?
     var startDate = BehaviorRelay(value: "")
     var endDate = BehaviorRelay(value: "")
-    var startRequestDate: String?
-    var endRequestDate: String?
+    var startRequestDate = ""
+    var endRequestDate = ""
+    var categoryList: [String] = []
     
     var recommendScore = 0
     var funScore = 0
@@ -62,8 +63,16 @@ class ClubActInfoModel {
         honeyString = model.honeyObservable.value
     }
     
-    func submitRequest() -> Bool {
-        
-        return isExistClub ? reviewService.requestExistClubReviewPost(model: self) : reviewService.requestNonExistClubReviewPost(model: self)
+    func categoryListToString() -> String {
+        var stringList = ""
+        for index in 0..<categoryList.count {
+            let category = categoryList[index]
+            if index == categoryList.count - 1 {
+                stringList.append(contentsOf: "\(category)")
+            } else {
+                stringList.append(contentsOf: "\(category),")
+            }
+        }
+        return stringList
     }
 }

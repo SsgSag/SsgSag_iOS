@@ -27,7 +27,7 @@ class FoundClubViewController: UIViewController {
     }
     
     func setupUI() {
-        guard let clubName = clubactInfo.clubName else {return}
+        let clubName = clubactInfo.clubName
         questionLabel.text = "\'\(clubName)\'에서\n활동한 시기를 알려주세요"
         
     }

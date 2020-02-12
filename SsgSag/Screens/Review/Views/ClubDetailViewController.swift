@@ -171,7 +171,21 @@ class ClubDetailViewController: UIViewController {
     }
     
     @IBAction func reviewWrite(_ sender: Any) {
+        guard let navigationVC = self.storyboard?.instantiateViewController(withIdentifier: "ReviewPrepareVC") as? UINavigationController else {return}
+        guard let nextVC = navigationVC.topViewController as? ReviewPrepareViewController else {return}
+        guard let clubInfo = try? tabViewModel.clubInfoData.value() else {return}
+        let type: ClubType = clubInfo.clubType == 0 ? .Union : .School
+        let clubactInfo = ClubActInfoModel(clubType: type)
+        nextVC.isExistClub = true
+        clubactInfo.isExistClub = true
+        clubactInfo.clubName = clubInfo.clubName
+        clubactInfo.clubIdx = clubInfo.clubIdx
+        let location = clubInfo.univOrLocation
+        clubactInfo.location.accept(location)
         
+        nextVC.clubactInfo = clubactInfo
+        
+        self.present(navigationVC, animated: true)
     }
     
     @IBAction func backClick(_ sender: Any) {

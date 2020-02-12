@@ -28,9 +28,11 @@ class NotFoundClubViewController: UIViewController {
     var selectCount = 0
     
     @IBOutlet weak var collectionView: UICollectionView!
+    @IBOutlet weak var clubNameTextField: UITextField!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        clubNameTextField.text = clubactInfo.clubName
         let nib = UINib(nibName: "InputCategoryCollectionViewCell", bundle: nil)
         collectionView.register(nib, forCellWithReuseIdentifier: "InputCategoryCell")
         collectionView.delegate = self
@@ -67,14 +69,33 @@ class NotFoundClubViewController: UIViewController {
                     self?.cellModel.value[index.item].onClick = true
                     self?.selectCount += 1
                 }
-                
                 guard let cellModelList = self?.cellModel.value else {return}
                 self?.cellModel.accept(cellModelList)
             })
             .subscribe()
             .disposed(by: disposeBag)
         
+        cellModel.subscribe(onNext: { [weak self]items in
+            let selectItems = items
+                .filter{$0.onClick == true}
+                .map{$0.title}
+            
+            self?.clubactInfo.categoryList = selectItems
+        })
+            .disposed(by: disposeBag)
+        
     }
+    
+    @IBAction func backClick(_ sender: Any) {
+        self.navigationController?.popViewController(animated: true)
+    }
+    
+    @IBAction func nextClick(_ sender: Any) {
+        guard let nextVC = self.storyboard?.instantiateViewController(withIdentifier: "StarRatingVC") as? StarRatingViewController else {return}
+        nextVC.clubactInfo = clubactInfo
+        self.navigationController?.pushViewController(nextVC, animated: true)
+    }
+    
 }
 
 extension NotFoundClubViewController: UICollectionViewDelegateFlowLayout {
