@@ -57,12 +57,6 @@ class ClubDetailViewController: UIViewController {
         self.clubInfoButton.frame.size.width = self.view.frame.width/2
     }
     
-    // 카테고리String 분리
-    func setupCategoryList(categoryList: String) {
-        self.clubCategorySet = clubCategoryList.removeComma()
-        self.categoryCollectionView.reloadData()
-    }
-    
     func bind() {
         tabViewModel.tabPageObservable
             .observeOn( MainScheduler.instance )
@@ -161,9 +155,10 @@ class ClubDetailViewController: UIViewController {
             self.oneLineLabel.text = data.oneLine
             self.scoreCountLabel.text = "평점(\(data.score0sum)개)"
             self.scoreLabel.text = "(\(data.aveScore0)/5.0)"
-            self.setupCategoryList(categoryList: data.categoryList)
-            
+            self.clubCategorySet = data.categoryList.removeComma()
+            print(self.clubCategorySet)
             self.tabViewModel.setData(data: data)
+            self.categoryCollectionView.reloadData()
         }
     }
     
