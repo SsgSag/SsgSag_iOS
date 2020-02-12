@@ -20,11 +20,12 @@ class InputUserClubInfoViewController: UIViewController {
     @IBOutlet weak var endDateLabel: UITextField!
     @IBOutlet weak var univOrLoaclImgView: UIImageView!
     @IBOutlet weak var localButton: UIButton!
-    @IBOutlet weak var univOrLocalTextField: UITextField!
+    @IBOutlet weak var univOrLocalTextField: SearchTextField!
     @IBOutlet weak var univOrLocalLabel: UILabel!
     var clubactInfo: ClubActInfoModel!
     let disposeBag = DisposeBag()
     var service: ClubServiceProtocol?
+    var jsonResult: [[String: Any]] = [[:]]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -39,17 +40,60 @@ class InputUserClubInfoViewController: UIViewController {
     func typeSetting(type: ClubType) {
         if type == .School {
             self.univOrLocalLabel.text = "소속 학교는"
-            configureSimpleSchoolSearchTextField()
+            configureSimpleLocalUnivSearchTextField()
+            configureSimpleClubNameSearchTextField()
         } else {
             self.univOrLocalLabel.text = "활동지역은"
+            configureSimpleClubNameSearchTextField()
             self.localButton.isHidden = false
             self.univOrLocalTextField.isEnabled = false
             self.univOrLoaclImgView.isHidden = false
         }
     }
     
-    private func configureSimpleSchoolSearchTextField() {
+    private func configureSimpleClubNameSearchTextField() {
         clubNameTextField.startVisible = true
+    }
+    
+    private func configureSimpleLocalUnivSearchTextField() {
+        univOrLocalTextField.startVisible = true
+        let universities = localUniversities()
+        univOrLocalTextField.filterStrings(universities)
+    }
+    
+    private func localUniversities() -> [String] {
+        guard let path = Bundle.main.path(forResource: "majorListByUniv",
+                                          ofType: "json") else {
+            return []
+        }
+        
+        do {
+            let jsonData = try Data(contentsOf: URL(fileURLWithPath: path),
+                                    options: .dataReadingMapped)
+            
+            guard let jsonResult
+                = try JSONSerialization.jsonObject(with: jsonData,
+                                                   options: .allowFragments)
+                    as? [[String: Any]] else {
+                        return []
+            }
+            
+            self.jsonResult = jsonResult
+            
+            var resultUnivNames: [String] = []
+            
+            jsonResult.forEach {
+                let univName = "\($0["학교명"]!)"
+                if !resultUnivNames.contains(univName) {
+                    resultUnivNames.append(univName)
+                }
+            }
+            
+            return resultUnivNames
+        } catch {
+            print("Error parsing jSON: \(error)")
+            return []
+        }
     }
     
     @objc func tapHideKeyBoard() {
@@ -152,7 +196,6 @@ class InputUserClubInfoViewController: UIViewController {
         clubNameTextField.filterStrings(clubNameList)
     }
     
-    
     @IBAction func backClick(_ sender: Any) {
         self.navigationController?.popViewController(animated: true)
     }
@@ -209,5 +252,6 @@ class InputUserClubInfoViewController: UIViewController {
 extension InputUserClubInfoViewController: UIScrollViewDelegate {
     func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
         clubNameTextField.hideResultsList()
+        univOrLocalTextField.hideResultsList()
     }
 }

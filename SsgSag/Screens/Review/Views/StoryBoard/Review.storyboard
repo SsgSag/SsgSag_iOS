@@ -1480,7 +1480,7 @@
                                                 <fontDescription key="fontDescription" name="AppleSDGothicNeo-SemiBold" family="Apple SD Gothic Neo" pointSize="17"/>
                                                 <textInputTraits key="textInputTraits"/>
                                             </textField>
-                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="gQC-ZB-G31">
+                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="gQC-ZB-G31" customClass="SearchTextField" customModule="SearchTextField">
                                                 <rect key="frame" x="26" y="196" width="325" height="36"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="36" id="C7t-rh-uax"/>
@@ -2404,7 +2404,7 @@
                                                 <rect key="frame" x="0.0" y="588" width="375" height="476"/>
                                                 <subviews>
                                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="imgEmpty" translatesAutoresizingMaskIntoConstraints="NO" id="W6O-ZH-rZt">
-                                                        <rect key="frame" x="89.666666666666657" y="103" width="196.00000000000003" height="155"/>
+                                                        <rect key="frame" x="89.666666666666686" y="103" width="196" height="155"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="155" id="eYC-jL-98J"/>
                                                             <constraint firstAttribute="width" constant="196" id="l7u-Hp-arb"/>
@@ -2451,7 +2451,7 @@
                                                 <rect key="frame" x="0.0" y="56" width="375" height="476"/>
                                                 <subviews>
                                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="imgEmpty" translatesAutoresizingMaskIntoConstraints="NO" id="dxl-yr-Z53">
-                                                        <rect key="frame" x="89.666666666666657" y="103" width="196.00000000000003" height="155"/>
+                                                        <rect key="frame" x="89.666666666666686" y="103" width="196" height="155"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" constant="196" id="CGa-TH-4Bq"/>
                                                             <constraint firstAttribute="height" constant="155" id="wR6-Md-wIN"/>
@@ -2857,7 +2857,7 @@
                                                 <rect key="frame" x="0.0" y="0.0" width="375" height="518"/>
                                                 <subviews>
                                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="imgEmpty" translatesAutoresizingMaskIntoConstraints="NO" id="ca5-YU-Ku1">
-                                                        <rect key="frame" x="89.666666666666657" y="103" width="196.00000000000003" height="155"/>
+                                                        <rect key="frame" x="89.666666666666686" y="103" width="196" height="155"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" constant="196" id="4bO-sx-oc4"/>
                                                             <constraint firstAttribute="height" constant="155" id="NZz-xW-OzT"/>
