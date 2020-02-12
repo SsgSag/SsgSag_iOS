@@ -199,6 +199,10 @@ class ClubDetailViewController: UIViewController {
         self.tabViewModel.tabFirstButtonStatus.onNext(true)
     }
     
+    @IBAction func popupClick(_ sender: Any) {
+        guard let nextVC = self.storyboard?.instantiateViewController(withIdentifier: "ReviewScorePopUpVC") else {return}
+        self.present(nextVC, animated: true)
+    }
     deinit {
         print("memory - detail 종료")
     }

@@ -46,6 +46,7 @@
 		064AD7DD23F156C30006E02C /* ClubManagerRegisterThreeStepViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 064AD7DC23F156C30006E02C /* ClubManagerRegisterThreeStepViewController.swift */; };
 		064AD7DF23F157F00006E02C /* ClubRegisterThreeStepViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 064AD7DE23F157F00006E02C /* ClubRegisterThreeStepViewModel.swift */; };
 		0651632523F260AA002089D2 /* ResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0651632423F260AA002089D2 /* ResponseModel.swift */; };
+		0651632723F4405E002089D2 /* ReviewScorePopUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0651632623F4405E002089D2 /* ReviewScorePopUpViewController.swift */; };
 		065264DB23EA8FEE00501200 /* NotFoundClubViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 065264DA23EA8FEE00501200 /* NotFoundClubViewController.swift */; };
 		065264DD23EAC4BA00501200 /* FoundClubViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 065264DC23EAC4BA00501200 /* FoundClubViewController.swift */; };
 		065264DF23EBC55C00501200 /* StarRatingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 065264DE23EBC55C00501200 /* StarRatingViewController.swift */; };
@@ -437,6 +438,7 @@
 		064AD7DC23F156C30006E02C /* ClubManagerRegisterThreeStepViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClubManagerRegisterThreeStepViewController.swift; sourceTree = "<group>"; };
 		064AD7DE23F157F00006E02C /* ClubRegisterThreeStepViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClubRegisterThreeStepViewModel.swift; sourceTree = "<group>"; };
 		0651632423F260AA002089D2 /* ResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResponseModel.swift; sourceTree = "<group>"; };
+		0651632623F4405E002089D2 /* ReviewScorePopUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewScorePopUpViewController.swift; sourceTree = "<group>"; };
 		065264DA23EA8FEE00501200 /* NotFoundClubViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotFoundClubViewController.swift; sourceTree = "<group>"; };
 		065264DC23EAC4BA00501200 /* FoundClubViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoundClubViewController.swift; sourceTree = "<group>"; };
 		065264DE23EBC55C00501200 /* StarRatingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StarRatingViewController.swift; sourceTree = "<group>"; };
@@ -855,6 +857,7 @@
 				064AD7C823EFFF7A0006E02C /* ClubRegisterAlertViewController.swift */,
 				064AD7CA23F0EB690006E02C /* ClubManagerRegisterTwoStepViewController.swift */,
 				064AD7DC23F156C30006E02C /* ClubManagerRegisterThreeStepViewController.swift */,
+				0651632623F4405E002089D2 /* ReviewScorePopUpViewController.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -2361,6 +2364,7 @@
 				D166AC5D22D46D4100ED82DD /* MonthTodoList.swift in Sources */,
 				D1FB9B0223388EBF00B4C4F9 /* ScrapViewController.swift in Sources */,
 				C9A828402395528D0029A493 /* CareerVC + CollectionView.swift in Sources */,
+				0651632723F4405E002089D2 /* ReviewScorePopUpViewController.swift in Sources */,
 				846E622D22928B1A0083E3CD /* ViewControllerIdentifier.swift in Sources */,
 				8463567022931E980060ED91 /* GradientView.swift in Sources */,
 				D1564F0222EC10B500BDA7F6 /* RequestMaker.swift in Sources */,
