@@ -82,7 +82,10 @@ class ClubInfoViewController: UIViewController {
 
     @objc func openURL() {
         guard let urlString = self.homePageLabel.text else { return }
-        let url = URL(string: urlString)!
+        guard let url = URL(string: urlString) else {
+            self.simplerAlert(title: "잘못된 주소입니다.")
+            return
+        }
         UIApplication.shared.open(url, options: [:], completionHandler: nil)
         
     }

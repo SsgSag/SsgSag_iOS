@@ -55,13 +55,10 @@ class ClubDetailViewController: UIViewController {
         self.tabBarController?.tabBar.isHidden = true
         self.clubReviewButton.frame.size.width = self.view.frame.width/2
         self.clubInfoButton.frame.size.width = self.view.frame.width/2
-        self.view.layoutIfNeeded()
-        setupCategoryList()
     }
     
     // 카테고리String 분리
-    func setupCategoryList() {
-        self.clubCategoryList = "연합,IT/공학,디자인,기획/전략"
+    func setupCategoryList(categoryList: String) {
         self.clubCategorySet = clubCategoryList.removeComma()
         self.categoryCollectionView.reloadData()
     }
@@ -159,6 +156,13 @@ class ClubDetailViewController: UIViewController {
         
         ClubService().requestClubInfo(clubIdx: self.clubIdx) { data in
             guard let data = data else {return}
+            
+            self.titleLabel.text = data.clubName
+            self.oneLineLabel.text = data.oneLine
+            self.scoreCountLabel.text = "평점(\(data.score0sum)개)"
+            self.scoreLabel.text = "(\(data.aveScore0)/5.0)"
+            self.setupCategoryList(categoryList: data.categoryList)
+            
             self.tabViewModel.setData(data: data)
         }
     }
