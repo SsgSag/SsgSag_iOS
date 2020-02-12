@@ -13,7 +13,9 @@ class ReviewPrepareViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         tabBarController?.tabBar.isHidden = true
-
+        self.navigationController?.interactivePopGestureRecognizer?.delegate = self
+        self.navigationController?.interactivePopGestureRecognizer?.isEnabled = true
+        
     }
     
     @IBAction func backClick(_ sender: Any) {
@@ -27,3 +29,5 @@ class ReviewPrepareViewController: UIViewController {
         self.navigationController?.pushViewController(nextVC, animated: true)
     }
 }
+
+extension ReviewPrepareViewController: UIGestureRecognizerDelegate {}

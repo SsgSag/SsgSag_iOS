@@ -9,11 +9,12 @@
 import UIKit
 import RxCocoa
 import RxSwift
+import SearchTextField
 
 class InputUserClubInfoViewController: UIViewController {
 
     @IBOutlet weak var scrollView: UIScrollView!
-    @IBOutlet weak var clubNameTextField: UITextField!
+    @IBOutlet weak var clubNameTextField: SearchTextField!
     @IBOutlet weak var nextButton: UIButton!
     @IBOutlet weak var startDateLabel: UITextField!
     @IBOutlet weak var endDateLabel: UITextField!
@@ -23,25 +24,32 @@ class InputUserClubInfoViewController: UIViewController {
     @IBOutlet weak var univOrLocalLabel: UILabel!
     var clubactInfo: ClubActInfoModel!
     let disposeBag = DisposeBag()
+    var service: ClubServiceProtocol?
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        typeSetting()
+        service = ClubService()
+        typeSetting(type: clubactInfo.clubType)
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(tapHideKeyBoard))
         scrollView.addGestureRecognizer(tapGesture)
+        scrollView.delegate = self
         bind(model: clubactInfo)
     }
     
-    func typeSetting() {
-        guard let clubactInfo = clubactInfo else { return }
-        if clubactInfo.clubType == .School {
+    func typeSetting(type: ClubType) {
+        if type == .School {
             self.univOrLocalLabel.text = "소속 학교는"
+            configureSimpleSchoolSearchTextField()
         } else {
             self.univOrLocalLabel.text = "활동지역은"
             self.localButton.isHidden = false
             self.univOrLocalTextField.isEnabled = false
             self.univOrLoaclImgView.isHidden = false
         }
+    }
+    
+    private func configureSimpleSchoolSearchTextField() {
+        clubNameTextField.startVisible = true
     }
     
     @objc func tapHideKeyBoard() {
@@ -82,11 +90,26 @@ class InputUserClubInfoViewController: UIViewController {
             .do(onNext: { [weak self] _ in
                 self?.isEnableButton()
             })
-            .subscribe()
+            .subscribe(onNext: { [weak self] clubName in
+                guard let service = self?.service else {return}
+                guard let location = self?.univOrLocalTextField.text else {return}
+                guard let clubactInfo = self?.clubactInfo else {return}
+                guard let clubName = clubName else {return}
+                
+                service.requestClubWithName(clubType: clubactInfo.clubType, location: location, keyword: clubName, curPage: 0) { clubList in
+                    guard let clubList = clubList else {return}
+                    DispatchQueue.main.async {
+                        self?.searchLocalClubListSet(clubList: clubList)
+                    }
+                    
+                }
+            })
             .disposed(by: disposeBag)
         
         univOrLocalTextField.rx
-            .value.changed.asObservable()
+            .value
+            .changed
+            .asObservable()
             .do(onNext: { [weak self] _ in
                 self?.isEnableButton()
             })
@@ -122,8 +145,11 @@ class InputUserClubInfoViewController: UIViewController {
         self.nextButton.isEnabled = true
         self.nextButton.backgroundColor = .cornFlower
         
-        //비활성 버튼기능
-        
+    }
+    
+    func searchLocalClubListSet(clubList: [ClubListData]) {
+        let clubNameList = clubList.compactMap { $0.clubName }
+        clubNameTextField.filterStrings(clubNameList)
     }
     
     
@@ -180,3 +206,8 @@ class InputUserClubInfoViewController: UIViewController {
     }
 }
 
+extension InputUserClubInfoViewController: UIScrollViewDelegate {
+    func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+        clubNameTextField.hideResultsList()
+    }
+}

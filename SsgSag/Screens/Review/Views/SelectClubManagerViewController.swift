@@ -14,6 +14,10 @@ class SelectClubManagerViewController: UIViewController {
     var clubIdx = -1
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.navigationController?.interactivePopGestureRecognizer?.delegate = self
+        self.navigationController?.interactivePopGestureRecognizer?.isEnabled = true
+        
     }
     
     @IBAction func clubManagerClick(_ sender: Any) {
@@ -34,3 +38,4 @@ class SelectClubManagerViewController: UIViewController {
         self.dismiss(animated: true)
     }
 }
+extension SelectClubManagerViewController: UIGestureRecognizerDelegate {}

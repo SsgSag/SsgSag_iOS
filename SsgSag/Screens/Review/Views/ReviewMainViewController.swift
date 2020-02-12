@@ -24,6 +24,8 @@ class ReviewMainViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.navigationController?.interactivePopGestureRecognizer?.delegate = self
+        self.navigationController?.interactivePopGestureRecognizer?.isEnabled = true
         self.tabCollectionView.dataSource = self
         self.tabCollectionView.delegate = self
         self.tabCollectionView.selectItem(at: IndexPath(item: 0, section: 0), animated: true, scrollPosition: .left)
@@ -75,3 +77,5 @@ class ReviewMainViewController: UIViewController {
         self.present(nextVC, animated: true)
     }
 }
+
+extension ReviewMainViewController: UIGestureRecognizerDelegate {}
