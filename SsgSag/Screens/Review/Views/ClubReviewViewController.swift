@@ -43,7 +43,7 @@ class ClubReviewViewController: UIViewController {
             .compactMap{ $0 }
         .observeOn(MainScheduler.instance)
         .subscribe(onNext: { [weak self] data in
-            print(data)
+            
             //포스트데이터만체크
             if data.isEmpty {
                 self?.emptyReviewView.isHidden = false

@@ -21,29 +21,37 @@ class SsgSagReviewTableViewCell: UITableViewCell {
     @IBOutlet weak var likeImg: UIImageView!
     @IBOutlet weak var honeyTipLabel: UILabel!
     
-    let fullStar = UIImage(named: "star2")
-    let halfStar = UIImage(named: "star1")
-    let blackStar = UIImage(named: "star0")
-    var score: Float = -1
-    
+    lazy var fullStar = UIImage(named: "star2")
+    lazy var halfStar = UIImage(named: "star1")
+    lazy var blackStar = UIImage(named: "star0")
+//    var score: Float = -1
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        ratePaint()
-        // Initialization code
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 
-        // Configure the view for the selected state
     }
     
-    func ratePaint() {
+    func bind(model: ReviewInfo) {
+        userNameLabel.text = String(model.userIdx)
+        let activeDate = model.clubEndDate.split(separator: "-").map{String($0)}
+        activeYearLabel.text = activeDate[0]+"년 활동"
+        titleLabel.text = model.oneLine
+        advantageLabel.text = model.advantage
+        disAdvantageLabel.text = model.disadvantage
+        honeyTipLabel.text = model.honeyTip
+        likeLabel.text = "\(model.likeNum)개"
+        scoreLabel.text = "별점 \(model.score0)"
+        self.ratePaint(score: Float(model.score0))
+    }
     
-        score = 3.9
+    func ratePaint(score: Float) {
+    
         let stackStar = self.starStackView.subviews as! [UIImageView]
-        
+        var score = score
         stackStar.forEach {
             score -= 1
             if score >= 0 {

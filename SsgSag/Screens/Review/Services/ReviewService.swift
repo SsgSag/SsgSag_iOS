@@ -112,6 +112,38 @@ class ReviewService: ReviewServiceProtocol {
                  completion(false)
             }
         }
+    }
+    
+    func requestReviewList(clubIdx: Int, curPage: Int, completion: @escaping ([ReviewInfo]?) -> Void) {
+        let baseURL = UserAPI.sharedInstance.getBaseString()
+        let path = RequestURL.searchReviewList(clubIdx: clubIdx, curPage: curPage).getRequestURL
+        guard let url = URL(string: baseURL+path) else {return}
+        let token = TokenName.tokenString
+        
+        let header: [String : String] = [
+            "Authorization": token
+        ]
+        
+        guard let request = requestMaker.makeRequest(url: url, method: .get, header: header, body: nil) else {return}
+        print(url)
+        network.dispatch(request: request) { result in
+            switch result {
+            case .success(let data):
+                if let object = try? JSONDecoder().decode(ResponseArrayResult<ReviewInfo>.self, from: data) {
+                    print(object)
+                    if object.status == 200 {
+                        completion(object.data)
+                    } else {
+                        completion(nil)
+                    }
+                } else {
+                    completion(nil)
+                }
+            case .failure(let err):
+                print(err.localizedDescription)
+                 completion(nil)
+            }
+        }
         
     }
 }
