@@ -21,7 +21,6 @@ class ClubReviewViewController: UIViewController {
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var normalReviewTableView: UITableView!
     @IBOutlet weak var blogReviewTableView: UITableView!
-    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -44,7 +43,11 @@ class ClubReviewViewController: UIViewController {
             .compactMap{ $0 }
         .observeOn(MainScheduler.instance)
         .subscribe(onNext: { [weak self] data in
-            if !data.isEmpty {
+            print(data)
+            //포스트데이터만체크
+            if data.isEmpty {
+                self?.emptyReviewView.isHidden = false
+            } else {
                 self?.emptyReviewView.isHidden = true
             }
             self?.reviewDataSet.removeAll()
@@ -56,6 +59,7 @@ class ClubReviewViewController: UIViewController {
 //                self?.reviewDataSet.append(ReviewCellInfo(data: $0))
 //            }
             
+            
             self?.reviewTableHeightLayout.constant = CGFloat.greatestFiniteMagnitude
             self?.normalReviewTableView.reloadData()
             self?.view.layoutIfNeeded()
@@ -65,6 +69,7 @@ class ClubReviewViewController: UIViewController {
             
             
             // 나중에 블로그 통신코드에 넣어주기
+            //블로그데이터만체크
 //            self?.emptyBlogView.isHidden = true
             self?.blogTableHeightLayout.constant = CGFloat.greatestFiniteMagnitude
             self?.blogReviewTableView.reloadData()
@@ -91,6 +96,30 @@ class ClubReviewViewController: UIViewController {
         let type: ReviewType = sender.tag == 1 ? .SsgSag : .Blog
         nextVC.vcType = type
         self.navigationController?.pushViewController(nextVC, animated: true)
+    }
+    
+    @IBAction func registerReview(_ sender: Any) {
+        guard let navigationVC = self.storyboard?.instantiateViewController(withIdentifier: "ReviewPrepareVC") as? UINavigationController else {return}
+        guard let nextVC = navigationVC.topViewController as? ReviewPrepareViewController else {return}
+        guard let clubInfo = try? tabViewModel.clubInfoData.value() else {return}
+        let type: ClubType = clubInfo.clubType == 0 ? .Union : .School
+        let clubactInfo = ClubActInfoModel(clubType: type)
+        nextVC.isExistClub = true
+        clubactInfo.isExistClub = true
+        clubactInfo.clubName = clubInfo.clubName
+        clubactInfo.clubIdx = clubInfo.clubIdx
+        let location = clubInfo.univOrLocation
+        clubactInfo.location.accept(location)
+        
+        nextVC.clubactInfo = clubactInfo
+        
+        self.present(navigationVC, animated: true)
+    }
+    
+    @IBAction func registerBlog(_ sender: Any) {
+        guard let nextVC = self.storyboard?.instantiateViewController(withIdentifier: "RegisterBlogReviewVC") else {return}
+        
+        self.present(nextVC, animated: true)
     }
     
     deinit {

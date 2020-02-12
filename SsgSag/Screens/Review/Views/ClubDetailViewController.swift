@@ -156,7 +156,6 @@ class ClubDetailViewController: UIViewController {
             self.scoreCountLabel.text = "평점(\(data.score0sum)개)"
             self.scoreLabel.text = "(\(data.aveScore0)/5.0)"
             self.clubCategorySet = data.categoryList.removeComma()
-            print(self.clubCategorySet)
             self.tabViewModel.setData(data: data)
             self.categoryCollectionView.reloadData()
         }
