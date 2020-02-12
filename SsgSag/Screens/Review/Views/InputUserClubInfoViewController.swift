@@ -143,7 +143,6 @@ class InputUserClubInfoViewController: UIViewController {
                 guard let clubName = clubName else {return}
                 
                 service.requestClubWithName(clubType: clubactInfo.clubType, location: location, keyword: clubName, curPage: 0) { clubList in
-                    print(clubList)
                     guard let clubList = clubList else {return}
                     guard !clubList.isEmpty else {return}
                     self?.isExistClub = true
