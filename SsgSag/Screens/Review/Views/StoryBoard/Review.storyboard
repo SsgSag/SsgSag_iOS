@@ -468,12 +468,12 @@
                                 </connections>
                             </button>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="8he-SO-NlJ">
-                                <rect key="frame" x="24" y="107" width="312" height="18"/>
+                                <rect key="frame" x="24" y="107" width="327" height="18"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="18" id="ApC-Jn-VjU"/>
                                 </constraints>
-                                <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="0.0" minimumInteritemSpacing="4" id="kZe-qX-Qzl">
+                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="0.0" minimumInteritemSpacing="4" id="kZe-qX-Qzl">
                                     <size key="itemSize" width="102" height="18"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                     <size key="footerReferenceSize" width="0.0" height="0.0"/>
@@ -515,13 +515,13 @@
                                 </cells>
                             </collectionView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="SOPT - 연합 IT 창업동아리" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JGY-Fa-X3S">
-                                <rect key="frame" x="24" y="134" width="312" height="19.333333333333343"/>
+                                <rect key="frame" x="24" y="134" width="327" height="19.333333333333343"/>
                                 <fontDescription key="fontDescription" name="AppleSDGothicNeo-SemiBold" family="Apple SD Gothic Neo" pointSize="16"/>
                                 <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Shout Out Passion Together! 대학생을 위한 IT 벤처창업동아리입니다." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nFH-q8-jJQ">
-                                <rect key="frame" x="24" y="157.33333333333334" width="312" height="12"/>
+                                <rect key="frame" x="24" y="157.33333333333334" width="327" height="12"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="12" id="Fue-Ug-GQ4"/>
                                 </constraints>
@@ -777,7 +777,7 @@
                         <constraints>
                             <constraint firstItem="Q4v-CE-QzL" firstAttribute="centerY" secondItem="103-pc-5rc" secondAttribute="centerY" id="0JE-SW-5si"/>
                             <constraint firstItem="Q8Z-Su-Ybq" firstAttribute="top" secondItem="103-pc-5rc" secondAttribute="bottom" id="0um-0q-eFR"/>
-                            <constraint firstItem="hxu-N9-psi" firstAttribute="trailing" secondItem="JGY-Fa-X3S" secondAttribute="trailing" constant="39" id="1QQ-ZH-LYC"/>
+                            <constraint firstItem="hxu-N9-psi" firstAttribute="trailing" secondItem="JGY-Fa-X3S" secondAttribute="trailing" constant="24" id="1QQ-ZH-LYC"/>
                             <constraint firstItem="RUk-t8-9IF" firstAttribute="top" secondItem="xRO-hS-8OR" secondAttribute="bottom" constant="5" id="2ia-mX-JZJ"/>
                             <constraint firstItem="R2P-wX-mCS" firstAttribute="leading" secondItem="hxu-N9-psi" secondAttribute="leading" id="2zh-s9-dSM"/>
                             <constraint firstItem="hxu-N9-psi" firstAttribute="trailing" secondItem="R2P-wX-mCS" secondAttribute="trailing" id="4hI-0L-uAh"/>

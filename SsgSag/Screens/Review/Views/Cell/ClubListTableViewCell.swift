@@ -37,8 +37,13 @@ class ClubListTableViewCell: UITableViewCell {
             self.score = newValue.aveScore
             self.reviewCountLabel.text = "후기 20개"
             self.categorySet = newValue.categoryList.removeComma()
+            self.categoryCollectionView.reloadData()
             ratePaint()
         }
+    }
+    
+    override func prepareForReuse() {
+        categorySet.removeAll()
     }
     
     override func awakeFromNib() {
@@ -96,5 +101,9 @@ extension ClubListTableViewCell: UICollectionViewDataSource, UICollectionViewDel
         let width = title.estimatedFrame(font: UIFont.fontWithName(type: .regular, size: 10)).width
         
         return CGSize(width: width + 8, height: 18)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+        return 4
     }
 }

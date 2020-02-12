@@ -32,5 +32,9 @@ extension ClubDetailViewController: UICollectionViewDataSource, UICollectionView
         
         return CGSize(width: width + 10, height: 18)
     }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+        return 4
+    }
 }
 
