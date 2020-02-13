@@ -30,12 +30,12 @@ class ReviewMainViewController: UIViewController {
         self.tabCollectionView.delegate = self
         self.tabCollectionView.selectItem(at: IndexPath(item: 0, section: 0), animated: true, scrollPosition: .left)
         bindData()
+        popUpPresent()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         self.tabBarController?.tabBar.isHidden = false
     }
-    
     
     func bindData() {
         let sub = reviewPageInstance.subViewControllers
@@ -49,6 +49,11 @@ class ReviewMainViewController: UIViewController {
             self.curIndex = index
             })
         .disposed(by: disposeBag)
+    }
+    
+    func popUpPresent() {
+        guard let popupVC = self.storyboard?.instantiateViewController(withIdentifier: "mainPopUpVC") else {return}
+        self.present(popupVC, animated: true)
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
