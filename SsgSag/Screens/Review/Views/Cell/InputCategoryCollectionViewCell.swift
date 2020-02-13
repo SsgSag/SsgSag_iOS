@@ -27,7 +27,7 @@ class InputCategoryCollectionViewCell: UICollectionViewCell {
             backGroundView.backgroundColor = .cornFlower
             categoryLabel.textColor = .white
         } else {
-            backGroundView.backgroundColor = #colorLiteral(red: 0.7233634591, green: 0.7233806252, blue: 0.7233713269, alpha: 1)
+            backGroundView.backgroundColor = #colorLiteral(red: 0.9333333333, green: 0.9333333333, blue: 0.9333333333, alpha: 1)
             categoryLabel.textColor = #colorLiteral(red: 0.4666666667, green: 0.4666666667, blue: 0.4666666667, alpha: 1)
         }
     }

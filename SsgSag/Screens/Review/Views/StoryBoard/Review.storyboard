@@ -2425,7 +2425,7 @@
                                                 <rect key="frame" x="0.0" y="588" width="375" height="476"/>
                                                 <subviews>
                                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="imgEmpty" translatesAutoresizingMaskIntoConstraints="NO" id="W6O-ZH-rZt">
-                                                        <rect key="frame" x="89.666666666666657" y="103" width="196.00000000000003" height="155"/>
+                                                        <rect key="frame" x="89.666666666666686" y="103" width="196" height="155"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="155" id="eYC-jL-98J"/>
                                                             <constraint firstAttribute="width" constant="196" id="l7u-Hp-arb"/>
@@ -2475,7 +2475,7 @@
                                                 <rect key="frame" x="0.0" y="56" width="375" height="476"/>
                                                 <subviews>
                                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="imgEmpty" translatesAutoresizingMaskIntoConstraints="NO" id="dxl-yr-Z53">
-                                                        <rect key="frame" x="89.666666666666657" y="103" width="196.00000000000003" height="155"/>
+                                                        <rect key="frame" x="89.666666666666686" y="103" width="196" height="155"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" constant="196" id="CGa-TH-4Bq"/>
                                                             <constraint firstAttribute="height" constant="155" id="wR6-Md-wIN"/>
@@ -2752,13 +2752,13 @@
                                 <color key="textColor" red="0.46666666670000001" green="0.46666666670000001" blue="0.46666666670000001" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="M7n-bB-oNR">
+                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="M7n-bB-oNR">
                                 <rect key="frame" x="148" y="714" width="79" height="36"/>
                                 <color key="backgroundColor" red="0.39607843139999999" green="0.43137254899999999" blue="0.94117647059999998" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="36" id="stx-xN-iZ5"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" name="AppleSDGothicNeo-Medium" family="Apple SD Gothic Neo" pointSize="12"/>
+                                <fontDescription key="fontDescription" name="AppleSDGothicNeo-Medium" family="Apple SD Gothic Neo" pointSize="13"/>
                                 <state key="normal" title="후기 쓰기">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
@@ -2771,6 +2771,25 @@
                                     <action selector="reviewWriteClick:" destination="anU-Cr-PKo" eventType="touchUpInside" id="42l-Ve-PYm"/>
                                 </connections>
                             </button>
+                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XVd-HM-5RB">
+                                <rect key="frame" x="130" y="714" width="115" height="36"/>
+                                <color key="backgroundColor" red="0.39607843139999999" green="0.43137254899999999" blue="0.94117647059999998" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="36" id="lnD-Dv-FjG"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="AppleSDGothicNeo-SemiBold" family="Apple SD Gothic Neo" pointSize="13"/>
+                                <state key="normal" title="블로그 후기 등록">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadiusV">
+                                        <real key="value" value="8"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="blogWriteClick:" destination="anU-Cr-PKo" eventType="touchUpInside" id="jdv-29-FuD"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
@@ -2780,6 +2799,7 @@
                             <constraint firstItem="XOk-cU-xlf" firstAttribute="leading" secondItem="Rul-Nx-Rr9" secondAttribute="leading" constant="24" id="Dun-NT-wj3"/>
                             <constraint firstItem="jtF-Hu-O0g" firstAttribute="top" secondItem="Rul-Nx-Rr9" secondAttribute="top" constant="15" id="EKo-BC-9rh"/>
                             <constraint firstItem="3nA-9z-g6I" firstAttribute="leading" secondItem="Rul-Nx-Rr9" secondAttribute="leading" id="Gga-5h-kA0"/>
+                            <constraint firstItem="Rul-Nx-Rr9" firstAttribute="bottom" secondItem="XVd-HM-5RB" secondAttribute="bottom" constant="28" id="MGp-t9-neg"/>
                             <constraint firstItem="D2a-GL-484" firstAttribute="leading" secondItem="LNh-8K-f50" secondAttribute="trailing" constant="2" id="SCX-ot-TkH"/>
                             <constraint firstItem="LNh-8K-f50" firstAttribute="leading" secondItem="XOk-cU-xlf" secondAttribute="trailing" constant="2" id="Vqn-SH-0Ay"/>
                             <constraint firstItem="M7n-bB-oNR" firstAttribute="leading" secondItem="Rul-Nx-Rr9" secondAttribute="leading" constant="148" id="WTM-WT-AEt"/>
@@ -2789,13 +2809,17 @@
                             <constraint firstItem="rUM-BS-gYD" firstAttribute="leading" secondItem="Rul-Nx-Rr9" secondAttribute="leading" constant="12" id="eQU-sx-xUE"/>
                             <constraint firstItem="rUM-BS-gYD" firstAttribute="centerY" secondItem="jtF-Hu-O0g" secondAttribute="centerY" id="fWA-ra-UcJ"/>
                             <constraint firstItem="Rul-Nx-Rr9" firstAttribute="bottom" secondItem="3nA-9z-g6I" secondAttribute="bottom" id="gSe-16-nt0"/>
+                            <constraint firstItem="XVd-HM-5RB" firstAttribute="leading" secondItem="Dog-ZO-qKW" secondAttribute="leading" constant="130" id="koz-dN-0Ig"/>
                             <constraint firstItem="Rul-Nx-Rr9" firstAttribute="bottom" secondItem="M7n-bB-oNR" secondAttribute="bottom" constant="28" id="tIa-2q-VTq"/>
+                            <constraint firstAttribute="trailing" secondItem="XVd-HM-5RB" secondAttribute="trailing" constant="130" id="vZp-ke-DGF"/>
                             <constraint firstItem="jtF-Hu-O0g" firstAttribute="centerX" secondItem="Dog-ZO-qKW" secondAttribute="centerX" id="wdp-kc-aR2"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="Rul-Nx-Rr9"/>
                     </view>
                     <connections>
                         <outlet property="clubNameLabel" destination="XOk-cU-xlf" id="n6Y-jK-65T"/>
+                        <outlet property="registerBlogButton" destination="XVd-HM-5RB" id="fME-Qe-W8G"/>
+                        <outlet property="registerReviewButton" destination="M7n-bB-oNR" id="UOv-47-LhC"/>
                         <outlet property="reviewNumLabel" destination="D2a-GL-484" id="H54-Tw-8aV"/>
                         <outlet property="tableView" destination="3nA-9z-g6I" id="Nji-i7-HWD"/>
                         <outlet property="titleLabel" destination="jtF-Hu-O0g" id="dLe-0i-QQp"/>
@@ -3065,7 +3089,7 @@
                                                 <rect key="frame" x="0.0" y="0.0" width="375" height="518"/>
                                                 <subviews>
                                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="imgEmpty" translatesAutoresizingMaskIntoConstraints="NO" id="ca5-YU-Ku1">
-                                                        <rect key="frame" x="89.666666666666657" y="103" width="196.00000000000003" height="155"/>
+                                                        <rect key="frame" x="89.666666666666686" y="103" width="196" height="155"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" constant="196" id="4bO-sx-oc4"/>
                                                             <constraint firstAttribute="height" constant="155" id="NZz-xW-OzT"/>

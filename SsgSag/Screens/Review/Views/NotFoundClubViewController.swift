@@ -96,6 +96,10 @@ class NotFoundClubViewController: UIViewController {
         self.navigationController?.pushViewController(nextVC, animated: true)
     }
     
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.view.endEditing(true)
+    }
+    
 }
 
 extension NotFoundClubViewController: UICollectionViewDelegateFlowLayout {

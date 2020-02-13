@@ -131,16 +131,17 @@ class InputUserClubInfoViewController: UIViewController {
         clubNameTextField.rx
             .value
             .changed
+            .compactMap{ $0 }
             .asObservable()
-            .do(onNext: { [weak self] _ in
+            .do(onNext: { [weak self] clubName in
                 self?.isEnableButton()
                 self?.isExistClub = false
+                self?.clubactInfo.clubName = clubName
             })
             .subscribe(onNext: { [weak self] clubName in
                 guard let service = self?.service else {return}
                 guard let location = self?.univOrLocalTextField.text else {return}
                 guard let clubactInfo = self?.clubactInfo else {return}
-                guard let clubName = clubName else {return}
                 
                 service.requestClubWithName(clubType: clubactInfo.clubType, location: location, keyword: clubName, curPage: 0) { clubList in
                     guard let clubList = clubList else {return}

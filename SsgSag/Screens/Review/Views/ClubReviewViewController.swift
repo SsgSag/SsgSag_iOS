@@ -95,6 +95,8 @@ class ClubReviewViewController: UIViewController {
         let nextVC = self.storyboard?.instantiateViewController(withIdentifier: "MoreReviewVC") as! MoreReviewViewController
         let type: ReviewType = sender.tag == 1 ? .SsgSag : .Blog
         nextVC.vcType = type
+        guard let clubInfo = try? tabViewModel.clubInfoData.value() else {return}
+        nextVC.clubInfo = clubInfo
         self.navigationController?.pushViewController(nextVC, animated: true)
     }
     
