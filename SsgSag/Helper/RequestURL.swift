@@ -42,6 +42,7 @@ enum RequestURL {
     case requestPhotoURL
     case registerReview
     case searchReviewList(clubIdx: Int, curPage: Int)
+    case reviewLike(clubPostIdx: Int)
     
     var getRequestURL: String {
         switch self {
@@ -141,6 +142,9 @@ enum RequestURL {
             return "/club/post"
         case .searchReviewList(let clubIdx, let curPage):
             return "/club/\(clubIdx)/post?curPage=\(curPage)"
+        case .reviewLike(let clubPostIdx):
+            return "/club/post/like/\(clubPostIdx)"
+            
         }
     }
     

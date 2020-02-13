@@ -30,6 +30,7 @@ class ClubListViewController: UIViewController {
     func refreshPage() {
         curPage = 0
         cellData.removeAll()
+        self.reviewTableView.reloadData()
         requestPage()
     }
     

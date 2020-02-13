@@ -144,6 +144,42 @@ class ReviewService: ReviewServiceProtocol {
                  completion(nil)
             }
         }
+    }
+    
+    func requestPostLike(clubPostIdx: Int, completion: @escaping (Bool) -> Void) {
+        let baseURL = UserAPI.sharedInstance.getBaseString()
+        let path = RequestURL.reviewLike(clubPostIdx: clubPostIdx).getRequestURL
+        guard let url = URL(string: baseURL+path) else {return}
+        let token = TokenName.tokenString
+        
+        let header: [String : String] = [
+            "Authorization": token
+        ]
+        
+        guard let request = requestMaker.makeRequest(url: url, method: .post, header: header, body: nil) else {return}
+        print(url)
+        network.dispatch(request: request) { result in
+            switch result {
+            case .success(let data):
+                if let object = try? JSONDecoder().decode(ResponseSimpleResult<String>.self, from: data) {
+                    print(object)
+                    if object.status == 200 {
+                        completion(true)
+                    } else {
+                        completion(false)
+                    }
+                } else {
+                    completion(false)
+                }
+            case .failure(let err):
+                print(err.localizedDescription)
+                 completion(false)
+            }
+        }
+        
+    }
+    
+    func requestDeleteLike(clubPostIdx: Int, completion: @escaping (Bool) -> Void) {
         
     }
 }

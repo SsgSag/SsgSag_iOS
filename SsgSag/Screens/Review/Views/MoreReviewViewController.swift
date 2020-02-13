@@ -44,7 +44,7 @@ class MoreReviewViewController: UIViewController {
             tableView.register(nib, forCellReuseIdentifier: "SsgSagReviewCell")
             
             //페이징처리하기
-            service?.requestReviewList(clubIdx: 10, curPage: 0) { datas in
+            service?.requestReviewList(clubIdx: clubInfo.clubIdx, curPage: 0) { datas in
                 guard let datas = datas else {return}
                 self.ssgSagCellModel = datas
                 DispatchQueue.main.async {
