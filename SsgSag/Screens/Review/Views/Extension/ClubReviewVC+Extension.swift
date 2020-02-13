@@ -23,6 +23,8 @@ extension ClubReviewViewController: UITableViewDataSource {
             let cell = tableView.dequeueReusableCell(withIdentifier: "NormalReviewCell", for: indexPath) as! NormalReviewTableViewCell
             
             cell.viewModel = self.reviewDataSet[indexPath.row]
+            cell.bind()
+            cell.ratePaint(score: self.reviewDataSet[indexPath.row].data.score0)
             cell.moreButton.tag = indexPath.row
             cell.moreButton.addTarget(self, action: #selector(moreViewSelect(sender:)), for: .touchUpInside)
             

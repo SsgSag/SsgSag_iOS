@@ -2120,12 +2120,6 @@
                                                                     <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
-                                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aGc-0p-jvH">
-                                                                    <rect key="frame" x="226" y="350" width="110" height="24"/>
-                                                                    <connections>
-                                                                        <action selector="likeClick:" destination="kMN-zD-o1O" eventType="touchUpInside" id="n06-c1-nsp"/>
-                                                                    </connections>
-                                                                </button>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="단점" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rVq-yM-9Zs">
                                                                     <rect key="frame" x="24" y="185" width="21" height="15"/>
                                                                     <constraints>
@@ -2237,6 +2231,12 @@
                                                                     <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
+                                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aGc-0p-jvH">
+                                                                    <rect key="frame" x="226" y="350" width="110" height="24"/>
+                                                                    <connections>
+                                                                        <action selector="likeClick:" destination="kMN-zD-o1O" eventType="touchUpInside" id="n06-c1-nsp"/>
+                                                                    </connections>
+                                                                </button>
                                                             </subviews>
                                                             <constraints>
                                                                 <constraint firstAttribute="trailingMargin" secondItem="mJ7-VU-dPz" secondAttribute="trailing" constant="39" id="0UW-WD-y3b"/>
@@ -2296,6 +2296,7 @@
                                                             <outlet property="disAdvantageLabel" destination="Vxp-5a-8L0" id="v0t-OH-duZ"/>
                                                             <outlet property="honeyLabel" destination="pc1-aD-AhF" id="T4d-pt-XG2"/>
                                                             <outlet property="honeyTipLabel" destination="mJ7-VU-dPz" id="AcH-CR-FlB"/>
+                                                            <outlet property="likeFixLabel" destination="zC0-LD-h9L" id="cg6-xV-fme"/>
                                                             <outlet property="likeImg" destination="M0v-G9-j30" id="jOc-ed-TS9"/>
                                                             <outlet property="likeImgTopLayout" destination="TA4-H2-3wo" id="ehb-sM-QkG"/>
                                                             <outlet property="likeLabel" destination="YN5-Tf-rmb" id="XhN-P1-rgX"/>
@@ -2425,7 +2426,7 @@
                                                 <rect key="frame" x="0.0" y="588" width="375" height="476"/>
                                                 <subviews>
                                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="imgEmpty" translatesAutoresizingMaskIntoConstraints="NO" id="W6O-ZH-rZt">
-                                                        <rect key="frame" x="89.666666666666686" y="103" width="196" height="155"/>
+                                                        <rect key="frame" x="89.666666666666657" y="103" width="196.00000000000003" height="155"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="155" id="eYC-jL-98J"/>
                                                             <constraint firstAttribute="width" constant="196" id="l7u-Hp-arb"/>
@@ -2471,11 +2472,11 @@
                                                     <constraint firstItem="W6O-ZH-rZt" firstAttribute="centerX" secondItem="ycl-GY-dzU" secondAttribute="centerX" id="r6C-i1-wPo"/>
                                                 </constraints>
                                             </view>
-                                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sJq-ak-uXg">
-                                                <rect key="frame" x="0.0" y="56" width="375" height="476"/>
+                                            <view hidden="YES" contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="sJq-ak-uXg">
+                                                <rect key="frame" x="0.0" y="500" width="375" height="476"/>
                                                 <subviews>
                                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="imgEmpty" translatesAutoresizingMaskIntoConstraints="NO" id="dxl-yr-Z53">
-                                                        <rect key="frame" x="89.666666666666686" y="103" width="196" height="155"/>
+                                                        <rect key="frame" x="89.666666666666657" y="103" width="196.00000000000003" height="155"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" constant="196" id="CGa-TH-4Bq"/>
                                                             <constraint firstAttribute="height" constant="155" id="wR6-Md-wIN"/>
@@ -3089,7 +3090,7 @@
                                                 <rect key="frame" x="0.0" y="0.0" width="375" height="518"/>
                                                 <subviews>
                                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="imgEmpty" translatesAutoresizingMaskIntoConstraints="NO" id="ca5-YU-Ku1">
-                                                        <rect key="frame" x="89.666666666666686" y="103" width="196" height="155"/>
+                                                        <rect key="frame" x="89.666666666666657" y="103" width="196.00000000000003" height="155"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" constant="196" id="4bO-sx-oc4"/>
                                                             <constraint firstAttribute="height" constant="155" id="NZz-xW-OzT"/>

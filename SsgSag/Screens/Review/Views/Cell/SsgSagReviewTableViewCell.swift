@@ -125,12 +125,12 @@ class SsgSagReviewTableViewCell: UITableViewCell {
             }
         } else {
             service?.requestPostLike(clubPostIdx: model.clubPostIdx) { isSuccess in
-                    if isSuccess {
-                        self.model?.isLike = 1
-                        self.model?.likeNum += 1
-                        self.isSelectObservable.accept(true)
-                        self.likeNumObservable.accept(model.likeNum+1)
-                    }
+                if isSuccess {
+                    self.model?.isLike = 1
+                    self.model?.likeNum += 1
+                    self.isSelectObservable.accept(true)
+                    self.likeNumObservable.accept(model.likeNum+1)
+                }
             }
         }
         

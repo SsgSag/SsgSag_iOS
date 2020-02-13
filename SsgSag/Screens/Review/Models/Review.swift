@@ -10,7 +10,7 @@ import Foundation
 
 
 struct ReviewCellInfo {
-    let data: ReviewInfo!
+    var data: ReviewInfo!
     var onClick = false
 }
 

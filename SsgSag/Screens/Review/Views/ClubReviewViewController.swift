@@ -45,19 +45,16 @@ class ClubReviewViewController: UIViewController {
         .subscribe(onNext: { [weak self] data in
             
             //포스트데이터만체크
+            
             if data.isEmpty {
                 self?.emptyReviewView.isHidden = false
             } else {
                 self?.emptyReviewView.isHidden = true
             }
             self?.reviewDataSet.removeAll()
-//            data?.forEach {
-//                self?.reviewDataSet.append(ReviewCellInfo(data: $0))
-//                self?.reviewDataSet.append(ReviewCellInfo(data: $0))
-//                self?.reviewDataSet.append(ReviewCellInfo(data: $0))
-//                self?.reviewDataSet.append(ReviewCellInfo(data: $0))
-//                self?.reviewDataSet.append(ReviewCellInfo(data: $0))
-//            }
+            data.forEach {
+                self?.reviewDataSet.append(ReviewCellInfo(data: $0))
+            }
             
             
             self?.reviewTableHeightLayout.constant = CGFloat.greatestFiniteMagnitude
@@ -66,21 +63,18 @@ class ClubReviewViewController: UIViewController {
             if let contentSize = self?.normalReviewTableView.contentSize.height {
                 self?.reviewTableHeightLayout.constant = contentSize == 0 ? 428 : contentSize
             }
-            
-            
-            // 나중에 블로그 통신코드에 넣어주기
-            //블로그데이터만체크
-//            self?.emptyBlogView.isHidden = true
-            self?.blogTableHeightLayout.constant = CGFloat.greatestFiniteMagnitude
-            self?.blogReviewTableView.reloadData()
-            self?.view.layoutIfNeeded()
-            if let contentSize = self?.blogReviewTableView.contentSize.height {
-                self?.blogTableHeightLayout.constant = contentSize == 0 ? 428 : contentSize
-            }
-            
         })
         .disposed(by: disposeBag)
     
+        // 나중에 블로그 통신코드에 넣어주기
+                    //블로그데이터만체크
+        ////            self?.emptyBlogView.isHidden = true
+        //            self?.blogTableHeightLayout.constant = CGFloat.greatestFiniteMagnitude
+        //            self?.blogReviewTableView.reloadData()
+        //            self?.view.layoutIfNeeded()
+        //            if let contentSize = self?.blogReviewTableView.contentSize.height {
+        //                self?.blogTableHeightLayout.constant = contentSize == 0 ? 428 : contentSize
+        //            }
     }
     
     @objc func moreViewSelect(sender: UIButton) {
