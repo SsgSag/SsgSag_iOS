@@ -117,12 +117,17 @@ class SsgSagReviewTableViewCell: UITableViewCell {
     @IBAction func likeClick(_ sender: Any) {
         guard let model = model else {return}
         if model.isLike == 1 {
-            
+            service?.requestDeleteLike(clubPostIdx: model.clubPostIdx) { isSuccess in
+                self.model?.isLike = 0
+                self.model?.likeNum -= 1
+                self.isSelectObservable.accept(false)
+                self.likeNumObservable.accept(model.likeNum-1)
+            }
         } else {
-            print("좋아요를 눌렀습니다!!")
             service?.requestPostLike(clubPostIdx: model.clubPostIdx) { isSuccess in
                     if isSuccess {
                         self.model?.isLike = 1
+                        self.model?.likeNum += 1
                         self.isSelectObservable.accept(true)
                         self.likeNumObservable.accept(model.likeNum+1)
                     }
