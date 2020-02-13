@@ -9,6 +9,7 @@
 import UIKit
 import RxSwift
 
+
 class ClubReviewViewController: UIViewController {
     var tabViewModel: ClubDetailViewModel!
     var disposeBag: DisposeBag!
@@ -21,19 +22,26 @@ class ClubReviewViewController: UIViewController {
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var normalReviewTableView: UITableView!
     @IBOutlet weak var blogReviewTableView: UITableView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        NotificationCenter.default.addObserver(self, selector: #selector(refreshResizeTableView), name: NSNotification.Name(rawValue: "resizeTableView"), object: nil)
+        
         disposeBag = DisposeBag()
+        tableViewSetup()
         bind()
+        
+    }
+    
+    func tableViewSetup() {
         self.normalReviewTableView.dataSource = self
-        self.normalReviewTableView.estimatedRowHeight = 428
+        self.normalReviewTableView.estimatedRowHeight = 1500
         self.normalReviewTableView.rowHeight = UITableView.automaticDimension
         
         self.blogReviewTableView.dataSource = self
         let nibCell = UINib(nibName: "BlogReviewTableViewCell", bundle: nil)
         self.blogReviewTableView.register(nibCell, forCellReuseIdentifier: "BlogReviewCell")
-        self.blogReviewTableView.estimatedRowHeight = 428
+        self.blogReviewTableView.estimatedRowHeight = 1500
         self.normalReviewTableView.rowHeight = UITableView.automaticDimension
         
     }
@@ -77,12 +85,22 @@ class ClubReviewViewController: UIViewController {
         //            }
     }
     
+    @objc func refreshResizeTableView() {
+        
+        self.normalReviewTableView.beginUpdates()
+        self.normalReviewTableView.endUpdates()
+        
+        self.view.layoutIfNeeded()
+        self.reviewTableHeightLayout.constant = CGFloat.greatestFiniteMagnitude
+        
+        self.reviewTableHeightLayout.constant = self.normalReviewTableView.contentSize.height
+        
+    }
+    
     @objc func moreViewSelect(sender: UIButton) {
         self.reviewDataSet[sender.tag].onClick = true
-        self.reviewTableHeightLayout.constant = CGFloat.greatestFiniteMagnitude
-        self.normalReviewTableView.reloadData()
-        self.view.layoutIfNeeded()
-        self.reviewTableHeightLayout.constant = self.normalReviewTableView.contentSize.height
+//        let indexPath = IndexPath(row: sender.tag, section: 0)
+//        self.normalReviewTableView.reloadRows(at: [indexPath], with: .fade)
     }
     
     @IBAction func moreReviewClick(_ sender: UIButton) {

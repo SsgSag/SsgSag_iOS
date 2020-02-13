@@ -27,6 +27,9 @@ class NormalReviewTableViewCell: UITableViewCell {
     @IBOutlet weak var likeImg: UIImageView!
     @IBOutlet weak var honeyTipLabel: UILabel!
     @IBOutlet weak var likeFixLabel: UILabel!
+    @IBOutlet weak var advantageHeightLayout: NSLayoutConstraint!
+    @IBOutlet weak var disAdvantageHeightLayout: NSLayoutConstraint!
+    @IBOutlet weak var honeyHeightLayout: NSLayoutConstraint!
     
     lazy var fullStar = UIImage(named: "star2")
     lazy var halfStar = UIImage(named: "star1")
@@ -39,6 +42,7 @@ class NormalReviewTableViewCell: UITableViewCell {
     let likeNumObservable = BehaviorRelay(value: 0)
     var disposeBag = DisposeBag()
     var service: ReviewServiceProtocol?
+
     var viewModel: ReviewCellInfo! {
         willSet {
             if newValue.onClick {
@@ -82,12 +86,20 @@ class NormalReviewTableViewCell: UITableViewCell {
         likeLabel.text = "\(viewModel.likeNum)개"
         scoreLabel.text = "별점 \(viewModel.score0)"
         
+        let advantage = viewModel.advantage
+        let disadvantage = viewModel.disadvantage
+        let font = UIFont.fontWithName(type: .regular, size: 13)
+        
+        self.layoutIfNeeded()
+        honeyHeightLayout.constant = 0
+        advantageHeightLayout.constant = advantage.estimatedFrame(font: font).height
+        disAdvantageHeightLayout.constant = disadvantage.estimatedFrame(font: font).height
+        
         isSelectObservable
             .asDriver()
             .distinctUntilChanged()
             .drive(onNext: { [weak self] isSelect in
                 if isSelect {
-                    print("선택되엇다 실행")
                     self?.likeFixLabel.textColor = .white
                     self?.likeImg.image = self?.selectImg
                     self?.likeLabel.textColor = .white
@@ -121,7 +133,6 @@ class NormalReviewTableViewCell: UITableViewCell {
             self.moreButton.isHidden = false
             self.honeyLabel.isHidden = true
             self.honeyTipLabel.isHidden = true
-            self.likeImgTopLayout.constant = 22
         }
     }
     
@@ -130,11 +141,14 @@ class NormalReviewTableViewCell: UITableViewCell {
             self.moreButton.isHidden = true
             self.honeyLabel.isHidden = false
             self.honeyTipLabel.isHidden = false
+            let honeyText = self.viewModel.data.honeyTip
+            let height = honeyText.estimatedFrame(font: UIFont.fontWithName(type: .regular, size: 13)).height
+            self.layoutIfNeeded()
+            // 꿀팁크기 26, 기본 15
+            self.honeyHeightLayout.constant = height
+            self.likeImgTopLayout.constant = height + 26 + 15
             
-            let size = CGSize(width: self.frame.width, height: .infinity)
-            let height = self.honeyTipLabel.sizeThatFits(size).height
-            // 기본22 라벨크기17 라벨과마진 15
-            self.likeImgTopLayout.constant = 22 + 17 + 15 + height
+            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "resizeTableView"), object: nil)
         }
     }
     
