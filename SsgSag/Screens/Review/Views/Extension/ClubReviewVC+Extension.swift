@@ -36,3 +36,18 @@ extension ClubReviewViewController: UITableViewDataSource {
         }
     }
 }
+
+extension ClubReviewViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        guard let cell = tableView.cellForRow(at: indexPath) as? NormalReviewTableViewCell else {return}
+        let onClick = self.reviewDataSet[indexPath.row].onClick
+        self.reviewDataSet[indexPath.row].onClick = !onClick
+        
+        if onClick {
+            cell.hideTipLabel()
+        } else {
+            cell.showTipLabel()
+        }
+        tableView.deselectRow(at: indexPath, animated: true)
+    }
+}

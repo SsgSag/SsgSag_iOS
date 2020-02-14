@@ -48,7 +48,7 @@ class NormalReviewTableViewCell: UITableViewCell {
             if newValue.onClick {
                 showTipLabel()
             } else {
-                setup()
+                hideTipLabel()
             }
         }
     }
@@ -91,7 +91,6 @@ class NormalReviewTableViewCell: UITableViewCell {
         let font = UIFont.fontWithName(type: .regular, size: 13)
         
         self.layoutIfNeeded()
-        honeyHeightLayout.constant = 0
         advantageHeightLayout.constant = advantage.estimatedFrame(font: font).height
         disAdvantageHeightLayout.constant = disadvantage.estimatedFrame(font: font).height
         
@@ -128,11 +127,17 @@ class NormalReviewTableViewCell: UITableViewCell {
         likeNumObservable.accept(viewModel.likeNum)
     }
     
-    func setup() {
+    func hideTipLabel() {
         DispatchQueue.main.async {
             self.moreButton.isHidden = false
             self.honeyLabel.isHidden = true
             self.honeyTipLabel.isHidden = true
+            self.layoutIfNeeded()
+            self.honeyHeightLayout.constant = 0
+            //기본 15
+            self.likeImgTopLayout.constant = 15
+            
+            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "resizeTableView"), object: nil)
         }
     }
     

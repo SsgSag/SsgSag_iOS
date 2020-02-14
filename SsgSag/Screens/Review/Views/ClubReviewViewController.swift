@@ -40,15 +40,17 @@ class ClubReviewViewController: UIViewController {
     }
     
     func tableViewSetup() {
-        self.normalReviewTableView.dataSource = self
-        self.normalReviewTableView.estimatedRowHeight = 1500
-        self.normalReviewTableView.rowHeight = UITableView.automaticDimension
+        normalReviewTableView.dataSource = self
+        normalReviewTableView.delegate = self
         
-        self.blogReviewTableView.dataSource = self
+        normalReviewTableView.estimatedRowHeight = 1500
+        normalReviewTableView.rowHeight = UITableView.automaticDimension
+        
+        blogReviewTableView.dataSource = self
         let nibCell = UINib(nibName: "BlogReviewTableViewCell", bundle: nil)
-        self.blogReviewTableView.register(nibCell, forCellReuseIdentifier: "BlogReviewCell")
-        self.blogReviewTableView.estimatedRowHeight = 1500
-        self.normalReviewTableView.rowHeight = UITableView.automaticDimension
+        blogReviewTableView.register(nibCell, forCellReuseIdentifier: "BlogReviewCell")
+        blogReviewTableView.estimatedRowHeight = 1500
+        normalReviewTableView.rowHeight = UITableView.automaticDimension
         
     }
     
@@ -101,6 +103,7 @@ class ClubReviewViewController: UIViewController {
         
         self.reviewTableHeightLayout.constant = self.normalReviewTableView.contentSize.height
         
+        
     }
     
     @objc func reviewEdit(_ notification: Notification) {
@@ -138,7 +141,9 @@ class ClubReviewViewController: UIViewController {
     
     
     @objc func moreViewSelect(sender: UIButton) {
-        self.reviewDataSet[sender.tag].onClick = true
+//        self.reviewDataSet[sender.tag].onClick = true
+        
+        
 //        let indexPath = IndexPath(row: sender.tag, section: 0)
 //        self.normalReviewTableView.reloadRows(at: [indexPath], with: .fade)
     }
