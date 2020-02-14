@@ -23,7 +23,7 @@ class TabBarViewController: UITabBarController {
             tabBarFrame.size.height = 80
             tabBarFrame.origin.y = self.view.frame.size.height - 75
         } else {
-            tabBarFrame.size.height = 50
+            tabBarFrame.size.height = 40
             tabBarFrame.origin.y = self.view.frame.size.height - 45
         }
         self.tabBar.frame = tabBarFrame
@@ -70,21 +70,21 @@ class TabBarViewController: UITabBarController {
         
         let reviewViewController = reviewStoryBoard.instantiateViewController(withIdentifier: "reviewVC")
         
-        mainViewController.tabBarItem = UITabBarItem(title: "",
+        mainViewController.tabBarItem = UITabBarItem(title: "슥삭",
                                                       image: UIImage(named: "icSsgsag"),
                                                       selectedImage: UIImage(named: "icSsgsagActive"))
         
-        feedViewController.tabBarItem = UITabBarItem(title: "",
+        feedViewController.tabBarItem = UITabBarItem(title: "추천뉴스",
                                                      image: UIImage(named: "icNews"),
                                                      selectedImage: UIImage(named: "icNewsActive"))
         feedViewController.tabBarItem.accessibilityIdentifier = "feed"
         
-        newCalendarViewController.tabBarItem = UITabBarItem(title: "",
+        newCalendarViewController.tabBarItem = UITabBarItem(title: "캘린더",
                                                             image: UIImage(named: "icCalendar"),
                                                             selectedImage: UIImage(named: "icCalendarActive"))
         newCalendarViewController.tabBarItem.accessibilityIdentifier = "calendar"
         
-        reviewViewController.tabBarItem = UITabBarItem(title: "",
+        reviewViewController.tabBarItem = UITabBarItem(title: "후기",
                                                                    image: UIImage(named: "icReview"),
                                                                    selectedImage: UIImage(named: "icReviewActive"))
         
@@ -94,6 +94,7 @@ class TabBarViewController: UITabBarController {
     }
     
     private func setTabBarStyle() {
+        self.tabBar.tintColor = .cornFlower
         self.tabBar.barTintColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
         self.tabBar.layer.borderColor = UIColor.clear.cgColor
         self.tabBar.barStyle = .black
