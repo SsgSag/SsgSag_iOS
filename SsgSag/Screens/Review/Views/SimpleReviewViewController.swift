@@ -102,13 +102,7 @@ class SimpleReviewViewController: UIViewController, UITextViewDelegate, UITextFi
         
         simpleReviewViewModel.submitButtonEnableObservable
             .subscribe(onNext: { [weak self] bool in
-                if bool {
-                    self?.submitButton.isEnabled = true
-                    self?.submitButton.backgroundColor = .cornFlower
-                } else {
-                    self?.submitButton.isEnabled = false
-                    self?.submitButton.backgroundColor = .unselectedGray
-                }
+                self?.submitButton.backgroundColor = bool ? .cornFlower : .unselectedGray
             })
             .disposed(by: disposeBag)
     }
@@ -140,11 +134,17 @@ class SimpleReviewViewController: UIViewController, UITextViewDelegate, UITextFi
     }
     
     @IBAction func submitClick(_ sender: Any) {
+        
+        if !simpleReviewViewModel.submitButtonEnableObservable.value {
+            self.simpleAlert(title: "조건이 충족되지 않았습니다", message: "20자 이상 입력해주세요.")
+            return
+        }
+
         indicator.startAnimating()
         clubactInfo.simpleReivewBind(model: simpleReviewViewModel)
         
         if clubactInfo.isExistClub {
-            print("존재하는 동아리에 리뷰등록")
+            
             service?.requestExistClubReviewPost(model: clubactInfo) {
                 isSuccess in
                 
@@ -165,7 +165,7 @@ class SimpleReviewViewController: UIViewController, UITextViewDelegate, UITextFi
                 }
             }
         } else {
-            print("존재하지않는 동아리에 리뷰등록")
+            
             service?.requestNonExistClubReviewPost(model: clubactInfo) {
                 isSuccess in
                 if isSuccess {

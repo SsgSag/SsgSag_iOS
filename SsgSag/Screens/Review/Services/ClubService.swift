@@ -300,6 +300,7 @@ class ClubService: ClubServiceProtocol {
 
         Alamofire.upload(multipartFormData: { multipartFormData in
             let data = imageData
+            print("multi image - \(data)")
             multipartFormData.append(data, withName: "photo", fileName: "uploadImg.jpeg", mimeType: "image/jpeg")
             
         }, to: url, method: .post, headers: header) { result in
@@ -309,10 +310,10 @@ class ClubService: ClubServiceProtocol {
                     
                     do {
                         guard let data = response.data else { return }
-                        
+                        print("multi data - \(data)")
                         let decoder = JSONDecoder()
                         let object = try decoder.decode(ResponseSimpleResult<String>.self, from: data)
-                        print(object)
+                        print("multi object - \(object)")
                         if object.status == 200 {
                             completion(object.data)
                         }else {
