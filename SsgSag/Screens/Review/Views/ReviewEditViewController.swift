@@ -42,8 +42,6 @@ class ReviewEditViewController: UIViewController {
     let textLengthMaximum = 20
     lazy var blackStar = UIImage(named: "icStar0")
     lazy var fillStar = UIImage(named: "icStar2")
-    //    var jsonResult: [[String: Any]] = [[:]]
-    //    var isExistClub = false
     let disposeBag = DisposeBag()
     
     override func viewDidLoad() {
@@ -72,73 +70,22 @@ class ReviewEditViewController: UIViewController {
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         self.view.endEditing(true)
     }
-    //기본값 바인딩해놓기
     
     func typeSetting(type: ClubType) {
         if type == .School {
             univOrLocalLabel.text = "소속 학교는"
-            //            configureSimpleLocalUnivSearchTextField()
-            //            configureSimpleClubNameSearchTextField()
+        
         } else {
             univOrLocalLabel.text = "활동지역은"
-            //            configureSimpleClubNameSearchTextField()
-            //            localButton.isHidden = false
-            //            univOrLocalTextField.isEnabled = false
-            //            univOrLoaclImgView.isHidden = false
+        
         }
-        //        clubactInfo.startDate.accept(reviewEditViewModel.reviewInfo.clubStartDate)
-        //        clubactInfo.endDate.accept(reviewEditViewModel.reviewInfo.clubEndDate)
+      
         startDateLabel.text = reviewEditViewModel.reviewInfo.clubStartDate
         endDateLabel.text = reviewEditViewModel.reviewInfo.clubStartDate
         univOrLocalTextField.text = clubactInfo.location.value
         clubNameTextField.text = clubactInfo.clubName
         
     }
-    
-    //    private func configureSimpleClubNameSearchTextField() {
-    //        clubNameTextField.startVisible = true
-    //    }
-    //
-    //    private func configureSimpleLocalUnivSearchTextField() {
-    //        univOrLocalTextField.startVisible = true
-    //        let universities = localUniversities()
-    //        univOrLocalTextField.filterStrings(universities)
-    //    }
-    
-    //    private func localUniversities() -> [String] {
-    //        guard let path = Bundle.main.path(forResource: "majorListByUniv",
-    //                                          ofType: "json") else {
-    //            return []
-    //        }
-    //
-    //        do {
-    //            let jsonData = try Data(contentsOf: URL(fileURLWithPath: path),
-    //                                    options: .dataReadingMapped)
-    //
-    //            guard let jsonResult
-    //                = try JSONSerialization.jsonObject(with: jsonData,
-    //                                                   options: .allowFragments)
-    //                    as? [[String: Any]] else {
-    //                        return []
-    //            }
-    //
-    //            self.jsonResult = jsonResult
-    //
-    //            var resultUnivNames: [String] = []
-    //
-    //            jsonResult.forEach {
-    //                let univName = "\($0["학교명"]!)"
-    //                if !resultUnivNames.contains(univName) {
-    //                    resultUnivNames.append(univName)
-    //                }
-    //            }
-    //
-    //            return resultUnivNames
-    //        } catch {
-    //            print("Error parsing jSON: \(error)")
-    //            return []
-    //        }
-    //    }
     
     func activeBind(model: ClubActInfoModel) {
         if model.clubType == .Union {
@@ -163,33 +110,7 @@ class ReviewEditViewController: UIViewController {
                 self?.endDateLabel.text = dateString
             })
             .disposed(by: disposeBag)
-        
-        //        clubNameTextField.rx
-        //            .value
-        //            .changed
-        //            .compactMap{ $0 }
-        //            .asObservable()
-        //            .do(onNext: { [weak self] clubName in
-        ////                self?.isExistClub = false
-        //                self?.clubactInfo.clubName = clubName
-        //            })
-        //            .subscribe()
-        //            .subscribe(onNext: { [weak self] clubName in
-        //                guard let service = self?.clubService else {return}
-        //                guard let location = self?.univOrLocalTextField.text else {return}
-        //                guard let clubactInfo = self?.clubactInfo else {return}
-        
-        //                service.requestClubWithName(clubType: clubactInfo.clubType, location: location, keyword: clubName, curPage: 0) { clubList in
-        //                    guard let clubList = clubList else {return}
-        //                    guard !clubList.isEmpty else {return}
-        //                    self?.isExistClub = true
-        //                    DispatchQueue.main.async {
-        //                        self?.searchLocalClubListSet(clubList: clubList)
-        //                    }
-        
-        //                }
-        //            })
-        //            .disposed(by: disposeBag)
+    
     }
     
     func starSetting(model: ReviewInfo) {
@@ -303,11 +224,6 @@ class ReviewEditViewController: UIViewController {
             .disposed(by: disposeBag)
     }
     
-    //    func searchLocalClubListSet(clubList: [ClubListData]) {
-    //           let clubNameList = clubList.compactMap { $0.clubName }
-    //           clubNameTextField.filterStrings(clubNameList)
-    //       }
-    
     @IBAction func startDateClick(_ sender: Any) {
         let nextVC = self.storyboard?.instantiateViewController(withIdentifier: "ClubActInfoAlertVC") as! ClubActInfoAlertViewController
         clubactInfo.inputType = .start
@@ -323,14 +239,6 @@ class ReviewEditViewController: UIViewController {
         
         present(nextVC, animated: true, completion: nil)
     }
-    
-    //    @IBAction func locationClick(_ sender: Any) {
-    //        let nextVC = self.storyboard?.instantiateViewController(withIdentifier: "ClubActInfoAlertVC") as! ClubActInfoAlertViewController
-    //        clubactInfo.inputType = .location
-    //        nextVC.clubactInfo = self.clubactInfo
-    //
-    //        present(nextVC, animated: true, completion: nil)
-    //    }
     
     @IBAction func backClick(_ sender: Any) {
         self.navigationController?.popViewController(animated: true)
@@ -396,8 +304,6 @@ class ReviewEditViewController: UIViewController {
 
 extension ReviewEditViewController: UIScrollViewDelegate {
     func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
-        //        clubNameTextField.hideResultsList()
-        //        univOrLocalTextField.hideResultsList()
         self.view.endEditing(true)
     }
 }
