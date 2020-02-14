@@ -75,4 +75,18 @@ class ClubActInfoModel {
         }
         return stringList
     }
+    
+    func editBind(model: ReviewEditViewModel) {
+        recommendScore = model.recommendDegreeObservable.value+1
+        funScore = model.funDegreeObservable.value+1
+        proScore = model.proDegreeObservable.value+1
+        hardScore = model.hardDegreeObservable.value+1
+        friendScore = model.friendDegreeObservable.value+1
+        
+        oneLineString = model.oneLineObservable.value
+        advantageString = model.advantageObservable.value
+        disadvantageString = model.disadvantageObservable.value
+        honeyString = model.honeyObservable.value
+        
+    }
 }

@@ -49,6 +49,7 @@
 		0651632723F4405E002089D2 /* ReviewScorePopUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0651632623F4405E002089D2 /* ReviewScorePopUpViewController.swift */; };
 		0651632923F45224002089D2 /* RegisterBlogReviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0651632823F45224002089D2 /* RegisterBlogReviewViewController.swift */; };
 		0651632B23F6393B002089D2 /* ReviewEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0651632A23F6393B002089D2 /* ReviewEditViewController.swift */; };
+		0651632D23F63B24002089D2 /* ReviewEditViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0651632C23F63B24002089D2 /* ReviewEditViewModel.swift */; };
 		065264DB23EA8FEE00501200 /* NotFoundClubViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 065264DA23EA8FEE00501200 /* NotFoundClubViewController.swift */; };
 		065264DD23EAC4BA00501200 /* FoundClubViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 065264DC23EAC4BA00501200 /* FoundClubViewController.swift */; };
 		065264DF23EBC55C00501200 /* StarRatingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 065264DE23EBC55C00501200 /* StarRatingViewController.swift */; };
@@ -443,6 +444,7 @@
 		0651632623F4405E002089D2 /* ReviewScorePopUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewScorePopUpViewController.swift; sourceTree = "<group>"; };
 		0651632823F45224002089D2 /* RegisterBlogReviewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterBlogReviewViewController.swift; sourceTree = "<group>"; };
 		0651632A23F6393B002089D2 /* ReviewEditViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewEditViewController.swift; sourceTree = "<group>"; };
+		0651632C23F63B24002089D2 /* ReviewEditViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewEditViewModel.swift; sourceTree = "<group>"; };
 		065264DA23EA8FEE00501200 /* NotFoundClubViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotFoundClubViewController.swift; sourceTree = "<group>"; };
 		065264DC23EAC4BA00501200 /* FoundClubViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoundClubViewController.swift; sourceTree = "<group>"; };
 		065264DE23EBC55C00501200 /* StarRatingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StarRatingViewController.swift; sourceTree = "<group>"; };
@@ -948,6 +950,7 @@
 				064AD7C423EFD1B60006E02C /* ClubRegisterOneStepViewModel.swift */,
 				064AD7DA23F120B40006E02C /* ClubRegisterTwoStepViewModel.swift */,
 				064AD7DE23F157F00006E02C /* ClubRegisterThreeStepViewModel.swift */,
+				0651632C23F63B24002089D2 /* ReviewEditViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -2339,6 +2342,7 @@
 				D17A1C4222ED8A6200939788 /* InterestServiceProtocol.swift in Sources */,
 				0655966723E0130600C779A5 /* ClubPageViewController.swift in Sources */,
 				8496817E22AFD3FE004A4A63 /* VAMonthHeaderView.swift in Sources */,
+				0651632D23F63B24002089D2 /* ReviewEditViewModel.swift in Sources */,
 				84C30E2D22781FF0008F1165 /* DateCaculate.swift in Sources */,
 				064AD7BF23EFC8220006E02C /* NoClubManagerViewController.swift in Sources */,
 				D1226C8A22EC9572007F59BE /* TabbarServiceProtocol.swift in Sources */,

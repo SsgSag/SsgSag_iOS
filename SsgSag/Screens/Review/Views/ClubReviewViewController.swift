@@ -26,11 +26,17 @@ class ClubReviewViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         NotificationCenter.default.addObserver(self, selector: #selector(refreshResizeTableView), name: NSNotification.Name(rawValue: "resizeTableView"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(reviewEdit(_:)), name: NSNotification.Name(rawValue: "reviewEdit"), object: nil)
+        
         
         disposeBag = DisposeBag()
         tableViewSetup()
         bind()
         
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        self.tabBarController?.tabBar.isHidden = false
     }
     
     func tableViewSetup() {
@@ -96,6 +102,40 @@ class ClubReviewViewController: UIViewController {
         self.reviewTableHeightLayout.constant = self.normalReviewTableView.contentSize.height
         
     }
+    
+    @objc func reviewEdit(_ notification: Notification) {
+        let editAction = UIAlertAction(title: "수정", style: .default) { _ in
+            guard let reveiwInfo = notification.object as? ReviewInfo else {return}
+            guard let clubInfo = try? self.tabViewModel.clubInfoData.value() else {return}
+            let clubIdx = clubInfo.clubIdx
+            let type: ClubType = clubInfo.clubType == 0 ? .Union : .School
+            guard let nextVC = self.storyboard?.instantiateViewController(withIdentifier: "ReviewEditVC") as? ReviewEditViewController else {return}
+            nextVC.reviewService = ReviewService()
+            nextVC.clubService = ClubService()
+            nextVC.reviewEditViewModel = ReviewEditViewModel(model: reveiwInfo)
+            
+            let clubactInfo = ClubActInfoModel(clubType: type)
+            clubactInfo.clubIdx = clubIdx
+            clubactInfo.clubName = clubInfo.clubName
+            clubactInfo.location.accept(clubInfo.univOrLocation)
+            clubactInfo.isExistClub = true
+            nextVC.clubactInfo = clubactInfo
+            
+            self.navigationController?.pushViewController(nextVC, animated: true)
+        }
+        let deleteAction = UIAlertAction(title: "삭제", style: .default) { _ in
+            
+        }
+        let reportAction = UIAlertAction(title: "신고", style: .default) { _ in
+            
+        }
+        let cancelAction = UIAlertAction(title: "취소", style: .cancel)
+        
+        self.simpleActionSheet(title: "하실 작업을 선택해주세요.", actions: [editAction, deleteAction, reportAction, cancelAction])
+        
+        
+    }
+    
     
     @objc func moreViewSelect(sender: UIButton) {
         self.reviewDataSet[sender.tag].onClick = true

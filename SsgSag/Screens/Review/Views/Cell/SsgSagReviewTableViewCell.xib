@@ -27,7 +27,7 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2019년 활동" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aHQ-yG-IpA">
-                        <rect key="frame" x="46.5" y="23" width="54.5" height="12"/>
+                        <rect key="frame" x="51" y="23" width="54.5" height="12"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="12" id="KV8-tM-uLl"/>
                         </constraints>
@@ -36,11 +36,11 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="q2o-jF-0g9">
-                        <rect key="frame" x="44" y="23" width="0.5" height="12"/>
+                        <rect key="frame" x="46" y="24" width="1" height="10"/>
                         <color key="backgroundColor" red="0.66666666669999997" green="0.66666666669999997" blue="0.66666666669999997" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
-                            <constraint firstAttribute="width" constant="0.69999999999999996" id="GQQ-YA-L3E"/>
-                            <constraint firstAttribute="height" constant="12" id="Tlh-74-Y5P"/>
+                            <constraint firstAttribute="width" constant="1" id="GQQ-YA-L3E"/>
+                            <constraint firstAttribute="height" constant="10" id="Tlh-74-Y5P"/>
                         </constraints>
                     </view>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="IT 업계 가고싶으면 꼭 해라" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lDG-cM-2g7">
@@ -106,7 +106,7 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Fb8-bf-mOz">
-                        <rect key="frame" x="241" y="360.5" width="110" height="24"/>
+                        <rect key="frame" x="241" y="361.5" width="110" height="22"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <userDefinedRuntimeAttributes>
                             <userDefinedRuntimeAttribute type="number" keyPath="cornerRadiusV">
@@ -130,9 +130,9 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qRB-MG-RUD">
-                        <rect key="frame" x="241" y="360.5" width="110" height="24"/>
+                        <rect key="frame" x="241" y="361.5" width="110" height="22"/>
                         <constraints>
-                            <constraint firstAttribute="height" constant="24" id="GRU-pX-6DQ"/>
+                            <constraint firstAttribute="height" constant="22" id="GRU-pX-6DQ"/>
                         </constraints>
                         <connections>
                             <action selector="likeClick:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="7u1-eE-ceo"/>
@@ -231,7 +231,7 @@
                     <constraint firstItem="aHQ-yG-IpA" firstAttribute="centerY" secondItem="KjM-Br-Ly0" secondAttribute="centerY" id="5rT-lr-22x"/>
                     <constraint firstItem="rhd-W6-pwc" firstAttribute="top" secondItem="ELL-5B-KnV" secondAttribute="bottom" constant="3" id="6wu-Fe-eTM"/>
                     <constraint firstItem="8VQ-3c-Az0" firstAttribute="bottom" secondItem="qsI-e5-eyR" secondAttribute="bottom" id="9Kz-Jn-hRL"/>
-                    <constraint firstItem="aHQ-yG-IpA" firstAttribute="leading" secondItem="q2o-jF-0g9" secondAttribute="trailing" constant="2" id="AC2-yP-yue"/>
+                    <constraint firstItem="aHQ-yG-IpA" firstAttribute="leading" secondItem="q2o-jF-0g9" secondAttribute="trailing" constant="4" id="AC2-yP-yue"/>
                     <constraint firstItem="chs-5e-XtJ" firstAttribute="top" secondItem="vaw-ji-RPP" secondAttribute="bottom" constant="18" id="BEx-N0-idW"/>
                     <constraint firstItem="F1h-Wk-AI0" firstAttribute="centerY" secondItem="lDG-cM-2g7" secondAttribute="centerY" id="E2N-vw-bhV"/>
                     <constraint firstItem="qsI-e5-eyR" firstAttribute="top" secondItem="lDG-cM-2g7" secondAttribute="bottom" constant="5" id="KRo-Tw-PhR"/>
@@ -269,7 +269,7 @@
                     <constraint firstItem="1cC-2y-Opj" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="24" id="uWz-HU-cdk"/>
                     <constraint firstAttribute="trailing" secondItem="4aT-ak-P38" secondAttribute="trailing" id="vsd-l6-Oun"/>
                     <constraint firstItem="AnO-Gj-aHq" firstAttribute="top" secondItem="chs-5e-XtJ" secondAttribute="bottom" constant="2" id="y6d-IK-f75"/>
-                    <constraint firstItem="q2o-jF-0g9" firstAttribute="leading" secondItem="KjM-Br-Ly0" secondAttribute="trailing" constant="2" id="ymB-QE-vsf"/>
+                    <constraint firstItem="q2o-jF-0g9" firstAttribute="leading" secondItem="KjM-Br-Ly0" secondAttribute="trailing" constant="4" id="ymB-QE-vsf"/>
                     <constraint firstItem="chs-5e-XtJ" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="24" id="za6-cn-KKh"/>
                 </constraints>
             </tableViewCellContentView>

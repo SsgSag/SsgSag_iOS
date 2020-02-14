@@ -180,5 +180,7 @@ class NormalReviewTableViewCell: UITableViewCell {
     }
     
     @IBAction func editClick(_ sender: Any) {
+        guard let reviewInfo = viewModel.data else {return}
+        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "reviewEdit"), object: reviewInfo)
     }
 }

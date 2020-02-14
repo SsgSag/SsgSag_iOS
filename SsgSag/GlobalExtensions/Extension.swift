@@ -72,6 +72,11 @@ enum AlertType {
 }
 
 extension UIViewController {
+    func simpleActionSheet(title: String, actions: [UIAlertAction]) {
+        let alert = UIAlertController(title: title, message: nil, preferredStyle: .actionSheet)
+        actions.forEach{ alert.addAction($0) }
+        present(alert, animated: true)
+    }
     
     //확인 팝업
     func simpleAlert(title: String, message: String) {
