@@ -80,8 +80,8 @@ class ReviewEditViewController: UIViewController {
         
         }
       
-        startDateLabel.text = reviewEditViewModel.reviewInfo.clubStartDate
-        endDateLabel.text = reviewEditViewModel.reviewInfo.clubStartDate
+        startDateLabel.text = DateCaculate.RequestDateStringToShowDateFormatter(string: reviewEditViewModel.reviewInfo.clubStartDate)
+        endDateLabel.text = DateCaculate.RequestDateStringToShowDateFormatter(string: reviewEditViewModel.reviewInfo.clubStartDate)
         univOrLocalTextField.text = clubactInfo.location.value
         clubNameTextField.text = clubactInfo.clubName
         
