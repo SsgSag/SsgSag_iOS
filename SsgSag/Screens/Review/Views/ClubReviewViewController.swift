@@ -141,7 +141,7 @@ class ClubReviewViewController: UIViewController {
     
     
     @objc func moreViewSelect(sender: UIButton) {
-//        self.reviewDataSet[sender.tag].onClick = true
+        self.reviewDataSet[sender.tag].onClick = true
         
         
 //        let indexPath = IndexPath(row: sender.tag, section: 0)
