@@ -2917,7 +2917,7 @@
                                                 <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="uNH-iJ-4gp" customClass="SearchTextField" customModule="SearchTextField">
+                                            <textField opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="uNH-iJ-4gp" customClass="SearchTextField" customModule="SearchTextField">
                                                 <rect key="frame" x="26" y="207" width="325" height="36"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="36" id="85I-X6-u8j"/>
@@ -2962,7 +2962,7 @@
                                                 <fontDescription key="fontDescription" name="AppleSDGothicNeo-SemiBold" family="Apple SD Gothic Neo" pointSize="17"/>
                                                 <textInputTraits key="textInputTraits"/>
                                             </textField>
-                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="wax-2k-EeH" customClass="SearchTextField" customModule="SearchTextField">
+                                            <textField opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="wax-2k-EeH" customClass="SearchTextField" customModule="SearchTextField">
                                                 <rect key="frame" x="26" y="115" width="325" height="36"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="36" id="3vG-or-URH"/>
@@ -2974,7 +2974,6 @@
                                             <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kzL-x3-MGM">
                                                 <rect key="frame" x="26" y="115" width="325" height="36"/>
                                                 <connections>
-                                                    <action selector="locationClick:" destination="MdU-LF-Aau" eventType="touchUpInside" id="3u3-oa-Aq7"/>
                                                     <action selector="locationClick:" destination="Vsu-ey-w3J" eventType="touchUpInside" id="VyI-JO-9pi"/>
                                                 </connections>
                                             </button>
@@ -3001,6 +3000,9 @@
                                                             <constraint firstAttribute="width" constant="28" id="rNv-ec-U2P"/>
                                                         </constraints>
                                                         <state key="normal" image="icStar0"/>
+                                                        <connections>
+                                                            <action selector="recommendClick:" destination="MdU-LF-Aau" eventType="touchUpInside" id="QNm-6c-UzX"/>
+                                                        </connections>
                                                     </button>
                                                     <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="R5Q-Up-T3o">
                                                         <rect key="frame" x="64" y="0.0" width="28" height="30"/>
@@ -3009,6 +3011,9 @@
                                                             <constraint firstAttribute="height" constant="30" id="eKJ-1Q-Qsr"/>
                                                         </constraints>
                                                         <state key="normal" image="icStar0"/>
+                                                        <connections>
+                                                            <action selector="recommendClick:" destination="MdU-LF-Aau" eventType="touchUpInside" id="rtA-Ho-XRV"/>
+                                                        </connections>
                                                     </button>
                                                     <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3Rq-sP-YYM">
                                                         <rect key="frame" x="128" y="0.0" width="28" height="30"/>
@@ -3017,6 +3022,9 @@
                                                             <constraint firstAttribute="width" constant="28" id="jGl-04-n4X"/>
                                                         </constraints>
                                                         <state key="normal" image="icStar0"/>
+                                                        <connections>
+                                                            <action selector="recommendClick:" destination="MdU-LF-Aau" eventType="touchUpInside" id="HBD-aP-3i9"/>
+                                                        </connections>
                                                     </button>
                                                     <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VJ4-tR-lKT">
                                                         <rect key="frame" x="192" y="0.0" width="28" height="30"/>
@@ -3025,6 +3033,9 @@
                                                             <constraint firstAttribute="height" constant="30" id="y1C-6B-Fzo"/>
                                                         </constraints>
                                                         <state key="normal" image="icStar0"/>
+                                                        <connections>
+                                                            <action selector="recommendClick:" destination="MdU-LF-Aau" eventType="touchUpInside" id="tLf-Hy-Jt5"/>
+                                                        </connections>
                                                     </button>
                                                     <button opaque="NO" tag="4" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WsB-gr-KDq">
                                                         <rect key="frame" x="256" y="0.0" width="28" height="30"/>
@@ -3033,6 +3044,9 @@
                                                             <constraint firstAttribute="height" constant="30" id="UxM-cb-aQA"/>
                                                         </constraints>
                                                         <state key="normal" image="icStar0"/>
+                                                        <connections>
+                                                            <action selector="recommendClick:" destination="MdU-LF-Aau" eventType="touchUpInside" id="85d-xy-9g9"/>
+                                                        </connections>
                                                     </button>
                                                 </subviews>
                                                 <constraints>
@@ -3059,6 +3073,9 @@
                                                                     <constraint firstAttribute="width" constant="28" id="gPX-gS-Dke"/>
                                                                 </constraints>
                                                                 <state key="normal" image="icStar0"/>
+                                                                <connections>
+                                                                    <action selector="funClick:" destination="MdU-LF-Aau" eventType="touchUpInside" id="f7d-Gi-Cxy"/>
+                                                                </connections>
                                                             </button>
                                                             <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GLa-Wc-VMP">
                                                                 <rect key="frame" x="64" y="0.0" width="28" height="30"/>
@@ -3067,6 +3084,9 @@
                                                                     <constraint firstAttribute="height" constant="30" id="XoQ-LS-M2D"/>
                                                                 </constraints>
                                                                 <state key="normal" image="icStar0"/>
+                                                                <connections>
+                                                                    <action selector="funClick:" destination="MdU-LF-Aau" eventType="touchUpInside" id="8uc-AB-x4K"/>
+                                                                </connections>
                                                             </button>
                                                             <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tDH-LD-6td">
                                                                 <rect key="frame" x="128" y="0.0" width="28" height="30"/>
@@ -3075,6 +3095,9 @@
                                                                     <constraint firstAttribute="height" constant="30" id="wJX-R6-u1x"/>
                                                                 </constraints>
                                                                 <state key="normal" image="icStar0"/>
+                                                                <connections>
+                                                                    <action selector="funClick:" destination="MdU-LF-Aau" eventType="touchUpInside" id="TXq-ee-Odh"/>
+                                                                </connections>
                                                             </button>
                                                             <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vx1-c4-uzf">
                                                                 <rect key="frame" x="192" y="0.0" width="28" height="30"/>
@@ -3083,6 +3106,9 @@
                                                                     <constraint firstAttribute="width" constant="28" id="oec-ax-Lhq"/>
                                                                 </constraints>
                                                                 <state key="normal" image="icStar0"/>
+                                                                <connections>
+                                                                    <action selector="funClick:" destination="MdU-LF-Aau" eventType="touchUpInside" id="gmV-I3-LNw"/>
+                                                                </connections>
                                                             </button>
                                                             <button opaque="NO" tag="4" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="b8V-Wu-8jl">
                                                                 <rect key="frame" x="256" y="0.0" width="28" height="30"/>
@@ -3091,6 +3117,9 @@
                                                                     <constraint firstAttribute="height" constant="30" id="QuZ-m5-GAa"/>
                                                                 </constraints>
                                                                 <state key="normal" image="icStar0"/>
+                                                                <connections>
+                                                                    <action selector="funClick:" destination="MdU-LF-Aau" eventType="touchUpInside" id="Oy8-tl-mlR"/>
+                                                                </connections>
                                                             </button>
                                                         </subviews>
                                                         <constraints>
@@ -3144,6 +3173,9 @@
                                                                     <constraint firstAttribute="width" constant="28" id="qCM-4y-nsV"/>
                                                                 </constraints>
                                                                 <state key="normal" image="icStar0"/>
+                                                                <connections>
+                                                                    <action selector="proClick:" destination="MdU-LF-Aau" eventType="touchUpInside" id="fRZ-ym-KxT"/>
+                                                                </connections>
                                                             </button>
                                                             <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yOb-X4-aW9">
                                                                 <rect key="frame" x="64" y="0.0" width="28" height="30"/>
@@ -3152,6 +3184,9 @@
                                                                     <constraint firstAttribute="width" constant="28" id="oRs-Tu-cm7"/>
                                                                 </constraints>
                                                                 <state key="normal" image="icStar0"/>
+                                                                <connections>
+                                                                    <action selector="proClick:" destination="MdU-LF-Aau" eventType="touchUpInside" id="XdA-dH-3pG"/>
+                                                                </connections>
                                                             </button>
                                                             <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vio-nO-r7y">
                                                                 <rect key="frame" x="128" y="0.0" width="28" height="30"/>
@@ -3160,6 +3195,9 @@
                                                                     <constraint firstAttribute="width" constant="28" id="rvD-Lv-fII"/>
                                                                 </constraints>
                                                                 <state key="normal" image="icStar0"/>
+                                                                <connections>
+                                                                    <action selector="proClick:" destination="MdU-LF-Aau" eventType="touchUpInside" id="n1e-yI-V77"/>
+                                                                </connections>
                                                             </button>
                                                             <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ehb-QX-RNV">
                                                                 <rect key="frame" x="192" y="0.0" width="28" height="30"/>
@@ -3168,6 +3206,9 @@
                                                                     <constraint firstAttribute="height" constant="30" id="jVS-Iy-cAv"/>
                                                                 </constraints>
                                                                 <state key="normal" image="icStar0"/>
+                                                                <connections>
+                                                                    <action selector="proClick:" destination="MdU-LF-Aau" eventType="touchUpInside" id="arj-Px-eTk"/>
+                                                                </connections>
                                                             </button>
                                                             <button opaque="NO" tag="4" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rlc-o4-DSK">
                                                                 <rect key="frame" x="256" y="0.0" width="28" height="30"/>
@@ -3176,6 +3217,9 @@
                                                                     <constraint firstAttribute="width" constant="28" id="vaN-ua-SES"/>
                                                                 </constraints>
                                                                 <state key="normal" image="icStar0"/>
+                                                                <connections>
+                                                                    <action selector="proClick:" destination="MdU-LF-Aau" eventType="touchUpInside" id="bES-E6-ufb"/>
+                                                                </connections>
                                                             </button>
                                                         </subviews>
                                                         <constraints>
@@ -3229,6 +3273,9 @@
                                                                     <constraint firstAttribute="width" constant="28" id="K2T-xq-Nuo"/>
                                                                 </constraints>
                                                                 <state key="normal" image="icStar0"/>
+                                                                <connections>
+                                                                    <action selector="hardClick:" destination="MdU-LF-Aau" eventType="touchUpInside" id="nN7-eW-ZHG"/>
+                                                                </connections>
                                                             </button>
                                                             <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vjB-fm-HNf">
                                                                 <rect key="frame" x="64" y="0.0" width="28" height="30"/>
@@ -3237,6 +3284,9 @@
                                                                     <constraint firstAttribute="width" constant="28" id="UT6-hW-82E"/>
                                                                 </constraints>
                                                                 <state key="normal" image="icStar0"/>
+                                                                <connections>
+                                                                    <action selector="hardClick:" destination="MdU-LF-Aau" eventType="touchUpInside" id="egO-bR-3KA"/>
+                                                                </connections>
                                                             </button>
                                                             <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KRJ-3C-E6l">
                                                                 <rect key="frame" x="128" y="0.0" width="28" height="30"/>
@@ -3245,6 +3295,9 @@
                                                                     <constraint firstAttribute="width" constant="28" id="WHA-lf-wIX"/>
                                                                 </constraints>
                                                                 <state key="normal" image="icStar0"/>
+                                                                <connections>
+                                                                    <action selector="hardClick:" destination="MdU-LF-Aau" eventType="touchUpInside" id="jr4-Tx-R5a"/>
+                                                                </connections>
                                                             </button>
                                                             <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9au-fG-hyo">
                                                                 <rect key="frame" x="192" y="0.0" width="28" height="30"/>
@@ -3253,6 +3306,9 @@
                                                                     <constraint firstAttribute="height" constant="30" id="o8E-CU-nhr"/>
                                                                 </constraints>
                                                                 <state key="normal" image="icStar0"/>
+                                                                <connections>
+                                                                    <action selector="hardClick:" destination="MdU-LF-Aau" eventType="touchUpInside" id="Qan-4j-zY0"/>
+                                                                </connections>
                                                             </button>
                                                             <button opaque="NO" tag="4" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9SQ-VU-Gc7">
                                                                 <rect key="frame" x="256" y="0.0" width="28" height="30"/>
@@ -3261,6 +3317,9 @@
                                                                     <constraint firstAttribute="height" constant="30" id="9i8-N9-bz8"/>
                                                                 </constraints>
                                                                 <state key="normal" image="icStar0"/>
+                                                                <connections>
+                                                                    <action selector="hardClick:" destination="MdU-LF-Aau" eventType="touchUpInside" id="bS5-hP-v9t"/>
+                                                                </connections>
                                                             </button>
                                                         </subviews>
                                                         <constraints>
@@ -3314,6 +3373,9 @@
                                                                     <constraint firstAttribute="height" constant="30" id="LgX-hI-yb5"/>
                                                                 </constraints>
                                                                 <state key="normal" image="icStar0"/>
+                                                                <connections>
+                                                                    <action selector="friendClick:" destination="MdU-LF-Aau" eventType="touchUpInside" id="w3N-eW-gQw"/>
+                                                                </connections>
                                                             </button>
                                                             <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XIA-oj-TRA">
                                                                 <rect key="frame" x="64" y="0.0" width="28" height="30"/>
@@ -3322,6 +3384,9 @@
                                                                     <constraint firstAttribute="width" constant="28" id="vZR-cA-BVE"/>
                                                                 </constraints>
                                                                 <state key="normal" image="icStar0"/>
+                                                                <connections>
+                                                                    <action selector="friendClick:" destination="MdU-LF-Aau" eventType="touchUpInside" id="79m-6P-8n4"/>
+                                                                </connections>
                                                             </button>
                                                             <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kCO-lS-g9l">
                                                                 <rect key="frame" x="128" y="0.0" width="28" height="30"/>
@@ -3330,6 +3395,9 @@
                                                                     <constraint firstAttribute="width" constant="28" id="WRQ-02-CcC"/>
                                                                 </constraints>
                                                                 <state key="normal" image="icStar0"/>
+                                                                <connections>
+                                                                    <action selector="friendClick:" destination="MdU-LF-Aau" eventType="touchUpInside" id="wsD-Rg-uzd"/>
+                                                                </connections>
                                                             </button>
                                                             <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="D5j-eB-suo">
                                                                 <rect key="frame" x="192" y="0.0" width="28" height="30"/>
@@ -3338,6 +3406,9 @@
                                                                     <constraint firstAttribute="width" constant="28" id="hxA-33-Vgh"/>
                                                                 </constraints>
                                                                 <state key="normal" image="icStar0"/>
+                                                                <connections>
+                                                                    <action selector="friendClick:" destination="MdU-LF-Aau" eventType="touchUpInside" id="dun-j8-ecv"/>
+                                                                </connections>
                                                             </button>
                                                             <button opaque="NO" tag="4" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yVF-xT-q8l">
                                                                 <rect key="frame" x="256" y="0.0" width="28" height="30"/>
@@ -3346,6 +3417,9 @@
                                                                     <constraint firstAttribute="width" constant="28" id="z6q-CH-MZS"/>
                                                                 </constraints>
                                                                 <state key="normal" image="icStar0"/>
+                                                                <connections>
+                                                                    <action selector="friendClick:" destination="MdU-LF-Aau" eventType="touchUpInside" id="fit-rW-K5G"/>
+                                                                </connections>
                                                             </button>
                                                         </subviews>
                                                         <constraints>
@@ -3823,14 +3897,46 @@
                         <viewLayoutGuide key="safeArea" id="8Xg-fz-PRC"/>
                     </view>
                     <connections>
+                        <outlet property="advantageBlackLabel" destination="Bqu-Cc-65L" id="Vzl-y1-jj8"/>
+                        <outlet property="advantageTextView" destination="lYF-k8-BNR" id="l7Q-t2-Rjj"/>
                         <outlet property="clubNameTextField" destination="uNH-iJ-4gp" id="Q1a-KI-7xq"/>
+                        <outlet property="disadvantageBlackLabel" destination="J3Z-Y5-AO2" id="ZV2-A9-gDC"/>
+                        <outlet property="disadvantageTextView" destination="21d-lt-VCF" id="gRg-f4-jN8"/>
                         <outlet property="endDateLabel" destination="SXI-l6-1rT" id="8zo-f5-QZ1"/>
+                        <outlet property="honeyBlackLabel" destination="a8P-f5-Es4" id="lKo-Sq-Hhb"/>
+                        <outlet property="honeyTextView" destination="M1B-C6-De4" id="08U-fJ-fGR"/>
                         <outlet property="localButton" destination="kzL-x3-MGM" id="wap-t2-OiW"/>
+                        <outlet property="oneLineTextField" destination="Pwz-FG-PCm" id="Vjk-ms-5NQ"/>
                         <outlet property="scrollView" destination="ty3-ip-wtU" id="5Sg-vW-5ZV"/>
                         <outlet property="startDateLabel" destination="xq8-Ht-jVL" id="gYk-7k-rmb"/>
                         <outlet property="univOrLoaclImgView" destination="SrK-wS-NUk" id="OQH-yc-7Y8"/>
                         <outlet property="univOrLocalLabel" destination="rpA-da-Cbu" id="mVf-jF-RCO"/>
                         <outlet property="univOrLocalTextField" destination="wax-2k-EeH" id="spd-N8-q9n"/>
+                        <outletCollection property="recommendButtons" destination="0k6-o8-cLB" collectionClass="NSMutableArray" id="Gzs-Mq-GXJ"/>
+                        <outletCollection property="recommendButtons" destination="R5Q-Up-T3o" collectionClass="NSMutableArray" id="9zl-1b-kU8"/>
+                        <outletCollection property="recommendButtons" destination="3Rq-sP-YYM" collectionClass="NSMutableArray" id="bQh-Le-e23"/>
+                        <outletCollection property="recommendButtons" destination="VJ4-tR-lKT" collectionClass="NSMutableArray" id="blH-rs-Yhg"/>
+                        <outletCollection property="recommendButtons" destination="WsB-gr-KDq" collectionClass="NSMutableArray" id="dW1-39-qKW"/>
+                        <outletCollection property="funButtons" destination="987-FD-hUJ" collectionClass="NSMutableArray" id="xCJ-dq-Nsd"/>
+                        <outletCollection property="funButtons" destination="GLa-Wc-VMP" collectionClass="NSMutableArray" id="SZD-JY-uQo"/>
+                        <outletCollection property="funButtons" destination="tDH-LD-6td" collectionClass="NSMutableArray" id="0gw-D1-mJn"/>
+                        <outletCollection property="funButtons" destination="vx1-c4-uzf" collectionClass="NSMutableArray" id="fVt-2a-kyJ"/>
+                        <outletCollection property="funButtons" destination="b8V-Wu-8jl" collectionClass="NSMutableArray" id="LQ2-he-Vgs"/>
+                        <outletCollection property="proButtons" destination="jJr-44-k6N" collectionClass="NSMutableArray" id="wGt-CM-xJs"/>
+                        <outletCollection property="proButtons" destination="yOb-X4-aW9" collectionClass="NSMutableArray" id="JFe-hs-73O"/>
+                        <outletCollection property="proButtons" destination="vio-nO-r7y" collectionClass="NSMutableArray" id="6ky-Em-Mg5"/>
+                        <outletCollection property="proButtons" destination="Ehb-QX-RNV" collectionClass="NSMutableArray" id="pyz-BB-m5s"/>
+                        <outletCollection property="proButtons" destination="rlc-o4-DSK" collectionClass="NSMutableArray" id="P8M-mi-jfZ"/>
+                        <outletCollection property="hardButtons" destination="h1p-qI-sc5" collectionClass="NSMutableArray" id="AOr-aU-1bY"/>
+                        <outletCollection property="hardButtons" destination="vjB-fm-HNf" collectionClass="NSMutableArray" id="9Tj-Bm-XVe"/>
+                        <outletCollection property="hardButtons" destination="KRJ-3C-E6l" collectionClass="NSMutableArray" id="5Hj-rl-5ss"/>
+                        <outletCollection property="hardButtons" destination="9au-fG-hyo" collectionClass="NSMutableArray" id="BMO-vF-Kur"/>
+                        <outletCollection property="hardButtons" destination="9SQ-VU-Gc7" collectionClass="NSMutableArray" id="tuy-DD-XR8"/>
+                        <outletCollection property="friendButtons" destination="kva-Za-SHj" collectionClass="NSMutableArray" id="tuI-fp-yhY"/>
+                        <outletCollection property="friendButtons" destination="XIA-oj-TRA" collectionClass="NSMutableArray" id="19g-xP-0zK"/>
+                        <outletCollection property="friendButtons" destination="kCO-lS-g9l" collectionClass="NSMutableArray" id="i6D-PJ-CGW"/>
+                        <outletCollection property="friendButtons" destination="D5j-eB-suo" collectionClass="NSMutableArray" id="cSL-Vh-IqD"/>
+                        <outletCollection property="friendButtons" destination="yVF-xT-q8l" collectionClass="NSMutableArray" id="Kmt-EC-kqJ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="FdF-wc-3rV" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

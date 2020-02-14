@@ -56,7 +56,7 @@ class SimpleReviewViewController: UIViewController, UITextViewDelegate, UITextFi
             .asDriver()
             .distinctUntilChanged()
             .drive(onNext: { [weak self] text in
-               
+                
                 self?.advantageBlackLabel.isHidden = text.count == 0 ? false : true
                 self?.simpleReviewViewModel.advantageObservable.accept(text)
                 
@@ -64,41 +64,41 @@ class SimpleReviewViewController: UIViewController, UITextViewDelegate, UITextFi
             .disposed(by: disposeBag)
         
         disadvantageTextView
-        .rx
-        .text
-        .orEmpty
-        .asDriver()
-        .distinctUntilChanged()
-        .drive(onNext: { [weak self] text in
-           
-            self?.disadvantageBlackLabel.isHidden = text.count == 0 ? false : true
-            self?.simpleReviewViewModel.disadvantageObservable.accept(text)
-            
-        })
-        .disposed(by: disposeBag)
+            .rx
+            .text
+            .orEmpty
+            .asDriver()
+            .distinctUntilChanged()
+            .drive(onNext: { [weak self] text in
+                
+                self?.disadvantageBlackLabel.isHidden = text.count == 0 ? false : true
+                self?.simpleReviewViewModel.disadvantageObservable.accept(text)
+                
+            })
+            .disposed(by: disposeBag)
         
         honeyTextView
-        .rx
-        .text
-        .orEmpty
-        .asDriver()
-        .distinctUntilChanged()
-        .drive(onNext: { [weak self] text in
-           
-            self?.honeyBlackLabel.isHidden = text.count == 0 ? false : true
-            self?.simpleReviewViewModel.honeyObservable.accept(text)
-            
-        })
-        .disposed(by: disposeBag)
+            .rx
+            .text
+            .orEmpty
+            .asDriver()
+            .distinctUntilChanged()
+            .drive(onNext: { [weak self] text in
+                
+                self?.honeyBlackLabel.isHidden = text.count == 0 ? false : true
+                self?.simpleReviewViewModel.honeyObservable.accept(text)
+                
+            })
+            .disposed(by: disposeBag)
         
         oneLineTextField
-        .rx
-        .text
-        .orEmpty
-        .asDriver()
-        .distinctUntilChanged()
-        .drive(simpleReviewViewModel.oneLineObservable)
-        .disposed(by: disposeBag)
+            .rx
+            .text
+            .orEmpty
+            .asDriver()
+            .distinctUntilChanged()
+            .drive(simpleReviewViewModel.oneLineObservable)
+            .disposed(by: disposeBag)
         
         simpleReviewViewModel.submitButtonEnableObservable
             .subscribe(onNext: { [weak self] bool in
