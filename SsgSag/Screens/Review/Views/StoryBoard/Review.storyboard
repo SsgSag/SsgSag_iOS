@@ -228,7 +228,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="평점 4.0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Tbs-7S-i0Y">
-                                                    <rect key="frame" x="161" y="99.666666666666671" width="27.333333333333343" height="9"/>
+                                                    <rect key="frame" x="161" y="95.666666666666671" width="27.333333333333343" height="9"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="9" id="3zV-4c-vQ9"/>
                                                     </constraints>
@@ -237,7 +237,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="후기 23개" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qbZ-ht-w7F">
-                                                    <rect key="frame" x="278" y="97" width="49" height="12"/>
+                                                    <rect key="frame" x="278" y="93" width="49" height="12"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="49" id="bLO-JA-gAb"/>
                                                     </constraints>
@@ -246,14 +246,14 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="small4" translatesAutoresizingMaskIntoConstraints="NO" id="cxg-f5-1ae">
-                                                    <rect key="frame" x="331" y="93" width="20" height="20"/>
+                                                    <rect key="frame" x="331" y="89" width="20" height="20"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="20" id="8Pr-dQ-gee"/>
                                                         <constraint firstAttribute="height" constant="20" id="mLI-gj-T66"/>
                                                     </constraints>
                                                 </imageView>
                                                 <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" alignment="center" spacing="7" translatesAutoresizingMaskIntoConstraints="NO" id="9P0-Jj-DLw">
-                                                    <rect key="frame" x="24" y="92" width="128" height="22"/>
+                                                    <rect key="frame" x="24" y="88" width="128" height="22"/>
                                                     <subviews>
                                                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="star0" translatesAutoresizingMaskIntoConstraints="NO" id="EGk-mR-jev">
                                                             <rect key="frame" x="0.0" y="0.0" width="20" height="22"/>
@@ -383,7 +383,7 @@
                                                 <constraint firstItem="cxg-f5-1ae" firstAttribute="leading" secondItem="qbZ-ht-w7F" secondAttribute="trailing" constant="4" id="ZJY-Jf-rAx"/>
                                                 <constraint firstAttribute="bottom" secondItem="evR-Aj-5ll" secondAttribute="bottom" id="caY-oU-WeR"/>
                                                 <constraint firstItem="fBb-DY-ZUy" firstAttribute="top" secondItem="yJr-gM-xW3" secondAttribute="top" id="ha2-QV-p98"/>
-                                                <constraint firstItem="9P0-Jj-DLw" firstAttribute="top" secondItem="QxS-vX-lIb" secondAttribute="bottom" constant="16" id="knc-T9-lZA"/>
+                                                <constraint firstItem="9P0-Jj-DLw" firstAttribute="top" secondItem="QxS-vX-lIb" secondAttribute="bottom" constant="12" id="knc-T9-lZA"/>
                                                 <constraint firstAttribute="trailing" secondItem="fBb-DY-ZUy" secondAttribute="trailing" id="moY-mK-LDN"/>
                                                 <constraint firstItem="JVb-ug-dm8" firstAttribute="top" secondItem="rVs-Ua-g2B" secondAttribute="bottom" constant="5" id="n3N-Op-qSI"/>
                                                 <constraint firstItem="qbZ-ht-w7F" firstAttribute="centerY" secondItem="cxg-f5-1ae" secondAttribute="centerY" id="nki-gg-d9P"/>
@@ -3762,7 +3762,7 @@
                                     <constraint firstItem="ZJP-aE-hVy" firstAttribute="top" secondItem="ty3-ip-wtU" secondAttribute="top" id="bd1-Mb-ODF"/>
                                 </constraints>
                             </scrollView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="간단 평가" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HQ7-P3-xl6">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="후기 수정" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HQ7-P3-xl6">
                                 <rect key="frame" x="72.666666666666686" y="59" width="230" height="22"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="230" id="RIO-R8-dcv"/>
@@ -5666,7 +5666,7 @@
                                 <fontDescription key="fontDescription" name="AppleSDGothicNeo-SemiBold" family="Apple SD Gothic Neo" pointSize="17"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="top" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jNk-mS-t4z">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="top" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jNk-mS-t4z">
                                 <rect key="frame" x="0.0" y="729" width="375" height="83"/>
                                 <color key="backgroundColor" red="0.39607843139999999" green="0.43137254899999999" blue="0.94117647059999998" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <constraints>
@@ -6536,7 +6536,7 @@
                                 </constraints>
                                 <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
                                 <fontDescription key="fontDescription" name="AppleSDGothicNeo-SemiBold" family="Apple SD Gothic Neo" pointSize="15"/>
-                                <textInputTraits key="textInputTraits"/>
+                                <textInputTraits key="textInputTraits" keyboardType="phonePad"/>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="top" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XbQ-Xg-MFv">
                                 <rect key="frame" x="0.0" y="729" width="375" height="83"/>

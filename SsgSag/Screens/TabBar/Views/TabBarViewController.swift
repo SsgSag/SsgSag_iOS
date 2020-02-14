@@ -71,22 +71,22 @@ class TabBarViewController: UITabBarController {
         let reviewViewController = reviewStoryBoard.instantiateViewController(withIdentifier: "reviewVC")
         
         mainViewController.tabBarItem = UITabBarItem(title: "",
-                                                      image: UIImage(named: "icMain"),
-                                                      selectedImage: UIImage(named: "icMainActive"))
+                                                      image: UIImage(named: "icSsgsag"),
+                                                      selectedImage: UIImage(named: "icSsgsagActive"))
         
         feedViewController.tabBarItem = UITabBarItem(title: "",
-                                                     image: UIImage(named: "ic_feedPassive@tabBar"),
-                                                     selectedImage: UIImage(named: "ic_feed@tabBar"))
+                                                     image: UIImage(named: "icNews"),
+                                                     selectedImage: UIImage(named: "icNewsActive"))
         feedViewController.tabBarItem.accessibilityIdentifier = "feed"
         
         newCalendarViewController.tabBarItem = UITabBarItem(title: "",
-                                                            image: UIImage(named: "ic_calendarPassive"),
-                                                            selectedImage: UIImage(named: "ic_calendarActive"))
+                                                            image: UIImage(named: "icCalendar"),
+                                                            selectedImage: UIImage(named: "icCalendarActive"))
         newCalendarViewController.tabBarItem.accessibilityIdentifier = "calendar"
         
         reviewViewController.tabBarItem = UITabBarItem(title: "",
-                                                                   image: UIImage(named: "ic_calendarPassive"),
-                                                                   selectedImage: UIImage(named: "ic_calendarActive"))
+                                                                   image: UIImage(named: "icReview"),
+                                                                   selectedImage: UIImage(named: "icReviewActive"))
         
         let tabBarList = [feedViewController, mainViewController, newCalendarViewController, reviewViewController]
         

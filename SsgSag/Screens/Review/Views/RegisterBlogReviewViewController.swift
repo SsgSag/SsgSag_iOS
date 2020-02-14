@@ -30,4 +30,8 @@ class RegisterBlogReviewViewController: UIViewController {
     @IBAction func cancelClick(_ sender: Any) {
         self.dismiss(animated: true)
     }
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.view.endEditing(true)
+    }
 }

@@ -37,8 +37,8 @@ class MoreReviewViewController: UIViewController {
     }
     
     func setupDataWithType(type: ReviewType) {
+        titleLabel.text = "\(clubInfo.clubName)"
         if type == .SsgSag {
-            titleLabel.text = "\(clubInfo.clubName)"
             registerReviewButton.isHidden = false
             let nib = UINib(nibName: "SsgSagReviewTableViewCell", bundle: nil)
             tableView.register(nib, forCellReuseIdentifier: "SsgSagReviewCell")
@@ -53,7 +53,6 @@ class MoreReviewViewController: UIViewController {
             }
             
         } else {
-            titleLabel.text = "\(clubInfo.clubName) 블로그 후기"
             registerBlogButton.isHidden = false
             let nib = UINib(nibName: "BlogReviewTableViewCell", bundle: nil)
             tableView.register(nib, forCellReuseIdentifier: "BlogReviewCell")
