@@ -12,6 +12,7 @@ import RxCocoa
 
 class StarRatingViewController: UIViewController {
 
+    @IBOutlet weak var scrollViewBotLayout: NSLayoutConstraint!
     @IBOutlet weak var nextButton: UIButton!
     @IBOutlet weak var friendStack: UIStackView!
     @IBOutlet weak var hardDegreeStack: UIStackView!
@@ -26,24 +27,25 @@ class StarRatingViewController: UIViewController {
     let starRatingModel = StarRatingViewModel()
     let disposeBag = DisposeBag()
     
+    private var scrollAppearHeight: CGFloat = 180
     private var scrollAppear = false
-    
     override func viewDidLoad() {
         super.viewDidLoad()
-        UIView.animate(withDuration: 1) {
-            self.scrollView.transform = CGAffineTransform(scaleX: 1, y: 0)
-        }
         
         bind(viewModel: starRatingModel)
         setupRateCalculate()
         
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        self.view.layoutIfNeeded()
+        scrollViewBotLayout.constant = scrollView.frame.height - scrollAppearHeight
+    }
+    
     func scrollAppearAnim() {
-        
+       scrollViewBotLayout.constant = 0
         UIView.animate(withDuration: 0.3) {
-            self.scrollView.alpha = 1
-            self.scrollView.transform = .identity
+            self.view.layoutIfNeeded()
         }
         scrollAppear = true
     }
