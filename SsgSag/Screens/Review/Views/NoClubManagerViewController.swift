@@ -22,11 +22,20 @@ class NoClubManagerViewController: UIViewController {
         self.dismiss(animated: true)
     }
     
-    @IBAction func completeClick(_ sender: Any) {
-        guard let name = adminNameTextField.text else {return}
-        guard let phone = adminPhoneTextField.text else {return}
+    @IBAction func completeClick(_ sender: UIButton) {
+        
+        guard let name = adminNameTextField.text else { return }
+        guard let phone = adminPhoneTextField.text else { return }
+        
+        if name.count + phone.count == 0 {
+            self.simplerAlert(title: "빈칸을 확인해주세요.")
+            return
+        }
+        sender.isEnabled = false
+        
         service.requestNotMemberClubRegister(admin: 0, name: name, phone: phone) { isSuccess in
             isSuccess ? self.dismiss(animated: true) : self.simplerAlert(title: "전송중 오류가 발생하였습니다.")
+            sender.isEnabled = true
         }
     }
     

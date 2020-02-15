@@ -40,6 +40,9 @@ class StarRatingViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         self.view.layoutIfNeeded()
         scrollViewBotLayout.constant = scrollView.frame.height - scrollAppearHeight
+        scrollView.isScrollEnabled = false
+        scrollView.setContentOffset(.zero, animated: true)
+        
     }
     
     func scrollAppearAnim() {
@@ -48,6 +51,7 @@ class StarRatingViewController: UIViewController {
             self.view.layoutIfNeeded()
         }
         scrollAppear = true
+        scrollView.isScrollEnabled = true
     }
     
     func bind(viewModel: StarRatingViewModel) {

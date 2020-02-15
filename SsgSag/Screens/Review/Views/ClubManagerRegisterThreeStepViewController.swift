@@ -86,6 +86,7 @@ class ClubManagerRegisterThreeStepViewController: UIViewController {
                     nextVC.subText = "승인여부는 3일 내 이메일로 알려드릴게요."
                     self.navigationController?.pushViewController(nextVC, animated: true)
                 }
+                self.submitButton.isEnabled = true
             }
         } else {
             service.requestMemberClubRegister(admin: 1, dataModel: model) { isSuccess in
@@ -95,6 +96,7 @@ class ClubManagerRegisterThreeStepViewController: UIViewController {
                     nextVC.subText = "승인여부는 3일 내 이메일로 알려드릴게요."
                     self.navigationController?.pushViewController(nextVC, animated: true)
                 }
+                self.submitButton.isEnabled = true
             }
         }
     }

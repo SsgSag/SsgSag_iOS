@@ -133,13 +133,13 @@ class SimpleReviewViewController: UIViewController, UITextViewDelegate, UITextFi
         self.navigationController?.popViewController(animated: true)
     }
     
-    @IBAction func submitClick(_ sender: Any) {
+    @IBAction func submitClick(_ sender: UIButton) {
         
         if !simpleReviewViewModel.submitButtonEnableObservable.value {
             self.simpleAlert(title: "조건이 충족되지 않았습니다", message: "20자 이상 입력해주세요.")
             return
         }
-
+        sender.isEnabled = false
         indicator.startAnimating()
         clubactInfo.simpleReivewBind(model: simpleReviewViewModel)
         
@@ -160,9 +160,10 @@ class SimpleReviewViewController: UIViewController, UITextViewDelegate, UITextFi
                 } else {
                     DispatchQueue.main.async {
                         self.indicator.stopAnimating()
-                        self.simpleAlert(title: "전송 실패", message: "다시 시도해주세요.")
+                        self.simpleAlert(title: "전송 실패", message: "다시 시도해주세요.\n이미 리뷰를 쓰신적이 있다면 작성 할 수 없어요!")
                     }
                 }
+                sender.isEnabled = true
             }
         } else {
             
@@ -180,9 +181,10 @@ class SimpleReviewViewController: UIViewController, UITextViewDelegate, UITextFi
                 } else {
                     DispatchQueue.main.async {
                         self.indicator.stopAnimating()
-                        self.simpleAlert(title: "전송 실패", message: "다시 시도해주세요.")
+                        self.simpleAlert(title: "전송 실패", message: "다시 시도해주세요.\n이미 리뷰를 쓰신적이 있다면 작성 할 수 없어요!")
                     }
                 }
+                sender.isEnabled = true
             }
         }
         

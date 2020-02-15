@@ -87,7 +87,7 @@ class TabBarViewController: UITabBarController {
         reviewViewController.tabBarItem = UITabBarItem(title: "후기",
                                                                    image: UIImage(named: "icReview"),
                                                                    selectedImage: UIImage(named: "icReviewActive"))
-        
+        reviewViewController.tabBarItem.accessibilityIdentifier = "review"
         let tabBarList = [feedViewController, mainViewController, newCalendarViewController, reviewViewController]
         
         self.viewControllers = tabBarList
@@ -107,6 +107,14 @@ class TabBarViewController: UITabBarController {
 extension TabBarViewController: UITabBarControllerDelegate {
     func tabBarController(_ tabBarController: UITabBarController,
                           shouldSelect viewController: UIViewController) -> Bool {
+        if viewController.tabBarItem.accessibilityIdentifier == "review" {
+            if let isTryWithoutLogin = UserDefaults.standard.object(forKey: "isTryWithoutLogin") as? Bool {
+                if isTryWithoutLogin {
+                    simpleAlert(title: "후기", message: "로그인 후 이용해주세요")
+                    return false
+                }
+            }
+        }
         if tabBarController.selectedViewController == viewController {
             return false
         } else {
