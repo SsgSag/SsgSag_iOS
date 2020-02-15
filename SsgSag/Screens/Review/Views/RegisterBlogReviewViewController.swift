@@ -7,16 +7,36 @@
 //
 
 import UIKit
+import RxSwift
+import RxCocoa
 
 class RegisterBlogReviewViewController: UIViewController {
 
-    @IBOutlet weak var emailTextField: UITextField!
+    @IBOutlet weak var blogTextField: UITextField!
+    @IBOutlet weak var submitButton: UIButton!
+    
+    let disposeBag = DisposeBag()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
+        bind()
         //블로그 등록 통신코드
 
+    }
+    
+    func bind() {
+        blogTextField
+        .rx
+        .text
+        .orEmpty
+        .map{ $0.isEmpty }
+        .subscribe(onNext: { [weak self] isEmpty in
+            self?.submitButton.isEnabled = !isEmpty
+            self?.submitButton.backgroundColor = isEmpty ? .unselectedGray : .cornFlower
+        })
+        .disposed(by: disposeBag)
+        
     }
     
     @IBAction func sumbitClick(_ sender: Any) {

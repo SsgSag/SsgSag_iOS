@@ -9,6 +9,7 @@
 import UIKit
 import RxSwift
 import RxCocoa
+import SearchTextField
 
 class ClubManagerRegisterOneStepViewController: UIViewController {
 
@@ -20,13 +21,14 @@ class ClubManagerRegisterOneStepViewController: UIViewController {
     @IBOutlet weak var oneLineTextField: UITextField!
     @IBOutlet weak var univOrLocationImg: UIImageView!
     @IBOutlet weak var univOrLocationButton: UIButton!
-    @IBOutlet weak var univOrLocationTextField: UITextField!
+    @IBOutlet weak var univOrLocationTextField: SearchTextField!
     @IBOutlet weak var clubNameTextField: UITextField!
     
     var viewModel: ClubRegisterOneStepViewModel!
     var model: ClubRegisterModel!
     let disposeBag = DisposeBag()
     let textLengthMaximum = 20
+    var jsonResult: [[String: Any]] = [[:]]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -44,6 +46,47 @@ class ClubManagerRegisterOneStepViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         categoryTextField.text = viewModel.categoryObservable.value.last
+    }
+    
+    private func configureSimpleLocalUnivSearchTextField() {
+        univOrLocationTextField.startVisible = true
+        let universities = localUniversities()
+        univOrLocationTextField.filterStrings(universities)
+    }
+    
+    private func localUniversities() -> [String] {
+        guard let path = Bundle.main.path(forResource: "majorListByUniv",
+                                          ofType: "json") else {
+            return []
+        }
+        
+        do {
+            let jsonData = try Data(contentsOf: URL(fileURLWithPath: path),
+                                    options: .dataReadingMapped)
+            
+            guard let jsonResult
+                = try JSONSerialization.jsonObject(with: jsonData,
+                                                   options: .allowFragments)
+                    as? [[String: Any]] else {
+                        return []
+            }
+            
+            self.jsonResult = jsonResult
+            
+            var resultUnivNames: [String] = []
+            
+            jsonResult.forEach {
+                let univName = "\($0["학교명"]!)"
+                if !resultUnivNames.contains(univName) {
+                    resultUnivNames.append(univName)
+                }
+            }
+            
+            return resultUnivNames
+        } catch {
+            print("Error parsing jSON: \(error)")
+            return []
+        }
     }
     
     func bindInput(viewModel: ClubRegisterOneStepViewModel, type: ClubType) {
@@ -101,6 +144,7 @@ class ClubManagerRegisterOneStepViewController: UIViewController {
     func clubTypeSetting(clubType: ClubType) {
         if clubType == .School {
             univOrLocationLabel.text = "소속 학교"
+            configureSimpleLocalUnivSearchTextField()
         } else {
             univOrLocationLabel.text = "활동 지역"
             univOrLocationImg.isHidden = false

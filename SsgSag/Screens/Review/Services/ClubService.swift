@@ -16,9 +16,8 @@ class ClubService: ClubServiceProtocol {
     private let requestMaker: RequestMakerProtocol = RequestMaker()
     private let network: Network = NetworkImp()
     
-    //http://13.209.77.133:8082
     func requestClubList(curPage: Int, completion: @escaping (([ClubListData]?) -> Void)) {
-        let baseURL = "http://13.209.77.133:8082"
+        let baseURL = UserAPI.sharedInstance.getBaseString()
         let path = RequestURL.clubList(curPage: curPage).getRequestURL
         let url = baseURL + path
         let token = TokenName.tokenString
@@ -38,7 +37,6 @@ class ClubService: ClubServiceProtocol {
                     if object.status == 200 {
                         completion(object.data)
                     } else {
-                        print("ClubListErr: \(object.message ?? "")")
                         completion(nil)
                     }
                     

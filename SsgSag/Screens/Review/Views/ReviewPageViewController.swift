@@ -10,12 +10,13 @@ import UIKit
 
 class ReviewPageViewController: UIPageViewController, UIPageViewControllerDataSource, UIPageViewControllerDelegate {
     var pageDelegate: ReviewPageDelegate?
+    private var previousPageIndex = 0
+    private var curPageIndex = 0
     
     lazy var subViewControllers: [UIViewController] = {
         return [
-            UIStoryboard(name: "Review", bundle: nil).instantiateViewController(withIdentifier: "ClubListVC") as! ClubListViewController,
-            UIStoryboard(name: "Review", bundle: nil).instantiateViewController(withIdentifier: "ClubListVC") as! ClubListViewController,
-//            UIStoryboard(name: "3", bundle: nil).instantiateViewController(withIdentifier: "세번째페이지") as! ClubReviewViewController,
+            UIStoryboard(name: "Review", bundle: nil).instantiateViewController(withIdentifier: "ClubListVC") as! ClubSchoolListViewController,
+            UIStoryboard(name: "Review", bundle: nil).instantiateViewController(withIdentifier: "ClubUnionListVC") as! ClubUnionListViewController
         ]
     }()
     
@@ -46,10 +47,13 @@ class ReviewPageViewController: UIPageViewController, UIPageViewControllerDataSo
         // 페이지이동시 tab이동
         if completed {
             var index: Int!
-            if let curVC = pageViewController.viewControllers?.first as? ClubListViewController {
-                index = curVC.pageIndex
-            } 
-            pageDelegate?.setPageTabStatus(index: index)
+            if (pageViewController.viewControllers?.first as? ClubSchoolListViewController) != nil {
+                index = 0
+            } else if (pageViewController.viewControllers?.first as? ClubUnionListViewController) != nil {
+                index = 1
+            }
+            
+            pageDelegate?.setPageTabStatus(curIndex: index)
         }
         
     }

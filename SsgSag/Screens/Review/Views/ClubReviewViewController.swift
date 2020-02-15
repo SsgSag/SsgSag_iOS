@@ -143,9 +143,6 @@ class ClubReviewViewController: UIViewController {
     @objc func moreViewSelect(sender: UIButton) {
         self.reviewDataSet[sender.tag].onClick = true
         
-        
-//        let indexPath = IndexPath(row: sender.tag, section: 0)
-//        self.normalReviewTableView.reloadRows(at: [indexPath], with: .fade)
     }
     
     @IBAction func moreReviewClick(_ sender: UIButton) {

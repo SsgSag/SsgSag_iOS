@@ -9,5 +9,5 @@
 import Foundation
 
 protocol ReviewPageDelegate {
-    func setPageTabStatus(index: Int)
+    func setPageTabStatus(curIndex: Int)
 }

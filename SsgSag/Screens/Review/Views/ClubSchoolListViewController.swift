@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ClubListViewController: UIViewController {
+class ClubSchoolListViewController: UIViewController {
     @IBOutlet weak var reviewTableView: UITableView!
     var pageIndex = 0
     var curPage = 0
@@ -42,7 +42,8 @@ class ClubListViewController: UIViewController {
                 return
             }
             
-            data.forEach { self.cellData.append($0) }
+            data.filter{ $0.clubType == 1}
+                .forEach { self.cellData.append($0) }
             self.reviewTableView.reloadData()
         }
     }
