@@ -18,7 +18,6 @@ class MoreReviewViewController: UIViewController {
     @IBOutlet weak var registerReviewButton: UIButton!
     @IBOutlet weak var registerBlogButton: UIButton!
     @IBOutlet weak var reviewNumLabel: UILabel!
-    @IBOutlet weak var clubNameLabel: UILabel!
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var tableView: UITableView!
     var clubInfo: ClubInfo!
@@ -38,6 +37,7 @@ class MoreReviewViewController: UIViewController {
     
     func setupDataWithType(type: ReviewType) {
         titleLabel.text = "\(clubInfo.clubName)"
+        reviewNumLabel.text = "후기 총 \(clubInfo.scoreNum)개"
         if type == .SsgSag {
             registerReviewButton.isHidden = false
             let nib = UINib(nibName: "SsgSagReviewTableViewCell", bundle: nil)
@@ -59,10 +59,8 @@ class MoreReviewViewController: UIViewController {
         }
     }
     
-    //후기,블로그 등록타입구분
     //후기통신, 블로그통신
     //블로그/후기 쓰기버튼
-    //타이틀 바꾸기
     
     @IBAction func backClick(_ sender: Any) {
         self.navigationController?.popViewController(animated: true)
