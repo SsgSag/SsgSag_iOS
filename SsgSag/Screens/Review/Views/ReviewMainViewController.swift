@@ -80,11 +80,13 @@ class ReviewMainViewController: UIViewController {
     }
     
     func popUpPresent() {
-        if !UserDefaults.standard.bool(forKey: "isPopup") {
-            UserDefaults.standard.set(true, forKey: "isPopup")
-            guard let popupVC = self.storyboard?.instantiateViewController(withIdentifier: "mainPopUpVC") else {return}
-            self.present(popupVC, animated: true)
+        if UserDefaults.standard.bool(forKey: "isPopup") {
+            return
         }
+        
+        guard let popupVC = self.storyboard?.instantiateViewController(withIdentifier: "mainPopUpVC") else {return}
+        UserDefaults.standard.set(true, forKey: "isPopup")
+        self.present(popupVC, animated: true)
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
