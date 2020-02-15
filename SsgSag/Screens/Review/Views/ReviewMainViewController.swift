@@ -95,7 +95,7 @@ class ReviewMainViewController: UIViewController {
     @IBAction func searchButtoClickn(_ sender: Any) {
         
         guard let nextVC = self.storyboard?.instantiateViewController(withIdentifier: "ReviewSearch") as? ReviewSearchViewController else {return}
-        let type: ClubType = curIndex == 0 ? .Union : .School
+        let type: ClubType = curIndex == 1 ? .Union : .School
         nextVC.viewModel = ReviewSearchViewModel(clubType: type, service: ClubService())
         
         self.navigationController?.pushViewController(nextVC, animated: true)

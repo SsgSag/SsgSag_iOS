@@ -15,6 +15,7 @@ class ClubReviewViewController: UIViewController {
     var disposeBag: DisposeBag!
     var reviewDataSet: [ReviewCellInfo] = []
     
+    @IBOutlet weak var reviewCountLabel: UILabel!
     @IBOutlet weak var emptyBlogView: UIView!
     @IBOutlet weak var emptyReviewView: UIView!
     @IBOutlet weak var blogTableHeightLayout: NSLayoutConstraint!
@@ -55,6 +56,7 @@ class ClubReviewViewController: UIViewController {
     }
     
     func bind() {
+        self.reviewCountLabel.text = "\(tabViewModel.reviewCount)"
         self.tabViewModel.reviewDataSet
             .compactMap{ $0 }
         .observeOn(MainScheduler.instance)

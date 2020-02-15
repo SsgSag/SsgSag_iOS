@@ -11,6 +11,7 @@ import RxSwift
 import RxCocoa
 
 class ClubDetailViewModel {
+    var reviewCount = 0
     
     let tabPageObservable: BehaviorSubject<Int> = BehaviorSubject<Int>(value: 0)
     let tabFirstButtonStatus: BehaviorSubject<Bool> = BehaviorSubject<Bool>(value: true)
@@ -63,7 +64,7 @@ class ClubDetailViewModel {
     func bind() {
         clubInfoData.subscribe(onNext: { [weak self] object in
             guard let object = object else { return }
-            
+            self?.reviewCount = object.scoreNum
             self?.proObservable.accept(self?.changeScoreToString(score: object.aveScore1) ?? "F")
             self?.funObservable.accept(self?.changeScoreToString(score: object.aveScore2) ?? "F")
             self?.hardObservable.accept(self?.changeScoreToString(score: object.aveScore3) ?? "F")
