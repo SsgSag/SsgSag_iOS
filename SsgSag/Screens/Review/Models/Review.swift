@@ -10,7 +10,7 @@ import Foundation
 
 
 struct ReviewCellInfo {
-    let data: ReviewInfo!
+    var data: ReviewInfo!
     var onClick = false
 }
 
@@ -19,5 +19,5 @@ struct ReviewInfo: Codable {
     let clubStartDate, clubEndDate: String
     let score0, score1, score2, score3, score4: Int
     let oneLine, advantage, disadvantage, honeyTip, regDate: String
-    let userIdx, isMine, isLike, likeNum: Int
+    var userIdx, isMine, isLike, likeNum: Int
 }

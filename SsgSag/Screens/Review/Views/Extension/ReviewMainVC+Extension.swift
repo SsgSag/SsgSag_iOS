@@ -9,19 +9,7 @@
 import Foundation
 import UIKit
 
-extension ReviewMainViewController: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return self.tabTitle.count
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ReviewPageCell", for: indexPath) as! ReviewPageCollectionViewCell
-        
-        cell.tabLabel.text = self.tabTitle[indexPath.item].title
-        cell.onFocus = self.tabTitle[indexPath.item].onFocus
-        
-        return cell
-    }
+extension ReviewMainViewController: UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         
@@ -33,34 +21,10 @@ extension ReviewMainViewController: UICollectionViewDataSource, UICollectionView
     }
 }
 
-extension ReviewMainViewController: UICollectionViewDelegate {
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        
-//        클릭시 해당 인덱스의 페이지로 이동 아직 페이지 미구현이므로 주석처리하였습니다.
-//        let cell = collectionView.cellForItem(at: indexPath) as! ReviewPageCollectionViewCell
-//        self.tabTitle[indexPath.item].onFocus = true
-//        cell.onFocus = true
-//        self.focusIndex.onNext(indexPath.item)
-        guard indexPath.item != 0 else { return }
-        self.simplerAlert(title: "아직 준비중이에요!!")
-        
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
-
-//        클릭시 해당 인덱스의 페이지로 이동 아직 페이지 미구현이므로 주석처리하였습니다.
-//        let cell = collectionView.cellForItem(at: indexPath) as! ReviewPageCollectionViewCell
-//        self.tabTitle[indexPath.item].onFocus = false
-//        cell.onFocus = false
-    }
-    
-}
 //페이징시 이벤트
 extension ReviewMainViewController: ReviewPageDelegate {
-    func setPageTabStatus(index: Int) {
-        
-        self.tabCollectionView.deselectItem(at: IndexPath(item: index, section: 0), animated: false)
-        self.tabCollectionView.selectItem(at: IndexPath(item: index, section: 0), animated: false, scrollPosition: .left)
-        
+    func setPageTabStatus(curIndex: Int) {
+        self.focusIndex.onNext(curIndex)
     }
+    
 }

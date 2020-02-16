@@ -23,7 +23,7 @@ class TabBarViewController: UITabBarController {
             tabBarFrame.size.height = 80
             tabBarFrame.origin.y = self.view.frame.size.height - 75
         } else {
-            tabBarFrame.size.height = 50
+            tabBarFrame.size.height = 40
             tabBarFrame.origin.y = self.view.frame.size.height - 45
         }
         self.tabBar.frame = tabBarFrame
@@ -70,30 +70,31 @@ class TabBarViewController: UITabBarController {
         
         let reviewViewController = reviewStoryBoard.instantiateViewController(withIdentifier: "reviewVC")
         
-        mainViewController.tabBarItem = UITabBarItem(title: "",
-                                                      image: UIImage(named: "icMain"),
-                                                      selectedImage: UIImage(named: "icMainActive"))
+        mainViewController.tabBarItem = UITabBarItem(title: "슥삭",
+                                                      image: UIImage(named: "icSsgsag"),
+                                                      selectedImage: UIImage(named: "icSsgsagActive"))
         
-        feedViewController.tabBarItem = UITabBarItem(title: "",
-                                                     image: UIImage(named: "ic_feedPassive@tabBar"),
-                                                     selectedImage: UIImage(named: "ic_feed@tabBar"))
+        feedViewController.tabBarItem = UITabBarItem(title: "추천뉴스",
+                                                     image: UIImage(named: "icNews"),
+                                                     selectedImage: UIImage(named: "icNewsActive"))
         feedViewController.tabBarItem.accessibilityIdentifier = "feed"
         
-        newCalendarViewController.tabBarItem = UITabBarItem(title: "",
-                                                            image: UIImage(named: "ic_calendarPassive"),
-                                                            selectedImage: UIImage(named: "ic_calendarActive"))
+        newCalendarViewController.tabBarItem = UITabBarItem(title: "캘린더",
+                                                            image: UIImage(named: "icCalendar"),
+                                                            selectedImage: UIImage(named: "icCalendarActive"))
         newCalendarViewController.tabBarItem.accessibilityIdentifier = "calendar"
         
-        reviewViewController.tabBarItem = UITabBarItem(title: "",
-                                                                   image: UIImage(named: "ic_calendarPassive"),
-                                                                   selectedImage: UIImage(named: "ic_calendarActive"))
-        
+        reviewViewController.tabBarItem = UITabBarItem(title: "후기",
+                                                                   image: UIImage(named: "icReview"),
+                                                                   selectedImage: UIImage(named: "icReviewActive"))
+        reviewViewController.tabBarItem.accessibilityIdentifier = "review"
         let tabBarList = [feedViewController, mainViewController, newCalendarViewController, reviewViewController]
         
         self.viewControllers = tabBarList
     }
     
     private func setTabBarStyle() {
+        self.tabBar.tintColor = .cornFlower
         self.tabBar.barTintColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
         self.tabBar.layer.borderColor = UIColor.clear.cgColor
         self.tabBar.barStyle = .black
@@ -106,6 +107,14 @@ class TabBarViewController: UITabBarController {
 extension TabBarViewController: UITabBarControllerDelegate {
     func tabBarController(_ tabBarController: UITabBarController,
                           shouldSelect viewController: UIViewController) -> Bool {
+        if viewController.tabBarItem.accessibilityIdentifier == "review" {
+            if let isTryWithoutLogin = UserDefaults.standard.object(forKey: "isTryWithoutLogin") as? Bool {
+                if isTryWithoutLogin {
+                    simpleAlert(title: "후기", message: "로그인 후 이용해주세요")
+                    return false
+                }
+            }
+        }
         if tabBarController.selectedViewController == viewController {
             return false
         } else {

@@ -11,22 +11,22 @@ import UIKit
 
 extension ClubInfoViewController: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        if self.infoPhotoURLSet.count > 6 {
-            return 6
+        if self.imgSet.count > showPhotoMaximum {
+            return showPhotoMaximum
         }
         
-        return self.infoPhotoURLSet.count
+        return self.imgSet.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ClubPhotoCell", for: indexPath) as! ClubPhotoCollectionViewCell
+    
+        cell.imgString = self.imgSet[indexPath.item]
         
-        cell.imgString = self.infoPhotoURLSet[indexPath.item]
-        
-        let dataNum = self.infoPhotoURLSet.count
-        if indexPath.item == 5 && dataNum > 6 {
+        let dataNum = self.imgSet.count
+        if indexPath.item == showPhotoMaximum-1 && dataNum > showPhotoMaximum {
             
-            let gap = dataNum - 6
+            let gap = dataNum - showPhotoMaximum
             cell.morePhotoView(moreCount: gap)
         } else {
             cell.hideView()

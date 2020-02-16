@@ -10,6 +10,7 @@ import UIKit
 import SwiftKeychainWrapper
 //import AdBrixRM
 import FBSDKCoreKit
+import Adjust
 
 class SplashViewController: UIViewController {
 
@@ -30,11 +31,17 @@ class SplashViewController: UIViewController {
         // Do any additional setup after loading the view.
     }
     
+    private func eventLog() {
+        AppEvents.logEvent(AppEvents.Name("TUTORIALS_OPEN"))
+        let event = ADJEvent(eventToken: AdjustTokenName.TUTORIALS_OPEN.getTokenString)
+        Adjust.trackEvent(event)
+    }
+    
     @IBAction func touchUpLookAroundButton(_ sender: UIButton) {
         guard let UUID = KeychainWrapper.standard.string(forKey: "UUID") else {
             return
         }
-        AppEvents.logEvent(AppEvents.Name("EVENT_NAME_TUTORIALS_COMPLETED"))
+        eventLog()
         let userInfo: [String: Any]
             = ["uuid" : UUID,
                "signupType" : 11,

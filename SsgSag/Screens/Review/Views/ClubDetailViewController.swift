@@ -30,7 +30,7 @@ class ClubDetailViewController: UIViewController {
     var clubCategorySet: [String] = []
     var clubCategoryList = ""
     let tabString = ["정보", "후기"]
-    let tabViewModel = ClubDetailViewModel.shared
+    var tabViewModel: ClubDetailViewModel!
     var disposeBag: DisposeBag!
     var clubPageInstance: ClubPageViewController!
     var curPage = 0
@@ -42,25 +42,23 @@ class ClubDetailViewController: UIViewController {
         requestClubInfo()
     }
     
+    lazy var blackStar = UIImage(named: "icStar0")
+    lazy var fillStar = UIImage(named: "icStar2")
+    
+    override func viewWillAppear(_ animated: Bool) {
+         tabBarController?.tabBar.isHidden = false
+    }
+    
     func setupDefault() {
         self.categoryCollectionView.dataSource = self
         self.categoryCollectionView.delegate = self
         self.tabBarController?.tabBar.isHidden = true
         self.clubReviewButton.frame.size.width = self.view.frame.width/2
         self.clubInfoButton.frame.size.width = self.view.frame.width/2
-        self.view.layoutIfNeeded()
-        setupCategoryList()
-    }
-    
-    // 카테고리String 분리
-    func setupCategoryList() {
-        self.clubCategoryList = "연합,IT/공학,디자인,기획/전략"
-        self.clubCategorySet = clubCategoryList.removeComma()
-        self.categoryCollectionView.reloadData()
     }
     
     func bind() {
-        self.tabViewModel.tabPageObservable
+        tabViewModel.tabPageObservable
             .observeOn( MainScheduler.instance )
             .distinctUntilChanged()
             .subscribe(onNext: { [weak self] page in
@@ -79,7 +77,7 @@ class ClubDetailViewController: UIViewController {
             })
             .disposed(by: disposeBag)
         
-        self.tabViewModel.tabFirstButtonStatus
+        tabViewModel.tabFirstButtonStatus
             .observeOn( MainScheduler.instance )
             .distinctUntilChanged()
             .subscribe(onNext: { [weak self] b in
@@ -87,33 +85,82 @@ class ClubDetailViewController: UIViewController {
                 self?.clubReviewButton.isSelected = !b
                 
                 if b {
+                    self?.clubInfoButton.titleLabel?.font = UIFont.fontWithName(type: .semibold, size: 15)
+                    self?.clubReviewButton.titleLabel?.font = UIFont.fontWithName(type: .regular, size: 15)
                     self?.infoLineView.backgroundColor = #colorLiteral(red: 0.376783371, green: 0.4170111418, blue: 1, alpha: 1)
                     self?.reviewLineView.backgroundColor = #colorLiteral(red: 0.9333333333, green: 0.9333333333, blue: 0.9333333333, alpha: 1)
                     self?.tabViewModel.setPage(page: 0)
                 }else {
+                    self?.clubInfoButton.titleLabel?.font = UIFont.fontWithName(type: .regular, size: 15)
+                    self?.clubReviewButton.titleLabel?.font = UIFont.fontWithName(type: .semibold, size: 15)
                     self?.infoLineView.backgroundColor = #colorLiteral(red: 0.9333333333, green: 0.9333333333, blue: 0.9333333333, alpha: 1)
                     self?.reviewLineView.backgroundColor = #colorLiteral(red: 0.376783371, green: 0.4170111418, blue: 1, alpha: 1)
                     self?.tabViewModel.setPage(page: 1)
                 }
             })
             .disposed(by: disposeBag)
+        
+        tabViewModel.proObservable
+            .subscribe(onNext: { [weak self] scoreText in
+                self?.proDegreeLabel.text = scoreText
+            })
+        .disposed(by: disposeBag)
+        
+        tabViewModel.funObservable
+            .subscribe(onNext: { [weak self] scoreText in
+                self?.funDegreeLabel.text = scoreText
+            })
+        .disposed(by: disposeBag)
+        
+        tabViewModel.hardObservable
+            .subscribe(onNext: { [weak self] scoreText in
+                self?.hardDegreeLabel.text = scoreText
+            })
+        .disposed(by: disposeBag)
+        
+        tabViewModel.friendObservable
+            .subscribe(onNext: { [weak self] scoreText in
+                self?.friendDegreeLabel.text = scoreText
+            })
+        .disposed(by: disposeBag)
+        
+        tabViewModel.recommendObservable
+            .subscribe(onNext: { [weak self] scoreNum in
+                self?.scoreLabel.text = "평점 \(scoreNum)"
+                var score = scoreNum
+                if let starImgs = self?.starStackView.subviews as? [UIImageView ] {
+                    
+                    starImgs.forEach{ score -= 1
+                        if score < 0 {
+                            ///수정하기
+                            $0.image = self?.blackStar
+                        } else{
+                            $0.image = self?.fillStar
+                        }
+                        
+                        
+                    }
+                }
+            })
+        .disposed(by: disposeBag)
+    
     }
     
     func requestClubInfo() {
-        DispatchQueue.global().async {
-            ClubService.shared.requestClubInfo(clubIdx: self.clubIdx) { data in
-                guard data != nil else {return}
-                
-                /*
-                 평점
-                 성격정도 바인딩하기
-                 */
-                
-                self.tabViewModel.setData(data: data!)
-            }
+        
+        ClubService().requestClubInfo(clubIdx: self.clubIdx) { data in
+            guard let data = data else {return}
+            
+            self.titleLabel.text = data.clubName
+            self.oneLineLabel.text = data.oneLine
+            self.scoreCountLabel.text = "평점(\(data.score0sum)개)"
+            self.scoreLabel.text = "(\(data.aveScore0)/5.0)"
+            self.clubCategorySet = data.categoryList.removeComma()
+            self.tabViewModel.setData(data: data)
+            self.categoryCollectionView.reloadData()
         }
     }
-        
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "DetailPageSegue" {
             self.clubPageInstance = segue.destination as? ClubPageViewController
@@ -122,7 +169,21 @@ class ClubDetailViewController: UIViewController {
     }
     
     @IBAction func reviewWrite(_ sender: Any) {
+        guard let navigationVC = self.storyboard?.instantiateViewController(withIdentifier: "ReviewPrepareVC") as? UINavigationController else {return}
+        guard let nextVC = navigationVC.topViewController as? ReviewPrepareViewController else {return}
+        guard let clubInfo = try? tabViewModel.clubInfoData.value() else {return}
+        let type: ClubType = clubInfo.clubType == 0 ? .Union : .School
+        let clubactInfo = ClubActInfoModel(clubType: type)
+        nextVC.isExistClub = true
+        clubactInfo.isExistClub = true
+        clubactInfo.clubName = clubInfo.clubName
+        clubactInfo.clubIdx = clubInfo.clubIdx
+        let location = clubInfo.univOrLocation
+        clubactInfo.location.accept(location)
         
+        nextVC.clubactInfo = clubactInfo
+        
+        self.present(navigationVC, animated: true)
     }
     
     @IBAction func backClick(_ sender: Any) {
@@ -137,6 +198,10 @@ class ClubDetailViewController: UIViewController {
         self.tabViewModel.tabFirstButtonStatus.onNext(true)
     }
     
+    @IBAction func popupClick(_ sender: Any) {
+        guard let nextVC = self.storyboard?.instantiateViewController(withIdentifier: "ReviewScorePopUpVC") else {return}
+        self.present(nextVC, animated: true)
+    }
     deinit {
         print("memory - detail 종료")
     }

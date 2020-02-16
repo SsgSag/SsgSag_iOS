@@ -12,10 +12,11 @@ class ClubPageViewController: UIPageViewController, UIPageViewControllerDataSour
     var tabViewModel: ClubDetailViewModel?
     
     lazy var subViewControllers: [UIViewController] = {
-        return [
-            UIStoryboard(name: "Review", bundle: nil).instantiateViewController(withIdentifier: "ClubInfoVC") as! ClubInfoViewController ,
-            UIStoryboard(name: "Review", bundle: nil).instantiateViewController(withIdentifier: "ClubReviewVC") as! ClubReviewViewController
-        ]
+        let infoVC = UIStoryboard(name: "Review", bundle: nil).instantiateViewController(withIdentifier: "ClubInfoVC") as! ClubInfoViewController
+        infoVC.tabViewModel = self.tabViewModel
+        let reviewVC = UIStoryboard(name: "Review", bundle: nil).instantiateViewController(withIdentifier: "ClubReviewVC") as! ClubReviewViewController
+        reviewVC.tabViewModel = self.tabViewModel
+        return [ infoVC ,reviewVC ]
     }()
     
     // 이전페이지

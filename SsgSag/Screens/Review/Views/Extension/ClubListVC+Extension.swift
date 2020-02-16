@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 
 // MARK: - TableDataSource
-extension ClubListViewController: UITableViewDataSource {
+extension ClubSchoolListViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
         return cellData.count
@@ -27,7 +27,7 @@ extension ClubListViewController: UITableViewDataSource {
 }
 
 // MARK: - Table Delegate
-extension ClubListViewController: UITableViewDelegate {
+extension ClubSchoolListViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         
         if indexPath.row == self.cellData.count-1 {
@@ -38,10 +38,11 @@ extension ClubListViewController: UITableViewDelegate {
 }
 
 // MARK: - Extension
-extension ClubListViewController: ClubListSelectDelgate {
+extension ClubSchoolListViewController: ClubListSelectDelgate {
     func clubDetailClick(clubIdx: Int) {
           let nextVC = UIStoryboard(name: "Review", bundle: nil).instantiateViewController(withIdentifier: "ClubDetailVC") as! ClubDetailViewController
               nextVC.clubIdx = clubIdx
+        nextVC.tabViewModel = ClubDetailViewModel()
         self.navigationController?.pushViewController(nextVC, animated: true)
     }
 }

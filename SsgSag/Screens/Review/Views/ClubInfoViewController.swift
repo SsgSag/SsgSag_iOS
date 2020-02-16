@@ -8,9 +8,11 @@
 
 import UIKit
 import RxSwift
+import Kingfisher
 
 class ClubInfoViewController: UIViewController {
 
+    @IBOutlet weak var emptyClubInfoView: UIView!
     @IBOutlet weak var introduceLabel: UILabel!
     @IBOutlet weak var webSiteLabel: UILabel!
     @IBOutlet weak var feeLabel: UILabel!
@@ -18,43 +20,50 @@ class ClubInfoViewController: UIViewController {
     @IBOutlet weak var activeNumLabel: UILabel!
     @IBOutlet weak var homePageLabel: UILabel!
     @IBOutlet weak var photoCollectionView: UICollectionView!
-    var infoPhotoURLSet: [String] = []
-    let tabViewModel = ClubDetailViewModel.shared
+    var imgSet: [String] = []
+    var tabViewModel: ClubDetailViewModel!
     var disposeBag: DisposeBag!
     let indicator = UIActivityIndicatorView()
+    let showPhotoMaximum = 6
+    var clubIdx = -1
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
         self.photoCollectionView.dataSource = self
         self.photoCollectionView.delegate = self
         labelGestureAdd()
         disposeBag = DisposeBag()
-        bind()
         setIndicatorView()
+        bind()
+        
     }
     
     func bind() {
         self.tabViewModel.clubInfoData
-        .filter { $0 != nil }
-        .map { $0 }
-        .observeOn(MainScheduler.instance)
-        .subscribe(onNext: { [weak self] data in
-            guard data != nil else { return }
-            self?.activeNumLabel.text = data!.activeNum
-            self?.meetingLabel.text = data!.meetingTime
-            self?.feeLabel.text = data!.clubFee
-            self?.webSiteLabel.text = data!.clubWebsite
-            self?.introduceLabel.text = data!.introduce
-            self?.infoPhotoURLSet = data!.clubPhotoUrlList.removeComma()
+            .compactMap{ $0 }
+            .observeOn(MainScheduler.instance)
+            .subscribe(onNext: { [weak self] data in
             
-            DispatchQueue.main.async {
+                guard !(data.activeNum == "") else {
+                    self?.emptyClubInfoView.isHidden = false
+                    self?.indicator.stopAnimating()
+                    return
+                }
+                self?.clubIdx = data.clubIdx
+                self?.activeNumLabel.text = data.activeNum
+                self?.meetingLabel.text = data.meetingTime
+                self?.feeLabel.text = data.clubFee
+                self?.webSiteLabel.text = data.clubWebsite
+                self?.introduceLabel.text = data.introduce
+                
+                self?.imgSet = data.clubPhotoUrlList.removeComma()
                 self?.photoCollectionView.reloadData()
                 self?.view.layoutIfNeeded()
-            }
-            self?.indicator.stopAnimating()
-        })
-        .disposed(by: disposeBag)
+                
+                self?.indicator.stopAnimating()
+                
+            })
+            .disposed(by: disposeBag)
     }
     
     func setIndicatorView() {
@@ -73,12 +82,26 @@ class ClubInfoViewController: UIViewController {
 
     @objc func openURL() {
         guard let urlString = self.homePageLabel.text else { return }
-        let url = URL(string: urlString)!
+        guard let url = URL(string: urlString) else {
+            self.simplerAlert(title: "잘못된 주소입니다.")
+            return
+        }
         UIApplication.shared.open(url, options: [:], completionHandler: nil)
         
     }
     
+    @IBAction func registerClubInfo(_ sender: Any) {
+        performSegue(withIdentifier: "SelectClubManagerSegue", sender: self)
+    }
+    
     deinit {
         print("memory - info 종료")
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        guard let navigationVC = segue.destination as? UINavigationController else {return}
+        guard let nextVC = navigationVC.topViewController as? SelectClubManagerViewController else {return}
+        nextVC.isReviewExist = true
+        nextVC.clubIdx = clubIdx
     }
 }

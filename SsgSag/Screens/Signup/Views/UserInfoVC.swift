@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import FBSDKCoreKit
+import Adjust
 
 class UserInfoVC: UIViewController {
     
@@ -57,6 +59,9 @@ class UserInfoVC: UIViewController {
         setDelegate()
         
         setViewWithTag()
+        
+        eventLog()
+        
     }
     
     private func iniGestureRecognizer() {
@@ -96,6 +101,12 @@ class UserInfoVC: UIViewController {
         emailTextField.tag = 1
         passwordTextField.tag = 2
         passwordCheckTextField.tag = 3
+    }
+    
+    private func eventLog() {
+        AppEvents.logEvent(AppEvents.Name("REGISTRATION_OPEN"))
+        let event = ADJEvent(eventToken: AdjustTokenName.REGISTRATION_OPEN.getTokenString)
+        Adjust.trackEvent(event)
     }
     
     // validate an email for the right format

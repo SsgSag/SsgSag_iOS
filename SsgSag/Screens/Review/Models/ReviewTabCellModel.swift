@@ -8,7 +8,12 @@
 
 import Foundation
 
-struct ReviewTabCellModel {
+class ReviewTabCellModel {
     var title: String
     var onFocus: Bool
+    
+    init(title: String, onFocus: Bool) {
+        self.title = title
+        self.onFocus = onFocus
+    }
 }

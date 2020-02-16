@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Kingfisher
 
 class ClubPhotoCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var imgView: UIImageView!
@@ -14,15 +15,8 @@ class ClubPhotoCollectionViewCell: UICollectionViewCell {
     let label = UILabel()
     var imgString: String! {
         willSet {
-            DispatchQueue.main.async {
-                do {
-                    let imgURL = URL(string: newValue)!
-                    let imgData = try Data(contentsOf: imgURL)
-                    self.imgView.image = UIImage(data: imgData)
-                } catch(let err) {
-                    print(err.localizedDescription)
-                }
-            }
+            let imgURL = URL(string: newValue)
+            self.imgView.kf.setImage(with: imgURL, options: [.transition(.fade(1)), .cacheOriginalImage])
         }
     }
     
