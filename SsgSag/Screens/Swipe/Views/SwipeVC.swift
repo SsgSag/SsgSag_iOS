@@ -11,21 +11,7 @@ class SwipeVC: UIViewController {
     let myFilterService = MyFilterApiServiceImp()
     let userInfoService = UserInfoServiceImp()
     
-    private let completeStackView: UIStackView = {
-        let stackView = UIStackView()
-        stackView.translatesAutoresizingMaskIntoConstraints = false
-        stackView.axis = .vertical
-        stackView.alignment = .center
-        stackView.spacing = 5
-        return stackView
-    }()
-    
-    private let completeImageView: UIImageView = {
-        let view = UIImageView()
-        view.translatesAutoresizingMaskIntoConstraints = false
-        view.image = UIImage(named: "imgLunchtime")
-        return view
-    }()
+    private var completeStackView: UIStackView?
     
     @IBOutlet weak var swipeCardView: UIView?
     
@@ -151,7 +137,23 @@ class SwipeVC: UIViewController {
     }
     
     private func setEmptyPosterAnimation() {
-        completeStackView.removeFromSuperview()
+        self.completeStackView?.removeFromSuperview()
+        
+        let completeStackView: UIStackView = {
+            let stackView = UIStackView()
+            stackView.translatesAutoresizingMaskIntoConstraints = false
+            stackView.axis = .vertical
+            stackView.alignment = .center
+            stackView.spacing = 5
+            return stackView
+        }()
+        
+        let completeImageView: UIImageView = {
+            let view = UIImageView()
+            view.translatesAutoresizingMaskIntoConstraints = false
+            view.image = UIImage(named: "imgLunchtime")
+            return view
+        }()
         
         let firstSpaceView = UIView()
         firstSpaceView.translatesAutoresizingMaskIntoConstraints = false
@@ -168,6 +170,9 @@ class SwipeVC: UIViewController {
         completeStackView.addArrangedSubview(moveToFilterButton)
         view.addSubview(completeStackView)
         
+        
+        completeImageView.heightAnchor.constraint(equalToConstant: 188).isActive = true
+        
         completeLabel.leadingAnchor.constraint(
             equalTo: completeStackView.leadingAnchor
         ).isActive = true
@@ -179,8 +184,9 @@ class SwipeVC: UIViewController {
         
         completeStackView.centerXAnchor.constraint(
             equalTo: view.centerXAnchor).isActive = true
-        completeStackView.centerYAnchor.constraint(
-            equalTo: view.centerYAnchor).isActive = true
+        completeStackView.topAnchor.constraint(
+            equalTo: view.topAnchor,
+            constant: 158).isActive = true
         completeStackView.leadingAnchor.constraint(
             equalTo: view.leadingAnchor,
             constant: 40).isActive = true
@@ -197,6 +203,8 @@ class SwipeVC: UIViewController {
             equalToConstant: 48).isActive = true
         moveToFilterButton.widthAnchor.constraint(
             equalToConstant: 181).isActive = true
+        
+        self.completeStackView = completeStackView
        
     }
     
@@ -217,7 +225,7 @@ class SwipeVC: UIViewController {
                 DispatchQueue.main.async {
                     if !(self?.currentLoadedCardsArray.isEmpty ?? false)
                         && !posters.isEmpty {
-                        self?.completeStackView.removeFromSuperview()
+                        self?.completeStackView?.removeFromSuperview()
                     }
                     self?.loadCardAndSetPageVC(isFirst: isFirst)
                     self?.setCountLabelText()
@@ -307,9 +315,6 @@ class SwipeVC: UIViewController {
             if !isFirst {
                 swipeCardView?.subviews.forEach {
                     $0.removeFromSuperview()
-                }
-                if currentLoadedCardsArray.isEmpty == false {
-                    completeStackView.removeFromSuperview()
                 }
             }
             setEmptyPosterAnimation()
@@ -504,7 +509,7 @@ class SwipeVC: UIViewController {
     }
     
     @objc func touchUpFilterButton() {
-//        
+//
 //         let swipeBoard = UIStoryboard(name: "SwipeStoryBoard",
 //                                    bundle: nil)
 //        guard let savedPosterViewController
