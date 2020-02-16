@@ -22,7 +22,7 @@ class CategorySelectModel {
 class NotFoundClubViewController: UIViewController {
 
     var clubactInfo: ClubActInfoModel!
-    let categoryTitleSet = ["스터디/학회", "어학", "봉사", "여행", "스포츠", "문화생활", "음악/에술", "IT/SW", "창업", "친목", "기타"]
+    let categoryTitleSet = ClubAbout.categorys
     let cellModel: BehaviorRelay<[CategorySelectModel]> = BehaviorRelay(value: [])
     let disposeBag = DisposeBag()
     var selectCount = 0

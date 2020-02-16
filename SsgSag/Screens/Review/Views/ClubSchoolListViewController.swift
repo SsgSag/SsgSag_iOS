@@ -35,15 +35,14 @@ class ClubSchoolListViewController: UIViewController {
     }
     
     func requestPage() {
-        ClubService().requestClubList(curPage: curPage) { data in
+        ClubService().requestClubList(curPage: curPage, clubType: 1) { data in
             guard let data = data else { return }
             if data.count == 0 {
                 self.curPage -= 1
                 return
             }
             
-            data.filter{ $0.clubType == 1}
-                .forEach { self.cellData.append($0) }
+            data.forEach { self.cellData.append($0) }
             self.reviewTableView.reloadData()
         }
     }

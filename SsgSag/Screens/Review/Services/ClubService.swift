@@ -16,9 +16,9 @@ class ClubService: ClubServiceProtocol {
     private let requestMaker: RequestMakerProtocol = RequestMaker()
     private let network: Network = NetworkImp()
     
-    func requestClubList(curPage: Int, completion: @escaping (([ClubListData]?) -> Void)) {
+    func requestClubList(curPage: Int, clubType: Int, completion: @escaping (([ClubListData]?) -> Void)) {
         let baseURL = UserAPI.sharedInstance.getBaseString()
-        let path = RequestURL.clubList(curPage: curPage).getRequestURL
+        let path = RequestURL.clubList(curPage: curPage, clubType: clubType).getRequestURL
         let url = baseURL + path
         let token = TokenName.tokenString
         let header: HTTPHeaders = [
