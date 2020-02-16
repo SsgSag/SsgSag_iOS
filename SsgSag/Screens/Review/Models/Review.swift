@@ -20,4 +20,6 @@ struct ReviewInfo: Codable {
     let score0, score1, score2, score3, score4: Int
     let oneLine, advantage, disadvantage, honeyTip, regDate: String
     var userIdx, isMine, isLike, likeNum: Int
+    let userNickname: String?
+    let adminAccept: Int?
 }
