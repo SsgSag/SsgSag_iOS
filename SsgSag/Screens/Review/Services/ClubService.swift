@@ -265,8 +265,6 @@ class ClubService: ClubServiceProtocol {
             "adminCallNum": dataModel.phone //null 가능, 이메일도 가능
         ]
         
-        print(body)
-        
         let jsonData = try? JSONSerialization.data(withJSONObject: body)
         guard let request = requestMaker.makeRequest(url: url, method: .post, header: header, body: jsonData) else {return}
         network.dispatch(request: request) { result in
@@ -292,14 +290,13 @@ class ClubService: ClubServiceProtocol {
         let url = baseURL + path
         let token = TokenName.tokenString
         let header: HTTPHeaders = [
-            "Authorization" : token,
-            "Content-Type": "multipart/form-detailData"
+            "Authorization" : token
         ]
 
         Alamofire.upload(multipartFormData: { multipartFormData in
             let data = imageData
             print("multi image - \(data)")
-            multipartFormData.append(data, withName: "photo", fileName: "uploadImg.jpeg", mimeType: "image/jpeg")
+            multipartFormData.append(data, withName: "photo", fileName: "uploadImg.png", mimeType: "image/png")
             
         }, to: url, method: .post, headers: header) { result in
             switch result {

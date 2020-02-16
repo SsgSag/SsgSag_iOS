@@ -169,13 +169,14 @@ extension ClubManagerRegisterTwoStepViewController: UIImagePickerControllerDeleg
         if let originImage: UIImage = info[.editedImage] as? UIImage {
             var tempImgArray = viewModel.photoDataObservable.value
             var tempUrlArray = viewModel.photoURLObservable.value
-            guard let imgData = originImage.jpegData(compressionQuality: 1.0) else { return }
+            guard let imgData = originImage.pngData() else { return }
             service.requestPhotoURL(imageData: imgData) { imgURL in
                 if let imgURL = imgURL {
                     tempImgArray.append(imgData)
                     self.viewModel.photoDataObservable.accept(tempImgArray)
                     tempUrlArray.append(imgURL)
                     self.viewModel.photoURLObservable.accept(tempUrlArray)
+                   
                 } else {
                     self.simpleAlert(title: "이미지 업로드중 오류가 발생했습니다.", message: "다시 시도해주세요")
                 }
