@@ -11,7 +11,7 @@ import Foundation
 protocol ClubServiceProtocol {
     
     //동아리 후기 전체목록
-    func requestClubList(curPage: Int, completion: @escaping (([ClubListData]?) -> Void))
+    func requestClubList(curPage: Int, clubType: Int, completion: @escaping (([ClubListData]?) -> Void))
     
     //동아리 상세 정보
     func requestClubInfo(clubIdx: Int, completion: @escaping (ClubInfo?) -> Void)

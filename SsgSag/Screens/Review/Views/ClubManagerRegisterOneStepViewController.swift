@@ -222,5 +222,9 @@ extension ClubManagerRegisterOneStepViewController: UICollectionViewDelegateFlow
     }
 }
 
-extension ClubManagerRegisterOneStepViewController: UIScrollViewDelegate {}
+extension ClubManagerRegisterOneStepViewController: UIScrollViewDelegate {
+    func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+        self.view.endEditing(true)
+    }
+}
 extension ClubManagerRegisterOneStepViewController: UITextFieldDelegate {}

@@ -80,23 +80,40 @@ class ClubManagerRegisterThreeStepViewController: UIViewController {
         self.submitButton.isEnabled = false
         if model.isReviewExist {
             service.requestMemberReviewClubRegister(admin: 1, dataModel: model) { isSuccess in
-                DispatchQueue.main.async {
-                    guard let nextVC = self.storyboard?.instantiateViewController(withIdentifier: "CompleteVC") as? CompleteViewController else {return}
-                    nextVC.titleText = "등록이\n완료되었습니다 :)"
-                    nextVC.subText = "승인여부는 3일 내 이메일로 알려드릴게요."
-                    self.navigationController?.pushViewController(nextVC, animated: true)
+                if isSuccess {
+                    DispatchQueue.main.async {
+                        self.submitButton.isEnabled = true
+                        self.indicator.stopAnimating()
+                        guard let nextVC = self.storyboard?.instantiateViewController(withIdentifier: "CompleteVC") as? CompleteViewController else {return}
+                        nextVC.titleText = "등록이\n완료되었습니다 :)"
+                        nextVC.subText = "승인여부는 3일 내 이메일로 알려드릴게요."
+                        self.navigationController?.pushViewController(nextVC, animated: true)
+                    }
+                } else {
+                    DispatchQueue.main.async {
+                        self.indicator.stopAnimating()
+                        self.simpleAlert(title: "전송 실패", message: "다시 시도해주세요.")
+                    }
                 }
-                self.submitButton.isEnabled = true
+                
             }
         } else {
             service.requestMemberClubRegister(admin: 1, dataModel: model) { isSuccess in
-                DispatchQueue.main.async {
-                    guard let nextVC = self.storyboard?.instantiateViewController(withIdentifier: "CompleteVC") as? CompleteViewController else {return}
-                    nextVC.titleText = "등록이\n완료되었습니다 :)"
-                    nextVC.subText = "승인여부는 3일 내 이메일로 알려드릴게요."
-                    self.navigationController?.pushViewController(nextVC, animated: true)
+                if isSuccess {
+                    DispatchQueue.main.async {
+                        self.submitButton.isEnabled = true
+                        self.indicator.stopAnimating()
+                        guard let nextVC = self.storyboard?.instantiateViewController(withIdentifier: "CompleteVC") as? CompleteViewController else {return}
+                        nextVC.titleText = "등록이\n완료되었습니다 :)"
+                        nextVC.subText = "승인여부는 3일 내 이메일로 알려드릴게요."
+                        self.navigationController?.pushViewController(nextVC, animated: true)
+                    }
+                } else {
+                    DispatchQueue.main.async {
+                        self.indicator.stopAnimating()
+                        self.simpleAlert(title: "전송 실패", message: "다시 시도해주세요.")
+                    }
                 }
-                self.submitButton.isEnabled = true
             }
         }
     }
