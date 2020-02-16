@@ -40,6 +40,7 @@ class ClubManagerRegisterTwoStepViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        scrollView.delegate = self
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(tapHideKeyBoard))
         scrollView.addGestureRecognizer(tapGesture)
         let nib = UINib(nibName: "RegisterPhotoCollectionViewCell", bundle: nil)
@@ -186,3 +187,8 @@ extension ClubManagerRegisterTwoStepViewController: UIImagePickerControllerDeleg
     }
 }
 
+extension ClubManagerRegisterTwoStepViewController: UIScrollViewDelegate {
+    func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
+        self.view.endEditing(true)
+    }
+}

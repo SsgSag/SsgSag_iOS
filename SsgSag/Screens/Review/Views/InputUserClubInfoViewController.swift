@@ -253,5 +253,6 @@ extension InputUserClubInfoViewController: UIScrollViewDelegate {
     func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
         clubNameTextField.hideResultsList()
         univOrLocalTextField.hideResultsList()
+        self.view.endEditing(true)
     }
 }
