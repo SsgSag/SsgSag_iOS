@@ -41,6 +41,7 @@ class StarRatingViewController: UIViewController {
         self.view.layoutIfNeeded()
         scrollViewBotLayout.constant = scrollView.frame.height - scrollAppearHeight
         scrollView.isScrollEnabled = false
+        scrollAppear = false
         scrollView.setContentOffset(.zero, animated: true)
         
     }
@@ -59,7 +60,6 @@ class StarRatingViewController: UIViewController {
             viewModel
                 .recommendDegreeObservable
                 .filter { $0 != -1 }
-                .distinctUntilChanged()
                 .do(onNext: { [weak self] index in
                 
                     if !(self?.scrollAppear ?? false) {
