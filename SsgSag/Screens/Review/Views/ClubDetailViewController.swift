@@ -43,6 +43,7 @@ class ClubDetailViewController: UIViewController {
     }
     
     lazy var blackStar = UIImage(named: "icStar0")
+    lazy var halfStar = UIImage(named: "icStar1")
     lazy var fillStar = UIImage(named: "icStar2")
     
     override func viewWillAppear(_ animated: Bool) {
@@ -126,18 +127,20 @@ class ClubDetailViewController: UIViewController {
         
         tabViewModel.recommendObservable
             .subscribe(onNext: { [weak self] scoreNum in
+                let scoreNum = floorf(scoreNum * 100) / 100
                 self?.scoreLabel.text = "평점 \(scoreNum)"
                 var score = scoreNum
                 if let starImgs = self?.starStackView.subviews as? [UIImageView ] {
                     
-                    starImgs.forEach{ score -= 1
-                        if score < 0 {
-                            ///수정하기
-                            $0.image = self?.blackStar
-                        } else{
+                    starImgs.forEach{
+                        score -= 1
+                        if score >= 0 {
                             $0.image = self?.fillStar
+                        } else if score > -1 {
+                            $0.image = self?.halfStar
+                        } else {
+                            $0.image = self?.blackStar
                         }
-                        
                         
                     }
                 }

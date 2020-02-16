@@ -22,9 +22,9 @@ class ClubListTableViewCell: UITableViewCell {
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var clubDetailButton: UIButton!
     
-    let fullStar = UIImage(named: "star2")
-    let halfStar = UIImage(named: "star1")
-    let blackStar = UIImage(named: "star0")
+    lazy var fullStar = UIImage(named: "star2")
+    lazy var halfStar = UIImage(named: "star1")
+    lazy var blackStar = UIImage(named: "star0")
     var score: Float = -1
     var delegate: ClubListSelectDelgate!
     var categorySet: [String] = []
@@ -33,9 +33,10 @@ class ClubListTableViewCell: UITableViewCell {
             self.reviewCountLabel.text = newValue.categoryList
             self.titleLabel.text = newValue.clubName
             self.descriptionLabel.text = newValue.oneLine
-            self.scoreLabel.text = "평점 \(newValue.aveScore)"
+            let score = floorf(newValue.aveScore * 100) / 100
+            self.scoreLabel.text = "평점 \(score)"
             self.score = newValue.aveScore
-            self.reviewCountLabel.text = "후기 20개"
+            self.reviewCountLabel.text = "후기 \(newValue.scoreNum)개"
             self.categorySet = newValue.categoryList.removeComma()
             self.categoryCollectionView.reloadData()
             ratePaint()
@@ -59,7 +60,6 @@ class ClubListTableViewCell: UITableViewCell {
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-
     }
     
     func ratePaint() {
