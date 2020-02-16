@@ -154,16 +154,18 @@ class SimpleReviewViewController: UIViewController, UITextViewDelegate, UITextFi
                     nextVC.subText = "승인여부는 3일 내 이메일로 알려드릴게요."
                     DispatchQueue.main.async {
                         self.indicator.stopAnimating()
+                        sender.isEnabled = true
                         self.navigationController?.pushViewController(nextVC, animated: true)
                         
                     }
                 } else {
                     DispatchQueue.main.async {
                         self.indicator.stopAnimating()
+                        sender.isEnabled = true
                         self.simpleAlert(title: "전송 실패", message: "다시 시도해주세요.\n이미 리뷰를 쓰신적이 있다면 작성 할 수 없어요!")
                     }
                 }
-                sender.isEnabled = true
+                
             }
         } else {
             
@@ -174,17 +176,18 @@ class SimpleReviewViewController: UIViewController, UITextViewDelegate, UITextFi
                     nextVC.titleText = "등록이\n완료되었습니다 :)"
                     nextVC.subText = "승인여부는 3일 내 이메일로 알려드릴게요."
                     DispatchQueue.main.async {
+                        sender.isEnabled = true
                         self.indicator.stopAnimating()
                         self.navigationController?.pushViewController(nextVC, animated: true)
                         
                     }
                 } else {
                     DispatchQueue.main.async {
+                        sender.isEnabled = true
                         self.indicator.stopAnimating()
                         self.simpleAlert(title: "전송 실패", message: "다시 시도해주세요.\n이미 리뷰를 쓰신적이 있다면 작성 할 수 없어요!")
                     }
                 }
-                sender.isEnabled = true
             }
         }
         

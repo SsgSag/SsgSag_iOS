@@ -51,7 +51,11 @@ class SsgSagReviewTableViewCell: UITableViewCell {
     func bind(model: ReviewInfo, service: ReviewServiceProtocol = ReviewService()) {
         self.service = service
         self.model = model
-        userNameLabel.text = String(model.userIdx)
+        if let userNickname = model.userNickname {
+            userNameLabel.text = userNickname
+        } else {
+            userNameLabel.text = "***"
+        }
         let activeDate = model.clubEndDate.split(separator: "-").map{String($0)}
         activeYearLabel.text = activeDate[0]+"년 활동"
         titleLabel.text = model.oneLine

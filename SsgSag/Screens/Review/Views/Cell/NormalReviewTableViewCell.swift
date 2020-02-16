@@ -76,7 +76,11 @@ class NormalReviewTableViewCell: UITableViewCell {
     func bind(service: ReviewServiceProtocol = ReviewService()) {
         self.service = service
         guard let viewModel = viewModel.data else {return}
-        userNameLabel.text = String(viewModel.userIdx)
+        if let userNickname = viewModel.userNickname {
+            userNameLabel.text = userNickname
+        } else {
+            userNameLabel.text = "***"
+        }
         let activeDate = viewModel.clubEndDate.split(separator: "-").map{String($0)}
         activeYearLabel.text = activeDate[0]+"년 활동"
         titleLabel.text = viewModel.oneLine
