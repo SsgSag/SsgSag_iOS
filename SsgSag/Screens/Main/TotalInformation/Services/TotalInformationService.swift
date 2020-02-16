@@ -33,9 +33,9 @@ enum TotalInfoCategoryType: Int, CaseIterable {
         case 2:
             return .internship
         case 3:
-            return .etc
-        case 4:
             return .lecture
+        case 4:
+            return .etc
         default:
             return .contest
         }

@@ -122,9 +122,16 @@ class SplashVC: UIViewController {
                         AppDelegate.posterIndex = nil
                         
                         DispatchQueue.main.async {
+                            
+                            let introStoryBoard = UIStoryboard(name: "IntroStoryboard",
+                                                                bundle: nil)
+                            
+                            guard let introViewController
+                                = introStoryBoard.instantiateViewController(withIdentifier: "IntroPageViewController") as? IntroPageViewController else { return }
+                            
                             let loginVC = loginStoryBoard.instantiateViewController(withIdentifier: "splashVC")
                             
-                            let nextViewController = UINavigationController(rootViewController: loginVC)
+                            let nextViewController = UINavigationController(rootViewController: introViewController)
 
                             nextViewController.modalPresentationStyle = .fullScreen
                             self?.present(nextViewController,

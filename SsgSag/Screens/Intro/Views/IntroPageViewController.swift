@@ -14,12 +14,22 @@ class IntroPageViewController: UIViewController {
     var disposeBag = DisposeBag()
     @IBOutlet weak var introCollectionview: UICollectionView!
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.navigationController?.navigationBar.isHidden = true
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         let viewModel = IntroPageViewModel()
         viewModel.buildViewModel()
         bind(viewModel: viewModel)
         // Do any additional setup after loading the view.
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        self.navigationController?.navigationBar.isHidden = false
     }
     
     func bind(viewModel: IntroPageViewModel) {
@@ -32,16 +42,16 @@ class IntroPageViewController: UIViewController {
                     let cell = cell as? IntroPageCollectionViewCell
                     cell?.bind(viewModel: cellViewModel)
                     cellViewModel.callback = { [weak self] in
-                        let splashStoryBoard = UIStoryboard(name: "Splash",
-                                                                   bundle: nil)
-                        guard let splashVC
-                            = splashStoryBoard.instantiateViewController(withIdentifier: "splash") as? SplashVC else {
-                                return
-                        }
+                    
+                        let loginStoryBoard = UIStoryboard(name: StoryBoardName.login,
+                                                           bundle: nil)
+                        
+                         let loginVC = loginStoryBoard.instantiateViewController(withIdentifier: "splashVC")
+                        
                         guard let window = UIApplication.shared.keyWindow else {
                             return
                         }
-                        window.rootViewController = splashVC
+                        window.rootViewController = UINavigationController(rootViewController: loginVC)
                     }
         }
         .disposed(by: disposeBag)

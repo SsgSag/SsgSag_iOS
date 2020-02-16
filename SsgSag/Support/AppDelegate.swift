@@ -104,7 +104,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 return true
         }
         
-        window?.rootViewController = introViewController
+        window?.rootViewController = splashVC
         window?.makeKeyAndVisible()
         
         return true

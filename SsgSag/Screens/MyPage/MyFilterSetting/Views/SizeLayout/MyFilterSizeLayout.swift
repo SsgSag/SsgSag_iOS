@@ -48,8 +48,10 @@ class MyFilterSizeLayout {
         switch section {
         case .myInfo:
             return .init(width: screenWidth, height: 23)
-        default:
+        case .interestedField:
             return .init(width: screenWidth, height: 45)
+        case .interestedJob:
+            return .init(width: screenWidth, height: 63)
         }
     }
     

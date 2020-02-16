@@ -65,7 +65,7 @@ class MainViewNavigationController: UINavigationController {
         totalInfoViewController.navigationItem.titleView = categoryButtonView
         setViewControllers([swipeViewController], animated: false)
         totalInfoViewController.navigationItem.leftBarButtonItem = profileBarButton
-        totalInfoViewController.navigationItem.leftBarButtonItem = filterBarButton
+        totalInfoViewController.navigationItem.rightBarButtonItem = filterBarButton
         
         
         //setButtonClosure

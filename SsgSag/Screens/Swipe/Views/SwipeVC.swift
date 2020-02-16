@@ -214,6 +214,10 @@ class SwipeVC: UIViewController {
                 self?.ssgsagCount = numberOfSwipe
                 
                 DispatchQueue.main.async {
+                    if !(self?.currentLoadedCardsArray.isEmpty ?? false)
+                        && !posters.isEmpty {
+                        self?.completeStackView.removeFromSuperview()
+                    }
                     self?.loadCardAndSetPageVC(isFirst: isFirst)
                     self?.setCountLabelText()
                 }
