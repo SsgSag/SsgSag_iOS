@@ -20,7 +20,7 @@ class ClubService: ClubServiceProtocol {
         let baseURL = UserAPI.sharedInstance.getBaseString()
         let path = RequestURL.clubList(curPage: curPage, clubType: clubType).getRequestURL
         let url = baseURL + path
-        let token = TokenName.tokenString
+        guard let token = KeychainWrapper.standard.string(forKey: TokenName.token) else {return}
         let header: HTTPHeaders = [
            "Authorization" : token
        ]
@@ -56,7 +56,7 @@ class ClubService: ClubServiceProtocol {
         let baseURL = UserAPI.sharedInstance.getBaseString()
         let path = RequestURL.clubInfo(clubIdx: clubIdx).getRequestURL
         let url = baseURL + path
-        let token = TokenName.tokenString
+        guard let token = KeychainWrapper.standard.string(forKey: TokenName.token) else {return}
         let header: HTTPHeaders = [
             "Authorization" : token
         ]
@@ -94,7 +94,7 @@ class ClubService: ClubServiceProtocol {
         let path = RequestURL.searchClubWithName(clubType: clubType, location: location, keyword: keyword, curPage: curPage).getRequestURL
         guard let urlString = (baseURL + path).addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) else {return}
         guard let url = URL(string:  urlString) else {return}
-        let token = TokenName.tokenString
+        guard let token = KeychainWrapper.standard.string(forKey: TokenName.token) else {return}
         let header: HTTPHeaders = [
             "Authorization" : token
         ]
@@ -120,7 +120,7 @@ class ClubService: ClubServiceProtocol {
         let baseURL = UserAPI.sharedInstance.getBaseString()
         let path = RequestURL.clubRegister.getRequestURL
         guard let url = URL(string: baseURL+path) else {return}
-        let token = TokenName.tokenString
+        guard let token = KeychainWrapper.standard.string(forKey: TokenName.token) else {return}
         let header: HTTPHeaders = [
             "Authorization": token,
             "Content-Type": "application/json"
@@ -153,7 +153,7 @@ class ClubService: ClubServiceProtocol {
         let baseURL = UserAPI.sharedInstance.getBaseString()
         let path = RequestURL.clubRegister.getRequestURL
         guard let url = URL(string: baseURL+path) else {return}
-        let token = TokenName.tokenString
+        guard let token = KeychainWrapper.standard.string(forKey: TokenName.token) else {return}
         let header: HTTPHeaders = [
             "Authorization": token,
             "Content-Type": "application/json"
@@ -222,7 +222,7 @@ class ClubService: ClubServiceProtocol {
         let baseURL = UserAPI.sharedInstance.getBaseString()
         let path = RequestURL.clubRegister.getRequestURL
         guard let url = URL(string: baseURL+path) else {return}
-        let token = TokenName.tokenString
+        guard let token = KeychainWrapper.standard.string(forKey: TokenName.token) else {return}
         let header: HTTPHeaders = [
             "Authorization": token,
             "Content-Type": "application/json"
@@ -288,7 +288,7 @@ class ClubService: ClubServiceProtocol {
         let baseURL = UserAPI.sharedInstance.getBaseString()
         let path = RequestURL.requestPhotoURL.getRequestURL
         let url = baseURL + path
-        let token = TokenName.tokenString
+        guard let token = KeychainWrapper.standard.string(forKey: TokenName.token) else {return}
         let header: HTTPHeaders = [
             "Authorization" : token
         ]

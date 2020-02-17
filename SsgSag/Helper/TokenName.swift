@@ -11,7 +11,7 @@ import Foundation
 enum TokenName {
     static let token = "SsgSagToken"
     
-    static let tokenString = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJEb0lUU09QVCIsInVzZXJfaWR4Ijo2OTd9.9JZLLIsl9MGweSqSyXYuXSoyjhzur34hxPhWf3Jm85c"
+    static let tokenTestString = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJEb0lUU09QVCIsInVzZXJfaWR4Ijo2OTd9.9JZLLIsl9MGweSqSyXYuXSoyjhzur34hxPhWf3Jm85c"
 }
 
 enum AdjustTokenName {
