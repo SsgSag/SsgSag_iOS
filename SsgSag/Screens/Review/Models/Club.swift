@@ -50,5 +50,5 @@ struct ClubInfo: Codable{
 
 struct ClubAbout {
     static let locations = ["서울", "경기", "부산", "대전", "강원도", "충북", "충남", "전라도"]
-    static let categorys = ["스터디/학회", "어학", "봉사", "여행", "스포츠", "문화생활", "음악/예술", "IT/SW", "창업", "친목", "기타"]
+    static let categorys = ["스터디/학회", "어학", "봉사", "여행", "스포츠", "문화생활", "음악/예술", "IT/공학", "창업", "친목", "기타"]
 }
