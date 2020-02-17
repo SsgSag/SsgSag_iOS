@@ -42,6 +42,7 @@ class ClubManagerRegisterOneStepViewController: UIViewController {
         let nib = UINib(nibName: "RegisterCategoryCollectionViewCell", bundle: nil)
         categoryCollectionView.register(nib, forCellWithReuseIdentifier: "RegisterCategoryCell")
         categoryCollectionView.delegate = self
+        nextButton.deviceSetSize()
     }
     
     override func viewWillAppear(_ animated: Bool) {

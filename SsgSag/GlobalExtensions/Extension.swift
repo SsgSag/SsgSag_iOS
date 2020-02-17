@@ -41,7 +41,6 @@ extension UIView {
         
         layer.insertSublayer(gradientLayer, at: 0)
     }
-    
 }
 
 
@@ -52,6 +51,27 @@ extension UIButton {
         } else {
             myButton.isSelected = true
         }
+    }
+    
+    func deviceSetSize() {
+        // 아이폰 노치바대응
+        // 제출하기, 완료하기, 등 하단의 긴버튼 크기조절
+        if UIScreen.main.bounds.height >= 812 {
+            self.constraints.forEach { layout in
+                if layout.firstAttribute == .height {
+                    layout.constant = 83
+                }
+            }
+        } else {
+            self.contentVerticalAlignment = .center
+            self.titleEdgeInsets.top = 0
+            self.constraints.forEach { layout in
+                if layout.firstAttribute == .height {
+                    layout.constant = 49
+                }
+            }
+        }
+        
     }
 }
 

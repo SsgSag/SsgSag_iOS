@@ -12,13 +12,14 @@ class ReviewPrepareViewController: UIViewController {
 
     var isExistClub = false
     var clubactInfo: ClubActInfoModel?
+    @IBOutlet weak var registerButton: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         tabBarController?.tabBar.isHidden = true
         self.navigationController?.interactivePopGestureRecognizer?.delegate = self
         self.navigationController?.interactivePopGestureRecognizer?.isEnabled = true
-        
+        registerButton.deviceSetSize()
     }
     
     @IBAction func backClick(_ sender: Any) {

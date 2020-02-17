@@ -22,13 +22,14 @@ class ClubEditViewController: UIViewController {
     @IBOutlet weak var univOrLocationButton: UIButton!
     @IBOutlet weak var univOrLocationTextField: SearchTextField!
     @IBOutlet weak var clubNameTextField: UITextField!
+    @IBOutlet weak var completeButton: UIButton!
     
     var viewModel: ClubEditViewModel?
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        
+        completeButton.deviceSetSize()
     }
     
     @IBAction func selectOptionClick(_ sender: UIButton) {

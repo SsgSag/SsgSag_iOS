@@ -29,7 +29,7 @@ class FoundClubViewController: UIViewController {
     func setupUI() {
         let clubName = clubactInfo.clubName
         questionLabel.text = "\'\(clubName)\'에서\n활동한 시기를 알려주세요"
-        
+        nextButton.deviceSetSize()
     }
     
     func bind(model: ClubActInfoModel) {

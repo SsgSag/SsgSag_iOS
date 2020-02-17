@@ -26,6 +26,7 @@ class ClubManagerRegisterThreeStepViewController: UIViewController {
 
         bindInput(viewModel: viewModel)
         bindOutput(viewModel: viewModel)
+        submitButton.deviceSetSize()
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {

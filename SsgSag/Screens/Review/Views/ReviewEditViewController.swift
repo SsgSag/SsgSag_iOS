@@ -33,6 +33,7 @@ class ReviewEditViewController: UIViewController {
     @IBOutlet weak var localButton: UIButton!
     @IBOutlet weak var univOrLocalTextField: SearchTextField!
     @IBOutlet weak var univOrLocalLabel: UILabel!
+    @IBOutlet weak var completeButton: UIButton!
     
     var reviewEditViewModel: ReviewEditViewModel!
     var reviewService: ReviewServiceProtocol!
@@ -51,6 +52,7 @@ class ReviewEditViewController: UIViewController {
         scrollView.addGestureRecognizer(tapGesture)
         scrollView.delegate = self
         
+        completeButton.deviceSetSize()
         activeBind(model: clubactInfo)
         typeSetting(type: clubactInfo.clubType)
         textBind(model: reviewEditViewModel)

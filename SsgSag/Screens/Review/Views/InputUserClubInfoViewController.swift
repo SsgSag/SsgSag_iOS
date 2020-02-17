@@ -36,6 +36,7 @@ class InputUserClubInfoViewController: UIViewController {
         scrollView.addGestureRecognizer(tapGesture)
         scrollView.delegate = self
         bind(model: clubactInfo)
+        nextButton.deviceSetSize()
     }
     
     func typeSetting(type: ClubType) {

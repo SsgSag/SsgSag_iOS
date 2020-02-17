@@ -34,15 +34,17 @@ class StarRatingViewController: UIViewController {
         
         bind(viewModel: starRatingModel)
         setupRateCalculate()
-        
+        nextButton.deviceSetSize()
+        self.view.layoutIfNeeded()
+        scrollViewBotLayout.constant = scrollView.frame.height - scrollAppearHeight
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        self.view.layoutIfNeeded()
-        scrollViewBotLayout.constant = scrollView.frame.height - scrollAppearHeight
-        scrollView.isScrollEnabled = false
-        scrollAppear = false
-        scrollView.setContentOffset(.zero, animated: true)
+//        self.view.layoutIfNeeded()
+//        scrollViewBotLayout.constant = scrollView.frame.height - scrollAppearHeight
+//        scrollView.isScrollEnabled = false
+//        scrollAppear = false
+//        scrollView.setContentOffset(.zero, animated: true)
         
     }
     
