@@ -41,6 +41,8 @@ class SwipeVC: UIViewController {
     
     private var isOkayToUndo: Bool = false
     
+    private let coachmarkView = FilterCocahmarkView()
+    
     //TODO: 하단 타이틀 가변 길이, 상세보기에서 요일 삭제, 날짜 및 텍스트 가변길이로 , 해시태그 truncate
     
     private lazy var completeLabel: UILabel = {
@@ -134,6 +136,16 @@ class SwipeVC: UIViewController {
     private func setView() {
         navigationController?.navigationBar.shadowImage = UIImage()
         view.backgroundColor = .white
+        
+        view.addSubview(coachmarkView)
+        coachmarkView.topAnchor.constraint(
+            equalTo: view.topAnchor).isActive = true
+        coachmarkView.leadingAnchor.constraint(
+            equalTo: view.leadingAnchor).isActive = true
+        coachmarkView.trailingAnchor.constraint(
+            equalTo: view.trailingAnchor).isActive = true
+        coachmarkView.bottomAnchor.constraint(
+            equalTo: view.bottomAnchor).isActive = true
     }
     
     private func setEmptyPosterAnimation() {
@@ -836,5 +848,28 @@ extension UIColor {
             self.setFill()
             rendererContext.fill(CGRect(x: 0, y: 0, width: size.width, height: size.height))
         }
+    }
+}
+
+class FilterCocahmarkView: UIView {
+    
+    private let translucentView: UIView = {
+        let view = UIView()
+        view.backgroundColor = #colorLiteral(red: 0.09019608051, green: 0, blue: 0.3019607961, alpha: 0.4190122003)
+        return view
+    }()
+    
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        setupLayout()
+    }
+    
+    private func setupLayout() {
+        addSubview(translucentView)
+        
+        translucentView.topAnchor.constraint(equalTo: topAnchor).isActive = true
+        translucentView.leadingAnchor.constraint(equalTo: leadingAnchor).isActive = true
+        translucentView.trailingAnchor.constraint(equalTo: trailingAnchor).isActive = true
+        translucentView.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
     }
 }

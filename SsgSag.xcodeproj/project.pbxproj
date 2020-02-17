@@ -2498,7 +2498,6 @@
 				FAF6DEE4222EAAEF001C70CC /* Interests.swift in Sources */,
 				C905D02123B8D50D00E9B2B2 /* Array+.swift in Sources */,
 				C9A828422395528D0029A493 /* AddCertificationVC.swift in Sources */,
-				C9A828582395528D0029A493 /* MyFilterSliderCollectionViewCell.swift in Sources */,
 				0652951323E959BF00DA9F3B /* ClubActInfoAlertViewController.swift in Sources */,
 				C9625E1923AF267B00FF5109 /* PosterListViewModel.swift in Sources */,
 				D1E2C22022E306C90044E6A1 /* EmailValidate.swift in Sources */,
@@ -2826,7 +2825,7 @@
 				CODE_SIGN_ENTITLEMENTS = "SsgSag/슥삭.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 3;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 3HB3SZKJFD;
 				ENABLE_BITCODE = YES;
@@ -2875,7 +2874,7 @@
 				CODE_SIGN_ENTITLEMENTS = "SsgSag/슥삭Release.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 3;
 				DEVELOPMENT_TEAM = 3HB3SZKJFD;
 				ENABLE_BITCODE = YES;
 				FRAMEWORK_SEARCH_PATHS = (
