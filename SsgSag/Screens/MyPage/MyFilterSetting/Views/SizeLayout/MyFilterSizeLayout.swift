@@ -14,6 +14,7 @@ class MyFilterSizeLayout {
         case myInfo
         case interestedField
         case interestedJob
+        case interestedJobField
     }
     
     static let screenWidth = UIScreen.main.bounds.width
@@ -28,7 +29,7 @@ class MyFilterSizeLayout {
             return 11
         case .interestedField:
             return 8
-        case .interestedJob:
+        case .interestedJob, .interestedJobField:
             return 0
         }
     }
@@ -39,7 +40,7 @@ class MyFilterSizeLayout {
             return 8
         case .interestedField:
             return 9
-        case .interestedJob:
+        case .interestedJob, .interestedJobField:
             return 0
         }
     }
@@ -52,15 +53,26 @@ class MyFilterSizeLayout {
             return .init(width: screenWidth, height: 45)
         case .interestedJob:
             return .init(width: screenWidth, height: 63)
+        case .interestedJobField:
+            return .init(width: screenWidth, height: 0)
         }
     }
     
     static func calculateItemSize(by section: MyFilterSection,
                                   targetString: String,
                                   currentViewSize: CGSize = .zero) -> CGSize {
-        let textMargin: CGFloat = 8
-        let calculatedRect = targetString.estimatedFrame(font: UIFont(name: "AppleSDGothicNeo-Regular", size: 13)!)
-        return CGSize(width: calculatedRect.width + textMargin * 2,
-                      height: itemHeight)
+        switch section {
+        case .myInfo:
+            let textMargin: CGFloat = 8
+            let calculatedRect = targetString.estimatedFrame(font: UIFont(name: "AppleSDGothicNeo-Regular", size: 13)!)
+            return CGSize(width: calculatedRect.width + textMargin * 2,
+                        height: itemHeight)
+        default:
+            let textMargin: CGFloat = 8
+            let calculatedRect = "#\(targetString)".estimatedFrame(font: UIFont(name: "AppleSDGothicNeo-Regular", size: 13)!)
+            return CGSize(width: calculatedRect.width + textMargin * 2,
+                        height: itemHeight)
+        }
+       
     }
 }
