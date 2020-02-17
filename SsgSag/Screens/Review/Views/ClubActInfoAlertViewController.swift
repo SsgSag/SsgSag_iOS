@@ -68,6 +68,23 @@ class ClubActInfoAlertViewController: UIViewController {
         self.dismiss(animated: true)
     }
     
+    func dateCompare(model: ClubActInfoModel) -> Bool {
+        
+        guard let startDay = model.startSaveDate?.timeIntervalSince1970 else {
+            return true
+        }
+    
+        guard let endDay = model.endSaveDate?.timeIntervalSince1970  else {
+            return true
+        }
+        
+        if  startDay > endDay {
+            return false
+        }
+        
+        return true
+    }
+    
     @IBAction func cancelClick(_ sender: Any) {
         dismissAnim(type: clubactInfo.inputType)
     }
@@ -78,11 +95,23 @@ class ClubActInfoAlertViewController: UIViewController {
         let dateRequestString = DateCaculate.dateToStringRequestDateDateFormatter(date: datePicker.date)
         
         if clubactInfo.inputType == .start {
-            clubactInfo.startDate.accept(dateShowString)
-            clubactInfo.startRequestDate = dateRequestString
+            clubactInfo.startSaveDate = datePicker.date
+            if dateCompare(model: clubactInfo) {
+                clubactInfo.startDate.accept(dateShowString)
+                clubactInfo.startRequestDate = dateRequestString
+            } else {
+                self.simpleAlert(title: "다시 한번 확인해주세요.", message: "활동시작 날짜가 종료날짜보다 빠를 수 없어요.")
+                return
+            }
         } else {
-            clubactInfo.endDate.accept(dateShowString)
-            clubactInfo.endRequestDate = dateRequestString
+            clubactInfo.endSaveDate = datePicker.date
+            if dateCompare(model: clubactInfo) {
+                clubactInfo.endDate.accept(dateShowString)
+                clubactInfo.endRequestDate = dateRequestString
+            } else {
+                self.simpleAlert(title: "다시 한번 확인해주세요.", message: "활동시작 날짜가 종료날짜보다 빠를 수 없어요.")
+                return
+            }
         }
         
         dismissAnim(type: clubactInfo.inputType)
@@ -112,3 +141,5 @@ extension ClubActInfoAlertViewController: UITableViewDataSource, UITableViewDele
         dismissAnim(type: clubactInfo.inputType)
     }
 }
+
+
