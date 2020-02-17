@@ -75,6 +75,15 @@ class ClubManagerRegisterThreeStepViewController: UIViewController {
     }
     
     @IBAction func submitClick(_ sender: Any) {
+        
+        guard viewModel.emailObservable.value.isValidEmail() else {
+            self.simplerAlert(title: "이메일 형식이 올바르지 않아요!")
+            return
+        }
+        guard viewModel.phoneObservable.value.isValidPhone() else {
+            self.simplerAlert(title: "전화번호 형식이 올바르지 않아요!")
+            return
+        }
         indicator.startAnimating()
         modelInsertData(model: model, viewModel: viewModel)
         self.submitButton.isEnabled = false

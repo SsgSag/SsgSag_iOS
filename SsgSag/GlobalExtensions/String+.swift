@@ -26,6 +26,20 @@ extension String {
         label.sizeToFit()
         return label.bounds
     }
+    
+    func isValidEmail() -> Bool {
+        let emailRegex: String = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,20}"
+        let predicate = NSPredicate(format: "SELF MATCHES %@", emailRegex)
+        
+        return predicate.evaluate(with: self)
+    }
+    
+    func isValidPhone() -> Bool {
+        let phoneRegex: String = "01([0-9])([0-9]{3,4})([0-9]{4})$"
+        let predicate = NSPredicate(format: "SELF MATCHES %@", phoneRegex)
+        
+        return predicate.evaluate(with: self)
+    }
 }
 
 
