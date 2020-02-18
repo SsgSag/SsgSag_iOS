@@ -197,7 +197,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rmt-Iz-4Hf" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="996" y="-39.90147783251232"/>
+            <point key="canvasLocation" x="217" y="333"/>
         </scene>
         <!--Club School List View Controller-->
         <scene sceneID="6Ng-cN-Xsx">
@@ -425,7 +425,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mvj-Ei-fNW" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1717.5999999999999" y="606.6502463054187"/>
+            <point key="canvasLocation" x="1636" y="30"/>
         </scene>
         <!--ClubReviewDetail-->
         <scene sceneID="Dmq-jK-0cy">
@@ -868,7 +868,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3XJ-qg-crG" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2517.5999999999999" y="606.6502463054187"/>
+            <point key="canvasLocation" x="2318" y="426"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="1iY-L4-gGd">
@@ -885,7 +885,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="KPS-fK-xe7" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="86.956521739130437" y="-39.508928571428569"/>
+            <point key="canvasLocation" x="-481" y="333"/>
         </scene>
         <!--Review Search View Controller-->
         <scene sceneID="sux-od-Ojs">
@@ -986,7 +986,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cIw-SZ-fqt" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1778" y="-585"/>
+            <point key="canvasLocation" x="217" y="-321"/>
         </scene>
         <!--Review Page View Controller-->
         <scene sceneID="boe-jZ-8q1">
@@ -1001,7 +1001,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fjw-ZZ-6sp" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1716" y="23.645320197044335"/>
+            <point key="canvasLocation" x="946" y="333"/>
         </scene>
         <!--Review Prepare View Controller-->
         <scene sceneID="5fY-Z6-Aro">
@@ -1207,7 +1207,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="HbY-iM-DWO" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5098.3999999999996" y="-67.241379310344826"/>
+            <point key="canvasLocation" x="5697" y="-67"/>
         </scene>
         <!--Select Club Type View Controller-->
         <scene sceneID="8bF-rj-rVR">
@@ -1306,7 +1306,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="no4-Xu-frx" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5736.8000000000002" y="-68.7192118226601"/>
+            <point key="canvasLocation" x="6388" y="-69"/>
         </scene>
         <!--Input User Club Info View Controller-->
         <scene sceneID="zCp-EF-Ubh">
@@ -1623,7 +1623,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="N2I-dJ-Z6U" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="6376.8000000000002" y="-67.241379310344826"/>
+            <point key="canvasLocation" x="7098" y="-69"/>
         </scene>
         <!--Club Act Info Alert View Controller-->
         <scene sceneID="mGM-6M-b7g">
@@ -1761,7 +1761,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="uVi-U1-G6L" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="7008.8000000000002" y="-67.241379310344826"/>
+            <point key="canvasLocation" x="7810" y="-67"/>
         </scene>
         <!--Not Found Club View Controller-->
         <scene sceneID="S6F-A1-shD">
@@ -1902,7 +1902,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hR4-Hm-DLP" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="7653.6000000000004" y="-69.458128078817737"/>
+            <point key="canvasLocation" x="8486" y="-69"/>
         </scene>
         <!--Club Page View Controller-->
         <scene sceneID="pwR-fa-WsS">
@@ -1917,7 +1917,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="t7S-ez-yDx" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3215" y="947"/>
+            <point key="canvasLocation" x="3121" y="930"/>
         </scene>
         <!--Club Review View Controller-->
         <scene sceneID="Itr-bV-xnq">
@@ -4714,7 +4714,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jH4-qQ-mlw" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3194" y="427"/>
+            <point key="canvasLocation" x="2318" y="1075"/>
         </scene>
         <!--Club Info View Controller-->
         <scene sceneID="MWN-I2-Gbv">
@@ -6331,6 +6331,71 @@
             </objects>
             <point key="canvasLocation" x="7402.3999999999996" y="-749.26108374384239"/>
         </scene>
+        <!--Club Info Detail Photo View Controller-->
+        <scene sceneID="m62-3G-Qnh">
+            <objects>
+                <viewController storyboardIdentifier="ClubInfoDetailPhotoVC" modalPresentationStyle="fullScreen" id="HDN-71-ucs" customClass="ClubInfoDetailPhotoViewController" customModule="슥삭" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="jXa-MQ-7Sl">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1/9" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hpj-dV-4Cf">
+                                <rect key="frame" x="137.66666666666666" y="59" width="100" height="18"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="100" id="Nqo-Vu-DPU"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="AppleSDGothicNeo-Regular" family="Apple SD Gothic Neo" pointSize="15"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dwu-q4-MX3">
+                                <rect key="frame" x="12" y="44" width="48" height="48"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="48" id="RsO-G7-eWK"/>
+                                    <constraint firstAttribute="height" constant="48" id="m1x-EB-IYY"/>
+                                </constraints>
+                                <state key="normal" image="icCancel"/>
+                                <connections>
+                                    <action selector="cancelClick:" destination="HDN-71-ucs" eventType="touchUpInside" id="QK3-VI-R9a"/>
+                                </connections>
+                            </button>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" pagingEnabled="YES" showsVerticalScrollIndicator="NO" maximumZoomScale="3" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="bno-3x-fxb">
+                                <rect key="frame" x="0.0" y="218.66666666666663" width="375" height="375"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="bno-3x-fxb" secondAttribute="height" multiplier="1:1" id="w9l-vG-zsh"/>
+                                </constraints>
+                                <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="Rew-Ee-bQv">
+                                    <size key="itemSize" width="375" height="375"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                                <cells/>
+                            </collectionView>
+                        </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="dwu-q4-MX3" firstAttribute="top" secondItem="cTn-qZ-U0z" secondAttribute="top" id="4Bm-vc-SYN"/>
+                            <constraint firstItem="cTn-qZ-U0z" firstAttribute="trailing" secondItem="bno-3x-fxb" secondAttribute="trailing" id="Mmj-aL-L25"/>
+                            <constraint firstItem="hpj-dV-4Cf" firstAttribute="top" secondItem="cTn-qZ-U0z" secondAttribute="top" constant="15" id="XcQ-Bj-F1v"/>
+                            <constraint firstItem="dwu-q4-MX3" firstAttribute="leading" secondItem="cTn-qZ-U0z" secondAttribute="leading" constant="12" id="abe-EW-boz"/>
+                            <constraint firstItem="bno-3x-fxb" firstAttribute="centerY" secondItem="jXa-MQ-7Sl" secondAttribute="centerY" id="cBq-MA-mW1"/>
+                            <constraint firstItem="bno-3x-fxb" firstAttribute="centerX" secondItem="jXa-MQ-7Sl" secondAttribute="centerX" id="emm-Uw-eUG"/>
+                            <constraint firstItem="hpj-dV-4Cf" firstAttribute="centerX" secondItem="jXa-MQ-7Sl" secondAttribute="centerX" id="mro-T7-BZx"/>
+                            <constraint firstItem="bno-3x-fxb" firstAttribute="leading" secondItem="cTn-qZ-U0z" secondAttribute="leading" id="xJL-Xl-eva"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="cTn-qZ-U0z"/>
+                    </view>
+                    <connections>
+                        <outlet property="collectionView" destination="bno-3x-fxb" id="CnC-1s-xPw"/>
+                        <outlet property="photoCountLabel" destination="hpj-dV-4Cf" id="Wl8-qH-0Lv"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="FSf-tQ-Ctb" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3885.5999999999999" y="-68.7192118226601"/>
+        </scene>
         <!--Navigation Controller-->
         <scene sceneID="0n5-m3-g4k">
             <objects>
@@ -6346,7 +6411,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bLD-Uq-5Qn" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4156" y="-67.241379310344826"/>
+            <point key="canvasLocation" x="4996" y="-67"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="ilz-8H-TGi">
@@ -7520,7 +7585,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ARl-2i-zN0" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="996" y="612"/>
+            <point key="canvasLocation" x="217" y="981"/>
         </scene>
         <!--Club Union List View Controller-->
         <scene sceneID="Wm4-BI-NOE">
@@ -7748,7 +7813,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="OBx-pR-nVh" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1714" y="1282"/>
+            <point key="canvasLocation" x="1636" y="717"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="WYk-vj-MG3">
