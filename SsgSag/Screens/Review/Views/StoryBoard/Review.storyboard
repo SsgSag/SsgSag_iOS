@@ -7551,7 +7551,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="평점 4.0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yTK-KS-SIJ">
-                                                    <rect key="frame" x="161" y="95.666666666666671" width="27.333333333333343" height="9"/>
+                                                    <rect key="frame" x="161" y="101.66666666666667" width="27.333333333333343" height="9"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="9" id="Ar2-5f-qkP"/>
                                                     </constraints>
@@ -7560,7 +7560,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="후기 23개" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pyn-k2-JXz">
-                                                    <rect key="frame" x="278" y="93" width="49" height="12"/>
+                                                    <rect key="frame" x="278" y="99" width="49" height="12"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="49" id="M9e-im-cwP"/>
                                                     </constraints>
@@ -7569,14 +7569,14 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="small4" translatesAutoresizingMaskIntoConstraints="NO" id="7pX-NI-3FZ">
-                                                    <rect key="frame" x="331" y="89" width="20" height="20"/>
+                                                    <rect key="frame" x="331" y="95" width="20" height="20"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="20" id="4RS-62-Jok"/>
                                                         <constraint firstAttribute="width" constant="20" id="Lsz-H0-pL1"/>
                                                     </constraints>
                                                 </imageView>
                                                 <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" alignment="center" spacing="7" translatesAutoresizingMaskIntoConstraints="NO" id="q6V-Mc-eId">
-                                                    <rect key="frame" x="24" y="88" width="128" height="22"/>
+                                                    <rect key="frame" x="24" y="94" width="128" height="22"/>
                                                     <subviews>
                                                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="star0" translatesAutoresizingMaskIntoConstraints="NO" id="Esc-6z-rr1">
                                                             <rect key="frame" x="0.0" y="0.0" width="20" height="22"/>
@@ -7693,7 +7693,7 @@
                                                 <constraint firstItem="7pX-NI-3FZ" firstAttribute="leading" secondItem="pyn-k2-JXz" secondAttribute="trailing" constant="4" id="0oX-Sf-R12"/>
                                                 <constraint firstItem="yTK-KS-SIJ" firstAttribute="leading" secondItem="q6V-Mc-eId" secondAttribute="trailing" constant="9" id="0sV-Hb-qHt"/>
                                                 <constraint firstAttribute="trailing" secondItem="34q-4W-ibe" secondAttribute="trailing" id="3v4-tN-z98"/>
-                                                <constraint firstItem="q6V-Mc-eId" firstAttribute="top" secondItem="G1n-gl-RPu" secondAttribute="bottom" constant="12" id="43f-kZ-VFw"/>
+                                                <constraint firstItem="q6V-Mc-eId" firstAttribute="top" secondItem="G1n-gl-RPu" secondAttribute="bottom" constant="18" id="43f-kZ-VFw"/>
                                                 <constraint firstItem="BBF-J5-rn1" firstAttribute="leading" secondItem="si4-qy-Zh1" secondAttribute="leading" constant="24" id="6bd-fE-4un"/>
                                                 <constraint firstAttribute="trailing" secondItem="7pX-NI-3FZ" secondAttribute="trailing" constant="24" id="8ut-KE-Ww0"/>
                                                 <constraint firstItem="q6V-Mc-eId" firstAttribute="leading" secondItem="G1n-gl-RPu" secondAttribute="leading" id="9nw-oJ-CMz"/>
