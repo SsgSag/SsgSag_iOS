@@ -61,6 +61,9 @@ class InputUserClubInfoViewController: UIViewController {
         univOrLocalTextField.startVisible = true
         let universities = localUniversities()
         univOrLocalTextField.filterStrings(universities)
+        univOrLocalTextField.itemSelectionHandler = { item, itemPosition in
+            self.univOrLocalTextField.text = item[itemPosition].title
+        }
     }
     
     private func localUniversities() -> [String] {
@@ -231,6 +234,17 @@ class InputUserClubInfoViewController: UIViewController {
     }
     
     @IBAction func nextClick(_ sender: Any) {
+        // 자동완성 목록에 없는학교 거르기
+        if clubactInfo.clubType == .School {
+            guard let school = univOrLocalTextField.text else {return}
+            
+            let universities = localUniversities()
+            if !universities.contains(school) {
+                self.simpleAlert(title: "학교명을 정확히 입력해주세요.", message: "목록에 없는 학교이름 입니다.\n자신의 학교가 없는 경우 문의주세요.")
+                return
+            }
+        }
+        
         // 동아리가 등록되어 있다면
         if isExistClub {
             let nextVC = self.storyboard?.instantiateViewController(withIdentifier: "StarRatingVC") as! StarRatingViewController

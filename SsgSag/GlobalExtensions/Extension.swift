@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SearchTextField
 import RxSwift
 
 extension UIColor {
@@ -481,5 +482,12 @@ extension UIFont {
         }
         
         return UIFont(name: fontName, size: size) ?? UIFont.systemFont(ofSize: size)
+    }
+}
+
+extension SearchTextField {
+    open override func awakeFromNib() {
+        self.theme.bgColor = .white
+        self.theme.font = UIFont.systemFont(ofSize: 13)
     }
 }
