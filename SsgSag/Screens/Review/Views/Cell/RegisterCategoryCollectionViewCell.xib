@@ -20,7 +20,7 @@
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="디자인" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NQ6-7Y-sd3">
                         <rect key="frame" x="12" y="17.5" width="51" height="15"/>
                         <fontDescription key="fontDescription" name="AppleSDGothicNeo-Regular" family="Apple SD Gothic Neo" pointSize="12"/>
-                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="textColor" red="0.39607843139999999" green="0.43137254899999999" blue="0.94117647059999998" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LUs-Jj-EuH">
@@ -36,7 +36,7 @@
                     </button>
                 </subviews>
             </view>
-            <color key="backgroundColor" red="0.39607843139999999" green="0.43137254899999999" blue="0.94117647059999998" alpha="0.69999999999999996" colorSpace="custom" customColorSpace="displayP3"/>
+            <color key="backgroundColor" red="0.39607843139999999" green="0.43137254899999999" blue="0.94117647059999998" alpha="0.14999999999999999" colorSpace="custom" customColorSpace="displayP3"/>
             <constraints>
                 <constraint firstItem="LUs-Jj-EuH" firstAttribute="centerY" secondItem="NQ6-7Y-sd3" secondAttribute="centerY" id="GQ3-xU-1k2"/>
                 <constraint firstItem="NQ6-7Y-sd3" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="12" id="H9n-TK-qzP"/>

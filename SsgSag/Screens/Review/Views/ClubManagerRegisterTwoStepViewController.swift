@@ -48,6 +48,7 @@ class ClubManagerRegisterTwoStepViewController: UIViewController {
         
         bindInput(viewModel: viewModel)
         bindOutput(viewModel: viewModel)
+        nextButton.deviceSetSize()
     }
     
     @objc func tapHideKeyBoard() {

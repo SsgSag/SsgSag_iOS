@@ -21,6 +21,7 @@ class CategorySelectModel {
 
 class NotFoundClubViewController: UIViewController {
 
+    @IBOutlet weak var nextButton: UIButton!
     var clubactInfo: ClubActInfoModel!
     let categoryTitleSet = ClubAbout.categorys
     let cellModel: BehaviorRelay<[CategorySelectModel]> = BehaviorRelay(value: [])
@@ -38,6 +39,7 @@ class NotFoundClubViewController: UIViewController {
         collectionView.delegate = self
         setupCategoryCollectionView(titleSet: categoryTitleSet)
         bind()
+        nextButton.deviceSetSize()
        
     }
     

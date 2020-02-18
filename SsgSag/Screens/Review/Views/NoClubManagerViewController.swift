@@ -11,11 +11,12 @@ import UIKit
 class NoClubManagerViewController: UIViewController {
     var service: ClubServiceProtocol!
 
+    @IBOutlet weak var completeButton: UIButton!
     @IBOutlet weak var adminPhoneTextField: UITextField!
     @IBOutlet weak var adminNameTextField: UITextField!
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        completeButton.deviceSetSize()
     }
     
     @IBAction func cancelClick(_ sender: Any) {
