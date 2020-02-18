@@ -12,6 +12,7 @@ import RxCocoa
 
 class StarRatingViewController: UIViewController {
 
+    @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var scrollViewBotLayout: NSLayoutConstraint!
     @IBOutlet weak var nextButton: UIButton!
     @IBOutlet weak var friendStack: UIStackView!
@@ -31,18 +32,26 @@ class StarRatingViewController: UIViewController {
     private var scrollAppear = false
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        scrollView.alpha = 0
         bind(viewModel: starRatingModel)
         setupRateCalculate()
-        
+        nextButton.deviceSetSize()
+        titleLabel.text = clubactInfo.clubName
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        self.view.layoutIfNeeded()
-        scrollViewBotLayout.constant = scrollView.frame.height - scrollAppearHeight
-        scrollView.isScrollEnabled = false
-        scrollAppear = false
-        scrollView.setContentOffset(.zero, animated: true)
+    override func viewDidAppear(_ animated: Bool) {
+        UIView.animate(withDuration: 0.3) {
+            self.scrollView.alpha = 1
+        }
+        if !scrollAppear {
+            self.view.layoutIfNeeded()
+            scrollViewBotLayout.constant = scrollView.frame.height - scrollAppearHeight
+        }
+//        self.view.layoutIfNeeded()
+//        scrollViewBotLayout.constant = scrollView.frame.height - scrollAppearHeight
+//        scrollView.isScrollEnabled = false
+//        scrollAppear = false
+//        scrollView.setContentOffset(.zero, animated: true)
         
     }
     

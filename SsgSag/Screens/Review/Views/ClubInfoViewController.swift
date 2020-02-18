@@ -94,6 +94,14 @@ class ClubInfoViewController: UIViewController {
         performSegue(withIdentifier: "SelectClubManagerSegue", sender: self)
     }
     
+    @IBAction func clubEditClick(_ sender: Any) {
+//        guard let nextVC = self.storyboard?.instantiateViewController(withIdentifier: "ClubEditViewController") as? ClubEditViewController else {return}
+//        guard let clubInfo = try? tabViewModel.clubInfoData.value() else { return }
+//        let clubEditViewModel = ClubEditViewModel(model: clubInfo)
+//        nextVC.viewModel = clubEditViewModel
+        
+    }
+    
     deinit {
         print("memory - info 종료")
     }

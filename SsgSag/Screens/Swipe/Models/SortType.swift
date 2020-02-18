@@ -34,8 +34,7 @@ enum InterestingFieldContest: Int, CaseIterable {
     case it = 207
     case startUp = 208
     case finance = 215
-    case supporters = 251
-    case volunteerWork = 252
+    case etc = 299
     
     func getTypeString() -> String {
         switch self {
@@ -55,10 +54,8 @@ enum InterestingFieldContest: Int, CaseIterable {
             return "창업/스타트업"
         case .finance:
             return "금융/경제"
-        case .supporters:
-            return "서포터즈"
-        case .volunteerWork:
-            return "봉사활동"
+        case .etc:
+            return "기타"
         }
     }
 }
@@ -85,26 +82,41 @@ enum InterestingFieldActivity: Int, CaseIterable {
 
 enum InterestingFieldInternShip: Int, CaseIterable {
     case none = 0
-    case developer = 301
-    case designer = 302
-    case marketer = 303
-    case pm = 304
-    case etc = 505
+    case developer = 104
+    case designer = 112
+    case marketer = 110
+    case ceo = 101
+    case media = 107
+    case pm = 109
+    case sales = 102
+    case hr = 106
+    case retail = 111
+    case product = 103
     
     func getTypeString() -> String {
         switch self {
         case .none:
             return "전체"
         case .developer:
-            return "개발자"
+            return "개발"
         case .designer:
-            return "디자이너"
+            return "디자인"
         case .marketer:
-            return "마케터"
+            return "마케팅/광고"
+        case .ceo:
+            return "경영/비즈니스"
+        case .media:
+            return "미디어"
         case .pm:
-            return "기획자"
-        case .etc:
-            return "기타"
+            return "엔지니어링/설계"
+        case .sales:
+            return "영업"
+        case .hr:
+            return "인사/교육"
+        case .retail:
+            return "고객서비스/리테일"
+        case .product:
+            return "제조/생산"
         }
     }
 }

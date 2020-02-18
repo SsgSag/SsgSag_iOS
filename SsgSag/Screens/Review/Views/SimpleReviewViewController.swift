@@ -41,6 +41,7 @@ class SimpleReviewViewController: UIViewController, UITextViewDelegate, UITextFi
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(tapHideKeyBoard))
         scrollView.addGestureRecognizer(tapGesture)
         
+        submitButton.deviceSetSize()
         bind()
     }
     

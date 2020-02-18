@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SearchTextField
 import RxSwift
 
 extension UIColor {
@@ -41,7 +42,6 @@ extension UIView {
         
         layer.insertSublayer(gradientLayer, at: 0)
     }
-    
 }
 
 
@@ -52,6 +52,27 @@ extension UIButton {
         } else {
             myButton.isSelected = true
         }
+    }
+    
+    func deviceSetSize() {
+        // 아이폰 노치바대응
+        // 제출하기, 완료하기, 등 하단의 긴버튼 크기조절
+        if UIScreen.main.bounds.height >= 812 {
+            self.constraints.forEach { layout in
+                if layout.firstAttribute == .height {
+                    layout.constant = 83
+                }
+            }
+        } else {
+            self.contentVerticalAlignment = .center
+            self.titleEdgeInsets.top = 0
+            self.constraints.forEach { layout in
+                if layout.firstAttribute == .height {
+                    layout.constant = 49
+                }
+            }
+        }
+        
     }
 }
 
@@ -461,5 +482,12 @@ extension UIFont {
         }
         
         return UIFont(name: fontName, size: size) ?? UIFont.systemFont(ofSize: size)
+    }
+}
+
+extension SearchTextField {
+    open override func awakeFromNib() {
+        self.theme.bgColor = .white
+        self.theme.font = UIFont.systemFont(ofSize: 13)
     }
 }

@@ -17,6 +17,7 @@ private enum Section: Int {
     case myInfo
     case interestedField
     case interestedJob
+    case interestedJobField
     
     init(section: Int) {
         self = Section(rawValue: section)!
@@ -219,6 +220,8 @@ UICollectionViewDelegateFlowLayout {
             return UIEdgeInsets(top: 16, left: 0, bottom: 40, right: 0)
         case .interestedJob:
             return UIEdgeInsets(top: 16, left: 0, bottom: 0, right: 0)
+        case .interestedJobField:
+            return UIEdgeInsets(top: 28, left: 0, bottom: 80, right: 0)
         }
     }
 
@@ -240,6 +243,10 @@ UICollectionViewDelegateFlowLayout {
             let titleString = self.reactor?.currentState.sections[indexPath.section][indexPath.item] ?? ""
             return MyFilterSizeLayout.calculateItemSize(by: .interestedJob,
                                                         targetString: titleString)
+        case .interestedJobField:
+            let titleString = self.reactor?.currentState.sections[indexPath.section][indexPath.item] ?? ""
+            return MyFilterSizeLayout.calculateItemSize(by: .interestedJobField,
+                                                        targetString: titleString)
         }
     }
     
@@ -253,6 +260,8 @@ UICollectionViewDelegateFlowLayout {
             return MyFilterSizeLayout.headerSize(by: .interestedField)
         case .interestedJob:
             return MyFilterSizeLayout.headerSize(by: .interestedJob)
+        case .interestedJobField:
+            return MyFilterSizeLayout.headerSize(by: .interestedJobField)
         }
         
     }

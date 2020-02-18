@@ -13,7 +13,8 @@ import ReactorKit
 private enum Section: Int {
     case myInfo
     case interestedField
-    case interestedFJob
+    case interestedJob
+    case interestedJobField
     
     init(section: Int) {
         self = Section(rawValue: section)!
@@ -48,9 +49,13 @@ class MyFilterButtonCollectionViewCellReactor: Reactor, MyFilterCollectionViewCe
     let initialState: State
 
     init(titleText: String, isSelected: Bool, indexPath: IndexPath) {
+        if indexPath.section > 1 {
+            
+        }
+        let editedTitleText = indexPath.section > 0 ? "#\(titleText)" : titleText
         self.initialState = State(backgroundColor: UIColor.greyFour,
                                   textColor: UIColor.greyThree,
-                                  titleText: titleText,
+                                  titleText: editedTitleText,
                                   isSelected: isSelected,
                                   indexPath: indexPath)
        }
@@ -72,7 +77,7 @@ class MyFilterButtonCollectionViewCellReactor: Reactor, MyFilterCollectionViewCe
             switch section {
             case .myInfo:
                 return Observable.just(Mutation.empty)
-            case .interestedField, .interestedFJob:
+            case .interestedField, .interestedJob, .interestedJobField:
                 var backgroundColor: UIColor = .greyFour
                 var textColor: UIColor = .greyThree
                 if currentState.isSelected {

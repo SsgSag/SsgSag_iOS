@@ -51,6 +51,9 @@
 		0651632B23F6393B002089D2 /* ReviewEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0651632A23F6393B002089D2 /* ReviewEditViewController.swift */; };
 		0651632D23F63B24002089D2 /* ReviewEditViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0651632C23F63B24002089D2 /* ReviewEditViewModel.swift */; };
 		0651632F23F809FA002089D2 /* ClubUnionListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0651632E23F809FA002089D2 /* ClubUnionListViewController.swift */; };
+		0651633123FA2DB0002089D2 /* ClubEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0651633023FA2DB0002089D2 /* ClubEditViewController.swift */; };
+		0651633323FA306A002089D2 /* ClubEditViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0651633223FA306A002089D2 /* ClubEditViewModel.swift */; };
+		0651633523FB78FE002089D2 /* MoreReviewTopLabelTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0651633423FB78FE002089D2 /* MoreReviewTopLabelTableViewCell.swift */; };
 		065264DB23EA8FEE00501200 /* NotFoundClubViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 065264DA23EA8FEE00501200 /* NotFoundClubViewController.swift */; };
 		065264DD23EAC4BA00501200 /* FoundClubViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 065264DC23EAC4BA00501200 /* FoundClubViewController.swift */; };
 		065264DF23EBC55C00501200 /* StarRatingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 065264DE23EBC55C00501200 /* StarRatingViewController.swift */; };
@@ -453,6 +456,9 @@
 		0651632A23F6393B002089D2 /* ReviewEditViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewEditViewController.swift; sourceTree = "<group>"; };
 		0651632C23F63B24002089D2 /* ReviewEditViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewEditViewModel.swift; sourceTree = "<group>"; };
 		0651632E23F809FA002089D2 /* ClubUnionListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClubUnionListViewController.swift; sourceTree = "<group>"; };
+		0651633023FA2DB0002089D2 /* ClubEditViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClubEditViewController.swift; sourceTree = "<group>"; };
+		0651633223FA306A002089D2 /* ClubEditViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClubEditViewModel.swift; sourceTree = "<group>"; };
+		0651633423FB78FE002089D2 /* MoreReviewTopLabelTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoreReviewTopLabelTableViewCell.swift; sourceTree = "<group>"; };
 		065264DA23EA8FEE00501200 /* NotFoundClubViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotFoundClubViewController.swift; sourceTree = "<group>"; };
 		065264DC23EAC4BA00501200 /* FoundClubViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoundClubViewController.swift; sourceTree = "<group>"; };
 		065264DE23EBC55C00501200 /* StarRatingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StarRatingViewController.swift; sourceTree = "<group>"; };
@@ -881,6 +887,7 @@
 				0651632623F4405E002089D2 /* ReviewScorePopUpViewController.swift */,
 				0651632823F45224002089D2 /* RegisterBlogReviewViewController.swift */,
 				0651632A23F6393B002089D2 /* ReviewEditViewController.swift */,
+				0651633023FA2DB0002089D2 /* ClubEditViewController.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -928,6 +935,7 @@
 				064AD7CF23F0EE720006E02C /* RegisterCategoryCollectionViewCell.xib */,
 				064AD7D423F11D900006E02C /* RegisterPhotoCollectionViewCell.swift */,
 				064AD7D523F11D900006E02C /* RegisterPhotoCollectionViewCell.xib */,
+				0651633423FB78FE002089D2 /* MoreReviewTopLabelTableViewCell.swift */,
 			);
 			path = Cell;
 			sourceTree = "<group>";
@@ -966,6 +974,7 @@
 				064AD7DA23F120B40006E02C /* ClubRegisterTwoStepViewModel.swift */,
 				064AD7DE23F157F00006E02C /* ClubRegisterThreeStepViewModel.swift */,
 				0651632C23F63B24002089D2 /* ReviewEditViewModel.swift */,
+				0651633223FA306A002089D2 /* ClubEditViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -2372,6 +2381,7 @@
 				0655967023E029CE00C779A5 /* ClubInfoVC+Extension.swift in Sources */,
 				C9A828472395528D0029A493 /* PrivateProtectViewController.swift in Sources */,
 				C905D02B23B8DDCD00E9B2B2 /* FeedServiceTypeImp.swift in Sources */,
+				0651633523FB78FE002089D2 /* MoreReviewTopLabelTableViewCell.swift in Sources */,
 				0655966A23E0138900C779A5 /* ClubInfoViewController.swift in Sources */,
 				064AD7B523ECFAE10006E02C /* SimpleReviewViewModel.swift in Sources */,
 				D110809922E044E600F345A8 /* DetailInfoCollectionViewCell.swift in Sources */,
@@ -2402,6 +2412,7 @@
 				0655964923DCA88100C779A5 /* ClubListVC+Extension.swift in Sources */,
 				8459289D21D09CDD001DF6CC /* SwipeVC.swift in Sources */,
 				C9A828382395528D0029A493 /* AddVC.swift in Sources */,
+				0651633323FA306A002089D2 /* ClubEditViewModel.swift in Sources */,
 				C9A828652395528D0029A493 /* LogoutViewController.swift in Sources */,
 				D1564F0022EC102400BDA7F6 /* RequestMakerProtocol.swift in Sources */,
 				840FEDC32207500E00581A3B /* CalendarColor.swift in Sources */,
@@ -2533,6 +2544,7 @@
 				D16F30A62369804500C127CA /* FormTextField.swift in Sources */,
 				C9A828502395528D0029A493 /* MyFilterModels.swift in Sources */,
 				C9867F6123F1A61F0094B02B /* IntroPageViewModel.swift in Sources */,
+				0651633123FA2DB0002089D2 /* ClubEditViewController.swift in Sources */,
 				D1B2F43523013BAA00074448 /* AllAndFavoriteCollectionReusableView.swift in Sources */,
 				D11080B822E09F6E00F345A8 /* DetailInfoButtonsView.swift in Sources */,
 				C9A828492395528D0029A493 /* PushAlarmTableViewController.swift in Sources */,

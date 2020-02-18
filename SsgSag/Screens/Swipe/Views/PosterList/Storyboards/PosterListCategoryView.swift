@@ -48,7 +48,7 @@ class PosterListCategoryView: UIView {
         
         let layout = posterListCategoryCollectionView.collectionViewLayout as? UICollectionViewFlowLayout
         layout?.sectionInset = .init(top: 0, left: 30, bottom: 0, right: 0)
-        layout?.minimumInteritemSpacing = 88
+        layout?.minimumInteritemSpacing = 0
         layout?.minimumLineSpacing = 16
     }
 }
@@ -58,7 +58,7 @@ extension PosterListCategoryView: UICollectionViewDelegateFlowLayout, UICollecti
                         layout collectionViewLayout: UICollectionViewLayout,
                         sizeForItemAt indexPath: IndexPath) -> CGSize {
         
-        let cellWidth = indexPath.item == 0 ? collectionView.bounds.width : 80
+        let cellWidth = indexPath.item == 0 ? collectionView.bounds.width : (collectionView.bounds.width / 2) - 16
         return .init(width: cellWidth, height: 16)
     }
 }

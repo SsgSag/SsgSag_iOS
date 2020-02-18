@@ -19,7 +19,7 @@ class RegisterBlogReviewViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        submitButton.deviceSetSize()
         bind()
         //블로그 등록 통신코드
 

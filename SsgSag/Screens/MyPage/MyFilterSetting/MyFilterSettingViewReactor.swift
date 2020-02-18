@@ -17,6 +17,7 @@ private enum Section: Int {
     case myInfo
     case interestedField
     case interestedJob
+    case interestedJobField
     
     init(section: Int) {
         self = Section(rawValue: section)!
@@ -65,6 +66,7 @@ class MyFilterSettingViewReactor: Reactor {
     init(myInfo: [String],
          interestedField: [String],
          interestedJob: [String],
+         interestedJobField: [String],
          initialSetting: MyFilterSetting) {
         let headers = [
             MyFilterHeader(title: "학교/학과",
@@ -94,9 +96,16 @@ class MyFilterSettingViewReactor: Reactor {
                                                 indexPath: IndexPath(item: $0.offset, section: 1))
           }
         
+        let interestedJobFieldCellReactors = interestedJobField.enumerated().map {
+        MyFilterButtonCollectionViewCellReactor(titleText: $0.element,
+                                                isSelected: initialSetting.interestedJobField.contains($0.element),
+                                                indexPath: IndexPath(item: $0.offset, section: 1))
+          }
+        
         self.buttonCellViewReactors = [myInfoCellReactors,
                                        interestedFieldCellReactors,
-                                       interestedJobCellReactors]
+                                       interestedJobCellReactors,
+                                       interestedJobFieldCellReactors]
         
         
         let selectedIndex = interestedJob
@@ -107,11 +116,12 @@ class MyFilterSettingViewReactor: Reactor {
         let observableSections: [SectionModel<String, MyFilterCollectionViewCellReactor>] = [
             SectionModel(model: "myInfo", items: buttonCellViewReactors[0]),
             SectionModel(model: "interestedField", items: buttonCellViewReactors[1]),
-            SectionModel(model: "interestedFieldJob", items: buttonCellViewReactors[2])
+            SectionModel(model: "interestedFieldJob", items: buttonCellViewReactors[2]),
+            SectionModel(model: "interestedFieldJobField", items: buttonCellViewReactors[3])
         ]
 
         self.initialState = State(observableSections: observableSections, sections: [
-            myInfo, interestedField, interestedJob
+            myInfo, interestedField, interestedJob, interestedJobField
             ],
                                   myInfo: myInfo,
                                   interestedField: interestedField,
@@ -168,7 +178,8 @@ class MyFilterSettingViewReactor: Reactor {
                 }
                 let newSetting = MyFilterSetting(myInfo: oldSetting.myInfo,
                                                  interestedField: mutableArray,
-                                                 interestedJob: oldSetting.interestedJob)
+                                                 interestedJob: oldSetting.interestedJob,
+                                                 interestedJobField: oldSetting.interestedJobField)
                 return newSetting
             case .interestedJob:
                 let settingTitle = currentState.sections[section.rawValue][indexPath.item]
@@ -180,7 +191,21 @@ class MyFilterSettingViewReactor: Reactor {
                 }
                 let newSetting = MyFilterSetting(myInfo: oldSetting.myInfo,
                                                  interestedField: oldSetting.interestedField,
-                                                 interestedJob: mutableArray)
+                                                 interestedJob: mutableArray,
+                                                 interestedJobField: oldSetting.interestedJobField)
+                return newSetting
+            case .interestedJobField:
+                let settingTitle = currentState.sections[section.rawValue][indexPath.item]
+                if oldSetting.interestedJobField.contains(settingTitle) {
+                    mutableArray = oldSetting.interestedJobField.filter { $0 != settingTitle }
+                } else {
+                    mutableArray.append(contentsOf: oldSetting.interestedJobField)
+                    mutableArray.append(settingTitle)
+                }
+                let newSetting = MyFilterSetting(myInfo: oldSetting.myInfo,
+                                                 interestedField: oldSetting.interestedField,
+                                                 interestedJob: oldSetting.interestedJob,
+                                                 interestedJobField: mutableArray)
                 return newSetting
                 
             }

@@ -26,6 +26,8 @@ class ClubActInfoModel {
     var endDate = BehaviorRelay(value: "")
     var startRequestDate = ""
     var endRequestDate = ""
+    var startSaveDate: Date?
+    var endSaveDate: Date?
     var categoryList: [String] = []
     
     var recommendScore = 0

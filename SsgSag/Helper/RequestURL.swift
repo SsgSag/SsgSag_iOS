@@ -77,7 +77,7 @@ enum RequestURL {
         case .interestingField:
             return "/user/interest"
         case .reIntersting:
-            return "/user/reInterest"
+            return "/user/v2/reInterest"
         case .careerActivity:
             return "/career"
         case .deleteAcitivity(let careerIdx):

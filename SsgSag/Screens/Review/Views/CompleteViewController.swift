@@ -12,6 +12,7 @@ class CompleteViewController: UIViewController {
 
     @IBOutlet weak var subLabel: UILabel!
     @IBOutlet weak var titleLabel: UILabel!
+    @IBOutlet weak var returnButton: UIButton!
     
     var subText = ""
     var titleText = ""
@@ -21,6 +22,7 @@ class CompleteViewController: UIViewController {
         
         titleLabel.text = titleText
         subLabel.text = subText
+        returnButton.deviceSetSize()
     }
     
     @IBAction func dismissClick(_ sender: Any) {

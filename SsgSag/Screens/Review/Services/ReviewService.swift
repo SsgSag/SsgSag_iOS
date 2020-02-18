@@ -8,6 +8,7 @@
 
 import Foundation
 import Alamofire
+import SwiftKeychainWrapper
 
 class ReviewService: ReviewServiceProtocol {
     private let requestMaker: RequestMakerProtocol = RequestMaker()
@@ -17,7 +18,7 @@ class ReviewService: ReviewServiceProtocol {
         let baseURL = UserAPI.sharedInstance.getBaseString()
         let path = RequestURL.registerReview.getRequestURL
         guard let url = URL(string: baseURL+path) else {return}
-        let token = TokenName.tokenString
+        guard let token = KeychainWrapper.standard.string(forKey: TokenName.token) else {return}
         
         let header: [String : String] = [
             "Authorization": token,
@@ -64,7 +65,7 @@ class ReviewService: ReviewServiceProtocol {
         let baseURL = UserAPI.sharedInstance.getBaseString()
         let path = RequestURL.registerReview.getRequestURL
         guard let url = URL(string: baseURL+path) else {return}
-        let token = TokenName.tokenString
+        guard let token = KeychainWrapper.standard.string(forKey: TokenName.token) else {return}
         
         let header: [String : String] = [
             "Authorization": token,
@@ -114,7 +115,7 @@ class ReviewService: ReviewServiceProtocol {
         let baseURL = UserAPI.sharedInstance.getBaseString()
         let path = RequestURL.searchReviewList(clubIdx: clubIdx, curPage: curPage).getRequestURL
         guard let url = URL(string: baseURL+path) else {return}
-        let token = TokenName.tokenString
+        guard let token = KeychainWrapper.standard.string(forKey: TokenName.token) else {return}
         
         let header: [String : String] = [
             "Authorization": token
@@ -144,7 +145,7 @@ class ReviewService: ReviewServiceProtocol {
         let baseURL = UserAPI.sharedInstance.getBaseString()
         let path = RequestURL.reviewLike(clubPostIdx: clubPostIdx).getRequestURL
         guard let url = URL(string: baseURL+path) else {return}
-        let token = TokenName.tokenString
+        guard let token = KeychainWrapper.standard.string(forKey: TokenName.token) else {return}
         
         let header: [String : String] = [
             "Authorization": token
@@ -174,7 +175,7 @@ class ReviewService: ReviewServiceProtocol {
         let baseURL = UserAPI.sharedInstance.getBaseString()
         let path = RequestURL.reviewLike(clubPostIdx: clubPostIdx).getRequestURL
         guard let url = URL(string: baseURL+path) else {return}
-        let token = TokenName.tokenString
+        guard let token = KeychainWrapper.standard.string(forKey: TokenName.token) else {return}
         
         let header: [String : String] = [
             "Authorization": token

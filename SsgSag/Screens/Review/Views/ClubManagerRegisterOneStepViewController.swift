@@ -42,6 +42,7 @@ class ClubManagerRegisterOneStepViewController: UIViewController {
         let nib = UINib(nibName: "RegisterCategoryCollectionViewCell", bundle: nil)
         categoryCollectionView.register(nib, forCellWithReuseIdentifier: "RegisterCategoryCell")
         categoryCollectionView.delegate = self
+        nextButton.deviceSetSize()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -52,6 +53,9 @@ class ClubManagerRegisterOneStepViewController: UIViewController {
         univOrLocationTextField.startVisible = true
         let universities = localUniversities()
         univOrLocationTextField.filterStrings(universities)
+        univOrLocationTextField.itemSelectionHandler = { item, itemPosition in
+            self.univOrLocationTextField.text = item[itemPosition].title
+        }
     }
     
     private func localUniversities() -> [String] {
@@ -191,6 +195,17 @@ class ClubManagerRegisterOneStepViewController: UIViewController {
     }
     
     @IBAction func nextStepClick(_ sender: Any) {
+        
+        // 자동완성 목록에 없는학교 거르기
+        if model.clubType == .School {
+            guard let school = univOrLocationTextField.text else {return}
+            
+            let universities = localUniversities()
+            if !universities.contains(school) {
+                self.simpleAlert(title: "학교명을 정확히 입력해주세요.", message: "목록에 없는 학교이름 입니다.\n자신의 학교가 없는 경우 문의주세요.")
+                return
+            }
+        }
         
         guard let nextVC = self.storyboard?.instantiateViewController(withIdentifier: "ClubManagerRegisterTwoStepVC") as? ClubManagerRegisterTwoStepViewController else {return}
         modelInsertData(model: model, viewModel: viewModel)
