@@ -39,7 +39,6 @@ class ClubDetailViewController: UIViewController {
         setupDefault()
         disposeBag = DisposeBag()
         bind()
-        requestClubInfo()
     }
     
     lazy var blackStar = UIImage(named: "icStar0")
@@ -47,7 +46,8 @@ class ClubDetailViewController: UIViewController {
     lazy var fillStar = UIImage(named: "icStar2")
     
     override func viewWillAppear(_ animated: Bool) {
-         tabBarController?.tabBar.isHidden = false
+        tabBarController?.tabBar.isHidden = false
+        requestClubInfo()
     }
     
     func setupDefault() {

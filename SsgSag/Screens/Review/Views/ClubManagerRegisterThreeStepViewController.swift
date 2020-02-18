@@ -75,6 +75,10 @@ class ClubManagerRegisterThreeStepViewController: UIViewController {
         model.phone = viewModel.phoneObservable.value
     }
     
+    @IBAction func backClick(_ sender: Any) {
+        self.navigationController?.popViewController(animated: true)
+    }
+    
     @IBAction func submitClick(_ sender: Any) {
         
         guard viewModel.emailObservable.value.isValidEmail() else {

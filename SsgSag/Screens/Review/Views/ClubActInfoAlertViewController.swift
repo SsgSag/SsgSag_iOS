@@ -69,16 +69,22 @@ class ClubActInfoAlertViewController: UIViewController {
     }
     
     func dateCompare(model: ClubActInfoModel) -> Bool {
+
+        guard let startSaveDate = model.startSaveDate else {return true}
+        guard let endSaveDate = model.endSaveDate else {return true}
         
-        guard let startDay = model.startSaveDate?.timeIntervalSince1970 else {
-            return true
-        }
-    
-        guard let endDay = model.endSaveDate?.timeIntervalSince1970  else {
-            return true
-        }
+        let startDay = Calendar.current.dateComponents([.year, .month, .day], from: startSaveDate)
+        let endDay = Calendar.current.dateComponents([.year, .month, .day], from: endSaveDate)
         
-        if  startDay > endDay {
+        let sYear = startDay.year!
+        let sMonth = startDay.month!
+        let sDay = startDay.day!
+        
+        let eYear = endDay.year!
+        let eMonth = endDay.month!
+        let eDay = endDay.day!
+        
+        if sYear > eYear || sMonth > eMonth || sDay > eDay {
             return false
         }
         
