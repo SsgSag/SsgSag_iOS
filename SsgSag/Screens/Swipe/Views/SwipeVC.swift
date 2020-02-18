@@ -41,8 +41,6 @@ class SwipeVC: UIViewController {
     
     private var isOkayToUndo: Bool = false
     
-    private let coachmarkView = FilterCocahmarkView()
-    
     //TODO: 하단 타이틀 가변 길이, 상세보기에서 요일 삭제, 날짜 및 텍스트 가변길이로 , 해시태그 truncate
     
     private lazy var completeLabel: UILabel = {
@@ -115,6 +113,15 @@ class SwipeVC: UIViewController {
 
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        if UserDefaults.standard.bool(forKey: "isFirstLogin") {
+            
+        }
+        setCoachMarkView()
+        
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         posterServiceImp
@@ -136,16 +143,52 @@ class SwipeVC: UIViewController {
     private func setView() {
         navigationController?.navigationBar.shadowImage = UIImage()
         view.backgroundColor = .white
-        
-        view.addSubview(coachmarkView)
-        coachmarkView.topAnchor.constraint(
-            equalTo: view.topAnchor).isActive = true
-        coachmarkView.leadingAnchor.constraint(
-            equalTo: view.leadingAnchor).isActive = true
-        coachmarkView.trailingAnchor.constraint(
-            equalTo: view.trailingAnchor).isActive = true
-        coachmarkView.bottomAnchor.constraint(
-            equalTo: view.bottomAnchor).isActive = true
+    }
+    
+    private func setCoachMarkView() {
+        let coachmarkViewController = FirstCoachmarkViewController()
+        coachmarkViewController.providesPresentationContextTransitionStyle = true
+        coachmarkViewController.modalPresentationStyle = .overFullScreen
+        coachmarkViewController.callback = { [weak self] in
+            guard let self = self else { return }
+            Observable.zip(self.myFilterService.fetchMyFilterSetting(),
+                           self.userInfoService.fetchUserInfo())
+            .map { (filterSetting: $0.0,
+                    userInfo: [$0.1.userUniv ?? "", $0.1.userMajor ?? ""]) }
+            .observeOn(MainScheduler.instance)
+            .subscribe(onNext:{ [weak self] initialInfo in
+                guard let self = self else { return }
+                let myBoard = UIStoryboard(name: "MyPageStoryBoard",
+                                               bundle: nil)
+                guard let myVC
+                        = myBoard.instantiateViewController(withIdentifier: "MyFilterSettingViewController") as? MyFilterSettingViewController else { return }
+                myVC.reactor = MyFilterSettingViewReactor(myInfo: initialInfo.userInfo,
+                                                              interestedField: ["서포터즈",
+                                                                                "봉사활동",
+                                                                                "기획/아이디어",
+                                                                                "광고/마케팅",
+                                                                                "디자인","영상/콘텐츠",
+                                                                                "IT/공학",
+                                                                                "창업/스타트업",
+                                                                                "금융/경제"],
+                                                              interestedJob:["대기업",
+                                                                             "중견기업",
+                                                                             "공사/공기업",
+                                                                             "외국계기업",
+                                                                             "스타트업",
+                                                                             "중소기업",
+                                                                             "기타단체"],
+                                                              initialSetting: initialInfo.filterSetting)
+                
+                     myVC.callback = { [weak self] in
+                        self?.requestPoster(isFirst: false)
+                    }
+                self.navigationController?.pushViewController(myVC, animated: true)
+            })
+            .disposed(by: self.disposeBag)
+        }
+        present(coachmarkViewController,
+                animated: false)
     }
     
     private func setEmptyPosterAnimation() {
@@ -848,28 +891,5 @@ extension UIColor {
             self.setFill()
             rendererContext.fill(CGRect(x: 0, y: 0, width: size.width, height: size.height))
         }
-    }
-}
-
-class FilterCocahmarkView: UIView {
-    
-    private let translucentView: UIView = {
-        let view = UIView()
-        view.backgroundColor = #colorLiteral(red: 0.09019608051, green: 0, blue: 0.3019607961, alpha: 0.4190122003)
-        return view
-    }()
-    
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        setupLayout()
-    }
-    
-    private func setupLayout() {
-        addSubview(translucentView)
-        
-        translucentView.topAnchor.constraint(equalTo: topAnchor).isActive = true
-        translucentView.leadingAnchor.constraint(equalTo: leadingAnchor).isActive = true
-        translucentView.trailingAnchor.constraint(equalTo: trailingAnchor).isActive = true
-        translucentView.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
     }
 }

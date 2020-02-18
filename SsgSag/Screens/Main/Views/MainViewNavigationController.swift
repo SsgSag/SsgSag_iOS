@@ -107,13 +107,10 @@ class MainViewNavigationController: UINavigationController {
                                                                                 "금융/경제"],
                                                               interestedJob:["대기업",
                                                                              "중견기업",
-                                                                             "강소기업",
+                                                                             "중소기업",
                                                                              "공사/공기업",
                                                                              "외국계기업",
-                                                                             "스타트업",
-                                                                             "정부/지방자치단체",
-                                                                             "비영리단체/재단",
-                                                                             "기타단체"],
+                                                                             "스타트업"],
                                                               initialSetting: initialInfo.filterSetting)
                 if let swipeViewController = self.viewControllers.first as? SwipeVC {
                      myVC.callback = { [weak swipeViewController] in
