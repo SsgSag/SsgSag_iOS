@@ -63,14 +63,14 @@ class FirstCoachmarkViewController: UIViewController {
     }
     
     @objc private func touchUpFilterButton(_: UIButton) {
-        dismiss(animated: true) { [weak self] in
+        dismiss(animated: false) { [weak self] in
             self?.callback?()
         }
     }
     
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesEnded(touches, with: event)
-        dismiss(animated: true)
+        dismiss(animated: false)
     }
 
 }

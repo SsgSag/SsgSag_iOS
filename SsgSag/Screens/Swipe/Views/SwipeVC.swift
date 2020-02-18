@@ -110,15 +110,17 @@ class SwipeVC: UIViewController {
                 for: .normal
             )
         }
+        if !UserDefaults.standard.bool(forKey: "hasLoadedBefore") {
+            setCoachMarkView()
+            UserDefaults.standard.setValue(true, forKey: "hasLoadedBefore")
+        }
+        
 
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        if UserDefaults.standard.bool(forKey: "isFirstLogin") {
-            
-        }
-        setCoachMarkView()
+        
         
     }
     
@@ -163,22 +165,34 @@ class SwipeVC: UIViewController {
                 guard let myVC
                         = myBoard.instantiateViewController(withIdentifier: "MyFilterSettingViewController") as? MyFilterSettingViewController else { return }
                 myVC.reactor = MyFilterSettingViewReactor(myInfo: initialInfo.userInfo,
-                                                              interestedField: ["서포터즈",
-                                                                                "봉사활동",
-                                                                                "기획/아이디어",
-                                                                                "광고/마케팅",
-                                                                                "디자인","영상/콘텐츠",
-                                                                                "IT/공학",
-                                                                                "창업/스타트업",
-                                                                                "금융/경제"],
-                                                              interestedJob:["대기업",
-                                                                             "중견기업",
-                                                                             "공사/공기업",
-                                                                             "외국계기업",
-                                                                             "스타트업",
-                                                                             "중소기업",
-                                                                             "기타단체"],
-                                                              initialSetting: initialInfo.filterSetting)
+                                                          interestedField: ["기획/아이디어",
+                                                                            "광고/마케팅",
+                                                                            "디자인",
+                                                                            "영상/콘텐츠",
+                                                                            "IT/SW",
+                                                                            "창업/스타트업",
+                                                                            "봉사활동",
+                                                                            "해외탐방",
+                                                                            "뷰티/패션",
+                                                                            "스포츠/레저",
+                                                                            "문학/시나리오"],
+                                                          interestedJob:["대기업",
+                                                                         "중견기업",
+                                                                         "중소기업",
+                                                                         "공사/공기업",
+                                                                         "외국계기업",
+                                                                         "스타트업"],
+                                                          interestedJobField: ["마케팅/광고",
+                                                                               "경영/비즈니스",
+                                                                               "개발",
+                                                                               "미디어",
+                                                                               "엔지니어링/설계",
+                                                                               "디자인",
+                                                                               "영업",
+                                                                               "인사/교육",
+                                                                               "고객서비스/리테일",
+                                                                               "제조/생산"],
+                                                          initialSetting: initialInfo.filterSetting)
                 
                      myVC.callback = { [weak self] in
                         self?.requestPoster(isFirst: false)
