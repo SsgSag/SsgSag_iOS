@@ -19,7 +19,7 @@ class ClubUnionListViewController: UIViewController {
 
         self.reviewTableView.dataSource = self
         self.reviewTableView.delegate = self
-        self.reviewTableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 120, right: 0)
+        self.reviewTableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 80, right: 0)
     }
    
     override func viewWillAppear(_ animated: Bool) {

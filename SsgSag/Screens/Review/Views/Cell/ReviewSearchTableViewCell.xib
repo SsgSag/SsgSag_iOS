@@ -36,7 +36,7 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" alignment="center" spacing="7" translatesAutoresizingMaskIntoConstraints="NO" id="27Z-Q1-46P">
-                        <rect key="frame" x="24" y="88" width="128" height="22"/>
+                        <rect key="frame" x="24" y="94" width="128" height="22"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="star0" translatesAutoresizingMaskIntoConstraints="NO" id="hvq-co-w06">
                                 <rect key="frame" x="0.0" y="0.0" width="20" height="22"/>
@@ -87,7 +87,7 @@
                         </constraints>
                     </view>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="후기 23개" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="x61-A8-wbZ">
-                        <rect key="frame" x="278" y="93" width="49" height="12"/>
+                        <rect key="frame" x="278" y="99" width="49" height="12"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="49" id="fj2-oG-CWV"/>
                         </constraints>
@@ -96,11 +96,11 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="평점 4.0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Qmc-eJ-0B2">
-                        <rect key="frame" x="161" y="97.5" width="27.5" height="9"/>
+                        <rect key="frame" x="161" y="103.5" width="31" height="9"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="9" id="hT1-KV-9Yg"/>
                         </constraints>
-                        <fontDescription key="fontDescription" name="AppleSDGothicNeo-Regular" family="Apple SD Gothic Neo" pointSize="8"/>
+                        <fontDescription key="fontDescription" name="AppleSDGothicNeo-Regular" family="Apple SD Gothic Neo" pointSize="9"/>
                         <color key="textColor" red="0.66666666669999997" green="0.66666666669999997" blue="0.66666666669999997" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
@@ -111,7 +111,7 @@
                         </connections>
                     </button>
                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="small4" translatesAutoresizingMaskIntoConstraints="NO" id="8wK-m3-wd2">
-                        <rect key="frame" x="331" y="89" width="20" height="20"/>
+                        <rect key="frame" x="331" y="95" width="20" height="20"/>
                         <constraints>
                             <constraint firstAttribute="width" constant="20" id="7W0-bo-a4x"/>
                             <constraint firstAttribute="height" constant="20" id="nan-sF-CVR"/>
@@ -137,7 +137,7 @@
                     <constraint firstItem="mES-rD-hfQ" firstAttribute="leading" secondItem="Di7-cU-3Om" secondAttribute="leading" id="m47-z7-9Bh"/>
                     <constraint firstItem="mES-rD-hfQ" firstAttribute="trailing" secondItem="Di7-cU-3Om" secondAttribute="trailing" id="oS7-iF-BDz"/>
                     <constraint firstItem="x61-A8-wbZ" firstAttribute="centerY" secondItem="8wK-m3-wd2" secondAttribute="centerY" id="vIS-de-ank"/>
-                    <constraint firstItem="27Z-Q1-46P" firstAttribute="top" secondItem="mES-rD-hfQ" secondAttribute="bottom" constant="12" id="xUt-Z3-RfE"/>
+                    <constraint firstItem="27Z-Q1-46P" firstAttribute="top" secondItem="mES-rD-hfQ" secondAttribute="bottom" constant="18" id="xUt-Z3-RfE"/>
                     <constraint firstItem="mES-rD-hfQ" firstAttribute="top" secondItem="Di7-cU-3Om" secondAttribute="bottom" constant="2" id="zul-Q5-0aN"/>
                 </constraints>
             </tableViewCellContentView>
