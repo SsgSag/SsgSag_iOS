@@ -17,7 +17,6 @@ class MoreReviewViewController: UIViewController {
     
     @IBOutlet weak var registerReviewButton: UIButton!
     @IBOutlet weak var registerBlogButton: UIButton!
-    @IBOutlet weak var reviewNumLabel: UILabel!
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var tableView: UITableView!
     var clubInfo: ClubInfo!
@@ -37,7 +36,6 @@ class MoreReviewViewController: UIViewController {
     
     func setupDataWithType(type: ReviewType) {
         titleLabel.text = "\(clubInfo.clubName)"
-        reviewNumLabel.text = "후기 총 \(clubInfo.scoreNum)개"
         if type == .SsgSag {
             registerReviewButton.isHidden = false
             let nib = UINib(nibName: "SsgSagReviewTableViewCell", bundle: nil)

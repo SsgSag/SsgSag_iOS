@@ -2702,9 +2702,38 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="400" sectionHeaderHeight="1" sectionFooterHeight="1" translatesAutoresizingMaskIntoConstraints="NO" id="3nA-9z-g6I">
-                                <rect key="frame" x="0.0" y="120" width="375" height="658"/>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" bounces="NO" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="36" sectionHeaderHeight="1" sectionFooterHeight="1" contentViewInsetsToSafeArea="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3nA-9z-g6I">
+                                <rect key="frame" x="0.0" y="94" width="375" height="684"/>
                                 <color key="backgroundColor" red="0.94901960784313721" green="0.94901960784313721" blue="0.94901960784313721" alpha="1" colorSpace="calibratedRGB"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="MoreReviewTopLabelCell" rowHeight="36" id="tEs-Ov-TvO" customClass="MoreReviewTopLabelTableViewCell" customModule="슥삭" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="28" width="375" height="36"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="tEs-Ov-TvO" id="BRA-Qn-Ju7">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="36"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" insetsLayoutMarginsFromSafeArea="NO" text="후기 총 33개" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qW1-oN-dZv">
+                                                    <rect key="frame" x="24" y="10" width="61" height="26"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="15" id="uMQ-hx-W6x"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" name="AppleSDGothicNeo-Regular" family="Apple SD Gothic Neo" pointSize="12"/>
+                                                    <color key="textColor" red="0.46666666670000001" green="0.46666666670000001" blue="0.46666666670000001" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="bottom" secondItem="qW1-oN-dZv" secondAttribute="bottom" id="DVg-Ea-C6D"/>
+                                                <constraint firstItem="qW1-oN-dZv" firstAttribute="top" secondItem="BRA-Qn-Ju7" secondAttribute="top" constant="10" id="hUA-d5-tdh"/>
+                                                <constraint firstItem="qW1-oN-dZv" firstAttribute="leading" secondItem="BRA-Qn-Ju7" secondAttribute="leading" constant="24" id="o51-CA-lpL"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="reviewCountLabel" destination="qW1-oN-dZv" id="2Qb-5f-TdZ"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </prototypes>
                             </tableView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="슥삭 후기" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jtF-Hu-O0g">
                                 <rect key="frame" x="72.666666666666686" y="59" width="230" height="22"/>
@@ -2727,15 +2756,6 @@
                                     <action selector="backClick:" destination="anU-Cr-PKo" eventType="touchUpInside" id="AB2-iw-VKL"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="후기 총 33개" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="D2a-GL-484">
-                                <rect key="frame" x="24" y="105" width="61" height="15"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="15" id="E5P-dg-Ybw"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" name="AppleSDGothicNeo-Regular" family="Apple SD Gothic Neo" pointSize="12"/>
-                                <color key="textColor" red="0.46666666670000001" green="0.46666666670000001" blue="0.46666666670000001" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="M7n-bB-oNR">
                                 <rect key="frame" x="148" y="714" width="79" height="36"/>
                                 <color key="backgroundColor" red="0.39607843139999999" green="0.43137254899999999" blue="0.94117647059999998" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
@@ -2777,18 +2797,16 @@
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
-                            <constraint firstItem="D2a-GL-484" firstAttribute="top" secondItem="rUM-BS-gYD" secondAttribute="bottom" constant="11" id="4fZ-5d-zEU"/>
-                            <constraint firstItem="3nA-9z-g6I" firstAttribute="top" secondItem="D2a-GL-484" secondAttribute="bottom" id="DqU-vW-y2y"/>
                             <constraint firstItem="jtF-Hu-O0g" firstAttribute="top" secondItem="Rul-Nx-Rr9" secondAttribute="top" constant="15" id="EKo-BC-9rh"/>
                             <constraint firstItem="3nA-9z-g6I" firstAttribute="leading" secondItem="Rul-Nx-Rr9" secondAttribute="leading" id="Gga-5h-kA0"/>
                             <constraint firstItem="Rul-Nx-Rr9" firstAttribute="bottom" secondItem="XVd-HM-5RB" secondAttribute="bottom" constant="28" id="MGp-t9-neg"/>
-                            <constraint firstItem="D2a-GL-484" firstAttribute="leading" secondItem="Rul-Nx-Rr9" secondAttribute="leading" constant="24" id="Vv4-Og-NO0"/>
                             <constraint firstItem="M7n-bB-oNR" firstAttribute="leading" secondItem="Rul-Nx-Rr9" secondAttribute="leading" constant="148" id="WTM-WT-AEt"/>
                             <constraint firstItem="Rul-Nx-Rr9" firstAttribute="trailing" secondItem="3nA-9z-g6I" secondAttribute="trailing" id="adR-zo-VHv"/>
                             <constraint firstItem="Rul-Nx-Rr9" firstAttribute="trailing" secondItem="M7n-bB-oNR" secondAttribute="trailing" constant="148" id="bdc-Xe-me3"/>
                             <constraint firstItem="rUM-BS-gYD" firstAttribute="leading" secondItem="Rul-Nx-Rr9" secondAttribute="leading" constant="12" id="eQU-sx-xUE"/>
                             <constraint firstItem="rUM-BS-gYD" firstAttribute="centerY" secondItem="jtF-Hu-O0g" secondAttribute="centerY" id="fWA-ra-UcJ"/>
                             <constraint firstItem="Rul-Nx-Rr9" firstAttribute="bottom" secondItem="3nA-9z-g6I" secondAttribute="bottom" id="gSe-16-nt0"/>
+                            <constraint firstItem="3nA-9z-g6I" firstAttribute="top" secondItem="rUM-BS-gYD" secondAttribute="bottom" id="hhY-EV-W6P"/>
                             <constraint firstItem="XVd-HM-5RB" firstAttribute="leading" secondItem="Dog-ZO-qKW" secondAttribute="leading" constant="130" id="koz-dN-0Ig"/>
                             <constraint firstItem="Rul-Nx-Rr9" firstAttribute="bottom" secondItem="M7n-bB-oNR" secondAttribute="bottom" constant="28" id="tIa-2q-VTq"/>
                             <constraint firstAttribute="trailing" secondItem="XVd-HM-5RB" secondAttribute="trailing" constant="130" id="vZp-ke-DGF"/>
@@ -2799,14 +2817,13 @@
                     <connections>
                         <outlet property="registerBlogButton" destination="XVd-HM-5RB" id="fME-Qe-W8G"/>
                         <outlet property="registerReviewButton" destination="M7n-bB-oNR" id="UOv-47-LhC"/>
-                        <outlet property="reviewNumLabel" destination="D2a-GL-484" id="H54-Tw-8aV"/>
                         <outlet property="tableView" destination="3nA-9z-g6I" id="Nji-i7-HWD"/>
                         <outlet property="titleLabel" destination="jtF-Hu-O0g" id="dLe-0i-QQp"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Rlx-uY-Mpr" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4527" y="1283"/>
+            <point key="canvasLocation" x="4525.6000000000004" y="1282.0197044334975"/>
         </scene>
         <!--Review Edit View Controller-->
         <scene sceneID="Hno-4A-Vty">
