@@ -116,6 +116,11 @@ extension TabBarViewController: UITabBarControllerDelegate {
             }
         }
         if tabBarController.selectedViewController == viewController {
+            if viewController.tabBarItem.accessibilityIdentifier == "review" {
+                guard let vc = self.viewControllers else {return false}
+                guard let navigation = vc[3] as? UINavigationController else {return false}
+                navigation.popToRootViewController(animated: true)
+            }
             return false
         } else {
             return true
