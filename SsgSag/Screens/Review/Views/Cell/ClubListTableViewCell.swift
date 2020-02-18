@@ -32,7 +32,11 @@ class ClubListTableViewCell: UITableViewCell {
         willSet {
             self.reviewCountLabel.text = newValue.categoryList
             self.titleLabel.text = newValue.clubName
-            self.descriptionLabel.text = newValue.oneLine
+            if newValue.oneLine == "" {
+                self.descriptionLabel.text = "동아리 한줄 소개가 없습니다."
+            } else {
+                self.descriptionLabel.text = newValue.oneLine
+            }
             let score = floorf(newValue.aveScore * 100) / 100
             self.scoreLabel.text = "평점 \(score)"
             self.score = newValue.aveScore
