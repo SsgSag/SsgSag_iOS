@@ -6363,31 +6363,41 @@
                                     <action selector="cancelClick:" destination="HDN-71-ucs" eventType="touchUpInside" id="QK3-VI-R9a"/>
                                 </connections>
                             </button>
-                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" maximumZoomScale="4" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="bno-3x-fxb">
-                                <rect key="frame" x="0.0" y="218.66666666666663" width="375" height="375"/>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" scrollEnabled="NO" maximumZoomScale="3" translatesAutoresizingMaskIntoConstraints="NO" id="ZPD-8e-wji">
+                                <rect key="frame" x="0.0" y="100" width="375" height="712"/>
+                                <subviews>
+                                    <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" maximumZoomScale="4" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="bno-3x-fxb">
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="712"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="Rew-Ee-bQv">
+                                            <size key="itemSize" width="375" height="375"/>
+                                            <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                            <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                            <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                        </collectionViewFlowLayout>
+                                        <cells/>
+                                    </collectionView>
+                                </subviews>
                                 <constraints>
-                                    <constraint firstAttribute="width" secondItem="bno-3x-fxb" secondAttribute="height" multiplier="1:1" id="w9l-vG-zsh"/>
+                                    <constraint firstItem="bno-3x-fxb" firstAttribute="height" secondItem="ZPD-8e-wji" secondAttribute="height" id="I3s-Ol-XW9"/>
+                                    <constraint firstAttribute="trailing" secondItem="bno-3x-fxb" secondAttribute="trailing" id="RuZ-lr-mHz"/>
+                                    <constraint firstItem="bno-3x-fxb" firstAttribute="width" secondItem="ZPD-8e-wji" secondAttribute="width" id="Vsr-iF-kfz"/>
+                                    <constraint firstItem="bno-3x-fxb" firstAttribute="top" secondItem="ZPD-8e-wji" secondAttribute="top" id="faK-zP-7Ma"/>
+                                    <constraint firstAttribute="bottom" secondItem="bno-3x-fxb" secondAttribute="bottom" id="oSM-kj-Lpn"/>
+                                    <constraint firstItem="bno-3x-fxb" firstAttribute="leading" secondItem="ZPD-8e-wji" secondAttribute="leading" id="uGW-dj-4sp"/>
                                 </constraints>
-                                <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="Rew-Ee-bQv">
-                                    <size key="itemSize" width="375" height="375"/>
-                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
-                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
-                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                </collectionViewFlowLayout>
-                                <cells/>
-                            </collectionView>
+                            </scrollView>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="dwu-q4-MX3" firstAttribute="top" secondItem="cTn-qZ-U0z" secondAttribute="top" id="4Bm-vc-SYN"/>
-                            <constraint firstItem="cTn-qZ-U0z" firstAttribute="trailing" secondItem="bno-3x-fxb" secondAttribute="trailing" id="Mmj-aL-L25"/>
+                            <constraint firstItem="ZPD-8e-wji" firstAttribute="leading" secondItem="jXa-MQ-7Sl" secondAttribute="leading" id="BYP-U6-h6G"/>
+                            <constraint firstAttribute="bottom" secondItem="ZPD-8e-wji" secondAttribute="bottom" id="Pjd-zY-lZ0"/>
+                            <constraint firstItem="ZPD-8e-wji" firstAttribute="top" secondItem="dwu-q4-MX3" secondAttribute="bottom" constant="8" symbolic="YES" id="Teh-UH-YxF"/>
                             <constraint firstItem="hpj-dV-4Cf" firstAttribute="top" secondItem="cTn-qZ-U0z" secondAttribute="top" constant="15" id="XcQ-Bj-F1v"/>
                             <constraint firstItem="dwu-q4-MX3" firstAttribute="leading" secondItem="cTn-qZ-U0z" secondAttribute="leading" constant="12" id="abe-EW-boz"/>
-                            <constraint firstItem="bno-3x-fxb" firstAttribute="centerY" secondItem="jXa-MQ-7Sl" secondAttribute="centerY" id="cBq-MA-mW1"/>
-                            <constraint firstItem="bno-3x-fxb" firstAttribute="centerX" secondItem="jXa-MQ-7Sl" secondAttribute="centerX" id="emm-Uw-eUG"/>
                             <constraint firstItem="hpj-dV-4Cf" firstAttribute="centerX" secondItem="jXa-MQ-7Sl" secondAttribute="centerX" id="mro-T7-BZx"/>
-                            <constraint firstItem="bno-3x-fxb" firstAttribute="leading" secondItem="cTn-qZ-U0z" secondAttribute="leading" id="xJL-Xl-eva"/>
+                            <constraint firstAttribute="trailing" secondItem="ZPD-8e-wji" secondAttribute="trailing" id="wfB-aW-xWb"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="cTn-qZ-U0z"/>
                     </view>
@@ -6395,6 +6405,7 @@
                         <outlet property="cancelButton" destination="dwu-q4-MX3" id="w2U-en-uIj"/>
                         <outlet property="collectionView" destination="bno-3x-fxb" id="CnC-1s-xPw"/>
                         <outlet property="photoCountLabel" destination="hpj-dV-4Cf" id="Wl8-qH-0Lv"/>
+                        <outlet property="scrollView" destination="ZPD-8e-wji" id="2pq-al-uL1"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="FSf-tQ-Ctb" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

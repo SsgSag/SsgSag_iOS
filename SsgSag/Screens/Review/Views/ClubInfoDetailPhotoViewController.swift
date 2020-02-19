@@ -12,6 +12,7 @@ import RxSwift
 
 class ClubInfoDetailPhotoViewController: UIViewController {
 
+    @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var cancelButton: UIButton!
     @IBOutlet weak var photoCountLabel: UILabel!
     @IBOutlet weak var collectionView: UICollectionView!
@@ -31,6 +32,10 @@ class ClubInfoDetailPhotoViewController: UIViewController {
         let tapRecognizer = UITapGestureRecognizer(target: self, action: #selector(isHiddenUI))
         collectionView.addGestureRecognizer(tapRecognizer)
         
+        scrollView.delegate = self
+        scrollView.minimumZoomScale = 1
+        scrollView.maximumZoomScale = 3
+        scrollView.bouncesZoom = true
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -47,9 +52,6 @@ class ClubInfoDetailPhotoViewController: UIViewController {
         collectionView.register(nib, forCellWithReuseIdentifier: "ClubInfoDetailPhotoCell")
         
         collectionView.delegate = self
-        collectionView.minimumZoomScale = 1
-        collectionView.maximumZoomScale = 3
-        
         collectionView.decelerationRate = .fast
         
         photoURLSet
@@ -101,7 +103,7 @@ class ClubInfoDetailPhotoViewController: UIViewController {
 extension ClubInfoDetailPhotoViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let width = collectionView.frame.width
-        let height = width
+        let height = collectionView.frame.height
         
         return CGSize(width: width, height: height)
     }
@@ -116,5 +118,13 @@ extension ClubInfoDetailPhotoViewController: UICollectionViewDelegate {
         
         photoCurIndex.accept(index)
     }
+    
+    func viewForZooming(in scrollView: UIScrollView) -> UIView? {
+        if scrollView == self.scrollView {
+            return collectionView
+        }
+        return nil
+    }
+
 }
 
