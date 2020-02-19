@@ -17,21 +17,35 @@
                 <rect key="frame" x="0.0" y="0.0" width="379" height="375"/>
                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 <subviews>
-                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="FlZ-Qc-ehp">
+                    <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="EdI-jL-HXt">
                         <rect key="frame" x="0.0" y="0.0" width="379" height="375"/>
-                    </imageView>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="FlZ-Qc-ehp">
+                                <rect key="frame" x="0.0" y="0.0" width="379" height="375"/>
+                            </imageView>
+                        </subviews>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="FlZ-Qc-ehp" secondAttribute="trailing" id="7SO-nh-za7"/>
+                            <constraint firstAttribute="bottom" secondItem="FlZ-Qc-ehp" secondAttribute="bottom" id="XOm-9X-gAW"/>
+                            <constraint firstItem="FlZ-Qc-ehp" firstAttribute="width" secondItem="EdI-jL-HXt" secondAttribute="width" id="keT-av-67S"/>
+                            <constraint firstItem="FlZ-Qc-ehp" firstAttribute="top" secondItem="EdI-jL-HXt" secondAttribute="top" id="nYi-j0-og0"/>
+                            <constraint firstItem="FlZ-Qc-ehp" firstAttribute="leading" secondItem="EdI-jL-HXt" secondAttribute="leading" id="pjn-C5-rgx"/>
+                            <constraint firstItem="FlZ-Qc-ehp" firstAttribute="height" secondItem="EdI-jL-HXt" secondAttribute="height" id="yP2-bM-VMH"/>
+                        </constraints>
+                    </scrollView>
                 </subviews>
             </view>
             <constraints>
-                <constraint firstItem="FlZ-Qc-ehp" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="KtJ-P4-vhz"/>
-                <constraint firstAttribute="trailing" secondItem="FlZ-Qc-ehp" secondAttribute="trailing" id="LEc-bi-aAi"/>
-                <constraint firstAttribute="bottom" secondItem="FlZ-Qc-ehp" secondAttribute="bottom" id="Rrd-CQ-3n3"/>
-                <constraint firstItem="FlZ-Qc-ehp" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="mrZ-y1-hI4"/>
+                <constraint firstItem="EdI-jL-HXt" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="0LO-ic-GsK"/>
+                <constraint firstAttribute="trailing" secondItem="EdI-jL-HXt" secondAttribute="trailing" id="IKA-xQ-bSf"/>
+                <constraint firstAttribute="bottom" secondItem="EdI-jL-HXt" secondAttribute="bottom" id="jEV-SQ-GHP"/>
+                <constraint firstItem="EdI-jL-HXt" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="wH3-c7-S9x"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
             <size key="customSize" width="379" height="375"/>
             <connections>
                 <outlet property="imageView" destination="FlZ-Qc-ehp" id="Ps5-c5-t19"/>
+                <outlet property="scrollView" destination="EdI-jL-HXt" id="MS2-vo-hdi"/>
             </connections>
             <point key="canvasLocation" x="376.08695652173918" y="262.16517857142856"/>
         </collectionViewCell>

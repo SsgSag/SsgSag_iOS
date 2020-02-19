@@ -12,7 +12,6 @@ import RxSwift
 
 class ClubInfoDetailPhotoViewController: UIViewController {
 
-    @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var cancelButton: UIButton!
     @IBOutlet weak var photoCountLabel: UILabel!
     @IBOutlet weak var collectionView: UICollectionView!
@@ -32,10 +31,9 @@ class ClubInfoDetailPhotoViewController: UIViewController {
         let tapRecognizer = UITapGestureRecognizer(target: self, action: #selector(isHiddenUI))
         collectionView.addGestureRecognizer(tapRecognizer)
         
-        scrollView.delegate = self
-        scrollView.minimumZoomScale = 1
-        scrollView.maximumZoomScale = 3
-        scrollView.bouncesZoom = true
+//        let pinchRecognizer = UIPinchGestureRecognizer(target: self, action: #selector(pinchZoom(_:)))
+//        collectionView.addGestureRecognizer(pinchRecognizer)
+        
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -45,6 +43,11 @@ class ClubInfoDetailPhotoViewController: UIViewController {
     @objc func isHiddenUI() {
         let isHidden = isHiddenTopUIObservable.value
         isHiddenTopUIObservable.accept(!isHidden)
+    }
+    
+    @objc func pinchZoom(_ pinch: UIPinchGestureRecognizer) {
+        collectionView.transform = collectionView.transform.scaledBy(x: pinch.scale, y: pinch.scale)
+        pinch.scale = 1
     }
     
     func collectionViewSet() {
@@ -118,13 +121,4 @@ extension ClubInfoDetailPhotoViewController: UICollectionViewDelegate {
         
         photoCurIndex.accept(index)
     }
-    
-    func viewForZooming(in scrollView: UIScrollView) -> UIView? {
-        if scrollView == self.scrollView {
-            return collectionView
-        }
-        return nil
-    }
-
 }
-
