@@ -209,7 +209,7 @@
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="132" sectionHeaderHeight="1" sectionFooterHeight="1" translatesAutoresizingMaskIntoConstraints="NO" id="g07-8o-nH1">
                                 <rect key="frame" x="0.0" y="44" width="375" height="734"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <color key="backgroundColor" red="0.94901960784313721" green="0.94901960784313721" blue="0.94901960784313721" alpha="1" colorSpace="calibratedRGB"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="ClubCell" rowHeight="132" id="qZW-d9-03R" customClass="ClubListTableViewCell" customModule="슥삭" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="375" height="132"/>
@@ -409,17 +409,57 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iV0-pj-Hgb">
+                                <rect key="frame" x="0.0" y="141" width="375" height="300"/>
+                                <subviews>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="imgChicken" translatesAutoresizingMaskIntoConstraints="NO" id="sWg-Hl-oYg">
+                                        <rect key="frame" x="139.66666666666666" y="0.0" width="96" height="100"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="96" id="QCH-a6-4Or"/>
+                                            <constraint firstAttribute="height" constant="100" id="sqm-uR-R48"/>
+                                        </constraints>
+                                    </imageView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zZT-ML-Zh0">
+                                        <rect key="frame" x="100.33333333333333" y="108" width="174.33333333333337" height="47"/>
+                                        <string key="text">아직 교내 동아리의 후기가 없어요.
+후기를 등록해주세요 ㅠ-ㅠ
+</string>
+                                        <fontDescription key="fontDescription" name="AppleSDGothicNeo-Regular" family="Apple SD Gothic Neo" pointSize="13"/>
+                                        <color key="textColor" red="0.46666666666666667" green="0.46666666666666667" blue="0.46666666666666667" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstItem="zZT-ML-Zh0" firstAttribute="top" secondItem="sWg-Hl-oYg" secondAttribute="bottom" constant="8" id="21b-W3-NNs"/>
+                                    <constraint firstItem="sWg-Hl-oYg" firstAttribute="top" secondItem="iV0-pj-Hgb" secondAttribute="top" id="32P-h3-5FD"/>
+                                    <constraint firstItem="zZT-ML-Zh0" firstAttribute="centerX" secondItem="iV0-pj-Hgb" secondAttribute="centerX" id="Esh-Td-QjO"/>
+                                    <constraint firstItem="sWg-Hl-oYg" firstAttribute="centerX" secondItem="iV0-pj-Hgb" secondAttribute="centerX" id="Lbr-il-sCc"/>
+                                    <constraint firstAttribute="height" constant="300" id="asu-Mg-h9R"/>
+                                </constraints>
+                            </view>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="large" translatesAutoresizingMaskIntoConstraints="NO" id="FeO-uB-RtP">
+                                <rect key="frame" x="169" y="392.66666666666669" width="37" height="37"/>
+                                <color key="color" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
+                            <constraint firstItem="FeO-uB-RtP" firstAttribute="centerX" secondItem="SM3-QU-OYD" secondAttribute="centerX" id="2I2-iw-gnD"/>
                             <constraint firstItem="SM3-QU-OYD" firstAttribute="bottom" secondItem="g07-8o-nH1" secondAttribute="bottom" id="K4r-1k-B01"/>
+                            <constraint firstItem="iV0-pj-Hgb" firstAttribute="top" secondItem="mdL-Tq-G3h" secondAttribute="top" constant="141" id="OAe-bM-Jqv"/>
+                            <constraint firstItem="SM3-QU-OYD" firstAttribute="trailing" secondItem="iV0-pj-Hgb" secondAttribute="trailing" id="RU5-pZ-0Q4"/>
                             <constraint firstItem="g07-8o-nH1" firstAttribute="leading" secondItem="SM3-QU-OYD" secondAttribute="leading" id="VJK-C3-8jO"/>
                             <constraint firstItem="g07-8o-nH1" firstAttribute="top" secondItem="SM3-QU-OYD" secondAttribute="top" id="bhy-8x-gCI"/>
                             <constraint firstItem="SM3-QU-OYD" firstAttribute="trailing" secondItem="g07-8o-nH1" secondAttribute="trailing" id="gUy-mH-44r"/>
+                            <constraint firstItem="FeO-uB-RtP" firstAttribute="centerY" secondItem="SM3-QU-OYD" secondAttribute="centerY" id="h9Q-0s-md5"/>
+                            <constraint firstItem="iV0-pj-Hgb" firstAttribute="leading" secondItem="SM3-QU-OYD" secondAttribute="leading" id="wbu-Uv-tAu"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="SM3-QU-OYD"/>
                     </view>
                     <connections>
+                        <outlet property="emptyView" destination="iV0-pj-Hgb" id="Y1i-x3-fhw"/>
+                        <outlet property="indicator" destination="FeO-uB-RtP" id="RCP-Vj-1tq"/>
                         <outlet property="reviewTableView" destination="g07-8o-nH1" id="KMJ-VP-p5l"/>
                     </connections>
                 </viewController>
@@ -7600,7 +7640,7 @@
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="132" sectionHeaderHeight="1" sectionFooterHeight="1" translatesAutoresizingMaskIntoConstraints="NO" id="p8j-TS-izX">
                                 <rect key="frame" x="0.0" y="44" width="375" height="734"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <color key="backgroundColor" red="0.94901960784313721" green="0.94901960784313721" blue="0.94901960784313721" alpha="1" colorSpace="calibratedRGB"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="ClubCell" rowHeight="132" id="Z8V-29-XQE" customClass="ClubListTableViewCell" customModule="슥삭" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="375" height="132"/>
@@ -7800,17 +7840,58 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7Nm-VJ-IQ7">
+                                <rect key="frame" x="0.0" y="141" width="375" height="300"/>
+                                <subviews>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="imgChicken" translatesAutoresizingMaskIntoConstraints="NO" id="gfR-QT-hBz">
+                                        <rect key="frame" x="139.66666666666666" y="0.0" width="96" height="100"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="96" id="IsQ-9t-miS"/>
+                                            <constraint firstAttribute="height" constant="100" id="xxd-c3-FeW"/>
+                                        </constraints>
+                                    </imageView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Hhv-o4-2xu">
+                                        <rect key="frame" x="100.33333333333333" y="108" width="174.33333333333337" height="47"/>
+                                        <string key="text">아직 교내 동아리의 후기가 없어요.
+후기를 등록해주세요 ㅠ-ㅠ
+</string>
+                                        <fontDescription key="fontDescription" name="AppleSDGothicNeo-Regular" family="Apple SD Gothic Neo" pointSize="13"/>
+                                        <color key="textColor" red="0.46666666670000001" green="0.46666666670000001" blue="0.46666666670000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="300" id="4ja-4t-s7N"/>
+                                    <constraint firstItem="gfR-QT-hBz" firstAttribute="top" secondItem="7Nm-VJ-IQ7" secondAttribute="top" id="ILw-fh-thD"/>
+                                    <constraint firstItem="Hhv-o4-2xu" firstAttribute="top" secondItem="gfR-QT-hBz" secondAttribute="bottom" constant="8" id="OGv-f0-lA8"/>
+                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="300" id="ObA-PO-X8l"/>
+                                    <constraint firstItem="Hhv-o4-2xu" firstAttribute="centerX" secondItem="7Nm-VJ-IQ7" secondAttribute="centerX" id="bC6-Xf-zef"/>
+                                    <constraint firstItem="gfR-QT-hBz" firstAttribute="centerX" secondItem="7Nm-VJ-IQ7" secondAttribute="centerX" id="dGS-ve-KuD"/>
+                                </constraints>
+                            </view>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="large" translatesAutoresizingMaskIntoConstraints="NO" id="e9Q-5z-ASN">
+                                <rect key="frame" x="169" y="387.66666666666669" width="37" height="37"/>
+                                <color key="color" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
+                            <constraint firstItem="7Nm-VJ-IQ7" firstAttribute="top" secondItem="cm5-nN-cIN" secondAttribute="top" constant="141" id="6Kq-nQ-EYP"/>
+                            <constraint firstItem="e9Q-5z-ASN" firstAttribute="centerX" secondItem="cm5-nN-cIN" secondAttribute="centerX" id="6Uw-6f-9v7"/>
                             <constraint firstItem="p8j-TS-izX" firstAttribute="top" secondItem="Y3E-0w-eQM" secondAttribute="top" id="AXr-pv-tqp"/>
+                            <constraint firstItem="7Nm-VJ-IQ7" firstAttribute="leading" secondItem="Y3E-0w-eQM" secondAttribute="leading" id="Ore-qc-yMu"/>
+                            <constraint firstItem="e9Q-5z-ASN" firstAttribute="centerY" secondItem="cm5-nN-cIN" secondAttribute="centerY" id="X71-uO-Xvd"/>
                             <constraint firstItem="Y3E-0w-eQM" firstAttribute="trailing" secondItem="p8j-TS-izX" secondAttribute="trailing" id="c9f-S2-A1s"/>
+                            <constraint firstItem="7Nm-VJ-IQ7" firstAttribute="trailing" secondItem="Y3E-0w-eQM" secondAttribute="trailing" id="l4g-v8-BdV"/>
                             <constraint firstItem="Y3E-0w-eQM" firstAttribute="bottom" secondItem="p8j-TS-izX" secondAttribute="bottom" id="nTq-mT-MK7"/>
                             <constraint firstItem="p8j-TS-izX" firstAttribute="leading" secondItem="Y3E-0w-eQM" secondAttribute="leading" id="w3j-lT-4lr"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="Y3E-0w-eQM"/>
                     </view>
                     <connections>
+                        <outlet property="emptyView" destination="7Nm-VJ-IQ7" id="IiK-pC-ocT"/>
+                        <outlet property="indicator" destination="e9Q-5z-ASN" id="4la-QM-yox"/>
                         <outlet property="reviewTableView" destination="p8j-TS-izX" id="MuF-a1-P8f"/>
                     </connections>
                 </viewController>
@@ -7981,6 +8062,7 @@
         <image name="icStar0" width="28" height="28"/>
         <image name="icWarning" width="20" height="20"/>
         <image name="imgCareerPopup" width="171" height="170"/>
+        <image name="imgChicken" width="96" height="100"/>
         <image name="imgDocument" width="73" height="100"/>
         <image name="imgEmpty" width="196" height="155"/>
         <image name="imgReviewScore" width="232" height="146"/>

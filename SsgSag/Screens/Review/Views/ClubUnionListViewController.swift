@@ -9,7 +9,11 @@
 import UIKit
 
 class ClubUnionListViewController: UIViewController {
+    
+    @IBOutlet weak var emptyView: UIView!
+    @IBOutlet weak var indicator: UIActivityIndicatorView!
     @IBOutlet weak var reviewTableView: UITableView!
+    
     var pageIndex = 1
     var curPage = 0
     var cellData: [ClubListData] = []
@@ -34,15 +38,25 @@ class ClubUnionListViewController: UIViewController {
     }
     
     func requestPage() {
+        indicator.startAnimating()
         ClubService().requestClubList(curPage: curPage, clubType: 0) { data in
             guard let data = data else { return }
             if data.count == 0 {
                 self.curPage -= 1
+                self.indicator.stopAnimating()
                 return
             }
             
             data.forEach { self.cellData.append($0) }
+            
+            if self.cellData.isEmpty {
+                self.emptyView.isHidden = false
+            } else {
+                self.emptyView.isHidden = true
+            }
+            
             self.reviewTableView.reloadData()
+            self.indicator.stopAnimating()
         }
     }
 }
