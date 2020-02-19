@@ -6359,7 +6359,7 @@
                                     <action selector="cancelClick:" destination="HDN-71-ucs" eventType="touchUpInside" id="QK3-VI-R9a"/>
                                 </connections>
                             </button>
-                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" pagingEnabled="YES" showsVerticalScrollIndicator="NO" maximumZoomScale="3" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="bno-3x-fxb">
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" maximumZoomScale="4" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="bno-3x-fxb">
                                 <rect key="frame" x="0.0" y="218.66666666666663" width="375" height="375"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
@@ -6388,6 +6388,7 @@
                         <viewLayoutGuide key="safeArea" id="cTn-qZ-U0z"/>
                     </view>
                     <connections>
+                        <outlet property="cancelButton" destination="dwu-q4-MX3" id="w2U-en-uIj"/>
                         <outlet property="collectionView" destination="bno-3x-fxb" id="CnC-1s-xPw"/>
                         <outlet property="photoCountLabel" destination="hpj-dV-4Cf" id="Wl8-qH-0Lv"/>
                     </connections>
