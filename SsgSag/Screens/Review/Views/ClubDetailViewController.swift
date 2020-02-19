@@ -12,6 +12,10 @@ import RxCocoa
 
 class ClubDetailViewController: UIViewController {
     
+    @IBOutlet weak var friendDegreeUnderLabel: UILabel!
+    @IBOutlet weak var hardDegreeUnderLabel: UILabel!
+    @IBOutlet weak var funDegreeUnderLabel: UILabel!
+    @IBOutlet weak var proDegreeUnderLabel: UILabel!
     @IBOutlet weak var friendDegreeLabel: UILabel!
     @IBOutlet weak var hardDegreeLabel: UILabel!
     @IBOutlet weak var funDegreeLabel: UILabel!
@@ -122,6 +126,30 @@ class ClubDetailViewController: UIViewController {
         tabViewModel.friendObservable
             .subscribe(onNext: { [weak self] scoreText in
                 self?.friendDegreeLabel.text = scoreText
+            })
+        .disposed(by: disposeBag)
+        
+        tabViewModel.proUnderObservable
+            .subscribe(onNext: { [weak self] scoreText in
+                self?.proDegreeUnderLabel.text = scoreText
+            })
+        .disposed(by: disposeBag)
+        
+        tabViewModel.funUnderObservable
+            .subscribe(onNext: { [weak self] scoreText in
+                self?.funDegreeUnderLabel.text = scoreText
+            })
+        .disposed(by: disposeBag)
+        
+        tabViewModel.hardUnderObservable
+            .subscribe(onNext: { [weak self] scoreText in
+                self?.hardDegreeUnderLabel.text = scoreText
+            })
+        .disposed(by: disposeBag)
+        
+        tabViewModel.friendUnderObservable
+            .subscribe(onNext: { [weak self] scoreText in
+                self?.friendDegreeUnderLabel.text = scoreText
             })
         .disposed(by: disposeBag)
         

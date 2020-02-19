@@ -40,18 +40,8 @@ class ReviewSearchViewController: UIViewController, UITextFieldDelegate {
         }
         .disposed(by: disposeBag)
         
-        searchButton.rx
-            .tap
-            .do(onNext: { [weak self] _ in
-                guard let keyword = self?.searchTexfield.text else { return }
-                viewModel.fetchCellData(keyword: keyword)
-                self?.view.endEditing(true)
-            })
-            .subscribe()
-            .disposed(by: disposeBag)
-            
-          
-        viewModel.isEmpty
+        viewModel
+            .isEmpty
             .asDriver()
             .drive(onNext: { [weak self] bool in
                 guard let title = self?.searchTexfield.text else {return}
@@ -67,6 +57,41 @@ class ReviewSearchViewController: UIViewController, UITextFieldDelegate {
             })
             .disposed(by: disposeBag)
         
+        tableView
+            .rx
+            .willDisplayCell
+            .subscribe(onNext: { [weak self] cellEvent in
+                let indexPath = cellEvent.indexPath
+                if indexPath.row == viewModel.cellCount()-1 {
+                    guard let title = self?.searchTexfield.text else {return}
+                    viewModel.nextPage()
+                    viewModel.fetchCellData(keyword: title)
+                }
+            })
+            .disposed(by: disposeBag)
+        
+        searchTexfield
+            .rx
+            .text
+            .orEmpty
+            .changed
+            .subscribe(onNext: { [weak self] _ in
+                self?.viewModel?.curPage = 0
+            })
+            .disposed(by: disposeBag)
+        
+        searchButton
+            .rx
+            .tap
+            .do(onNext: { [weak self] _ in
+                guard let keyword = self?.searchTexfield.text else { return }
+                viewModel.fetchRefreshCell(keyword: keyword)
+                self?.view.endEditing(true)
+            })
+            .subscribe()
+            .disposed(by: disposeBag)
+            
+        
     }
     @IBAction func backClick(_ sender: Any) {
         self.navigationController?.popViewController(animated: true)
@@ -75,7 +100,7 @@ class ReviewSearchViewController: UIViewController, UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         guard let keyword = self.searchTexfield.text else { return false }
         guard let viewModel = viewModel else { return false }
-        viewModel.fetchCellData(keyword: keyword)
+        viewModel.fetchRefreshCell(keyword: keyword)
         self.view.endEditing(true)
         return true
     }

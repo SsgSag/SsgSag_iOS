@@ -11,8 +11,6 @@ import Alamofire
 import SwiftKeychainWrapper
 
 class ClubService: ClubServiceProtocol {
-//    private init() {}
-//    static let shared = ClubService()
     private let requestMaker: RequestMakerProtocol = RequestMaker()
     private let network: Network = NetworkImp()
     
@@ -88,10 +86,10 @@ class ClubService: ClubServiceProtocol {
         }
     }
     
-    func requestClubWithName(clubType: ClubType, location: String, keyword: String, curPage: Int, completion: @escaping ([ClubListData]?) -> Void) {
+    func requestClubListWithForm(clubType: ClubType, location: String, keyword: String, curPage: Int, completion: @escaping ([ClubListData]?) -> Void) {
         
         let baseURL = UserAPI.sharedInstance.getBaseString()
-        let path = RequestURL.searchClubWithName(clubType: clubType, location: location, keyword: keyword, curPage: curPage).getRequestURL
+        let path = RequestURL.searchClubWithForm(clubType: clubType, location: location, keyword: keyword, curPage: curPage).getRequestURL
         guard let urlString = (baseURL + path).addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) else {return}
         guard let url = URL(string:  urlString) else {return}
         guard let token = KeychainWrapper.standard.string(forKey: TokenName.token) else {return}
@@ -113,6 +111,32 @@ class ClubService: ClubServiceProtocol {
                 print(err.localizedDescription)
             }
         }
+    }
+    
+    func requestClubListWithName(keyword: String, curPage: Int, completion: @escaping ([ClubListData]?) -> Void) {
+        let baseURL = UserAPI.sharedInstance.getBaseString()
+        let path = RequestURL.searchClubWithName(keyword: keyword, curPage: curPage).getRequestURL
+        guard let urlString = (baseURL + path).addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) else {return}
+        guard let url = URL(string:  urlString) else {return}
+        guard let token = KeychainWrapper.standard.string(forKey: TokenName.token) else {return}
+        let header: HTTPHeaders = [
+            "Authorization" : token
+        ]
+        guard let request = requestMaker.makeRequest(url: url, method: .get, header: header, body: nil) else {return}
+        
+        network.dispatch(request: request) { result in
+            switch result {
+            case .success(let data):
+                if let object = try? JSONDecoder().decode(Clubs.self, from: data) {
+                    completion(object.data)
+                } else {
+                    completion(nil)
+                }
+            case .failure(let err):
+                print(err.localizedDescription)
+            }
+        }
+        
     }
     
     func requestNotMemberClubRegister(admin: Int, name: String, phone: String, completion: @escaping (Bool) -> Void) {
@@ -195,8 +219,6 @@ class ClubService: ClubServiceProtocol {
             "adminEmail": dataModel.email, //null 가능
             "adminCallNum": dataModel.phone //null 가능, 이메일도 가능
         ]
-        
-        print(body)
         
         let jsonData = try? JSONSerialization.data(withJSONObject: body)
         guard let request = requestMaker.makeRequest(url: url, method: .post, header: header, body: jsonData) else {return}
@@ -295,7 +317,6 @@ class ClubService: ClubServiceProtocol {
 
         Alamofire.upload(multipartFormData: { multipartFormData in
             let data = imageData
-            print("multi image - \(data)")
             multipartFormData.append(data, withName: "photo", fileName: "uploadImg.png", mimeType: "image/png")
             
         }, to: url, method: .post, headers: header) { result in
@@ -305,10 +326,8 @@ class ClubService: ClubServiceProtocol {
                     
                     do {
                         guard let data = response.data else { return }
-                        print("multi data - \(data)")
                         let decoder = JSONDecoder()
                         let object = try decoder.decode(ResponseSimpleResult<String>.self, from: data)
-                        print("multi object - \(object)")
                         if object.status == 200 {
                             completion(object.data)
                         }else {

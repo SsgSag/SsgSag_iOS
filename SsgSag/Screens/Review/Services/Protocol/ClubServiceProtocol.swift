@@ -16,8 +16,10 @@ protocol ClubServiceProtocol {
     //동아리 상세 정보
     func requestClubInfo(clubIdx: Int, completion: @escaping (ClubInfo?) -> Void)
     
-    //동아리 이름 검색
-    func requestClubWithName(clubType: ClubType, location: String, keyword: String, curPage: Int, completion: @escaping ([ClubListData]?) -> Void )
+    //동아리 이름 자동완성 검색
+    func requestClubListWithForm(clubType: ClubType, location: String, keyword: String, curPage: Int, completion: @escaping ([ClubListData]?) -> Void )
+    
+    func requestClubListWithName(keyword: String, curPage: Int, completion: @escaping ([ClubListData]?) -> Void)
     
     func requestPhotoURL(imageData: Data, completion: @escaping (String?) -> Void )
     

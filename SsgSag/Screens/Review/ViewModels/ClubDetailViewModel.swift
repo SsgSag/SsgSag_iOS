@@ -25,6 +25,11 @@ class ClubDetailViewModel {
     let hardObservable = BehaviorRelay(value: "")
     let friendObservable = BehaviorRelay(value: "")
     
+    let proUnderObservable = BehaviorRelay(value: "")
+    let funUnderObservable = BehaviorRelay(value: "")
+    let hardUnderObservable = BehaviorRelay(value: "")
+    let friendUnderObservable = BehaviorRelay(value: "")
+    
     let disposeBag = DisposeBag()
     
     init() {
@@ -57,18 +62,108 @@ class ClubDetailViewModel {
         case 1.0...1.8:
             return "F"
         default:
-            return "F"
+            return "-"
         }
     }
+    
+    func changeRecommendScoreToString(score: Float) -> String {
+        switch score {
+        case 4.3...5.0:
+            return "최악"
+        case 3.5...4.2:
+            return "별로"
+        case 2.7...3.4:
+            return "쏘쏘"
+        case 1.9...2.6:
+            return "좋아요"
+        case 1.0...1.8:
+            return "최고에요"
+        default:
+            return "-"
+        }
+    }
+    
+    func changeFunScoreToString(score: Float) -> String {
+        switch score {
+        case 4.3...5.0:
+            return "개꿀잼"
+        case 3.5...4.2:
+            return "꿀잼"
+        case 2.7...3.4:
+            return "쏘쏘"
+        case 1.9...2.6:
+            return "노잼"
+        case 1.0...1.8:
+            return "핵노잼"
+        default:
+            return "-"
+        }
+    }
+    
+    func changeProScoreToString(score: Float) -> String {
+        switch score {
+        case 4.3...5.0:
+            return "매우 높음"
+        case 3.5...4.2:
+            return "높음"
+        case 2.7...3.4:
+            return "쏘쏘"
+        case 1.9...2.6:
+            return "낮음"
+        case 1.0...1.8:
+            return "매우 낮음"
+        default:
+            return "-"
+        }
+    }
+    
+    func changeHardScoreToString(score: Float) -> String {
+        switch score {
+        case 4.3...5.0:
+            return "널널"
+        case 3.5...4.2:
+            return "안빡셈"
+        case 2.7...3.4:
+            return "쏘쏘"
+        case 1.9...2.6:
+            return "빡셈"
+        case 1.0...1.8:
+            return "사망"
+        default:
+            return "-"
+        }
+    }
+    
+    func changeFriendScoreToString(score: Float) -> String {
+        switch score {
+        case 4.3...5.0:
+            return "매우 좋음"
+        case 3.5...4.2:
+            return "좋음"
+        case 2.7...3.4:
+            return "쏘쏘"
+        case 1.9...2.6:
+            return "별로"
+        case 1.0...1.8:
+            return "전혀"
+        default:
+            return "-"
+        }
+    }
+    
     
     func bind() {
         clubInfoData.subscribe(onNext: { [weak self] object in
             guard let object = object else { return }
             self?.reviewCount = object.scoreNum
-            self?.proObservable.accept(self?.changeScoreToString(score: object.aveScore1) ?? "F")
-            self?.funObservable.accept(self?.changeScoreToString(score: object.aveScore2) ?? "F")
-            self?.hardObservable.accept(self?.changeScoreToString(score: object.aveScore3) ?? "F")
-            self?.friendObservable.accept(self?.changeScoreToString(score: object.aveScore4) ?? "F")
+            self?.proObservable.accept(self?.changeScoreToString(score: object.aveScore1) ?? "-")
+            self?.funObservable.accept(self?.changeScoreToString(score: object.aveScore2) ?? "-")
+            self?.hardObservable.accept(self?.changeScoreToString(score: object.aveScore3) ?? "-")
+            self?.friendObservable.accept(self?.changeScoreToString(score: object.aveScore4) ?? "-")
+            self?.proUnderObservable.accept(self?.changeScoreToString(score: object.aveScore1) ?? "-")
+            self?.funUnderObservable.accept(self?.changeScoreToString(score: object.aveScore2) ?? "-")
+            self?.hardUnderObservable.accept(self?.changeScoreToString(score: object.aveScore3) ?? "-")
+            self?.friendUnderObservable.accept(self?.changeScoreToString(score: object.aveScore4) ?? "-")
             self?.recommendObservable.accept(object.aveScore0)
         })
         .disposed(by: disposeBag)
