@@ -50,7 +50,7 @@ class ClubDetailViewModel {
     }
     
     func changeScoreToString(score: Float) -> String {
-        switch score {
+        switch (floorf(score * 10) / 10) {
         case 4.3...5.0:
             return "A"
         case 3.5...4.2:
@@ -59,7 +59,7 @@ class ClubDetailViewModel {
             return "C"
         case 1.9...2.6:
             return "D"
-        case 1.0...1.8:
+        case 0.0...1.8:
             return "F"
         default:
             return "-"
@@ -67,7 +67,7 @@ class ClubDetailViewModel {
     }
     
     func changeRecommendScoreToString(score: Float) -> String {
-        switch score {
+        switch (floorf(score * 10) / 10) {
         case 4.3...5.0:
             return "최악"
         case 3.5...4.2:
@@ -84,7 +84,7 @@ class ClubDetailViewModel {
     }
     
     func changeFunScoreToString(score: Float) -> String {
-        switch score {
+        switch (floorf(score * 10) / 10) {
         case 4.3...5.0:
             return "개꿀잼"
         case 3.5...4.2:
@@ -101,7 +101,7 @@ class ClubDetailViewModel {
     }
     
     func changeProScoreToString(score: Float) -> String {
-        switch score {
+        switch (floorf(score * 10) / 10) {
         case 4.3...5.0:
             return "매우 높음"
         case 3.5...4.2:
@@ -118,7 +118,7 @@ class ClubDetailViewModel {
     }
     
     func changeHardScoreToString(score: Float) -> String {
-        switch score {
+        switch (floorf(score * 10) / 10) {
         case 4.3...5.0:
             return "널널"
         case 3.5...4.2:
@@ -135,7 +135,7 @@ class ClubDetailViewModel {
     }
     
     func changeFriendScoreToString(score: Float) -> String {
-        switch score {
+        switch (floorf(score * 10) / 10) {
         case 4.3...5.0:
             return "매우 좋음"
         case 3.5...4.2:
@@ -160,10 +160,10 @@ class ClubDetailViewModel {
             self?.funObservable.accept(self?.changeScoreToString(score: object.aveScore2) ?? "-")
             self?.hardObservable.accept(self?.changeScoreToString(score: object.aveScore3) ?? "-")
             self?.friendObservable.accept(self?.changeScoreToString(score: object.aveScore4) ?? "-")
-            self?.proUnderObservable.accept(self?.changeScoreToString(score: object.aveScore1) ?? "-")
-            self?.funUnderObservable.accept(self?.changeScoreToString(score: object.aveScore2) ?? "-")
-            self?.hardUnderObservable.accept(self?.changeScoreToString(score: object.aveScore3) ?? "-")
-            self?.friendUnderObservable.accept(self?.changeScoreToString(score: object.aveScore4) ?? "-")
+            self?.proUnderObservable.accept(self?.changeProScoreToString(score: object.aveScore1) ?? "-")
+            self?.funUnderObservable.accept(self?.changeFunScoreToString(score: object.aveScore2) ?? "-")
+            self?.hardUnderObservable.accept(self?.changeHardScoreToString(score: object.aveScore3) ?? "-")
+            self?.friendUnderObservable.accept(self?.changeFriendScoreToString(score: object.aveScore4) ?? "-")
             self?.recommendObservable.accept(object.aveScore0)
         })
         .disposed(by: disposeBag)

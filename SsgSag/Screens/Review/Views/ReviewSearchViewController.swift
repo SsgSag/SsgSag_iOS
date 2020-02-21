@@ -30,9 +30,9 @@ class ReviewSearchViewController: UIViewController, UITextFieldDelegate {
         guard let viewModel = viewModel else {return}
         bind(viewModel: viewModel)
         
-//        ReviewService().requestBlogReviewList(keyword: "네이버", count: 3) {
-//            print("통신끝")
-//        }
+        ReviewService().requestBlogReviewList(keyword: "네이버", count: 3) {
+            print("통신끝")
+        }
     }
     
     func bind(viewModel: ReviewSearchViewModel) {

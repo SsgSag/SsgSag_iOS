@@ -42,9 +42,6 @@ class TabBarViewController: UITabBarController {
         
         UIView.appearance().isExclusiveTouch = true
         
-        if #available(iOS 13.0, *) {
-            overrideUserInterfaceStyle = .light
-        }
     }
     
     private func setupLayout() {
