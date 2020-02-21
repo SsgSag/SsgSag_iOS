@@ -149,7 +149,7 @@ enum RequestURL {
         case .reviewLike(let clubPostIdx):
             return "/club/post/like/\(clubPostIdx)"
         case .searchBlogReivewList(let keyword, let count):
-            return "https://openapi.naver.com/v1/search/blog.json?query=\(keyword)&display=\(count)"
+            return "https://openapi.naver.com/v1/search/blog.json?query=\(keyword.utf8)&display=\(count)"
         }
     }
     

@@ -202,36 +202,37 @@ class ReviewService: ReviewServiceProtocol {
     }
     
     func requestBlogReviewList(keyword: String, count: Int, completion: @escaping () -> Void) {
-        
-        guard let path = RequestURL.searchBlogReivewList(keyword: keyword, count: count).getRequestURL.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) else {
-            return
-        }
-        
-        guard let url = URL(string: path) else {return}
-        let header: [String: String] = [
-            "Naver-Client-Id" : ClientKey.naverBlogSearchId.getClienyKey,
-            "Naver-Client-Secret" : ClientKey.naverBlogSearchSecret.getClienyKey
-        ]
-        print("\n\(url)")
-        guard let request = requestMaker.makeRequest(url: url, method: .get, header: header, body: nil) else {return}
-        network.dispatch(request: request) { result in
-            switch result {
-            case .success(let data):
-                
-                let test = try? JSONSerialization.jsonObject(with: data, options: []) as? NSDictionary
-                print("\ndata-\(data)")
-                print("\ntest-\(test)")
-                if let object = try? JSONDecoder().decode(BlogRss.self, from: data) {
-                    print("\nobject-\(object)")
-                    completion()
-                } else {
-                    completion()
-                    print("\n실패!!!")
-                }
-            case .failure(let err):
-                print(err.localizedDescription)
-                 completion()
-            }
-        }
+//        guard let path = RequestURL.searchBlogReivewList(keyword: keyword, count: count).getRequestURL.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) else {
+//            return
+//        }
+//
+//        guard let url = URL(string: path) else {return}
+//        let header: [String: String] = [
+//            "X-Naver-Client-Id" : ClientKey.naverBlogSearchId.getClienyKey,
+//            "X-Naver-Client-Secret" : ClientKey.naverBlogSearchSecret.getClienyKey
+//        ]
+//        print("\n\(url)")
+//        guard let request = requestMaker.makeRequest(url: url, method: .get, header: header, body: nil) else {return}
+//        network.dispatch(request: request) { result in
+//            switch result {
+//            case .success(let data):
+//
+//                guard let test = try? JSONSerialization.jsonObject(with: data, options: []) as? NSDictionary else {return}
+//                print("\ndata-\(data)")
+//                guard let temp = test["items"] as? NSArray else {return}
+//                guard let item = temp[0] as? NSDictionary else {return}
+//                print("\ntest-\(item["description"])")
+//                if let object = try? JSONDecoder().decode(Blog.self, from: data) {
+//                    print("\nobject-\(object)")
+//                    completion()
+//                } else {
+//                    completion()
+//                    print("\n실패!!!")
+//                }
+//            case .failure(let err):
+//                print(err.localizedDescription)
+//                 completion()
+//            }
+//        }
     }
 }

@@ -59,7 +59,7 @@ class ClubDetailViewModel {
             return "C"
         case 1.9...2.6:
             return "D"
-        case 0.0...1.8:
+        case 1.0...1.8:
             return "F"
         default:
             return "-"

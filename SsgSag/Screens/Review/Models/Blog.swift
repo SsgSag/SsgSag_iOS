@@ -8,27 +8,19 @@
 
 import Foundation
 
-struct BlogRss: Codable {
-    let rss: String?
-    let channel: Channel
-}
-
-struct Channel: Codable {
-    let title: String?
-    let link: String?
-    let description: String?
-    let lastBuildDate: Date
-    let total: Int
-    let start: Int
+struct Blog: Codable {
     let display: Int
-    let items: BlogInfo
+    let items: [BlogInfo]?
+    let lastBuildDate: String
+    let start: Int
+    let total: Int
 }
 
 struct BlogInfo: Codable {
-    let title: String?
-    let link: String?
-    let description: String?
-    let bloggername: String?
     let bloggerlink: String?
-    let postdate: Date
+    let bloggername: String?
+    let description: String?
+    let link: String?
+    let postdate: Int
+    let title: String?
 }
