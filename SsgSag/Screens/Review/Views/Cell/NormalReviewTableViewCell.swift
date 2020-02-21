@@ -157,6 +157,14 @@ class NormalReviewTableViewCell: UITableViewCell {
             self.honeyHeightLayout.constant = height
             self.likeImgTopLayout.constant = height + 26 + 15
             
+            guard let viewModel = self.viewModel.data else {return}
+            let advantage = viewModel.advantage
+            let disadvantage = viewModel.disadvantage
+            let font = UIFont.fontWithName(type: .regular, size: 13)
+            self.layoutIfNeeded()
+            self.advantageHeightLayout.constant = advantage.estimatedFrame(font: font).height
+            self.disAdvantageHeightLayout.constant = disadvantage.estimatedFrame(font: font).height
+            
             NotificationCenter.default.post(name: NSNotification.Name(rawValue: "resizeTableView"), object: nil)
         }
     }

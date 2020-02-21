@@ -129,21 +129,27 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fKN-fw-gXj">
                                 <rect key="frame" x="0.0" y="132" width="375" height="48"/>
                                 <subviews>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="banner" translatesAutoresizingMaskIntoConstraints="NO" id="3t0-57-wRb">
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="48"/>
+                                    </imageView>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aPN-jz-NHx">
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="48"/>
-                                        <state key="normal" image="banner"/>
                                         <connections>
                                             <action selector="registerClubClick:" destination="pjl-wY-dWL" eventType="touchUpInside" id="Qq7-Ln-WEy"/>
                                         </connections>
                                     </button>
                                 </subviews>
-                                <color key="backgroundColor" red="1" green="0.38431372549019605" blue="0.38431372549019605" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="trailing" secondItem="aPN-jz-NHx" secondAttribute="trailing" id="02Z-Sp-b5Q"/>
                                     <constraint firstItem="aPN-jz-NHx" firstAttribute="top" secondItem="fKN-fw-gXj" secondAttribute="top" id="4Mc-Zy-r2S"/>
+                                    <constraint firstAttribute="bottom" secondItem="3t0-57-wRb" secondAttribute="bottom" id="GYA-Ov-uvc"/>
                                     <constraint firstAttribute="height" constant="48" id="SC6-0h-z1X"/>
+                                    <constraint firstAttribute="trailing" secondItem="3t0-57-wRb" secondAttribute="trailing" id="VSv-pE-FB9"/>
+                                    <constraint firstItem="3t0-57-wRb" firstAttribute="top" secondItem="fKN-fw-gXj" secondAttribute="top" id="bcA-fo-BwA"/>
                                     <constraint firstAttribute="bottom" secondItem="aPN-jz-NHx" secondAttribute="bottom" id="hog-A2-RUy"/>
                                     <constraint firstItem="aPN-jz-NHx" firstAttribute="leading" secondItem="fKN-fw-gXj" secondAttribute="leading" id="jbu-q0-VaZ"/>
+                                    <constraint firstItem="3t0-57-wRb" firstAttribute="leading" secondItem="fKN-fw-gXj" secondAttribute="leading" id="xQi-mH-0Jd"/>
                                 </constraints>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="w5x-tu-H3h">
@@ -6404,7 +6410,7 @@
                                     <action selector="cancelClick:" destination="HDN-71-ucs" eventType="touchUpInside" id="QK3-VI-R9a"/>
                                 </connections>
                             </button>
-                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" maximumZoomScale="4" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="bno-3x-fxb">
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" maximumZoomScale="4" bouncesZoom="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="bno-3x-fxb">
                                 <rect key="frame" x="0.0" y="92" width="375" height="720"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="Rew-Ee-bQv">

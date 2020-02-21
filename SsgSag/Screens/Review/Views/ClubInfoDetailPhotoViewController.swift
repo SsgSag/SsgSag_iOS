@@ -25,14 +25,11 @@ class ClubInfoDetailPhotoViewController: UIViewController {
         super.viewDidLoad()
         bind()
         collectionViewSet()
-        let indexPath = IndexPath(item: photoCurIndex.value, section: 0)
-        collectionView.scrollToItem(at: indexPath, at: .left, animated: false)
+        
+        
         
         let tapRecognizer = UITapGestureRecognizer(target: self, action: #selector(isHiddenUI))
         collectionView.addGestureRecognizer(tapRecognizer)
-        
-//        let pinchRecognizer = UIPinchGestureRecognizer(target: self, action: #selector(pinchZoom(_:)))
-//        collectionView.addGestureRecognizer(pinchRecognizer)
         
     }
     
@@ -44,12 +41,7 @@ class ClubInfoDetailPhotoViewController: UIViewController {
         let isHidden = isHiddenTopUIObservable.value
         isHiddenTopUIObservable.accept(!isHidden)
     }
-    
-    @objc func pinchZoom(_ pinch: UIPinchGestureRecognizer) {
-        collectionView.transform = collectionView.transform.scaledBy(x: pinch.scale, y: pinch.scale)
-        pinch.scale = 1
-    }
-    
+
     func collectionViewSet() {
         let nib = UINib(nibName: "ClubInfoDetailPhotoCollectionViewCell", bundle: nil)
         collectionView.register(nib, forCellWithReuseIdentifier: "ClubInfoDetailPhotoCell")
@@ -75,6 +67,10 @@ class ClubInfoDetailPhotoViewController: UIViewController {
                 self?.photoCurIndex.accept(page)
             })
             .disposed(by: disposeBag)
+        
+        self.view.layoutIfNeeded()
+        let indexPath = IndexPath(item: photoCurIndex.value, section: 0)
+        collectionView.scrollToItem(at: indexPath, at: .right, animated: false)
         
     }
     

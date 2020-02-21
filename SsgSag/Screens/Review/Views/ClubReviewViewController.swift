@@ -98,13 +98,10 @@ class ClubReviewViewController: UIViewController {
     @objc func refreshResizeTableView() {
         
         self.normalReviewTableView.beginUpdates()
-        self.normalReviewTableView.endUpdates()
-        
-        self.view.layoutIfNeeded()
         self.reviewTableHeightLayout.constant = CGFloat.greatestFiniteMagnitude
         
         self.reviewTableHeightLayout.constant = self.normalReviewTableView.contentSize.height
-        
+        self.normalReviewTableView.endUpdates()
         
     }
     
