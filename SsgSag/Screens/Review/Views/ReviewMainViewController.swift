@@ -33,6 +33,7 @@ class ReviewMainViewController: UIViewController {
         bindData()
         popUpPresent()
         cellModel.accept(tabTitle)
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {

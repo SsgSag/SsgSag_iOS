@@ -90,6 +90,7 @@
 		069D239C23FBD26600C756E3 /* ClubInfoDetailPhotoCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 069D239A23FBD26600C756E3 /* ClubInfoDetailPhotoCollectionViewCell.swift */; };
 		069D239D23FBD26600C756E3 /* ClubInfoDetailPhotoCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 069D239B23FBD26600C756E3 /* ClubInfoDetailPhotoCollectionViewCell.xib */; };
 		069D239F23FBD32800C756E3 /* ClubInfoDetailPhotoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 069D239E23FBD32800C756E3 /* ClubInfoDetailPhotoViewController.swift */; };
+		069D23D523FF750B00C756E3 /* Blog.swift in Sources */ = {isa = PBXBuildFile; fileRef = 069D23D423FF750B00C756E3 /* Blog.swift */; };
 		2E158304683BAFB18A8CD876 /* Pods_SsgSag.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 031F14AE11BD590702A32B8D /* Pods_SsgSag.framework */; };
 		840AFF8822A2622C00EA12E6 /* UIDevice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 840AFF8722A2622C00EA12E6 /* UIDevice.swift */; };
 		840DDD40227EAC4000D9D515 /* TapbarServiceImp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 840DDD3F227EAC4000D9D515 /* TapbarServiceImp.swift */; };
@@ -493,6 +494,7 @@
 		069D239A23FBD26600C756E3 /* ClubInfoDetailPhotoCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClubInfoDetailPhotoCollectionViewCell.swift; sourceTree = "<group>"; };
 		069D239B23FBD26600C756E3 /* ClubInfoDetailPhotoCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ClubInfoDetailPhotoCollectionViewCell.xib; sourceTree = "<group>"; };
 		069D239E23FBD32800C756E3 /* ClubInfoDetailPhotoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClubInfoDetailPhotoViewController.swift; sourceTree = "<group>"; };
+		069D23D423FF750B00C756E3 /* Blog.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Blog.swift; sourceTree = "<group>"; };
 		41F0B899B4CCAC855CFD54F6 /* Pods-SsgSag.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SsgSag.debug.xcconfig"; path = "Target Support Files/Pods-SsgSag/Pods-SsgSag.debug.xcconfig"; sourceTree = "<group>"; };
 		840AFF8722A2622C00EA12E6 /* UIDevice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIDevice.swift; sourceTree = "<group>"; };
 		840DDD3F227EAC4000D9D515 /* TapbarServiceImp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TapbarServiceImp.swift; sourceTree = "<group>"; };
@@ -959,6 +961,7 @@
 				0652950423E7ADA400DA9F3B /* CategoryView.swift */,
 				0652951623E9689700DA9F3B /* ClubActInfoModel.swift */,
 				064AD7C623EFD1C10006E02C /* ClubRegisterModel.swift */,
+				069D23D423FF750B00C756E3 /* Blog.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -2434,6 +2437,7 @@
 				8463567D229418300060ED91 /* ImageNetworkManager.swift in Sources */,
 				FAF6DEE4222EAAEF001C70CC /* Interests.swift in Sources */,
 				C905D02123B8D50D00E9B2B2 /* Array+.swift in Sources */,
+				069D23D523FF750B00C756E3 /* Blog.swift in Sources */,
 				C9A828422395528D0029A493 /* AddCertificationVC.swift in Sources */,
 				C9A828582395528D0029A493 /* MyFilterSliderCollectionViewCell.swift in Sources */,
 				0652951323E959BF00DA9F3B /* ClubActInfoAlertViewController.swift in Sources */,
