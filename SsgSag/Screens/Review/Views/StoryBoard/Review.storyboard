@@ -603,10 +603,9 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="중간" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Q8Z-Su-Ybq">
-                                <rect key="frame" x="197.33333333333334" y="199.66666666666666" width="16" height="13"/>
+                                <rect key="frame" x="197.33333333333334" y="199.66666666666666" width="15.666666666666657" height="13"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="13" id="aSw-Ac-hfg"/>
-                                    <constraint firstAttribute="width" constant="16" id="h7D-ZZ-gzR"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" name="AppleSDGothicNeo-Regular" family="Apple SD Gothic Neo" pointSize="9"/>
                                 <color key="textColor" red="0.66666666666666663" green="0.66666666666666663" blue="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
@@ -622,10 +621,8 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="꿀잼" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WLp-vl-gcR">
-                                <rect key="frame" x="239" y="199.66666666666666" width="16" height="13"/>
+                                <rect key="frame" x="239" y="199.66666666666666" width="15.666666666666657" height="13"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="13" id="KnY-hX-iRn"/>
-                                    <constraint firstAttribute="width" constant="16" id="MD3-Pg-dH5"/>
                                     <constraint firstAttribute="height" constant="13" id="uA3-5E-gZA"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" name="AppleSDGothicNeo-Regular" family="Apple SD Gothic Neo" pointSize="9"/>
@@ -633,10 +630,8 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="널널" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oX8-ao-Zkv">
-                                <rect key="frame" x="276.66666666666669" y="199.66666666666666" width="16" height="13"/>
+                                <rect key="frame" x="276.66666666666669" y="199.66666666666666" width="15.666666666666686" height="13"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="16" id="Rar-Z7-e7v"/>
-                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="13" id="ZdE-6u-HM0"/>
                                     <constraint firstAttribute="height" constant="13" id="jVb-DP-OAh"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" name="AppleSDGothicNeo-Regular" family="Apple SD Gothic Neo" pointSize="9"/>
@@ -644,10 +639,8 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="좋음" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LmV-jf-lzk">
-                                <rect key="frame" x="314.33333333333331" y="199.66666666666666" width="16" height="13"/>
+                                <rect key="frame" x="314.33333333333331" y="199.66666666666666" width="15.666666666666686" height="13"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="13" id="EM5-0I-pwt"/>
-                                    <constraint firstAttribute="width" constant="16" id="HIm-lV-vG4"/>
                                     <constraint firstAttribute="height" constant="13" id="wtd-BK-o63"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" name="AppleSDGothicNeo-Regular" family="Apple SD Gothic Neo" pointSize="9"/>
