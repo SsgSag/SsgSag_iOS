@@ -51,3 +51,13 @@ extension ClubInfoViewController: UICollectionViewDataSource, UICollectionViewDe
     }
 
 }
+
+extension ClubInfoViewController: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        
+        guard let photoDetailVC = self.storyboard?.instantiateViewController(withIdentifier: "ClubInfoDetailPhotoVC") as? ClubInfoDetailPhotoViewController else {return}
+        photoDetailVC.photoCurIndex.accept(indexPath.item)
+        photoDetailVC.photoURLSet.accept(imgSet)
+        self.present(photoDetailVC, animated: true)
+    }
+}

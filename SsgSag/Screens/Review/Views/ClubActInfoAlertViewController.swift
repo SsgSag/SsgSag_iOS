@@ -84,7 +84,11 @@ class ClubActInfoAlertViewController: UIViewController {
         let eMonth = endDay.month!
         let eDay = endDay.day!
         
-        if sYear > eYear || sMonth > eMonth || sDay > eDay {
+        if sYear > eYear {
+            return false
+        } else if sMonth > eMonth {
+            return false
+        } else if sDay > eDay {
             return false
         }
         

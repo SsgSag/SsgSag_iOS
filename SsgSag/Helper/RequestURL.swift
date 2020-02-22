@@ -37,12 +37,14 @@ enum RequestURL {
     case clickRecord(posterIdx: Int, type: Int)
     case clubList(curPage: Int, clubType: Int)
     case clubInfo(clubIdx: Int)
-    case searchClubWithName(clubType: ClubType, location: String, keyword: String, curPage: Int)
+    case searchClubWithForm(clubType: ClubType, location: String, keyword: String, curPage: Int)
+    case searchClubWithName(keyword: String, curPage: Int)
     case clubRegister
     case requestPhotoURL
     case registerReview
     case searchReviewList(clubIdx: Int, curPage: Int)
     case reviewLike(clubPostIdx: Int)
+    case searchBlogReivewList(keyword: String, count: Int)
     
     var getRequestURL: String {
         switch self {
@@ -132,8 +134,10 @@ enum RequestURL {
             return "/club?curPage=\(curPage)&clubType=\(clubType)"
         case .clubInfo(let clubIdx):
             return  "/club/\(clubIdx)"
-        case .searchClubWithName(let clubType, let location, let keyword, let curPage):
+        case .searchClubWithForm(let clubType, let location, let keyword, let curPage):
             return "/club/search?clubType=\(clubType.rawValue)&univOrLocation=\(location)&keyword=\(keyword)&curPage=\(curPage)"
+        case .searchClubWithName(let keyword, let curPage):
+            return"/club/search?keyword=\(keyword)&curPage=\(curPage)"
         case .clubRegister:
             return "/club"
         case .requestPhotoURL:
@@ -144,7 +148,8 @@ enum RequestURL {
             return "/club/\(clubIdx)/post?curPage=\(curPage)"
         case .reviewLike(let clubPostIdx):
             return "/club/post/like/\(clubPostIdx)"
-            
+        case .searchBlogReivewList(let keyword, let count):
+            return "https://openapi.naver.com/v1/search/blog.json?query=\(keyword.utf8)&display=\(count)"
         }
     }
     
