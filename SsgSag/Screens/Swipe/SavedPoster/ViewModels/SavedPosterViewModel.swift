@@ -14,16 +14,19 @@ class SavedPosterViewModel {
     private let posterService: PosterService
       = DependencyContainer.shared.getDependency(key: .posterService)
     
-    let cellViewModels = BehaviorRelay<[SavedPosterCellViewModel]>(value: [])
+    var favoritCellViewModels: [SavedPosterCellViewModel] = []
+    var disLikeCellViewModels: [SavedPosterCellViewModel] = []
     
-    func buildCellViewModels() {
-        posterService.requestStoredPoster(index: 0, type: .liked) { [weak self] (response) in
+    func buildCellViewModels(completion: @escaping (() -> Void)) {
+        posterService.requestStoredPoster { [weak self] (response) in
             switch response {
             case .success(let posterdata):
                 guard let self = self else { return }
-                guard let posters = posterdata.posters else { return }
-                self.cellViewModels.accept(posters.compactMap { SavedPosterCellViewModel(isLiked: true, poster: $0) })
+                self.favoritCellViewModels = (posterdata.ssgSummaryPosterList ?? []).compactMap { SavedPosterCellViewModel(poster: $0) }
+                self.disLikeCellViewModels = (posterdata.sagSummaryPosterList ?? []).compactMap { SavedPosterCellViewModel(poster: $0) }
+                completion()
             case .failed(let error):
+                completion()
                 return
             }
         }

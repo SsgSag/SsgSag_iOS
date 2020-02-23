@@ -19,7 +19,7 @@ class AllPosterListCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var calendarSaveCountButton: UIButton!
     @IBOutlet weak var hashTagLabel: UILabel!
     
-    var posterData: PosterDataAfterSwpie? {
+    var posterData: PosterDataAfterSwipe? {
         didSet {
             guard let posterData = self.posterData else {
                 return
@@ -34,7 +34,7 @@ class AllPosterListCollectionViewCell: UICollectionViewCell {
         
     }
     
-    private func setupCellData(_ posterData: PosterDataAfterSwpie) {
+    private func setupCellData(_ posterData: PosterDataAfterSwipe) {
         guard let title = posterData.posterName,
             let dday = posterData.dday,
             let viewCount = posterData.swipeNum,

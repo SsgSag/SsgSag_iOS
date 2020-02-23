@@ -18,17 +18,17 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="3l4-Wf-HaQ">
-                                <rect key="frame" x="0.0" y="44" width="414" height="818"/>
+                                <rect key="frame" x="0.0" y="44" width="414" height="769"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="1jS-y6-KFP">
                                     <size key="itemSize" width="50" height="50"/>
-                                    <size key="headerReferenceSize" width="50" height="50"/>
-                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="50" height="50"/>
                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 </collectionViewFlowLayout>
                                 <cells>
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="Drt-xA-wfk">
-                                        <rect key="frame" x="0.0" y="50" width="50" height="50"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="5es-DI-yM6">
                                             <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
@@ -36,40 +36,47 @@
                                         </collectionViewCellContentView>
                                     </collectionViewCell>
                                 </cells>
-                                <collectionReusableView key="sectionHeaderView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="z0R-dc-vFx">
-                                    <rect key="frame" x="0.0" y="0.0" width="414" height="50"/>
-                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                    <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="오늘 슥 - 저장한 정보👆" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Mbl-jR-UYH">
-                                            <rect key="frame" x="32" y="13.5" width="182" height="23"/>
-                                            <fontDescription key="fontDescription" type="boldSystem" pointSize="19"/>
-                                            <nil key="textColor"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
-                                    </subviews>
-                                    <constraints>
-                                        <constraint firstItem="Mbl-jR-UYH" firstAttribute="leading" secondItem="z0R-dc-vFx" secondAttribute="leadingMargin" constant="24" id="1PL-hT-IWr"/>
-                                        <constraint firstItem="Mbl-jR-UYH" firstAttribute="centerY" secondItem="z0R-dc-vFx" secondAttribute="centerY" id="qzj-VE-q4o"/>
-                                    </constraints>
+                                <collectionReusableView key="sectionFooterView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" reuseIdentifier="CollectionReusableView" id="ScU-LZ-Mjv">
+                                    <rect key="frame" x="0.0" y="50" width="414" height="50"/>
+                                    <autoresizingMask key="autoresizingMask"/>
                                 </collectionReusableView>
                             </collectionView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="t79-9P-sLG">
+                                <rect key="frame" x="0.0" y="813" width="414" height="83"/>
+                                <color key="backgroundColor" red="0.39607843139999999" green="0.43137254899999999" blue="0.94117647059999998" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="83" id="p9Y-0x-Pye"/>
+                                </constraints>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="내 캘린더에서 확인" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ajx-r0-NNU">
+                                <rect key="frame" x="147.5" y="828" width="119" height="19.5"/>
+                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="16"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
+                            <constraint firstAttribute="bottom" secondItem="t79-9P-sLG" secondAttribute="bottom" id="4He-lE-doz"/>
+                            <constraint firstItem="t79-9P-sLG" firstAttribute="leading" secondItem="7bK-nm-JrC" secondAttribute="leading" id="6Y5-ao-Cf9"/>
+                            <constraint firstItem="Ajx-r0-NNU" firstAttribute="top" secondItem="3l4-Wf-HaQ" secondAttribute="bottom" constant="15" id="9Qk-wq-H0R"/>
+                            <constraint firstItem="t79-9P-sLG" firstAttribute="top" secondItem="3l4-Wf-HaQ" secondAttribute="bottom" id="KsS-o4-xJL"/>
                             <constraint firstItem="3l4-Wf-HaQ" firstAttribute="top" secondItem="7bK-nm-JrC" secondAttribute="top" id="Kwq-Vw-Nse"/>
+                            <constraint firstItem="7bK-nm-JrC" firstAttribute="trailing" secondItem="t79-9P-sLG" secondAttribute="trailing" id="U7a-2j-zeY"/>
                             <constraint firstItem="3l4-Wf-HaQ" firstAttribute="leading" secondItem="7bK-nm-JrC" secondAttribute="leading" id="iHE-MQ-Ib4"/>
-                            <constraint firstItem="7bK-nm-JrC" firstAttribute="bottom" secondItem="3l4-Wf-HaQ" secondAttribute="bottom" id="kzR-Ve-1zs"/>
                             <constraint firstItem="7bK-nm-JrC" firstAttribute="trailing" secondItem="3l4-Wf-HaQ" secondAttribute="trailing" id="oUk-on-F5q"/>
+                            <constraint firstItem="Ajx-r0-NNU" firstAttribute="centerX" secondItem="YJa-Zz-KHJ" secondAttribute="centerX" id="r8I-ok-2CD"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="7bK-nm-JrC"/>
                     </view>
                     <connections>
+                        <outlet property="moveToCalendarButton" destination="t79-9P-sLG" id="ViL-eE-G6K"/>
                         <outlet property="savedPosterCollectionView" destination="3l4-Wf-HaQ" id="AxF-xN-nq7"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8TD-n4-Qys" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1718" y="18"/>
+            <point key="canvasLocation" x="1717.3913043478262" y="17.410714285714285"/>
         </scene>
         <!--SwipeVC-->
         <scene sceneID="nda-XU-S1g">

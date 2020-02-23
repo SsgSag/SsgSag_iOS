@@ -10,13 +10,10 @@ import Foundation
 import SwiftKeychainWrapper
 
 class MockServiceImp: PosterService {
-    func requestStoredPoster(index: Int,
-                             type likedCategory: likedOrDisLiked,
-                             completionHandler: @escaping (DataResponse<PosterData>) -> Void) {
+    func requestStoredPoster(completionHandler: @escaping (DataResponse<PosterToday>) -> Void) {
         
     }
-    
-    
+   
     let requestMaker: RequestMakerProtocol
     let network: Network
     
@@ -77,7 +74,7 @@ class MockServiceImp: PosterService {
                                     sortType: Int,
                                     interestType: Int? = nil,
                                     curPage: Int,
-                                    completionHandler: @escaping (DataResponse<[PosterDataAfterSwpie]>) -> Void) {
+                                    completionHandler: @escaping (DataResponse<[PosterDataAfterSwipe]>) -> Void) {
     }
     
 

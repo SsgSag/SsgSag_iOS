@@ -17,6 +17,7 @@ protocol TotalInformationServiceProtocol {
 
 enum TotalInfoCategoryType: Int, CaseIterable {
     case contest = 0
+    case club = 2
     case activity = 1
     case internship = 4
     case etc = 5
@@ -27,14 +28,16 @@ enum TotalInfoCategoryType: Int, CaseIterable {
         guard maxNumber > numberingOrder else { return .contest }
         switch numberingOrder {
         case 0:
-            return .contest
+            return .club
         case 1:
-            return .activity
+            return .contest
         case 2:
-            return .internship
+            return .activity
         case 3:
-            return .lecture
+            return .internship
         case 4:
+            return .lecture
+        case 5:
             return .etc
         default:
             return .contest

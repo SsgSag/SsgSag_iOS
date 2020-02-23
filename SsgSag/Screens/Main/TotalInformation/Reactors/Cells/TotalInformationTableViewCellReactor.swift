@@ -38,6 +38,8 @@ class TotalInformationTableViewCellReactor: Reactor {
             let type = currentState.type
             var activityTypeString = ""
             switch type {
+            case .club:
+                activityTypeString = "동아리 뭐 하지?"
             case .contest:
                 activityTypeString = "공모전 뭐 하지?"
             case .activity:

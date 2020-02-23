@@ -264,6 +264,9 @@
 		C9C26BEF239D47B40084C248 /* TotalInformationCollectionViewCellReactor.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9C26BEE239D47B40084C248 /* TotalInformationCollectionViewCellReactor.swift */; };
 		C9D865A423ADD2E800D12339 /* CalendarView + extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9D865A323ADD2E800D12339 /* CalendarView + extension.swift */; };
 		C9F0736C23FB7BC000BDB7B2 /* FirstCoachmarkViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9F0736B23FB7BC000BDB7B2 /* FirstCoachmarkViewController.swift */; };
+		C9F0737124001DA900BDB7B2 /* PosterToday.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9F0737024001DA900BDB7B2 /* PosterToday.swift */; };
+		C9F073732400243200BDB7B2 /* SavedPosterCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9F073722400243200BDB7B2 /* SavedPosterCollectionReusableView.swift */; };
+		C9F073752401390A00BDB7B2 /* SavedPosterFooterCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9F073742401390A00BDB7B2 /* SavedPosterFooterCollectionReusableView.swift */; };
 		D103D8A822FA9BD20092FE93 /* ArticleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D103D8A722FA9BD20092FE93 /* ArticleViewController.swift */; };
 		D103D8AA22FBEDA40092FE93 /* CalendarData.swift in Sources */ = {isa = PBXBuildFile; fileRef = D103D8A922FBEDA40092FE93 /* CalendarData.swift */; };
 		D109DC5823ABC3FB00E5BAF7 /* SortType.swift in Sources */ = {isa = PBXBuildFile; fileRef = D109DC5723ABC3FB00E5BAF7 /* SortType.swift */; };
@@ -674,6 +677,9 @@
 		C9C26BEE239D47B40084C248 /* TotalInformationCollectionViewCellReactor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TotalInformationCollectionViewCellReactor.swift; sourceTree = "<group>"; };
 		C9D865A323ADD2E800D12339 /* CalendarView + extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CalendarView + extension.swift"; sourceTree = "<group>"; };
 		C9F0736B23FB7BC000BDB7B2 /* FirstCoachmarkViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstCoachmarkViewController.swift; sourceTree = "<group>"; };
+		C9F0737024001DA900BDB7B2 /* PosterToday.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PosterToday.swift; sourceTree = "<group>"; };
+		C9F073722400243200BDB7B2 /* SavedPosterCollectionReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedPosterCollectionReusableView.swift; sourceTree = "<group>"; };
+		C9F073742401390A00BDB7B2 /* SavedPosterFooterCollectionReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedPosterFooterCollectionReusableView.swift; sourceTree = "<group>"; };
 		C9FFF68123BFCCAB0008D565 /* 슥삭Release.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "슥삭Release.entitlements"; sourceTree = "<group>"; };
 		CD661D6C84CC3F8DF0B8C7D5 /* Pods-SsgSag.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SsgSag.release.xcconfig"; path = "Target Support Files/Pods-SsgSag/Pods-SsgSag.release.xcconfig"; sourceTree = "<group>"; };
 		D103D8A722FA9BD20092FE93 /* ArticleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArticleViewController.swift; sourceTree = "<group>"; };
@@ -1292,6 +1298,8 @@
 			isa = PBXGroup;
 			children = (
 				C9867F4923EF0B610094B02B /* SavedPosterViewController.swift */,
+				C9F073722400243200BDB7B2 /* SavedPosterCollectionReusableView.swift */,
+				C9F073742401390A00BDB7B2 /* SavedPosterFooterCollectionReusableView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -1847,6 +1855,7 @@
 		C9D8659823ADCA3300D12339 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				C9F0736F24001D9B00BDB7B2 /* Poster */,
 				FA3A341F21E5127700668908 /* UserAPI.swift */,
 				84A45D08225F9B8B00C60287 /* HTTPMethod.swift */,
 			);
@@ -1931,6 +1940,14 @@
 				D1226C8022EC6231007F59BE /* ServiceProtocols */,
 			);
 			path = Services;
+			sourceTree = "<group>";
+		};
+		C9F0736F24001D9B00BDB7B2 /* Poster */ = {
+			isa = PBXGroup;
+			children = (
+				C9F0737024001DA900BDB7B2 /* PosterToday.swift */,
+			);
+			path = Poster;
 			sourceTree = "<group>";
 		};
 		D1226C7B22EC1A3F007F59BE /* DependencyContainer */ = {
@@ -2380,6 +2397,7 @@
 				D1FEA34E2334A1A600464DC4 /* AllPostersListViewController.swift in Sources */,
 				0655967023E029CE00C779A5 /* ClubInfoVC+Extension.swift in Sources */,
 				C9A828472395528D0029A493 /* PrivateProtectViewController.swift in Sources */,
+				C9F073732400243200BDB7B2 /* SavedPosterCollectionReusableView.swift in Sources */,
 				C905D02B23B8DDCD00E9B2B2 /* FeedServiceTypeImp.swift in Sources */,
 				0651633523FB78FE002089D2 /* MoreReviewTopLabelTableViewCell.swift in Sources */,
 				0655966A23E0138900C779A5 /* ClubInfoViewController.swift in Sources */,
@@ -2391,6 +2409,7 @@
 				846E622B229288000083E3CD /* StoryBoardName.swift in Sources */,
 				C9A828452395528D0029A493 /* InquireViewController.swift in Sources */,
 				D1E037CC22F2C25A0081B8A1 /* FindPasswordViewController.swift in Sources */,
+				C9F073752401390A00BDB7B2 /* SavedPosterFooterCollectionReusableView.swift in Sources */,
 				8496818A22AFD3FE004A4A63 /* VAWeek.swift in Sources */,
 				C9867F6323F1AF030094B02B /* IntroPage.swift in Sources */,
 				D1E6467F2311608100EAB8AC /* NoCommentCollectionViewCell.swift in Sources */,
@@ -2597,6 +2616,7 @@
 				0652950523E7ADA400DA9F3B /* CategoryView.swift in Sources */,
 				D1C7C1FD22FFEF3F001BDB5D /* UserDefaults+.swift in Sources */,
 				FAA2386721FF32B400C6DB13 /* ZoomPosterImageVC.swift in Sources */,
+				C9F0737124001DA900BDB7B2 /* PosterToday.swift in Sources */,
 				0651632523F260AA002089D2 /* ResponseModel.swift in Sources */,
 				063B570F23E18BC900B8F617 /* ClubReviewVC+Extension.swift in Sources */,
 				842C619F21DD1807001BA6D8 /* Posters.swift in Sources */,
@@ -2841,7 +2861,7 @@
 				CODE_SIGN_ENTITLEMENTS = "SsgSag/슥삭.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 3;
+				CURRENT_PROJECT_VERSION = 11;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 3HB3SZKJFD;
 				ENABLE_BITCODE = YES;
@@ -2890,7 +2910,7 @@
 				CODE_SIGN_ENTITLEMENTS = "SsgSag/슥삭Release.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 3;
+				CURRENT_PROJECT_VERSION = 11;
 				DEVELOPMENT_TEAM = 3HB3SZKJFD;
 				ENABLE_BITCODE = YES;
 				FRAMEWORK_SEARCH_PATHS = (

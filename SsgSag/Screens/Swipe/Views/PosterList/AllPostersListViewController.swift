@@ -17,7 +17,7 @@ class AllPostersListViewController: UIViewController {
     
     var disposeBag = DisposeBag()
     
-    private var posterData: [PosterDataAfterSwpie] = []
+    private var posterData: [PosterDataAfterSwipe] = []
     private var currentSortType = 0
     private var currentCategory = 1
     private var currentCategoryType: Int = 0

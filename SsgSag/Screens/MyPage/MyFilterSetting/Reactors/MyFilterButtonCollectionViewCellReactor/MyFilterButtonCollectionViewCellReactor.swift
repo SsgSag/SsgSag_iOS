@@ -53,8 +53,8 @@ class MyFilterButtonCollectionViewCellReactor: Reactor, MyFilterCollectionViewCe
             
         }
         let editedTitleText = indexPath.section > 0 ? "#\(titleText)" : titleText
-        self.initialState = State(backgroundColor: UIColor.greyFour,
-                                  textColor: UIColor.greyThree,
+        self.initialState = State(backgroundColor: UIColor.greyFive,
+                                  textColor: UIColor.unselectedGray,
                                   titleText: editedTitleText,
                                   isSelected: isSelected,
                                   indexPath: indexPath)
@@ -66,8 +66,8 @@ class MyFilterButtonCollectionViewCellReactor: Reactor, MyFilterCollectionViewCe
         case .set:
             if currentState.isSelected {
                 return Observable.concat([
-                    Observable.just(Mutation.setBackgroundColor(.cornFlowerLight)),
-                    Observable.just(Mutation.setTextColor(.white))
+                    Observable.just(Mutation.setBackgroundColor(.cornFlowerExtraLight)),
+                    Observable.just(Mutation.setTextColor(.cornFlower))
                 ])
             } else {
                 return Observable.just(Mutation.empty)
@@ -78,14 +78,14 @@ class MyFilterButtonCollectionViewCellReactor: Reactor, MyFilterCollectionViewCe
             case .myInfo:
                 return Observable.just(Mutation.empty)
             case .interestedField, .interestedJob, .interestedJobField:
-                var backgroundColor: UIColor = .greyFour
-                var textColor: UIColor = .greyThree
+                var backgroundColor: UIColor = .greyFive
+                var textColor: UIColor = .unselectedGray
                 if currentState.isSelected {
-                    backgroundColor = .greyFour
-                    textColor = .greyThree
+                    backgroundColor = .greyFive
+                    textColor = .unselectedGray
                 } else {
-                    backgroundColor = .cornFlowerLight
-                    textColor = .white
+                    backgroundColor = .cornFlowerExtraLight
+                    textColor = .cornFlower
                 }
                 return Observable.concat([
                     Observable.just(Mutation.setSelected(!currentState.isSelected)),

@@ -12,6 +12,7 @@ import RxCocoa
 import ReactorKit
 
 private enum Section: Int {
+    case club
     case contest
     case activity
     case internship

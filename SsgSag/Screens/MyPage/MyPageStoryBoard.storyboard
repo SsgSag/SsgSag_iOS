@@ -2232,7 +2232,7 @@
                                                 <rect key="frame" x="0.0" y="0.0" width="335" height="502.33333333333331"/>
                                                 <subviews>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wjK-SC-1FJ">
-                                                        <rect key="frame" x="30" y="17" width="93" height="40"/>
+                                                        <rect key="frame" x="30" y="17" width="73" height="20"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                         <inset key="imageEdgeInsets" minX="-7" minY="0.0" maxX="0.0" maxY="0.0"/>
                                                         <state key="normal" title="직무 분야" image="ic_jobCategory">
@@ -2240,7 +2240,7 @@
                                                         </state>
                                                     </button>
                                                     <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="i4T-S6-qwZ">
-                                                        <rect key="frame" x="250" y="21" width="55" height="32"/>
+                                                        <rect key="frame" x="266" y="19" width="39" height="16"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                                         <inset key="imageEdgeInsets" minX="-7" minY="0.0" maxX="0.0" maxY="0.0"/>
                                                         <state key="normal" title="전체" image="ic_selectAllPassive">
@@ -2262,7 +2262,7 @@
                                                         </connections>
                                                     </button>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Zft-Gb-b5E">
-                                                        <rect key="frame" x="30" y="353" width="93" height="40"/>
+                                                        <rect key="frame" x="30" y="333" width="73" height="20"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                         <inset key="imageEdgeInsets" minX="-7" minY="0.0" maxX="0.0" maxY="0.0"/>
                                                         <state key="normal" title="기업 형태" image="ic_industry">
@@ -2270,7 +2270,7 @@
                                                         </state>
                                                     </button>
                                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="6" translatesAutoresizingMaskIntoConstraints="NO" id="ESr-XY-ygN">
-                                                        <rect key="frame" x="20" y="71" width="295" height="260"/>
+                                                        <rect key="frame" x="20" y="51" width="295" height="260"/>
                                                         <subviews>
                                                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="Knp-7U-XgO">
                                                                 <rect key="frame" x="0.0" y="0.0" width="295" height="32"/>
@@ -2325,7 +2325,7 @@
                                                                 </constraints>
                                                             </stackView>
                                                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="WXt-kw-Wc4">
-                                                                <rect key="frame" x="0.0" y="38.000000000000028" width="295" height="32"/>
+                                                                <rect key="frame" x="0.0" y="38" width="295" height="32"/>
                                                                 <subviews>
                                                                     <button opaque="NO" tag="104" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iPY-1r-dez">
                                                                         <rect key="frame" x="0.0" y="0.0" width="141.66666666666666" height="32"/>
@@ -2655,7 +2655,7 @@
                                                         </constraints>
                                                     </stackView>
                                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="6" translatesAutoresizingMaskIntoConstraints="NO" id="scl-xW-luq">
-                                                        <rect key="frame" x="20" y="406" width="295" height="108"/>
+                                                        <rect key="frame" x="20" y="366" width="295" height="108"/>
                                                         <subviews>
                                                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="kbU-5a-YRI">
                                                                 <rect key="frame" x="0.0" y="0.0" width="295" height="32"/>
@@ -2824,13 +2824,13 @@
                                                         </constraints>
                                                     </stackView>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="(최소 1가지)" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TZV-6m-25y">
-                                                        <rect key="frame" x="127.99999999999999" y="42" width="50.333333333333329" height="12"/>
+                                                        <rect key="frame" x="107.99999999999999" y="22" width="50.333333333333329" height="12"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="10"/>
                                                         <color key="textColor" red="0.38431372549999998" green="0.41568627450000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="(최소 1가지)" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KTe-HV-KUl">
-                                                        <rect key="frame" x="127.99999999999999" y="378" width="50.333333333333329" height="12"/>
+                                                        <rect key="frame" x="107.99999999999999" y="338" width="50.333333333333329" height="12"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="10"/>
                                                         <color key="textColor" red="0.38431372549999998" green="0.41568627450000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                         <nil key="highlightedColor"/>
@@ -3039,7 +3039,7 @@
                                                         </subviews>
                                                     </stackView>
                                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icArrowGradation" translatesAutoresizingMaskIntoConstraints="NO" id="evL-3t-iVu">
-                                                        <rect key="frame" x="159" y="147.33333333333334" width="39" height="100"/>
+                                                        <rect key="frame" x="159" y="147.33333333333334" width="39" height="50"/>
                                                     </imageView>
                                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="4i3-85-sfJ" userLabel="종료일">
                                                         <rect key="frame" x="201" y="147.33333333333334" width="140" height="49"/>
@@ -3146,7 +3146,7 @@
                                                 </constraints>
                                             </view>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="use-wv-0gS">
-                                                <rect key="frame" x="57.666666666666657" y="579.66666666666663" width="260" height="88"/>
+                                                <rect key="frame" x="122.66666666666669" y="579.66666666666663" width="130" height="44"/>
                                                 <state key="normal" image="btFormSave"/>
                                                 <connections>
                                                     <action selector="touchUpSaveButton:" destination="F2a-8a-TlB" eventType="touchUpInside" id="E3w-W3-vN1"/>
@@ -3326,7 +3326,7 @@
                                                 </constraints>
                                             </view>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7QG-Cw-qpq">
-                                                <rect key="frame" x="57.666666666666657" y="620.66666666666663" width="260" height="88"/>
+                                                <rect key="frame" x="122.66666666666669" y="620.66666666666663" width="130" height="44"/>
                                                 <state key="normal" image="btFormSave"/>
                                                 <connections>
                                                     <action selector="touchUpSaveButton:" destination="3BH-gx-Png" eventType="touchUpInside" id="soQ-OK-MWh"/>

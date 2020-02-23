@@ -183,7 +183,7 @@ class PosterServiceImp: PosterService {
                                     sortType: Int,
                                     interestType: Int? = nil,
                                     curPage: Int,
-                                    completionHandler: @escaping (DataResponse<[PosterDataAfterSwpie]>) -> Void) {
+                                    completionHandler: @escaping (DataResponse<[PosterDataAfterSwipe]>) -> Void) {
         guard let token
             = KeychainWrapper.standard.string(forKey: TokenName.token),
             let url
@@ -221,12 +221,39 @@ class PosterServiceImp: PosterService {
         }
     }
     
-    func requestStoredPoster(index: Int,
-                             type likedCategory: likedOrDisLiked,
-                             completionHandler: @escaping (DataResponse<PosterData>) -> Void) {
-        let storedPosters = MockPosterStorage.shared.fetchPoster(type: likedCategory)
-        let posters = PosterData(storedPosters, 0)
-        completionHandler(.success(posters))
+    func requestStoredPoster(completionHandler: @escaping (DataResponse<PosterToday>) -> Void) {
+        guard let token
+            = KeychainWrapper.standard.string(forKey: TokenName.token),
+            let url
+            = UserAPI.sharedInstance.getURL(RequestURL.posterToday.getRequestURL),
+            let request
+            = requestMaker.makeRequest(url: url,
+                                       method: .get,
+                                       header: ["Authorization": token],
+                                       body: nil) else {
+                                        return
+        }
+        
+        network.dispatch(request: request) { result in
+            switch result {
+            case .success(let data):
+                do {
+                    let response = try JSONDecoder().decode(PosterTodayResponse.self,
+                                                         from: data)
+                
+                    guard let posterData = response.data else { return }
+                    
+                    completionHandler(.success(posterData))
+                    
+                } catch let error {
+                    completionHandler(.failed(error))
+                    return
+                }
+            case .failure(let error):
+                completionHandler(.failed(error))
+                return
+            }
+        }
     }
 }
 

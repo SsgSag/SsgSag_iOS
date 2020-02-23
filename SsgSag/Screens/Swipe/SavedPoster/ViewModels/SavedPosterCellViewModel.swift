@@ -9,11 +9,9 @@
 import Foundation
 
 class SavedPosterCellViewModel {
-    let isLiked: Bool
-    let poster: Posters
+    let poster: SummaryPoster
     
-    init(isLiked: Bool, poster: Posters) {
-        self.isLiked = isLiked
+    init(poster: SummaryPoster) {
         self.poster = poster
     }
 }

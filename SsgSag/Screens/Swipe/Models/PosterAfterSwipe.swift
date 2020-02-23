@@ -12,11 +12,11 @@ import Foundation
 struct PosterAfterSwipe: Codable {
     let status: Int?
     let message: String?
-    let data: [PosterDataAfterSwpie]?
+    let data: [PosterDataAfterSwipe]?
 }
 
 // MARK: - Datum
-struct PosterDataAfterSwpie: Codable {
+struct PosterDataAfterSwipe: Codable {
     let posterIdx, categoryIdx, subCategoryIdx: Int?
     let photoUrl: String?
     let thumbPhotoUrl: String?

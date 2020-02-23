@@ -293,7 +293,7 @@ class SwipeVC: UIViewController {
                 
                 DispatchQueue.main.async {
                     if !(self?.currentLoadedCardsArray.isEmpty ?? false)
-                        && !posters.isEmpty {
+                        || !posters.isEmpty {
                         self?.completeStackView?.removeFromSuperview()
                     }
                     self?.loadCardAndSetPageVC(isFirst: isFirst)
@@ -578,13 +578,13 @@ class SwipeVC: UIViewController {
     }
     
     @objc func touchUpFilterButton() {
-//
-//         let swipeBoard = UIStoryboard(name: "SwipeStoryBoard",
-//                                    bundle: nil)
-//        guard let savedPosterViewController
-//        = swipeBoard.instantiateViewController(withIdentifier: "SavedPosterViewController") as? SavedPosterViewController else { return }
-//        self.navigationController?.pushViewController(savedPosterViewController, animated: true)
-        simplerAlert(title: "준비중 입니다.")
+
+         let swipeBoard = UIStoryboard(name: "SwipeStoryBoard",
+                                    bundle: nil)
+        guard let savedPosterViewController
+        = swipeBoard.instantiateViewController(withIdentifier: "SavedPosterViewController") as? SavedPosterViewController else { return }
+        self.navigationController?.pushViewController(savedPosterViewController, animated: true)
+       // simplerAlert(title: "준비중 입니다.")
     }
     
     @IBAction func touchUpMyPageButton(_ sender: UIBarButtonItem) {
