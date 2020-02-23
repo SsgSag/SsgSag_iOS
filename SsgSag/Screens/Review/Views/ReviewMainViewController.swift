@@ -33,6 +33,7 @@ class ReviewMainViewController: UIViewController {
         bindData()
         popUpPresent()
         cellModel.accept(tabTitle)
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -120,6 +121,7 @@ class ReviewMainViewController: UIViewController {
     @IBAction func mypageClick(_ sender: Any) {
         let storyBoard = UIStoryboard(name: StoryBoardName.mypage, bundle: nil)
         guard let nextVC = storyBoard.instantiateViewController(withIdentifier: "MyPageVC") as? MyPageViewController else {return}
+        nextVC.modalPresentationStyle = .fullScreen
         self.present(nextVC, animated: true)
     }
 }

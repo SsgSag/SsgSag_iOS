@@ -12,7 +12,11 @@ import UIKit
 extension ClubReviewViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if normalReviewTableView == tableView {
-            return self.reviewDataSet.count
+            if reviewDataSet.count > 2 {
+                return 3
+            }else {
+                return reviewDataSet.count
+            }
         } else {
             return 0
         }

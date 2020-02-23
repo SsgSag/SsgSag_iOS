@@ -92,11 +92,10 @@ class NormalReviewTableViewCell: UITableViewCell {
         
         let advantage = viewModel.advantage
         let disadvantage = viewModel.disadvantage
-        let font = UIFont.fontWithName(type: .regular, size: 13)
-        
+
         self.layoutIfNeeded()
-        advantageHeightLayout.constant = advantage.estimatedFrame(font: font).height
-        disAdvantageHeightLayout.constant = disadvantage.estimatedFrame(font: font).height
+        self.advantageHeightLayout.constant = self.estimateSize(text: advantage)
+        self.disAdvantageHeightLayout.constant = self.estimateSize(text: disadvantage)
         
         isSelectObservable
             .asDriver()
@@ -151,7 +150,8 @@ class NormalReviewTableViewCell: UITableViewCell {
             self.honeyLabel.isHidden = false
             self.honeyTipLabel.isHidden = false
             let honeyText = self.viewModel.data.honeyTip
-            let height = honeyText.estimatedFrame(font: UIFont.fontWithName(type: .regular, size: 13)).height
+            let height = self.estimateSize(text: honeyText)
+//            let height = honeyText.estimatedFrame(font: UIFont.fontWithName(type: .regular, size: 13)).height
             self.layoutIfNeeded()
             // 꿀팁크기 26, 기본 15
             self.honeyHeightLayout.constant = height
@@ -159,6 +159,14 @@ class NormalReviewTableViewCell: UITableViewCell {
             
             NotificationCenter.default.post(name: NSNotification.Name(rawValue: "resizeTableView"), object: nil)
         }
+    }
+    
+    func estimateSize(text: String) -> CGFloat {
+        let width = self.frame.width - 24 - 15
+        let size = CGSize(width: width, height: .infinity)
+        let attributes = [NSAttributedString.Key.font: UIFont.fontWithName(type: .regular, size: 13)]
+        let estimateFrame = NSString(string: text).boundingRect(with: size, options: .usesLineFragmentOrigin , attributes: attributes, context: nil)
+        return estimateFrame.height + 1
     }
     
     @IBAction func moreViewClick(_ sender: Any) {

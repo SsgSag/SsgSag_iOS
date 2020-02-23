@@ -12,6 +12,7 @@ import RxCocoa
 
 class SimpleReviewViewController: UIViewController, UITextViewDelegate, UITextFieldDelegate {
     
+    @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var indicator: UIActivityIndicatorView!
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var oneLineTextField: UITextField!
@@ -36,6 +37,7 @@ class SimpleReviewViewController: UIViewController, UITextViewDelegate, UITextFi
         disadvantageTextView.delegate = self
         honeyTextView.delegate = self
         oneLineTextField.delegate = self
+        titleLabel.text = clubactInfo.clubName
         
         scrollView.delegate = self
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(tapHideKeyBoard))
@@ -150,10 +152,11 @@ class SimpleReviewViewController: UIViewController, UITextViewDelegate, UITextFi
                 isSuccess in
                 
                 if isSuccess {
-                    let nextVC = self.storyboard?.instantiateViewController(withIdentifier: "CompleteVC") as! CompleteViewController
-                    nextVC.titleText = "등록이\n완료되었습니다 :)"
-                    nextVC.subText = "승인여부는 3일 내 이메일로 알려드릴게요."
                     DispatchQueue.main.async {
+                        let nextVC = self.storyboard?.instantiateViewController(withIdentifier: "CompleteVC") as! CompleteViewController
+                        nextVC.titleText = "등록이\n완료되었습니다 :)"
+//                        nextVC.subText = "마이페이지 > 나의 후기를 통해\n승인 여부를 알려드려요."
+                        
                         self.indicator.stopAnimating()
                         sender.isEnabled = true
                         self.navigationController?.pushViewController(nextVC, animated: true)
@@ -173,14 +176,14 @@ class SimpleReviewViewController: UIViewController, UITextViewDelegate, UITextFi
             service?.requestNonExistClubReviewPost(model: clubactInfo) {
                 isSuccess in
                 if isSuccess {
-                    let nextVC = self.storyboard?.instantiateViewController(withIdentifier: "CompleteVC") as! CompleteViewController
-                    nextVC.titleText = "등록이\n완료되었습니다 :)"
-                    nextVC.subText = "승인여부는 3일 내 이메일로 알려드릴게요."
                     DispatchQueue.main.async {
+                        let nextVC = self.storyboard?.instantiateViewController(withIdentifier: "CompleteVC") as! CompleteViewController
+                        nextVC.titleText = "등록이\n완료되었습니다 :)"
+//                        nextVC.subText = "마이페이지 > 나의 후기를 통해\n승인 여부를 알려드려요."
+                        
                         sender.isEnabled = true
                         self.indicator.stopAnimating()
                         self.navigationController?.pushViewController(nextVC, animated: true)
-                        
                     }
                 } else {
                     DispatchQueue.main.async {

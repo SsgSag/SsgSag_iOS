@@ -147,7 +147,7 @@ class InputUserClubInfoViewController: UIViewController {
                 guard let location = self?.univOrLocalTextField.text else {return}
                 guard let clubactInfo = self?.clubactInfo else {return}
                 
-                service.requestClubWithName(clubType: clubactInfo.clubType, location: location, keyword: clubName, curPage: 0) { clubList in
+                service.requestClubListWithForm(clubType: clubactInfo.clubType, location: location, keyword: clubName, curPage: 0) { clubList in
                     guard let clubList = clubList else {return}
                     guard !clubList.isEmpty else {return}
                     self?.isExistClub = true

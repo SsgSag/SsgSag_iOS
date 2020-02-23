@@ -99,13 +99,9 @@ class ClubReviewViewController: UIViewController {
         
         self.normalReviewTableView.beginUpdates()
         self.normalReviewTableView.endUpdates()
-        
         self.view.layoutIfNeeded()
         self.reviewTableHeightLayout.constant = CGFloat.greatestFiniteMagnitude
-        
         self.reviewTableHeightLayout.constant = self.normalReviewTableView.contentSize.height
-        
-        
     }
     
     @objc func reviewEdit(_ notification: Notification) {

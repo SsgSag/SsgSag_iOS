@@ -90,7 +90,12 @@ class ReviewSearchTableViewCell: UITableViewCell {
         categoryStack.subviews.forEach { $0.removeFromSuperview() }
         categoryFactory(labels: viewModel.cellModel.value[row].categoryList.removeComma())
         clubNameLabel.text = viewModel.cellModel.value[row].clubName
-        oneLineLabel.text = viewModel.cellModel.value[row].oneLine
+        let oneLineText = viewModel.cellModel.value[row].oneLine
+        if oneLineText == "" {
+            oneLineLabel.text = "동아리 한줄 소개가 없습니다."
+        } else {
+            oneLineLabel.text = oneLineText
+        }
         ratePaint(score: viewModel.cellModel.value[row].aveScore, starStackView: starStackView)
         scoreLabel.text = "평점 \(viewModel.cellModel.value[row].aveScore)"
         scoreNumLabel.text = "후기 \(viewModel.cellModel.value[row].scoreNum)개"
