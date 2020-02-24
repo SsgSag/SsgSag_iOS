@@ -90,7 +90,6 @@ class ReviewService: ReviewServiceProtocol {
             "disadvantage": model.disadvantageString,
             "honeyTip": model.honeyString
         ]
-        print(body)
         let jsonData = try? JSONSerialization.data(withJSONObject: body)
         guard let request = requestMaker.makeRequest(url: url, method: .post, header: header, body: jsonData) else {return}
         
