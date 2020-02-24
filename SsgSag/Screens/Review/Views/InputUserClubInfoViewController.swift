@@ -63,6 +63,7 @@ class InputUserClubInfoViewController: UIViewController {
         univOrLocalTextField.filterStrings(universities)
         univOrLocalTextField.itemSelectionHandler = { item, itemPosition in
             self.univOrLocalTextField.text = item[itemPosition].title
+            self.clubactInfo.univName = item[itemPosition].title
         }
     }
     

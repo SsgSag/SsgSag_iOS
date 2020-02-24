@@ -72,9 +72,10 @@ class ReviewService: ReviewServiceProtocol {
             "Content-Type": "application/json"
         ]
         let type = model.clubType == .Union ? 0 : 1
+        let univOrLocation: String = model.clubType == .Union ? model.location.value : model.univName
         let body: [String : Any] = [
             "clubType": type,
-            "univOrLocation": model.location.value,
+            "univOrLocation": univOrLocation,
             "clubName": model.clubName,
             "categoryList": model.categoryListToString(),
             "clubStartDate": model.startRequestDate,
@@ -89,6 +90,7 @@ class ReviewService: ReviewServiceProtocol {
             "disadvantage": model.disadvantageString,
             "honeyTip": model.honeyString
         ]
+        print(body)
         let jsonData = try? JSONSerialization.data(withJSONObject: body)
         guard let request = requestMaker.makeRequest(url: url, method: .post, header: header, body: jsonData) else {return}
         
