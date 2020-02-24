@@ -38,6 +38,7 @@ class ReviewService: ReviewServiceProtocol {
             "honeyTip": model.honeyString,
             "clubIdx": model.clubIdx
         ]
+        print(body)
         let jsonData = try? JSONSerialization.data(withJSONObject: body)
         guard let request = requestMaker.makeRequest(url: url, method: .post, header: header, body: jsonData) else {return}
         
