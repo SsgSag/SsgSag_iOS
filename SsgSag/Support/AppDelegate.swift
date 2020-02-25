@@ -56,15 +56,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         Messaging.messaging().delegate = self
         
+        //Adjust 설정
         let appToken = ClientKey.adJustAppToken.getClienyKey
-//        let environment = ADJEnvironmentSandbox
         let environment = ADJEnvironmentProduction
         let adjustConfig = ADJConfig(appToken: appToken, environment: environment)
+        adjustConfig?.setAppSecret(2, info1: 1858703771, info2: 1353181520, info3: 555890878, info4: 1372324175)
         Adjust.appDidLaunch(adjustConfig!)
-//        setupAdBrix()
-//
-//        ApplicationDelegate.shared.application(application,
-//                                               didFinishLaunchingWithOptions: launchOptions)
+        
         
         if #available(iOS 10.0, *) {
             // For iOS 10 display notification (sent via APNS)
