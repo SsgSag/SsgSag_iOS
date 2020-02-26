@@ -7,13 +7,11 @@
 //
 
 import UIKit
-import UserNotifications
 
 class EventViewController: UIViewController {
 
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var submitButton: UIButton!
-    @IBOutlet weak var pushAlarmButton: UIButton!
     @IBOutlet weak var infoCheckButton: UIButton!
     @IBOutlet weak var nameTextField: UITextField!
     @IBOutlet weak var phoneTextField: UITextField!
@@ -28,36 +26,17 @@ class EventViewController: UIViewController {
         self.view.endEditing(true)
     }
     
-    func isEnableCheck(_ button: UIButton) {
-        
-        if button == pushAlarmButton {
-            if pushAlarmButton.isSelected {
-                //푸쉬 활성화
-                
-                if let url = URL(string: UIApplication.openSettingsURLString) {
-                    if UIApplication.shared.canOpenURL(url) {
-                        UIApplication.shared.open(url, options: [:], completionHandler: nil)
-                    }
-                }
-                UIApplication.shared.registerForRemoteNotifications()
-            }
-        } else {
-            if infoCheckButton.isSelected {
-                submitButton.isEnabled = true
-                submitButton.backgroundColor = .cornFlower
-                
-            } else {
-                submitButton.isEnabled = false
-                submitButton.backgroundColor = .unselectedGray
-            }
-        }
-        
-    }
-    
     @IBAction func checkBoxClick(_ sender: UIButton) {
         sender.isSelected = !sender.isSelected
-        isEnableCheck(sender)
         
+        if sender.isSelected {
+            submitButton.isEnabled = true
+            submitButton.backgroundColor = .cornFlower
+            
+        } else {
+            submitButton.isEnabled = false
+            submitButton.backgroundColor = .unselectedGray
+        }
     }
     
     @IBAction func cancelClick(_ sender: Any) {

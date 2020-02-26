@@ -48,7 +48,7 @@
                                 <rect key="frame" x="0.0" y="94.666666666666686" width="375" height="634.33333333333326"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zzE-Kl-Fim">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="681"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="639"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="이름" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PLV-VE-yNU">
                                                 <rect key="frame" x="28" y="455.99999999999994" width="22.666666666666671" height="22"/>
@@ -122,24 +122,6 @@
                                                 <fontDescription key="fontDescription" name="AppleSDGothicNeo-Regular" family="Apple SD Gothic Neo" pointSize="15"/>
                                                 <textInputTraits key="textInputTraits"/>
                                             </textField>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="푸시알림 동의" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="izG-JJ-Lrl">
-                                                <rect key="frame" x="56" y="590" width="60" height="13"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="height" constant="13" id="6Ho-sb-Zae"/>
-                                                </constraints>
-                                                <fontDescription key="fontDescription" name="AppleSDGothicNeo-Regular" family="Apple SD Gothic Neo" pointSize="11"/>
-                                                <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
-                                                <nil key="highlightedColor"/>
-                                            </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="매일 점심시간에 꼭 필요한 맞춤정보를 알려드려요." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="07p-tu-rhW">
-                                                <rect key="frame" x="56" y="605" width="217" height="13"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="height" constant="13" id="iY7-8T-YRD"/>
-                                                </constraints>
-                                                <fontDescription key="fontDescription" name="AppleSDGothicNeo-Regular" family="Apple SD Gothic Neo" pointSize="11"/>
-                                                <color key="textColor" red="0.66666666669999997" green="0.66666666669999997" blue="0.66666666669999997" alpha="1" colorSpace="calibratedRGB"/>
-                                                <nil key="highlightedColor"/>
-                                            </label>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0ZY-qx-JkD">
                                                 <rect key="frame" x="24" y="550" width="24" height="24"/>
                                                 <constraints>
@@ -150,14 +132,6 @@
                                                 <state key="selected" image="icCheckboxOn"/>
                                                 <connections>
                                                     <action selector="checkBoxClick:" destination="DMF-vY-9Mk" eventType="touchUpInside" id="4oe-Bo-jZH"/>
-                                                </connections>
-                                            </button>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1Te-Ny-vRC">
-                                                <rect key="frame" x="24" y="592" width="24" height="24"/>
-                                                <state key="normal" image="icCheckboxOff"/>
-                                                <state key="selected" image="icCheckboxOn"/>
-                                                <connections>
-                                                    <action selector="checkBoxClick:" destination="DMF-vY-9Mk" eventType="touchUpInside" id="Tan-gG-MPU"/>
                                                 </connections>
                                             </button>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="개인정보 제공동의" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uzc-6B-5Nl">
@@ -181,11 +155,7 @@
                                         </subviews>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                         <constraints>
-                                            <constraint firstItem="07p-tu-rhW" firstAttribute="leading" secondItem="izG-JJ-Lrl" secondAttribute="leading" id="45d-Kn-9RQ"/>
-                                            <constraint firstItem="izG-JJ-Lrl" firstAttribute="top" secondItem="Tog-5x-o5e" secondAttribute="bottom" constant="14" id="6N7-KK-1P3"/>
                                             <constraint firstItem="Tog-5x-o5e" firstAttribute="leading" secondItem="uzc-6B-5Nl" secondAttribute="leading" id="7TZ-CC-jCn"/>
-                                            <constraint firstItem="izG-JJ-Lrl" firstAttribute="leading" secondItem="uzc-6B-5Nl" secondAttribute="leading" id="8Jy-Of-mfG"/>
-                                            <constraint firstItem="07p-tu-rhW" firstAttribute="top" secondItem="izG-JJ-Lrl" secondAttribute="bottom" constant="2" id="9K1-5f-5Lr"/>
                                             <constraint firstItem="BqE-Kc-xJD" firstAttribute="trailing" secondItem="zdE-iF-muq" secondAttribute="trailing" id="Agm-9j-eiu"/>
                                             <constraint firstItem="0ZY-qx-JkD" firstAttribute="top" secondItem="gnv-Ry-DZb" secondAttribute="bottom" constant="34" id="DgW-73-h6j"/>
                                             <constraint firstItem="gnv-Ry-DZb" firstAttribute="trailing" secondItem="BqE-Kc-xJD" secondAttribute="trailing" id="Dix-in-Hzz"/>
@@ -195,6 +165,7 @@
                                             <constraint firstItem="FMU-2E-GND" firstAttribute="top" secondItem="zzE-Kl-Fim" secondAttribute="top" constant="30" id="I0b-aD-rSm"/>
                                             <constraint firstItem="UOd-bl-zSi" firstAttribute="leading" secondItem="zzE-Kl-Fim" secondAttribute="leading" constant="28" id="J3b-lU-keo"/>
                                             <constraint firstItem="0ZY-qx-JkD" firstAttribute="leading" secondItem="zzE-Kl-Fim" secondAttribute="leading" constant="24" id="JdC-tw-TVs"/>
+                                            <constraint firstAttribute="bottom" secondItem="Tog-5x-o5e" secondAttribute="bottom" constant="63" id="QBh-EI-mT9"/>
                                             <constraint firstItem="PLV-VE-yNU" firstAttribute="top" secondItem="3fQ-0P-1bm" secondAttribute="bottom" constant="21" id="RhD-w0-vrQ"/>
                                             <constraint firstAttribute="trailing" secondItem="zdE-iF-muq" secondAttribute="trailing" constant="24" id="Scn-JE-vYs"/>
                                             <constraint firstItem="FMU-2E-GND" firstAttribute="leading" secondItem="zzE-Kl-Fim" secondAttribute="leading" id="Sj9-Fm-hWK"/>
@@ -206,18 +177,15 @@
                                             <constraint firstItem="Tog-5x-o5e" firstAttribute="top" secondItem="uzc-6B-5Nl" secondAttribute="bottom" constant="2" id="d3G-mP-tb0"/>
                                             <constraint firstItem="E3g-nb-XrL" firstAttribute="leading" secondItem="zzE-Kl-Fim" secondAttribute="leading" constant="24" id="d3m-Fo-Vad"/>
                                             <constraint firstAttribute="trailing" secondItem="FMU-2E-GND" secondAttribute="trailing" id="d8w-qp-mmj"/>
-                                            <constraint firstAttribute="bottom" secondItem="07p-tu-rhW" secondAttribute="bottom" constant="63" id="feU-xc-O2O"/>
                                             <constraint firstItem="1pt-Zs-wab" firstAttribute="leading" secondItem="E3g-nb-XrL" secondAttribute="leading" id="gLv-jW-djo"/>
                                             <constraint firstAttribute="trailing" secondItem="1pt-Zs-wab" secondAttribute="trailing" constant="10" id="gOa-DZ-c0L"/>
                                             <constraint firstItem="uzc-6B-5Nl" firstAttribute="top" secondItem="gnv-Ry-DZb" secondAttribute="bottom" constant="32" id="hko-8R-zAE"/>
                                             <constraint firstItem="BqE-Kc-xJD" firstAttribute="leading" secondItem="zdE-iF-muq" secondAttribute="leading" id="kSI-82-sdj"/>
-                                            <constraint firstItem="1Te-Ny-vRC" firstAttribute="leading" secondItem="0ZY-qx-JkD" secondAttribute="leading" id="mCa-da-dRz"/>
                                             <constraint firstAttribute="trailing" secondItem="Tog-5x-o5e" secondAttribute="trailing" constant="24" id="pOl-p9-97C"/>
                                             <constraint firstItem="PLV-VE-yNU" firstAttribute="leading" secondItem="UOd-bl-zSi" secondAttribute="leading" id="sIT-ZR-n7n"/>
                                             <constraint firstItem="E3g-nb-XrL" firstAttribute="top" secondItem="FMU-2E-GND" secondAttribute="bottom" constant="26" id="sd7-ZY-zet"/>
                                             <constraint firstItem="zdE-iF-muq" firstAttribute="top" secondItem="UOd-bl-zSi" secondAttribute="bottom" constant="1" id="w8O-Zc-8o5"/>
                                             <constraint firstItem="gnv-Ry-DZb" firstAttribute="leading" secondItem="BqE-Kc-xJD" secondAttribute="leading" constant="-2" id="wAC-aH-Kx1"/>
-                                            <constraint firstItem="1Te-Ny-vRC" firstAttribute="top" secondItem="0ZY-qx-JkD" secondAttribute="bottom" constant="18" id="yjt-SM-rdh"/>
                                             <constraint firstItem="BqE-Kc-xJD" firstAttribute="top" secondItem="PLV-VE-yNU" secondAttribute="bottom" constant="1" id="zXN-bH-hZN"/>
                                         </constraints>
                                     </view>
@@ -268,7 +236,6 @@
                         <outlet property="infoCheckButton" destination="0ZY-qx-JkD" id="8qa-Z0-hH7"/>
                         <outlet property="nameTextField" destination="BqE-Kc-xJD" id="54Z-6X-iEY"/>
                         <outlet property="phoneTextField" destination="zdE-iF-muq" id="qa9-x0-KRB"/>
-                        <outlet property="pushAlarmButton" destination="1Te-Ny-vRC" id="iTC-Rc-g5e"/>
                         <outlet property="scrollView" destination="eVA-wY-IDt" id="cIV-WJ-mRb"/>
                         <outlet property="submitButton" destination="Fal-Vb-0Sy" id="F0W-NG-fbl"/>
                     </connections>
