@@ -28,29 +28,36 @@ class EventViewController: UIViewController {
         self.view.endEditing(true)
     }
     
-    func isEnableCheck() {
+    func isEnableCheck(_ button: UIButton) {
         
-        if infoCheckButton.isSelected {
-            submitButton.isEnabled = true
-            submitButton.backgroundColor = .cornFlower
-            return
+        if button == pushAlarmButton {
+            if pushAlarmButton.isSelected {
+                //푸쉬 활성화
+                
+                if let url = URL(string: UIApplication.openSettingsURLString) {
+                    if UIApplication.shared.canOpenURL(url) {
+                        UIApplication.shared.open(url, options: [:], completionHandler: nil)
+                    }
+                }
+                UIApplication.shared.registerForRemoteNotifications()
+            }
         } else {
-            submitButton.isEnabled = false
-            submitButton.backgroundColor = .unselectedGray
-            return
+            if infoCheckButton.isSelected {
+                submitButton.isEnabled = true
+                submitButton.backgroundColor = .cornFlower
+                
+            } else {
+                submitButton.isEnabled = false
+                submitButton.backgroundColor = .unselectedGray
+            }
         }
         
-        if pushAlarmButton.isSelected {
-            //푸쉬 활성화
-            UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .badge, .sound],
-                                                                    completionHandler: { _,_ in })
-            UIApplication.shared.registerForRemoteNotifications()
-        }
     }
     
     @IBAction func checkBoxClick(_ sender: UIButton) {
         sender.isSelected = !sender.isSelected
-        isEnableCheck()
+        isEnableCheck(sender)
+        
     }
     
     @IBAction func cancelClick(_ sender: Any) {
