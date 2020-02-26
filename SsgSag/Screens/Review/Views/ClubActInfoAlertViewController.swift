@@ -86,10 +86,14 @@ class ClubActInfoAlertViewController: UIViewController {
         
         if sYear > eYear {
             return false
-        } else if sMonth > eMonth {
-            return false
-        } else if sDay > eDay {
-            return false
+        } else if sYear == eYear {
+            if sMonth > eMonth {
+                return false
+            } else if sMonth == eMonth {
+                if sDay > eDay {
+                    return false
+                }
+            }
         }
         
         return true
