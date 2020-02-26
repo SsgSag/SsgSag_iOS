@@ -8,10 +8,10 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
+        <!--Event View Controller-->
         <scene sceneID="9yd-0X-xAZ">
             <objects>
-                <viewController id="DMF-vY-9Mk" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="EventVC" id="DMF-vY-9Mk" customClass="EventViewController" customModule="슥삭" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="2li-gj-yG7">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -33,6 +33,9 @@
                                     <constraint firstAttribute="width" constant="48" id="PP0-qz-pGt"/>
                                 </constraints>
                                 <state key="normal" image="icCancel"/>
+                                <connections>
+                                    <action selector="cancelClick:" destination="DMF-vY-9Mk" eventType="touchUpInside" id="5Wl-E9-W5N"/>
+                                </connections>
                             </button>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="avU-Cx-vnt">
                                 <rect key="frame" x="0.0" y="94" width="375" height="0.6666666666666714"/>
@@ -145,11 +148,17 @@
                                                 </constraints>
                                                 <state key="normal" image="icCheckboxOff"/>
                                                 <state key="selected" image="icCheckboxOn"/>
+                                                <connections>
+                                                    <action selector="checkBoxClick:" destination="DMF-vY-9Mk" eventType="touchUpInside" id="4oe-Bo-jZH"/>
+                                                </connections>
                                             </button>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1Te-Ny-vRC">
                                                 <rect key="frame" x="24" y="592" width="24" height="24"/>
                                                 <state key="normal" image="icCheckboxOff"/>
                                                 <state key="selected" image="icCheckboxOn"/>
+                                                <connections>
+                                                    <action selector="checkBoxClick:" destination="DMF-vY-9Mk" eventType="touchUpInside" id="Tan-gG-MPU"/>
+                                                </connections>
                                             </button>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="개인정보 제공동의" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uzc-6B-5Nl">
                                                 <rect key="frame" x="56.000000000000007" y="548" width="79.666666666666686" height="13"/>
@@ -231,6 +240,9 @@
                                 <state key="normal" title="작성하기">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
+                                <connections>
+                                    <action selector="submitClick:" destination="DMF-vY-9Mk" eventType="touchUpInside" id="WbT-OQ-Q0b"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
@@ -252,6 +264,14 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="zs0-Sa-1tW"/>
                     </view>
+                    <connections>
+                        <outlet property="infoCheckButton" destination="0ZY-qx-JkD" id="8qa-Z0-hH7"/>
+                        <outlet property="nameTextField" destination="BqE-Kc-xJD" id="54Z-6X-iEY"/>
+                        <outlet property="phoneTextField" destination="zdE-iF-muq" id="qa9-x0-KRB"/>
+                        <outlet property="pushAlarmButton" destination="1Te-Ny-vRC" id="iTC-Rc-g5e"/>
+                        <outlet property="scrollView" destination="eVA-wY-IDt" id="cIV-WJ-mRb"/>
+                        <outlet property="submitButton" destination="Fal-Vb-0Sy" id="F0W-NG-fbl"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="WOw-YI-yPj" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
