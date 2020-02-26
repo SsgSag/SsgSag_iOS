@@ -34,8 +34,6 @@ class ReviewMainViewController: UIViewController {
         popUpPresent()
         cellModel.accept(tabTitle)
         
-        let nextVC = UIStoryboard(name: "ReviewEvent", bundle: nil).instantiateViewController(withIdentifier: "EventVC")
-        present(nextVC, animated: true)
     }
     
     override func viewWillAppear(_ animated: Bool) {
