@@ -2490,8 +2490,8 @@
                                                             <action selector="registerBlog:" destination="32q-NQ-fMN" eventType="touchUpInside" id="kqW-3Z-mYq"/>
                                                         </connections>
                                                     </button>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="등록된 블로그 후기가 없습니다." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iPZ-U4-IOg">
-                                                        <rect key="frame" x="107.66666666666667" y="270" width="159.66666666666663" height="32"/>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="준비 중이에요..!" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iPZ-U4-IOg">
+                                                        <rect key="frame" x="147.33333333333334" y="270" width="80.333333333333343" height="32"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="32" id="z05-Jv-iDu"/>
                                                         </constraints>
@@ -7852,7 +7852,7 @@
                                     </imageView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Hhv-o4-2xu">
                                         <rect key="frame" x="100.33333333333333" y="108" width="174.33333333333337" height="47"/>
-                                        <string key="text">아직 교내 동아리의 후기가 없어요.
+                                        <string key="text">아직 연합 동아리의 후기가 없어요.
 후기를 등록해주세요 ㅠ-ㅠ
 </string>
                                         <fontDescription key="fontDescription" name="AppleSDGothicNeo-Regular" family="Apple SD Gothic Neo" pointSize="13"/>
@@ -7956,7 +7956,6 @@
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="220" id="aYm-VY-O96"/>
                                                 </constraints>
-                                                <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
                                                 <color key="textColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>

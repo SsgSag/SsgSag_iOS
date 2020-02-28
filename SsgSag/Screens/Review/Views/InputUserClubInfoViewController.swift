@@ -27,6 +27,7 @@ class InputUserClubInfoViewController: UIViewController {
     var service: ClubServiceProtocol?
     var jsonResult: [[String: Any]] = [[:]]
     var isExistClub = false
+    var clubName = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -63,6 +64,7 @@ class InputUserClubInfoViewController: UIViewController {
         univOrLocalTextField.filterStrings(universities)
         univOrLocalTextField.itemSelectionHandler = { item, itemPosition in
             self.univOrLocalTextField.text = item[itemPosition].title
+            self.clubactInfo.univName = item[itemPosition].title
         }
     }
     
@@ -203,6 +205,11 @@ class InputUserClubInfoViewController: UIViewController {
     func searchLocalClubListSet(clubList: [ClubListData]) {
         let clubNameList = clubList.compactMap { $0.clubName }
         clubNameTextField.filterStrings(clubNameList)
+        clubNameTextField.itemSelectionHandler = { item, itemPosition in
+            self.clubNameTextField.text = item[itemPosition].title
+            self.clubactInfo.clubName = item[itemPosition].title
+            self.clubactInfo.clubIdx = clubList[itemPosition].clubIdx
+        }
     }
     
     @IBAction func backClick(_ sender: Any) {
@@ -248,12 +255,14 @@ class InputUserClubInfoViewController: UIViewController {
         // 동아리가 등록되어 있다면
         if isExistClub {
             let nextVC = self.storyboard?.instantiateViewController(withIdentifier: "StarRatingVC") as! StarRatingViewController
+            clubactInfo.isExistClub = true
             nextVC.clubactInfo = clubactInfo
             self.navigationController?.pushViewController(nextVC, animated: true)
             
         } else {
             // 동아리가 등록되어있지 않다면
             let nextVC = self.storyboard?.instantiateViewController(withIdentifier: "NotFoundClubVC") as! NotFoundClubViewController
+            clubactInfo.isExistClub = false
             nextVC.clubactInfo = clubactInfo
             self.navigationController?.pushViewController(nextVC, animated: true)
         }

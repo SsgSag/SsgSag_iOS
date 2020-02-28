@@ -15,6 +15,7 @@
 		0610DF1923D96D1D00DC2273 /* ReviewPageCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0610DF1823D96D1D00DC2273 /* ReviewPageCollectionViewCell.swift */; };
 		0610DF1E23D9919E00DC2273 /* ReviewTabCellModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0610DF1D23D9919E00DC2273 /* ReviewTabCellModel.swift */; };
 		0610DF2123D9943200DC2273 /* ReviewPageDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0610DF2023D9943200DC2273 /* ReviewPageDelegate.swift */; };
+		062677942406013600F49929 /* EventViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 062677932406013600F49929 /* EventViewController.swift */; };
 		0629921F23D935590053B9F2 /* LoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0629921E23D935590053B9F2 /* LoginVC.swift */; };
 		063B570D23E183D100B8F617 /* NormalReviewTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 063B570C23E183D100B8F617 /* NormalReviewTableViewCell.swift */; };
 		063B570F23E18BC900B8F617 /* ClubReviewVC+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 063B570E23E18BC900B8F617 /* ClubReviewVC+Extension.swift */; };
@@ -428,6 +429,7 @@
 		0610DF1823D96D1D00DC2273 /* ReviewPageCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewPageCollectionViewCell.swift; sourceTree = "<group>"; };
 		0610DF1D23D9919E00DC2273 /* ReviewTabCellModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewTabCellModel.swift; sourceTree = "<group>"; };
 		0610DF2023D9943200DC2273 /* ReviewPageDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewPageDelegate.swift; sourceTree = "<group>"; };
+		062677932406013600F49929 /* EventViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventViewController.swift; sourceTree = "<group>"; };
 		0629921E23D935590053B9F2 /* LoginVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginVC.swift; sourceTree = "<group>"; };
 		063B570C23E183D100B8F617 /* NormalReviewTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NormalReviewTableViewCell.swift; sourceTree = "<group>"; };
 		063B570E23E18BC900B8F617 /* ClubReviewVC+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ClubReviewVC+Extension.swift"; sourceTree = "<group>"; };
@@ -905,6 +907,7 @@
 				0651632A23F6393B002089D2 /* ReviewEditViewController.swift */,
 				0651633023FA2DB0002089D2 /* ClubEditViewController.swift */,
 				069D239E23FBD32800C756E3 /* ClubInfoDetailPhotoViewController.swift */,
+				062677932406013600F49929 /* EventViewController.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -2617,6 +2620,7 @@
 				0655964723DCA36000C779A5 /* ClubListTableViewCell.swift in Sources */,
 				C9A828532395528D0029A493 /* MyFilterCollectionReusableView.swift in Sources */,
 				069D239C23FBD26600C756E3 /* ClubInfoDetailPhotoCollectionViewCell.swift in Sources */,
+				062677942406013600F49929 /* EventViewController.swift in Sources */,
 				D1F0DA22230D062F00C6FF19 /* Column.swift in Sources */,
 				064AD7C723EFD1C10006E02C /* ClubRegisterModel.swift in Sources */,
 				C9A828482395528D0029A493 /* ServiceInfoViewController.swift in Sources */,

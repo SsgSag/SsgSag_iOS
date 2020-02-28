@@ -21,7 +21,7 @@ class ClubActInfoModel {
     var isExistClub = false
     var clubIdx = -1
     var location = BehaviorRelay(value: "")
-    var schoolName: String?
+    var univName = ""
     var startDate = BehaviorRelay(value: "")
     var endDate = BehaviorRelay(value: "")
     var startRequestDate = ""
