@@ -48,7 +48,7 @@
                                 <rect key="frame" x="0.0" y="94.666666666666686" width="375" height="634.33333333333326"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zzE-Kl-Fim">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="639"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="739"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="이름" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PLV-VE-yNU">
                                                 <rect key="frame" x="28" y="455.99999999999994" width="22.666666666666671" height="22"/>
@@ -165,7 +165,7 @@
                                             <constraint firstItem="FMU-2E-GND" firstAttribute="top" secondItem="zzE-Kl-Fim" secondAttribute="top" constant="30" id="I0b-aD-rSm"/>
                                             <constraint firstItem="UOd-bl-zSi" firstAttribute="leading" secondItem="zzE-Kl-Fim" secondAttribute="leading" constant="28" id="J3b-lU-keo"/>
                                             <constraint firstItem="0ZY-qx-JkD" firstAttribute="leading" secondItem="zzE-Kl-Fim" secondAttribute="leading" constant="24" id="JdC-tw-TVs"/>
-                                            <constraint firstAttribute="bottom" secondItem="Tog-5x-o5e" secondAttribute="bottom" constant="63" id="QBh-EI-mT9"/>
+                                            <constraint firstAttribute="bottom" secondItem="Tog-5x-o5e" secondAttribute="bottom" constant="163" id="QBh-EI-mT9"/>
                                             <constraint firstItem="PLV-VE-yNU" firstAttribute="top" secondItem="3fQ-0P-1bm" secondAttribute="bottom" constant="21" id="RhD-w0-vrQ"/>
                                             <constraint firstAttribute="trailing" secondItem="zdE-iF-muq" secondAttribute="trailing" constant="24" id="Scn-JE-vYs"/>
                                             <constraint firstItem="FMU-2E-GND" firstAttribute="leading" secondItem="zzE-Kl-Fim" secondAttribute="leading" id="Sj9-Fm-hWK"/>
@@ -198,9 +198,9 @@
                                     <constraint firstAttribute="bottom" secondItem="zzE-Kl-Fim" secondAttribute="bottom" id="wn5-71-3an"/>
                                 </constraints>
                             </scrollView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="top" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Fal-Vb-0Sy">
+                            <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="top" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Fal-Vb-0Sy">
                                 <rect key="frame" x="0.0" y="729" width="375" height="83"/>
-                                <color key="backgroundColor" red="0.39607843139999999" green="0.43137254899999999" blue="0.94117647059999998" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <color key="backgroundColor" red="0.66666666669999997" green="0.66666666669999997" blue="0.66666666669999997" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="83" id="eLf-ro-ud3"/>
                                 </constraints>

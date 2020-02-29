@@ -49,7 +49,7 @@ class EventViewController: UIViewController {
     }
     
     @IBAction func submitClick(_ sender: Any) {
-        
+    
         if nameTextField.text == "" {
             self.simplerAlert(title: "빈칸을 확인해주세요")
             return
@@ -63,13 +63,19 @@ class EventViewController: UIViewController {
                 return
             }
         }
+        submitButton.isEnabled = false
         service?.requestReviewEvent(type: 0, name: nameTextField.text!, phone: phoneTextField.text!, completion: { isSuccess in
-            if isSuccess {
-                self.simpleAlertwithHandler(title: "응모되었어요", message: "") { _ in
-                    self.dismiss(animated: true)
+            DispatchQueue.main.async {
+                
+                if isSuccess {
+                    
+                    self.simpleAlertwithHandler(title: "응모되었어요", message: "") { _ in
+                        self.dismiss(animated: true)
+                    }
+                } else {
+                    self.simplerAlert(title: "다시 시도해주세요!")
                 }
-            } else {
-                self.simplerAlert(title: "다시 시도해주세요!")
+                self.submitButton.isEnabled = true
             }
         })
     }
