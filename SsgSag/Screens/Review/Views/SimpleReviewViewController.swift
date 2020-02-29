@@ -149,14 +149,15 @@ class SimpleReviewViewController: UIViewController, UITextViewDelegate, UITextFi
         if clubactInfo.isExistClub {
             
             service?.requestExistClubReviewPost(model: clubactInfo) {
-                isSuccess in
+                (isPopup, isSuccess) in
                 
                 if isSuccess {
                     DispatchQueue.main.async {
                         let nextVC = self.storyboard?.instantiateViewController(withIdentifier: "CompleteVC") as! CompleteViewController
                         nextVC.titleText = "등록이\n완료되었습니다 :)"
 //                        nextVC.subText = "마이페이지 > 나의 후기를 통해\n승인 여부를 알려드려요."
-                        
+                        nextVC.isPopup = isPopup
+                        nextVC.service = self.service
                         self.indicator.stopAnimating()
                         sender.isEnabled = true
                         self.navigationController?.pushViewController(nextVC, animated: true)
@@ -174,13 +175,14 @@ class SimpleReviewViewController: UIViewController, UITextViewDelegate, UITextFi
         } else {
             
             service?.requestNonExistClubReviewPost(model: clubactInfo) {
-                isSuccess in
+                (isPopup, isSuccess) in
                 if isSuccess {
                     DispatchQueue.main.async {
                         let nextVC = self.storyboard?.instantiateViewController(withIdentifier: "CompleteVC") as! CompleteViewController
                         nextVC.titleText = "등록이\n완료되었습니다 :)"
 //                        nextVC.subText = "마이페이지 > 나의 후기를 통해\n승인 여부를 알려드려요."
-                        
+                        nextVC.isPopup = isPopup
+                        nextVC.service = self.service
                         sender.isEnabled = true
                         self.indicator.stopAnimating()
                         self.navigationController?.pushViewController(nextVC, animated: true)
@@ -194,7 +196,5 @@ class SimpleReviewViewController: UIViewController, UITextViewDelegate, UITextFi
                 }
             }
         }
-        
-        
     }
 }

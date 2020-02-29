@@ -16,6 +16,8 @@ class CompleteViewController: UIViewController {
     
     var subText = ""
     var titleText = ""
+    var isPopup = false
+    var service: ReviewServiceProtocol?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -23,6 +25,14 @@ class CompleteViewController: UIViewController {
         titleLabel.text = titleText
         subLabel.text = subText
         returnButton.deviceSetSize()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        if isPopup {
+            guard let popupVC = UIStoryboard(name: "ReviewEvent", bundle: nil).instantiateViewController(withIdentifier: "EventVC") as? EventViewController else {return}
+            popupVC.service = service
+            present(popupVC, animated: true)
+        }
     }
     
     @IBAction func dismissClick(_ sender: Any) {
