@@ -23,3 +23,8 @@ struct ReviewInfo: Codable {
     let userNickname: String?
     let adminAccept: Int?
 }
+
+struct ReviewRegister: Codable {
+    let clubIdx: Int
+    let event: Bool
+}

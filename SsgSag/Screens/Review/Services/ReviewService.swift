@@ -14,7 +14,7 @@ class ReviewService: ReviewServiceProtocol {
     private let requestMaker: RequestMakerProtocol = RequestMaker()
     private let network: Network = NetworkImp()
     
-    func requestExistClubReviewPost(model: ClubActInfoModel, completion: @escaping (Bool) -> Void) {
+    func requestExistClubReviewPost(model: ClubActInfoModel, completion: @escaping (ReviewRegister?) -> Void) {
         let baseURL = UserAPI.sharedInstance.getBaseString()
         let path = RequestURL.registerReview.getRequestURL
         guard let url = URL(string: baseURL+path) else {return}
@@ -38,30 +38,35 @@ class ReviewService: ReviewServiceProtocol {
             "honeyTip": model.honeyString,
             "clubIdx": model.clubIdx
         ]
-        print(body)
+        
         let jsonData = try? JSONSerialization.data(withJSONObject: body)
         guard let request = requestMaker.makeRequest(url: url, method: .post, header: header, body: jsonData) else {return}
         
         network.dispatch(request: request) { result in
             switch result {
             case .success(let data):
-                if let object = try? JSONDecoder().decode(ResponseSimpleResult<String>.self, from: data) {
+                if let object = try? JSONDecoder().decode(ResponseSimpleResult<ReviewRegister>.self, from: data) {
+                    
                     if object.status == 200 {
-                        completion(true)
+                        guard let data = object.data else {
+                            completion(nil)
+                            return
+                        }
+                        completion(data)
                     } else {
-                        completion(false)
+                        completion(nil)
                     }
                 } else {
-                    completion(false)
+                    completion(nil)
                 }
             case .failure(let err):
                 print(err.localizedDescription)
-                 completion(false)
+                 completion(nil)
             }
         }
     }
     
-    func requestNonExistClubReviewPost(model: ClubActInfoModel, completion: @escaping (Bool) -> Void) {
+    func requestNonExistClubReviewPost(model: ClubActInfoModel, completion: @escaping (ReviewRegister?) -> Void) {
         
         let baseURL = UserAPI.sharedInstance.getBaseString()
         let path = RequestURL.registerReview.getRequestURL
@@ -97,18 +102,22 @@ class ReviewService: ReviewServiceProtocol {
         network.dispatch(request: request) { result in
             switch result {
             case .success(let data):
-                if let object = try? JSONDecoder().decode(ResponseSimpleResult<String>.self, from: data) {
+                if let object = try? JSONDecoder().decode(ResponseSimpleResult<ReviewRegister>.self, from: data) {
                     if object.status == 200 {
-                        completion(true)
+                        guard let data = object.data else {
+                            completion(nil)
+                            return
+                        }
+                        completion(data)
                     } else {
-                        completion(false)
+                        completion(nil)
                     }
                 } else {
-                    completion(false)
+                    completion(nil)
                 }
             case .failure(let err):
                 print(err.localizedDescription)
-                 completion(false)
+                 completion(nil)
             }
         }
     }
@@ -236,5 +245,45 @@ class ReviewService: ReviewServiceProtocol {
 //                 completion()
 //            }
 //        }
+    }
+    
+    func requestReviewEvent(type: Int, name: String, phone: String, clubIdx: Int, completion: @escaping (Bool) -> Void) {
+        let baseURL = UserAPI.sharedInstance.getBaseString()
+        let path = RequestURL.reviewEvent.getRequestURL
+        guard let url = URL(string: baseURL+path) else {return}
+        guard let token = KeychainWrapper.standard.string(forKey: TokenName.token) else {return}
+        
+        let header: [String : String] = [
+            "Authorization": token,
+            "Content-Type": "application/json"
+        ]
+        
+        let body: [String: Any] = [
+            "eventType": type,
+            "userName": name,
+            "userPhone": phone,
+            "objectIdx": clubIdx
+        ]
+        
+        let jsonData = try? JSONSerialization.data(withJSONObject: body)
+        guard let request = requestMaker.makeRequest(url: url, method: .post, header: header, body: jsonData) else {return}
+        
+        network.dispatch(request: request) { result in
+            switch result {
+            case .success(let data):
+                if let object = try? JSONDecoder().decode(ResponseSimpleResult<String>.self, from: data) {
+                    if object.status == 200 {
+                        completion(true)
+                    } else {
+                        completion(false)
+                    }
+                } else {
+                    completion(false)
+                }
+            case .failure(let err):
+                print(err.localizedDescription)
+                 completion(false)
+            }
+        }
     }
 }

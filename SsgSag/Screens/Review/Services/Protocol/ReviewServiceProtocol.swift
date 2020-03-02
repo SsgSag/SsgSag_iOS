@@ -9,9 +9,10 @@
 import Foundation
 
 protocol ReviewServiceProtocol {
-    func requestExistClubReviewPost(model: ClubActInfoModel, completion: @escaping (Bool) -> Void)
-    func requestNonExistClubReviewPost(model: ClubActInfoModel, completion: @escaping (Bool) -> Void)
+    func requestExistClubReviewPost(model: ClubActInfoModel, completion: @escaping (ReviewRegister?) -> Void)
+    func requestNonExistClubReviewPost(model: ClubActInfoModel, completion: @escaping (ReviewRegister?) -> Void)
     func requestReviewList(clubIdx: Int, curPage: Int, completion: @escaping ([ReviewInfo]?) -> Void)
     func requestPostLike(clubPostIdx: Int, completion: @escaping (Bool) -> Void)
     func requestDeleteLike(clubPostIdx: Int, completion: @escaping (Bool) -> Void)
+    func requestReviewEvent(type: Int, name: String, phone: String, clubIdx: Int, completion: @escaping (Bool) -> Void)
 }
