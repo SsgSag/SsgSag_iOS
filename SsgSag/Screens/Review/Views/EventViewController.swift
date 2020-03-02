@@ -17,6 +17,7 @@ class EventViewController: UIViewController {
     @IBOutlet weak var phoneTextField: UITextField!
     
     var service: ReviewServiceProtocol?
+    var clubIdx: Int?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -50,21 +51,30 @@ class EventViewController: UIViewController {
     
     @IBAction func submitClick(_ sender: Any) {
     
-        if nameTextField.text == "" {
+        guard let name = nameTextField.text else {
+            return
+        }
+        
+        if name == "" {
             self.simplerAlert(title: "빈칸을 확인해주세요")
             return
         }
-        if let phoneText = phoneTextField.text {
-            if phoneText == "" {
-                self.simplerAlert(title: "빈칸을 확인해주세요")
-                return
-            } else if !phoneText.isValidPhone() {
-                self.simplerAlert(title: "번호형식을 확인해주세요")
-                return
-            }
+        
+        guard let phone = phoneTextField.text else {
+            return
+        }
+        if phone == "" {
+            self.simplerAlert(title: "빈칸을 확인해주세요")
+            return
+        } else if !phone.isValidPhone() {
+            self.simplerAlert(title: "번호형식을 확인해주세요")
+            return
+        }
+        guard let clubIdx = clubIdx else {
+            return
         }
         submitButton.isEnabled = false
-        service?.requestReviewEvent(type: 0, name: nameTextField.text!, phone: phoneTextField.text!, completion: { isSuccess in
+        service?.requestReviewEvent(type: 0, name: name, phone: phone, clubIdx:  clubIdx, completion: { isSuccess in
             DispatchQueue.main.async {
                 
                 if isSuccess {

@@ -14,7 +14,7 @@ class ReviewService: ReviewServiceProtocol {
     private let requestMaker: RequestMakerProtocol = RequestMaker()
     private let network: Network = NetworkImp()
     
-    func requestExistClubReviewPost(model: ClubActInfoModel, completion: @escaping (Bool,Bool) -> Void) {
+    func requestExistClubReviewPost(model: ClubActInfoModel, completion: @escaping (ReviewRegister?) -> Void) {
         let baseURL = UserAPI.sharedInstance.getBaseString()
         let path = RequestURL.registerReview.getRequestURL
         guard let url = URL(string: baseURL+path) else {return}
@@ -45,28 +45,28 @@ class ReviewService: ReviewServiceProtocol {
         network.dispatch(request: request) { result in
             switch result {
             case .success(let data):
-                if let object = try? JSONDecoder().decode(ResponseSimpleResult<Bool>.self, from: data) {
+                if let object = try? JSONDecoder().decode(ResponseSimpleResult<ReviewRegister>.self, from: data) {
                     
                     if object.status == 200 {
                         guard let data = object.data else {
-                            completion(false,false)
+                            completion(nil)
                             return
                         }
-                        completion(data, true)
+                        completion(data)
                     } else {
-                        completion(false,false)
+                        completion(nil)
                     }
                 } else {
-                    completion(false,false)
+                    completion(nil)
                 }
             case .failure(let err):
                 print(err.localizedDescription)
-                 completion(false,false)
+                 completion(nil)
             }
         }
     }
     
-    func requestNonExistClubReviewPost(model: ClubActInfoModel, completion: @escaping (Bool,Bool) -> Void) {
+    func requestNonExistClubReviewPost(model: ClubActInfoModel, completion: @escaping (ReviewRegister?) -> Void) {
         
         let baseURL = UserAPI.sharedInstance.getBaseString()
         let path = RequestURL.registerReview.getRequestURL
@@ -102,22 +102,22 @@ class ReviewService: ReviewServiceProtocol {
         network.dispatch(request: request) { result in
             switch result {
             case .success(let data):
-                if let object = try? JSONDecoder().decode(ResponseSimpleResult<Bool>.self, from: data) {
+                if let object = try? JSONDecoder().decode(ResponseSimpleResult<ReviewRegister>.self, from: data) {
                     if object.status == 200 {
                         guard let data = object.data else {
-                            completion(false,false)
+                            completion(nil)
                             return
                         }
-                        completion(data,true)
+                        completion(data)
                     } else {
-                        completion(false,false)
+                        completion(nil)
                     }
                 } else {
-                    completion(false,false)
+                    completion(nil)
                 }
             case .failure(let err):
                 print(err.localizedDescription)
-                 completion(false,false)
+                 completion(nil)
             }
         }
     }
@@ -247,7 +247,7 @@ class ReviewService: ReviewServiceProtocol {
 //        }
     }
     
-    func requestReviewEvent(type: Int, name: String, phone: String, completion: @escaping (Bool) -> Void) {
+    func requestReviewEvent(type: Int, name: String, phone: String, clubIdx: Int, completion: @escaping (Bool) -> Void) {
         let baseURL = UserAPI.sharedInstance.getBaseString()
         let path = RequestURL.reviewEvent.getRequestURL
         guard let url = URL(string: baseURL+path) else {return}
@@ -261,7 +261,8 @@ class ReviewService: ReviewServiceProtocol {
         let body: [String: Any] = [
             "eventType": type,
             "userName": name,
-            "userPhone": phone
+            "userPhone": phone,
+            "objectIdx": clubIdx
         ]
         
         let jsonData = try? JSONSerialization.data(withJSONObject: body)
