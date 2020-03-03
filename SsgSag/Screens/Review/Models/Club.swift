@@ -44,8 +44,9 @@ struct ClubInfo: Codable{
     let score0sum, score1sum, score2sum, score3sum, score4sum, scoreNum, userIdx: Int
     let regDate: String
     let aveScore0, aveScore1, aveScore2, aveScore3, aveScore4: Float
-    let isMine: Int
+    let isMine, adminAccept: Int
     let clubPostList: [ReviewInfo]
+    let clubBlogList: [BlogInfo]
 }
 
 struct ClubAbout {

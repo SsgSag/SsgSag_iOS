@@ -14,7 +14,9 @@ class ClubReviewViewController: UIViewController {
     var tabViewModel: ClubDetailViewModel!
     var disposeBag: DisposeBag!
     var reviewDataSet: [ReviewCellInfo] = []
+    var blogDataSet: [BlogInfo] = []
     
+    @IBOutlet weak var blogCountLabel: UILabel!
     @IBOutlet weak var reviewCountLabel: UILabel!
     @IBOutlet weak var emptyBlogView: UIView!
     @IBOutlet weak var emptyReviewView: UIView!
@@ -56,7 +58,7 @@ class ClubReviewViewController: UIViewController {
     }
     
     func bind() {
-        self.reviewCountLabel.text = "\(tabViewModel.reviewCount)"
+        
         self.tabViewModel.reviewDataSet
             .compactMap{ $0 }
         .observeOn(MainScheduler.instance)
@@ -74,25 +76,39 @@ class ClubReviewViewController: UIViewController {
                 self?.reviewDataSet.append(ReviewCellInfo(data: $0))
             }
             
-            
             self?.reviewTableHeightLayout.constant = CGFloat.greatestFiniteMagnitude
             self?.normalReviewTableView.reloadData()
             self?.view.layoutIfNeeded()
             if let contentSize = self?.normalReviewTableView.contentSize.height {
                 self?.reviewTableHeightLayout.constant = contentSize == 0 ? 428 : contentSize
             }
+            self?.reviewCountLabel.text = "\(self?.reviewDataSet.count)"
         })
         .disposed(by: disposeBag)
     
         // 나중에 블로그 통신코드에 넣어주기
-                    //블로그데이터만체크
-        ////            self?.emptyBlogView.isHidden = true
-        //            self?.blogTableHeightLayout.constant = CGFloat.greatestFiniteMagnitude
-        //            self?.blogReviewTableView.reloadData()
-        //            self?.view.layoutIfNeeded()
-        //            if let contentSize = self?.blogReviewTableView.contentSize.height {
-        //                self?.blogTableHeightLayout.constant = contentSize == 0 ? 428 : contentSize
-        //            }
+        tabViewModel.blogDataSet
+            .compactMap{$0}
+            .observeOn(MainScheduler.instance)
+            .subscribe(onNext: { [weak self] blogData in
+                if blogData.isEmpty {
+                    self?.emptyBlogView.isHidden = false
+                } else {
+                    self?.emptyBlogView.isHidden = true
+                }
+                self?.blogDataSet.removeAll()
+                self?.blogDataSet = blogData
+                
+                self?.blogTableHeightLayout.constant = CGFloat.greatestFiniteMagnitude
+                self?.blogReviewTableView.reloadData()
+                self?.view.layoutIfNeeded()
+                if let contentSize = self?.blogReviewTableView.contentSize.height {
+                    self?.blogTableHeightLayout.constant = contentSize == 0 ? 428 : contentSize
+                }
+                self?.blogCountLabel.text = "\(self?.blogDataSet.count)"
+            })
+            .disposed(by: disposeBag)
+        
     }
     
     @objc func refreshResizeTableView() {
@@ -107,7 +123,7 @@ class ClubReviewViewController: UIViewController {
     @objc func reviewEdit(_ notification: Notification) {
         let editAction = UIAlertAction(title: "수정", style: .default) { _ in
             guard let reveiwInfo = notification.object as? ReviewInfo else {return}
-            guard let clubInfo = try? self.tabViewModel.clubInfoData.value() else {return}
+            guard let clubInfo = self.tabViewModel.clubInfoData.value else {return}
             let clubIdx = clubInfo.clubIdx
             let type: ClubType = clubInfo.clubType == 0 ? .Union : .School
             guard let nextVC = self.storyboard?.instantiateViewController(withIdentifier: "ReviewEditVC") as? ReviewEditViewController else {return}
@@ -147,7 +163,7 @@ class ClubReviewViewController: UIViewController {
         let nextVC = self.storyboard?.instantiateViewController(withIdentifier: "MoreReviewVC") as! MoreReviewViewController
         let type: ReviewType = sender.tag == 1 ? .SsgSag : .Blog
         nextVC.vcType = type
-        guard let clubInfo = try? tabViewModel.clubInfoData.value() else {return}
+        guard let clubInfo = tabViewModel.clubInfoData.value else {return}
         nextVC.clubInfo = clubInfo
         self.navigationController?.pushViewController(nextVC, animated: true)
     }
@@ -155,7 +171,7 @@ class ClubReviewViewController: UIViewController {
     @IBAction func registerReview(_ sender: Any) {
         guard let navigationVC = self.storyboard?.instantiateViewController(withIdentifier: "ReviewPrepareVC") as? UINavigationController else {return}
         guard let nextVC = navigationVC.topViewController as? ReviewPrepareViewController else {return}
-        guard let clubInfo = try? tabViewModel.clubInfoData.value() else {return}
+        guard let clubInfo = tabViewModel.clubInfoData.value else {return}
         let type: ClubType = clubInfo.clubType == 0 ? .Union : .School
         let clubactInfo = ClubActInfoModel(clubType: type)
         nextVC.isExistClub = true
