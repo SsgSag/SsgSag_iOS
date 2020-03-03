@@ -14,7 +14,6 @@ enum ReviewType {
 }
 
 class MoreReviewViewController: UIViewController {
-    
     @IBOutlet weak var registerReviewButton: UIButton!
     @IBOutlet weak var registerBlogButton: UIButton!
     @IBOutlet weak var titleLabel: UILabel!
@@ -23,6 +22,7 @@ class MoreReviewViewController: UIViewController {
     var vcType: ReviewType!
     var service: ReviewServiceProtocol?
     var ssgSagCellModel: [ReviewInfo] = []
+    var blogCellModel: [BlogInfo] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -36,6 +36,7 @@ class MoreReviewViewController: UIViewController {
     
     func setupDataWithType(type: ReviewType) {
         titleLabel.text = "\(clubInfo.clubName)"
+        // MARK: 슥삭후기
         if type == .SsgSag {
             registerReviewButton.isHidden = false
             let nib = UINib(nibName: "SsgSagReviewTableViewCell", bundle: nil)
@@ -49,11 +50,20 @@ class MoreReviewViewController: UIViewController {
                     self.tableView.reloadData()
                 }
             }
-            
+        // MARK: 블로그 후기
         } else {
             registerBlogButton.isHidden = false
             let nib = UINib(nibName: "BlogReviewTableViewCell", bundle: nil)
             tableView.register(nib, forCellReuseIdentifier: "BlogReviewCell")
+            
+            //페이징처리하기
+            service?.requestBlogReviewList(clubIdx: clubInfo.clubIdx, curPage: 0) { datas in
+                guard let datas = datas else {return}
+                self.blogCellModel = datas
+                DispatchQueue.main.async {
+                    self.tableView.reloadData()
+                }
+            }
         }
     }
     

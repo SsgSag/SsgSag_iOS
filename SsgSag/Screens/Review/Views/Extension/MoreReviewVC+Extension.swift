@@ -23,7 +23,7 @@ extension MoreReviewViewController: UITableViewDataSource {
             if vcType == ReviewType.SsgSag {
                 return ssgSagCellModel.count
             } else {
-                return 0
+                return blogCellModel.count
             }
         }
     }
@@ -31,6 +31,8 @@ extension MoreReviewViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if indexPath.section == 0 {
             let cell = tableView.dequeueReusableCell(withIdentifier: "MoreReviewTopLabelCell", for: indexPath) as! MoreReviewTopLabelTableViewCell
+            
+            // 블로그 / 슥삭 후기개수 구분해주기
             cell.reviewCountLabel.text = "후기 총 \(clubInfo.scoreNum)개"
             
             return cell
@@ -42,6 +44,7 @@ extension MoreReviewViewController: UITableViewDataSource {
                 return cell
             } else {
                 let cell = tableView.dequeueReusableCell(withIdentifier: "BlogReviewCell", for: indexPath) as! BlogReviewTableViewCell
+                cell.bind(blogCellModel[indexPath.row])
                 
                 return cell
             }

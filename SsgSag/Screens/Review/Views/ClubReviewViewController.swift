@@ -58,13 +58,11 @@ class ClubReviewViewController: UIViewController {
     }
     
     func bind() {
-        
+        // MARK: 슥삭 후기
         self.tabViewModel.reviewDataSet
             .compactMap{ $0 }
         .observeOn(MainScheduler.instance)
         .subscribe(onNext: { [weak self] data in
-            
-            //포스트데이터만체크
             
             if data.isEmpty {
                 self?.emptyReviewView.isHidden = false
@@ -86,7 +84,7 @@ class ClubReviewViewController: UIViewController {
         })
         .disposed(by: disposeBag)
     
-        // 나중에 블로그 통신코드에 넣어주기
+        // MARK: 블로그 후기
         tabViewModel.blogDataSet
             .compactMap{$0}
             .observeOn(MainScheduler.instance)
@@ -111,6 +109,7 @@ class ClubReviewViewController: UIViewController {
         
     }
     
+    // MARK: 더보기 누를시 resize
     @objc func refreshResizeTableView() {
         
         self.normalReviewTableView.beginUpdates()

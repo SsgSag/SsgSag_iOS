@@ -13,7 +13,7 @@
         <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="BlogReviewCell" rowHeight="142" id="KGk-i7-Jjw" customClass="BlogReviewTableViewCell" customModule="슥삭" customModuleProvider="target">
             <rect key="frame" x="0.0" y="0.0" width="375" height="142"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" ambiguous="YES" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
                 <rect key="frame" x="0.0" y="0.0" width="375" height="142"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
@@ -27,13 +27,13 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇ" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MJi-49-dFL">
-                        <rect key="frame" x="20" y="44" width="219" height="63"/>
+                        <rect key="frame" x="20" y="44" width="219" height="64"/>
                         <fontDescription key="fontDescription" name="AppleSDGothicNeo-Regular" family="Apple SD Gothic Neo" pointSize="13"/>
                         <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="작성자 | 2019.08.23" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="B8O-h5-bQo">
-                        <rect key="frame" x="20" y="118" width="90.5" height="13"/>
+                        <rect key="frame" x="20" y="119" width="90.5" height="13"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="13" id="EGf-h5-zLM"/>
                         </constraints>
@@ -42,7 +42,7 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="F1a-PY-sdU">
-                        <rect key="frame" x="0.0" y="141" width="375" height="1"/>
+                        <rect key="frame" x="0.0" y="142" width="375" height="1"/>
                         <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.93725490199999995" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="1" id="DOn-RY-FQP"/>
@@ -65,6 +65,7 @@
                     <constraint firstAttribute="bottom" secondItem="F1a-PY-sdU" secondAttribute="bottom" id="M3R-dN-qVY"/>
                     <constraint firstItem="qgS-SI-nuq" firstAttribute="leading" secondItem="MJi-49-dFL" secondAttribute="trailing" constant="14" id="Uxf-MY-KFy"/>
                     <constraint firstItem="MJi-49-dFL" firstAttribute="leading" secondItem="WjE-O9-4fx" secondAttribute="leading" id="XdY-Se-gyk"/>
+                    <constraint firstItem="F1a-PY-sdU" firstAttribute="top" secondItem="qgS-SI-nuq" secondAttribute="bottom" constant="20" id="hM6-Bq-rha"/>
                     <constraint firstItem="B8O-h5-bQo" firstAttribute="leading" secondItem="WjE-O9-4fx" secondAttribute="leading" id="hov-tZ-GBO"/>
                     <constraint firstItem="F1a-PY-sdU" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="iQh-MX-Jed"/>
                     <constraint firstItem="MJi-49-dFL" firstAttribute="top" secondItem="WjE-O9-4fx" secondAttribute="bottom" constant="8" id="jbB-uI-HA5"/>

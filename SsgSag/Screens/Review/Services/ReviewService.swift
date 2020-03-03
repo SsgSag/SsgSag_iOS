@@ -212,8 +212,36 @@ class ReviewService: ReviewServiceProtocol {
         }
     }
     
-    func requestBlogReviewList(keyword: String, count: Int, completion: @escaping () -> Void) {
-
+    func requestBlogReviewList(clubIdx: Int, curPage: Int, completion: @escaping ([BlogInfo]?) -> Void) {
+        let baseURL = UserAPI.sharedInstance.getBaseString()
+        let path = RequestURL.searchBlogReivewList(clubIdx: clubIdx, curPage: curPage).getRequestURL
+        guard let url = URL(string: baseURL+path) else {return}
+        guard let token = KeychainWrapper.standard.string(forKey: TokenName.token) else {return}
+        
+        let header: [String : String] = [
+            "Authorization": token
+        ]
+        guard let request = requestMaker.makeRequest(url: url, method: .get, header: header, body: nil) else {return}
+        
+        network.dispatch(request: request) { result in
+            switch result {
+            case .success(let data):
+                if let object = try? JSONDecoder().decode(ResponseArrayResult<BlogInfo>.self, from: data) {
+                    print(object.data)
+                    if object.status == 200 {
+                        completion(object.data)
+                    } else {
+                        completion(nil)
+                    }
+                } else {
+                    completion(nil)
+                }
+            case .failure(let err):
+                print(err.localizedDescription)
+                 completion(nil)
+            }
+        }
+        
     }
     
     func requestReviewEvent(type: Int, name: String, phone: String, clubIdx: Int, completion: @escaping (Bool) -> Void) {
