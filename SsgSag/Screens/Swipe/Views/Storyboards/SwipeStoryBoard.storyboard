@@ -576,12 +576,12 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AEf-EY-WMX">
-                                        <rect key="frame" x="382" y="9.5" width="24" height="24"/>
+                                        <rect key="frame" x="24" y="9.5" width="24" height="24"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="24" id="Uax-iM-WXh"/>
                                             <constraint firstAttribute="width" constant="24" id="bpR-bJ-wjp"/>
                                         </constraints>
-                                        <state key="normal" image="group7"/>
+                                        <state key="normal" image="icCancel"/>
                                         <connections>
                                             <action selector="backToPresenting:" destination="KUT-TZ-Ipk" eventType="touchUpInside" id="T10-tC-Y4I"/>
                                         </connections>
@@ -589,10 +589,10 @@
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
-                                    <constraint firstAttribute="trailing" secondItem="AEf-EY-WMX" secondAttribute="trailing" constant="8" id="2h6-Uv-iQa"/>
                                     <constraint firstAttribute="height" constant="43" id="5Sh-Gb-nNi"/>
                                     <constraint firstItem="DIE-Gv-Dzg" firstAttribute="centerX" secondItem="abo-sZ-7Vs" secondAttribute="centerX" id="LjS-6G-OMh"/>
                                     <constraint firstItem="AEf-EY-WMX" firstAttribute="centerY" secondItem="abo-sZ-7Vs" secondAttribute="centerY" id="Tzj-Q6-HtL"/>
+                                    <constraint firstItem="AEf-EY-WMX" firstAttribute="leading" secondItem="abo-sZ-7Vs" secondAttribute="leading" constant="24" id="WVO-1h-gbJ"/>
                                     <constraint firstItem="DIE-Gv-Dzg" firstAttribute="centerY" secondItem="abo-sZ-7Vs" secondAttribute="centerY" id="pRh-Lg-0eA"/>
                                 </constraints>
                             </view>
@@ -653,7 +653,7 @@
     </scenes>
     <resources>
         <image name="bulletin" width="48" height="48"/>
-        <image name="group7" width="19" height="19"/>
+        <image name="icCancel" width="24" height="24"/>
         <image name="icCardProcessBell" width="42" height="42"/>
         <image name="icCardProcessFinal" width="42" height="42"/>
         <image name="icCardProcessInterview" width="42" height="42"/>

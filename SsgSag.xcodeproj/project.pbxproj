@@ -173,6 +173,9 @@
 		C9558B92239BE71B00E63F93 /* TotalInformationReactor.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9558B91239BE71B00E63F93 /* TotalInformationReactor.swift */; };
 		C9558B96239BF0DD00E63F93 /* TotalInformation.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9558B95239BF0DD00E63F93 /* TotalInformation.swift */; };
 		C9558B98239C15DD00E63F93 /* TotalInformationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9558B97239C15DD00E63F93 /* TotalInformationService.swift */; };
+		C95786F42409427F00628A3E /* MyClubCommentsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C95786F32409427F00628A3E /* MyClubCommentsViewController.swift */; };
+		C95786F8240B775000628A3E /* CoachMarkType.swift in Sources */ = {isa = PBXBuildFile; fileRef = C95786F7240B775000628A3E /* CoachMarkType.swift */; };
+		C95786FB240B792800628A3E /* CoachMarkViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C95786FA240B792800628A3E /* CoachMarkViewModel.swift */; };
 		C9625E0F23AE605C00FF5109 /* PosterListCategoryCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9625E0E23AE605C00FF5109 /* PosterListCategoryCollectionViewCell.swift */; };
 		C9625E1023AE667D00FF5109 /* LoginStoryBoard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 84E19CE321DCC9F4006F72EC /* LoginStoryBoard.storyboard */; };
 		C9625E1223AE66EA00FF5109 /* PosterListCategoryCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = C9625E1123AE66EA00FF5109 /* PosterListCategoryCollectionViewCell.xib */; };
@@ -593,6 +596,9 @@
 		C9558B91239BE71B00E63F93 /* TotalInformationReactor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TotalInformationReactor.swift; sourceTree = "<group>"; };
 		C9558B95239BF0DD00E63F93 /* TotalInformation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TotalInformation.swift; sourceTree = "<group>"; };
 		C9558B97239C15DD00E63F93 /* TotalInformationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TotalInformationService.swift; sourceTree = "<group>"; };
+		C95786F32409427F00628A3E /* MyClubCommentsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyClubCommentsViewController.swift; sourceTree = "<group>"; };
+		C95786F7240B775000628A3E /* CoachMarkType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoachMarkType.swift; sourceTree = "<group>"; };
+		C95786FA240B792800628A3E /* CoachMarkViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoachMarkViewModel.swift; sourceTree = "<group>"; };
 		C9625E0E23AE605C00FF5109 /* PosterListCategoryCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PosterListCategoryCollectionViewCell.swift; sourceTree = "<group>"; };
 		C9625E1123AE66EA00FF5109 /* PosterListCategoryCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PosterListCategoryCollectionViewCell.xib; sourceTree = "<group>"; };
 		C9625E1423AE680B00FF5109 /* PosterListCategoryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PosterListCategoryViewModel.swift; sourceTree = "<group>"; };
@@ -1291,6 +1297,64 @@
 			path = Models;
 			sourceTree = "<group>";
 		};
+		C95786EF2409424900628A3E /* MyClubComment */ = {
+			isa = PBXGroup;
+			children = (
+				C95786F22409426900628A3E /* ViewModels */,
+				C95786F12409426400628A3E /* Models */,
+				C95786F02409425F00628A3E /* Views */,
+			);
+			path = MyClubComment;
+			sourceTree = "<group>";
+		};
+		C95786F02409425F00628A3E /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				C95786F32409427F00628A3E /* MyClubCommentsViewController.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		C95786F12409426400628A3E /* Models */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		C95786F22409426900628A3E /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		C95786F5240B771300628A3E /* CoachMark */ = {
+			isa = PBXGroup;
+			children = (
+				C95786F9240B791B00628A3E /* ViewModels */,
+				C95786F6240B774200628A3E /* Models */,
+				C9F0736B23FB7BC000BDB7B2 /* FirstCoachmarkViewController.swift */,
+			);
+			path = CoachMark;
+			sourceTree = "<group>";
+		};
+		C95786F6240B774200628A3E /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				C95786F7240B775000628A3E /* CoachMarkType.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		C95786F9240B791B00628A3E /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				C95786FA240B792800628A3E /* CoachMarkViewModel.swift */,
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
 		C9625E1323AE67F600FF5109 /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
@@ -1402,6 +1466,7 @@
 		C9A827D82395528D0029A493 /* Screens */ = {
 			isa = PBXGroup;
 			children = (
+				C95786F5240B771300628A3E /* CoachMark */,
 				C9867F5223F19C440094B02B /* Intro */,
 				C9D8659423ADC94A00D12339 /* Swipe */,
 				C9D8658F23ADC82E00D12339 /* Calendar */,
@@ -1420,6 +1485,7 @@
 		C9A827D92395528D0029A493 /* MyPage */ = {
 			isa = PBXGroup;
 			children = (
+				C95786EF2409424900628A3E /* MyClubComment */,
 				C9D8659E23ADCB6B00D12339 /* Models */,
 				C9A827DA2395528D0029A493 /* Career */,
 				C9A827E62395528D0029A493 /* ChangePasswordViewController.swift */,
@@ -1848,7 +1914,6 @@
 				845928E621D3877D001DF6CC /* DetailTextSwipeCard.swift */,
 				84C30E2A22780D50008F1165 /* DetailNewTextSwipeCard.swift */,
 				84C77E4E22759AAF00DEE2D8 /* ZoomPosterVC.swift */,
-				C9F0736B23FB7BC000BDB7B2 /* FirstCoachmarkViewController.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -2461,6 +2526,7 @@
 				C9625E0F23AE605C00FF5109 /* PosterListCategoryCollectionViewCell.swift in Sources */,
 				C9558B8F239BE54500E63F93 /* TotalInformationViewController.swift in Sources */,
 				C905D01F23B897B800E9B2B2 /* FeedViewModel.swift in Sources */,
+				C95786FB240B792800628A3E /* CoachMarkViewModel.swift in Sources */,
 				C9A8283E2395528D0029A493 /* AddActivityVC.swift in Sources */,
 				C9A828662395528D0029A493 /* SettingMenuCollectionViewCell.swift in Sources */,
 				C9A828812395528E0029A493 /* GradeCollectionViewCell.swift in Sources */,
@@ -2548,6 +2614,7 @@
 				C9A828602395528D0029A493 /* AccountSettingViewController.swift in Sources */,
 				064AD7D023F0EE720006E02C /* RegisterCategoryCollectionViewCell.swift in Sources */,
 				0651632923F45224002089D2 /* RegisterBlogReviewViewController.swift in Sources */,
+				C95786F8240B775000628A3E /* CoachMarkType.swift in Sources */,
 				8463567D229418300060ED91 /* ImageNetworkManager.swift in Sources */,
 				C9867F4D23EF0F4B0094B02B /* MockPosterStorage.swift in Sources */,
 				FAF6DEE4222EAAEF001C70CC /* Interests.swift in Sources */,
@@ -2667,6 +2734,7 @@
 				064AD7B923ED52650006E02C /* ReviewServiceProtocol.swift in Sources */,
 				0655967423E11DB000C779A5 /* Review.swift in Sources */,
 				843813112270153900C9E47B /* MypageServiceImp.swift in Sources */,
+				C95786F42409427F00628A3E /* MyClubCommentsViewController.swift in Sources */,
 				064AD7BD23EF2EA70006E02C /* SelectClubManagerViewController.swift in Sources */,
 				8496818522AFD3FE004A4A63 /* VADay.swift in Sources */,
 				D166AC6622D733CC00ED82DD /* FeedViewController.swift in Sources */,

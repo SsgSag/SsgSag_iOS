@@ -149,6 +149,7 @@ class SwipeVC: UIViewController {
     
     private func setCoachMarkView() {
         let coachmarkViewController = FirstCoachmarkViewController()
+        coachmarkViewController.bind(viewModel: CoachMarkViewModel(with: .filtering))
         coachmarkViewController.providesPresentationContextTransitionStyle = true
         coachmarkViewController.modalPresentationStyle = .overFullScreen
         coachmarkViewController.callback = { [weak self] in
@@ -167,6 +168,7 @@ class SwipeVC: UIViewController {
                 myVC.reactor = MyFilterSettingViewReactor(myInfo: initialInfo.userInfo,
                                                           interestedField: ["기획/아이디어",
                                                                             "광고/마케팅",
+                                                                            "금융/경제",
                                                                             "디자인",
                                                                             "영상/콘텐츠",
                                                                             "IT/SW",
@@ -195,7 +197,19 @@ class SwipeVC: UIViewController {
                                                           initialSetting: initialInfo.filterSetting)
                 
                      myVC.callback = { [weak self] in
-                        self?.requestPoster(isFirst: false)
+                        guard let self = self else { return }
+                        self.requestPoster(isFirst: false)
+                            DispatchQueue.main.async { [weak self] in
+                                guard let self = self else { return }
+                                let coachmarkViewController = FirstCoachmarkViewController()
+                                coachmarkViewController.bind(viewModel: CoachMarkViewModel(with: .swipeMain(.init(x: self.view.center.x, y: 53))))
+                                coachmarkViewController.modalPresentationStyle = .fullScreen
+                                self.present(coachmarkViewController,
+                                             animated: false)
+                            }
+                        
+                        
+                        
                     }
                 self.navigationController?.pushViewController(myVC, animated: true)
             })
@@ -279,7 +293,7 @@ class SwipeVC: UIViewController {
     
     //FIXME: - CategoryIdx가 3이거나 5일때 예외를 만든다.
     func requestPoster(isFirst: Bool) {
-
+        
         posterServiceImp?.requestSwipePosters { [weak self] response in
             switch response {
             case .success(let posterdata):
@@ -300,7 +314,6 @@ class SwipeVC: UIViewController {
                     self?.setCountLabelText()
                 }
             case .failed(let error):
-                print(error)
                 return
             }
         }

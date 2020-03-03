@@ -114,7 +114,10 @@ class DetailInfoViewController: UIViewController {
         setupLayout()
         setupCollectionView()
     }
-    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        tabBarController?.tabBar.isHidden = false
+    }
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         

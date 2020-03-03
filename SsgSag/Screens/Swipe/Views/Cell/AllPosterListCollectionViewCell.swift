@@ -28,21 +28,22 @@ class AllPosterListCollectionViewCell: UICollectionViewCell {
             setupCellData(posterData)
         }
     }
-    
+
     override func awakeFromNib() {
         super.awakeFromNib()
         
     }
     
-    private func setupCellData(_ posterData: PosterDataAfterSwipe) {
+    func setupCellData(_ posterData: PosterDataAfterSwipe) {
         guard let title = posterData.posterName,
             let dday = posterData.dday,
             let viewCount = posterData.swipeNum,
             let calendarSaveCount = posterData.likeNum,
-            let hashTag = posterData.keyword,
             let categoryIdx = posterData.categoryIdx else {
             return
         }
+        
+        let hashTag = posterData.keyword ?? ""
         
         if posterData.isSave == 0 {
             saveStatusButton.isHidden = true

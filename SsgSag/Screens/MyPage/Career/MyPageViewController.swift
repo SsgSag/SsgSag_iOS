@@ -156,7 +156,7 @@ extension MyPageViewController: UITableViewDelegate {
 
 extension MyPageViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 6
+        return 7
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -177,26 +177,29 @@ extension MyPageViewController: UITableViewDataSource {
         
         switch indexPath.row {
         case 0:
+            let myClubVC = storyboard.instantiateViewController(withIdentifier: "MyClubCommentsViewController")
+            navigationController?.pushViewController(myClubVC, animated: true)
+        case 1:
             // 나의 이력
             let careerVC = storyboard.instantiateViewController(withIdentifier: "careerVC")
             navigationController?.pushViewController(careerVC, animated: true)
-        case 1:
+        case 2:
             // 알림 설정
             let pushAlarmVC = storyboard.instantiateViewController(withIdentifier: "pushAlarmVC")
             navigationController?.pushViewController(pushAlarmVC, animated: true)
-        case 2:
+        case 3:
             // 공지사항
             let noticeVC = storyboard.instantiateViewController(withIdentifier: "noticeVC")
             navigationController?.pushViewController(noticeVC, animated: true)
-        case 3:
+        case 4:
             // 문의하기
             let inquireVC = storyboard.instantiateViewController(withIdentifier: "inquireVC")
             
             navigationController?.pushViewController(inquireVC, animated: true)
-        case 4:
+        case 5:
             let serviceVC = ServiceInfoViewController()
             navigationController?.pushViewController(serviceVC, animated: true)
-        case 5:
+        case 6:
             let accountSettingVC = AccountSettingViewController()
             accountSettingVC.userData = userInfo
             accountSettingVC.nickName = userInfo?.userNickname

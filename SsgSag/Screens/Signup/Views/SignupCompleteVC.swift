@@ -54,7 +54,7 @@ class SignUpCompleteVC: UIViewController {
     
     var nickName: String = ""
     
-    var gender: String = ""
+    var gender: String = "male"
     
     var school: String = ""
     
@@ -159,18 +159,7 @@ class SignUpCompleteVC: UIViewController {
             sendToken = sendKakaoToken
             sendType = 0
         } else {
-            guard let loginConn = NaverThirdPartyLoginConnection.getSharedInstance() else {
-                sendType = 10
-                
-                return
-            }
-            guard let accessToken = loginConn.accessToken else {
-                sendType = 10
-                return
-            }
-            
-            sendToken = accessToken
-            sendType = 1
+            sendType = 10
         }
     }
     

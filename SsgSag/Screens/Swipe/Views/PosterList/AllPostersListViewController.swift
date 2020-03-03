@@ -143,6 +143,9 @@ class AllPostersListViewController: UIViewController {
         setupCollectionView()
     }
     
+    deinit {
+        debugPrint("allposter deinited")
+    }
     func bind(viewModel: PosterListViewModel) {
         categoryView?.bind(viewModel: viewModel.categoryViewModel)
         let viewHeight: CGFloat = CGFloat((((viewModel.categoryViewModel.titles.count / 2) * 2) - 1) * 18)

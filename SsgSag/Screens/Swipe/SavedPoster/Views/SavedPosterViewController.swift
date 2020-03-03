@@ -257,7 +257,7 @@ extension SavedPosterViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
                         sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return .init(width: collectionView.frame.width, height: 94)
+        return .init(width: collectionView.frame.width - 30, height: 94)
     }
     
     func collectionView(_ collectionView: UICollectionView,
