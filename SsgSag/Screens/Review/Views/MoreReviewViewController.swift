@@ -14,6 +14,7 @@ enum ReviewType {
 }
 
 class MoreReviewViewController: UIViewController {
+    @IBOutlet weak var indicator: UIActivityIndicatorView!
     @IBOutlet weak var registerReviewButton: UIButton!
     @IBOutlet weak var registerBlogButton: UIButton!
     @IBOutlet weak var titleLabel: UILabel!
@@ -23,6 +24,7 @@ class MoreReviewViewController: UIViewController {
     var service: ReviewServiceProtocol?
     var ssgSagCellModel: [ReviewInfo] = []
     var blogCellModel: [BlogInfo] = []
+    var curPage = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -31,36 +33,52 @@ class MoreReviewViewController: UIViewController {
         self.tableView.estimatedRowHeight = 428
         self.tableView.rowHeight = UITableView.automaticDimension
         self.tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 120, right: 0)
+        setupTableView(type: vcType)
         setupDataWithType(type: vcType)
+    }
+    
+    func setupTableView(type: ReviewType) {
+        if type == .SsgSag {
+            registerReviewButton.isHidden = false
+            let nib = UINib(nibName: "SsgSagReviewTableViewCell", bundle: nil)
+            tableView.register(nib, forCellReuseIdentifier: "SsgSagReviewCell")
+        } else {
+            registerBlogButton.isHidden = false
+            let nib = UINib(nibName: "BlogReviewTableViewCell", bundle: nil)
+            tableView.register(nib, forCellReuseIdentifier: "BlogReviewCell")
+        }
     }
     
     func setupDataWithType(type: ReviewType) {
         titleLabel.text = "\(clubInfo.clubName)"
         // MARK: 슥삭후기
+        indicator.startAnimating()
         if type == .SsgSag {
-            registerReviewButton.isHidden = false
-            let nib = UINib(nibName: "SsgSagReviewTableViewCell", bundle: nil)
-            tableView.register(nib, forCellReuseIdentifier: "SsgSagReviewCell")
-            
-            //페이징처리하기
-            service?.requestReviewList(clubIdx: clubInfo.clubIdx, curPage: 0) { datas in
+            service?.requestReviewList(clubIdx: clubInfo.clubIdx, curPage: curPage) { datas in
+                
                 guard let datas = datas else {return}
-                self.ssgSagCellModel = datas
+                if datas.count == 0 {
+                    self.curPage -= 1
+                    return
+                }
+                self.ssgSagCellModel += datas
                 DispatchQueue.main.async {
+                    self.indicator.stopAnimating()
                     self.tableView.reloadData()
                 }
             }
         // MARK: 블로그 후기
         } else {
-            registerBlogButton.isHidden = false
-            let nib = UINib(nibName: "BlogReviewTableViewCell", bundle: nil)
-            tableView.register(nib, forCellReuseIdentifier: "BlogReviewCell")
-            
-            //페이징처리하기
-            service?.requestBlogReviewList(clubIdx: clubInfo.clubIdx, curPage: 0) { datas in
+            service?.requestBlogReviewList(clubIdx: clubInfo.clubIdx, curPage: curPage) { datas in
+                self.indicator.stopAnimating()
                 guard let datas = datas else {return}
-                self.blogCellModel = datas
+                if datas.count == 0 {
+                    self.curPage -= 1
+                    return
+                }
+                self.blogCellModel += datas
                 DispatchQueue.main.async {
+                    self.indicator.stopAnimating()
                     self.tableView.reloadData()
                 }
             }

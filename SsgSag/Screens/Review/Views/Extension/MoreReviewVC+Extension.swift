@@ -51,3 +51,13 @@ extension MoreReviewViewController: UITableViewDataSource {
         }
     }
 }
+
+extension MoreReviewViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        let cellCount = vcType == ReviewType.SsgSag ? ssgSagCellModel.count : blogCellModel.count
+        if indexPath.row == cellCount-1 {
+            self.curPage += 1
+            self.setupDataWithType(type: vcType)
+        }
+    }
+}
