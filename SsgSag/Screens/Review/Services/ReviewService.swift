@@ -61,7 +61,7 @@ class ReviewService: ReviewServiceProtocol {
                 }
             case .failure(let err):
                 print(err.localizedDescription)
-                 completion(nil)
+                completion(nil)
             }
         }
     }
@@ -117,7 +117,7 @@ class ReviewService: ReviewServiceProtocol {
                 }
             case .failure(let err):
                 print(err.localizedDescription)
-                 completion(nil)
+                completion(nil)
             }
         }
     }
@@ -147,7 +147,7 @@ class ReviewService: ReviewServiceProtocol {
                 }
             case .failure(let err):
                 print(err.localizedDescription)
-                 completion(nil)
+                completion(nil)
             }
         }
     }
@@ -177,7 +177,7 @@ class ReviewService: ReviewServiceProtocol {
                 }
             case .failure(let err):
                 print(err.localizedDescription)
-                 completion(false)
+                completion(false)
             }
         }
     }
@@ -207,7 +207,7 @@ class ReviewService: ReviewServiceProtocol {
                 }
             case .failure(let err):
                 print(err.localizedDescription)
-                 completion(false)
+                completion(false)
             }
         }
     }
@@ -227,7 +227,6 @@ class ReviewService: ReviewServiceProtocol {
             switch result {
             case .success(let data):
                 if let object = try? JSONDecoder().decode(ResponseArrayResult<BlogInfo>.self, from: data) {
-                    print(object.data)
                     if object.status == 200 {
                         completion(object.data)
                     } else {
@@ -238,7 +237,7 @@ class ReviewService: ReviewServiceProtocol {
                 }
             case .failure(let err):
                 print(err.localizedDescription)
-                 completion(nil)
+                completion(nil)
             }
         }
         
@@ -279,8 +278,36 @@ class ReviewService: ReviewServiceProtocol {
                 }
             case .failure(let err):
                 print(err.localizedDescription)
-                 completion(false)
+                completion(false)
             }
         }
     }
+    
+    func requestBlogReviewPost(clubIdx: Int, blogUrl: String, completion: @escaping (Bool) -> Void) {
+        
+        let baseURL = UserAPI.sharedInstance.getBaseString()
+        let path = RequestURL.registerBlogReview(clubIdx: clubIdx, blogUrl: blogUrl).getRequestURL
+        guard let url = URL(string: baseURL+path) else {return}
+        
+        guard let request = requestMaker.makeRequest(url: url, method: .post, header: nil, body: nil) else {return}
+        network.dispatch(request: request) { result in
+            switch result {
+            case .success(let data):
+                if let object = try? JSONDecoder().decode(ResponseSimpleResult<String>.self, from: data) {
+                    if object.status == 200 {
+                        completion(true)
+                    } else {
+                        completion(false)
+                    }
+                } else {
+                    completion(false)
+                }
+            case .failure(let err):
+                print(err.localizedDescription)
+                completion(false)
+            }
+        }
+        
+    }
+    
 }

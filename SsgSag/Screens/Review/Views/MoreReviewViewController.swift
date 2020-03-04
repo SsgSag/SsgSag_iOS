@@ -29,15 +29,28 @@ class MoreReviewViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         service = ReviewService()
+        titleLabel.text = "\(clubInfo.clubName)"
+        setupTableView(type: vcType)
+        
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        curPage = 0
+        removeCell(type: vcType)
+        tableView.reloadData()
+        setupDataWithType(type: vcType)
+    }
+    
+    func removeCell(type: ReviewType) {
+        type == .SsgSag ? ssgSagCellModel.removeAll() : blogCellModel.removeAll()
+    }
+    
+    func setupTableView(type: ReviewType) {
         self.tableView.dataSource = self
         self.tableView.estimatedRowHeight = 428
         self.tableView.rowHeight = UITableView.automaticDimension
         self.tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 120, right: 0)
-        setupTableView(type: vcType)
-        setupDataWithType(type: vcType)
-    }
-    
-    func setupTableView(type: ReviewType) {
+        
         if type == .SsgSag {
             registerReviewButton.isHidden = false
             let nib = UINib(nibName: "SsgSagReviewTableViewCell", bundle: nil)
@@ -50,7 +63,6 @@ class MoreReviewViewController: UIViewController {
     }
     
     func setupDataWithType(type: ReviewType) {
-        titleLabel.text = "\(clubInfo.clubName)"
         // MARK: 슥삭후기
         indicator.startAnimating()
         if type == .SsgSag {
@@ -70,7 +82,6 @@ class MoreReviewViewController: UIViewController {
         // MARK: 블로그 후기
         } else {
             service?.requestBlogReviewList(clubIdx: clubInfo.clubIdx, curPage: curPage) { datas in
-                self.indicator.stopAnimating()
                 guard let datas = datas else {return}
                 if datas.count == 0 {
                     self.curPage -= 1
@@ -110,8 +121,13 @@ class MoreReviewViewController: UIViewController {
     }
     
     @IBAction func blogWriteClick(_ sender: Any) {
-        guard let nextVC = self.storyboard?.instantiateViewController(withIdentifier: "RegisterBlogReviewVC") else {return}
+        guard let navigationVC = self.storyboard?.instantiateViewController(withIdentifier: "RegisterBlogReviewVC") as? UINavigationController else {return}
         
-        self.present(nextVC, animated: true)
+        guard let nextVC = navigationVC.topViewController as? RegisterBlogReviewViewController else {return}
+        
+        nextVC.clubIdx = clubInfo.clubIdx
+        nextVC.service = service
+        
+        self.present(navigationVC, animated: true)
     }
 }

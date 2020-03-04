@@ -46,6 +46,7 @@ enum RequestURL {
     case reviewLike(clubPostIdx: Int)
     case searchBlogReivewList(clubIdx: Int, curPage: Int)
     case reviewEvent
+    case registerBlogReview(clubIdx: Int, blogUrl: String)
     
     var getRequestURL: String {
         switch self {
@@ -153,6 +154,8 @@ enum RequestURL {
             return "/club/\(clubIdx)/blog?curPage=\(curPage)"
         case .reviewEvent:
             return "/event"
+        case .registerBlogReview(let clubIdx, let blogUrl):
+            return "/club/\(clubIdx)/blog?blogUrl=\(blogUrl)"
         }
     }
     
