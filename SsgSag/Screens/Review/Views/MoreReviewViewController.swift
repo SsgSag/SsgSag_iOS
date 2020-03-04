@@ -25,6 +25,7 @@ class MoreReviewViewController: UIViewController {
     var ssgSagCellModel: [ReviewInfo] = []
     var blogCellModel: [BlogInfo] = []
     var curPage = 0
+    var isLoading = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -47,6 +48,7 @@ class MoreReviewViewController: UIViewController {
     
     func setupTableView(type: ReviewType) {
         self.tableView.dataSource = self
+        self.tableView.delegate = self
         self.tableView.estimatedRowHeight = 428
         self.tableView.rowHeight = UITableView.automaticDimension
         self.tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 120, right: 0)
@@ -67,7 +69,9 @@ class MoreReviewViewController: UIViewController {
         indicator.startAnimating()
         if type == .SsgSag {
             service?.requestReviewList(clubIdx: clubInfo.clubIdx, curPage: curPage) { datas in
-                
+                DispatchQueue.main.async {
+                    self.indicator.stopAnimating()
+                }
                 guard let datas = datas else {return}
                 if datas.count == 0 {
                     self.curPage -= 1
@@ -75,13 +79,16 @@ class MoreReviewViewController: UIViewController {
                 }
                 self.ssgSagCellModel += datas
                 DispatchQueue.main.async {
-                    self.indicator.stopAnimating()
                     self.tableView.reloadData()
                 }
+                self.isLoading = false
             }
         // MARK: 블로그 후기
         } else {
             service?.requestBlogReviewList(clubIdx: clubInfo.clubIdx, curPage: curPage) { datas in
+                DispatchQueue.main.async {
+                    self.indicator.stopAnimating()
+                }
                 guard let datas = datas else {return}
                 if datas.count == 0 {
                     self.curPage -= 1
@@ -89,9 +96,9 @@ class MoreReviewViewController: UIViewController {
                 }
                 self.blogCellModel += datas
                 DispatchQueue.main.async {
-                    self.indicator.stopAnimating()
                     self.tableView.reloadData()
                 }
+                self.isLoading = false
             }
         }
     }

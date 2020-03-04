@@ -54,8 +54,12 @@ extension MoreReviewViewController: UITableViewDataSource {
 
 extension MoreReviewViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        guard !isLoading else {
+            return
+        }
         let cellCount = vcType == ReviewType.SsgSag ? ssgSagCellModel.count : blogCellModel.count
         if indexPath.row == cellCount-1 {
+            isLoading = true
             self.curPage += 1
             self.setupDataWithType(type: vcType)
         }

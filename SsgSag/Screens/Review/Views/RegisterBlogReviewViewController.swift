@@ -54,7 +54,7 @@ class RegisterBlogReviewViewController: UIViewController {
                 }
             } else {
                 DispatchQueue.main.async {
-                    self.simpleAlert(title: "다시 시도해주세요", message: "네이버 블로그이거나\n한 게시물만 있는 주소인지 확인해주세요")
+                    self.simpleAlert(title: "다시 시도해주세요", message: "네이버 블로그이고\n한 게시물만 있는 주소인지 확인해주세요")
                 }
             }
         }

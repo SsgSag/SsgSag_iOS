@@ -222,7 +222,6 @@ class ReviewService: ReviewServiceProtocol {
             "Authorization": token
         ]
         guard let request = requestMaker.makeRequest(url: url, method: .get, header: header, body: nil) else {return}
-        
         network.dispatch(request: request) { result in
             switch result {
             case .success(let data):
