@@ -14,10 +14,13 @@ extension ClubReviewViewController: UITableViewDataSource {
         if normalReviewTableView == tableView {
             if reviewDataSet.count > 2 {
                 return 3
-            }else {
-                return reviewDataSet.count
             }
+            return reviewDataSet.count
+            
         } else {
+            if blogDataSet.count > 2 {
+                return 3
+            }
             return blogDataSet.count
         }
     }
