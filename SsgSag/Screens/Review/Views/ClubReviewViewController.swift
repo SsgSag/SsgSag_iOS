@@ -80,7 +80,9 @@ class ClubReviewViewController: UIViewController {
             if let contentSize = self?.normalReviewTableView.contentSize.height {
                 self?.reviewTableHeightLayout.constant = contentSize == 0 ? 428 : contentSize
             }
-            self?.reviewCountLabel.text = "수정 해야함"
+            if let clubInfo = self?.tabViewModel.clubInfoData.value {
+                self?.reviewCountLabel.text = "\(clubInfo.scoreNum)"
+            }
         })
         .disposed(by: disposeBag)
     
@@ -103,7 +105,9 @@ class ClubReviewViewController: UIViewController {
                 if let contentSize = self?.blogReviewTableView.contentSize.height {
                     self?.blogTableHeightLayout.constant = contentSize == 0 ? 428 : contentSize
                 }
-                self?.blogCountLabel.text = "수정 해야함"
+                if let clubInfo = self?.tabViewModel.clubInfoData.value {
+                    self?.blogCountLabel.text = "\(clubInfo.clubPostNum)"
+                }
             })
             .disposed(by: disposeBag)
         

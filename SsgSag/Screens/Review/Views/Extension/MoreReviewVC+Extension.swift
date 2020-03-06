@@ -33,7 +33,11 @@ extension MoreReviewViewController: UITableViewDataSource {
             let cell = tableView.dequeueReusableCell(withIdentifier: "MoreReviewTopLabelCell", for: indexPath) as! MoreReviewTopLabelTableViewCell
             
             // 블로그 / 슥삭 후기개수 구분해주기
-            cell.reviewCountLabel.text = "후기 총 \(clubInfo.scoreNum)개"
+            if vcType == ReviewType.SsgSag {
+                cell.reviewCountLabel.text = "후기 총 \(clubInfo.scoreNum)개"
+            } else {
+                cell.reviewCountLabel.text = "후기 총 \(clubInfo.clubPostNum)개"
+            }
             
             return cell
         } else {
