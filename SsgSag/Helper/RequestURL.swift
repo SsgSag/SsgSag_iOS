@@ -44,8 +44,10 @@ enum RequestURL {
     case registerReview
     case searchReviewList(clubIdx: Int, curPage: Int)
     case reviewLike(clubPostIdx: Int)
-    case searchBlogReivewList(keyword: String, count: Int)
+    case searchBlogReivewList(clubIdx: Int, curPage: Int)
     case reviewEvent
+    case registerBlogReview(clubIdx: Int, blogUrl: String)
+    case modifyReview(clubPostIdx: Int)
     
     var getRequestURL: String {
         switch self {
@@ -149,10 +151,14 @@ enum RequestURL {
             return "/club/\(clubIdx)/post?curPage=\(curPage)"
         case .reviewLike(let clubPostIdx):
             return "/club/post/like/\(clubPostIdx)"
-        case .searchBlogReivewList(let keyword, let count):
-            return "https://openapi.naver.com/v1/search/blog.json?query=\(keyword.utf8)&display=\(count)"
+        case .searchBlogReivewList(let clubIdx, let curPage):
+            return "/club/\(clubIdx)/blog?curPage=\(curPage)"
         case .reviewEvent:
             return "/event"
+        case .registerBlogReview(let clubIdx, let blogUrl):
+            return "/club/\(clubIdx)/blog?blogUrl=\(blogUrl)"
+        case .modifyReview(let clubPostIdx):
+            return "/club/post/\(clubPostIdx)"
         }
     }
     

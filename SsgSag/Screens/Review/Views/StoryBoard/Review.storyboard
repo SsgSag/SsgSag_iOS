@@ -2001,10 +2001,7 @@
                                                         </connections>
                                                     </button>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="333" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lBo-1V-ET4">
-                                                        <rect key="frame" x="90" y="19.666666666666668" width="21" height="12"/>
-                                                        <constraints>
-                                                            <constraint firstAttribute="width" constant="21" id="YsV-oo-enA"/>
-                                                        </constraints>
+                                                        <rect key="frame" x="90" y="19.666666666666668" width="16.333333333333329" height="12"/>
                                                         <fontDescription key="fontDescription" name="AppleSDGothicNeo-Medium" family="Apple SD Gothic Neo" pointSize="10"/>
                                                         <color key="textColor" red="0.38431372549999998" green="0.41568627450000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                         <nil key="highlightedColor"/>
@@ -2324,6 +2321,7 @@
                                                             <outlet property="advantageLabel" destination="uou-R5-OT4" id="XTU-7W-Swa"/>
                                                             <outlet property="disAdvantageHeightLayout" destination="uwz-P9-pYV" id="Ms6-Dw-7bK"/>
                                                             <outlet property="disAdvantageLabel" destination="Vxp-5a-8L0" id="v0t-OH-duZ"/>
+                                                            <outlet property="editButton" destination="wUm-qy-TC6" id="gQH-eQ-hUA"/>
                                                             <outlet property="honeyHeightLayout" destination="74E-dY-zh0" id="r7K-10-rLI"/>
                                                             <outlet property="honeyLabel" destination="pc1-aD-AhF" id="T4d-pt-XG2"/>
                                                             <outlet property="honeyTipLabel" destination="mJ7-VU-dPz" id="AcH-CR-FlB"/>
@@ -2398,11 +2396,8 @@
                                                             <action selector="moreReviewClick:" destination="32q-NQ-fMN" eventType="touchUpInside" id="ogL-kJ-Pcw"/>
                                                         </connections>
                                                     </button>
-                                                    <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="333" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MAf-m6-Tg7">
-                                                        <rect key="frame" x="100" y="19.666666666666629" width="21" height="12"/>
-                                                        <constraints>
-                                                            <constraint firstAttribute="width" constant="21" id="Y7q-W1-Cfv"/>
-                                                        </constraints>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="333" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MAf-m6-Tg7">
+                                                        <rect key="frame" x="100" y="19.666666666666629" width="16.333333333333329" height="12"/>
                                                         <fontDescription key="fontDescription" name="AppleSDGothicNeo-Medium" family="Apple SD Gothic Neo" pointSize="10"/>
                                                         <color key="textColor" red="0.38431372549999998" green="0.41568627450000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                         <nil key="highlightedColor"/>
@@ -2427,7 +2422,7 @@
                                                     <constraint firstAttribute="height" constant="0.5" id="i2r-v9-JW1"/>
                                                 </constraints>
                                             </view>
-                                            <tableView clipsSubviews="YES" contentMode="scaleToFill" bounces="NO" alwaysBounceVertical="YES" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="208" sectionHeaderHeight="1" sectionFooterHeight="1" translatesAutoresizingMaskIntoConstraints="NO" id="N6r-KB-Wkb">
+                                            <tableView clipsSubviews="YES" contentMode="scaleToFill" bounces="NO" alwaysBounceVertical="YES" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="142" sectionHeaderHeight="1" sectionFooterHeight="1" translatesAutoresizingMaskIntoConstraints="NO" id="N6r-KB-Wkb">
                                                 <rect key="frame" x="0.0" y="588" width="375" height="428"/>
                                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                                 <constraints>
@@ -2490,11 +2485,13 @@
                                                             <action selector="registerBlog:" destination="32q-NQ-fMN" eventType="touchUpInside" id="kqW-3Z-mYq"/>
                                                         </connections>
                                                     </button>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="준비 중이에요..!" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iPZ-U4-IOg">
-                                                        <rect key="frame" x="147.33333333333334" y="270" width="80.333333333333343" height="32"/>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iPZ-U4-IOg">
+                                                        <rect key="frame" x="51.666666666666657" y="270" width="272" height="32"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="32" id="z05-Jv-iDu"/>
                                                         </constraints>
+                                                        <string key="text">블로그 후기가 없어요😭
+20학번 새내기들을 위해 동아리 후기를 작성해주세요!</string>
                                                         <fontDescription key="fontDescription" name="AppleSDGothicNeo-Regular" family="Apple SD Gothic Neo" pointSize="13"/>
                                                         <color key="textColor" red="0.46666666670000001" green="0.46666666670000001" blue="0.46666666670000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                         <nil key="highlightedColor"/>
@@ -2541,12 +2538,12 @@
                                                         </connections>
                                                     </button>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1PX-lS-qdW">
-                                                        <rect key="frame" x="109.66666666666667" y="270" width="155.66666666666663" height="32"/>
+                                                        <rect key="frame" x="50" y="270" width="275.33333333333331" height="32"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="32" id="8pF-dW-ZIe"/>
                                                         </constraints>
-                                                        <string key="text">동아리 후기 작성하고
-에어팟 프로 3세대 응모하세요!</string>
+                                                        <string key="text">동아리 후기가 없어요😭
+20학번 새내기들을 위해 동아리 후기를 작성해 주세요!</string>
                                                         <fontDescription key="fontDescription" name="AppleSDGothicNeo-Regular" family="Apple SD Gothic Neo" pointSize="13"/>
                                                         <color key="textColor" red="0.46666666670000001" green="0.46666666670000001" blue="0.46666666670000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                         <nil key="highlightedColor"/>
@@ -2628,6 +2625,7 @@
                         <viewLayoutGuide key="safeArea" id="0Xh-00-meG"/>
                     </view>
                     <connections>
+                        <outlet property="blogCountLabel" destination="MAf-m6-Tg7" id="sop-IE-U8a"/>
                         <outlet property="blogReviewTableView" destination="N6r-KB-Wkb" id="Eh1-E6-Fuk"/>
                         <outlet property="blogTableHeightLayout" destination="kks-5h-IEU" id="5vZ-jc-SFO"/>
                         <outlet property="emptyBlogView" destination="ycl-GY-dzU" id="4qs-Us-Qbd"/>
@@ -2681,7 +2679,7 @@
                                     <constraint firstAttribute="height" constant="1" id="0ZH-8o-Gyv"/>
                                 </constraints>
                             </view>
-                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="9fb-Ot-j80">
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="http를 포함한 네이버블로그 주소를 써주세요" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="9fb-Ot-j80">
                                 <rect key="frame" x="26" y="299.66666666666669" width="325" height="36"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="36" id="2OL-Gz-iSi"/>
@@ -2837,12 +2835,22 @@
                                     <action selector="blogWriteClick:" destination="anU-Cr-PKo" eventType="touchUpInside" id="jdv-29-FuD"/>
                                 </connections>
                             </button>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="large" translatesAutoresizingMaskIntoConstraints="NO" id="4rf-Er-86B">
+                                <rect key="frame" x="162.66666666666666" y="478" width="50" height="50"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="50" id="PHl-Lz-bgq"/>
+                                    <constraint firstAttribute="height" constant="50" id="vn0-02-rTd"/>
+                                </constraints>
+                                <color key="color" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
                             <constraint firstItem="jtF-Hu-O0g" firstAttribute="top" secondItem="Rul-Nx-Rr9" secondAttribute="top" constant="15" id="EKo-BC-9rh"/>
                             <constraint firstItem="3nA-9z-g6I" firstAttribute="leading" secondItem="Rul-Nx-Rr9" secondAttribute="leading" id="Gga-5h-kA0"/>
                             <constraint firstItem="Rul-Nx-Rr9" firstAttribute="bottom" secondItem="XVd-HM-5RB" secondAttribute="bottom" constant="28" id="MGp-t9-neg"/>
+                            <constraint firstItem="4rf-Er-86B" firstAttribute="centerX" secondItem="Rul-Nx-Rr9" secondAttribute="centerX" id="MtH-XH-jIh"/>
+                            <constraint firstItem="Rul-Nx-Rr9" firstAttribute="bottom" secondItem="4rf-Er-86B" secondAttribute="bottom" constant="250" id="OUT-n7-yqg"/>
                             <constraint firstItem="M7n-bB-oNR" firstAttribute="leading" secondItem="Rul-Nx-Rr9" secondAttribute="leading" constant="148" id="WTM-WT-AEt"/>
                             <constraint firstItem="Rul-Nx-Rr9" firstAttribute="trailing" secondItem="3nA-9z-g6I" secondAttribute="trailing" id="adR-zo-VHv"/>
                             <constraint firstItem="Rul-Nx-Rr9" firstAttribute="trailing" secondItem="M7n-bB-oNR" secondAttribute="trailing" constant="148" id="bdc-Xe-me3"/>
@@ -2858,6 +2866,7 @@
                         <viewLayoutGuide key="safeArea" id="Rul-Nx-Rr9"/>
                     </view>
                     <connections>
+                        <outlet property="indicator" destination="4rf-Er-86B" id="U6x-nZ-Yrl"/>
                         <outlet property="registerBlogButton" destination="XVd-HM-5RB" id="fME-Qe-W8G"/>
                         <outlet property="registerReviewButton" destination="M7n-bB-oNR" id="UOv-47-LhC"/>
                         <outlet property="tableView" destination="3nA-9z-g6I" id="Nji-i7-HWD"/>
@@ -2877,7 +2886,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ty3-ip-wtU">
-                                <rect key="frame" x="0.0" y="94.666666666666686" width="375" height="634.33333333333326"/>
+                                <rect key="frame" x="0.0" y="94.666666666666686" width="375" height="634.33333333333348"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZJP-aE-hVy">
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="1801.6666666666667"/>
@@ -3029,7 +3038,7 @@
                                                 <fontDescription key="fontDescription" name="AppleSDGothicNeo-SemiBold" family="Apple SD Gothic Neo" pointSize="17"/>
                                                 <textInputTraits key="textInputTraits"/>
                                             </textField>
-                                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kzL-x3-MGM">
+                                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kzL-x3-MGM">
                                                 <rect key="frame" x="26" y="115" width="325" height="36"/>
                                                 <connections>
                                                     <action selector="locationClick:" destination="Vsu-ey-w3J" eventType="touchUpInside" id="VyI-JO-9pi"/>
@@ -3725,7 +3734,7 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="이 동아리를 한줄로 표현하자면?" textAlignment="natural" minimumFontSize="15" translatesAutoresizingMaskIntoConstraints="NO" id="Pwz-FG-PCm">
-                                                <rect key="frame" x="30" y="1283.6666666666665" width="187.33333333333334" height="36"/>
+                                                <rect key="frame" x="30" y="1283.6666666666665" width="321" height="36"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="36" id="15T-RO-P5r"/>
                                                 </constraints>
@@ -3734,7 +3743,7 @@
                                                 <textInputTraits key="textInputTraits"/>
                                             </textField>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qDd-gS-l7X">
-                                                <rect key="frame" x="28" y="1318.6666666666665" width="189.33333333333334" height="1"/>
+                                                <rect key="frame" x="28" y="1318.6666666666665" width="323" height="1"/>
                                                 <color key="backgroundColor" red="0.93333333330000001" green="0.93333333330000001" blue="0.93333333330000001" alpha="1" colorSpace="calibratedRGB"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="1" id="a3f-Sh-ach"/>
@@ -3808,6 +3817,7 @@
                                             <constraint firstItem="eom-zt-6nu" firstAttribute="leading" secondItem="d1o-H9-blM" secondAttribute="leading" id="Jt9-zp-9na"/>
                                             <constraint firstItem="BHc-j9-gwA" firstAttribute="leading" secondItem="ZJP-aE-hVy" secondAttribute="leading" id="JwW-Fy-eHs"/>
                                             <constraint firstItem="GTD-TZ-QFK" firstAttribute="top" secondItem="SXI-l6-1rT" secondAttribute="bottom" constant="8" id="Keq-cm-w3D"/>
+                                            <constraint firstAttribute="trailing" secondItem="Pwz-FG-PCm" secondAttribute="trailing" constant="24" id="KiR-Wh-r7c"/>
                                             <constraint firstItem="SXI-l6-1rT" firstAttribute="centerY" secondItem="h2a-IO-Z6Y" secondAttribute="centerY" id="KyA-hp-eT9"/>
                                             <constraint firstItem="6R4-3U-H38" firstAttribute="centerX" secondItem="0k6-o8-cLB" secondAttribute="centerX" id="LTq-r2-Y4e"/>
                                             <constraint firstItem="iCH-Ba-TBD" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="xq8-Ht-jVL" secondAttribute="trailing" constant="10" id="NSN-aI-ybs"/>
@@ -3922,7 +3932,7 @@
                                     <constraint firstAttribute="height" constant="0.5" id="lSm-oe-Etl"/>
                                 </constraints>
                             </view>
-                            <button opaque="NO" tag="100" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="top" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="anw-kr-8AU">
+                            <button opaque="NO" tag="100" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="top" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="anw-kr-8AU">
                                 <rect key="frame" x="0.0" y="729" width="375" height="83"/>
                                 <color key="backgroundColor" red="0.39607843139999999" green="0.43137254899999999" blue="0.94117647059999998" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <constraints>
@@ -3933,6 +3943,9 @@
                                 <state key="normal" title="수정하기">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
+                                <connections>
+                                    <action selector="completeModifyClick:" destination="MdU-LF-Aau" eventType="touchUpInside" id="cAK-a9-MbF"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
@@ -4623,7 +4636,7 @@
                                     <constraint firstAttribute="trailing" secondItem="sxc-KC-Msk" secondAttribute="trailing" id="hD2-1c-owU"/>
                                 </constraints>
                             </scrollView>
-                            <button opaque="NO" tag="100" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="top" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="A8W-yg-hAt">
+                            <button opaque="NO" tag="100" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="top" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="A8W-yg-hAt">
                                 <rect key="frame" x="0.0" y="729" width="375" height="83"/>
                                 <color key="backgroundColor" red="0.39607843139999999" green="0.43137254899999999" blue="0.94117647059999998" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <constraints>
@@ -7536,7 +7549,7 @@
         <!--Navigation Controller-->
         <scene sceneID="x90-5l-Z7z">
             <objects>
-                <navigationController storyboardIdentifier="RegisterBlogReviewVC" automaticallyAdjustsScrollViewInsets="NO" navigationBarHidden="YES" id="xuI-7J-lGi" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="RegisterBlogReviewVC" automaticallyAdjustsScrollViewInsets="NO" modalPresentationStyle="fullScreen" navigationBarHidden="YES" id="xuI-7J-lGi" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="EPV-xb-utR">
                         <autoresizingMask key="autoresizingMask"/>

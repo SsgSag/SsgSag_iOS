@@ -52,6 +52,7 @@ class ClubDetailViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         tabBarController?.tabBar.isHidden = false
         requestClubInfo()
+        print("willAppear!!!")
     }
     
     func setupDefault() {
@@ -202,7 +203,7 @@ class ClubDetailViewController: UIViewController {
     @IBAction func reviewWrite(_ sender: Any) {
         guard let navigationVC = self.storyboard?.instantiateViewController(withIdentifier: "ReviewPrepareVC") as? UINavigationController else {return}
         guard let nextVC = navigationVC.topViewController as? ReviewPrepareViewController else {return}
-        guard let clubInfo = try? tabViewModel.clubInfoData.value() else {return}
+        guard let clubInfo = tabViewModel.clubInfoData.value else {return}
         let type: ClubType = clubInfo.clubType == 0 ? .Union : .School
         let clubactInfo = ClubActInfoModel(clubType: type)
         nextVC.isExistClub = true
@@ -222,11 +223,11 @@ class ClubDetailViewController: UIViewController {
     }
     
     @IBAction func reviewClick(_ sender: Any) {
-        self.tabViewModel.tabFirstButtonStatus.onNext(false)
+        self.tabViewModel.tabFirstButtonStatus.accept(false)
     }
     
     @IBAction func infoClick(_ sender: Any) {
-        self.tabViewModel.tabFirstButtonStatus.onNext(true)
+        self.tabViewModel.tabFirstButtonStatus.accept(true)
     }
     
     @IBAction func popupClick(_ sender: Any) {

@@ -37,8 +37,6 @@ class ReviewEditViewController: UIViewController {
     
     var reviewEditViewModel: ReviewEditViewModel!
     var reviewService: ReviewServiceProtocol!
-    var clubService: ClubServiceProtocol!
-    var clubactInfo: ClubActInfoModel!
     
     let textLengthMaximum = 20
     lazy var blackStar = UIImage(named: "icStar0")
@@ -53,11 +51,11 @@ class ReviewEditViewController: UIViewController {
         scrollView.delegate = self
         
         completeButton.deviceSetSize()
-        activeBind(model: clubactInfo)
-        typeSetting(type: clubactInfo.clubType)
-        textBind(model: reviewEditViewModel)
+        activeBind(model: reviewEditViewModel.clubActInfo)
+        typeSetting(type: reviewEditViewModel.clubActInfo.clubType)
         starSetting(model: reviewEditViewModel.reviewInfo)
         simpleReviewSetting(model: reviewEditViewModel.reviewInfo)
+        textBind(model: reviewEditViewModel)
         advantageTextView.delegate = self
         disadvantageTextView.delegate = self
         honeyTextView.delegate = self
@@ -76,38 +74,33 @@ class ReviewEditViewController: UIViewController {
     func typeSetting(type: ClubType) {
         if type == .School {
             univOrLocalLabel.text = "소속 학교는"
+            univOrLocalTextField.text = reviewEditViewModel.clubActInfo.univName
         
         } else {
             univOrLocalLabel.text = "활동지역은"
-        
+            univOrLocalTextField.text = reviewEditViewModel.clubActInfo.location.value
         }
       
-        startDateLabel.text = DateCaculate.RequestDateStringToShowDateFormatter(string: reviewEditViewModel.reviewInfo.clubStartDate)
-        endDateLabel.text = DateCaculate.RequestDateStringToShowDateFormatter(string: reviewEditViewModel.reviewInfo.clubStartDate)
-        univOrLocalTextField.text = clubactInfo.location.value
-        clubNameTextField.text = clubactInfo.clubName
+        let startDate = DateCaculate.RequestDateStringToShowDateFormatter(string: reviewEditViewModel.reviewInfo.clubStartDate)
+        reviewEditViewModel.clubActInfo.startDate.accept(startDate)
+        reviewEditViewModel.clubActInfo.startRequestDate = reviewEditViewModel.reviewInfo.clubStartDate
+        let endDate = DateCaculate.RequestDateStringToShowDateFormatter(string: reviewEditViewModel.reviewInfo.clubEndDate)
+        reviewEditViewModel.clubActInfo.endDate.accept(endDate)
+        reviewEditViewModel.clubActInfo.endRequestDate = reviewEditViewModel.reviewInfo.clubEndDate
+        
+        clubNameTextField.text = reviewEditViewModel.clubActInfo.clubName
         
     }
     
     func activeBind(model: ClubActInfoModel) {
-        if model.clubType == .Union {
-            model.location
-                .distinctUntilChanged()
-                .subscribe(onNext: { [weak self] locationString in
-                    self?.univOrLocalTextField.text = locationString
-                })
-                .disposed(by: disposeBag)
-        }
         
         model.startDate
-            .distinctUntilChanged()
             .subscribe(onNext: { [weak self] dateString in
                 self?.startDateLabel.text = dateString
             })
             .disposed(by: disposeBag)
         
         model.endDate
-            .distinctUntilChanged()
             .subscribe(onNext: { [weak self] dateString in
                 self?.endDateLabel.text = dateString
             })
@@ -228,16 +221,16 @@ class ReviewEditViewController: UIViewController {
     
     @IBAction func startDateClick(_ sender: Any) {
         let nextVC = self.storyboard?.instantiateViewController(withIdentifier: "ClubActInfoAlertVC") as! ClubActInfoAlertViewController
-        clubactInfo.inputType = .start
-        nextVC.clubactInfo = self.clubactInfo
+        reviewEditViewModel.clubActInfo.inputType = .start
+        nextVC.clubactInfo = reviewEditViewModel.clubActInfo
         
         present(nextVC, animated: true, completion: nil)
     }
     
     @IBAction func endDateClick(_ sender: Any) {
         let nextVC = self.storyboard?.instantiateViewController(withIdentifier: "ClubActInfoAlertVC") as! ClubActInfoAlertViewController
-        clubactInfo.inputType = .end
-        nextVC.clubactInfo = self.clubactInfo
+        reviewEditViewModel.clubActInfo.inputType = .end
+        nextVC.clubactInfo = reviewEditViewModel.clubActInfo
         
         present(nextVC, animated: true, completion: nil)
     }
@@ -301,6 +294,30 @@ class ReviewEditViewController: UIViewController {
         }
     }
     
+    @IBAction func completeModifyClick(_ sender: Any) {
+        guard advantageTextView.text.count >= textLengthMaximum else {
+            self.simplerAlert(title: "글자 수를 확인해주세요.")
+            return
+        }
+        guard disadvantageTextView.text.count >= textLengthMaximum else {
+            self.simplerAlert(title: "글자 수를 확인해주세요.")
+            return
+        }
+        reviewService.requestModifyReview(model: reviewEditViewModel) { isSuccess in
+            if isSuccess {
+                DispatchQueue.main.async {
+                    let nextVC = self.storyboard?.instantiateViewController(withIdentifier: "CompleteVC") as! CompleteViewController
+                    nextVC.titleText = "수정이\n완료되었습니다 :)"
+                    nextVC.isEditMode = true
+                    self.navigationController?.pushViewController(nextVC, animated: true)
+                }
+            } else {
+                DispatchQueue.main.async {
+                    self.simplerAlert(title: "다시 시도해주세요.")
+                }
+            }
+        }
+    }
 }
 
 

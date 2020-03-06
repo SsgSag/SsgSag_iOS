@@ -14,11 +14,14 @@ extension ClubReviewViewController: UITableViewDataSource {
         if normalReviewTableView == tableView {
             if reviewDataSet.count > 2 {
                 return 3
-            }else {
-                return reviewDataSet.count
             }
+            return reviewDataSet.count
+            
         } else {
-            return 0
+            if blogDataSet.count > 2 {
+                return 3
+            }
+            return blogDataSet.count
         }
     }
     
@@ -36,6 +39,7 @@ extension ClubReviewViewController: UITableViewDataSource {
         } else {
             let cell = tableView.dequeueReusableCell(withIdentifier: "BlogReviewCell", for: indexPath) as! BlogReviewTableViewCell
             
+            cell.bind(blogDataSet[indexPath.row])
             return cell
         }
     }
