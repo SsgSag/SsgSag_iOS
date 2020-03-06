@@ -295,6 +295,14 @@ class ReviewEditViewController: UIViewController {
     }
     
     @IBAction func completeModifyClick(_ sender: Any) {
+        guard advantageTextView.text.count >= textLengthMaximum else {
+            self.simplerAlert(title: "글자 수를 확인해주세요.")
+            return
+        }
+        guard disadvantageTextView.text.count >= textLengthMaximum else {
+            self.simplerAlert(title: "글자 수를 확인해주세요.")
+            return
+        }
         reviewService.requestModifyReview(model: reviewEditViewModel) { isSuccess in
             if isSuccess {
                 DispatchQueue.main.async {
