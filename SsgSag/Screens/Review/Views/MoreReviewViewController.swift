@@ -92,10 +92,15 @@ class MoreReviewViewController: UIViewController {
                 guard let reviewInfo = notification.object as? ReviewInfo else {return}
                 let postIdx = reviewInfo.clubPostIdx
                 self.service?.requestDeleteReview(clubPostIdx: postIdx) { isSuccess in
-                    if isSuccess {
-                        self.simplerAlert(title: "삭제되었습니다.")
-                    } else {
-                        self.simplerAlert(title: "다시 시도해주세요.")
+                    DispatchQueue.main.async {
+                        if isSuccess {
+                            let nextVC = self.storyboard?.instantiateViewController(withIdentifier: "CompleteVC") as! CompleteViewController
+                            nextVC.titleText = "삭제가\n완료되었습니다 :)"
+                            nextVC.isEditMode = true
+                            self.navigationController?.pushViewController(nextVC, animated: true)
+                        } else {
+                            self.simplerAlert(title: "다시 시도해주세요.")
+                        }
                     }
                 }
             }

@@ -52,6 +52,7 @@ class ClubDetailViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         tabBarController?.tabBar.isHidden = false
         requestClubInfo()
+        print("willAppear!!!")
     }
     
     func setupDefault() {

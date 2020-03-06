@@ -308,6 +308,7 @@ class ReviewEditViewController: UIViewController {
                 DispatchQueue.main.async {
                     let nextVC = self.storyboard?.instantiateViewController(withIdentifier: "CompleteVC") as! CompleteViewController
                     nextVC.titleText = "수정이\n완료되었습니다 :)"
+                    nextVC.isEditMode = true
                     self.navigationController?.pushViewController(nextVC, animated: true)
                 }
             } else {

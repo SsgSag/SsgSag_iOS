@@ -12,6 +12,8 @@ import RxCocoa
 
 class SsgSagReviewTableViewCell: UITableViewCell {
     
+    @IBOutlet weak var waitImg: UIImageView!
+    @IBOutlet weak var waitLabel: UILabel!
     @IBOutlet weak var editButton: UIButton!
     @IBOutlet weak var userNameLabel: UILabel!
     @IBOutlet weak var activeYearLabel: UILabel!
@@ -66,7 +68,6 @@ class SsgSagReviewTableViewCell: UITableViewCell {
         likeLabel.text = "\(model.likeNum)개"
         scoreLabel.text = "별점 \(model.score0)"
         self.ratePaint(score: Float(model.score0))
-        
         isSelectObservable
             .asDriver()
             .distinctUntilChanged()

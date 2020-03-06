@@ -331,16 +331,12 @@ class ReviewService: ReviewServiceProtocol {
             "disadvantage": model.disadvantageObservable.value,
             "honeyTip": model.honeyObservable.value,
         ]
-        print()
-        print(url)
-        print(body)
-        
-        guard let request = requestMaker.makeRequest(url: url, method: .put, header: header, body: nil) else {return}
+        let jsonData = try? JSONSerialization.data(withJSONObject: body)
+        guard let request = requestMaker.makeRequest(url: url, method: .put, header: header, body: jsonData) else {return}
         network.dispatch(request: request) { result in
             switch result {
             case .success(let data):
                 if let object = try? JSONDecoder().decode(ResponseSimpleResult<String>.self, from: data) {
-                    print(object)
                     if object.status == 200 {
                         completion(true)
                     } else {

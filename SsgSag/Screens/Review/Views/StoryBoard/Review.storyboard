@@ -2485,11 +2485,13 @@
                                                             <action selector="registerBlog:" destination="32q-NQ-fMN" eventType="touchUpInside" id="kqW-3Z-mYq"/>
                                                         </connections>
                                                     </button>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="준비 중이에요..!" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iPZ-U4-IOg">
-                                                        <rect key="frame" x="147.33333333333334" y="270" width="80.333333333333343" height="32"/>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iPZ-U4-IOg">
+                                                        <rect key="frame" x="51.666666666666657" y="270" width="272" height="32"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="32" id="z05-Jv-iDu"/>
                                                         </constraints>
+                                                        <string key="text">블로그 후기가 없어요😭
+20학번 새내기들을 위해 동아리 후기를 작성해주세요!</string>
                                                         <fontDescription key="fontDescription" name="AppleSDGothicNeo-Regular" family="Apple SD Gothic Neo" pointSize="13"/>
                                                         <color key="textColor" red="0.46666666670000001" green="0.46666666670000001" blue="0.46666666670000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                         <nil key="highlightedColor"/>
@@ -2536,12 +2538,12 @@
                                                         </connections>
                                                     </button>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1PX-lS-qdW">
-                                                        <rect key="frame" x="109.66666666666667" y="270" width="155.66666666666663" height="32"/>
+                                                        <rect key="frame" x="50" y="270" width="275.33333333333331" height="32"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="32" id="8pF-dW-ZIe"/>
                                                         </constraints>
-                                                        <string key="text">동아리 후기 작성하고
-에어팟 프로 3세대 응모하세요!</string>
+                                                        <string key="text">동아리 후기가 없어요😭
+20학번 새내기들을 위해 동아리 후기를 작성해 주세요!</string>
                                                         <fontDescription key="fontDescription" name="AppleSDGothicNeo-Regular" family="Apple SD Gothic Neo" pointSize="13"/>
                                                         <color key="textColor" red="0.46666666670000001" green="0.46666666670000001" blue="0.46666666670000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                         <nil key="highlightedColor"/>
@@ -2884,7 +2886,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ty3-ip-wtU">
-                                <rect key="frame" x="0.0" y="94.666666666666686" width="375" height="634.33333333333326"/>
+                                <rect key="frame" x="0.0" y="94.666666666666686" width="375" height="634.33333333333348"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZJP-aE-hVy">
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="1801.6666666666667"/>
@@ -3732,7 +3734,7 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="이 동아리를 한줄로 표현하자면?" textAlignment="natural" minimumFontSize="15" translatesAutoresizingMaskIntoConstraints="NO" id="Pwz-FG-PCm">
-                                                <rect key="frame" x="30" y="1283.6666666666665" width="187.33333333333334" height="36"/>
+                                                <rect key="frame" x="30" y="1283.6666666666665" width="321" height="36"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="36" id="15T-RO-P5r"/>
                                                 </constraints>
@@ -3741,7 +3743,7 @@
                                                 <textInputTraits key="textInputTraits"/>
                                             </textField>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qDd-gS-l7X">
-                                                <rect key="frame" x="28" y="1318.6666666666665" width="189.33333333333334" height="1"/>
+                                                <rect key="frame" x="28" y="1318.6666666666665" width="323" height="1"/>
                                                 <color key="backgroundColor" red="0.93333333330000001" green="0.93333333330000001" blue="0.93333333330000001" alpha="1" colorSpace="calibratedRGB"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="1" id="a3f-Sh-ach"/>
@@ -3815,6 +3817,7 @@
                                             <constraint firstItem="eom-zt-6nu" firstAttribute="leading" secondItem="d1o-H9-blM" secondAttribute="leading" id="Jt9-zp-9na"/>
                                             <constraint firstItem="BHc-j9-gwA" firstAttribute="leading" secondItem="ZJP-aE-hVy" secondAttribute="leading" id="JwW-Fy-eHs"/>
                                             <constraint firstItem="GTD-TZ-QFK" firstAttribute="top" secondItem="SXI-l6-1rT" secondAttribute="bottom" constant="8" id="Keq-cm-w3D"/>
+                                            <constraint firstAttribute="trailing" secondItem="Pwz-FG-PCm" secondAttribute="trailing" constant="24" id="KiR-Wh-r7c"/>
                                             <constraint firstItem="SXI-l6-1rT" firstAttribute="centerY" secondItem="h2a-IO-Z6Y" secondAttribute="centerY" id="KyA-hp-eT9"/>
                                             <constraint firstItem="6R4-3U-H38" firstAttribute="centerX" secondItem="0k6-o8-cLB" secondAttribute="centerX" id="LTq-r2-Y4e"/>
                                             <constraint firstItem="iCH-Ba-TBD" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="xq8-Ht-jVL" secondAttribute="trailing" constant="10" id="NSN-aI-ybs"/>
