@@ -32,8 +32,10 @@ class ClubDetailViewModel {
     let friendUnderObservable = BehaviorRelay(value: "")
     
     let disposeBag = DisposeBag()
+    var reviewService: ReviewServiceProtocol
     
-    init() {
+    init(service: ReviewServiceProtocol = ReviewService()) {
+        self.reviewService = service
         bind()
     }
     

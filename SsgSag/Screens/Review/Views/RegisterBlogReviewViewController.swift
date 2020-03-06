@@ -49,7 +49,7 @@ class RegisterBlogReviewViewController: UIViewController {
                 DispatchQueue.main.async {
                     guard let nextVC = self.storyboard?.instantiateViewController(withIdentifier: "CompleteVC") as? CompleteViewController else {return}
                     nextVC.titleText = "제출이\n완료되었습니다 :)"
-                    nextVC.subText = "승인여부는 3일 내 이메일로 알려드릴게요."
+//                    nextVC.subText = "승인여부는 3일 내 이메일로 알려드릴게요."
                     self.navigationController?.pushViewController(nextVC, animated: true)
                 }
             } else {

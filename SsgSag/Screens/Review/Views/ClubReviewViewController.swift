@@ -61,31 +61,31 @@ class ClubReviewViewController: UIViewController {
         // MARK: 슥삭 후기
         self.tabViewModel.reviewDataSet
             .compactMap{ $0 }
-        .observeOn(MainScheduler.instance)
-        .subscribe(onNext: { [weak self] data in
-            
-            if data.isEmpty {
-                self?.emptyReviewView.isHidden = false
-            } else {
-                self?.emptyReviewView.isHidden = true
-            }
-            self?.reviewDataSet.removeAll()
-            data.forEach {
-                self?.reviewDataSet.append(ReviewCellInfo(data: $0))
-            }
-            
-            self?.reviewTableHeightLayout.constant = CGFloat.greatestFiniteMagnitude
-            self?.normalReviewTableView.reloadData()
-            self?.view.layoutIfNeeded()
-            if let contentSize = self?.normalReviewTableView.contentSize.height {
-                self?.reviewTableHeightLayout.constant = contentSize == 0 ? 428 : contentSize
-            }
-            if let clubInfo = self?.tabViewModel.clubInfoData.value {
-                self?.reviewCountLabel.text = "\(clubInfo.scoreNum)"
-            }
-        })
-        .disposed(by: disposeBag)
-    
+            .observeOn(MainScheduler.instance)
+            .subscribe(onNext: { [weak self] data in
+                
+                if data.isEmpty {
+                    self?.emptyReviewView.isHidden = false
+                } else {
+                    self?.emptyReviewView.isHidden = true
+                }
+                self?.reviewDataSet.removeAll()
+                data.forEach {
+                    self?.reviewDataSet.append(ReviewCellInfo(data: $0))
+                }
+                
+                self?.reviewTableHeightLayout.constant = CGFloat.greatestFiniteMagnitude
+                self?.normalReviewTableView.reloadData()
+                self?.view.layoutIfNeeded()
+                if let contentSize = self?.normalReviewTableView.contentSize.height {
+                    self?.reviewTableHeightLayout.constant = contentSize == 0 ? 428 : contentSize
+                }
+                if let clubInfo = self?.tabViewModel.clubInfoData.value {
+                    self?.reviewCountLabel.text = "\(clubInfo.scoreNum)"
+                }
+            })
+            .disposed(by: disposeBag)
+        
         // MARK: 블로그 후기
         tabViewModel.blogDataSet
             .compactMap{$0}
@@ -106,7 +106,7 @@ class ClubReviewViewController: UIViewController {
                     self?.blogTableHeightLayout.constant = contentSize == 0 ? 428 : contentSize
                 }
                 if let clubInfo = self?.tabViewModel.clubInfoData.value {
-                    self?.blogCountLabel.text = "\(clubInfo.clubPostNum)"
+                    self?.blogCountLabel.text = "\(clubInfo.blogPostNum)"
                 }
             })
             .disposed(by: disposeBag)
@@ -123,36 +123,76 @@ class ClubReviewViewController: UIViewController {
         self.reviewTableHeightLayout.constant = self.normalReviewTableView.contentSize.height
     }
     
+    // MARK: 옵션버튼클릭
     @objc func reviewEdit(_ notification: Notification) {
+        // MARK: 수정 ActionSheet
         let editAction = UIAlertAction(title: "수정", style: .default) { _ in
-            guard let reveiwInfo = notification.object as? ReviewInfo else {return}
-            guard let clubInfo = self.tabViewModel.clubInfoData.value else {return}
-            let clubIdx = clubInfo.clubIdx
-            let type: ClubType = clubInfo.clubType == 0 ? .Union : .School
-            guard let nextVC = self.storyboard?.instantiateViewController(withIdentifier: "ReviewEditVC") as? ReviewEditViewController else {return}
-            nextVC.reviewService = ReviewService()
-            nextVC.clubService = ClubService()
-            nextVC.reviewEditViewModel = ReviewEditViewModel(model: reveiwInfo)
+            // MARK: 수정, 취소 Alert
+            let alert = UIAlertController(title:
+                "후기를 정말 수정하시겠습니까?", message:
+                "후기 수정 시 재승인이 필요합니다.\n신중히 결정해주세요 😭", preferredStyle: .alert)
+            let okAction = UIAlertAction(title: "수정",style: .destructive) { _ in
+                
+                guard let reviewInfo = notification.object as? ReviewInfo else {return}
+                guard let clubInfo = self.tabViewModel.clubInfoData.value else {return}
+                let clubIdx = clubInfo.clubIdx
+                let type: ClubType = clubInfo.clubType == 0 ? .Union : .School
+                guard let nextVC = self.storyboard?.instantiateViewController(withIdentifier: "ReviewEditVC") as? ReviewEditViewController else {return}
+                nextVC.reviewService = ReviewService()
+                
+                let clubactInfo = ClubActInfoModel(clubType: type)
+                clubactInfo.clubIdx = clubIdx
+                clubactInfo.clubName = clubInfo.clubName
+                if type == .School {
+                    clubactInfo.univName = clubInfo.univOrLocation
+                } else {
+                    clubactInfo.location.accept(clubInfo.univOrLocation)
+                }
+                clubactInfo.isExistClub = true
+                
+                nextVC.reviewEditViewModel = ReviewEditViewModel(clubActInfo: clubactInfo, reviewInfo: reviewInfo)
+                
+                self.navigationController?.pushViewController(nextVC, animated: true)
+                
+            }
+            let cancelAction = UIAlertAction(title: "취소",style: .cancel)
+            alert.addAction(okAction)
+            alert.addAction(cancelAction)
+            self.present(alert, animated: true)
             
-            let clubactInfo = ClubActInfoModel(clubType: type)
-            clubactInfo.clubIdx = clubIdx
-            clubactInfo.clubName = clubInfo.clubName
-            clubactInfo.location.accept(clubInfo.univOrLocation)
-            clubactInfo.isExistClub = true
-            nextVC.clubactInfo = clubactInfo
-            
-            self.navigationController?.pushViewController(nextVC, animated: true)
         }
+        // MARK: 삭제 ActionSheet
         let deleteAction = UIAlertAction(title: "삭제", style: .default) { _ in
             
+            // MARK: 삭제, 취소 Alert
+            let alert = UIAlertController(title:
+                "후기를 정말 삭제하시겠습니까?", message:
+                "삭제된 후기는 복구가 불가능합니다. 신중히 결정해주세요 😭", preferredStyle: .alert)
+            let okAction = UIAlertAction(title: "삭제",style: .destructive) { _ in
+                guard let reviewInfo = notification.object as? ReviewInfo else {return}
+                let postIdx = reviewInfo.clubPostIdx
+                self.tabViewModel.reviewService.requestDeleteReview(clubPostIdx: postIdx) { isSuccess in
+                    if isSuccess {
+                        self.simplerAlert(title: "삭제되었습니다.")
+                    } else {
+                        self.simplerAlert(title: "다시 시도해주세요.")
+                    }
+                }
+            }
+            let cancelAction = UIAlertAction(title: "취소",style: .cancel)
+            
+            alert.addAction(okAction)
+            alert.addAction(cancelAction)
+            self.present(alert, animated: true)
         }
+        // MARK: 신고 ActionSheet
         let reportAction = UIAlertAction(title: "신고", style: .default) { _ in
             
         }
+        // MARK: 취소 ActionSheet
         let cancelAction = UIAlertAction(title: "취소", style: .cancel)
         
-        self.simpleActionSheet(title: "하실 작업을 선택해주세요.", actions: [editAction, deleteAction, reportAction, cancelAction])
-        
+        self.simpleActionSheet(title: "하실 작업을 선택해주세요.", actions: [editAction, deleteAction, cancelAction])
         
     }
     
@@ -198,5 +238,5 @@ class ClubReviewViewController: UIViewController {
     deinit {
         print("memory - review 종료")
     }
-
+    
 }

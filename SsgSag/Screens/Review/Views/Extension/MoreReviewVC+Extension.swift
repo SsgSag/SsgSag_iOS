@@ -36,7 +36,7 @@ extension MoreReviewViewController: UITableViewDataSource {
             if vcType == ReviewType.SsgSag {
                 cell.reviewCountLabel.text = "후기 총 \(clubInfo.scoreNum)개"
             } else {
-                cell.reviewCountLabel.text = "후기 총 \(clubInfo.clubPostNum)개"
+                cell.reviewCountLabel.text = "후기 총 \(clubInfo.blogPostNum)개"
             }
             
             return cell

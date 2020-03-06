@@ -12,10 +12,6 @@ import RxCocoa
 
 class ReviewEditViewModel {
     var inputType: InputType = .none
-    var clubName = ""
-    var location = BehaviorRelay(value: "")
-    let startDate = BehaviorRelay(value: "")
-    let endDate = BehaviorRelay(value: "")
     
     let recommendDegreeObservable = BehaviorRelay(value: -1)
     let funDegreeObservable = BehaviorRelay(value: -1)
@@ -31,17 +27,13 @@ class ReviewEditViewModel {
     
     let reviewService: ReviewServiceProtocol
     let reviewInfo: ReviewInfo
+    let clubActInfo: ClubActInfoModel
     
-    init(model: ReviewInfo, service: ReviewServiceProtocol = ReviewService()) {
+    init(clubActInfo: ClubActInfoModel, reviewInfo: ReviewInfo, service: ReviewServiceProtocol = ReviewService()) {
         self.reviewService = service
-        self.reviewInfo = model
-    }
-    
-    func bind() {
-        //
-        // 모델 값넣어주기
-        //
-        //
+        self.reviewInfo = reviewInfo
+        self.clubActInfo = clubActInfo
+        
     }
     
     func checkMinmumText(text: String) -> Bool {

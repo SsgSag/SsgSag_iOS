@@ -202,7 +202,7 @@ class ClubDetailViewController: UIViewController {
     @IBAction func reviewWrite(_ sender: Any) {
         guard let navigationVC = self.storyboard?.instantiateViewController(withIdentifier: "ReviewPrepareVC") as? UINavigationController else {return}
         guard let nextVC = navigationVC.topViewController as? ReviewPrepareViewController else {return}
-        guard let clubInfo = try? tabViewModel.clubInfoData.value else {return}
+        guard let clubInfo = tabViewModel.clubInfoData.value else {return}
         let type: ClubType = clubInfo.clubType == 0 ? .Union : .School
         let clubactInfo = ClubActInfoModel(clubType: type)
         nextVC.isExistClub = true

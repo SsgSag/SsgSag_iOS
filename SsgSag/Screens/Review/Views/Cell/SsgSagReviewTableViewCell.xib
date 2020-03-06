@@ -278,6 +278,7 @@
                 <outlet property="activeYearLabel" destination="aHQ-yG-IpA" id="6Dz-SP-x2Y"/>
                 <outlet property="advantageLabel" destination="rhd-W6-pwc" id="OiB-YO-Ufd"/>
                 <outlet property="disAdvantageLabel" destination="vaw-ji-RPP" id="U06-sE-Je8"/>
+                <outlet property="editButton" destination="F1h-Wk-AI0" id="Jd6-CO-nWV"/>
                 <outlet property="honeyTipLabel" destination="AnO-Gj-aHq" id="Aso-Ea-MJH"/>
                 <outlet property="likeBackView" destination="Fb8-bf-mOz" id="J3Q-4i-IT6"/>
                 <outlet property="likeFixLabel" destination="gJ8-VS-OUi" id="449-mL-e6f"/>

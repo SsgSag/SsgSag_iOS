@@ -24,4 +24,8 @@ protocol ReviewServiceProtocol {
     func requestDeleteLike(clubPostIdx: Int, completion: @escaping (Bool) -> Void)
     
     func requestReviewEvent(type: Int, name: String, phone: String, clubIdx: Int, completion: @escaping (Bool) -> Void)
+    
+    func requestModifyReview(model: ReviewEditViewModel, completion: @escaping (Bool) -> Void)
+    
+    func requestDeleteReview(clubPostIdx: Int, completion: @escaping (Bool) -> Void)
 }

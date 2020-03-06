@@ -12,6 +12,7 @@ import RxSwift
 
 class NormalReviewTableViewCell: UITableViewCell {
     
+    @IBOutlet weak var editButton: UIButton!
     @IBOutlet weak var likeImgTopLayout: NSLayoutConstraint!
     @IBOutlet weak var moreButton: UIButton!
     @IBOutlet weak var userNameLabel: UILabel!
@@ -128,6 +129,12 @@ class NormalReviewTableViewCell: UITableViewCell {
         let select = viewModel.isLike == 0 ? false : true
         isSelectObservable.accept(select)
         likeNumObservable.accept(viewModel.likeNum)
+        
+        if viewModel.isMine == 1 {
+            editButton.isHidden = false
+        } else {
+            editButton.isHidden = true
+        }
     }
     
     func hideTipLabel() {

@@ -12,6 +12,7 @@ import RxCocoa
 
 class SsgSagReviewTableViewCell: UITableViewCell {
     
+    @IBOutlet weak var editButton: UIButton!
     @IBOutlet weak var userNameLabel: UILabel!
     @IBOutlet weak var activeYearLabel: UILabel!
     @IBOutlet weak var titleLabel: UILabel!
@@ -100,10 +101,15 @@ class SsgSagReviewTableViewCell: UITableViewCell {
         isSelectObservable.accept(select)
         likeNumObservable.accept(model.likeNum)
         
+        if model.isMine == 1 {
+            editButton.isHidden = false
+        } else {
+            editButton.isHidden = true
+        }
     }
     
     func ratePaint(score: Float) {
-    
+        
         let stackStar = self.starStackView.subviews as! [UIImageView]
         var score = score
         stackStar.forEach {
@@ -141,5 +147,7 @@ class SsgSagReviewTableViewCell: UITableViewCell {
     }
     
     @IBAction func editClick(_ sender: Any) {
+        guard let reviewInfo = model else {return}
+        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "reviewEdit"), object: reviewInfo)
     }
 }
