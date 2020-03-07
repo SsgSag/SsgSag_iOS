@@ -321,16 +321,17 @@ class ReviewService: ReviewServiceProtocol {
         let body: [String : Any] = [
             "clubStartDate": model.clubActInfo.startRequestDate,
             "clubEndDate": model.clubActInfo.endRequestDate,
-            "score0": model.recommendDegreeObservable.value,
-            "score1": model.proDegreeObservable.value,
-            "score2": model.funDegreeObservable.value,
-            "score3": model.hardDegreeObservable.value,
-            "score4": model.friendDegreeObservable.value,
+            "score0": model.recommendDegreeObservable.value + 1,
+            "score1": model.proDegreeObservable.value + 1,
+            "score2": model.funDegreeObservable.value + 1,
+            "score3": model.hardDegreeObservable.value + 1,
+            "score4": model.friendDegreeObservable.value + 1,
             "oneLine": model.oneLineObservable.value,
             "advantage": model.advantageObservable.value,
             "disadvantage": model.disadvantageObservable.value,
             "honeyTip": model.honeyObservable.value,
         ]
+        print(body)
         let jsonData = try? JSONSerialization.data(withJSONObject: body)
         guard let request = requestMaker.makeRequest(url: url, method: .put, header: header, body: jsonData) else {return}
         network.dispatch(request: request) { result in
@@ -360,8 +361,6 @@ class ReviewService: ReviewServiceProtocol {
         let header: [String : String] = [
             "Authorization": token
         ]
-        print()
-        print(url)
         
         guard let request = requestMaker.makeRequest(url: url, method: .delete, header: header, body: nil) else {return}
         network.dispatch(request: request) { result in

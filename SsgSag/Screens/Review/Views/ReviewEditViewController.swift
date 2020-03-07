@@ -116,27 +116,27 @@ class ReviewEditViewController: UIViewController {
             } else {
                 $0.setImage(self.blackStar, for: .normal)
             }
-            reviewEditViewModel.recommendDegreeObservable.accept(recommendScore)
+            reviewEditViewModel.recommendDegreeObservable.accept(recommendScore-1)
         }
         
-        let funScore = model.score1
+        let funScore = model.score2
         funButtons.forEach{
             if $0.tag < funScore {
                 $0.setImage(self.fillStar, for: .normal)
             } else {
                 $0.setImage(self.blackStar, for: .normal)
             }
-            reviewEditViewModel.funDegreeObservable.accept(funScore)
+            reviewEditViewModel.funDegreeObservable.accept(funScore-1)
         }
         
-        let proScore = model.score2
+        let proScore = model.score1
         proButtons.forEach{
             if $0.tag < proScore {
                 $0.setImage(self.fillStar, for: .normal)
             } else {
                 $0.setImage(self.blackStar, for: .normal)
             }
-            reviewEditViewModel.proDegreeObservable.accept(proScore)
+            reviewEditViewModel.proDegreeObservable.accept(proScore-1)
         }
         let hardScore = model.score3
         hardButtons.forEach{
@@ -145,7 +145,7 @@ class ReviewEditViewController: UIViewController {
             } else {
                 $0.setImage(self.blackStar, for: .normal)
             }
-            reviewEditViewModel.hardDegreeObservable.accept(hardScore)
+            reviewEditViewModel.hardDegreeObservable.accept(hardScore-1)
         }
         
         let friendScore = model.score4
@@ -155,7 +155,7 @@ class ReviewEditViewController: UIViewController {
             } else {
                 $0.setImage(self.blackStar, for: .normal)
             }
-            reviewEditViewModel.friendDegreeObservable.accept(friendScore)
+            reviewEditViewModel.friendDegreeObservable.accept(friendScore-1)
         }
     }
     
