@@ -44,7 +44,7 @@
                         </constraints>
                     </view>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="IT 업계 가고싶으면 꼭 해라" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lDG-cM-2g7">
-                        <rect key="frame" x="24" y="43" width="179" height="19"/>
+                        <rect key="frame" x="24" y="43" width="284" height="19"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="19" id="Hhq-df-eWu"/>
                         </constraints>
@@ -265,6 +265,7 @@
                     <constraint firstItem="4aT-ak-P38" firstAttribute="top" secondItem="ztY-hS-Vrg" secondAttribute="bottom" constant="21" id="Ukk-TM-610"/>
                     <constraint firstItem="qsI-e5-eyR" firstAttribute="leading" secondItem="lDG-cM-2g7" secondAttribute="leading" id="VX1-mZ-Ufs"/>
                     <constraint firstItem="Fb8-bf-mOz" firstAttribute="leading" secondItem="qRB-MG-RUD" secondAttribute="leading" id="WxR-Tj-yk9"/>
+                    <constraint firstItem="F1h-Wk-AI0" firstAttribute="leading" secondItem="lDG-cM-2g7" secondAttribute="trailing" constant="24" id="XGr-MS-Cqe"/>
                     <constraint firstItem="lDG-cM-2g7" firstAttribute="top" secondItem="KjM-Br-Ly0" secondAttribute="bottom" constant="8" id="YOP-Fs-KDh"/>
                     <constraint firstItem="ELL-5B-KnV" firstAttribute="top" secondItem="qsI-e5-eyR" secondAttribute="bottom" constant="18" id="ZU9-0I-igt"/>
                     <constraint firstItem="4aT-ak-P38" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="aBx-Sz-4wm"/>

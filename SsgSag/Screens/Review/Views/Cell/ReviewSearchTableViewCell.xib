@@ -18,7 +18,7 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Shout Out Passion Together! 대학생을 위한 IT 벤처창업동아리입니다." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mES-rD-hfQ">
-                        <rect key="frame" x="24" y="61" width="280" height="15"/>
+                        <rect key="frame" x="24" y="61" width="327" height="15"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="15" id="xrb-oJ-zCA"/>
                         </constraints>
@@ -27,7 +27,7 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="SOPT - 연합 IT 창업동아리" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Di7-cU-3Om">
-                        <rect key="frame" x="24" y="37" width="280" height="22"/>
+                        <rect key="frame" x="24" y="37" width="327" height="22"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="22" id="dg0-sc-jAG"/>
                         </constraints>
@@ -125,6 +125,7 @@
                     <constraint firstItem="Di7-cU-3Om" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="24" id="MbE-Ef-Mbd"/>
                     <constraint firstAttribute="trailing" secondItem="epW-cQ-YZM" secondAttribute="trailing" id="NIu-Kc-BDF"/>
                     <constraint firstItem="8wK-m3-wd2" firstAttribute="leading" secondItem="x61-A8-wbZ" secondAttribute="trailing" constant="4" id="Ovd-nS-qel"/>
+                    <constraint firstAttribute="trailing" secondItem="Di7-cU-3Om" secondAttribute="trailing" constant="24" id="PVC-Lb-TYt"/>
                     <constraint firstAttribute="bottom" secondItem="Jcf-K0-EqR" secondAttribute="bottom" id="X5w-0J-dje"/>
                     <constraint firstItem="Di7-cU-3Om" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="37" id="Y9Z-W9-zSs"/>
                     <constraint firstItem="Qmc-eJ-0B2" firstAttribute="leading" secondItem="27Z-Q1-46P" secondAttribute="trailing" constant="9" id="b72-1e-yAs"/>

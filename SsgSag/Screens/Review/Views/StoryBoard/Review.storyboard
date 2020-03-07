@@ -444,8 +444,8 @@
                                     <constraint firstAttribute="height" constant="300" id="asu-Mg-h9R"/>
                                 </constraints>
                             </view>
-                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="large" translatesAutoresizingMaskIntoConstraints="NO" id="FeO-uB-RtP">
-                                <rect key="frame" x="169" y="392.66666666666669" width="37" height="37"/>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="FeO-uB-RtP">
+                                <rect key="frame" x="177.66666666666666" y="401" width="20" height="20"/>
                                 <color key="color" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </activityIndicatorView>
                         </subviews>
@@ -2465,7 +2465,7 @@
                                                             <constraint firstAttribute="width" constant="196" id="l7u-Hp-arb"/>
                                                         </constraints>
                                                     </imageView>
-                                                    <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EOi-Pa-kzM">
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EOi-Pa-kzM">
                                                         <rect key="frame" x="110.66666666666669" y="326" width="154" height="48"/>
                                                         <color key="backgroundColor" red="0.39607843139999999" green="0.43137254899999999" blue="0.94117647059999998" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                                         <constraints>
@@ -2835,7 +2835,7 @@
                                     <action selector="blogWriteClick:" destination="anU-Cr-PKo" eventType="touchUpInside" id="jdv-29-FuD"/>
                                 </connections>
                             </button>
-                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="large" translatesAutoresizingMaskIntoConstraints="NO" id="4rf-Er-86B">
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="4rf-Er-86B">
                                 <rect key="frame" x="162.66666666666666" y="478" width="50" height="50"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="50" id="PHl-Lz-bgq"/>
@@ -2886,7 +2886,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ty3-ip-wtU">
-                                <rect key="frame" x="0.0" y="94.666666666666686" width="375" height="634.33333333333348"/>
+                                <rect key="frame" x="0.0" y="94.666666666666686" width="375" height="634.33333333333326"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZJP-aE-hVy">
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="1801.6666666666667"/>
@@ -6248,8 +6248,8 @@
                                     <constraint firstAttribute="bottom" secondItem="mLR-p8-GAD" secondAttribute="bottom" id="veA-Lg-j2l"/>
                                 </constraints>
                             </scrollView>
-                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="large" translatesAutoresizingMaskIntoConstraints="NO" id="yhU-OU-Quw">
-                                <rect key="frame" x="169" y="387.66666666666669" width="37" height="37"/>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="yhU-OU-Quw">
+                                <rect key="frame" x="177.66666666666666" y="396" width="20" height="20"/>
                                 <color key="color" cocoaTouchSystemColor="darkTextColor"/>
                             </activityIndicatorView>
                             <button opaque="NO" tag="100" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="top" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Hql-T3-Ekc">
@@ -7494,8 +7494,8 @@
                                     <constraint firstAttribute="height" constant="0.5" id="qLj-sz-hPj"/>
                                 </constraints>
                             </view>
-                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="large" translatesAutoresizingMaskIntoConstraints="NO" id="UtH-zF-Eax">
-                                <rect key="frame" x="169" y="492" width="37" height="37"/>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="UtH-zF-Eax">
+                                <rect key="frame" x="177.66666666666666" y="509" width="20" height="20"/>
                                 <color key="color" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </activityIndicatorView>
                         </subviews>
@@ -7883,8 +7883,8 @@
                                     <constraint firstItem="gfR-QT-hBz" firstAttribute="centerX" secondItem="7Nm-VJ-IQ7" secondAttribute="centerX" id="dGS-ve-KuD"/>
                                 </constraints>
                             </view>
-                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="large" translatesAutoresizingMaskIntoConstraints="NO" id="e9Q-5z-ASN">
-                                <rect key="frame" x="169" y="387.66666666666669" width="37" height="37"/>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="e9Q-5z-ASN">
+                                <rect key="frame" x="177.66666666666666" y="396" width="20" height="20"/>
                                 <color key="color" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </activityIndicatorView>
                         </subviews>

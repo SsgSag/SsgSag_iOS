@@ -238,9 +238,15 @@ class ClubReviewViewController: UIViewController {
     }
     
     @IBAction func registerBlog(_ sender: Any) {
-        guard let nextVC = self.storyboard?.instantiateViewController(withIdentifier: "RegisterBlogReviewVC") else {return}
+        guard let navigationVC = self.storyboard?.instantiateViewController(withIdentifier: "RegisterBlogReviewVC") as? UINavigationController else {return}
         
-        self.present(nextVC, animated: true)
+        guard let nextVC = navigationVC.topViewController as? RegisterBlogReviewViewController else {return}
+        guard let clubIdx = tabViewModel.clubInfoData.value?.clubIdx else {return}
+        
+        nextVC.clubIdx = clubIdx
+        nextVC.service = tabViewModel.reviewService
+        
+        self.present(navigationVC, animated: true)
     }
     
     deinit {
