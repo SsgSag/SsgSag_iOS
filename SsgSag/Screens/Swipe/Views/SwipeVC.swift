@@ -41,6 +41,9 @@ class SwipeVC: UIViewController {
     
     private var isOkayToUndo: Bool = false
     
+    private var hasCoachMarkTabOnRequest = false
+    private var swipeCardPageViewController: PageViewController?
+    
     //TODO: 하단 타이틀 가변 길이, 상세보기에서 요일 삭제, 날짜 및 텍스트 가변길이로 , 해시태그 truncate
     
     private lazy var completeLabel: UILabel = {
@@ -110,6 +113,7 @@ class SwipeVC: UIViewController {
                 for: .normal
             )
         }
+        
         if !UserDefaults.standard.bool(forKey: "hasLoadedBefore") {
             setCoachMarkView()
             UserDefaults.standard.setValue(true, forKey: "hasLoadedBefore")
@@ -150,7 +154,6 @@ class SwipeVC: UIViewController {
     private func setCoachMarkView() {
         let coachmarkViewController = FirstCoachmarkViewController()
         coachmarkViewController.bind(viewModel: CoachMarkViewModel(with: .filtering))
-        coachmarkViewController.providesPresentationContextTransitionStyle = true
         coachmarkViewController.modalPresentationStyle = .overFullScreen
         coachmarkViewController.callback = { [weak self] in
             guard let self = self else { return }
@@ -201,9 +204,26 @@ class SwipeVC: UIViewController {
                         self.requestPoster(isFirst: false)
                             DispatchQueue.main.async { [weak self] in
                                 guard let self = self else { return }
+                                var safeAreaTop: CGFloat = 0
+                                if #available(iOS 11.0, *) {
+                                    let window = UIApplication.shared.keyWindow
+                                    safeAreaTop = window?.safeAreaInsets.top ?? 0
+                                }
+                                
+                                let naviBarHeight = self.navigationController?.navigationBar.frame.height ?? 0
                                 let coachmarkViewController = FirstCoachmarkViewController()
-                                coachmarkViewController.bind(viewModel: CoachMarkViewModel(with: .swipeMain(.init(x: self.view.center.x, y: 53))))
-                                coachmarkViewController.modalPresentationStyle = .fullScreen
+                                coachmarkViewController.bind(viewModel: CoachMarkViewModel(with: .swipeMain(.init(x: self.view.center.x, y: (naviBarHeight + safeAreaTop)))))
+                                coachmarkViewController.modalPresentationStyle = .overFullScreen
+                                coachmarkViewController.swipeDetailCallback = { [weak self] in
+                                    guard let self = self else { return }
+                                    self.requestPoster(isFirst: false)
+                                    self.hasCoachMarkTabOnRequest = true
+                                    let coachmarkViewController = FirstCoachmarkViewController()
+                                    coachmarkViewController.modalPresentationStyle = .overFullScreen
+                                    coachmarkViewController.bind(viewModel: CoachMarkViewModel(with: .swipeDetail(.zero)))
+                                    self.present(coachmarkViewController,
+                                                 animated: false)
+                                }
                                 self.present(coachmarkViewController,
                                              animated: false)
                             }
@@ -215,7 +235,7 @@ class SwipeVC: UIViewController {
             })
             .disposed(by: self.disposeBag)
         }
-        present(coachmarkViewController,
+        self.navigationController?.present(coachmarkViewController,
                 animated: false)
     }
     
@@ -528,7 +548,10 @@ class SwipeVC: UIViewController {
                     ) as? PageViewController else {
                 return
             }
-            
+            if hasCoachMarkTabOnRequest {
+                pageVC.tapOn(UITapGestureRecognizer())
+                hasCoachMarkTabOnRequest = false
+            }
             guard let detailImageSwipeCardVC
                 = pageVC.orderedViewControllers[1] as? DetailImageSwipeCardVC else {
                 return
@@ -654,8 +677,8 @@ class SwipeVC: UIViewController {
             
             let rootNavigationController = UINavigationController(rootViewController: viewController)
             
-            let appDelegate = UIApplication.shared.delegate as! AppDelegate
-            appDelegate.window?.rootViewController = rootNavigationController
+            let appDelegate = UIApplication.shared.delegate as? AppDelegate
+            appDelegate?.window?.rootViewController = rootNavigationController
             
             rootNavigationController.view.layoutIfNeeded()
             
@@ -813,9 +836,7 @@ extension SwipeVC : SwipeCardDelegate {
             addUserDefaultsWhenNoData()
             return
         }
-        if let poster = posters[safe: currentIndex - 1] {
-            MockPosterStorage.shared.store(type: .disliked, poster: poster)
-        }
+
         addUserDefautlsWhenDataIsExist(posters)
     }
     

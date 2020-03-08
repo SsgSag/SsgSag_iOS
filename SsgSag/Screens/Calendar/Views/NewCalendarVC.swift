@@ -76,6 +76,12 @@ class NewCalendarVC: UIViewController {
         
         self.navigationController?.navigationBar.isHidden = false
         
+        let coachMarkViewController = FirstCoachmarkViewController()
+               coachMarkViewController.modalPresentationStyle = .overFullScreen
+               let tabBarHeight = tabBarController?.tabBar.frame.size.height ?? 0
+               coachMarkViewController.bind(viewModel: CoachMarkViewModel(with: .calendar(.init(x: 0, y: tabBarHeight))))
+               self.present(coachMarkViewController,
+                            animated: false)
         calendarView.drawMonths()
         calendarView.drawVisibleMonth(with: calendarView.contentOffset)
         

@@ -182,6 +182,13 @@
 		C9625E1523AE680B00FF5109 /* PosterListCategoryViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9625E1423AE680B00FF5109 /* PosterListCategoryViewModel.swift */; };
 		C9625E1723AF1E5000FF5109 /* PosterListCategoryCollectionViewCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9625E1623AF1E5000FF5109 /* PosterListCategoryCollectionViewCellViewModel.swift */; };
 		C9625E1923AF267B00FF5109 /* PosterListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9625E1823AF267B00FF5109 /* PosterListViewModel.swift */; };
+		C96582E82413D5EA007873C0 /* MyClubTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C96582E72413D5EA007873C0 /* MyClubTableViewCell.swift */; };
+		C96582EA2413D7A2007873C0 /* MyClubViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C96582E92413D7A2007873C0 /* MyClubViewModel.swift */; };
+		C96582EC2413D7B0007873C0 /* MyClubCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C96582EB2413D7B0007873C0 /* MyClubCellViewModel.swift */; };
+		C96582EF2413DC56007873C0 /* MyClubService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C96582EE2413DC56007873C0 /* MyClubService.swift */; };
+		C96582F12413F1EF007873C0 /* MyClubComment.swift in Sources */ = {isa = PBXBuildFile; fileRef = C96582F02413F1EF007873C0 /* MyClubComment.swift */; };
+		C96582F32414BD38007873C0 /* MyClubServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = C96582F22414BD38007873C0 /* MyClubServiceProtocol.swift */; };
+		C96582F52414BD74007873C0 /* MockMyClubService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C96582F42414BD74007873C0 /* MockMyClubService.swift */; };
 		C9867F4423EEC2FC0094B02B /* UserInfoService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9867F4323EEC2FC0094B02B /* UserInfoService.swift */; };
 		C9867F4A23EF0B610094B02B /* SavedPosterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9867F4923EF0B610094B02B /* SavedPosterViewController.swift */; };
 		C9867F4D23EF0F4B0094B02B /* MockPosterStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = C9867F4C23EF0F4B0094B02B /* MockPosterStorage.swift */; };
@@ -604,6 +611,13 @@
 		C9625E1423AE680B00FF5109 /* PosterListCategoryViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PosterListCategoryViewModel.swift; sourceTree = "<group>"; };
 		C9625E1623AF1E5000FF5109 /* PosterListCategoryCollectionViewCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PosterListCategoryCollectionViewCellViewModel.swift; sourceTree = "<group>"; };
 		C9625E1823AF267B00FF5109 /* PosterListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PosterListViewModel.swift; sourceTree = "<group>"; };
+		C96582E72413D5EA007873C0 /* MyClubTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyClubTableViewCell.swift; sourceTree = "<group>"; };
+		C96582E92413D7A2007873C0 /* MyClubViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyClubViewModel.swift; sourceTree = "<group>"; };
+		C96582EB2413D7B0007873C0 /* MyClubCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyClubCellViewModel.swift; sourceTree = "<group>"; };
+		C96582EE2413DC56007873C0 /* MyClubService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyClubService.swift; sourceTree = "<group>"; };
+		C96582F02413F1EF007873C0 /* MyClubComment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyClubComment.swift; sourceTree = "<group>"; };
+		C96582F22414BD38007873C0 /* MyClubServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyClubServiceProtocol.swift; sourceTree = "<group>"; };
+		C96582F42414BD74007873C0 /* MockMyClubService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockMyClubService.swift; sourceTree = "<group>"; };
 		C9867F4323EEC2FC0094B02B /* UserInfoService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfoService.swift; sourceTree = "<group>"; };
 		C9867F4923EF0B610094B02B /* SavedPosterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedPosterViewController.swift; sourceTree = "<group>"; };
 		C9867F4C23EF0F4B0094B02B /* MockPosterStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockPosterStorage.swift; sourceTree = "<group>"; };
@@ -1300,6 +1314,7 @@
 		C95786EF2409424900628A3E /* MyClubComment */ = {
 			isa = PBXGroup;
 			children = (
+				C96582ED2413DC42007873C0 /* Services */,
 				C95786F22409426900628A3E /* ViewModels */,
 				C95786F12409426400628A3E /* Models */,
 				C95786F02409425F00628A3E /* Views */,
@@ -1311,6 +1326,7 @@
 			isa = PBXGroup;
 			children = (
 				C95786F32409427F00628A3E /* MyClubCommentsViewController.swift */,
+				C96582E72413D5EA007873C0 /* MyClubTableViewCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -1318,6 +1334,7 @@
 		C95786F12409426400628A3E /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				C96582F02413F1EF007873C0 /* MyClubComment.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -1325,6 +1342,8 @@
 		C95786F22409426900628A3E /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
+				C96582E92413D7A2007873C0 /* MyClubViewModel.swift */,
+				C96582EB2413D7B0007873C0 /* MyClubCellViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -1363,6 +1382,16 @@
 				C9625E1823AF267B00FF5109 /* PosterListViewModel.swift */,
 			);
 			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		C96582ED2413DC42007873C0 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				C96582EE2413DC56007873C0 /* MyClubService.swift */,
+				C96582F22414BD38007873C0 /* MyClubServiceProtocol.swift */,
+				C96582F42414BD74007873C0 /* MockMyClubService.swift */,
+			);
+			path = Services;
 			sourceTree = "<group>";
 		};
 		C9867F4523EF0A990094B02B /* SavedPoster */ = {
@@ -2484,6 +2513,7 @@
 				C9A828472395528D0029A493 /* PrivateProtectViewController.swift in Sources */,
 				C9F073732400243200BDB7B2 /* SavedPosterCollectionReusableView.swift in Sources */,
 				C905D02B23B8DDCD00E9B2B2 /* FeedServiceTypeImp.swift in Sources */,
+				C96582EC2413D7B0007873C0 /* MyClubCellViewModel.swift in Sources */,
 				0651633523FB78FE002089D2 /* MoreReviewTopLabelTableViewCell.swift in Sources */,
 				0655966A23E0138900C779A5 /* ClubInfoViewController.swift in Sources */,
 				064AD7B523ECFAE10006E02C /* SimpleReviewViewModel.swift in Sources */,
@@ -2499,9 +2529,11 @@
 				C9867F6323F1AF030094B02B /* IntroPage.swift in Sources */,
 				D1E6467F2311608100EAB8AC /* NoCommentCollectionViewCell.swift in Sources */,
 				8496818222AFD3FE004A4A63 /* VAWeekView.swift in Sources */,
+				C96582F12413F1EF007873C0 /* MyClubComment.swift in Sources */,
 				063B571A23E3ED2B00B8F617 /* SsgSagReviewTableViewCell.swift in Sources */,
 				C9A8287B2395528E0029A493 /* InterestBoardTableViewCell.swift in Sources */,
 				C9A828522395528D0029A493 /* MyFilterApiService.swift in Sources */,
+				C96582F52414BD74007873C0 /* MockMyClubService.swift in Sources */,
 				84B1B254226A385A00077DF9 /* PosterServiceImp.swift in Sources */,
 				D1E517B922E02BDC0001EAA5 /* TempCollectionReusableView.swift in Sources */,
 				C9867F5D23F19D7E0094B02B /* IntroPageCollectionViewCell.swift in Sources */,
@@ -2604,6 +2636,7 @@
 				C9A8285F2395528D0029A493 /* InternFilterViewController.swift in Sources */,
 				C9A8286A2395528E0029A493 /* StudentNumberCollectionViewCell.swift in Sources */,
 				8459289B21D09CDD001DF6CC /* AppDelegate.swift in Sources */,
+				C96582EF2413DC56007873C0 /* MyClubService.swift in Sources */,
 				C9A8283C2395528D0029A493 /* JobVC.swift in Sources */,
 				0610DF0C23D92E6400DC2273 /* ReviewMainViewController.swift in Sources */,
 				846E622F22928F800083E3CD /* TokenName.swift in Sources */,
@@ -2746,6 +2779,7 @@
 				C9A8286C2395528E0029A493 /* NonActivityCell.swift in Sources */,
 				D19C5D4E23955AA8006DEF5C /* MockServiceImp.swift in Sources */,
 				C9A8285E2395528D0029A493 /* LeftAlignedFlowLayout.swift in Sources */,
+				C96582EA2413D7A2007873C0 /* MyClubViewModel.swift in Sources */,
 				C9A828542395528D0029A493 /* MyFilterButtonCollectionViewCell.swift in Sources */,
 				845928E321D35F09001DF6CC /* PageViewController.swift in Sources */,
 				C9625E1523AE680B00FF5109 /* PosterListCategoryViewModel.swift in Sources */,
@@ -2778,10 +2812,12 @@
 				C9A8286D2395528E0029A493 /* UnivCollectionViewCell.swift in Sources */,
 				C947B61D23AE5B2C007CB18C /* PosterListCategoryView.swift in Sources */,
 				C9A8284D2395528D0029A493 /* MyFilterButtonCollectionViewCellReactor.swift in Sources */,
+				C96582E82413D5EA007873C0 /* MyClubTableViewCell.swift in Sources */,
 				D1CD5DE122E5BBDB0033FCB3 /* NoticeServiceImp.swift in Sources */,
 				D17A1C4422ED8D2F00939788 /* SignUpServiceProtocol.swift in Sources */,
 				C9A8284B2395528D0029A493 /* OSLViewController.swift in Sources */,
 				064AD7C923EFFF7A0006E02C /* ClubRegisterAlertViewController.swift in Sources */,
+				C96582F32414BD38007873C0 /* MyClubServiceProtocol.swift in Sources */,
 				8496818022AFD3FE004A4A63 /* VACalendarMonthDelegate.swift in Sources */,
 				C9558B8A239BDE4C00E63F93 /* MainViewNavigationController.swift in Sources */,
 				D1CC98002339E78D0064A867 /* PosterAfterSwipe.swift in Sources */,

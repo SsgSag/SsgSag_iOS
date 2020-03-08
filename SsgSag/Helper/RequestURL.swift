@@ -37,6 +37,7 @@ enum RequestURL {
     case allPoster(category: Int, sortType: Int, interestField: Int?, curPage: Int)
     case clickRecord(posterIdx: Int, type: Int)
     case clubList(curPage: Int, clubType: Int)
+    case myClub(curPage: Int)
     case clubInfo(clubIdx: Int)
     case searchClubWithForm(clubType: ClubType, location: String, keyword: String, curPage: Int)
     case searchClubWithName(keyword: String, curPage: Int)
@@ -133,6 +134,8 @@ enum RequestURL {
         case .clickRecord(let posterIdx,
                           let type):
             return "/todo/click/\(posterIdx)/\(type)"
+        case .myClub(let curPage):
+            return "/club/mypost?curPage=\(curPage)"
         case .clubList(let curPage, let clubType):
             return "/club?curPage=\(curPage)&clubType=\(clubType)"
         case .clubInfo(let clubIdx):

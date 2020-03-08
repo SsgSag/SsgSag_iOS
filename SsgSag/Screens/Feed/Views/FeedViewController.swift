@@ -48,11 +48,18 @@ class FeedViewController: UIViewController {
         
         tabBarController?.tabBar.isHidden = false
         navigationController?.navigationBar.isHidden = true
+    
+        let coachMarkViewController = FirstCoachmarkViewController()
+        coachMarkViewController.modalPresentationStyle = .overFullScreen
+        let tabBarHeight = tabBarController?.tabBar.frame.size.height ?? 0
+        coachMarkViewController.bind(viewModel: CoachMarkViewModel(with: .feed(.init(x: 0, y: tabBarHeight))))
+        self.present(coachMarkViewController,
+                     animated: false)
         setNavigationBar(color: .white)
         guard let isTryWithoutLogin = UserDefaults.standard.object(forKey: "isTryWithoutLogin") as? Bool else {
             return
         }
-  
+        
         if !isTryWithoutLogin {
             exitButton.setImage(UIImage(named: "icBookmarkFilled"), for: .normal)
             exitButton.tintColor = .unselectedButtonDefault

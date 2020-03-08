@@ -14,6 +14,7 @@ class FirstCoachmarkViewController: UIViewController {
     private let touchGesture = UIGestureRecognizer()
     var disposeBag = DisposeBag()
     var callback: (() -> Void)?
+    var swipeDetailCallback: (() -> Void)?
     
     private lazy var filteringFilterButton: UIButton = {
         let button = UIButton()
@@ -62,6 +63,7 @@ class FirstCoachmarkViewController: UIViewController {
                         for: .normal)
         return button
     }()
+    private var feedImageViewButtonBottomConstraint: NSLayoutConstraint?
     
     private let calendarImageViewButton: UIButton = {
         let button = UIButton()
@@ -70,15 +72,23 @@ class FirstCoachmarkViewController: UIViewController {
                         for: .normal)
         return button
     }()
+    private var calendarImageViewButtonBottomConstraint: NSLayoutConstraint?
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        setupLayout()
+        view.backgroundColor = .clear
+        
     }
     
     func bind(viewModel: CoachMarkViewModel) {
+        setupLayout()
         
+        //InPut
+        viewModel
+            .backgroundColor
+            .asDriver()
+            .drive(view.rx.backgroundColor)
+            .disposed(by: disposeBag)
         
         viewModel
             .filteringButtonIsHidden
@@ -116,12 +126,33 @@ class FirstCoachmarkViewController: UIViewController {
             .drive(calendarImageViewButton.rx.isHidden)
             .disposed(by: disposeBag)
         
+        //OutPut
+        swipeDescriptionButton
+            .rx
+            .tap
+            .asDriver()
+            .drive(onNext: { [weak self] _ in
+                self?.dismiss(animated: false) { [weak self] in
+                    self?.swipeDetailCallback?()
+                }
+            })
+            .disposed(by: disposeBag)
+        
+        let bottomDistance: CGFloat = 16
         switch viewModel.type {
         case .filtering:
             break
         case .swipeMain(let point):
             swipeDescriptionButtonTopConstraint?.constant = point.y
             swipeDescriptionButtonTopConstraint?.isActive = true
+        case .feed(let point):
+            feedImageViewButtonBottomConstraint?.constant = -(point.y
+                + bottomDistance)
+            feedImageViewButtonBottomConstraint?.isActive = true
+        case .calendar(let point):
+            calendarImageViewButtonBottomConstraint?.constant = -(point.y
+                + bottomDistance)
+            calendarImageViewButtonBottomConstraint?.isActive = true
         default:
             break
         }
@@ -157,6 +188,7 @@ class FirstCoachmarkViewController: UIViewController {
             equalToConstant: 166).isActive = true
         swipeDescriptionButton.heightAnchor.constraint(
             equalToConstant: 81).isActive = true
+        swipeDescriptionButton.topAnchor.constraint(equalTo: view.topAnchor, constant: 153).isActive = true
         swipeDescriptionButtonTopConstraint = NSLayoutConstraint(item: swipeDescriptionButton,
                                                                  attribute: .top,
                                                                  relatedBy: .equal,
@@ -170,6 +202,44 @@ class FirstCoachmarkViewController: UIViewController {
         swipeDetailImageButton.bottomAnchor.constraint(
             equalTo: view.bottomAnchor, constant: -(tabBarHeight + 16)).isActive = true
         
+        feedImageViewButton.widthAnchor.constraint(
+            equalToConstant: 166).isActive = true
+        feedImageViewButton.heightAnchor.constraint(
+            equalToConstant: 81).isActive = true
+        feedImageViewButton.leadingAnchor.constraint(
+            equalTo: view.leadingAnchor, constant: 16).isActive = true
+        feedImageViewButtonBottomConstraint = NSLayoutConstraint(item: feedImageViewButton,
+                                                                 attribute: .bottom,
+                                                                 relatedBy: .equal,
+                                                                 toItem: view,
+                                                                 attribute: .bottom,
+                                                                 multiplier: 1.0,
+                                                                 constant: 0)
+        calendarImageViewButton.widthAnchor.constraint(
+            equalToConstant: 166).isActive = true
+        calendarImageViewButton.heightAnchor.constraint(
+            equalToConstant: 81).isActive = true
+        calendarImageViewButton.trailingAnchor.constraint(
+            equalTo: view.trailingAnchor, constant: -57).isActive = true
+        calendarImageViewButtonBottomConstraint = NSLayoutConstraint(item: calendarImageViewButton,
+                                                                 attribute: .bottom,
+                                                                 relatedBy: .equal,
+                                                                 toItem: view,
+                                                                 attribute: .bottom,
+                                                                 multiplier: 1.0,
+                                                                 constant: 0)
+        
+    }
+    
+    func calculateDistance(by type: CoachMarkType) -> CGFloat {
+        switch type {
+        case .calendar:
+            return .zero
+        case .feed:
+            return .zero
+        default:
+            return .zero
+        }
     }
     
     @objc private func touchUpFilterButton(_: UIButton) {
