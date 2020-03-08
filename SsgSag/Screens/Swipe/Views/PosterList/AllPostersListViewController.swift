@@ -13,7 +13,7 @@ import RxCocoa
 class AllPostersListViewController: UIViewController {
     
     private let imageCache = NSCache<NSString, UIImage>()
-    private let categoryList = [0, 1, 4, 7, 5]
+    private let categoryList = [0, 1, 2, 4, 7, 5]
     
     var disposeBag = DisposeBag()
     
@@ -211,8 +211,8 @@ class AllPostersListViewController: UIViewController {
             .disposed(by: disposeBag)
     }
     
-    func setCategory(number: Int) {
-        currentCategory = categoryList[number]
+    func setCategory(type: TotalInfoCategoryType) {
+        currentCategory = type.rawValue //categoryList[number]
         requestPosterData(true)
         if let category = PosterCategory(rawValue: currentCategory) {
             title = category.categoryString()

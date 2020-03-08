@@ -23,9 +23,10 @@ class MyClubCellViewModel {
          approval: Int) {
         let clubTypeText = clubType == 0 ? "교내" : "연합"
         let approvalText = approval == 0 ? "승인 대기중" : "거절"
+        let editedDateText = "작성일: " + String(dateText.split(separator: " ").first ?? "")
         self.clubTypeText.accept(clubTypeText)
         self.titleText.accept(titleText)
-        self.dateText.accept(dateText)
+        self.dateText.accept(editedDateText)
         self.approvalText.accept(approvalText)
     }
 }

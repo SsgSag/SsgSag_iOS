@@ -16,12 +16,9 @@ class MyClubService: MyClubServiceProtocol {
     private let network: RxNetwork = RxNetworkImp(session: URLSession.shared)
     
     func requestMyClubComments(page: Int) -> Observable<[MyClubComment]> {
-        var urlComponent = URLComponents(string: UserAPI.sharedInstance.getBaseString())
-        urlComponent?.path = RequestURL.myClub(curPage: page).getRequestURL
-                  
         guard let token
                     = KeychainWrapper.standard.string(forKey: TokenName.token),
-            let url = urlComponent?.url,
+            let url = UserAPI.sharedInstance.getURL(RequestURL.myClub(curPage: page).getRequestURL),
             let request
             = requestMaker.makeRequest(url: url,
                                        method: .get,
@@ -32,8 +29,8 @@ class MyClubService: MyClubServiceProtocol {
         }
                    
        return network
-            .dispatch(request: request)
-            .flatMapLatest { (data) -> Observable<[MyClubComment]> in
+        .dispatch(request: request)
+        .flatMapLatest { (data) -> Observable<[MyClubComment]> in
                 if let comments = try? JSONDecoder().decode(MyClubCommentResponsee.self,
                                                             from: data).data {
                     return .just(comments)

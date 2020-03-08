@@ -75,13 +75,16 @@ class NewCalendarVC: UIViewController {
         navigationController?.navigationBar.shadowImage = UIImage()
         
         self.navigationController?.navigationBar.isHidden = false
+        if !UserDefaults.standard.bool(forKey: "hasCalendarLoadedBefore") {
+            let coachMarkViewController = FirstCoachmarkViewController()
+            coachMarkViewController.modalPresentationStyle = .overFullScreen
+            let tabBarHeight = tabBarController?.tabBar.frame.size.height ?? 0
+            coachMarkViewController.bind(viewModel: CoachMarkViewModel(with: .calendar(.init(x: 0, y: tabBarHeight))))
+                self.present(coachMarkViewController,
+                                animated: false)
+            UserDefaults.standard.setValue(true, forKey: "hasCalendarLoadedBefore")
+        }
         
-        let coachMarkViewController = FirstCoachmarkViewController()
-               coachMarkViewController.modalPresentationStyle = .overFullScreen
-               let tabBarHeight = tabBarController?.tabBar.frame.size.height ?? 0
-               coachMarkViewController.bind(viewModel: CoachMarkViewModel(with: .calendar(.init(x: 0, y: tabBarHeight))))
-               self.present(coachMarkViewController,
-                            animated: false)
         calendarView.drawMonths()
         calendarView.drawVisibleMonth(with: calendarView.contentOffset)
         

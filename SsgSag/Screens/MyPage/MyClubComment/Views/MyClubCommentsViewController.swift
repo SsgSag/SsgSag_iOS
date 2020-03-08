@@ -12,13 +12,15 @@ import RxCocoa
 
 class MyClubCommentsViewController: UIViewController {
     var disposeBag = DisposeBag()
+    var viewModel: MyClubViewModel?
     @IBOutlet weak var myClubTableView: UITableView!
     
     @IBOutlet weak var navigationBackButton: UIBarButtonItem!
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        bind(viewModel: MyClubViewModel())
+        let viewModel = MyClubViewModel()
+        self.viewModel = viewModel
+        bind(viewModel: viewModel)
         myClubTableView
             .rx
             .setDelegate(self)
@@ -26,6 +28,8 @@ class MyClubCommentsViewController: UIViewController {
     }
     
     func bind(viewModel: MyClubViewModel) {
+        viewModel.buildCellViewModels()
+        
         navigationBackButton
             .rx
             .tap
@@ -34,7 +38,6 @@ class MyClubCommentsViewController: UIViewController {
             })
             .disposed(by: disposeBag)
         
-        viewModel.buildCellViewModels()
         
         viewModel.commentCellViewModels.asObservable()
             .bind(to: myClubTableView.rx.items(cellIdentifier: "MyClubTableViewCell")) { (indexPath, cellViewModel, cell)  in

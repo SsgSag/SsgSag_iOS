@@ -203,9 +203,9 @@ class FirstCoachmarkViewController: UIViewController {
             equalTo: view.bottomAnchor, constant: -(tabBarHeight + 16)).isActive = true
         
         feedImageViewButton.widthAnchor.constraint(
-            equalToConstant: 166).isActive = true
+            equalToConstant: 234).isActive = true
         feedImageViewButton.heightAnchor.constraint(
-            equalToConstant: 81).isActive = true
+            equalToConstant: 93).isActive = true
         feedImageViewButton.leadingAnchor.constraint(
             equalTo: view.leadingAnchor, constant: 16).isActive = true
         feedImageViewButtonBottomConstraint = NSLayoutConstraint(item: feedImageViewButton,
@@ -216,9 +216,9 @@ class FirstCoachmarkViewController: UIViewController {
                                                                  multiplier: 1.0,
                                                                  constant: 0)
         calendarImageViewButton.widthAnchor.constraint(
-            equalToConstant: 166).isActive = true
+            equalToConstant: 232).isActive = true
         calendarImageViewButton.heightAnchor.constraint(
-            equalToConstant: 81).isActive = true
+            equalToConstant: 93).isActive = true
         calendarImageViewButton.trailingAnchor.constraint(
             equalTo: view.trailingAnchor, constant: -57).isActive = true
         calendarImageViewButtonBottomConstraint = NSLayoutConstraint(item: calendarImageViewButton,

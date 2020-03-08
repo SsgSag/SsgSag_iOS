@@ -9,9 +9,9 @@
 import Foundation
 
 enum SortType: Int {
-    case latest = 0
+    case latest = 2
     case deadline = 1
-    case popular = 2
+    case popular = 0
     
     func getTypeString() -> String {
         switch self {

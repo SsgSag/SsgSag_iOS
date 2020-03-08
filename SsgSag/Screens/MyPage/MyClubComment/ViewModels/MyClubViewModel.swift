@@ -11,14 +11,17 @@ import RxSwift
 import RxCocoa
 
 class MyClubViewModel {
-    let service: MyClubServiceProtocol = MockMyClubService()
+    let service: MyClubServiceProtocol = MyClubService()
     let commentCellViewModels = BehaviorRelay<[MyClubCellViewModel]>(value: [])
     let isLoading = BehaviorRelay<Bool>(value: false)
     var currentPageNumber = 0
     var disposeBag = DisposeBag()
     
-    
+    deinit {
+        debugPrint("ClubViewModel deinit")
+    }
     func buildCellViewModels() {
+        
         isLoading.accept(true)
         service
             .requestMyClubComments(page: currentPageNumber)
@@ -37,6 +40,8 @@ class MyClubViewModel {
                                             approval: $0.adminAccept ?? 0)
                 }
                 self?.commentCellViewModels.accept(cellViewModels)
+                self?.isLoading.accept(false)
+                }, onError: { [weak self] error in
                 self?.isLoading.accept(false)
             })
             .disposed(by: disposeBag)

@@ -62,12 +62,13 @@ class TotalInformationViewController: UIViewController, StoryboardView {
                     .tap
                     .subscribe(onNext: { [weak self] in
                         guard let self = self else { return }
-                        let categoryType = TotalInfoCategoryType.getType(by: indexPath)
+                        
+                        let categoryType = reactor.currentState.currentItems[indexPath].key
                         let posterListViewModel = PosterListViewModel(categoryType: categoryType)
                         posterListViewModel.create()
                         let allPostersViewController = AllPostersListViewController()
                         allPostersViewController.bind(viewModel: posterListViewModel)
-                        allPostersViewController.setCategory(number: indexPath)
+                        allPostersViewController.setCategory(type: categoryType)
                         self.navigationController?.pushViewController(allPostersViewController,
                                                                       animated: true)
                 })
