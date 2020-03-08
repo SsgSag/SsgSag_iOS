@@ -13,11 +13,12 @@ import RxCocoa
 class ClubDetailViewModel {
     var reviewCount = 0
     
-    let tabPageObservable: BehaviorSubject<Int> = BehaviorSubject<Int>(value: 0)
-    let tabFirstButtonStatus: BehaviorSubject<Bool> = BehaviorSubject<Bool>(value: true)
+    let tabPageObservable: BehaviorRelay<Int> = BehaviorRelay<Int>(value: 0)
+    let tabFirstButtonStatus: BehaviorRelay<Bool> = BehaviorRelay<Bool>(value: true)
     
-    let clubInfoData: BehaviorSubject<ClubInfo?> = BehaviorSubject<ClubInfo?>(value: nil)
-    let reviewDataSet: BehaviorSubject<[ReviewInfo]?> = BehaviorSubject<[ReviewInfo]?>(value: nil)
+    let clubInfoData: BehaviorRelay<ClubInfo?> = BehaviorRelay<ClubInfo?>(value: nil)
+    let reviewDataSet: BehaviorRelay<[ReviewInfo]?> = BehaviorRelay<[ReviewInfo]?>(value: nil)
+    let blogDataSet: BehaviorRelay<[BlogInfo]?> = BehaviorRelay(value: nil)
     
     let recommendObservable:BehaviorRelay<Float> = BehaviorRelay(value: 0.0)
     let proObservable = BehaviorRelay(value: "")
@@ -31,22 +32,25 @@ class ClubDetailViewModel {
     let friendUnderObservable = BehaviorRelay(value: "")
     
     let disposeBag = DisposeBag()
+    var reviewService: ReviewServiceProtocol
     
-    init() {
+    init(service: ReviewServiceProtocol = ReviewService()) {
+        self.reviewService = service
         bind()
     }
     
     func setPage(page: Int) {
-        self.tabPageObservable.onNext(page)
+        self.tabPageObservable.accept(page)
     }
     
     func setButton(select: Bool) {
-        self.tabFirstButtonStatus.onNext(select)
+        self.tabFirstButtonStatus.accept(select)
     }
     
     func setData(data: ClubInfo) {
-        self.clubInfoData.onNext(data)
-        self.reviewDataSet.onNext(data.clubPostList)
+        self.clubInfoData.accept(data)
+        self.reviewDataSet.accept(data.clubPostList)
+        self.blogDataSet.accept(data.clubBlogList)
     }
     
     func changeScoreToString(score: Float) -> String {

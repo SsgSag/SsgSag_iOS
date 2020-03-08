@@ -52,7 +52,7 @@ class ClubPageViewController: UIPageViewController, UIPageViewControllerDataSour
                 index = 1
             }
             
-            tabViewModel?.tabPageObservable.onNext(index)
+            tabViewModel?.tabPageObservable.accept(index)
         }
         
     }

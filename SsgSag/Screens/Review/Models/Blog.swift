@@ -8,19 +8,10 @@
 
 import Foundation
 
-struct Blog: Codable {
-    let display: Int
-    let items: [BlogInfo]?
-    let lastBuildDate: String
-    let start: Int
-    let total: Int
-}
-
 struct BlogInfo: Codable {
-    let bloggerlink: String?
-    let bloggername: String?
-    let description: String?
-    let link: String?
-    let postdate: Int
-    let title: String?
+    let clubBlogIdx: Int
+    let blogUrl, blogRegDate, blogNickname,
+    blogTitle, blogDescription, regDate : String
+    let clubIdx: Int
+    let blogImageUrl: String?
 }
