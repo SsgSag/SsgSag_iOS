@@ -12,6 +12,8 @@ import RxSwift
 
 class NormalReviewTableViewCell: UITableViewCell {
     
+    @IBOutlet weak var waitImg: UIImageView!
+    @IBOutlet weak var waitLabel: UILabel!
     @IBOutlet weak var editButton: UIButton!
     @IBOutlet weak var likeImgTopLayout: NSLayoutConstraint!
     @IBOutlet weak var moreButton: UIButton!
@@ -134,6 +136,14 @@ class NormalReviewTableViewCell: UITableViewCell {
             editButton.isHidden = false
         } else {
             editButton.isHidden = true
+        }
+        
+        if viewModel.adminAccept == 1 {
+            waitImg.isHidden = true
+            waitLabel.isHidden = true
+        } else {
+            waitImg.isHidden = false
+            waitLabel.isHidden = false
         }
     }
     
