@@ -35,7 +35,6 @@ class MoreReviewViewController: UIViewController {
         titleLabel.text = "\(clubInfo.clubName)"
         setupTableView(type: vcType)
         
-        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -182,9 +181,6 @@ class MoreReviewViewController: UIViewController {
             }
         }
     }
-    
-    //후기통신, 블로그통신
-    //블로그/후기 쓰기버튼
     
     @IBAction func backClick(_ sender: Any) {
         self.navigationController?.popViewController(animated: true)
