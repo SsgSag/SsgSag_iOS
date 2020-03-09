@@ -42,6 +42,11 @@ class ClubReviewViewController: UIViewController {
         self.tabBarController?.tabBar.isHidden = false
     }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: "reviewEdit"), object: nil)
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: "resizeTableView"), object: nil)
+    }
+    
     func tableViewSetup() {
         normalReviewTableView.dataSource = self
         normalReviewTableView.delegate = self

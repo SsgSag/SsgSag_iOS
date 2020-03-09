@@ -44,6 +44,10 @@ class MoreReviewViewController: UIViewController {
         setupDataWithType(type: vcType)
     }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: "reviewEdit"), object: nil)
+    }
+    
     @objc func reviewEdit(_ notification: Notification) {
         // MARK: 수정 ActionSheet
         let editAction = UIAlertAction(title: "수정", style: .default) { _ in
