@@ -107,6 +107,14 @@ class SsgSagReviewTableViewCell: UITableViewCell {
         } else {
             editButton.isHidden = true
         }
+        
+        if model.adminAccept == 1 {
+            waitImg.isHidden = true
+            waitLabel.isHidden = true
+        } else {
+            waitImg.isHidden = false
+            waitLabel.isHidden = false
+        }
     }
     
     func ratePaint(score: Float) {
