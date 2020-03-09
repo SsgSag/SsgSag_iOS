@@ -16,6 +16,8 @@ class BlogReviewTableViewCell: UITableViewCell {
     @IBOutlet weak var contentLabel: UILabel!
     @IBOutlet weak var titleLabel: UILabel!
     
+    var model: BlogInfo?
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         
@@ -27,6 +29,7 @@ class BlogReviewTableViewCell: UITableViewCell {
     }
     
     func bind(_ blog: BlogInfo) {
+        self.model = blog
         titleLabel.text = blog.blogTitle
         contentLabel.text = blog.blogDescription
         let nickName = blog.blogNickname

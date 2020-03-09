@@ -68,4 +68,26 @@ extension MoreReviewViewController: UITableViewDelegate {
             self.setupDataWithType(type: vcType)
         }
     }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if vcType == ReviewType.Blog {
+            // 블로그이동
+            guard let cell = tableView.cellForRow(at: indexPath) as? BlogReviewTableViewCell else {return}
+            guard let urlString = cell.model?.blogUrl else { return }
+            guard let url = URL(string: urlString) else {
+                self.simplerAlert(title: "잘못된 주소입니다.")
+                tableView.deselectRow(at: indexPath, animated: true)
+                return
+            }
+            if UIApplication.shared.canOpenURL(url) {
+                UIApplication.shared.open(url, options: [:], completionHandler: nil)
+            } else {
+                self.simplerAlert(title: "존재하지 않거나,\n잘못된 주소입니다.")
+                tableView.deselectRow(at: indexPath, animated: true)
+                return
+            }
+            
+            tableView.deselectRow(at: indexPath, animated: true)
+        }
+    }
 }

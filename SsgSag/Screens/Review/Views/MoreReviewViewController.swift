@@ -132,10 +132,12 @@ class MoreReviewViewController: UIViewController {
         self.tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 120, right: 0)
         
         if type == .SsgSag {
+            tableView.allowsSelection = false
             registerReviewButton.isHidden = false
             let nib = UINib(nibName: "SsgSagReviewTableViewCell", bundle: nil)
             tableView.register(nib, forCellReuseIdentifier: "SsgSagReviewCell")
         } else {
+            tableView.allowsSelection = true
             registerBlogButton.isHidden = false
             let nib = UINib(nibName: "BlogReviewTableViewCell", bundle: nil)
             tableView.register(nib, forCellReuseIdentifier: "BlogReviewCell")

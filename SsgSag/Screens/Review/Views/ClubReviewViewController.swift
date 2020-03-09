@@ -50,6 +50,7 @@ class ClubReviewViewController: UIViewController {
         normalReviewTableView.rowHeight = UITableView.automaticDimension
         
         blogReviewTableView.dataSource = self
+        blogReviewTableView.delegate = self
         let nibCell = UINib(nibName: "BlogReviewTableViewCell", bundle: nil)
         blogReviewTableView.register(nibCell, forCellReuseIdentifier: "BlogReviewCell")
         blogReviewTableView.estimatedRowHeight = 1500
