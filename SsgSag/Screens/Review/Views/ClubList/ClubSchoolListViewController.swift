@@ -26,12 +26,14 @@ class ClubSchoolListViewController: UIViewController {
         self.reviewTableView.delegate = self
         self.reviewTableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 80, right: 0)
 
+        NotificationCenter.default.addObserver(self, selector: #selector(refreshPage), name: NSNotification.Name(rawValue: "refreshList"), object: nil)
     }
     
     override func viewWillAppear(_ animated: Bool) {
         refreshPage()
     }
     
+    @objc
     func refreshPage() {
         curPage = 0
         cellData.removeAll()

@@ -7658,6 +7658,7 @@
                         <viewLayoutGuide key="safeArea" id="Ci8-o5-ABO"/>
                     </view>
                     <connections>
+                        <outlet property="eventView" destination="hep-eb-sqz" id="Dkx-Ob-b2l"/>
                         <outlet property="viewBottomLayout" destination="KBJ-Eq-oe9" id="eU6-vW-MS1"/>
                     </connections>
                 </viewController>

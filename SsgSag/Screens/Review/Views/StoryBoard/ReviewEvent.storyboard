@@ -326,6 +326,7 @@
                         <viewLayoutGuide key="safeArea" id="t9V-9R-du3"/>
                     </view>
                     <connections>
+                        <outlet property="eventView" destination="Kld-nI-vIv" id="fpG-JI-NSq"/>
                         <outlet property="viewBottomLayout" destination="XNE-oV-bEA" id="cYA-Zx-5At"/>
                     </connections>
                 </viewController>
