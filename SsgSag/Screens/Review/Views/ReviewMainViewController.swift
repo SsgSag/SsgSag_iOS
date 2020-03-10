@@ -81,12 +81,13 @@ class ReviewMainViewController: UIViewController {
     }
     
     func popUpPresent() {
-        if UserDefaults.standard.bool(forKey: "isPopup") {
-            return
-        }
+//        이벤트 팝업노출변경으로 인한 계속 노출을 위한 수정
+//        if UserDefaults.standard.bool(forKey: "isPopup") {
+//            return
+//        }
         
-        guard let popupVC = self.storyboard?.instantiateViewController(withIdentifier: "mainPopUpVC") else {return}
-        UserDefaults.standard.set(true, forKey: "isPopup")
+        let popupVC = UIStoryboard(name: "ReviewEvent", bundle: nil).instantiateViewController(withIdentifier: "mainPopUpVC")
+//        UserDefaults.standard.set(true, forKey: "isPopup")
         self.present(popupVC, animated: true)
     }
     
