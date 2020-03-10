@@ -873,36 +873,11 @@
 				0610DF1F23D9941300DC2273 /* Protocol */,
 				0610DF1723D96C0900DC2273 /* Cell */,
 				0610DF0D23D92EB900DC2273 /* StoryBoard */,
-				0610DF0B23D92E6400DC2273 /* ReviewMainViewController.swift */,
-				0610DF1523D96A9C00DC2273 /* ReviewPageViewController.swift */,
-				0655966623E0130600C779A5 /* ClubPageViewController.swift */,
-				0655966923E0138900C779A5 /* ClubInfoViewController.swift */,
-				0655966B23E013CA00C779A5 /* ClubReviewViewController.swift */,
-				063B571E23E42B7800B8F617 /* ReviewSearchViewController.swift */,
-				0610DF1323D9484300DC2273 /* ClubSchoolListViewController.swift */,
-				0651632E23F809FA002089D2 /* ClubUnionListViewController.swift */,
-				0655965623DFD5FC00C779A5 /* ClubDetailViewController.swift */,
-				063B571623E3D0B500B8F617 /* MoreReviewViewController.swift */,
-				0652950C23E9375900DA9F3B /* ReviewPrepareViewController.swift */,
-				0652950E23E9385B00DA9F3B /* SelectClubTypeViewController.swift */,
-				0652951023E93CDE00DA9F3B /* InputUserClubInfoViewController.swift */,
-				0652951223E959BF00DA9F3B /* ClubActInfoAlertViewController.swift */,
-				065264DA23EA8FEE00501200 /* NotFoundClubViewController.swift */,
-				065264DC23EAC4BA00501200 /* FoundClubViewController.swift */,
-				065264DE23EBC55C00501200 /* StarRatingViewController.swift */,
-				065264E223EBFEE900501200 /* SimpleReviewViewController.swift */,
-				064AD7B623ED4E490006E02C /* CompleteViewController.swift */,
-				064AD7BC23EF2EA70006E02C /* SelectClubManagerViewController.swift */,
-				064AD7BE23EFC8220006E02C /* NoClubManagerViewController.swift */,
-				064AD7C023EFCF940006E02C /* ClubManagerRegisterOneStepViewController.swift */,
-				064AD7C823EFFF7A0006E02C /* ClubRegisterAlertViewController.swift */,
-				064AD7CA23F0EB690006E02C /* ClubManagerRegisterTwoStepViewController.swift */,
-				064AD7DC23F156C30006E02C /* ClubManagerRegisterThreeStepViewController.swift */,
-				0651632623F4405E002089D2 /* ReviewScorePopUpViewController.swift */,
-				0651632823F45224002089D2 /* RegisterBlogReviewViewController.swift */,
+				0649A78B241745F2008F881D /* ClubList */,
+				0649A78D24174667008F881D /* ClubDetail */,
+				0649A78C24174613008F881D /* Register */,
 				0651632A23F6393B002089D2 /* ReviewEditViewController.swift */,
 				0651633023FA2DB0002089D2 /* ClubEditViewController.swift */,
-				069D239E23FBD32800C756E3 /* ClubInfoDetailPhotoViewController.swift */,
 				062677932406013600F49929 /* EventViewController.swift */,
 				062677DD2408F71F00F49929 /* ReportReviewViewController.swift */,
 			);
@@ -967,6 +942,55 @@
 				0655965823DFDAE600C779A5 /* ClubListSelectDelgate.swift */,
 			);
 			path = Protocol;
+			sourceTree = "<group>";
+		};
+		0649A78B241745F2008F881D /* ClubList */ = {
+			isa = PBXGroup;
+			children = (
+				0651632623F4405E002089D2 /* ReviewScorePopUpViewController.swift */,
+				0610DF1523D96A9C00DC2273 /* ReviewPageViewController.swift */,
+				0610DF0B23D92E6400DC2273 /* ReviewMainViewController.swift */,
+				0610DF1323D9484300DC2273 /* ClubSchoolListViewController.swift */,
+				0651632E23F809FA002089D2 /* ClubUnionListViewController.swift */,
+				063B571E23E42B7800B8F617 /* ReviewSearchViewController.swift */,
+			);
+			path = ClubList;
+			sourceTree = "<group>";
+		};
+		0649A78C24174613008F881D /* Register */ = {
+			isa = PBXGroup;
+			children = (
+				0652950C23E9375900DA9F3B /* ReviewPrepareViewController.swift */,
+				0652950E23E9385B00DA9F3B /* SelectClubTypeViewController.swift */,
+				0652951023E93CDE00DA9F3B /* InputUserClubInfoViewController.swift */,
+				0652951223E959BF00DA9F3B /* ClubActInfoAlertViewController.swift */,
+				065264DA23EA8FEE00501200 /* NotFoundClubViewController.swift */,
+				065264DC23EAC4BA00501200 /* FoundClubViewController.swift */,
+				065264DE23EBC55C00501200 /* StarRatingViewController.swift */,
+				065264E223EBFEE900501200 /* SimpleReviewViewController.swift */,
+				064AD7B623ED4E490006E02C /* CompleteViewController.swift */,
+				064AD7BC23EF2EA70006E02C /* SelectClubManagerViewController.swift */,
+				064AD7BE23EFC8220006E02C /* NoClubManagerViewController.swift */,
+				064AD7C023EFCF940006E02C /* ClubManagerRegisterOneStepViewController.swift */,
+				064AD7C823EFFF7A0006E02C /* ClubRegisterAlertViewController.swift */,
+				064AD7CA23F0EB690006E02C /* ClubManagerRegisterTwoStepViewController.swift */,
+				064AD7DC23F156C30006E02C /* ClubManagerRegisterThreeStepViewController.swift */,
+				0651632823F45224002089D2 /* RegisterBlogReviewViewController.swift */,
+			);
+			path = Register;
+			sourceTree = "<group>";
+		};
+		0649A78D24174667008F881D /* ClubDetail */ = {
+			isa = PBXGroup;
+			children = (
+				0655966623E0130600C779A5 /* ClubPageViewController.swift */,
+				0655965623DFD5FC00C779A5 /* ClubDetailViewController.swift */,
+				0655966923E0138900C779A5 /* ClubInfoViewController.swift */,
+				0655966B23E013CA00C779A5 /* ClubReviewViewController.swift */,
+				069D239E23FBD32800C756E3 /* ClubInfoDetailPhotoViewController.swift */,
+				063B571623E3D0B500B8F617 /* MoreReviewViewController.swift */,
+			);
+			path = ClubDetail;
 			sourceTree = "<group>";
 		};
 		0655964A23DF219300C779A5 /* Models */ = {
