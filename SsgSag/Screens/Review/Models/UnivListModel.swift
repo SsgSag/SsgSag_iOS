@@ -8,6 +8,12 @@
 
 import Foundation
 
-struct UnivListModel {
+struct UnivListModel: Codable {
+    let 학교명: String
+    let 학과명: [String]
     
+    enum CodingKeys: String, CodingKey {
+        case 학교명
+        case 학과명 = "학부·과(전공)명"
+    }
 }

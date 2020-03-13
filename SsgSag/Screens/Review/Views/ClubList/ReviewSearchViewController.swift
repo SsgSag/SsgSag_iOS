@@ -29,7 +29,6 @@ class ReviewSearchViewController: UIViewController, UITextFieldDelegate {
         
         guard let viewModel = viewModel else {return}
         bind(viewModel: viewModel)
-        
     }
     
     func bind(viewModel: ReviewSearchViewModel) {
