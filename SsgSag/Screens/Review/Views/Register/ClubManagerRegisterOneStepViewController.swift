@@ -53,6 +53,7 @@ class ClubManagerRegisterOneStepViewController: UIViewController {
     
     private func configureSimpleLocalUnivSearchTextField() {
         univOrLocationTextField.startVisible = true
+        univOrLocationTextField.minCharactersNumberToStartFiltering = 2
         let universities = localUniversities()
         univOrLocationTextField.filterStrings(universities)
         univOrLocationTextField.itemSelectionHandler = { item, itemPosition in
@@ -61,6 +62,7 @@ class ClubManagerRegisterOneStepViewController: UIViewController {
     }
     
     private func localUniversities() -> [String] {
+        /*
         guard let path = Bundle.main.path(forResource: "majorListByUniv",
                                           ofType: "json") else {
             return []
@@ -93,6 +95,9 @@ class ClubManagerRegisterOneStepViewController: UIViewController {
             print("Error parsing jSON: \(error)")
             return []
         }
+        */
+        
+        return UnivName.shared.univNameList
     }
     
     func bindInput(viewModel: ClubRegisterOneStepViewModel, type: ClubType) {
@@ -102,7 +107,7 @@ class ClubManagerRegisterOneStepViewController: UIViewController {
             .changed
             .distinctUntilChanged()
             .compactMap{ $0 }
-            .do(onNext: { [weak self] clubName in
+            .do(onNext: { clubName in
                 viewModel.clubNameObservable.accept(clubName)
             })
             .subscribe(onNext: { [weak self] clubName in
@@ -189,6 +194,7 @@ class ClubManagerRegisterOneStepViewController: UIViewController {
     
     private func configureSimpleClubNameSearchTextField() {
         clubNameTextField.startVisible = true
+        clubNameTextField.minCharactersNumberToStartFiltering = 2
     }
     
     @objc func tapHideKeyBoard() {

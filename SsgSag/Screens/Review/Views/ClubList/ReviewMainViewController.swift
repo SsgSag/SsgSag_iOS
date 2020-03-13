@@ -34,6 +34,7 @@ class ReviewMainViewController: UIViewController {
         bindData()
         popupPresent()
         cellModel.accept(tabTitle)
+        UnivName.shared.requestUnivList()
         
     }
     
