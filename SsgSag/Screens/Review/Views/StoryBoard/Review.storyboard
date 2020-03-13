@@ -6747,7 +6747,7 @@
                                                     <constraint firstAttribute="height" constant="1" id="bRb-Pc-4pO"/>
                                                 </constraints>
                                             </view>
-                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="etx-lH-5I3">
+                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="etx-lH-5I3" customClass="SearchTextField" customModule="SearchTextField">
                                                 <rect key="frame" x="26" y="283" width="364" height="36"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="36" id="xG7-R1-1NO"/>
@@ -6958,7 +6958,7 @@
                     <connections>
                         <outlet property="categoryCollectionView" destination="39h-SR-mn3" id="CU3-ae-z30"/>
                         <outlet property="categoryTextField" destination="cNW-en-6ua" id="5Km-4f-0du"/>
-                        <outlet property="clubNameTextField" destination="etx-lH-5I3" id="6vj-QW-TR7"/>
+                        <outlet property="clubNameTextField" destination="etx-lH-5I3" id="IfM-VL-aQV"/>
                         <outlet property="nextButton" destination="zkU-I4-x7p" id="YuM-cL-AUt"/>
                         <outlet property="oneLineTextField" destination="Y5u-ha-AES" id="FeD-9Q-CAF"/>
                         <outlet property="scrollView" destination="Rcg-dU-xT2" id="aL2-Do-1PA"/>

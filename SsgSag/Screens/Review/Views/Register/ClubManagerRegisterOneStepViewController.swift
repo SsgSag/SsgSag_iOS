@@ -22,22 +22,24 @@ class ClubManagerRegisterOneStepViewController: UIViewController {
     @IBOutlet weak var univOrLocationImg: UIImageView!
     @IBOutlet weak var univOrLocationButton: UIButton!
     @IBOutlet weak var univOrLocationTextField: SearchTextField!
-    @IBOutlet weak var clubNameTextField: UITextField!
+    @IBOutlet weak var clubNameTextField: SearchTextField!
     
     var viewModel: ClubRegisterOneStepViewModel!
     var model: ClubRegisterModel!
     let disposeBag = DisposeBag()
     let textLengthMaximum = 20
     var jsonResult: [[String: Any]] = [[:]]
+    var clubNameList: [String] = []
+    let service: ClubServiceProtocol = ClubService()
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        clubTypeSetting(clubType: model.clubType)
         bindInput(viewModel: viewModel, type: model.clubType)
         bindOutput(viewModel: viewModel)
         scrollView.delegate = self
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(tapHideKeyBoard))
         scrollView.addGestureRecognizer(tapGesture)
-        clubTypeSetting(clubType: model.clubType)
         oneLineTextField.delegate = self
         let nib = UINib(nibName: "RegisterCategoryCollectionViewCell", bundle: nil)
         categoryCollectionView.register(nib, forCellWithReuseIdentifier: "RegisterCategoryCell")
@@ -96,9 +98,26 @@ class ClubManagerRegisterOneStepViewController: UIViewController {
     func bindInput(viewModel: ClubRegisterOneStepViewModel, type: ClubType) {
         clubNameTextField
             .rx
-            .text
-            .orEmpty
-            .bind(to: viewModel.clubNameObservable)
+            .value
+            .changed
+            .distinctUntilChanged()
+            .compactMap{ $0 }
+            .do(onNext: { [weak self] clubName in
+                viewModel.clubNameObservable.accept(clubName)
+            })
+            .subscribe(onNext: { [weak self] clubName in
+                guard let location = self?.univOrLocationTextField.text else {return}
+                guard let model = self?.model else {return}
+                self?.service.requestClubListWithForm(clubType: model.clubType, location: location, keyword: clubName, curPage: 0) { clubList in
+                    guard let clubList = clubList else {return}
+                    guard !clubList.isEmpty else {return}
+                    DispatchQueue.main.async {
+                        guard let clubNameList = self?.searchLocalClubListSet(clubList: clubList) else {return}
+                        self?.clubNameList = clubNameList
+                    }
+                }
+                
+            })
             .disposed(by: disposeBag)
         
         if type == .School {
@@ -149,12 +168,27 @@ class ClubManagerRegisterOneStepViewController: UIViewController {
         if clubType == .School {
             univOrLocationLabel.text = "소속 학교"
             configureSimpleLocalUnivSearchTextField()
+            configureSimpleClubNameSearchTextField()
         } else {
             univOrLocationLabel.text = "활동 지역"
+            configureSimpleClubNameSearchTextField()
             univOrLocationImg.isHidden = false
             univOrLocationTextField.isEnabled = false
             univOrLocationButton.isHidden = false
         }
+    }
+    
+    func searchLocalClubListSet(clubList: [ClubListData]) -> [String] {
+        let clubNameList = clubList.compactMap { $0.clubName }
+        clubNameTextField.filterStrings(clubNameList)
+        clubNameTextField.itemSelectionHandler = { item, itemPosition in
+            self.clubNameTextField.text = item[itemPosition].title
+        }
+        return clubNameList
+    }
+    
+    private func configureSimpleClubNameSearchTextField() {
+        clubNameTextField.startVisible = true
     }
     
     @objc func tapHideKeyBoard() {
@@ -205,6 +239,12 @@ class ClubManagerRegisterOneStepViewController: UIViewController {
                 self.simpleAlert(title: "학교명을 정확히 입력해주세요.", message: "목록에 없는 학교이름 입니다.\n자신의 학교가 없는 경우 문의주세요.")
                 return
             }
+        }
+        
+        guard let univ = clubNameTextField.text else {return}
+        if clubNameList.contains(univ) {
+            self.simpleAlert(title: "이미 동아리가 등록되어있어요.", message: "이름을 다시한번 확인해주세요.")
+            return
         }
         
         guard let nextVC = self.storyboard?.instantiateViewController(withIdentifier: "ClubManagerRegisterTwoStepVC") as? ClubManagerRegisterTwoStepViewController else {return}

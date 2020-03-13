@@ -47,6 +47,7 @@
 		064AD7DB23F120B40006E02C /* ClubRegisterTwoStepViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 064AD7DA23F120B40006E02C /* ClubRegisterTwoStepViewModel.swift */; };
 		064AD7DD23F156C30006E02C /* ClubManagerRegisterThreeStepViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 064AD7DC23F156C30006E02C /* ClubManagerRegisterThreeStepViewController.swift */; };
 		064AD7DF23F157F00006E02C /* ClubRegisterThreeStepViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 064AD7DE23F157F00006E02C /* ClubRegisterThreeStepViewModel.swift */; };
+		064FC07C241B67DD00B8F639 /* UnivListModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 064FC07B241B67DD00B8F639 /* UnivListModel.swift */; };
 		0651632523F260AA002089D2 /* ResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0651632423F260AA002089D2 /* ResponseModel.swift */; };
 		0651632723F4405E002089D2 /* ReviewScorePopUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0651632623F4405E002089D2 /* ReviewScorePopUpViewController.swift */; };
 		0651632923F45224002089D2 /* RegisterBlogReviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0651632823F45224002089D2 /* RegisterBlogReviewViewController.swift */; };
@@ -459,6 +460,7 @@
 		064AD7DA23F120B40006E02C /* ClubRegisterTwoStepViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClubRegisterTwoStepViewModel.swift; sourceTree = "<group>"; };
 		064AD7DC23F156C30006E02C /* ClubManagerRegisterThreeStepViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClubManagerRegisterThreeStepViewController.swift; sourceTree = "<group>"; };
 		064AD7DE23F157F00006E02C /* ClubRegisterThreeStepViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClubRegisterThreeStepViewModel.swift; sourceTree = "<group>"; };
+		064FC07B241B67DD00B8F639 /* UnivListModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnivListModel.swift; sourceTree = "<group>"; };
 		0651632423F260AA002089D2 /* ResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResponseModel.swift; sourceTree = "<group>"; };
 		0651632623F4405E002089D2 /* ReviewScorePopUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewScorePopUpViewController.swift; sourceTree = "<group>"; };
 		0651632823F45224002089D2 /* RegisterBlogReviewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterBlogReviewViewController.swift; sourceTree = "<group>"; };
@@ -1004,6 +1006,7 @@
 				0652951623E9689700DA9F3B /* ClubActInfoModel.swift */,
 				064AD7C623EFD1C10006E02C /* ClubRegisterModel.swift */,
 				069D23D423FF750B00C756E3 /* Blog.swift */,
+				064FC07B241B67DD00B8F639 /* UnivListModel.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -2658,6 +2661,7 @@
 				D149F59C235D75E30018B8F5 /* CalendarListCollectionViewCell.swift in Sources */,
 				C9625E1723AF1E5000FF5109 /* PosterListCategoryCollectionViewCellViewModel.swift in Sources */,
 				0652950A23E91C3E00DA9F3B /* InputCategoryCollectionViewCell.swift in Sources */,
+				064FC07C241B67DD00B8F639 /* UnivListModel.swift in Sources */,
 				8496817F22AFD3FE004A4A63 /* VACalendarView.swift in Sources */,
 				8486D266226E18E800D7A0C7 /* CalendarServiceImp.swift in Sources */,
 				84A45D09225F9B8B00C60287 /* HTTPMethod.swift in Sources */,
