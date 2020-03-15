@@ -347,7 +347,7 @@ class AllPostersListViewController: UIViewController {
                         posterData.forEach {
                             let indexPath = IndexPath(row: self?.posterData.count ?? 0, section: 0)
                             self?.posterData.append($0)
-                            self?.listCollectionView.insertItems(at: [indexPath])
+                            self?.listCollectionView.insertItems(at: [indexPath]) 
                         }
                         self?.isNetworking = false
                     }
