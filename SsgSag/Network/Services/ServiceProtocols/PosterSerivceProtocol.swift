@@ -35,13 +35,11 @@ protocol PosterService: class {
     )
     
     // 모든 포스터 요청
-    func requestAllPosterAfterSwipe(
-        category: Int,
-        sortType: Int,
-        interestType: Int?,
-        curPage: Int,
-        completionHandler: @escaping (DataResponse<[PosterDataAfterSwipe]>) -> Void
-    )
+    func requestAllPosterAfterSwipe(category: Int,
+                                    sortType: Int,
+                                    interestNumList: [Int],
+                                    curPage: Int,
+                                    completionHandler: @escaping (DataResponse<[PosterDataAfterSwipe]>) -> Void)
     
     func requestStoredPoster(completionHandler: @escaping (DataResponse<PosterToday>) -> Void)
 }

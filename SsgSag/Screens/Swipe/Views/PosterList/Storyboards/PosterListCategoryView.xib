@@ -15,23 +15,68 @@
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
                 <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" contentInsetAdjustmentBehavior="never" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="ojF-Ua-1De">
-                    <rect key="frame" x="0.0" y="0.0" width="414" height="309"/>
+                    <rect key="frame" x="0.0" y="63" width="414" height="246"/>
                     <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                     <collectionViewLayout key="collectionViewLayout" id="d9p-e5-omD" customClass="LeftAlignedCollectionViewFlowLayout" customModule="슥삭" customModuleProvider="target"/>
                     <cells/>
                 </collectionView>
+                <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="11" translatesAutoresizingMaskIntoConstraints="NO" id="UeJ-dV-Raq">
+                    <rect key="frame" x="51.5" y="15" width="311" height="32"/>
+                    <subviews>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7Ha-HZ-W8B">
+                            <rect key="frame" x="0.0" y="0.0" width="150" height="32"/>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="150" id="Q3C-Ks-Gaa"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="13"/>
+                            <state key="normal" title="교내">
+                                <color key="titleColor" red="0.38431372549999998" green="0.41591680050000002" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                            </state>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="number" keyPath="cornerRadiusV">
+                                    <real key="value" value="4"/>
+                                </userDefinedRuntimeAttribute>
+                            </userDefinedRuntimeAttributes>
+                        </button>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oK6-a8-Aw8">
+                            <rect key="frame" x="161" y="0.0" width="150" height="32"/>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="150" id="1ai-3Q-zQQ"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="13"/>
+                            <state key="normal" title="연합">
+                                <color key="titleColor" red="0.38431372549999998" green="0.41591680050000002" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                            </state>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="number" keyPath="cornerRadiusV">
+                                    <real key="value" value="4"/>
+                                </userDefinedRuntimeAttribute>
+                            </userDefinedRuntimeAttributes>
+                        </button>
+                    </subviews>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="32" id="Toc-7l-SH1"/>
+                    </constraints>
+                </stackView>
             </subviews>
-            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
-                <constraint firstItem="ojF-Ua-1De" firstAttribute="top" secondItem="jyS-pM-2SB" secondAttribute="top" id="86R-df-kcR"/>
+                <constraint firstItem="UeJ-dV-Raq" firstAttribute="centerX" secondItem="jyS-pM-2SB" secondAttribute="centerX" id="4S6-eh-6sx"/>
                 <constraint firstItem="ojF-Ua-1De" firstAttribute="leading" secondItem="lFR-Rf-Uyp" secondAttribute="leading" id="Hji-gr-xcg"/>
                 <constraint firstItem="lFR-Rf-Uyp" firstAttribute="trailing" secondItem="ojF-Ua-1De" secondAttribute="trailing" id="LZF-1U-BBW"/>
+                <constraint firstItem="ojF-Ua-1De" firstAttribute="top" secondItem="UeJ-dV-Raq" secondAttribute="bottom" constant="16" id="Ubg-rb-KpO"/>
+                <constraint firstItem="UeJ-dV-Raq" firstAttribute="top" secondItem="jyS-pM-2SB" secondAttribute="top" constant="15" id="mW0-My-mQ9"/>
                 <constraint firstItem="lFR-Rf-Uyp" firstAttribute="bottom" secondItem="ojF-Ua-1De" secondAttribute="bottom" id="qjM-tV-yR1"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <viewLayoutGuide key="safeArea" id="lFR-Rf-Uyp"/>
             <connections>
+                <outlet property="buttonViewHeightConstraint" destination="Toc-7l-SH1" id="64M-Co-mi5"/>
+                <outlet property="firstCategoryButton" destination="7Ha-HZ-W8B" id="JbL-uf-FX3"/>
                 <outlet property="posterListCategoryCollectionView" destination="ojF-Ua-1De" id="ekw-3p-cfh"/>
+                <outlet property="secondCategoryButton" destination="oK6-a8-Aw8" id="2lx-sb-9g6"/>
             </connections>
             <point key="canvasLocation" x="63.768115942028992" y="-457.03125"/>
         </view>

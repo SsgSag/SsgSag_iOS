@@ -9,7 +9,7 @@
 import Foundation
 
 class PosterListViewModel {
-    var categoryViewModel: PosterListCategoryViewModel = .init(titles: [], categories: [])
+    var categoryViewModel: PosterListCategoryViewModel = .init(headerTypes: [], titles: [], categories: [])
     let categoryType: TotalInfoCategoryType
     
     init(categoryType: TotalInfoCategoryType) {
@@ -20,21 +20,37 @@ class PosterListViewModel {
         switch categoryType {
         case .contest:
             let types = InterestingFieldContest.allCases.map { $0.getTypeString() }
-            self.categoryViewModel = PosterListCategoryViewModel(titles: types,
+            self.categoryViewModel = PosterListCategoryViewModel(headerTypes: [], titles: types,
                                                                  categories: InterestingFieldContest.allCases.map { $0.rawValue })
+            self.categoryViewModel.createSubViewModels()
+            
+        case .club:
+            let types = InterstingClubType.allCases.map { $0.getTypeString() }
+            self.categoryViewModel = PosterListCategoryViewModel(headerTypes: [.internalClub("교내"), .allClub("연합")],
+                                                                 titles: types,
+                                                                 categories: InterstingClubType.allCases.map { $0.rawValue })
             self.categoryViewModel.createSubViewModels()
         case .activity:
             let types = InterestingFieldActivity.allCases.map { $0.getTypeString() }
-            self.categoryViewModel = PosterListCategoryViewModel(titles: types,
-                                                                 categories: InterestingFieldActivity.allCases.map { $0.rawValue })
+            self.categoryViewModel = PosterListCategoryViewModel(headerTypes: [], titles: types,
+                                                                 categories: InterestingFieldActivity
+                                                                    .allCases
+                                                                    .map { if let type = Int($0.rawValue) {
+                                                                            return type
+                                                                    } else {
+                                                                        return 251
+                                                                    
+                                                                    }
+                                                                    
+                })
             self.categoryViewModel.createSubViewModels()
         case .internship:
-            let types = InterestingFieldInternShip.allCases.map { $0.getTypeString() }
-            self.categoryViewModel = PosterListCategoryViewModel(titles: types,
-                                                                 categories: InterestingFieldInternShip.allCases.map { $0.rawValue })
+            let types = CompanyTypeInternShip.allCases.map { $0.getTypeString() }
+            self.categoryViewModel = PosterListCategoryViewModel(headerTypes: [.internshipCompanyType("기업형태"), .internshipInteresting("관심직무")], titles: types,
+                                                                 categories: CompanyTypeInternShip.allCases.map { $0.rawValue })
             self.categoryViewModel.createSubViewModels()
         default:
-            self.categoryViewModel = PosterListCategoryViewModel(titles: [InterestingFieldInternShip.none.getTypeString()], categories: [0])
+            self.categoryViewModel = PosterListCategoryViewModel(headerTypes: [], titles: [InterestingFieldInternShip.none.getTypeString()], categories: [0])
             self.categoryViewModel.createSubViewModels()
         }
     }

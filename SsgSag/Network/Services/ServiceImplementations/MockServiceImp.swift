@@ -10,6 +10,10 @@ import Foundation
 import SwiftKeychainWrapper
 
 class MockServiceImp: PosterService {
+    func requestAllPosterAfterSwipe(category: Int, sortType: Int, interestNumList: [Int], curPage: Int, completionHandler: @escaping (DataResponse<[PosterDataAfterSwipe]>) -> Void) {
+        
+    }
+    
     func requestStoredPoster(completionHandler: @escaping (DataResponse<PosterToday>) -> Void) {
         
     }

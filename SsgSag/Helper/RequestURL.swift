@@ -35,6 +35,7 @@ enum RequestURL {
     case commentDelete(index: Int)
     case commentReport(index: Int)
     case allPoster(category: Int, sortType: Int, interestField: Int?, curPage: Int)
+    case allPosterV2(category: Int, sortType: Int, interestNumList: [Int], curPage: Int)
     case clickRecord(posterIdx: Int, type: Int)
     case clubList(curPage: Int, clubType: Int)
     case myClub(curPage: Int)
@@ -57,7 +58,7 @@ enum RequestURL {
                           let like):
             return "/poster/like?posterIdx=\(posterIdx)&like=\(like)"
         case .initPoster:
-            return "/poster"
+            return "/poster/v2"
         case .login:
             return "/login2"
         case .snsLogin:
@@ -134,6 +135,21 @@ enum RequestURL {
                 return "/poster/all?category=\(category)&interestNum=\(interestType)&sortType=\(sortType)&curPage=\(curPage)"
             }
             return "/poster/all?category=\(category)&sortType=\(sortType)&curPage=\(curPage)"
+            
+        case .allPosterV2(let category,
+                          let sortType,
+                          let interestNumList,
+                          let curPage):
+            if !interestNumList.isEmpty {
+                let numberList = interestNumList.reduce("") { (prev, current) -> String in
+                    if prev.isEmpty {
+                        return "\(current)"
+                    }
+                    return "\(prev),\(current)"
+                }
+                return "/poster/v2/all?category=\(category)&interestNumList=\(numberList)&sortType=\(sortType)&curPage=\(curPage)"
+            }
+            return "/poster/v2/all?category=\(category)&sortType=\(sortType)&curPage=\(curPage)"
         case .clickRecord(let posterIdx,
                           let type):
             return "/todo/click/\(posterIdx)/\(type)"
