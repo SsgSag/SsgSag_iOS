@@ -245,6 +245,95 @@
             </objects>
             <point key="canvasLocation" x="-398" y="-35"/>
         </scene>
+        <!--Review Score Pop Up View Controller-->
+        <scene sceneID="KO6-4c-0Oo">
+            <objects>
+                <viewController storyboardIdentifier="mainPopUpVC" modalTransitionStyle="crossDissolve" modalPresentationStyle="overFullScreen" id="US5-A6-o7a" customClass="ReviewScorePopUpViewController" customModule="슥삭" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="gwD-cw-Hjg">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Kld-nI-vIv">
+                                <rect key="frame" x="0.0" y="812" width="375" height="600"/>
+                                <subviews>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="imgStarbucks" translatesAutoresizingMaskIntoConstraints="NO" id="OGV-xI-e6g">
+                                        <rect key="frame" x="0.0" y="54" width="375" height="179"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="179" id="bfX-X2-rEK"/>
+                                        </constraints>
+                                    </imageView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kPc-nG-TXr">
+                                        <rect key="frame" x="93.666666666666686" y="241.99999999999997" width="188" height="45.666666666666657"/>
+                                        <string key="text">동아리 후기 작성하고
+아이패드/에어팟 받자 😎</string>
+                                        <fontDescription key="fontDescription" name="AppleSDGothicNeo-Bold" family="Apple SD Gothic Neo" pointSize="19"/>
+                                        <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RxN-xZ-SzX">
+                                        <rect key="frame" x="34" y="330.33333333333326" width="307" height="48"/>
+                                        <color key="backgroundColor" red="0.39607843139999999" green="0.43137254899999999" blue="0.94117647059999998" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="48" id="ybh-7W-ugg"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" name="AppleSDGothicNeo-Regular" family="Apple SD Gothic Neo" pointSize="15"/>
+                                        <state key="normal" title="후기 작성하러 가기">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadiusV">
+                                                <real key="value" value="4"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <action selector="okClick:" destination="US5-A6-o7a" eventType="touchUpInside" id="hnz-gv-WJ3"/>
+                                        </connections>
+                                    </button>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="후기 작성 완료 시 이벤트창을 통해 바로 응모할 수 있어요!" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mza-Ju-Ry5">
+                                        <rect key="frame" x="41" y="293.66666666666674" width="293" height="15.666666666666686"/>
+                                        <fontDescription key="fontDescription" name="AppleSDGothicNeo-Regular" family="Apple SD Gothic Neo" pointSize="13"/>
+                                        <color key="textColor" red="0.46666666666666667" green="0.46666666666666667" blue="0.46666666666666667" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <constraints>
+                                    <constraint firstItem="mza-Ju-Ry5" firstAttribute="centerX" secondItem="Kld-nI-vIv" secondAttribute="centerX" id="2jx-s8-rHp"/>
+                                    <constraint firstItem="RxN-xZ-SzX" firstAttribute="leading" secondItem="Kld-nI-vIv" secondAttribute="leading" constant="34" id="4Y1-Nw-tIt"/>
+                                    <constraint firstItem="OGV-xI-e6g" firstAttribute="top" secondItem="Kld-nI-vIv" secondAttribute="top" constant="54" id="Kcw-Yl-ce9"/>
+                                    <constraint firstAttribute="trailing" secondItem="OGV-xI-e6g" secondAttribute="trailing" id="PN6-Bg-xog"/>
+                                    <constraint firstItem="OGV-xI-e6g" firstAttribute="leading" secondItem="Kld-nI-vIv" secondAttribute="leading" id="So4-mF-8NR"/>
+                                    <constraint firstItem="mza-Ju-Ry5" firstAttribute="top" secondItem="kPc-nG-TXr" secondAttribute="bottom" constant="6" id="Txg-6r-x4V"/>
+                                    <constraint firstItem="RxN-xZ-SzX" firstAttribute="top" secondItem="mza-Ju-Ry5" secondAttribute="bottom" constant="21" id="WRa-ZL-pg4"/>
+                                    <constraint firstItem="kPc-nG-TXr" firstAttribute="centerX" secondItem="Kld-nI-vIv" secondAttribute="centerX" id="aFb-RH-10V"/>
+                                    <constraint firstItem="kPc-nG-TXr" firstAttribute="top" secondItem="OGV-xI-e6g" secondAttribute="bottom" constant="9" id="aGH-JT-yw3"/>
+                                    <constraint firstAttribute="trailing" secondItem="RxN-xZ-SzX" secondAttribute="trailing" constant="34" id="bLm-2T-5zg"/>
+                                    <constraint firstAttribute="height" constant="600" id="bNT-NT-TNO"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadiusV">
+                                        <real key="value" value="39"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="0.40000000000000002" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="Kld-nI-vIv" firstAttribute="leading" secondItem="t9V-9R-du3" secondAttribute="leading" id="VdO-S4-hHn"/>
+                            <constraint firstAttribute="bottom" secondItem="Kld-nI-vIv" secondAttribute="bottom" constant="-600" id="XNE-oV-bEA"/>
+                            <constraint firstItem="t9V-9R-du3" firstAttribute="trailing" secondItem="Kld-nI-vIv" secondAttribute="trailing" id="vKE-z7-tXb"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="t9V-9R-du3"/>
+                    </view>
+                    <connections>
+                        <outlet property="eventView" destination="Kld-nI-vIv" id="fpG-JI-NSq"/>
+                        <outlet property="viewBottomLayout" destination="XNE-oV-bEA" id="cYA-Zx-5At"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="AOz-fc-Cyk" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="350" y="-35"/>
+        </scene>
     </scenes>
     <resources>
         <image name="icCancel" width="24" height="24"/>

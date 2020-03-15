@@ -51,7 +51,6 @@ class ClubRegisterAlertViewController: UIViewController {
         var isExist = false
         arr.forEach{
             if $0 == text {
-                print("\($0), \(text)")
                 isExist = true
                 return
             }

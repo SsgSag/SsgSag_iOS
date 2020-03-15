@@ -35,7 +35,6 @@ class MoreReviewViewController: UIViewController {
         titleLabel.text = "\(clubInfo.clubName)"
         setupTableView(type: vcType)
         
-        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -43,6 +42,10 @@ class MoreReviewViewController: UIViewController {
         removeCell(type: vcType)
         tableView.reloadData()
         setupDataWithType(type: vcType)
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: "reviewEdit"), object: nil)
     }
     
     @objc func reviewEdit(_ notification: Notification) {
@@ -132,10 +135,12 @@ class MoreReviewViewController: UIViewController {
         self.tableView.contentInset = UIEdgeInsets(top: 0, left: 0, bottom: 120, right: 0)
         
         if type == .SsgSag {
+            tableView.allowsSelection = false
             registerReviewButton.isHidden = false
             let nib = UINib(nibName: "SsgSagReviewTableViewCell", bundle: nil)
             tableView.register(nib, forCellReuseIdentifier: "SsgSagReviewCell")
         } else {
+            tableView.allowsSelection = true
             registerBlogButton.isHidden = false
             let nib = UINib(nibName: "BlogReviewTableViewCell", bundle: nil)
             tableView.register(nib, forCellReuseIdentifier: "BlogReviewCell")
@@ -180,9 +185,6 @@ class MoreReviewViewController: UIViewController {
             }
         }
     }
-    
-    //후기통신, 블로그통신
-    //블로그/후기 쓰기버튼
     
     @IBAction func backClick(_ sender: Any) {
         self.navigationController?.popViewController(animated: true)

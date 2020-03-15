@@ -22,6 +22,7 @@ class ReviewMainViewController: UIViewController {
     var reviewPageInstance: ReviewPageViewController!
     var focusIndex: BehaviorSubject<Int> = BehaviorSubject<Int>(value: 0)
     var curIndex = 0
+    private let maxPopupCount = 5
     let disposeBag = DisposeBag()
     
     override func viewDidLoad() {
@@ -31,8 +32,9 @@ class ReviewMainViewController: UIViewController {
         self.tabCollectionView.delegate = self
         
         bindData()
-        popUpPresent()
+        popupPresent()
         cellModel.accept(tabTitle)
+        UnivName.shared.requestUnivList()
         
     }
     
@@ -80,13 +82,13 @@ class ReviewMainViewController: UIViewController {
             .disposed(by: disposeBag)
     }
     
-    func popUpPresent() {
-        if UserDefaults.standard.bool(forKey: "isPopup") {
+    func popupPresent() {
+        let popupCount = UserDefaults.standard.integer(forKey: "isEventPopup")
+        if popupCount > maxPopupCount {
             return
         }
-        
-        guard let popupVC = self.storyboard?.instantiateViewController(withIdentifier: "mainPopUpVC") else {return}
-        UserDefaults.standard.set(true, forKey: "isPopup")
+        let popupVC = UIStoryboard(name: "ReviewEvent", bundle: nil).instantiateViewController(withIdentifier: "mainPopUpVC")
+        UserDefaults.standard.set(popupCount+1, forKey: "isEventPopup")
         self.present(popupVC, animated: true)
     }
     

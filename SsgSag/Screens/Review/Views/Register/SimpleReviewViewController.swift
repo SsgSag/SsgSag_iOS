@@ -159,10 +159,10 @@ class SimpleReviewViewController: UIViewController, UITextViewDelegate, UITextFi
                         nextVC.isPopup = data.event
                         nextVC.clubIdx = data.clubIdx
                         nextVC.service = self.service
-                        self.indicator.stopAnimating()
                         sender.isEnabled = true
+                        NotificationCenter.default.post(name: NSNotification.Name("refreshList"), object: nil)
+                        self.indicator.stopAnimating()
                         self.navigationController?.pushViewController(nextVC, animated: true)
-                        
                     }
                 } else {
                     DispatchQueue.main.async {
@@ -186,6 +186,7 @@ class SimpleReviewViewController: UIViewController, UITextViewDelegate, UITextFi
                         nextVC.clubIdx = data.clubIdx
                         nextVC.service = self.service
                         sender.isEnabled = true
+                        NotificationCenter.default.post(name: NSNotification.Name("refreshList"), object: nil)
                         self.indicator.stopAnimating()
                         self.navigationController?.pushViewController(nextVC, animated: true)
                     }

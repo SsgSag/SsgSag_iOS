@@ -42,6 +42,11 @@ class ClubReviewViewController: UIViewController {
         self.tabBarController?.tabBar.isHidden = false
     }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: "reviewEdit"), object: nil)
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: "resizeTableView"), object: nil)
+    }
+    
     func tableViewSetup() {
         normalReviewTableView.dataSource = self
         normalReviewTableView.delegate = self
@@ -50,6 +55,7 @@ class ClubReviewViewController: UIViewController {
         normalReviewTableView.rowHeight = UITableView.automaticDimension
         
         blogReviewTableView.dataSource = self
+        blogReviewTableView.delegate = self
         let nibCell = UINib(nibName: "BlogReviewTableViewCell", bundle: nil)
         blogReviewTableView.register(nibCell, forCellReuseIdentifier: "BlogReviewCell")
         blogReviewTableView.estimatedRowHeight = 1500

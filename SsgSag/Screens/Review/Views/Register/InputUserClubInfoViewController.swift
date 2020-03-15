@@ -56,11 +56,13 @@ class InputUserClubInfoViewController: UIViewController {
     
     private func configureSimpleClubNameSearchTextField() {
         clubNameTextField.startVisible = true
+        clubNameTextField.minCharactersNumberToStartFiltering = 2
     }
     
     private func configureSimpleLocalUnivSearchTextField() {
-        univOrLocalTextField.startVisible = true
         let universities = localUniversities()
+        univOrLocalTextField.startVisible = true
+        univOrLocalTextField.minCharactersNumberToStartFiltering = 2
         univOrLocalTextField.filterStrings(universities)
         univOrLocalTextField.itemSelectionHandler = { item, itemPosition in
             self.univOrLocalTextField.text = item[itemPosition].title
@@ -69,6 +71,7 @@ class InputUserClubInfoViewController: UIViewController {
     }
     
     private func localUniversities() -> [String] {
+        /*
         guard let path = Bundle.main.path(forResource: "majorListByUniv",
                                           ofType: "json") else {
             return []
@@ -95,12 +98,13 @@ class InputUserClubInfoViewController: UIViewController {
                     resultUnivNames.append(univName)
                 }
             }
-            
-            return resultUnivNames
-        } catch {
-            print("Error parsing jSON: \(error)")
-            return []
-        }
+         } catch {
+                    print("Error parsing jSON: \(error)")
+                    return []
+         }
+         */
+        return UnivName.shared.univNameList
+        
     }
     
     @objc func tapHideKeyBoard() {
@@ -163,9 +167,10 @@ class InputUserClubInfoViewController: UIViewController {
         
         univOrLocalTextField.rx
             .value
+            .orEmpty
             .changed
             .asObservable()
-            .do(onNext: { [weak self] _ in
+            .do(onNext: { [weak self] univString in
                 self?.isEnableButton()
             })
             .subscribe()
