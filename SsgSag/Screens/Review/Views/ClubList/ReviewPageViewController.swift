@@ -12,13 +12,9 @@ class ReviewPageViewController: UIPageViewController, UIPageViewControllerDataSo
     var pageDelegate: ReviewPageDelegate?
     private var previousPageIndex = 0
     private var curPageIndex = 0
+    var mainType: MainType!
     
-    lazy var subViewControllers: [UIViewController] = {
-        return [
-            UIStoryboard(name: "Review", bundle: nil).instantiateViewController(withIdentifier: "ClubListVC") as! ClubSchoolListViewController,
-            UIStoryboard(name: "Review", bundle: nil).instantiateViewController(withIdentifier: "ClubUnionListVC") as! ClubUnionListViewController
-        ]
-    }()
+    var subViewControllers: [UIViewController] = []
     
     // 이전페이지
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
@@ -63,8 +59,33 @@ class ReviewPageViewController: UIPageViewController, UIPageViewControllerDataSo
 
         self.delegate = self
         self.dataSource = self
+        setTypePage()
         
         self.setViewControllers([subViewControllers[0]], direction: .forward, animated: true, completion: nil)
+    }
+    
+    func setTypePage() {
+        switch mainType {
+        case .club:
+            subViewControllers = [
+                UIStoryboard(name: "Review", bundle: nil).instantiateViewController(withIdentifier: "ClubListVC") as! ClubSchoolListViewController,
+                UIStoryboard(name: "Review", bundle: nil).instantiateViewController(withIdentifier: "ClubUnionListVC") as! ClubUnionListViewController
+            ]
+        case .activity:
+            guard let vc = UIStoryboard(name: "Review", bundle: nil).instantiateViewController(withIdentifier: "ClubUnionListVC") as? ClubUnionListViewController else {
+                return
+            }
+            vc.clubType = 2
+            subViewControllers = [vc]
+        case .intern:
+            guard let vc = UIStoryboard(name: "Review", bundle: nil).instantiateViewController(withIdentifier: "ClubUnionListVC") as? ClubUnionListViewController else {
+                return
+            }
+            vc.clubType = 3
+            subViewControllers = [vc]
+        default:
+            return
+        }
     }
     
     // 스크롤식의 페이징설정

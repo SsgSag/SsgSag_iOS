@@ -112,6 +112,7 @@ class ReviewMainViewController: UIViewController {
         if segue.identifier == "ReviewPageSegue" {
             self.reviewPageInstance = segue.destination as? ReviewPageViewController
             reviewPageInstance.pageDelegate = self
+            reviewPageInstance.mainType = mainType
         }
     }
     
@@ -125,8 +126,19 @@ class ReviewMainViewController: UIViewController {
     }
     
     @IBAction func writeReviewClick(_ sender: Any) {
-        guard let nextVC = self.storyboard?.instantiateViewController(withIdentifier: "ReviewPrepareVC") else {return}
-        self.present(nextVC, animated: true)
+        switch mainType {
+        case .club:
+            guard let nextVC = self.storyboard?.instantiateViewController(withIdentifier: "ReviewPrepareVC") else {return}
+            self.present(nextVC, animated: true)
+            
+        case .activity:
+            print("대외활동")
+            
+        case .intern:
+            print("인턴")
+        default:
+            return
+        }
         
     }
     

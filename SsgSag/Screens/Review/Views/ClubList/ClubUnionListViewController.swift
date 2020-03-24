@@ -17,6 +17,7 @@ class ClubUnionListViewController: UIViewController {
     var pageIndex = 1
     var curPage = 0
     var cellData: [ClubListData] = []
+    var clubType = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -42,7 +43,7 @@ class ClubUnionListViewController: UIViewController {
     
     func requestPage() {
         indicator.startAnimating()
-        ClubService().requestClubList(curPage: curPage, clubType: 0) { data in
+        ClubService().requestClubList(curPage: curPage, clubType: clubType) { data in
             guard let data = data else { return }
             if data.count == 0 {
                 self.curPage -= 1
