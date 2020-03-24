@@ -28,3 +28,9 @@ struct ReviewRegister: Codable {
     let clubIdx: Int
     let event: Bool
 }
+
+enum MainType: String {
+    case club = "동아리"
+    case activity = "대외활동"
+    case intern = "인턴"
+}

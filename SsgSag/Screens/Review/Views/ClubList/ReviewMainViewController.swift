@@ -11,13 +11,12 @@ import RxCocoa
 import RxSwift
 
 class ReviewMainViewController: UIViewController {
-    
+    typealias TabModel = ReviewTabCellModel
+    @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var tabCollectionView: UICollectionView!
     
-    typealias TabModel = ReviewTabCellModel
-    var tabTitle = [ TabModel(title: "교내 동아리", onFocus: true),
-                     TabModel(title: "연합 동아리", onFocus: false)
-                    ]
+    var mainType: MainType!
+    var tabTitle: [TabModel] = []
     let cellModel: BehaviorRelay<[ReviewTabCellModel]> = BehaviorRelay(value: [])
     var reviewPageInstance: ReviewPageViewController!
     var focusIndex: BehaviorSubject<Int> = BehaviorSubject<Int>(value: 0)
@@ -31,7 +30,23 @@ class ReviewMainViewController: UIViewController {
         self.navigationController?.interactivePopGestureRecognizer?.isEnabled = true
         self.tabCollectionView.delegate = self
         
-        bindData()
+        switch mainType {
+        case .club:
+            titleLabel.text = "동아리 후기"
+            bindData()
+        case .activity:
+            titleLabel.text = "대외활동 후기"
+            tabCollectionView.translatesAutoresizingMaskIntoConstraints = false
+            tabCollectionView.heightAnchor.constraint(equalToConstant: 0).isActive = true
+        case .intern:
+            titleLabel.text = "인턴 후기"
+            tabCollectionView.translatesAutoresizingMaskIntoConstraints = false
+            tabCollectionView.heightAnchor.constraint(equalToConstant: 0).isActive = true
+        default:
+            tabCollectionView.translatesAutoresizingMaskIntoConstraints = false
+            tabCollectionView.heightAnchor.constraint(equalToConstant: 0).isActive = true
+        }
+        
         popupPresent()
         cellModel.accept(tabTitle)
         UnivName.shared.requestUnivList()

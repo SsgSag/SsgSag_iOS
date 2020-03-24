@@ -29,6 +29,8 @@
 		063B571F23E42B7800B8F617 /* ReviewSearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 063B571E23E42B7800B8F617 /* ReviewSearchViewController.swift */; };
 		063B572223E4300800B8F617 /* ReviewSearchTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 063B572023E4300800B8F617 /* ReviewSearchTableViewCell.swift */; };
 		063B572323E4300800B8F617 /* ReviewSearchTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 063B572123E4300800B8F617 /* ReviewSearchTableViewCell.xib */; };
+		0649BD1624299E31005F2F64 /* SelectReviewTypeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0649BD1524299E31005F2F64 /* SelectReviewTypeViewController.swift */; };
+		0649BD182429C6FC005F2F64 /* AdvertisementCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0649BD172429C6FC005F2F64 /* AdvertisementCollectionViewCell.swift */; };
 		064AD7B523ECFAE10006E02C /* SimpleReviewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 064AD7B423ECFAE10006E02C /* SimpleReviewViewModel.swift */; };
 		064AD7B723ED4E490006E02C /* CompleteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 064AD7B623ED4E490006E02C /* CompleteViewController.swift */; };
 		064AD7B923ED52650006E02C /* ReviewServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 064AD7B823ED52650006E02C /* ReviewServiceProtocol.swift */; };
@@ -457,6 +459,8 @@
 		063B571E23E42B7800B8F617 /* ReviewSearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewSearchViewController.swift; sourceTree = "<group>"; };
 		063B572023E4300800B8F617 /* ReviewSearchTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewSearchTableViewCell.swift; sourceTree = "<group>"; };
 		063B572123E4300800B8F617 /* ReviewSearchTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ReviewSearchTableViewCell.xib; sourceTree = "<group>"; };
+		0649BD1524299E31005F2F64 /* SelectReviewTypeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectReviewTypeViewController.swift; sourceTree = "<group>"; };
+		0649BD172429C6FC005F2F64 /* AdvertisementCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdvertisementCollectionViewCell.swift; sourceTree = "<group>"; };
 		064AD7B423ECFAE10006E02C /* SimpleReviewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleReviewViewModel.swift; sourceTree = "<group>"; };
 		064AD7B623ED4E490006E02C /* CompleteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompleteViewController.swift; sourceTree = "<group>"; };
 		064AD7B823ED52650006E02C /* ReviewServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewServiceProtocol.swift; sourceTree = "<group>"; };
@@ -912,6 +916,7 @@
 				0651633023FA2DB0002089D2 /* ClubEditViewController.swift */,
 				062677932406013600F49929 /* EventViewController.swift */,
 				062677DD2408F71F00F49929 /* ReportReviewViewController.swift */,
+				0649BD1524299E31005F2F64 /* SelectReviewTypeViewController.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -963,6 +968,7 @@
 				0651633423FB78FE002089D2 /* MoreReviewTopLabelTableViewCell.swift */,
 				069D239A23FBD26600C756E3 /* ClubInfoDetailPhotoCollectionViewCell.swift */,
 				069D239B23FBD26600C756E3 /* ClubInfoDetailPhotoCollectionViewCell.xib */,
+				0649BD172429C6FC005F2F64 /* AdvertisementCollectionViewCell.swift */,
 			);
 			path = Cell;
 			sourceTree = "<group>";
@@ -2671,6 +2677,7 @@
 				8496818722AFD3FE004A4A63 /* VACalendar.swift in Sources */,
 				C9A828392395528D0029A493 /* InterestBoardViewController.swift in Sources */,
 				845928E721D3877D001DF6CC /* DetailTextSwipeCard.swift in Sources */,
+				0649BD1624299E31005F2F64 /* SelectReviewTypeViewController.swift in Sources */,
 				C9A8285F2395528D0029A493 /* InternFilterViewController.swift in Sources */,
 				C9A8286A2395528E0029A493 /* StudentNumberCollectionViewCell.swift in Sources */,
 				8459289B21D09CDD001DF6CC /* AppDelegate.swift in Sources */,
@@ -2799,6 +2806,7 @@
 				D1226C8822EC88DF007F59BE /* MyPageServiceProtocol.swift in Sources */,
 				D1E0B02B22ED974C003F84D6 /* NoticeServiceProtocol.swift in Sources */,
 				0655965123DF2C9700C779A5 /* Club.swift in Sources */,
+				0649BD182429C6FC005F2F64 /* AdvertisementCollectionViewCell.swift in Sources */,
 				D16F30A82369808100C127CA /* HttpStatusCode.swift in Sources */,
 				C9867F5F23F1A6140094B02B /* IntroPageCellViewModel.swift in Sources */,
 				0610DF1223D9436800DC2273 /* ReviewMainVC+Extension.swift in Sources */,
