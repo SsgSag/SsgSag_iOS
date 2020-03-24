@@ -44,9 +44,9 @@ class ReviewPageViewController: UIPageViewController, UIPageViewControllerDataSo
         if completed {
             var index: Int!
             if (pageViewController.viewControllers?.first as? ClubSchoolListViewController) != nil {
-                index = 0
-            } else if (pageViewController.viewControllers?.first as? ClubUnionListViewController) != nil {
                 index = 1
+            } else if (pageViewController.viewControllers?.first as? ClubUnionListViewController) != nil {
+                index = 0
             }
             
             pageDelegate?.setPageTabStatus(curIndex: index)
@@ -68,8 +68,8 @@ class ReviewPageViewController: UIPageViewController, UIPageViewControllerDataSo
         switch mainType {
         case .club:
             subViewControllers = [
-                UIStoryboard(name: "Review", bundle: nil).instantiateViewController(withIdentifier: "ClubListVC") as! ClubSchoolListViewController,
-                UIStoryboard(name: "Review", bundle: nil).instantiateViewController(withIdentifier: "ClubUnionListVC") as! ClubUnionListViewController
+                UIStoryboard(name: "Review", bundle: nil).instantiateViewController(withIdentifier: "ClubUnionListVC") as! ClubUnionListViewController,
+                UIStoryboard(name: "Review", bundle: nil).instantiateViewController(withIdentifier: "ClubListVC") as! ClubSchoolListViewController
             ]
         case .activity:
             guard let vc = UIStoryboard(name: "Review", bundle: nil).instantiateViewController(withIdentifier: "ClubUnionListVC") as? ClubUnionListViewController else {

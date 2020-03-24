@@ -427,8 +427,8 @@
                                         </constraints>
                                     </imageView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zZT-ML-Zh0">
-                                        <rect key="frame" x="120" y="108" width="174.5" height="47"/>
-                                        <string key="text">아직 교내 동아리의 후기가 없어요.
+                                        <rect key="frame" x="139" y="108" width="136.5" height="47"/>
+                                        <string key="text">아직 후기가 없어요.
 후기를 등록해주세요 ㅠ-ㅠ
 </string>
                                         <fontDescription key="fontDescription" name="AppleSDGothicNeo-Regular" family="Apple SD Gothic Neo" pointSize="13"/>
@@ -2708,7 +2708,7 @@
                                                 <rect key="frame" x="0.0" y="588" width="414" height="476"/>
                                                 <subviews>
                                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="imgEmpty" translatesAutoresizingMaskIntoConstraints="NO" id="W6O-ZH-rZt">
-                                                        <rect key="frame" x="109" y="103" width="196.00000000000006" height="155"/>
+                                                        <rect key="frame" x="109" y="103" width="196" height="155"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="155" id="eYC-jL-98J"/>
                                                             <constraint firstAttribute="width" constant="196" id="l7u-Hp-arb"/>
@@ -2760,7 +2760,7 @@
                                                 <rect key="frame" x="0.0" y="56" width="414" height="476"/>
                                                 <subviews>
                                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="imgEmpty" translatesAutoresizingMaskIntoConstraints="NO" id="dxl-yr-Z53">
-                                                        <rect key="frame" x="109" y="103" width="196.00000000000006" height="155"/>
+                                                        <rect key="frame" x="109" y="103" width="196" height="155"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" constant="196" id="CGa-TH-4Bq"/>
                                                             <constraint firstAttribute="height" constant="155" id="wR6-Md-wIN"/>
@@ -5197,7 +5197,7 @@
                                                 <rect key="frame" x="0.0" y="0.0" width="414" height="544"/>
                                                 <subviews>
                                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="imgEmpty" translatesAutoresizingMaskIntoConstraints="NO" id="ca5-YU-Ku1">
-                                                        <rect key="frame" x="109" y="103" width="196.00000000000006" height="155"/>
+                                                        <rect key="frame" x="109" y="103" width="196" height="155"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" constant="196" id="4bO-sx-oc4"/>
                                                             <constraint firstAttribute="height" constant="155" id="NZz-xW-OzT"/>
@@ -8114,8 +8114,8 @@
                                         </constraints>
                                     </imageView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Hhv-o4-2xu">
-                                        <rect key="frame" x="120" y="108" width="174.5" height="47"/>
-                                        <string key="text">아직 연합 동아리의 후기가 없어요.
+                                        <rect key="frame" x="139" y="108" width="136.5" height="47"/>
+                                        <string key="text">아직 후기가 없어요.
 후기를 등록해주세요 ㅠ-ㅠ
 </string>
                                         <fontDescription key="fontDescription" name="AppleSDGothicNeo-Regular" family="Apple SD Gothic Neo" pointSize="13"/>

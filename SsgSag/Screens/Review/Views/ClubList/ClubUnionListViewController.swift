@@ -14,7 +14,7 @@ class ClubUnionListViewController: UIViewController {
     @IBOutlet weak var indicator: UIActivityIndicatorView!
     @IBOutlet weak var reviewTableView: UITableView!
     
-    var pageIndex = 1
+    var pageIndex = 0
     var curPage = 0
     var cellData: [ClubListData] = []
     var clubType = 0

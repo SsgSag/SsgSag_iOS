@@ -14,7 +14,7 @@ class ClubSchoolListViewController: UIViewController {
     @IBOutlet weak var emptyView: UIView!
     @IBOutlet weak var reviewTableView: UITableView!
     
-    var pageIndex = 0
+    var pageIndex = 1
     var curPage = 0
     var cellData: [ClubListData] = []
     

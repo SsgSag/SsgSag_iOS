@@ -24,8 +24,8 @@ class SelectReviewTypeViewController: UIViewController {
         }
         nextVC.mainType = .club
         nextVC.tabTitle = [
-            TabModel(title: "교내 동아리", onFocus: true),
-            TabModel(title: "연합 동아리", onFocus: false)
+            TabModel(title: "연합 동아리", onFocus: true),
+            TabModel(title: "교내 동아리", onFocus: false)
         ]
         navigationController?.pushViewController(nextVC, animated: true)
     }
