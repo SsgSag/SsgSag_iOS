@@ -36,9 +36,9 @@
                                             <constraint firstAttribute="height" constant="48" id="STU-CR-eJB"/>
                                             <constraint firstAttribute="width" constant="48" id="tjC-CR-SvM"/>
                                         </constraints>
-                                        <state key="normal" image="profile"/>
+                                        <state key="normal" image="back"/>
                                         <connections>
-                                            <action selector="mypageClick:" destination="pjl-wY-dWL" eventType="touchUpInside" id="2D4-ij-TDM"/>
+                                            <action selector="backClick:" destination="pjl-wY-dWL" eventType="touchUpInside" id="MOb-53-uSR"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9HN-Yn-1Lj">
@@ -960,7 +960,7 @@
                                         </constraints>
                                         <state key="normal" image="profile"/>
                                         <connections>
-                                            <action selector="mypageClick:" destination="pjl-wY-dWL" eventType="touchUpInside" id="rIh-XL-401"/>
+                                            <action selector="mypageClick:" destination="h6X-jC-aWx" eventType="touchUpInside" id="ZgC-De-9Oe"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -2708,7 +2708,7 @@
                                                 <rect key="frame" x="0.0" y="588" width="414" height="476"/>
                                                 <subviews>
                                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="imgEmpty" translatesAutoresizingMaskIntoConstraints="NO" id="W6O-ZH-rZt">
-                                                        <rect key="frame" x="109" y="103" width="196" height="155"/>
+                                                        <rect key="frame" x="109" y="103" width="196.00000000000006" height="155"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="155" id="eYC-jL-98J"/>
                                                             <constraint firstAttribute="width" constant="196" id="l7u-Hp-arb"/>
@@ -2760,7 +2760,7 @@
                                                 <rect key="frame" x="0.0" y="56" width="414" height="476"/>
                                                 <subviews>
                                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="imgEmpty" translatesAutoresizingMaskIntoConstraints="NO" id="dxl-yr-Z53">
-                                                        <rect key="frame" x="109" y="103" width="196" height="155"/>
+                                                        <rect key="frame" x="109" y="103" width="196.00000000000006" height="155"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" constant="196" id="CGa-TH-4Bq"/>
                                                             <constraint firstAttribute="height" constant="155" id="wR6-Md-wIN"/>
@@ -5197,7 +5197,7 @@
                                                 <rect key="frame" x="0.0" y="0.0" width="414" height="544"/>
                                                 <subviews>
                                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="imgEmpty" translatesAutoresizingMaskIntoConstraints="NO" id="ca5-YU-Ku1">
-                                                        <rect key="frame" x="109" y="103" width="196" height="155"/>
+                                                        <rect key="frame" x="109" y="103" width="196.00000000000006" height="155"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" constant="196" id="4bO-sx-oc4"/>
                                                             <constraint firstAttribute="height" constant="155" id="NZz-xW-OzT"/>

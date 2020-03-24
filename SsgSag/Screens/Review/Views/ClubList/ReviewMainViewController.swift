@@ -147,17 +147,8 @@ class ReviewMainViewController: UIViewController {
         self.present(nextVC, animated: true)
     }
     
-    @IBAction func mypageClick(_ sender: Any) {
-        
-        let myPageStoryboard = UIStoryboard(name: StoryBoardName.mypage, bundle: nil)
-        
-        let myPageViewController
-            = myPageStoryboard.instantiateViewController(withIdentifier: ViewControllerIdentifier.mypageViewController)
-        
-        let myPageViewNavigator = UINavigationController(rootViewController: myPageViewController)
-        myPageViewNavigator.modalPresentationStyle = .fullScreen
-        present(myPageViewNavigator,
-                animated: true)
+    @IBAction func backClick(_ sender: Any) {
+        navigationController?.popViewController(animated: true)
     }
 }
 
